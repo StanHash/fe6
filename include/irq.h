@@ -7,6 +7,10 @@ enum
 {
     // TODO: IRQ constants
 
+    IRQ_VBLANK = 0,
+    IRQ_HBLANK = 1,
+    IRQ_VCOUNT = 2,
+
     IRQ_COUNT = 14,
 };
 

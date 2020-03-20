@@ -13,6 +13,8 @@
 
 #define NAKEDFUNC __attribute__((naked))
 
+#define CONST_DATA __attribute__((section(".data")))
+
 #define SOUND_INFO_PTR (*(struct SoundInfo **)0x3007FF0)
 #define INTR_CHECK     (*(u16 *)0x3007FF8)
 #define INTR_VECTOR    (*(void **)0x3007FFC)

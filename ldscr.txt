@@ -3,8 +3,6 @@ OUTPUT_ARCH(arm)
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-gKeySt = 0x0858E578;
-
 gNumMusicPlayers = 9;
 gMaxLines = 0;
 
@@ -14,7 +12,8 @@ SECTIONS
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
-        
+        /* ewram_data */
+        . = 0x0210E8; src/hardware.o(ewram_data);
     }
 
     . = 0x03000000;
@@ -23,13 +22,18 @@ SECTIONS
     {
         /* .bss */
         . = ALIGN(4); src/random.o(.bss);
+        . = ALIGN(4); src/hardware.o(.bss);
+
         . = 0x002158; src/agb_sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
         /* COMMON */
         . = 0x0022A0; SoundMainRAM_Buffer = .;
+        . = 0x0026B0; gDispIo = .;
         . = 0x002720; gIrqFuncs = .;
+        . = 0x002764; gOnHBlankA = .;
+        . = 0x002D78; gOnHBlankB = .;
         . = 0x003790; IntrMainRam = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006320; gMPlayJumpTable = .;
@@ -49,6 +53,7 @@ SECTIONS
         src/main.o(.text);
         src/irq.o(.text);
         src/random.o(.text);
+        src/hardware.o(.text);
 
         asm/code.o(.text);
 
@@ -78,10 +83,12 @@ SECTIONS
         . = ALIGN(4); src/main.o(.rodata);
         . = ALIGN(4); src/irq.o(.rodata);
         . = ALIGN(4); src/random.o(.rodata);
+        . = ALIGN(4); src/hardware.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
+        . = ALIGN(4); src/hardware.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 

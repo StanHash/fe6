@@ -16,13 +16,9 @@ void sub_808439C(void);
 
 void StartGameControl(void);
 
-void ExecMainCycle(void);
-void sub_800283C(void);
-
 void sub_80158C0(void);
 
 s8 LoadGeneralGameMetadata(void* buf);
-void SetInterrupt_LCDVBlank(void(*func)(void));
 
 NAKEDFUNC void AgbMain(void)
 {
@@ -50,13 +46,13 @@ NAKEDFUNC void AgbMain(void)
     REG_WAITCNT = 0x45B4;
 
     IrqInit();
-    SetInterrupt_LCDVBlank(NULL);
+    SetOnVBlank(NULL);
 
     REG_DISPSTAT = 8;
     REG_IME = 1;
 
-    ResetKeyStatus(gKeySt);
-    UpdateKeyStatus(gKeySt);
+    InitKeySt(gKeySt);
+    RefreshKeySt(gKeySt);
 
     sub_8003764();
     sub_80841FC();
@@ -71,14 +67,14 @@ NAKEDFUNC void AgbMain(void)
         sub_808439C();
 
     m4aSoundInit();
-    SetInterrupt_LCDVBlank(sub_80158C0);
+    SetOnVBlank(sub_80158C0);
 
     StartGameControl();
 
     while (TRUE)
     {
-        ExecMainCycle();
-        sub_800283C();
+        RunMainFunc();
+        SoftResetIfKeyCombo();
     }
 }
 

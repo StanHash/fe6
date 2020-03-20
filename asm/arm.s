@@ -8,21 +8,21 @@
 
 ArmCodeStart:
 
-_08000228: .4byte 0x02021708
-_0800022C: .4byte 0x02021108
-_08000230: .4byte 0x020210E8
+_08000228: .4byte gPal
+_0800022C: .4byte gUnk_02021108
+_08000230: .4byte gUnk_020210E8
 
 	arm_func_start sub_8000234
 sub_8000234: @ 0x08000234
 	push {r4, r5, r6, r7}
 	mov r7, #0x3e0
 _0800023C:
-	ldr r0, _08000230 @ =0x020210E8
+	ldr r0, _08000230 @ =gUnk_020210E8
 	add r0, r0, r7, lsr #5
 	ldrsb r5, [r0]
 	tst r5, r5
 	beq _080002F4
-	ldr r4, _0800022C @ =0x02021108
+	ldr r4, _0800022C @ =gUnk_02021108
 	lsr r0, r7, #1
 	add r0, r0, r0, lsl #1
 	add r0, r0, #0x30
@@ -65,7 +65,7 @@ _080002CC:
 _080002D8:
 	add r0, r0, r1, lsl #5
 	add r0, r0, r2, lsl #10
-	ldr r1, _08000228 @ =0x02021708
+	ldr r1, _08000228 @ =gPal
 	add r1, r1, r6
 	strh r0, [r1, r7]
 	subs r6, r6, #2

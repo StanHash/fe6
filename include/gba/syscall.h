@@ -43,4 +43,7 @@ void RLUnCompWram(const void *src, void *dest);
 
 void RLUnCompVram(const void *src, void *dest);
 
+void SoundBiasReset(void);
+void SoundBiasSet(void);
+
 #endif // GUARD_GBA_SYSCALL_H
