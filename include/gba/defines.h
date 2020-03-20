@@ -11,6 +11,8 @@
 
 #define ALIGNED(n) __attribute__((aligned(n)))
 
+#define NAKEDFUNC __attribute__((naked))
+
 #define SOUND_INFO_PTR (*(struct SoundInfo **)0x3007FF0)
 #define INTR_CHECK     (*(u16 *)0x3007FF8)
 #define INTR_VECTOR    (*(void **)0x3007FFC)

@@ -3,6 +3,8 @@ OUTPUT_ARCH(arm)
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
+gKeySt = 0x0858E578;
+
 gNumMusicPlayers = 9;
 gMaxLines = 0;
 
@@ -40,6 +42,9 @@ SECTIONS
     {
         asm/crt0.o(.text);
         asm/arm.o(.text);
+
+        src/main.o(.text);
+
         asm/code.o(.text);
 
         asm/m4a_1.o(.text);
@@ -64,10 +69,12 @@ SECTIONS
 
         asm/code_blx_stub.o(.text);
 
-        data/rodata.o(.rodata);
-        src/m4a_tables.o(.rodata);
-        data/rodata_lib.o(.rodata);
-        data/data.o(.data);
+        . = ALIGN(4); data/rodata_msg.o(.rodata);
+        . = ALIGN(4); src/main.o(.rodata);
+        . = ALIGN(4); data/rodata.o(.rodata);
+        . = ALIGN(4); src/m4a_tables.o(.rodata);
+        . = ALIGN(4); data/rodata_lib.o(.rodata);
+        . = ALIGN(4); data/data.o(.data);
     } = 0
 
   /* Stabs debugging sections.  */
