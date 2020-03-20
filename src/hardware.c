@@ -3,9 +3,9 @@
 
 #include "irq.h"
 #include "move.h"
+#include "oam.h"
 
 void sub_8015AD0(void);
-void sub_8002CB8(int arg0);
 
 enum
 {
@@ -719,7 +719,7 @@ void InitBgs(u16 const* config)
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT + BG3_SYNC_BIT);
 
-    sub_8002CB8(0);
+    InitOam(0);
 
     gPal[0] = 0;
     EnablePalSync();

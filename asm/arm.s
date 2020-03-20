@@ -199,12 +199,12 @@ _0800045C:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000490: .4byte 0x03002D74
+_08000490: .4byte gOamHiPutIt
 
 	arm_func_start sub_8000494
 sub_8000494: @ 0x08000494
 	push {r4, r5, r6, r7}
-	ldr r7, _08000490 @ =0x03002D74
+	ldr r7, _08000490 @ =gOamHiPutIt
 _0800049C:
 	ldr r5, [r7]
 	ldrh r4, [r2]
@@ -246,12 +246,12 @@ _08000528:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000530: .4byte 0x030026A0
+_08000530: .4byte gOamLoPutIt
 
 	arm_func_start sub_8000534
 sub_8000534: @ 0x08000534
 	push {r4, r5, r6, r7}
-	ldr r7, _08000530 @ =0x030026A0
+	ldr r7, _08000530 @ =gOamLoPutIt
 	b _0800049C
 _08000540:
 	.byte 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x00

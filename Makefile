@@ -42,6 +42,7 @@ src/irq.o:      CC1FLAGS += -O0
 src/random.o:   CC1FLAGS += -O0
 src/hardware.o: CC1FLAGS += -O0
 src/move.o:     CC1FLAGS += -O0
+src/oam.o:      CC1FLAGS += -O0
 
 src/agb_sram.o: CC1FLAGS += -O1
 

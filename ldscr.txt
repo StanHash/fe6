@@ -24,6 +24,7 @@ SECTIONS
         /* .bss */
         . = ALIGN(4); src/random.o(.bss);
         . = ALIGN(4); src/hardware.o(.bss);
+        . = ALIGN(4); src/oam.o(.bss);
 
         . = 0x002158; src/agb_sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
@@ -31,10 +32,15 @@ SECTIONS
 
         /* COMMON */
         . = 0x0022A0; SoundMainRAM_Buffer = .;
+        . = 0x0026A0; gOamLoPutIt = .;
         . = 0x0026B0; gDispIo = .;
         . = 0x002720; gIrqFuncs = .;
+        . = 0x00275C; gOamAffinePutId = .;
         . = 0x002764; gOnHBlankA = .;
+        . = 0x002770; gOam = .;
+        . = 0x002D74; gOamHiPutIt = .;
         . = 0x002D78; gOnHBlankB = .;
+        . = 0x003788; gOamAffinePutIt = .;
         . = 0x003790; IntrMainRam = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006320; gMPlayJumpTable = .;
@@ -56,6 +62,7 @@ SECTIONS
         src/random.o(.text);
         src/hardware.o(.text);
         src/move.o(.text);
+        src/oam.o(.text);
 
         asm/code.o(.text);
 
@@ -88,6 +95,8 @@ SECTIONS
         . = ALIGN(4); src/hardware.o(.rodata);
         . = ALIGN(4); data/rodata_trig.o(.rodata);
         . = ALIGN(4); src/move.o(.rodata);
+        . = ALIGN(4); src/oam.o(.rodata);
+
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
