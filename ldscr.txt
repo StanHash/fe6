@@ -15,6 +15,9 @@ SECTIONS
         /* ewram_data */
         . = 0x0210E8; src/hardware.o(ewram_data);
         . = ALIGN(4); src/move.o(ewram_data);
+        . = ALIGN(4); src/sound.o(ewram_data);
+
+        . = 0x02AA48; gPlaySt = .;
     }
 
     . = 0x03000000;
@@ -43,9 +46,17 @@ SECTIONS
         . = 0x003788; gOamAffinePutIt = .;
         . = 0x003790; IntrMainRam = .;
         . = 0x0052B0; gSoundInfo = .;
+        . = 0x006260; gMpi_03006260 = .;
+        . = 0x0062A0; gMpi_030062A0 = .;
+        . = 0x0062E0; gMpi_030062E0 = .;
         . = 0x006320; gMPlayJumpTable = .;
         . = 0x0063B0; gCgbChans = .;
+        . = 0x0064B0; gMpi_030064B0 = .;
+        . = 0x0064F0; gMpi_030064F0 = .;
+        . = 0x006530; gMpi_03006530 = .;
+        . = 0x006570; gMpi_03006570 = .;
         . = 0x0065B0; gMPlayMemAccArea = .;
+        . = 0x006600; gMpi_03006600 = .;
         . = 0x006640; ReadSramFast = .;
         . = 0x006644; VerifySramFast = .;
     }
@@ -63,6 +74,7 @@ SECTIONS
         src/hardware.o(.text);
         src/move.o(.text);
         src/oam.o(.text);
+        src/sound.o(.text);
 
         asm/code.o(.text);
 
@@ -102,6 +114,7 @@ SECTIONS
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
         . = ALIGN(4); src/hardware.o(.data);
+        . = ALIGN(4); src/sound.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 
