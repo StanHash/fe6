@@ -2,9 +2,10 @@
 #include "gba/gba.h"
 
 #include "m4a.h"
+
+#include "irq.h"
 #include "hardware.h"
 
-void sub_8000B38(void);
 void InitRN(int seed);
 void sub_8000E98(int seed);
 int sub_8000EB4(void);
@@ -50,7 +51,7 @@ NAKEDFUNC void AgbMain(void)
 
     REG_WAITCNT = 0x45B4;
 
-    sub_8000B38();
+    IrqInit();
     SetInterrupt_LCDVBlank(NULL);
 
     REG_DISPSTAT = 8;

@@ -31,7 +31,7 @@ crt0:
 	msr cpsr_fc, r0
 	ldr sp, _080000F4 @ =0x03007E00
 	ldr r1, _0800021C @ =0x03007FFC
-	add r0, pc, #0x18 @ =sub_80000FC
+	add r0, pc, #0x18 @ =IrqMain
 	str r0, [r1]
 	ldr r1, _08000220 @ =AgbMain
 	mov lr, pc
@@ -43,10 +43,10 @@ _080000F8: .4byte 0x03007FA0
 
 	.arm
 
-	.global sub_80000FC
-	.type   sub_80000FC, function
+	.global IrqMain
+	.type   IrqMain, function
 
-sub_80000FC: @ 0x080000FC
+IrqMain: @ 0x080000FC
 	mov r3, #0x4000000
 	add r3, r3, #0x200
 	ldr r2, [r3]
@@ -107,7 +107,7 @@ _080001CC:
 	bic r3, r3, #0xdf
 	orr r3, r3, #0x1f
 	msr cpsr_fc, r3
-	ldr r1, _08000224 @ =0x03002720
+	ldr r1, _08000224 @ =gIrqFuncs
 	add r1, r1, r2
 	ldr r0, [r1]
 	stmdb sp!, {lr}
@@ -121,4 +121,4 @@ _080001F8:
 	.byte 0xB0, 0x10, 0xC3, 0xE1, 0x00, 0xF0, 0x69, 0xE1, 0x1E, 0xFF, 0x2F, 0xE1
 _0800021C: .4byte 0x03007FFC
 _08000220: .4byte AgbMain
-_08000224: .4byte 0x03002720
+_08000224: .4byte gIrqFuncs

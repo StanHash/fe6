@@ -28,6 +28,8 @@ SECTIONS
 
         /* COMMON */
         . = 0x0022A0; SoundMainRAM_Buffer = .;
+        . = 0x002720; gIrqFuncs = .;
+        . = 0x003790; IntrMainRam = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006320; gMPlayJumpTable = .;
         . = 0x0063B0; gCgbChans = .;
@@ -44,6 +46,7 @@ SECTIONS
         asm/arm.o(.text);
 
         src/main.o(.text);
+        src/irq.o(.text);
 
         asm/code.o(.text);
 
@@ -71,9 +74,11 @@ SECTIONS
 
         . = ALIGN(4); data/rodata_msg.o(.rodata);
         . = ALIGN(4); src/main.o(.rodata);
+        . = ALIGN(4); src/irq.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
+
         . = ALIGN(4); data/data.o(.data);
     } = 0
 
