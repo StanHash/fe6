@@ -38,8 +38,10 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
 DEPS_DIR     := .dep
 
-src/agb_sram.o: CC1FLAGS += -O1
 src/irq.o: CC1FLAGS += -O0
+src/random.o: CC1FLAGS += -O0
+
+src/agb_sram.o: CC1FLAGS += -O1
 
 compare: $(ROM)
 	$(SHASUM) -c fe6.sha1

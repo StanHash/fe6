@@ -4,11 +4,9 @@
 #include "m4a.h"
 
 #include "irq.h"
+#include "random.h"
 #include "hardware.h"
 
-void InitRN(int seed);
-void sub_8000E98(int seed);
-int sub_8000EB4(void);
 void sub_8003764(void);
 void sub_8003908(void);
 void sub_80127C8(void);
@@ -66,8 +64,8 @@ NAKEDFUNC void AgbMain(void)
     sub_80127C8();
     sub_805F7E4();
 
-    sub_8000E98(0x42D690E9);
-    InitRN(sub_8000EB4());
+    RandInitB(0x42D690E9);
+    RandInit(RandNextB());
 
     if (!LoadGeneralGameMetadata(NULL))
         sub_808439C();
