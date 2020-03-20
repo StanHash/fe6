@@ -38,9 +38,10 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
 DEPS_DIR     := .dep
 
-src/irq.o: CC1FLAGS += -O0
-src/random.o: CC1FLAGS += -O0
+src/irq.o:      CC1FLAGS += -O0
+src/random.o:   CC1FLAGS += -O0
 src/hardware.o: CC1FLAGS += -O0
+src/move.o:     CC1FLAGS += -O0
 
 src/agb_sram.o: CC1FLAGS += -O1
 

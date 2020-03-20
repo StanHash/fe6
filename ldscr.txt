@@ -14,6 +14,7 @@ SECTIONS
     {
         /* ewram_data */
         . = 0x0210E8; src/hardware.o(ewram_data);
+        . = ALIGN(4); src/move.o(ewram_data);
     }
 
     . = 0x03000000;
@@ -54,6 +55,7 @@ SECTIONS
         src/irq.o(.text);
         src/random.o(.text);
         src/hardware.o(.text);
+        src/move.o(.text);
 
         asm/code.o(.text);
 
@@ -84,6 +86,8 @@ SECTIONS
         . = ALIGN(4); src/irq.o(.rodata);
         . = ALIGN(4); src/random.o(.rodata);
         . = ALIGN(4); src/hardware.o(.rodata);
+        . = ALIGN(4); data/rodata_trig.o(.rodata);
+        . = ALIGN(4); src/move.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);

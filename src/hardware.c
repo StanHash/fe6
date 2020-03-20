@@ -2,6 +2,7 @@
 #include "hardware.h"
 
 #include "irq.h"
+#include "move.h"
 
 void sub_8015AD0(void);
 void sub_8002CB8(int arg0);
@@ -252,11 +253,9 @@ void FillTm(u16* dest, int tileref)
     CpuFastFill(tileref, dest, sizeof(u16) * 0x400);
 }
 
-void RegisterDataMove(void const* src, void* dst, int size);
-
 void SetBlankChr(int chr)
 {
-    RegisterDataMove(NULL, (void *)(VRAM + 0x20 * chr), 0x20);
+    RegisterDataFill(0, (void *)(VRAM + 0x20 * chr), 0x20);
 }
 
 void SetOnVBlank(IrqFunc func)
