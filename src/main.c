@@ -6,8 +6,8 @@
 #include "irq.h"
 #include "random.h"
 #include "hardware.h"
+#include "ramfunc.h"
 
-void sub_8003764(void);
 void sub_8003908(void);
 void sub_80127C8(void);
 void sub_805F7E4(void);
@@ -54,7 +54,7 @@ NAKEDFUNC void AgbMain(void)
     InitKeySt(gKeySt);
     RefreshKeySt(gKeySt);
 
-    sub_8003764();
+    InitRamFuncs();
     sub_80841FC();
     sub_8003908();
     sub_80127C8();

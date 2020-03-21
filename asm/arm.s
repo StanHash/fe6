@@ -201,8 +201,8 @@ _0800045C:
 	.align 2, 0
 _08000490: .4byte gOamHiPutIt
 
-	arm_func_start sub_8000494
-sub_8000494: @ 0x08000494
+	arm_func_start PutOamHi
+PutOamHi: @ 0x08000494
 	push {r4, r5, r6, r7}
 	ldr r7, _08000490 @ =gOamHiPutIt
 _0800049C:
@@ -248,8 +248,8 @@ _08000528:
 	.align 2, 0
 _08000530: .4byte gOamLoPutIt
 
-	arm_func_start sub_8000534
-sub_8000534: @ 0x08000534
+	arm_func_start PutOamLo
+PutOamLo: @ 0x08000534
 	push {r4, r5, r6, r7}
 	ldr r7, _08000530 @ =gOamLoPutIt
 	b _0800049C
@@ -258,8 +258,8 @@ _08000540:
 	.byte 0x00, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00
 _08000560: .4byte 0x08000540
 
-	arm_func_start sub_8000564
-sub_8000564: @ 0x08000564
+	arm_func_start DrawGlyph
+DrawGlyph: @ 0x08000564
 	push {r4, r5, r6, r7, r8, sb, sl}
 	mov sb, #0xf
 	mov sl, #0x10000
@@ -363,8 +363,8 @@ _08000630:
 _080006DC: .4byte 0x080F6358
 _080006E0: .4byte 0x080F300C
 
-	arm_func_start sub_80006E4
-sub_80006E4: @ 0x080006E4
+	arm_func_start DecodeString
+DecodeString: @ 0x080006E4
 	push {r4, r5, r6, r7}
 	sub r3, r3, r3
 	ldr r5, _080006E0 @ =0x080F300C
@@ -414,8 +414,8 @@ _08000778: .4byte 0x03004010
 _0800077C: .4byte 0x0202D208
 _08000780: .4byte 0x0202D204
 
-	arm_func_start sub_8000784
-sub_8000784: @ 0x08000784
+	arm_func_start MoveFillStep
+MoveFillStep: @ 0x08000784
 	push {r4, r5, r6, r7, r8, sb, sl}
 	ldr r3, _08000774 @ =0x030044C0
 	ldr r4, [r3]
@@ -477,8 +477,8 @@ _08000858:
 	.byte 0x3E, 0x00, 0x00, 0xEA, 0x30, 0x00, 0x00, 0xEA, 0x69, 0x00, 0x00, 0xEA, 0x1D, 0x00, 0x00, 0xEA
 	.byte 0x58, 0x08, 0x00, 0x08
 
-	arm_func_start sub_8000874
-sub_8000874: @ 0x08000874
+	arm_func_start MoveFill
+MoveFill: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
 	ldr r5, _08000774 @ =0x030044C0

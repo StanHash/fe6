@@ -44,6 +44,7 @@ src/hardware.o: CC1FLAGS += -O0
 src/move.o:     CC1FLAGS += -O0
 src/oam.o:      CC1FLAGS += -O0
 src/sound.o:    CC1FLAGS += -O0
+src/ramfunc.o:  CC1FLAGS += -O0
 
 src/agb_sram.o: CC1FLAGS += -O1
 
