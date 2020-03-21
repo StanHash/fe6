@@ -31,4 +31,4 @@ void sub_80032F0(int songId, int b, struct MusicPlayerInfo* mpi);
 void sub_80033C8(int songId);
 void sub_8003434(void);
 void sub_80034B8(void);
-void sub_80034FC(int volume, int b, int c, ProcPtr parent);
+void StartMusicVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);

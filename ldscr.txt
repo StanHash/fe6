@@ -108,6 +108,7 @@ SECTIONS
         . = ALIGN(4); data/rodata_trig.o(.rodata);
         . = ALIGN(4); src/move.o(.rodata);
         . = ALIGN(4); src/oam.o(.rodata);
+        . = ALIGN(4); src/sound.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);

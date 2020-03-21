@@ -21,46 +21,44 @@ struct MusicProc
 
     /* 29 */ u8 pad29[0x4A - 0x29];
     /* 4A */ short songId;
-    /* 4C */ short delayCounter;
-    /* 4E */ short unk4E;
+    /* 4C */ short clock;
+    /* 4E */ short fiTimeEnd;
 
     /* 50 */ u8 pad50[0x54 - 0x50];
-    /* 54 */ struct MusicPlayerInfo *player;
-    /* 58 */ int unk58;
-    /* 5C */ int unk5C;
+    /* 54 */ struct MusicPlayerInfo* mpi;
 
-    /* 60 */ u8 pad60[0x64 - 0x60];
-    /* 64 */ short unk64;
-    /* 66 */ short unk66;
-    /* 68 */ short unk68;
-    /* 6A */ short unk6A;
+    /* 58 */ u8 pad60[0x64 - 0x58];
+    /* 64 */ short vcInitVolume;
+    /* 66 */ short vcEndVolume;
+    /* 68 */ short vcClock;
+    /* 6A */ short vcTimeEnd;
 };
 
-static void sub_800324C(struct MusicProc* proc);
-static void sub_8003578(struct MusicProc* proc);
-static void sub_800361C(struct MusicProc* proc);
+static void MusicFi_OnLoop(struct MusicProc* proc);
+static void MusicVc_OnLoop(struct MusicProc* proc);
+static void DelaySong_OnLoop(struct MusicProc* proc);
 
 static void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi);
 static void PlaySongCore(int songId, struct MusicPlayerInfo* mpi);
 
 static struct SoundSt EWRAM_DATA sSoundSt = {};
 
-struct ProcScr CONST_DATA ProcScr_0858E58C[] =
+struct ProcScr CONST_DATA ProcScr_MusicFadeIn[] =
 {
     PROC_END_DUPLICATES,
-    PROC_REPEAT(sub_800324C),
+    PROC_REPEAT(MusicFi_OnLoop),
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_0858E5A4[] =
+struct ProcScr CONST_DATA ProcScr_MusicVolChange[] =
 {
-    PROC_REPEAT(sub_8003578),
+    PROC_REPEAT(MusicVc_OnLoop),
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_0858E5B4[] =
+struct ProcScr CONST_DATA ProcScr_DelaySong[] =
 {
-    PROC_REPEAT(sub_800361C),
+    PROC_REPEAT(DelaySong_OnLoop),
     PROC_END,
 };
 
@@ -154,20 +152,20 @@ void sub_800322C(int songId, int speed, struct MusicPlayerInfo* mpi)
     sub_800319C(songId, speed, mpi);
 }
 
-void sub_800324C(struct MusicProc* proc)
+void MusicFi_OnLoop(struct MusicProc* proc)
 {
-    int volume = sub_8013B24(0, 0, 0x100, proc->delayCounter, proc->unk4E);
+    int volume = sub_8013B24(0, 0, 0x100, proc->clock, proc->fiTimeEnd);
 
     m4aMPlayVolumeControl(&gMpi_030062E0, 0xFFFF, volume);
     m4aMPlayVolumeControl(&gMpi_030064F0, 0xFFFF, volume);
 
-    proc->delayCounter++;
+    proc->clock++;
 
-    if (proc->delayCounter >= proc->unk4E)
+    if (proc->clock >= proc->fiTimeEnd)
         Proc_Break(proc);
 }
 
-void sub_80032F0(int songId, int b, struct MusicPlayerInfo* mpi)
+void sub_80032F0(int songId, int duration, struct MusicPlayerInfo* mpi)
 {
     struct MusicProc* proc;
 
@@ -177,7 +175,7 @@ void sub_80032F0(int songId, int b, struct MusicPlayerInfo* mpi)
     sSoundSt.songPlaying = TRUE;
     sSoundSt.songId = songId;
 
-    proc = Proc_Create(ProcScr_0858E58C, PROC_TREE_3);
+    proc = Proc_Create(ProcScr_MusicFadeIn, PROC_TREE_3);
 
     m4aMPlayStop(&gMpi_030062E0);
     m4aMPlayStop(&gMpi_030064F0);
@@ -190,8 +188,8 @@ void sub_80032F0(int songId, int b, struct MusicPlayerInfo* mpi)
     m4aMPlayVolumeControl(&gMpi_030062E0, 0xFFFF, 0);
     m4aMPlayVolumeControl(&gMpi_030064F0, 0xFFFF, 0);
 
-    proc->delayCounter = 0;
-    proc->unk4E = b * 16;
+    proc->clock = 0;
+    proc->fiTimeEnd = duration * 16;
 }
 
 void sub_80033C8(int songId)
@@ -235,25 +233,25 @@ void sub_80034B8(void)
     sSoundSt.overwrittenSongId = 0;
 }
 
-void sub_80034FC(int volume, int b, int c, ProcPtr parent)
+void StartMusicVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent)
 {
-    struct MusicProc* proc = Proc_CreateBlockingChild(ProcScr_0858E5A4, parent);
+    struct MusicProc* proc = Proc_CreateBlockingChild(ProcScr_MusicVolChange, parent);
 
-    proc->unk64 = volume;
-    proc->unk66 = b;
-    proc->unk68 = 0;
-    proc->unk6A = c;
+    proc->vcInitVolume = volumeInit;
+    proc->vcEndVolume = volumeEnd;
+    proc->vcClock = 0;
+    proc->vcTimeEnd = duration;
 }
 
-void sub_8003578(struct MusicProc* proc)
+void MusicVc_OnLoop(struct MusicProc* proc)
 {
-    int volume = sub_8013B24(0, proc->unk64, proc->unk66, proc->unk68++, proc->unk6A);
+    int volume = sub_8013B24(0, proc->vcInitVolume, proc->vcEndVolume, proc->vcClock++, proc->vcTimeEnd);
 
     sub_8003028(volume);
 
-    if (proc->unk68 >= proc->unk6A)
+    if (proc->vcClock >= proc->vcTimeEnd)
     {
-        if (proc->unk66 == 0)
+        if (proc->vcEndVolume == 0)
         {
             m4aSongNumStop(GetCurrentMusicSong());
             sSoundSt.songPlaying = FALSE;
@@ -263,17 +261,17 @@ void sub_8003578(struct MusicProc* proc)
     }
 }
 
-void sub_800361C(struct MusicProc* proc)
+void DelaySong_OnLoop(struct MusicProc* proc)
 {
-    proc->delayCounter--;
+    proc->clock--;
 
-    if (proc->delayCounter >= 0)
+    if (proc->clock >= 0)
         return;
 
     sSoundSt.songPlaying = TRUE;
     sSoundSt.songId = proc->songId;
 
-    PlaySongCore(proc->songId, proc->player);
+    PlaySongCore(proc->songId, proc->mpi);
     Proc_Delete(proc);
 }
 
@@ -284,11 +282,11 @@ void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi)
     if (gPlaySt.unk1D_1)
         return;
 
-    proc = Proc_Create(ProcScr_0858E5B4, PROC_TREE_3);
+    proc = Proc_Create(ProcScr_DelaySong, PROC_TREE_3);
 
-    proc->delayCounter = delay;
+    proc->clock = delay;
     proc->songId = songId;
-    proc->player = mpi;
+    proc->mpi = mpi;
 }
 
 void PlaySongCore(int songId, struct MusicPlayerInfo* mpi)
