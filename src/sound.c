@@ -45,7 +45,7 @@ static struct SoundSt EWRAM_DATA sSoundSt = {};
 
 struct ProcScr CONST_DATA ProcScr_MusicFadeIn[] =
 {
-    PROC_END_DUPLICATES,
+    PROC_END_DUPS,
     PROC_REPEAT(MusicFi_OnLoop),
     PROC_END,
 };
@@ -175,7 +175,7 @@ void sub_80032F0(int songId, int duration, struct MusicPlayerInfo* mpi)
     sSoundSt.songPlaying = TRUE;
     sSoundSt.songId = songId;
 
-    proc = Proc_Create(ProcScr_MusicFadeIn, PROC_TREE_3);
+    proc = SpawnProc(ProcScr_MusicFadeIn, PROC_TREE_3);
 
     m4aMPlayStop(&gMpi_030062E0);
     m4aMPlayStop(&gMpi_030064F0);
@@ -235,7 +235,7 @@ void sub_80034B8(void)
 
 void StartMusicVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent)
 {
-    struct MusicProc* proc = Proc_CreateBlockingChild(ProcScr_MusicVolChange, parent);
+    struct MusicProc* proc = SpawnProcLocking(ProcScr_MusicVolChange, parent);
 
     proc->vcInitVolume = volumeInit;
     proc->vcEndVolume = volumeEnd;
@@ -272,7 +272,7 @@ void DelaySong_OnLoop(struct MusicProc* proc)
     sSoundSt.songId = proc->songId;
 
     PlaySongCore(proc->songId, proc->mpi);
-    Proc_Delete(proc);
+    Proc_End(proc);
 }
 
 void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi)
@@ -282,7 +282,7 @@ void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi)
     if (gPlaySt.unk1D_1)
         return;
 
-    proc = Proc_Create(ProcScr_DelaySong, PROC_TREE_3);
+    proc = SpawnProc(ProcScr_DelaySong, PROC_TREE_3);
 
     proc->clock = delay;
     proc->songId = songId;

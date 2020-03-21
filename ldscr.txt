@@ -16,6 +16,7 @@ SECTIONS
         . = 0x0210E8; src/hardware.o(ewram_data);
         . = ALIGN(4); src/move.o(ewram_data);
         . = ALIGN(4); src/sound.o(ewram_data);
+        . = ALIGN(4); src/proc.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -83,6 +84,7 @@ SECTIONS
         src/oam.o(.text);
         src/sound.o(.text);
         src/ramfunc.o(.text);
+        src/proc.o(.text);
 
         asm/code.o(.text);
 
@@ -119,6 +121,7 @@ SECTIONS
         . = ALIGN(4); src/sound.o(.rodata);
         . = ALIGN(4); src/ramfunc.o(.rodata);
         . = ALIGN(4); data/rodata_icon.o(.rodata);
+        . = ALIGN(4); src/proc.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -126,6 +129,7 @@ SECTIONS
 
         . = ALIGN(4); src/hardware.o(.data);
         . = ALIGN(4); src/sound.o(.data);
+        . = ALIGN(4); src/proc.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 
