@@ -89,9 +89,9 @@ static int GetIconChr(int icon)
     sIconStTable[icon].refCount++;
     sIconStTable[icon].dispId = GetNewIconSlot(icon) + 1;
 
-    RegisterBgVramMove(
-        gIconImg + (icon * 0x80),
-        VRAM + 0x20 * IconSlot2Chr(sIconStTable[icon].dispId), 0x80);
+    RegisterVramMove(
+        gIconImg + (icon * CHR_SIZE * 4),
+        VRAM + CHR_SIZE * IconSlot2Chr(sIconStTable[icon].dispId), CHR_SIZE * 4);
 
     return IconSlot2Chr(sIconStTable[icon].dispId);
 }
@@ -128,19 +128,19 @@ void PutIconObjImg(int icon, int chr)
     u8* dst;
 
     dst = OBJ_VRAM0;
-    dst += 0x20 * (chr & 0x3FF);
+    dst += CHR_SIZE * (chr & 0x3FF);
 
     if (icon < 0)
     {
-        RegisterDataFill(0, dst,         0x40);
-        RegisterDataFill(0, dst + 0x400, 0x40);
+        RegisterDataFill(0, dst,         CHR_SIZE * 2);
+        RegisterDataFill(0, dst + 0x400, CHR_SIZE * 2);
     }
     else
     {
         src = gIconImg;
-        src += 0x80 * icon;
+        src += CHR_SIZE * 4 * icon;
 
-        RegisterDataMove(src,        dst,         0x40);
-        RegisterDataMove(src + 0x40, dst + 0x400, 0x40);
+        RegisterDataMove(src,                dst,         CHR_SIZE * 2);
+        RegisterDataMove(src + CHR_SIZE * 2, dst + 0x400, CHR_SIZE * 2);
     }
 }

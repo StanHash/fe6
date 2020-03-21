@@ -130,5 +130,7 @@ void SetOnHBlankB(Func func);
 #define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)
 #define RGB_GET_BLUE(color) (((color) >> 10) & 0x1F)
 
+#define TM_OFFSET(x, y) (((y) << 5) + (x))
+
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)

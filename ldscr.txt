@@ -3,6 +3,8 @@ OUTPUT_ARCH(arm)
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
+gSprite_8x8 = 0x085C39A0;
+
 gNumMusicPlayers = 9;
 gMaxLines = 0;
 
@@ -18,6 +20,7 @@ SECTIONS
         . = ALIGN(4); src/sound.o(ewram_data);
         . = ALIGN(4); src/proc.o(ewram_data);
         . = ALIGN(4); src/icon.o(ewram_data);
+        . = ALIGN(4); src/debug-text.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -87,6 +90,7 @@ SECTIONS
         src/ramfunc.o(.text);
         src/proc.o(.text);
         src/icon.o(.text);
+        src/debug-text.o(.text);
 
         asm/code.o(.text);
 
@@ -125,6 +129,7 @@ SECTIONS
         . = ALIGN(4); data/rodata_icon.o(.rodata);
         . = ALIGN(4); src/proc.o(.rodata);
         . = ALIGN(4); src/icon.o(.rodata);
+        . = ALIGN(4); src/debug-text.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -133,6 +138,7 @@ SECTIONS
         . = ALIGN(4); src/hardware.o(.data);
         . = ALIGN(4); src/sound.o(.data);
         . = ALIGN(4); src/proc.o(.data);
+        . = ALIGN(4); data/data_dbgfont.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 

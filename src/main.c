@@ -99,11 +99,11 @@ NAKEDFUNC void sub_8000AFC(void)
         mov fp, r4\n\
         adds r4, r0, #0\n\
         ldr r1, _08000B30 @ =sDbgLineA\n\
-        bl sub_8004F18\n\
+        bl DebugPutStr\n\
         subs r4, #0x40\n\
         ldr r1, _08000B34 @ =sDbgLineB\n\
         adds r0, r4, #0\n\
-        bl sub_8004F18\n\
+        bl DebugPutStr\n\
         pop {r4}\n\
         pop {r0, r1, r2}\n\
         mov fp, r1\n\

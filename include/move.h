@@ -7,7 +7,7 @@ void RegisterDataMove(void const* src, void* dst, int size);
 void RegisterDataFill(u32 value, void* dst, int size);
 void ApplyDataMoves(void);
 
-#define RegisterBgVramMove(src, offset, size) \
+#define RegisterVramMove(src, offset, size) \
     RegisterDataMove( \
         (src), \
         (void*) VRAM + (0x1FFFF & (offset)), \
