@@ -83,7 +83,7 @@ void EnableBgSyncById(int bgid);
 void DisableBgSync(int bits);
 void EnablePalSync(void);
 void DisablePalSync(void);
-void ApplyPalette(const void* data, int startOffset, int size);
+void ApplyPaletteExt(void const* data, int startOffset, int size);
 void SyncDispIo(void);
 int GetBgChrOffset(int bg);
 int GetBgChrId(int bg, int offset);
@@ -129,3 +129,6 @@ void SetOnHBlankB(Func func);
 #define RGB_GET_RED(color) ((color) & 0x1F)
 #define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)
 #define RGB_GET_BLUE(color) (((color) >> 10) & 0x1F)
+
+#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
+#define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)

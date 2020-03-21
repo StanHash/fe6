@@ -106,7 +106,7 @@ inline void DisablePalSync(void)
     sPalSyncFlag = FALSE;
 }
 
-void ApplyPalette(const void* data, int startOffset, int size)
+void ApplyPaletteExt(void const* data, int startOffset, int size)
 {
     if (size & 0x1F) // size is not a multiple of 32
         CpuCopy16(data, gPal + (startOffset >> 1), size);
