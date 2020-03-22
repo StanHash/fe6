@@ -551,9 +551,9 @@ void sub_8001FD4(u8 a)
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(gPal[i * 0x10 + j]) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(gPal[i * 0x10 + j]) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(gPal[i * 0x10 + j]) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
         }
     }
 }
@@ -568,9 +568,9 @@ void sub_800210C(u8 a)
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(gPal[i * 0x10 + j]);
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(gPal[i * 0x10 + j]);
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(gPal[i * 0x10 + j]);
+            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j));
+            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j));
+            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j));
         }
     }
 }
@@ -585,9 +585,9 @@ void sub_8002234(u8 a)
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(gPal[i * 0x10 + j]) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(gPal[i * 0x10 + j]) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(gPal[i * 0x10 + j]) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
         }
     }
 }
@@ -602,9 +602,9 @@ void sub_80019E8(u8 a)
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(gPal[i * 0x10 + j]) + 0x40;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(gPal[i * 0x10 + j]) + 0x40;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(gPal[i * 0x10 + j]) + 0x40;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x40;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x40;
+            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x40;
         }
     }
 }
@@ -721,7 +721,7 @@ void InitBgs(u16 const* config)
 
     InitOam(0);
 
-    gPal[0] = 0;
+    PAL_COLOR(0, 0) = 0;
     EnablePalSync();
 }
 

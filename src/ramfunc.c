@@ -1,9 +1,10 @@
 
+#include "ramfunc.h"
 #include "armfunc.h"
 
 extern u8 RamFuncArea[];
 
-extern void(*DrawGlyphRamFunc)(u32 const* cvtLut, void* chr, u32 const* glyph, int offset);
+extern void(*DrawGlyphRamFunc)(u16 const* cvtLut, void* chr, u32 const* glyph, int offset);
 extern void(*DecodeStringRamFunc)(char const* src, char* dst);
 extern void(*PutOamHiRamFunc)(int x, int y, u16 const* oamList, int oam2);
 extern void(*PutOamLoRamFunc)(int x, int y, u16 const* oamList, int oam2);
@@ -24,7 +25,7 @@ void InitRamFuncs(void)
     MoveFillRamFunc     = (void*) RamFuncArea + (((u8*) MoveFill)     - ArmCodeStart);
 }
 
-void DrawGlyphRam(u32 const* cvtLut, void* chr, u32 const* glyph, int offset)
+void DrawGlyphRam(u16 const* cvtLut, void* chr, u32 const* glyph, int offset)
 {
     DrawGlyphRamFunc(cvtLut, chr, glyph, offset);
 }

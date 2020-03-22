@@ -3,6 +3,10 @@ OUTPUT_ARCH(arm)
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
+Pal_SystemText = 0x08100A08;
+Pal_TalkText = 0x08100A28;
+Pal_GreenTextColors = 0x08100A68;
+
 gSprite_8x8 = 0x085C39A0;
 
 gNumMusicPlayers = 9;
@@ -21,6 +25,7 @@ SECTIONS
         . = ALIGN(4); src/proc.o(ewram_data);
         . = ALIGN(4); src/icon.o(ewram_data);
         . = ALIGN(4); src/debug-text.o(ewram_data);
+        . = ALIGN(4); src/text.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -91,6 +96,7 @@ SECTIONS
         src/proc.o(.text);
         src/icon.o(.text);
         src/debug-text.o(.text);
+        src/text.o(.text);
 
         asm/code.o(.text);
 
@@ -130,6 +136,7 @@ SECTIONS
         . = ALIGN(4); src/proc.o(.rodata);
         . = ALIGN(4); src/icon.o(.rodata);
         . = ALIGN(4); src/debug-text.o(.rodata);
+        . = ALIGN(4); src/text.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -139,6 +146,8 @@ SECTIONS
         . = ALIGN(4); src/sound.o(.data);
         . = ALIGN(4); src/proc.o(.data);
         . = ALIGN(4); data/data_dbgfont.o(.data);
+        . = ALIGN(4); src/text.o(.data);
+        . = ALIGN(4); data/data_textglyphs.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 

@@ -48,6 +48,7 @@ src/ramfunc.o:    CC1FLAGS += -O0
 src/proc.o:       CC1FLAGS += -O0
 src/icon.o:       CC1FLAGS += -O0
 src/debug-text.o: CC1FLAGS += -O0
+src/text.o:       CC1FLAGS += -O0
 
 src/agb_sram.o:   CC1FLAGS += -O1
 
@@ -74,7 +75,8 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
-	echo '.ALIGN 2, 0' >> $*.s
+	echo '.text' >> $*.s
+	echo '.align 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $@
 
 .SECONDEXPANSION:

@@ -20,6 +20,6 @@ void DebugPutScreen(void);
 s8 DebugUpdateScreen(u16 held, u16 pressed);
 
 void DebugInitObj(int offset, int palid);
-void DebugPutObjStr(int x, int y, const char *str);
+void DebugPutObjStr(int x, int y, char const* str);
 void DebugPutObjNumber(int x, int y, int number, int length);
 void DebugPutObjNumberHex(int x, int y, int number, int length);

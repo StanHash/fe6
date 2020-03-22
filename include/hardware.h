@@ -132,5 +132,11 @@ void SetOnHBlankB(Func func);
 
 #define TM_OFFSET(x, y) (((y) << 5) + (x))
 
+#define TILEREF(chr, pal) ((chr) + ((pal) << 12))
+
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
+
+#define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
+#define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
+#define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)

@@ -11,7 +11,7 @@
 
 extern u16 CONST_DATA gSprite_8x8[];
 
-extern u8 CONST_DATA gDebugFontImg[];
+extern u8 CONST_DATA Img_DebugFont[];
 
 struct DebugTextSt
 {
@@ -39,10 +39,10 @@ void DebugInitBg(int bg, int vramOffset)
     SetBgChrOffset(bg, 0);
     SetBgScreenSize(bg, 0);
 
-    RegisterVramMove(gDebugFontImg, vramOffset, 0x40 * CHR_SIZE);
+    RegisterVramMove(Img_DebugFont, vramOffset, 0x40 * CHR_SIZE);
 
-    gPal[0] = RGB(0, 0, 0);
-    gPal[2] = RGB(31, 31, 31);
+    PAL_BG_COLOR(0, 0) = RGB(0, 0, 0);
+    PAL_BG_COLOR(0, 2) = RGB(31, 31, 31);
 
     EnablePalSync();
 
@@ -272,16 +272,16 @@ void DebugInitObj(int offset, int palid)
     gUnknown_02028E50 = offset / CHR_SIZE;
     gUnknown_02028E54 = (palid & 0xF) * 0x1000;
 
-    RegisterVramMove(gDebugFontImg, 0x10000 + offset, 0x40 * CHR_SIZE);
+    RegisterVramMove(Img_DebugFont, 0x10000 + offset, 0x40 * CHR_SIZE);
 
-    gPal[(palid + 16) * 16 + 0] = RGB(0, 0, 0);
-    gPal[(palid + 16) * 16 + 1] = RGB(0, 0, 31);
-    gPal[(palid + 16) * 16 + 2] = RGB(31, 31, 31);
+    PAL_OBJ_COLOR(palid, 0) = RGB(0, 0, 0);
+    PAL_OBJ_COLOR(palid, 1) = RGB(0, 0, 31);
+    PAL_OBJ_COLOR(palid, 2) = RGB(31, 31, 31);
 
     EnablePalSync();
 }
 
-void DebugPutObjStr(int x, int y, const char *str)
+void DebugPutObjStr(int x, int y, char const* str)
 {
     while (*str)
     {

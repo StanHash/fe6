@@ -15,8 +15,8 @@ struct IconSt
     /* 01 */ u8 dispId;
 };
 
-extern u8 const gIconImg[];
-extern u16 const gIconPal[];
+extern u8 const Img_Icons[];
+extern u16 const Pal_Icons[];
 
 static struct IconSt EWRAM_DATA sIconStTable[MAX_ICON_COUNT] = {};
 static u8 EWRAM_DATA sIconDisplayList[MAX_ICON_DISPLAY_COUNT] = {};
@@ -34,12 +34,12 @@ void ClearIcons(void)
 
 void ApplyIconPalettes(int palid)
 {
-    ApplyPalettes(gIconPal, palid, 2);
+    ApplyPalettes(Pal_Icons, palid, 2);
 }
 
 void ApplyIconPalette(int num, int palid)
 {
-    ApplyPalette(gIconPal + 0x10 * num, palid);
+    ApplyPalette(Pal_Icons + 0x10 * num, palid);
 }
 
 static int CountActiveIcons(void)
@@ -90,7 +90,7 @@ static int GetIconChr(int icon)
     sIconStTable[icon].dispId = GetNewIconSlot(icon) + 1;
 
     RegisterVramMove(
-        gIconImg + (icon * CHR_SIZE * 4),
+        Img_Icons + (icon * CHR_SIZE * 4),
         VRAM + CHR_SIZE * IconSlot2Chr(sIconStTable[icon].dispId), CHR_SIZE * 4);
 
     return IconSlot2Chr(sIconStTable[icon].dispId);
@@ -137,7 +137,7 @@ void PutIconObjImg(int icon, int chr)
     }
     else
     {
-        src = gIconImg;
+        src = Img_Icons;
         src += CHR_SIZE * 4 * icon;
 
         RegisterDataMove(src,                dst,         CHR_SIZE * 2);
