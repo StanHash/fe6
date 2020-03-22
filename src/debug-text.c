@@ -9,7 +9,7 @@
 
 #include "constants/video-global.h"
 
-extern u16 CONST_DATA gSprite_8x8[];
+extern u16 CONST_DATA Sprite_8x8[];
 
 extern u8 CONST_DATA Img_DebugFont[];
 
@@ -26,10 +26,12 @@ struct DebugTextSt
     /* 14 */ char screen[256][32];
 };
 
-struct DebugTextSt EWRAM_DATA gDebugTextSt = {};
+static struct DebugTextSt EWRAM_DATA sDebugTextSt = {};
+
 char EWRAM_DATA gNumberStr[9] = {};
-int EWRAM_DATA gUnknown_02028E50 = 0;
-int EWRAM_DATA gUnknown_02028E54 = 0;
+
+static int EWRAM_DATA sDebugOam2Chr = 0;
+static int EWRAM_DATA sDebugOam2Pal = 0;
 
 void DebugInitBg(int bg, int vramOffset)
 {
@@ -48,9 +50,9 @@ void DebugInitBg(int bg, int vramOffset)
 
     FillTm(GetBgTilemap(bg), 0);
 
-    gDebugTextSt.bg = bg;
-    gDebugTextSt.vramOffset = vramOffset;
-    gDebugTextSt.chr = GetBgChrId(bg, vramOffset);
+    sDebugTextSt.bg = bg;
+    sDebugTextSt.vramOffset = vramOffset;
+    sDebugTextSt.chr = GetBgChrId(bg, vramOffset);
 }
 
 void DebugPutStr(u16* tm, char const* str)
@@ -58,14 +60,14 @@ void DebugPutStr(u16* tm, char const* str)
     while (*str)
     {
         *tm = *str > '`'
-            ? *str - '`' + (gDebugTextSt.chr + 0x20)
-            : *str - ' ' + (gDebugTextSt.chr);
+            ? *str - '`' + (sDebugTextSt.chr + 0x20)
+            : *str - ' ' + (sDebugTextSt.chr);
 
         tm++;
         str++;
     }
 
-    EnableBgSyncById(gDebugTextSt.bg);
+    EnableBgSyncById(sDebugTextSt.bg);
 }
 
 void DebugPutFmt(u16* tm, char const* fmt, ...)
@@ -85,10 +87,10 @@ void DebugScreenInit(void)
     int i;
 
     for (i = 0; i < 0x100; i++)
-        gDebugTextSt.screen[i & 0xFF][0] = '\0';
+        sDebugTextSt.screen[i & 0xFF][0] = '\0';
 
-    gDebugTextSt.hcur = 0;
-    gDebugTextSt.vcur = 0;
+    sDebugTextSt.hcur = 0;
+    sDebugTextSt.vcur = 0;
 
     FillTm(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
@@ -184,7 +186,7 @@ void DebugPrintStr(char const* str)
     {
         char chr = *str;
 
-        if (gDebugTextSt.hcur == 0x30)
+        if (sDebugTextSt.hcur == 0x30)
             chr = 0;
         else
             str++;
@@ -192,18 +194,18 @@ void DebugPrintStr(char const* str)
         if (chr == '\n')
             chr = 0;
 
-        gDebugTextSt.screen[gDebugTextSt.vcur & 0xFF][gDebugTextSt.hcur] = chr;
-        gDebugTextSt.hcur++;
+        sDebugTextSt.screen[sDebugTextSt.vcur & 0xFF][sDebugTextSt.hcur] = chr;
+        sDebugTextSt.hcur++;
 
         if (chr == 0)
         {
-            gDebugTextSt.hcur = 0;
-            gDebugTextSt.vcur++;
+            sDebugTextSt.hcur = 0;
+            sDebugTextSt.vcur++;
         }
     }
 
-    if (gDebugTextSt.vcur > gDebugTextSt.vdisp + 20)
-        gDebugTextSt.vdisp = gDebugTextSt.vcur - 20;
+    if (sDebugTextSt.vcur > sDebugTextSt.vdisp + 20)
+        sDebugTextSt.vdisp = sDebugTextSt.vcur - 20;
 }
 
 void DebugPutScreen(void)
@@ -218,16 +220,16 @@ void DebugPutScreen(void)
     {
         tm = gBg2Tm + TM_OFFSET(0, iv);
 
-        for (ih = 0; gDebugTextSt.screen[(iv + gDebugTextSt.vdisp) & 0xFF][ih]; ++tm, ++ih)
+        for (ih = 0; sDebugTextSt.screen[(iv + sDebugTextSt.vdisp) & 0xFF][ih]; ++tm, ++ih)
         {
-            chr = gDebugTextSt.screen[(iv + gDebugTextSt.vdisp) & 0xFF][ih];
+            chr = sDebugTextSt.screen[(iv + sDebugTextSt.vdisp) & 0xFF][ih];
 
             if (chr > '`')
                 chr = chr - 0x40;
             else
                 chr = chr - 0x20;
 
-            *tm = chr + gDebugTextSt.chr;
+            *tm = chr + sDebugTextSt.chr;
         }
     }
 
@@ -243,21 +245,21 @@ s8 DebugUpdateScreen(u16 held, u16 pressed)
 
     DebugPutScreen();
 
-    top = gDebugTextSt.vcur - 256;
+    top = sDebugTextSt.vcur - 256;
 
     if (top < 0)
         top = 0;
 
-    bottom = gDebugTextSt.vcur - 20;
+    bottom = sDebugTextSt.vcur - 20;
 
     if (bottom < 0)
         bottom = 0;
 
-    if ((held & DPAD_UP) && top < gDebugTextSt.vdisp)
-        gDebugTextSt.vdisp--;
+    if ((held & DPAD_UP) && top < sDebugTextSt.vdisp)
+        sDebugTextSt.vdisp--;
 
-    if ((held & DPAD_DOWN) && bottom > gDebugTextSt.vdisp)
-        gDebugTextSt.vdisp++;
+    if ((held & DPAD_DOWN) && bottom > sDebugTextSt.vdisp)
+        sDebugTextSt.vdisp++;
 
     return TRUE;
 }
@@ -269,8 +271,8 @@ void DebugInitObj(int offset, int palid)
 
     offset &= 0xFFFF;
 
-    gUnknown_02028E50 = offset / CHR_SIZE;
-    gUnknown_02028E54 = (palid & 0xF) * 0x1000;
+    sDebugOam2Chr = offset / CHR_SIZE;
+    sDebugOam2Pal = (palid & 0xF) * 0x1000;
 
     RegisterVramMove(Img_DebugFont, 0x10000 + offset, 0x40 * CHR_SIZE);
 
@@ -289,7 +291,7 @@ void DebugPutObjStr(int x, int y, char const* str)
             ? *str - 0x40
             : *str - 0x20;
 
-        PutOamHiRam(x, y, gSprite_8x8, chr + gUnknown_02028E50 + gUnknown_02028E54);
+        PutOamHiRam(x, y, Sprite_8x8, chr + sDebugOam2Chr + sDebugOam2Pal);
 
         x += 8;
         str++;

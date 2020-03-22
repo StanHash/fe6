@@ -9,12 +9,20 @@ struct UnkSprite
     /* 06 */ short y;
 };
 
+struct OamView { u16 oam0, oam1, oam2, aff; };
+
 void InitOam(int loSz);
 int GetOamSplice(void);
 void SyncHiOam(void);
 void SyncLoOam(void);
 void SetObjAffine(int id, short pa, short pb, short pc, short pd);
 void PutUnkSprite(struct UnkSprite* sprites, int xBase, int yBase);
+
+extern u16 gOam[0x200];
+extern u16* gOamHiPutIt;
+extern u16* gOamLoPutIt;
+extern struct OamView* gOamAffinePutIt;
+extern u16 gOamAffinePutId;
 
 #define OAM0_Y(ay)          ((ay) & 0x00FF)
 #define OAM0_Y_MASK         0x00FF

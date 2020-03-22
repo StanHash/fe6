@@ -18,7 +18,7 @@ extern u16 gOam[0x200]; // COMMON
 
 extern u16* gOamHiPutIt; // COMMON
 extern u16* gOamLoPutIt; // COMMON
-extern u16* gOamAffinePutIt; // COMMON
+extern struct OamView* gOamAffinePutIt; // COMMON
 extern u16 gOamAffinePutId; // COMMON
 
 void InitOam(int loSz)
@@ -46,7 +46,7 @@ void SyncHiOam(void)
 
     gOamHiPutIt = sOamHi.buf;
 
-    gOamAffinePutIt = gOam;
+    gOamAffinePutIt = (struct OamView*) gOam;
     gOamAffinePutId = 0;
 }
 

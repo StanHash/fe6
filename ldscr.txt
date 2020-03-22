@@ -7,7 +7,7 @@ Pal_SystemText = 0x08100A08;
 Pal_TalkText = 0x08100A28;
 Pal_GreenTextColors = 0x08100A68;
 
-gSprite_8x8 = 0x085C39A0;
+Sprite_8x8 = 0x085C39A0;
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -26,6 +26,7 @@ SECTIONS
         . = ALIGN(4); src/icon.o(ewram_data);
         . = ALIGN(4); src/debug-text.o(ewram_data);
         . = ALIGN(4); src/text.o(ewram_data);
+        . = ALIGN(4); src/sprite-banim.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -97,6 +98,7 @@ SECTIONS
         src/icon.o(.text);
         src/debug-text.o(.text);
         src/text.o(.text);
+        src/sprite-banim.o(.text);
 
         asm/code.o(.text);
 
@@ -137,6 +139,7 @@ SECTIONS
         . = ALIGN(4); src/icon.o(.rodata);
         . = ALIGN(4); src/debug-text.o(.rodata);
         . = ALIGN(4); src/text.o(.rodata);
+        . = ALIGN(4); src/sprite-banim.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
