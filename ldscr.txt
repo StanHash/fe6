@@ -26,7 +26,7 @@ SECTIONS
         . = ALIGN(4); src/icon.o(ewram_data);
         . = ALIGN(4); src/debug-text.o(ewram_data);
         . = ALIGN(4); src/text.o(ewram_data);
-        . = ALIGN(4); src/sprite-banim.o(ewram_data);
+        . = ALIGN(4); src/banim-sprite.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -98,7 +98,7 @@ SECTIONS
         src/icon.o(.text);
         src/debug-text.o(.text);
         src/text.o(.text);
-        src/sprite-banim.o(.text);
+        src/banim-sprite.o(.text);
 
         asm/code.o(.text);
 
@@ -139,7 +139,7 @@ SECTIONS
         . = ALIGN(4); src/icon.o(.rodata);
         . = ALIGN(4); src/debug-text.o(.rodata);
         . = ALIGN(4); src/text.o(.rodata);
-        . = ALIGN(4); src/sprite-banim.o(.rodata);
+        . = ALIGN(4); src/banim-sprite.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
