@@ -14,13 +14,6 @@ struct OamSection
 static struct OamSection sOamHi;
 static struct OamSection sOamLo;
 
-extern u16 gOam[0x200]; // COMMON
-
-extern u16* gOamHiPutIt; // COMMON
-extern u16* gOamLoPutIt; // COMMON
-extern struct OamView* gOamAffinePutIt; // COMMON
-extern u16 gOamAffinePutId; // COMMON
-
 void InitOam(int loSz)
 {
     sOamLo.buf = gOam;

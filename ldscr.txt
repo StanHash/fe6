@@ -18,8 +18,9 @@ SECTIONS
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
-        /* ewram_data */
-        . = 0x0210E8; src/hardware.o(ewram_data);
+        . = 0x0210E8; /* ewram_data */
+
+        . = ALIGN(4); src/hardware.o(ewram_data);
         . = ALIGN(4); src/move.o(ewram_data);
         . = ALIGN(4); src/sound.o(ewram_data);
         . = ALIGN(4); src/proc.o(ewram_data);
@@ -27,6 +28,7 @@ SECTIONS
         . = ALIGN(4); src/debug-text.o(ewram_data);
         . = ALIGN(4); src/text.o(ewram_data);
         . = ALIGN(4); src/banim-sprite.o(ewram_data);
+        . = ALIGN(4); src/sprite.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -63,6 +65,7 @@ SECTIONS
         . = 0x003788; gOamAffinePutIt = .;
         . = 0x003790; IntrMainRam = .;
         . = 0x003F90; MoveFillStepRamFunc = .;
+        . = 0x003FD0; gSpriteAllocIt = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -99,6 +102,7 @@ SECTIONS
         src/debug-text.o(.text);
         src/text.o(.text);
         src/banim-sprite.o(.text);
+        src/sprite.o(.text);
 
         asm/code.o(.text);
 
@@ -140,6 +144,7 @@ SECTIONS
         . = ALIGN(4); src/debug-text.o(.rodata);
         . = ALIGN(4); src/text.o(.rodata);
         . = ALIGN(4); src/banim-sprite.o(.rodata);
+        . = ALIGN(4); src/sprite.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -151,6 +156,7 @@ SECTIONS
         . = ALIGN(4); data/data_dbgfont.o(.data);
         . = ALIGN(4); src/text.o(.data);
         . = ALIGN(4); data/data_textglyphs.o(.data);
+        . = ALIGN(4); src/sprite.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 
