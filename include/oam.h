@@ -69,5 +69,5 @@ extern u16 gOamAffinePutId;
 #define OAM2_CHR_MASK       0x03FF
 #define OAM2_LAYER(al)      (((al) << 10) & 0x0C00)
 #define OAM2_LAYER_MASK     0xC000
-#define OAM2_PAL(ap)        (((ap) << 12) & 0xF000)
+#define OAM2_PAL(ap)        (((ap) & 0xF) * 0x1000)
 #define OAM2_PAL_MASK       0xF000

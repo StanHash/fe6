@@ -133,6 +133,8 @@ void SetOnHBlankB(Func func);
 #define TM_OFFSET(x, y) (((y) << 5) + (x))
 
 #define TILEREF(chr, pal) ((chr) + ((pal) << 12))
+#define TILE_HFLIP 0x0400
+#define TILE_VFLIP 0x0800
 
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)

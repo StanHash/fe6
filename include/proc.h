@@ -89,6 +89,15 @@ enum
     u8 proc_lockCnt; /* wait semaphore. Process execution */                               \
                      /* is blocked when this is nonzero. */                                \
 
+struct GenericProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad29[0x54 - 0x29];
+
+    /* 54 */ void* ptr;
+};
+
 #define PROC_TREE_VSYNC ((ProcPtr) 0)
 #define PROC_TREE_1     ((ProcPtr) 1)
 #define PROC_TREE_2     ((ProcPtr) 2)

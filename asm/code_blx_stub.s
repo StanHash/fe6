@@ -1,15 +1,15 @@
 
 	.include "macro.inc"
 
-	thumb_func_start sub_809FA90
-sub_809FA90: @ 0x0809FA90
+	thumb_func_start ClearOam_t
+ClearOam_t: @ 0x0809FA90
 	bx pc
 	nop
 _0809FA94:
 	.byte 0x1A, 0x82, 0xFD, 0xEA
 
-	thumb_func_start sub_809FA98
-sub_809FA98: @ 0x0809FA98
+	thumb_func_start TmApplyTsa_t
+TmApplyTsa_t: @ 0x0809FA98
 	bx pc
 	nop
 _0809FA9C:

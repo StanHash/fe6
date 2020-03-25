@@ -76,8 +76,8 @@ _080002F4:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start sub_8000304
-sub_8000304: @ 0x08000304
+	arm_func_start ClearOam
+ClearOam: @ 0x08000304
 	lsr r1, r1, #4
 	sub r1, r1, #1
 	mov r2, #0xa0
@@ -173,8 +173,8 @@ _08000434:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start sub_800043C
-sub_800043C: @ 0x0800043C
+	arm_func_start TmApplyTsa
+TmApplyTsa: @ 0x0800043C
 	push {r4, r5, r6, r7}
 	ldrb r3, [r1]
 	ldrb r4, [r1, #1]

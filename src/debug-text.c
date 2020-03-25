@@ -5,11 +5,11 @@
 
 #include "hardware.h"
 #include "move.h"
+#include "oam.h"
 #include "ramfunc.h"
+#include "sprite.h"
 
 #include "constants/video-global.h"
-
-extern u16 CONST_DATA Sprite_8x8[];
 
 extern u8 CONST_DATA Img_DebugFont[];
 
@@ -272,7 +272,7 @@ void DebugInitObj(int offset, int palid)
     offset &= 0xFFFF;
 
     sDebugOam2Chr = offset / CHR_SIZE;
-    sDebugOam2Pal = (palid & 0xF) * 0x1000;
+    sDebugOam2Pal = OAM2_PAL(palid);
 
     RegisterVramMove(Img_DebugFont, 0x10000 + offset, 0x40 * CHR_SIZE);
 

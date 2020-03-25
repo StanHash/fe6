@@ -1,13 +1,18 @@
 OUTPUT_ARCH(arm)
 
-gMPlayTable             = 0x0839946C;
-gSongTable              = 0x083994D8;
-
 Pal_SystemText = 0x08100A08;
 Pal_TalkText = 0x08100A28;
 Pal_GreenTextColors = 0x08100A68;
 
-Sprite_8x8 = 0x085C39A0;
+Tsa_Unk_08101974 = 0x08101974;
+Tsa_Unk_08101A2C = 0x08101A2C;
+
+gMPlayTable             = 0x0839946C;
+gSongTable              = 0x083994D8;
+
+ProcScr_CamMove = 0x085C5234;
+
+FaceInfoTable = 0x0866074C;
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -29,6 +34,7 @@ SECTIONS
         . = ALIGN(4); src/text.o(ewram_data);
         . = ALIGN(4); src/banim-sprite.o(ewram_data);
         . = ALIGN(4); src/sprite.o(ewram_data);
+        . = ALIGN(4); src/face.o(ewram_data);
 
         . = 0x02AA48; gPlaySt = .;
     }
@@ -66,6 +72,7 @@ SECTIONS
         . = 0x003790; IntrMainRam = .;
         . = 0x003F90; MoveFillStepRamFunc = .;
         . = 0x003FD0; gSpriteAllocIt = .;
+        . = 0x004000; gFaces = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -103,6 +110,7 @@ SECTIONS
         src/text.o(.text);
         src/banim-sprite.o(.text);
         src/sprite.o(.text);
+        src/face.o(.text);
 
         asm/code.o(.text);
 
@@ -145,6 +153,7 @@ SECTIONS
         . = ALIGN(4); src/text.o(.rodata);
         . = ALIGN(4); src/banim-sprite.o(.rodata);
         . = ALIGN(4); src/sprite.o(.rodata);
+        . = ALIGN(4); src/face.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -157,6 +166,7 @@ SECTIONS
         . = ALIGN(4); src/text.o(.data);
         . = ALIGN(4); data/data_textglyphs.o(.data);
         . = ALIGN(4); src/sprite.o(.data);
+        . = ALIGN(4); src/face.o(.data);
         . = ALIGN(4); data/data.o(.data);
     } = 0
 

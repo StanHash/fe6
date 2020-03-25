@@ -19,7 +19,7 @@ OBJCOPY := $(PREFIX)objcopy$(EXE)
 
 SHASUM := sha1sum
 
-CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
+CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -O2
 CPPFLAGS := -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I asm/include
 
@@ -51,6 +51,7 @@ src/debug-text.o:   CC1FLAGS += -O0
 src/text.o:         CC1FLAGS += -O0
 src/banim-sprite.o: CC1FLAGS += -O0
 src/sprite.o:       CC1FLAGS += -O0
+src/face.o:         CC1FLAGS += -O0
 
 src/agb_sram.o:     CC1FLAGS += -O1
 
