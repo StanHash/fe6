@@ -196,6 +196,9 @@ void SetOnHBlankB(Func func);
 #define SetBlendAlpha(ca, cb) \
     SetBlendConfig(1, (ca), (cb), 0)
 
+#define SetBlendNone() \
+    SetBlendConfig(0, 0x10, 0, 0)
+
 #define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
     *((u16*) &gDispIo.blendCt) &= 0xFFE0; \
     *((u16*) &gDispIo.blendCt) |= ((bg0) + ((bg1) << 1) + ((bg2) << 2) + ((bg3) << 3) + ((obj) << 4))

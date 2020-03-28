@@ -58,6 +58,8 @@ SECTIONS
         . = ALIGN(4); src/hardware.o(.bss);
         . = ALIGN(4); src/oam.o(.bss);
         . = ALIGN(4); src/talk.o(.bss);
+        . = ALIGN(4); src/dispos-helpers.o(.bss);
+        . = ALIGN(4); src/popup.o(.bss);
 
         . = 0x002158; src/agb_sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
@@ -124,7 +126,8 @@ SECTIONS
         src/sprite.o(.text);
         src/face.o(.text);
         src/talk.o(.text);
-        src/event-helpers.o(.text);
+        src/dispos-helpers.o(.text);
+        src/popup.o(.text);
 
         asm/code.o(.text);
 
@@ -170,6 +173,8 @@ SECTIONS
         . = ALIGN(4); src/sprite.o(.rodata);
         . = ALIGN(4); src/face.o(.rodata);
         . = ALIGN(4); src/talk.o(.rodata);
+        . = ALIGN(4); src/dispos-helpers.o(.rodata);
+        . = ALIGN(4); src/popup.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -185,7 +190,8 @@ SECTIONS
         . = ALIGN(4); src/sprite.o(.data);
         . = ALIGN(4); src/face.o(.data);
         . = ALIGN(4); src/talk.o(.data);
-        . = ALIGN(4); src/event-helpers.o(.data);
+        . = ALIGN(4); src/dispos-helpers.o(.data);
+        . = ALIGN(4); src/popup.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0
