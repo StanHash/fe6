@@ -30,8 +30,7 @@ struct DispIo
     /* 18 */ struct BgCnt bg3Ct;
     /* 1C */ struct Vec2u bgOff[4];
     /* 2C */ u8 win0_right, win0_left, win1_right, win1_left;
-    /* 30 */ u8 win0_bottom, win0_top;
-    /* 30 */ u8 win1_bottom, win1_top;
+    /* 30 */ u8 win0_bottom, win0_top, win1_bottom, win1_top;
     /* 34 */ struct WinCnt winCt;
     /* 38 */ u16 mosaic;
     /* 3A */ u8 pad3A[2];
@@ -93,7 +92,7 @@ void SetBgTilemapOffset(int bg, int offset);
 void SetBgScreenSize(int bg, int size);
 void SetBgBpp(int bg, int bpp);
 void SyncBgsAndPal(void);
-void FillTm(u16* dest, int tileref);
+void TmFill(u16* dest, int tileref);
 void SetBlankChr(int chr);
 void SetOnVBlank(Func func);
 void SetOnVMatch(Func func);
@@ -136,9 +135,77 @@ void SetOnHBlankB(Func func);
 #define TILE_HFLIP 0x0400
 #define TILE_VFLIP 0x0800
 
-#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
-#define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
-
 #define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
+
+#define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
+#define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
+
+#define SetWinEnable(win0, win1, objwin) \
+    gDispIo.dispCt.win0_on = (win0); \
+    gDispIo.dispCt.win1_on = (win1); \
+    gDispIo.dispCt.objWin_on = (objwin)
+
+#define SetWin0Box(left, top, right, bottom) \
+    gDispIo.win0_left = (left); \
+    gDispIo.win0_top = (top); \
+    gDispIo.win0_right = (right); \
+    gDispIo.win0_bottom = (bottom)
+
+#define SetWin1Box(left, top, right, bottom) \
+    gDispIo.win1_left = (left); \
+    gDispIo.win1_top = (top); \
+    gDispIo.win1_right = (right); \
+    gDispIo.win1_bottom = (bottom)
+
+#define SetWin0Layers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.winCt.win0_enableBg0 = (bg0); \
+    gDispIo.winCt.win0_enableBg1 = (bg1); \
+    gDispIo.winCt.win0_enableBg2 = (bg2); \
+    gDispIo.winCt.win0_enableBg3 = (bg3); \
+    gDispIo.winCt.win0_enableObj = (obj)
+
+#define SetWin1Layers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.winCt.win1_enableBg0 = (bg0); \
+    gDispIo.winCt.win1_enableBg1 = (bg1); \
+    gDispIo.winCt.win1_enableBg2 = (bg2); \
+    gDispIo.winCt.win1_enableBg3 = (bg3); \
+    gDispIo.winCt.win1_enableObj = (obj)
+
+#define SetWObjLayers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.winCt.wobj_enableBg0 = (bg0); \
+    gDispIo.winCt.wobj_enableBg1 = (bg1); \
+    gDispIo.winCt.wobj_enableBg2 = (bg2); \
+    gDispIo.winCt.wobj_enableBg3 = (bg3); \
+    gDispIo.winCt.wobj_enableObj = (obj)
+
+#define SetWOutLayers(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.winCt.wout_enableBg0 = (bg0); \
+    gDispIo.winCt.wout_enableBg1 = (bg1); \
+    gDispIo.winCt.wout_enableBg2 = (bg2); \
+    gDispIo.winCt.wout_enableBg3 = (bg3); \
+    gDispIo.winCt.wout_enableObj = (obj)
+
+#define SetBlendConfig(eff, ca, cb, cy) \
+    gDispIo.blendCt.effect = (eff); \
+    gDispIo.blendCoeffA = (ca); \
+    gDispIo.blendCoeffB = (cb); \
+    gDispIo.blendY = (cy)
+
+#define SetBlendAlpha(ca, cb) \
+    SetBlendConfig(1, (ca), (cb), 0)
+
+#define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
+    *((u16*) &gDispIo.blendCt) &= 0xFFE0; \
+    *((u16*) &gDispIo.blendCt) |= ((bg0) + ((bg1) << 1) + ((bg2) << 2) + ((bg3) << 3) + ((obj) << 4))
+
+#define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
+    *((u16*) &gDispIo.blendCt) &= 0xE0FF; \
+    *((u16*) &gDispIo.blendCt) |= (((bg0) << 8) + ((bg1) << 9) + ((bg2) << 10) + ((bg3) << 11) + ((obj) << 12))
+
+#define SetBlendBackdropA(enable) \
+    gDispIo.blendCt.target1_bd_on = (enable);
+
+#define SetBlendBackdropB(enable) \
+    gDispIo.blendCt.target2_bd_on = (enable);

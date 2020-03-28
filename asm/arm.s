@@ -125,8 +125,8 @@ _08000370:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start sub_80003A8
-sub_80003A8: @ 0x080003A8
+	arm_func_start TmFillRect
+TmFillRect: @ 0x080003A8
 	push {r4, r5, r6, r7}
 	mov r4, r0
 	sub r6, r2, #0

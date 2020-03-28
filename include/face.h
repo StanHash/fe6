@@ -75,6 +75,8 @@ enum { FACE_SLOT_COUNT = 4 };
 
 extern struct FaceProc* gFaces[FACE_SLOT_COUNT]; // COMMON
 
+extern struct ProcScr CONST_DATA ProcScr_Face[];
+
 struct FaceInfo const* GetFaceInfo(int fid);
 int GetFace_Unk(int fid);
 void InitFaces(void);

@@ -20,6 +20,9 @@ enum
 {
     BGPAL_DEBUGTEXT = 0,
     BGPAL_TEXT_DEFAULT = 0,
+
+    BGPAL_TALK = 2,
+    BGPAL_TALK_BUBBLE = 3,
 };
 
 enum

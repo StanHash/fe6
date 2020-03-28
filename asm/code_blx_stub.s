@@ -15,8 +15,8 @@ TmApplyTsa_t: @ 0x0809FA98
 _0809FA9C:
 	.byte 0x66, 0x82, 0xFD, 0xEA
 
-	thumb_func_start sub_809FAA0
-sub_809FAA0: @ 0x0809FAA0
+	thumb_func_start TmFillRect_t
+TmFillRect_t: @ 0x0809FAA0
 	bx pc
 	nop
 _0809FAA4:

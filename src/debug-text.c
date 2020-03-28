@@ -48,7 +48,7 @@ void DebugInitBg(int bg, int vramOffset)
 
     EnablePalSync();
 
-    FillTm(GetBgTilemap(bg), 0);
+    TmFill(GetBgTilemap(bg), 0);
 
     sDebugTextSt.bg = bg;
     sDebugTextSt.vramOffset = vramOffset;
@@ -92,7 +92,7 @@ void DebugScreenInit(void)
     sDebugTextSt.hcur = 0;
     sDebugTextSt.vcur = 0;
 
-    FillTm(gBg2Tm, 0);
+    TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
 }
 
@@ -214,7 +214,7 @@ void DebugPutScreen(void)
     u16 chr;
     int ih, iv;
 
-    FillTm(gBg2Tm, 0);
+    TmFill(gBg2Tm, 0);
 
     for (iv = 0; iv < 20; iv++)
     {

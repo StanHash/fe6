@@ -38,22 +38,24 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
 DEPS_DIR     := .dep
 
-src/irq.o:          CC1FLAGS += -O0
-src/random.o:       CC1FLAGS += -O0
-src/hardware.o:     CC1FLAGS += -O0
-src/move.o:         CC1FLAGS += -O0
-src/oam.o:          CC1FLAGS += -O0
-src/sound.o:        CC1FLAGS += -O0
-src/ramfunc.o:      CC1FLAGS += -O0
-src/proc.o:         CC1FLAGS += -O0
-src/icon.o:         CC1FLAGS += -O0
-src/debug-text.o:   CC1FLAGS += -O0
-src/text.o:         CC1FLAGS += -O0
-src/banim-sprite.o: CC1FLAGS += -O0
-src/sprite.o:       CC1FLAGS += -O0
-src/face.o:         CC1FLAGS += -O0
+src/irq.o:           CC1FLAGS += -O0
+src/random.o:        CC1FLAGS += -O0
+src/hardware.o:      CC1FLAGS += -O0
+src/move.o:          CC1FLAGS += -O0
+src/oam.o:           CC1FLAGS += -O0
+src/sound.o:         CC1FLAGS += -O0
+src/ramfunc.o:       CC1FLAGS += -O0
+src/proc.o:          CC1FLAGS += -O0
+src/icon.o:          CC1FLAGS += -O0
+src/debug-text.o:    CC1FLAGS += -O0
+src/text.o:          CC1FLAGS += -O0
+src/banim-sprite.o:  CC1FLAGS += -O0
+src/sprite.o:        CC1FLAGS += -O0
+src/face.o:          CC1FLAGS += -O0
+src/talk.o:          CC1FLAGS += -O0
+src/event-helpers.o: CC1FLAGS += -O0
 
-src/agb_sram.o:     CC1FLAGS += -O1
+src/agb_sram.o:      CC1FLAGS += -O1
 
 compare: $(ROM)
 	$(SHASUM) -c fe6.sha1

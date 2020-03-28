@@ -7,6 +7,16 @@ Pal_GreenTextColors = 0x08100A68;
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
 
+
+Img_TalkBubble = 0x082E4394;
+Pal_TalkBubble = 0x082E4630;
+
+Img_TalkBubbleOpeningA = 0x082E45E0;
+Img_TalkBubbleOpeningB = 0x082E4590;
+Img_TalkBubbleOpeningC = 0x082E453C;
+Img_TalkBubbleOpeningD = 0x082E44E0;
+Img_TalkBubbleOpeningE = 0x082E443C;
+
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
@@ -47,6 +57,7 @@ SECTIONS
         . = ALIGN(4); src/random.o(.bss);
         . = ALIGN(4); src/hardware.o(.bss);
         . = ALIGN(4); src/oam.o(.bss);
+        . = ALIGN(4); src/talk.o(.bss);
 
         . = 0x002158; src/agb_sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
@@ -73,6 +84,7 @@ SECTIONS
         . = 0x003F90; MoveFillStepRamFunc = .;
         . = 0x003FD0; gSpriteAllocIt = .;
         . = 0x004000; gFaces = .;
+        . = 0x0044B0; gActiveUnit = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -111,6 +123,8 @@ SECTIONS
         src/banim-sprite.o(.text);
         src/sprite.o(.text);
         src/face.o(.text);
+        src/talk.o(.text);
+        src/event-helpers.o(.text);
 
         asm/code.o(.text);
 
@@ -136,6 +150,7 @@ SECTIONS
 
         asm/code_blx_stub.o(.text);
 
+        /* .rodata */
         . = ALIGN(4); data/rodata_msg.o(.rodata);
         . = ALIGN(4); src/main.o(.rodata);
         . = ALIGN(4); src/irq.o(.rodata);
@@ -154,11 +169,13 @@ SECTIONS
         . = ALIGN(4); src/banim-sprite.o(.rodata);
         . = ALIGN(4); src/sprite.o(.rodata);
         . = ALIGN(4); src/face.o(.rodata);
+        . = ALIGN(4); src/talk.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
+        /* .data */
         . = ALIGN(4); src/hardware.o(.data);
         . = ALIGN(4); src/sound.o(.data);
         . = ALIGN(4); src/proc.o(.data);
@@ -167,6 +184,9 @@ SECTIONS
         . = ALIGN(4); data/data_textglyphs.o(.data);
         . = ALIGN(4); src/sprite.o(.data);
         . = ALIGN(4); src/face.o(.data);
+        . = ALIGN(4); src/talk.o(.data);
+        . = ALIGN(4); src/event-helpers.o(.data);
+
         . = ALIGN(4); data/data.o(.data);
     } = 0
 

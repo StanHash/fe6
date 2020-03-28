@@ -59,3 +59,19 @@ struct PlaySt
     u32 unk1F_2:2; // 2
     u32 unk1F_4:5; // unk
 };
+
+struct CharacterInfo
+{
+    /* 00 */ u8 pad00[1];
+};
+
+struct ClassInfo
+{
+    /* 00 */ u8 pad00[1];
+};
+
+struct Unit
+{
+    struct CharacterInfo* character;
+    struct ClassInfo* class;
+};

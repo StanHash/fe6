@@ -247,7 +247,7 @@ void SyncBgsAndPal(void)
     }
 }
 
-void FillTm(u16* dest, int tileref)
+void TmFill(u16* dest, int tileref)
 {
     tileref = tileref + (tileref << 16);
     CpuFastFill(tileref, dest, sizeof(u16) * 0x400);
@@ -420,7 +420,7 @@ void sub_8001AE4(void)
 {
     sUnk_03000014 = sUnk_03000015 = 0;
 
-    FillTm(gBg0Tm, 0);
+    TmFill(gBg0Tm, 0);
     EnableBgSync(BG0_SYNC_BIT);
 }
 
@@ -712,7 +712,7 @@ void InitBgs(u16 const* config)
         SetBgScreenSize(i, *config++);
 
         SetBgOffset(i, 0, 0);
-        FillTm(GetBgTilemap(i), 0);
+        TmFill(GetBgTilemap(i), 0);
     }
 
     sub_8015AD0();

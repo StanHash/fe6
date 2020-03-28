@@ -7,6 +7,8 @@
 
 #include "constants/video-global.h"
 
+#include "unks.h"
+
 struct SpecialCharSt
 {
     s8 color;
@@ -50,14 +52,6 @@ extern u16 CONST_DATA TextColorLut_4DEF[];
 extern u16 CONST_DATA TextColorLut_456F[];
 extern u16 CONST_DATA TextColorLut_47CF[];
 extern u16 CONST_DATA TextColorLut_InverseMask[];
-
-extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
-extern struct Glyph const* CONST_DATA TextGlyphs_System[];
-extern struct Glyph const* CONST_DATA TextGlyphs_Talk[];
-
-extern u16 CONST_DATA Pal_SystemText[];
-extern u16 CONST_DATA Pal_TalkText[];
-extern u16 CONST_DATA Pal_GreenTextColors[];
 
 struct Font EWRAM_DATA gDefaultFont = {};
 struct Font* EWRAM_DATA gActiveFont = 0;

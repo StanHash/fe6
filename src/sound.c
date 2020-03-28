@@ -3,9 +3,7 @@
 
 #include "proc.h"
 
-extern struct PlaySt gPlaySt;
-
-int sub_8013B24(int, int, int, int, int);
+#include "unks.h"
 
 struct SoundSt
 {

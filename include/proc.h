@@ -93,9 +93,23 @@ struct GenericProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x54 - 0x29];
+    /* 2C */ int x, y;
+    /* 34 */ int unk34;
+
+    /* 38 */ u8 pad38[0x52 - 0x38];
+
+    /* 52 */ u16 unk52;
 
     /* 54 */ void* ptr;
+    /* 58 */ int unk58;
+    /* 5C */ int unk5C;
+
+    /* 60 */ u8 pad60[0x64 - 0x60];
+
+    /* 64 */ short unk64;
+    /* 66 */ short unk66;
+    /* 68 */ short unk68;
+    /* 6A */ short unk6A;
 };
 
 #define PROC_TREE_VSYNC ((ProcPtr) 0)
@@ -106,6 +120,11 @@ struct GenericProc
 #define PROC_TREE_5     ((ProcPtr) 5)
 #define PROC_TREE_6     ((ProcPtr) 6)
 #define PROC_TREE_7     ((ProcPtr) 7)
+
+enum
+{
+    PROC_MARK_5 = 5,
+};
 
 extern ProcPtr gProcTreeRootArray[8];
 
