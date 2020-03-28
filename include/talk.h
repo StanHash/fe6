@@ -96,5 +96,7 @@ void SetTalkUnkStr(char const* str);
 void PrintStringToTexts(struct Text** texts, char const* str, int x, int y);
 void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent);
 void EndPutTalkSpriteText(void);
+s8 IsTalkDebugActive(void);
+void StartTalkDebug(void);
 
 extern struct TalkSt* CONST_DATA gTalkSt;

@@ -7,7 +7,7 @@
 #include "proc.h"
 #include "text.h"
 
-void sub_800CCB4(int bgflags);
+void sub_800E2CC(int arg_0);
 void sub_8011FD0(void);
 void Decompress(void const* src, void* dst);
 void SetDialogueSkipEvbit(void);
@@ -33,6 +33,9 @@ void sub_8095FC4(void);
 void sub_8095FF8(void);
 void LockGame(void);
 void UnlockGame(void);
+s8 sub_8011F70(void);
+void EndAllFaces(void);
+void sub_8011FE8(int msg);
 
 extern struct PlaySt gPlaySt;
 extern struct Unit* gActiveUnit;

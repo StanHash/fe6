@@ -8,6 +8,7 @@
 #include "oam.h"
 #include "sound.h"
 #include "proc.h"
+#include "debug-text.h"
 #include "text.h"
 #include "sprite.h"
 #include "face.h"
@@ -77,6 +78,11 @@ static void SetTalkFaceNoMouthMove(int talkFace);
 static void TalkPutSpriteText_OnIdle(struct GenericProc* proc);
 static void TalkPutSpriteText_OnEnd(struct GenericProc* proc);
 static int GetStrTalkLen(char const* str, s8 isBubbleOpen);
+static void TalkDebug_Unk_0800CA88(struct GenericProc* proc);
+static void TalkDebug_Unk_0800CAA0(struct GenericProc* proc);
+static void TalkDebug_OnInit(struct GenericProc* proc);
+static void TalkDebug_OnIdle(struct GenericProc* proc);
+static void TalkBgSync(int bgflags);
 
 #define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + gTalkSt->topTextNum) % gTalkSt->lines)
 
@@ -293,6 +299,21 @@ struct ProcScr CONST_DATA ProcScr_TalkPutSpriteText[] =
 
     PROC_REPEAT(TalkPutSpriteText_OnIdle),
 
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_TalkDebug[] =
+{
+    PROC_CALL(LockGame),
+    PROC_SLEEP(1),
+
+    PROC_CALL(TalkDebug_Unk_0800CAA0),
+    PROC_SLEEP(1),
+
+    PROC_CALL(TalkDebug_OnInit),
+    PROC_REPEAT(TalkDebug_OnIdle),
+
+    PROC_CALL(UnlockGame),
     PROC_END,
 };
 
@@ -593,7 +614,7 @@ static s8 TalkPrepNextChar(ProcPtr proc)
         PutText(TALK_TEXT_BY_LINE(gTalkSt->lineActive),
             gBg0Tm + TM_OFFSET(gTalkSt->xText, gTalkSt->yText + gTalkSt->lineActive*2));
 
-        sub_800CCB4(BG0_SYNC_BIT);
+        TalkBgSync(BG0_SYNC_BIT);
 
         gTalkSt->putLines = TRUE;
     }
@@ -1187,7 +1208,7 @@ static void TalkShiftClearAll_OnInit(struct GenericProc* proc)
     TmFillRect_t(gBg0Tm + TM_OFFSET(gTalkSt->xText, gTalkSt->yText + 4),
         gTalkSt->activeWidth-2, gTalkSt->lines*2, 0);
 
-    sub_800CCB4(BG0_SYNC_BIT);
+    TalkBgSync(BG0_SYNC_BIT);
 
     proc->unk64 = 0;
 
@@ -1231,7 +1252,7 @@ static void StartTalkChoice(struct TalkChoiceEnt const* choices, struct Text* te
 
     PutText(text, tm);
 
-    sub_800CCB4(BG0_SYNC_BIT);
+    TalkBgSync(BG0_SYNC_BIT);
 
     proc = SpawnProcLocking(ProcScr_TalkChoice, parent);
 
@@ -1295,7 +1316,7 @@ static void TalkShiftClear_OnInit(struct GenericProc* proc)
     TmFillRect_t(gBg0Tm + TM_OFFSET(gTalkSt->xText, gTalkSt->yText + 4),
         gTalkSt->activeWidth-2, gTalkSt->lines*2, 0);
 
-    sub_800CCB4(BG0_SYNC_BIT);
+    TalkBgSync(BG0_SYNC_BIT);
 
     proc->unk64 = 0;
 }
@@ -1327,7 +1348,7 @@ static void TalkShiftClear_OnIdle(struct GenericProc* proc)
         ClearText(TALK_TEXT_BY_LINE(gTalkSt->lines - 1));
         Text_SetColor(TALK_TEXT_BY_LINE(gTalkSt->lines - 1), gTalkSt->printColor);
 
-        sub_800CCB4(BG0_SYNC_BIT);
+        TalkBgSync(BG0_SYNC_BIT);
 
         Proc_Break(proc);
     }
@@ -1358,7 +1379,7 @@ void ClearTalkBubble(void)
     gTalkSt->speakTalkFace = (s8) TALK_FACE_NONE;
 
     TmFill(gBg1Tm, 0);
-    sub_800CCB4(BG1_SYNC_BIT);
+    TalkBgSync(BG1_SYNC_BIT);
 
     ClearPutTalkText();
 
@@ -1370,7 +1391,7 @@ void ClearPutTalkText(void)
     int i;
 
     TmFill(gBg0Tm, 0);
-    sub_800CCB4(BG0_SYNC_BIT);
+    TalkBgSync(BG0_SYNC_BIT);
 
     gTalkSt->lineActive = 0;
     gTalkSt->putLines = 0;
@@ -1479,7 +1500,7 @@ static void PutTalkBubble(int xAnchor, int yAnchor, int width, int height)
 
     StartOpenTalkBubble();
 
-    sub_800CCB4(BG1_SYNC_BIT);
+    TalkBgSync(BG1_SYNC_BIT);
 }
 
 static void StartOpenTalkBubble(void)
@@ -1996,4 +2017,118 @@ int GetStrTalkLen(char const* str, s8 isBubbleOpen)
 
 ret:
     return maxLineLen;
+}
+
+s8 IsTalkDebugActive(void)
+{
+    return Proc_Exists(ProcScr_TalkDebug);
+}
+
+void StartTalkDebug(void)
+{
+    SpawnProc(ProcScr_TalkDebug, PROC_TREE_3);
+}
+
+static void TalkDebug_Unk_0800CA88(struct GenericProc* proc)
+{
+    proc->unk34 = 1;
+}
+
+static void TalkDebug_Unk_0800CAA0(struct GenericProc* proc)
+{
+    sub_800E2CC(7);
+}
+
+static void TalkDebug_OnInit(struct GenericProc* proc)
+{
+    proc->x = 0;
+    TalkDebug_Unk_0800CA88(proc);
+}
+
+static void TalkDebug_OnIdle(struct GenericProc* proc)
+{
+    int msg = proc->x;
+
+    if (IsTalkLocked())
+        ResumeTalk();
+
+    if (sub_8011F70())
+        return;
+
+    if (proc->unk34 == 0)
+    {
+        DebugInitObj(-1, 9);
+        TalkDebug_Unk_0800CA88(proc);
+    }
+
+    DebugPutObjNumber(112, 100, msg, 4);
+
+    if (gKeySt->pressed & SELECT_BUTTON)
+    {
+        Proc_Break(proc);
+        return;
+    }
+
+    if (gKeySt->repeated & DPAD_UP)
+        msg++;
+
+    if (gKeySt->repeated & DPAD_DOWN)
+        msg--;
+
+    if (gKeySt->repeated & DPAD_RIGHT)
+        msg += 10;
+
+    if (gKeySt->repeated & DPAD_LEFT)
+        msg -= 10;
+
+    if (gKeySt->repeated & R_BUTTON)
+        msg += 100;
+
+    if (gKeySt->repeated & L_BUTTON)
+        msg -= 100;
+
+    if (msg < 0)
+        msg = 0;
+
+    if (msg > 0xD0D) // TODO: msgid
+        msg = 0xD0D; // TODO: msgid
+
+    if (msg != proc->x)
+    {
+        EndAllFaces();
+        EndTalk();
+
+        DebugInitObj(-1, 9);
+
+        proc->x = msg;
+
+        InitTalk(0x80, 2, TRUE);
+        StartTalkMsg(1, 1, proc->x);
+
+        SetTalkFlag(TALK_FLAG_0);
+        SetTalkFlag(TALK_FLAG_1);
+        SetTalkFlag(TALK_FLAG_NOSKIP);
+
+        SetTalkPrintDelay(-1);
+
+        TalkBgSync(BG0_SYNC_BIT);
+
+        return;
+    }
+
+    if (gKeySt->pressed & A_BUTTON)
+    {
+        EndAllFaces();
+        EndTalk();
+
+        proc->unk34 = 0;
+
+        sub_8011FE8(proc->x);
+    }
+}
+
+static void TalkBgSync(int bgflags)
+{
+    if (!CheckTalkFlag(TALK_FLAG_SPRITE))
+        EnableBgSync(bgflags);
 }
