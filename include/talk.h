@@ -32,7 +32,7 @@ enum
     TALK_FLAG_NOFAST = (1 << 3),
     TALK_FLAG_4 = (1 << 4),
     TALK_FLAG_SPRITE = (1 << 5),
-    TALK_FLAG_6 = (1 << 6),
+    TALK_FLAG_SILENT = (1 << 6),
     TALK_FLAG_7 = (1 << 7),
 };
 
@@ -50,7 +50,7 @@ struct TalkSt
     /* 0F */ s8 speakTalkFace;
     /* 10 */ u8 speakWidth;
     /* 11 */ u8 activeTalkFace;
-    /* 12 */ s8 instantPrint;
+    /* 12 */ Bool instantPrint;
     /* 13 */ s8 printDelay;
     /* 14 */ s8 printClock;
     /* 15 */ u8 putLines;
@@ -64,7 +64,7 @@ struct TalkSt
     /* 60 */ char bufUnkStr[0x20];
 };
 
-void InitTalk(int chr, int lines, s8 unpackBubble);
+void InitTalk(int chr, int lines, Bool unpackBubble);
 void InitSpriteTalk(int chr, int lines, int palid);
 void SetInitTalkTextFont(void);
 ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent);
@@ -100,3 +100,5 @@ s8 IsTalkDebugActive(void);
 void StartTalkDebug(void);
 
 extern struct TalkSt* CONST_DATA gTalkSt;
+
+extern struct ProcScr CONST_DATA ProcScr_TalkOpen[];

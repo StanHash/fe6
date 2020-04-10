@@ -126,7 +126,7 @@ void sub_800319C(int songId, int speed, struct MusicPlayerInfo* mpi)
     if (sSoundSt.songPlaying && GetCurrentMusicSong() == songId)
         return;
 
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     if (sSoundSt.songPlaying)
@@ -167,7 +167,7 @@ void sub_80032F0(int songId, int duration, struct MusicPlayerInfo* mpi)
 {
     struct MusicProc* proc;
 
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     sSoundSt.songPlaying = TRUE;
@@ -192,7 +192,7 @@ void sub_80032F0(int songId, int duration, struct MusicPlayerInfo* mpi)
 
 void sub_80033C8(int songId)
 {
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     sSoundSt.overwrittenSongId = sSoundSt.songId;
@@ -207,7 +207,7 @@ void sub_80033C8(int songId)
 
 void sub_8003434(void)
 {
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     if (sSoundSt.overwrittenSongId == 0)
@@ -224,7 +224,7 @@ void sub_8003434(void)
 
 void sub_80034B8(void)
 {
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     sSoundSt.songId = sSoundSt.overwrittenSongId;
@@ -277,7 +277,7 @@ void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi)
 {
     struct MusicProc* proc;
 
-    if (gPlaySt.unk1D_1)
+    if (gPlaySt.cfgBgmDisable)
         return;
 
     proc = SpawnProc(ProcScr_DelaySong, PROC_TREE_3);

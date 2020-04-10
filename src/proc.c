@@ -291,9 +291,9 @@ void Proc_Goto(ProcPtr proc, int label)
     struct ProcDummy* casted = proc;
     struct ProcScr const* scr;
 
-    for (scr = casted->proc_script; scr->cmdid != PROC_CMDID_END; scr++)
+    for (scr = casted->proc_script; scr->cmdid != PROC_CMD_END; scr++)
     {
-        if (scr->cmdid == PROC_CMDID_LABEL && scr->imm == label)
+        if (scr->cmdid == PROC_CMD_LABEL && scr->imm == label)
         {
             casted->proc_scrCur = scr;
             casted->proc_repeatFunc = NULL;
@@ -438,13 +438,13 @@ void Proc_ForSubtree(ProcPtr proc, ProcFunc func)
         WalkProcSubtree(casted->proc_child, func);
 }
 
-static s8 ProcCmd_End(struct ProcDummy* proc)
+static Bool ProcCmd_End(struct ProcDummy* proc)
 {
     Proc_End(proc);
     return FALSE;
 }
 
-static s8 ProcCmd_Name(struct ProcDummy* proc)
+static Bool ProcCmd_Name(struct ProcDummy* proc)
 {
     proc->proc_name = proc->proc_scrCur->ptr;
     proc->proc_scrCur++;
@@ -452,7 +452,7 @@ static s8 ProcCmd_Name(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_Call(struct ProcDummy* proc)
+static Bool ProcCmd_Call(struct ProcDummy* proc)
 {
     ProcFunc func = proc->proc_scrCur->ptr;
 
@@ -462,17 +462,17 @@ static s8 ProcCmd_Call(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_CallRet(struct ProcDummy* proc)
+static Bool ProcCmd_CallRet(struct ProcDummy* proc)
 {
-    s8(*func)(ProcPtr proc) = proc->proc_scrCur->ptr;
+    Bool(*func)(ProcPtr proc) = proc->proc_scrCur->ptr;
 
     proc->proc_scrCur++;
     return func(proc);
 }
 
-static s8 ProcCmd_CallArg(struct ProcDummy* proc)
+static Bool ProcCmd_CallArg(struct ProcDummy* proc)
 {
-    s8(*func)(short arg, ProcPtr proc);
+    Bool(*func)(short arg, ProcPtr proc);
     short arg;
 
     arg = proc->proc_scrCur->imm;
@@ -482,9 +482,9 @@ static s8 ProcCmd_CallArg(struct ProcDummy* proc)
     return func(arg, proc);
 }
 
-static s8 ProcCmd_While(struct ProcDummy* proc)
+static Bool ProcCmd_While(struct ProcDummy* proc)
 {
-    s8(*func)(ProcPtr) = proc->proc_scrCur->ptr;
+    Bool(*func)(ProcPtr) = proc->proc_scrCur->ptr;
 
     proc->proc_scrCur++;
 
@@ -497,7 +497,7 @@ static s8 ProcCmd_While(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_Repeat(struct ProcDummy* proc)
+static Bool ProcCmd_Repeat(struct ProcDummy* proc)
 {
     proc->proc_repeatFunc = proc->proc_scrCur->ptr;
     proc->proc_scrCur++;
@@ -505,7 +505,7 @@ static s8 ProcCmd_Repeat(struct ProcDummy* proc)
     return FALSE;
 }
 
-static s8 ProcCmd_SetEndFunc(struct ProcDummy* proc)
+static Bool ProcCmd_SetEndFunc(struct ProcDummy* proc)
 {
     Proc_SetEndFunc(proc, proc->proc_scrCur->ptr);
     proc->proc_scrCur++;
@@ -513,7 +513,7 @@ static s8 ProcCmd_SetEndFunc(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_SpawnChild(struct ProcDummy* proc)
+static Bool ProcCmd_SpawnChild(struct ProcDummy* proc)
 {
     SpawnProc(proc->proc_scrCur->ptr, proc);
     proc->proc_scrCur++;
@@ -521,7 +521,7 @@ static s8 ProcCmd_SpawnChild(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_SpawnLockChild(struct ProcDummy* proc)
+static Bool ProcCmd_SpawnLockChild(struct ProcDummy* proc)
 {
     SpawnProcLocking(proc->proc_scrCur->ptr, proc);
     proc->proc_scrCur++;
@@ -529,7 +529,7 @@ static s8 ProcCmd_SpawnLockChild(struct ProcDummy* proc)
     return FALSE;
 }
 
-static s8 ProcCmd_SpawnBugged(struct ProcDummy* proc)
+static Bool ProcCmd_SpawnBugged(struct ProcDummy* proc)
 {
     // It is very much bugged
     // As it uses the proc's sleep timer to choose the tree in which to put the new proc
@@ -541,7 +541,7 @@ static s8 ProcCmd_SpawnBugged(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_WhileExists(struct ProcDummy* proc)
+static Bool ProcCmd_WhileExists(struct ProcDummy* proc)
 {
     if (Proc_Exists(proc->proc_scrCur->ptr) == TRUE)
         return FALSE;
@@ -551,7 +551,7 @@ static s8 ProcCmd_WhileExists(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_EndEach(struct ProcDummy* proc)
+static Bool ProcCmd_EndEach(struct ProcDummy* proc)
 {
     Proc_EndEach(proc->proc_scrCur->ptr);
     proc->proc_scrCur++;
@@ -559,7 +559,7 @@ static s8 ProcCmd_EndEach(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_BreakEach(struct ProcDummy* proc)
+static Bool ProcCmd_BreakEach(struct ProcDummy* proc)
 {
     Proc_BreakEach(proc->proc_scrCur->ptr);
     proc->proc_scrCur++;
@@ -567,21 +567,21 @@ static s8 ProcCmd_BreakEach(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_Nop(struct ProcDummy* proc)
+static Bool ProcCmd_Nop(struct ProcDummy* proc)
 {
     proc->proc_scrCur++;
 
     return TRUE;
 }
 
-static s8 ProcCmd_GotoScript(struct ProcDummy* proc)
+static Bool ProcCmd_GotoScript(struct ProcDummy* proc)
 {
     Proc_GotoScript(proc, proc->proc_scrCur->ptr);
 
     return TRUE;
 }
 
-static s8 ProcCmd_Goto(struct ProcDummy* proc)
+static Bool ProcCmd_Goto(struct ProcDummy* proc)
 {
     Proc_Goto(proc, proc->proc_scrCur->imm);
 
@@ -596,7 +596,7 @@ static void SleepRepeatFunc(ProcPtr proc)
         Proc_Break(proc);
 }
 
-static s8 ProcCmd_Sleep(struct ProcDummy* proc)
+static Bool ProcCmd_Sleep(struct ProcDummy* proc)
 {
     if (proc->proc_scrCur->imm != 0)
     {
@@ -609,7 +609,7 @@ static s8 ProcCmd_Sleep(struct ProcDummy* proc)
     return FALSE;
 }
 
-static s8 ProcCmd_Mark(struct ProcDummy* proc)
+static Bool ProcCmd_Mark(struct ProcDummy* proc)
 {
     proc->proc_mark = proc->proc_scrCur->imm;
     proc->proc_scrCur++;
@@ -617,18 +617,18 @@ static s8 ProcCmd_Mark(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_Nop2(struct ProcDummy* proc)
+static Bool ProcCmd_Nop2(struct ProcDummy* proc)
 {
     proc->proc_scrCur++;
     return TRUE;
 }
 
-static s8 ProcCmd_Block(struct ProcDummy* proc)
+static Bool ProcCmd_Block(struct ProcDummy* proc)
 {
     return FALSE;
 }
 
-static s8 ProcCmd_EndIfDup(struct ProcDummy* proc)
+static Bool ProcCmd_EndIfDup(struct ProcDummy* proc)
 {
     struct ProcDummy* it = sProcArray;
     int i, count;
@@ -650,7 +650,7 @@ static s8 ProcCmd_EndIfDup(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_EndDups(struct ProcDummy* proc)
+static Bool ProcCmd_EndDups(struct ProcDummy* proc)
 {
     struct ProcDummy* it = sProcArray;
     int i, count;
@@ -672,14 +672,14 @@ static s8 ProcCmd_EndDups(struct ProcDummy* proc)
     return TRUE;
 }
 
-static s8 ProcCmd_Nop3(struct ProcDummy* proc)
+static Bool ProcCmd_Nop3(struct ProcDummy* proc)
 {
     proc->proc_scrCur++;
 
     return TRUE;
 }
 
-static s8 ProcCmd_SetFlag2(struct ProcDummy* proc)
+static Bool ProcCmd_SetFlag2(struct ProcDummy* proc)
 {
     proc->proc_flags |= PROC_FLAG_UNK2;
     proc->proc_scrCur++;
@@ -689,34 +689,34 @@ static s8 ProcCmd_SetFlag2(struct ProcDummy* proc)
 
 static void StepProcScr(struct ProcDummy* proc)
 {
-    static s8(*funcLut[])(struct ProcDummy*) =
+    static Bool(*funcLut[])(struct ProcDummy*) =
     {
-        [PROC_CMDID_END] = ProcCmd_End,
-        [PROC_CMDID_NAME] = ProcCmd_Name,
-        [PROC_CMDID_CALL] = ProcCmd_Call,
-        [PROC_CMDID_REPEAT] = ProcCmd_Repeat,
-        [PROC_CMDID_SET_END_FUNC] = ProcCmd_SetEndFunc,
-        [PROC_CMDID_START_CHILD] = ProcCmd_SpawnChild,
-        [PROC_CMDID_START_CHILD_BLOCKING] = ProcCmd_SpawnLockChild,
-        [PROC_CMDID_START_BUGGED] = ProcCmd_SpawnBugged,
-        [PROC_CMDID_WHILE_EXISTS] = ProcCmd_WhileExists,
-        [PROC_CMDID_END_EACH] = ProcCmd_EndEach,
-        [PROC_CMDID_BREAK_EACH] = ProcCmd_BreakEach,
-        [PROC_CMDID_LABEL] = ProcCmd_Nop,
-        [PROC_CMDID_GOTO] = ProcCmd_Goto,
-        [PROC_CMDID_GOTO_SCR] = ProcCmd_GotoScript,
-        [PROC_CMDID_SLEEP] = ProcCmd_Sleep,
-        [PROC_CMDID_MARK] = ProcCmd_Mark,
-        [PROC_CMDID_BLOCK] = ProcCmd_Block,
-        [PROC_CMDID_END_IF_DUP] = ProcCmd_EndIfDup,
-        [PROC_CMDID_SET_FLAG2] = ProcCmd_SetFlag2,
-        [PROC_CMDID_13] = ProcCmd_Nop2,
-        [PROC_CMDID_WHILE] = ProcCmd_While,
-        [PROC_CMDID_15] = ProcCmd_Nop3,
-        [PROC_CMDID_CALL_2] = ProcCmd_CallRet,
-        [PROC_CMDID_END_DUPS] = ProcCmd_EndDups,
-        [PROC_CMDID_CALL_ARG] = ProcCmd_CallArg,
-        [PROC_CMDID_19] = ProcCmd_Nop,
+        [PROC_CMD_END] = ProcCmd_End,
+        [PROC_CMD_NAME] = ProcCmd_Name,
+        [PROC_CMD_CALL] = ProcCmd_Call,
+        [PROC_CMD_REPEAT] = ProcCmd_Repeat,
+        [PROC_CMD_SET_END_FUNC] = ProcCmd_SetEndFunc,
+        [PROC_CMD_START_CHILD] = ProcCmd_SpawnChild,
+        [PROC_CMD_START_CHILD_BLOCKING] = ProcCmd_SpawnLockChild,
+        [PROC_CMD_START_BUGGED] = ProcCmd_SpawnBugged,
+        [PROC_CMD_WHILE_EXISTS] = ProcCmd_WhileExists,
+        [PROC_CMD_END_EACH] = ProcCmd_EndEach,
+        [PROC_CMD_BREAK_EACH] = ProcCmd_BreakEach,
+        [PROC_CMD_LABEL] = ProcCmd_Nop,
+        [PROC_CMD_GOTO] = ProcCmd_Goto,
+        [PROC_CMD_GOTO_SCR] = ProcCmd_GotoScript,
+        [PROC_CMD_SLEEP] = ProcCmd_Sleep,
+        [PROC_CMD_MARK] = ProcCmd_Mark,
+        [PROC_CMD_BLOCK] = ProcCmd_Block,
+        [PROC_CMD_END_IF_DUP] = ProcCmd_EndIfDup,
+        [PROC_CMD_SET_FLAG2] = ProcCmd_SetFlag2,
+        [PROC_CMD_13] = ProcCmd_Nop2,
+        [PROC_CMD_WHILE] = ProcCmd_While,
+        [PROC_CMD_15] = ProcCmd_Nop3,
+        [PROC_CMD_CALL_2] = ProcCmd_CallRet,
+        [PROC_CMD_END_DUPS] = ProcCmd_EndDups,
+        [PROC_CMD_CALL_ARG] = ProcCmd_CallArg,
+        [PROC_CMD_19] = ProcCmd_Nop,
     };
 
     if (proc->proc_script == NULL)

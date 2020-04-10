@@ -876,7 +876,7 @@ void PutSpecialChar(u16* tm, int color, int id)
 {
     int chr;
 
-    if (id == 0xFF)
+    if (id == TEXT_SPECIAL_NOTHING)
     {
         tm[0x00] = 0;
         tm[0x20] = 0;

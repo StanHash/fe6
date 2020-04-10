@@ -21,6 +21,7 @@ gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
 ProcScr_CamMove = 0x085C5234;
+ProcScr_Unk_085C8080 = 0x085C8080;
 
 FaceInfoTable = 0x0866074C;
 
@@ -46,7 +47,16 @@ SECTIONS
         . = ALIGN(4); src/sprite.o(ewram_data);
         . = ALIGN(4); src/face.o(ewram_data);
 
+        . = 0x02AA08; gBmSt = .;
         . = 0x02AA48; gPlaySt = .;
+        . = 0x02D204; gMapUnit = .;
+        . = 0x02D208; gMapTerrain = .;
+        . = 0x02D21C; gMapOther = .;
+        . = 0x032C28; gMoveScrBuf = .;
+        . = 0x039214; gBattleUnitA = .;
+        . = 0x039290; gBattleUnitB = .;
+        . = 0x039328; gBattleHitIt = .;
+        . = 0x039688; gAiDecision = .;
     }
 
     . = 0x03000000;
@@ -84,6 +94,8 @@ SECTIONS
         . = 0x003788; gOamAffinePutIt = .;
         . = 0x003790; IntrMainRam = .;
         . = 0x003F90; MoveFillStepRamFunc = .;
+        . = 0x003FA0; gEventScriptQueueIt = .;
+        . = 0x003FB0; gEventScriptQueue = .;
         . = 0x003FD0; gSpriteAllocIt = .;
         . = 0x004000; gFaces = .;
         . = 0x0044B0; gActiveUnit = .;
@@ -128,6 +140,7 @@ SECTIONS
         src/talk.o(.text);
         src/dispos-helpers.o(.text);
         src/popup.o(.text);
+        src/event.o(.text);
 
         asm/code.o(.text);
 
@@ -175,6 +188,7 @@ SECTIONS
         . = ALIGN(4); src/talk.o(.rodata);
         . = ALIGN(4); src/dispos-helpers.o(.rodata);
         . = ALIGN(4); src/popup.o(.rodata);
+        . = ALIGN(4); src/event.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -192,6 +206,7 @@ SECTIONS
         . = ALIGN(4); src/talk.o(.data);
         . = ALIGN(4); src/dispos-helpers.o(.data);
         . = ALIGN(4); src/popup.o(.data);
+        . = ALIGN(4); src/event.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

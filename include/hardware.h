@@ -142,6 +142,13 @@ void SetOnHBlankB(Func func);
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
 
+#define SetDispEnable(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.dispCt.bg0_on = (bg0); \
+    gDispIo.dispCt.bg1_on = (bg1); \
+    gDispIo.dispCt.bg2_on = (bg2); \
+    gDispIo.dispCt.bg3_on = (bg3); \
+    gDispIo.dispCt.obj_on = (obj)
+
 #define SetWinEnable(win0, win1, objwin) \
     gDispIo.dispCt.win0_on = (win0); \
     gDispIo.dispCt.win1_on = (win1); \
@@ -195,6 +202,12 @@ void SetOnHBlankB(Func func);
 
 #define SetBlendAlpha(ca, cb) \
     SetBlendConfig(1, (ca), (cb), 0)
+
+#define SetBlendBrighten(cy) \
+    SetBlendConfig(2, 0, 0, (cy))
+
+#define SetBlendDarken(cy) \
+    SetBlendConfig(3, 0, 0, (cy))
 
 #define SetBlendNone() \
     SetBlendConfig(0, 0x10, 0, 0)

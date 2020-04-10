@@ -55,6 +55,7 @@ src/face.o:           CC1FLAGS += -O0
 src/talk.o:           CC1FLAGS += -O0
 src/dispos-helpers.o: CC1FLAGS += -O0
 src/popup.o:          CC1FLAGS += -O0
+src/event.o:          CC1FLAGS += -O0
 
 src/agb_sram.o:       CC1FLAGS += -O1
 

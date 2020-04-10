@@ -411,8 +411,8 @@ _08000768:
 _08000770: .4byte 0x03004220
 _08000774: .4byte 0x030044C0
 _08000778: .4byte 0x03004010
-_0800077C: .4byte 0x0202D208
-_08000780: .4byte 0x0202D204
+_0800077C: .4byte gMapTerrain
+_08000780: .4byte gMapUnit
 
 	arm_func_start MoveFillStep
 MoveFillStep: @ 0x08000784
@@ -423,7 +423,7 @@ MoveFillStep: @ 0x08000784
 	add r1, r1, r5
 	ldrb r6, [r4, #1]
 	add r2, r2, r6
-	ldr r7, _0800077C @ =0x0202D208
+	ldr r7, _0800077C @ =gMapTerrain
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	ldrb r7, [r7, r1]
@@ -441,7 +441,7 @@ MoveFillStep: @ 0x08000784
 	ldrb r4, [r3, #8]
 	tst r4, r4
 	beq _08000810
-	ldr r7, _08000780 @ =0x0202D204
+	ldr r7, _08000780 @ =gMapUnit
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	ldrb r7, [r7, r1]

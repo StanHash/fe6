@@ -20,7 +20,7 @@ static void OnHBlankBoth(void);
 static void RefreshOnHBlank(void);
 
 static u8 sBgSyncBits;
-static s8 sPalSyncFlag;
+static Bool sPalSyncFlag;
 
 static unsigned sGameTime;
 
@@ -695,15 +695,8 @@ void InitBgs(u16 const* config)
     gDispIo.dispCt.forcedBlank = 0;
     gDispIo.dispCt.mode = 0;
 
-    gDispIo.dispCt.bg0_on = 1;
-    gDispIo.dispCt.bg1_on = 1;
-    gDispIo.dispCt.bg2_on = 1;
-    gDispIo.dispCt.bg3_on = 1;
-    gDispIo.dispCt.obj_on = 1;
-
-    gDispIo.dispCt.win0_on = 0;
-    gDispIo.dispCt.win1_on = 0;
-    gDispIo.dispCt.objWin_on = 0;
+    SetDispEnable(1, 1, 1, 1, 1);
+    SetWinEnable(0, 0, 0);
 
     for (i = 0; i < 4; i++)
     {

@@ -567,7 +567,7 @@ static void Talk_OnIdle(ProcPtr proc)
 
             gTalkSt->str = Text_DrawCharacter(TALK_TEXT_BY_LINE(gTalkSt->lineActive), gTalkSt->str);
 
-            if (!CheckTalkFlag(TALK_FLAG_6))
+            if (!CheckTalkFlag(TALK_FLAG_SILENT))
             {
                 if (CheckTalkFlag(TALK_FLAG_7))
                 {
@@ -588,7 +588,7 @@ static void Talk_OnIdle(ProcPtr proc)
     }
 }
 
-static s8 TalkPrepNextChar(ProcPtr proc)
+static Bool TalkPrepNextChar(ProcPtr proc)
 {
     if (!TalkHasCorrectBubble() && gTalkSt->activeTalkFace != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_1))
     {
@@ -625,7 +625,7 @@ static s8 TalkPrepNextChar(ProcPtr proc)
     return FALSE;
 }
 
-static s8 TalkSpritePrepNextChar(ProcPtr proc)
+static Bool TalkSpritePrepNextChar(ProcPtr proc)
 {
     if (gTalkSt->lineActive >= gTalkSt->lines)
     {
@@ -1671,7 +1671,7 @@ static void StartTalkOpen(int talkFace, ProcPtr parent)
     gTalkSt->speakWidth = gTalkSt->activeWidth;
 }
 
-static s8 TalkHasCorrectBubble(void)
+static Bool TalkHasCorrectBubble(void)
 {
     if (gTalkSt->speakTalkFace == gTalkSt->activeTalkFace && gTalkSt->speakWidth == gTalkSt->activeWidth)
         return TRUE;

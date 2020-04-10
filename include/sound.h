@@ -34,5 +34,5 @@ void sub_80034B8(void);
 void StartMusicVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
 
 #define PlaySE(id) \
-    if (!gPlaySt.unk1D_2) \
+    if (!gPlaySt.cfgSeDisable) \
         m4aSongNumStart((id))

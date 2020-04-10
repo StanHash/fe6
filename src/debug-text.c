@@ -236,7 +236,7 @@ void DebugPutScreen(void)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-s8 DebugUpdateScreen(u16 held, u16 pressed)
+Bool DebugUpdateScreen(u16 held, u16 pressed)
 {
     int top, bottom;
 
