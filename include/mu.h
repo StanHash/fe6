@@ -57,3 +57,4 @@ void MU_SetDefaultFacing_Auto(void);
 void MU_StartDeathFade(struct MuProc* mu);
 Bool MU_CanStart(void);
 void MU_EndAll(void);
+s8 MU_IsAnyActive(void);

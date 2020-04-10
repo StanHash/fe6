@@ -12,6 +12,7 @@
 #include "text.h"
 #include "sprite.h"
 #include "face.h"
+#include "event.h"
 
 #include "constants/video-global.h"
 
@@ -476,7 +477,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
 
     if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeySt->pressed & (B_BUTTON | START_BUTTON)))
     {
-        SetDialogueSkipEvbit();
+        SetEventTalkSkipped();
         SetTalkFaceNoMouthMove(gTalkSt->activeTalkFace);
 
         Proc_End(proc);
@@ -945,7 +946,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
         SetActiveTalkFace(TALK_FACE_1);
 
     if (sub_80425C4())
-        sub_8011FD0();
+        SetFightEventFaceConfig();
     else
         faceDisp |= FACE_DISP_KIND(FACE_96x80);
 
@@ -2036,7 +2037,7 @@ static void TalkDebug_Unk_0800CA88(struct GenericProc* proc)
 
 static void TalkDebug_Unk_0800CAA0(struct GenericProc* proc)
 {
-    sub_800E2CC(7);
+    DisplayBackground(BACKGROUND_7);
 }
 
 static void TalkDebug_OnInit(struct GenericProc* proc)
@@ -2052,7 +2053,7 @@ static void TalkDebug_OnIdle(struct GenericProc* proc)
     if (IsTalkLocked())
         ResumeTalk();
 
-    if (sub_8011F70())
+    if (IsEventRunning())
         return;
 
     if (proc->unk34 == 0)
@@ -2095,7 +2096,7 @@ static void TalkDebug_OnIdle(struct GenericProc* proc)
 
     if (msg != proc->x)
     {
-        EndAllFaces();
+        ClearTalk();
         EndTalk();
 
         DebugInitObj(-1, 9);
@@ -2118,12 +2119,12 @@ static void TalkDebug_OnIdle(struct GenericProc* proc)
 
     if (gKeySt->pressed & A_BUTTON)
     {
-        EndAllFaces();
+        ClearTalk();
         EndTalk();
 
         proc->unk34 = 0;
 
-        sub_8011FE8(proc->x);
+        StartTalkEvent(proc->x);
     }
 }
 

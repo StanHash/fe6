@@ -5,6 +5,7 @@
 #include "types.h"
 
 #include "hardware.h"
+#include "event.h"
 
 #include "unks.h"
 
@@ -24,7 +25,7 @@ void sub_800CCF0(struct UnitInfo const* info, ProcPtr parent)
 {
     struct Unit* unit;
 
-    if (sub_800F210(info))
+    if (UnitInfoRequiresNoMovement(info))
         return;
 
     if (info->factionId == FACTION_ID_BLUE)
@@ -36,7 +37,7 @@ void sub_800CCF0(struct UnitInfo const* info, ProcPtr parent)
         unit = LoadUnit(info);
 
     if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->factionId == FACTION_ID_RED)
-        sub_80178F4(unit, GetChapterDefinition(gPlaySt.chapter)->hardBonusLevels);
+        sub_80178F4(unit, GetChapterInfo(gPlaySt.chapter)->hardBonusLevels);
 
     sub_800CDB8(info, unit, parent);
     RefreshEntityMaps();
@@ -59,7 +60,7 @@ static void sub_800CDB8(struct UnitInfo const* info, struct Unit* unit, ProcPtr 
         RefreshSMS();
 
         if (info->xLoad != info->xMove || info->yLoad != info->yMove)
-            sub_800EEA0(parent, unit, info->xMove, info->yMove);
+            TryMoveUnitDisplayed(parent, unit, info->xMove, info->yMove);
     }
     else
     {

@@ -7,10 +7,7 @@
 #include "proc.h"
 #include "text.h"
 
-void sub_800E2CC(int arg_0);
-void sub_8011FD0(void);
 void Decompress(void const* src, void* dst);
-void SetDialogueSkipEvbit(void);
 int sub_8013B24(int, int, int, int, int);
 void sub_8013C18(char const* src, char* dst);
 void sub_8013E58(u16* tm, int tileref, int width, int height);
@@ -33,22 +30,17 @@ void sub_8095FC4(void);
 void sub_8095FF8(void);
 void LockGame(void);
 void UnlockGame(void);
-s8 sub_8011F70(void);
-void EndAllFaces(void);
-ProcPtr sub_8011FE8(int msgid);
-struct ChapterInfo const* GetChapterDefinition(int id);
+struct ChapterInfo const* GetChapterInfo(int id);
 void LoadUiFrameGraphics(void);
 char const* sub_8017130(int item);
 int sub_80172D8(int item);
 void sub_8041358(int x, int y, int width, int height, int winKind);
-s8 sub_800F210(struct UnitInfo const* info);
 struct Unit* GetUnitByCharId(int pid);
 struct Unit* GetUnit(int uid);
 struct Unit* LoadUnit(struct UnitInfo const* info);
 void sub_80178F4(struct Unit* unit, int levels);
 void RefreshEntityMaps(void);
 void RefreshSMS(void);
-s8 sub_800EEA0(ProcPtr proc, struct Unit* unit, int x, int y);
 void sub_80146F8(ProcPtr proc);
 void StartBlockingFadeOutBlack(int arg_0, ProcPtr parent);
 void StartBlockingFadeOutBlackMedium(ProcPtr parent);
@@ -108,7 +100,6 @@ void sub_8014680(int duration, ProcPtr parent);
 void sub_8014698(int duration, ProcPtr parent);
 int GetMoney(void);
 void SetMoney(int amount);
-void sub_80120D0(int given, ProcPtr parent);
 void sub_800CD98(struct UnitInfo const* info, struct Unit* unit);
 u8 GetGameLogicLock(void);
 void SetActiveUnit(struct Unit* unit);
@@ -151,6 +142,7 @@ void sub_8014768(ProcPtr proc);
 int sub_801650C(int iid);
 void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 struct UnitInfo const* sub_806B638(void);
+void sub_800CCF0(struct UnitInfo const* info, ProcPtr parent);
 
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
@@ -164,9 +156,9 @@ extern struct BattleUnit gBattleUnitB;
 extern struct BattleHit* gBattleHitIt;
 extern struct AiDecision gAiDecision;
 
-extern struct ProcScr CONST_DATA ProcScr_Unk_085C4580[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_085C4590[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_085C45A8[];
+extern struct ProcScr CONST_DATA ProcScr_EventWaitForMu[];
+extern struct ProcScr CONST_DATA ProcScr_FlashCursor[];
+extern struct ProcScr CONST_DATA ProcScr_EventCursor[];
 extern struct ProcScr CONST_DATA ProcScr_WeatherChangeFade[];
 extern struct ProcScr CONST_DATA ProcScr_WmEventShowFace[];
 extern struct ProcScr CONST_DATA ProcScr_WmEventHideFace[];

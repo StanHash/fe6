@@ -110,33 +110,6 @@ enum
     EVT_CMD_WM_MAPTEXT_REMOVE,
 };
 
-// Other constants
-
-enum
-{
-    BACKGROUND_0,
-    BACKGROUND_1,
-    BACKGROUND_2,
-    BACKGROUND_3,
-    BACKGROUND_4,
-    BACKGROUND_5,
-    BACKGROUND_6,
-    BACKGROUND_7,
-    BACKGROUND_8,
-    BACKGROUND_9,
-    BACKGROUND_10,
-    BACKGROUND_11,
-    BACKGROUND_12,
-    BACKGROUND_13,
-    BACKGROUND_14,
-    BACKGROUND_15,
-    BACKGROUND_16,
-    BACKGROUND_17,
-    BACKGROUND_18,
-    BACKGROUND_19,
-    BACKGROUND_20,
-};
-
 // Event command macros
 // u32 const EventScr_<Name>[] = { /* to be used here */ };
 
