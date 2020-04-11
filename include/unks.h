@@ -100,7 +100,6 @@ void sub_8014680(int duration, ProcPtr parent);
 void sub_8014698(int duration, ProcPtr parent);
 int GetMoney(void);
 void SetMoney(int amount);
-void sub_800CD98(struct UnitInfo const* info, struct Unit* unit);
 u8 GetGameLogicLock(void);
 void SetActiveUnit(struct Unit* unit);
 int GetItemType(int item);
@@ -142,7 +141,6 @@ void sub_8014768(ProcPtr proc);
 int sub_801650C(int iid);
 void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 struct UnitInfo const* sub_806B638(void);
-void sub_800CCF0(struct UnitInfo const* info, ProcPtr parent);
 
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;

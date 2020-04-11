@@ -4,16 +4,54 @@
 
 #include "armfunc.h"
 #include "hardware.h"
+#include "oam.h"
 #include "sound.h"
+#include "ramfunc.h"
 #include "proc.h"
+#include "icon.h"
+#include "sprite.h"
 #include "talk.h"
-#include "popup.h"
 #include "mu.h"
 
-#include "constants/terrains.h"
+#include "constants/video-global.h"
 #include "constants/video-wm.h"
+#include "constants/terrains.h"
 
 #include "unks.h"
+
+struct PopupProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ struct PopupInfo const* info;
+    /* 30 */ int clock;
+
+    /* 34 */ s8 xParam;
+    /* 35 */ s8 yParam;
+
+    /* 36 */ u8 winKind;
+
+    /* 37 */ u8 frameX;
+    /* 38 */ u8 frameY;
+
+    /* 39 */ u8 frameWidth;
+    /* 3A */ u8 frameHeight;
+
+    /* 3B */ u8 color;
+
+    /* 3C */ u8 pad3C[0x3E - 0x3C];
+
+    /* 3E */ u16 icon;
+    /* 40 */ u16 iconChr;
+    /* 42 */ u8 iconPalid;
+    /* 43 */ u8 pad43;
+    /* 44 */ u8 iconX;
+    /* 45 */ u8 pad45;
+
+    /* 46 */ u16 widthPx;
+
+    /* 48 */ u16 songPlayed;
+};
 
 enum
 {
@@ -70,6 +108,23 @@ enum
     EVENT_CMDRET_YIELD,
     EVENT_CMDRET_REPEAT,
 };
+
+static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent);
+static void FakeLoadUnit(struct UnitInfo const* info, struct Unit* unit);
+
+static int PreparePopup(struct PopupProc* proc);
+static void PutPopup(struct PopupInfo const* info, struct Text text);
+
+static void Popup_OnInit(struct PopupProc* proc);
+static void Popup_Prepare(struct PopupProc* proc);
+static void Popup_FadeBgmOut(struct PopupProc* proc);
+static void Popup_PlaySe(struct PopupProc* proc);
+static void Popup_FadeBgmIn(struct PopupProc* proc);
+static void Popup_Display(struct PopupProc* proc);
+static void Popup_WaitForEnd(struct PopupProc* proc);
+static void Popup_Clear(struct PopupProc* proc);
+
+static void PopupIconSprite_OnIdle(struct GenericProc* proc);
 
 static void Event_FadeOutOfBackgroundTalk(struct EventProc* proc);
 static void Event_FadeOutOfSkip(struct EventProc* proc);
@@ -200,9 +255,18 @@ static int EvtCmd_WmRemoveMapText(struct EventProc* proc);
 static int EvtCmd_End(struct EventProc* proc);
 static int EvtCmd_Kill(struct EventProc* proc);
 
+static int sUnk_085C3FD8 = 0;
+static int sUnk_030000F0;
+
+static struct Unit* sPopupUnit;
+static u16 sPopupItem;
+static int sPopupNumber;
+
 extern u32 const* gEventScriptQueue[]; // COMMON
 extern u8 gEventScriptQueueIt; // COMMON
 
+struct ProcScr CONST_DATA ProcScr_Popup[];
+struct ProcScr CONST_DATA ProcScr_PopupIconSprite[];
 struct ProcScr CONST_DATA ProcScr_SceneReturnFromBackgroundTalk[];
 struct ProcScr CONST_DATA ProcScr_SceneEndFade[];
 struct ProcScr CONST_DATA ProcScr_Event[];
@@ -255,6 +319,389 @@ static u32 CONST_DATA EventScr_MoneyChest[];
 
 #define EVTCMD_GET_X(script) (EVTCMD_GET_X_RAW(script) & 0x8000 ? -1 : EVTCMD_GET_X_RAW(script))
 #define EVTCMD_GET_Y(script) (EVTCMD_GET_Y_RAW(script) & 0x8000 ? -1 : EVTCMD_GET_Y_RAW(script))
+
+void sub_800CCD4(void)
+{
+    sUnk_085C3FD8++;
+}
+
+static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, ProcPtr parent);
+
+static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
+{
+    struct Unit* unit;
+
+    if (UnitInfoRequiresNoMovement(info))
+        return;
+
+    if (info->factionId == FACTION_ID_BLUE)
+        unit = GetUnitByCharId(info->pid);
+    else
+        unit = NULL;
+
+    if (!unit)
+        unit = LoadUnit(info);
+
+    if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->factionId == FACTION_ID_RED)
+        sub_80178F4(unit, GetChapterInfo(gPlaySt.chapter)->hardBonusLevels);
+
+    MoveUnitFromInfo(info, unit, parent);
+    RefreshEntityMaps();
+}
+
+static void FakeLoadUnit(struct UnitInfo const* info, struct Unit* unit)
+{
+    MoveUnitFromInfo(info, unit, NULL);
+    RefreshEntityMaps();
+}
+
+static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, ProcPtr parent)
+{
+    if (!unit)
+        return;
+
+    if (parent && !(unit->state & US_UNDER_A_ROOF))
+    {
+        TryMoveUnit(unit, info->xLoad, info->yLoad, FALSE);
+        RefreshSMS();
+
+        if (info->xLoad != info->xMove || info->yLoad != info->yMove)
+            TryMoveUnitDisplayed(parent, unit, info->xMove, info->yMove);
+    }
+    else
+    {
+        TryMoveUnit(unit, info->xMove, info->yMove, TRUE);
+        RefreshSMS();
+    }
+}
+
+Bool sub_800CE44(void)
+{
+    if (gKeySt->held & R_BUTTON)
+        return TRUE;
+
+    return FALSE;
+}
+
+Bool sub_800CE74(void)
+{
+    sUnk_030000F0 = 0;
+    return TRUE;
+}
+
+int sub_800CE90(void)
+{
+    static u8 CONST_DATA gUnk_085C3FDC[] = { 9, 27, 28, 31, 38, 1, 0 };
+
+    return gUnk_085C3FDC[sUnk_030000F0++];
+}
+
+static int PreparePopup(struct PopupProc* proc)
+{
+    int result = 0;
+
+    char buf[0x10];
+    struct PopupInfo const* it;
+
+    for (it = proc->info; it->cmd; ++it)
+    {
+        switch (it->cmd)
+        {
+
+        case POPUP_CMD_SONG:
+            proc->songPlayed = it->arg;
+            break;
+
+        case POPUP_CMD_NUMBER:
+            result += sub_8014BE4(sPopupNumber, buf)*8;
+            break;
+
+        case POPUP_CMD_ICON_ITEM:
+            proc->iconX = result;
+            proc->icon = sub_80172D8(sPopupItem);
+            ApplyIconPalette(0, proc->iconPalid);
+
+            result += 16;
+            break;
+
+        case POPUP_CMD_ICON_IKIND:
+            proc->iconX = result;
+            proc->icon = sPopupItem + 0x70; // TODO: icon constants?
+            ApplyIconPalette(1, proc->iconPalid);
+
+            result += 16;
+            break;
+
+        case POPUP_CMD_COLOR:
+            break;
+
+        case POPUP_CMD_MSG:
+            result += GetStringTextLen(MsgDecode(it->arg));
+            break;
+
+        case POPUP_CMD_STR:
+            result += GetStringTextLen((char const*) it->arg);
+            break;
+
+        case POPUP_CMD_UNIT_NAME:
+            result += GetStringTextLen(MsgDecode(sPopupUnit->person->msgName));
+            break;
+
+        case POPUP_CMD_ITEM_NAME:
+            result += GetStringTextLen(sub_8017130(sPopupItem));
+            break;
+
+        case POPUP_CMD_SPACE:
+            result += it->arg;
+            break;
+
+        default:
+            break;
+
+        }
+    }
+
+    return result;
+}
+
+static void PutPopup(struct PopupInfo const* info, struct Text text)
+{
+    char buf[0x10];
+
+    for (; info->cmd; ++info)
+    {
+        switch (info->cmd)
+        {
+
+        case POPUP_CMD_NUMBER:
+            sub_8014BE4(sPopupNumber, buf);
+            Text_DrawString(&text, buf);
+            break;
+
+        case POPUP_CMD_ICON_ITEM:
+            Text_Skip(&text, 16);
+            break;
+
+        case POPUP_CMD_ICON_IKIND:
+            Text_Skip(&text, 16);
+            break;
+
+        case POPUP_CMD_COLOR:
+            Text_SetColor(&text, info->arg);
+            break;
+
+        case POPUP_CMD_MSG:
+            Text_DrawString(&text, MsgDecode(info->arg));
+            break;
+
+        case POPUP_CMD_STR:
+            Text_DrawString(&text, (char const*) info->arg);
+            break;
+
+        case POPUP_CMD_UNIT_NAME:
+            Text_DrawString(&text, MsgDecode(sPopupUnit->person->msgName));
+            break;
+
+        case POPUP_CMD_ITEM_NAME:
+            Text_DrawString(&text, sub_8017130(sPopupItem));
+            break;
+
+        case POPUP_CMD_SPACE:
+            Text_Skip(&text, info->arg);
+            break;
+
+        default:
+            break;
+
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
+}
+
+static void Popup_OnInit(struct PopupProc* proc)
+{
+    proc->xParam = 0xFF;
+    proc->yParam = 0xFF;
+
+    proc->color = TEXT_COLOR_SYSTEM_WHITE;
+
+    proc->icon = UINT16_MAX;
+    proc->iconX = 0;
+
+    proc->songPlayed = 0;
+}
+
+static void Popup_Prepare(struct PopupProc* proc)
+{
+    InitTextFont(NULL,
+        (u8*) VRAM + GetBgChrOffset(0) + BGCHR_0_TEXT_POPUP * CHR_SIZE,
+        BGCHR_0_TEXT_POPUP, BGPAL_TEXT_DEFAULT);
+
+    ClearIcons();
+    LoadUiFrameGraphics();
+
+    SetBlendNone();
+    SetWinEnable(0, 0, 0);
+
+    proc->widthPx = PreparePopup(proc);
+}
+
+static void Popup_FadeBgmOut(struct PopupProc* proc)
+{
+    if (proc->songPlayed != 0)
+        StartMusicVolumeChange(0x100, 0x80, 16, proc);
+}
+
+static void Popup_PlaySe(struct PopupProc* proc)
+{
+    if (proc->songPlayed != 0)
+        PlaySE(proc->songPlayed);
+}
+
+static void Popup_FadeBgmIn(struct PopupProc* proc)
+{
+    if (proc->songPlayed != 0)
+        StartMusicVolumeChange(0x80, 0x100, 16, proc);
+}
+
+static void PopupIconSprite_OnIdle(struct GenericProc* proc)
+{
+    PutOamHiRam(proc->x, proc->y, Sprite_16x16, proc->unk4A);
+}
+
+static void Popup_Display(struct PopupProc* proc)
+{
+    struct GenericProc* gproc;
+
+    struct Text text;
+
+    int width;
+    int textoff;
+    int x, y;
+
+    proc->widthPx = PreparePopup(proc);
+    width = proc->widthPx >> 3;
+
+    if (proc->widthPx & 7)
+        width++;
+
+    textoff = (width*8 - proc->widthPx) >> 1;
+
+    if (proc->xParam == -1)
+        x = ((30 - width) >> 1) - 1;
+    else
+        x = proc->xParam;
+
+    if (proc->yParam == -1)
+        y = 8;
+    else
+        y = proc->yParam;
+
+    sub_8041358(x, y, width + 2, 4, proc->winKind);
+
+    proc->frameX = x;
+    proc->frameY = y;
+
+    proc->frameWidth = width + 2;
+    proc->frameHeight = 3;
+
+    proc->iconX += textoff;
+
+    InitText(&text, width);
+
+    Text_SetColor(&text, proc->color);
+    Text_SetCursor(&text, textoff);
+
+    PutPopup(proc->info, text);
+
+    if (proc->icon != UINT16_MAX)
+        PutIconObjImg(proc->icon, proc->iconChr);
+
+    PutText(&text, gBg0Tm + TM_OFFSET(x + 1, y + 1));
+
+    ResetText();
+
+    if (proc->icon != UINT16_MAX)
+    {
+        gproc = SpawnProc(ProcScr_PopupIconSprite, proc);
+
+        gproc->x = (proc->frameX+1)*8 + proc->iconX;
+        gproc->y = (proc->frameY+1)*8;
+
+        gproc->unk4A = proc->iconChr | OAM2_PAL(proc->iconPalid);
+    }
+}
+
+static void Popup_WaitForEnd(struct PopupProc* proc)
+{
+    if (proc->clock < 0)
+    {
+        if (gKeySt->pressed)
+            Proc_Break(proc);
+    }
+    else
+    {
+        if (proc->clock == 0)
+            return;
+
+        proc->clock--;
+
+        if (proc->clock == 0)
+            Proc_Break(proc);
+    }
+}
+
+static void Popup_Clear(struct PopupProc* proc)
+{
+    TmFillRect_t(gBg0Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
+    TmFillRect_t(gBg1Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
+
+    EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
+}
+
+void SetPopupUnit(struct Unit* unit)
+{
+    sPopupUnit = unit;
+}
+
+void SetPopupItem(u16 item)
+{
+    sPopupItem = item;
+}
+
+void SetPopupNumber(int number)
+{
+    sPopupNumber = number;
+}
+
+ProcPtr StartPopup(struct PopupInfo const* info, int duration, int winKind, ProcPtr parent)
+{
+    return StartPopupExt(info, duration, winKind, 0x240, 4, parent);
+}
+
+ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int winKind, int iconChr, int iconPal, ProcPtr parent)
+{
+    struct PopupProc* proc;
+
+    if (parent)
+        proc = SpawnProcLocking(ProcScr_Popup, parent);
+    else
+        proc = SpawnProc(ProcScr_Popup, PROC_TREE_3);
+
+    proc->clock = duration;
+    proc->info = info;
+    proc->winKind = winKind;
+    proc->iconChr = iconChr;
+    proc->iconPalid = iconPal + 0x10;
+
+    return proc;
+}
+
+void EndPopup(void)
+{
+    Proc_EndEach(ProcScr_Popup);
+}
 
 static void EventDisableSkip(ProcPtr proc);
 
@@ -617,10 +1064,6 @@ static void Event_WaitForFaceEnd(struct EventProc* proc)
 
     Proc_Break(proc);
 }
-
-// ===============================
-// = EVENT SCRIPT COMMANDS BEGIN =
-// ===============================
 
 static int EvtCmd_Sleep(struct EventProc* proc)
 {
@@ -1251,7 +1694,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
         {
             while (info->pid != 0)
             {
-                sub_800CCF0(info, NULL);
+                LoadUnitWrapper(info, NULL);
                 info++;
             }
 
@@ -1264,7 +1707,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
             if (!CanDisplayUnitMovement(proc, info->xLoad, info->yLoad))
                 break;
 
-            sub_800CCF0(info, proc);
+            LoadUnitWrapper(info, proc);
         }
 
         info++;
@@ -1328,7 +1771,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
         unit = GetUnit(id);
         id++;
 
-        sub_800CD98(info, unit);
+        FakeLoadUnit(info, unit);
 
         info++;
     }
@@ -3282,6 +3725,32 @@ void sub_80127B0(void)
 {
     m4aMPlayFadeIn(&gMpi_030062E0, 2);
 }
+
+struct ProcScr CONST_DATA ProcScr_Popup[] =
+{
+    PROC_SET_END_FUNC(Popup_Clear),
+
+    PROC_CALL(Popup_OnInit),
+    PROC_SLEEP(10),
+
+    PROC_CALL(Popup_Prepare),
+    PROC_CALL(Popup_FadeBgmOut),
+    PROC_SLEEP(0),
+
+    PROC_CALL(Popup_PlaySe),
+    PROC_CALL(Popup_Display),
+    PROC_REPEAT(Popup_WaitForEnd),
+
+    PROC_CALL(Popup_FadeBgmIn),
+    PROC_SLEEP(0),
+
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_PopupIconSprite[] =
+{
+    PROC_REPEAT(PopupIconSprite_OnIdle),
+};
 
 struct ProcScr CONST_DATA ProcScr_SceneReturnFromBackgroundTalk[] =
 {
