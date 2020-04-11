@@ -15,6 +15,7 @@
 
 #include "constants/video-global.h"
 #include "constants/video-wm.h"
+#include "constants/video-banim.h"
 #include "constants/terrains.h"
 
 #include "unks.h"
@@ -3997,10 +3998,10 @@ struct ProcScr CONST_DATA ProcScr_WeatherChangeFade[] =
 
 static struct FaceVramEnt CONST_DATA gWmEventFaceConfig[] =
 {
-    { CHR_SIZE * 0x200, 14 },
-    { CHR_SIZE * 0x288, 15 },
-    { CHR_SIZE * 0x200, 14 },
-    { CHR_SIZE * 0x288, 15 },
+    { CHR_SIZE * OBJCHR_WM_FACE_A, OBJPAL_WM_FACE_A },
+    { CHR_SIZE * OBJCHR_WM_FACE_B, OBJPAL_WM_FACE_B },
+    { CHR_SIZE * OBJCHR_WM_FACE_A, OBJPAL_WM_FACE_A },
+    { CHR_SIZE * OBJCHR_WM_FACE_B, OBJPAL_WM_FACE_B },
 };
 
 struct ProcScr CONST_DATA ProcScr_WmEventShowFace[] =
@@ -4039,10 +4040,10 @@ struct ProcScr CONST_DATA ProcScr_WmEventMoveFace[] =
 
 static struct FaceVramEnt CONST_DATA gFightEventFaceConfig[] =
 {
-    { CHR_SIZE * 0x40, 3 },
-    { CHR_SIZE * 0x40, 3 },
-    { CHR_SIZE * 0x40, 3 },
-    { CHR_SIZE * 0x40, 3 },
+    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
+    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
+    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
+    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
 };
 
 u32 CONST_DATA EventScr_AutoTalk[] =
