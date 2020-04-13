@@ -12,6 +12,7 @@
 #include "icon.h"
 #include "sprite.h"
 #include "talk.h"
+#include "game-controller.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2554,7 +2555,7 @@ static int EvtCmd_NextChapter(struct EventProc* proc)
 {
     MU_EndAll();
 
-    SetNextChapterId(proc->script[0]);
+    SetNextChapter(proc->script[0]);
     SetNextGameAction(GAME_ACTION_1);
 
     proc->flags |= EVENT_FLAG_ENDMAPMAIN;

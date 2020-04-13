@@ -9,14 +9,11 @@
 #include "ramfunc.h"
 #include "proc.h"
 #include "anim.h"
+#include "game-controller.h"
 
 void sub_805F7E4(void);
 void sub_80841FC(void);
 void sub_808439C(void);
-
-void StartGameControl(void);
-
-void sub_80158C0(void);
 
 s8 LoadGeneralGameMetadata(void* buf);
 
@@ -69,7 +66,7 @@ NAKEDFUNC void AgbMain(void)
     m4aSoundInit();
     SetOnVBlank(sub_80158C0);
 
-    StartGameControl();
+    StartGame();
 
     while (TRUE)
     {

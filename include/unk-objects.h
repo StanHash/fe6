@@ -46,6 +46,9 @@ extern u8 const Tsa_Unk_08101A2C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_085C8080[];
 extern struct ProcScr CONST_DATA ProcScr_CamMove[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
+extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];

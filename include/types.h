@@ -34,12 +34,6 @@ enum
 
 enum
 {
-    GAME_ACTION_1 = 1,
-    GAME_ACTION_2,
-};
-
-enum
-{
     BM_FLAG_0 = (1 << 0),
     BM_FLAG_1 = (1 << 1),
     BM_FLAG_2 = (1 << 2),
@@ -121,26 +115,26 @@ struct PlaySt
 
     // option bits
     u32 unk1C_1:1; // 1
-    u32 unk1C_2:1; // 1
-    u32 unk1C_3:2; // 2
-    u32 unk1C_5:1; // 1
+    u32 unk1C_2:1; // 
+    u32 unk1C_3:2; // 
+    u32 unk1C_5:1; // 
     u32 cfgTextSpeed:2;
-    u32 unk1C_8:1; // 1
-    u32 cfgBgmDisable:1; // 1
-    u32 cfgSeDisable:1; // 1
+    u32 unk1C_8:1;
+    u32 cfgBgmDisable:1;
+    u32 cfgSeDisable:1;
     u32 cfgWindowColor:2;
-    u32 unk1D_5:1; // 1
-    u32 unk1D_6:1; // unk
-    u32 unk1D_7:1; // 1
-    u32 unk1D_8:1; // 1
-    u32 unk1E_1:1; // unk
-    u32 unk1E_2:2; // 2
-    u32 unk1E_4:2; // 2
-    u32 unk1E_6:1; // 1
-    u32 unk1E_7:1; // unk
-    u32 unk1E_8:2; // 2 (!)
-    u32 unk1F_2:2; // 2
-    u32 unk1F_4:5; // unk
+    u32 unk1D_5:1; // 
+    u32 unk1D_6:1; // 
+    u32 unk1D_7:1; // 
+    u32 unk1D_8:1; // 
+    u32 unk1E_1:2; // 2
+    u32 unk1E_3:1; // 
+    u32 unk1E_4:2; // 
+    u32 unk1E_6:1; // 
+    u32 unk1E_7:1; // 
+    u32 unk1E_8:2; // 
+    u32 unk1F_2:2; // 
+    u32 unk1F_4:5; // 
 };
 
 struct PersonInfo
@@ -312,6 +306,19 @@ struct ChapterInfo
     /* 11 */ u8 weather;
     /* 12 */ u8 banimGroundId;
     /* 13 */ u8 hardBonusLevels;
+
+    /* 14 */ u8 songBlueBgm;
+    /* 15 */ u8 songRedBgm;
+    /* 16 */ u8 songGreenBgm;
+    /* 17 */ u8 songIntroBgm;
+    /* 18 */ u8 songOpeningBgm;
+
+    /* 19 */ u8 wallHp;
+    /* 1A */ u8 classRollSet;
+
+    /* 1B */ u8 pad19[0x3E - 0x1B];
+
+    /* 3E */ u8 numberId;
 };
 
 struct UnitInfo
@@ -417,4 +424,13 @@ struct AiDecision
     /* 09 */ u8 yTarget;
 
     /* 0A */ Bool actionPerformed;
+};
+
+enum
+{
+    SAVE_ID_GAME0,
+    SAVE_ID_GAME1,
+    SAVE_ID_GAME2,
+    SAVE_ID_SUSPEND0,
+    SAVE_ID_SUSPEND1,
 };

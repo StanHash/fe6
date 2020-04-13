@@ -7,7 +7,6 @@ Pal_GreenTextColors = 0x08100A68;
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
 
-
 Img_TalkBubble = 0x082E4394;
 Pal_TalkBubble = 0x082E4630;
 
@@ -22,6 +21,9 @@ gSongTable              = 0x083994D8;
 
 ProcScr_CamMove = 0x085C5234;
 ProcScr_Unk_085C8080 = 0x085C8080;
+ProcScr_OpeningSequence = 0x0869150C;
+ProcScr_Unk_08691480 = 0x08691480;
+ProcScr_Unk_0868C304 = 0x0868C304;
 
 FaceInfoTable = 0x0866074C;
 
@@ -140,6 +142,7 @@ SECTIONS
         src/talk.o(.text);
         src/event.o(.text);
         src/anim.o(.text);
+        src/game-controller.o(.text);
 
         asm/code.o(.text);
 
@@ -187,6 +190,7 @@ SECTIONS
         . = ALIGN(4); src/talk.o(.rodata);
         . = ALIGN(4); src/event.o(.rodata);
         . = ALIGN(4); src/anim.o(.rodata);
+        . = ALIGN(4); src/game-controller.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
@@ -204,6 +208,7 @@ SECTIONS
         . = ALIGN(4); src/talk.o(.data);
         . = ALIGN(4); src/event.o(.data);
         . = ALIGN(4); src/anim.o(.data);
+        . = ALIGN(4); src/game-controller.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

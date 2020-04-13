@@ -6,35 +6,6 @@
 
 #include "proc.h"
 
-// sub_8013304
-// sub_8013388
-// sub_80133FC
-// sub_8013428
-// sub_8013468
-// sub_801348C
-// sub_80134EC
-// sub_8013510
-// sub_8013554
-// sub_80135C8
-// GameControl_MasterSwitch
-// sub_801368C
-// sub_80136DC
-// sub_80136F8
-// sub_8013710
-// sub_8013754
-// sub_8013788
-// sub_80137C4
-// sub_8013800
-// sub_8013838
-// StartGameControl
-// GetGameControl
-void SetNextGameAction(int action);
-void SetNextChapterId(int chapter);
-// sub_80139B4
-// ProcEnd
-// sub_8013A0C
-// GameControl_EnableSound
-// sub_8013A64
 char* MsgDecode(int msg);
 int sub_8013B24(int, int, int, int, int);
 // nullsub_12
@@ -90,10 +61,10 @@ void StartBlockingFadeInBlack(int duration, ProcPtr parent);
 void StartBlockingFadeOutBlack(int arg_0, ProcPtr parent);
 void sub_8014680(int duration, ProcPtr parent);
 void sub_8014698(int duration, ProcPtr parent);
-// sub_80146B0
+void sub_80146B0(ProcPtr parent);
 // sub_80146BC
 // sub_80146C8
-// sub_80146D4
+void sub_80146D4(ProcPtr parent);
 // sub_80146E0
 // sub_80146EC
 void sub_80146F8(ProcPtr proc);
@@ -191,8 +162,8 @@ void sub_80151A8(Func func, int time);
 // sub_801585C
 // sub_8015880
 // sub_80158B8
-// sub_80158C0
-// sub_8015910
+void sub_80158C0(void);
+void sub_8015910(void);
 void LockGame(void);
 void UnlockGame(void);
 u8 GetGameLogicLock(void);
@@ -288,7 +259,7 @@ int sub_80172D8(int item);
 // sub_8017320
 // sub_8017334
 // sub_8017358
-// sub_8017364
+void sub_8017364(void);
 void ClearUnit(struct Unit* unit);
 // CopyUnit
 // GetFreeUnitByFaction
@@ -1101,11 +1072,11 @@ void UnlockBattleMapDisplay(void);
 void sub_8028E80(int weather);
 int sub_8028E98(void);
 // sub_8028EC0
-// sub_8028EF0
+void sub_8028EF0(int bool_hardMode);
 // sub_8028F94
-// StartChapter
+void StartChapter(ProcPtr parent);
 void sub_8029084(void);
-// sub_8029128
+void sub_8029128(ProcPtr parent);
 // sub_8029240
 // sub_80292B8
 void sub_80292DC(void);
@@ -1117,7 +1088,7 @@ void sub_8029370(void);
 // sub_8029560
 // sub_802959C
 // sub_8029618
-// sub_8029654
+void sub_8029654(void);
 // sub_8029684
 // sub_802968C
 // sub_80296B0
@@ -1744,7 +1715,7 @@ Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec
 // sub_803B830
 // sub_803B93C
 // sub_803B9F0
-// sub_803BA64
+void sub_803BA64(ProcPtr parent);
 // sub_803BAE0
 // sub_803BBF8
 // sub_803BC18
@@ -1763,7 +1734,7 @@ Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec
 // sub_803C02C
 // sub_803C044
 // sub_803C060
-// sub_803C080
+void sub_803C080(ProcPtr parent);
 // sub_803C094
 // sub_803C144
 // sub_803C1A4
@@ -3540,11 +3511,11 @@ struct UnitInfo const* sub_806B638(void);
 // sub_806B8C8
 // CheckChapterEid
 // sub_806B938
-// sub_806B970
+void sub_806B970(void);
 // sub_806B984
 // CheckGlobalEid
 // sub_806B9F8
-// sub_806BA34
+void sub_806BA34(void);
 void SetEid(int flag);
 Bool CheckFlag(int flagId);
 void ClearEid(int flag);
@@ -3753,7 +3724,7 @@ void ClearEid(int flag);
 // sub_806DAC0
 // sub_806DAD0
 // sub_806DAF0
-// sub_806DB00
+void sub_806DB00(int arg_0);
 // sub_806DB2C
 // sub_806DB38
 // sub_806DB58
@@ -3800,7 +3771,7 @@ void ClearEid(int flag);
 // sub_806E278
 // UpdateEndingId
 // GetEndingId
-// StartGameEndingScene
+void StartGameEndingScene(ProcPtr parent);
 // sub_806E32C
 // sub_806E36C
 // sub_806E430
@@ -3823,8 +3794,8 @@ void ClearEid(int flag);
 // sub_806E998
 // sub_806E9E0
 // sub_806E9E8
-// sub_806EA24
-// sub_806EABC
+void sub_806EA24(ProcPtr parent, u8* vram, int pal);
+void sub_806EABC(void);
 // sub_806EACC
 // sub_806EAD8
 // sub_806EAE4
@@ -4312,7 +4283,7 @@ void ClearEid(int flag);
 // sub_808474C
 // sub_808475C
 // sub_8084798
-// sub_8084818
+void sub_8084818(void);
 // sub_808483C
 // sub_8084868
 // sub_8084884
@@ -4320,7 +4291,7 @@ void ClearEid(int flag);
 // sub_80848BC
 // sub_80848C8
 // sub_80848DC
-// sub_8084908
+void sub_8084908(struct PlaySt* playSt);
 // sub_808495C
 // sub_80849BC
 // sub_8084A10
@@ -4349,12 +4320,12 @@ void ClearEid(int flag);
 // sub_808505C
 // sub_8085110
 // sub_80851B4
-// sub_808525C
-// sub_8085270
+s8 sub_808525C(int saveId);
+void sub_8085270(int saveId, struct PlaySt* out);
 // sub_8085290
 // sub_80852C4
 // sub_80855C4
-// sub_8085788
+void sub_8085788(int saveId);
 // sub_80857B0
 // sub_80858E4
 // sub_80859E0
@@ -4397,7 +4368,7 @@ void ClearEid(int flag);
 // sub_80867F0
 // sub_80867FC
 // sub_8086910
-// LoadTrialMapBonusUnits
+void LoadTrialMapBonusUnits(void);
 // sub_8086AAC
 // sub_8086B00
 // sub_8086B54
@@ -4457,8 +4428,8 @@ void ClearEid(int flag);
 // sub_80890D0
 // sub_8089180
 // sub_80891DC
-// sub_8089200
-// sub_8089234
+void sub_8089200(ProcPtr proc);
+void sub_8089234(ProcPtr parent);
 // sub_8089254
 // sub_808927C
 // sub_8089310
@@ -4662,7 +4633,7 @@ void ClearEid(int flag);
 // sub_808FA14
 // sub_808FD14
 // sub_808FD44
-// sub_808FD6C
+void sub_808FD6C(ProcPtr parent);
 // sub_808FD94
 // sub_808FDE8
 // sub_808FE3C
@@ -4839,7 +4810,7 @@ void sub_8094030(int arg_0, int arg_1, int arg_2, ProcPtr proc);
 // sub_80947AC
 // sub_80947B8
 // sub_80947DC
-// sub_80947F0
+void sub_80947F0(u8 arg_0, ProcPtr parent);
 // sub_809480C
 // sub_809485C
 // sub_8094878
