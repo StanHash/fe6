@@ -6,7 +6,6 @@
 
 #include "proc.h"
 
-char* MsgDecode(int msg);
 int sub_8013B24(int, int, int, int, int);
 // nullsub_12
 // sub_8013BF0

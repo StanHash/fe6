@@ -14,6 +14,7 @@
 #include "sprite.h"
 #include "face.h"
 #include "event.h"
+#include "msg.h"
 
 #include "constants/video-global.h"
 
@@ -409,12 +410,12 @@ ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent)
 
 ProcPtr StartTalkMsg(int x, int y, int msg)
 {
-    return StartTalkExt(x, y, MsgDecode(msg), NULL);
+    return StartTalkExt(x, y, DecodeMsg(msg), NULL);
 }
 
 ProcPtr StartTalkMsgExt(int x, int y, int msg, ProcPtr parent)
 {
-    return StartTalkExt(x, y, MsgDecode(msg), parent);
+    return StartTalkExt(x, y, DecodeMsg(msg), parent);
 }
 
 ProcPtr StartTalk(int x, int y, char const* str)
@@ -1247,8 +1248,8 @@ static void StartTalkChoice(struct TalkChoiceEnt const* choices, struct Text* te
 
     int x = Text_GetCursor(text) + 16;
 
-    Text_InsertDrawString(text, x,      color, MsgDecode(choices[0].msg));
-    Text_InsertDrawString(text, x + 40, color, MsgDecode(choices[1].msg));
+    Text_InsertDrawString(text, x,      color, DecodeMsg(choices[0].msg));
+    Text_InsertDrawString(text, x + 40, color, DecodeMsg(choices[1].msg));
 
     PutText(text, tm);
 

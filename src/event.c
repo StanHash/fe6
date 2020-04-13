@@ -13,6 +13,7 @@
 #include "sprite.h"
 #include "talk.h"
 #include "game-controller.h"
+#include "msg.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -437,7 +438,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_MSG:
-            result += GetStringTextLen(MsgDecode(it->arg));
+            result += GetStringTextLen(DecodeMsg(it->arg));
             break;
 
         case POPUP_CMD_STR:
@@ -445,7 +446,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_UNIT_NAME:
-            result += GetStringTextLen(MsgDecode(sPopupUnit->person->msgName));
+            result += GetStringTextLen(DecodeMsg(sPopupUnit->person->msgName));
             break;
 
         case POPUP_CMD_ITEM_NAME:
@@ -492,7 +493,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
             break;
 
         case POPUP_CMD_MSG:
-            Text_DrawString(&text, MsgDecode(info->arg));
+            Text_DrawString(&text, DecodeMsg(info->arg));
             break;
 
         case POPUP_CMD_STR:
@@ -500,7 +501,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
             break;
 
         case POPUP_CMD_UNIT_NAME:
-            Text_DrawString(&text, MsgDecode(sPopupUnit->person->msgName));
+            Text_DrawString(&text, DecodeMsg(sPopupUnit->person->msgName));
             break;
 
         case POPUP_CMD_ITEM_NAME:
