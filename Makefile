@@ -54,6 +54,7 @@ src/sprite.o:         CC1FLAGS += -O0
 src/face.o:           CC1FLAGS += -O0
 src/talk.o:           CC1FLAGS += -O0
 src/event.o:          CC1FLAGS += -O0
+src/anim.o:           CC1FLAGS += -O0
 
 src/agb_sram.o:       CC1FLAGS += -O1
 

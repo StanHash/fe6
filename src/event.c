@@ -3729,7 +3729,7 @@ void sub_80127B0(void)
 
 struct ProcScr CONST_DATA ProcScr_Popup[] =
 {
-    PROC_SET_END_FUNC(Popup_Clear),
+    PROC_ONEND(Popup_Clear),
 
     PROC_CALL(Popup_OnInit),
     PROC_SLEEP(10),
@@ -3780,7 +3780,7 @@ struct ProcScr CONST_DATA ProcScr_SceneEndFade[] =
 struct ProcScr CONST_DATA ProcScr_Event[] =
 {
     PROC_MARK(PROC_MARK_6),
-    PROC_SET_END_FUNC(Event_OnEnd),
+    PROC_ONEND(Event_OnEnd),
 
     PROC_CALL(Event_OnInit),
 
@@ -4018,7 +4018,7 @@ struct ProcScr CONST_DATA ProcScr_WmEventShowFace[] =
 struct ProcScr CONST_DATA ProcScr_WmEventHideFace[] =
 {
     PROC_MARK(PROC_MARK_8),
-    PROC_SET_END_FUNC(WmRemoveFace_OnEnd),
+    PROC_ONEND(WmRemoveFace_OnEnd),
     PROC_SLEEP(0),
 
     PROC_CALL(WmRemoveFace_OnInit),

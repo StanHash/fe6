@@ -8,8 +8,8 @@
 #include "hardware.h"
 #include "ramfunc.h"
 #include "proc.h"
+#include "anim.h"
 
-void sub_80127C8(void);
 void sub_805F7E4(void);
 void sub_80841FC(void);
 void sub_808439C(void);
@@ -57,7 +57,7 @@ NAKEDFUNC void AgbMain(void)
     InitRamFuncs();
     sub_80841FC();
     InitProcs();
-    sub_80127C8();
+    InitAnims();
     sub_805F7E4();
 
     RandInitB(0x42D690E9);

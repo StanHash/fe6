@@ -141,6 +141,7 @@ void sub_8014768(ProcPtr proc);
 int sub_801650C(int iid);
 void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 struct UnitInfo const* sub_806B638(void);
+void sub_8013D48(u8 const* img, u8* vram, int width, int height);
 
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;

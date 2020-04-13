@@ -24,7 +24,7 @@ extern u16 CONST_DATA Sprite_8x8_VFlipped[];
 extern u16 CONST_DATA Sprite_8x8_HFlipped_VFlipped[];
 extern u16 CONST_DATA Sprite_16x16_VFlipped[];
 
-void PutObjectAffine(int id, int pa, int pb, int pc, int pd);
+void PutSpriteAffine(int id, short pa, short pb, short pc, short pd);
 void ClearSprites(void);
 void PutSprite(int layer, int x, int y, const u16* object, int oam2);
 void PutSpriteExt(int layer, int xOam1, int yOam0, const u16* object, int oam2);

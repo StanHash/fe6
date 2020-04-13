@@ -105,7 +105,7 @@ struct ProcScr CONST_DATA ProcScr_TalkSkipListener[] =
 struct ProcScr CONST_DATA ProcScr_Talk[] =
 {
     PROC_MARK(PROC_MARK_5),
-    PROC_SET_END_FUNC(Talk_OnEnd),
+    PROC_ONEND(Talk_OnEnd),
 
     PROC_SLEEP(1),
 
@@ -256,7 +256,7 @@ struct ProcScr CONST_DATA ProcScr_TalkOpenBubble[] =
 struct ProcScr CONST_DATA ProcScr_TalkOpen[] =
 {
     PROC_MARK(PROC_MARK_5),
-    PROC_SET_END_FUNC(TalkOpen_OnEnd),
+    PROC_ONEND(TalkOpen_OnEnd),
 
     PROC_CALL(TalkOpen_InitBlend),
     PROC_REPEAT(TalkOpen_PutTalkBubble),
@@ -296,7 +296,7 @@ u16 CONST_DATA Sprite_TalkTextBack[] =
 
 struct ProcScr CONST_DATA ProcScr_TalkPutSpriteText[] =
 {
-    PROC_SET_END_FUNC(TalkPutSpriteText_OnEnd),
+    PROC_ONEND(TalkPutSpriteText_OnEnd),
 
     PROC_REPEAT(TalkPutSpriteText_OnIdle),
 

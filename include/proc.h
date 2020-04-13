@@ -20,7 +20,7 @@ enum
     PROC_CMD_NAME,
     PROC_CMD_CALL,
     PROC_CMD_REPEAT,
-    PROC_CMD_SET_END_FUNC,
+    PROC_CMD_ONEND,
     PROC_CMD_START_CHILD,
     PROC_CMD_START_CHILD_BLOCKING,
     PROC_CMD_START_BUGGED,
@@ -48,7 +48,7 @@ enum
 #define PROC_NAME(nameStr)                { PROC_CMD_NAME, 0, (nameStr) }
 #define PROC_CALL(func)                   { PROC_CMD_CALL, 0, (func) }
 #define PROC_REPEAT(func)                 { PROC_CMD_REPEAT, 0, (func) }
-#define PROC_SET_END_FUNC(func)           { PROC_CMD_SET_END_FUNC, 0, (func) }
+#define PROC_ONEND(func)                  { PROC_CMD_ONEND, 0, (func) }
 #define PROC_START_CHILD(procScr)         { PROC_CMD_START_CHILD, 0, (procScr) }
 #define PROC_START_CHILD_LOCKING(procScr) { PROC_CMD_START_CHILD_BLOCKING, 1, (procScr) }
 #define PROC_START_BUGGED(procScr)        { PROC_CMD_START_BUGGED, 0, (procScr) }

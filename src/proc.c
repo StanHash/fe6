@@ -695,7 +695,7 @@ static void StepProcScr(struct ProcDummy* proc)
         [PROC_CMD_NAME] = ProcCmd_Name,
         [PROC_CMD_CALL] = ProcCmd_Call,
         [PROC_CMD_REPEAT] = ProcCmd_Repeat,
-        [PROC_CMD_SET_END_FUNC] = ProcCmd_SetEndFunc,
+        [PROC_CMD_ONEND] = ProcCmd_SetEndFunc,
         [PROC_CMD_START_CHILD] = ProcCmd_SpawnChild,
         [PROC_CMD_START_CHILD_BLOCKING] = ProcCmd_SpawnLockChild,
         [PROC_CMD_START_BUGGED] = ProcCmd_SpawnBugged,

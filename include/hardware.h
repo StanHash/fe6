@@ -73,6 +73,8 @@ extern struct KeySt* CONST_DATA gKeySt;
 
 extern struct DispIo gDispIo;
 
+extern short const gSinLut[];
+
 unsigned GetGameTime(void);
 void SetGameTime(unsigned time);
 void IncGameTime(void);
@@ -138,6 +140,9 @@ void SetOnHBlankB(Func func);
 #define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)
+
+#define SIN_Q12(angle) (gSinLut[(angle) & 0xFF])
+#define COS_Q12(angle) (gSinLut[0x40 + ((angle) & 0xFF)])
 
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)

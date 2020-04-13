@@ -1,6 +1,8 @@
 
 #include "gba/gba.h"
 
+#include "hardware.h"
+
 struct UnkSprite
 {
     /* 00 */ int oam01;
@@ -71,3 +73,10 @@ extern u16 gOamAffinePutId;
 #define OAM2_LAYER_MASK     0xC000
 #define OAM2_PAL(ap)        (((ap) & 0xF) * 0x1000)
 #define OAM2_PAL_MASK       0xF000
+
+#define SetObjAffineAuto(id, angle, xScale, yScale) \
+    SetObjAffine(id, \
+        Div(+COS_Q12(angle) << 4, xScale), \
+        Div(-SIN_Q12(angle) << 4, yScale), \
+        Div(+SIN_Q12(angle) << 4, xScale), \
+        Div(+COS_Q12(angle) << 4, yScale))
