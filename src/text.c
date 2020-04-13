@@ -1,4 +1,5 @@
 
+#include "common.h"
 #include "text.h"
 
 #include "hardware.h"
@@ -6,8 +7,6 @@
 #include "proc.h"
 
 #include "constants/video-global.h"
-
-#include "unks.h"
 
 struct SpecialCharSt
 {

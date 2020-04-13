@@ -1,12 +1,10 @@
 
 #pragma once
 
-#include "gba/gba.h"
-#include "types.h"
+#include "common.h"
+#include "proc.h"
 
 #include "m4a.h"
-
-#include "proc.h"
 
 extern struct MusicPlayerInfo gMpi_03006530;
 extern struct MusicPlayerInfo gMpi_03006600;

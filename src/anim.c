@@ -1,11 +1,10 @@
 
+#include "common.h"
 #include "anim.h"
 
 #include "hardware.h"
 #include "oam.h"
 #include "sprite.h"
-
-#include "unks.h"
 
 enum { ANIM_COUNT = 20 };
 

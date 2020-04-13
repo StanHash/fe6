@@ -1,4 +1,5 @@
 
+#include "common.h"
 #include "event.h"
 #include "event-script.h"
 
@@ -17,8 +18,6 @@
 #include "constants/video-wm.h"
 #include "constants/video-banim.h"
 #include "constants/terrains.h"
-
-#include "unks.h"
 
 struct PopupProc
 {

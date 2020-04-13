@@ -1,9 +1,8 @@
 
+#include "common.h"
 #include "sound.h"
 
 #include "proc.h"
-
-#include "unks.h"
 
 struct SoundSt
 {

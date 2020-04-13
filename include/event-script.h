@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "gba/gba.h"
-#include "types.h"
+#include "common.h"
 
 // Event command ids
 

@@ -1,4 +1,5 @@
 
+#include "common.h"
 #include "talk.h"
 
 #include <string.h>
@@ -15,8 +16,6 @@
 #include "event.h"
 
 #include "constants/video-global.h"
-
-#include "unks.h"
 
 struct TalkChoiceEnt
 {

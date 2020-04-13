@@ -1,9 +1,7 @@
 
 #pragma once
 
-#include "gba/gba.h"
-#include "types.h"
-
+#include "common.h"
 #include "proc.h"
 
 struct PopupInfo

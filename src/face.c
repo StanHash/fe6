@@ -1,4 +1,5 @@
 
+#include "common.h"
 #include "face.h"
 
 #include "armfunc.h"
@@ -11,8 +12,6 @@
 
 #include "constants/video-global.h"
 #include "constants/faces.h"
-
-#include "unks.h"
 
 struct TalkSpriteEnt
 {
