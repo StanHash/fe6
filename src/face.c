@@ -615,7 +615,7 @@ void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, s8 isFlipped, Pr
         : Sprite_FaceChibi;
 }
 
-void EndFaceChibiStr(void)
+void EndFaceChibiSpr(void)
 {
     Proc_EndEach(ProcScr_FaceChibiSpr);
 }

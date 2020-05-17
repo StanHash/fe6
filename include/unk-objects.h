@@ -7,6 +7,8 @@
 #include "proc.h"
 #include "text.h"
 
+extern u8 gBuf[];
+
 extern struct BmSt gBmSt;
 extern struct PlaySt gPlaySt;
 extern struct Unit* gActiveUnit;
@@ -49,6 +51,8 @@ extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
+extern u16 CONST_DATA Pal_085C4E8C[];
+extern u16 CONST_DATA Pal_085C4EAC[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];

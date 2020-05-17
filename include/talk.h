@@ -97,6 +97,4 @@ void EndPutTalkSpriteText(void);
 s8 IsTalkDebugActive(void);
 void StartTalkDebug(void);
 
-extern struct TalkSt* CONST_DATA gTalkSt;
-
 extern struct ProcScr CONST_DATA ProcScr_TalkOpen[];

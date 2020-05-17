@@ -552,7 +552,7 @@ static void Popup_Prepare(struct PopupProc* proc)
 static void Popup_FadeBgmOut(struct PopupProc* proc)
 {
     if (proc->songPlayed != 0)
-        StartMusicVolumeChange(0x100, 0x80, 16, proc);
+        StartBgmVolumeChange(0x100, 0x80, 16, proc);
 }
 
 static void Popup_PlaySe(struct PopupProc* proc)
@@ -564,7 +564,7 @@ static void Popup_PlaySe(struct PopupProc* proc)
 static void Popup_FadeBgmIn(struct PopupProc* proc)
 {
     if (proc->songPlayed != 0)
-        StartMusicVolumeChange(0x80, 0x100, 16, proc);
+        StartBgmVolumeChange(0x80, 0x100, 16, proc);
 }
 
 static void PopupIconSprite_OnIdle(struct GenericProc* proc)
@@ -2473,7 +2473,7 @@ static int EvtCmd_PlayBgm(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_800322C(proc->script[0], 1, NULL);
+    StartBgmExt(proc->script[0], 1, NULL);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2485,7 +2485,7 @@ static int EvtCmd_OverrideBgm(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80033C8(proc->script[0]);
+    OverrideBgm(proc->script[0]);
     sub_8014BAC(proc, 33);
 
     return EVENT_CMDRET_YIELD;
@@ -2493,7 +2493,7 @@ static int EvtCmd_OverrideBgm(struct EventProc* proc)
 
 static int EvtCmd_RestoreBgm(struct EventProc* proc)
 {
-    sub_8003434();
+    RestoreBgm();
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2505,7 +2505,7 @@ static int EvtCmd_FadeBgmOut(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8003064(proc->script[0]);
+    FadeBgmOut(proc->script[0]);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2515,7 +2515,7 @@ static int EvtCmd_LowerBgmVolume(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    StartMusicVolumeChange(0x100, 0x90, 10, proc);
+    StartBgmVolumeChange(0x100, 0x90, 10, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2524,12 +2524,12 @@ static int EvtCmd_RestoreBgmVolume(struct EventProc* proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
-        sub_8003028(0x100);
+        SetBgmVolume(0x100);
 
         return EVENT_CMDRET_CONTINUE;
     }
 
-    StartMusicVolumeChange(0x90, 0x100, 10, proc);
+    StartBgmVolumeChange(0x90, 0x100, 10, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2563,12 +2563,12 @@ static int EvtCmd_NextChapter(struct EventProc* proc)
 
     if (!(proc->flags & EVENT_FLAG_SKIPPED))
     {
-        sub_8003064(4);
+        FadeBgmOut(4);
         sub_8014708(proc);
     }
     else
     {
-        sub_8003064(4);
+        FadeBgmOut(4);
     }
 
     return EVENT_CMDRET_YIELD;
@@ -3007,7 +3007,7 @@ static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmPutFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = sub_8013B24(4, proc->xOffStart, 0, proc->blendVal++, 0x10);
+    int xOff = Interpolate(4, proc->xOffStart, 0, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     SetBlendConfig(0, proc->blendVal, 0x10 - proc->blendVal, 0);
@@ -3073,7 +3073,7 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = sub_8013B24(1, 0, proc->xOffStart, proc->blendVal++, 0x10);
+    int xOff = Interpolate(1, 0, proc->xOffStart, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     SetBlendConfig(0, 0x10 - proc->blendVal, proc->blendVal, 0);
@@ -3115,7 +3115,7 @@ static void WmMoveFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = sub_8013B24(4, 0, proc->blendVal, proc->xOffStart++, 0x20);
+    int xOff = Interpolate(4, 0, proc->blendVal, proc->xOffStart++, 0x20);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     if (proc->xOffStart >= 0x20)
@@ -3715,17 +3715,17 @@ void ResetWeather(void)
 
 void sub_8012780(void)
 {
-    m4aMPlayFadeOut(&gMpi_030064F0, 3);
+    m4aMPlayFadeOut(&gMpi_MainBgm, 3);
 }
 
 void sub_8012798(void)
 {
-    m4aMPlayFadeOutTemporarily(&gMpi_030062E0, 3);
+    m4aMPlayFadeOutTemporarily(&gMpi_FightBgm, 3);
 }
 
 void sub_80127B0(void)
 {
-    m4aMPlayFadeIn(&gMpi_030062E0, 2);
+    m4aMPlayFadeIn(&gMpi_FightBgm, 2);
 }
 
 struct ProcScr CONST_DATA ProcScr_Popup[] =

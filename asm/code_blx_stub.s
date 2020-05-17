@@ -22,8 +22,8 @@ TmFillRect_t: @ 0x0809FAA0
 _0809FAA4:
 	.byte 0x3F, 0x82, 0xFD, 0xEA
 
-	thumb_func_start sub_809FAA8
-sub_809FAA8: @ 0x0809FAA8
+	thumb_func_start sub_8000234_t
+sub_8000234_t: @ 0x0809FAA8
 	bx pc
 	nop
 _0809FAAC:

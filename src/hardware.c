@@ -541,7 +541,7 @@ void sub_8001F88(int a, int b, int c)
         gUnk_020210E8[i] = c;
 }
 
-void sub_8001FD4(u8 a)
+void sub_8001FD4(s8 a)
 {
     int i, j;
 
@@ -558,7 +558,7 @@ void sub_8001FD4(u8 a)
     }
 }
 
-void sub_800210C(u8 a)
+void sub_800210C(s8 a)
 {
     int i, j;
 
@@ -575,7 +575,7 @@ void sub_800210C(u8 a)
     }
 }
 
-void sub_8002234(u8 a)
+void sub_8002234(s8 a)
 {
     int i, j;
 
@@ -592,7 +592,7 @@ void sub_8002234(u8 a)
     }
 }
 
-void sub_80019E8(u8 a)
+void sub_800236C(s8 a)
 {
     int i, j;
 

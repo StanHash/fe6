@@ -98,7 +98,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal);
 void PutFaceChibi(int fid, u16* tm, int chr, int pal, s8 isFlipped);
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);
 void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, s8 isFlipped, ProcPtr parent);
-void EndFaceChibiStr(void);
+void EndFaceChibiSpr(void);
 void PutFace80x72(u16* tm, int fid, int chr, int pal);
 void StartFaceFadeIn(struct FaceProc* proc);
 void StartFaceFadeOut(struct FaceProc* proc);

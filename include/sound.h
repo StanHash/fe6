@@ -12,24 +12,24 @@ extern struct MusicPlayerInfo gMpi_03006570;
 extern struct MusicPlayerInfo gMpi_03006260;
 extern struct MusicPlayerInfo gMpi_030062A0;
 extern struct MusicPlayerInfo gMpi_030064B0;
-extern struct MusicPlayerInfo gMpi_030062E0;
-extern struct MusicPlayerInfo gMpi_030064F0;
+extern struct MusicPlayerInfo gMpi_FightBgm;
+extern struct MusicPlayerInfo gMpi_MainBgm;
 
-int GetCurrentMusicSong(void);
-s8 IsMusicPlaying(void);
+int GetCurrentBgmSong(void);
+s8 IsBgmPlaying(void);
 void sub_8002F9C(int volume);
-void sub_8003028(int volume);
-void sub_8003064(int speed);
+void SetBgmVolume(int volume);
+void FadeBgmOut(int speed);
 void sub_80030B4(int speed);
-void sub_800313C(int songId, struct MusicPlayerInfo* mpi);
-void sub_800319C(int songId, int speed, struct MusicPlayerInfo* mpi);
-void sub_8003210(int songId, struct MusicPlayerInfo* mpi);
-void sub_800322C(int songId, int speed, struct MusicPlayerInfo* mpi);
-void sub_80032F0(int songId, int b, struct MusicPlayerInfo* mpi);
-void sub_80033C8(int songId);
-void sub_8003434(void);
-void sub_80034B8(void);
-void StartMusicVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
+void StartBgmCore(int songId, struct MusicPlayerInfo* mpi);
+void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo* mpi);
+void StartBgm(int songId, struct MusicPlayerInfo* mpi);
+void StartBgmExt(int songId, int speed, struct MusicPlayerInfo* mpi);
+void StartBgmFadeIn(int songId, int b, struct MusicPlayerInfo* mpi);
+void OverrideBgm(int songId);
+void RestoreBgm(void);
+void MakeBgmOverridePersist(void);
+void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
 
 #define PlaySE(id) \
     if (!gPlaySt.cfgSeDisable) \

@@ -131,6 +131,7 @@ enum
     PROC_MARK_6 = 6,
     PROC_MARK_7 = 7,
     PROC_MARK_8 = 8,
+    PROC_MARK_10 = 10,
     PROC_MARK_GAMECTRL = 11,
 };
 

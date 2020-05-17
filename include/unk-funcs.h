@@ -6,14 +6,14 @@
 
 #include "proc.h"
 
-int sub_8013B24(int, int, int, int, int);
+int Interpolate(int, int, int, int, int);
 // nullsub_12
-// sub_8013BF0
-void sub_8013C18(char const* src, char* dst);
+// StringEquals
+void StringCopy(char* dst, char const* src);
 // sub_8013C30
 // sub_8013C74
-void Decompress(void const* src, void* dst);
-// sub_8013CE4
+void Decompress(u8 const* src, u8* dst);
+int sub_8013CE4(u8 const* data);
 // sub_8013CEC
 // sub_8013D04
 // sub_8013D34
@@ -37,9 +37,9 @@ void sub_8013E58(u16* tm, int tileref, int width, int height);
 // sub_8014160
 // sub_80141C8
 // nullsub_14
-void sub_80141E0(int palid, int arg_2, ProcPtr proc);
+void sub_80141E0(int palid, int arg_1, ProcPtr parent);
 // sub_80141FC
-void sub_8014218(u16 const* pal, int palid, int arg_2, ProcPtr proc);
+void* sub_8014218(u16 const* pal, int palid, int arg_2, ProcPtr parent);
 // sub_8014278
 // sub_8014288
 // sub_801428C
@@ -60,10 +60,10 @@ void StartBlockingFadeInBlack(int duration, ProcPtr parent);
 void StartBlockingFadeOutBlack(int arg_0, ProcPtr parent);
 void sub_8014680(int duration, ProcPtr parent);
 void sub_8014698(int duration, ProcPtr parent);
-void sub_80146B0(ProcPtr parent);
+void sub_80146B0(void);
 // sub_80146BC
 // sub_80146C8
-void sub_80146D4(ProcPtr parent);
+void sub_80146D4(void);
 // sub_80146E0
 // sub_80146EC
 void sub_80146F8(ProcPtr proc);
@@ -102,16 +102,16 @@ void sub_8014768(ProcPtr proc);
 // sub_8014998
 void sub_80149B0(ProcPtr proc);
 // sub_80149CC
-// sub_80149E0
+void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc);
 // sub_8014A28
 // sub_8014A38
 // sub_8014A44
 // sub_8014A68
-// sub_8014AB8
+void sub_8014AB8(void);
 // sub_8014ACC
-// sub_8014ADC
+void sub_8014ADC(void);
 void sub_8014AF8(void);
-// sub_8014B68
+void sub_8014B68(void);
 void sub_8014BAC(ProcPtr proc, int arg_1);
 // sub_8014BC8
 int sub_8014BE4(int number, char* buf);
@@ -142,7 +142,7 @@ void sub_80151A8(Func func, int time);
 // sub_80152E8
 // sub_8015344
 // sub_80153CC
-// PlaySeSpacial
+void PlaySeSpacial(int song, int location);
 // sub_8015454
 // sub_801546C
 // sub_801548C
@@ -153,7 +153,7 @@ void sub_80151A8(Func func, int time);
 // sub_801556C
 // sub_80155B8
 // sub_8015728
-// sub_8015748
+void sub_8015748(int const* src, int* dst);
 // sub_801577C
 // sub_80157C8
 // sub_8015810
