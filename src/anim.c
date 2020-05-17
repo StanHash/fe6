@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "oam.h"
 #include "sprite.h"
+#include "util.h"
 
 enum { ANIM_COUNT = 20 };
 
@@ -267,7 +268,7 @@ static void SyncAnimImg(struct Anim* anim)
 
     while ((i--) > 0)
     {
-        sub_8013D48(
+        Register2dChrMove(
             anim->img + ((*itChr & 0x3FF) << 5),
             OBJ_VRAM0 + ((anim->oam2 & 0x3FF) << 5) + chrOffset,
             WIDTHOF(itOam), HEIGHTOF(itOam));

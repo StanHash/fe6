@@ -14,6 +14,7 @@
 #include "talk.h"
 #include "game-controller.h"
 #include "msg.h"
+#include "util.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -415,7 +416,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_NUMBER:
-            result += sub_8014BE4(sPopupNumber, buf)*8;
+            result += NumberToString(sPopupNumber, buf)*8;
             break;
 
         case POPUP_CMD_ICON_ITEM:
@@ -476,7 +477,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
         {
 
         case POPUP_CMD_NUMBER:
-            sub_8014BE4(sPopupNumber, buf);
+            NumberToString(sPopupNumber, buf);
             Text_DrawString(&text, buf);
             break;
 
@@ -558,7 +559,7 @@ static void Popup_FadeBgmOut(struct PopupProc* proc)
 static void Popup_PlaySe(struct PopupProc* proc)
 {
     if (proc->songPlayed != 0)
-        PlaySE(proc->songPlayed);
+        PlaySe(proc->songPlayed);
 }
 
 static void Popup_FadeBgmIn(struct PopupProc* proc)
@@ -732,7 +733,7 @@ static void FadeFromBg_FadeToBlack(struct GenericProc* proc)
     if (((struct EventProc*) proc->proc_parent)->flags & EVENT_FLAG_SKIPPED)
         return;
 
-    sub_80146F8(proc);
+    StartMidLockingFadeToBlack(proc);
 }
 
 static void FadeFromBg_FadeFromBlack(struct GenericProc* proc)
@@ -740,7 +741,7 @@ static void FadeFromBg_FadeFromBlack(struct GenericProc* proc)
     struct EventProc* evproc = proc->proc_parent;
 
     if (!(evproc->flags & EVENT_FLAG_SKIPPED))
-        StartBlockingFadeOutBlackMedium(proc);
+        StartMidLockingFadeFromBlack(proc);
 }
 
 static void FadeFromBg_ClearScreen(struct GenericProc* proc)
@@ -767,12 +768,12 @@ static void FadeFromSkip_Start(struct GenericProc* proc)
     if (evproc->flags & EVENT_FLAG_SKIPPED)
     {
         if (evproc->noMap)
-            StartBlockingFadeOutBlack(0x20, proc);
+            StartLockingFadeFromBlack(0x20, proc);
 
         return;
     }
 
-    StartBlockingFadeOutBlackMedium(proc);
+    StartMidLockingFadeFromBlack(proc);
 }
 
 ProcPtr StartEvent(u32 const* script)
@@ -2486,7 +2487,7 @@ static int EvtCmd_OverrideBgm(struct EventProc* proc)
         return EVENT_CMDRET_CONTINUE;
 
     OverrideBgm(proc->script[0]);
-    sub_8014BAC(proc, 33);
+    StartTemporaryLock(proc, 33);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2541,7 +2542,7 @@ static int EvtCmd_PlaySe(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    PlaySE(proc->script[0]);
+    PlaySe(proc->script[0]);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -2564,7 +2565,7 @@ static int EvtCmd_NextChapter(struct EventProc* proc)
     if (!(proc->flags & EVENT_FLAG_SKIPPED))
     {
         FadeBgmOut(4);
-        sub_8014708(proc);
+        StartSlowLockingFadeToBlack(proc);
     }
     else
     {
@@ -2626,7 +2627,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
 static void EventFadeFromSkipWait(struct EventProc* proc)
 {
     proc->noMap = FALSE;
-    sub_8014748(proc);
+    StartFastLockingFadeFromBlack(proc);
 
     proc->onIdle = NULL;
 }
@@ -2638,7 +2639,7 @@ static int EvtCmd_NoSkipNoTextSkip(struct EventProc* proc)
         proc->flags &= ~EVENT_FLAG_SKIPPED;
 
         proc->noMap = FALSE;
-        sub_8014748(proc);
+        StartFastLockingFadeFromBlack(proc);
     }
 
     proc->flags |= (EVENT_FLAG_DISABLESKIP | EVENT_FLAG_DISABLETEXTSKIP);
@@ -2663,7 +2664,7 @@ static int EvtCmd_FadeToBlack(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    StartBlockingFadeInBlack(proc->script[0], proc);
+    StartLockingFadeToBlack(proc->script[0], proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2675,7 +2676,7 @@ static int EvtCmd_FadeFromBlack(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    StartBlockingFadeOutBlack(proc->script[0], proc);
+    StartLockingFadeFromBlack(proc->script[0], proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2687,7 +2688,7 @@ static int EvtCmd_FadeToWhite(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8014680(proc->script[0], proc);
+    StartLockingFadeToWhite(proc->script[0], proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2699,7 +2700,7 @@ static int EvtCmd_FadeFromWhite(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8014698(proc->script[0], proc);
+    StartLockingFadeFromWhite(proc->script[0], proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2880,7 +2881,7 @@ static int EvtCmd_WmEnd(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_YIELD;
 
-    sub_8014708(proc);
+    StartSlowLockingFadeToBlack(proc);
     proc->noMap = TRUE;
 
     return EVENT_CMDRET_YIELD;
@@ -3007,7 +3008,7 @@ static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmPutFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(4, proc->xOffStart, 0, proc->blendVal++, 0x10);
+    int xOff = Interpolate(INTERPOLATE_RSQUARE, proc->xOffStart, 0, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     SetBlendConfig(0, proc->blendVal, 0x10 - proc->blendVal, 0);
@@ -3073,7 +3074,7 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(1, 0, proc->xOffStart, proc->blendVal++, 0x10);
+    int xOff = Interpolate(INTERPOLATE_SQUARE, 0, proc->xOffStart, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     SetBlendConfig(0, 0x10 - proc->blendVal, proc->blendVal, 0);
@@ -3115,7 +3116,7 @@ static void WmMoveFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(4, 0, proc->blendVal, proc->xOffStart++, 0x20);
+    int xOff = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blendVal, proc->xOffStart++, 0x20);
     gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
 
     if (proc->xOffStart >= 0x20)
@@ -3402,7 +3403,7 @@ static void EventClearTalkDisplayed(struct EventProc* proc)
         Proc_ForEach(ProcScr_Face, (ProcFunc) StartFaceFadeOut);
 
         proc->sleepDuration = 8;
-        sub_8014BAC(proc, 8);
+        StartTemporaryLock(proc, 8);
     }
 }
 
@@ -3977,7 +3978,7 @@ struct ProcScr CONST_DATA ProcScr_EventCursor[] =
 struct ProcScr CONST_DATA ProcScr_Unused_085C45B8[] =
 {
     PROC_CALL(FadeFromBg_FadeToBlack),
-    PROC_REPEAT(sub_80149B0),
+    PROC_REPEAT(WhileFadeExists),
     PROC_END,
 };
 
@@ -3985,13 +3986,13 @@ struct ProcScr CONST_DATA ProcScr_WeatherChangeFade[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8014758),
+    PROC_CALL(StartSlowLockingFadeToWhite),
     PROC_SLEEP(0),
 
     PROC_CALL(DoChangeWeather),
     PROC_SLEEP(30),
 
-    PROC_CALL(sub_8014768),
+    PROC_CALL(StartSlowLockingFadeFromWhite),
     PROC_SLEEP(0),
 
     PROC_END,

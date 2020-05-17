@@ -31,6 +31,6 @@ void RestoreBgm(void);
 void MakeBgmOverridePersist(void);
 void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
 
-#define PlaySE(id) \
+#define PlaySe(id) \
     if (!gPlaySt.cfgSeDisable) \
         m4aSongNumStart((id))

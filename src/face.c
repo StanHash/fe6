@@ -9,6 +9,7 @@
 #include "oam.h"
 #include "proc.h"
 #include "sprite.h"
+#include "util.h"
 
 #include "constants/video-global.h"
 #include "constants/faces.h"
@@ -648,7 +649,7 @@ void PutFace80x72(u16* tm, int fid, int chr, int pal)
     }
     else
     {
-        sub_8013E58(tm, (pal << 12) + (chr & 0x3FF), 10, 9);
+        PutIncrTileref(tm, (pal << 12) + (chr & 0x3FF), 10, 9);
     }
 }
 
@@ -669,15 +670,15 @@ void StartFaceFadeIn(struct FaceProc* proc)
 {
     struct FaceInfo const* info = GetFaceInfo(proc->fid);
 
-    sub_8014374(0x10 + sFaceConfig[proc->slot].palid);
-    sub_8014218(info->pal, 0x10 + sFaceConfig[proc->slot].palid, 12, proc);
+    SetBlackPal(0x10 + sFaceConfig[proc->slot].palid);
+    StartPalFade(info->pal, 0x10 + sFaceConfig[proc->slot].palid, 12, proc);
 }
 
 void StartFaceFadeOut(struct FaceProc* proc)
 {
     struct FaceInfo const* info = GetFaceInfo(proc->fid);
 
-    sub_80141E0(0x10 + sFaceConfig[proc->slot].palid, 12, proc);
+    StartPalFadeToBlack(0x10 + sFaceConfig[proc->slot].palid, 12, proc);
     EndFaceIn8Frames(proc);
 }
 

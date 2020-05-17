@@ -15,6 +15,7 @@
 #include "face.h"
 #include "event.h"
 #include "msg.h"
+#include "util.h"
 
 #include "constants/video-global.h"
 
@@ -572,14 +573,14 @@ static void Talk_OnIdle(ProcPtr proc)
             {
                 if (CheckTalkFlag(TALK_FLAG_7))
                 {
-                    PlaySE(0x7A); // TODO: song ids
+                    PlaySe(0x7A); // TODO: song ids
                 }
                 else
                 {
                     if ((sub_8028E98() == 1) && !(GetGameTime() & 1))
                         break;
 
-                    PlaySE(0x6E); // TODO: song ids
+                    PlaySe(0x6E); // TODO: song ids
                 }
             }
         }
@@ -810,7 +811,7 @@ static int TalkInterpret(ProcPtr proc)
 
         sTalkSt->str++;
 
-        sub_8014BAC(proc, 16);
+        StartTemporaryLock(proc, 16);
 
         return 3;
 
@@ -886,7 +887,7 @@ static int TalkInterpret(ProcPtr proc)
             return 3;
 
         case 5:
-            sub_8014BE4(sTalkSt->number, sTalkSt->bufNumberStr);
+            NumberToString(sTalkSt->number, sTalkSt->bufNumberStr);
 
             sTalkSt->str++;
 
@@ -969,7 +970,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     StartFaceFadeIn(sTalkSt->faces[sTalkSt->activeTalkFace]);
 
     SetTalkFaceLayer(sTalkSt->activeTalkFace, CheckTalkFlag(TALK_FLAG_4));
-    sub_8014BAC(proc, 8);
+    StartTemporaryLock(proc, 8);
 }
 
 void StartTalkFace(int fid, int x, int y, int disp, int talkFace)
@@ -1148,7 +1149,7 @@ static void TalkFaceMove_OnIdle(struct GenericProc* proc)
     }
     else
     {
-        gFaces[proc->unk64]->xDisp = Interpolate(4,
+        gFaces[proc->unk64]->xDisp = Interpolate(INTERPOLATE_RSQUARE,
             proc->unk68, GetTalkFaceHPos(proc->unk66)*8,
             proc->unk58++, proc->unk5C);
     }
@@ -1272,7 +1273,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 {
     if (gKeySt->pressed & B_BUTTON)
     {
-        PlaySE(0x6B); // TODO: song ids
+        PlaySe(0x6B); // TODO: song ids
 
         sTalkChoiceResult = 0;
 
@@ -1281,7 +1282,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
     }
     else if (gKeySt->pressed & A_BUTTON)
     {
-        PlaySE(0x6A); // TODO: song ids
+        PlaySe(0x6A); // TODO: song ids
 
         sTalkChoiceResult = proc->selectedChoice;
 
@@ -1291,7 +1292,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 
     if ((gKeySt->pressed & DPAD_LEFT) && (proc->selectedChoice == 2))
     {
-        PlaySE(0x67); // TODO: song ids
+        PlaySe(0x67); // TODO: song ids
 
         proc->selectedChoice = 1;
 
@@ -1301,7 +1302,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 
     if ((gKeySt->pressed & DPAD_RIGHT) && (proc->selectedChoice == 1))
     {
-        PlaySE(0x67); // TODO: song ids
+        PlaySe(0x67); // TODO: song ids
 
         proc->selectedChoice = 2;
 
@@ -1643,7 +1644,7 @@ static void TalkOpen_OnIdle(struct GenericProc* proc)
 
     proc->unk58++;
 
-    var = Interpolate(4, -30, 0, proc->unk58, 12);
+    var = Interpolate(INTERPOLATE_RSQUARE, -30, 0, proc->unk58, 12);
 
     SetBgOffset(1, 0, var/2);
     SetBlendAlpha(var/2 + 0x10, 1 - var/2);
@@ -1794,7 +1795,7 @@ static void ClearHBlankA(void)
 
 static void TalkPutSpriteText_OnEnd(struct GenericProc* proc)
 {
-    sub_80151A8(ClearHBlankA, 1);
+    CallDelayed(ClearHBlankA, 1);
 }
 
 void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent)
@@ -1949,7 +1950,7 @@ int GetStrTalkLen(char const* str, s8 isBubbleOpen)
                 break;
 
             case 0x05:
-                sub_8014BE4(sTalkSt->number, buf);
+                NumberToString(sTalkSt->number, buf);
                 currentLineLen += GetStrTalkLen(buf, isBubbleOpen);
 
                 str++;

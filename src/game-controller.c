@@ -3,6 +3,7 @@
 #include "game-controller.h"
 
 #include "hardware.h"
+#include "util.h"
 
 struct GameController
 {
@@ -214,14 +215,14 @@ PROC_LABEL(L_GAMECTRL_ENDING),
 PROC_LABEL(L_GAMECTRL_SRAMRESET),
     PROC_CALL(GC_InitSramResetScreen),
 
-    PROC_CALL(sub_80146D4),
-    PROC_REPEAT(sub_80149B0),
+    PROC_CALL(StartMidFadeFromBlack),
+    PROC_REPEAT(WhileFadeExists),
 
     PROC_CALL(sub_803C080),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_80146B0),
-    PROC_REPEAT(sub_80149B0),
+    PROC_CALL(StartMidFadeToBlack),
+    PROC_REPEAT(WhileFadeExists),
 
     PROC_CALL(sub_806EABC),
 

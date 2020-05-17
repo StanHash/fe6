@@ -3,6 +3,7 @@
 #include "sound.h"
 
 #include "proc.h"
+#include "util.h"
 
 struct SoundSt
 {
@@ -151,7 +152,7 @@ void StartBgmExt(int songId, int speed, struct MusicPlayerInfo* mpi)
 
 void MusicFi_OnLoop(struct MusicProc* proc)
 {
-    int volume = Interpolate(0, 0, 0x100, proc->clock, proc->fiTimeEnd);
+    int volume = Interpolate(INTERPOLATE_LINEAR, 0, 0x100, proc->clock, proc->fiTimeEnd);
 
     m4aMPlayVolumeControl(&gMpi_FightBgm, 0xFFFF, volume);
     m4aMPlayVolumeControl(&gMpi_MainBgm, 0xFFFF, volume);
@@ -242,7 +243,7 @@ void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr p
 
 void MusicVc_OnLoop(struct MusicProc* proc)
 {
-    int volume = Interpolate(0, proc->vcInitVolume, proc->vcEndVolume, proc->vcClock++, proc->vcTimeEnd);
+    int volume = Interpolate(INTERPOLATE_LINEAR, proc->vcInitVolume, proc->vcEndVolume, proc->vcClock++, proc->vcTimeEnd);
 
     SetBgmVolume(volume);
 

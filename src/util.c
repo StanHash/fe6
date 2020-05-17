@@ -1,5 +1,6 @@
 
 #include "common.h"
+#include "util.h"
 
 #include "hardware.h"
 #include "move.h"
@@ -8,16 +9,6 @@
 #include "text.h"
 
 #include "constants/video-global.h"
-
-enum
-{
-    INTERPOLATE_LINEAR,
-    INTERPOLATE_SQUARE,
-    INTERPOLATE_CUBIC,
-    INTERPOLATE_POW4,
-    INTERPOLATE_RSQUARE,
-    INTERPOLATE_RCUBIC,
-};
 
 #if NONMATCHING
 
@@ -196,9 +187,9 @@ void StringCopy(char* dst, char const* src)
     *dst = *src;
 }
 
-void sub_8013C30(u8 const* src, u8* dst)
+static void UnpackRaw(u8 const* src, u8* dst)
 {
-    int size = sub_8013CE4(src) - 4;
+    int size = GetDataSize(src) - 4;
 
     if (size % 0x20 != 0)
         CpuCopy16(src + 4, dst, size);
@@ -206,10 +197,10 @@ void sub_8013C30(u8 const* src, u8* dst)
         CpuFastCopy(src + 4, dst, size);
 }
 
-void sub_8013C74(u8 const* src, u8* dst)
+void Decompress_Unused_08013C74(u8 const* src, u8* dst)
 {
     LZ77UnCompWram(src, gBuf);
-    CpuFastCopy(gBuf, dst, sub_8013CE4(src));
+    CpuFastCopy(gBuf, dst, GetDataSize(src));
 }
 
 void Decompress(u8 const* src, u8* dst)
@@ -218,8 +209,8 @@ void Decompress(u8 const* src, u8* dst)
 
     static DecompressFunc CONST_DATA funcLut[] =
     {
-        sub_8013C30,    // 00, vram
-        sub_8013C30,    // 00, wram
+        UnpackRaw,      // 00, vram
+        UnpackRaw,      // 00, wram
         LZ77UnCompVram, // 10, vram
         LZ77UnCompWram, // 10, wram
         HuffUnComp,     // 20, vram
@@ -231,14 +222,14 @@ void Decompress(u8 const* src, u8* dst)
     int isWram;
 
     if ((((u32) dst) - VRAM) < VRAM_SIZE)
-        isWram = 0; // is vram
+        isWram = FALSE; // is vram
     else
-        isWram = 1;
+        isWram = TRUE;
 
     funcLut[isWram + ((src[0] & 0xF0) >> 3)](src, dst);
 }
 
-int sub_8013CE4(u8 const* data)
+int GetDataSize(u8 const* data)
 {
     return *((u32 const*) (void const*) data) >> 8;
 }
@@ -249,7 +240,7 @@ struct Unk_08013CEC
     int unk_04;
 };
 
-struct Unk* sub_8013CEC(struct Unk_08013CEC* unk, int arg_1, int arg_2)
+struct Unk* Unused_08013CEC(struct Unk_08013CEC* unk, int arg_1, int arg_2)
 {
     unk->dst = (u8*) arg_2;
 
@@ -259,13 +250,13 @@ struct Unk* sub_8013CEC(struct Unk_08013CEC* unk, int arg_1, int arg_2)
     unk->unk_04 = arg_2 - arg_1;
 }
 
-int sub_8013D04(struct Unk_08013CEC* unk, u8 const* src)
+int Unused_08013D04(struct Unk_08013CEC* unk, u8 const* src)
 {
     int size, old;
 
     Decompress(src, unk->dst);
 
-    size = sub_8013CE4(src);
+    size = GetDataSize(src);
 
     unk->dst += size;
 
@@ -275,7 +266,7 @@ int sub_8013D04(struct Unk_08013CEC* unk, u8 const* src)
     return old;
 }
 
-int sub_8013D34(struct Unk_08013CEC* unk, int arg_1)
+int Unused_08013D34(struct Unk_08013CEC* unk, int arg_1)
 {
     int old;
 
@@ -287,7 +278,7 @@ int sub_8013D34(struct Unk_08013CEC* unk, int arg_1)
     return old;
 }
 
-void sub_8013D48(u8 const* src, u8* dst, int width, int height)
+void Register2dChrMove(u8 const* src, u8* dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
@@ -303,7 +294,7 @@ void sub_8013D48(u8 const* src, u8* dst, int width, int height)
     }
 }
 
-void sub_8013D74(u8 const* src, u8* dst, int width, int height)
+void Copy2dChr(u8 const* src, u8* dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
@@ -393,7 +384,7 @@ static void sub_8013E10(u8 const* src, u32* dst, int width)
     }
 }
 
-void sub_8013E58(u16* tm, int tileref, int width, int height)
+void PutIncrTileref(u16* tm, int tileref, int width, int height)
 {
     int ix, iy;
 
@@ -562,7 +553,7 @@ struct Unk* sub_8013F7C(int arg_0)
     #undef BUF
 }
 
-void sub_80140A4(int reduction)
+void DarkenPals(int reduction)
 {
     u16* buf = (u16*) gBuf;
 
@@ -604,13 +595,13 @@ void sub_8014130(char const* arg_0)
     sub_8014130(unk);
 }
 
-void sub_8014150(struct GenericProc* proc)
+static void SpacialSeTest_OnInit(struct GenericProc* proc)
 {
     proc->unk64 = 0;
     proc->unk66 = 90;
 }
 
-void sub_8014160(struct GenericProc* proc)
+static void SpacialSeTest_OnLoop(struct GenericProc* proc)
 {
     int location = 0;
 
@@ -629,91 +620,81 @@ void sub_8014160(struct GenericProc* proc)
     }
 }
 
-struct ProcScr CONST_DATA ProcScr_085C4D64[] =
+struct ProcScr CONST_DATA ProcScr_SpacialSeTest[] =
 {
     PROC_CALL(LockGame),
 
-    PROC_CALL(sub_8014150),
-    PROC_REPEAT(sub_8014160),
+    PROC_CALL(SpacialSeTest_OnInit),
+    PROC_REPEAT(SpacialSeTest_OnLoop),
 };
 
-void sub_80141C8(void)
+void StartSpacialSeTest(void)
 {
-    SpawnProc(ProcScr_085C4D64, PROC_TREE_3);
+    SpawnProc(ProcScr_SpacialSeTest, PROC_TREE_3);
 }
 
 void nullsub_14(void)
 {
 }
 
-void sub_80141E0(int palid, int arg_1, ProcPtr parent)
+void StartPalFadeToBlack(int palid, int duration, ProcPtr parent)
 {
-    sub_8014218(Pal_085C4E8C, palid, arg_1, parent);
+    StartPalFade(Pal_AllBlack, palid, duration, parent);
 }
 
-void sub_80141FC(int palid, int arg_1, ProcPtr parent)
+void StartPalFadeToWhite(int palid, int duration, ProcPtr parent)
 {
-    sub_8014218(Pal_085C4EAC, palid, arg_1, parent);
+    StartPalFade(Pal_AllWhite, palid, duration, parent);
 }
 
-struct Unk_0202A408
-{
-    /* 00 */ u16 fromColors[0x10];
-    /* 20 */ u16 const* toColors;
-    /* 24 */ u16* pal;
-    /* 28 */ u16 clock;
-    /* 2A */ u16 clockEnd;
-    /* 2C */ u16 clockStop;
-};
+static struct PalFadeSt EWRAM_DATA sPalFadeSt[0x10] = {};
 
-struct Unk_0202A408 EWRAM_DATA gUnk_0202A408[0x10] = {};
-
-struct UnkPalProc
+struct PalFadeProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unk_0202A408* st;
+    /* 2C */ struct PalFadeSt* st;
 };
 
-void sub_801428C(struct UnkPalProc* proc);
+static void PalFade_OnLoop(struct PalFadeProc* proc);
 
-struct ProcScr CONST_DATA ProcScr_085C4D7C[] =
+struct ProcScr CONST_DATA ProcScr_PalFade[] =
 {
     PROC_MARK(PROC_MARK_10),
-    PROC_REPEAT(sub_801428C),
+    PROC_REPEAT(PalFade_OnLoop),
 
     PROC_END,
 };
 
-void* sub_8014218(u16 const* colors, int palid, int arg_2, ProcPtr parent)
+struct PalFadeSt* StartPalFade(u16 const* colors, int palid, int duration, ProcPtr parent)
 {
-    struct Unk_0202A408* st = gUnk_0202A408 + palid;
+    struct PalFadeSt* st = sPalFadeSt + palid;
 
-    struct UnkPalProc* proc = SpawnProc(ProcScr_085C4D7C, parent);
+    struct PalFadeProc* proc = SpawnProc(ProcScr_PalFade, parent);
 
     CpuCopy16(gPal + palid * 0x10, st->fromColors, sizeof(st->fromColors));
 
     st->pal = gPal + palid * 0x10;
     st->toColors = colors;
     st->clock = 0;
-    st->clockEnd = arg_2;
-    st->clockStop = arg_2 + 1;
+    st->clockEnd = duration;
+    st->clockStop = duration + 1;
 
     proc->st = st;
 
     return st;
 }
 
-void sub_8014278(void)
+void EndPalFade(void)
 {
-    Proc_EndEach(ProcScr_085C4D7C);
+    Proc_EndEach(ProcScr_PalFade);
 }
 
-void sub_8014288(struct Unk_0202A408* st, int val)
+void SetPalFadeStop(struct PalFadeSt* st, int val)
 {
     st->clockStop = val;
 }
 
-void sub_801428C(struct UnkPalProc* proc)
+static void PalFade_OnLoop(struct PalFadeProc* proc)
 {
     int i;
 
@@ -749,33 +730,33 @@ void sub_801428C(struct UnkPalProc* proc)
     proc->st->clock++;
 }
 
-void sub_8014374(int palid)
+void SetBlackPal(int palid)
 {
-    CpuCopy16(Pal_085C4E8C, gPal + palid * 0x10, 0x20);
+    CpuCopy16(Pal_AllBlack, gPal + palid * 0x10, 0x20);
 }
 
-void sub_8014394(int palid)
+void SetWhitePal(int palid)
 {
-    CpuCopy16(Pal_085C4EAC, gPal + palid * 0x10, 0x20);
+    CpuCopy16(Pal_AllWhite, gPal + palid * 0x10, 0x20);
 }
 
-void sub_80143B4(void)
-{
-    int i;
-
-    for (i = 0; i < 0x20; ++i)
-        sub_8014374(i);
-}
-
-void sub_80143CC(void)
+void SetAllBlackPals(void)
 {
     int i;
 
     for (i = 0; i < 0x20; ++i)
-        sub_8014374(i);
+        SetBlackPal(i);
 }
 
-void sub_80143E4(struct GenericProc* proc)
+void SetAllWhitePals(void)
+{
+    int i;
+
+    for (i = 0; i < 0x20; ++i)
+        SetBlackPal(i);
+}
+
+static void FadeToBlack_OnInit(struct GenericProc* proc)
 {
     gDispIo.winCt.win0_enableBlend = 1;
     gDispIo.winCt.win1_enableBlend = 1;
@@ -791,7 +772,7 @@ void sub_80143E4(struct GenericProc* proc)
     proc->unk66 = 0;
 }
 
-void sub_801445C(struct GenericProc* proc)
+static void FadeToCommon_OnLoop(struct GenericProc* proc)
 {
     if (gDispIo.blendY == 0x10)
     {
@@ -807,7 +788,7 @@ void sub_801445C(struct GenericProc* proc)
     gDispIo.blendY = proc->unk66 >> 4;
 }
 
-void sub_80144A0(struct GenericProc* proc)
+static void FadeFromBlack_OnInit(struct GenericProc* proc)
 {
     gDispIo.winCt.win0_enableBlend = 1;
     gDispIo.winCt.win1_enableBlend = 1;
@@ -824,7 +805,7 @@ void sub_80144A0(struct GenericProc* proc)
     proc->unk66 = 0x100;
 }
 
-void sub_801452C(struct GenericProc* proc)
+static void FadeFromCommon_OnLoop(struct GenericProc* proc)
 {
     if (gDispIo.blendY == 0)
     {
@@ -840,55 +821,55 @@ void sub_801452C(struct GenericProc* proc)
     gDispIo.blendY = proc->unk66 >> 4;
 }
 
-void sub_801456C(struct GenericProc* proc)
+static void FadeToWhite_OnInit(struct GenericProc* proc)
 {
-    sub_80143E4(proc);
+    FadeToBlack_OnInit(proc);
     SetBlendBrighten(0);
 }
 
-void sub_801459C(struct GenericProc* proc)
+static void FadeFromWhite_OnInit(struct GenericProc* proc)
 {
-    sub_80144A0(proc);
+    FadeFromBlack_OnInit(proc);
     SetBlendBrighten(0x10);
 }
 
 struct ProcScr CONST_DATA ProcScr_FadeToBlack[] =
 {
-    PROC_CALL(sub_80143E4),
+    PROC_CALL(FadeToBlack_OnInit),
     PROC_SLEEP(0),
 
-    PROC_REPEAT(sub_801445C),
+    PROC_REPEAT(FadeToCommon_OnLoop),
     PROC_BLOCK,
 };
 
 struct ProcScr CONST_DATA ProcScr_FadeFromBlack[] =
 {
-    PROC_CALL(sub_80144A0),
+    PROC_CALL(FadeFromBlack_OnInit),
     PROC_SLEEP(0),
 
-    PROC_REPEAT(sub_801452C),
+    PROC_REPEAT(FadeFromCommon_OnLoop),
     PROC_BLOCK,
 };
 
 struct ProcScr CONST_DATA ProcScr_FadeToWhite[] =
 {
-    PROC_CALL(sub_801456C),
+    PROC_CALL(FadeToWhite_OnInit),
     PROC_SLEEP(0),
 
-    PROC_REPEAT(sub_801445C),
+    PROC_REPEAT(FadeToCommon_OnLoop),
     PROC_BLOCK,
 };
 
 struct ProcScr CONST_DATA ProcScr_FadeFromWhite[] =
 {
-    PROC_CALL(sub_801459C),
+    PROC_CALL(FadeFromWhite_OnInit),
     PROC_SLEEP(0),
 
-    PROC_REPEAT(sub_801452C),
+    PROC_REPEAT(FadeFromCommon_OnLoop),
     PROC_BLOCK,
 };
 
-Bool sub_80145D0(void)
+Bool FadeExists(void)
 {
     if (!Proc_Find(ProcScr_FadeFromBlack) &&
         !Proc_Find(ProcScr_FadeToBlack) &&
@@ -901,110 +882,110 @@ Bool sub_80145D0(void)
     return TRUE;
 }
 
-void sub_8014618(int q4_speed)
+void StartFadeToBlack(int q4_speed)
 {
     struct GenericProc* proc = SpawnProc(ProcScr_FadeToBlack, PROC_TREE_3);
     proc->unk64 = q4_speed;
 }
 
-void sub_8014634(int q4_speed)
+void StartFadeFromBlack(int q4_speed)
 {
     struct GenericProc* proc = SpawnProc(ProcScr_FadeFromBlack, PROC_TREE_3);
     proc->unk64 = q4_speed;
 }
 
-void StartBlockingFadeInBlack(int q4_speed, ProcPtr parent)
+void StartLockingFadeToBlack(int q4_speed, ProcPtr parent)
 {
     struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeToBlack, parent);
     proc->unk64 = q4_speed;
 }
 
-void StartBlockingFadeOutBlack(int q4_speed, ProcPtr parent)
+void StartLockingFadeFromBlack(int q4_speed, ProcPtr parent)
 {
     struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeFromBlack, parent);
     proc->unk64 = q4_speed;
 }
 
-void sub_8014680(int q4_speed, ProcPtr parent)
+void StartLockingFadeToWhite(int q4_speed, ProcPtr parent)
 {
     struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeToWhite, parent);
     proc->unk64 = q4_speed;
 }
 
-void sub_8014698(int q4_speed, ProcPtr parent)
+void StartLockingFadeFromWhite(int q4_speed, ProcPtr parent)
 {
     struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeFromWhite, parent);
     proc->unk64 = q4_speed;
 }
 
-void sub_80146B0(void)
+void StartMidFadeToBlack(void)
 {
-    sub_8014618(0x10);
+    StartFadeToBlack(0x10);
 }
 
-void sub_80146BC(void)
+void StartSlowFadeToBlack(void)
 {
-    sub_8014618(0x04);
+    StartFadeToBlack(0x04);
 }
 
-void sub_80146C8(void)
+void StartFastFadeToBlack(void)
 {
-    sub_8014618(0x40);
+    StartFadeToBlack(0x40);
 }
 
-void sub_80146D4(void)
+void StartMidFadeFromBlack(void)
 {
-    sub_8014634(0x10);
+    StartFadeFromBlack(0x10);
 }
 
-void sub_80146E0(void)
+void StartSlowFadeFromBlack(void)
 {
-    sub_8014634(0x04);
+    StartFadeFromBlack(0x04);
 }
 
-void sub_80146EC(void)
+void StartFastFadeFromBlack(void)
 {
-    sub_8014634(0x40);
+    StartFadeFromBlack(0x40);
 }
 
-void sub_80146F8(ProcPtr parent)
+void StartMidLockingFadeToBlack(ProcPtr parent)
 {
-    StartBlockingFadeInBlack(0x10, parent);
+    StartLockingFadeToBlack(0x10, parent);
 }
 
-void sub_8014708(ProcPtr parent)
+void StartSlowLockingFadeToBlack(ProcPtr parent)
 {
-    StartBlockingFadeInBlack(0x04, parent);
+    StartLockingFadeToBlack(0x04, parent);
 }
 
-void sub_8014718(ProcPtr parent)
+void StartFastLockingFadeToBlack(ProcPtr parent)
 {
-    StartBlockingFadeInBlack(0x40, parent);
+    StartLockingFadeToBlack(0x40, parent);
 }
 
-void StartBlockingFadeOutBlackMedium(ProcPtr parent)
+void StartMidLockingFadeFromBlack(ProcPtr parent)
 {
-    StartBlockingFadeOutBlack(0x10, parent);
+    StartLockingFadeFromBlack(0x10, parent);
 }
 
-void sub_8014738(ProcPtr parent)
+void StartSlowLockingFadeFromBlack(ProcPtr parent)
 {
-    StartBlockingFadeOutBlack(0x04, parent);
+    StartLockingFadeFromBlack(0x04, parent);
 }
 
-void sub_8014748(ProcPtr parent)
+void StartFastLockingFadeFromBlack(ProcPtr parent)
 {
-    StartBlockingFadeOutBlack(0x40, parent);
+    StartLockingFadeFromBlack(0x40, parent);
 }
 
-void sub_8014758(ProcPtr parent)
+void StartSlowLockingFadeToWhite(ProcPtr parent)
 {
-    sub_8014680(0x04, parent);
+    StartLockingFadeToWhite(0x04, parent);
 }
 
-void sub_8014768(ProcPtr parent)
+void StartSlowLockingFadeFromWhite(ProcPtr parent)
 {
-    sub_8014698(0x04, parent);
+    StartLockingFadeFromWhite(0x04, parent);
 }
 
 void sub_8014778(ProcPtr parent)
@@ -1138,9 +1119,9 @@ void sub_8014998(ProcPtr parent)
     sub_80149E0(7, 0x08, parent, sub_8014B68);
 }
 
-void sub_80149B0(ProcPtr proc)
+void WhileFadeExists(ProcPtr proc)
 {
-    if (!sub_80145D0())
+    if (!FadeExists())
         Proc_Break(proc);
 }
 
@@ -1349,17 +1330,17 @@ void sub_8014B68(void)
     SetBlendBackdropA(1);
 }
 
-void sub_8014BC8(struct GenericProc* proc);
+static void TemporaryLock_OnLoop(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_TemporaryLock[] =
 {
     PROC_SLEEP(0),
 
-    PROC_REPEAT(sub_8014BC8),
+    PROC_REPEAT(TemporaryLock_OnLoop),
     PROC_END,
 };
 
-void sub_8014BAC(ProcPtr proc, int duration)
+void StartTemporaryLock(ProcPtr proc, int duration)
 {
     struct GenericProc* gproc;
 
@@ -1367,7 +1348,7 @@ void sub_8014BAC(ProcPtr proc, int duration)
     gproc->unk58 = duration;
 }
 
-void sub_8014BC8(struct GenericProc* proc)
+static void TemporaryLock_OnLoop(struct GenericProc* proc)
 {
     if (proc->unk58 == 0)
     {
@@ -1381,7 +1362,7 @@ void sub_8014BC8(struct GenericProc* proc)
 static char CONST_DATA sStrZero[] = "‚O";
 static char CONST_DATA sStrDash[] = "[";
 
-int sub_8014BE4(int number, char* buf)
+int NumberToString(int number, char* buf)
 {
     int numOff, numStart;
 
@@ -1435,7 +1416,7 @@ int sub_8014BE4(int number, char* buf)
 
 static struct Text sText_03000420;
 
-struct Text* sub_8014CA8(u16* tm, int color, int width, char const* str)
+struct Text* PutStringCentered(u16* tm, int color, int width, char const* str)
 {
     struct Text* const text = &sText_03000420;
 
@@ -1452,7 +1433,7 @@ struct Text* sub_8014CA8(u16* tm, int color, int width, char const* str)
     return text;
 }
 
-struct Text* sub_8014D0C(u16* tm, int color, char const* str)
+struct Text* PutString(u16* tm, int color, char const* str)
 {
     struct Text* const text = &sText_03000420;
 
@@ -2102,7 +2083,7 @@ void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 
 #endif // NONMATCHING
 
-struct UnkProc_085C4E6C
+struct CallDelayedProc
 {
     /* 00 */ PROC_HEADER;
 
@@ -2111,7 +2092,7 @@ struct UnkProc_085C4E6C
     /* 34 */ int clock;
 };
 
-void sub_801515C(struct UnkProc_085C4E6C* proc)
+static void CallDelayed_OnLoop(struct CallDelayedProc* proc)
 {
     proc->clock--;
 
@@ -2124,7 +2105,7 @@ void sub_801515C(struct UnkProc_085C4E6C* proc)
     }
 }
 
-void sub_8015180(struct UnkProc_085C4E6C* proc)
+static void CallDelayedArg_OnLoop(struct CallDelayedProc* proc)
 {
     proc->clock--;
 
@@ -2137,33 +2118,33 @@ void sub_8015180(struct UnkProc_085C4E6C* proc)
     }
 }
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C4E6C[] =
+struct ProcScr CONST_DATA ProcScr_CallDelayed[] =
 {
-    PROC_REPEAT(sub_801515C),
+    PROC_REPEAT(CallDelayed_OnLoop),
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C4E7C[] =
+struct ProcScr CONST_DATA ProcScr_CallDelayedArg[] =
 {
-    PROC_REPEAT(sub_8015180),
+    PROC_REPEAT(CallDelayedArg_OnLoop),
     PROC_END,
 };
 
-void sub_80151A8(void(*func)(void), int duration)
+void CallDelayed(void(*func)(void), int delay)
 {
-    struct UnkProc_085C4E6C* proc = SpawnProc(ProcScr_Unk_085C4E6C, PROC_TREE_3);
+    struct CallDelayedProc* proc = SpawnProc(ProcScr_CallDelayed, PROC_TREE_3);
 
     proc->func = func;
-    proc->clock = duration;
+    proc->clock = delay;
 }
 
-void sub_80151C4(void(*func)(int), int arg, int duration)
+void CallDelayedArg(void(*func)(int), int arg, int delay)
 {
-    struct UnkProc_085C4E6C* proc = SpawnProc(ProcScr_Unk_085C4E7C, PROC_TREE_3);
+    struct CallDelayedProc* proc = SpawnProc(ProcScr_CallDelayedArg, PROC_TREE_3);
 
     proc->func = func;
     proc->arg = arg;
-    proc->clock = duration;
+    proc->clock = delay;
 }
 
 void sub_80151E4(u8* out, int size)
@@ -2211,32 +2192,32 @@ void sub_8015208(u16* out, int size, int value)
     RGB(r, g, b), \
     RGB(r, g, b), \
 
-u16 CONST_DATA Pal_085C4E8C[] = { RGB_16TIMES(0,  0,  0)  };
-u16 CONST_DATA Pal_085C4EAC[] = { RGB_16TIMES(31, 31, 31) };
-u16 CONST_DATA Pal_085C4ECC[] = { RGB_16TIMES(31, 0,  0)  };
-u16 CONST_DATA Pal_085C4EEC[] = { RGB_16TIMES(0,  31, 0)  };
-u16 CONST_DATA Pal_085C4F0C[] = { RGB_16TIMES(0,  0,  31) };
+u16 CONST_DATA Pal_AllBlack[] = { RGB_16TIMES(0,  0,  0)  };
+u16 CONST_DATA Pal_AllWhite[] = { RGB_16TIMES(31, 31, 31) };
+u16 CONST_DATA Pal_AllRed[]   = { RGB_16TIMES(31, 0,  0)  };
+u16 CONST_DATA Pal_AllGreen[] = { RGB_16TIMES(0,  31, 0)  };
+u16 CONST_DATA Pal_AllBlue[]  = { RGB_16TIMES(0,  0,  31) };
 u16 CONST_DATA Pal_085C4F2C[] = { RGB_16TIMES(30, 31, 1)  };
 
 #undef RGB_16TIMES
 
-void sub_801523C(struct GenericProc* proc);
+static void PartialGameLock_OnLoop(struct GenericProc* proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C4F4C[] =
+struct ProcScr CONST_DATA ProcScr_PartialGameLock[] =
 {
-    PROC_REPEAT(sub_801523C),
+    PROC_REPEAT(PartialGameLock_OnLoop),
     PROC_END,
 };
 
-void sub_8015218(ProcPtr proc)
+void StartPartialGameLock(ProcPtr proc)
 {
     struct GenericProc* gproc;
 
-    gproc = SpawnProcLocking(ProcScr_Unk_085C4F4C, proc);
+    gproc = SpawnProcLocking(ProcScr_PartialGameLock, proc);
     gproc->unk64 = GetGameLogicLock();
 }
 
-void sub_801523C(struct GenericProc* proc)
+static void PartialGameLock_OnLoop(struct GenericProc* proc)
 {
     if (GetGameLogicLock() == proc->unk64)
         Proc_Break(proc);
@@ -2272,7 +2253,7 @@ void sub_80152C4(u16 const* src, u16* dst, int size, u16 tileref)
     }
 }
 
-u16* sub_80152E8(int bgid, int x, int y)
+u16* GetTmOffsetById(int bgid, int x, int y)
 {
     switch (bgid)
     {
@@ -2310,39 +2291,39 @@ void sub_8015344(void)
         sub_8015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
 }
 
-int sub_80153CC(int arg_0)
+int Screen2Pan(int x)
 {
-    if (arg_0 < 0)
+    if (x < 0)
         return -0x60;
 
-    if (arg_0 >= DISPLAY_WIDTH)
+    if (x >= DISPLAY_WIDTH)
         return +0x5F;
 
-    return Div(0xC0 * arg_0, DISPLAY_WIDTH) - 0x60;
+    return Div(0xC0 * x, DISPLAY_WIDTH) - 0x60;
 }
 
 void PlaySeSpacial(int song, int x)
 {
     struct MusicPlayerInfo* mpi;
 
-    PlaySE(song);
+    PlaySe(song);
 
     mpi = gMPlayTable[gSongTable[song].ms].info;
 
     m4aMPlayImmInit(mpi);
-    m4aMPlayPanpotControl(mpi, 0xFFFF, sub_80153CC(x));
+    m4aMPlayPanpotControl(mpi, 0xFFFF, Screen2Pan(x));
 }
 
-static void sub_801546C(int song);
+static void PlaySeFunc(int song);
 
-void sub_8015454(int song, int delay)
+void PlaySeDelayed(int song, int delay)
 {
-    sub_80151C4(sub_801546C, song, delay);
+    CallDelayedArg(PlaySeFunc, song, delay);
 }
 
-static void sub_801546C(int song)
+static void PlaySeFunc(int song)
 {
-    PlaySE(song);
+    PlaySe(song);
 }
 
 void sub_801548C(short song)
@@ -2384,7 +2365,7 @@ void sub_8015504(u8 const* src, u8* dst, int size)
     }
 }
 
-void sub_801551C(struct Text* text, int x, int y, char const* str, int width)
+void PutDrawTextCentered(struct Text* text, int x, int y, char const* str, int width)
 {
     int off;
 
@@ -2397,14 +2378,14 @@ void sub_801551C(struct Text* text, int x, int y, char const* str, int width)
     PutText(text, gBg0Tm + TM_OFFSET(x, y));
 }
 
-void sub_801556C(int const* vec, int const* mat, int* ovec)
+void VecMulMat(int const* vec, int const* mat, int* ovec)
 {
     ovec[0] = ((vec[0] * mat[0]) + (vec[1] * mat[3]) + (vec[2] * mat[6])) >> 12;
     ovec[1] = ((vec[0] * mat[1]) + (vec[1] * mat[4]) + (vec[2] * mat[7])) >> 12;
     ovec[2] = ((vec[0] * mat[2]) + (vec[1] * mat[5]) + (vec[2] * mat[8])) >> 12;
 }
 
-void sub_80155B8(int const* lmat, int const* rmat, int* omat)
+void MatMulMat(int const* lmat, int const* rmat, int* omat)
 {
     int tmpmat[12];
     int* mat;
@@ -2431,10 +2412,10 @@ void sub_80155B8(int const* lmat, int const* rmat, int* omat)
     mat[11] = (((lmat[2] * rmat[9]) + (lmat[5] * rmat[10]) + (lmat[8] * rmat[11])) >> 12) + lmat[11];
 
     if (mat == tmpmat)
-        sub_8015748(tmpmat, omat);
+        MatCopy(tmpmat, omat);
 }
 
-void sub_8015728(int* mat)
+void MatIdent(int* mat)
 {
     mat[0] = 1 << 12;
     mat[1] = 0;
@@ -2453,7 +2434,7 @@ void sub_8015728(int* mat)
     mat[11] = 0;
 }
 
-void sub_8015748(int const* src, int* dst)
+void MatCopy(int const* src, int* dst)
 {
     dst[0] = src[0];
     dst[1] = src[1];
@@ -2472,7 +2453,7 @@ void sub_8015748(int const* src, int* dst)
     dst[11] = src[11];
 }
 
-void sub_801577C(int* mat, short angle)
+void MatRotA(int* mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -2490,7 +2471,7 @@ void sub_801577C(int* mat, short angle)
     mat[8] = +cos;
 }
 
-void sub_80157C8(int* mat, short angle)
+void MatRotB(int* mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -2508,7 +2489,7 @@ void sub_80157C8(int* mat, short angle)
     mat[8] = +cos;
 }
 
-void sub_8015810(int* mat, short angle)
+void MatRotC(int* mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -2530,12 +2511,12 @@ void nullsub_15(void)
 {
 }
 
-int sub_801585C(int const* lvec, int const* rvec)
+int VecDotVec(int const* lvec, int const* rvec)
 {
     return ((lvec[0] * rvec[0]) + (lvec[1] * rvec[1]) + (lvec[2] * rvec[2])) >> 12;
 }
 
-void sub_8015880(int const* lvec, int const* rvec, int* ovec)
+void VecCrossVec(int const* lvec, int const* rvec, int* ovec)
 {
     ovec[0] = (lvec[1] * rvec[2] - lvec[2] * rvec[1]) >> 12;
     ovec[1] = (lvec[2] * rvec[0] - lvec[0] * rvec[2]) >> 12;
