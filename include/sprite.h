@@ -29,6 +29,7 @@ void ClearSprites(void);
 void PutSprite(int layer, int x, int y, const u16* object, int oam2);
 void PutSpriteExt(int layer, int xOam1, int yOam0, const u16* object, int oam2);
 void PushSpriteLayerObjects(int layer);
+void PutSpriteLayerOam(int layer);
 
 // struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const* object, int tileref);
 // void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y);

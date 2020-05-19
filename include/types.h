@@ -32,111 +32,6 @@ enum
     // TODO: more
 };
 
-enum
-{
-    BM_FLAG_0 = (1 << 0),
-    BM_FLAG_1 = (1 << 1),
-    BM_FLAG_2 = (1 << 2),
-    BM_FLAG_3 = (1 << 3),
-};
-
-struct BmSt
-{
-    /* 00 */ s8 mainLoopEnded;
-    /* 01 */ u8 lock;
-    /* 02 */ u8 lockDisplay;
-    /* 03 */ u8 pad03;
-    /* 04 */ u8 flags;
-    /* 05 */ // pad
-    /* 06 */ u16 unk06;
-    /* 08 */ int pad08;
-    /* 0C */ struct Vec2 camera;
-    /* 10 */ struct Vec2 cameraPrevious;
-    /* 14 */ struct Vec2 cursor;
-    /* 18 */ struct Vec2 unk18;
-    /* 1C */ struct Vec2 unk1C;
-    /* 20 */ struct Vec2 cursorSpr;
-    /* 24 */ struct Vec2u unk24;
-    /* 28 */ struct Vec2 unk28; 
-};
-
-enum
-{
-    PLAY_FLAG_0    = (1 << 0),
-    PLAY_FLAG_1    = (1 << 1),
-    PLAY_FLAG_2    = (1 << 2),
-    PLAY_FLAG_3    = (1 << 3),
-    PLAY_FLAG_4    = (1 << 4),
-    PLAY_FLAG_5    = (1 << 5),
-    PLAY_FLAG_HARD = (1 << 6),
-    PLAY_FLAG_7    = (1 << 7),
-};
-
-enum
-{
-    FACTION_BLUE   = 0x00,
-    FACTION_RED    = 0x80,
-    FACTION_GREEN  = 0x40,
-    FACTION_PURPLE = 0xC0,
-};
-
-enum
-{
-    FACTION_ID_BLUE = 0,
-    FACTION_ID_GREEN = 1,
-    FACTION_ID_RED = 2,
-    FACTION_ID_PURPLE = 3,
-};
-
-enum
-{
-    WEATHER_NONE,
-};
-
-struct PlaySt
-{
-    /* 00 */ u32 unk00; // a time value
-    /* 04 */ u32 unk04; // a time value
-
-    /* 08 */ u32 gold;
-    /* 0C */ u8 saveSlot;
-    /* 0D */ u8 vision; // 0 means no fog
-    /* 0E */ s8 chapter;
-    /* 0F */ u8 faction;
-    /* 10 */ u16 turn;
-    /* 12 */ u8 xCursor, yCursor; // map cursor position
-    /* 14 */ u8 flags; // +0x04 = postgame, +0x10 = in prep screen, +0x40 = difficult mode, +0x80 = link arena?
-    /* 15 */ u8 weather;
-    /* 16 */ u16 supportGain;
-    /* 18 */ u8 playId;
-    /* 19 */ u8 unk19;
-    /* 1A */ u8 lastSortId;
-    /* 1B */ u8 unk1B;
-
-    // option bits
-    u32 unk1C_1:1; // 1
-    u32 unk1C_2:1; // 
-    u32 unk1C_3:2; // 
-    u32 unk1C_5:1; // 
-    u32 cfgTextSpeed:2;
-    u32 unk1C_8:1;
-    u32 cfgBgmDisable:1;
-    u32 cfgSeDisable:1;
-    u32 cfgWindowColor:2;
-    u32 unk1D_5:1; // 
-    u32 unk1D_6:1; // 
-    u32 unk1D_7:1; // 
-    u32 unk1D_8:1; // 
-    u32 unk1E_1:2; // 2
-    u32 unk1E_3:1; // 
-    u32 unk1E_4:2; // 
-    u32 unk1E_6:1; // 
-    u32 unk1E_7:1; // 
-    u32 unk1E_8:2; // 
-    u32 unk1F_2:2; // 
-    u32 unk1F_4:5; // 
-};
-
 struct PersonInfo
 {
     /* 00 */ u16 msgName;
@@ -316,9 +211,13 @@ struct ChapterInfo
     /* 19 */ u8 wallHp;
     /* 1A */ u8 classRollSet;
 
-    /* 1B */ u8 pad19[0x3E - 0x1B];
+    /* 1B */ u8 pad_1B[0x3E - 0x1B];
 
     /* 3E */ u8 numberId;
+
+    /* 3F */ u8 pad_3F[0x43 - 0x3F];
+
+    /* 43 */ s8 victoryBgmEnemyThreshold;
 };
 
 struct UnitInfo
@@ -407,6 +306,52 @@ struct BattleHit
     unsigned attributes : 16;
     unsigned info : 8;
     signed damage : 8;
+};
+
+enum
+{
+    SUSPEND_POINT_PLAYER_PHASE,
+    SUSPEND_POINT_DURING_ACTION,
+    SUSPEND_POINT_AI_PHASE,
+    SUSPEND_POINT_BERSERK_PHASE,
+    SUSPEND_POINT_DURING_ARENA,
+    SUSPEND_POINT_5,
+    SUSPEND_POINT_6,
+    SUSPEND_POINT_7,
+    SUSPEND_POINT_8,
+    SUSPEND_POINT_CHANGE_PHASE,
+};
+
+struct Action
+{
+    /* 00 */ u16 unk_00[3];
+    /* 06 */ u16 unk_06;
+    /* 08 */ u16 unk_08[2];
+
+    /* 0C */ u8 actor;
+    /* 0D */ u8 target;
+
+    /* 0E */ u8 xMove;
+    /* 0F */ u8 yMove;
+
+    /* 10 */ u8 moveCount;
+
+    /* 11 */ u8 actionId;
+
+    // maybe from this onwards it's an union?
+
+    /* 12 */ u8 itemSlot;
+
+    /* 13 */ u8 xTarget;
+    /* 14 */ u8 yTarget;
+
+    /* 15 */ u8 unk_15;
+
+    /* 16 */ u8 suspendPoint;
+
+    /* 18 */ struct BattleHit* scriptedBattleHits;
+
+    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
 struct AiDecision

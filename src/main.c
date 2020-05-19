@@ -10,6 +10,7 @@
 #include "proc.h"
 #include "anim.h"
 #include "game-controller.h"
+#include "bm-main.h"
 
 void sub_805F7E4(void);
 void sub_80841FC(void);
@@ -64,7 +65,7 @@ NAKEDFUNC void AgbMain(void)
         sub_808439C();
 
     m4aSoundInit();
-    SetOnVBlank(sub_80158C0);
+    SetOnVBlank(OnVBlank);
 
     StartGame();
 

@@ -9,16 +9,17 @@
 
 extern u8 gBuf[];
 
-extern struct BmSt gBmSt;
-extern struct PlaySt gPlaySt;
 extern struct Unit* gActiveUnit;
+extern struct Vec2 gMapSize;
 extern u8** gMapUnit;
 extern u8** gMapTerrain;
+extern u8** gMapMovement;
 extern u8** gMapOther;
 extern u8 gMoveScrBuf[0x40];
 extern struct BattleUnit gBattleUnitA;
 extern struct BattleUnit gBattleUnitB;
 extern struct BattleHit* gBattleHitIt;
+extern struct Action gAction;
 extern struct AiDecision gAiDecision;
 
 extern struct ProcScr CONST_DATA ProcScr_EventWaitForMu[];
@@ -45,12 +46,25 @@ extern u8 const Img_TalkBubbleOpeningD[];
 extern u8 const Img_TalkBubbleOpeningE[];
 extern u8 const Tsa_Unk_08101974[];
 extern u8 const Tsa_Unk_08101A2C[];
+extern u8 const Img_SystemObjects[];
+extern u16 const Pal_SystemObjects[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_085C8080[];
 extern struct ProcScr CONST_DATA ProcScr_CamMove[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
+extern struct ProcScr CONST_DATA ProcScr_PlayerPhase[];
+extern struct ProcScr CONST_DATA ProcScr_AiPhase[];
+extern struct ProcScr CONST_DATA ProcScr_UpdateTraps[];
+extern struct ProcScr CONST_DATA ProcScr_PrepScreen[];
+extern struct ProcScr CONST_DATA ProcScr_ChapterIntro[];
+extern struct ProcScr CONST_DATA ProcScr_InitPhaseCursor[];
+extern struct ProcScr CONST_DATA ProcScr_PhaseIntro[];
+extern struct ProcScr CONST_DATA ProcScr_StatusDecayDisplay[];
+extern struct ProcScr CONST_DATA ProcScr_TerrainHealDisplay[];
+extern struct ProcScr CONST_DATA ProcScr_PoisonDamageDisplay[];
+extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];

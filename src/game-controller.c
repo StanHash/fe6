@@ -4,6 +4,7 @@
 
 #include "hardware.h"
 #include "util.h"
+#include "bm-main.h"
 
 struct GameController
 {
@@ -289,7 +290,7 @@ static void GC_CheckSramResetKeyCombo(struct GameController* proc)
 static void GC_InitSramResetScreen(struct GameController* proc)
 {
     InitBgs(NULL);
-    InitUiGraphics();
+    ApplySystemGraphics();
 
     gPlaySt.cfgTextSpeed = 1;
 
@@ -330,7 +331,7 @@ void CleanupGame(ProcPtr proc)
 
     Proc_ForAll(EndIfNotGameController);
 
-    SetMainFunc(sub_8015910);
+    SetMainFunc(OnMain);
 }
 
 static void GC_PostIntro(struct GameController* proc)
@@ -501,8 +502,8 @@ void StartGame(void)
 {
     struct GameController* proc;
 
-    SetMainFunc(sub_8015910);
-    SetOnVBlank(sub_80158C0);
+    SetMainFunc(OnMain);
+    SetOnVBlank(OnVBlank);
 
     proc = SpawnProc(ProcScr_GameController, PROC_TREE_3);
 

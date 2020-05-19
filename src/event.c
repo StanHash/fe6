@@ -15,6 +15,7 @@
 #include "game-controller.h"
 #include "msg.h"
 #include "util.h"
+#include "bm-main.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1274,10 +1275,10 @@ static int EvtCmd_CameraPosition(struct EventProc* proc)
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
-        gBmSt.camera.x = sub_8015E44(EVTCMD_GET_X(proc->script[0]) << 4);
-        gBmSt.camera.y = sub_8015E88(EVTCMD_GET_Y(proc->script[0]) << 4);
+        gBmSt.camera.x = GetCameraAdjustedX(EVTCMD_GET_X(proc->script[0]) << 4);
+        gBmSt.camera.y = GetCameraAdjustedY(EVTCMD_GET_Y(proc->script[0]) << 4);
 
-        sub_801600C(
+        SetMapCursorPosition(
             EVTCMD_GET_X(proc->script[0]),
             EVTCMD_GET_Y(proc->script[0]));
 
@@ -1286,11 +1287,11 @@ static int EvtCmd_CameraPosition(struct EventProc* proc)
         return EVENT_CMDRET_YIELD;
     }
 
-    EnsureCameraOntoPosition(proc,
+    CameraMoveWatchPosition(proc,
         EVTCMD_GET_X(proc->script[0]),
         EVTCMD_GET_Y(proc->script[0]));
 
-    sub_801600C(
+    SetMapCursorPosition(
         EVTCMD_GET_X(proc->script[0]),
         EVTCMD_GET_Y(proc->script[0]));
 
@@ -1305,18 +1306,18 @@ static int EvtCmd_CameraPid(struct EventProc* proc)
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
-        gBmSt.camera.x = sub_8015E44(unit->x << 4);
-        gBmSt.camera.y = sub_8015E88(unit->y << 4);
+        gBmSt.camera.x = GetCameraAdjustedX(unit->x << 4);
+        gBmSt.camera.y = GetCameraAdjustedY(unit->y << 4);
 
-        sub_801600C(unit->x, unit->y);
+        SetMapCursorPosition(unit->x, unit->y);
 
         RedrawBattleMap();
 
         return EVENT_CMDRET_YIELD;
     }
 
-    EnsureCameraOntoPosition(proc, unit->x, unit->y);
-    sub_801600C(unit->x, unit->y);
+    CameraMoveWatchPosition(proc, unit->x, unit->y);
+    SetMapCursorPosition(unit->x, unit->y);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1325,7 +1326,7 @@ static Bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
 {
     if (proc->flags & EVENT_FLAG_UNITCAM)
     {
-        if (Proc_Find(ProcScr_CamMove) != NULL || EnsureCameraOntoPosition(proc, x, y))
+        if (Proc_Find(ProcScr_CamMove) != NULL || CameraMoveWatchPosition(proc, x, y))
             return FALSE;
     }
 
@@ -2288,7 +2289,7 @@ static void FlashCursor_OnLoop(struct GenericProc* proc)
     if (--proc->unk58 <= 0)
         Proc_Break(proc);
 
-    sub_8015F1C(proc->unk64 << 4, proc->unk66 << 4, 0);
+    PutMapCursor(proc->unk64 << 4, proc->unk66 << 4, MAP_CURSOR_DEFAULT);
 }
 
 static int EvtCmd_PutCursor(struct EventProc* proc)
@@ -2314,7 +2315,7 @@ static int EvtCmd_PutCursor(struct EventProc* proc)
 
 static void EventCursor_OnLoop(struct GenericProc* proc)
 {
-    sub_8015F1C(proc->unk64 << 4, proc->unk66 << 4, 0);
+    PutMapCursor(proc->unk64 << 4, proc->unk66 << 4, MAP_CURSOR_DEFAULT);
 }
 
 static int EvtCmd_ClearCursors(struct EventProc* proc)
@@ -2594,8 +2595,8 @@ static int EvtCmd_SetMap(struct EventProc* proc)
     sub_8029084();
     sub_8029370();
 
-    gBmSt.camera.x = sub_8015ECC(proc->script[1] * 16);
-    gBmSt.camera.y = sub_8015EF4(proc->script[2] * 16);
+    gBmSt.camera.x = GetCameraCenteredX(proc->script[1] * 16);
+    gBmSt.camera.y = GetCameraCenteredY(proc->script[2] * 16);
 
     RefreshEntityMaps();
     RedrawBattleMap();
@@ -2612,7 +2613,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
     {
         proc->flags &= ~EVENT_FLAG_SKIPPED;
 
-        InitUiGraphics();
+        ApplySystemGraphics();
         UnpackChapterMapPalette();
         ApplyMapSpritePalettes();
 
@@ -2754,7 +2755,7 @@ static int EvtCmd_FightScript(struct EventProc* proc)
 
     int isBallista;
 
-    proc->cmdShort = GetGameLogicLock();
+    proc->cmdShort = GetGameLock();
     proc->onIdle = EventScriptedBattleWait;
 
     unitA = GetUnitByCharId(proc->script[0]);
@@ -2815,7 +2816,7 @@ static void EventScriptedBattleWaitB(struct EventProc* proc);
 
 static void EventScriptedBattleWait(struct EventProc* proc)
 {
-    if (proc->cmdShort == GetGameLogicLock())
+    if (proc->cmdShort == GetGameLock())
         proc->onIdle = EventScriptedBattleWaitB;
 }
 

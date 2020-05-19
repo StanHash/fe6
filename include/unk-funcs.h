@@ -5,41 +5,8 @@
 #include "types.h"
 
 #include "proc.h"
+#include "bm-main.h"
 
-void sub_80158C0(void);
-void sub_8015910(void);
-void LockGame(void);
-void UnlockGame(void);
-u8 GetGameLogicLock(void);
-// sub_80159A8
-// sub_80159F0
-// sub_8015A18
-// sub_8015A6C
-// sub_8015A90
-// sub_8015AB8
-// sub_8015AD0
-void LoadObjUiGfx(void);
-void InitUiGraphics(void);
-// sub_8015BA0
-// sub_8015CC4
-// sub_8015D18
-short sub_8015E44(int x);
-short sub_8015E88(int y);
-u16 sub_8015ECC(int x);
-u16 sub_8015EF4(int y);
-void sub_8015F1C(int x, int y, int arg_2);
-void sub_801600C(int x, int y);
-// sub_8016024
-// sub_801606C
-// sub_80160AC
-// sub_8016140
-Bool EnsureCameraOntoPosition(ProcPtr proc, int x, int y);
-// sub_8016250
-// sub_8016290
-// sub_80162F4
-// sub_8016344
-// sub_801637C
-// sub_80163E4
 // sub_80163F4
 // sub_801641C
 // sub_8016444
@@ -138,8 +105,8 @@ void UnitUpdateRescueePosition(struct Unit* unit);
 void SetActiveUnit(struct Unit* unit);
 // sub_8017E70
 // sub_8017EDC
-// sub_8017F5C
-// sub_8017FAC
+void sub_8017F5C(void);
+void sub_8017FAC(void);
 // sub_801809C
 // sub_80180D8
 // sub_80180FC
@@ -541,7 +508,7 @@ void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 // sub_802094C
 // sub_8020958
 // sub_802097C
-// sub_80209C8
+int sub_80209C8(int faction, int prohibitedState);
 // sub_8020A04
 // sub_8020A18
 // sub_8020A2C
@@ -643,7 +610,7 @@ void sub_8022A5C(struct Unit* unit);
 // sub_8022C10
 // sub_8022C28
 // sub_8022C60
-// sub_8022CB4
+void sub_8022CB4(void);
 // sub_8022DB4
 // sub_8022DD4
 // sub_8022E2C
@@ -3300,8 +3267,8 @@ void sub_806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // sub_806AE2C
 // sub_806AE54
 // sub_806AE7C
-// sub_806AED8
-// sub_806AF08
+Bool sub_806AED8(void);
+void sub_806AF08(void);
 // sub_806AF4C
 // sub_806AF90
 // sub_806AFD0
@@ -4170,7 +4137,7 @@ void sub_8085270(int saveId, struct PlaySt* out);
 // sub_80852C4
 // sub_80855C4
 void sub_8085788(int saveId);
-// sub_80857B0
+void sub_80857B0(int saveId);
 // sub_80858E4
 // sub_80859E0
 // sub_8085A34

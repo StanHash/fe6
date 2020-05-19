@@ -127,6 +127,7 @@ struct GenericProc
 
 enum
 {
+    PROC_MARK_2 = 2,
     PROC_MARK_5 = 5,
     PROC_MARK_6 = 6,
     PROC_MARK_7 = 7,

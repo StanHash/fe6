@@ -7,6 +7,7 @@
 #include "armfunc.h"
 #include "sound.h"
 #include "text.h"
+#include "bm-main.h"
 
 #include "constants/video-global.h"
 
@@ -647,7 +648,7 @@ void StartPalFadeToWhite(int palid, int duration, ProcPtr parent)
     StartPalFade(Pal_AllWhite, palid, duration, parent);
 }
 
-static struct PalFadeSt EWRAM_DATA sPalFadeSt[0x10] = {};
+static struct PalFadeSt EWRAM_DATA sPalFadeSt[0x20] = {};
 
 struct PalFadeProc
 {
@@ -2214,12 +2215,12 @@ void StartPartialGameLock(ProcPtr proc)
     struct GenericProc* gproc;
 
     gproc = SpawnProcLocking(ProcScr_PartialGameLock, proc);
-    gproc->unk64 = GetGameLogicLock();
+    gproc->unk64 = GetGameLock();
 }
 
 static void PartialGameLock_OnLoop(struct GenericProc* proc)
 {
-    if (GetGameLogicLock() == proc->unk64)
+    if (GetGameLock() == proc->unk64)
         Proc_Break(proc);
 }
 

@@ -16,6 +16,7 @@
 #include "event.h"
 #include "msg.h"
 #include "util.h"
+#include "bm-main.h"
 
 #include "constants/video-global.h"
 
@@ -500,7 +501,7 @@ static void Talk_OnInit(ProcPtr proc)
 {
     if (!CheckTalkFlag(TALK_FLAG_SPRITE))
     {
-        LoadObjUiGfx();
+        ApplySystemObjectsGraphics();
 
         SetBgOffset(0, 0, 0);
         SetBgOffset(1, 0, 0);

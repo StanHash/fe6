@@ -4,8 +4,7 @@
 #include "irq.h"
 #include "move.h"
 #include "oam.h"
-
-void sub_8015AD0(void);
+#include "bm-main.h"
 
 enum
 {
@@ -708,7 +707,7 @@ void InitBgs(u16 const* config)
         TmFill(GetBgTilemap(i), 0);
     }
 
-    sub_8015AD0();
+    InitBmBgLayers();
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT + BG3_SYNC_BIT);
 

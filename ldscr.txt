@@ -1,5 +1,7 @@
 OUTPUT_ARCH(arm)
 
+Img_SystemObjects = 0x081004A4;
+Pal_SystemObjects = 0x08100928;
 Pal_SystemText = 0x08100A08;
 Pal_TalkText = 0x08100A28;
 Pal_GreenTextColors = 0x08100A68;
@@ -19,11 +21,21 @@ Img_TalkBubbleOpeningE = 0x082E443C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_CamMove = 0x085C5234;
-ProcScr_Unk_085C8080 = 0x085C8080;
-ProcScr_OpeningSequence = 0x0869150C;
-ProcScr_Unk_08691480 = 0x08691480;
-ProcScr_Unk_0868C304 = 0x0868C304;
+ProcScr_PlayerPhase         = 0x085C56A8;
+ProcScr_InitPhaseCursor     = 0x085C5970;
+ProcScr_PhaseIntro          = 0x085C5AA0;
+ProcScr_ChapterIntro        = 0x085C5BE8;
+ProcScr_UpdateTraps         = 0x085C6358;
+ProcScr_PrepScreen          = 0x085C7E44;
+ProcScr_Unk_085C8080        = 0x085C8080;
+ProcScr_TerrainHealDisplay  = 0x085C8200;
+ProcScr_PoisonDamageDisplay = 0x085C8260;
+ProcScr_StatusDecayDisplay  = 0x085C82C8;
+ProcScr_AiPhase             = 0x085C8444;
+ProcScr_BerserkPhase        = 0x085C846C;
+ProcScr_Unk_0868C304        = 0x0868C304;
+ProcScr_Unk_08691480        = 0x08691480;
+ProcScr_OpeningSequence     = 0x0869150C;
 
 FaceInfoTable = 0x0866074C;
 
@@ -53,16 +65,18 @@ SECTIONS
         . = ALIGN(4); src/face.o(ewram_data);
         . = ALIGN(4); src/msg.o(ewram_data);
         . = ALIGN(4); src/util.o(ewram_data);
+        . = ALIGN(4); src/bm-main.o(ewram_data);
 
-        . = 0x02AA08; gBmSt = .;
-        . = 0x02AA48; gPlaySt = .;
+        . = 0x02D200; gMapSize = .;
         . = 0x02D204; gMapUnit = .;
         . = 0x02D208; gMapTerrain = .;
+        . = 0x02D20C; gMapMovement = .;
         . = 0x02D21C; gMapOther = .;
         . = 0x032C28; gMoveScrBuf = .;
         . = 0x039214; gBattleUnitA = .;
         . = 0x039290; gBattleUnitB = .;
         . = 0x039328; gBattleHitIt = .;
+        . = 0x03956C; gAction = .;
         . = 0x039688; gAiDecision = .;
     }
 
@@ -151,6 +165,7 @@ SECTIONS
         src/game-controller.o(.text);
         src/msg.o(.text);
         src/util.o(.text);
+        src/bm-main.o(.text);
 
         asm/code.o(.text);
 
@@ -220,6 +235,7 @@ SECTIONS
         . = ALIGN(4); src/anim.o(.data);
         . = ALIGN(4); src/game-controller.o(.data);
         . = ALIGN(4); src/util.o(.data);
+        . = ALIGN(4); src/bm-main.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0
