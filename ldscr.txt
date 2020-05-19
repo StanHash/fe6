@@ -37,7 +37,9 @@ ProcScr_Unk_0868C304        = 0x0868C304;
 ProcScr_Unk_08691480        = 0x08691480;
 ProcScr_OpeningSequence     = 0x0869150C;
 
+ItemInfoTable = 0x0860B648;
 FaceInfoTable = 0x0866074C;
+Effectiveness_FlyingClasses = 0x086615DB;
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -65,7 +67,7 @@ SECTIONS
         . = ALIGN(4); src/face.o(ewram_data);
         . = ALIGN(4); src/msg.o(ewram_data);
         . = ALIGN(4); src/util.o(ewram_data);
-        . = ALIGN(4); src/bm-main.o(ewram_data);
+        . = ALIGN(4); src/bm.o(ewram_data);
 
         . = 0x02D200; gMapSize = .;
         . = 0x02D204; gMapUnit = .;
@@ -165,7 +167,8 @@ SECTIONS
         src/game-controller.o(.text);
         src/msg.o(.text);
         src/util.o(.text);
-        src/bm-main.o(.text);
+        src/bm.o(.text);
+        src/item.o(.text);
 
         asm/code.o(.text);
 
@@ -216,7 +219,8 @@ SECTIONS
         . = ALIGN(4); src/game-controller.o(.rodata);
         . = ALIGN(4); src/msg.o(.rodata);
         . = ALIGN(4); src/util.o(.rodata);
-
+        . = ALIGN(4); data/rodata_1004A4.o(.rodata);
+        . = ALIGN(4); src/item.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
@@ -235,7 +239,7 @@ SECTIONS
         . = ALIGN(4); src/anim.o(.data);
         . = ALIGN(4); src/game-controller.o(.data);
         . = ALIGN(4); src/util.o(.data);
-        . = ALIGN(4); src/bm-main.o(.data);
+        . = ALIGN(4); src/bm.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

@@ -15,7 +15,8 @@
 #include "game-controller.h"
 #include "msg.h"
 #include "util.h"
-#include "bm-main.h"
+#include "bm.h"
+#include "item.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -422,7 +423,7 @@ static int PreparePopup(struct PopupProc* proc)
 
         case POPUP_CMD_ICON_ITEM:
             proc->iconX = result;
-            proc->icon = sub_80172D8(sPopupItem);
+            proc->icon = GetItemIcon(sPopupItem);
             ApplyIconPalette(0, proc->iconPalid);
 
             result += 16;
@@ -452,7 +453,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_ITEM_NAME:
-            result += GetStringTextLen(sub_8017130(sPopupItem));
+            result += GetStringTextLen(GetItemName(sPopupItem));
             break;
 
         case POPUP_CMD_SPACE:
@@ -507,7 +508,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
             break;
 
         case POPUP_CMD_ITEM_NAME:
-            Text_DrawString(&text, sub_8017130(sPopupItem));
+            Text_DrawString(&text, GetItemName(sPopupItem));
             break;
 
         case POPUP_CMD_SPACE:
@@ -2771,7 +2772,7 @@ static int EvtCmd_FightScript(struct EventProc* proc)
     MU_Start(gActiveUnit);
     MU_SetDefaultFacing_Auto();
 
-    if (GetItemType(unitA->items[0]) == ITEM_KIND_STAFF)
+    if (GetItemKind(unitA->items[0]) == ITEM_KIND_STAFF)
     {
         BattleInitItemEffect(unitA, 0);
         BattleInitItemEffectTarget(unitB);
@@ -3543,7 +3544,7 @@ static void GiveItem_DoPopup(struct GenericProc* proc)
 
 static void GiveItem_DoGiveItem(struct GenericProc* proc)
 {
-    sub_801C5B0(proc->ptr, sub_801650C(proc->unk58), proc);
+    sub_801C5B0(proc->ptr, CreateItem(proc->unk58), proc);
 }
 
 void StartGiveItemEvent(u16 iid)

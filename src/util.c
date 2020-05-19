@@ -7,7 +7,7 @@
 #include "armfunc.h"
 #include "sound.h"
 #include "text.h"
-#include "bm-main.h"
+#include "bm.h"
 
 #include "constants/video-global.h"
 

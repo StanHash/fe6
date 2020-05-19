@@ -10,7 +10,7 @@
 #include "proc.h"
 #include "anim.h"
 #include "game-controller.h"
-#include "bm-main.h"
+#include "bm.h"
 
 void sub_805F7E4(void);
 void sub_80841FC(void);

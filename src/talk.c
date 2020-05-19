@@ -16,7 +16,7 @@
 #include "event.h"
 #include "msg.h"
 #include "util.h"
-#include "bm-main.h"
+#include "bm.h"
 
 #include "constants/video-global.h"
 

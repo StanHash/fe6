@@ -18,18 +18,36 @@ struct Vec2u
 
 // TODO: move
 
+enum { CONVOY_ITEM_COUNT = 100 };
+
+enum { UNIT_ITEM_COUNT = 5 };
+enum { UNIT_WEAPON_EXP_COUNT = 8 };
+
 enum
 {
-    ITEM_KIND_SWORD,
-    ITEM_KIND_LANCE,
-    ITEM_KIND_AXE,
-    ITEM_KIND_BOW,
-    ITEM_KIND_STAFF,
-    ITEM_KIND_ANIMA,
-    ITEM_KIND_LIGHT,
-    ITEM_KIND_ELDER,
+    UNIT_ATTR_MOUNTED = (1 << 0),
+    UNIT_ATTR_RE_MOVE = (1 << 1),
+    UNIT_ATTR_STEAL = (1 << 2),
+    UNIT_ATTR_THIEF = (1 << 3),
+    UNIT_ATTR_DANCE = (1 << 4),
+    UNIT_ATTR_PLAY = (1 << 5),
+    UNIT_ATTR_LOCK_1 = (1 << 16),
+    UNIT_ATTR_LOCK_2 = (1 << 17),
+    UNIT_ATTR_LOCK_DRAGON = (1 << 18),
+    UNIT_ATTR_LOCK_3 = (1 << 19),
 
-    // TODO: more
+    // Helpers
+    UNIT_ATTR_REFRESHER = UNIT_ATTR_DANCE + UNIT_ATTR_PLAY,
+};
+
+enum
+{
+    UNIT_STATUS_NONE,
+
+    UNIT_STATUS_POISON,
+    UNIT_STATUS_SLEEP,
+    UNIT_STATUS_SILENCED,
+    UNIT_STATUS_BERSERK,
 };
 
 struct PersonInfo
@@ -165,11 +183,16 @@ struct Unit
     /* 17 */ s8 lck;
 
     /* 18 */ // TODO: more
-    /* -- */ u8 pad18[0x1C - 0x18];
+    /* -- */ u8 pad_18[0x1C - 0x18];
 
-    /* 1C */ u16 items[5];
+    /* 1C */ u16 items[UNIT_ITEM_COUNT];
+    /* 26 */ u8 weaponExp[UNIT_WEAPON_EXP_COUNT];
 
-    /* 26 */ u8 pad26[0x42 - 0x26];
+    /* 2E */ u8 status : 4;
+    /* 2E */ u8 statusDuration : 4;
+
+    /* 2F */ // TODO: more
+    /* -- */ u8 pad_2F[0x42 - 0x2F];
 
     /* 42 */ u8 aiA;
     /* 43 */ u8 aiApc;

@@ -66,6 +66,8 @@ extern struct ProcScr CONST_DATA ProcScr_TerrainHealDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_PoisonDamageDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
 
+extern u8 CONST_DATA Effectiveness_FlyingClasses[];
+
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];
 extern u16 const Pal_Background_082DB140[];

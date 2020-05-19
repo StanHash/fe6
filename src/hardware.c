@@ -4,7 +4,7 @@
 #include "irq.h"
 #include "move.h"
 #include "oam.h"
-#include "bm-main.h"
+#include "bm.h"
 
 enum
 {

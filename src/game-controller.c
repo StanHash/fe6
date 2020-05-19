@@ -4,7 +4,7 @@
 
 #include "hardware.h"
 #include "util.h"
-#include "bm-main.h"
+#include "bm.h"
 
 struct GameController
 {

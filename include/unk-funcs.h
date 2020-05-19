@@ -5,71 +5,8 @@
 #include "types.h"
 
 #include "proc.h"
-#include "bm-main.h"
+#include "bm.h"
 
-// sub_80163F4
-// sub_801641C
-// sub_8016444
-// sub_801646C
-// sub_8016494
-// sub_80164BC
-// sub_80164E4
-int sub_801650C(int iid);
-// sub_8016538
-// sub_8016644
-// sub_8016694
-// sub_8016720
-// sub_80167E4
-// sub_8016860
-// sub_8016928
-// sub_8016958
-// sub_8016988
-// sub_80169BC
-// sub_80169E4
-// sub_8016A10
-// sub_8016A90
-// sub_8016B24
-// sub_8016B58
-// sub_8016B84
-// sub_8016BAC
-// sub_8016BD8
-// sub_8016C50
-// sub_8016C88
-// sub_8016D08
-// IsItemStealable
-// sub_8016D58
-// sub_8016DA8
-// sub_8016EAC
-// sub_8016F00
-// sub_8016FB4
-// sub_8017030
-// sub_8017084
-// sub_8017104
-// sub_8017128
-char const* sub_8017130(int item);
-// sub_801714C
-// sub_8017160
-int GetItemType(int item);
-// GetItemAttributes
-// sub_80171A4
-// sub_80171C8
-// sub_80171E8
-// sub_80171FC
-// sub_8017210
-// sub_8017224
-// sub_8017238
-// sub_801725C
-// sub_8017270
-// sub_8017288
-// sub_801729C
-// sub_80172B0
-// sub_80172C4
-int sub_80172D8(int item);
-// sub_80172F8
-// sub_801730C
-// sub_8017320
-// sub_8017334
-// sub_8017358
 void sub_8017364(void);
 void ClearUnit(struct Unit* unit);
 // CopyUnit
@@ -119,7 +56,7 @@ void sub_8017FAC(void);
 // sub_80182D0
 // sub_8018388
 // sub_80183C8
-// sub_80183E8
+int sub_80183E8(struct Unit* unit);
 // sub_8018408
 // sub_8018448
 // sub_8018488
@@ -619,7 +556,7 @@ void sub_8022CB4(void);
 // sub_8022F58
 // sub_8022F70
 // sub_8022F94
-// sub_8022FBC
+Bool CanUnitUseItem(struct Unit* unit, int item);
 // sub_8023278
 // sub_802348C
 // sub_8023620
@@ -900,7 +837,7 @@ void sub_8029370(void);
 // sub_802959C
 // sub_8029618
 void sub_8029654(void);
-// sub_8029684
+u16 const* sub_8029684(void);
 // sub_802968C
 // sub_80296B0
 // sub_80296F4
@@ -4944,6 +4881,7 @@ void sub_8095FF8(void);
 // sub_809BB00
 
 #define UNIT_FACTION(unit) ((unit)->id & 0xC0)
+#define UNIT_ATTRIBUTES(unit) (((unit)->person->attributes) | ((unit)->job->attributes))
 
 #define FOR_UNITS(begin, end, varName, body) \
 { \
