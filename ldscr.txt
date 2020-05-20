@@ -100,7 +100,7 @@ SECTIONS
         . = ALIGN(4); src/anim.o(.bss);
         . = ALIGN(4); src/util.o(.bss);
 
-        . = 0x002158; src/agb_sram.o(.bss);
+        . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
@@ -178,10 +178,10 @@ SECTIONS
 
         asm/code.o(.text);
 
-        asm/m4a_1.o(.text);
-        src/m4a.o(.text);
-        asm/agb_syscall.o(.text);
-        src/agb_sram.o(.text);
+        asm/lib/m4a.o(.text);
+        src/lib/m4a.o(.text);
+        asm/lib/agb-syscall.o(.text);
+        src/lib/agb-sram.o(.text);
         tools/agbcc/lib/libgcc.a:_ashldi3.o(.text);
         tools/agbcc/lib/libgcc.a:_call_via_rX.o(.text);
         tools/agbcc/lib/libgcc.a:_divsi3.o(.text);
@@ -231,7 +231,7 @@ SECTIONS
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
-        . = ALIGN(4); src/m4a_tables.o(.rodata);
+        . = ALIGN(4); src/lib/m4a-tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
         /* .data */

@@ -929,3 +929,7 @@ MigrationBackup/
 *.rep
 
 .vscode
+
+!src/lib/
+!asm/lib/
+src/lib/*.s

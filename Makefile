@@ -28,11 +28,10 @@ ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
 LDSCRIPT     := ldscr.txt
 SYM_FILES    := 
-CFILES       := $(wildcard src/*.c)
-ASM_S_FILES  := $(wildcard asm/*.s)
-LIBC_S_FILES := $(wildcard asm/libc/*.s)
+CFILES       := $(wildcard src/*.c) $(wildcard src/lib/*.c)
+ASM_S_FILES  := $(wildcard asm/*.s) $(wildcard asm/lib/*.s)
 DATA_S_FILES := $(wildcard data/*.s)
-SFILES       := $(ASM_S_FILES) $(LIBC_S_FILES) $(DATA_S_FILES)
+SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
 C_OBJECTS    := $(CFILES:.c=.o)
 ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
@@ -58,7 +57,7 @@ src/anim.o:            CC1FLAGS += -O0
 src/game-controller.o: CC1FLAGS += -O0
 src/msg.o:             CC1FLAGS += -O0
 
-src/agb_sram.o:        CC1FLAGS += -O1
+src/lib/agb-sram.o:    CC1FLAGS += -O1
 
 compare: $(ROM)
 	$(SHASUM) -c fe6.sha1
