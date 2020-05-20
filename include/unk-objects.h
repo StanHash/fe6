@@ -9,12 +9,6 @@
 
 extern u8 gBuf[];
 
-extern struct Vec2 gMapSize;
-extern u8** gMapUnit;
-extern u8** gMapTerrain;
-extern u8** gMapMovement;
-extern u8** gMapHidden;
-extern u8** gMapOther;
 extern u8 gMoveScrBuf[0x40];
 extern struct BattleUnit gBattleUnitA;
 extern struct BattleUnit gBattleUnitB;
@@ -66,8 +60,14 @@ extern struct ProcScr CONST_DATA ProcScr_TerrainHealDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_PoisonDamageDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
 
+extern s8 CONST_DATA TerrainHealAmountTable[];
+extern Bool CONST_DATA TerrainHealsStatusTable[];
+extern char const* CONST_DATA TerrainNameStringTable[];
+
 extern u8 CONST_DATA Effectiveness_FlyingClasses[];
 extern u8 CONST_DATA MoveTable_Unk_0860C912[];
+
+extern u8 const* ChapterAssets[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];

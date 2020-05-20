@@ -14,19 +14,25 @@ enum
 
     BGCHR_DEBUGTEXT_DEFAULT = 0x2C0,
 
+    BGCHR_LIMITVIEW = 0x280,
+
     BGCHR_ICON_BEGIN = 0x280,
     BGCHR_ICON_END   = 0x300,
+
+    BGCHR_TILESET_A = 0x400,
+    BGCHR_TILESET_B = 0x600,
 };
 
 enum
 {
-    BGPAL_DEBUGTEXT = 0,
+    BGPAL_DEBUGTEXT    = 0,
     BGPAL_TEXT_DEFAULT = 0,
 
-    BGPAL_TALK = 2,
-    BGPAL_TALK_BUBBLE = 3,
-
-    BGPAL_ICONS = 4,
+    BGPAL_TALK         = 2,
+    BGPAL_TALK_BUBBLE  = 3,
+    BGPAL_ICONS        = 4, // .. 5
+    BGPAL_LIMITVIEW    = 4, // .. 5
+    BGPAL_TILESET      = 6, // .. 15
 };
 
 enum

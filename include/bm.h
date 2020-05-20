@@ -28,7 +28,7 @@ struct BmSt
     /* 18 */ struct Vec2 cursorPrevious;
     /* 1C */ struct Vec2 cursorSprTarget;
     /* 20 */ struct Vec2 cursorSpr;
-    /* 24 */ struct Vec2u unk24;
+    /* 24 */ struct Vec2 mapRenderAnchor;
     /* 28 */ struct Vec2 cameraMax;
     /* 2C */ u8 pad_2C[0x32 - 0x2C];
     /* 32 */ short unk_32;

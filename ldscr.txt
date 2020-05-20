@@ -41,8 +41,13 @@ PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
 ItemInfoTable = 0x0860B648;
 MoveTable_Unk_0860C912 = 0x0860C912;
+TerrainHealAmountTable = 0x0860CBA9;
+TerrainHealsStatusTable = 0x0860CBDC;
+TerrainNameStringTable = 0x0860D00C;
 FaceInfoTable = 0x0866074C;
 Effectiveness_FlyingClasses = 0x086615DB;
+
+ChapterAssets = 0x08664398;
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -54,6 +59,8 @@ SECTIONS
     ALIGN(4)
     {
         /* ??? */
+
+        . = 0x001000; gMapBuf = .;
         . = 0x01F0E8; gBuf = .;
 
         . = 0x0210E8; /* ewram_data */
@@ -72,13 +79,8 @@ SECTIONS
         . = ALIGN(4); src/util.o(ewram_data);
         . = ALIGN(4); src/bm.o(ewram_data);
         . = ALIGN(4); src/unit.o(ewram_data);
+        . = ALIGN(4); src/map.o(ewram_data);
 
-        . = 0x02D200; gMapSize = .;
-        . = 0x02D204; gMapUnit = .;
-        . = 0x02D208; gMapTerrain = .;
-        . = 0x02D20C; gMapMovement = .;
-        . = 0x02D218; gMapHidden = .;
-        . = 0x02D21C; gMapOther = .;
         . = 0x032C28; gMoveScrBuf = .;
         . = 0x039214; gBattleUnitA = .;
         . = 0x039290; gBattleUnitB = .;
@@ -99,6 +101,7 @@ SECTIONS
         . = ALIGN(4); src/event.o(.bss);
         . = ALIGN(4); src/anim.o(.bss);
         . = ALIGN(4); src/util.o(.bss);
+        . = ALIGN(4); src/map.o(.bss);
 
         . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
@@ -175,6 +178,7 @@ SECTIONS
         src/bm.o(.text);
         src/item.o(.text);
         src/unit.o(.text);
+        src/map.o(.text);
 
         asm/code.o(.text);
 
@@ -250,6 +254,7 @@ SECTIONS
         . = ALIGN(4); src/util.o(.data);
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/unit.o(.data);
+        . = ALIGN(4); src/map.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

@@ -18,6 +18,7 @@
 #include "bm.h"
 #include "item.h"
 #include "unit.h"
+#include "map.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -823,7 +824,7 @@ static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent)
     proc->background = -1;
     proc->noMap = FALSE;
 
-    FillBmMap(gMapOther, 0);
+    MapFill(gMapOther, 0);
 
     switch (proc->script[0])
     {
@@ -1627,7 +1628,7 @@ static int EvtCmd_LoadUnits(struct EventProc* proc)
 {
     // script[0]: address of unit info list
 
-    FillBmMap(gMapOther, 0);
+    MapFill(gMapOther, 0);
 
     proc->unitInfo = (struct UnitInfo const*) proc->script[0];
     proc->onIdle = EventUnitLoadWait;
@@ -1641,7 +1642,7 @@ static int EvtCmd_LoadUnitsParty(struct EventProc* proc)
 {
     // script[0]: address of unit info list
 
-    FillBmMap(gMapOther, 0);
+    MapFill(gMapOther, 0);
 
     proc->unitInfo = (struct UnitInfo const*) proc->script[0];
     EventLoadUnitsAsParty(proc);
@@ -1802,7 +1803,7 @@ static void EventMovementWait(struct EventProc* proc)
     if (MU_IsAnyActive())
         return;
 
-    FillBmMap(gMapOther, 0);
+    MapFill(gMapOther, 0);
     proc->onIdle = NULL;
 }
 
@@ -1811,7 +1812,7 @@ static int EvtCmd_WaitForMovement(struct EventProc* proc)
     if (MU_IsAnyActive())
         return EVENT_CMDRET_REPEAT;
 
-    FillBmMap(gMapOther, 0);
+    MapFill(gMapOther, 0);
     return EVENT_CMDRET_YIELD;
 }
 
@@ -2616,7 +2617,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
         proc->flags &= ~EVENT_FLAG_SKIPPED;
 
         ApplySystemGraphics();
-        UnpackChapterMapPalette();
+        ApplyChapterMapPalettes();
         ApplyMapSpritePalettes();
 
         proc->onIdle = EventFadeFromSkipWait;

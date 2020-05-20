@@ -4,6 +4,7 @@
 
 #include "msg.h"
 #include "item.h"
+#include "map.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"

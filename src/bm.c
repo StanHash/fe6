@@ -13,6 +13,7 @@
 #include "face.h"
 #include "util.h"
 #include "unit.h"
+#include "map.h"
 
 #include "constants/video-global.h"
 

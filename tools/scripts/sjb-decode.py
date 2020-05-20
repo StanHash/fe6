@@ -4,6 +4,19 @@ import sys
 def read_int(f, count, signed = False):
 	return int.from_bytes(f.read(count), byteorder = 'little', signed = signed)
 
+def read_sjis_string(f):
+	array = bytearray(b'')
+
+	while True:
+		byte = f.read(1)[0]
+
+		if byte == 0:
+			break
+
+		array.append(byte)
+
+	return array.decode("sjis")
+
 def main(args):
 	try:
 		romName = args[0]
@@ -13,19 +26,8 @@ def main(args):
 		sys.exit("usage: {} <rom> <offset>".format(sys.argv[0]))
 
 	with open(romName, 'rb') as f:
-		array = bytearray(b'')
-
 		f.seek(offset)
-
-		while True:
-			byte = f.read(1)[0]
-
-			if byte == 0:
-				break
-
-			array.append(byte)
-
-		print(array.decode("sjis"))
+		print(read_sjis_string(f))
 
 if __name__ == '__main__':
 	main(sys.argv[1:])

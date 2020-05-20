@@ -6,31 +6,6 @@
 
 #include "proc.h"
 
-// sub_8018688
-// sub_8018784
-// sub_80187EC
-// sub_80188F4
-// sub_8018920
-void FillBmMap(u8** map, int value);
-// sub_80189BC
-// UnpackChapterMap
-// UnpackChapterMapGraphics
-void UnpackChapterMapPalette(void);
-// sub_8018B20
-void RefreshTerrainMap(void);
-// sub_8018C6C
-// nullsub_2
-// sub_8018CE0
-void RenderMap(void);
-void RenderMapForFade(void);
-// sub_8018E7C
-// sub_8018F5C
-// sub_8019028
-void RefreshEntityMaps(void);
-// sub_80192B4
-// sub_80192C4
-// sub_80192D4
-// sub_80192E4
 // sub_8019344
 // sub_8019384
 // sub_80193C0
@@ -45,11 +20,11 @@ void sub_8019600(int x, int y, u8* output);
 // sub_80197E8
 // sub_801985C
 // sub_8019948
-// MapAddInRange
+void MapAddInRange(int x, int y, int range, int value);
 // sub_8019B38
 // sub_801A210
 // sub_801A3C0
-// sub_801A558
+void sub_801A558(u8** map);
 // sub_801A564
 // sub_801A5A4
 // sub_801A5AC
@@ -658,7 +633,7 @@ void sub_80260DC(void);
 // sub_8026BC0
 // sub_8026BD0
 // sub_8026BE0
-// sub_8026CA0
+void sub_8026CA0(void);
 // sub_8026CE0
 // sub_8026D20
 // sub_8026D88
@@ -868,8 +843,8 @@ u16 const* sub_8029684(void);
 // sub_802B9DC
 // sub_802BA08
 // sub_802BA44
-struct ChapterInfo const* GetChapterInfo(int id);
-// GetChapterMapAddress
+struct ChapterInfo const* GetChapterInfo(int chapter);
+u8 const* GetChapterMapAddress(int chapter);
 // GetChapterMapChanges
 // GetChapterEventDefinitions
 // sub_802BBD0
