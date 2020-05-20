@@ -17,6 +17,7 @@
 #include "util.h"
 #include "bm.h"
 #include "item.h"
+#include "unit.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -340,15 +341,15 @@ static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
         return;
 
     if (info->factionId == FACTION_ID_BLUE)
-        unit = GetUnitByCharId(info->pid);
+        unit = GetUnitByPid(info->pid);
     else
         unit = NULL;
 
     if (!unit)
-        unit = LoadUnit(info);
+        unit = CreateUnit(info);
 
     if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->factionId == FACTION_ID_RED)
-        sub_80178F4(unit, GetChapterInfo(gPlaySt.chapter)->hardBonusLevels);
+        UnitApplyBonusLevels(unit, GetChapterInfo(gPlaySt.chapter)->hardBonusLevels);
 
     MoveUnitFromInfo(info, unit, parent);
     RefreshEntityMaps();
@@ -368,7 +369,7 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     if (parent && !(unit->state & US_UNDER_A_ROOF))
     {
         TryMoveUnit(unit, info->xLoad, info->yLoad, FALSE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         if (info->xLoad != info->xMove || info->yLoad != info->yMove)
             TryMoveUnitDisplayed(parent, unit, info->xMove, info->yMove);
@@ -376,7 +377,7 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     else
     {
         TryMoveUnit(unit, info->xMove, info->yMove, TRUE);
-        RefreshSMS();
+        RefreshMapSprites();
     }
 }
 
@@ -1283,7 +1284,7 @@ static int EvtCmd_CameraPosition(struct EventProc* proc)
             EVTCMD_GET_X(proc->script[0]),
             EVTCMD_GET_Y(proc->script[0]));
 
-        RedrawBattleMap();
+        RenderMap();
 
         return EVENT_CMDRET_YIELD;
     }
@@ -1303,7 +1304,7 @@ static int EvtCmd_CameraPid(struct EventProc* proc)
 {
     // script[0]: pid of unit
 
-    struct Unit* unit = GetUnitByCharId(proc->script[0]);
+    struct Unit* unit = GetUnitByPid(proc->script[0]);
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
@@ -1312,7 +1313,7 @@ static int EvtCmd_CameraPid(struct EventProc* proc)
 
         SetMapCursorPosition(unit->x, unit->y);
 
-        RedrawBattleMap();
+        RenderMap();
 
         return EVENT_CMDRET_YIELD;
     }
@@ -1355,7 +1356,7 @@ static int EvtCmd_MovePosition(struct EventProc* proc)
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, xTarget, yTarget, TRUE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1373,7 +1374,7 @@ static int EvtCmd_MovePid(struct EventProc* proc)
     // script[0]: pid of unit to move
     // script[1]: coords (u16, u16) to move to
 
-    struct Unit* unit = GetUnitByCharId(proc->script[0]);
+    struct Unit* unit = GetUnitByPid(proc->script[0]);
 
     int xTarget = EVTCMD_GET_X(proc->script[1]);
     int yTarget = EVTCMD_GET_Y(proc->script[1]);
@@ -1381,7 +1382,7 @@ static int EvtCmd_MovePid(struct EventProc* proc)
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, xTarget, yTarget, TRUE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1399,7 +1400,7 @@ static int EvtCmd_MovePidScript(struct EventProc* proc)
     // script[0]: pid of unit to move
     // script[1]: pointer to move script
 
-    struct Unit* unit = GetUnitByCharId(proc->script[0]);
+    struct Unit* unit = GetUnitByPid(proc->script[0]);
 
     int x, y;
 
@@ -1413,7 +1414,7 @@ static int EvtCmd_MovePidScript(struct EventProc* proc)
         ApplyMoveScriptToCoordinates(&x, &y, movescr);
 
         TryMoveUnit(unit, x, y, FALSE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1445,7 +1446,7 @@ static int EvtCmd_MovePositionScript(struct EventProc* proc)
         ApplyMoveScriptToCoordinates(&x, &y, movescr);
 
         TryMoveUnit(unit, x, y, FALSE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1463,17 +1464,17 @@ static int EvtCmd_MovePidNextTo(struct EventProc* proc)
     // script[0]: pid of unit to move
     // script[1]: pid of unit to go next to
 
-    struct Unit* unit = GetUnitByCharId(proc->script[1]);
+    struct Unit* unit = GetUnitByPid(proc->script[1]);
 
     int x = unit->x;
     int y = unit->y;
 
-    unit = GetUnitByCharId(proc->script[0]);
+    unit = GetUnitByPid(proc->script[0]);
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, x, y, TRUE);
-        RefreshSMS();
+        RefreshMapSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1512,7 +1513,7 @@ void TryMoveUnit(struct Unit* unit, int x, int y, s8 moveClosest)
     unit->x = vec.x;
     unit->y = vec.y;
 
-    UnitUpdateRescueePosition(unit);
+    UnitSyncMovement(unit);
 
     if (unit->state & US_UNDER_A_ROOF)
         return;
@@ -1609,13 +1610,13 @@ static void WaitForMu_OnLoop(struct GenericProc* proc)
     unit->x = proc->x;
     unit->y = proc->y;
 
-    UnitUpdateRescueePosition(unit);
+    UnitSyncMovement(unit);
 
     sub_8022A5C(unit);
     unit->state &= ~US_HIDDEN;
 
     RefreshEntityMaps();
-    RefreshSMS();
+    RefreshMapSprites();
 
     Proc_Break(proc);
 }
@@ -1662,7 +1663,7 @@ int GetNextAvailableBlueUnitId(int start)
         if (!unit->person)
             continue;
 
-        if (unit->state & (US_DEAD | US_NOT_DEPLOYED))
+        if (unit->state & US_UNAVAILABLE)
             continue;
 
         return i;
@@ -1793,7 +1794,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
     })
 
     RefreshEntityMaps();
-    RefreshSMS();
+    RefreshMapSprites();
 }
 
 static void EventMovementWait(struct EventProc* proc)
@@ -1951,7 +1952,7 @@ static int EvtCmd_GotoIfnInTeam(struct EventProc* proc)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & (US_DEAD | US_NOT_DEPLOYED))
+        if (unit->state & US_UNAVAILABLE)
             continue;
 
         if (unit->person->id == pid)
@@ -2112,7 +2113,7 @@ static int EvtCmd_GiveItemTo(struct EventProc* proc)
     if (pid == 0)
         pid = proc->pidParam;
 
-    return EventGiveItem(GetUnitByCharId(pid), iid, proc);
+    return EventGiveItem(GetUnitByPid(pid), iid, proc);
 }
 
 static int EventGiveItem(struct Unit* unit, u16 iid, struct EventProc* proc)
@@ -2138,16 +2139,16 @@ static int EvtCmd_MapChange(struct EventProc* proc)
 
     if (!proc->noMap)
     {
-        PrepareBattleMapFade();
+        RenderMapForFade();
 
         ApplyMapChange(id);
         AddMapChangeTrap(id);
 
         RefreshTerrainMap();
         UpdateRoofedUnits();
-        RedrawBattleMap();
+        RenderMap();
 
-        StartBattleMapFade(TRUE);
+        StartMapFade(TRUE);
     }
     else
     {
@@ -2179,16 +2180,16 @@ static int EvtCmd_MapChangePosition(struct EventProc* proc)
 
     if (!proc->noMap)
     {
-        PrepareBattleMapFade();
+        RenderMapForFade();
 
         ApplyMapChange(id);
         AddMapChangeTrap(id);
 
         RefreshTerrainMap();
         UpdateRoofedUnits();
-        RedrawBattleMap();
+        RenderMap();
 
-        StartBattleMapFade(TRUE);
+        StartMapFade(TRUE);
     }
     else
     {
@@ -2221,7 +2222,7 @@ static int EvtCmd_SetFaction(struct EventProc* proc)
             UnitChangeFaction(unit, faction);
     })
 
-    RefreshSMS();
+    RefreshMapSprites();
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2257,7 +2258,7 @@ static int EvtCmd_FlashCursorPid(struct EventProc* proc)
 
     struct GenericProc* gproc;
 
-    struct Unit* unit = GetUnitByCharId(proc->script[0]);
+    struct Unit* unit = GetUnitByPid(proc->script[0]);
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2329,12 +2330,12 @@ static int EvtCmd_RemovePid(struct EventProc* proc)
 {
     // script[0]: pid
 
-    struct Unit* unit = GetUnitByCharId(proc->script[0]);
+    struct Unit* unit = GetUnitByPid(proc->script[0]);
 
     ClearUnit(unit);
 
     RefreshEntityMaps();
-    RefreshSMS();
+    RefreshMapSprites();
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2349,7 +2350,7 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
     struct Unit* unit;
 
     proc->pidParam = proc->script[0];
-    unit = GetUnitByCharId(proc->pidParam);
+    unit = GetUnitByPid(proc->pidParam);
 
     HideUnitSMS(unit);
 
@@ -2369,14 +2370,14 @@ static void EventRemoveDisplayedWait(struct EventProc* proc)
     // this is only called after the locking death fade proc ended
     // so we can cleanup immediately
 
-    struct Unit* unit = GetUnitByCharId(proc->pidParam);
+    struct Unit* unit = GetUnitByPid(proc->pidParam);
 
     MU_EndAll();
 
     ClearUnit(unit);
 
     RefreshEntityMaps();
-    RefreshSMS();
+    RefreshMapSprites();
 
     proc->onIdle = NULL;
 }
@@ -2600,8 +2601,8 @@ static int EvtCmd_SetMap(struct EventProc* proc)
     gBmSt.camera.y = GetCameraCenteredY(proc->script[2] * 16);
 
     RefreshEntityMaps();
-    RedrawBattleMap();
-    RefreshSMS();
+    RenderMap();
+    RefreshMapSprites();
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -2759,13 +2760,13 @@ static int EvtCmd_FightScript(struct EventProc* proc)
     proc->cmdShort = GetGameLock();
     proc->onIdle = EventScriptedBattleWait;
 
-    unitA = GetUnitByCharId(proc->script[0]);
-    unitB = GetUnitByCharId(proc->script[1]);
+    unitA = GetUnitByPid(proc->script[0]);
+    unitB = GetUnitByPid(proc->script[1]);
 
     battlescr = (struct BattleHit const*) proc->script[2];
     isBallista = proc->script[3];
 
-    SetActiveUnit(unitA);
+    UnitBeginAction(unitA);
 
     HideUnitSMS(gActiveUnit);
 
@@ -2895,8 +2896,8 @@ static int EvtCmd_WmZoomTo(struct EventProc* proc)
 {
     // script[0]: coords relative to center of screen
 
-    int x = 120 + EVTCMD_GET_X(proc->script[0]);
-    int y = 80  + EVTCMD_GET_Y(proc->script[0]);
+    int x = DISPLAY_WIDTH/2 + EVTCMD_GET_X(proc->script[0]);
+    int y = DISPLAY_HEIGHT/2 + EVTCMD_GET_Y(proc->script[0]);
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2990,7 +2991,7 @@ static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
     int disp;
     struct FaceProc* face;
 
-    if (proc->x > 120)
+    if (proc->x > DISPLAY_WIDTH/2)
         proc->xOffStart = -0x20;
     else
         proc->xOffStart = +0x20;
@@ -3058,7 +3059,7 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
 
     proc->x = face->xDisp;
 
-    if (proc->x > 120)
+    if (proc->x > DISPLAY_WIDTH/2)
         proc->xOffStart = +0x10;
     else
         proc->xOffStart = -0x10;
@@ -3672,7 +3673,7 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
 
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {
-            if (unit->state & (US_DEAD | US_NOT_DEPLOYED))
+            if (unit->state & US_UNAVAILABLE)
                 continue;
 
             if (unit->x == info->xMove && unit->y == info->yMove)

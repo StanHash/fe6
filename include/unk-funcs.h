@@ -5,76 +5,7 @@
 #include "types.h"
 
 #include "proc.h"
-#include "bm.h"
 
-void sub_8017364(void);
-void ClearUnit(struct Unit* unit);
-// CopyUnit
-// GetFreeUnitByFaction
-// sub_8017410
-// sub_801743C
-// sub_8017454
-// sub_80174AC
-// sub_80174CC
-// GetUnitItemCount
-// sub_801753C
-// LoadUnits
-struct Unit* LoadUnit(struct UnitInfo const* info);
-// sub_8017654
-// sub_80176E4
-// sub_8017764
-// sub_8017798
-// sub_80177C4
-// sub_8017854
-void sub_80178F4(struct Unit* unit, int levels);
-// sub_8017928
-// sub_8017960
-// sub_80179EC
-struct Unit* GetUnitByCharId(int pid);
-// sub_8017AF8
-// sub_8017B28
-// sub_8017B4C
-// sub_8017BA8
-// sub_8017BDC
-void UnitChangeFaction(struct Unit* unit, int faction);
-void UnitUpdateRescueePosition(struct Unit* unit);
-// sub_8017C84
-void SetActiveUnit(struct Unit* unit);
-// sub_8017E70
-// sub_8017EDC
-void sub_8017F5C(void);
-void sub_8017FAC(void);
-// sub_801809C
-// sub_80180D8
-// sub_80180FC
-// sub_8018160
-// sub_8018188
-// sub_80181B0
-// sub_80181D4
-// sub_8018224
-// sub_8018258
-// sub_80182D0
-// sub_8018388
-// sub_80183C8
-int sub_80183E8(struct Unit* unit);
-// sub_8018408
-// sub_8018448
-// sub_8018488
-// sub_80184A8
-// sub_80184D0
-int sub_80184F0(struct Unit* unit);
-// sub_8018500
-// sub_8018528
-// sub_8018540
-// sub_8018548
-// sub_8018584
-// sub_80185C8
-// sub_80185F8
-struct Unit* GetUnit(int uid);
-// sub_8018620
-// sub_801863C
-// sub_8018658
-// sub_8018670
 // sub_8018688
 // sub_8018784
 // sub_80187EC
@@ -90,8 +21,8 @@ void RefreshTerrainMap(void);
 // sub_8018C6C
 // nullsub_2
 // sub_8018CE0
-void RedrawBattleMap(void);
-void PrepareBattleMapFade(void);
+void RenderMap(void);
+void RenderMapForFade(void);
 // sub_8018E7C
 // sub_8018F5C
 // sub_8019028
@@ -104,7 +35,7 @@ void RefreshEntityMaps(void);
 // sub_8019384
 // sub_80193C0
 void sub_80193F4(int x, int y, s8 const* movTable);
-// sub_8019424
+void sub_8019424(int x, int y, u8 const* movTable);
 // sub_8019454
 // sub_8019484
 // sub_80194A4
@@ -202,7 +133,7 @@ void sub_8019600(int x, int y, u8* output);
 // sub_801C2B0
 // sub_801C2E8
 // sub_801C380
-void StartBattleMapFade(Bool locksGame);
+void StartMapFade(Bool locksGame);
 s8 BattleMapFadeExists(void);
 // sub_801C3E0
 // sub_801C430
@@ -521,7 +452,7 @@ void ApplyMapSpritePalettes(void);
 void sub_8021FE8(void);
 // sub_8022048
 // GetUnitDisplayedSMSId
-void RefreshSMS(void);
+void RefreshMapSprites(void);
 // GetNewSMSHandle
 // sub_8022224
 // sub_8022378
@@ -536,7 +467,7 @@ void RefreshSMS(void);
 void HideUnitSMS(struct Unit* unit);
 void sub_8022A5C(struct Unit* unit);
 // sub_8022A6C
-// sub_8022A84
+int sub_8022A84(struct Unit* unit);
 // sub_8022A94
 // sub_8022AA8
 // sub_8022AF0
@@ -544,9 +475,9 @@ void sub_8022A5C(struct Unit* unit);
 // sub_8022B40
 // sub_8022B8C
 // sub_8022BA4
-// sub_8022C10
+int sub_8022C10(struct Unit* unit, int num);
 // sub_8022C28
-// sub_8022C60
+void sub_8022C60(struct Unit* unit);
 void sub_8022CB4(void);
 // sub_8022DB4
 // sub_8022DD4
@@ -649,8 +580,8 @@ void ClearBattleHits(void);
 // sub_8024E68
 // sub_8024FA8
 // BattleApplyExpGains
-// sub_80250B0
-// sub_80250D4
+int sub_80250B0(int growth);
+int sub_80250D4(int growth, int levelCount);
 // sub_8025104
 // sub_802529C
 // sub_8025360
@@ -661,7 +592,7 @@ void ClearBattleHits(void);
 // sub_8025644
 // sub_802571C
 // sub_8025748
-// sub_8025780
+void sub_8025780(void);
 // sub_8025790
 // sub_80257B0
 // sub_80257E0
@@ -736,7 +667,7 @@ void sub_80260DC(void);
 int GetMapChangeIdByPosition(int x, int y);
 void ApplyMapChange(int id);
 void AddMapChangeTrap(int id);
-// sub_8026F30
+void sub_8026F30(struct Unit* unit);
 void UpdateRoofedUnits(void);
 // sub_8026FC4
 // sub_8026FF4
@@ -1132,7 +1063,7 @@ Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec
 // sub_8030968
 // sub_8030994
 // sub_80309E0
-// sub_8030A84
+void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
 // sub_8030AB4
 // sub_8030B94
 // sub_8030BDC
@@ -1735,8 +1666,8 @@ void LoadUiFrameGraphics(void);
 // sub_8042018
 // sub_8042070
 // sub_80420B4
-// InitTargets
-// AddTarget
+void BeginTargetList(int x, int y);
+void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042138
 // sub_8042180
 // sub_8042194
@@ -4047,7 +3978,7 @@ void sub_8084908(struct PlaySt* playSt);
 // sub_8084B84
 // sub_8084BB8
 // sub_8084BEC
-// sub_8084C30
+void PidStatsAddSquaresMoved(int pid, int amount);
 // sub_8084C84
 // sub_8084CD8
 // sub_8084CFC
@@ -4879,27 +4810,3 @@ void sub_8095FF8(void);
 // sub_809B99C
 // sub_809BAF0
 // sub_809BB00
-
-#define UNIT_FACTION(unit) ((unit)->id & 0xC0)
-#define UNIT_ATTRIBUTES(unit) (((unit)->person->attributes) | ((unit)->job->attributes))
-
-#define FOR_UNITS(begin, end, varName, body) \
-{ \
-    int _uid; \
-    struct Unit* varName; \
-    for (_uid = (begin); _uid < (end); ++_uid) \
-    { \
-        varName = GetUnit(_uid); \
-        if (!varName) \
-            continue; \
-        if (!varName->person) \
-            continue; \
-        body \
-    } \
-}
-
-#define FOR_UNITS_FACTION(faction, varName, body) \
-    FOR_UNITS((faction) + 1, (faction) + 0x40, varName, body)
-
-#define FOR_UNITS_ALL(varName, body) \
-    FOR_UNITS(1, 0xC0, varName, body)

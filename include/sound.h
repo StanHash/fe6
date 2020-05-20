@@ -2,7 +2,9 @@
 #pragma once
 
 #include "common.h"
+
 #include "proc.h"
+#include "bm.h"
 
 #include "m4a.h"
 

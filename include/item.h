@@ -4,6 +4,7 @@
 #include "common.h"
 
 #include "text.h"
+#include "unit.h"
 
 enum
 {
@@ -41,6 +42,7 @@ enum
     ITEM_ATTR_DELPHI_SHIELD = (1 << 14),
 
     // Helpers
+    ITEM_ATTR_REQUIRES_EXP = ITEM_ATTR_WEAPON + ITEM_ATTR_STAFF,
     ITEM_ATTR_LOCK_ANY = ITEM_ATTR_LOCK_1 + ITEM_ATTR_LOCK_2 + ITEM_ATTR_LOCK_3 + ITEM_ATTR_LOCK_DRAGON,
 };
 

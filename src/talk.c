@@ -17,6 +17,7 @@
 #include "msg.h"
 #include "util.h"
 #include "bm.h"
+#include "unit.h"
 
 #include "constants/video-global.h"
 
@@ -961,7 +962,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     fid = (sTalkSt->str[1] * 0x100) + fid;
 
     if (fid == UINT16_MAX)
-        fid = sub_80184F0(gActiveUnit);
+        fid = GetUnitFid(gActiveUnit);
     else
         fid = fid - 0x100;
 

@@ -37,7 +37,10 @@ ProcScr_Unk_0868C304        = 0x0868C304;
 ProcScr_Unk_08691480        = 0x08691480;
 ProcScr_OpeningSequence     = 0x0869150C;
 
+PersonInfoTable = 0x086076D0;
+JobInfoTable = 0x0860A130;
 ItemInfoTable = 0x0860B648;
+MoveTable_Unk_0860C912 = 0x0860C912;
 FaceInfoTable = 0x0866074C;
 Effectiveness_FlyingClasses = 0x086615DB;
 
@@ -68,11 +71,13 @@ SECTIONS
         . = ALIGN(4); src/msg.o(ewram_data);
         . = ALIGN(4); src/util.o(ewram_data);
         . = ALIGN(4); src/bm.o(ewram_data);
+        . = ALIGN(4); src/unit.o(ewram_data);
 
         . = 0x02D200; gMapSize = .;
         . = 0x02D204; gMapUnit = .;
         . = 0x02D208; gMapTerrain = .;
         . = 0x02D20C; gMapMovement = .;
+        . = 0x02D218; gMapHidden = .;
         . = 0x02D21C; gMapOther = .;
         . = 0x032C28; gMoveScrBuf = .;
         . = 0x039214; gBattleUnitA = .;
@@ -169,6 +174,7 @@ SECTIONS
         src/util.o(.text);
         src/bm.o(.text);
         src/item.o(.text);
+        src/unit.o(.text);
 
         asm/code.o(.text);
 
@@ -221,7 +227,10 @@ SECTIONS
         . = ALIGN(4); src/util.o(.rodata);
         . = ALIGN(4); data/rodata_1004A4.o(.rodata);
         . = ALIGN(4); src/item.o(.rodata);
+        . = ALIGN(4); src/unit.o(.rodata);
+
         . = ALIGN(4); data/rodata.o(.rodata);
+
         . = ALIGN(4); src/m4a_tables.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
@@ -240,6 +249,7 @@ SECTIONS
         . = ALIGN(4); src/game-controller.o(.data);
         . = ALIGN(4); src/util.o(.data);
         . = ALIGN(4); src/bm.o(.data);
+        . = ALIGN(4); src/unit.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

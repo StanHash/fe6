@@ -12,6 +12,7 @@
 #include "text.h"
 #include "face.h"
 #include "util.h"
+#include "unit.h"
 
 #include "constants/video-global.h"
 
@@ -83,8 +84,9 @@ PROC_LABEL(L_BMMAIN_STARTPHASE),
     PROC_START_CHILD_LOCKING(ProcScr_PhaseIntro),
     PROC_WHILE_EXISTS(ProcScr_CamMove),
 
-    PROC_CALL(sub_8017FAC),
+    PROC_CALL(TickActiveFactionTurnAndListStatusHeals),
     PROC_START_CHILD_LOCKING(ProcScr_StatusDecayDisplay),
+
     PROC_START_CHILD_LOCKING(ProcScr_TerrainHealDisplay),
     PROC_START_CHILD_LOCKING(ProcScr_PoisonDamageDisplay),
 
@@ -101,7 +103,7 @@ PROC_LABEL(L_BMMAIN_DURINGPHASE),
     PROC_GOTO(L_BMMAIN_CHANGEPHASE),
 
 PROC_LABEL(L_BMMAIN_2),
-    PROC_CALL(RedrawBattleMap),
+    PROC_CALL(RenderMap),
     PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(StartMidFadeFromBlack),
@@ -110,7 +112,7 @@ PROC_LABEL(L_BMMAIN_2),
     PROC_GOTO(L_BMMAIN_DURINGPHASE),
 
 PROC_LABEL(L_BMMAIN_4),
-    PROC_CALL(RedrawBattleMap),
+    PROC_CALL(RenderMap),
     PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(StartMidFadeFromBlack),
@@ -130,7 +132,7 @@ PROC_LABEL(L_BMMAIN_8),
     PROC_GOTO(L_BMMAIN_CHANGEPHASE),
 
 PROC_LABEL(L_BMMAIN_6),
-    PROC_CALL(RedrawBattleMap),
+    PROC_CALL(RenderMap),
     PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(StartMidFadeFromBlack),
@@ -139,7 +141,7 @@ PROC_LABEL(L_BMMAIN_6),
     PROC_GOTO(L_BMMAIN_STARTPHASE),
 
 PROC_LABEL(L_BMMAIN_5),
-    PROC_CALL(RedrawBattleMap),
+    PROC_CALL(RenderMap),
     PROC_CALL(StartMapSongBgm),
 
     PROC_CALL(StartMidFadeFromBlack),
@@ -391,8 +393,8 @@ static void HandleChangePhase(void)
 
 int BmMain_ChangePhase(ProcPtr proc)
 {
-    sub_8017F5C();
-    RefreshSMS();
+    ClearActiveFactionTurnEndedState();
+    RefreshMapSprites();
 
     HandleChangePhase();
 
@@ -498,9 +500,8 @@ void HandleMapCursorInput(u16 keys)
 
     if (gBmSt.flags & BM_FLAG_1)
     {
-        // TODO: movement map constants
-        if (gMapMovement[gBmSt.cursor.y][gBmSt.cursor.x] < 120)
-            if (gMapMovement[newCursor.y][newCursor.x] >= 120)
+        if (gMapMovement[gBmSt.cursor.y][gBmSt.cursor.x] < MAP_MOVEMENT_MAX)
+            if (gMapMovement[newCursor.y][newCursor.x] >= MAP_MOVEMENT_MAX)
                 if ((keys & DPAD_ANY) != (gKeySt->pressed & DPAD_ANY))
                     return;
     }

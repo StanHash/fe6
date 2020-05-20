@@ -35,7 +35,10 @@ struct BmSt
     /* 34 */ short unk_34;
     /* 36 */ s8 unk_36;
     /* 37 */ s8 unk_37;
-    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 38 */ u8 pad_38[0x3D - 0x38];
+    /* 3D */ u8 unk_3D;
+    /* 3E */ u8 unk_3E;
+    /* 3F */ u8 unk_3F;
 };
 
 enum

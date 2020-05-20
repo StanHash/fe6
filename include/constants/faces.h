@@ -12,5 +12,5 @@ enum
     FID_FAE = 4,
     // TODO: more
 
-    FID_FACTION_CHIBI = INT16_MAX - 0x100,
+    FID_FACTION_CHIBI = INT16_MAX - 0xFF,
 };

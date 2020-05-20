@@ -6,9 +6,12 @@
 #include "icon.h"
 #include "text.h"
 #include "msg.h"
+#include "bm.h"
+#include "unit.h"
 
 #include "constants/video-global.h"
 #include "constants/items.h"
+#include "constants/icons.h"
 
 enum { ITEM_USES_SHIFT = 8 };
 
@@ -129,7 +132,7 @@ inline struct ItemBonuses const* GetItemBonuses(int item)
 inline int GetItemIcon(int item)
 {
     if (!item)
-        return -1;
+        return ICON_NONE;
 
     return GetItemInfo(ITEM_IID(item))->icon;
 }
@@ -678,7 +681,7 @@ int GetUnitItemHealAmount(struct Unit* unit, int item)
 
     if (GetItemAttributes(item) & ITEM_ATTR_STAFF)
     {
-        result += sub_80183E8(unit);
+        result += GetUnitPower(unit);
 
         if (result > 80)
             result = 80;

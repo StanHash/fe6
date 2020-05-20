@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "util.h"
 #include "bm.h"
+#include "unit.h"
 
 struct GameController
 {
@@ -425,7 +426,7 @@ static void GC_InitTutorial(struct GameController* proc)
     sub_806BA34();
     sub_806B970();
 
-    sub_8017364();
+    InitUnits();
 
     gPlaySt.chapter = 0;
 }

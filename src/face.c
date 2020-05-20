@@ -542,7 +542,7 @@ void sub_8008874(u16* tm, int tileref)
 
 void UnpackFaceChibiGraphics(int fid, int chr, int pal)
 {
-    if (fid > FID_FACTION_CHIBI)
+    if (fid >= FID_FACTION_CHIBI)
     {
         RegisterVramMove(GetFactionFaceImg(fid), VRAM + chr * CHR_SIZE, 0x10 * CHR_SIZE);
         ApplyFactionFacePal(fid, pal);
@@ -568,7 +568,7 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
 {
     chr += 0x800; // chr relative to obj chr base
 
-    if (fid > FID_FACTION_CHIBI)
+    if (fid >= FID_FACTION_CHIBI)
     {
         RegisterVramMove(GetFactionFaceImg(fid) + CHR_SIZE * 0,  (chr + 0x00) * CHR_SIZE, 4 * CHR_SIZE);
         RegisterVramMove(GetFactionFaceImg(fid) + CHR_SIZE * 4,  (chr + 0x20) * CHR_SIZE, 4 * CHR_SIZE);
@@ -695,7 +695,7 @@ static u8 const* GetFactionFaceImg(int fid)
         Img_FactionMiniCard + 0xA00,
     };
 
-    fid = fid - (FID_FACTION_CHIBI + 1);
+    fid = fid - FID_FACTION_CHIBI;
 
     return imgLut[fid];
 }
@@ -713,7 +713,7 @@ static void ApplyFactionFacePal(int fid, int pal)
         Pal_FactionMiniCard + 0x10,
     };
 
-    fid = fid - (FID_FACTION_CHIBI + 1);
+    fid = fid - FID_FACTION_CHIBI;
 
     ApplyPalette(palLut[fid], pal);
 }
