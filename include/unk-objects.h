@@ -9,7 +9,6 @@
 
 extern u8 gBuf[];
 
-extern u8 gMoveScrBuf[0x40];
 extern struct BattleUnit gBattleUnitA;
 extern struct BattleUnit gBattleUnitB;
 extern struct BattleHit* gBattleHitIt;
@@ -65,7 +64,7 @@ extern Bool CONST_DATA TerrainHealsStatusTable[];
 extern char const* CONST_DATA TerrainNameStringTable[];
 
 extern u8 CONST_DATA Effectiveness_FlyingClasses[];
-extern u8 CONST_DATA MoveTable_Unk_0860C912[];
+extern s8 CONST_DATA MoveTable_Unk_0860C912[];
 
 extern u8 const* ChapterAssets[];
 

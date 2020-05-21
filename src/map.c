@@ -6,6 +6,7 @@
 #include "util.h"
 #include "bm.h"
 #include "unit.h"
+#include "mapwork.h"
 
 #include "constants/video-global.h"
 #include "constants/chapters.h"
@@ -182,7 +183,7 @@ void MapFill(u8** map, int value)
 
     CpuFill16(value, map[-2], size);
 
-    sub_801A558(map);
+    SetWorkingMap(map);
 }
 
 void MapSetEdges(u8** map, u8 value)
@@ -514,7 +515,7 @@ void RefreshEntityMaps(void)
     MapFill(gMapFog, gPlaySt.vision == 0 ? 1 : 0);
     MapFill(gMapHidden, 0);
 
-    sub_801A558(gMapFog);
+    SetWorkingMap(gMapFog);
 
     // 1. Blue & Green units
 

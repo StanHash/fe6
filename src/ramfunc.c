@@ -8,8 +8,8 @@ extern void(*DrawGlyphRamFunc)(u16 const* cvtLut, void* chr, u32 const* glyph, i
 extern void(*DecodeStringRamFunc)(char const* src, char* dst);
 extern void(*PutOamHiRamFunc)(int x, int y, u16 const* oamList, int oam2);
 extern void(*PutOamLoRamFunc)(int x, int y, u16 const* oamList, int oam2);
-extern void(*MoveFillStepRamFunc)();
-extern void(*MoveFillRamFunc)(void);
+extern void(*MapFloodCoreStepRamFunc)();
+extern void(*MapFloodCoreRamFunc)(void);
 
 void InitRamFuncs(void)
 {
@@ -17,12 +17,12 @@ void InitRamFuncs(void)
 
     CpuCopy16(ArmCodeStart, RamFuncArea, size);
 
-    DrawGlyphRamFunc    = (void*) RamFuncArea + (((u8*) DrawGlyph)    - ArmCodeStart);
-    DecodeStringRamFunc = (void*) RamFuncArea + (((u8*) DecodeString) - ArmCodeStart);
-    PutOamHiRamFunc     = (void*) RamFuncArea + (((u8*) PutOamHi)     - ArmCodeStart);
-    PutOamLoRamFunc     = (void*) RamFuncArea + (((u8*) PutOamLo)     - ArmCodeStart);
-    MoveFillStepRamFunc = (void*) RamFuncArea + (((u8*) MoveFillStep) - ArmCodeStart);
-    MoveFillRamFunc     = (void*) RamFuncArea + (((u8*) MoveFill)     - ArmCodeStart);
+    DrawGlyphRamFunc        = (void*) RamFuncArea + (((u8*) DrawGlyph)        - ArmCodeStart);
+    DecodeStringRamFunc     = (void*) RamFuncArea + (((u8*) DecodeString)     - ArmCodeStart);
+    PutOamHiRamFunc         = (void*) RamFuncArea + (((u8*) PutOamHi)         - ArmCodeStart);
+    PutOamLoRamFunc         = (void*) RamFuncArea + (((u8*) PutOamLo)         - ArmCodeStart);
+    MapFloodCoreStepRamFunc = (void*) RamFuncArea + (((u8*) MapFloodCoreStep) - ArmCodeStart);
+    MapFloodCoreRamFunc     = (void*) RamFuncArea + (((u8*) MapFloodCore)     - ArmCodeStart);
 }
 
 void DrawGlyphRam(u16 const* cvtLut, void* chr, u32 const* glyph, int offset)
@@ -45,12 +45,12 @@ void PutOamLoRam(int x, int y, u16 const* oamList, int oam2)
     PutOamLoRamFunc(x, y, oamList, oam2);
 }
 
-void MoveFillStepRam(int arg0, int arg1, int arg2)
+void MapFloodCoreStepRam(int connect, int x, int y)
 {
-    MoveFillStepRamFunc(arg0, arg1, arg2);
+    MapFloodCoreStepRamFunc(connect, x, y);
 }
 
-void MoveFillRam(void)
+void MapFloodCoreRam(void)
 {
-    MoveFillRamFunc();
+    MapFloodCoreRamFunc();
 }

@@ -5,6 +5,7 @@
 #include "msg.h"
 #include "item.h"
 #include "map.h"
+#include "mapwork.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -730,7 +731,7 @@ void UnitGetDropPositionOnDeath(struct Unit* unit, int* xOut, int* yOut)
     struct Unit* rescue = GetUnit(unit->rescue);
 
     // Fill the movement map
-    sub_8019424(unit->x, unit->y, MoveTable_Unk_0860C912);
+    MapFlood_08019424(unit->x, unit->y, MoveTable_Unk_0860C912);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0xFF;

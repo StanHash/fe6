@@ -6,27 +6,6 @@
 
 #include "proc.h"
 
-// sub_8019344
-// sub_8019384
-// sub_80193C0
-void sub_80193F4(int x, int y, s8 const* movTable);
-void sub_8019424(int x, int y, u8 const* movTable);
-// sub_8019454
-// sub_8019484
-// sub_80194A4
-// sub_8019528
-void sub_8019600(int x, int y, u8* output);
-// sub_80197B4
-// sub_80197E8
-// sub_801985C
-// sub_8019948
-void MapAddInRange(int x, int y, int range, int value);
-// sub_8019B38
-// sub_801A210
-// sub_801A3C0
-void sub_801A558(u8** map);
-// sub_801A564
-// sub_801A5A4
 // sub_801A5AC
 // sub_801A5E0
 // sub_801A644
@@ -635,7 +614,7 @@ void sub_80260DC(void);
 // sub_8026BE0
 void sub_8026CA0(void);
 // sub_8026CE0
-// sub_8026D20
+int sub_8026D20(int x, int y);
 // sub_8026D88
 // sub_8026DC8
 // GetMapChange

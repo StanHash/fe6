@@ -19,6 +19,7 @@
 #include "item.h"
 #include "unit.h"
 #include "map.h"
+#include "mapwork.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1549,13 +1550,13 @@ Bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
         GetUnitClosestValidPosition(unit, x, y, &vec);
     }
 
-    sub_80193F4(unit->x, unit->y, unit->job->movTerrainTable);
-    sub_8019600(vec.x, vec.y, gMoveScrBuf);
+    MapFlood_080193F4(unit->x, unit->y, unit->job->movTerrainTable);
+    BuildBestMoveScript(vec.x, vec.y, gWorkingMoveScr);
 
     if (terrainChanged)
         gMapTerrain[y][x] = TERRAIN_TILE_00;
 
-    return DisplayMovement(proc, unit, gMoveScrBuf);
+    return DisplayMovement(proc, unit, gWorkingMoveScr);
 }
 
 static Bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr)

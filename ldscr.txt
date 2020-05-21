@@ -58,7 +58,7 @@ SECTIONS
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
-        /* ??? */
+        . = 0x000000; /* ??? */
 
         . = 0x001000; gMapBuf = .;
         . = 0x01F0E8; gBuf = .;
@@ -80,8 +80,8 @@ SECTIONS
         . = ALIGN(4); src/bm.o(ewram_data);
         . = ALIGN(4); src/unit.o(ewram_data);
         . = ALIGN(4); src/map.o(ewram_data);
+        . = ALIGN(4); src/mapwork.o(ewram_data);
 
-        . = 0x032C28; gMoveScrBuf = .;
         . = 0x039214; gBattleUnitA = .;
         . = 0x039290; gBattleUnitB = .;
         . = 0x039328; gBattleHitIt = .;
@@ -107,12 +107,13 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
-        /* COMMON */
         . = 0x0022A0; SoundMainRAM_Buffer = .;
+
+        /* COMMON */
         . = 0x0026A0; gOamLoPutIt = .;
         . = 0x0026B0; gDispIo = .;
         . = 0x002720; gIrqFuncs = .;
-        . = 0x002758; MoveFillRamFunc = .;
+        . = 0x002758; MapFloodCoreRamFunc = .;
         . = 0x00275C; gOamAffinePutId = .;
         . = 0x002760; PutOamHiRamFunc = .;
         . = 0x002764; gOnHBlankA = .;
@@ -125,12 +126,17 @@ SECTIONS
         . = 0x003784; PutOamLoRamFunc = .;
         . = 0x003788; gOamAffinePutIt = .;
         . = 0x003790; IntrMainRam = .;
-        . = 0x003F90; MoveFillStepRamFunc = .;
+        . = 0x003F90; MapFloodCoreStepRamFunc = .;
         . = 0x003FA0; gEventScriptQueueIt = .;
         . = 0x003FB0; gEventScriptQueue = .;
         . = 0x003FD0; gSpriteAllocIt = .;
         . = 0x004000; gFaces = .;
+        . = 0x004010; gWorkingMap = .;
+        . = 0x004020; gMapFloodSquareBufB = .;
+        . = 0x004220; gWorkingMovTable = .;
+        . = 0x0042B0; gMapFloodSquareBufA = .;
         . = 0x0044B0; gActiveUnit = .;
+        . = 0x0044C0; gMapFloodSt = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -179,6 +185,7 @@ SECTIONS
         src/item.o(.text);
         src/unit.o(.text);
         src/map.o(.text);
+        src/mapwork.o(.text);
 
         asm/code.o(.text);
 

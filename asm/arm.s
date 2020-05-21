@@ -408,16 +408,16 @@ _08000768:
 	pop {r4, r5, r6, r7}
 	bx lr
 	.align 2, 0
-_08000770: .4byte 0x03004220
-_08000774: .4byte 0x030044C0
-_08000778: .4byte 0x03004010
+_08000770: .4byte gWorkingMovTable
+_08000774: .4byte gMapFloodSt
+_08000778: .4byte gWorkingMap
 _0800077C: .4byte gMapTerrain
 _08000780: .4byte gMapUnit
 
-	arm_func_start MoveFillStep
-MoveFillStep: @ 0x08000784
+	arm_func_start MapFloodCoreStep
+MapFloodCoreStep: @ 0x08000784
 	push {r4, r5, r6, r7, r8, sb, sl}
-	ldr r3, _08000774 @ =0x030044C0
+	ldr r3, _08000774 @ =gMapFloodSt
 	ldr r4, [r3]
 	ldrb r5, [r4]
 	add r1, r1, r5
@@ -427,9 +427,9 @@ MoveFillStep: @ 0x08000784
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	ldrb r7, [r7, r1]
-	ldr r8, _08000770 @ =0x03004220
+	ldr r8, _08000770 @ =gWorkingMovTable
 	ldrb sl, [r8, r7]
-	ldr r7, _08000778 @ =0x03004010
+	ldr r7, _08000778 @ =gWorkingMap
 	ldr r7, [r7]
 	ldr sb, [r7, r6, lsl #2]
 	ldrb sb, [sb, r5]
@@ -462,7 +462,7 @@ _08000810:
 	strb sl, [r4, #3]
 	add r4, r4, #4
 	str r4, [r3, #4]
-	ldr r7, _08000778 @ =0x03004010
+	ldr r7, _08000778 @ =gWorkingMap
 	ldr r7, [r7]
 	ldr r7, [r7, r2, lsl #2]
 	strb sl, [r7, r1]
@@ -470,29 +470,29 @@ _08000848:
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 	.align 2, 0
-_08000850: .4byte 0x03004020
-_08000854: .4byte 0x030042B0
+_08000850: .4byte gMapFloodSquareBufB
+_08000854: .4byte gMapFloodSquareBufA
 _08000858:
 	.byte 0x4D, 0x00, 0x00, 0xEA, 0x59, 0x00, 0x00, 0xEA
 	.byte 0x3E, 0x00, 0x00, 0xEA, 0x30, 0x00, 0x00, 0xEA, 0x69, 0x00, 0x00, 0xEA, 0x1D, 0x00, 0x00, 0xEA
 	.byte 0x58, 0x08, 0x00, 0x08
 
-	arm_func_start MoveFill
-MoveFill: @ 0x08000874
+	arm_func_start MapFloodCore
+MapFloodCore: @ 0x08000874
 	push {r4, r5, r6, lr}
 	mov r4, #0
-	ldr r5, _08000774 @ =0x030044C0
+	ldr r5, _08000774 @ =gMapFloodSt
 	eors r4, r4, #1
 	beq _0800089C
-	ldr r0, _08000850 @ =0x03004020
+	ldr r0, _08000850 @ =gMapFloodSquareBufB
 	str r0, [r5]
-	ldr r0, _08000854 @ =0x030042B0
+	ldr r0, _08000854 @ =gMapFloodSquareBufA
 	str r0, [r5, #4]
 	b _080008AC
 _0800089C:
-	ldr r0, _08000854 @ =0x030042B0
+	ldr r0, _08000854 @ =gMapFloodSquareBufA
 	str r0, [r5]
-	ldr r0, _08000850 @ =0x03004020
+	ldr r0, _08000850 @ =gMapFloodSquareBufB
 	str r0, [r5, #4]
 _080008AC:
 	ldr r6, [r5]
