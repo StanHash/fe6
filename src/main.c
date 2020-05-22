@@ -16,8 +16,6 @@ void sub_805F7E4(void);
 void sub_80841FC(void);
 void sub_808439C(void);
 
-s8 LoadGeneralGameMetadata(void* buf);
-
 NAKEDFUNC void AgbMain(void)
 {
     // NOTE: ?????
@@ -61,7 +59,7 @@ NAKEDFUNC void AgbMain(void)
     RandInitB(0x42D690E9);
     RandInit(RandNextB());
 
-    if (!LoadGeneralGameMetadata(NULL))
+    if (!LoadGlobalSaveInfo(NULL))
         sub_808439C();
 
     m4aSoundInit();
@@ -79,7 +77,7 @@ NAKEDFUNC void AgbMain(void)
 static char const sDbgLineA[] = "2002/03/02(SAT) 11:15:03";
 static char const sDbgLineB[] = "NARIHIRO";
 
-NAKEDFUNC void sub_8000AFC(void)
+NAKEDFUNC void PutBuildInfo(u16* tm)
 {
     asm("\n\
         .syntax unified\n\

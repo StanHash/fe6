@@ -126,7 +126,7 @@ void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo* mpi)
     if (sSoundSt.songPlaying && GetCurrentBgmSong() == songId)
         return;
 
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     if (sSoundSt.songPlaying)
@@ -167,7 +167,7 @@ void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo* mpi)
 {
     struct MusicProc* proc;
 
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     sSoundSt.songPlaying = TRUE;
@@ -192,7 +192,7 @@ void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo* mpi)
 
 void OverrideBgm(int songId)
 {
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     sSoundSt.overwrittenSongId = sSoundSt.songId;
@@ -207,7 +207,7 @@ void OverrideBgm(int songId)
 
 void RestoreBgm(void)
 {
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     if (sSoundSt.overwrittenSongId == 0)
@@ -224,7 +224,7 @@ void RestoreBgm(void)
 
 void MakeBgmOverridePersist(void)
 {
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     sSoundSt.songId = sSoundSt.overwrittenSongId;
@@ -277,7 +277,7 @@ static void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo* mpi)
 {
     struct MusicProc* proc;
 
-    if (gPlaySt.cfgBgmDisable)
+    if (gPlaySt.configBgmDisable)
         return;
 
     proc = SpawnProc(ProcScr_DelaySong, PROC_TREE_3);

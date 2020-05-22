@@ -5,48 +5,8 @@
 #include "types.h"
 
 #include "proc.h"
+#include "menu.h"
 
-// sub_801A5AC
-// sub_801A5E0
-// sub_801A644
-// sub_801A674
-// sub_801A698
-// sub_801A724
-// sub_801A748
-// sub_801A760
-// sub_801A7D4
-// sub_801A81C
-// sub_801A820
-// sub_801A89C
-// sub_801A940
-// sub_801A944
-// sub_801A9A8
-// sub_801AA70
-// sub_801AA74
-// sub_801AA8C
-// sub_801AABC
-// sub_801AAE0
-// sub_801AB64
-// sub_801ABE8
-// sub_801AC2C
-// sub_801ACD8
-// sub_801AD14
-// sub_801AD28
-// sub_801AD3C
-// sub_801AD4C
-// sub_801AD50
-// sub_801AD6C
-// sub_801AD84
-// sub_801ADB4
-// sub_801ADCC
-// sub_801ADEC
-// sub_801AE60
-// sub_801AEB8
-// sub_801AEBC
-// sub_801AEC8
-// sub_801AED8
-// sub_801AF78
-// sub_801B018
 // sub_801B034
 // sub_801B04C
 // sub_801B0D0
@@ -88,7 +48,7 @@
 // sub_801C2E8
 // sub_801C380
 void StartMapFade(Bool locksGame);
-s8 BattleMapFadeExists(void);
+Bool BattleMapFadeExists(void);
 // sub_801C3E0
 // sub_801C430
 // sub_801C49C
@@ -102,7 +62,7 @@ void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 // sub_801C62C
 // sub_801C670
 // sub_801C6B0
-// sub_801C6C4
+void sub_801C6C4(int vision);
 // sub_801C700
 // sub_801C80C
 // sub_801C990
@@ -1587,7 +1547,7 @@ void sub_80415CC(int x, int y);
 // sub_804163C
 // sub_8041660
 // sub_804166C
-// ClearBg0Bg1
+void ClearBg0Bg1(void);
 // sub_804169C
 // sub_8041728
 // sub_80417A8
@@ -1595,9 +1555,9 @@ void LoadUiFrameGraphics(void);
 // sub_80417E8
 // sub_8041818
 // sub_8041828
-// sub_8041834
+struct MenuProc* sub_8041834(struct MenuInfo const* info);
 // sub_8041844
-// sub_80419CC
+void sub_80419CC(struct MenuProc* menu);
 // sub_8041A38
 // sub_8041A50
 // sub_8041A88
@@ -3891,16 +3851,16 @@ void sub_806EABC(void);
 // sub_80841EC
 // nullsub_44
 // sub_80841FC
-// IsSramWorking
+Bool IsSramWorking(void);
 // sub_8084280
 // ComputeChecksum16
-// LoadGeneralGameMetadata
-// sub_8084364
+Bool LoadGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
+void SaveGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
 // sub_8084388
 // sub_808439C
 // sub_8084414
 // sub_8084428
-// sub_8084438
+Bool sub_8084438(struct SaveBlockInfo* blockInfo, int id);
 // sub_80844D4
 // sub_8084560
 // sub_808460C
@@ -3941,17 +3901,17 @@ void PidStatsAddSquaresMoved(int pid, int amount);
 // sub_8084D64
 // sub_8084DC8
 // sub_8084E18
-// GetGlobalCompletionCount
-// sub_8084E6C
-// sub_8084EA4
+int GetGlobalCompletedPlaythroughCount(void);
+void RegisterCompletedPlaythrough(struct GlobalSaveInfo* saveInfo, int id);
+void sub_8084EA4(void);
 // nullsub_45
 // sub_8084F4C
 // sub_8084F78
-// sub_8084F94
+int sub_8084F94(void);
 // sub_8084FB8
 // sub_8084FF8
-// sub_808505C
-// sub_8085110
+void sub_808505C(int saveId, int isHard);
+void sub_8085110(int arg_0);
 // sub_80851B4
 s8 sub_808525C(int saveId);
 void sub_8085270(int saveId, struct PlaySt* out);
@@ -3960,8 +3920,8 @@ void sub_8085270(int saveId, struct PlaySt* out);
 // sub_80855C4
 void sub_8085788(int saveId);
 void sub_80857B0(int saveId);
-// sub_80858E4
-// sub_80859E0
+void sub_80858E4(int saveId);
+Bool sub_80859E0(int saveId);
 // sub_8085A34
 // sub_8085A48
 // sub_8085CE0

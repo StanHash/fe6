@@ -37,6 +37,12 @@ ProcScr_Unk_0868C304        = 0x0868C304;
 ProcScr_Unk_08691480        = 0x08691480;
 ProcScr_OpeningSequence     = 0x0869150C;
 
+MenuInfo_085C73E4 = 0x085C73E4;
+MenuInfo_085C7408 = 0x085C7408;
+MenuInfo_085C742C = 0x085C742C;
+MenuInfo_085C7450 = 0x085C7450;
+MenuInfo_085C7474 = 0x085C7474;
+
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
 ItemInfoTable = 0x0860B648;
@@ -186,6 +192,7 @@ SECTIONS
         src/unit.o(.text);
         src/map.o(.text);
         src/mapwork.o(.text);
+        src/debug-menu.o(.text);
 
         asm/code.o(.text);
 
@@ -239,6 +246,7 @@ SECTIONS
         . = ALIGN(4); data/rodata_1004A4.o(.rodata);
         . = ALIGN(4); src/item.o(.rodata);
         . = ALIGN(4); src/unit.o(.rodata);
+        . = ALIGN(4); src/debug-menu.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -262,6 +270,7 @@ SECTIONS
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/unit.o(.data);
         . = ALIGN(4); src/map.o(.data);
+        . = ALIGN(4); src/debug-menu.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

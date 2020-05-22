@@ -12,5 +12,11 @@ enum
     FID_FAE = 4,
     // TODO: more
 
+    FID_61 = 0x61,
+    FID_63 = 0x63,
+
+    FID_66 = 0x66,
+    FID_67 = 0x67,
+
     FID_FACTION_CHIBI = INT16_MAX - 0xFF,
 };

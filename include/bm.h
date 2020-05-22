@@ -103,27 +103,26 @@ struct PlaySt
     /* 1B */ u8 unk1B;
 
     // option bits
-    u32 unk1C_1:1; // 1
-    u32 unk1C_2:1; // 
-    u32 unk1C_3:2; // 
-    u32 unk1C_5:1; // 
-    u32 cfgTextSpeed:2;
-    u32 unk1C_8:1;
-    u32 cfgBgmDisable:1;
-    u32 cfgSeDisable:1;
-    u32 cfgWindowColor:2;
-    u32 unk1D_5:1; // 
-    u32 unk1D_6:1; // 
-    u32 unk1D_7:1; // 
-    u32 unk1D_8:1; // 
-    u32 unk1E_1:2; // 2
-    u32 unk1E_3:1; // 
-    u32 unk1E_4:2; // 
-    u32 unk1E_6:1; // 
-    u32 unk1E_7:1; // 
-    u32 unk1E_8:2; // 
-    u32 unk1F_2:2; // 
-    u32 unk1F_4:5; // 
+    u32 unk_1C_1:1; // 1
+    u32 unk_1C_2:1; // 
+    u32 unk_1C_3:2; // 
+    u32 unk_1C_5:1; // 
+    u32 configTextSpeed:2;
+    u32 unk_1C_8:1;
+    u32 configBgmDisable:1;
+    u32 configSeDisable:1;
+    u32 configWindowColor:2;
+    u32 unk_1D_5:1; // 
+    u32 unk_1D_6:1; // 
+    u32 unk_1D_7:1; // 
+    u32 unk_1D_8:1; // 
+    u32 unk_1E_1:2; // 2
+    u32 unk_1E_3:1; // 
+    u32 unk_1E_4:2; // 
+    u32 unk_1E_6:1; // 
+    u32 debugRedControl:2;
+    u32 debugGreenControl:2;
+    u32 unk_1F_3:6; // 
 };
 
 enum

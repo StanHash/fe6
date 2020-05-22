@@ -10,7 +10,7 @@ Sometimes, we fail at getting that, in which case we have a nonmatch (a function
 | File         | Function           | Opt. Level | Notes
 | ------------ | ------------------ | ---------- | -----
 | `main.c`     | `AgbMain`          | `O2`       | Prologue features strange bits I don't know how to generate
-| `main.c`     | `sub_8000AFC`      | `O2`       | ^
+| `main.c`     | `PutBuildInfo`     | `O2`       | ^
 | `hardware.c` | `InitBgs`          | `O0`       | One load stubbornly wants to use `r0` where `r1` is needed to match
 | `face.c`     | `UpdateFaceTalk`   | `O0`       | Despite `O0`, ternary gets optimized out.
 | `face.c`     | `Face_OnIdle`      | `O0`       | ^

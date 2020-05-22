@@ -6,6 +6,7 @@
 
 #include "proc.h"
 #include "text.h"
+#include "menu.h"
 
 extern u8 gBuf[];
 
@@ -58,6 +59,11 @@ extern struct ProcScr CONST_DATA ProcScr_StatusDecayDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_TerrainHealDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_PoisonDamageDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
+extern struct MenuInfo CONST_DATA MenuInfo_085C7474;
+extern struct MenuInfo CONST_DATA MenuInfo_085C73E4;
+extern struct MenuInfo CONST_DATA MenuInfo_085C742C;
+extern struct MenuInfo CONST_DATA MenuInfo_085C7450;
+extern struct MenuInfo CONST_DATA MenuInfo_085C7408;
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];

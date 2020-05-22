@@ -18,25 +18,6 @@ struct GameController
     /* 2E */ short clock;
 };
 
-enum
-{
-    L_GAMECTRL_OPENINGSEQ,
-    L_GAMECTRL_CLASSDEMO,
-    L_GAMECTRL_SCENEDEMO,
-    L_GAMECTRL_TITLE,
-    L_GAMECTRL_MAINMENU,
-    L_GAMECTRL_CHAPTER,
-    L_GAMECTRL_LOADSUSPEND,
-    L_GAMECTRL_POSTCHAPTER,
-    L_GAMECTRL_POSTTRIAL,
-    L_GAMECTRL_TUTORIAL,
-    L_GAMECTRL_LINK,
-    L_GAMECTRL_TRIAL,
-    L_GAMECTRL_PREENDING,
-    L_GAMECTRL_ENDING,
-    L_GAMECTRL_SRAMRESET,
-};
-
 static Bool GC_StartClassDemo(struct GameController* proc);
 static void GC_CheckSramResetKeyCombo(struct GameController* proc);
 static void GC_InitSramResetScreen(struct GameController* proc);
@@ -293,7 +274,7 @@ static void GC_InitSramResetScreen(struct GameController* proc)
     InitBgs(NULL);
     ApplySystemGraphics();
 
-    gPlaySt.cfgTextSpeed = 1;
+    gPlaySt.configTextSpeed = 1;
 
     sub_806EA24(PROC_TREE_3, NULL, -1);
 }
@@ -559,17 +540,17 @@ void RestartGameAndLoadSuspend(void)
 
 void ForceEnableSounds(void)
 {
-    gPlaySt.cfgBgmDisable = FALSE;
-    gPlaySt.cfgSeDisable = FALSE;
+    gPlaySt.configBgmDisable = FALSE;
+    gPlaySt.configSeDisable = FALSE;
 }
 
 void sub_8013A64(void)
 {
-    gPlaySt.unk1E_1 = 0;
-    gPlaySt.cfgTextSpeed = 1;
-    gPlaySt.unk1C_8 = 0;
-    gPlaySt.cfgBgmDisable = FALSE;
-    gPlaySt.cfgSeDisable = TRUE;
-    gPlaySt.cfgWindowColor = 0;
-    gPlaySt.unk1C_1 = 0;
+    gPlaySt.unk_1E_1 = 0;
+    gPlaySt.configTextSpeed = 1;
+    gPlaySt.unk_1C_8 = 0;
+    gPlaySt.configBgmDisable = FALSE;
+    gPlaySt.configSeDisable = TRUE;
+    gPlaySt.configWindowColor = 0;
+    gPlaySt.unk_1C_1 = 0;
 }
