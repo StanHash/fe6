@@ -10,35 +10,14 @@ enum
     BM_FLAG_1 = (1 << 1),
     BM_FLAG_2 = (1 << 2),
     BM_FLAG_3 = (1 << 3),
+    BM_FLAG_4 = (1 << 4),
 };
 
-struct BmSt
+enum
 {
-    /* 00 */ Bool mainLoopEnded;
-    /* 01 */ u8 lock;
-    /* 02 */ u8 lockDisplay;
-    /* 03 */ u8 pad_03;
-    /* 04 */ u8 flags;
-    /* 05 */ // pad
-    /* 06 */ u16 mainLoopEndScanline;
-    /* 08 */ int pad08;
-    /* 0C */ struct Vec2 camera;
-    /* 10 */ struct Vec2 cameraPrevious;
-    /* 14 */ struct Vec2 cursor;
-    /* 18 */ struct Vec2 cursorPrevious;
-    /* 1C */ struct Vec2 cursorSprTarget;
-    /* 20 */ struct Vec2 cursorSpr;
-    /* 24 */ struct Vec2 mapRenderAnchor;
-    /* 28 */ struct Vec2 cameraMax;
-    /* 2C */ u8 pad_2C[0x32 - 0x2C];
-    /* 32 */ short unk_32;
-    /* 34 */ short unk_34;
-    /* 36 */ s8 unk_36;
-    /* 37 */ s8 unk_37;
-    /* 38 */ u8 pad_38[0x3D - 0x38];
-    /* 3D */ u8 unk_3D;
-    /* 3E */ u8 unk_3E;
-    /* 3F */ u8 unk_3F;
+    PARTIAL_ACTION_RESCUE_TRANSFER = (1 << 0),
+    PARTIAL_ACTION_TRADED = (1 << 1),
+    PARTIAL_ACTION_SUPPLY = (1 << 2),
 };
 
 enum
@@ -82,6 +61,58 @@ enum
     WEATHER_CLOUDS,
 };
 
+enum
+{
+    MAP_CURSOR_DEFAULT,
+    MAP_CURSOR_REGULAR,
+    MAP_CURSOR_RED_MOVING,
+    MAP_CURSOR_STRETCHED,
+    MAP_CURSOR_RED_STATIC,
+};
+
+enum
+{
+    L_BMMAIN_INIT,
+    L_BMMAIN_CHANGEPHASE,
+    L_BMMAIN_2,
+    L_BMMAIN_DURINGPHASE,
+    L_BMMAIN_4,
+    L_BMMAIN_5,
+    L_BMMAIN_6,
+    L_BMMAIN_STARTPHASE,
+    L_BMMAIN_8,
+};
+
+struct BmSt
+{
+    /* 00 */ Bool mainLoopEnded;
+    /* 01 */ u8 lock;
+    /* 02 */ u8 lockDisplay;
+    /* 03 */ u8 pad_03;
+    /* 04 */ u8 flags;
+    /* 05 */ // pad
+    /* 06 */ u16 mainLoopEndScanline;
+    /* 08 */ int pad08;
+    /* 0C */ struct Vec2 camera;
+    /* 10 */ struct Vec2 cameraPrevious;
+    /* 14 */ struct Vec2 cursor;
+    /* 18 */ struct Vec2 cursorPrevious;
+    /* 1C */ struct Vec2 cursorSprTarget;
+    /* 20 */ struct Vec2 cursorSpr;
+    /* 24 */ struct Vec2 mapRenderAnchor;
+    /* 28 */ struct Vec2 cameraMax;
+    /* 2C */ u8 pad_2C[0x32 - 0x2C];
+    /* 32 */ short unk_32;
+    /* 34 */ short unk_34;
+    /* 36 */ s8 unk_36;
+    /* 37 */ s8 unk_37;
+    /* 38 */ u8 pad_38[0x3C - 0x38];
+    /* 3C */ u8 unk_3C;
+    /* 3D */ u8 partialActionsTaken;
+    /* 3E */ u8 unk_3E;
+    /* 3F */ u8 unk_3F;
+};
+
 struct PlaySt
 {
     /* 00 */ u32 unk00; // a time value
@@ -89,12 +120,12 @@ struct PlaySt
 
     /* 08 */ u32 gold;
     /* 0C */ u8 saveSlot;
-    /* 0D */ u8 vision; // 0 means no fog
+    /* 0D */ u8 vision;
     /* 0E */ s8 chapter;
     /* 0F */ u8 faction;
     /* 10 */ u16 turn;
-    /* 12 */ u8 xCursor, yCursor; // map cursor position
-    /* 14 */ u8 flags; // +0x04 = postgame, +0x10 = in prep screen, +0x40 = difficult mode, +0x80 = link arena?
+    /* 12 */ u8 xCursor, yCursor;
+    /* 14 */ u8 flags;
     /* 15 */ u8 weather;
     /* 16 */ u16 supportGain;
     /* 18 */ u8 playId;
@@ -114,7 +145,7 @@ struct PlaySt
     u32 configWindowColor:2;
     u32 unk_1D_5:1; // 
     u32 unk_1D_6:1; // 
-    u32 unk_1D_7:1; // 
+    u32 configNoAutoEndTurn:1;
     u32 unk_1D_8:1; // 
     u32 unk_1E_1:2; // 2
     u32 unk_1E_3:1; // 
@@ -123,28 +154,6 @@ struct PlaySt
     u32 debugRedControl:2;
     u32 debugGreenControl:2;
     u32 unk_1F_3:6; // 
-};
-
-enum
-{
-    L_BMMAIN_INIT,
-    L_BMMAIN_CHANGEPHASE,
-    L_BMMAIN_2,
-    L_BMMAIN_DURINGPHASE,
-    L_BMMAIN_4,
-    L_BMMAIN_5,
-    L_BMMAIN_6,
-    L_BMMAIN_STARTPHASE,
-    L_BMMAIN_8,
-};
-
-enum
-{
-    MAP_CURSOR_DEFAULT,
-    MAP_CURSOR_REGULAR,
-    MAP_CURSOR_RED_MOVING,
-    MAP_CURSOR_STRETCHED,
-    MAP_CURSOR_RED_STATIC,
 };
 
 void OnVBlank(void);

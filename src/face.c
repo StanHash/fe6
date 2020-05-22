@@ -10,6 +10,7 @@
 #include "proc.h"
 #include "sprite.h"
 #include "util.h"
+#include "bm.h"
 
 #include "constants/video-global.h"
 #include "constants/faces.h"

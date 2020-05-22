@@ -782,10 +782,10 @@ void UnitBeginAction(struct Unit* unit)
     gActiveUnitMoveOrigin.y = unit->y;
 
     gAction.actor = unit->id;
-    gAction.actionId = 0;
+    gAction.id = ACTION_NONE;
     gAction.moveCount = 0;
 
-    gBmSt.unk_3D = 0;
+    gBmSt.partialActionsTaken = 0;
     gBmSt.unk_3F = 0xFF;
 
     sub_8025780();
@@ -802,9 +802,9 @@ void UnitBeginReMoveAction(struct Unit* unit)
     gActiveUnitMoveOrigin.x = unit->x;
     gActiveUnitMoveOrigin.y = unit->y;
 
-    gAction.actionId = 0;
+    gAction.id = ACTION_NONE;
 
-    gBmSt.unk_3D = 0;
+    gBmSt.partialActionsTaken = 0;
 
     sub_8025780();
 
@@ -1022,7 +1022,7 @@ int sub_8018258(struct Unit* unit)
     return result;
 }
 
-Bool sub_80182D0(void)
+Bool CanActiveUnitStillMove(void)
 {
     s8 adjLut[] =
     {

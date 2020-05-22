@@ -348,7 +348,7 @@ void sub_80181B0(struct Unit* unit, int x, int y);
 int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain);
 int GetAidIconFromAttributes(int attributes);
 int sub_8018258(struct Unit* unit);
-Bool sub_80182D0(void);
+Bool CanActiveUnitStillMove(void);
 
 extern struct Unit* gActiveUnit;
 

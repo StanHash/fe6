@@ -311,7 +311,7 @@ void ApplyWorkingMovScriptToAction(int x, int y)
             *it++ = MOVE_CMD_BUMP;
             *it++ = MOVE_CMD_HALT;
 
-            gAction.actionId = ACTION_TRAPPED;
+            gAction.id = ACTION_TRAPPED;
 
             return;
         }

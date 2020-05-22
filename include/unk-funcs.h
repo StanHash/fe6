@@ -7,38 +7,6 @@
 #include "proc.h"
 #include "menu.h"
 
-// sub_801B034
-// sub_801B04C
-// sub_801B0D0
-// sub_801B368
-// sub_801B3FC
-// sub_801B49C
-// sub_801B4D0
-// sub_801B73C
-// sub_801B754
-// sub_801B7D0
-// sub_801B90C
-// sub_801B9B0
-// sub_801B9CC
-// sub_801B9F4
-// sub_801BAB4
-// sub_801BAF0
-// sub_801BBA0
-// sub_801BC08
-// sub_801BC3C
-// sub_801BC68
-// sub_801BC84
-// sub_801BD08
-// sub_801BD38
-// sub_801BD88
-// sub_801BDC8
-// sub_801BF68
-// sub_801BFD4
-// sub_801C02C
-// sub_801C060
-// sub_801C070
-// sub_801C0DC
-// sub_801C134
 // sub_801C160
 // sub_801C188
 // sub_801C1D0
@@ -289,7 +257,7 @@ void sub_801C6C4(int vision);
 // sub_8020928
 // sub_802094C
 // sub_8020958
-// sub_802097C
+int sub_802097C(int faction);
 int sub_80209C8(int faction, int prohibitedState);
 // sub_8020A04
 // sub_8020A18
@@ -371,9 +339,9 @@ void RefreshMapSprites(void);
 // sub_8022224
 // sub_8022378
 // sub_8022618
-// sub_8022628
-// sub_8022634
-// sub_8022724
+void sub_8022628(void);
+void sub_8022634(void);
+Bool sub_8022724(int x, int y);
 // sub_8022774
 // sub_802285C
 // sub_8022940
@@ -599,7 +567,7 @@ void UpdateRoofedUnits(void);
 // sub_8027318
 // sub_802733C
 // sub_8027368
-// sub_80273BC
+Bool sub_80273BC(ProcPtr proc);
 // GetTrap
 // sub_80274A8
 // sub_8027530
@@ -715,7 +683,7 @@ u16 const* sub_8029684(void);
 // sub_8029FE0
 // sub_802A008
 // sub_802A018
-// sub_802A028
+Bool sub_802A028(ProcPtr proc);
 // sub_802A138
 // sub_802A188
 // sub_802A208
@@ -745,17 +713,17 @@ u16 const* sub_8029684(void);
 // sub_802A918
 // sub_802A99C
 // sub_802AA0C
-// sub_802AB0C
+void sub_802AB0C(void);
 // sub_802ABB0
 // sub_802ABF4
 // sub_802AC20
-// sub_802AC9C
+void sub_802AC9C(Bool arg_0);
 // sub_802AD28
 // sub_802AEE0
 // sub_802AF44
 // sub_802AFB4
 // sub_802AFF8
-// sub_802B0B4
+void sub_802B0B4(void);
 // sub_802B0C4
 // sub_802B0FC
 // sub_802B118
@@ -1552,7 +1520,7 @@ void ClearBg0Bg1(void);
 // sub_8041728
 // sub_80417A8
 void LoadUiFrameGraphics(void);
-// sub_80417E8
+struct MenuProc* sub_80417E8(struct MenuInfo const* info, int x, int left, int right);
 // sub_8041818
 // sub_8041828
 struct MenuProc* sub_8041834(struct MenuInfo const* info);
@@ -1577,7 +1545,7 @@ void sub_80419CC(struct MenuProc* menu);
 // sub_8041FA4
 // sub_8041FD8
 // sub_8041FF8
-// sub_8042018
+struct MenuProc* sub_8042018(struct MenuInfo const* info, int x, int left, int right);
 // sub_8042070
 // sub_80420B4
 void BeginTargetList(int x, int y);
@@ -2705,8 +2673,8 @@ s8 sub_80425C4(void);
 // sub_805FBDC
 // MU_SetDefaultFacing
 // MU_SetDefaultFacing_Auto
-// sub_805FC80
-// MU_Exists
+void sub_805FC80(u8 const* moveScript);
+Bool MU_Exists(void);
 // MU_IsAnyActive
 // sub_805FD40
 // sub_805FD78
@@ -3067,18 +3035,18 @@ void sub_806AF08(void);
 // sub_806B398
 // sub_806B3C0
 // sub_806B3DC
-// sub_806B404
-// sub_806B414
-// sub_806B420
+Bool sub_806B404(void);
+void sub_806B414(void);
+void sub_806B420(void);
 // sub_806B43C
-// sub_806B470
-// sub_806B4A4
+Bool sub_806B470(void);
+Bool sub_806B4A4(void);
 // sub_806B4A8
 // sub_806B4AC
 // sub_806B4C8
-// sub_806B4E4
-// sub_806B500
-// sub_806B540
+void sub_806B4E4(void);
+Bool sub_806B500(void);
+void sub_806B540(void);
 // sub_806B580
 // sub_806B5B0
 // sub_806B604
@@ -3391,7 +3359,7 @@ void sub_806EA24(ProcPtr parent, u8* vram, int pal);
 void sub_806EABC(void);
 // sub_806EACC
 // sub_806EAD8
-// sub_806EAE4
+void sub_806EAE4(int arg_0);
 // sub_806EAF0
 // sub_806EB00
 // sub_806EB48
@@ -3432,7 +3400,7 @@ void sub_806EABC(void);
 // sub_8070264
 // sub_8070278
 // sub_80702B0
-// sub_80702BC
+void sub_80702BC(struct Unit* unit, ProcPtr parent);
 // sub_807030C
 // sub_807036C
 // sub_8070398
@@ -3565,8 +3533,8 @@ void sub_806EABC(void);
 // sub_80730CC
 // sub_80730F4
 // sub_80731D8
-// sub_8073310
-// sub_8073324
+void sub_8073310(void);
+void sub_8073324(void);
 // sub_8073370
 // sub_8073394
 // sub_80733C0
@@ -3889,7 +3857,7 @@ void sub_8084908(struct PlaySt* playSt);
 // sub_80849BC
 // sub_8084A10
 // sub_8084AEC
-// sub_8084B84
+void sub_8084B84(int pid);
 // sub_8084BB8
 // sub_8084BEC
 void PidStatsAddSquaresMoved(int pid, int amount);
@@ -3990,7 +3958,7 @@ void LoadTrialMapBonusUnits(void);
 // sub_8087A88
 // sub_8087AA8
 // sub_8087AE4
-// sub_8087BC4
+void sub_8087BC4(void);
 // sub_8087BD8
 // sub_8087C14
 // sub_8087C60

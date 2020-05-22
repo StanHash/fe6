@@ -48,15 +48,15 @@ enum
 {
     ACTION_NONE,
 
-    // ACTION_WAIT,
-    // ACTION_COMBAT,
-    // ACTION_STAFF,
+    ACTION_WAIT = 0x01,
+    ACTION_COMBAT = 0x02,
+    ACTION_STAFF = 0x03,
     // ACTION_DANCE,
     // ACTION_STEAL,
     // ACTION_RESCUE,
     // ACTION_DROP,
-    // ACTION_TAKE,
-    // ACTION_GIVE,
+    ACTION_TAKE = 0x09,
+    ACTION_GIVE = 0x0A,
     // ACTION_TALK,
     // ACTION_SUPPORT,
     // ACTION_VISIT,
@@ -66,9 +66,11 @@ enum
     // ACTION_SHOPPED,
     // ACTION_ARENA,
     // ACTION_USE_ITEM,
-    // ACTION_TRADED,
-
+    ACTION_TRADED = 0x18,
+    ACTION_TRADED_SUPPLY = 0x19,
+    ACTION_TRADED_NOCHANGES = 0x1A,
     ACTION_TRAPPED = 0x1B,
+    ACTION_1C = 0x1C,
 };
 
 enum
@@ -201,7 +203,7 @@ struct Action
 
     /* 10 */ u8 moveCount;
 
-    /* 11 */ u8 actionId;
+    /* 11 */ u8 id;
 
     // maybe from this onwards it's an union?
 

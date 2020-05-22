@@ -18,11 +18,16 @@ Img_TalkBubbleOpeningC = 0x082E453C;
 Img_TalkBubbleOpeningD = 0x082E44E0;
 Img_TalkBubbleOpeningE = 0x082E443C;
 
+Img_LimitViewSquares = 0x08308B98;
+Pal_LimitViewBlue = 0x08308E98;
+Pal_LimitViewRed = 0x08308EF8;
+Pal_LimitViewGreen = 0x08308F58;
+
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_PlayerPhase         = 0x085C56A8;
 ProcScr_InitPhaseCursor     = 0x085C5970;
+ProcScr_Unk_085C5988        = 0x085C5988;
 ProcScr_PhaseIntro          = 0x085C5AA0;
 ProcScr_ChapterIntro        = 0x085C5BE8;
 ProcScr_UpdateTraps         = 0x085C6358;
@@ -37,11 +42,14 @@ ProcScr_Unk_0868C304        = 0x0868C304;
 ProcScr_Unk_08691480        = 0x08691480;
 ProcScr_OpeningSequence     = 0x0869150C;
 
+MenuInfo_085C73C0 = 0x085C73C0;
 MenuInfo_085C73E4 = 0x085C73E4;
 MenuInfo_085C7408 = 0x085C7408;
 MenuInfo_085C742C = 0x085C742C;
 MenuInfo_085C7450 = 0x085C7450;
 MenuInfo_085C7474 = 0x085C7474;
+MenuInfo_UnitMenu = 0x085C7600;
+MenuInfo_085C7648 = 0x085C7648;
 
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
@@ -113,7 +121,7 @@ SECTIONS
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); tools/agbcc/lib/libgcc.a:fp-bit.o(.bss);
 
-        . = 0x0022A0; SoundMainRAM_Buffer = .;
+        . = ALIGN(4); src/lib/m4a.o(.bss.code);
 
         /* COMMON */
         . = 0x0026A0; gOamLoPutIt = .;
@@ -193,6 +201,7 @@ SECTIONS
         src/map.o(.text);
         src/mapwork.o(.text);
         src/debug-menu.o(.text);
+        src/player-phase.o(.text);
 
         asm/code.o(.text);
 
@@ -271,6 +280,7 @@ SECTIONS
         . = ALIGN(4); src/unit.o(.data);
         . = ALIGN(4); src/map.o(.data);
         . = ALIGN(4); src/debug-menu.o(.data);
+        . = ALIGN(4); src/player-phase.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

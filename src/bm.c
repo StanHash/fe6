@@ -14,6 +14,7 @@
 #include "util.h"
 #include "unit.h"
 #include "map.h"
+#include "player-phase.h"
 
 #include "constants/video-global.h"
 
@@ -432,9 +433,7 @@ void BmMain_StartPhase(ProcPtr proc)
 
 void BmMain_ResumePlayerPhase(ProcPtr proc)
 {
-    Proc_Goto(
-        SpawnProcLocking(ProcScr_PlayerPhase, proc), 7); // TODO: player phase proc label ids
-
+    Proc_Goto(SpawnProcLocking(ProcScr_PlayerPhase, proc), L_PLAYERPHASE_ACTION);
     Proc_Break(proc);
 }
 

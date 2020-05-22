@@ -100,7 +100,10 @@ struct GenericProc
 
     /* 4A */ u16 unk4A;
 
-    /* 4C */ u8 pad4C[0x52 - 0x4C];
+    // Is this part of that?
+    /* 4C */ short unk4C; 
+
+    /* 4E */ u8 pad4E[0x52 - 0x4E];
 
     /* 52 */ u16 unk52;
 
@@ -127,6 +130,7 @@ struct GenericProc
 
 enum
 {
+    PROC_MARK_1 = 1,
     PROC_MARK_2 = 2,
     PROC_MARK_5 = 5,
     PROC_MARK_6 = 6,
