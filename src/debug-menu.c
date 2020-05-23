@@ -574,7 +574,7 @@ int sub_801ADEC(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801AE60(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    if (BattleMapFadeExists())
+    if (IsMapFadeActive())
         return 0;
 
     if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))

@@ -101,12 +101,17 @@ struct BmSt
     /* 20 */ struct Vec2 cursorSpr;
     /* 24 */ struct Vec2 mapRenderAnchor;
     /* 28 */ struct Vec2 cameraMax;
-    /* 2C */ u8 pad_2C[0x32 - 0x2C];
+    /* 2C */ u16 itemOverflow;
+    /* 2E */ u16 unk_2E;
+    /* 30 */ u8 pad_30[0x32 - 0x30];
     /* 32 */ short unk_32;
     /* 34 */ short unk_34;
     /* 36 */ s8 unk_36;
     /* 37 */ s8 unk_37;
-    /* 38 */ u8 pad_38[0x3C - 0x38];
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3A;
+    /* 3B */ u8 unk_3B;
     /* 3C */ u8 unk_3C;
     /* 3D */ u8 partialActionsTaken;
     /* 3E */ u8 unk_3E;
@@ -137,7 +142,7 @@ struct PlaySt
     u32 unk_1C_1:1; // 1
     u32 unk_1C_2:1; // 
     u32 unk_1C_3:2; // 
-    u32 unk_1C_5:1; // 
+    u32 configNoAutoCursor:1;
     u32 configTextSpeed:2;
     u32 unk_1C_8:1;
     u32 configBgmDisable:1;

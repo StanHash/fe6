@@ -25,14 +25,15 @@ enum
 
 enum
 {
-    BGPAL_DEBUGTEXT    = 0,
-    BGPAL_TEXT_DEFAULT = 0,
+    BGPAL_DEBUGTEXT       = 0,
+    BGPAL_TEXT_DEFAULT    = 0,
 
-    BGPAL_TALK         = 2,
-    BGPAL_TALK_BUBBLE  = 3,
-    BGPAL_ICONS        = 4, // .. 5
-    BGPAL_LIMITVIEW    = 4, // .. 5
-    BGPAL_TILESET      = 6, // .. 15
+    BGPAL_TALK            = 2,
+    BGPAL_TALK_BUBBLE     = 3,
+    BGPAL_EQUIP_INFO_ICON = 3,
+    BGPAL_ICONS           = 4, // .. 5
+    BGPAL_LIMITVIEW       = 4, // .. 5
+    BGPAL_TILESET         = 6, // .. 15
 };
 
 enum

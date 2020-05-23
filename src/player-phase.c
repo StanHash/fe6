@@ -69,7 +69,7 @@ PROC_LABEL(L_PLAYERPHASE_IDLE),
 PROC_LABEL(L_PLAYERPHASE_MOVE),
     PROC_CALL(sub_8073324),
 
-    PROC_WHILE(BattleMapFadeExists),
+    PROC_WHILE(IsMapFadeActive),
 
     PROC_CALL(sub_801809C),
     PROC_CALL(RefreshMapSprites),
@@ -103,7 +103,7 @@ PROC_LABEL(L_PLAYERPHASE_ACTION),
     PROC_GOTO(L_PLAYERPHASE_BEGIN),
 
 PROC_LABEL(L_PLAYERPHASE_MAPFADE_MOVE),
-    PROC_WHILE(BattleMapFadeExists),
+    PROC_WHILE(IsMapFadeActive),
 
     PROC_GOTO(L_PLAYERPHASE_MOVE),
 
@@ -132,7 +132,7 @@ PROC_LABEL(L_PLAYERPHASE_8),
 PROC_LABEL(L_PLAYERPHASE_SEE_RANGE),
     PROC_CALL(sub_8073324),
 
-    PROC_WHILE(BattleMapFadeExists),
+    PROC_WHILE(IsMapFadeActive),
 
     PROC_CALL(PlayerPhase_BeginSeeActionRange),
     PROC_REPEAT(PlayerPhase_MoveSelectLoop),
@@ -140,7 +140,7 @@ PROC_LABEL(L_PLAYERPHASE_SEE_RANGE),
     PROC_GOTO(L_PLAYERPHASE_IDLE),
 
 PROC_LABEL(L_PLAYERPHASE_END),
-    PROC_WHILE(BattleMapFadeExists),
+    PROC_WHILE(IsMapFadeActive),
 
     PROC_END,
 };
@@ -226,7 +226,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
         TrySwitchViewedUnit(gBmSt.cursor.x, gBmSt.cursor.y);
         PlaySe(0x6B); // TODO: song ids
     }
-    else if (!BattleMapFadeExists())
+    else if (!IsMapFadeActive())
     {
         if ((gKeySt->pressed & R_BUTTON) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {

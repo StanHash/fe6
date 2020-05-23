@@ -48,6 +48,7 @@ MenuInfo_085C7408 = 0x085C7408;
 MenuInfo_085C742C = 0x085C742C;
 MenuInfo_085C7450 = 0x085C7450;
 MenuInfo_085C7474 = 0x085C7474;
+MenuInfo_085C74E0 = 0x085C74E0;
 MenuInfo_UnitMenu = 0x085C7600;
 MenuInfo_085C7648 = 0x085C7648;
 
@@ -202,6 +203,7 @@ SECTIONS
         src/mapwork.o(.text);
         src/debug-menu.o(.text);
         src/player-phase.o(.text);
+        src/bmfx.o(.text);
 
         asm/code.o(.text);
 
@@ -256,6 +258,7 @@ SECTIONS
         . = ALIGN(4); src/item.o(.rodata);
         . = ALIGN(4); src/unit.o(.rodata);
         . = ALIGN(4); src/debug-menu.o(.rodata);
+        . = ALIGN(4); src/bmfx.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -281,6 +284,7 @@ SECTIONS
         . = ALIGN(4); src/map.o(.data);
         . = ALIGN(4); src/debug-menu.o(.data);
         . = ALIGN(4); src/player-phase.o(.data);
+        . = ALIGN(4); src/bmfx.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

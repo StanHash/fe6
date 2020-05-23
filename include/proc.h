@@ -102,8 +102,9 @@ struct GenericProc
 
     // Is this part of that?
     /* 4C */ short unk4C; 
+    /* 4E */ short unk4E;
 
-    /* 4E */ u8 pad4E[0x52 - 0x4E];
+    /* 50 */ u8 pad50[0x52 - 0x50];
 
     /* 52 */ u16 unk52;
 

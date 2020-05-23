@@ -12,13 +12,13 @@
 // sub_801C1D0
 // sub_801C20C
 // sub_801C264
-// sub_801C2B0
-// sub_801C2E8
-// sub_801C380
+// MapFade_Init
+// MapFade_Loop
+// MapFade_End
 void StartMapFade(Bool locksGame);
-Bool BattleMapFadeExists(void);
-// sub_801C3E0
-// sub_801C430
+Bool IsMapFadeActive(void);
+// GetPlayerInitialCursorPosition
+// GetAiInitialCursorPosition
 // sub_801C49C
 // sub_801C510
 // sub_801C540
@@ -32,10 +32,10 @@ void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent);
 // sub_801C6B0
 void sub_801C6C4(int vision);
 // sub_801C700
-// sub_801C80C
-// sub_801C990
-// sub_801CA50
-// sub_801CD50
+// EquipInfoWindow_Loop
+void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y);
+// UpdateEquipInfoWindow
+void EndEquipInfoWindow(void);
 // sub_801CD60
 // sub_801CDE4
 // sub_801CEE0
@@ -177,7 +177,7 @@ void sub_801C6C4(int vision);
 // sub_801F674
 // sub_801F688
 // sub_801F6A8
-// sub_801F708
+int sub_801F708(struct MenuProc* menu, struct MenuEntProc* ent);
 // sub_801F780
 // sub_801F7D0
 // sub_801F840
@@ -342,7 +342,7 @@ void RefreshMapSprites(void);
 void sub_8022628(void);
 void sub_8022634(void);
 Bool sub_8022724(int x, int y);
-// sub_8022774
+void sub_8022774(int layer, int x, int y, struct Unit* unit);
 // sub_802285C
 // sub_8022940
 // sub_8022A2C
@@ -425,7 +425,7 @@ void BattleGenerateReal(struct Unit* instigator, struct Unit* target);
 // sub_8024294
 void BattleGenerateBallistaReal(struct Unit* instigator, struct Unit* target);
 // BattleGenerate
-// sub_802430C
+void sub_802430C(struct Unit* unit, s8 itemSlot);
 // Roll1RNIfBattleStarted
 // Roll2RNIfBattleStarted
 // InitBattleUnit
@@ -654,7 +654,7 @@ u16 const* sub_8029684(void);
 // sub_802968C
 // sub_80296B0
 // sub_80296F4
-// sub_8029714
+int sub_8029714(int item);
 // sub_802974C
 // sub_8029764
 // sub_802979C
@@ -795,8 +795,8 @@ u8 const* GetChapterMapAddress(int chapter);
 // sub_802CA84
 // sub_802CAA4
 // sub_802CAC8
-// sub_802CB14
-// sub_802CB50
+void sub_802CB14(ProcPtr parent, char const* str);
+void sub_802CB50(void);
 s8 sub_802CB60(void);
 // sub_802CB78
 // sub_802CBB4
@@ -1521,7 +1521,7 @@ void ClearBg0Bg1(void);
 // sub_80417A8
 void LoadUiFrameGraphics(void);
 struct MenuProc* sub_80417E8(struct MenuInfo const* info, int x, int left, int right);
-// sub_8041818
+struct MenuProc* sub_8041818(struct MenuInfo const* info, ProcPtr parent);
 // sub_8041828
 struct MenuProc* sub_8041834(struct MenuInfo const* info);
 // sub_8041844
@@ -2663,7 +2663,7 @@ s8 sub_80425C4(void);
 // GetItemMaFacing
 // sub_805F7D4
 // sub_805F7E4
-// sub_805F820
+struct MuProc* sub_805F820(int x, int y, int jid, int arg_3);
 // MU_Start
 // sub_805F8DC
 // sub_805F8F4
@@ -3357,7 +3357,7 @@ void StartGameEndingScene(ProcPtr parent);
 // sub_806E9E8
 void sub_806EA24(ProcPtr parent, u8* vram, int pal);
 void sub_806EABC(void);
-// sub_806EACC
+int sub_806EACC(void);
 // sub_806EAD8
 void sub_806EAE4(int arg_0);
 // sub_806EAF0
@@ -3736,7 +3736,7 @@ void sub_8073324(void);
 // sub_8081540
 // sub_80815BC
 // sub_80815E4
-// sub_8081620
+void sub_8081620(struct Unit* unit, ProcPtr parent);
 // sub_808165C
 // sub_808166C
 // sub_808171C

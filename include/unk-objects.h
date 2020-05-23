@@ -70,6 +70,7 @@ extern struct MenuInfo CONST_DATA MenuInfo_085C7408;
 extern struct MenuInfo CONST_DATA MenuInfo_085C7648;
 extern struct MenuInfo CONST_DATA MenuInfo_085C73C0;
 extern struct MenuInfo CONST_DATA MenuInfo_UnitMenu;
+extern struct MenuInfo CONST_DATA MenuInfo_085C74E0;
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];

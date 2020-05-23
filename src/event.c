@@ -1006,7 +1006,7 @@ static void Event_MainLoop(struct EventProc* proc)
     if (sub_802CB60())
         return;
 
-    if (BattleMapFadeExists())
+    if (IsMapFadeActive())
         return;
 
     if (Event_SkipAllowed(proc) && (gKeySt->pressed & START_BUTTON))

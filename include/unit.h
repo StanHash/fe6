@@ -255,8 +255,18 @@ struct BattleUnit
     /* 53 */ s8 wTriangleHitBonus;
     /* 54 */ s8 wTriangleDmgBonus;
 
-    /* 55 */ u8 pad55[0x6A - 0x55];
- 
+    /* 55 */ u8 pad55[0x58 - 0x55];
+
+    /* 58 */ short battleAttack;
+    /* 5A */ short battleDefense;
+    /* 5C */ short battleSpeed;
+    /* 5E */ short battleHit;
+    /* 60 */ short battleAvoid;
+    /* 62 */ short battleEffectiveHit;
+    /* 64 */ short battleCrit;
+    /* 66 */ short battleDodge;
+    /* 68 */ short battleEffectiveCrit;
+
     /* 6A */ s8 expGain;
     /* 6B */ s8 statusOut;
     /* 6C */ u8 levelPrevious;
