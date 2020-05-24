@@ -40,31 +40,31 @@ void EndEquipInfoWindow(void);
 // sub_801CDE4
 // sub_801CEE0
 // sub_801CF10
-// sub_801CF48
-// sub_801CF8C
-// sub_801CFD0
-// sub_801D014
-// sub_801D03C
-// sub_801D078
-// sub_801D0DC
-// sub_801D140
-// sub_801D158
-// sub_801D160
-// sub_801D234
-// sub_801D308
-// sub_801D310
-// sub_801D398
-// sub_801D41C
-// sub_801D43C
-// sub_801D4E8
-// sub_801D5E4
+// PhaseIntroVMatchHi
+// PhaseIntroVMatchMid
+// PhaseIntroVMatchLo
+// PhaseIntroText_PutText
+// PhaseIntroText_Init
+// PhaseIntroText_InLoop
+// PhaseIntroText_OutLoop
+// PhaseIntroText_Clear
+// PhaseIntroSquares_Init
+// PhaseIntroSquares_InLoop
+// PhaseIntroSquares_OutLoop
+// PhaseIntroBlendBox_Init
+// PhaseIntroBlendBox_InLoop
+// PhaseIntroBlendBox_OutLoop
+// PhaseIntro_EndIfNoUnits
+// PhaseIntro_InitGraphics
+// PhaseIntro_InitDisp
+// PhaseIntro_WaitForEnd
 // sub_801D680
-// sub_801D6B4
-// sub_801D774
-// sub_801D7A4
-// sub_801D810
-// sub_801D830
-// sub_801D89C
+// GasTrapAnim_Init
+// StartGasTrapAnim
+// FireTrapAnim_Init
+// StartFireTrapAnim
+// ArrowTrapAnim_Init
+// StartArrowTrapAnim
 // sub_801D8B8
 // sub_801D8E4
 // sub_801D920
@@ -545,7 +545,7 @@ void sub_8026CA0(void);
 int sub_8026D20(int x, int y);
 // sub_8026D88
 // sub_8026DC8
-// GetMapChange
+struct MapChangeInfo const* GetMapChange(int id);
 int GetMapChangeIdByPosition(int x, int y);
 void ApplyMapChange(int id);
 void AddMapChangeTrap(int id);
@@ -568,7 +568,7 @@ void UpdateRoofedUnits(void);
 // sub_802733C
 // sub_8027368
 Bool sub_80273BC(ProcPtr proc);
-// GetTrap
+struct Trap* GetTrap(int id);
 // sub_80274A8
 // sub_8027530
 // sub_802756C
@@ -2776,7 +2776,7 @@ void sub_8061704(void);
 // sub_80627D0
 // sub_806283C
 // sub_8062890
-// sub_80629FC
+int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8062A80
 // sub_8062AB4
 // sub_8062BA0
@@ -3439,14 +3439,14 @@ void sub_80702BC(struct Unit* unit, ProcPtr parent);
 // sub_8070C4C
 // sub_8070C70
 // sub_8070CA8
-// sub_8070CB4
-// sub_8070D08
+void sub_8070CB4(int flags, int palid);
+void sub_8070D08(int chr, int chapter);
 // sub_8070D48
-// sub_8070D78
-// sub_8070DA8
+void sub_8070D78(int chr);
+void sub_8070DA8(u16* tm, int palid);
 // sub_8070DC8
-// sub_8070DE8
-// sub_8070E0C
+void sub_8070DE8(u16* tm, int palid);
+int sub_8070E0C(struct PlaySt const* playSt);
 // sub_8070E70
 // sub_8070EEC
 // sub_8070F64

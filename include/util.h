@@ -31,7 +31,7 @@ void nullsub_12(void);
 Bool StringEquals(char const* strA, char const* strB);
 void StringCopy(char* dst, char const* src);
 void Decompress_Unused_08013C74(u8 const* src, u8* dst);
-void Decompress(u8 const* src, u8* dst);
+void Decompress(u8 const* src, void* dst);
 int GetDataSize(u8 const* data);
 void Register2dChrMove(u8 const* img, u8* vram, int width, int height);
 void Copy2dChr(u8 const* src, u8* dst, int width, int height);

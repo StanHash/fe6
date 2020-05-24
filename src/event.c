@@ -575,7 +575,7 @@ static void Popup_FadeBgmIn(struct PopupProc* proc)
 
 static void PopupIconSprite_OnIdle(struct GenericProc* proc)
 {
-    PutOamHiRam(proc->x, proc->y, Sprite_16x16, proc->unk4A);
+    PutOamHiRam(proc->x, proc->y, Sprite_16x16, (u16) proc->unk4A);
 }
 
 static void Popup_Display(struct PopupProc* proc)

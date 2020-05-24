@@ -35,15 +35,15 @@ void BgAffineSet(struct BgAffineSrcData *src, struct BgAffineDstData *dest, s32 
 
 void ObjAffineSet(struct ObjAffineSrcData *src, void *dest, s32 count, s32 offset);
 
-void LZ77UnCompWram(u8 const* src, u8* dst);
+void LZ77UnCompWram(u8 const* src, void* dst);
 
-void LZ77UnCompVram(u8 const* src, u8* dst);
+void LZ77UnCompVram(u8 const* src, void* dst);
 
-void HuffUnComp(u8 const* src, u8* dst);
+void HuffUnComp(u8 const* src, void* dst);
 
-void RLUnCompWram(u8 const* src, u8* dst);
+void RLUnCompWram(u8 const* src, void* dst);
 
-void RLUnCompVram(u8 const* src, u8* dst);
+void RLUnCompVram(u8 const* src, void* dst);
 
 void SoundBiasReset(void);
 void SoundBiasSet(void);

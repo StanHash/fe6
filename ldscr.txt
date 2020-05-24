@@ -5,9 +5,31 @@ Pal_SystemObjects = 0x08100928;
 Pal_SystemText = 0x08100A08;
 Pal_TalkText = 0x08100A28;
 Pal_GreenTextColors = 0x08100A68;
+Img_PhaseChangePlayer = 0x08100A88;
+Pal_PhaseChangePlayer = 0x08100F04;
+Img_PhaseChangeEnemy = 0x08100F24;
+Pal_PhaseChangeEnemy = 0x0810137C;
+Img_PhaseChangeOther = 0x0810139C;
+Pal_PhaseChangeOther = 0x081017F4;
+Img_PhaseChangeSquares = 0x08101814;
 
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
+
+Anim_GasTrapVertical = 0x081025A8;
+Anim_GasTrapHorizontal = 0x0810284C;
+Img_GasTrapVertical = 0x08102AC0;
+Img_GasTrapHorizontal = 0x081030A8;
+Pal_GasTrap = 0x0810361C;
+Pal_ArrowTrap = 0x0810363C;
+Img_ArrowTrap = 0x0810365C;
+Anim_ArrowTrap = 0x08103934;
+Img_FireTrap = 0x08103EF0;
+Pal_FireTrap = 0x08104374;
+Anim_FireTrap = 0x08104394;
+Img_PikeTrap = 0x08104440;
+Anim_PikeTrap = 0x081046C0;
+Pal_PikeTrap = 0x081048D4;
 
 Img_TalkBubble = 0x082E4394;
 Pal_TalkBubble = 0x082E4630;
@@ -22,6 +44,12 @@ Img_LimitViewSquares = 0x08308B98;
 Pal_LimitViewBlue = 0x08308E98;
 Pal_LimitViewRed = 0x08308EF8;
 Pal_LimitViewGreen = 0x08308F58;
+
+Tm_ChapterIntroMotif = 0x0830A574;
+Img_ChapterIntroMotif = 0x08309574;
+Pal_ChapterIntroMotif = 0x0830A770;
+Img_ChapterIntroFog = 0x0830A790;
+Pal_ChapterIntroFog = 0x0830C414;
 
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
@@ -76,6 +104,7 @@ SECTIONS
         . = 0x000000; /* ??? */
 
         . = 0x001000; gMapBuf = .;
+        . = 0x001F70; gChapterIntroMotifTmBuf = .;
         . = 0x01F0E8; gBuf = .;
 
         . = 0x0210E8; /* ewram_data */

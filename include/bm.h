@@ -108,10 +108,10 @@ struct BmSt
     /* 34 */ short unk_34;
     /* 36 */ s8 unk_36;
     /* 37 */ s8 unk_37;
-    /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
-    /* 3A */ u8 unk_3A;
-    /* 3B */ u8 unk_3B;
+    /* 38 */ u8 altBlendA_ca;
+    /* 39 */ u8 altBlendA_cb;
+    /* 3A */ u8 altBlendB_ca;
+    /* 3B */ u8 altBlendB_cb;
     /* 3C */ u8 unk_3C;
     /* 3D */ u8 partialActionsTaken;
     /* 3E */ u8 unk_3E;

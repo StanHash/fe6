@@ -3,11 +3,14 @@
 
 #include "common.h"
 
+#include "armfunc.h"
 #include "hardware.h"
+#include "oam.h"
 #include "icon.h"
 #include "sound.h"
 #include "sprite.h"
 #include "face.h"
+#include "anim.h"
 #include "util.h"
 #include "msg.h"
 #include "bm.h"
@@ -22,6 +25,8 @@
 #include "constants/pids.h"
 #include "constants/jids.h"
 #include "constants/icons.h"
+
+extern u16 gChapterIntroMotifTmBuf[];
 
 struct UnkProc
 {
@@ -60,6 +65,15 @@ struct UnkProc2
     /* 3E */ short unk_3E;
     /* 40 */ int pad_40;
     /* 44 */ int unk_44;
+};
+
+struct ShowMapChangeProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ int mcId;
+    /* 30 */ int altSong;
+    /* 34 */ int sndx;
 };
 
 static void sub_801C1D0(struct UnkProc* proc);
@@ -166,6 +180,157 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C59F8[] =
     PROC_REPEAT(sub_801CDE4),
 
     PROC_CALL(sub_801CEE0),
+
+    PROC_END,
+};
+
+static void PhaseIntroText_Init(struct GenericProc* proc);
+static void PhaseIntroText_PutText(struct GenericProc* proc);
+static void PhaseIntroText_InLoop(struct GenericProc* proc);
+static void PhaseIntroText_OutLoop(struct GenericProc* proc);
+static void PhaseIntroText_Clear(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_PhaseIntroText[] =
+{
+    PROC_CALL(PhaseIntroText_Init),
+
+    PROC_SLEEP(6),
+
+    PROC_CALL(PhaseIntroText_PutText),
+
+    PROC_REPEAT(PhaseIntroText_InLoop),
+    PROC_SLEEP(14),
+    PROC_REPEAT(PhaseIntroText_OutLoop),
+
+    PROC_CALL(PhaseIntroText_Clear),
+
+    PROC_END,
+};
+
+static void PhaseIntroSquares_Init(struct GenericProc* proc);
+static void PhaseIntroSquares_InLoop(struct GenericProc* proc);
+static void PhaseIntroSquares_OutLoop(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_PhaseIntroSquares[] =
+{
+    PROC_CALL(PhaseIntroSquares_Init),
+    PROC_REPEAT(PhaseIntroSquares_InLoop),
+    PROC_REPEAT(PhaseIntroSquares_OutLoop),
+
+    PROC_END,
+};
+
+static void PhaseIntroBlendBox_Init(struct GenericProc* proc);
+static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc);
+static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_PhaseIntroBlendBox[] =
+{
+    PROC_CALL(PhaseIntroBlendBox_Init),
+    PROC_REPEAT(PhaseIntroBlendBox_InLoop),
+    PROC_REPEAT(PhaseIntroBlendBox_OutLoop),
+
+    PROC_END,
+};
+
+static void PhaseIntro_EndIfNoUnits(ProcPtr proc);
+static void PhaseIntro_InitGraphics(ProcPtr proc);
+static void PhaseIntro_InitDisp(ProcPtr proc);
+static void PhaseIntro_WaitForEnd(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_PhaseIntro[] =
+{
+    PROC_CALL(PhaseIntro_EndIfNoUnits),
+    PROC_CALL(PhaseIntro_InitGraphics),
+
+    PROC_START_CHILD(ProcScr_PhaseIntroText),
+    PROC_START_CHILD(ProcScr_PhaseIntroSquares),
+    PROC_START_CHILD(ProcScr_PhaseIntroBlendBox),
+
+    PROC_CALL(PhaseIntro_InitDisp),
+
+    PROC_REPEAT(PhaseIntro_WaitForEnd),
+
+    PROC_CALL(StartMapSongBgm),
+
+    PROC_END,
+};
+
+static void GasTrapAnim_Init(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_GasTrapAnim[] =
+{
+    PROC_SLEEP(0),
+
+    PROC_CALL(GasTrapAnim_Init),
+    PROC_WHILE(AnimProcExists),
+
+    PROC_END,
+};
+
+static void FireTrapAnim_Init(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_FireTrapAnim[] =
+{
+    PROC_SLEEP(0),
+
+    PROC_CALL(FireTrapAnim_Init),
+    PROC_WHILE(AnimProcExists),
+
+    PROC_END,
+};
+
+static void ArrowTrapAnim_Init(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_ArrowTrapAnim[] =
+{
+    PROC_SLEEP(0),
+
+    PROC_CALL(ArrowTrapAnim_Init),
+    PROC_WHILE(AnimProcExists),
+
+    PROC_SLEEP(15),
+
+    PROC_END,
+};
+
+static void sub_801D8B8(struct ShowMapChangeProc* proc);
+static void sub_801D8E4(struct ShowMapChangeProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
+{
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_801D8B8),
+    PROC_WHILE_EXISTS(ProcScr_CamMove),
+
+    PROC_CALL(sub_801D8E4),
+    PROC_WHILE(IsMapFadeActive),
+
+    PROC_END,
+};
+
+static void sub_801D95C(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
+{
+    PROC_SLEEP(0),
+
+    PROC_CALL(sub_801D95C),
+    PROC_WHILE(AnimProcExists),
+
+    PROC_END,
+};
+
+static void sub_801DA1C(struct GenericProc* proc);
+static void sub_801DA24(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_085C5BA0[] =
+{
+    PROC_CALL(sub_801DA1C),
+    PROC_REPEAT(sub_801DA24),
+
+    PROC_CALL(ClearBg0Bg1),
 
     PROC_END,
 };
@@ -776,55 +941,61 @@ void sub_801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
     HideUnitSMS(unit);
 }
 
-void sub_801CF48(void);
-void sub_801CF8C(void);
-void sub_801CFD0(void);
+static void PhaseIntroVMatchHi(void);
+static void PhaseIntroVMatchMid(void);
+static void PhaseIntroVMatchLo(void);
 
-void sub_801CF48(void)
+static void PhaseIntroVMatchHi(void)
 {
-    REG_BLDCNT = 0x3C42;
+    REG_BLDCNT = BLDCNT_ALPHA
+        | BLDCNT_TARGETA(0, 1, 0, 0, 0)
+        | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.unk_3A;
-    REG_BLDCB = gBmSt.unk_3B;
+    REG_BLDCA = gBmSt.altBlendB_ca;
+    REG_BLDCB = gBmSt.altBlendB_cb;
 
     SetNextVCount(72);
-    SetOnVMatch(sub_801CF8C);
+    SetOnVMatch(PhaseIntroVMatchMid);
 }
 
-void sub_801CF8C(void)
+static void PhaseIntroVMatchMid(void)
 {
-    REG_BLDCNT = 0x3E41;
+    REG_BLDCNT = BLDCNT_ALPHA
+        | BLDCNT_TARGETA(1, 0, 0, 0, 0)
+        | BLDCNT_TARGETB(0, 1, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.unk_38;
-    REG_BLDCB = gBmSt.unk_39;
+    REG_BLDCA = gBmSt.altBlendA_ca;
+    REG_BLDCB = gBmSt.altBlendA_cb;
 
     SetNextVCount(96);
-    SetOnVMatch(sub_801CFD0);
+    SetOnVMatch(PhaseIntroVMatchLo);
 }
 
-void sub_801CFD0(void)
+static void PhaseIntroVMatchLo(void)
 {
-    REG_BLDCNT = 0x3C42;
+    REG_BLDCNT = BLDCNT_ALPHA
+        | BLDCNT_TARGETA(0, 1, 0, 0, 0)
+        | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.unk_3A;
-    REG_BLDCB = gBmSt.unk_3B;
+    REG_BLDCA = gBmSt.altBlendB_ca;
+    REG_BLDCB = gBmSt.altBlendB_cb;
 
     SetNextVCount(0);
-    SetOnVMatch(sub_801CF48);
+    SetOnVMatch(PhaseIntroVMatchHi);
 }
 
-void sub_801D014(void)
+static void PhaseIntroText_PutText(struct GenericProc* proc)
 {
     u16* tm = gBg0Tm + TM_OFFSET(0, 9);
     int i;
 
     for (i = 0; i < 0x60; ++i)
-        *tm++ = TILEREF(0x140 + i, 5);
+        *tm++ = TILEREF(BGCHR_PHASE_CHANGE_NAME + i, BGPAL_PHASE_CHANGE);
 
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-void sub_801D03C(struct GenericProc* proc)
+static void PhaseIntroText_Init(struct GenericProc* proc)
 {
     if (GetCurrentBgmSong() != GetActiveMapSong())
         FadeBgmOut(4);
@@ -832,4 +1003,680 @@ void sub_801D03C(struct GenericProc* proc)
     PlaySe(0x73); // TODO: song ids
 
     proc->unk4C = 15;
+}
+
+static void PhaseIntroText_InLoop(struct GenericProc* proc)
+{
+    SetBgOffset(0, Interpolate(INTERPOLATE_CUBIC, -28, -64, proc->unk4C, 0x10), 0);
+
+    gBmSt.altBlendA_ca++;
+    gBmSt.altBlendA_cb--;
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+    {
+        proc->unk4C = 15;
+        Proc_Break(proc);
+    }
+}
+
+static void PhaseIntroText_OutLoop(struct GenericProc* proc)
+{
+    SetBgOffset(0, Interpolate(INTERPOLATE_RCUBIC, +36, -28, proc->unk4C, 0x10), 0);
+
+    gBmSt.altBlendA_ca--;
+    gBmSt.altBlendA_cb++;
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+    {
+        proc->unk4C = 15;
+        Proc_Break(proc);
+    }
+}
+
+static void PhaseIntroText_Clear(struct GenericProc* proc)
+{
+    TmFill(gBg0Tm, 0);
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+static void PhaseIntroSquares_Init(struct GenericProc* proc)
+{
+    proc->unk4C = 4;
+}
+
+static void PhaseIntroSquares_InLoop(struct GenericProc* proc)
+{
+    int ix, iy;
+
+    for (iy = 10-1; iy >= 0; --iy)
+    {
+        for (ix = 15-1; ix >= 0; --ix)
+        {
+            int num = (1 - proc->unk4C) + (10 + ix) + (10 - iy);
+
+            if (num > 0x10)
+                num = 0x10;
+
+            if (num < 0)
+                num = 0;
+
+            num = (0x10 - num) & 0xFE;
+
+            gBg1Tm[TM_OFFSET(ix*2+0, iy*2+0)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x00, BGPAL_PHASE_CHANGE);
+            gBg1Tm[TM_OFFSET(ix*2+1, iy*2+0)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x01, BGPAL_PHASE_CHANGE);
+            gBg1Tm[TM_OFFSET(ix*2+0, iy*2+1)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x20, BGPAL_PHASE_CHANGE);
+            gBg1Tm[TM_OFFSET(ix*2+1, iy*2+1)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x21, BGPAL_PHASE_CHANGE);
+        }
+    }
+
+    proc->unk4C++;
+
+    EnableBgSync(BG1_SYNC_BIT);
+
+    if (proc->unk4C == 0x22)
+    {
+        proc->unk4C = 0;
+        Proc_Break(proc);
+    }
+}
+
+static void PhaseIntroSquares_OutLoop(struct GenericProc* proc)
+{
+    int ix, iy;
+
+    for (iy = 10-1; iy >= 0; --iy)
+    {
+        for (ix = 15-1; ix >= 0; --ix)
+        {
+            int num = (1 - proc->unk4C) + (10 + ix) + (10 - iy);
+
+            if (num > 0x10)
+                num = 0x10;
+
+            if (num < 0)
+                num = 0;
+
+            num = num & 0xFE;
+
+            gBg1Tm[TM_OFFSET(ix*2+0, iy*2+0)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x01, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBg1Tm[TM_OFFSET(ix*2+1, iy*2+0)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x00, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBg1Tm[TM_OFFSET(ix*2+0, iy*2+1)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x21, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+            gBg1Tm[TM_OFFSET(ix*2+1, iy*2+1)] = TILEREF(BGCHR_PHASE_CHANGE_SQUARES + num + 0x20, BGPAL_PHASE_CHANGE) + TILE_HFLIP;
+        }
+    }
+
+    proc->unk4C++;
+
+    EnableBgSync(BG1_SYNC_BIT);
+
+    if (proc->unk4C == 0x24)
+    {
+        proc->unk4C = 0;
+        Proc_Break(proc);
+    }
+}
+
+static void PhaseIntroBlendBox_Init(struct GenericProc* proc)
+{
+    proc->unk4C = 4;
+}
+
+static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc)
+{
+    int yoff, blend;
+
+    yoff = Interpolate(INTERPOLATE_RCUBIC, 16, 60, proc->unk4C, 0x20);
+
+    SetWin0Box(0, 8 + yoff, DISPLAY_WIDTH, -0x60 - yoff);
+
+    blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->unk4C, 0x20);
+
+    gBmSt.altBlendB_ca = blend;
+    gBmSt.altBlendB_cb = 0x10 - blend;
+
+    proc->unk4C++;
+
+    if (proc->unk4C == 0x20)
+        Proc_Break(proc);
+}
+
+static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc)
+{
+    int yoff, blend;
+
+    yoff = Interpolate(INTERPOLATE_RCUBIC, 0, 60, proc->unk4C, 0x20);
+
+    SetWin0Box(0, 8 + yoff, DISPLAY_WIDTH, -0x60 - yoff);
+
+    blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->unk4C, 0x20);
+
+    gBmSt.altBlendB_ca = blend;
+    gBmSt.altBlendB_cb = 0x10 - blend;
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+        Proc_Break(proc);
+}
+
+static void PhaseIntro_EndIfNoUnits(ProcPtr proc)
+{
+    if (sub_802097C(gPlaySt.faction) == 0)
+        Proc_End(proc);
+}
+
+static void PhaseIntro_InitGraphics(ProcPtr proc)
+{
+    Decompress(Img_PhaseChangeSquares, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_SQUARES);
+
+    SetBgOffset(0, 0, 0);
+    SetBgOffset(1, 0, 0);
+    SetBgOffset(2, 0, 0);
+
+    switch (gPlaySt.faction)
+    {
+
+    case FACTION_BLUE:
+        Decompress(Img_PhaseChangePlayer, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
+
+        break;
+
+    case FACTION_RED:
+        Decompress(Img_PhaseChangeEnemy, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        ApplyPalette(Pal_PhaseChangeEnemy, BGPAL_PHASE_CHANGE);
+
+        break;
+
+    case FACTION_GREEN:
+        Decompress(Img_PhaseChangeOther, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        ApplyPalette(Pal_PhaseChangeOther, BGPAL_PHASE_CHANGE);
+
+        break;
+
+    }
+}
+
+static void PhaseIntro_InitDisp(ProcPtr proc)
+{
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Box(0, 0, DISPLAY_WIDTH, DISPLAY_HEIGHT);
+
+    SetWin0Layers(1, 0, 1, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
+
+    gDispIo.winCt.win0_enableBlend = 1;
+    gDispIo.winCt.wout_enableBlend = 1;
+
+    gBmSt.altBlendB_ca = 0;
+    gBmSt.altBlendB_cb = 0x10;
+
+    gBmSt.altBlendA_ca = 0;
+    gBmSt.altBlendA_cb = 0x10;
+
+    SetBlendAlpha(gBmSt.altBlendB_ca, gBmSt.altBlendB_cb);
+
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
+
+    SetVCount(0);
+    SetOnVMatch(PhaseIntroVMatchHi);
+}
+
+static void PhaseIntro_WaitForEnd(ProcPtr proc)
+{
+    SetBlendAlpha(gBmSt.altBlendB_ca, gBmSt.altBlendB_cb);
+
+    if (Proc_Find(ProcScr_PhaseIntroText) == NULL && Proc_Find(ProcScr_PhaseIntroSquares) == NULL && Proc_Find(ProcScr_PhaseIntroBlendBox) == NULL)
+    {
+        ClearBg0Bg1();
+
+        SetOnVMatch(NULL);
+
+        SetBgOffset(0, 0, 0);
+        SetBgOffset(1, 0, 0);
+        SetBgOffset(2, 0, 0);
+
+        Proc_Break(proc);
+    }
+}
+
+void sub_801D680(int x, int y)
+{
+    int cmd = MOVE_CMD_FACE_BASE + sub_80629FC(gActiveUnit->x, gActiveUnit->y, x, y);
+
+    gWorkingMoveScr[0] = cmd;
+    gWorkingMoveScr[1] = MOVE_CMD_HALT;
+
+    sub_805FC80(gWorkingMoveScr);
+}
+
+static void GasTrapAnim_Init(struct GenericProc* proc)
+{
+    int x, y, oam2;
+
+    u8 const* img = NULL;
+    u16 const* anim = NULL;
+    int animNum = 0;
+
+    switch (proc->unk4A)
+    {
+
+    case FACING_UP:
+        img = Img_GasTrapVertical;
+        anim = Anim_GasTrapVertical;
+        break;
+
+    case FACING_DOWN:
+        img = Img_GasTrapVertical;
+        anim = Anim_GasTrapVertical;
+        animNum = 1;
+        break;
+
+    case FACING_LEFT:
+        img = Img_GasTrapHorizontal;
+        anim = Anim_GasTrapHorizontal;
+        animNum = 1;
+        break;
+
+    case FACING_RIGHT:
+        img = Img_GasTrapHorizontal;
+        anim = Anim_GasTrapHorizontal;
+        break;
+
+    }
+
+    Decompress(img, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    ApplyPalette(Pal_GasTrap, 0x10 + OBJPAL_TRAPFX);
+
+    x = proc->x*16 + 8 - gBmSt.camera.x;
+    y = proc->y*16 + 8 - gBmSt.camera.y;
+    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+
+    StartAnimProc(anim, x, y, oam2, animNum, 0);
+    PlaySeSpacial(0xBA, x+8); // TODO: song ids
+}
+
+void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
+{
+    struct GenericProc* proc;
+
+    proc = SpawnProcLocking(ProcScr_GasTrapAnim, parent);
+
+    proc->x = x;
+    proc->y = y;
+    proc->unk4A = facing;
+}
+
+static void FireTrapAnim_Init(struct GenericProc* proc)
+{
+    int x, y, oam2;
+
+    Decompress(Img_FireTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    ApplyPalette(Pal_FireTrap, 0x10 + OBJPAL_TRAPFX);
+
+    x = proc->x*16 + 8 - gBmSt.camera.x;
+    y = proc->y*16 + 8 - gBmSt.camera.y;
+    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+
+    StartAnimProc(Anim_FireTrap, x, y, oam2, 0, 0);
+    PlaySeSpacial(0xBF, x+8); // TODO: song ids
+}
+
+void StartFireTrapAnim(ProcPtr parent, int x, int y)
+{
+    struct GenericProc* proc;
+
+    proc = SpawnProcLocking(ProcScr_FireTrapAnim, parent);
+
+    proc->x = x;
+    proc->y = y;
+}
+
+static void ArrowTrapAnim_Init(struct GenericProc* proc)
+{
+    int x, oam2;
+
+    Decompress(Img_ArrowTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    ApplyPalette(Pal_ArrowTrap, 0x10 + OBJPAL_TRAPFX);
+
+    x = proc->x*16 + 8 - gBmSt.camera.x;
+    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+
+    StartAnimProc(Anim_ArrowTrap, x, DISPLAY_HEIGHT/2, oam2, 0, 0);
+    PlaySeSpacial(0xBC, x+8); // TODO: song ids
+
+    CameraMoveWatchPosition(proc, proc->x, 31);
+}
+
+void StartArrowTrapAnim(ProcPtr parent, int x)
+{
+    struct GenericProc* proc;
+
+    proc = SpawnProcLocking(ProcScr_ArrowTrapAnim, parent);
+    proc->x = x;
+}
+
+static void sub_801D8B8(struct ShowMapChangeProc* proc)
+{
+    struct MapChangeInfo const* info = GetMapChange(proc->mcId);
+
+    int x = info->x + info->width/2;
+    int y = info->y + info->height/2;
+
+    CameraMoveWatchPosition(proc, x, y);
+
+    proc->sndx = x;
+}
+
+static void sub_801D8E4(struct ShowMapChangeProc* proc)
+{
+    int x, song;
+
+    RenderMapForFade();
+
+    sub_80188F4();
+    RenderMap();
+
+    StartMapFade(FALSE);
+
+    if (proc->altSong)
+        song = 0xBE; // TODO: song ids
+    else
+        song = 0xBD; // TODO: song ids
+
+    PlaySeSpacial(song, proc->sndx /* *16 + 8 */ - gBmSt.camera.x);
+}
+
+void sub_801D920(ProcPtr parent, int unused, int trapid)
+{
+    struct ShowMapChangeProc* proc;
+    struct Trap* trap;
+
+    proc = SpawnProcLocking(ProcScr_MapChange_085C5B50, parent);
+
+    trap = GetTrap(trapid);
+    trap->extra ^= 1;
+
+    if (trap->extra != 0)
+        proc->mcId = trap->y;
+    else
+        proc->mcId = trap->x;
+
+    proc->altSong = trap->extra;
+}
+
+static void sub_801D95C(struct GenericProc* proc)
+{
+    int x, y, oam2;
+
+    Decompress(Img_PikeTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    ApplyPalette(Pal_PikeTrap, 0x10 + OBJPAL_TRAPFX);
+
+    x = proc->x*16 + 8 - gBmSt.camera.x;
+    y = proc->y*16 + 8 - gBmSt.camera.y;
+    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+
+    StartAnimProc(Anim_PikeTrap, x, y, oam2, proc->unk4A, 0);
+    PlaySeSpacial(0xBB, x + 8);
+}
+
+void sub_801D9D0(ProcPtr parent, int x, int y, int facing)
+{
+    struct GenericProc* proc;
+
+    proc = SpawnProcLocking(ProcScr_PikeTrapAnim, parent);
+
+    proc->x = x;
+    proc->y = y;
+
+    switch (facing)
+    {
+
+    case FACING_RIGHT:
+        proc->unk4A = 0;
+        break;
+
+    case FACING_LEFT:
+        proc->unk4A = 1;
+        break;
+
+    case FACING_UP:
+        proc->unk4A = 2;
+        break;
+
+    }
+}
+
+static void sub_801DA1C(struct GenericProc* proc)
+{
+    proc->unk4C = 120; // 2 seconds
+}
+
+static void sub_801DA24(struct GenericProc* proc)
+{
+    proc->unk4C--;
+
+    if (proc->unk4C < 0 || (gKeySt->pressed & (A_BUTTON | B_BUTTON)))
+        Proc_Break(proc);
+}
+
+void sub_801DA54(ProcPtr parent, int icon, char const* str)
+{
+    int x, len = GetStringTextLen(str);
+
+    if (icon >= 0)
+        len += 16;
+
+    len += 24;
+
+    x = (DISPLAY_WIDTH - len) / 16;
+
+    sub_8041358(x, 8, len / 8, 4, 0);
+
+    if (icon >= 0)
+    {
+        InitIcons();
+        ApplyIconPalettes(BGPAL_ICONS);
+
+        PutIcon(gBg0Tm + TM_OFFSET(1 + x, 9), icon, TILEREF(0, BGPAL_ICONS));
+        x += 2;
+    }
+
+    ResetTextFont();
+    PutDrawText(NULL, gBg0Tm + TM_OFFSET(1 + x, 9), TEXT_COLOR_SYSTEM_WHITE, 0, 20, str);
+
+    SpawnProcLocking(ProcScr_Unk_085C5BA0, parent);
+}
+
+void sub_801DAE4(void)
+{
+    int offset = (GetGameTime()/2) % 0x100;
+
+    SetBgOffset(3, offset, offset);
+}
+
+void sub_801DB00(struct GenericProc* proc)
+{
+    struct GenericProc* parent = proc->proc_parent;
+
+    parent->unk50 = 0;
+    proc->unk50 = 0;
+}
+
+void sub_801DB10(struct GenericProc* proc)
+{
+    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
+        proc->unk50 = 1;
+
+    if (proc->unk50 != 0)
+    {
+        struct GenericProc* parent = proc->proc_parent;
+
+        if (parent->unk50)
+        {
+            Proc_Goto(parent, parent->unk50);
+            Proc_End(proc);
+        }
+    }
+}
+
+void sub_801DB5C(void)
+{
+    int ix, iy;
+    int tile = 0;
+
+    TmFill(gBg2Tm, 0);
+
+    Decompress(Tm_ChapterIntroMotif, gChapterIntroMotifTmBuf);
+
+    for (iy = 0; iy < 18; ++iy)
+        for (ix = 0; ix < 24; ++ix)
+            gBg2Tm[TM_OFFSET(3 + ix, 1 + iy)] = TILEREF(1 + gChapterIntroMotifTmBuf[tile++], BGPAL_CHAPTERINTRO_MOTIF);
+}
+
+void sub_801DBC8(void)
+{
+    int ix, iy;
+
+    int tilerefA = TILEREF(0x3FF & (BGCHR_CHAPTERINTRO_FOG+0x00), BGPAL_CHAPTERINTRO_FOG);
+    int tilerefB = TILEREF(0x3FF & (BGCHR_CHAPTERINTRO_FOG+0x10), BGPAL_CHAPTERINTRO_FOG);
+
+    for (iy = 0; iy < 8; ++iy)
+    {
+        for (ix = 0; ix < 16; ++ix)
+        {
+            gBg3Tm[TM_OFFSET(0x00+ix, iy+0x00)] = tilerefA;
+            gBg3Tm[TM_OFFSET(0x10+ix, iy+0x00)] = tilerefA;
+            gBg3Tm[TM_OFFSET(0x00+ix, iy+0x10)] = tilerefA;
+            gBg3Tm[TM_OFFSET(0x10+ix, iy+0x10)] = tilerefA;
+
+            gBg3Tm[TM_OFFSET(0x00+ix, iy+0x08)] = tilerefB;
+            gBg3Tm[TM_OFFSET(0x10+ix, iy+0x08)] = tilerefB;
+            gBg3Tm[TM_OFFSET(0x00+ix, iy+0x18)] = tilerefB;
+            gBg3Tm[TM_OFFSET(0x10+ix, iy+0x18)] = tilerefB;
+
+            tilerefA += 1;
+            tilerefB += 1;
+        }
+
+        tilerefA += 0x10;
+        tilerefB += 0x10;
+    }
+}
+
+void sub_801DC9C(void)
+{
+    int ix, iy;
+
+    int tilerefA = TILEREF(0x3FF & (BGCHR_CHAPTERINTRO_FOG+0x00), BGPAL_CHAPTERINTRO_FOG);
+    int tilerefB = TILEREF(0x3FF & (BGCHR_CHAPTERINTRO_FOG+0x10), BGPAL_CHAPTERINTRO_FOG);
+
+    for (iy = 0; iy < 8; ++iy)
+    {
+        for (ix = 0; ix < 16; ++ix)
+        {
+            gBg2Tm[TM_OFFSET(0x0F-ix, iy+0x00)] = tilerefA + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x1F-ix, iy+0x00)] = tilerefA + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x0F-ix, iy+0x10)] = tilerefA + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x1F-ix, iy+0x10)] = tilerefA + TILE_HFLIP;
+
+            gBg2Tm[TM_OFFSET(0x0F-ix, iy+0x08)] = tilerefB + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x1F-ix, iy+0x08)] = tilerefB + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x0F-ix, iy+0x18)] = tilerefB + TILE_HFLIP;
+            gBg2Tm[TM_OFFSET(0x1F-ix, iy+0x18)] = tilerefB + TILE_HFLIP;
+
+            tilerefA += 1;
+            tilerefB += 1;
+        }
+
+        tilerefA += 0x10;
+        tilerefB += 0x10;
+    }
+}
+
+void sub_801DD84(void)
+{
+    InitBmBgLayers();
+
+    SetBgOffset(0, 0, 0);
+    SetBgOffset(1, 0, 0);
+    SetBgOffset(2, 0, 0);
+    SetBgOffset(3, 0, 0);
+
+    TmFill(gBg0Tm, 0);
+    TmFill(gBg1Tm, 0);
+    TmFill(gBg2Tm, 0);
+    TmFill(gBg3Tm, 0);
+
+    SetBgChrOffset(2, CHR_SIZE*BGCHR_CHAPTERINTRO_MOTIF);
+
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 1, 1, 1);
+
+    gDispIo.winCt.win0_enableBlend = 1;
+    gDispIo.winCt.wout_enableBlend = 1;
+
+    SetWin0Box(0, 0, 0, 0);
+
+    sub_8070CB4(8, BGPAL_CHAPTERINTRO_0);
+    sub_8070CB4(0, BGPAL_CHAPTERINTRO_1);
+
+    sub_8070D78(BGCHR_CHAPTERINTRO_80);
+
+    sub_8070D08(BGCHR_CHAPTERINTRO_100, sub_8070E0C(&gPlaySt));
+
+    sub_8070DE8(gBg1Tm + TM_OFFSET(0, 8), BGPAL_CHAPTERINTRO_0);
+    sub_8070DA8(gBg0Tm + TM_OFFSET(3, 9), BGPAL_CHAPTERINTRO_1);
+
+    sub_8001D0C();
+    sub_8001E68(BGPAL_CHAPTERINTRO_0, 2, 0x40, -1);
+
+    sub_8000234_t();
+
+    EnablePalSync();
+
+    Decompress(Img_ChapterIntroFog, (u8*) VRAM + CHR_SIZE*BGCHR_CHAPTERINTRO_FOG);
+    ApplyPalette(Pal_ChapterIntroFog, BGPAL_CHAPTERINTRO_FOG);
+
+    Decompress(Img_ChapterIntroMotif, (u8*) VRAM + CHR_SIZE*(BGCHR_CHAPTERINTRO_MOTIF+1));
+    ApplyPalette(Pal_ChapterIntroMotif, BGPAL_CHAPTERINTRO_MOTIF);
+
+    SetBlankChr(BGCHR_CHAPTERINTRO_MOTIF);
+
+    gPal[0] = 0;
+    sub_801DB5C();
+    sub_801DBC8();
+
+    EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT + BG3_SYNC_BIT);
+}
+
+void sub_801DF34(struct GenericProc* proc)
+{
+    SetDispEnable(0, 0, 0, 1, 1);
+    SetBlendTargetA(0, 0, 0, 1, 1);
+
+    proc->unk4C = 12;
+
+    FadeBgmOut(2);
+}
+
+void sub_801DF78(struct GenericProc* proc)
+{
+    SetBlendDarken(proc->unk4C);
+
+    if (proc->unk50 == 3 || (GetGameTime() % 4) == 0)
+    {
+        proc->unk4C--;
+
+        if (proc->unk4C < 0)
+            Proc_Break(proc);
+    }
 }

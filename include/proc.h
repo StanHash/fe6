@@ -98,13 +98,12 @@ struct GenericProc
 
     /* 38 */ u8 pad38[0x4A - 0x38];
 
-    /* 4A */ u16 unk4A;
+    /* 4A */ short unk4A;
 
     // Is this part of that?
     /* 4C */ short unk4C; 
     /* 4E */ short unk4E;
-
-    /* 50 */ u8 pad50[0x52 - 0x50];
+    /* 50 */ short unk50;
 
     /* 52 */ u16 unk52;
 

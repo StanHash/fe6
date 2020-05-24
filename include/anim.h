@@ -37,4 +37,4 @@ ProcPtr StartAnimProc(u16 const* info, int x, int y, int oam2, int animid, int l
 void SetAnimProcParams(ProcPtr proc, int x, int y, int oam2);
 void EndAnimProc(ProcPtr proc);
 void EndEachAnimProc(void);
-s8 AnimProcExists(void);
+Bool AnimProcExists(void);

@@ -542,24 +542,20 @@
 
 // BLDCNT
 // Bits 0-5 select layers for the 1st target
-#define BLDCNT_TGT1_BG0      (1 << 0)
-#define BLDCNT_TGT1_BG1      (1 << 1)
-#define BLDCNT_TGT1_BG2      (1 << 2)
-#define BLDCNT_TGT1_BG3      (1 << 3)
-#define BLDCNT_TGT1_OBJ      (1 << 4)
-#define BLDCNT_TGT1_BD       (1 << 5)
+#define BLDCNT_TARGETA(bg0, bg1, bg2, bg3, obj) \
+    ((bg0) + ((bg1) << 1) + ((bg2) << 2) + ((bg3) << 3) + ((obj) << 4))
+#define BLDCNT_TARGETA_BD (1 << 5)
+
 // Bits 6-7 select the special effect
-#define BLDCNT_EFFECT_NONE      (0 << 6)   // no special effect
-#define BLDCNT_EFFECT_BLEND     (1 << 6)   // 1st+2nd targets mixed (controlled by BLDALPHA)
-#define BLDCNT_EFFECT_LIGHTEN   (2 << 6)   // 1st target becomes whiter (controlled by BLDY)
-#define BLDCNT_EFFECT_DARKEN    (3 << 6)   // 1st target becomes blacker (controlled by BLDY)
+#define BLDCNT_NONE (0 << 6)
+#define BLDCNT_ALPHA (1 << 6)
+#define BLDCNT_LIGHTEN (2 << 6)
+#define BLDCNT_DARKEN (3 << 6)
+
 // Bits 8-13 select layers for the 2nd target
-#define BLDCNT_TGT2_BG0      (1 << 8)
-#define BLDCNT_TGT2_BG1      (1 << 9)
-#define BLDCNT_TGT2_BG2      (1 << 10)
-#define BLDCNT_TGT2_BG3      (1 << 11)
-#define BLDCNT_TGT2_OBJ      (1 << 12)
-#define BLDCNT_TGT2_BD       (1 << 13)
+#define BLDCNT_TARGETB(bg0, bg1, bg2, bg3, obj) \
+    (((bg0) << 8) + ((bg1) << 9) + ((bg2) << 10) + ((bg3) << 11) + ((obj) << 12))
+#define BLDCNT_TARGETB_BD (1 << 13)
 
 // BLDALPHA
 #define BLDALPHA_BLEND(target1, target2) (((target2) << 8) | (target1))

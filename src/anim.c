@@ -400,7 +400,7 @@ void EndEachAnimProc(void)
     Proc_EndEach(ProcScr_AnimProc);
 }
 
-s8 AnimProcExists(void)
+Bool AnimProcExists(void)
 {
     return Proc_Exists(ProcScr_AnimProc);
 }

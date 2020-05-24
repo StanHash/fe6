@@ -217,7 +217,7 @@ void UnpackRawMap(void* buf, int chapter)
     gMapSize.y = ((u8*) buf)[1];
 
     // Decompress tileset info
-    Decompress(ChapterAssets[GetChapterInfo(chapter)->assetTileset], (u8*) sTilesetInfo);
+    Decompress(ChapterAssets[GetChapterInfo(chapter)->assetTileset], sTilesetInfo);
 
     // Setting max camera offsets
     gBmSt.cameraMax.x = gMapSize.x*16 - DISPLAY_WIDTH;

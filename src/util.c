@@ -188,7 +188,7 @@ void StringCopy(char* dst, char const* src)
     *dst = *src;
 }
 
-static void UnpackRaw(u8 const* src, u8* dst)
+static void UnpackRaw(u8 const* src, void* dst)
 {
     int size = GetDataSize(src) - 4;
 
@@ -204,9 +204,9 @@ void Decompress_Unused_08013C74(u8 const* src, u8* dst)
     CpuFastCopy(gBuf, dst, GetDataSize(src));
 }
 
-void Decompress(u8 const* src, u8* dst)
+void Decompress(u8 const* src, void* dst)
 {
-    typedef void(*DecompressFunc)(u8 const*, u8*);
+    typedef void(*DecompressFunc)(u8 const*, void*);
 
     static DecompressFunc CONST_DATA funcLut[] =
     {
