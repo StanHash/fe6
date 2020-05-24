@@ -15,6 +15,7 @@
 #include "unit.h"
 #include "map.h"
 #include "player-phase.h"
+#include "bmfx.h"
 
 #include "constants/video-global.h"
 

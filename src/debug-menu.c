@@ -10,6 +10,7 @@
 #include "bm.h"
 #include "unit.h"
 #include "map.h"
+#include "bmfx.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -580,9 +581,9 @@ int sub_801AE60(struct MenuProc* menu, struct MenuEntProc* ent)
     if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))
     {
         if (gPlaySt.vision == 0)
-            sub_801C6C4(GetChapterInfo(gPlaySt.chapter)->fog);
+            SetFogVision(GetChapterInfo(gPlaySt.chapter)->fog);
         else
-            sub_801C6C4(0);
+            SetFogVision(0);
 
         sub_801ADEC(menu, ent);
     }

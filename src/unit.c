@@ -6,6 +6,7 @@
 #include "item.h"
 #include "map.h"
 #include "mapwork.h"
+#include "bmfx.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"

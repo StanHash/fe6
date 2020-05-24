@@ -10,6 +10,7 @@
 #include "unit.h"
 #include "map.h"
 #include "mapwork.h"
+#include "bmfx.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

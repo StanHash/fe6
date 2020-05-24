@@ -1,6 +1,7 @@
 
 // TODO: better name for this file
 
+#include "bmfx.h"
 #include "common.h"
 
 #include "armfunc.h"
@@ -28,7 +29,7 @@
 
 extern u16 gChapterIntroMotifTmBuf[];
 
-struct UnkProc
+struct RescueTransferAnimProc
 {
     /* 00 */ PROC_HEADER;
 
@@ -76,23 +77,23 @@ struct ShowMapChangeProc
     /* 34 */ int sndx;
 };
 
-static void sub_801C1D0(struct UnkProc* proc);
+static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C58F8[] =
+struct ProcScr CONST_DATA ProcScr_RescueTransferAnim[] =
 {
     PROC_19,
 
-    PROC_REPEAT(sub_801C1D0),
+    PROC_REPEAT(RescueTransferAnim_Loop),
 
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C5910[] =
+struct ProcScr CONST_DATA ProcScr_RescueTransferAnimParentless[] =
 {
     PROC_19,
 
     PROC_CALL(LockGame),
-    PROC_REPEAT(sub_801C1D0),
+    PROC_REPEAT(RescueTransferAnim_Loop),
     PROC_CALL(UnlockGame),
 
     PROC_END,
@@ -117,11 +118,11 @@ struct ProcScr CONST_DATA ProcScr_MapFade[] =
     PROC_END,
 };
 
-static void sub_801C49C(ProcPtr proc);
+static void InitPhaseCursor_Init(ProcPtr proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C5970[] =
+struct ProcScr CONST_DATA ProcScr_InitPhaseCursor[] =
 {
-    PROC_CALL(sub_801C49C),
+    PROC_CALL(InitPhaseCursor_Init),
     PROC_SLEEP(0),
 
     PROC_END,
@@ -139,19 +140,19 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C5988[] =
     PROC_END,
 };
 
-static int sub_801C540(ProcPtr proc);
-static int sub_801C560(ProcPtr proc);
-static int sub_801C58C(ProcPtr proc);
-static int sub_801C59C(ProcPtr proc);
+static int DiscardItem_StartItemSelect(ProcPtr proc);
+static int DiscardItem_PostItemSelect(ProcPtr proc);
+static int DiscardItem_0801C58C(ProcPtr proc);
+static int DiscardItem_0801C59C(ProcPtr proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C59A8[] =
+struct ProcScr CONST_DATA ProcScr_DiscardItem[] =
 {
-    PROC_CALL_2(sub_801C540),
-    PROC_CALL_2(sub_801C560),
+    PROC_CALL_2(DiscardItem_StartItemSelect),
+    PROC_CALL_2(DiscardItem_PostItemSelect),
     PROC_SLEEP(1),
 
-    PROC_CALL_2(sub_801C58C),
-    PROC_CALL_2(sub_801C59C),
+    PROC_CALL_2(DiscardItem_0801C58C),
+    PROC_CALL_2(DiscardItem_0801C59C),
 
 PROC_LABEL(99),
     PROC_END,
@@ -310,13 +311,13 @@ struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
     PROC_END,
 };
 
-static void sub_801D95C(struct GenericProc* proc);
+static void PikeTrapAnim_Init(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_801D95C),
+    PROC_CALL(PikeTrapAnim_Init),
     PROC_WHILE(AnimProcExists),
 
     PROC_END,
@@ -331,6 +332,180 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C5BA0[] =
     PROC_REPEAT(sub_801DA24),
 
     PROC_CALL(ClearBg0Bg1),
+
+    PROC_END,
+};
+
+static void ChapterIntro_Bg3Scroll_Loop(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_ChapterIntro_Bg3Scroll[] =
+{
+    PROC_REPEAT(ChapterIntro_Bg3Scroll_Loop),
+    PROC_END,
+};
+
+static void ChapterIntro_KeyListen_Init(struct GenericProc* proc);
+static void ChapterIntro_KeyListen_Loop(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_ChapterIntro_KeyListen[] =
+{
+    PROC_CALL(ChapterIntro_KeyListen_Init),
+    PROC_REPEAT(ChapterIntro_KeyListen_Loop),
+
+    PROC_END,
+};
+
+static void ChapterIntro_Init(struct GenericProc* proc);
+static void ChapterIntro_BeginFadeIn(struct GenericProc* proc);
+static void ChapterIntro_LoopFadeIn(struct GenericProc* proc);
+static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc);
+static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc);
+static void ChapterIntro_BeginHOpenText(struct GenericProc* proc);
+static void ChapterIntro_LoopHOpenText(struct GenericProc* proc);
+static void ChapterIntro_BeginVOpenText(struct GenericProc* proc);
+static void ChapterIntro_LoopVOpenText(struct GenericProc* proc);
+static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc);
+static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc);
+static void ChapterIntro_Begin_0801E220(struct GenericProc* proc);
+static void ChapterIntro_Loop_0801E244(struct GenericProc* proc);
+static void ChapterIntro_0801E2B0(struct GenericProc* proc);
+static void ChapterIntro_InitMapDisplay(struct GenericProc* proc);
+static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc);
+static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc);
+static void ChapterIntro_BeginCloseText(struct GenericProc* proc);
+static void ChapterIntro_LoopCloseText(struct GenericProc* proc);
+static void ChapterIntro_BeginFastCloseText(struct GenericProc* proc);
+static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc);
+static void ChapterIntro_BeginFadeOut(struct GenericProc* proc);
+static void ChapterIntro_LoopFadeOut(struct GenericProc* proc);
+static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc);
+static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc);
+static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_ChapterIntro[] =
+{
+    PROC_CALL(LockBattleMapDisplay),
+
+    PROC_CALL(ChapterIntro_Init),
+
+    PROC_START_CHILD(ProcScr_ChapterIntro_Bg3Scroll),
+    PROC_START_CHILD(ProcScr_ChapterIntro_KeyListen),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 1),
+
+    PROC_CALL(ChapterIntro_BeginFadeIn),
+    PROC_REPEAT(ChapterIntro_LoopFadeIn),
+
+    PROC_SLEEP(40),
+
+    PROC_CALL(ChapterIntro_BeginMotifFadeIn),
+    PROC_REPEAT(ChapterIntro_LoopMotifFadeIn),
+
+    PROC_SLEEP(80),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 0),
+
+    PROC_CALL(ChapterIntro_BeginHOpenText),
+    PROC_REPEAT(ChapterIntro_LoopHOpenText),
+
+    PROC_CALL(ChapterIntro_BeginVOpenText),
+    PROC_REPEAT(ChapterIntro_LoopVOpenText),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 1),
+
+    PROC_CALL(ChapterIntro_Begin_0801E1A0),
+    PROC_REPEAT(ChapterIntro_Loop_0801E1F8),
+
+    PROC_SLEEP(120),
+
+    PROC_CALL(ChapterIntro_Begin_0801E220),
+    PROC_REPEAT(ChapterIntro_Loop_0801E244),
+
+    PROC_END_EACH(ProcScr_ChapterIntro_Bg3Scroll),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 0),
+
+    PROC_CALL(ChapterIntro_0801E2B0),
+
+    PROC_CALL(UnlockBattleMapDisplay),
+
+    PROC_CALL(ChapterIntro_InitMapDisplay),
+
+    PROC_CALL(ChapterIntro_BeginFadeToMap),
+    PROC_REPEAT(ChapterIntro_LoopFadeToMap),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 2),
+
+    PROC_SLEEP(90),
+
+    PROC_CALL_ARG(ChapterIntro_SetSkipTarget, 0),
+
+    PROC_CALL(ChapterIntro_BeginCloseText),
+    PROC_REPEAT(ChapterIntro_LoopCloseText),
+
+    PROC_SLEEP(30),
+
+    PROC_GOTO(99),
+
+PROC_LABEL(1),
+    PROC_CALL(ChapterIntro_BeginFadeOut),
+    PROC_REPEAT(ChapterIntro_LoopFadeOut),
+
+    PROC_CALL(ChapterIntro_0801E2B0),
+
+    PROC_CALL(UnlockBattleMapDisplay),
+
+    PROC_CALL(ChapterIntro_InitMapDisplay),
+
+    PROC_CALL(ChapterIntro_BeginFastFadeToMap),
+    PROC_REPEAT(ChapterIntro_LoopFastFadeToMap),
+
+    PROC_GOTO(99),
+
+PROC_LABEL(2),
+    PROC_CALL(ChapterIntro_BeginFastCloseText),
+    PROC_REPEAT(ChapterIntro_LoopFastCloseText),
+
+PROC_LABEL(99),
+    PROC_END,
+};
+
+static void GameOverScreen_RandomScroll_Init(struct GenericProc* proc);
+static void GameOverScreen_RandomScroll_Loop(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_GameOverScreen_RandomScroll[] =
+{
+    PROC_CALL(GameOverScreen_RandomScroll_Init),
+    PROC_REPEAT(GameOverScreen_RandomScroll_Loop),
+
+    PROC_END,
+};
+
+static void GameOverScreen_Init(struct GenericProc* proc);
+static void GameOverScreen_LoopFadeIn(struct GenericProc* proc);
+static void GameOverScreen_BeginIdle(struct GenericProc* proc);
+static void GameOverScreen_LoopIdle(struct GenericProc* proc);
+static void GameOverScreen_BeginFadeOut(struct GenericProc* proc);
+static void GameOverScreen_LoopFadeOut(struct GenericProc* proc);
+static void GameOverScreen_End(struct GenericProc* proc);
+
+struct ProcScr CONST_DATA ProcScr_GameOverScreen[] =
+{
+    PROC_ONEND(GameOverScreen_End),
+    PROC_CALL(GameOverScreen_Init),
+
+    PROC_CALL(MU_EndAll),
+
+    PROC_START_CHILD(ProcScr_GameOverScreen_RandomScroll),
+
+    PROC_REPEAT(GameOverScreen_LoopFadeIn),
+
+    PROC_CALL(GameOverScreen_BeginIdle),
+    PROC_REPEAT(GameOverScreen_LoopIdle),
+
+PROC_LABEL(99),
+    PROC_CALL(GameOverScreen_BeginFadeOut),
+    PROC_REPEAT(GameOverScreen_LoopFadeOut),
 
     PROC_END,
 };
@@ -358,7 +533,7 @@ int sub_801C160(int xa, int ya, int xb, int yb)
     return FACING_LEFT;
 }
 
-struct MuProc* sub_801C188(struct Unit* unit)
+static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_MOUNTED))
         return MU_Start(unit);
@@ -369,7 +544,7 @@ struct MuProc* sub_801C188(struct Unit* unit)
         return sub_805F820(unit->x, unit->y, JID_DISMOUNTED_M, 12);
 }
 
-static void sub_801C1D0(struct UnkProc* proc)
+static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)
 {
     if (MU_IsAnyActive())
         return;
@@ -385,11 +560,11 @@ static void sub_801C1D0(struct UnkProc* proc)
     }
 }
 
-void sub_801C20C(struct Unit* unit, int facing, Bool arg_2, ProcPtr parent)
+void StartRescueTransferAnim(struct Unit* unit, int facing, Bool arg_2, ProcPtr parent)
 {
-    struct UnkProc* proc;
+    struct RescueTransferAnimProc* proc;
 
-    proc = SpawnProcLocking(ProcScr_Unk_085C58F8, parent);
+    proc = SpawnProcLocking(ProcScr_RescueTransferAnim, parent);
 
     proc->unit = unit;
     proc->facing = facing;
@@ -400,15 +575,15 @@ void sub_801C20C(struct Unit* unit, int facing, Bool arg_2, ProcPtr parent)
 
     proc->unk_3C = arg_2;
 
-    proc->mu = sub_801C188(unit);
+    proc->mu = StartMuForRescueTransfterAnim(unit);
     sub_805FD78(proc->mu, proc->moveScript);
 }
 
-void sub_801C264(struct Unit* unit, int facing)
+void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
 {
-    struct UnkProc* proc;
+    struct RescueTransferAnimProc* proc;
 
-    proc = SpawnProc(ProcScr_Unk_085C5910, PROC_TREE_3);
+    proc = SpawnProc(ProcScr_RescueTransferAnimParentless, PROC_TREE_3);
 
     proc->unit = unit;
     proc->facing = facing;
@@ -419,7 +594,7 @@ void sub_801C264(struct Unit* unit, int facing)
 
     proc->unk_3C = FALSE;
 
-    proc->mu = sub_801C188(unit);
+    proc->mu = StartMuForRescueTransfterAnim(unit);
     sub_805FD78(proc->mu, proc->moveScript);
 }
 
@@ -476,7 +651,7 @@ Bool IsMapFadeActive(void)
     return Proc_Find(ProcScr_MapFade) ? TRUE : FALSE;
 }
 
-void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
+static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
 {
     struct Unit* unit;
 
@@ -502,7 +677,7 @@ void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
     }
 }
 
-void GetAiInitialCursorPosition(int* xOut, int* yOut)
+static void GetAiInitialCursorPosition(int* xOut, int* yOut)
 {
     int i;
 
@@ -527,7 +702,7 @@ void GetAiInitialCursorPosition(int* xOut, int* yOut)
     }
 }
 
-static void sub_801C49C(ProcPtr proc)
+static void InitPhaseCursor_Init(ProcPtr proc)
 {
     int x = -1;
     int y = -1;
@@ -573,7 +748,7 @@ static void sub_801C510(ProcPtr proc)
     }
 }
 
-static int sub_801C540(ProcPtr proc)
+static int DiscardItem_StartItemSelect(ProcPtr proc)
 {
     ApplyIconPalettes(BGPAL_ICONS);
     sub_8041818(&MenuInfo_085C74E0, proc);
@@ -581,7 +756,7 @@ static int sub_801C540(ProcPtr proc)
     return FALSE;
 }
 
-static int sub_801C560(ProcPtr proc)
+static int DiscardItem_PostItemSelect(ProcPtr proc)
 {
     sub_802CB50();
     EndEquipInfoWindow();
@@ -595,18 +770,18 @@ static int sub_801C560(ProcPtr proc)
     return FALSE;
 }
 
-static int sub_801C58C(ProcPtr proc)
+static int DiscardItem_0801C58C(ProcPtr proc)
 {
     sub_8081620(NULL, proc);
     return FALSE;
 }
 
-static int sub_801C59C(ProcPtr proc)
+static int DiscardItem_0801C59C(ProcPtr proc)
 {
     return sub_8029714(gBmSt.unk_2E);
 }
 
-void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent)
+void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
 {
     gActiveUnit = unit;
 
@@ -618,7 +793,7 @@ void sub_801C5B0(struct Unit* unit, int item, ProcPtr parent)
         StartEquipInfoWindow(parent, unit, 15, 10);
         sub_802CB14(parent, DecodeMsg(0xC26)); // TODO: msgids
 
-        SpawnProcLocking(ProcScr_Unk_085C59A8, parent);
+        SpawnProcLocking(ProcScr_DiscardItem, parent);
     }
 }
 
@@ -654,7 +829,7 @@ int sub_801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
-void sub_801C6C4(int vision)
+void SetFogVision(int vision)
 {
     if (vision < 0)
         vision = GetChapterInfo(gPlaySt.chapter)->fog;
@@ -1411,7 +1586,7 @@ void sub_801D920(ProcPtr parent, int unused, int trapid)
     proc->altSong = trap->extra;
 }
 
-static void sub_801D95C(struct GenericProc* proc)
+static void PikeTrapAnim_Init(struct GenericProc* proc)
 {
     int x, y, oam2;
 
@@ -1426,7 +1601,7 @@ static void sub_801D95C(struct GenericProc* proc)
     PlaySeSpacial(0xBB, x + 8);
 }
 
-void sub_801D9D0(ProcPtr parent, int x, int y, int facing)
+void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)
 {
     struct GenericProc* proc;
 
@@ -1494,14 +1669,14 @@ void sub_801DA54(ProcPtr parent, int icon, char const* str)
     SpawnProcLocking(ProcScr_Unk_085C5BA0, parent);
 }
 
-void sub_801DAE4(void)
+static void ChapterIntro_Bg3Scroll_Loop(ProcPtr proc)
 {
     int offset = (GetGameTime()/2) % 0x100;
 
     SetBgOffset(3, offset, offset);
 }
 
-void sub_801DB00(struct GenericProc* proc)
+static void ChapterIntro_KeyListen_Init(struct GenericProc* proc)
 {
     struct GenericProc* parent = proc->proc_parent;
 
@@ -1509,7 +1684,7 @@ void sub_801DB00(struct GenericProc* proc)
     proc->unk50 = 0;
 }
 
-void sub_801DB10(struct GenericProc* proc)
+static void ChapterIntro_KeyListen_Loop(struct GenericProc* proc)
 {
     if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
         proc->unk50 = 1;
@@ -1526,7 +1701,7 @@ void sub_801DB10(struct GenericProc* proc)
     }
 }
 
-void sub_801DB5C(void)
+void PutChapterIntroMotif(void)
 {
     int ix, iy;
     int tile = 0;
@@ -1540,7 +1715,7 @@ void sub_801DB5C(void)
             gBg2Tm[TM_OFFSET(3 + ix, 1 + iy)] = TILEREF(1 + gChapterIntroMotifTmBuf[tile++], BGPAL_CHAPTERINTRO_MOTIF);
 }
 
-void sub_801DBC8(void)
+void PutScreenFogEffect(void)
 {
     int ix, iy;
 
@@ -1570,7 +1745,7 @@ void sub_801DBC8(void)
     }
 }
 
-void sub_801DC9C(void)
+void PutScreenFogEffectOverlayed(void)
 {
     int ix, iy;
 
@@ -1600,7 +1775,7 @@ void sub_801DC9C(void)
     }
 }
 
-void sub_801DD84(void)
+static void ChapterIntro_Init(struct GenericProc* proc)
 {
     InitBmBgLayers();
 
@@ -1652,13 +1827,14 @@ void sub_801DD84(void)
     SetBlankChr(BGCHR_CHAPTERINTRO_MOTIF);
 
     gPal[0] = 0;
-    sub_801DB5C();
-    sub_801DBC8();
+
+    PutChapterIntroMotif();
+    PutScreenFogEffect();
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT + BG3_SYNC_BIT);
 }
 
-void sub_801DF34(struct GenericProc* proc)
+static void ChapterIntro_BeginFadeIn(struct GenericProc* proc)
 {
     SetDispEnable(0, 0, 0, 1, 1);
     SetBlendTargetA(0, 0, 0, 1, 1);
@@ -1668,7 +1844,7 @@ void sub_801DF34(struct GenericProc* proc)
     FadeBgmOut(2);
 }
 
-void sub_801DF78(struct GenericProc* proc)
+static void ChapterIntro_LoopFadeIn(struct GenericProc* proc)
 {
     SetBlendDarken(proc->unk4C);
 
@@ -1679,4 +1855,463 @@ void sub_801DF78(struct GenericProc* proc)
         if (proc->unk4C < 0)
             Proc_Break(proc);
     }
+}
+
+static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc)
+{
+    SetDispEnable(0, 0, 1, 1, 1);
+
+    proc->unk4C = 0x10;
+
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
+
+    PlaySe(0x90); // TODO: song ids
+}
+
+static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc)
+{
+    SetBlendAlpha(0x10 - proc->unk4C, 0x10);
+
+    if (proc->unk50 == 3 || (GetGameTime() % 4) == 0)
+    {
+        proc->unk4C--;
+
+        if (proc->unk4C < 0)
+            Proc_Break(proc);
+    }
+}
+
+static void ChapterIntro_BeginHOpenText(struct GenericProc* proc)
+{
+    proc->unk4C = 0;
+
+    SetDispEnable(1, 1, 1, 1, 1);
+    PlaySe(0x91); // TODO: song ids
+}
+
+static void ChapterIntro_LoopHOpenText(struct GenericProc* proc)
+{
+    int val = Interpolate(INTERPOLATE_RSQUARE, 0, DISPLAY_WIDTH/2, proc->unk4C, 0x10);
+    SetWin0Box(DISPLAY_WIDTH/2 - val, 78, DISPLAY_WIDTH/2 + val, 81);
+
+    proc->unk4C++;
+
+    if (proc->unk4C > 0x10)
+        Proc_Break(proc);
+}
+
+static void ChapterIntro_BeginVOpenText(struct GenericProc* proc)
+{
+    proc->unk4C = 1;
+}
+
+static void ChapterIntro_LoopVOpenText(struct GenericProc* proc)
+{
+    int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->unk4C, 3);
+    SetWin0Box(0, DISPLAY_HEIGHT/2 - val, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + val);
+
+    proc->unk4C++;
+
+    if (proc->unk4C > 3)
+        Proc_Break(proc);
+}
+
+static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc)
+{
+    proc->unk4C = 0x20;
+
+    SetBlendAlpha(0x10, 0x10);
+
+    SetBlendTargetA(0, 1, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 1);
+}
+
+static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc)
+{
+    sub_8000234_t();
+    EnablePalSync();
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+        Proc_Break(proc);
+}
+
+static void ChapterIntro_Begin_0801E220(struct GenericProc* proc)
+{
+    proc->unk4C = 13;
+
+    sub_8001D0C();
+    sub_8001D44(gPal + 0x10*BGPAL_CHAPTERINTRO_FOG, BGPAL_CHAPTERINTRO_FOG, 2, -1);
+}
+
+static void ChapterIntro_Loop_0801E244(struct GenericProc* proc)
+{
+    if ((GetGameTime() % 4) == 0)
+    {
+        sub_8000234_t();
+        EnablePalSync();
+
+        proc->unk4C--;
+
+        if (proc->unk4C < 0)
+        {
+            SetDispEnable(1, 1, 0, 0, 0);
+
+            SetBgChrOffset(2, 0);
+
+            gPal[0] = 0;
+            EnablePalSync();
+
+            Proc_Break(proc);
+        }
+    }
+}
+
+static void ChapterIntro_0801E2B0(struct GenericProc* proc)
+{
+    gBmSt.camera.y = 40*16;
+}
+
+static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
+{
+    int val;
+
+    SetDispEnable(1, 1, 1, 1, 1);
+
+    SetBlendAlpha(0x10, 0);
+
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 1); SetBlendBackdropB(1);
+
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    sub_8028E28();
+
+    ApplyChapterMapGraphics(gPlaySt.chapter);
+    ApplyMapSpritePalettes();
+    ApplySystemObjectsGraphics();
+
+    val = GetChapterInfo(gPlaySt.chapter)->unk0F;
+    val = GetCameraCenteredX(val*16);
+    val = (val + 15) & 0x1F0;
+    gBmSt.camera.x = val;
+
+    val = GetChapterInfo(gPlaySt.chapter)->unk10;
+    val = GetCameraCenteredY(val*16);
+    val = (val + 15) & 0x3F0;
+    gBmSt.camera.y = val;
+
+    RefreshEntityMaps();
+    RenderMap();
+}
+
+static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc)
+{
+    sub_8001D0C();
+
+    sub_8001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +1);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +1);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
+
+    sub_8000234_t();
+    EnablePalSync();
+
+    proc->unk4C = 30;
+
+    if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
+        noo_802895C();
+}
+
+static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
+{
+    if ((GetGameTime() % 2) == 0)
+    {
+        int val;
+
+        sub_8000234_t();
+
+        if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
+            noo_802895C();
+
+        EnablePalSync();
+
+        val = (proc->unk4C+7)/8;
+        SetBlendAlpha(12 + val, 4 - val);
+
+        proc->unk4C--;
+
+        if (proc->unk4C == 24)
+            StartBgm(GetChapterInfo(gPlaySt.chapter)->songOpeningBgm, NULL);
+
+        if (proc->unk4C < 0)
+        {
+            sub_8028E44();
+            Proc_Break(proc);
+        }
+    }
+}
+
+static void ChapterIntro_BeginCloseText(struct GenericProc* proc)
+{
+    proc->unk4C = 0x10;
+}
+
+static void ChapterIntro_LoopCloseText(struct GenericProc* proc)
+{
+    SetWin0Box(0, DISPLAY_HEIGHT/2 - proc->unk4C, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + proc->unk4C);
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+        Proc_Break(proc);
+}
+
+static void ChapterIntro_BeginFastCloseText(struct GenericProc* proc)
+{
+    proc->unk4C = 8;
+}
+
+static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc)
+{
+    SetWin0Box(0, DISPLAY_HEIGHT/2 - proc->unk4C, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + proc->unk4C);
+
+    proc->unk4C -= 2;
+
+    if (proc->unk4C < 0)
+        Proc_Break(proc);
+}
+
+static void ChapterIntro_BeginFadeOut(struct GenericProc* proc)
+{
+    sub_8001D0C();
+    sub_8001D44(gPal, 0, 6, -2);
+
+    proc->unk4C = 15;
+
+    sub_80030B4(1);
+}
+
+static void ChapterIntro_LoopFadeOut(struct GenericProc* proc)
+{
+    sub_8000234_t();
+    EnablePalSync();
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+    {
+        SetDispEnable(0, 0, 0, 0, 0);
+
+        SetBgChrOffset(2, 0);
+
+        Proc_Break(proc);
+    }
+}
+
+static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
+{
+    ClearBg0Bg1();
+
+    sub_8001D0C();
+
+    sub_8001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +2);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +2);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
+    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
+
+    sub_8000234_t();
+    EnablePalSync();
+
+    proc->unk4C = 14;
+
+    StartBgm(GetChapterInfo(gPlaySt.chapter)->songOpeningBgm, NULL);
+}
+
+static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
+{
+    sub_8000234_t();
+
+    if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
+        noo_802895C();
+
+    EnablePalSync();
+
+    proc->unk4C--;
+
+    if (proc->unk4C < 0)
+    {
+        sub_8028E44();
+
+        Proc_Break(proc);
+    }
+}
+
+static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc* proc)
+{
+    proc->unk50 = arg;
+}
+
+static void GameOverScreen_RandomScroll_Init(struct GenericProc* proc)
+{
+    proc->unk34 = +46;
+    proc->unk38 = -90;
+    proc->unk3C = -16;
+    proc->unk40 = -53;
+
+    proc->unk64 = 1234;
+    proc->unk66 = 5678;
+    proc->unk68 = 6346;
+    proc->unk6A = 8536;
+}
+
+static void GameOverScreen_RandomScroll_Loop(struct GenericProc* proc)
+{
+    proc->unk64 += proc->unk34;
+    proc->unk66 += proc->unk38;
+    proc->unk68 += proc->unk3C;
+    proc->unk6A += proc->unk40;
+
+    SetBgOffset(2, -proc->unk64 >> 8, -proc->unk66 >> 8);
+    SetBgOffset(3, -proc->unk68 >> 8, -proc->unk6A >> 8);
+}
+
+static void GameOverScreenHBlank(void)
+{
+    u16 val = REG_VCOUNT + 1;
+
+    if (val > DISPLAY_HEIGHT)
+        val = 0;
+
+    if (val > DISPLAY_HEIGHT/2)
+        val = DISPLAY_HEIGHT - val;
+
+    val = val / 3;
+
+    if (val > 0x10)
+        val = 0x10;
+
+    REG_BLDCA = val;
+    REG_BLDCB = val;
+}
+
+static void GameOverScreen_Init(struct GenericProc* proc)
+{
+    int i;
+
+    LockBattleMapDisplay();
+
+    StartBgm(0x37, NULL); // TODO: song ids
+
+    gDispIo.bg0Ct.priority = 0;
+    gDispIo.bg1Ct.priority = 1;
+    gDispIo.bg2Ct.priority = 2;
+    gDispIo.bg3Ct.priority = 3;
+
+    SetBgChrOffset(2, 0);
+    SetBgChrOffset(3, 0);
+
+    Decompress(Img_GameOverText, (u8*) VRAM + CHR_SIZE*BGCHR_GAMEOVER_TEXT);
+    ApplyPalette(Pal_Unk_0830D95C, BGPAL_GAMEOVER_4);
+    Decompress(Img_ChapterIntroFog, (u8*) VRAM + CHR_SIZE*BGCHR_GAMEOVER_100);
+    ApplyPalette(Pal_GameOverText, BGPAL_GAMEOVER_TEXT);
+
+    ClearBg0Bg1();
+
+    TmApplyTsa_t(gBg0Tm + TM_OFFSET(7, 9), Tsa_Unk_0830D97C, TILEREF(BGCHR_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT));
+
+    PutScreenFogEffectOverlayed();
+    PutScreenFogEffect();
+
+    EnableBgSync(BG2_SYNC_BIT + BG3_SYNC_BIT);
+
+    SetOnHBlankA(GameOverScreenHBlank);
+
+    SetBlendAlpha(14, 14);
+
+    SetBlendTargetA(0, 0, 1, 0, 0);
+    SetBlendTargetB(0, 0, 0, 1, 0);
+
+    sub_8001D0C();
+    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, +1);
+    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, +1);
+
+    proc->unk4C = 21;
+
+    for (i = 0; i < 10; ++i)
+        sub_8000234_t();
+
+    EnablePalSync();
+}
+
+static void GameOverScreen_LoopFadeIn(struct GenericProc* proc)
+{
+    if ((GetGameTime() % 8) == 0)
+    {
+        sub_8000234_t();
+        EnablePalSync();
+
+        proc->unk4C--;
+
+        if (proc->unk4C < 0)
+            Proc_Break(proc);
+    }
+}
+
+static void GameOverScreen_BeginIdle(struct GenericProc* proc)
+{
+    proc->unk4E = 1500;
+}
+
+static void GameOverScreen_LoopIdle(struct GenericProc* proc)
+{
+    proc->unk4E--;
+
+    if (proc->unk4E < 0)
+        Proc_Goto(proc, 99);
+
+    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
+        Proc_Goto(proc, 99);
+}
+
+static void GameOverScreen_BeginFadeOut(struct GenericProc* proc)
+{
+    sub_8001D0C();
+    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, -1);
+    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, -1);
+
+    FadeBgmOut(4);
+}
+
+static void GameOverScreen_LoopFadeOut(struct GenericProc* proc)
+{
+    sub_8000234_t();
+    EnablePalSync();
+
+    proc->unk4C++;
+
+    if (proc->unk4C == 0x20)
+        Proc_Break(proc);
+}
+
+static void GameOverScreen_End(struct GenericProc* proc)
+{
+    SetOnHBlankA(NULL);
+    SetOnHBlankB(NULL);
+
+    SetDispEnable(0, 0, 0, 0, 0);
+
+    gPal[0] = 0;
+    EnablePalSync();
+}
+
+void StartGameOverScreen(ProcPtr parent)
+{
+    if (parent)
+        SpawnProcLocking(ProcScr_GameOverScreen, parent);
+    else
+        SpawnProc(ProcScr_GameOverScreen, PROC_TREE_3);
 }

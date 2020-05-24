@@ -50,14 +50,14 @@ Img_ChapterIntroMotif = 0x08309574;
 Pal_ChapterIntroMotif = 0x0830A770;
 Img_ChapterIntroFog = 0x0830A790;
 Pal_ChapterIntroFog = 0x0830C414;
+Img_GameOverText = 0x0830D604;
+Pal_GameOverText = 0x0830D93C;
+Pal_Unk_0830D95C = 0x0830D95C;
+Tsa_Unk_0830D97C = 0x0830D97C;
 
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_InitPhaseCursor     = 0x085C5970;
-ProcScr_Unk_085C5988        = 0x085C5988;
-ProcScr_PhaseIntro          = 0x085C5AA0;
-ProcScr_ChapterIntro        = 0x085C5BE8;
 ProcScr_UpdateTraps         = 0x085C6358;
 ProcScr_PrepScreen          = 0x085C7E44;
 ProcScr_Unk_085C8080        = 0x085C8080;

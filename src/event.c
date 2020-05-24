@@ -20,6 +20,7 @@
 #include "unit.h"
 #include "map.h"
 #include "mapwork.h"
+#include "bmfx.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -3547,7 +3548,7 @@ static void GiveItem_DoPopup(struct GenericProc* proc)
 
 static void GiveItem_DoGiveItem(struct GenericProc* proc)
 {
-    sub_801C5B0(proc->ptr, CreateItem(proc->unk58), proc);
+    HandleGiveUnitItem(proc->ptr, CreateItem(proc->unk58), proc);
 }
 
 void StartGiveItemEvent(u16 iid)

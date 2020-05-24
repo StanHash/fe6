@@ -95,8 +95,11 @@ struct GenericProc
 
     /* 2C */ int x, y;
     /* 34 */ int unk34;
+    /* 38 */ int unk38;
+    /* 3C */ int unk3C;
+    /* 40 */ int unk40;
 
-    /* 38 */ u8 pad38[0x4A - 0x38];
+    /* 44 */ u8 pad38[0x4A - 0x44];
 
     /* 4A */ short unk4A;
 
