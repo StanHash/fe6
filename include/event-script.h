@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+typedef u32 EventScr;
+
 // Event command ids
 
 enum
@@ -110,7 +112,7 @@ enum
 };
 
 // Event command macros
-// u32 const EventScr_<Name>[] = { /* to be used here */ };
+// EventScr const EventScr_<Name>[] = { /* to be used here */ };
 
 #define _EvtParams2(x, y) ((((y) & 0xFFFF) << 16) + ((x) & 0xFFFF))
 #define _EvtParams4(a, b, c, d) ((((d) & 0xFF) << 24) + (((c) & 0xFF) << 16) + (((b) & 0xFF) << 8) + ((a) & 0xFF))
@@ -317,4 +319,4 @@ enum
     EVT_CMD_YESSKIP,
 
 // Helper event macros
-// u32 const EventScr_<Name>[] = { /* to be used here */ };
+// EventScr const EventScr_<Name>[] = { /* to be used here */ };

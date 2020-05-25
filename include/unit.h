@@ -34,6 +34,8 @@ enum
     UNIT_ATTR_WYVERN_ICON = (1 << 11),
     UNIT_ATTR_PEGASUS_ICON = (1 << 12),
 
+    UNIT_ATTR_13 = (1 << 13),
+
     UNIT_ATTR_FEMALE = (1 << 14),
     UNIT_ATTR_BOSS = (1 << 15),
     UNIT_ATTR_LOCK_1 = (1 << 16),

@@ -300,8 +300,8 @@ struct ProcScr CONST_DATA ProcScr_WmEventMoveFace[];
 
 static struct FaceVramEnt CONST_DATA gFightEventFaceConfig[];
 
-extern u32 CONST_DATA EventScr_AutoTalk[];
-extern u32 CONST_DATA EventScr_085C46DC[];
+extern EventScr CONST_DATA EventScr_AutoTalk[];
+extern EventScr CONST_DATA EventScr_085C46DC[];
 
 struct PopupInfo CONST_DATA Popup_085C46FC[];
 struct PopupInfo CONST_DATA Popup_085C473C[];
@@ -316,12 +316,12 @@ struct PopupInfo CONST_DATA Popup_085C4914[];
 
 struct ProcScr CONST_DATA ProcScr_GiveItem[];
 
-static u32 CONST_DATA EventScr_Item[];
-static u32 CONST_DATA EventScr_ItemTo[];
-static u32 CONST_DATA EventScr_Money[];
-static u32 CONST_DATA EventScr_MapChange[];
-static u32 CONST_DATA EventScr_ItemChest[];
-static u32 CONST_DATA EventScr_MoneyChest[];
+static EventScr CONST_DATA EventScr_Item[];
+static EventScr CONST_DATA EventScr_ItemTo[];
+static EventScr CONST_DATA EventScr_Money[];
+static EventScr CONST_DATA EventScr_MapChange[];
+static EventScr CONST_DATA EventScr_ItemChest[];
+static EventScr CONST_DATA EventScr_MoneyChest[];
 
 #define EVTCMD_GET_X_RAW(script) (((script) & 0x0000FFFF))
 #define EVTCMD_GET_Y_RAW(script) (((script) & 0xFFFF0000) >> 16)
@@ -4054,7 +4054,7 @@ static struct FaceVramEnt CONST_DATA gFightEventFaceConfig[] =
     { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
 };
 
-u32 CONST_DATA EventScr_AutoTalk[] =
+EventScr CONST_DATA EventScr_AutoTalk[] =
 {
     EvtTalkAuto
 
@@ -4062,7 +4062,7 @@ u32 CONST_DATA EventScr_AutoTalk[] =
     EvtEnd
 };
 
-u32 CONST_DATA EventScr_085C46DC[] =
+EventScr CONST_DATA EventScr_085C46DC[] =
 {
     EvtTalkAuto
 
@@ -4227,7 +4227,7 @@ struct ProcScr CONST_DATA ProcScr_GiveItem[] =
     PROC_END,
 };
 
-static u32 CONST_DATA EventScr_Item[] =
+static EventScr CONST_DATA EventScr_Item[] =
 {
     EvtNoSkip
     EvtGiveItem(0)
@@ -4236,7 +4236,7 @@ static u32 CONST_DATA EventScr_Item[] =
     EvtEnd
 };
 
-static u32 CONST_DATA EventScr_ItemTo[] =
+static EventScr CONST_DATA EventScr_ItemTo[] =
 {
     EvtNoSkip
     EvtGiveItemTo(0, 0)
@@ -4245,7 +4245,7 @@ static u32 CONST_DATA EventScr_ItemTo[] =
     EvtEnd
 };
 
-static u32 CONST_DATA EventScr_Money[] =
+static EventScr CONST_DATA EventScr_Money[] =
 {
     EvtNoSkip
     EvtGiveMoney(0)
@@ -4254,7 +4254,7 @@ static u32 CONST_DATA EventScr_Money[] =
     EvtEnd
 };
 
-static u32 CONST_DATA EventScr_MapChange[] =
+static EventScr CONST_DATA EventScr_MapChange[] =
 {
     EvtMapChange(-1)
 
@@ -4262,7 +4262,7 @@ static u32 CONST_DATA EventScr_MapChange[] =
     EvtEnd
 };
 
-static u32 CONST_DATA EventScr_ItemChest[] =
+static EventScr CONST_DATA EventScr_ItemChest[] =
 {
     EvtMapChange(-1)
 
@@ -4273,7 +4273,7 @@ static u32 CONST_DATA EventScr_ItemChest[] =
     EvtEnd
 };
 
-static u32 CONST_DATA EventScr_MoneyChest[] =
+static EventScr CONST_DATA EventScr_MoneyChest[] =
 {
     EvtMapChange(-1)
 

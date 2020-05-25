@@ -64,8 +64,11 @@ ProcScr_Unk_085C8080        = 0x085C8080;
 ProcScr_TerrainHealDisplay  = 0x085C8200;
 ProcScr_PoisonDamageDisplay = 0x085C8260;
 ProcScr_StatusDecayDisplay  = 0x085C82C8;
+ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
+ProcScr_Unk_0868AE04        = 0x0868AE04;
+ProcScr_Unk_0868B010        = 0x0868B010;
 ProcScr_Unk_0868C304        = 0x0868C304;
 ProcScr_Unk_08691480        = 0x08691480;
 ProcScr_OpeningSequence     = 0x0869150C;
@@ -77,8 +80,17 @@ MenuInfo_085C742C = 0x085C742C;
 MenuInfo_085C7450 = 0x085C7450;
 MenuInfo_085C7474 = 0x085C7474;
 MenuInfo_085C74E0 = 0x085C74E0;
+MenuInfo_085C7504 = 0x085C7504;
+MenuInfo_085C75B8 = 0x085C75B8;
+MenuInfo_085C75DC = 0x085C75DC;
 MenuInfo_UnitMenu = 0x085C7600;
 MenuInfo_085C7648 = 0x085C7648;
+MapSelectInfo_085C77CC = 0x085C77CC;
+MapSelectInfo_085C77EC = 0x085C77EC;
+MapSelectInfo_085C780C = 0x085C780C;
+MapSelectInfo_085C782C = 0x085C782C;
+MapSelectInfo_085C784C = 0x085C784C;
+MapSelectInfo_085C786C = 0x085C786C;
 
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
@@ -233,6 +245,7 @@ SECTIONS
         src/debug-menu.o(.text);
         src/player-phase.o(.text);
         src/bmfx.o(.text);
+        src/map-menus.o(.text);
 
         asm/code.o(.text);
 
@@ -314,6 +327,7 @@ SECTIONS
         . = ALIGN(4); src/debug-menu.o(.data);
         . = ALIGN(4); src/player-phase.o(.data);
         . = ALIGN(4); src/bmfx.o(.data);
+        . = ALIGN(4); src/map-menus.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

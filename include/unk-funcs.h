@@ -6,6 +6,7 @@
 
 #include "proc.h"
 #include "menu.h"
+#include "map-select.h"
 
 // sub_801EA40
 // sub_801EA54
@@ -40,8 +41,8 @@
 // sub_801EED0
 // sub_801EF20
 // sub_801F004
-// sub_801F0AC
-// sub_801F0F0
+u8 sub_801F0AC(struct MenuProc* menu, struct MenuEntProc* ent);
+u8 sub_801F0F0(struct MenuProc* menu, struct MenuEntProc* ent);
 // sub_801F138
 // sub_801F1D0
 // sub_801F1DC
@@ -166,22 +167,22 @@ void SetMoney(int amount);
 // sub_8020C64
 // sub_8020CB4
 // sub_8020D44
-// sub_8020D7C
+void sub_8020D7C(struct Unit* unit, int item);
 // sub_8020DE4
-// sub_8020E5C
+void sub_8020E5C(struct Unit* unit);
 // sub_8020ED0
-// sub_8020F30
+void sub_8020F30(struct Unit* unit);
 // sub_8020F64
-// sub_8020FBC
+void sub_8020FBC(struct Unit* unit);
 // sub_8020FF0
-// sub_8021048
+void sub_8021048(struct Unit* unit);
 // sub_802107C
-// sub_80210E8
+void sub_80210E8(struct Unit* unit);
 // sub_802111C
 // sub_8021164
 // sub_8021198
 // sub_8021240
-// sub_8021278
+void sub_8021278(struct Unit* unit);
 // sub_80212E0
 // sub_8021320
 // sub_8021360
@@ -311,9 +312,9 @@ Bool CanUnitUseItem(struct Unit* unit, int item);
 // BattleGenerateSimulationInternal
 // BattleGenerateRealInternal
 // sub_8024224
-// sub_8024248
+void sub_8024248(struct Unit* unit, struct Unit* target, int x, int y, int itemSlot);
 void BattleGenerateReal(struct Unit* instigator, struct Unit* target);
-// sub_8024294
+void sub_8024294(struct Unit* unit, struct Unit* target, int x, int y);
 void BattleGenerateBallistaReal(struct Unit* instigator, struct Unit* target);
 // BattleGenerate
 void sub_802430C(struct Unit* unit, s8 itemSlot);
@@ -380,7 +381,7 @@ void sub_8025780(void);
 // sub_8025A60
 // BattleApplyWeaponTriangleEffect
 // BattleInitTargetCanCounter
-// sub_8025B88
+void sub_8025B88(void);
 // sub_8025BD8
 // sub_8025C18
 void sub_8025C7C(void);
@@ -419,7 +420,7 @@ void sub_80260DC(void);
 // sub_8026880
 // sub_8026928
 // sub_80269FC
-// sub_8026A8C
+void sub_8026A8C(struct Unit* unit, struct Unit* other, int arg_2);
 // sub_8026AC8
 // sub_8026AE0
 // AddTrap
@@ -435,7 +436,7 @@ void sub_8026CA0(void);
 // sub_8026CE0
 int sub_8026D20(int x, int y);
 // sub_8026D88
-// sub_8026DC8
+int sub_8026DC8(int x, int y);
 struct MapChangeInfo const* GetMapChange(int id);
 int GetMapChangeIdByPosition(int x, int y);
 void ApplyMapChange(int id);
@@ -750,8 +751,8 @@ s8 sub_802CB60(void);
 // sub_802E140
 // sub_802E224
 // sub_802E308
-// sub_802E36C
-// sub_802E394
+void sub_802E36C(void);
+void sub_802E394(void);
 // sub_802E3D0
 // sub_802E43C
 // sub_802E460
@@ -1433,7 +1434,7 @@ void sub_80419CC(struct MenuProc* menu);
 // sub_8041EC4
 // sub_8041F44
 // sub_8041F54
-// sub_8041FA4
+void sub_8041FA4(struct MenuProc* menu, int msg);
 // sub_8041FD8
 // sub_8041FF8
 struct MenuProc* sub_8042018(struct MenuInfo const* info, int x, int left, int right);
@@ -1444,9 +1445,9 @@ void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042138
 // sub_8042180
 // sub_8042194
-// sub_8042264
+void sub_8042264(struct MapSelectInfo const* info);
 // sub_80422CC
-// sub_80422DC
+void sub_80422DC(struct MenuProc* menu);
 // sub_8042310
 // sub_8042388
 // sub_80423E0
@@ -1455,7 +1456,7 @@ void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042480
 // sub_8042524
 // sub_8042534
-// CountTargets
+int CountTargets(void);
 // sub_8042558
 // sub_804256C
 // sub_8042578
@@ -2913,7 +2914,7 @@ void sub_806AF08(void);
 // sub_806AF4C
 // sub_806AF90
 // sub_806AFD0
-// sub_806B028
+int sub_806B028(int x, int y);
 // sub_806B06C
 // sub_806B254
 // sub_806B268
@@ -2933,8 +2934,8 @@ void sub_806B420(void);
 Bool sub_806B470(void);
 Bool sub_806B4A4(void);
 // sub_806B4A8
-// sub_806B4AC
-// sub_806B4C8
+void sub_806B4AC(void);
+void sub_806B4C8(void);
 void sub_806B4E4(void);
 Bool sub_806B500(void);
 void sub_806B540(void);
@@ -3457,7 +3458,7 @@ void sub_8073324(void);
 // sub_80740E4
 // sub_80740F4
 // sub_80741A8
-// sub_80741C8
+void sub_80741C8(ProcPtr parent);
 // sub_80741EC
 // sub_8074254
 // sub_80742D0
@@ -3483,7 +3484,7 @@ void sub_8073324(void);
 // sub_8075DF8
 // sub_8075E94
 // sub_8076060
-// sub_8076238
+void sub_8076238(void);
 // sub_8076250
 // sub_80762B4
 // sub_80762E4
@@ -4398,7 +4399,7 @@ void sub_8095FF8(void);
 // sub_8098624
 // sub_80986DC
 // sub_8098730
-// sub_809874C
+void sub_809874C(void);
 // sub_8098764
 // sub_8098798
 // sub_80987B8

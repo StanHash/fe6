@@ -103,7 +103,8 @@ struct BmSt
     /* 28 */ struct Vec2 cameraMax;
     /* 2C */ u16 itemOverflow;
     /* 2E */ u16 unk_2E;
-    /* 30 */ u8 pad_30[0x32 - 0x30];
+    /* 30 */ Bool unk_30;
+    /* 31 */ Bool unk_31;
     /* 32 */ short unk_32;
     /* 34 */ short unk_34;
     /* 36 */ s8 unk_36;
@@ -181,7 +182,7 @@ void SetMapCursorPosition(int x, int y);
 void PutSysArrow(int x, int y, u8 isDown);
 void PutSysAButton(int x, int y, int palid);
 Bool CameraMoveWatchPosition(ProcPtr proc, int x, int y);
-Bool IsCameraWatchingPosition(int x, int y);
+Bool IsCameraNotWatchingPosition(int x, int y);
 Bool CameraMove_08016290(ProcPtr proc);
 void Unused_08016344(int x, int y, int duration);
 int GetActiveMapSong(void);

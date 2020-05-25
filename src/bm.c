@@ -879,7 +879,7 @@ Bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
     return TRUE;
 }
 
-Bool IsCameraWatchingPosition(int x, int y)
+Bool IsCameraNotWatchingPosition(int x, int y)
 {
     int xTarget = GetCameraAdjustedX(x*16);
     int yTarget = GetCameraAdjustedY(y*16);

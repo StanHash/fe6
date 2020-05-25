@@ -7,6 +7,7 @@
 #include "proc.h"
 #include "text.h"
 #include "menu.h"
+#include "map-select.h"
 
 extern u8 gBuf[];
 
@@ -16,13 +17,6 @@ extern struct BattleHit* gBattleHitIt;
 extern struct Action gAction;
 extern struct AiDecision gAiDecision;
 
-extern struct ProcScr CONST_DATA ProcScr_EventWaitForMu[];
-extern struct ProcScr CONST_DATA ProcScr_FlashCursor[];
-extern struct ProcScr CONST_DATA ProcScr_EventCursor[];
-extern struct ProcScr CONST_DATA ProcScr_WeatherChangeFade[];
-extern struct ProcScr CONST_DATA ProcScr_WmEventShowFace[];
-extern struct ProcScr CONST_DATA ProcScr_WmEventHideFace[];
-extern struct ProcScr CONST_DATA ProcScr_WmEventMoveFace[];
 extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const* CONST_DATA TextGlyphs_System[];
 extern struct Glyph const* CONST_DATA TextGlyphs_Talk[];
@@ -88,6 +82,9 @@ extern struct ProcScr CONST_DATA ProcScr_StatusDecayDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_TerrainHealDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_PoisonDamageDisplay[];
 extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_085C83C8[];
 extern struct MenuInfo CONST_DATA MenuInfo_085C7474;
 extern struct MenuInfo CONST_DATA MenuInfo_085C73E4;
 extern struct MenuInfo CONST_DATA MenuInfo_085C742C;
@@ -97,6 +94,15 @@ extern struct MenuInfo CONST_DATA MenuInfo_085C7648;
 extern struct MenuInfo CONST_DATA MenuInfo_085C73C0;
 extern struct MenuInfo CONST_DATA MenuInfo_UnitMenu;
 extern struct MenuInfo CONST_DATA MenuInfo_085C74E0;
+extern struct MenuInfo CONST_DATA MenuInfo_085C7504;
+extern struct MenuInfo CONST_DATA MenuInfo_085C75B8;
+extern struct MenuInfo CONST_DATA MenuInfo_085C75DC;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C786C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C784C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C782C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C780C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C77EC;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C77CC;
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];
