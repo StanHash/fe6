@@ -5,7 +5,6 @@
 
 #include "bm.h"
 
-enum { UNIT_ITEM_COUNT = 5 };
 enum { UNIT_WEAPON_EXP_COUNT = 8 };
 enum { UNIT_SUPPORT_COUNT = 10 };
 enum { UNIT_LEVEL_MAX = 20 };
@@ -29,7 +28,7 @@ enum
 
     UNIT_ATTR_BALLISTA = (1 << 7),
     UNIT_ATTR_PROMOTED = (1 << 8),
-
+    UNIT_ATTR_SUPPLY = (1 << 9),
     UNIT_ATTR_MOUNT_ICON = (1 << 10),
     UNIT_ATTR_WYVERN_ICON = (1 << 11),
     UNIT_ATTR_PEGASUS_ICON = (1 << 12),
@@ -81,6 +80,22 @@ enum
 {
     UNIT_USEBIT_WEAPON = (1 << 0),
     UNIT_USEBIT_STAFF = (1 << 1),
+};
+
+enum
+{
+    ITEMSLOT_INV0,
+    ITEMSLOT_INV1,
+    ITEMSLOT_INV2,
+    ITEMSLOT_INV3,
+    ITEMSLOT_INV4,
+
+    ITEMSLOT_INV_COUNT,
+
+    ITEMSLOT_5 = ITEMSLOT_INV_COUNT + 0,
+    ITEMSLOT_6 = ITEMSLOT_INV_COUNT + 1,
+    ITEMSLOT_7 = ITEMSLOT_INV_COUNT + 2,
+    ITEMSLOT_8 = ITEMSLOT_INV_COUNT + 3,
 };
 
 struct PersonInfo
@@ -202,7 +217,7 @@ struct Unit
     /* 1B */ // TODO: more
     /* -- */ u8 pad_1B[0x1C - 0x1B];
 
-    /* 1C */ u16 items[UNIT_ITEM_COUNT];
+    /* 1C */ u16 items[ITEMSLOT_INV_COUNT];
     /* 26 */ u8 weaponExp[UNIT_WEAPON_EXP_COUNT];
     /* 2E */ u8 status : 4;
     /* 2E */ u8 statusDuration : 4;

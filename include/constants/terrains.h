@@ -13,7 +13,7 @@ enum
     TERRAIN_ROAD       = 0x02,
     TERRAIN_VILLAGE_03 = 0x03,
     TERRAIN_VILLAGE_04 = 0x04,
-    TERRIAN_HOUSE      = 0x05,
+    TERRAIN_HOUSE      = 0x05,
     TERRAIN_ARMORY     = 0x06,
     TERRAIN_VENDOR     = 0x07,
     TERRAIN_ARENA_08   = 0x08,

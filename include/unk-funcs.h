@@ -74,7 +74,7 @@ int sub_801F708(struct MenuProc* menu, struct MenuEntProc* ent);
 // sub_801F7D0
 // sub_801F840
 // nullsub_8
-// sub_801F854
+void sub_801F854(int x, int y);
 // sub_801F898
 // sub_801F8A4
 // sub_801F8E0
@@ -179,19 +179,19 @@ void sub_8021048(struct Unit* unit);
 // sub_802107C
 void sub_80210E8(struct Unit* unit);
 // sub_802111C
-// sub_8021164
-// sub_8021198
+void sub_8021164(struct Unit* unit);
+void sub_8021198(struct Unit* unit);
 // sub_8021240
 void sub_8021278(struct Unit* unit);
 // sub_80212E0
 // sub_8021320
-// sub_8021360
+void sub_8021360(struct Unit* unit, int terrain);
 // sub_80213B0
 // sub_8021480
 // sub_80214F4
-// sub_8021538
+void sub_8021538(struct Unit* unit);
 // TryAddStealTarget
-// ListStealTargets
+void ListStealTargets(struct Unit* unit);
 // sub_80215E4
 // sub_8021638
 // sub_802166C
@@ -262,15 +262,15 @@ void sub_8022CB4(void);
 // sub_8022F70
 // sub_8022F94
 Bool CanUnitUseItem(struct Unit* unit, int item);
-// sub_8023278
-// sub_802348C
+int sub_8023278(struct Unit* unit, int item);
+void sub_802348C(struct Unit* unit, int item);
 // sub_8023620
 // sub_8023634
 // sub_8023654
 // sub_8023678
 // sub_802368C
 // sub_80236B0
-// sub_80236C4
+Bool sub_80236C4(struct Unit* unit);
 // sub_8023700
 // sub_8023714
 // sub_8023728
@@ -545,7 +545,7 @@ void sub_8029654(void);
 u16 const* sub_8029684(void);
 // sub_802968C
 // sub_80296B0
-// sub_80296F4
+int sub_80296F4(void);
 int sub_8029714(int item);
 // sub_802974C
 // sub_8029764
@@ -572,7 +572,7 @@ int sub_8029714(int item);
 // sub_8029F68
 // sub_8029F74
 // sub_8029F80
-// sub_8029FE0
+Bool sub_8029FE0(struct Unit* unit);
 // sub_802A008
 // sub_802A018
 Bool sub_802A028(ProcPtr proc);
@@ -660,12 +660,12 @@ u8 const* GetChapterMapAddress(int chapter);
 // sub_802BF7C
 // sub_802BFD4
 // sub_802C008
-// sub_802C034
+void sub_802C034(ProcPtr parent);
 // sub_802C058
-// sub_802C160
+void sub_802C160(struct Unit* unit);
 // sub_802C274
-// sub_802C3B4
-// sub_802C3C8
+void sub_802C3B4(ProcPtr parent);
+void sub_802C3C8(struct Unit* unit);
 // sub_802C414
 // sub_802C434
 // sub_802C4A8
@@ -673,11 +673,11 @@ u8 const* GetChapterMapAddress(int chapter);
 // sub_802C514
 // sub_802C534
 // sub_802C5B4
-// sub_802C5E4
-// sub_802C61C
-// sub_802C6D4
-// sub_802C798
-// sub_802C7D0
+void sub_802C5E4(ProcPtr proc);
+void sub_802C61C(struct Unit* unit);
+void sub_802C6D4(struct Unit* unit);
+void sub_802C798(ProcPtr parent);
+void sub_802C7D0(struct Unit* unit);
 // sub_802C894
 // sub_802C8F8
 // sub_802C9C0
@@ -1416,9 +1416,9 @@ struct MenuProc* sub_80417E8(struct MenuInfo const* info, int x, int left, int r
 struct MenuProc* sub_8041818(struct MenuInfo const* info, ProcPtr parent);
 // sub_8041828
 struct MenuProc* sub_8041834(struct MenuInfo const* info);
-// sub_8041844
+struct MenuProc* sub_8041844(struct MenuInfo const* info, struct MenuRect rect, ProcPtr parent);
 void sub_80419CC(struct MenuProc* menu);
-// sub_8041A38
+void sub_8041A38(void);
 // sub_8041A50
 // sub_8041A88
 // sub_8041B7C
@@ -1447,7 +1447,7 @@ void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042194
 void sub_8042264(struct MapSelectInfo const* info);
 // sub_80422CC
-void sub_80422DC(struct MenuProc* menu);
+void sub_80422DC(struct MapSelectProc* proc);
 // sub_8042310
 // sub_8042388
 // sub_80423E0
@@ -2915,7 +2915,7 @@ void sub_806AF08(void);
 // sub_806AF90
 // sub_806AFD0
 int sub_806B028(int x, int y);
-// sub_806B06C
+void sub_806B06C(int x, int y);
 // sub_806B254
 // sub_806B268
 // sub_806B284
@@ -3308,7 +3308,7 @@ void sub_80702BC(struct Unit* unit, ProcPtr parent);
 // sub_8070668
 // sub_80706A0
 // sub_80706C8
-// sub_80706FC
+void sub_80706FC(int x, int y, int item);
 // sub_8070738
 // sub_8070804
 // sub_807089C
@@ -3627,7 +3627,7 @@ void sub_8076238(void);
 // sub_80813E8
 // sub_8081540
 // sub_80815BC
-// sub_80815E4
+void sub_80815E4(struct Unit* unit, ProcPtr parent);
 void sub_8081620(struct Unit* unit, ProcPtr parent);
 // sub_808165C
 // sub_808166C
@@ -4378,7 +4378,7 @@ void sub_8095FF8(void);
 // sub_8097DD8
 // sub_8097DFC
 // sub_8097E2C
-// sub_8097E84
+void sub_8097E84(void);
 // sub_8097EAC
 // sub_8097ECC
 // sub_8098258

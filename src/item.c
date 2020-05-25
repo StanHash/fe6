@@ -400,7 +400,7 @@ u16 GetUnitEquippedWeapon(struct Unit* unit)
 {
     int i;
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (CanUnitUseWeapon(unit, unit->items[i]) == TRUE)
             return unit->items[i];
@@ -413,7 +413,7 @@ int GetUnitEquippedWeaponSlot(struct Unit* unit)
 {
     int i;
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (CanUnitUseWeapon(unit, unit->items[i]) == TRUE)
             return i;
@@ -472,7 +472,7 @@ Bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
 
         attributes = 0;
 
-        for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+        for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
             attributes = attributes | GetItemAttributes(unit->items[i]);
 
         if (attributes & ITEM_ATTR_DELPHI_SHIELD)
@@ -694,7 +694,7 @@ int FindUnitItemSlot(struct Unit* unit, int iid)
 {
     int i;
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (GetItemIid(unit->items[i]) == iid)
             return i;
@@ -767,7 +767,7 @@ int GetUnitWeaponReach(struct Unit* unit, int itemSlot)
     if (itemSlot >= 0)
         return GetItemReach(unit->items[itemSlot]);
 
-    for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i)
+    for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = unit->items[i]); ++i)
     {
         if (CanUnitUseWeapon(unit, item))
             result |= GetItemReach(item);
@@ -794,7 +794,7 @@ int GetUnitItemUseReach(struct Unit* unit, int itemSlot)
     }
     else
     {
-        for (i = 0; (i < UNIT_ITEM_COUNT) && (tmp = unit->items[i]); ++i)
+        for (i = 0; (i < ITEMSLOT_INV_COUNT) && (tmp = unit->items[i]); ++i)
         {
             if (CanUnitUseItem(unit, tmp))
             {
@@ -831,7 +831,7 @@ int GetUnitStaffReach(struct Unit* unit)
 {
     int i, tmp, range = 0;
 
-    for (i = 0; (i < UNIT_ITEM_COUNT) && (tmp = unit->items[i]); ++i)
+    for (i = 0; (i < ITEMSLOT_INV_COUNT) && (tmp = unit->items[i]); ++i)
     {
         if (CanUnitUseStaff(unit, tmp))
         {
@@ -884,7 +884,7 @@ int GetTotalUnitItemsValue(void)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i)
+        for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = unit->items[i]); ++i)
             result += GetItemValue(item);
     })
 

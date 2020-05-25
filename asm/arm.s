@@ -144,8 +144,8 @@ _080003B8:
 	pop {r4, r5, r6, r7}
 	bx lr
 
-	arm_func_start sub_80003E0
-sub_80003E0: @ 0x080003E0
+	arm_func_start TmCopyRect
+TmCopyRect: @ 0x080003E0
 	push {r4, r5, r6, r7}
 	tst r2, r2
 	beq _08000434

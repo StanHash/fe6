@@ -277,7 +277,7 @@ Bool UnitAddItem(struct Unit* unit, int item)
 {
     int i;
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (unit->items[i] == 0)
         {
@@ -297,12 +297,12 @@ inline void UnitRemoveItem(struct Unit* unit, int slot)
 
 void UnitRemoveInvalidItems(struct Unit* unit)
 {
-    u16 items[UNIT_ITEM_COUNT + 1], i;
+    u16 items[ITEMSLOT_INV_COUNT + 1], i;
     u16* it = items;
 
     // Build item buffer by iterating through unit's items and skipping blanks
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (unit->items[i])
             *it++ = unit->items[i];
@@ -314,7 +314,7 @@ void UnitRemoveInvalidItems(struct Unit* unit)
 
     // Write buffered items
 
-    for (i = 0; i < UNIT_ITEM_COUNT; ++i)
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
         if (!items[i])
             return; // Stop now if we reached end of buffer
@@ -327,7 +327,7 @@ int GetUnitItemCount(struct Unit* unit)
 {
     int i;
 
-    for (i = (UNIT_ITEM_COUNT - 1); i >= 0; --i)
+    for (i = (ITEMSLOT_INV_COUNT - 1); i >= 0; --i)
     {
         if (unit->items[i])
             return i + 1;
@@ -342,7 +342,7 @@ Bool UnitHasItem(struct Unit* unit, int item)
 
     item = GetItemIid(item);
 
-    for (i = 0; (i < UNIT_ITEM_COUNT) && unit->items[i]; ++i)
+    for (i = 0; (i < ITEMSLOT_INV_COUNT) && unit->items[i]; ++i)
     {
         if (GetItemIid(unit->items[i]) == item)
             return TRUE;
@@ -1011,7 +1011,7 @@ int sub_8018258(struct Unit* unit)
 {
     int i, item, result = 0;
 
-    for (i = 0; (i < UNIT_ITEM_COUNT) && (item = unit->items[i]); ++i)
+    for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = unit->items[i]); ++i)
     {
         if ((GetItemAttributes(item) & ITEM_ATTR_WEAPON) && CanUnitUseWeapon(unit, item))
             result |= UNIT_USEBIT_WEAPON;

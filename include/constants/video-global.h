@@ -8,6 +8,8 @@
 
 enum
 {
+    BGCHR_0 = 0,
+
     BGCHR_TEXT_DEFAULT = 0x80,
 
     BGCHR_0_TEXT_POPUP = 0x100,
@@ -31,12 +33,26 @@ enum
 
     BGCHR_GAMEOVER_TEXT = 0x80,
     BGCHR_GAMEOVER_100 = 0x100,
+
+    BGCHR_STEALSELECT_FACE = 0x200,
 };
 
 enum
 {
-    BGPAL_DEBUGTEXT       = 0,
     BGPAL_TEXT_DEFAULT    = 0,
+    BGPAL_1               = 1,
+    BGPAL_TALK            = 2,
+    BGPAL_TALK_BUBBLE     = 3,
+    BGPAL_ICONS           = 4, // .. 5
+    BGPAL_TILESET         = 6, // .. 15
+
+    BGPAL_DEBUGTEXT       = 0,
+
+    BGPAL_EQUIP_INFO_ICON = 3,
+
+    BGPAL_LIMITVIEW = 4, // .. 5
+
+    BGPAL_PHASE_CHANGE = 5,
 
     BGPAL_CHAPTERINTRO_0 = 0,
     BGPAL_CHAPTERINTRO_1 = 1,
@@ -46,13 +62,7 @@ enum
     BGPAL_GAMEOVER_TEXT = 0,
     BGPAL_GAMEOVER_4 = 4,
 
-    BGPAL_TALK            = 2,
-    BGPAL_TALK_BUBBLE     = 3,
-    BGPAL_EQUIP_INFO_ICON = 3,
-    BGPAL_ICONS           = 4, // .. 5
-    BGPAL_LIMITVIEW       = 4, // .. 5
-    BGPAL_PHASE_CHANGE    = 5,
-    BGPAL_TILESET         = 6, // .. 15
+    BGPAL_STEALSELECT_FACE = 5,
 };
 
 enum

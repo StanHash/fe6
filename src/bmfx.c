@@ -945,17 +945,17 @@ void UpdateEquipInfoWindow(int itemSlot)
     switch (itemSlot)
     {
 
-    case 0 ... 4:
+    case ITEMSLOT_INV0 ... ITEMSLOT_INV_COUNT - 1:
         item = proc->unit->items[itemSlot];
         break;
 
-    case 5:
+    case ITEMSLOT_5:
         item = gBmSt.itemOverflow;
         break;
 
     default:
         item = itemSlot;
-        itemSlot = 8;
+        itemSlot = ITEMSLOT_8;
 
     }
 
@@ -1003,7 +1003,7 @@ void UpdateEquipInfoWindow(int itemSlot)
 
         sub_802430C(proc->unit, itemSlot);
 
-        if (itemSlot == 8)
+        if (itemSlot == ITEMSLOT_8)
         {
             gBattleUnitB.battleAttack = gBattleUnitA.battleAttack;
             gBattleUnitB.battleHit = gBattleUnitA.battleHit;

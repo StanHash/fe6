@@ -29,8 +29,8 @@ sub_8000234_t: @ 0x0809FAA8
 _0809FAAC:
 	.byte 0xE0, 0x81, 0xFD, 0xEA
 
-	thumb_func_start sub_809FAB0
-sub_809FAB0: @ 0x0809FAB0
+	thumb_func_start TmCopyRect_t
+TmCopyRect_t: @ 0x0809FAB0
 	bx pc
 	nop
 _0809FAB4:

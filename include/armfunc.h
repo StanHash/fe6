@@ -9,6 +9,7 @@ extern u8 const ArmCodeEnd[];
 void sub_8000234(void);
 void ClearOam(void* oam, int count);
 void TmApplyTsa(u16* tm, u8 const* tsa, u16 tileref);
+void TmCopyRect(u16 const* src, u16* dst, int width, int height);
 void TmFillRect(u16* tm, int width, int height, u16 tileref);
 
 void DrawGlyph(u16 const* cvtLut, void* chr, u32 const* glyph, int offset);
@@ -22,3 +23,4 @@ void ClearOam_t(void* oam, int count);
 void TmApplyTsa_t(u16* tm, u8 const* tsa, u16 tileref);
 void TmFillRect_t(u16* tm, int width, int height, u16 tileref);
 void sub_8000234_t(void);
+void TmCopyRect_t(u16 const* src, u16* dst, int width, int height);

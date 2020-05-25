@@ -33,6 +33,7 @@ enum
     ITEM_ATTR_MAGIC = (1 << 1),
     ITEM_ATTR_STAFF = (1 << 2),
     ITEM_ATTR_UNBREAKABLE = (1 << 3),
+    ITEM_ATTR_IMPORTANT = (1 << 4),
 
     ITEM_ATTR_UNREPAIRABLE = (1 << 9),
     ITEM_ATTR_LOCK_DRAGON = (1 << 10),
