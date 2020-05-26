@@ -261,6 +261,7 @@ SECTIONS
         src/bmfx.o(.text);
         src/map-menu.o(.text);
         src/faction.o(.text);
+        src/gold.o(.text);
 
         asm/code.o(.text);
 

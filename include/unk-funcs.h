@@ -151,9 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-int GetMoney(void);
-void SetMoney(int amount);
-// sub_8020A7C
 // sub_8020A98
 // ForEachUnitInRange
 // sub_8020B70

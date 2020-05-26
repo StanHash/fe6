@@ -9,6 +9,7 @@
 #include "bm.h"
 #include "unit.h"
 #include "faction.h"
+#include "gold.h"
 
 #include "constants/video-global.h"
 #include "constants/items.h"
@@ -901,7 +902,7 @@ int sub_8017104(void)
 
     halved = heldValue / 2;
 
-    heldValue = halved + GetMoney();
+    heldValue = halved + GetGold();
 
     return heldValue;
 }

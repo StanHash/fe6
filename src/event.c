@@ -22,6 +22,7 @@
 #include "mapwork.h"
 #include "bmfx.h"
 #include "faction.h"
+#include "gold.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2735,9 +2736,9 @@ static int EvtCmd_GiveMoney(struct EventProc* proc)
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
     {
-        money = GetMoney();
+        money = GetGold();
         money += given;
-        SetMoney(money);
+        SetGold(money);
     }
 
     StartPopup_080120D0(given, proc);

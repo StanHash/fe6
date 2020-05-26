@@ -108,7 +108,7 @@ struct PlaySt
     /* 00 */ u32 unk00; // a time value
     /* 04 */ u32 unk04; // a time value
 
-    /* 08 */ u32 gold;
+    /* 08 */ int gold;
     /* 0C */ u8 saveSlot;
     /* 0D */ u8 vision;
     /* 0E */ s8 chapter;
