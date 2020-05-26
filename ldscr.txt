@@ -260,6 +260,7 @@ SECTIONS
         src/player-phase.o(.text);
         src/bmfx.o(.text);
         src/map-menu.o(.text);
+        src/faction.o(.text);
 
         asm/code.o(.text);
 

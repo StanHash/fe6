@@ -11,6 +11,7 @@
 #include "map.h"
 #include "mapwork.h"
 #include "bmfx.h"
+#include "faction.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1029,6 +1030,6 @@ void TrySwitchViewedUnit(int x, int y)
 
 static void PlayerPhase_HandleAutoEnd(ProcPtr proc)
 {
-    if (!gPlaySt.configNoAutoEndTurn && sub_802097C(gPlaySt.faction) == 0)
+    if (!gPlaySt.configNoAutoEndTurn && CountFactionMoveableUnits(gPlaySt.faction) == 0)
         Proc_Goto(proc, L_PLAYERPHASE_END);
 }

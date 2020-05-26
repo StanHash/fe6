@@ -16,6 +16,7 @@
 #include "map.h"
 #include "player-phase.h"
 #include "bmfx.h"
+#include "faction.h"
 
 #include "constants/video-global.h"
 
@@ -952,7 +953,7 @@ int GetActiveMapSong(void)
         return GetChapterInfo(gPlaySt.chapter)->songGreenBgm;
 
     case FACTION_BLUE:
-        if (sub_80209C8(FACTION_RED, US_DEAD | US_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victoryBgmEnemyThreshold)
+        if (CountFactionUnitsWithoutState(FACTION_RED, US_DEAD | US_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victoryBgmEnemyThreshold)
             return 0x13; // TODO: song ids
 
         return GetChapterInfo(gPlaySt.chapter)->songBlueBgm;

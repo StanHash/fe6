@@ -48,17 +48,17 @@ EvtLabel(99)
     EvtEnd
 };
 
-static void sub_801EB94(ProcPtr proc);
-static void sub_801EBF8(ProcPtr proc);
+static void BackToUnitMenu_CamWatch(ProcPtr proc);
+static void BackToUnitMenu_RestartMenu(ProcPtr proc);
 
 struct ProcScr CONST_DATA ProcScr_BackToUnitMenu[] =
 {
     PROC_CALL(LockGame),
 
-    PROC_CALL(sub_801EB94),
+    PROC_CALL(BackToUnitMenu_CamWatch),
     PROC_WHILE_EXISTS(ProcScr_CamMove),
 
-    PROC_CALL(sub_801EBF8),
+    PROC_CALL(BackToUnitMenu_RestartMenu),
 
     PROC_CALL(UnlockGame),
 
@@ -185,7 +185,7 @@ u8 sub_801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_SE_6B | MENU_ACT_CLEAR;
 }
 
-static void sub_801EB94(ProcPtr proc)
+static void BackToUnitMenu_CamWatch(ProcPtr proc)
 {
     if (IsCameraNotWatchingPosition(gActiveUnit->x, gActiveUnit->y))
     {
@@ -200,7 +200,7 @@ static void sub_801EB94(ProcPtr proc)
     }
 }
 
-static void sub_801EBF8(ProcPtr proc)
+static void BackToUnitMenu_RestartMenu(ProcPtr proc)
 {
     sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
 }
@@ -1673,8 +1673,6 @@ void sub_8020880(struct MapSelectProc* proc)
     sub_802C034(proc);
     sub_802CB14(proc, DecodeMsg(0xC1F)); // TODO: msg ids
 }
-
-void sub_802C058(struct Unit* unit);
 
 int sub_80208A0(struct MapSelectProc* proc, struct SelectTarget* target)
 {

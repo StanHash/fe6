@@ -7,6 +7,7 @@
 #include "bm.h"
 #include "unit.h"
 #include "mapwork.h"
+#include "faction.h"
 
 #include "constants/video-global.h"
 #include "constants/chapters.h"

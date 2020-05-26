@@ -20,6 +20,7 @@
 #include "map.h"
 #include "mapwork.h"
 #include "menu.h"
+#include "faction.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -707,7 +708,7 @@ static void InitPhaseCursor_Init(ProcPtr proc)
     int x = -1;
     int y = -1;
 
-    if (sub_802097C(gPlaySt.faction) == 0)
+    if (CountFactionMoveableUnits(gPlaySt.faction) == 0)
     {
         Proc_End(proc);
         return;
@@ -1340,7 +1341,7 @@ static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc)
 
 static void PhaseIntro_EndIfNoUnits(ProcPtr proc)
 {
-    if (sub_802097C(gPlaySt.faction) == 0)
+    if (CountFactionMoveableUnits(gPlaySt.faction) == 0)
         Proc_End(proc);
 }
 

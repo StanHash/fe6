@@ -8,6 +8,7 @@
 #include "msg.h"
 #include "bm.h"
 #include "unit.h"
+#include "faction.h"
 
 #include "constants/video-global.h"
 #include "constants/items.h"

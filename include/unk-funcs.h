@@ -8,6 +8,7 @@
 #include "menu.h"
 #include "map-select.h"
 
+/// map-menu.c
 // sub_801EA40
 // sub_801EA54
 // sub_801EA6C
@@ -21,8 +22,8 @@
 // sub_801EB14
 // sub_801EB28
 // sub_801EB38
-// sub_801EB94
-// sub_801EBF8
+// BackToUnitMenu_CamWatch
+// BackToUnitMenu_RestartMenu
 // sub_801EC1C
 // sub_801EC50
 // sub_801EC90
@@ -149,12 +150,7 @@ void sub_801F854(int x, int y);
 // sub_8020928
 // sub_802094C
 // sub_8020958
-int sub_802097C(int faction);
-int sub_80209C8(int faction, int prohibitedState);
-// sub_8020A04
-// sub_8020A18
-// sub_8020A2C
-// sub_8020A40
+
 int GetMoney(void);
 void SetMoney(int amount);
 // sub_8020A7C
@@ -661,7 +657,7 @@ u8 const* GetChapterMapAddress(int chapter);
 // sub_802BFD4
 // sub_802C008
 void sub_802C034(ProcPtr parent);
-// sub_802C058
+void sub_802C058(struct Unit* unit);
 void sub_802C160(struct Unit* unit);
 // sub_802C274
 void sub_802C3B4(ProcPtr parent);
