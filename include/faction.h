@@ -23,5 +23,5 @@ int CountFactionMoveableUnits(int faction);
 int CountFactionUnitsWithoutState(int faction, int prohibitedState);
 Bool AreUnitIdsAllied(int uidA, int uidB);
 Bool AreUnitIdsSameFaction(int uidA, int uidB);
-u8 GetActiveFactionAlliance(void);
-u8 GetActiveFactionOpposingAlliance(void);
+int GetActiveFactionAlliance(void);
+int GetActiveFactionOpposingAlliance(void);

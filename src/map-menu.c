@@ -14,6 +14,7 @@
 #include "mapwork.h"
 #include "player-phase.h"
 #include "bmfx.h"
+#include "target-list.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -248,7 +249,7 @@ int sub_801EC94(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_RESCUING)
         return MENU_NOTSHOWN;
 
-    sub_8020F30(gActiveUnit);
+    ListRescueTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -258,8 +259,8 @@ int sub_801EC94(struct MenuEntInfo const* info, int id)
 
 u8 sub_801ECCC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_8020F30(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C786C);
+    ListRescueTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C786C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -280,7 +281,7 @@ int sub_801ED00(struct MenuEntInfo const* info, int id)
     if (!(gActiveUnit->state & US_RESCUING))
         return MENU_NOTSHOWN;
 
-    sub_8020FBC(gActiveUnit);
+    ListRescueDropTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -290,8 +291,8 @@ int sub_801ED00(struct MenuEntInfo const* info, int id)
 
 u8 sub_801ED38(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_8020FBC(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C784C);
+    ListRescueDropTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C784C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -318,7 +319,7 @@ int sub_801ED7C(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_RESCUING)
         return MENU_NOTSHOWN;
 
-    sub_8021048(gActiveUnit);
+    ListRescueTakeTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -328,8 +329,8 @@ int sub_801ED7C(struct MenuEntInfo const* info, int id)
 
 u8 sub_801EDC4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_8021048(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C782C);
+    ListRescueTakeTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C782C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -345,7 +346,7 @@ int sub_801EDE4(struct MenuEntInfo const* info, int id)
     if (!(gActiveUnit->state & US_RESCUING))
         return MENU_NOTSHOWN;
 
-    sub_80210E8(gActiveUnit);
+    ListRescueGiveTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -355,8 +356,8 @@ int sub_801EDE4(struct MenuEntInfo const* info, int id)
 
 u8 sub_801EE2C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_80210E8(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C780C);
+    ListRescueGiveTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C780C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -413,7 +414,7 @@ int sub_801EF20(struct MenuEntInfo const* info, int id)
         if (!CanUnitUseWeapon(gActiveUnit, item))
             continue;
 
-        sub_8020D7C(gActiveUnit, item);
+        ListAttackTargetsForWeapon(gActiveUnit, item);
 
         if (CountTargets() != 0)
         {
@@ -531,7 +532,7 @@ int sub_801F1DC(struct MenuEntInfo const* info, int id)
     if (!CanUnitUseWeapon(gActiveUnit, item))
         return MENU_NOTSHOWN;
 
-    sub_8020D7C(gActiveUnit, item);
+    ListAttackTargetsForWeapon(gActiveUnit, item);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -546,9 +547,8 @@ u8 sub_801F228(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ClearBg0Bg1();
 
-    sub_8020D7C(gActiveUnit, gActiveUnit->items[0]);
-
-    sub_8042264(&MapSelectInfo_085C77EC);
+    ListAttackTargetsForWeapon(gActiveUnit, gActiveUnit->items[0]);
+    StartMapSelect(&MapSelectInfo_085C77EC);
 
     sub_806B4C8();
 
@@ -668,7 +668,7 @@ int sub_801F444(struct MenuEntInfo const* info, int id)
     if (gBmSt.partialActionsTaken & PARTIAL_ACTION_TRADED)
         return MENU_NOTSHOWN;
 
-    sub_8020E5C(gActiveUnit);
+    ListTradeTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -680,8 +680,8 @@ u8 sub_801F484(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ClearBg0Bg1();
 
-    sub_8020E5C(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C77CC);
+    ListTradeTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C77CC);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -749,7 +749,7 @@ int sub_801F5C8(struct MenuEntInfo const* info, int id)
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_PLAY))
         return MENU_NOTSHOWN;
 
-    sub_8021538(gActiveUnit);
+    ListRefreshTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -765,7 +765,7 @@ int sub_801F608(struct MenuEntInfo const* info, int id)
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_DANCE))
         return MENU_NOTSHOWN;
 
-    sub_8021538(gActiveUnit);
+    ListRefreshTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -778,8 +778,8 @@ u8 sub_801F648(struct MenuProc* menu, struct MenuEntProc* ent)
     if (ent->availability == MENU_DISABLED)
         return MENU_ACT_SE_6B;
 
-    sub_8021538(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C76EC);
+    ListRefreshTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C76EC);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -1093,7 +1093,7 @@ u8 sub_801FD04(struct MenuProc* menu, struct MenuEntProc* ent)
     gAction.itemSlot = ITEMSLOT_8;
 
     sub_8021278(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C77EC);
+    StartMapSelect(&MapSelectInfo_085C77EC);
 
     return MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_ENDFACE;
 }
@@ -1235,7 +1235,7 @@ int sub_801FFD8(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    sub_8021164(gActiveUnit);
+    ListTalkTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
@@ -1254,8 +1254,8 @@ u8 sub_802001C(struct MenuProc* menu, struct MenuEntProc* ent)
         return MENU_ACT_SE_6B;
     }
 
-    sub_8021164(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C778C);
+    ListTalkTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C778C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -1273,12 +1273,12 @@ int sub_8020064(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    sub_8021198(gActiveUnit);
+    ListSupportTargets(gActiveUnit);
 
     if (CountTargets() == 0)
         return MENU_NOTSHOWN;
 
-    sub_8021164(gActiveUnit);
+    ListTalkTargets(gActiveUnit);
 
     if (CountTargets() != 0)
         return MENU_NOTSHOWN;
@@ -1297,8 +1297,8 @@ u8 sub_80200B4(struct MenuProc* menu, struct MenuEntProc* ent)
         return MENU_ACT_SE_6B;
     }
 
-    sub_8021198(gActiveUnit);
-    sub_8042264(&MapSelectInfo_085C776C);
+    ListSupportTargets(gActiveUnit);
+    StartMapSelect(&MapSelectInfo_085C776C);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -1319,7 +1319,7 @@ int sub_80200FC(struct MenuEntInfo const* info, int id)
     if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR) < 0)
         return MENU_NOTSHOWN;
 
-    sub_8021360(gActiveUnit, TERRAIN_DOOR);
+    ListOpenTerrainTargets(gActiveUnit, TERRAIN_DOOR);
 
     return (CountTargets() == 0)
         ? MENU_NOTSHOWN : MENU_ENABLED;
@@ -1496,7 +1496,7 @@ u8 sub_8020488(struct MenuProc* menu, struct MenuEntProc* ent)
     ClearBg0Bg1();
 
     ListStealTargets(gActiveUnit);
-    sub_8042264(&MapSelectInfo_Steal);
+    StartMapSelect(&MapSelectInfo_Steal);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }

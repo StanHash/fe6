@@ -70,12 +70,12 @@ Bool AreUnitIdsSameFaction(int uidA, int uidB)
     return uidA == uidB;
 }
 
-u8 GetActiveFactionAlliance(void)
+int GetActiveFactionAlliance(void)
 {
     return gPlaySt.faction & 0x80;
 }
 
-u8 GetActiveFactionOpposingAlliance(void)
+int GetActiveFactionOpposingAlliance(void)
 {
     return (gPlaySt.faction & 0x80) ^ 0x80;
 }

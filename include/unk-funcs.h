@@ -151,62 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_8020A98
-// ForEachUnitInRange
-// sub_8020B70
-// ListAdjacentTargets
-// sub_8020BFC
-// sub_8020C30
-// sub_8020C64
-// sub_8020CB4
-// sub_8020D44
-void sub_8020D7C(struct Unit* unit, int item);
-// sub_8020DE4
-void sub_8020E5C(struct Unit* unit);
-// sub_8020ED0
-void sub_8020F30(struct Unit* unit);
-// sub_8020F64
-void sub_8020FBC(struct Unit* unit);
-// sub_8020FF0
-void sub_8021048(struct Unit* unit);
-// sub_802107C
-void sub_80210E8(struct Unit* unit);
-// sub_802111C
-void sub_8021164(struct Unit* unit);
-void sub_8021198(struct Unit* unit);
-// sub_8021240
-void sub_8021278(struct Unit* unit);
-// sub_80212E0
-// sub_8021320
-void sub_8021360(struct Unit* unit, int terrain);
-// sub_80213B0
-// sub_8021480
-// sub_80214F4
-void sub_8021538(struct Unit* unit);
-// TryAddStealTarget
-void ListStealTargets(struct Unit* unit);
-// sub_80215E4
-// sub_8021638
-// sub_802166C
-// sub_80216B8
-// sub_8021708
-// sub_802173C
-// sub_802178C
-// sub_80217C0
-// sub_80217F8
-// sub_8021820
-// sub_802186C
-// sub_80218B8
-// sub_8021904
-// sub_802192C
-// sub_8021954
-// sub_802197C
-// sub_80219B4
-// sub_80219E8
-// sub_8021A1C
-// sub_8021A74
-// sub_8021AA8
-// sub_8021B30
 // sub_8021B88
 void ApplyMapSpritePalettes(void);
 // sub_8021BD0
@@ -236,12 +180,12 @@ void sub_8022A5C(struct Unit* unit);
 // sub_8022A6C
 int sub_8022A84(struct Unit* unit);
 // sub_8022A94
-// sub_8022AA8
+struct Unit* sub_8022AA8(struct Unit* unit, int num);
 // sub_8022AF0
 // sub_8022B14
 // sub_8022B40
 // sub_8022B8C
-// sub_8022BA4
+Bool sub_8022BA4(struct Unit* unit, int num);
 int sub_8022C10(struct Unit* unit, int num);
 // sub_8022C28
 void sub_8022C60(struct Unit* unit);
@@ -428,7 +372,7 @@ void sub_8026A8C(struct Unit* unit, struct Unit* other, int arg_2);
 void sub_8026CA0(void);
 // sub_8026CE0
 int sub_8026D20(int x, int y);
-// sub_8026D88
+int sub_8026D88(int x, int y);
 int sub_8026DC8(int x, int y);
 struct MapChangeInfo const* GetMapChange(int id);
 int GetMapChangeIdByPosition(int x, int y);
@@ -1438,7 +1382,7 @@ void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042138
 // sub_8042180
 // sub_8042194
-void sub_8042264(struct MapSelectInfo const* info);
+void StartMapSelect(struct MapSelectInfo const* info);
 // sub_80422CC
 void sub_80422DC(struct MapSelectProc* proc);
 // sub_8042310
@@ -1450,7 +1394,7 @@ void sub_80422DC(struct MapSelectProc* proc);
 // sub_8042524
 // sub_8042534
 int CountTargets(void);
-// sub_8042558
+struct SelectTarget* GetTarget(int id);
 // sub_804256C
 // sub_8042578
 // sub_8042584
@@ -2904,7 +2848,7 @@ void sub_806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // sub_806AE7C
 Bool sub_806AED8(void);
 void sub_806AF08(void);
-// sub_806AF4C
+Bool sub_806AF4C(int pidA, int pidB);
 // sub_806AF90
 // sub_806AFD0
 int sub_806B028(int x, int y);
@@ -2916,7 +2860,7 @@ void sub_806B06C(int x, int y);
 // sub_806B310
 // sub_806B338
 // sub_806B354
-// sub_806B37C
+Bool sub_806B37C(s8 x, s8 y);
 // sub_806B398
 // sub_806B3C0
 // sub_806B3DC
@@ -3740,9 +3684,9 @@ void sub_8084818(void);
 void sub_8084908(struct PlaySt* playSt);
 // sub_808495C
 // sub_80849BC
-// sub_8084A10
-// sub_8084AEC
-void sub_8084B84(int pid);
+void sub_8084A10(u8 pid);
+void sub_8084AEC(u8 pid, int arg_1, int arg_2);
+void sub_8084B84(u8 pid);
 // sub_8084BB8
 // sub_8084BEC
 void PidStatsAddSquaresMoved(int pid, int amount);

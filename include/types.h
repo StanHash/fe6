@@ -168,6 +168,12 @@ struct MapChangeInfo
     /* 05 */ // ...
 };
 
+enum
+{
+    TRAP_NONE,
+    TRAP_OBSTACLE = 4,
+};
+
 struct Trap
 {
     /* 00 */ u8 x, y;

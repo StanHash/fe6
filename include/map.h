@@ -20,7 +20,7 @@ void RenderMapForFade(void);
 void UpdateRenderMap(void);
 void RefreshEntityMaps(void);
 char const* GetTerrainName(int terrain);
-s8 GetTerrainHealAmount(int terrain);
+int GetTerrainHealAmount(int terrain);
 Bool DoesTerrainHealStatus(int terrain);
 void sub_80192E4(void);
 

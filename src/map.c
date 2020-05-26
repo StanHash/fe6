@@ -623,7 +623,7 @@ char const* GetTerrainName(int terrain)
     return TerrainNameStringTable[terrain];
 }
 
-s8 GetTerrainHealAmount(int terrain)
+int GetTerrainHealAmount(int terrain)
 {
     return TerrainHealAmountTable[terrain];
 }

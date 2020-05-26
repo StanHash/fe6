@@ -151,6 +151,7 @@ SECTIONS
         . = ALIGN(4); src/unit.o(ewram_data);
         . = ALIGN(4); src/map.o(ewram_data);
         . = ALIGN(4); src/mapwork.o(ewram_data);
+        . = ALIGN(4); src/target-list.o(ewram_data);
 
         . = 0x039214; gBattleUnitA = .;
         . = 0x039290; gBattleUnitB = .;
@@ -262,6 +263,7 @@ SECTIONS
         src/map-menu.o(.text);
         src/faction.o(.text);
         src/gold.o(.text);
+        src/target-list.o(.text);
 
         asm/code.o(.text);
 
