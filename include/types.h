@@ -25,6 +25,8 @@ struct PlaySt;
 struct Unit;
 struct UnitInfo;
 
+struct UnitSprite;
+
 // Type decls for types that don't have a home yet :/
 // TODO: move
 
@@ -171,6 +173,11 @@ struct MapChangeInfo
 enum
 {
     TRAP_NONE,
+
+    TRAP_1 = 1,
+    TRAP_2 = 2,
+    TRAP_3 = 3,
+
     TRAP_OBSTACLE = 4,
 };
 

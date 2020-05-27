@@ -17,6 +17,7 @@
 #include "player-phase.h"
 #include "bmfx.h"
 #include "faction.h"
+#include "unitsprite.h"
 
 #include "constants/video-global.h"
 
@@ -398,7 +399,7 @@ static void HandleChangePhase(void)
 int BmMain_ChangePhase(ProcPtr proc)
 {
     ClearActiveFactionTurnEndedState();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     HandleChangePhase();
 

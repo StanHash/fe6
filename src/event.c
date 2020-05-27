@@ -23,6 +23,7 @@
 #include "bmfx.h"
 #include "faction.h"
 #include "gold.h"
+#include "unitsprite.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -374,7 +375,7 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     if (parent && !(unit->state & US_UNDER_A_ROOF))
     {
         TryMoveUnit(unit, info->xLoad, info->yLoad, FALSE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         if (info->xLoad != info->xMove || info->yLoad != info->yMove)
             TryMoveUnitDisplayed(parent, unit, info->xMove, info->yMove);
@@ -382,7 +383,7 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     else
     {
         TryMoveUnit(unit, info->xMove, info->yMove, TRUE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
     }
 }
 
@@ -1361,7 +1362,7 @@ static int EvtCmd_MovePosition(struct EventProc* proc)
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, xTarget, yTarget, TRUE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1387,7 +1388,7 @@ static int EvtCmd_MovePid(struct EventProc* proc)
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, xTarget, yTarget, TRUE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1419,7 +1420,7 @@ static int EvtCmd_MovePidScript(struct EventProc* proc)
         ApplyMoveScriptToCoordinates(&x, &y, movescr);
 
         TryMoveUnit(unit, x, y, FALSE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1451,7 +1452,7 @@ static int EvtCmd_MovePositionScript(struct EventProc* proc)
         ApplyMoveScriptToCoordinates(&x, &y, movescr);
 
         TryMoveUnit(unit, x, y, FALSE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1479,7 +1480,7 @@ static int EvtCmd_MovePidNextTo(struct EventProc* proc)
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
         TryMoveUnit(unit, x, y, TRUE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
     }
@@ -1576,7 +1577,7 @@ static Bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const*
     gproc = SpawnProc(ProcScr_EventWaitForMu, PROC_TREE_3);
     gproc->ptr = mu;
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
     unit->state |= US_HIDDEN;
 
     x = unit->x;
@@ -1617,11 +1618,11 @@ static void WaitForMu_OnLoop(struct GenericProc* proc)
 
     UnitSyncMovement(unit);
 
-    sub_8022A5C(unit);
+    ShowUnitSprite(unit);
     unit->state &= ~US_HIDDEN;
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     Proc_Break(proc);
 }
@@ -1725,7 +1726,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
         proc->unitInfo = info;
     }
 
-    sub_8021FE8();
+    ForceSyncUnitSpriteSheet();
 }
 
 static void EventLoadUnitsAsParty(struct EventProc* proc)
@@ -1799,7 +1800,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
     })
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 }
 
 static void EventMovementWait(struct EventProc* proc)
@@ -2227,7 +2228,7 @@ static int EvtCmd_SetFaction(struct EventProc* proc)
             UnitChangeFaction(unit, faction);
     })
 
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2340,7 +2341,7 @@ static int EvtCmd_RemovePid(struct EventProc* proc)
     ClearUnit(unit);
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2357,7 +2358,7 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
     proc->pidParam = proc->script[0];
     unit = GetUnitByPid(proc->pidParam);
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
 
     mu = MU_Start(unit);
 
@@ -2382,7 +2383,7 @@ static void EventRemoveDisplayedWait(struct EventProc* proc)
     ClearUnit(unit);
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     proc->onIdle = NULL;
 }
@@ -2607,7 +2608,7 @@ static int EvtCmd_SetMap(struct EventProc* proc)
 
     RefreshEntityMaps();
     RenderMap();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -2622,7 +2623,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
 
         ApplySystemGraphics();
         ApplyChapterMapPalettes();
-        ApplyMapSpritePalettes();
+        ApplyUnitSpritePalettes();
 
         proc->onIdle = EventFadeFromSkipWait;
     }
@@ -2773,7 +2774,7 @@ static int EvtCmd_FightScript(struct EventProc* proc)
 
     UnitBeginAction(unitA);
 
-    HideUnitSMS(gActiveUnit);
+    HideUnitSprite(gActiveUnit);
 
     MU_Start(gActiveUnit);
     MU_SetDefaultFacing_Auto();

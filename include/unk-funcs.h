@@ -151,33 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_8021B88
-void ApplyMapSpritePalettes(void);
-// sub_8021BD0
-// sub_8021C04
-// sub_8021C38
-// sub_8021D08
-// sub_8021D9C
-// sub_8021E8C
-// sub_8021F80
-void sub_8021FE8(void);
-// sub_8022048
-// GetUnitDisplayedSMSId
-void RefreshMapSprites(void);
-// GetNewSMSHandle
-// sub_8022224
-// sub_8022378
-// sub_8022618
-void sub_8022628(void);
-void sub_8022634(void);
-Bool sub_8022724(int x, int y);
-void sub_8022774(int layer, int x, int y, struct Unit* unit);
-// sub_802285C
-// sub_8022940
-// sub_8022A2C
-void HideUnitSMS(struct Unit* unit);
-void sub_8022A5C(struct Unit* unit);
-// sub_8022A6C
 int sub_8022A84(struct Unit* unit);
 // sub_8022A94
 struct Unit* sub_8022AA8(struct Unit* unit, int num);

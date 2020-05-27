@@ -21,6 +21,7 @@
 #include "mapwork.h"
 #include "menu.h"
 #include "faction.h"
+#include "unitsprite.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -556,8 +557,8 @@ static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)
     if (proc->unk_3C)
     {
         RefreshEntityMaps();
-        RefreshMapSprites();
-        sub_8021FE8();
+        RefreshUnitSprites();
+        ForceSyncUnitSpriteSheet();
     }
 }
 
@@ -840,7 +841,7 @@ void SetFogVision(int vision)
     gPlaySt.vision = vision;
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
     RenderMap();
 
     StartMapFade(TRUE);
@@ -1085,7 +1086,7 @@ static void sub_801CDE4(struct UnkProc2* proc)
     if ((x >= -16 && x <= DISPLAY_WIDTH) && (y >= -32 && y <= DISPLAY_HEIGHT))
     {
         PutSprite(4, x, y - 12, Sprite_16x16, TILEREF(6, 0));
-        sub_8022774(4, x, y, proc->unit);
+        PutUnitSprite(4, x, y, proc->unit);
     }
 
     proc->unk_3C++;
@@ -1100,7 +1101,7 @@ static void sub_801CEE0(struct UnkProc2* proc)
     proc->unit->y = proc->unk_36 / 16;
 
     RefreshEntityMaps();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 }
 
 void sub_801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
@@ -1114,7 +1115,7 @@ void sub_801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
     proc->unk_34 = x * 16;
     proc->unk_36 = y * 16;
 
-    HideUnitSMS(unit);
+    HideUnitSprite(unit);
 }
 
 static void PhaseIntroVMatchHi(void);
@@ -1992,7 +1993,7 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
     sub_8028E28();
 
     ApplyChapterMapGraphics(gPlaySt.chapter);
-    ApplyMapSpritePalettes();
+    ApplyUnitSpritePalettes();
     ApplySystemObjectsGraphics();
 
     val = GetChapterInfo(gPlaySt.chapter)->unk0F;

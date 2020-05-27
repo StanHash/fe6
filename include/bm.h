@@ -11,6 +11,8 @@ enum
     BM_FLAG_2 = (1 << 2),
     BM_FLAG_3 = (1 << 3),
     BM_FLAG_4 = (1 << 4),
+    BM_FLAG_5 = (1 << 5),
+    BM_FLAG_LINKARENA = (1 << 6),
 };
 
 enum

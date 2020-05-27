@@ -12,6 +12,7 @@
 #include "mapwork.h"
 #include "bmfx.h"
 #include "faction.h"
+#include "unitsprite.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -52,7 +53,7 @@ PROC_LABEL(L_PLAYERPHASE_BEGIN),
 
     PROC_CALL(RefreshEntityMaps),
     PROC_CALL(RenderMap),
-    PROC_CALL(RefreshMapSprites),
+    PROC_CALL(RefreshUnitSprites),
 
     PROC_CALL(PlayerPhase_HandleAutoEnd),
 
@@ -62,7 +63,7 @@ PROC_LABEL(L_PLAYERPHASE_BEGIN),
 
 PROC_LABEL(L_PLAYERPHASE_IDLE),
     PROC_CALL(sub_8073310),
-    PROC_CALL(sub_8022628),
+    PROC_CALL(ResetUnitSpritHover),
 
     PROC_REPEAT(PlayerPhase_IdleLoop),
 
@@ -74,7 +75,7 @@ PROC_LABEL(L_PLAYERPHASE_MOVE),
     PROC_WHILE(IsMapFadeActive),
 
     PROC_CALL(sub_801809C),
-    PROC_CALL(RefreshMapSprites),
+    PROC_CALL(RefreshUnitSprites),
 
     PROC_CALL(PlayerPhase_BeginMoveSelect),
     PROC_REPEAT(PlayerPhase_MoveSelectLoop),
@@ -289,7 +290,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             if (unit)
             {
                 MU_EndAll();
-                sub_8022A5C(unit);
+                ShowUnitSprite(unit);
             }
 
             sub_8073324();
@@ -319,7 +320,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             if (unit)
             {
                 MU_EndAll();
-                sub_8022A5C(unit);
+                ShowUnitSprite(unit);
             }
 
             sub_8073324();
@@ -332,10 +333,10 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
     }
 
 put_cursor:
-    sub_8022634();
+    UnitSpriteHoverUpdate();
 
     PutMapCursor(gBmSt.cursorSpr.x, gBmSt.cursorSpr.y,
-        sub_8022724(gBmSt.cursor.x, gBmSt.cursor.y) ? MAP_CURSOR_STRETCHED : MAP_CURSOR_DEFAULT);
+        IsUnitSpriteHoverEnabledAt(gBmSt.cursor.x, gBmSt.cursor.y) ? MAP_CURSOR_STRETCHED : MAP_CURSOR_DEFAULT);
 }
 
 void DisplayUnitActionRange(struct Unit* unit)
@@ -392,7 +393,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
         if (gActiveUnit->status != UNIT_STATUS_SLEEP && gActiveUnit->status != UNIT_STATUS_BERSERK)
         {
             MU_Start(gActiveUnit);
-            HideUnitSMS(gActiveUnit);
+            HideUnitSprite(gActiveUnit);
         }
     }
 
@@ -516,7 +517,7 @@ do_act:
         EndLimitView();
 
         RefreshEntityMaps();
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         PlaySe(0x6B); // TODO: song ids
 
@@ -584,14 +585,14 @@ static void PlayerPhase_CancelAction(ProcPtr proc)
 
     RefreshEntityMaps();
     RenderMap();
-    RefreshMapSprites();
+    RefreshUnitSprites();
 
     if (!(gActiveUnit->state & US_HAS_MOVED))
         UnitBeginAction(gActiveUnit);
     else
         UnitBeginReMoveAction(gActiveUnit);
 
-    HideUnitSMS(gActiveUnit);
+    HideUnitSprite(gActiveUnit);
     MU_EndAll();
     MU_Start(gActiveUnit);
 
@@ -713,7 +714,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 
         StartMapFade(FALSE);
 
-        RefreshMapSprites();
+        RefreshUnitSprites();
     }
     else
     {
@@ -730,7 +731,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 
     if (PlayerPhase_AttemptReMove(proc))
     {
-        HideUnitSMS(gActiveUnit);
+        HideUnitSprite(gActiveUnit);
         return;
     }
 
@@ -740,7 +741,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 
         RefreshEntityMaps();
         RenderMap();
-        RefreshMapSprites();
+        RefreshUnitSprites();
 
         sub_806B414();
 
@@ -849,7 +850,7 @@ static void PlayerPhase_0801BC84(ProcPtr proc)
     {
 
     case PLAYER_SELECT_CONTROL:
-        HideUnitSMS(gActiveUnit);
+        HideUnitSprite(gActiveUnit);
         break;
 
     case PLAYER_SELECT_NOCONTROL:

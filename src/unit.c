@@ -8,6 +8,7 @@
 #include "mapwork.h"
 #include "bmfx.h"
 #include "faction.h"
+#include "unitsprite.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -260,13 +261,13 @@ int GetUnitMapSprite(struct Unit* unit)
     {
 
     case TERRAIN_BALLISTA_REGULAR:
-        return MAPSPRITE_BALLISTA_REGULAR;
+        return UNITSPRITE_BALLISTA_REGULAR;
 
     case TERRAIN_BALLISTA_LONG:
-        return MAPSPRITE_BALLISTA_LONG;
+        return UNITSPRITE_BALLISTA_LONG;
 
     case TERRAIN_BALLISTA_KILLER:
-        return MAPSPRITE_BALLISTA_KILLER;
+        return UNITSPRITE_BALLISTA_KILLER;
 
     default:
         return unit->job->mapSprite;
@@ -892,7 +893,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
         RefreshEntityMaps();
         RenderMap();
         StartMapFade(TRUE);
-        RefreshMapSprites();
+        RefreshUnitSprites();
     }
 }
 

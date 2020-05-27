@@ -2,6 +2,8 @@ OUTPUT_ARCH(arm)
 
 Img_SystemObjects = 0x081004A4;
 Pal_SystemObjects = 0x08100928;
+Pal_UnitSprites = 0x08100968;
+Pal_UnitSpritesPurple = 0x081009E8;
 Pal_SystemText = 0x08100A08;
 Pal_TalkText = 0x08100A28;
 Pal_GreenTextColors = 0x08100A68;
@@ -113,6 +115,7 @@ TerrainNameStringTable = 0x0860D00C;
 FaceInfoTable = 0x0866074C;
 Effectiveness_FlyingClasses = 0x086615DB;
 
+UnitSpriteTable = 0x08662C14;
 ChapterAssets = 0x08664398;
 
 gNumMusicPlayers = 9;
@@ -152,6 +155,7 @@ SECTIONS
         . = ALIGN(4); src/map.o(ewram_data);
         . = ALIGN(4); src/mapwork.o(ewram_data);
         . = ALIGN(4); src/target-list.o(ewram_data);
+        . = ALIGN(4); src/unitsprite.o(ewram_data);
 
         . = 0x039214; gBattleUnitA = .;
         . = 0x039290; gBattleUnitB = .;
@@ -264,6 +268,7 @@ SECTIONS
         src/faction.o(.text);
         src/gold.o(.text);
         src/target-list.o(.text);
+        src/unitsprite.o(.text);
 
         asm/code.o(.text);
 
@@ -319,6 +324,7 @@ SECTIONS
         . = ALIGN(4); src/unit.o(.rodata);
         . = ALIGN(4); src/debug-menu.o(.rodata);
         . = ALIGN(4); src/bmfx.o(.rodata);
+        . = ALIGN(4); src/unitsprite.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -346,6 +352,7 @@ SECTIONS
         . = ALIGN(4); src/player-phase.o(.data);
         . = ALIGN(4); src/bmfx.o(.data);
         . = ALIGN(4); src/map-menu.o(.data);
+        . = ALIGN(4); src/unitsprite.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0
