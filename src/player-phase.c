@@ -199,7 +199,7 @@ static void PlayerPhase_Suspend(ProcPtr proc)
     sub_80857B0(SAVE_ID_SUSPEND0);
 }
 
-void HandlePlayerMapCursor(ProcPtr proc)
+void HandlePlayerMapCursor(void)
 {
     if ((gKeySt->held & B_BUTTON) && !(gBmSt.cursorSpr.x & 7) && !(gBmSt.cursorSpr.y & 7))
     {
@@ -222,7 +222,7 @@ void HandlePlayerMapCursor(ProcPtr proc)
 
 static void PlayerPhase_IdleLoop(ProcPtr proc)
 {
-    HandlePlayerMapCursor(proc);
+    HandlePlayerMapCursor();
 
     if (gKeySt->pressed & L_BUTTON)
     {
@@ -439,7 +439,7 @@ static void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 
     u8 act = -1;
 
-    HandlePlayerMapCursor(proc);
+    HandlePlayerMapCursor();
 
     if (gKeySt->pressed & A_BUTTON)
     {

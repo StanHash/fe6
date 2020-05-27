@@ -10,6 +10,7 @@
 #include "unit.h"
 #include "faction.h"
 #include "gold.h"
+#include "item-use.h"
 
 #include "constants/video-global.h"
 #include "constants/items.h"
@@ -469,7 +470,7 @@ Bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
     {
         int i, attributes;
 
-        if (GetItemEffectiveness(item) != Effectiveness_FlyingClasses)
+        if (GetItemEffectiveness(item) != JList_BowEffectiveness)
             return TRUE;
 
         attributes = 0;

@@ -38,7 +38,7 @@ enum
     LIMITVIEW_GREEN = (1 << 2),
 };
 
-void HandlePlayerMapCursor(ProcPtr proc);
+void HandlePlayerMapCursor(void);
 void DisplayUnitActionRange(struct Unit* unit);
 int GetPlayerSelectKind(struct Unit* unit);
 void StartLimitView(int flags);

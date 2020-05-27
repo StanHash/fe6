@@ -635,7 +635,7 @@ Bool DoesTerrainHealStatus(int terrain)
 
 void sub_80192E4(void)
 {
-    const u16* tile = sTilesetInfo;
+    u16 const* tile = sTilesetInfo;
 
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));

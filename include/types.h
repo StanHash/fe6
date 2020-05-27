@@ -75,7 +75,7 @@ enum
     // ACTION_SHOPPED,
     // ACTION_ARENA,
     // ACTION_USE_ITEM,
-    ACTION_17 = 0x17,
+    ACTION_USEITEM = 0x17,
     ACTION_TRADED = 0x18,
     ACTION_TRADED_SUPPLY = 0x19,
     ACTION_TRADED_NOCHANGES = 0x1A,
@@ -257,7 +257,7 @@ struct Action
     /* 13 */ u8 xTarget;
     /* 14 */ u8 yTarget;
 
-    /* 15 */ u8 unk_15;
+    /* 15 */ u8 extra;
 
     /* 16 */ u8 suspendPoint;
 

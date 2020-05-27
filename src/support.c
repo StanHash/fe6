@@ -246,9 +246,9 @@ void DoTurnSupportExp(void)
     }
 }
 
-static const struct SupportBonuses* GetAffinityBonuses(int affinity)
+static struct SupportBonuses const* GetAffinityBonuses(int affinity)
 {
-    const struct SupportBonuses* it;
+    struct SupportBonuses const* it;
 
     for (it = AffinityBonuses; it->affinity; ++it)
     {
@@ -261,7 +261,7 @@ static const struct SupportBonuses* GetAffinityBonuses(int affinity)
 
 static void ApplyAffinityBonuses(struct SupportBonuses* bonuses, int affinity, int level)
 {
-    const struct SupportBonuses* added = GetAffinityBonuses(affinity);
+    struct SupportBonuses const* added = GetAffinityBonuses(affinity);
 
     bonuses->bonusAttack  += level * added->bonusAttack;
     bonuses->bonusDefense += level * added->bonusDefense;

@@ -15,6 +15,7 @@
 #include "player-phase.h"
 #include "bmfx.h"
 #include "target-list.h"
+#include "item-use.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -104,7 +105,7 @@ u8 sub_801EA6C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC46); // TODO: msgids
+        MenuFrozenHelpBox(menu, 0xC46); // TODO: msgids
         return MENU_ACT_SE_6B;
     }
 
@@ -170,7 +171,7 @@ u8 sub_801EB28(struct MenuProc* menu, struct MenuEntProc* ent)
 
 u8 sub_801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_80422DC(proc);
+    EndMapSelect(proc);
 
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
@@ -208,7 +209,7 @@ static void BackToUnitMenu_RestartMenu(ProcPtr proc)
 
 u8 sub_801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_80422DC(proc);
+    EndMapSelect(proc);
 
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
@@ -446,7 +447,7 @@ u8 sub_801F004(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC3B); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC3B); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -599,7 +600,7 @@ u8 sub_801F328(struct MapSelectProc* proc, struct SelectTarget* target)
     {
         gAction.xTarget = target->x;
         gAction.yTarget = target->y;
-        gAction.unk_15 = target->extra;
+        gAction.extra = target->extra;
     }
 
     Proc_EndEach(ProcScr_Unk_085C83C8);
@@ -634,7 +635,7 @@ u8 sub_801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
     {
         gAction.xTarget = target->x;
         gAction.yTarget = target->y;
-        gAction.unk_15 = target->extra;
+        gAction.extra = target->extra;
 
         sub_8025B88();
     }
@@ -733,7 +734,7 @@ u8 sub_801F5A0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC30); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC30); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1004,11 +1005,11 @@ u8 sub_801FB00(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, sub_8023278(gActiveUnit, gActiveUnit->items[gAction.itemSlot]));
+        MenuFrozenHelpBox(menu, GetUnitItemCantUseMsg(gActiveUnit, gActiveUnit->items[gAction.itemSlot]));
         return MENU_ACT_SE_6B;
     }
 
-    gAction.id = ACTION_17;
+    gAction.id = ACTION_USEITEM;
 
     PlaySe(0x6A); // TODO: song ids
     return sub_801F8E0(menu);
@@ -1018,7 +1019,7 @@ u8 sub_801FB68(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC31); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC31); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1045,7 +1046,7 @@ u8 sub_801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
 
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC33); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC33); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1143,7 +1144,7 @@ u8 sub_801FE30(struct MenuProc* menu, struct MenuEntProc* ent)
 
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC34); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC34); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1197,7 +1198,7 @@ u8 sub_801FF20(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ClearBg0Bg1();
 
-    sub_802348C(gActiveUnit, gActiveUnit->items[gAction.itemSlot]);
+    DoUseUnitItem(gActiveUnit, gActiveUnit->items[gAction.itemSlot]);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -1250,7 +1251,7 @@ u8 sub_802001C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC35); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC35); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1293,7 +1294,7 @@ u8 sub_80200B4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC35); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC35); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1342,7 +1343,7 @@ int sub_8020164(struct MenuEntInfo const* info, int id)
     if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_21) < 0)
         return MENU_NOTSHOWN;
 
-    return sub_80236C4(gActiveUnit)
+    return CanUnitUseChestKeyItem(gActiveUnit)
         ? MENU_ENABLED : MENU_NOTSHOWN;
 }
 
@@ -1455,9 +1456,9 @@ u8 sub_80203EC(struct MenuProc* menu, struct MenuEntProc* ent)
     if (ent->availability == MENU_DISABLED)
     {
         if (gActiveUnit->status == UNIT_STATUS_SILENCED)
-            sub_8041FA4(menu, 0xC36); // TODO: msg ids
+            MenuFrozenHelpBox(menu, 0xC36); // TODO: msg ids
         else
-            sub_8041FA4(menu, 0xC37); // TODO: msg ids
+            MenuFrozenHelpBox(menu, 0xC37); // TODO: msg ids
 
         return MENU_ACT_SE_6B;
     }
@@ -1489,7 +1490,7 @@ u8 sub_8020488(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC44); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC44); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 
@@ -1524,7 +1525,7 @@ int sub_8020504(struct MapSelectProc* proc, struct SelectTarget* target)
 
     sub_8041834(&MenuInfo_085C74BC);
 
-    sub_80422DC(proc);
+    EndMapSelect(proc);
 
     TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_0, BGPAL_1));
 
@@ -1561,7 +1562,7 @@ u8 sub_8020640(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        sub_8041FA4(menu, 0xC38); // TODO: msg ids
+        MenuFrozenHelpBox(menu, 0xC38); // TODO: msg ids
         return MENU_ACT_SE_6B;
     }
 

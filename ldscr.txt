@@ -20,6 +20,8 @@ Tsa_Unk_08101A2C = 0x08101A2C;
 
 Tsa_Unk_081022FC = 0x081022FC;
 
+Anim_08102450 = 0x08102450;
+
 Anim_GasTrapVertical = 0x081025A8;
 Anim_GasTrapHorizontal = 0x0810284C;
 Img_GasTrapVertical = 0x08102AC0;
@@ -83,6 +85,7 @@ MenuInfo_085C7408 = 0x085C7408;
 MenuInfo_085C742C = 0x085C742C;
 MenuInfo_085C7450 = 0x085C7450;
 MenuInfo_085C7474 = 0x085C7474;
+MenuInfo_085C7498 = 0x085C7498;
 MenuInfo_085C74BC = 0x085C74BC;
 MenuInfo_085C74E0 = 0x085C74E0;
 MenuInfo_085C7504 = 0x085C7504;
@@ -94,10 +97,17 @@ MenuInfo_085C75B8 = 0x085C75B8;
 MenuInfo_085C75DC = 0x085C75DC;
 MenuInfo_UnitMenu = 0x085C7600;
 MenuInfo_085C7648 = 0x085C7648;
+MapSelectInfo_AttackStaff = 0x085C766C;
+MapSelectInfo_Barrier = 0x085C768C;
+MapSelectInfo_Restore = 0x085C76AC;
+MapSelectInfo_Heal = 0x085C76CC;
 MapSelectInfo_085C76EC = 0x085C76EC;
+MapSelectInfo_085C770C = 0x085C770C;
+MapSelectInfo_085C772C = 0x085C772C;
 MapSelectInfo_Steal = 0x085C774C;
 MapSelectInfo_085C776C = 0x085C776C;
 MapSelectInfo_085C778C = 0x085C778C;
+MapSelectInfo_Repair = 0x085C77AC;
 MapSelectInfo_085C77CC = 0x085C77CC;
 MapSelectInfo_085C77EC = 0x085C77EC;
 MapSelectInfo_085C780C = 0x085C780C;
@@ -113,7 +123,12 @@ TerrainHealAmountTable = 0x0860CBA9;
 TerrainHealsStatusTable = 0x0860CBDC;
 TerrainNameStringTable = 0x0860D00C;
 FaceInfoTable = 0x0866074C;
-Effectiveness_FlyingClasses = 0x086615DB;
+JList_BowEffectiveness = 0x086615DB;
+JList_HeroCrestPromotes = 0x086615E2;
+JList_KnightCrestPromotes = 0x086615EA;
+JList_OrionBoltPromotes = 0x086615EF;
+JList_ElysianWhipPromotes = 0x086615F4;
+JList_GuidingRingPromotes = 0x086615F8;
 UnitSpriteTable = 0x08662C14;
 AffinityBonuses = 0x0866350C;
 ChapterAssets = 0x08664398;
@@ -209,6 +224,7 @@ SECTIONS
         . = 0x004010; gWorkingMap = .;
         . = 0x004020; gMapFloodSquareBufB = .;
         . = 0x004220; gWorkingMovTable = .;
+        . = 0x004260; gStatGainSimUnit = .;
         . = 0x0042B0; gMapFloodSquareBufA = .;
         . = 0x0044B0; gActiveUnit = .;
         . = 0x0044C0; gMapFloodSt = .;
@@ -270,6 +286,7 @@ SECTIONS
         src/target-list.o(.text);
         src/unitsprite.o(.text);
         src/support.o(.text);
+        src/item-use.o(.text);
 
         asm/code.o(.text);
 
@@ -356,6 +373,7 @@ SECTIONS
         . = ALIGN(4); src/map-menu.o(.data);
         . = ALIGN(4); src/unitsprite.o(.data);
         . = ALIGN(4); src/support.o(.data);
+        . = ALIGN(4); src/item-use.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

@@ -632,7 +632,7 @@ void ListBarrierTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistBarrierUnitTarget);
 }
 
-void sub_80217C0(struct Unit* unit)
+void TryEnlistRescueStaffUnitTarget(struct Unit* unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -640,15 +640,15 @@ void sub_80217C0(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void sub_80217F8(struct Unit* unit)
+void ListRescueStaffTargets(struct Unit* unit)
 {
     gSubjectUnit = unit;
 
     MapFill(gMapRange, 0);
-    ListTargetUnitsWithinSubjectMagRange(sub_80217C0);
+    ListTargetUnitsWithinSubjectMagRange(TryEnlistRescueStaffUnitTarget);
 }
 
-void sub_8021820(struct Unit* unit)
+void TryEnlistSilenceUnitTarget(struct Unit* unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -659,7 +659,7 @@ void sub_8021820(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void sub_802186C(struct Unit* unit)
+void TryEnlistSleepUnitTarget(struct Unit* unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -670,7 +670,7 @@ void sub_802186C(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void sub_80218B8(struct Unit* unit)
+void TryEnlistBerserkUnitTarget(struct Unit* unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -681,31 +681,31 @@ void sub_80218B8(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void sub_8021904(struct Unit* unit)
+void ListSilenceTargets(struct Unit* unit)
 {
     gSubjectUnit = unit;
 
     MapFill(gMapRange, 0);
-    ListTargetUnitsWithinSubjectMagRange(sub_8021820);
+    ListTargetUnitsWithinSubjectMagRange(TryEnlistSilenceUnitTarget);
 }
 
-void sub_802192C(struct Unit* unit)
+void ListSleepTargets(struct Unit* unit)
 {
     gSubjectUnit = unit;
 
     MapFill(gMapRange, 0);
-    ListTargetUnitsWithinSubjectMagRange(sub_802186C);
+    ListTargetUnitsWithinSubjectMagRange(TryEnlistSleepUnitTarget);
 }
 
-void sub_8021954(struct Unit* unit)
+void ListBerserkTargets(struct Unit* unit)
 {
     gSubjectUnit = unit;
 
     MapFill(gMapRange, 0);
-    ListTargetUnitsWithinSubjectMagRange(sub_80218B8);
+    ListTargetUnitsWithinSubjectMagRange(TryEnlistBerserkUnitTarget);
 }
 
-void sub_802197C(struct Unit* unit)
+void TryEnlistWarpUnitTarget(struct Unit* unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -713,7 +713,7 @@ void sub_802197C(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void sub_80219B4(struct Unit* unit)
+void ListWarpTargets(struct Unit* unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -721,7 +721,7 @@ void sub_80219B4(struct Unit* unit)
     gSubjectUnit = unit;
 
     MapFill(gMapRange, 0);
-    ListAdjacentTargetUnits(x, y, sub_802197C);
+    ListAdjacentTargetUnits(x, y, TryEnlistWarpUnitTarget);
 }
 
 void ListUnlockTargets(struct Unit* unit)
@@ -763,7 +763,7 @@ void ListRepairTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRepairUnitTarget);
 }
 
-void sub_8021AA8(struct Unit* unit)
+void ListSaintsStaffTargets(struct Unit* unit)
 {
     int i, alliance;
 

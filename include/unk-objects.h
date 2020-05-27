@@ -47,6 +47,7 @@ extern u8 const Img_PhaseChangeEnemy[];
 extern u16 const Pal_PhaseChangeEnemy[];
 extern u8 const Img_PhaseChangeOther[];
 extern u16 const Pal_PhaseChangeOther[];
+extern u16 const Anim_08102450[];
 extern u16 const Anim_GasTrapVertical[];
 extern u16 const Anim_GasTrapHorizontal[];
 extern u8 const Img_GasTrapVertical[];
@@ -105,6 +106,7 @@ extern struct MenuInfo CONST_DATA MenuInfo_085C754C;
 extern struct MenuInfo CONST_DATA MenuInfo_085C7528;
 extern struct MenuInfo CONST_DATA MenuInfo_085C7570;
 extern struct MenuInfo CONST_DATA MenuInfo_085C74BC;
+extern struct MenuInfo CONST_DATA MenuInfo_085C7498;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C786C;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C784C;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C782C;
@@ -115,12 +117,25 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C76EC;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C778C;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C776C;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Steal;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C772C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_085C770C;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_Repair;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_Heal;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_Restore;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
+extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];
 extern char const* CONST_DATA TerrainNameStringTable[];
 
-extern u8 CONST_DATA Effectiveness_FlyingClasses[];
+extern u8 CONST_DATA JList_BowEffectiveness[];
+extern u8 CONST_DATA JList_HeroCrestPromotes[];
+extern u8 CONST_DATA JList_KnightCrestPromotes[];
+extern u8 CONST_DATA JList_OrionBoltPromotes[];
+extern u8 CONST_DATA JList_ElysianWhipPromotes[];
+extern u8 CONST_DATA JList_GuidingRingPromotes[];
+
 extern s8 CONST_DATA MoveTable_Unk_0860C912[];
 
 extern u8 const* ChapterAssets[];

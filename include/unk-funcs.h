@@ -151,54 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-Bool CanUnitUseItem(struct Unit* unit, int item);
-int sub_8023278(struct Unit* unit, int item);
-void sub_802348C(struct Unit* unit, int item);
-// sub_8023620
-// sub_8023634
-// sub_8023654
-// sub_8023678
-// sub_802368C
-// sub_80236B0
-Bool sub_80236C4(struct Unit* unit);
-// sub_8023700
-// sub_8023714
-// sub_8023728
-// sub_8023770
-// sub_80237F4
-// sub_80238C8
-// sub_80238F0
-// sub_80238FC
-// sub_8023914
-// sub_8023954
-// sub_8023A08
-// sub_8023B34
-// sub_8023B70
-// sub_8023BA4
-// sub_8023BB8
-// sub_8023BE0
-// sub_8023C34
-// sub_8023C50
-// sub_8023CA4
-// sub_8023CFC
-// sub_8023D4C
-// sub_8023D70
-// sub_8023D7C
-// nullsub_7
-// sub_8023D90
-// sub_8023DC8
-// sub_8023E24
-// sub_8023ED0
-// sub_8023F0C
-// sub_8023F48
-// sub_8023F54
-// sub_8023F78
-// sub_8023FB4
-// sub_8023FC0
-// sub_8023FE4
-// sub_8024020
-// sub_802402C
-// sub_802406C
 // BattleGenerateSimulationInternal
 // BattleGenerateRealInternal
 // sub_8024224
@@ -284,7 +236,7 @@ void BattleInitItemEffectTarget(struct Unit* unit);
 // sub_8025E98
 // sub_8025EB4
 // sub_8025ED0
-// sub_8025F50
+int sub_8025F50(struct Unit* unit, struct Unit* target);
 // sub_8025FB4
 // sub_80260A0
 // sub_80260B0
@@ -553,15 +505,15 @@ u8 const* GetChapterMapAddress(int chapter);
 void sub_802C034(ProcPtr parent);
 void sub_802C058(struct Unit* unit);
 void sub_802C160(struct Unit* unit);
-// sub_802C274
+void sub_802C274(struct Unit* unit);
 void sub_802C3B4(ProcPtr parent);
 void sub_802C3C8(struct Unit* unit);
-// sub_802C414
-// sub_802C434
-// sub_802C4A8
-// sub_802C4BC
-// sub_802C514
-// sub_802C534
+void sub_802C414(ProcPtr proc);
+void sub_802C434(struct Unit* unit);
+void sub_802C4A8(ProcPtr proc);
+void sub_802C4BC(struct Unit* unit);
+void sub_802C514(ProcPtr proc);
+void sub_802C534(struct Unit* unit, int accuracy);
 // sub_802C5B4
 void sub_802C5E4(ProcPtr proc);
 void sub_802C61C(struct Unit* unit);
@@ -1324,7 +1276,7 @@ void sub_8041A38(void);
 // sub_8041EC4
 // sub_8041F44
 // sub_8041F54
-void sub_8041FA4(struct MenuProc* menu, int msg);
+void MenuFrozenHelpBox(struct MenuProc* menu, int msg);
 // sub_8041FD8
 // sub_8041FF8
 struct MenuProc* sub_8042018(struct MenuInfo const* info, int x, int left, int right);
@@ -1335,9 +1287,9 @@ void EnlistTarget(int x, int y, int uid, int extra);
 // sub_8042138
 // sub_8042180
 // sub_8042194
-void StartMapSelect(struct MapSelectInfo const* info);
-// sub_80422CC
-void sub_80422DC(struct MapSelectProc* proc);
+ProcPtr StartMapSelect(struct MapSelectInfo const* info);
+ProcPtr StartMapSelectExt(struct MapSelectInfo const* info, int(*onSelect)(struct MapSelectProc* proc, struct SelectTarget* target));
+void EndMapSelect(struct MapSelectProc* proc);
 // sub_8042310
 // sub_8042388
 // sub_80423E0
@@ -2811,7 +2763,7 @@ void sub_806B06C(int x, int y);
 // sub_806B284
 // sub_806B2AC
 // sub_806B310
-// sub_806B338
+Bool IsThereClosedChestAt(s8 x, s8 y);
 // sub_806B354
 Bool sub_806B37C(s8 x, s8 y);
 // sub_806B398
