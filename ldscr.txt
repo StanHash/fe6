@@ -114,8 +114,8 @@ TerrainHealsStatusTable = 0x0860CBDC;
 TerrainNameStringTable = 0x0860D00C;
 FaceInfoTable = 0x0866074C;
 Effectiveness_FlyingClasses = 0x086615DB;
-
 UnitSpriteTable = 0x08662C14;
+AffinityBonuses = 0x0866350C;
 ChapterAssets = 0x08664398;
 
 gNumMusicPlayers = 9;
@@ -269,6 +269,7 @@ SECTIONS
         src/gold.o(.text);
         src/target-list.o(.text);
         src/unitsprite.o(.text);
+        src/support.o(.text);
 
         asm/code.o(.text);
 
@@ -325,6 +326,7 @@ SECTIONS
         . = ALIGN(4); src/debug-menu.o(.rodata);
         . = ALIGN(4); src/bmfx.o(.rodata);
         . = ALIGN(4); src/unitsprite.o(.rodata);
+        . = ALIGN(4); src/support.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -353,6 +355,7 @@ SECTIONS
         . = ALIGN(4); src/bmfx.o(.data);
         . = ALIGN(4); src/map-menu.o(.data);
         . = ALIGN(4); src/unitsprite.o(.data);
+        . = ALIGN(4); src/support.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

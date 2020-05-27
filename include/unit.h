@@ -135,7 +135,7 @@ struct PersonInfo
 
     /* 28 */ u32 attributes;
 
-    /* 2C */ void const* supportInfo;
+    /* 2C */ struct SupportInfo const* supportInfo;
 };
 
 struct JobInfo

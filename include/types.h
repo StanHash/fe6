@@ -24,8 +24,8 @@ struct PlaySt;
 
 struct Unit;
 struct UnitInfo;
-
 struct UnitSprite;
+struct SupportInfo;
 
 // Type decls for types that don't have a home yet :/
 // TODO: move
