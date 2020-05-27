@@ -2848,7 +2848,7 @@ ComputeBattleUnitSupportBonuses: @ 0x080247F0
 	adds r5, r0, #0
 	mov r4, sp
 	mov r1, sp
-	bl sub_8022E3C
+	bl GetUnitSupportBonuses
 	adds r1, r5, #0
 	adds r1, #0x58
 	ldrb r0, [r4, #1]
@@ -14602,25 +14602,25 @@ sub_802A3EC: @ 0x0802A3EC
 	ldr r0, [r0]
 	ldr r1, [r4]
 	ldrb r1, [r1, #4]
-	bl sub_8022C28
+	bl GetUnitSupportNumByPid
 	adds r7, r0, #0
 	mov r1, sb
 	ldr r0, [r1]
 	ldr r0, [r0]
 	ldrb r1, [r0, #4]
 	adds r0, r4, #0
-	bl sub_8022C28
+	bl GetUnitSupportNumByPid
 	mov r8, r0
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_8022BA4
+	bl CanUnitSupportNow
 	mov r2, sb
 	ldr r0, [r2]
 	adds r1, r7, #0
-	bl sub_8022B8C
+	bl UnitGainSupportLevel
 	adds r0, r4, #0
 	mov r1, r8
-	bl sub_8022B8C
+	bl UnitGainSupportLevel
 	mov r1, sb
 	ldr r0, [r1]
 	ldr r1, [r0]
@@ -14628,7 +14628,7 @@ sub_802A3EC: @ 0x0802A3EC
 	ldr r1, [r4]
 	ldrb r5, [r1, #4]
 	adds r1, r7, #0
-	bl sub_8022AF0
+	bl GetUnitSupportLevel
 	adds r2, r0, #0
 	adds r0, r6, #0
 	adds r1, r5, #0
@@ -151936,10 +151936,10 @@ sub_806DEC4: @ 0x0806DEC4
 	bl GetUnitByPid
 	adds r4, r0, #0
 	movs r1, #0x26
-	bl sub_8022C28
+	bl GetUnitSupportNumByPid
 	adds r1, r0, #0
 	adds r0, r4, #0
-	bl sub_8022AF0
+	bl GetUnitSupportLevel
 	cmp r0, #2
 	ble _0806DEF0
 	movs r0, #1
@@ -154077,7 +154077,7 @@ _0806EF96:
 	adds r4, r7, #0
 	adds r4, #0xfe
 	ldr r0, [r6, #0xc]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	adds r1, r0, #0
 	adds r0, r4, #0
 	mov r2, r8
@@ -154087,7 +154087,7 @@ _0806EF96:
 	ldr r0, [r6, #0xc]
 	ldr r0, [r0]
 	ldrb r0, [r0, #9]
-	bl sub_8022F94
+	bl GetAffinityName
 	adds r3, r0, #0
 	adds r0, r4, #0
 	movs r1, #0x28
@@ -154292,7 +154292,7 @@ sub_806F170: @ 0x0806F170
 	str r0, [sp, #8]
 	ldr r4, _0806F258 @ =0x02003108
 	ldr r0, [r4, #0xc]
-	bl sub_8022B14
+	bl GetUnitTotalSupportLevel
 	movs r1, #0
 	str r1, [sp, #0xc]
 	cmp r0, #5
@@ -154301,7 +154301,7 @@ sub_806F170: @ 0x0806F170
 	str r0, [sp, #0xc]
 _0806F194:
 	ldr r0, [r4, #0xc]
-	bl sub_8022A84
+	bl GetUnitSupportCount
 	mov sl, r0
 	movs r1, #0
 	mov sb, r1
@@ -154317,14 +154317,14 @@ _0806F1B0:
 	ldr r1, _0806F258 @ =0x02003108
 	ldr r0, [r1, #0xc]
 	mov r1, sb
-	bl sub_8022AF0
+	bl GetUnitSupportLevel
 	adds r7, r0, #0
 	cmp r7, #0
 	beq _0806F240
 	ldr r1, _0806F258 @ =0x02003108
 	ldr r0, [r1, #0xc]
 	mov r1, sb
-	bl sub_8022A94
+	bl GetUnitSupportPid
 	adds r4, r0, #0
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
@@ -154334,7 +154334,7 @@ _0806F1B0:
 	mov r8, r1
 	adds r5, r6, r1
 	adds r0, r4, #0
-	bl sub_8022F58
+	bl GetAffinityIconByPid
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0xa0
@@ -154368,7 +154368,7 @@ _0806F21E:
 	adds r4, #0x12
 	adds r4, r6, r4
 	adds r0, r7, #0
-	bl sub_8022F70
+	bl GetSupportLevelSpecialChar
 	adds r2, r0, #0
 	adds r0, r4, #0
 	adds r1, r5, #0
@@ -156722,7 +156722,7 @@ sub_8070518: @ 0x08070518
 	adds r4, r0, #0
 	ldr r0, _0807053C @ =0x02003108
 	ldr r0, [r0, #0xc]
-	bl sub_8022B14
+	bl GetUnitTotalSupportLevel
 	cmp r0, #0
 	bne _08070546
 	adds r0, r4, #0
@@ -165714,7 +165714,7 @@ _08074C18:
 	subs r0, #1
 	strh r0, [r1, #8]
 	adds r0, r7, #0
-	bl sub_8022A84
+	bl GetUnitSupportCount
 	adds r6, r0, #0
 	movs r5, #0
 	movs r4, #0
@@ -165726,7 +165726,7 @@ _08074C18:
 _08074CB0:
 	adds r0, r7, #0
 	adds r1, r4, #0
-	bl sub_8022BA4
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08074CC4
@@ -165927,7 +165927,7 @@ _08074DBC:
 	subs r0, #1
 	strh r0, [r1, #8]
 	adds r0, r7, #0
-	bl sub_8022A84
+	bl GetUnitSupportCount
 	adds r6, r0, #0
 	movs r5, #0
 	movs r4, #0
@@ -165939,7 +165939,7 @@ _08074DBC:
 _08074E54:
 	adds r0, r7, #0
 	adds r1, r4, #0
-	bl sub_8022BA4
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08074E68
@@ -169223,7 +169223,7 @@ _080768C2:
 	bl PutNumberOrBlank
 	ldr r0, [r4]
 	ldr r0, [r0]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	adds r1, r0, #0
 	movs r0, #1
 	rsbs r0, r0, #0
@@ -169575,7 +169575,7 @@ _08076BA8:
 	adds r5, r0, r1
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl sub_8022A84
+	bl GetUnitSupportCount
 	str r0, [sp, #0x40]
 	adds r0, r6, #0
 	adds r0, #0x10
@@ -169599,7 +169599,7 @@ _08076BF0:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl sub_8022BA4
+	bl CanUnitSupportNow
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08076CC2
@@ -169610,7 +169610,7 @@ _08076BF0:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl sub_8022AA8
+	bl GetUnitSupportUnit
 	movs r1, #8
 	ldrh r0, [r0, #0xc]
 	ands r1, r0
@@ -169621,7 +169621,7 @@ _08076BF0:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl sub_8022A94
+	bl GetUnitSupportPid
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl GetPersonInfo
@@ -169653,7 +169653,7 @@ _08076C68:
 	ldr r0, [r7]
 	ldr r0, [r0]
 	adds r1, r6, #0
-	bl sub_8022A94
+	bl GetUnitSupportPid
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	bl GetPersonInfo
@@ -171883,14 +171883,14 @@ _08077DCE:
 	adds r6, r0, r2
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r3, sb
 	adds r5, r0, r3
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	cmp r4, r0
 	bge _08077DFE
 	ldr r1, [r5]
@@ -171948,14 +171948,14 @@ _08077E52:
 	adds r6, r0, r1
 	ldr r0, [r6]
 	ldr r0, [r0]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	adds r4, r0, #0
 	lsls r0, r5, #2
 	mov r2, sb
 	adds r5, r0, r2
 	ldr r0, [r5]
 	ldr r0, [r0]
-	bl sub_8022F44
+	bl GetUnitAffinityIcon
 	cmp r4, r0
 	ble _08077E82
 	ldr r1, [r5]
@@ -196079,7 +196079,7 @@ _08083DC0:
 	ldr r1, [sp]
 	adds r4, r0, r1
 	ldr r0, [r4]
-	bl sub_8022A84
+	bl GetUnitSupportCount
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	str r0, [sp, #0xc]
@@ -196094,7 +196094,7 @@ _08083DE0:
 	ldr r0, [r1]
 	adds r1, r6, #0
 	str r2, [sp, #0x14]
-	bl sub_8022A94
+	bl GetUnitSupportPid
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	mov sb, r0
@@ -196122,7 +196122,7 @@ _08083E0A:
 	mov r1, r8
 	ldr r0, [r1]
 	adds r1, r6, #0
-	bl sub_8022AF0
+	bl GetUnitSupportLevel
 	lsls r4, r4, #0x18
 	lsrs r4, r4, #0x18
 	ldr r1, _08083E6C @ =0x0203D518
@@ -222474,10 +222474,10 @@ sub_809101C: @ 0x0809101C
 	bl GetUnitByPid
 	adds r5, r0, #0
 	adds r1, r4, #0
-	bl sub_8022C28
+	bl GetUnitSupportNumByPid
 	adds r1, r0, #0
 	adds r0, r5, #0
-	bl sub_8022AF0
+	bl GetUnitSupportLevel
 	cmp r0, #2
 	bgt _08091042
 	movs r0, #0

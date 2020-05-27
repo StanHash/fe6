@@ -9,6 +9,7 @@
 #include "bmfx.h"
 #include "faction.h"
 #include "unitsprite.h"
+#include "support.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -483,10 +484,10 @@ void sub_8017764(struct Unit* unit)
 
 void UnitInitSupports(struct Unit* unit)
 {
-    int i, count = sub_8022A84(unit);
+    int i, count = GetUnitSupportCount(unit);
 
     for (i = 0; i < count; ++i)
-        unit->supports[i] = sub_8022C10(unit, i);
+        unit->supports[i] = GetUnitInitialSupportExp(unit, i);
 }
 
 void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info)
@@ -683,7 +684,7 @@ void KillUnit(struct Unit* unit)
     if (UNIT_FACTION(unit) == FACTION_BLUE)
     {
         unit->state |= US_DEAD + US_HIDDEN;
-        sub_8022C60(unit);
+        ClearUnitSupports(unit);
     }
     else
     {

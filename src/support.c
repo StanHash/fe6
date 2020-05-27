@@ -1,7 +1,9 @@
 
+#include "support.h"
 #include "common.h"
 
 #include "text.h"
+#include "bm.h"
 #include "unit.h"
 #include "faction.h"
 
@@ -11,45 +13,10 @@ extern struct SupportBonuses CONST_DATA AffinityBonuses[];
 
 enum
 {
-    // Config
+    // config
 
     MAX_SIMULTANEOUS_SUPPORT_COUNT = 5,
     SUPPORT_BONUSES_MAX_DISTANCE = 3,
-};
-
-enum
-{
-    SUPPORT_LEVEL_NONE,
-    SUPPORT_LEVEL_C,
-    SUPPORT_LEVEL_B,
-    SUPPORT_LEVEL_A,
-};
-
-enum
-{
-    SUPPORT_EXP_C = 61,
-    SUPPORT_EXP_B = 121,
-    SUPPORT_EXP_A = 201,
-};
-
-struct SupportInfo
-{
-    /* 00 */ u8 pids[UNIT_SUPPORT_COUNT];
-    /* 0A */ u8 expBase[UNIT_SUPPORT_COUNT];
-    /* 14 */ u8 expGrowth[UNIT_SUPPORT_COUNT];
-    /* 1E */ u8 count;
-};
-
-struct SupportBonuses
-{
-    /* 00 */ u8 affinity;
-
-    /* 01 */ u8 bonusAttack;
-    /* 02 */ u8 bonusDefense;
-    /* 03 */ u8 bonusHit;
-    /* 04 */ u8 bonusAvoid;
-    /* 05 */ u8 bonusCrit;
-    /* 06 */ u8 bonusDodge;
 };
 
 static int CONST_DATA sMaxExpLut[] =
@@ -60,7 +27,7 @@ static int CONST_DATA sMaxExpLut[] =
     [SUPPORT_LEVEL_A]    = SUPPORT_EXP_A
 };
 
-int sub_8022A84(struct Unit* unit)
+int GetUnitSupportCount(struct Unit* unit)
 {
     if (!unit->person->supportInfo)
         return 0;
@@ -68,7 +35,7 @@ int sub_8022A84(struct Unit* unit)
     return unit->person->supportInfo->count;
 }
 
-u8 sub_8022A94(struct Unit* unit, int num)
+u8 GetUnitSupportPid(struct Unit* unit, int num)
 {
     if (!unit->person->supportInfo)
         return 0;
@@ -76,9 +43,9 @@ u8 sub_8022A94(struct Unit* unit, int num)
     return unit->person->supportInfo->pids[num];
 }
 
-struct Unit* sub_8022AA8(struct Unit* unit, int num)
+struct Unit* GetUnitSupportUnit(struct Unit* unit, int num)
 {
-    u8 pid = sub_8022A94(unit, num);
+    u8 pid = GetUnitSupportPid(unit, num);
 
     int i, last;
 
@@ -99,7 +66,7 @@ struct Unit* sub_8022AA8(struct Unit* unit, int num)
     return NULL;
 }
 
-int sub_8022AF0(struct Unit* unit, int num)
+int GetUnitSupportLevel(struct Unit* unit, int num)
 {
     int exp = unit->supports[num];
 
@@ -115,25 +82,25 @@ int sub_8022AF0(struct Unit* unit, int num)
     return SUPPORT_LEVEL_NONE;
 }
 
-int sub_8022B14(struct Unit* unit)
+int GetUnitTotalSupportLevel(struct Unit* unit)
 {
     int i, count, result;
 
-    count = sub_8022A84(unit);
+    count = GetUnitSupportCount(unit);
 
     for (i = 0, result = 0; i < count; ++i)
-        result += sub_8022AF0(unit, i);
+        result += GetUnitSupportLevel(unit, i);
 
     return result;
 }
 
-void sub_8022B40(struct Unit* unit, int num)
+void UnitGainSupportExp(struct Unit* unit, int num)
 {
     if (unit->person->supportInfo)
     {
         int gain = unit->person->supportInfo->expGrowth[num];
         int exp = unit->supports[num];
-        int maxExp = sMaxExpLut[sub_8022AF0(unit, num)];
+        int maxExp = sMaxExpLut[GetUnitSupportLevel(unit, num)];
 
         if (exp + gain > maxExp)
             gain = maxExp - exp;
@@ -143,13 +110,13 @@ void sub_8022B40(struct Unit* unit, int num)
     }
 }
 
-void sub_8022B8C(struct Unit* unit, int num)
+void UnitGainSupportLevel(struct Unit* unit, int num)
 {
     unit->supports[num]++;
     gPlaySt.supportGain++;
 }
 
-Bool sub_8022BA4(struct Unit* unit, int num)
+Bool CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 
@@ -159,14 +126,14 @@ Bool sub_8022BA4(struct Unit* unit, int num)
     if (gPlaySt.flags & PLAY_FLAG_3)
         return FALSE;
 
-    if (sub_8022B14(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+    if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
         return FALSE;
 
-    if (sub_8022B14(sub_8022AA8(unit, num)) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+    if (GetUnitTotalSupportLevel(GetUnitSupportUnit(unit, num)) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
         return FALSE;
 
     exp    = unit->supports[num];
-    maxExp = sMaxExpLut[sub_8022AF0(unit, num)];
+    maxExp = sMaxExpLut[GetUnitSupportLevel(unit, num)];
 
     if (exp == SUPPORT_EXP_A)
         return FALSE;
@@ -174,7 +141,7 @@ Bool sub_8022BA4(struct Unit* unit, int num)
     return (exp == maxExp) ? TRUE : FALSE;
 }
 
-int sub_8022C10(struct Unit* unit, int num)
+int GetUnitInitialSupportExp(struct Unit* unit, int num)
 {
     if (!unit->person->supportInfo)
         return -1;
@@ -182,36 +149,36 @@ int sub_8022C10(struct Unit* unit, int num)
     return unit->person->supportInfo->expBase[num];
 }
 
-int sub_8022C28(struct Unit* unit, u8 charId)
+int GetUnitSupportNumByPid(struct Unit* unit, u8 pid)
 {
-    int i, count = sub_8022A84(unit);
+    int i, count = GetUnitSupportCount(unit);
 
     for (i = 0; i < count; ++i)
     {
-        if (sub_8022A94(unit, i) == charId)
+        if (GetUnitSupportPid(unit, i) == pid)
             return i;
     }
 
     return -1;
 }
 
-void sub_8022C60(struct Unit* unit)
+void ClearUnitSupports(struct Unit* unit)
 {
-    int i, count = sub_8022A84(unit);
+    int i, count = GetUnitSupportCount(unit);
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other = sub_8022AA8(unit, i);
+        struct Unit* other = GetUnitSupportUnit(unit, i);
 
         if (!other)
             continue;
 
-        other->supports[sub_8022C28(other, unit->person->id)] = 0;
+        other->supports[GetUnitSupportNumByPid(other, unit->person->id)] = 0;
         unit->supports[i] = 0;
     }
 }
 
-void sub_8022CB4(void)
+void DoTurnSupportExp(void)
 {
     int i, j, jend;
 
@@ -237,14 +204,14 @@ void sub_8022CB4(void)
         if (unit->state & US_UNAVAILABLE)
             continue;
 
-        if (sub_8022B14(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
+        if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
             continue;
 
-        jend = sub_8022A84(unit);
+        jend = GetUnitSupportCount(unit);
 
         for (j = 0; j < jend; ++j)
         {
-            struct Unit* other = sub_8022AA8(unit, j);
+            struct Unit* other = GetUnitSupportUnit(unit, j);
 
             if (!other)
                 continue;
@@ -269,8 +236,8 @@ void sub_8022CB4(void)
                     break;
 
             add_support_points:
-                if (sub_8022B14(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
-                    sub_8022B40(unit, j);
+                if (GetUnitTotalSupportLevel(other) < MAX_SIMULTANEOUS_SUPPORT_COUNT)
+                    UnitGainSupportExp(unit, j);
 
                 break;
 
@@ -279,7 +246,7 @@ void sub_8022CB4(void)
     }
 }
 
-static const struct SupportBonuses* sub_8022DB4(int affinity)
+static const struct SupportBonuses* GetAffinityBonuses(int affinity)
 {
     const struct SupportBonuses* it;
 
@@ -292,9 +259,9 @@ static const struct SupportBonuses* sub_8022DB4(int affinity)
     // return NULL; // BUG?
 }
 
-static void sub_8022DD4(struct SupportBonuses* bonuses, int affinity, int level)
+static void ApplyAffinityBonuses(struct SupportBonuses* bonuses, int affinity, int level)
 {
-    const struct SupportBonuses* added = sub_8022DB4(affinity);
+    const struct SupportBonuses* added = GetAffinityBonuses(affinity);
 
     bonuses->bonusAttack  += level * added->bonusAttack;
     bonuses->bonusDefense += level * added->bonusDefense;
@@ -304,7 +271,7 @@ static void sub_8022DD4(struct SupportBonuses* bonuses, int affinity, int level)
     bonuses->bonusDodge   += level * added->bonusDodge;
 }
 
-static void sub_8022E2C(struct SupportBonuses* bonuses)
+static void InitBonuses(struct SupportBonuses* bonuses)
 {
     bonuses->bonusAttack  = 0;
     bonuses->bonusDefense = 0;
@@ -314,14 +281,14 @@ static void sub_8022E2C(struct SupportBonuses* bonuses)
     bonuses->bonusDodge   = 0;
 }
 
-int sub_8022E3C(struct Unit* unit, struct SupportBonuses* bonuses)
+int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
 {
     int i, count;
     int result = 0;
 
-    sub_8022E2C(bonuses);
+    InitBonuses(bonuses);
 
-    count = sub_8022A84(unit);
+    count = GetUnitSupportCount(unit);
 
     for (i = 0; i < count; ++i)
     {
@@ -329,7 +296,7 @@ int sub_8022E3C(struct Unit* unit, struct SupportBonuses* bonuses)
         int levelA, levelB;
 
         result = result >> 1;
-        other = sub_8022AA8(unit, i);
+        other = GetUnitSupportUnit(unit, i);
 
         if (!other)
             continue;
@@ -343,11 +310,11 @@ int sub_8022E3C(struct Unit* unit, struct SupportBonuses* bonuses)
         if (other->state & (US_UNAVAILABLE | US_RESCUED))
             continue;
 
-        levelA = sub_8022AF0(other, sub_8022C28(other, unit->person->id));
-        sub_8022DD4(bonuses, other->person->affinity, levelA);
+        levelA = GetUnitSupportLevel(other, GetUnitSupportNumByPid(other, unit->person->id));
+        ApplyAffinityBonuses(bonuses, other->person->affinity, levelA);
 
-        levelB = sub_8022AF0(unit, i);
-        sub_8022DD4(bonuses, unit->person->affinity, levelB);
+        levelB = GetUnitSupportLevel(unit, i);
+        ApplyAffinityBonuses(bonuses, unit->person->affinity, levelB);
 
         if (levelA != 0 && levelB != 0)
             result += 1 << (count - 1);
@@ -363,7 +330,7 @@ int sub_8022E3C(struct Unit* unit, struct SupportBonuses* bonuses)
     return result;
 }
 
-int sub_8022F44(struct Unit* unit)
+int GetUnitAffinityIcon(struct Unit* unit)
 {
     int affinity = unit->person->affinity;
 
@@ -373,7 +340,7 @@ int sub_8022F44(struct Unit* unit)
     return ICON_AFFINITY_BASE + affinity;
 }
 
-int sub_8022F58(int pid)
+int GetAffinityIconByPid(int pid)
 {
     int affinity = GetPersonInfo(pid)->affinity;
 
@@ -383,7 +350,7 @@ int sub_8022F58(int pid)
     return ICON_AFFINITY_BASE + affinity;
 }
 
-int sub_8022F70(int level)
+int GetSupportLevelSpecialChar(int level)
 {
     u8 chars[4] =
     {
@@ -396,7 +363,7 @@ int sub_8022F70(int level)
     return chars[level];
 }
 
-char const* sub_8022F94(int affinity)
+char const* GetAffinityName(int affinity)
 {
     char const* lut[] =
     {

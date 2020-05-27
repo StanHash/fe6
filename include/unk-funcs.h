@@ -151,26 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-int sub_8022A84(struct Unit* unit);
-// sub_8022A94
-struct Unit* sub_8022AA8(struct Unit* unit, int num);
-// sub_8022AF0
-// sub_8022B14
-// sub_8022B40
-// sub_8022B8C
-Bool sub_8022BA4(struct Unit* unit, int num);
-int sub_8022C10(struct Unit* unit, int num);
-// sub_8022C28
-void sub_8022C60(struct Unit* unit);
-void sub_8022CB4(void);
-// sub_8022DB4
-// sub_8022DD4
-// sub_8022E2C
-// sub_8022E3C
-// sub_8022F44
-// sub_8022F58
-// sub_8022F70
-// sub_8022F94
 Bool CanUnitUseItem(struct Unit* unit, int item);
 int sub_8023278(struct Unit* unit, int item);
 void sub_802348C(struct Unit* unit, int item);

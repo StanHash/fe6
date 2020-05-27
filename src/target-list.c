@@ -9,6 +9,7 @@
 #include "mapwork.h"
 #include "faction.h"
 #include "map-select.h"
+#include "support.h"
 
 #include "constants/terrains.h"
 
@@ -329,11 +330,11 @@ void ListSupportTargets(struct Unit* unit)
 
     BeginTargetList(unit->x, unit->y);
 
-    count = sub_8022A84(gSubjectUnit);
+    count = GetUnitSupportCount(gSubjectUnit);
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other = sub_8022AA8(gSubjectUnit, i);
+        struct Unit* other = GetUnitSupportUnit(gSubjectUnit, i);
 
         if (!other)
             continue;
@@ -341,7 +342,7 @@ void ListSupportTargets(struct Unit* unit)
         if (RECT_DISTANCE(gSubjectUnit->x, gSubjectUnit->y, other->x, other->y) != 1)
             continue;
 
-        if (!sub_8022BA4(gSubjectUnit, i))
+        if (!CanUnitSupportNow(gSubjectUnit, i))
             continue;
 
         if (other->state & (US_UNAVAILABLE | US_RESCUED))

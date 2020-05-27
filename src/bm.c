@@ -18,6 +18,7 @@
 #include "bmfx.h"
 #include "faction.h"
 #include "unitsprite.h"
+#include "support.h"
 
 #include "constants/video-global.h"
 
@@ -390,7 +391,7 @@ static void HandleChangePhase(void)
         if (gPlaySt.turn < 999)
             gPlaySt.turn++;
 
-        sub_8022CB4();
+        DoTurnSupportExp();
         break;
 
     }
