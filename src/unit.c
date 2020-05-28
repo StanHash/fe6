@@ -10,6 +10,7 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "support.h"
+#include "battle.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -527,13 +528,13 @@ void UnitAutolevelCore(struct Unit* unit, u8 jid, int levelCount)
 
     if (levelCount)
     {
-        unit->hpMax += sub_80250D4(unit->job->hpGrowth,  levelCount);
-        unit->pow   += sub_80250D4(unit->job->powGrowth, levelCount);
-        unit->skl   += sub_80250D4(unit->job->sklGrowth, levelCount);
-        unit->spd   += sub_80250D4(unit->job->spdGrowth, levelCount);
-        unit->def   += sub_80250D4(unit->job->defGrowth, levelCount);
-        unit->res   += sub_80250D4(unit->job->resGrowth, levelCount);
-        unit->lck   += sub_80250D4(unit->job->lckGrowth, levelCount);
+        unit->hpMax += GetAutoleveledStatIncrease(unit->job->hpGrowth,  levelCount);
+        unit->pow   += GetAutoleveledStatIncrease(unit->job->powGrowth, levelCount);
+        unit->skl   += GetAutoleveledStatIncrease(unit->job->sklGrowth, levelCount);
+        unit->spd   += GetAutoleveledStatIncrease(unit->job->spdGrowth, levelCount);
+        unit->def   += GetAutoleveledStatIncrease(unit->job->defGrowth, levelCount);
+        unit->res   += GetAutoleveledStatIncrease(unit->job->resGrowth, levelCount);
+        unit->lck   += GetAutoleveledStatIncrease(unit->job->lckGrowth, levelCount);
     }
 }
 
@@ -559,13 +560,13 @@ void UnitAutolevelPlayer(struct Unit* unit)
 
     for (i = 0; i < levelCount; ++i)
     {
-        unit->hpMax += sub_80250B0(unit->person->hpGrowth);
-        unit->pow += sub_80250B0(unit->person->powGrowth);
-        unit->skl += sub_80250B0(unit->person->sklGrowth);
-        unit->spd += sub_80250B0(unit->person->spdGrowth);
-        unit->def += sub_80250B0(unit->person->defGrowth);
-        unit->res += sub_80250B0(unit->person->resGrowth);
-        unit->lck += sub_80250B0(unit->person->lckGrowth);
+        unit->hpMax += GetStatIncrease(unit->person->hpGrowth);
+        unit->pow += GetStatIncrease(unit->person->powGrowth);
+        unit->skl += GetStatIncrease(unit->person->sklGrowth);
+        unit->spd += GetStatIncrease(unit->person->spdGrowth);
+        unit->def += GetStatIncrease(unit->person->defGrowth);
+        unit->res += GetStatIncrease(unit->person->resGrowth);
+        unit->lck += GetStatIncrease(unit->person->lckGrowth);
     }
 }
 

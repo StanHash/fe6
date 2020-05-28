@@ -14,6 +14,7 @@
 #include "player-phase.h"
 #include "bmfx.h"
 #include "target-list.h"
+#include "battle.h"
 #include "map-select.h"
 
 #include "constants/items.h"
@@ -846,7 +847,7 @@ int sub_802402C(struct MapSelectProc* proc, struct SelectTarget* target)
 
     sub_802C534(
         GetUnit(target->uid),
-        sub_8025F50(gActiveUnit, GetUnit(target->uid)));
+        GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }
 
 void sub_802406C(struct MapSelectProc* proc)

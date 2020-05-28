@@ -25,6 +25,7 @@ enum
     UNIT_ATTR_THIEF = (1 << 3),
     UNIT_ATTR_DANCE = (1 << 4),
     UNIT_ATTR_PLAY = (1 << 5),
+    UNIT_ATTR_CRITBONUS = (1 << 6),
 
     UNIT_ATTR_BALLISTA = (1 << 7),
     UNIT_ATTR_PROMOTED = (1 << 8),
@@ -42,10 +43,15 @@ enum
     UNIT_ATTR_LOCK_DRAGON = (1 << 18),
     UNIT_ATTR_LOCK_3 = (1 << 19),
 
+    UNIT_ATTR_TATTACK_A = (1 << 21),
+    UNIT_ATTR_TATTACK_B = (1 << 22),
+
     UNIT_ATTR_BIT23 = (1 << 23),
+    UNIT_ATTR_BIT24 = (1 << 24),
 
     // Helpers
     UNIT_ATTR_REFRESHER = UNIT_ATTR_DANCE + UNIT_ATTR_PLAY,
+    UNIT_ATTR_TATTACK_ANY = UNIT_ATTR_TATTACK_A + UNIT_ATTR_TATTACK_B,
 };
 
 enum
@@ -61,6 +67,9 @@ enum
     US_BIT8         = (1 << 8), // has been seen?
     US_BIT9         = (1 << 9), // hidden by fog?
     US_HAS_MOVED_AI = (1 << 10),
+
+    US_SOLOANIM_1   = (1 << 14),
+    US_SOLOANIM_2   = (1 << 15),
 
     // Helpers
     US_UNAVAILABLE = (US_DEAD + US_NOT_DEPLOYED),
@@ -92,10 +101,10 @@ enum
 
     ITEMSLOT_INV_COUNT,
 
-    ITEMSLOT_5 = ITEMSLOT_INV_COUNT + 0,
-    ITEMSLOT_6 = ITEMSLOT_INV_COUNT + 1,
-    ITEMSLOT_7 = ITEMSLOT_INV_COUNT + 2,
-    ITEMSLOT_8 = ITEMSLOT_INV_COUNT + 3,
+    ITEMSLOT_OVERFLOW = ITEMSLOT_INV_COUNT + 0,
+    ITEMSLOT_ARENA_PLAYER = ITEMSLOT_INV_COUNT + 1,
+    ITEMSLOT_ARENA_OPPONENT = ITEMSLOT_INV_COUNT + 2,
+    ITEMSLOT_BALLISTA = ITEMSLOT_INV_COUNT + 3,
 };
 
 struct PersonInfo
@@ -244,61 +253,6 @@ struct UnitInfo
     /* 06 */ u8 xMove, yMove;
     /* 08 */ u8 items[4];
     /* 0C */ u8 ai[4];
-};
-
-// NOTE: this goes into battle.h, which doesn't exist yet so it's here for now
-
-struct BattleUnit
-{
-    /* 00 */ struct Unit unit;
-
-    // this may not be accurate yet
-
-    /* 48 */ u16 weapon;
-    /* 4A */ u16 weaponBefore;
-    /* 4C */ u32 weaponAttributes;
-    /* 50 */ u8 weaponType;
-    /* 51 */ u8 weaponSlotIndex;
-
-    /* 52 */ s8 canCounter;
-
-    /* 53 */ s8 wTriangleHitBonus;
-    /* 54 */ s8 wTriangleDmgBonus;
-
-    /* 55 */ u8 pad55[0x58 - 0x55];
-
-    /* 58 */ short battleAttack;
-    /* 5A */ short battleDefense;
-    /* 5C */ short battleSpeed;
-    /* 5E */ short battleHit;
-    /* 60 */ short battleAvoid;
-    /* 62 */ short battleEffectiveHit;
-    /* 64 */ short battleCrit;
-    /* 66 */ short battleDodge;
-    /* 68 */ short battleEffectiveCrit;
-
-    /* 6A */ s8 expGain;
-    /* 6B */ s8 statusOut;
-    /* 6C */ u8 levelPrevious;
-    /* 6D */ u8 expPrevious;
-
-    /* 6E */ u8 hpInitial;
-
-    /* 6F */ s8 changeHP;
-    /* 70 */ s8 changePow;
-    /* 71 */ s8 changeSkl;
-    /* 72 */ s8 changeSpd;
-    /* 73 */ s8 changeDef;
-    /* 74 */ s8 changeRes;
-    /* 75 */ s8 changeLck;
-    /* 76 */ s8 changeCon;
-
-    /* 77 */ s8 wexpMultiplier;
-    /* 78 */ s8 nonZeroDamage;
-    /* 79 */ s8 weaponBroke;
-
-    /* 7A */ s8 hasItemEffectTarget;
-    /* 7B */ /* pad */
 };
 
 void InitUnits(void);

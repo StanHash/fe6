@@ -191,37 +191,6 @@ struct Trap
 
 enum
 {
-    BATTLE_HIT_ATTR_CRIT      = (1 << 0),
-    BATTLE_HIT_ATTR_MISS      = (1 << 1),
-    BATTLE_HIT_ATTR_FOLLOWUP  = (1 << 2),
-    BATTLE_HIT_ATTR_RETALIATE = (1 << 3),
-    BATTLE_HIT_ATTR_BRAVE     = (1 << 4),
-    BATTLE_HIT_ATTR_5         = (1 << 5), // unused?
-    BATTLE_HIT_ATTR_POISON    = (1 << 6),
-    BATTLE_HIT_ATTR_DEVIL     = (1 << 7),
-    BATTLE_HIT_ATTR_HPSTEAL   = (1 << 8),
-    BATTLE_HIT_ATTR_HPHALVE   = (1 << 9),
-    BATTLE_HIT_ATTR_TATTACK   = (1 << 10), // triangle attack!
-};
-
-enum
-{
-    // BATTLE_HIT_INFO_BEGIN        = (1 << 0),
-    // BATTLE_HIT_INFO_FINISHES     = (1 << 1),
-    // BATTLE_HIT_INFO_KILLS_TARGET = (1 << 2),
-    // BATTLE_HIT_INFO_RETALIATION  = (1 << 3),
-    BATTLE_HIT_INFO_END          = (1 << 7),
-};
-
-struct BattleHit
-{
-    unsigned attributes : 16;
-    unsigned info : 8;
-    signed damage : 8;
-};
-
-enum
-{
     SUSPEND_POINT_PLAYER_PHASE,
     SUSPEND_POINT_DURING_ACTION,
     SUSPEND_POINT_AI_PHASE,
@@ -281,6 +250,28 @@ struct AiDecision
     /* 09 */ u8 yTarget;
 
     /* 0A */ Bool actionPerformed;
+};
+
+struct ArenaSt
+{
+    /* 00 */ struct Unit* player;
+    /* 04 */ struct Unit* opponent;
+    /* 08 */ short unk_08;
+    /* 0A */ u8 unk_0A;
+    /* 0B */ u8 unk_0B;
+    /* 0C */ u8 range;
+    /* 0D */ u8 playerWeaponKind;
+    /* 0E */ u8 opponentWeaponKind;
+    /* 0F */ u8 playerJid;
+    /* 10 */ u8 opponentJid;
+    /* 11 */ u8 playerLevel;
+    /* 12 */ u8 oppenentLevel;
+    /* 13 */ s8 playerIsMagic;
+    /* 14 */ s8 opponentIsMagic;
+    /* 16 */ short playerPowerWeight;
+    /* 18 */ short opponentPowerWeight;
+    /* 1A */ u16 playerWeapon;
+    /* 1C */ u16 opponentWeapon;
 };
 
 enum

@@ -1,5 +1,6 @@
 
-#include "gba/gba.h"
+#include "random.h"
+#include "common.h"
 
 static u16 sRandStA[3];
 static int sRandStB;
@@ -81,12 +82,12 @@ int RandNext(int max)
     return NextRN() / (UINT16_MAX / max);
 }
 
-s8 RandRoll(int threshold)
+Bool RandRoll(int threshold)
 {
     return (threshold > RandNext_100());
 }
 
-s8 RandRoll2Rn(int threshold)
+Bool RandRoll2Rn(int threshold)
 {
     int rand;
 

@@ -24,6 +24,7 @@
 #include "faction.h"
 #include "gold.h"
 #include "unitsprite.h"
+#include "battle.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2805,12 +2806,12 @@ static int EvtCmd_FightScript(struct EventProc* proc)
         if (battlescr->info & BATTLE_HIT_INFO_END)
             break;
 
-        sub_80260CC();
+        BattleHitAdvance();
         battlescr++;
     }
 
-    sub_80260DC();
-    sub_8025C7C();
+    BattleHitTerminate();
+    BeginBattleAnimations();
 
     Proc_Mark(proc, PROC_MARK_7);
 

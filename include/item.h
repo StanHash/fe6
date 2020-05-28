@@ -34,7 +34,10 @@ enum
     ITEM_ATTR_STAFF = (1 << 2),
     ITEM_ATTR_UNBREAKABLE = (1 << 3),
     ITEM_ATTR_IMPORTANT = (1 << 4),
-
+    ITEM_ATTR_BRAVE = (1 << 5),
+    ITEM_ATTR_LIGHTBRAND = (1 << 6),
+    ITEM_ATTR_7 = (1 << 7),
+    ITEM_ATTR_REVERTS_TRIANGLE = (1 << 8),
     ITEM_ATTR_UNREPAIRABLE = (1 << 9),
     ITEM_ATTR_LOCK_DRAGON = (1 << 10),
     ITEM_ATTR_LOCK_1 = (1 << 11),
@@ -88,6 +91,14 @@ enum
     REACH_TO10   = (1 << 3),
     REACH_TO15   = (1 << 4),
     REACH_TOMAG  = (1 << 5),
+};
+
+enum
+{
+    WEAPON_EFFECT_POISON = 1,
+    WEAPON_EFFECT_NOSFERATU = 2,
+    WEAPON_EFFECT_ECLIPSE = 3,
+    WEAPON_EFFECT_DEVIL = 4,
 };
 
 struct ItemBonuses

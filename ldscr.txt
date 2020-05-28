@@ -171,10 +171,9 @@ SECTIONS
         . = ALIGN(4); src/mapwork.o(ewram_data);
         . = ALIGN(4); src/target-list.o(ewram_data);
         . = ALIGN(4); src/unitsprite.o(ewram_data);
+        . = ALIGN(4); src/battle.o(ewram_data);
 
-        . = 0x039214; gBattleUnitA = .;
-        . = 0x039290; gBattleUnitB = .;
-        . = 0x039328; gBattleHitIt = .;
+        . = 0x039504; gArenaSt = .;
         . = 0x03956C; gAction = .;
         . = 0x039688; gAiDecision = .;
     }
@@ -287,6 +286,7 @@ SECTIONS
         src/unitsprite.o(.text);
         src/support.o(.text);
         src/item-use.o(.text);
+        src/battle.o(.text);
 
         asm/code.o(.text);
 
@@ -344,6 +344,7 @@ SECTIONS
         . = ALIGN(4); src/bmfx.o(.rodata);
         . = ALIGN(4); src/unitsprite.o(.rodata);
         . = ALIGN(4); src/support.o(.rodata);
+        . = ALIGN(4); src/battle.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -374,6 +375,7 @@ SECTIONS
         . = ALIGN(4); src/unitsprite.o(.data);
         . = ALIGN(4); src/support.o(.data);
         . = ALIGN(4); src/item-use.o(.data);
+        . = ALIGN(4); src/battle.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

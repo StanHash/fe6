@@ -546,7 +546,7 @@ void ForceEnableSounds(void)
 
 void sub_8013A64(void)
 {
-    gPlaySt.unk_1E_1 = 0;
+    gPlaySt.configBattleAnim = 0;
     gPlaySt.configTextSpeed = 1;
     gPlaySt.unk_1C_8 = 0;
     gPlaySt.configBgmDisable = FALSE;

@@ -566,7 +566,7 @@ void BuildUnitCompleteAttackRange(struct Unit* unit)
     {
         FOR_EACH_IN_MOVEMENT_RANGE(
         {
-            item = sub_8026D20(ix, iy);
+            item = GetBallistaItemAt(ix, iy);
 
             if (item)
                 MapIncInBoundedRange(ix, iy, GetItemMinRange(item), GetItemMaxRange(item));

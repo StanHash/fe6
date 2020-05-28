@@ -151,97 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// BattleGenerateSimulationInternal
-// BattleGenerateRealInternal
-// sub_8024224
-void sub_8024248(struct Unit* unit, struct Unit* target, int x, int y, int itemSlot);
-void BattleGenerateReal(struct Unit* instigator, struct Unit* target);
-void sub_8024294(struct Unit* unit, struct Unit* target, int x, int y);
-void BattleGenerateBallistaReal(struct Unit* instigator, struct Unit* target);
-// BattleGenerate
-void sub_802430C(struct Unit* unit, s8 itemSlot);
-// Roll1RNIfBattleStarted
-// Roll2RNIfBattleStarted
-// InitBattleUnit
-// sub_80244DC
-// sub_8024514
-// SetBattleUnitTerrainBonusesAuto
-// SetBattleUnitWeapon
-// SetBattleUnitWeaponBallista
-// sub_8024790
-// sub_80247D0
-// ComputeBattleUnitSupportBonuses
-// sub_8024844
-// ComputeBattleUnitBaseDefense
-// sub_802489C
-// sub_80248E8
-// sub_8024920
-// sub_8024958
-// sub_8024988
-// sub_80249C4
-// sub_80249D0
-// sub_80249FC
-// sub_8024A1C
-void ClearBattleHits(void);
-// sub_8024AB4
-// sub_8024B2C
-// sub_8024B40
-// sub_8024BBC
-// sub_8024C18
-// sub_8024C2C
-// sub_8024C50
-// sub_8024D38
-// sub_8024D60
-// sub_8024DF0
-// sub_8024E68
-// sub_8024FA8
-// BattleApplyExpGains
-int sub_80250B0(int growth);
-int sub_80250D4(int growth, int levelCount);
-// sub_8025104
-// sub_802529C
-// sub_8025360
-// sub_80253CC
-// sub_80254CC
-// sub_8025554
-// sub_8025608
-// sub_8025644
-// sub_802571C
-// sub_8025748
-void sub_8025780(void);
-// sub_8025790
-// sub_80257B0
-// sub_80257E0
-// sub_802581C
-// sub_8025844
-// sub_8025880
-// sub_80258E8
-// sub_8025940
-// sub_80259A0
-// BattleUnitTargetSetEquippedWeapon
-// BattleUnitTargetCheckCanCounter
-// sub_8025A60
-// BattleApplyWeaponTriangleEffect
-// BattleInitTargetCanCounter
-void sub_8025B88(void);
-// sub_8025BD8
-// sub_8025C18
-void sub_8025C7C(void);
-// sub_8025CD8
-// sub_8025CFC
-// nullsub_3
-// sub_8025D5C
-void BattleInitItemEffect(struct Unit* instigator, int itemSlot);
-void BattleInitItemEffectTarget(struct Unit* unit);
-// sub_8025E98
-// sub_8025EB4
-// sub_8025ED0
-int sub_8025F50(struct Unit* unit, struct Unit* target);
-// sub_8025FB4
-// sub_80260A0
-// sub_80260B0
-void sub_80260CC(void);
-void sub_80260DC(void);
 // sub_80260F0
 // sub_8026194
 // sub_802619C
@@ -264,7 +173,7 @@ void sub_80260DC(void);
 // sub_80269FC
 void sub_8026A8C(struct Unit* unit, struct Unit* other, int arg_2);
 // sub_8026AC8
-// sub_8026AE0
+struct Trap* sub_8026AE0(int x, int y);
 // AddTrap
 // AddTrapExt
 // sub_8026B4C
@@ -275,8 +184,8 @@ void sub_8026A8C(struct Unit* unit, struct Unit* other, int arg_2);
 // sub_8026BD0
 // sub_8026BE0
 void sub_8026CA0(void);
-// sub_8026CE0
-int sub_8026D20(int x, int y);
+struct Trap* GetTrapAt(int x, int y);
+int GetBallistaItemAt(int x, int y);
 int sub_8026D88(int x, int y);
 int sub_8026DC8(int x, int y);
 struct MapChangeInfo const* GetMapChange(int id);
@@ -1300,7 +1209,7 @@ void EndMapSelect(struct MapSelectProc* proc);
 // sub_8042534
 int CountTargets(void);
 struct SelectTarget* GetTarget(int id);
-// sub_804256C
+void sub_804256C(int arg_0);
 // sub_8042578
 // sub_8042584
 // sub_80425B0
@@ -1503,8 +1412,8 @@ s8 sub_80425C4(void);
 // sub_8047C48
 // sub_8047C68
 // sub_8047C88
-// sub_8047CB8
-// sub_8047CC8
+Bool sub_8047CB8(void);
+void sub_8047CC8(void);
 // sub_8047D14
 // sub_8047D38
 // sub_8047DAC
@@ -2507,7 +2416,7 @@ void sub_8061704(void);
 // sub_8062614
 // sub_8062690
 // sub_8062734
-// sub_80627D0
+void sub_80627D0(void);
 // sub_806283C
 // sub_8062890
 int sub_80629FC(int xa, int ya, int xb, int yb);
@@ -3587,7 +3496,7 @@ void sub_8084818(void);
 // sub_80848C8
 // sub_80848DC
 void sub_8084908(struct PlaySt* playSt);
-// sub_808495C
+void sub_808495C(struct Unit* unit);
 // sub_80849BC
 void sub_8084A10(u8 pid);
 void sub_8084AEC(u8 pid, int arg_1, int arg_2);
@@ -3595,12 +3504,12 @@ void sub_8084B84(u8 pid);
 // sub_8084BB8
 // sub_8084BEC
 void PidStatsAddSquaresMoved(int pid, int amount);
-// sub_8084C84
+void PidStatsAddExpGained(int pid, int amount);
 // sub_8084CD8
 // sub_8084CFC
 // sub_8084D1C
 // sub_8084D34
-// sub_8084D64
+void sub_8084D64(void);
 // sub_8084DC8
 // sub_8084E18
 int GetGlobalCompletedPlaythroughCount(void);

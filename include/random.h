@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "gba/gba.h"
+#include "common.h"
 
 void RandInit(int seed);
 
@@ -10,8 +10,8 @@ void RandGetSt(u16* st);
 
 int RandNext_100(void);
 int RandNext(int max);
-s8 RandRoll(int threshold);
-s8 RandRoll2Rn(int threshold);
+Bool RandRoll(int threshold);
+Bool RandRoll2Rn(int threshold);
 
 void RandInitB(int seed);
 unsigned RandNextB(void);

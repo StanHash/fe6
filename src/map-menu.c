@@ -16,6 +16,7 @@
 #include "bmfx.h"
 #include "target-list.h"
 #include "item-use.h"
+#include "battle.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -506,7 +507,7 @@ u8 sub_801F138(struct MenuProc* menu, struct MenuEntProc* ent)
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_BALLISTA)
     {
-        int item = sub_8026D20(gActiveUnit->x, gActiveUnit->y);
+        int item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
 
         if (item != 0)
             MapIncInBoundedRange(gActiveUnit->x, gActiveUnit->y, GetItemMinRange(item), GetItemMaxRange(item));
@@ -637,13 +638,13 @@ u8 sub_801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
         gAction.yTarget = target->y;
         gAction.extra = target->extra;
 
-        sub_8025B88();
+        InitObstacleBattleUnit();
     }
 
-    if (gAction.itemSlot == ITEMSLOT_8)
-        sub_8024294(gActiveUnit, unit, gActiveUnit->x, gActiveUnit->y);
+    if (gAction.itemSlot == ITEMSLOT_BALLISTA)
+        BattleGenerateBallistaSimulation(gActiveUnit, unit, gActiveUnit->x, gActiveUnit->y);
     else
-        sub_8024248(gActiveUnit, unit, -1, -1, gAction.itemSlot);
+        BattleGenerateSimulation(gActiveUnit, unit, -1, -1, gAction.itemSlot);
 
     sub_802E36C();
 
@@ -1073,7 +1074,7 @@ int sub_801FC78(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if ((sub_8026D20(gActiveUnit->x, gActiveUnit->y) & 0xFF00) != 0)
+    if ((GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y) & 0xFF00) != 0)
         return MENU_ENABLED;
 
     return MENU_DISABLED;
@@ -1082,7 +1083,7 @@ int sub_801FC78(struct MenuEntInfo const* info, int id)
 int sub_801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     Bool isUseable = (ent->availability == MENU_ENABLED) ? TRUE : FALSE;
-    int item = sub_8026D20(gActiveUnit->x, gActiveUnit->y);
+    int item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
 
     sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
@@ -1091,7 +1092,7 @@ u8 sub_801FD04(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ClearBg0Bg1();
 
-    gAction.itemSlot = ITEMSLOT_8;
+    gAction.itemSlot = ITEMSLOT_BALLISTA;
 
     sub_8021278(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C77EC);
@@ -1108,7 +1109,7 @@ int sub_801FD30(struct MenuProc* menu, struct MenuEntProc* ent)
 
     SetWorkingMap(gMapRange);
 
-    item = sub_8026D20(gActiveUnit->x, gActiveUnit->y);
+    item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
     UpdateEquipInfoWindow(item);
 
     MapIncInBoundedRange(gActiveUnit->x, gActiveUnit->y, GetItemMinRange(item), GetItemMaxRange(item));

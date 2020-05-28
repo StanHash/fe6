@@ -139,7 +139,7 @@ struct PlaySt
     u32 unk_1D_6:1; // 
     u32 configNoAutoEndTurn:1;
     u32 unk_1D_8:1; // 
-    u32 unk_1E_1:2; // 2
+    u32 configBattleAnim:2; // 2
     u32 unk_1E_3:1; // 
     u32 unk_1E_4:2; // 
     u32 unk_1E_6:1; // 

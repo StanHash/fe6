@@ -22,6 +22,7 @@
 #include "menu.h"
 #include "faction.h"
 #include "unitsprite.h"
+#include "battle.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -924,7 +925,7 @@ void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y)
 
     ApplyIconPalette(1, proc->iconPalid);
 
-    sub_802430C(proc->unit, -1);
+    BattleGenerateDisplayStats(proc->unit, -1);
 
     gBattleUnitB.battleAttack = gBattleUnitA.battleAttack;
     gBattleUnitB.battleHit = gBattleUnitA.battleHit;
@@ -951,13 +952,13 @@ void UpdateEquipInfoWindow(int itemSlot)
         item = proc->unit->items[itemSlot];
         break;
 
-    case ITEMSLOT_5:
+    case ITEMSLOT_OVERFLOW:
         item = gBmSt.itemOverflow;
         break;
 
     default:
         item = itemSlot;
-        itemSlot = ITEMSLOT_8;
+        itemSlot = ITEMSLOT_BALLISTA;
 
     }
 
@@ -1003,9 +1004,9 @@ void UpdateEquipInfoWindow(int itemSlot)
 
         int color;
 
-        sub_802430C(proc->unit, itemSlot);
+        BattleGenerateDisplayStats(proc->unit, itemSlot);
 
-        if (itemSlot == ITEMSLOT_8)
+        if (itemSlot == ITEMSLOT_BALLISTA)
         {
             gBattleUnitB.battleAttack = gBattleUnitA.battleAttack;
             gBattleUnitB.battleHit = gBattleUnitA.battleHit;

@@ -12,4 +12,6 @@ enum
     PID_SUE = 0x05,
 
     PID_MERLINUS = 0x42,
+
+    PID_WALL = 0xE2,
 };
