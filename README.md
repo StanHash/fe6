@@ -17,7 +17,7 @@ More better instructions will come eventually.
 
 * Have a arm-none-eabi toolchain of some kind (such as devkitARM)
 
-* Build and install the [**agbcc**](https://github.com/pret/agbcc) compiler. (should be under tools/agbcc)
+* Build and install the [**agbcc**](https://github.com/pret/agbcc) compiler. (`./build.sh` then `./install.sh path/to/fe6`)
 
 * Build fe6 using `LOCAL_PREFIX=/path/to/arm-none-eabi/toolchain/ make`
   * For devkitARM, do `LOCAL_PREFIX=$DEVKITARM/bin/ make`
