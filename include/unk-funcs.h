@@ -151,27 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_80260F0
-// sub_8026194
-// sub_802619C
-// sub_8026218
-// sub_8026254
-// sub_8026288
-// sub_802636C
-// sub_80263C8
-// sub_8026504
-// sub_802656C
-// sub_80265E8
-// sub_80265FC
-// sub_80266A4
-// sub_802670C
-// sub_80267D0
-// sub_8026820
-// sub_802686C
-// sub_8026880
-// sub_8026928
-// sub_80269FC
-void sub_8026A8C(struct Unit* unit, struct Unit* other, int arg_2);
 // sub_8026AC8
 struct Trap* sub_8026AE0(int x, int y);
 // AddTrap
@@ -1155,13 +1134,13 @@ void sub_803C080(ProcPtr parent);
 // sub_8041308
 void sub_8041358(int x, int y, int width, int height, int winKind);
 void sub_80415CC(int x, int y);
-// sub_804163C
+void sub_804163C(int x, int y);
 // sub_8041660
 // sub_804166C
 void ClearBg0Bg1(void);
-// sub_804169C
-// sub_8041728
-// sub_80417A8
+void sub_804169C(int x, int y, int width);
+void sub_8041728(int x, int y, int width);
+void sub_80417A8(u8* vram, int x, int y);
 void LoadUiFrameGraphics(void);
 struct MenuProc* sub_80417E8(struct MenuInfo const* info, int x, int left, int right);
 struct MenuProc* sub_8041818(struct MenuInfo const* info, ProcPtr parent);
@@ -3062,7 +3041,7 @@ void sub_80702BC(struct Unit* unit, ProcPtr parent);
 void sub_80706FC(int x, int y, int item);
 // sub_8070738
 // sub_8070804
-// sub_807089C
+void sub_807089C(void);
 // sub_80708C0
 // sub_80708E4
 // sub_807090C
@@ -3090,7 +3069,7 @@ void sub_8070DA8(u16* tm, int palid);
 // sub_8070DC8
 void sub_8070DE8(u16* tm, int palid);
 int sub_8070E0C(struct PlaySt const* playSt);
-// sub_8070E70
+void sub_8070E70(void* arg_0, int arg_1);
 // sub_8070EEC
 // sub_8070F64
 // sub_8071120

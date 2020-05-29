@@ -147,8 +147,11 @@ SECTIONS
         . = 0x001000; gMapBuf = .;
         . = 0x001F70; gChapterIntroMotifTmBuf = .;
         . = 0x002770; gFont_Unk_02002770 = .;
+        . = 0x002788; gTradeMenuText = .;
+
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
+
         . = 0x01F0E8; gBuf = .;
 
         . = 0x0210E8; /* ewram_data */
@@ -287,6 +290,7 @@ SECTIONS
         src/support.o(.text);
         src/item-use.o(.text);
         src/battle.o(.text);
+        src/trademenu.o(.text);
 
         asm/code.o(.text);
 
@@ -345,6 +349,7 @@ SECTIONS
         . = ALIGN(4); src/unitsprite.o(.rodata);
         . = ALIGN(4); src/support.o(.rodata);
         . = ALIGN(4); src/battle.o(.rodata);
+        . = ALIGN(4); src/trademenu.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -376,6 +381,7 @@ SECTIONS
         . = ALIGN(4); src/support.o(.data);
         . = ALIGN(4); src/item-use.o(.data);
         . = ALIGN(4); src/battle.o(.data);
+        . = ALIGN(4); src/trademenu.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

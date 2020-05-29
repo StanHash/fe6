@@ -102,7 +102,7 @@ struct BmSt
     /* 3C */ u8 unk_3C;
     /* 3D */ u8 partialActionsTaken;
     /* 3E */ u8 unk_3E;
-    /* 3F */ u8 unk_3F;
+    /* 3F */ s8 unk_3F;
 };
 
 struct PlaySt

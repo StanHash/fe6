@@ -17,6 +17,7 @@
 #include "target-list.h"
 #include "item-use.h"
 #include "battle.h"
+#include "trademenu.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -691,7 +692,7 @@ u8 sub_801F484(struct MenuProc* menu, struct MenuEntProc* ent)
 u8 sub_801F4A8(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     gAction.id = ACTION_TRADED_NOCHANGES;
-    sub_8026A8C(gActiveUnit, GetUnit(target->uid), 0);
+    StartTradeMenu(gActiveUnit, GetUnit(target->uid), 0);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
