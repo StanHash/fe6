@@ -10,6 +10,7 @@
 #include "faction.h"
 #include "map-select.h"
 #include "support.h"
+#include "trap.h"
 
 #include "constants/terrains.h"
 
@@ -374,7 +375,7 @@ void sub_8021278(struct Unit* unit)
 
     BeginTargetList(x, y);
 
-    item = sub_8026D88(x, y);
+    item = GetDummyBallistaItemAt(x, y);
 
     if (item != 0)
     {

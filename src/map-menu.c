@@ -18,6 +18,7 @@
 #include "item-use.h"
 #include "battle.h"
 #include "trademenu.h"
+#include "trap.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -434,7 +435,7 @@ int sub_801EF20(struct MenuEntInfo const* info, int id)
         {
             gBmSt.unk_31 = TRUE;
 
-            if (sub_8026DC8(gActiveUnit->x, gActiveUnit->y) == 0)
+            if (GetObstacleHpAt(gActiveUnit->x, gActiveUnit->y) == 0)
                 return MENU_DISABLED;
         }
     }
@@ -1598,15 +1599,15 @@ int sub_8020708(struct MenuProc* menu, struct MenuEntProc* ent)
     switch (iid)
     {
 
-    case TERRAIN_BALLISTA_LONG:
+    case TERRAIN_LONGBALLISTA:
         iid = IID_LONGBALLISTA;
         break;
 
-    case TERRAIN_BALLISTA_REGULAR:
+    case TERRAIN_BALLISTA:
         iid = IID_BALLISTA;
         break;
 
-    case TERRAIN_BALLISTA_KILLER:
+    case TERRAIN_KILLERBALLISTA:
         iid = IID_KILLERBALLISTA;
         break;
 

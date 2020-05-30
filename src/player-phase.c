@@ -13,6 +13,7 @@
 #include "bmfx.h"
 #include "faction.h"
 #include "unitsprite.h"
+#include "trap.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -96,7 +97,7 @@ PROC_LABEL(L_PLAYERPHASE_ACTION),
     PROC_CALL_2(PlayerPhase_BeginAction),
 
     PROC_CALL_2(sub_802A028),
-    PROC_CALL_2(sub_80273BC),
+    PROC_CALL_2(DoHandleStepTraps),
 
     PROC_CALL_2(PlayerPhase_0801B9B0),
     PROC_CALL_2(PlayerPhase_WatchActiveUnit),

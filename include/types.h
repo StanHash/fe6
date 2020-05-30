@@ -167,26 +167,8 @@ struct MapChangeInfo
 {
     /* 00 */ s8 id;
     /* 01 */ u8 x, y, width, height;
-    /* 05 */ // ...
-};
-
-enum
-{
-    TRAP_NONE,
-
-    TRAP_1 = 1,
-    TRAP_2 = 2,
-    TRAP_3 = 3,
-
-    TRAP_OBSTACLE = 4,
-};
-
-struct Trap
-{
-    /* 00 */ u8 x, y;
-    /* 02 */ u8 kind;
-    /* 03 */ u8 extra;
-    /* 04 */ s8 data[4];
+    /* 05 */ // pad
+    /* 08 */ u16 const* metatiles;
 };
 
 enum

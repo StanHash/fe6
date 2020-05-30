@@ -8,6 +8,7 @@
 #include "unit.h"
 #include "mapwork.h"
 #include "faction.h"
+#include "trap.h"
 
 #include "constants/video-global.h"
 #include "constants/chapters.h"
@@ -66,7 +67,7 @@ void InitMapForChapter(int chapter)
     MapFill(gMapTerrain, 0);
 
     InitMetatilesMap();
-    sub_8026CA0();
+    ApplyEnabledMapChanges();
     RefreshTerrainMap();
 
     if (gPlaySt.chapter == CHAPTER_UNK_22)
@@ -142,7 +143,7 @@ void sub_80188F4(void)
     UnpackRawMap(gMapBuf, gPlaySt.chapter);
 
     InitMetatilesMap();
-    sub_8026CA0();
+    ApplyEnabledMapChanges();
     RefreshTerrainMap();
 
     sub_80187EC();

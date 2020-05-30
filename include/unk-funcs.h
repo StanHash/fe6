@@ -151,46 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_8026AC8
-struct Trap* sub_8026AE0(int x, int y);
-// AddTrap
-// AddTrapExt
-// sub_8026B4C
-// sub_8026B68
-// sub_8026B88
-// sub_8026BA4
-// sub_8026BC0
-// sub_8026BD0
-// sub_8026BE0
-void sub_8026CA0(void);
-struct Trap* GetTrapAt(int x, int y);
-int GetBallistaItemAt(int x, int y);
-int sub_8026D88(int x, int y);
-int sub_8026DC8(int x, int y);
-struct MapChangeInfo const* GetMapChange(int id);
-int GetMapChangeIdByPosition(int x, int y);
-void ApplyMapChange(int id);
-void AddMapChangeTrap(int id);
-void sub_8026F30(struct Unit* unit);
-void UpdateRoofedUnits(void);
-// sub_8026FC4
-// sub_8026FF4
-// sub_8027038
-// sub_80270B8
-// sub_8027124
-// sub_80271FC
-// sub_8027220
-// sub_8027248
-// sub_8027264
-// sub_8027270
-// sub_80272A4
-// sub_80272C0
-// sub_80272F4
-// sub_8027318
-// sub_802733C
-// sub_8027368
-Bool sub_80273BC(ProcPtr proc);
-struct Trap* GetTrap(int id);
 // sub_80274A8
 // sub_8027530
 // sub_802756C
@@ -374,7 +334,7 @@ void sub_802B0B4(void);
 // sub_802BA44
 struct ChapterInfo const* GetChapterInfo(int chapter);
 u8 const* GetChapterMapAddress(int chapter);
-// GetChapterMapChanges
+struct MapChangeInfo const* GetChapterMapChanges(int chapter);
 // GetChapterEventDefinitions
 // sub_802BBD0
 // sub_802BBF4
@@ -420,11 +380,11 @@ void sub_802C7D0(struct Unit* unit);
 void sub_802CB14(ProcPtr parent, char const* str);
 void sub_802CB50(void);
 s8 sub_802CB60(void);
-// sub_802CB78
+void sub_802CB78(ProcPtr proc, struct Unit* unit, int arg_2, int arg_3);
 // sub_802CBB4
 // sub_802CBD4
 // sub_802CC1C
-// sub_802CC80
+void sub_802CC80(struct Unit* unit, int damage);
 // sub_802CCEC
 // sub_802CD40
 // sub_802CDD8
@@ -445,7 +405,7 @@ s8 sub_802CB60(void);
 // sub_802D1A8
 // sub_802D210
 // sub_802D234
-// sub_802D278
+void sub_802D278(ProcPtr proc);
 // sub_802D2C8
 // sub_802D314
 // sub_802D34C

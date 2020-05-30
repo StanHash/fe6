@@ -23,6 +23,7 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "battle.h"
+#include "trap.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

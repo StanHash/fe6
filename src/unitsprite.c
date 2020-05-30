@@ -12,6 +12,7 @@
 #include "unit.h"
 #include "map.h"
 #include "faction.h"
+#include "trap.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -609,15 +610,15 @@ void RefreshUnitSprites(void)
         switch (trap->kind)
         {
 
-        case TRAP_1:
+        case TRAP_BALLISTA:
             oam2 = UseUnitSprite(UNITSPRITE_42) - 0x4000;
             break;
 
-        case TRAP_2:
+        case TRAP_LONGBALLISTA:
             oam2 = UseUnitSprite(UNITSPRITE_43) - 0x4000;
             break;
 
-        case TRAP_3:
+        case TRAP_KILLERBALLISTA:
             oam2 = UseUnitSprite(UNITSPRITE_44) - 0x4000;
             break;
 
@@ -848,9 +849,9 @@ void UnitSpriteHoverUpdate(void)
                 switch (gMapTerrain[gBmSt.cursor.y][gBmSt.cursor.x])
                 {
 
-                case TERRAIN_BALLISTA_REGULAR:
-                case TERRAIN_BALLISTA_LONG:
-                case TERRAIN_BALLISTA_KILLER:
+                case TERRAIN_BALLISTA:
+                case TERRAIN_LONGBALLISTA:
+                case TERRAIN_KILLERBALLISTA:
                     goto not_hover;
 
                 }

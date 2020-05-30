@@ -64,12 +64,12 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_UpdateTraps         = 0x085C6358;
 ProcScr_PrepScreen          = 0x085C7E44;
 ProcScr_Unk_085C8080        = 0x085C8080;
 ProcScr_TerrainHealDisplay  = 0x085C8200;
 ProcScr_PoisonDamageDisplay = 0x085C8260;
 ProcScr_StatusDecayDisplay  = 0x085C82C8;
+ProcScr_TrapDamageDisplay        = 0x085C8320;
 ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
@@ -175,6 +175,7 @@ SECTIONS
         . = ALIGN(4); src/target-list.o(ewram_data);
         . = ALIGN(4); src/unitsprite.o(ewram_data);
         . = ALIGN(4); src/battle.o(ewram_data);
+        . = ALIGN(4); src/trap.o(ewram_data);
 
         . = 0x039504; gArenaSt = .;
         . = 0x03956C; gAction = .;
@@ -291,6 +292,7 @@ SECTIONS
         src/item-use.o(.text);
         src/battle.o(.text);
         src/trademenu.o(.text);
+        src/trap.o(.text);
 
         asm/code.o(.text);
 
@@ -382,6 +384,7 @@ SECTIONS
         . = ALIGN(4); src/item-use.o(.data);
         . = ALIGN(4); src/battle.o(.data);
         . = ALIGN(4); src/trademenu.o(.data);
+        . = ALIGN(4); src/trap.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

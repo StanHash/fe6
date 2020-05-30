@@ -25,6 +25,7 @@
 #include "gold.h"
 #include "unitsprite.h"
 #include "battle.h"
+#include "trap.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2178,7 +2179,7 @@ static int EvtCmd_MapChangePosition(struct EventProc* proc)
     u8 x = (script) % 0x100;
     u8 y = (script >> 8) % 0x100;
 
-    int id = GetMapChangeIdByPosition(x, y);
+    int id = GetMapChangeIdAt(x, y);
 
     // Common with EvtCmd_MapChange
 

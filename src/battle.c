@@ -11,6 +11,7 @@
 #include "bmfx.h"
 #include "faction.h"
 #include "support.h"
+#include "trap.h"
 #include "mu.h"
 
 #include "constants/pids.h"
@@ -1215,7 +1216,7 @@ void BattleApplyBallistaUpdates(void)
     if (gBattleSt.flags & BATTLE_FLAG_BALLISTA)
     {
         int uses = GetItemUses(gBattleUnitA.weapon);
-        GetTrapAt(gBattleUnitA.unit.x, gBattleUnitA.unit.y)->extra = uses;
+        GetBallistaTrapAt(gBattleUnitA.unit.x, gBattleUnitA.unit.y)->extra = uses;
     }
 }
 
@@ -1500,16 +1501,16 @@ void ComputeBattleObstacleStats(void)
 
 void UpdateObstacleFromBattle(struct BattleUnit* bu)
 {
-    struct Trap* trap = sub_8026AE0(bu->unit.x, bu->unit.y);
+    struct Trap* trap = GetTrapAt(bu->unit.x, bu->unit.y);
 
     if (!trap)
-        trap = sub_8026AE0(bu->unit.x, bu->unit.y-1);
+        trap = GetTrapAt(bu->unit.x, bu->unit.y-1);
 
     trap->extra = bu->unit.hpCur;
 
     if (trap->extra == 0)
     {
-        int mapchange = GetMapChangeIdByPosition(trap->x, trap->y);
+        int mapchange = GetMapChangeIdAt(trap->x, trap->y);
 
         RenderMapForFade();
 

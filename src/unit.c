@@ -11,6 +11,7 @@
 #include "unitsprite.h"
 #include "support.h"
 #include "battle.h"
+#include "trap.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -262,13 +263,13 @@ int GetUnitMapSprite(struct Unit* unit)
     switch (gMapTerrain[unit->y][unit->x])
     {
 
-    case TERRAIN_BALLISTA_REGULAR:
+    case TERRAIN_BALLISTA:
         return UNITSPRITE_BALLISTA_REGULAR;
 
-    case TERRAIN_BALLISTA_LONG:
+    case TERRAIN_LONGBALLISTA:
         return UNITSPRITE_BALLISTA_LONG;
 
-    case TERRAIN_BALLISTA_KILLER:
+    case TERRAIN_KILLERBALLISTA:
         return UNITSPRITE_BALLISTA_KILLER;
 
     default:
@@ -399,7 +400,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
     UnitInitFromInfo(unit, info);
     UnitInitStats(unit, unit->person);
 
-    sub_8026F30(unit);
+    UnitHideIfUnderRoof(unit);
 
     if (info->autolevel)
     {
