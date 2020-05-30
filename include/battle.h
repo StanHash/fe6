@@ -208,3 +208,11 @@ Bool BattleIsTriangleAttack(void);
 Bool DidBattleUnitBreakWeapon(struct BattleUnit* bu);
 void BattleHitAdvance(void);
 void BattleHitTerminate(void);
+
+extern struct BattleSt gBattleSt;
+
+extern struct BattleUnit gBattleUnitA;
+extern struct BattleUnit gBattleUnitB;
+
+extern struct BattleHit gBattleHits[];
+extern struct BattleHit* gBattleHitIt;

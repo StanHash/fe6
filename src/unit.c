@@ -787,7 +787,7 @@ void UnitBeginAction(struct Unit* unit)
     gActiveUnitMoveOrigin.x = unit->x;
     gActiveUnitMoveOrigin.y = unit->y;
 
-    gAction.actor = unit->id;
+    gAction.instigator = unit->id;
     gAction.id = ACTION_NONE;
     gAction.moveCount = 0;
 

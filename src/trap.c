@@ -701,14 +701,14 @@ static void StepPikeTrap_08027318(ProcPtr proc)
 
 static void StepTrap_End(ProcPtr proc)
 {
-    sub_802CB78(proc, GetUnit(gAction.actor), -gAction.extra, -1);
+    sub_802CB78(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
         sub_8084AEC(gActiveUnit->person->id, 0, 3);
 
     sub_802D278(proc);
 
-    HideUnitSprite(GetUnit(gAction.actor));
+    HideUnitSprite(GetUnit(gAction.instigator));
 }
 
 Bool DoHandleStepTraps(ProcPtr proc)

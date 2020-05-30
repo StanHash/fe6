@@ -604,7 +604,7 @@ static Bool PlayerPhase_BeginAction(ProcPtr proc)
 {
     Bool camret;
 
-    camret = CameraMoveWatchPosition(proc, GetUnit(gAction.actor)->x, GetUnit(gAction.actor)->y);
+    camret = CameraMoveWatchPosition(proc, GetUnit(gAction.instigator)->x, GetUnit(gAction.instigator)->y);
     camret = camret ^ 1;
 
     switch (gAction.id)

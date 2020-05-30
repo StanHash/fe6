@@ -151,28 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_80274A8
-// sub_8027530
-// sub_802756C
-// sub_80275B0
-// sub_80277D0
-// sub_8027848
-// sub_80278A0
-// sub_8027950
-// sub_80279C8
-// sub_8027A08
-// sub_8027A60
-// sub_8027AC8
-// sub_8027B2C
-// sub_8027B98
-// sub_8027BD4
-// sub_8027C10
-// sub_8027C50
-// sub_8027CCC
-// sub_8027DB4
-// sub_8027E4C
-// sub_8027F98
-// sub_8028238
 // sub_802826C
 // sub_80282B4
 // sub_8028304
@@ -2612,9 +2590,9 @@ void sub_806B06C(int x, int y);
 // sub_806B2AC
 // sub_806B310
 Bool IsThereClosedChestAt(s8 x, s8 y);
-// sub_806B354
+void sub_806B354(s8 x, s8 y);
 Bool sub_806B37C(s8 x, s8 y);
-// sub_806B398
+void sub_806B398(s8 x, s8 y);
 // sub_806B3C0
 // sub_806B3DC
 Bool sub_806B404(void);

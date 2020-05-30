@@ -11,9 +11,6 @@
 
 extern u8 gBuf[];
 
-extern struct BattleUnit gBattleUnitA;
-extern struct BattleUnit gBattleUnitB;
-extern struct BattleHit* gBattleHitIt;
 extern struct ArenaSt gArenaSt;
 extern struct Action gAction;
 extern struct AiDecision gAiDecision;

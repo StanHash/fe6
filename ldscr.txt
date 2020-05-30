@@ -69,7 +69,7 @@ ProcScr_Unk_085C8080        = 0x085C8080;
 ProcScr_TerrainHealDisplay  = 0x085C8200;
 ProcScr_PoisonDamageDisplay = 0x085C8260;
 ProcScr_StatusDecayDisplay  = 0x085C82C8;
-ProcScr_TrapDamageDisplay        = 0x085C8320;
+ProcScr_TrapDamageDisplay   = 0x085C8320;
 ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
@@ -293,6 +293,7 @@ SECTIONS
         src/battle.o(.text);
         src/trademenu.o(.text);
         src/trap.o(.text);
+        src/item-action.o(.text);
 
         asm/code.o(.text);
 
@@ -385,6 +386,7 @@ SECTIONS
         . = ALIGN(4); src/battle.o(.data);
         . = ALIGN(4); src/trademenu.o(.data);
         . = ALIGN(4); src/trap.o(.data);
+        . = ALIGN(4); src/item-action.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

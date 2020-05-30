@@ -191,7 +191,7 @@ struct Action
     /* 06 */ u16 unk_06;
     /* 08 */ u16 unk_08[2];
 
-    /* 0C */ u8 actor;
+    /* 0C */ u8 instigator;
     /* 0D */ u8 target;
 
     /* 0E */ u8 xMove;

@@ -381,8 +381,8 @@ u8 sub_801EE80(struct MapSelectProc* proc, struct SelectTarget* target)
 
     UnitSyncMovement(GetUnit(gAction.target));
 
-    sub_801EE4C(GetUnit(gAction.target), GetUnit(gAction.actor));
-    UnitGiveRescue(GetUnit(gAction.target), GetUnit(gAction.actor));
+    sub_801EE4C(GetUnit(gAction.target), GetUnit(gAction.instigator));
+    UnitGiveRescue(GetUnit(gAction.target), GetUnit(gAction.instigator));
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -392,10 +392,10 @@ u8 sub_801EED0(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_GIVE;
     gAction.target = target->uid;
 
-    UnitSyncMovement(GetUnit(gAction.actor));
+    UnitSyncMovement(GetUnit(gAction.instigator));
 
-    sub_801EE4C(GetUnit(gAction.actor), GetUnit(gAction.target));
-    UnitGiveRescue(GetUnit(gAction.actor), GetUnit(gAction.target));
+    sub_801EE4C(GetUnit(gAction.instigator), GetUnit(gAction.target));
+    UnitGiveRescue(GetUnit(gAction.instigator), GetUnit(gAction.target));
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -1332,7 +1332,7 @@ int sub_80200FC(struct MenuEntInfo const* info, int id)
 u8 sub_802013C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_DOOR;
-    gAction.actor = gActiveUnit->id;
+    gAction.instigator = gActiveUnit->id;
     gAction.itemSlot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
