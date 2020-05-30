@@ -13,14 +13,14 @@ More better instructions will come eventually.
 
 * You must have a copy of a Fire Emblem: The Binding Blade ROM named `fe6-base.gba` in the repository directory.
 
-* Have one of Unix/Linux/WSL/MSYS/Cygwin/whatever
+* Have one of Unix/Linux/[WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10)/MSYS2/Cygwin/whatever
 
-* Have a arm-none-eabi toolchain of some kind (such as devkitARM)
+* Have [devkitARM](https://devkitpro.org/wiki/Getting_Started) or another arm-none-eabi toolchain
 
 * Build and install the [**agbcc**](https://github.com/pret/agbcc) compiler. (`./build.sh` then `./install.sh path/to/fe6`)
 
-* Build fe6 using `LOCAL_PREFIX=/path/to/arm-none-eabi/toolchain/ make`
-  * For devkitARM, do `LOCAL_PREFIX=$DEVKITARM/bin/ make`
+* Build fe6 using `make`
+  * For non-devkitARM toolchains, do `make TOOLCHAIN=/path/to/toolchain/`
 
 ## Contributing
 

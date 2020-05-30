@@ -5,17 +5,19 @@ else
   EXE :=
 endif
 
-UNAME := $(shell uname)
+TOOLCHAIN ?= $(DEVKITARM)
 
-CC1     := tools/agbcc/bin/old_agbcc$(EXE)
-CC1_NEW := tools/agbcc/bin/agbcc$(EXE)
+export PATH := $(TOOLCHAIN)/bin:$(PATH)
 
-PREFIX := $(LOCAL_PREFIX)arm-none-eabi-
+PREFIX := arm-none-eabi-
 
 CPP := $(PREFIX)cpp$(EXE)
 AS := $(PREFIX)as$(EXE)
 LD := $(PREFIX)ld$(EXE)
 OBJCOPY := $(PREFIX)objcopy$(EXE)
+
+CC1     := tools/agbcc/bin/old_agbcc$(EXE)
+CC1_NEW := tools/agbcc/bin/agbcc$(EXE)
 
 SHASUM := sha1sum
 
@@ -82,8 +84,8 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
 	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
-	echo '.text' >> $*.s
-	echo '.align 2, 0' >> $*.s
+	@echo '.text' >> $*.s
+	@echo '.align 2, 0' >> $*.s
 	$(AS) $(ASFLAGS) $*.s -o $@
 
 .SECONDEXPANSION:
