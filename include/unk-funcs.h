@@ -151,15 +151,10 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802826C
-// sub_80282B4
-// sub_8028304
-// sub_8028348
-// sub_8028354
-// StartBattleMapVSync
-// sub_8028384
-void LockBattleMapDisplay(void);
-void UnlockBattleMapDisplay(void);
+void StartBmVSync(void);
+void EndBmVSync(void);
+void LockBmDisplay(void);
+void UnlockBmDisplay(void);
 // AllocWeatherParticles
 // sub_8028448
 // sub_8028460
@@ -185,8 +180,8 @@ void noo_802895C(void);
 // sub_8028C5C
 // sub_8028C88
 // sub_8028D04
-// sub_8028D38
-// UpdateWeatherGraphics
+void sub_8028D38(void);
+void UpdateWeatherGraphics(void);
 // sub_8028E10
 void sub_8028E28(void);
 void sub_8028E44(void);

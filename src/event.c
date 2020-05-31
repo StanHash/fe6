@@ -758,7 +758,7 @@ static void FadeFromBg_FadeFromBlack(struct GenericProc* proc)
 static void FadeFromBg_ClearScreen(struct GenericProc* proc)
 {
     sub_80292DC();
-    UnlockBattleMapDisplay();
+    UnlockBmDisplay();
     sub_806095C();
 
     TmFill(gBg0Tm, 0);
@@ -1105,7 +1105,7 @@ static int EvtCmd_Background(struct EventProc* proc)
 
     if (proc->background == -1)
     {
-        LockBattleMapDisplay();
+        LockBmDisplay();
         BlockAllProcsMarked4();
     }
 
@@ -1124,7 +1124,7 @@ static int EvtCmd_BackgroundMore(struct EventProc* proc)
 
     if (proc->background == -1)
     {
-        LockBattleMapDisplay();
+        LockBmDisplay();
         BlockAllProcsMarked4();
     }
 

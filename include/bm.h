@@ -73,7 +73,7 @@ struct BmSt
 {
     /* 00 */ Bool mainLoopEnded;
     /* 01 */ u8 lock;
-    /* 02 */ u8 lockDisplay;
+    /* 02 */ s8 lockDisplay;
     /* 03 */ u8 pad_03;
     /* 04 */ u8 flags;
     /* 05 */ // pad

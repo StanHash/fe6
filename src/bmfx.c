@@ -388,7 +388,7 @@ static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_ChapterIntro[] =
 {
-    PROC_CALL(LockBattleMapDisplay),
+    PROC_CALL(LockBmDisplay),
 
     PROC_CALL(ChapterIntro_Init),
 
@@ -431,7 +431,7 @@ struct ProcScr CONST_DATA ProcScr_ChapterIntro[] =
 
     PROC_CALL(ChapterIntro_0801E2B0),
 
-    PROC_CALL(UnlockBattleMapDisplay),
+    PROC_CALL(UnlockBmDisplay),
 
     PROC_CALL(ChapterIntro_InitMapDisplay),
 
@@ -457,7 +457,7 @@ PROC_LABEL(1),
 
     PROC_CALL(ChapterIntro_0801E2B0),
 
-    PROC_CALL(UnlockBattleMapDisplay),
+    PROC_CALL(UnlockBmDisplay),
 
     PROC_CALL(ChapterIntro_InitMapDisplay),
 
@@ -2206,7 +2206,7 @@ static void GameOverScreen_Init(struct GenericProc* proc)
 {
     int i;
 
-    LockBattleMapDisplay();
+    LockBmDisplay();
 
     StartBgm(0x37, NULL); // TODO: song ids
 
