@@ -72,6 +72,8 @@ extern u8 const Tsa_Unk_0830D97C[];
 extern u8 const Tsa_Unk_081022FC[];
 extern u16 const Pal_UnitSprites[];
 extern u16 const Pal_UnitSpritesPurple[];
+extern u8 const Img_SandstormParticles[];
+extern u8 const Img_SnowstormParticles[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_085C8080[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];

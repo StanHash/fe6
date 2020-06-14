@@ -182,7 +182,7 @@ void noo_802895C(void);
 // sub_8028D04
 void sub_8028D38(void);
 void UpdateWeatherGraphics(void);
-// sub_8028E10
+void sub_8028E10(void);
 void sub_8028E28(void);
 void sub_8028E44(void);
 void sub_8028E80(int weather);
