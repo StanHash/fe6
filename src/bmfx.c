@@ -24,6 +24,7 @@
 #include "unitsprite.h"
 #include "battle.h"
 #include "trap.h"
+#include "bmio.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1992,7 +1993,7 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
 
-    sub_8028E28();
+    DisableTilesetPalAnim();
 
     ApplyChapterMapGraphics(gPlaySt.chapter);
     ApplyUnitSpritePalettes();
@@ -2027,7 +2028,7 @@ static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc)
     proc->unk4C = 30;
 
     if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
-        noo_802895C();
+        ApplyFlamesWeatherGradient();
 }
 
 static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
@@ -2039,7 +2040,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
         sub_8000234_t();
 
         if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
-            noo_802895C();
+            ApplyFlamesWeatherGradient();
 
         EnablePalSync();
 
@@ -2053,7 +2054,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
 
         if (proc->unk4C < 0)
         {
-            sub_8028E44();
+            EnableTilesetPalAnim();
             Proc_Break(proc);
         }
     }
@@ -2140,7 +2141,7 @@ static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
     sub_8000234_t();
 
     if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
-        noo_802895C();
+        ApplyFlamesWeatherGradient();
 
     EnablePalSync();
 
@@ -2148,7 +2149,7 @@ static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
 
     if (proc->unk4C < 0)
     {
-        sub_8028E44();
+        EnableTilesetPalAnim();
 
         Proc_Break(proc);
     }

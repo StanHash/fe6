@@ -26,6 +26,7 @@
 #include "unitsprite.h"
 #include "battle.h"
 #include "trap.h"
+#include "bmio.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2866,7 +2867,7 @@ static int EvtCmd_SetWeather(struct EventProc* proc)
 
 static void DoChangeWeather(struct GenericProc* proc)
 {
-    sub_8028E80(proc->unk64);
+    SetWeather(proc->unk64);
 }
 
 static int EvtCmd_WmStart(struct EventProc* proc)
@@ -3722,7 +3723,7 @@ static void Event_SetEnterMap(struct EventProc* proc)
 
 void ResetWeather(void)
 {
-    sub_8028E80(WEATHER_NONE);
+    SetWeather(WEATHER_NONE);
 }
 
 void sub_8012780(void)

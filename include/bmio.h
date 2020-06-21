@@ -1,0 +1,17 @@
+
+#pragma once
+
+#include "common.h"
+
+void StartBmVSync(void);
+void EndBmVSync(void);
+void LockBmDisplay(void);
+void UnlockBmDisplay(void);
+void AllocWeatherParticles(int weather);
+void ApplyFlamesWeatherGradient(void);
+void WeatherInit(void);
+void WeatherVBlank(void);
+void WeatherUpdate(void);
+void DisableTilesetPalAnim(void);
+void EnableTilesetPalAnim(void);
+void SetWeather(int weather);

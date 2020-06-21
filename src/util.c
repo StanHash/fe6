@@ -295,7 +295,7 @@ void Register2dChrMove(u8 const* src, u8* dst, int width, int height)
     }
 }
 
-void Copy2dChr(u8 const* src, u8* dst, int width, int height)
+void Copy2dChr(void const* src, u8* dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 

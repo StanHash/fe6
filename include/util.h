@@ -34,7 +34,7 @@ void Decompress_Unused_08013C74(u8 const* src, u8* dst);
 void Decompress(u8 const* src, void* dst);
 int GetDataSize(u8 const* data);
 void Register2dChrMove(u8 const* img, u8* vram, int width, int height);
-void Copy2dChr(u8 const* src, u8* dst, int width, int height);
+void Copy2dChr(void const* src, u8* dst, int width, int height);
 void sub_8013DAC(u8 const* src, u8* dst, int width, int height);
 void PutIncrTileref(u16* tm, int tileref, int width, int height);
 void sub_8013E8C(u16* tm, u8 const* src, int tileref, int len);

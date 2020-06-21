@@ -11,6 +11,7 @@
 #include "unit.h"
 #include "map.h"
 #include "bmfx.h"
+#include "bmio.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -253,31 +254,31 @@ int sub_801A89C(struct MenuProc* menu, struct MenuEntProc* ent)
         {
 
         case DEBUG_WEATHER_NONE:
-            sub_8028E80(WEATHER_NONE);
+            SetWeather(WEATHER_NONE);
             break;
 
         case DEBUG_WEATHER_SANDSTORM:
-            sub_8028E80(WEATHER_SANDSTORM);
+            SetWeather(WEATHER_SANDSTORM);
             break;
 
         case DEBUG_WEATHER_SNOW:
-            sub_8028E80(WEATHER_SNOW);
+            SetWeather(WEATHER_SNOW);
             break;
 
         case DEBUG_WEATHER_SNOWSTORM:
-            sub_8028E80(WEATHER_SNOWSTORM);
+            SetWeather(WEATHER_SNOWSTORM);
             break;
 
         case DEBUG_WEATHER_RAIN:
-            sub_8028E80(WEATHER_RAIN);
+            SetWeather(WEATHER_RAIN);
             break;
 
         case DEBUG_WEATHER_5:
-            sub_8028E80(WEATHER_3);
+            SetWeather(WEATHER_3);
             break;
 
         case DEBUG_WEATHER_FLAMES:
-            sub_8028E80(WEATHER_FLAMES);
+            SetWeather(WEATHER_FLAMES);
             break;
 
         }

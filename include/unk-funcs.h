@@ -151,41 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-void StartBmVSync(void);
-void EndBmVSync(void);
-void LockBmDisplay(void);
-void UnlockBmDisplay(void);
-// AllocWeatherParticles
-// sub_8028448
-// sub_8028460
-// sub_80284D8
-// sub_8028598
-// sub_80285FC
-// sub_802867C
-// sub_80286EC
-// sub_8028748
-// sub_8028804
-// sub_802887C
-// sub_80288D0
-// nullsub_4
-// sub_8028918
-void noo_802895C(void);
-// sub_80289DC
-// sub_8028A6C
-// sub_8028AD0
-// sub_8028AE0
-// sub_8028B4C
-// sub_8028BE4
-// sub_8028BF4
-// sub_8028C5C
-// sub_8028C88
-// sub_8028D04
-void sub_8028D38(void);
-void UpdateWeatherGraphics(void);
-void sub_8028E10(void);
-void sub_8028E28(void);
-void sub_8028E44(void);
-void sub_8028E80(int weather);
 int sub_8028E98(void);
 // sub_8028EC0
 void sub_8028EF0(int bool_hardMode);

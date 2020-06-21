@@ -1,5 +1,5 @@
 
-#include "common.h"
+#include "bmio.h"
 
 #include "random.h"
 #include "ramfunc.h"
@@ -41,7 +41,7 @@ struct WeatherParticle
     /* 09 */ u8 kind;
 };
 
-union WeatherEffectSt
+union WeatherEffect
 {
     /**
      * Array of weather particles
@@ -54,7 +54,7 @@ union WeatherEffectSt
     u32 imgCloud[0xC0];
 };
 
-union WeatherGradientSt
+union WeatherGradient
 {
     /**
      * Buffer holding colors for vertical gradient.
@@ -82,8 +82,25 @@ struct BmVSyncProc
     /* 3C */ struct TsPalAnim const* palAnimCurrent;
 };
 
-extern union WeatherEffectSt gWeatherEffect;
-extern union WeatherGradientSt gWeatherGradient;
+static void WeatherInit_None(void);
+static void WeatherInit_Snow(void);
+static void WeatherVBlank_Snow(void);
+static void WeatherInit_Rain(void);
+static void WeatherVBlank_Rain(void);
+static void WeatherInit_Sandstorm(void);
+static void WeatherVBlank_Sandstorm(void);
+static void WeatherInit_Snowstorm(void);
+static void WeatherVBlank_Snowstorm(void);
+static void WeatherInit_Blue(void);
+static void WeatherVBlank_Blue(void);
+static void WeatherInit_Flames(void);
+static void WeatherVBlank_Flames(void);
+static void WeatherInit_Clouds(void);
+static void WeatherVBlank_Clouds(void);
+static void WeatherUpdate_Clouds(void);
+
+extern union WeatherEffect gWeatherEffect;
+extern union WeatherGradient gWeatherGradient;
 
 #include "data/tileset/anims.h"
 
@@ -103,7 +120,7 @@ PROC_LABEL(0),
     PROC_CALL(BmVSync_TsImgAnim),
     PROC_CALL(BmVSync_TsPalAnim),
     PROC_CALL(SyncUnitSpriteSheet),
-    PROC_CALL(UpdateWeatherGraphics),
+    PROC_CALL(WeatherVBlank),
 
     PROC_REPEAT(BmVSync_Repeat),
 
@@ -119,7 +136,7 @@ struct ProcScr CONST_DATA ProcScr_MapTask[] =
 
 PROC_LABEL(0),
     PROC_CALL(PutUnitSpritesOam),
-    PROC_CALL(sub_8028E10),
+    PROC_CALL(WeatherUpdate),
     PROC_CALL(UpdateRenderMap),
     PROC_SLEEP(0),
 
@@ -136,19 +153,42 @@ u16 CONST_DATA Sprite_085C7C3C[] =
     1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0xA) + OAM2_PAL(OBJPAL_1),
 };
 
-u16 const* CONST_DATA gUnk_085C7C44[] =
+static u16 const* CONST_DATA sRainSprites[] =
 {
     Sprite_085C7C34,
     Sprite_085C7C3C,
     Sprite_085C7C3C,
 };
 
+u16 CONST_DATA Sprite_CloudWeather[] =
+{
+    18,
+    OAM0_SHAPE_64x32 + OAM0_Y(0),   OAM1_SIZE_64x32 + OAM1_X(0),   0,
+    OAM0_SHAPE_64x32 + OAM0_Y(0),   OAM1_SIZE_64x32 + OAM1_X(48),  OAM2_CHR(0x6),
+    OAM0_SHAPE_64x32 + OAM0_Y(0),   OAM1_SIZE_64x32 + OAM1_X(112), 0,
+    OAM0_SHAPE_64x32 + OAM0_Y(0),   OAM1_SIZE_64x32 + OAM1_X(160), OAM2_CHR(0x6),
+    OAM0_SHAPE_16x32 + OAM0_Y(0),   OAM1_SIZE_16x32 + OAM1_X(224), 0,
+    OAM0_SHAPE_32x32 + OAM0_Y(32),  OAM1_SIZE_32x32 + OAM1_X(0),   OAM2_CHR(0xA),
+    OAM0_SHAPE_64x32 + OAM0_Y(32),  OAM1_SIZE_64x32 + OAM1_X(32),  0,
+    OAM0_SHAPE_64x32 + OAM0_Y(32),  OAM1_SIZE_64x32 + OAM1_X(80),  OAM2_CHR(0x6),
+    OAM0_SHAPE_64x32 + OAM0_Y(32),  OAM1_SIZE_64x32 + OAM1_X(144), 0,
+    OAM0_SHAPE_64x32 + OAM0_Y(32),  OAM1_SIZE_64x32 + OAM1_X(192), OAM2_CHR(0x6),
+    OAM0_SHAPE_64x32 + OAM0_Y(64),  OAM1_SIZE_64x32 + OAM1_X(0),   0,
+    OAM0_SHAPE_64x32 + OAM0_Y(64),  OAM1_SIZE_64x32 + OAM1_X(176), 0,
+    OAM0_SHAPE_64x32 + OAM0_Y(96),  OAM1_SIZE_64x32 + OAM1_X(0),   OAM2_CHR(0x4),
+    OAM0_SHAPE_64x32 + OAM0_Y(96),  OAM1_SIZE_64x32 + OAM1_X(176), OAM2_CHR(0x4),
+    OAM0_SHAPE_64x32 + OAM0_Y(128), OAM1_SIZE_64x32 + OAM1_X(0),   0,
+    OAM0_SHAPE_64x32 + OAM0_Y(128), OAM1_SIZE_64x32 + OAM1_X(176), 0,
+    OAM0_SHAPE_64x32 + OAM0_Y(160), OAM1_SIZE_64x32 + OAM1_X(0),   0,
+    OAM0_SHAPE_64x32 + OAM0_Y(160), OAM1_SIZE_64x32 + OAM1_X(176), 0,
+};
+
 /**
  * Each 3 array entries represent one config template
- * First two values are initial speed, third is type id
+ * First two values are initial speed, third is generic kind id
  * Used for the "slower" weathers (regular snow, rain & flames)
  */
-u16 const gInitialParticleConfigTemplates[] =
+static u16 const sParticleTemplates[] =
 {
     0xB0,  0xC0,  0,
     0xB0,  0xD0,  0,
@@ -247,7 +287,7 @@ void StartBmVSync(void)
     struct BmVSyncProc* proc = SpawnProc(ProcScr_BmVSync, PROC_TREE_VSYNC);
 
     BmVSync_AnimInit(proc);
-    sub_8028D38();
+    WeatherInit();
 
     gBmSt.lockDisplay = 0;
 }
@@ -315,13 +355,13 @@ void AllocWeatherParticles(int weather)
     }
 }
 
-void sub_8028448(void)
+static void WeatherInit_None(void)
 {
     AllocWeatherParticles(gPlaySt.weather);
     SetOnHBlankB(NULL);
 }
 
-void sub_8028460(void)
+static void WeatherInit_Snow(void)
 {
     int i;
 
@@ -341,15 +381,15 @@ void sub_8028460(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].xSpeed = gInitialParticleConfigTemplates[templateId + 0] * 2;
-        gWeatherEffect.particles[i].ySpeed = gInitialParticleConfigTemplates[templateId + 1] * 2;
-        gWeatherEffect.particles[i].kind = gInitialParticleConfigTemplates[templateId + 2];
+        gWeatherEffect.particles[i].xSpeed = sParticleTemplates[templateId + 0] * 2;
+        gWeatherEffect.particles[i].ySpeed = sParticleTemplates[templateId + 1] * 2;
+        gWeatherEffect.particles[i].kind = sParticleTemplates[templateId + 2];
 
-        gWeatherEffect.particles[i].chr = chrs[gInitialParticleConfigTemplates[templateId + 2]];
+        gWeatherEffect.particles[i].chr = chrs[sParticleTemplates[templateId + 2]];
     }
 }
 
-void sub_80284D8(void)
+static void WeatherVBlank_Snow(void)
 {
     if (GetOamSplice() != 0)
     {
@@ -382,7 +422,7 @@ void sub_80284D8(void)
     }
 }
 
-void sub_8028598(void)
+static void WeatherInit_Rain(void)
 {
     int i;
 
@@ -395,13 +435,13 @@ void sub_8028598(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].xSpeed = gInitialParticleConfigTemplates[templateId+0] * 6;
-        gWeatherEffect.particles[i].ySpeed = gInitialParticleConfigTemplates[templateId+1] * 16;
-        gWeatherEffect.particles[i].chr = gInitialParticleConfigTemplates[templateId+2];
+        gWeatherEffect.particles[i].xSpeed = sParticleTemplates[templateId+0] * 6;
+        gWeatherEffect.particles[i].ySpeed = sParticleTemplates[templateId+1] * 16;
+        gWeatherEffect.particles[i].chr = sParticleTemplates[templateId+2];
     }
 }
 
-void sub_80285FC(void)
+static void WeatherVBlank_Rain(void)
 {
     if (GetOamSplice() != 0)
     {
@@ -417,14 +457,14 @@ void sub_80285FC(void)
             PutOamLoRam(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
                 ((it->y >> 8) - gBmSt.camera.y) & 0xFF,
-                gUnk_085C7C44[it->chr], 0);
+                sRainSprites[it->chr], 0);
 
             ++it;
         }
     }
 }
 
-void sub_802867C(void)
+static void WeatherInit_Sandstorm(void)
 {
     int i;
 
@@ -443,7 +483,7 @@ void sub_802867C(void)
     }
 }
 
-void sub_80286EC(void)
+static void WeatherVBlank_Sandstorm(void)
 {
     if (GetOamSplice() != 0)
     {
@@ -465,7 +505,7 @@ void sub_80286EC(void)
     }
 }
 
-void sub_8028748(void)
+static void WeatherInit_Snowstorm(void)
 {
     int i;
 
@@ -501,7 +541,7 @@ void sub_8028748(void)
     }
 }
 
-void sub_8028804(void)
+static void WeatherVBlank_Snowstorm(void)
 {
     if (GetOamSplice() != 0)
     {
@@ -524,7 +564,7 @@ void sub_8028804(void)
     }
 }
 
-void sub_802887C(void)
+static void BlueWeatherHBlank(void)
 {
     u16 nextLine = (REG_VCOUNT + 1);
 
@@ -539,7 +579,7 @@ void sub_802887C(void)
         ((u16*) PLTT)[0] = nextLine[gWeatherGradient.lines];
 }
 
-void sub_80288D0(void)
+static void WeatherInit_Blue(void)
 {
     int i;
 
@@ -548,14 +588,14 @@ void sub_80288D0(void)
     for (i = 0; i < 320; ++i)
         *colors++ = RGB(0, 0, (31 - i / 10));
 
-    SetOnHBlankB(sub_802887C);
+    SetOnHBlankB(BlueWeatherHBlank);
 }
 
-void nullsub_4(void)
+static void WeatherVBlank_Blue(void)
 {
 }
 
-void sub_8028918(void)
+static void FlamesWeatherHBlank(void)
 {
     const u16* src;
     u16* dst;
@@ -578,7 +618,7 @@ void sub_8028918(void)
     CpuFastCopy(src, dst, 8);
 }
 
-void noo_802895C(void)
+void ApplyFlamesWeatherGradient(void)
 {
     int i, j, k;
 
@@ -606,7 +646,7 @@ void noo_802895C(void)
     }
 }
 
-void sub_80289DC(void)
+static void FlamesWeatherInitGradient(void)
 {
     int i, j, k;
 
@@ -635,5 +675,292 @@ void sub_80289DC(void)
         }
     }
 
-    SetOnHBlankB(sub_8028918);
+    SetOnHBlankB(FlamesWeatherHBlank);
+}
+
+static void FlamesWeatherInitParticles(void)
+{
+    int i;
+
+    AllocWeatherParticles(gPlaySt.weather);
+
+    Decompress(Img_FlamesParticles, OBJ_VRAM0 + OBJCHR_SNOWSTORM_PARTICLE * 0x20);
+    ApplyPalette(Pal_FlamesParticles, 0x10+OBJPAL_10);
+
+    for (i = 0; i < 0x10; ++i)
+    {
+        gWeatherEffect.particles[i].x = RandNextB();
+        gWeatherEffect.particles[i].y = RandNextB();
+
+        gWeatherEffect.particles[i].xSpeed = -sParticleTemplates[i*3 + 0];
+        gWeatherEffect.particles[i].ySpeed = -sParticleTemplates[i*3 + 1];
+    }
+}
+
+static void WeatherInit_Flames(void)
+{
+    FlamesWeatherInitGradient();
+    FlamesWeatherInitParticles();
+}
+
+static void FlamesWeatherUpdateGradient(void)
+{
+    int i, j;
+
+    CpuFastCopy(
+        gPal + (BGPAL_TILESET+1)*0x10,
+        ((u16*)(PLTT)) + (BGPAL_TILESET+1)*0x10,
+        4*0x20);
+
+    for (i = 12; i < 16; ++i)
+    {
+        const int color = gPal[(BGPAL_TILESET+3) * 0x10 + i];
+
+        int r = RGB_GET_RED(color);
+        int g = RGB_GET_GREEN(color);
+        int b = RGB_GET_BLUE(color);
+
+        for (j = 0; j < 8; ++j)
+        {
+            r = r + 2;
+
+            if (r > 31)
+                r = 31;
+
+            gWeatherGradient.fireGradient[j][0x10 * 2 + i] = (b << 10) + (g << 5) + r;
+        }
+    }
+}
+
+static void FlamesWeatherUpdateParticles(void)
+{
+    struct WeatherParticle* it = gWeatherEffect.particles;
+
+    if (GetOamSplice() != 0)
+    {
+        int i;
+
+        for (i = 0; i < 0x10; ++i, ++it)
+        {
+            int y, oam2;
+
+            it->x += it->xSpeed;
+            it->y += it->ySpeed;
+
+            y = ((it->y >> 8) - gBmSt.camera.y) & 0xFF;
+
+            if (y < 0x40)
+                continue;
+
+            if (y > 0xA0)
+                continue;
+
+            oam2 = 31 - ((y - 0x40) / 8);
+
+            if (oam2 < 24)
+                oam2 = 24;
+
+            PutOamLoRam(
+                ((it->x >> 8) - gBmSt.camera.x) & 0xFF, y,
+                Sprite_8x8, oam2 + OAM2_PAL(OBJPAL_10));
+        }
+    }
+}
+
+static void WeatherVBlank_Flames(void)
+{
+    FlamesWeatherUpdateGradient();
+    FlamesWeatherUpdateParticles();
+}
+
+static void CloudWeatherAnimateImage(u32* lines)
+{
+    u32 buf[8];
+    int ix, iy;
+
+    // What this function is doing is "shifting" a 14
+    // tile wide 4bpp image one pixel to the right(?)
+
+    // Remember: lowest nibble of any gfx data is the leftmost pixel
+
+    // Saving the rightmost tile column for later
+
+    for (iy = 0; iy < 8; ++iy)
+        buf[iy] = lines[iy + 0x68];
+
+    // Shift all tiles right one pixel
+
+    for (ix = (14 - 1); ix >= 0; --ix)
+    {
+        for (iy = 0; iy < 8; ++iy)
+        {
+            lines[(8*(ix - 1)) + iy + 8] =
+                (lines[(8*(ix - 1)) + iy + 8] << 4) | (lines[(8*(ix - 1)) + iy] >> 28);
+        }
+    }
+
+    // the leftmost pixel column now contains garbage
+    // but that's only, we're fixing it now
+    // this is why we needed the rightmost column to be saved
+
+    for (iy = 0; iy < 8; ++iy)
+    {
+        lines[iy] &= ~0xF;
+        lines[iy] = (lines[iy]) | (buf[iy] >> 28);
+    }
+}
+
+static void WeatherInit_Clouds(void)
+{
+    AllocWeatherParticles(WEATHER_NONE);
+
+    Decompress(Img_CloudWeather, gWeatherEffect.imgCloud);
+    ApplyPalette(Pal_CloudWeather, 0x10+OBJPAL_10);
+}
+
+static void WeatherVBlank_Clouds(void)
+{
+    u32* img = gWeatherEffect.imgCloud;
+
+    switch (GetGameTime() % 8)
+    {
+
+    case 0:
+        CloudWeatherAnimateImage(img + 0*(14*8));
+        break;
+
+    case 2:
+        CloudWeatherAnimateImage(img + 1*(14*8));
+        break;
+
+    case 4:
+        CloudWeatherAnimateImage(img + 2*(14*8));
+        break;
+
+    case 6:
+        CloudWeatherAnimateImage(img + 3*(14*8));
+        break;
+
+    case 7:
+        Copy2dChr(img, OBJ_VRAM0 + CHR_SIZE*OBJCHR_CLOUDS, 14, 4);
+        break;
+
+    }
+}
+
+static void WeatherUpdate_Clouds(void)
+{
+    int y = gBmSt.camera.y;
+
+    PutSprite(14, 0, -(y/5),
+        Sprite_CloudWeather, OAM2_CHR(OBJCHR_CLOUDS) + OAM2_LAYER(3) + OAM2_PAL(OBJPAL_10));
+}
+
+void WeatherInit(void)
+{
+    switch (gPlaySt.weather)
+    {
+
+    case WEATHER_NONE:
+        WeatherInit_None();
+        break;
+
+    case WEATHER_SNOW:
+        WeatherInit_Snow();
+        break;
+
+    case WEATHER_SANDSTORM:
+        WeatherInit_Sandstorm();
+        break;
+
+    case WEATHER_SNOWSTORM:
+        WeatherInit_Snowstorm();
+        break;
+
+    case WEATHER_RAIN:
+        WeatherInit_Rain();
+        break;
+
+    case WEATHER_3:
+        WeatherInit_Blue();
+        break;
+
+    case WEATHER_FLAMES:
+        WeatherInit_Flames();
+        break;
+
+    case WEATHER_CLOUDS:
+        WeatherInit_Clouds();
+        break;
+
+    }
+}
+
+void WeatherVBlank(void)
+{
+    switch (gPlaySt.weather)
+    {
+
+    case WEATHER_SNOW:
+        WeatherVBlank_Snow();
+        break;
+
+    case WEATHER_SANDSTORM:
+        WeatherVBlank_Sandstorm();
+        break;
+
+    case WEATHER_SNOWSTORM:
+        WeatherVBlank_Snowstorm();
+        break;
+
+    case WEATHER_RAIN:
+        WeatherVBlank_Rain();
+        break;
+
+    case WEATHER_3:
+        WeatherVBlank_Blue();
+        break;
+
+    case WEATHER_FLAMES:
+        WeatherVBlank_Flames();
+        break;
+
+    case WEATHER_CLOUDS:
+        WeatherVBlank_Clouds();
+        break;
+
+    }
+}
+
+void WeatherUpdate(void)
+{
+    if (gPlaySt.weather == WEATHER_CLOUDS)
+        WeatherUpdate_Clouds();
+}
+
+void DisableTilesetPalAnim(void)
+{
+    struct BmVSyncProc* proc = Proc_Find(ProcScr_BmVSync);
+
+    if (proc)
+        proc->palAnimStart = NULL;
+}
+
+void EnableTilesetPalAnim(void)
+{
+    struct BmVSyncProc* proc = Proc_Find(ProcScr_BmVSync);
+
+    if (proc)
+    {
+        proc->palAnimStart = proc->palAnimCurrent =
+            ChapterAssets[GetChapterInfo(gPlaySt.chapter)->assetPalAnims];
+    }
+}
+
+void SetWeather(int weather)
+{
+    gPlaySt.weather = weather;
+
+    AllocWeatherParticles(weather);
+    WeatherInit();
 }
