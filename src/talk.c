@@ -390,7 +390,7 @@ ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent)
     sTalkSt->printColor = TEXT_COLOR_0456;
     sTalkSt->lineActive = 0;
     sTalkSt->topTextNum = 0;
-    sTalkSt->printDelay = sub_8028E98();
+    sTalkSt->printDelay = GetTextPrintDelay();
     sTalkSt->printClock = 0;
 
     SetActiveTalkFace(TALK_FACE_NONE);
@@ -579,7 +579,7 @@ static void Talk_OnIdle(ProcPtr proc)
                 }
                 else
                 {
-                    if ((sub_8028E98() == 1) && !(GetGameTime() & 1))
+                    if ((GetTextPrintDelay() == 1) && !(GetGameTime() & 1))
                         break;
 
                     PlaySe(0x6E); // TODO: song ids

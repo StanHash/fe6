@@ -72,13 +72,13 @@ enum
 struct BmSt
 {
     /* 00 */ Bool mainLoopEnded;
-    /* 01 */ u8 lock;
+    /* 01 */ s8 lock;
     /* 02 */ s8 lockDisplay;
     /* 03 */ u8 pad_03;
     /* 04 */ u8 flags;
     /* 05 */ // pad
     /* 06 */ u16 mainLoopEndScanline;
-    /* 08 */ int pad08;
+    /* 08 */ int pad_08;
     /* 0C */ struct Vec2 camera;
     /* 10 */ struct Vec2 cameraPrevious;
     /* 14 */ struct Vec2 cursor;
@@ -107,8 +107,8 @@ struct BmSt
 
 struct PlaySt
 {
-    /* 00 */ u32 unk00; // a time value
-    /* 04 */ u32 unk04; // a time value
+    /* 00 */ u32 unk_00; // a time value
+    /* 04 */ u32 unk_04; // a time value
 
     /* 08 */ int gold;
     /* 0C */ u8 saveSlot;
@@ -140,8 +140,8 @@ struct PlaySt
     u32 configNoAutoEndTurn:1;
     u32 unk_1D_8:1; // 
     u32 configBattleAnim:2; // 2
-    u32 unk_1E_3:1; // 
-    u32 unk_1E_4:2; // 
+    u32 unk_1E_3:2; // 
+    u32 unk_1E_5:1; // 
     u32 unk_1E_6:1; // 
     u32 debugRedControl:2;
     u32 debugGreenControl:2;

@@ -7,6 +7,8 @@
 #include "bm.h"
 #include "unit.h"
 
+#include "constants/chapters.h"
+
 struct GameController
 {
     /* 00 */ PROC_HEADER;
@@ -139,7 +141,7 @@ PROC_LABEL(L_GAMECTRL_LOADSUSPEND),
     PROC_CALL(GC_DarkenScreen),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8029128),
+    PROC_CALL(ResumeChapterFromSuspend),
 
     PROC_CALL(GC_PostLoadSuspend),
 
@@ -400,7 +402,7 @@ static void GC_PostMainMenu(struct GameController* proc)
 
 static void GC_InitTutorial(struct GameController* proc)
 {
-    sub_8028EF0(FALSE);
+    InitPlayConfig(FALSE);
 
     gPlaySt.flags |= PLAY_FLAG_3;
 
@@ -409,7 +411,7 @@ static void GC_InitTutorial(struct GameController* proc)
 
     InitUnits();
 
-    gPlaySt.chapter = 0;
+    gPlaySt.chapter = CHAPTER_TUTORIAL;
 }
 
 static void GC_InitTrialMap(struct GameController* proc)

@@ -151,17 +151,17 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-int sub_8028E98(void);
-// sub_8028EC0
-void sub_8028EF0(int bool_hardMode);
-// sub_8028F94
-void StartChapter(ProcPtr parent);
+int GetTextPrintDelay(void);
+// IsFirstPlaythrough
+void InitPlayConfig(int isHardMode);
+// ResetBmSt
+void StartChapter(struct GenericProc* parent);
 void sub_8029084(void);
-void sub_8029128(ProcPtr parent);
+void ResumeChapterFromSuspend(struct GenericProc* parent);
 // sub_8029240
 // sub_80292B8
 void sub_80292DC(void);
-// StartMapMain
+ProcPtr StartMapMain(struct GenericProc* parent);
 void EndMapMain(void);
 void sub_8029370(void);
 // sub_80294A4
@@ -2569,7 +2569,7 @@ Bool sub_806B500(void);
 void sub_806B540(void);
 // sub_806B580
 // sub_806B5B0
-// sub_806B604
+void sub_806B604(void);
 struct UnitInfo const* sub_806B638(void);
 // sub_806B650
 // sub_806B6B0
@@ -3358,7 +3358,7 @@ Bool sub_8084438(struct SaveBlockInfo* blockInfo, int id);
 // sub_8084690
 // sub_80846B8
 // sub_80846D0
-// sub_80846F0
+Bool sub_80846F0(void);
 // sub_8084714
 // sub_8084718
 // sub_808474C
@@ -3444,7 +3444,7 @@ Bool sub_80859E0(int saveId);
 // sub_8086640
 // sub_808665C
 // sub_808667C
-// sub_80866EC
+void sub_80866EC(void);
 // sub_808677C
 // sub_80867F0
 // sub_80867FC

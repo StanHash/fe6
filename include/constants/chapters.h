@@ -4,6 +4,7 @@
 enum
 {
     CHAPTER_TUTORIAL,
+    CHAPTER_CH01,
 
     CHAPTER_UNK_08 = 0x08,
 

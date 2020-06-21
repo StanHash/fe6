@@ -304,6 +304,7 @@ SECTIONS
         src/trap.o(.text);
         src/item-action.o(.text);
         src/bmio.o(.text);
+        src/chapter.o(.text);
 
         asm/code.o(.text);
 
@@ -365,6 +366,7 @@ SECTIONS
         . = ALIGN(4); src/trademenu.o(.rodata);
         . = ALIGN(4); data/menu-info.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
+        . = ALIGN(4); src/chapter.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -401,6 +403,7 @@ SECTIONS
         . = ALIGN(4); src/item-action.o(.data);
         . = ALIGN(4); data/menu-info.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
+        . = ALIGN(4); src/chapter.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

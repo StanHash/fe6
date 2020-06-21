@@ -15,3 +15,6 @@ void WeatherUpdate(void);
 void DisableTilesetPalAnim(void);
 void EnableTilesetPalAnim(void);
 void SetWeather(int weather);
+
+extern struct ProcScr CONST_DATA ProcScr_BmVSync[];
+extern struct ProcScr CONST_DATA ProcScr_MapTask[];
