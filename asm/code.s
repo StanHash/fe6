@@ -3,110 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start sub_802979C
-sub_802979C: @ 0x0802979C
-	ldr r2, _080297AC @ =0x020394F8
-	ldr r1, _080297B0 @ =0x020394FC
-	str r0, [r1]
-	str r0, [r2]
-	ldr r1, _080297B4 @ =0x02039500
-	movs r0, #1
-	strb r0, [r1]
-	bx lr
-	.align 2, 0
-_080297AC: .4byte 0x020394F8
-_080297B0: .4byte 0x020394FC
-_080297B4: .4byte 0x02039500
-
-	thumb_func_start sub_80297B8
-sub_80297B8: @ 0x080297B8
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _080297E4 @ =0x020394FC
-	ldr r1, [r4]
-	movs r5, #0
-	str r5, [r1]
-	bl CopyUnit
-	ldr r2, [r4]
-	ldr r1, _080297E8 @ =0x02039500
-	ldrb r0, [r1]
-	strb r0, [r2, #0xb]
-	strb r5, [r6, #0x10]
-	ldrb r0, [r1]
-	adds r0, #1
-	strb r0, [r1]
-	ldr r0, [r4]
-	adds r0, #0x48
-	str r0, [r4]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080297E4: .4byte 0x020394FC
-_080297E8: .4byte 0x02039500
-
-	thumb_func_start sub_80297EC
-sub_80297EC: @ 0x080297EC
-	push {r4, r5, lr}
-	ldr r5, _08029820 @ =gUnitArrayBlue
-	movs r4, #0x3d
-_080297F2:
-	adds r0, r5, #0
-	bl ClearUnit
-	adds r5, #0x48
-	subs r4, #1
-	cmp r4, #0
-	bge _080297F2
-	ldr r0, _08029824 @ =0x020394F8
-	ldr r0, [r0]
-	ldr r1, _08029820 @ =gUnitArrayBlue
-	ldr r2, _08029828 @ =0x020394FC
-	ldr r2, [r2]
-	subs r2, r2, r0
-	lsrs r3, r2, #0x1f
-	adds r2, r2, r3
-	lsls r2, r2, #0xa
-	lsrs r2, r2, #0xb
-	bl CpuSet
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029820: .4byte gUnitArrayBlue
-_08029824: .4byte 0x020394F8
-_08029828: .4byte 0x020394FC
-
-	thumb_func_start sub_802982C
-sub_802982C: @ 0x0802982C
-	push {r4, r5, lr}
-	ldr r5, _08029860 @ =gUnitArrayBlue
-	movs r4, #0x3d
-_08029832:
-	adds r0, r5, #0
-	bl ClearUnit
-	adds r5, #0x48
-	subs r4, #1
-	cmp r4, #0
-	bge _08029832
-	ldr r0, _08029864 @ =0x020394F8
-	ldr r0, [r0]
-	ldr r1, _08029860 @ =gUnitArrayBlue
-	ldr r2, _08029868 @ =0x020394FC
-	ldr r2, [r2]
-	subs r2, r2, r0
-	lsrs r3, r2, #0x1f
-	adds r2, r2, r3
-	lsls r2, r2, #0xa
-	lsrs r2, r2, #0xb
-	bl CpuSet
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029860: .4byte gUnitArrayBlue
-_08029864: .4byte 0x020394F8
-_08029868: .4byte 0x020394FC
-
 	thumb_func_start sub_802986C
 sub_802986C: @ 0x0802986C
 	push {r4, r5, lr}
@@ -4048,7 +3944,7 @@ sub_802B784: @ 0x0802B784
 	cmp r0, #0
 	bne _0802B7D2
 	ldr r0, _0802B7E0 @ =gBuf
-	bl sub_802979C
+	bl UnitRearrangeInit
 	movs r4, #1
 _0802B7A6:
 	adds r0, r4, #0
@@ -4065,12 +3961,12 @@ _0802B7A6:
 	cmp r0, #0
 	bne _0802B7C8
 	adds r0, r1, #0
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 _0802B7C8:
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _0802B7A6
-	bl sub_802982C
+	bl UnitRearrangeApply2
 _0802B7D2:
 	pop {r4}
 	pop {r0}
@@ -151308,7 +151204,7 @@ _080741E8: .4byte 0x086783E4
 sub_80741EC: @ 0x080741EC
 	push {r4, r5, r6, lr}
 	ldr r0, _08074248 @ =0x0200D6B4
-	bl sub_802979C
+	bl UnitRearrangeInit
 	movs r4, #0
 	ldr r0, _0807424C @ =0x0200CD38
 	ldrb r1, [r0]
@@ -151319,7 +151215,7 @@ sub_80741EC: @ 0x080741EC
 _08074202:
 	ldm r6!, {r0}
 	ldr r0, [r0]
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 	adds r4, #1
 	ldrb r2, [r5]
 	cmp r4, r2
@@ -151341,12 +151237,12 @@ _08074214:
 	cmp r0, #0
 	beq _08074236
 	adds r0, r1, #0
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 _08074236:
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _08074214
-	bl sub_80297EC
+	bl UnitRearrangeApply
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -162607,7 +162503,7 @@ _08079A0A:
 sub_8079A28: @ 0x08079A28
 	push {r4, lr}
 	ldr r0, _08079A90 @ =0x0200F0A4
-	bl sub_802979C
+	bl UnitRearrangeInit
 	movs r4, #1
 _08079A32:
 	adds r0, r4, #0
@@ -162624,7 +162520,7 @@ _08079A32:
 	cmp r0, #0
 	bne _08079A54
 	adds r0, r1, #0
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 _08079A54:
 	adds r4, #1
 	cmp r4, #0x3f
@@ -162645,12 +162541,12 @@ _08079A5C:
 	cmp r0, #0
 	beq _08079A7E
 	adds r0, r1, #0
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 _08079A7E:
 	adds r4, #1
 	cmp r4, #0x3f
 	ble _08079A5C
-	bl sub_80297EC
+	bl UnitRearrangeApply
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -163433,7 +163329,7 @@ _0807A110:
 	blt _0807A0CC
 _0807A118:
 	ldr r0, _0807A170 @ =0x0200F0A4
-	bl sub_802979C
+	bl UnitRearrangeInit
 	mov r0, r8
 	cmp r0, #0
 	beq _0807A134
@@ -163441,12 +163337,12 @@ _0807A118:
 	mov r5, r8
 _0807A128:
 	ldm r4!, {r0}
-	bl sub_80297B8
+	bl UnitRearrangeAdd
 	subs r5, #1
 	cmp r5, #0
 	bne _0807A128
 _0807A134:
-	bl sub_80297EC
+	bl UnitRearrangeApply
 	movs r4, #1
 _0807A13A:
 	adds r0, r4, #0

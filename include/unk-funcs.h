@@ -151,10 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802979C
-// sub_80297B8
-// sub_80297EC
-// sub_802982C
 // sub_802986C
 // sub_8029924
 void sub_8029940(struct Unit* unit);
