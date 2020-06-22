@@ -19,6 +19,7 @@
 #include "battle.h"
 #include "trademenu.h"
 #include "trap.h"
+#include "supply.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -1368,7 +1369,7 @@ int sub_80201C4(struct MenuEntInfo const* info, int id)
     if (gBmSt.partialActionsTaken & PARTIAL_ACTION_SUPPLY)
         return MENU_NOTSHOWN;
 
-    if (GetUnitItemCount(gActiveUnit) == 0 && sub_80296F4() == 0)
+    if (GetUnitItemCount(gActiveUnit) == 0 && CountSupplyItems() == 0)
         return MENU_NOTSHOWN;
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_SUPPLY)
@@ -1579,7 +1580,7 @@ int sub_8020678(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->id >= ITEMSLOT_INV_COUNT)
     {
-        sub_80706FC(ent->x*8, ent->y*8, gBmSt.itemOverflow);
+        sub_80706FC(ent->x*8, ent->y*8, gBmSt.inventoryItemOverflow);
         return 0;
     }
 

@@ -3,164 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start sub_8029684
-sub_8029684: @ 0x08029684
-	ldr r0, _08029688 @ =0x02039430
-	bx lr
-	.align 2, 0
-_08029688: .4byte 0x02039430
-
-	thumb_func_start sub_802968C
-sub_802968C: @ 0x0802968C
-	push {lr}
-	sub sp, #4
-	mov r1, sp
-	movs r0, #0
-	strh r0, [r1]
-	ldr r1, _080296A8 @ =0x02039430
-	ldr r2, _080296AC @ =0x01000064
-	mov r0, sp
-	bl CpuSet
-	add sp, #4
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080296A8: .4byte 0x02039430
-_080296AC: .4byte 0x01000064
-
-	thumb_func_start sub_80296B0
-sub_80296B0: @ 0x080296B0
-	push {r4, r5, r6, lr}
-	ldr r6, _080296F0 @ =gBuf
-	adds r4, r6, #0
-	bl sub_8029684
-	adds r1, r0, #0
-	movs r5, #0
-_080296BE:
-	ldrh r0, [r1]
-	cmp r0, #0
-	beq _080296C8
-	strh r0, [r4]
-	adds r4, #2
-_080296C8:
-	adds r1, #2
-	adds r0, r5, #1
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	cmp r5, #0x63
-	bls _080296BE
-	movs r0, #0
-	strh r0, [r4]
-	bl sub_802968C
-	bl sub_8029684
-	adds r1, r0, #0
-	adds r0, r6, #0
-	adds r2, r5, #0
-	bl CpuSet
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_080296F0: .4byte gBuf
-
-	thumb_func_start sub_80296F4
-sub_80296F4: @ 0x080296F4
-	movs r3, #0
-	ldr r2, _08029710 @ =0x02039430
-	movs r1, #0x63
-_080296FA:
-	ldrh r0, [r2]
-	cmp r0, #0
-	beq _08029702
-	adds r3, #1
-_08029702:
-	adds r2, #2
-	subs r1, #1
-	cmp r1, #0
-	bge _080296FA
-	adds r0, r3, #0
-	bx lr
-	.align 2, 0
-_08029710: .4byte 0x02039430
-
-	thumb_func_start sub_8029714
-sub_8029714: @ 0x08029714
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, _08029730 @ =gBmSt
-	movs r0, #0
-	strh r0, [r1, #0x2e]
-	movs r3, #0
-	ldr r2, _08029734 @ =0x02039430
-_08029722:
-	ldrh r0, [r2]
-	cmp r0, #0
-	bne _08029738
-	strh r4, [r2]
-	adds r0, r3, #0
-	b _08029746
-	.align 2, 0
-_08029730: .4byte gBmSt
-_08029734: .4byte 0x02039430
-_08029738:
-	adds r2, #2
-	adds r3, #1
-	cmp r3, #0x63
-	ble _08029722
-	strh r4, [r1, #0x2e]
-	movs r0, #1
-	rsbs r0, r0, #0
-_08029746:
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	thumb_func_start sub_802974C
-sub_802974C: @ 0x0802974C
-	push {lr}
-	ldr r1, _08029760 @ =0x02039430
-	lsls r0, r0, #1
-	adds r0, r0, r1
-	movs r1, #0
-	strh r1, [r0]
-	bl sub_80296B0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029760: .4byte 0x02039430
-
-	thumb_func_start sub_8029764
-sub_8029764: @ 0x08029764
-	push {r4, r5, lr}
-	adds r2, r0, #0
-	bl GetItemIid
-	adds r2, r0, #0
-	movs r1, #0
-	movs r4, #0xff
-	ldr r3, _08029784 @ =0x02039430
-_08029774:
-	adds r0, r4, #0
-	ldrh r5, [r3]
-	ands r0, r5
-	cmp r2, r0
-	bne _08029788
-	adds r0, r1, #0
-	b _08029794
-	.align 2, 0
-_08029784: .4byte 0x02039430
-_08029788:
-	adds r3, #2
-	adds r1, #1
-	cmp r1, #0x63
-	ble _08029774
-	movs r0, #1
-	rsbs r0, r0, #0
-_08029794:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
 	thumb_func_start sub_802979C
 sub_802979C: @ 0x0802979C
 	ldr r2, _080297AC @ =0x020394F8
@@ -137307,7 +137149,7 @@ sub_806D0E4: @ 0x0806D0E4
 sub_806D0FC: @ 0x0806D0FC
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	bl sub_8029764
+	bl FindSupplyItem
 	cmp r0, #0
 	blt _0806D10C
 _0806D108:
@@ -171346,7 +171188,7 @@ _0807DE5C: .4byte 0x083272A4
 	thumb_func_start sub_807DE60
 sub_807DE60: @ 0x0807DE60
 	push {r4, r5, r6, lr}
-	bl sub_8029684
+	bl GetSupplyItems
 	adds r4, r0, #0
 	movs r2, #0
 	movs r3, #0
@@ -172968,7 +172810,7 @@ sub_807EB70: @ 0x0807EB70
 	push {r5, r6, r7}
 	sub sp, #0x34
 	adds r6, r0, #0
-	bl sub_8029684
+	bl GetSupplyItems
 	mov sl, r0
 	movs r4, #0
 	str r4, [sp]
@@ -175102,7 +174944,7 @@ sub_807FCFC: @ 0x0807FCFC
 	ldrb r0, [r4]
 	cmp r0, #0xff
 	bne _0807FDD2
-	bl sub_8029684
+	bl GetSupplyItems
 	adds r3, r0, #0
 	strb r5, [r4]
 	adds r0, r6, #0
@@ -180737,7 +180579,7 @@ _08082A04: .4byte 0x086796F4
 sub_8082A08: @ 0x08082A08
 	push {r4, lr}
 	movs r4, #0
-	bl sub_8029684
+	bl GetSupplyItems
 	adds r2, r0, #0
 	movs r1, #0
 	ldrh r0, [r2]
@@ -184346,7 +184188,7 @@ _080846B4: .4byte 0x03006640
 sub_80846B8: @ 0x080846B8
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8029684
+	bl GetSupplyItems
 	adds r1, r4, #0
 	movs r2, #0xc8
 	bl WriteAndVerifySramFast
@@ -184360,7 +184202,7 @@ sub_80846D0: @ 0x080846D0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, _080846EC @ =0x03006640
-	bl sub_8029684
+	bl GetSupplyItems
 	adds r1, r0, #0
 	ldr r3, [r4]
 	adds r0, r5, #0
@@ -185667,7 +185509,7 @@ sub_808505C: @ 0x0808505C
 	adds r0, r4, #0
 	bl InitPlayConfig
 	bl InitUnits
-	bl sub_802968C
+	bl ClearSupplyItems
 	bl sub_806BA34
 	movs r0, #3
 	bl sub_8085788
@@ -220432,7 +220274,7 @@ sub_80965C0: @ 0x080965C0
 	adds r1, r0, r1
 	ldrh r2, [r1]
 	adds r0, r2, #0
-	bl sub_8029714
+	bl AddSupplyItem
 	ldr r0, [r7]
 	bl sub_8097830
 	add sp, #4
@@ -220463,7 +220305,7 @@ sub_8096610: @ 0x08096610
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl sub_80296F4
+	bl CountSupplyItems
 	cmp r0, #0x63
 	bgt _08096628
 	ldr r0, [r7]

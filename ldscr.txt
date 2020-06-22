@@ -185,6 +185,7 @@ SECTIONS
         . = ALIGN(4); src/unitsprite.o(ewram_data);
         . = ALIGN(4); src/battle.o(ewram_data);
         . = ALIGN(4); src/trap.o(ewram_data);
+        . = ALIGN(4); src/supply.o(ewram_data);
 
         . = 0x039504; gArenaSt = .;
         . = 0x03956C; gAction = .;
@@ -305,6 +306,7 @@ SECTIONS
         src/item-action.o(.text);
         src/bmio.o(.text);
         src/chapter.o(.text);
+        src/supply.o(.text);
 
         asm/code.o(.text);
 

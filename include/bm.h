@@ -87,8 +87,8 @@ struct BmSt
     /* 20 */ struct Vec2 cursorSpr;
     /* 24 */ struct Vec2 mapRenderAnchor;
     /* 28 */ struct Vec2 cameraMax;
-    /* 2C */ u16 itemOverflow;
-    /* 2E */ u16 unk_2E;
+    /* 2C */ u16 inventoryItemOverflow;
+    /* 2E */ u16 supplyItemOverflow;
     /* 30 */ Bool unk_30;
     /* 31 */ Bool unk_31;
     /* 32 */ short unk_32;

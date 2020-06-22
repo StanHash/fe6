@@ -11,15 +11,11 @@
 #include "faction.h"
 #include "gold.h"
 #include "item-use.h"
+#include "supply.h"
 
 #include "constants/video-global.h"
 #include "constants/items.h"
 #include "constants/icons.h"
-
-enum { ITEM_USES_SHIFT = 8 };
-
-#define ITEM_IID(item) ((item) & ((1 << ITEM_USES_SHIFT) - 1))
-#define ITEM_USES(item) ((item) >> ITEM_USES_SHIFT)
 
 extern struct ItemInfo CONST_DATA ItemInfoTable[];
 
@@ -870,12 +866,12 @@ int GetTotalConvoyItemsValue(void)
 {
     int i, result = 0;
 
-    u16 const* convoy = sub_8029684();
+    u16 const* supply = GetSupplyItems();
 
-    for (i = 0; (i < CONVOY_ITEM_COUNT) && (*convoy); ++i)
+    for (i = 0; (i < SUPPLY_ITEM_COUNT) && (*supply); ++i)
     {
-        result += GetItemValue(*convoy);
-        convoy++;
+        result += GetItemValue(*supply);
+        supply++;
     }
 
     return result;

@@ -30,8 +30,6 @@ struct SupportInfo;
 // Type decls for types that don't have a home yet :/
 // TODO: move
 
-enum { CONVOY_ITEM_COUNT = 100 };
-
 enum
 {
     MAP_MOVEMENT_MAX = 120,

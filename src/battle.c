@@ -333,7 +333,7 @@ void SetBattleUnitWeapon(struct BattleUnit* bu, int itemSlot)
 
     case ITEMSLOT_OVERFLOW:
         bu->weaponItemSlot = -1;
-        bu->weapon = gBmSt.itemOverflow;
+        bu->weapon = gBmSt.inventoryItemOverflow;
 
         break;
 

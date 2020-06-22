@@ -25,6 +25,7 @@
 #include "battle.h"
 #include "trap.h"
 #include "bmio.h"
+#include "supply.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -766,7 +767,7 @@ static int DiscardItem_PostItemSelect(ProcPtr proc)
     sub_802CB50();
     EndEquipInfoWindow();
 
-    if (gBmSt.unk_2E == 0)
+    if (gBmSt.supplyItemOverflow == 0)
     {
         Proc_Goto(proc, 99);
         return TRUE;
@@ -783,7 +784,7 @@ static int DiscardItem_0801C58C(ProcPtr proc)
 
 static int DiscardItem_0801C59C(ProcPtr proc)
 {
-    return sub_8029714(gBmSt.unk_2E);
+    return AddSupplyItem(gBmSt.supplyItemOverflow);
 }
 
 void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
@@ -792,7 +793,7 @@ void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
 
     if (!UnitAddItem(unit, item))
     {
-        gBmSt.itemOverflow = item;
+        gBmSt.inventoryItemOverflow = item;
 
         StartFace(0, GetUnitFid(unit), 22*8, 4, FACE_DISP_KIND(FACE_96x80));
         StartEquipInfoWindow(parent, unit, 15, 10);
@@ -809,7 +810,7 @@ int sub_801C620(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    int item = gBmSt.itemOverflow;
+    int item = gBmSt.inventoryItemOverflow;
 
     Text_SetColor(&ent->text, TEXT_COLOR_SYSTEM_BLUE);
     sub_80167E4(&ent->text, item, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -819,17 +820,17 @@ int sub_801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801C670(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_8029714(gActiveUnit->items[ent->id]);
+    AddSupplyItem(gActiveUnit->items[ent->id]);
 
     UnitRemoveItem(gActiveUnit, ent->id);
-    UnitAddItem(gActiveUnit, gBmSt.itemOverflow);
+    UnitAddItem(gActiveUnit, gBmSt.inventoryItemOverflow);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
 int sub_801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    sub_8029714(gBmSt.itemOverflow);
+    AddSupplyItem(gBmSt.inventoryItemOverflow);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
@@ -955,7 +956,7 @@ void UpdateEquipInfoWindow(int itemSlot)
         break;
 
     case ITEMSLOT_OVERFLOW:
-        item = gBmSt.itemOverflow;
+        item = gBmSt.inventoryItemOverflow;
         break;
 
     default:

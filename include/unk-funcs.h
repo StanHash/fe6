@@ -151,13 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-u16 const* sub_8029684(void);
-// sub_802968C
-// sub_80296B0
-int sub_80296F4(void);
-int sub_8029714(int item);
-// sub_802974C
-// sub_8029764
 // sub_802979C
 // sub_80297B8
 // sub_80297EC

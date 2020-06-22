@@ -200,3 +200,8 @@ int GetUnitStaffReach(struct Unit* unit);
 int GetTotalConvoyItemsValue(void);
 int GetTotalUnitItemsValue(void);
 int sub_8017104(void);
+
+enum { ITEM_USES_SHIFT = 8 };
+
+#define ITEM_IID(item) ((item) & ((1 << ITEM_USES_SHIFT) - 1))
+#define ITEM_USES(item) ((item) >> ITEM_USES_SHIFT)
