@@ -61,19 +61,6 @@ enum
     BG3_SYNC_BIT = (1 << 3),
 };
 
-extern u16 EWRAM_DATA gPal[0x200];
-
-extern u16 EWRAM_DATA gBg0Tm[0x400];
-extern u16 EWRAM_DATA gBg1Tm[0x400];
-extern u16 EWRAM_DATA gBg2Tm[0x400];
-extern u16 EWRAM_DATA gBg3Tm[0x400];
-
-extern struct KeySt* CONST_DATA gKeySt;
-
-extern struct DispIo gDispIo;
-
-extern short const gSinLut[];
-
 unsigned GetGameTime(void);
 void SetGameTime(unsigned time);
 void IncGameTime(void);
@@ -125,6 +112,21 @@ void SoftResetIfKeyCombo(void);
 void sub_800285C(int unk);
 void SetOnHBlankA(Func func);
 void SetOnHBlankB(Func func);
+
+extern u8 EWRAM_DATA gBuf[0x2000];
+
+extern u16 EWRAM_DATA gPal[0x200];
+
+extern u16 EWRAM_DATA gBg0Tm[0x400];
+extern u16 EWRAM_DATA gBg1Tm[0x400];
+extern u16 EWRAM_DATA gBg2Tm[0x400];
+extern u16 EWRAM_DATA gBg3Tm[0x400];
+
+extern struct KeySt* CONST_DATA gKeySt;
+
+extern struct DispIo gDispIo;
+
+extern short const gSinLut[];
 
 #define RGB_GET_RED(color) ((color) & 0x1F)
 #define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)

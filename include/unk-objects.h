@@ -9,8 +9,6 @@
 #include "menu.h"
 #include "map-select.h"
 
-extern u8 gBuf[];
-
 extern struct ArenaSt gArenaSt;
 extern struct Action gAction;
 extern struct AiDecision gAiDecision;

@@ -26,6 +26,8 @@ static unsigned sGameTime;
 static u8 sUnk_03000014;
 static u8 sUnk_03000015;
 
+u8 EWRAM_DATA gBuf[0x2000] = {};
+
 s8 EWRAM_DATA gUnk_020210E8[0x20] = {};
 s8 EWRAM_DATA gUnk_02021108[0x600] = {};
 

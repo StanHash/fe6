@@ -161,9 +161,7 @@ SECTIONS
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
 
-        . = 0x01F0E8; gBuf = .;
-
-        . = 0x0210E8; /* ewram_data */
+        . = 0x01F0E8; /* ewram_data */
 
         . = ALIGN(4); src/hardware.o(ewram_data);
         . = ALIGN(4); src/move.o(ewram_data);

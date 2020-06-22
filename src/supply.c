@@ -1,6 +1,7 @@
 
 #include "supply.h"
 
+#include "hardware.h"
 #include "bm.h"
 #include "item.h"
 
