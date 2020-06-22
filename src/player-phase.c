@@ -14,6 +14,7 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "trap.h"
+#include "chapter.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -842,7 +843,7 @@ static void PlayerPhase_0801BC84(ProcPtr proc)
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = gActiveUnit->id;
     gActiveUnit->state &= ~US_HIDDEN;
 
-    sub_80292DC();
+    InitBmDisplay();
 
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0;
     gActiveUnit->state |= US_HIDDEN;
@@ -863,7 +864,7 @@ static void PlayerPhase_0801BC84(ProcPtr proc)
 
 static void PlayerPhase_0801BD08(ProcPtr proc)
 {
-    sub_80292DC();
+    InitBmDisplay();
     SetBlendNone();
 }
 

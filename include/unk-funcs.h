@@ -151,25 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-int GetTextPrintDelay(void);
-// IsFirstPlaythrough
-void InitPlayConfig(int isHardMode);
-// ResetBmSt
-void StartChapter(struct GenericProc* parent);
-void sub_8029084(void);
-void ResumeChapterFromSuspend(struct GenericProc* parent);
-// sub_8029240
-// sub_80292B8
-void sub_80292DC(void);
-ProcPtr StartMapMain(struct GenericProc* parent);
-void EndMapMain(void);
-void sub_8029370(void);
-// sub_80294A4
-// sub_80294E0
-// sub_8029560
-// sub_802959C
-// sub_8029618
-void sub_8029654(void);
 u16 const* sub_8029684(void);
 // sub_802968C
 // sub_80296B0
@@ -183,7 +164,7 @@ int sub_8029714(int item);
 // sub_802982C
 // sub_802986C
 // sub_8029924
-// sub_8029940
+void sub_8029940(struct Unit* unit);
 // sub_8029964
 // sub_8029990
 // sub_80299BC
@@ -2851,7 +2832,7 @@ void sub_806DB00(int arg_0);
 // sub_806E240
 // sub_806E278
 // UpdateEndingId
-// GetEndingId
+int GetEndingId(void);
 void StartGameEndingScene(ProcPtr parent);
 // sub_806E32C
 // sub_806E36C
@@ -4007,7 +3988,7 @@ void sub_8095FF8(void);
 // sub_8097DFC
 // sub_8097E2C
 void sub_8097E84(void);
-// sub_8097EAC
+void sub_8097EAC(void);
 // sub_8097ECC
 // sub_8098258
 // sub_8098290

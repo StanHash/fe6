@@ -12,6 +12,7 @@
 #include "map.h"
 #include "bmfx.h"
 #include "bmio.h"
+#include "chapter.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -166,7 +167,7 @@ int sub_801A724(struct MenuProc* menu, struct MenuEntProc* ent)
     EndMapMain();
 
     gPlaySt.chapter = ent->id;
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
     RestartGameAndChapter();
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
@@ -379,7 +380,7 @@ int sub_801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
 
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
     sub_8085110(sub_8084F94());
 
     SoftReset(0xFF);
@@ -396,7 +397,7 @@ void sub_801AAE0(void)
     SetMainFunc(OnMain);
     SetOnVBlank(OnVBlank);
 
-    sub_80292DC();
+    InitBmDisplay();
 
     DebugInitBg(2, 0);
 
@@ -480,7 +481,7 @@ int sub_801ACD8(struct MenuProc* menu, struct MenuEntProc* ent)
     gPlaySt.chapter = ent->id;
 
     sub_8085110(0);
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
 
     RestartGameAndChapter();
 

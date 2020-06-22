@@ -6,6 +6,7 @@
 #include "util.h"
 #include "bm.h"
 #include "unit.h"
+#include "chapter.h"
 
 #include "constants/chapters.h"
 
@@ -418,7 +419,7 @@ static void GC_InitTrialMap(struct GameController* proc)
 {
     LoadTrialMapBonusUnits();
     sub_8084818();
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
 }
 
 static void GC_ClearSuspend(struct GameController* proc)
@@ -466,7 +467,7 @@ static void GC_InitNextChapter(struct GameController* proc)
     sub_8084908(&gPlaySt);
     gPlaySt.chapter = proc->nextChapter;
 
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
 }
 
 static void GC_InitDemo(struct GameController* proc)

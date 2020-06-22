@@ -18,6 +18,7 @@
 #include "util.h"
 #include "bm.h"
 #include "unit.h"
+#include "chapter.h"
 
 #include "constants/video-global.h"
 

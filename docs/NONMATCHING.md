@@ -21,3 +21,4 @@ Sometimes, we fail at getting that, in which case we have a nonmatch (a function
 | `util.c`     | `sub_8014F70` | `O2` | ^ + lazy
 | `util.c`     | `sub_801501C` | `O2` | ^
 | `util.c`     | `sub_80150DC` | `O2` | ^
+| `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block reguarding constant loads for unit->state changes

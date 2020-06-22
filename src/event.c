@@ -27,6 +27,7 @@
 #include "battle.h"
 #include "trap.h"
 #include "bmio.h"
+#include "chapter.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -758,7 +759,7 @@ static void FadeFromBg_FadeFromBlack(struct GenericProc* proc)
 
 static void FadeFromBg_ClearScreen(struct GenericProc* proc)
 {
-    sub_80292DC();
+    InitBmDisplay();
     UnlockBmDisplay();
     sub_806095C();
 
@@ -775,7 +776,7 @@ static void FadeFromSkip_Start(struct GenericProc* proc)
 {
     struct EventProc* evproc = proc->proc_parent;
 
-    sub_80292DC();
+    InitBmDisplay();
 
     if (evproc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -2604,7 +2605,7 @@ static int EvtCmd_SetMap(struct EventProc* proc)
     gPlaySt.chapter = proc->script[0];
 
     sub_8029084();
-    sub_8029370();
+    CleanupUnitsBeforeChapter();
 
     gBmSt.camera.x = GetCameraCenteredX(proc->script[1] * 16);
     gBmSt.camera.y = GetCameraCenteredY(proc->script[2] * 16);

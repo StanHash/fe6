@@ -121,31 +121,31 @@ struct PlaySt
     /* 15 */ u8 weather;
     /* 16 */ u16 supportGain;
     /* 18 */ u8 playId;
-    /* 19 */ u8 unk19;
+    /* 19 */ u8 endingId:4;
     /* 1A */ u8 lastSortId;
     /* 1B */ u8 unk1B;
 
     // option bits
-    u32 unk_1C_1:1; // 1
-    u32 unk_1C_2:1; // 
-    u32 unk_1C_3:2; // 
+    u32 unk_1C_1:1;
+    u32 unk_1C_2:1;
+    u32 unk_1C_3:2;
     u32 configNoAutoCursor:1;
     u32 configTextSpeed:2;
     u32 unk_1C_8:1;
     u32 configBgmDisable:1;
     u32 configSeDisable:1;
     u32 configWindowColor:2;
-    u32 unk_1D_5:1; // 
-    u32 unk_1D_6:1; // 
+    u32 unk_1D_5:1;
+    u32 unk_1D_6:1;
     u32 configNoAutoEndTurn:1;
-    u32 unk_1D_8:1; // 
-    u32 configBattleAnim:2; // 2
-    u32 unk_1E_3:2; // 
-    u32 unk_1E_5:1; // 
-    u32 unk_1E_6:1; // 
+    u32 unk_1D_8:1;
+    u32 configBattleAnim:2;
+    u32 unk_1E_3:2;
+    u32 unk_1E_5:1;
+    u32 unk_1E_6:1;
     u32 debugRedControl:2;
     u32 debugGreenControl:2;
-    u32 unk_1F_3:6; // 
+    u32 unk_1F_3:6;
 };
 
 void OnVBlank(void);
