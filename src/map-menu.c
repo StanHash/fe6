@@ -20,6 +20,7 @@
 #include "trademenu.h"
 #include "trap.h"
 #include "supply.h"
+#include "arena.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -1451,7 +1452,7 @@ int sub_802039C(struct MenuEntInfo const* info, int id)
     if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_ARENA_08)
         return MENU_NOTSHOWN;
 
-    return sub_8029FE0(gActiveUnit)
+    return ArenaIsUnitAllowed(gActiveUnit)
         ? MENU_ENABLED : MENU_DISABLED;
 }
 

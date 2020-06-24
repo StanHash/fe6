@@ -10,6 +10,7 @@
 #include "trap.h"
 #include "unitsprite.h"
 #include "bmio.h"
+#include "arena.h"
 #include "mu.h"
 
 #include "constants/chapters.h"
@@ -542,7 +543,8 @@ static void ResumeMapMainDuringArena(ProcPtr mapmain)
 {
     gActiveUnit = GetUnit(gAction.instigator);
 
-    sub_8029940(gActiveUnit);
+    ArenaResume(gActiveUnit);
+
     BattleGenerateArena(gActiveUnit);
     BeginBattleAnimations();
 

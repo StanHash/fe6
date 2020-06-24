@@ -185,8 +185,8 @@ SECTIONS
         . = ALIGN(4); src/trap.o(ewram_data);
         . = ALIGN(4); src/supply.o(ewram_data);
         . = ALIGN(4); src/unit-rearrange.o(ewram_data);
+        . = ALIGN(4); src/arena.o(ewram_data);
 
-        . = 0x039504; gArenaSt = .;
         . = 0x03956C; gAction = .;
         . = 0x039688; gAiDecision = .;
     }
@@ -307,6 +307,7 @@ SECTIONS
         src/chapter.o(.text);
         src/supply.o(.text);
         src/unit-rearrange.o(.text);
+        src/arena.o(.text);
 
         asm/code.o(.text);
 
@@ -369,6 +370,7 @@ SECTIONS
         . = ALIGN(4); data/menu-info.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/chapter.o(.rodata);
+        . = ALIGN(4); src/arena.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -406,6 +408,7 @@ SECTIONS
         . = ALIGN(4); data/menu-info.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/chapter.o(.data);
+        . = ALIGN(4); src/arena.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

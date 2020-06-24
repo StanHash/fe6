@@ -547,7 +547,7 @@ static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_FEMALE)
         return sub_805F820(unit->x, unit->y, JID_DISMOUNTED_F, 12);
     else
-        return sub_805F820(unit->x, unit->y, JID_DISMOUNTED_M, 12);
+        return sub_805F820(unit->x, unit->y, JID_DISMOUNTED, 12);
 }
 
 static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)

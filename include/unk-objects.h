@@ -9,7 +9,6 @@
 #include "menu.h"
 #include "map-select.h"
 
-extern struct ArenaSt gArenaSt;
 extern struct Action gAction;
 extern struct AiDecision gAiDecision;
 

@@ -13,5 +13,7 @@ enum
 
     PID_MERLINUS = 0x42,
 
+    PID_ARENA_OPPONENT = 0xE1,
+
     PID_WALL = 0xE2,
 };

@@ -151,26 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802986C
-// sub_8029924
-void sub_8029940(struct Unit* unit);
-// sub_8029964
-// sub_8029990
-// sub_80299BC
-// sub_8029A88
-// sub_8029AA0
-// sub_8029ABC
-// sub_8029B2C
-// sub_8029BFC
-// sub_8029C4C
-// sub_8029C9C
-// sub_8029DE4
-// sub_8029F34
-// sub_8029F5C
-// sub_8029F68
-// sub_8029F74
-// sub_8029F80
-Bool sub_8029FE0(struct Unit* unit);
 // sub_802A008
 // sub_802A018
 Bool sub_802A028(ProcPtr proc);

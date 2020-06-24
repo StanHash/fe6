@@ -12,6 +12,7 @@
 #include "faction.h"
 #include "support.h"
 #include "trap.h"
+#include "arena.h"
 #include "mu.h"
 
 #include "constants/pids.h"

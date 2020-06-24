@@ -185,9 +185,8 @@ enum
 
 struct Action
 {
-    /* 00 */ u16 unk_00[3];
-    /* 06 */ u16 unk_06;
-    /* 08 */ u16 unk_08[2];
+    /* 00 */ u16 actionRandSt[3];
+    /* 06 */ u16 arenaBeginRandSt[3];
 
     /* 0C */ u8 instigator;
     /* 0D */ u8 target;
@@ -230,28 +229,6 @@ struct AiDecision
     /* 09 */ u8 yTarget;
 
     /* 0A */ Bool actionPerformed;
-};
-
-struct ArenaSt
-{
-    /* 00 */ struct Unit* player;
-    /* 04 */ struct Unit* opponent;
-    /* 08 */ short unk_08;
-    /* 0A */ u8 unk_0A;
-    /* 0B */ u8 unk_0B;
-    /* 0C */ u8 range;
-    /* 0D */ u8 playerWeaponKind;
-    /* 0E */ u8 opponentWeaponKind;
-    /* 0F */ u8 playerJid;
-    /* 10 */ u8 opponentJid;
-    /* 11 */ u8 playerLevel;
-    /* 12 */ u8 oppenentLevel;
-    /* 13 */ s8 playerIsMagic;
-    /* 14 */ s8 opponentIsMagic;
-    /* 16 */ short playerPowerWeight;
-    /* 18 */ short opponentPowerWeight;
-    /* 1A */ u16 playerWeapon;
-    /* 1C */ u16 opponentWeapon;
 };
 
 enum

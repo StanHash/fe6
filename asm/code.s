@@ -3,1017 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start sub_802986C
-sub_802986C: @ 0x0802986C
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _080298C4 @ =gArenaSt
-	str r5, [r4]
-	ldr r0, _080298C8 @ =0x02039524
-	str r0, [r4, #4]
-	ldr r0, [r5, #4]
-	ldrb r0, [r0, #4]
-	strb r0, [r4, #0xf]
-	adds r0, r5, #0
-	bl sub_8029964
-	strb r0, [r4, #0xd]
-	ldrb r0, [r4, #0xd]
-	bl sub_80299BC
-	strb r0, [r4, #0x10]
-	ldrb r0, [r4, #0x10]
-	bl GetJobInfo
-	bl sub_8029990
-	strb r0, [r4, #0xe]
-	ldrb r0, [r4, #0xd]
-	bl sub_8029A88
-	strb r0, [r4, #0x13]
-	ldrb r0, [r4, #0xe]
-	bl sub_8029A88
-	strb r0, [r4, #0x14]
-	ldrb r0, [r5, #8]
-	strb r0, [r4, #0x11]
-	ldrb r0, [r4, #0x11]
-	bl sub_8029AA0
-	strb r0, [r4, #0x12]
-	bl sub_8029B2C
-	bl sub_8029BFC
-	movs r4, #0
-	b _080298CE
-	.align 2, 0
-_080298C4: .4byte gArenaSt
-_080298C8: .4byte 0x02039524
-_080298CC:
-	adds r4, #1
-_080298CE:
-	cmp r4, #9
-	bgt _080298DC
-	bl sub_8029DE4
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080298CC
-_080298DC:
-	movs r4, #0
-	b _080298E2
-_080298E0:
-	adds r4, #1
-_080298E2:
-	cmp r4, #4
-	bgt _080298F0
-	bl sub_8029C9C
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne _080298E0
-_080298F0:
-	ldr r4, _08029920 @ =gArenaSt
-	ldr r0, [r4]
-	movs r1, #0x14
-	ldrsb r1, [r4, r1]
-	bl sub_8029ABC
-	strh r0, [r4, #0x16]
-	ldr r0, [r4, #4]
-	movs r1, #0x13
-	ldrsb r1, [r4, r1]
-	bl sub_8029ABC
-	strh r0, [r4, #0x18]
-	bl sub_8029F34
-	movs r0, #1
-	strb r0, [r4, #0xb]
-	movs r0, #0
-	bl sub_8029F74
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029920: .4byte gArenaSt
-
-	thumb_func_start sub_8029924
-sub_8029924: @ 0x08029924
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, _0802993C @ =0x02039572
-	bl RandGetSt
-	adds r0, r4, #0
-	bl sub_802986C
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802993C: .4byte 0x02039572
-
-	thumb_func_start sub_8029940
-sub_8029940: @ 0x08029940
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _08029960 @ =0x02039572
-	adds r0, r4, #0
-	bl RandSetSt
-	adds r0, r5, #0
-	bl sub_802986C
-	subs r4, #6
-	adds r0, r4, #0
-	bl RandSetSt
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029960: .4byte 0x02039572
-
-	thumb_func_start sub_8029964
-sub_8029964: @ 0x08029964
-	push {r4, lr}
-	movs r2, #0
-	movs r3, #1
-	rsbs r3, r3, #0
-	movs r1, #0
-	adds r4, r0, #0
-	adds r4, #0x26
-_08029972:
-	cmp r1, #4
-	beq _08029982
-	adds r0, r4, r1
-	ldrb r0, [r0]
-	cmp r2, r0
-	bge _08029982
-	adds r2, r0, #0
-	adds r3, r1, #0
-_08029982:
-	adds r1, #1
-	cmp r1, #7
-	ble _08029972
-	adds r0, r3, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	thumb_func_start sub_8029990
-sub_8029990: @ 0x08029990
-	push {r4, lr}
-	movs r2, #0
-	movs r3, #1
-	rsbs r3, r3, #0
-	movs r1, #0
-	adds r4, r0, #0
-	adds r4, #0x28
-_0802999E:
-	cmp r1, #4
-	beq _080299AE
-	adds r0, r4, r1
-	ldrb r0, [r0]
-	cmp r2, r0
-	bge _080299AE
-	adds r2, r0, #0
-	adds r3, r1, #0
-_080299AE:
-	adds r1, #1
-	cmp r1, #7
-	ble _0802999E
-	adds r0, r3, #0
-	pop {r4}
-	pop {r1}
-	bx r1
-
-	thumb_func_start sub_80299BC
-sub_80299BC: @ 0x080299BC
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	movs r6, #0
-	mov r8, r6
-	cmp r0, #7
-	bhi _08029A10
-	lsls r0, r0, #2
-	ldr r1, _080299D4 @ =_080299D8
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_080299D4: .4byte _080299D8
-_080299D8: @ jump table
-	.4byte _080299F8 @ case 0
-	.4byte _080299F8 @ case 1
-	.4byte _080299F8 @ case 2
-	.4byte _08029A00 @ case 3
-	.4byte _08029A10 @ case 4
-	.4byte _08029A0C @ case 5
-	.4byte _08029A0C @ case 6
-	.4byte _08029A0C @ case 7
-_080299F8:
-	ldr r0, _080299FC @ =0x085C7CD8
-	b _08029A0E
-	.align 2, 0
-_080299FC: .4byte 0x085C7CD8
-_08029A00:
-	ldr r1, _08029A08 @ =0x085C7D29
-	mov r8, r1
-	b _08029A10
-	.align 2, 0
-_08029A08: .4byte 0x085C7D29
-_08029A0C:
-	ldr r0, _08029A58 @ =0x085C7CFE
-_08029A0E:
-	mov r8, r0
-_08029A10:
-	ldr r0, _08029A5C @ =gArenaSt
-	ldr r0, [r0]
-	ldr r1, [r0]
-	ldr r0, [r0, #4]
-	ldr r5, [r1, #0x28]
-	ldr r0, [r0, #0x24]
-	orrs r5, r0
-	movs r0, #0x80
-	lsls r0, r0, #1
-	ands r5, r0
-	mov r1, r8
-	ldrb r0, [r1]
-	cmp r0, #0
-	beq _08029A4A
-	mov r4, r8
-_08029A2E:
-	ldrb r0, [r4]
-	bl GetJobInfo
-	ldr r0, [r0, #0x24]
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ands r0, r1
-	cmp r0, r5
-	bne _08029A42
-	adds r6, #1
-_08029A42:
-	adds r4, #1
-	ldrb r0, [r4]
-	cmp r0, #0
-	bne _08029A2E
-_08029A4A:
-	adds r0, r6, #0
-	bl RandNext
-	adds r7, r0, #0
-	movs r6, #0
-	mov r4, r8
-	b _08029A64
-	.align 2, 0
-_08029A58: .4byte 0x085C7CFE
-_08029A5C: .4byte gArenaSt
-_08029A60:
-	adds r6, #1
-_08029A62:
-	adds r4, #1
-_08029A64:
-	ldrb r0, [r4]
-	bl GetJobInfo
-	ldr r0, [r0, #0x24]
-	movs r1, #0x80
-	lsls r1, r1, #1
-	ands r0, r1
-	cmp r0, r5
-	bne _08029A62
-	cmp r6, r7
-	bne _08029A60
-	ldrb r0, [r4]
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start sub_8029A88
-sub_8029A88: @ 0x08029A88
-	cmp r0, #0
-	blt _08029A9E
-	cmp r0, #3
-	bgt _08029A94
-	movs r0, #0
-	b _08029A9E
-_08029A94:
-	cmp r0, #7
-	bgt _08029A9E
-	cmp r0, #5
-	blt _08029A9E
-	movs r0, #1
-_08029A9E:
-	bx lr
-
-	thumb_func_start sub_8029AA0
-sub_8029AA0: @ 0x08029AA0
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r0, #9
-	bl RandNext
-	adds r4, r4, r0
-	subs r0, r4, #4
-	cmp r0, #0
-	bgt _08029AB4
-	movs r0, #1
-_08029AB4:
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start sub_8029ABC
-sub_8029ABC: @ 0x08029ABC
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	movs r5, #0x10
-	ldrsb r5, [r4, r5]
-	movs r0, #0x12
-	ldrsb r0, [r4, r0]
-	adds r0, r0, r5
-	movs r2, #0x13
-	ldrsb r2, [r4, r2]
-	adds r2, r2, r0
-	movs r0, #0x14
-	ldrsb r0, [r4, r0]
-	adds r0, r0, r2
-	lsls r5, r0, #1
-	movs r0, #0x17
-	ldrsb r0, [r4, r0]
-	adds r5, r5, r0
-	ldr r0, [r4, #4]
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	ldr r2, [r4]
-	ldrb r2, [r2, #0x13]
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	adds r0, r0, r2
-	adds r5, r5, r0
-	lsls r1, r1, #0x18
-	cmp r1, #0
-	beq _08029B00
-	adds r0, r4, #0
-	bl GetUnitResistance
-	b _08029B06
-_08029B00:
-	adds r0, r4, #0
-	bl GetUnitDefense
-_08029B06:
-	lsls r0, r0, #1
-	adds r5, r5, r0
-	ldr r0, [r4]
-	ldr r1, [r4, #4]
-	ldr r0, [r0, #0x28]
-	ldr r1, [r1, #0x24]
-	orrs r0, r1
-	movs r1, #0x40
-	ands r0, r1
-	cmp r0, #0
-	beq _08029B24
-	adds r0, r4, #0
-	bl GetUnitPower
-	adds r5, r5, r0
-_08029B24:
-	adds r0, r5, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-
-	thumb_func_start sub_8029B2C
-sub_8029B2C: @ 0x08029B2C
-	push {r4, r5, r6, lr}
-	sub sp, #0x10
-	ldr r6, _08029BA8 @ =0x02039524
-	mov r1, sp
-	movs r2, #0
-	movs r0, #0xe1
-	strb r0, [r1]
-	ldr r5, _08029BAC @ =gArenaSt
-	ldrb r0, [r5, #0x10]
-	strb r0, [r1, #1]
-	mov r3, sp
-	ldrb r0, [r3, #3]
-	movs r1, #7
-	rsbs r1, r1, #0
-	ands r1, r0
-	strb r1, [r3, #3]
-	mov r4, sp
-	ldrb r5, [r5, #0x12]
-	lsls r3, r5, #3
-	movs r0, #7
-	ands r0, r1
-	orrs r0, r3
-	strb r0, [r4, #3]
-	mov r3, sp
-	movs r1, #1
-	orrs r0, r1
-	strb r0, [r3, #3]
-	mov r0, sp
-	strb r2, [r0, #8]
-	strb r2, [r0, #9]
-	strb r2, [r0, #0xa]
-	strb r2, [r0, #0xb]
-	strb r2, [r0, #0xc]
-	strb r2, [r0, #0xc]
-	strb r2, [r0, #0xd]
-	strb r2, [r0, #0xe]
-	strb r2, [r0, #0xf]
-	adds r0, r6, #0
-	bl ClearUnit
-	movs r0, #0x80
-	strb r0, [r6, #0xb]
-	adds r0, r6, #0
-	mov r1, sp
-	bl UnitInitFromInfo
-	ldr r1, [r6]
-	adds r0, r6, #0
-	bl UnitInitStats
-	movs r4, #8
-	ldrsb r4, [r6, r4]
-	ldr r1, _08029BB0 @ =gPlaySt
-	movs r0, #0x40
-	ldrb r1, [r1, #0x14]
-	ands r0, r1
-	cmp r0, #0
-	beq _08029BB4
-	lsls r0, r4, #3
-	adds r0, r0, r4
-	lsls r0, r0, #1
-	b _08029BBA
-	.align 2, 0
-_08029BA8: .4byte 0x02039524
-_08029BAC: .4byte gArenaSt
-_08029BB0: .4byte gPlaySt
-_08029BB4:
-	lsls r0, r4, #1
-	adds r0, r0, r4
-	lsls r0, r0, #2
-_08029BBA:
-	movs r1, #0xa
-	bl __divsi3
-	strb r0, [r6, #8]
-	adds r0, r6, #0
-	bl UnitAutolevel
-	strb r4, [r6, #8]
-	cmp r4, #0
-	bgt _08029BD2
-	movs r0, #1
-	strb r0, [r6, #8]
-_08029BD2:
-	movs r0, #8
-	ldrsb r0, [r6, r0]
-	cmp r0, #0x14
-	ble _08029BDE
-	movs r0, #0x14
-	strb r0, [r6, #8]
-_08029BDE:
-	adds r0, r6, #0
-	bl UnitCheckStatOverflow
-	adds r0, r6, #0
-	bl GetUnitMaxHp
-	adds r1, r0, #0
-	adds r0, r6, #0
-	bl SetUnitHp
-	add sp, #0x10
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-
-	thumb_func_start sub_8029BFC
-sub_8029BFC: @ 0x08029BFC
-	push {r4, lr}
-	sub sp, #8
-	ldr r1, _08029C44 @ =0x08105D2C
-	mov r0, sp
-	movs r2, #8
-	bl memcpy
-	ldr r4, _08029C48 @ =gArenaSt
-	ldrb r0, [r4, #0xd]
-	add r0, sp
-	ldrb r0, [r0]
-	bl CreateItem
-	strh r0, [r4, #0x1a]
-	ldrb r0, [r4, #0xe]
-	add r0, sp
-	ldrb r0, [r0]
-	bl CreateItem
-	strh r0, [r4, #0x1c]
-	movs r0, #1
-	strb r0, [r4, #0xc]
-	ldrb r0, [r4, #0xd]
-	cmp r0, #3
-	bne _08029C32
-	movs r0, #2
-	strb r0, [r4, #0xc]
-_08029C32:
-	ldrb r0, [r4, #0xe]
-	cmp r0, #3
-	bne _08029C3C
-	movs r0, #2
-	strb r0, [r4, #0xc]
-_08029C3C:
-	add sp, #8
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029C44: .4byte 0x08105D2C
-_08029C48: .4byte gArenaSt
-
-	thumb_func_start sub_8029C4C
-sub_8029C4C: @ 0x08029C4C
-	push {r4, r5, lr}
-	sub sp, #0x1c
-	lsls r0, r0, #0x10
-	lsrs r5, r0, #0x10
-	ldr r1, _08029C64 @ =0x08105D34
-	mov r0, sp
-	movs r2, #0x1a
-	bl memcpy
-	mov r4, sp
-	b _08029C8C
-	.align 2, 0
-_08029C64: .4byte 0x08105D34
-_08029C68:
-	adds r0, r5, #0
-	bl GetItemIid
-	ldrb r1, [r4]
-	cmp r0, r1
-	bne _08029C8A
-	adds r4, #1
-	ldrb r0, [r4]
-	cmp r0, #0
-	beq _08029C86
-	bl CreateItem
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	b _08029C92
-_08029C86:
-	adds r0, r5, #0
-	b _08029C92
-_08029C8A:
-	adds r4, #1
-_08029C8C:
-	ldrb r0, [r4]
-	cmp r0, #0xff
-	bne _08029C68
-_08029C92:
-	add sp, #0x1c
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start sub_8029C9C
-sub_8029C9C: @ 0x08029C9C
-	push {r4, r5, r6, lr}
-	movs r6, #0
-	ldr r4, _08029CC4 @ =gArenaSt
-	ldr r0, [r4]
-	bl GetUnitPower
-	ldr r5, _08029CC8 @ =gBattleUnitA
-	adds r0, #5
-	adds r1, r5, #0
-	adds r1, #0x58
-	strh r0, [r1]
-	movs r0, #0x14
-	ldrsb r0, [r4, r0]
-	cmp r0, #0
-	beq _08029CCC
-	ldr r0, [r4]
-	bl GetUnitResistance
-	b _08029CD2
-	.align 2, 0
-_08029CC4: .4byte gArenaSt
-_08029CC8: .4byte gBattleUnitA
-_08029CCC:
-	ldr r0, [r4]
-	bl GetUnitDefense
-_08029CD2:
-	adds r1, r5, #0
-	adds r1, #0x5a
-	strh r0, [r1]
-	ldr r4, _08029CFC @ =gArenaSt
-	ldr r0, [r4, #4]
-	bl GetUnitPower
-	ldr r5, _08029D00 @ =gBattleUnitB
-	adds r0, #5
-	adds r1, r5, #0
-	adds r1, #0x58
-	strh r0, [r1]
-	movs r0, #0x13
-	ldrsb r0, [r4, r0]
-	cmp r0, #0
-	beq _08029D04
-	ldr r0, [r4, #4]
-	bl GetUnitResistance
-	b _08029D0A
-	.align 2, 0
-_08029CFC: .4byte gArenaSt
-_08029D00: .4byte gBattleUnitB
-_08029D04:
-	ldr r0, [r4, #4]
-	bl GetUnitDefense
-_08029D0A:
-	adds r1, r5, #0
-	adds r1, #0x5a
-	strh r0, [r1]
-	ldr r0, _08029D58 @ =gBattleUnitA
-	adds r0, #0x58
-	movs r1, #0
-	ldrsh r4, [r0, r1]
-	ldr r0, _08029D5C @ =gBattleUnitB
-	adds r0, #0x5a
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	subs r4, r4, r0
-	ldr r5, _08029D60 @ =gArenaSt
-	ldr r0, [r5, #4]
-	bl GetUnitMaxHp
-	movs r1, #6
-	bl __divsi3
-	cmp r4, r0
-	bge _08029D8A
-	movs r6, #1
-	movs r2, #0x13
-	ldrsb r2, [r5, r2]
-	cmp r2, #0
-	beq _08029D64
-	ldr r0, [r5, #4]
-	ldrb r1, [r0, #0x16]
-	subs r1, #4
-	strb r1, [r0, #0x16]
-	ldr r1, [r5, #4]
-	movs r0, #0x16
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	bge _08029D78
-	movs r0, #0
-	strb r0, [r1, #0x16]
-	b _08029D78
-	.align 2, 0
-_08029D58: .4byte gBattleUnitA
-_08029D5C: .4byte gBattleUnitB
-_08029D60: .4byte gArenaSt
-_08029D64:
-	ldr r0, [r5, #4]
-	ldrb r1, [r0, #0x15]
-	subs r1, #4
-	strb r1, [r0, #0x15]
-	ldr r1, [r5, #4]
-	movs r0, #0x15
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	bge _08029D78
-	strb r2, [r1, #0x15]
-_08029D78:
-	ldr r2, _08029DD8 @ =gArenaSt
-	ldr r1, [r2, #4]
-	ldrb r0, [r1, #0x14]
-	adds r0, #1
-	strb r0, [r1, #0x14]
-	ldr r1, [r2, #4]
-	ldrb r0, [r1, #0x13]
-	adds r0, #1
-	strb r0, [r1, #0x13]
-_08029D8A:
-	ldr r0, _08029DDC @ =gBattleUnitB
-	adds r0, #0x58
-	movs r1, #0
-	ldrsh r4, [r0, r1]
-	ldr r0, _08029DE0 @ =gBattleUnitA
-	adds r0, #0x5a
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	subs r4, r4, r0
-	ldr r5, _08029DD8 @ =gArenaSt
-	ldr r0, [r5]
-	bl GetUnitMaxHp
-	movs r1, #6
-	bl __divsi3
-	cmp r4, r0
-	bge _08029DD0
-	movs r6, #1
-	ldr r1, [r5, #4]
-	ldrb r0, [r1, #0x12]
-	adds r0, #3
-	strb r0, [r1, #0x12]
-	ldr r1, [r5, #4]
-	ldrb r0, [r1, #0x14]
-	adds r0, #2
-	strb r0, [r1, #0x14]
-	ldr r1, [r5, #4]
-	ldrb r0, [r1, #0x13]
-	adds r0, #2
-	strb r0, [r1, #0x13]
-	ldrh r0, [r5, #0x1c]
-	bl sub_8029C4C
-	strh r0, [r5, #0x1c]
-_08029DD0:
-	adds r0, r6, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_08029DD8: .4byte gArenaSt
-_08029DDC: .4byte gBattleUnitB
-_08029DE0: .4byte gBattleUnitA
-
-	thumb_func_start sub_8029DE4
-sub_8029DE4: @ 0x08029DE4
-	push {r4, r5, r6, lr}
-	ldr r4, _08029E10 @ =gArenaSt
-	ldr r0, [r4]
-	movs r1, #0x14
-	ldrsb r1, [r4, r1]
-	bl sub_8029ABC
-	strh r0, [r4, #0x16]
-	ldr r0, [r4, #4]
-	movs r1, #0x13
-	ldrsb r1, [r4, r1]
-	bl sub_8029ABC
-	strh r0, [r4, #0x18]
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	ldrh r1, [r4, #0x16]
-	cmp r1, r0
-	bls _08029E14
-	ldrh r1, [r4, #0x16]
-	b _08029E16
-	.align 2, 0
-_08029E10: .4byte gArenaSt
-_08029E14:
-	ldrh r1, [r4, #0x18]
-_08029E16:
-	ldr r6, _08029E34 @ =gArenaSt
-	ldrh r4, [r6, #0x16]
-	ldrh r5, [r6, #0x18]
-	subs r2, r4, r5
-	cmp r2, #0
-	bge _08029E24
-	subs r2, r5, r4
-_08029E24:
-	movs r0, #0x64
-	muls r0, r2, r0
-	bl __divsi3
-	cmp r0, #0x14
-	bgt _08029E38
-	movs r0, #0
-	b _08029F2E
-	.align 2, 0
-_08029E34: .4byte gArenaSt
-_08029E38:
-	cmp r4, r5
-	bhs _08029EB4
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x10]
-	movs r0, #0x10
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029E54
-	subs r0, r2, #1
-	strb r0, [r1, #0x10]
-	ldr r1, [r6, #4]
-	ldrb r0, [r1, #0x11]
-	subs r0, #1
-	strb r0, [r1, #0x11]
-_08029E54:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x12]
-	movs r0, #0x12
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029E64
-	subs r0, r2, #1
-	strb r0, [r1, #0x12]
-_08029E64:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x13]
-	movs r0, #0x13
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029E74
-	subs r0, r2, #1
-	strb r0, [r1, #0x13]
-_08029E74:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x14]
-	movs r0, #0x14
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029E84
-	subs r0, r2, #1
-	strb r0, [r1, #0x14]
-_08029E84:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x15]
-	movs r0, #0x15
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029E94
-	subs r0, r2, #1
-	strb r0, [r1, #0x15]
-_08029E94:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x16]
-	movs r0, #0x16
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029EA4
-	subs r0, r2, #1
-	strb r0, [r1, #0x16]
-_08029EA4:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x17]
-	movs r0, #0x17
-	ldrsb r0, [r1, r0]
-	cmp r0, #0
-	beq _08029F2C
-	subs r0, r2, #1
-	b _08029F2A
-_08029EB4:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x10]
-	movs r0, #0x10
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x4f
-	bgt _08029ECC
-	adds r0, r2, #2
-	strb r0, [r1, #0x10]
-	ldr r1, [r6, #4]
-	ldrb r0, [r1, #0x11]
-	adds r0, #2
-	strb r0, [r1, #0x11]
-_08029ECC:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x12]
-	movs r0, #0x12
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029EDC
-	adds r0, r2, #1
-	strb r0, [r1, #0x12]
-_08029EDC:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x13]
-	movs r0, #0x13
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029EEC
-	adds r0, r2, #1
-	strb r0, [r1, #0x13]
-_08029EEC:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x14]
-	movs r0, #0x14
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029EFC
-	adds r0, r2, #1
-	strb r0, [r1, #0x14]
-_08029EFC:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x15]
-	movs r0, #0x15
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029F0C
-	adds r0, r2, #1
-	strb r0, [r1, #0x15]
-_08029F0C:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x16]
-	movs r0, #0x16
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029F1C
-	adds r0, r2, #1
-	strb r0, [r1, #0x16]
-_08029F1C:
-	ldr r1, [r6, #4]
-	ldrb r2, [r1, #0x17]
-	movs r0, #0x17
-	ldrsb r0, [r1, r0]
-	cmp r0, #0x1d
-	bgt _08029F2C
-	adds r0, r2, #1
-_08029F2A:
-	strb r0, [r1, #0x17]
-_08029F2C:
-	movs r0, #1
-_08029F2E:
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-
-	thumb_func_start sub_8029F34
-sub_8029F34: @ 0x08029F34
-	ldr r2, _08029F58 @ =gArenaSt
-	ldrh r1, [r2, #0x18]
-	ldrh r3, [r2, #0x16]
-	subs r0, r1, r3
-	lsrs r1, r0, #0x1f
-	adds r1, r0, r1
-	asrs r1, r1, #1
-	lsls r0, r1, #2
-	adds r0, r0, r1
-	lsls r0, r0, #1
-	movs r1, #0xc8
-	lsls r1, r1, #2
-	adds r0, r0, r1
-	cmp r0, #0
-	bgt _08029F54
-	movs r0, #1
-_08029F54:
-	strh r0, [r2, #8]
-	bx lr
-	.align 2, 0
-_08029F58: .4byte gArenaSt
-
-	thumb_func_start sub_8029F5C
-sub_8029F5C: @ 0x08029F5C
-	ldr r0, _08029F64 @ =gArenaSt
-	movs r1, #8
-	ldrsh r0, [r0, r1]
-	bx lr
-	.align 2, 0
-_08029F64: .4byte gArenaSt
-
-	thumb_func_start sub_8029F68
-sub_8029F68: @ 0x08029F68
-	ldr r0, _08029F70 @ =gArenaSt
-	ldrb r0, [r0, #0xa]
-	bx lr
-	.align 2, 0
-_08029F70: .4byte gArenaSt
-
-	thumb_func_start sub_8029F74
-sub_8029F74: @ 0x08029F74
-	ldr r1, _08029F7C @ =gArenaSt
-	strb r0, [r1, #0xa]
-	bx lr
-	.align 2, 0
-_08029F7C: .4byte gArenaSt
-
-	thumb_func_start sub_8029F80
-sub_8029F80: @ 0x08029F80
-	push {r4, r5, lr}
-	ldr r0, _08029FCC @ =gBmSt
-	adds r0, #0x3c
-	ldrb r5, [r0]
-	ldr r1, _08029FD0 @ =gAction
-	ldr r4, _08029FD4 @ =gBattleUnitB
-	ldrb r0, [r4, #0x11]
-	strb r0, [r1, #0x15]
-	movs r0, #4
-	strb r0, [r1, #0x16]
-	movs r0, #3
-	bl sub_80857B0
-	bl BattleUnwind
-	movs r0, #0x11
-	ldrsb r0, [r4, r0]
-	cmp r0, #0
-	bne _08029FAA
-	bl BattleApplyExpGains
-_08029FAA:
-	ldr r0, _08029FD8 @ =gArenaSt
-	ldr r0, [r0]
-	ldr r1, _08029FDC @ =gBattleUnitA
-	bl UpdateUnitDuringBattle
-	cmp r5, #0
-	beq _08029FC0
-	movs r0, #0x11
-	ldrsb r0, [r4, r0]
-	cmp r0, #0
-	bne _08029FC4
-_08029FC0:
-	bl sub_8084D64
-_08029FC4:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08029FCC: .4byte gBmSt
-_08029FD0: .4byte gAction
-_08029FD4: .4byte gBattleUnitB
-_08029FD8: .4byte gArenaSt
-_08029FDC: .4byte gBattleUnitA
-
-	thumb_func_start sub_8029FE0
-sub_8029FE0: @ 0x08029FE0
-	push {lr}
-	adds r2, r0, #0
-	adds r1, r2, #0
-	adds r1, #0x2e
-	movs r0, #0xf
-	ldrb r1, [r1]
-	ands r0, r1
-	cmp r0, #3
-	beq _0802A000
-	adds r0, r2, #0
-	bl sub_8029964
-	cmp r0, #0
-	blt _0802A000
-	movs r0, #1
-	b _0802A002
-_0802A000:
-	movs r0, #0
-_0802A002:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
 	thumb_func_start sub_802A008
 sub_802A008: @ 0x0802A008
 	push {lr}
@@ -51476,7 +50465,7 @@ _08042CAC:
 	cmp r0, #0
 	bne _08042D08
 	movs r0, #1
-	bl sub_8029F74
+	bl ArenaSetResult
 	b _08042D58
 	.align 2, 0
 _08042CF4: .4byte 0x0201E124
@@ -51491,7 +50480,7 @@ _08042D08:
 	bne _08042D1A
 	movs r0, #2
 _08042D12:
-	bl sub_8029F74
+	bl ArenaSetResult
 	strh r4, [r5, #2]
 	b _08042D58
 _08042D1A:
@@ -51504,7 +50493,7 @@ _08042D1A:
 	movs r0, #4
 	b _08042D12
 _08042D2C:
-	bl sub_8029F80
+	bl ArenaContinueBattle
 	bl sub_8049F1C
 	bl BasInit
 	bl sub_804B048
@@ -180680,7 +179669,7 @@ _08082B66:
 sub_8082B74: @ 0x08082B74
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8029FE0
+	bl ArenaIsUnitAllowed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _08082B90
@@ -223348,7 +222337,7 @@ sub_8097E84: @ 0x08097E84
 	ldr r0, _08097EA4 @ =gActiveUnit
 	ldr r1, [r0]
 	adds r0, r1, #0
-	bl sub_8029924
+	bl ArenaBegin
 	ldr r1, _08097EA8 @ =0x086911AC
 	adds r0, r1, #0
 	movs r1, #3
@@ -223854,7 +222843,7 @@ sub_80982B0: @ 0x080982B0
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	adds r1, r0, #0
 	adds r0, r1, #0
 	bl SetTalkNumber
@@ -223898,7 +222887,7 @@ _080982F8:
 	.align 2, 0
 _0809830C: .4byte 0x000002F6
 _08098310:
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	adds r4, r0, #0
 	bl GetGold
 	cmp r4, r0
@@ -223930,7 +222919,7 @@ sub_8098340: @ 0x08098340
 	str r0, [r7]
 	bl GetGold
 	str r0, [r7, #4]
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	ldr r1, [r7, #4]
 	subs r0, r1, r0
 	str r0, [r7, #4]
@@ -224109,7 +223098,7 @@ sub_80984A8: @ 0x080984A8
 	str r0, [r7]
 	bl GetGold
 	str r0, [r7, #4]
-	bl sub_8029F68
+	bl ArenaGetResult
 	cmp r0, #2
 	beq _08098504
 	cmp r0, #2
@@ -224124,7 +223113,7 @@ _080984C8:
 	beq _08098538
 	b _08098548
 _080984D2:
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	adds r1, r0, #0
 	lsls r2, r1, #1
 	adds r0, r2, #0
@@ -224134,7 +223123,7 @@ _080984D2:
 	adds r0, r1, #0
 	ldr r1, [r7]
 	bl sub_80985D8
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	adds r1, r0, #0
 	lsls r0, r1, #1
 	ldr r1, [r7, #4]
@@ -224157,7 +223146,7 @@ _08098514:
 	adds r0, r1, #0
 	ldr r1, [r7]
 	bl sub_80985D8
-	bl sub_8029F5C
+	bl ArenaGetMatchupGoldValue
 	ldr r1, [r7, #4]
 	adds r0, r1, r0
 	str r0, [r7, #4]
@@ -224187,7 +223176,7 @@ sub_8098550: @ 0x08098550
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl sub_8029F68
+	bl ArenaGetResult
 	cmp r0, #2
 	beq _080985A0
 	cmp r0, #2
@@ -224367,7 +223356,7 @@ sub_80986DC: @ 0x080986DC
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl sub_8029F68
+	bl ArenaGetResult
 	cmp r0, #1
 	beq _080986EE
 	b _08098708
