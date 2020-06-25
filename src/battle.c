@@ -13,6 +13,7 @@
 #include "support.h"
 #include "trap.h"
 #include "arena.h"
+#include "action.h"
 #include "mu.h"
 
 #include "constants/pids.h"

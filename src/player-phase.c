@@ -15,6 +15,7 @@
 #include "unitsprite.h"
 #include "trap.h"
 #include "chapter.h"
+#include "action.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -97,7 +98,7 @@ PROC_LABEL(L_PLAYERPHASE_ACTION),
 
     PROC_CALL_2(PlayerPhase_BeginAction),
 
-    PROC_CALL_2(sub_802A028),
+    PROC_CALL_2(DoAction),
     PROC_CALL_2(DoHandleStepTraps),
 
     PROC_CALL_2(PlayerPhase_0801B9B0),

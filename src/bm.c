@@ -20,6 +20,7 @@
 #include "unitsprite.h"
 #include "support.h"
 #include "trap.h"
+#include "action.h"
 
 #include "constants/video-global.h"
 

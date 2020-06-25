@@ -6,6 +6,7 @@
 #include "unit.h"
 #include "faction.h"
 #include "battle.h"
+#include "action.h"
 
 #include "constants/jids.h"
 #include "constants/pids.h"

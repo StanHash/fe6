@@ -21,6 +21,7 @@
 #include "trap.h"
 #include "supply.h"
 #include "arena.h"
+#include "action.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -1268,7 +1269,7 @@ u8 sub_802001C(struct MenuProc* menu, struct MenuEntProc* ent)
 
 u8 sub_8020050(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    gAction.id = ACTION_0C;
+    gAction.id = ACTION_TALK;
     gAction.target = target->uid;
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
@@ -1311,7 +1312,7 @@ u8 sub_80200B4(struct MenuProc* menu, struct MenuEntProc* ent)
 
 u8 sub_80200E8(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    gAction.id = ACTION_0D;
+    gAction.id = ACTION_SUPPORT;
     gAction.target = target->uid;
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;

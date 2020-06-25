@@ -151,33 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802A008
-// sub_802A018
-Bool sub_802A028(ProcPtr proc);
-// sub_802A138
-// sub_802A188
-// sub_802A208
-// sub_802A234
-// sub_802A274
-// sub_802A2C0
-// sub_802A30C
-// sub_802A35C
-// sub_802A370
-// sub_802A3C0
-// sub_802A3EC
-// sub_802A494
-// sub_802A514
-// sub_802A5BC
-// sub_802A5CC
-// sub_802A68C
-// sub_802A6B4
-// sub_802A6D8
-// sub_802A718
-// sub_802A798
-// sub_802A7A4
-// sub_802A7F4
-// sub_802A814
-// sub_802A840
 // sub_802A860
 // sub_802A874
 // sub_802A918
@@ -2241,7 +2214,7 @@ void sub_8061704(void);
 // MA_SortMuLayers
 // sub_8062598
 // sub_8062614
-// sub_8062690
+void sub_8062690(void);
 // sub_8062734
 void sub_80627D0(void);
 // sub_806283C
@@ -2490,10 +2463,10 @@ void sub_806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 Bool sub_806AED8(void);
 void sub_806AF08(void);
 Bool sub_806AF4C(int pidA, int pidB);
-// sub_806AF90
-// sub_806AFD0
+void sub_806AF90(int pidA, int pidB);
+void sub_806AFD0(int pidA, int pidB, int supportLevel);
 int sub_806B028(int x, int y);
-void sub_806B06C(int x, int y);
+void sub_806B06C(s8 x, s8 y);
 // sub_806B254
 // sub_806B268
 // sub_806B284

@@ -11,6 +11,7 @@
 #include "unitsprite.h"
 #include "bmio.h"
 #include "arena.h"
+#include "action.h"
 #include "mu.h"
 
 #include "constants/chapters.h"

@@ -17,7 +17,6 @@ enum
     BATTLE_FLAG_ARENA = (1 << 5),
     BATTLE_FLAG_REFRESH = (1 << 6),
     BATTLE_FLAG_MAPANIMS = (1 << 7),
-    BATTLE_FLAG_PROMOTION = (1 << 8),
 };
 
 enum

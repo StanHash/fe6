@@ -9,7 +9,6 @@
 #include "menu.h"
 #include "map-select.h"
 
-extern struct Action gAction;
 extern struct AiDecision gAiDecision;
 
 extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
@@ -90,6 +89,7 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_085C83C8[];
 extern struct ProcScr CONST_DATA ProcScr_TrapDamageDisplay[];
+extern struct ProcScr CONST_DATA ProcScr_Mu[];
 extern struct MenuInfo CONST_DATA MenuInfo_085C7474;
 extern struct MenuInfo CONST_DATA MenuInfo_085C73E4;
 extern struct MenuInfo CONST_DATA MenuInfo_085C742C;

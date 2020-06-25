@@ -10,6 +10,7 @@
 #include "msg.h"
 #include "item.h"
 #include "unit.h"
+#include "action.h"
 
 #include "constants/video-global.h"
 

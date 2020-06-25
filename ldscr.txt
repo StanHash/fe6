@@ -80,6 +80,7 @@ ProcScr_TrapDamageDisplay   = 0x085C8320;
 ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
+ProcScr_Mu                  = 0x086648B4;
 ProcScr_Unk_0868AE04        = 0x0868AE04;
 ProcScr_Unk_0868B010        = 0x0868B010;
 ProcScr_Unk_0868C304        = 0x0868C304;
@@ -186,9 +187,9 @@ SECTIONS
         . = ALIGN(4); src/supply.o(ewram_data);
         . = ALIGN(4); src/unit-rearrange.o(ewram_data);
         . = ALIGN(4); src/arena.o(ewram_data);
+        . = ALIGN(4); src/action.o(ewram_data);
 
-        . = 0x03956C; gAction = .;
-        . = 0x039688; gAiDecision = .;
+       . = 0x039688; gAiDecision = .;
     }
 
     . = 0x03000000;
@@ -308,6 +309,7 @@ SECTIONS
         src/supply.o(.text);
         src/unit-rearrange.o(.text);
         src/arena.o(.text);
+        src/action.o(.text);
 
         asm/code.o(.text);
 
@@ -409,6 +411,7 @@ SECTIONS
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/chapter.o(.data);
         . = ALIGN(4); src/arena.o(.data);
+        . = ALIGN(4); src/action.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
     } = 0

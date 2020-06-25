@@ -11,6 +11,7 @@
 #include "faction.h"
 #include "target-list.h"
 #include "unitsprite.h"
+#include "action.h"
 #include "mu.h"
 
 #include "constants/items.h"

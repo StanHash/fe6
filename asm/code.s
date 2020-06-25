@@ -3,997 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start sub_802A008
-sub_802A008: @ 0x0802A008
-	push {lr}
-	ldr r0, _0802A014 @ =gAction
-	bl RandGetSt
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A014: .4byte gAction
-
-	thumb_func_start sub_802A018
-sub_802A018: @ 0x0802A018
-	push {lr}
-	ldr r0, _0802A024 @ =gAction
-	bl RandSetSt
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A024: .4byte gAction
-
-	thumb_func_start sub_802A028
-sub_802A028: @ 0x0802A028
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _0802A04C @ =gAction
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	ldr r1, _0802A050 @ =gActiveUnit
-	str r0, [r1]
-	ldrb r0, [r4, #0x11]
-	subs r0, #1
-	cmp r0, #0x1a
-	bhi _0802A12E
-	lsls r0, r0, #2
-	ldr r1, _0802A054 @ =_0802A058
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-_0802A04C: .4byte gAction
-_0802A050: .4byte gActiveUnit
-_0802A054: .4byte _0802A058
-_0802A058: @ jump table
-	.4byte _0802A0C4 @ case 0
-	.4byte _0802A0F0 @ case 1
-	.4byte _0802A124 @ case 2
-	.4byte _0802A0F8 @ case 3
-	.4byte _0802A12E @ case 4
-	.4byte _0802A110 @ case 5
-	.4byte _0802A0D8 @ case 6
-	.4byte _0802A0E0 @ case 7
-	.4byte _0802A12E @ case 8
-	.4byte _0802A12E @ case 9
-	.4byte _0802A12E @ case 10
-	.4byte _0802A100 @ case 11
-	.4byte _0802A108 @ case 12
-	.4byte _0802A0E8 @ case 13
-	.4byte _0802A0E8 @ case 14
-	.4byte _0802A124 @ case 15
-	.4byte _0802A12E @ case 16
-	.4byte _0802A124 @ case 17
-	.4byte _0802A12E @ case 18
-	.4byte _0802A12E @ case 19
-	.4byte _0802A12E @ case 20
-	.4byte _0802A118 @ case 21
-	.4byte _0802A124 @ case 22
-	.4byte _0802A12E @ case 23
-	.4byte _0802A12E @ case 24
-	.4byte _0802A12E @ case 25
-	.4byte _0802A0C4 @ case 26
-_0802A0C4:
-	ldr r0, _0802A0D4 @ =gActiveUnit
-	ldr r1, [r0]
-	movs r0, #0x40
-	ldrh r2, [r1, #0xc]
-	orrs r0, r2
-	strh r0, [r1, #0xc]
-	b _0802A12E
-	.align 2, 0
-_0802A0D4: .4byte gActiveUnit
-_0802A0D8:
-	adds r0, r5, #0
-	bl sub_802A138
-	b _0802A11E
-_0802A0E0:
-	adds r0, r5, #0
-	bl sub_802A188
-	b _0802A11E
-_0802A0E8:
-	adds r0, r5, #0
-	bl sub_802A208
-	b _0802A11E
-_0802A0F0:
-	adds r0, r5, #0
-	bl sub_802A30C
-	b _0802A11E
-_0802A0F8:
-	adds r0, r5, #0
-	bl sub_802A370
-	b _0802A11E
-_0802A100:
-	adds r0, r5, #0
-	bl sub_802A3C0
-	b _0802A11E
-_0802A108:
-	adds r0, r5, #0
-	bl sub_802A3EC
-	b _0802A11E
-_0802A110:
-	adds r0, r5, #0
-	bl sub_802A494
-	b _0802A11E
-_0802A118:
-	adds r0, r5, #0
-	bl sub_802A35C
-_0802A11E:
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	b _0802A130
-_0802A124:
-	adds r0, r5, #0
-	bl DoItemAction
-	movs r0, #0
-	b _0802A130
-_0802A12E:
-	movs r0, #1
-_0802A130:
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start sub_802A138
-sub_802A138: @ 0x0802A138
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _0802A184 @ =gAction
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	adds r5, r0, #0
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r4, r0, #0
-	movs r0, #0xe
-	ldrsb r0, [r5, r0]
-	movs r1, #0xf
-	ldrsb r1, [r5, r1]
-	movs r2, #0xe
-	ldrsb r2, [r4, r2]
-	movs r3, #0xf
-	ldrsb r3, [r4, r3]
-	bl sub_801C160
-	adds r1, r0, #0
-	adds r0, r4, #0
-	movs r2, #0
-	adds r3, r6, #0
-	bl StartRescueTransferAnim
-	adds r0, r5, #0
-	adds r1, r4, #0
-	bl UnitRescue
-	adds r0, r4, #0
-	bl HideUnitSprite
-	movs r0, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A184: .4byte gAction
-
-	thumb_func_start sub_802A188
-sub_802A188: @ 0x0802A188
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _0802A1E4 @ =gAction
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r5, r0, #0
-	ldr r0, _0802A1E8 @ =gMapHidden
-	ldr r1, [r0]
-	ldrb r2, [r4, #0x14]
-	lsls r0, r2, #2
-	adds r0, r0, r1
-	ldr r0, [r0]
-	ldrb r1, [r4, #0x13]
-	adds r0, r1, r0
-	ldrb r0, [r0]
-	cmp r0, #0
-	bne _0802A1EC
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	bl UnitSyncMovement
-	ldrb r0, [r4, #0x13]
-	ldrb r1, [r4, #0x14]
-	movs r2, #0xe
-	ldrsb r2, [r5, r2]
-	movs r3, #0xf
-	ldrsb r3, [r5, r3]
-	bl sub_801C160
-	adds r1, r0, #0
-	adds r0, r5, #0
-	movs r2, #1
-	adds r3, r6, #0
-	bl StartRescueTransferAnim
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	ldrb r1, [r4, #0x13]
-	ldrb r2, [r4, #0x14]
-	bl UnitDropRescue
-	b _0802A1FA
-	.align 2, 0
-_0802A1E4: .4byte gAction
-_0802A1E8: .4byte gMapHidden
-_0802A1EC:
-	ldr r0, _0802A204 @ =gWorkingMoveScr
-	movs r1, #0xa
-	strb r1, [r0]
-	movs r1, #4
-	strb r1, [r0, #1]
-	bl sub_805FC80
-_0802A1FA:
-	movs r0, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A204: .4byte gWorkingMoveScr
-
-	thumb_func_start sub_802A208
-sub_802A208: @ 0x0802A208
-	push {r4, r5, lr}
-	ldr r5, _0802A230 @ =gAction
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	movs r4, #0xe
-	ldrsb r4, [r0, r4]
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	movs r1, #0xf
-	ldrsb r1, [r0, r1]
-	adds r0, r4, #0
-	bl sub_806B06C
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A230: .4byte gAction
-
-	thumb_func_start sub_802A234
-sub_802A234: @ 0x0802A234
-	push {r4, r5, r6, lr}
-	mov r6, r8
-	push {r6}
-	mov r8, r0
-	adds r4, r1, #0
-	adds r5, r2, #0
-	ldrb r0, [r4, #0x19]
-	bl GetUnit
-	adds r6, r0, #0
-	movs r0, #0xe
-	ldrsb r0, [r5, r0]
-	movs r1, #0xf
-	ldrsb r1, [r5, r1]
-	movs r2, #0xe
-	ldrsb r2, [r4, r2]
-	movs r3, #0xf
-	ldrsb r3, [r4, r3]
-	bl sub_801C160
-	adds r1, r0, #0
-	adds r0, r6, #0
-	movs r2, #0
-	mov r3, r8
-	bl StartRescueTransferAnim
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-
-	thumb_func_start sub_802A274
-sub_802A274: @ 0x0802A274
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _0802A2BC @ =gAction
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	bl UnitSyncMovement
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r5, r0, #0
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	adds r2, r0, #0
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl sub_802A234
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r5, r0, #0
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	adds r1, r0, #0
-	adds r0, r5, #0
-	bl UnitGiveRescue
-	movs r0, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A2BC: .4byte gAction
-
-	thumb_func_start sub_802A2C0
-sub_802A2C0: @ 0x0802A2C0
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r4, _0802A308 @ =gAction
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	bl UnitSyncMovement
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	adds r5, r0, #0
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r2, r0, #0
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl sub_802A234
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	adds r5, r0, #0
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	adds r1, r0, #0
-	adds r0, r5, #0
-	bl UnitGiveRescue
-	movs r0, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A308: .4byte gAction
-
-	thumb_func_start sub_802A30C
-sub_802A30C: @ 0x0802A30C
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r5, _0802A338 @ =gAction
-	ldrb r0, [r5, #0xd]
-	bl GetUnit
-	adds r4, r0, #0
-	cmp r4, #0
-	bne _0802A322
-	bl InitObstacleBattleUnit
-_0802A322:
-	ldrb r0, [r5, #0x12]
-	cmp r0, #8
-	bne _0802A33C
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	adds r1, r4, #0
-	bl BattleGenerateBallistaReal
-	b _0802A348
-	.align 2, 0
-_0802A338: .4byte gAction
-_0802A33C:
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	adds r1, r4, #0
-	bl BattleGenerateReal
-_0802A348:
-	ldr r0, _0802A358 @ =0x085C7D64
-	adds r1, r6, #0
-	bl SpawnProcLocking
-	movs r0, #0
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A358: .4byte 0x085C7D64
-
-	thumb_func_start sub_802A35C
-sub_802A35C: @ 0x0802A35C
-	push {lr}
-	adds r1, r0, #0
-	ldr r0, _0802A36C @ =0x085C7DC4
-	bl SpawnProcLocking
-	movs r0, #0
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A36C: .4byte 0x085C7DC4
-
-	thumb_func_start sub_802A370
-sub_802A370: @ 0x0802A370
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _0802A3B4 @ =gAction
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	ldr r1, _0802A3B8 @ =0x0000FBBD
-	ldrh r2, [r0, #0xc]
-	ands r1, r2
-	strh r1, [r0, #0xc]
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	movs r1, #1
-	rsbs r1, r1, #0
-	bl BattleInitItemEffect
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	bl BattleInitItemEffectTarget
-	ldr r1, _0802A3BC @ =gBattleSt
-	movs r0, #0x40
-	strb r0, [r1, #1]
-	adds r0, r5, #0
-	bl BattleApplyMiscAction
-	bl BeginBattleAnimations
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A3B4: .4byte gAction
-_0802A3B8: .4byte 0x0000FBBD
-_0802A3BC: .4byte gBattleSt
-
-	thumb_func_start sub_802A3C0
-sub_802A3C0: @ 0x0802A3C0
-	push {r4, r5, lr}
-	ldr r4, _0802A3E8 @ =gAction
-	ldrb r0, [r4, #0xc]
-	bl GetUnit
-	ldr r0, [r0]
-	ldrb r5, [r0, #4]
-	ldrb r0, [r4, #0xd]
-	bl GetUnit
-	ldr r0, [r0]
-	ldrb r1, [r0, #4]
-	adds r0, r5, #0
-	bl sub_806AF90
-	movs r0, #0
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A3E8: .4byte gAction
-
-	thumb_func_start sub_802A3EC
-sub_802A3EC: @ 0x0802A3EC
-	push {r4, r5, r6, r7, lr}
-	mov r7, sb
-	mov r6, r8
-	push {r6, r7}
-	ldr r0, _0802A48C @ =gAction
-	ldrb r0, [r0, #0xd]
-	bl GetUnit
-	adds r4, r0, #0
-	ldr r0, _0802A490 @ =gActiveUnit
-	mov sb, r0
-	ldr r0, [r0]
-	ldr r1, [r4]
-	ldrb r1, [r1, #4]
-	bl GetUnitSupportNumByPid
-	adds r7, r0, #0
-	mov r1, sb
-	ldr r0, [r1]
-	ldr r0, [r0]
-	ldrb r1, [r0, #4]
-	adds r0, r4, #0
-	bl GetUnitSupportNumByPid
-	mov r8, r0
-	adds r0, r4, #0
-	mov r1, r8
-	bl CanUnitSupportNow
-	mov r2, sb
-	ldr r0, [r2]
-	adds r1, r7, #0
-	bl UnitGainSupportLevel
-	adds r0, r4, #0
-	mov r1, r8
-	bl UnitGainSupportLevel
-	mov r1, sb
-	ldr r0, [r1]
-	ldr r1, [r0]
-	ldrb r6, [r1, #4]
-	ldr r1, [r4]
-	ldrb r5, [r1, #4]
-	adds r1, r7, #0
-	bl GetUnitSupportLevel
-	adds r2, r0, #0
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl sub_806AFD0
-	mov r2, sb
-	ldr r0, [r2]
-	adds r0, #0x30
-	adds r0, r0, r7
-	ldrb r0, [r0]
-	adds r4, #0x30
-	add r4, r8
-	ldrb r1, [r4]
-	cmp r0, r1
-	beq _0802A47C
-	cmp r0, r1
-	ble _0802A46E
-	strb r0, [r4]
-_0802A46E:
-	cmp r0, r1
-	bge _0802A47C
-	mov r2, sb
-	ldr r0, [r2]
-	adds r0, #0x30
-	adds r0, r0, r7
-	strb r1, [r0]
-_0802A47C:
-	movs r0, #0
-	pop {r3, r4}
-	mov r8, r3
-	mov sb, r4
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A48C: .4byte gAction
-_0802A490: .4byte gActiveUnit
-
-	thumb_func_start sub_802A494
-sub_802A494: @ 0x0802A494
-	push {r4, r5, r6, lr}
-	mov r6, r8
-	push {r6}
-	mov r8, r0
-	ldr r5, _0802A50C @ =gAction
-	ldrb r0, [r5, #0xd]
-	bl GetUnit
-	ldrb r2, [r5, #0x12]
-	lsls r1, r2, #1
-	adds r0, #0x1c
-	adds r0, r0, r1
-	ldrh r6, [r0]
-	ldrb r0, [r5, #0xd]
-	bl GetUnit
-	ldrb r1, [r5, #0x12]
-	bl UnitRemoveItem
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	adds r1, r6, #0
-	bl UnitAddItem
-	ldrb r0, [r5, #0xc]
-	bl GetUnit
-	movs r1, #1
-	rsbs r1, r1, #0
-	bl BattleInitItemEffect
-	ldr r4, _0802A510 @ =gBattleUnitB
-	adds r1, r4, #0
-	adds r1, #0x53
-	movs r0, #1
-	strb r0, [r1]
-	ldrb r0, [r5, #0xd]
-	bl GetUnit
-	adds r1, r0, #0
-	adds r0, r4, #0
-	bl InitBattleUnit
-	adds r4, #0x48
-	strh r6, [r4]
-	mov r0, r8
-	bl BattleApplyMiscAction
-	bl MU_EndAll
-	bl sub_8062690
-	movs r0, #0
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802A50C: .4byte gAction
-_0802A510: .4byte gBattleUnitB
-
-	thumb_func_start sub_802A514
-sub_802A514: @ 0x0802A514
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #4
-	adds r6, r0, #0
-	movs r0, #0x38
-	ldrsh r1, [r6, r0]
-	movs r3, #0x3c
-	ldrsh r2, [r6, r3]
-	adds r7, r6, #0
-	adds r7, #0x46
-	movs r4, #0
-	ldrsh r3, [r7, r4]
-	adds r5, r6, #0
-	adds r5, #0x48
-	movs r4, #0
-	ldrsh r0, [r5, r4]
-	str r0, [sp]
-	movs r0, #0
-	bl Interpolate
-	mov r8, r0
-	movs r0, #0x3a
-	ldrsh r1, [r6, r0]
-	movs r3, #0x3e
-	ldrsh r2, [r6, r3]
-	movs r4, #0
-	ldrsh r3, [r7, r4]
-	movs r4, #0
-	ldrsh r0, [r5, r4]
-	str r0, [sp]
-	movs r0, #0
-	bl Interpolate
-	adds r2, r0, #0
-	adds r1, r6, #0
-	adds r1, #0x40
-	movs r3, #0
-	ldrsh r0, [r1, r3]
-	adds r2, r2, r0
-	adds r3, r6, #0
-	adds r3, #0x42
-	ldrh r4, [r1]
-	ldrh r0, [r3]
-	adds r4, r4, r0
-	strh r4, [r1]
-	adds r0, r6, #0
-	adds r0, #0x44
-	ldrh r1, [r3]
-	ldrh r0, [r0]
-	adds r0, r1, r0
-	strh r0, [r3]
-	ldr r1, _0802A5B8 @ =gBmSt
-	movs r3, #0xc
-	ldrsh r0, [r1, r3]
-	mov r3, r8
-	subs r4, r3, r0
-	movs r3, #0xe
-	ldrsh r0, [r1, r3]
-	subs r2, r2, r0
-	ldr r3, [r6, #0x2c]
-	movs r0, #7
-	adds r1, r4, #0
-	bl PutUnitSprite
-	ldrh r0, [r7]
-	adds r0, #1
-	strh r0, [r7]
-	lsls r0, r0, #0x10
-	ldrh r5, [r5]
-	lsls r1, r5, #0x10
-	cmp r0, r1
-	bne _0802A5AC
-	adds r0, r6, #0
-	bl Proc_Break
-_0802A5AC:
-	add sp, #4
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A5B8: .4byte gBmSt
-
-	thumb_func_start sub_802A5BC
-sub_802A5BC: @ 0x0802A5BC
-	push {lr}
-	bl RefreshEntityMaps
-	bl RefreshUnitSprites
-	pop {r0}
-	bx r0
-	.align 2, 0
-
-	thumb_func_start sub_802A5CC
-sub_802A5CC: @ 0x0802A5CC
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	adds r0, r5, #0
-	bl GetUnitCurrentHp
-	adds r6, r0, #0
-	cmp r6, #0
-	bne _0802A676
-	movs r0, #0x10
-	ldrh r1, [r5, #0xc]
-	ands r0, r1
-	cmp r0, #0
-	beq _0802A676
-	ldr r0, _0802A67C @ =0x085C7D4C
-	adds r1, r4, #0
-	bl SpawnProcLocking
-	adds r4, r0, #0
-	ldrb r0, [r5, #0x19]
-	bl GetUnit
-	str r0, [r4, #0x2c]
-	adds r1, r4, #0
-	adds r1, #0x30
-	adds r2, r4, #0
-	adds r2, #0x34
-	adds r0, r5, #0
-	bl UnitGetDropPositionOnDeath
-	ldr r1, [r4, #0x30]
-	ldr r2, [r4, #0x34]
-	adds r0, r5, #0
-	bl UnitDropRescue
-	movs r0, #0xe
-	ldrsb r0, [r5, r0]
-	lsls r0, r0, #4
-	strh r0, [r4, #0x38]
-	movs r0, #0xf
-	ldrsb r0, [r5, r0]
-	lsls r0, r0, #4
-	strh r0, [r4, #0x3a]
-	ldr r0, [r4, #0x30]
-	lsls r0, r0, #4
-	strh r0, [r4, #0x3c]
-	ldr r0, [r4, #0x34]
-	lsls r0, r0, #4
-	strh r0, [r4, #0x3e]
-	adds r0, r4, #0
-	adds r0, #0x40
-	strh r6, [r0]
-	adds r1, r4, #0
-	adds r1, #0x42
-	ldr r0, _0802A680 @ =0x0000FFFB
-	strh r0, [r1]
-	adds r1, #2
-	movs r0, #1
-	strh r0, [r1]
-	adds r0, r4, #0
-	adds r0, #0x46
-	strh r6, [r0]
-	adds r1, #4
-	movs r0, #0xb
-	strh r0, [r1]
-	ldr r1, [r4, #0x2c]
-	ldr r0, _0802A684 @ =0x0000FFFD
-	ldrh r2, [r1, #0xc]
-	ands r0, r2
-	strh r0, [r1, #0xc]
-	ldr r0, [r4, #0x2c]
-	bl GetUnitMapSprite
-	bl UseUnitSprite
-	bl ForceSyncUnitSpriteSheet
-	ldr r0, _0802A688 @ =gPlaySt
-	ldrb r0, [r0, #0x1d]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt _0802A676
-	movs r0, #0xac
-	bl m4aSongNumStart
-_0802A676:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A67C: .4byte 0x085C7D4C
-_0802A680: .4byte 0x0000FFFB
-_0802A684: .4byte 0x0000FFFD
-_0802A688: .4byte gPlaySt
-
-	thumb_func_start sub_802A68C
-sub_802A68C: @ 0x0802A68C
-	push {r4, r5, lr}
-	adds r4, r0, #0
-	adds r5, r1, #0
-	bl GetUnitCurrentHp
-	cmp r0, #0
-	bne _0802A6AE
-	ldr r0, [r4]
-	ldrb r0, [r0, #4]
-	ldr r1, [r5]
-	ldrb r1, [r1, #4]
-	movs r2, #2
-	bl sub_8084AEC
-	adds r0, r4, #0
-	bl KillUnit
-_0802A6AE:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802A6B4
-sub_802A6B4: @ 0x0802A6B4
-	push {r4, lr}
-	adds r4, r0, #0
-	bl GetUnitCurrentHp
-	cmp r0, #0
-	bne _0802A6D2
-	adds r0, r4, #0
-	bl KillUnit
-	ldr r0, [r4]
-	ldrb r0, [r0, #4]
-	movs r1, #0
-	movs r2, #6
-	bl sub_8084AEC
-_0802A6D2:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802A6D8
-sub_802A6D8: @ 0x0802A6D8
-	push {lr}
-	adds r2, r0, #0
-	ldr r1, _0802A70C @ =gBattleSt
-	movs r0, #0x80
-	ldrb r1, [r1, #1]
-	ands r0, r1
-	cmp r0, #0
-	bne _0802A700
-	ldr r0, _0802A710 @ =gBattleUnitA
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0802A708
-	ldr r0, _0802A714 @ =gBattleUnitB
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0802A708
-_0802A700:
-	adds r0, r2, #0
-	movs r1, #1
-	bl Proc_Goto
-_0802A708:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A70C: .4byte gBattleSt
-_0802A710: .4byte gBattleUnitA
-_0802A714: .4byte gBattleUnitB
-
-	thumb_func_start sub_802A718
-sub_802A718: @ 0x0802A718
-	push {r4, r5, r6, r7, lr}
-	adds r7, r0, #0
-	ldr r6, _0802A788 @ =gBattleUnitA
-	movs r0, #0x11
-	ldrsb r0, [r6, r0]
-	cmp r0, #0
-	bne _0802A734
-	ldr r0, _0802A78C @ =0x086648B4
-	bl Proc_Find
-	adds r4, r0, #0
-	bl MU_StartDeathFade
-	str r4, [r7, #0x54]
-_0802A734:
-	ldr r5, _0802A790 @ =gBattleUnitB
-	movs r0, #0x11
-	ldrsb r0, [r5, r0]
-	cmp r0, #0
-	bne _0802A780
-	bl RefreshUnitSprites
-	movs r0, #0xb
-	ldrsb r0, [r5, r0]
-	bl GetUnit
-	bl HideUnitSprite
-	adds r0, r5, #0
-	bl MU_Start
-	adds r4, r0, #0
-	movs r0, #0xe
-	ldrsb r0, [r6, r0]
-	movs r1, #0xf
-	ldrsb r1, [r6, r1]
-	movs r2, #0xe
-	ldrsb r2, [r5, r2]
-	movs r3, #0xf
-	ldrsb r3, [r5, r3]
-	bl sub_80629FC
-	ldr r1, _0802A794 @ =gWorkingMoveScr
-	strb r0, [r1]
-	movs r0, #4
-	strb r0, [r1, #1]
-	adds r0, r4, #0
-	bl sub_805FD78
-	adds r0, r4, #0
-	bl MU_StartDeathFade
-	str r4, [r7, #0x54]
-_0802A780:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A788: .4byte gBattleUnitA
-_0802A78C: .4byte 0x086648B4
-_0802A790: .4byte gBattleUnitB
-_0802A794: .4byte gWorkingMoveScr
-
-	thumb_func_start sub_802A798
-sub_802A798: @ 0x0802A798
-	push {lr}
-	ldr r0, [r0, #0x54]
-	bl sub_80608EC
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802A7A4
-sub_802A7A4: @ 0x0802A7A4
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r0, _0802A7EC @ =gBattleUnitA
-	ldrb r0, [r0, #0xb]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	bl GetUnit
-	adds r5, r0, #0
-	ldr r0, _0802A7F0 @ =gBattleUnitB
-	ldrb r0, [r0, #0xb]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	bl GetUnit
-	adds r4, r0, #0
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl sub_802A5CC
-	adds r0, r6, #0
-	adds r1, r4, #0
-	bl sub_802A5CC
-	adds r0, r5, #0
-	adds r1, r4, #0
-	bl sub_802A68C
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl sub_802A68C
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A7EC: .4byte gBattleUnitA
-_0802A7F0: .4byte gBattleUnitB
-
-	thumb_func_start sub_802A7F4
-sub_802A7F4: @ 0x0802A7F4
-	push {r4, lr}
-	bl GetActiveMapSong
-	adds r4, r0, #0
-	bl GetCurrentBgmSong
-	cmp r0, r4
-	beq _0802A80E
-	adds r0, r4, #0
-	movs r1, #6
-	movs r2, #0
-	bl StartBgmExt
-_0802A80E:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802A814
-sub_802A814: @ 0x0802A814
-	push {lr}
-	adds r2, r0, #0
-	ldr r1, _0802A838 @ =gBattleUnitB
-	movs r0, #1
-	strb r0, [r1, #0x11]
-	ldr r0, _0802A83C @ =gBattleUnitA
-	ldrb r0, [r0, #0x11]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0802A832
-	adds r0, r2, #0
-	movs r1, #1
-	bl Proc_Goto
-_0802A832:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A838: .4byte gBattleUnitB
-_0802A83C: .4byte gBattleUnitA
-
-	thumb_func_start sub_802A840
-sub_802A840: @ 0x0802A840
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, _0802A85C @ =gActiveUnit
-	ldr r0, [r4]
-	bl sub_802A6B4
-	ldr r1, [r4]
-	adds r0, r5, #0
-	bl sub_802A5CC
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802A85C: .4byte gActiveUnit
-
 	thumb_func_start sub_802A860
 sub_802A860: @ 0x0802A860
 	ldr r3, _0802A870 @ =0x085C7E40
@@ -5426,7 +4435,7 @@ _0802CB8C:
 _0802CBA4:
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl sub_802A5CC
+	bl DropRescueOnDeath
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -9893,7 +8902,7 @@ _0802EEB4:
 	beq _0802EEC8
 	bl MU_EndAll
 _0802EEC8:
-	ldr r0, _0802EEDC @ =0x085C7D64
+	ldr r0, _0802EEDC @ =ProcScr_CombatAction
 	adds r1, r6, #0
 	bl SpawnProcLocking
 	pop {r4, r5, r6}
@@ -9901,7 +8910,7 @@ _0802EEC8:
 	bx r0
 	.align 2, 0
 _0802EED8: .4byte gKeySt
-_0802EEDC: .4byte 0x085C7D64
+_0802EEDC: .4byte ProcScr_CombatAction
 
 	thumb_func_start sub_802EEE0
 sub_802EEE0: @ 0x0802EEE0
@@ -42405,7 +41414,7 @@ sub_803EECC: @ 0x0803EECC
 	ldrsb r0, [r6, r0]
 	cmp r0, #0
 	bne _0803EEE8
-	ldr r0, _0803EF40 @ =0x086648B4
+	ldr r0, _0803EF40 @ =ProcScr_Mu
 	bl Proc_Find
 	adds r4, r0, #0
 	bl sub_803F5C8
@@ -42448,7 +41457,7 @@ _0803EF34:
 	bx r0
 	.align 2, 0
 _0803EF3C: .4byte gBattleUnitA
-_0803EF40: .4byte 0x086648B4
+_0803EF40: .4byte ProcScr_Mu
 _0803EF44: .4byte gBattleUnitB
 _0803EF48: .4byte gWorkingMoveScr
 
@@ -107610,7 +106619,7 @@ MU_StartExt: @ 0x0805F9B8
 	movs r0, #0
 	b _0805FBD4
 _0805F9EA:
-	ldr r1, _0805FA14 @ =0x086648B4
+	ldr r1, _0805FA14 @ =ProcScr_Mu
 	adds r0, r1, #0
 	bl Proc_Find
 	cmp r0, #0
@@ -107620,7 +106629,7 @@ _0805F9EA:
 	movs r1, #0xfe
 	strh r1, [r0]
 _0805F9FE:
-	ldr r1, _0805FA14 @ =0x086648B4
+	ldr r1, _0805FA14 @ =ProcScr_Mu
 	adds r0, r1, #0
 	movs r1, #5
 	bl SpawnProc
@@ -107631,7 +106640,7 @@ _0805F9FE:
 	movs r0, #0
 	b _0805FBD4
 	.align 2, 0
-_0805FA14: .4byte 0x086648B4
+_0805FA14: .4byte ProcScr_Mu
 _0805FA18:
 	ldr r0, [r7, #0xc]
 	movs r1, #0
@@ -107923,7 +106932,7 @@ MU_SetDefaultFacing_Auto: @ 0x0805FC54
 	push {r7, lr}
 	sub sp, #4
 	mov r7, sp
-	ldr r1, _0805FC6C @ =0x086648B4
+	ldr r1, _0805FC6C @ =ProcScr_Mu
 	adds r0, r1, #0
 	bl Proc_Find
 	str r0, [r7]
@@ -107932,7 +106941,7 @@ MU_SetDefaultFacing_Auto: @ 0x0805FC54
 	bne _0805FC70
 	b _0805FC76
 	.align 2, 0
-_0805FC6C: .4byte 0x086648B4
+_0805FC6C: .4byte ProcScr_Mu
 _0805FC70:
 	ldr r0, [r7]
 	bl MU_SetDefaultFacing
@@ -107949,7 +106958,7 @@ sub_805FC80: @ 0x0805FC80
 	sub sp, #8
 	mov r7, sp
 	str r0, [r7]
-	ldr r1, _0805FC9C @ =0x086648B4
+	ldr r1, _0805FC9C @ =ProcScr_Mu
 	adds r0, r1, #0
 	bl Proc_Find
 	str r0, [r7, #4]
@@ -107958,7 +106967,7 @@ sub_805FC80: @ 0x0805FC80
 	bne _0805FCA0
 	b _0805FCAA
 	.align 2, 0
-_0805FC9C: .4byte 0x086648B4
+_0805FC9C: .4byte ProcScr_Mu
 _0805FCA0:
 	ldr r1, [r7, #4]
 	adds r0, r1, #0
@@ -107975,7 +106984,7 @@ _0805FCAA:
 MU_Exists: @ 0x0805FCB4
 	push {r7, lr}
 	mov r7, sp
-	ldr r1, _0805FCCC @ =0x086648B4
+	ldr r1, _0805FCCC @ =ProcScr_Mu
 	adds r0, r1, #0
 	bl Proc_Find
 	adds r1, r0, #0
@@ -107986,7 +106995,7 @@ MU_Exists: @ 0x0805FCB4
 _0805FCCA:
 	b _0805FCD0
 	.align 2, 0
-_0805FCCC: .4byte 0x086648B4
+_0805FCCC: .4byte ProcScr_Mu
 _0805FCD0:
 	pop {r7}
 	pop {r1}
@@ -109583,14 +108592,14 @@ MU_OnEnd: @ 0x080608AC
 MU_EndAll: @ 0x080608D4
 	push {r7, lr}
 	mov r7, sp
-	ldr r1, _080608E8 @ =0x086648B4
+	ldr r1, _080608E8 @ =ProcScr_Mu
 	adds r0, r1, #0
 	bl Proc_EndEach
 	pop {r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080608E8: .4byte 0x086648B4
+_080608E8: .4byte ProcScr_Mu
 
 	thumb_func_start sub_80608EC
 sub_80608EC: @ 0x080608EC
@@ -111508,14 +110517,14 @@ sub_80616B4: @ 0x080616B4
 sub_8061704: @ 0x08061704
 	push {r7, lr}
 	mov r7, sp
-	ldr r0, _08061718 @ =0x086648B4
+	ldr r0, _08061718 @ =ProcScr_Mu
 	ldr r1, _0806171C @ =sub_8061720
 	bl Proc_ForEach
 	pop {r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08061718: .4byte 0x086648B4
+_08061718: .4byte ProcScr_Mu
 _0806171C: .4byte sub_8061720
 
 	thumb_func_start sub_8061720
@@ -185321,7 +184330,7 @@ sub_80857B0: @ 0x080857B0
 	adds r1, r7, #0
 	movs r2, #0x20
 	bl WriteAndVerifySramFast
-	bl sub_802A008
+	bl SaveActionRand
 	ldr r0, _080858BC @ =gAction
 	adds r1, r7, #0
 	adds r1, #0x20
@@ -185446,7 +184455,7 @@ sub_80858E4: @ 0x080858E4
 	ldr r3, [r5]
 	movs r2, #0x18
 	bl _call_via_r3
-	bl sub_802A018
+	bl RestoreActionRand
 	bl InitUnits
 	movs r4, #0
 	movs r5, #0
@@ -219773,7 +218782,7 @@ sub_8096A98: @ 0x08096A98
 	ldr r1, _08096AB8 @ =0x08691190
 	adds r0, r1, #0
 	bl Proc_EndEach
-	ldr r0, _08096ABC @ =0x086648B4
+	ldr r0, _08096ABC @ =ProcScr_Mu
 	ldr r1, _08096AC0 @ =sub_80610D0
 	bl Proc_ForEach
 	add sp, #4
@@ -219782,7 +218791,7 @@ sub_8096A98: @ 0x08096A98
 	bx r0
 	.align 2, 0
 _08096AB8: .4byte 0x08691190
-_08096ABC: .4byte 0x086648B4
+_08096ABC: .4byte ProcScr_Mu
 _08096AC0: .4byte sub_80610D0
 
 	thumb_func_start sub_8096AC4
@@ -219855,7 +218864,7 @@ sub_8096B38: @ 0x08096B38
 	movs r0, #0x38
 	movs r1, #0
 	bl StartBgm
-	ldr r0, _08096C5C @ =0x086648B4
+	ldr r0, _08096C5C @ =ProcScr_Mu
 	ldr r1, _08096C60 @ =MU_Hide
 	bl Proc_ForEach
 	bl sub_8097638
@@ -219982,7 +218991,7 @@ _08096C52:
 	ble _08096C74
 	b _08096C94
 	.align 2, 0
-_08096C5C: .4byte 0x086648B4
+_08096C5C: .4byte ProcScr_Mu
 _08096C60: .4byte MU_Hide
 _08096C64: .4byte gDispIo
 _08096C68: .4byte 0x082DC944
@@ -222372,7 +221381,7 @@ sub_8097ECC: @ 0x08097ECC
 	sub sp, #8
 	add r7, sp, #4
 	str r0, [r7]
-	ldr r0, _08098220 @ =0x086648B4
+	ldr r0, _08098220 @ =ProcScr_Mu
 	ldr r1, _08098224 @ =MU_Hide
 	bl Proc_ForEach
 	bl sub_8097638
@@ -222779,7 +221788,7 @@ sub_8097ECC: @ 0x08097ECC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08098220: .4byte 0x086648B4
+_08098220: .4byte ProcScr_Mu
 _08098224: .4byte MU_Hide
 _08098228: .4byte gDispIo
 _0809822C: .4byte 0x082DC944
@@ -223229,7 +222238,7 @@ sub_80985AC: @ 0x080985AC
 	ldr r1, _080985CC @ =0x08691190
 	adds r0, r1, #0
 	bl Proc_EndEach
-	ldr r0, _080985D0 @ =0x086648B4
+	ldr r0, _080985D0 @ =ProcScr_Mu
 	ldr r1, _080985D4 @ =sub_80610D0
 	bl Proc_ForEach
 	add sp, #4
@@ -223238,7 +222247,7 @@ sub_80985AC: @ 0x080985AC
 	bx r0
 	.align 2, 0
 _080985CC: .4byte 0x08691190
-_080985D0: .4byte 0x086648B4
+_080985D0: .4byte ProcScr_Mu
 _080985D4: .4byte sub_80610D0
 
 	thumb_func_start sub_80985D8

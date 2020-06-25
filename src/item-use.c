@@ -15,6 +15,7 @@
 #include "bmfx.h"
 #include "target-list.h"
 #include "battle.h"
+#include "action.h"
 #include "map-select.h"
 
 #include "constants/items.h"

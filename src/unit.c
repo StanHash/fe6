@@ -12,6 +12,7 @@
 #include "support.h"
 #include "battle.h"
 #include "trap.h"
+#include "action.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
