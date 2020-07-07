@@ -1,6 +1,17 @@
 
 #pragma once
 
+#if defined(MODERN) && MODERN
+#  ifdef NONMATCHING
+#    undef NONMATCHING
+#  endif // NONMATCHING
+#  ifdef BUGFIX
+#    undef BUGFIX
+#  endif // BUGFIX
+#  define NONMATCHING 1
+#  define BUGFIX 1
+#endif // MODERN
+
 #include "gba/gba.h"
 
 #include "types.h"

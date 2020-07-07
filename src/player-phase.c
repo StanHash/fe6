@@ -16,6 +16,7 @@
 #include "trap.h"
 #include "chapter.h"
 #include "action.h"
+#include "movepath.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -410,12 +411,12 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 
     if (gActiveUnit->x == gBmSt.cursor.x && gActiveUnit->y == gBmSt.cursor.y)
     {
-        sub_802AC9C(FALSE);
+        InitMovePath(FALSE);
         PlaySe(0x69); // TODO: song ids
     }
     else
     {
-        sub_802AC9C(TRUE);
+        InitMovePath(TRUE);
     }
 }
 
@@ -566,7 +567,7 @@ do_act:
     }
 
     if (GetPlayerSelectKind(gActiveUnit) == PLAYER_SELECT_CONTROL)
-        sub_802B0B4();
+        RefreshMovePath();
 
     PutMapCursor(gBmSt.cursorSpr.x, gBmSt.cursorSpr.y, MAP_CURSOR_REGULAR);
 }
@@ -827,8 +828,7 @@ static Bool CanSelectMoveTo(int x, int y)
 
 static void PlayerPhase_BeginMove(ProcPtr proc)
 {
-    sub_802AB0C();
-
+    GenMoveScriptFromMovePath();
     ApplyWorkingMovScriptToAction(gActiveUnit->x, gActiveUnit->y);
     sub_805FC80(gWorkingMoveScr);
 }

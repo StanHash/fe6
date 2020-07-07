@@ -74,6 +74,8 @@ extern u8 const Img_FlamesParticles[];
 extern u16 const Pal_FlamesParticles[];
 extern u8 const Img_CloudWeather[];
 extern u16 const Pal_CloudWeather[];
+extern u8 const Img_MovePath[];
+extern u16 const Pal_MovePath[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_085C8080[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];

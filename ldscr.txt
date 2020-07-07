@@ -57,6 +57,8 @@ Img_LimitViewSquares = 0x08308B98;
 Pal_LimitViewBlue = 0x08308E98;
 Pal_LimitViewRed = 0x08308EF8;
 Pal_LimitViewGreen = 0x08308F58;
+Img_MovePath = 0x08308FB8;
+Pal_MovePath = 0x083091F0;
 
 Tm_ChapterIntroMotif = 0x0830A574;
 Img_ChapterIntroMotif = 0x08309574;
@@ -188,6 +190,7 @@ SECTIONS
         . = ALIGN(4); src/unit-rearrange.o(ewram_data);
         . = ALIGN(4); src/arena.o(ewram_data);
         . = ALIGN(4); src/action.o(ewram_data);
+        . = ALIGN(4); src/movepath.o(ewram_data);
 
        . = 0x039688; gAiDecision = .;
     }
@@ -310,6 +313,7 @@ SECTIONS
         src/unit-rearrange.o(.text);
         src/arena.o(.text);
         src/action.o(.text);
+        src/movepath.o(.text);
 
         asm/code.o(.text);
 
@@ -412,8 +416,11 @@ SECTIONS
         . = ALIGN(4); src/chapter.o(.data);
         . = ALIGN(4); src/arena.o(.data);
         . = ALIGN(4); src/action.o(.data);
+        . = ALIGN(4); src/movepath.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
+
+        . = 0x6A0000; data/data-banim.o(.data);
     } = 0
 
   /* Stabs debugging sections.  */

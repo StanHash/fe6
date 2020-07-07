@@ -151,22 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802A860
-// sub_802A874
-// sub_802A918
-// sub_802A99C
-// sub_802AA0C
-void sub_802AB0C(void);
-// sub_802ABB0
-// sub_802ABF4
-// sub_802AC20
-void sub_802AC9C(Bool arg_0);
-// sub_802AD28
-// sub_802AEE0
-// sub_802AF44
-// sub_802AFB4
-// sub_802AFF8
-void sub_802B0B4(void);
 // sub_802B0C4
 // sub_802B0FC
 // sub_802B118

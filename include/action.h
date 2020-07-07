@@ -53,29 +53,15 @@ struct Action
 {
     /* 00 */ u16 actionRandSt[3];
     /* 06 */ u16 arenaBeginRandSt[3];
-
     /* 0C */ u8 instigator;
     /* 0D */ u8 target;
-
-    /* 0E */ u8 xMove;
-    /* 0F */ u8 yMove;
-
+    /* 0E */ u8 xMove, yMove;
     /* 10 */ u8 moveCount;
-
     /* 11 */ u8 id;
-
     /* 12 */ u8 itemSlot;
-
-    /* 13 */ u8 xTarget;
-    /* 14 */ u8 yTarget;
-
+    /* 13 */ u8 xTarget, yTarget;
     /* 15 */ u8 extra;
-
     /* 16 */ u8 suspendPoint;
-
-    /* 18 */ struct BattleHit* scriptedBattleHits;
-
-    /* 1C+ TODO (sizeof(struct ActionData) == 0x38) */
 };
 
 extern struct Action gAction;

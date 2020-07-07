@@ -49,3 +49,5 @@ extern u8** gWorkingMap;
 extern s8 gWorkingMovTable[];
 
 extern u8 gWorkingMoveScr[MOVE_SCRIPT_MAX_LENGTH];
+
+#define gWorkingMapSigned ((s8**) gWorkingMap)
