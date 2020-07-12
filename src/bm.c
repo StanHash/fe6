@@ -21,6 +21,7 @@
 #include "support.h"
 #include "trap.h"
 #include "action.h"
+#include "prep-phase.h"
 
 #include "constants/video-global.h"
 
@@ -76,7 +77,7 @@ struct ProcScr CONST_DATA ProcScr_BmMain[] =
     PROC_SLEEP(0),
 
 PROC_LABEL(L_BMMAIN_INIT),
-    PROC_START_CHILD_LOCKING(ProcScr_PrepScreen),
+    PROC_START_CHILD_LOCKING(ProcScr_PrepPhase),
     PROC_START_CHILD_LOCKING(ProcScr_ChapterIntro),
 
     // fallthrough

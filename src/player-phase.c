@@ -17,6 +17,7 @@
 #include "chapter.h"
 #include "action.h"
 #include "movepath.h"
+#include "prep-phase.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -33,7 +34,6 @@ static Bool TrySetCursorOn(int uid);
 static void PlayerPhase_Suspend(ProcPtr proc);
 static void PlayerPhase_IdleLoop(ProcPtr proc);
 static void PlayerPhase_BeginMoveSelect(ProcPtr proc);
-static void PlayerPhase_MoveSelectLoop(ProcPtr proc);
 static void PlayerPhase_BeginMove(ProcPtr proc);
 static void PlayerPhase_WaitForMove(ProcPtr proc);
 static void PlayerPhase_BeginActionSelect(ProcPtr proc);
@@ -42,8 +42,6 @@ static Bool PlayerPhase_0801B9B0(ProcPtr proc);
 static Bool PlayerPhase_WatchActiveUnit(ProcPtr proc);
 static void PlayerPhase_FinishAction(ProcPtr proc);
 static void PlayerPhase_0801BD08(ProcPtr proc);
-static void PlayerPhase_0801BC84(ProcPtr proc);
-static void PlayerPhase_BeginSeeActionRange(ProcPtr proc);
 static void PlayerPhase_HandleAutoEnd(ProcPtr proc);
 
 struct ProcScr CONST_DATA ProcScr_PlayerPhase[] =
@@ -420,7 +418,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
     }
 }
 
-static void PlayerPhase_BeginSeeActionRange(ProcPtr proc)
+void PlayerPhase_BeginSeeActionRange(ProcPtr proc)
 {
     PlaySe(0x68); // TODO: song ids
 
@@ -428,7 +426,7 @@ static void PlayerPhase_BeginSeeActionRange(ProcPtr proc)
     DisplayUnitActionRange(gActiveUnit);
 }
 
-static void PlayerPhase_MoveSelectLoop(ProcPtr proc)
+void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 {
     enum
     {
@@ -839,7 +837,7 @@ static void PlayerPhase_WaitForMove(ProcPtr proc)
         Proc_Break(proc);
 }
 
-static void PlayerPhase_0801BC84(ProcPtr proc)
+void PlayerPhase_0801BC84(ProcPtr proc)
 {
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = gActiveUnit->id;
     gActiveUnit->state &= ~US_HIDDEN;
@@ -1002,7 +1000,7 @@ static Bool TrySetCursorOn(int uid)
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
         return FALSE;
 
-    CameraMoveWatchPosition(Proc_Find(ProcScr_PlayerPhase) ?: Proc_Find(ProcScr_PrepScreen), unit->x, unit->y);
+    CameraMoveWatchPosition(Proc_Find(ProcScr_PlayerPhase) ?: Proc_Find(ProcScr_PrepPhase), unit->x, unit->y);
     SetMapCursorPosition(unit->x, unit->y);
 
     return TRUE;

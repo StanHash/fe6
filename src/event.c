@@ -1750,10 +1750,10 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
         blueCount++;
     })
 
-    if (blueCount > 0 && GetChapterInfo(gPlaySt.chapter)->bool_previewMap)
+    if (blueCount > 0 && GetChapterInfo(gPlaySt.chapter)->hasPrep)
         return;
 
-    if (GetChapterInfo(gPlaySt.chapter)->bool_previewMap)
+    if (GetChapterInfo(gPlaySt.chapter)->hasPrep)
     {
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {

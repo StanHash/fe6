@@ -73,7 +73,6 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_PrepScreen          = 0x085C7E44;
 ProcScr_Unk_085C8080        = 0x085C8080;
 ProcScr_TerrainHealDisplay  = 0x085C8200;
 ProcScr_PoisonDamageDisplay = 0x085C8260;
@@ -106,6 +105,7 @@ MenuInfo_085C7594 = 0x085C7594;
 MenuInfo_085C75B8 = 0x085C75B8;
 MenuInfo_085C75DC = 0x085C75DC;
 MenuInfo_UnitMenu = 0x085C7600;
+MenuInfo_085C7624 = 0x085C7624;
 MenuInfo_085C7648 = 0x085C7648;
 MapSelectInfo_AttackStaff = 0x085C766C;
 MapSelectInfo_Barrier = 0x085C768C;
@@ -314,6 +314,8 @@ SECTIONS
         src/arena.o(.text);
         src/action.o(.text);
         src/movepath.o(.text);
+        src/prep-phase.o(.text);
+        src/code_0802B814.o(.text);
 
         asm/code.o(.text);
 
@@ -417,6 +419,7 @@ SECTIONS
         . = ALIGN(4); src/arena.o(.data);
         . = ALIGN(4); src/action.o(.data);
         . = ALIGN(4); src/movepath.o(.data);
+        . = ALIGN(4); src/prep-phase.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

@@ -151,23 +151,6 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
-// sub_802B0C4
-// sub_802B0FC
-// sub_802B118
-// sub_802B138
-// sub_802B154
-// sub_802B1D4
-// sub_802B234
-// sub_802B270
-// sub_802B47C
-// sub_802B4A0
-// sub_802B56C
-// sub_802B69C
-// sub_802B6CC
-// sub_802B750
-// sub_802B768
-// sub_802B784
-// sub_802B7E4
 // sub_802B814
 // sub_802B8A0
 // sub_802B928
@@ -2449,7 +2432,7 @@ void sub_806AF08(void);
 Bool sub_806AF4C(int pidA, int pidB);
 void sub_806AF90(int pidA, int pidB);
 void sub_806AFD0(int pidA, int pidB, int supportLevel);
-int sub_806B028(int x, int y);
+int sub_806B028(s8 x, s8 y);
 void sub_806B06C(s8 x, s8 y);
 // sub_806B254
 // sub_806B268
@@ -3053,7 +3036,7 @@ void sub_8076238(void);
 // sub_8079D84
 // sub_8079EA0
 // sub_8079F50
-// sub_807A07C
+void sub_807A07C(void);
 // sub_807A194
 // sub_807A1C8
 // sub_807A268
@@ -3077,7 +3060,7 @@ void sub_8076238(void);
 // sub_807B4C0
 // sub_807B5A0
 // sub_807B69C
-// sub_807B6BC
+void sub_807B6BC(void);
 // sub_807B6D0
 // sub_807B6EC
 // sub_807B714

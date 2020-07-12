@@ -72,7 +72,7 @@ enum
     US_SOLOANIM_2   = (1 << 15),
 
     // Helpers
-    US_UNAVAILABLE = (US_DEAD + US_NOT_DEPLOYED),
+    US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED),
 };
 
 enum

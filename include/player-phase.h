@@ -45,4 +45,8 @@ void StartLimitView(int flags);
 void EndLimitView(void);
 void TrySwitchViewedUnit(int x, int y);
 
+void PlayerPhase_BeginSeeActionRange(ProcPtr proc);
+void PlayerPhase_MoveSelectLoop(ProcPtr proc);
+void PlayerPhase_0801BC84(ProcPtr proc);
+
 extern struct ProcScr CONST_DATA ProcScr_PlayerPhase[];

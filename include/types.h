@@ -98,7 +98,7 @@ struct ChapterInfo
     /* 0B */ u8 assetMapChanges;
 
     /* 0C */ u8 fog;
-    /* 0D */ u8 bool_previewMap;
+    /* 0D */ u8 hasPrep;
     /* 0E */ u8 unkName;
     /* 0F */ u8 unk0F;
     /* 10 */ u8 unk10;
