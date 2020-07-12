@@ -56,3 +56,5 @@ void TryEnlistRepairUnitTarget(struct Unit* unit);
 void ListRepairTargets(struct Unit* unit);
 void ListSaintsStaffTargets(struct Unit* unit);
 void sub_8021B30(int arg_0);
+
+extern struct Unit* gSubjectUnit;

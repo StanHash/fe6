@@ -151,6 +151,7 @@ void sub_801F854(int x, int y);
 // sub_802094C
 // sub_8020958
 
+// code_0802B814.c
 // sub_802B814
 // sub_802B8A0
 // sub_802B928
@@ -160,6 +161,7 @@ void sub_801F854(int x, int y);
 // sub_802B9DC
 // sub_802BA08
 // sub_802BA44
+
 struct ChapterInfo const* GetChapterInfo(int chapter);
 u8 const* GetChapterMapAddress(int chapter);
 struct MapChangeInfo const* GetChapterMapChanges(int chapter);
