@@ -16,6 +16,7 @@
 #include "unitsprite.h"
 #include "chapter.h"
 #include "unit-rearrange.h"
+#include "chapter-info.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

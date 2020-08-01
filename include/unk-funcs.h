@@ -162,11 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-struct ChapterInfo const* GetChapterInfo(int chapter);
-u8 const* GetChapterMapAddress(int chapter);
-struct MapChangeInfo const* GetChapterMapChanges(int chapter);
-// GetChapterEventDefinitions
-// sub_802BBD0
 // sub_802BBF4
 // sub_802BC80
 // sub_802BCAC
@@ -3330,8 +3325,8 @@ Bool sub_80859E0(int saveId);
 // sub_8086530
 // sub_8086558
 // sub_8086590
-// sub_80865EC
-// sub_8086608
+u8 const* sub_80865EC(void);
+int sub_8086608(void);
 // sub_8086624
 // sub_8086640
 // sub_808665C

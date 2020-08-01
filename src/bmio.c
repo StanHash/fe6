@@ -11,6 +11,7 @@
 #include "bm.h"
 #include "map.h"
 #include "unitsprite.h"
+#include "chapter-info.h"
 
 #include "constants/video-global.h"
 

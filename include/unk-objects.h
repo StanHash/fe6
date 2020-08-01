@@ -141,7 +141,10 @@ extern u8 CONST_DATA JList_GuidingRingPromotes[];
 
 extern s8 CONST_DATA MoveTable_Unk_0860C912[];
 
-extern void const* ChapterAssets[];
+extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
+extern struct TrialLoadInfo* CONST_DATA gTrialLoadInfo;
+
+extern void const* CONST_DATA ChapterAssets[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];

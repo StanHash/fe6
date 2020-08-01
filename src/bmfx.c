@@ -26,6 +26,7 @@
 #include "trap.h"
 #include "bmio.h"
 #include "supply.h"
+#include "chapter-info.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

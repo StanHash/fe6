@@ -13,6 +13,7 @@
 #include "bmfx.h"
 #include "bmio.h"
 #include "chapter.h"
+#include "chapter-info.h"
 #include "menu.h"
 
 #include "constants/video-global.h"

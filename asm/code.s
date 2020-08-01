@@ -3,133 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start GetChapterInfo
-GetChapterInfo: @ 0x0802BB0C
-	adds r1, r0, #0
-	cmp r1, #0
-	blt _0802BB24
-	lsls r0, r1, #4
-	adds r0, r0, r1
-	lsls r0, r0, #2
-	ldr r1, _0802BB20 @ =0x086637A4
-	adds r0, r0, r1
-	b _0802BB2A
-	.align 2, 0
-_0802BB20: .4byte 0x086637A4
-_0802BB24:
-	ldr r0, _0802BB2C @ =0x08689DE0
-	ldr r0, [r0]
-	ldr r0, [r0]
-_0802BB2A:
-	bx lr
-	.align 2, 0
-_0802BB2C: .4byte 0x08689DE0
-
-	thumb_func_start GetChapterMapAddress
-GetChapterMapAddress: @ 0x0802BB30
-	push {r4, r5, r6, lr}
-	cmp r0, #0
-	bge _0802BB5C
-	ldr r6, _0802BB54 @ =0x03006640
-	bl sub_80865EC
-	adds r4, r0, #0
-	ldr r5, _0802BB58 @ =gBuf
-	bl sub_8086608
-	adds r2, r0, #0
-	ldr r3, [r6]
-	adds r0, r4, #0
-	adds r1, r5, #0
-	bl _call_via_r3
-	adds r0, r5, #0
-	b _0802BB6A
-	.align 2, 0
-_0802BB54: .4byte 0x03006640
-_0802BB58: .4byte gBuf
-_0802BB5C:
-	ldr r4, _0802BB70 @ =ChapterAssets
-	bl GetChapterInfo
-	ldrb r0, [r0, #8]
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldr r0, [r0]
-_0802BB6A:
-	pop {r4, r5, r6}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802BB70: .4byte ChapterAssets
-
-	thumb_func_start GetChapterMapChanges
-GetChapterMapChanges: @ 0x0802BB74
-	push {r4, lr}
-	cmp r0, #0
-	bge _0802BB88
-	ldr r0, _0802BB84 @ =0x08689DE0
-	ldr r0, [r0]
-	ldr r0, [r0, #4]
-	b _0802BB96
-	.align 2, 0
-_0802BB84: .4byte 0x08689DE0
-_0802BB88:
-	ldr r4, _0802BB9C @ =ChapterAssets
-	bl GetChapterInfo
-	ldrb r0, [r0, #0xb]
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldr r0, [r0]
-_0802BB96:
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802BB9C: .4byte ChapterAssets
-
-	thumb_func_start GetChapterEventDefinitions
-GetChapterEventDefinitions: @ 0x0802BBA0
-	push {r4, lr}
-	cmp r0, #0
-	bge _0802BBB4
-	ldr r0, _0802BBB0 @ =0x08689DE0
-	ldr r0, [r0]
-	ldr r0, [r0, #8]
-	b _0802BBC4
-	.align 2, 0
-_0802BBB0: .4byte 0x08689DE0
-_0802BBB4:
-	ldr r4, _0802BBCC @ =ChapterAssets
-	bl GetChapterInfo
-	adds r0, #0x3a
-	ldrb r0, [r0]
-	lsls r0, r0, #2
-	adds r0, r0, r4
-	ldr r0, [r0]
-_0802BBC4:
-	pop {r4}
-	pop {r1}
-	bx r1
-	.align 2, 0
-_0802BBCC: .4byte ChapterAssets
-
-	thumb_func_start sub_802BBD0
-sub_802BBD0: @ 0x0802BBD0
-	push {lr}
-	cmp r0, #0
-	bge _0802BBE4
-	ldr r0, _0802BBE0 @ =0x08689DE0
-	ldr r0, [r0]
-	ldr r0, [r0, #0xc]
-	b _0802BBEE
-	.align 2, 0
-_0802BBE0: .4byte 0x08689DE0
-_0802BBE4:
-	bl GetChapterInfo
-	ldrh r0, [r0, #0x38]
-	bl DecodeMsg
-_0802BBEE:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
 	thumb_func_start sub_802BBF4
 sub_802BBF4: @ 0x0802BBF4
 	push {r4, r5, r6, lr}
@@ -32925,7 +32798,7 @@ sub_803BE00: @ 0x0803BE00
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne _0803BE5C
-	ldr r1, _0803BE4C @ =0x03006640
+	ldr r1, _0803BE4C @ =ReadSramFast
 	ldr r0, _0803BE50 @ =0x0E007000
 	ldr r4, _0803BE54 @ =0x02000000
 	movs r5, #0x80
@@ -32944,7 +32817,7 @@ sub_803BE00: @ 0x0803BE00
 	.align 2, 0
 _0803BE44: .4byte 0x0203C758
 _0803BE48: .4byte 0x085C98F4
-_0803BE4C: .4byte 0x03006640
+_0803BE4C: .4byte ReadSramFast
 _0803BE50: .4byte 0x0E007000
 _0803BE54: .4byte 0x02000000
 _0803BE58: .4byte sub_803BD20
@@ -127760,7 +127633,7 @@ sub_806AED8: @ 0x0806AED8
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0]
 	str r0, [sp]
 	mov r0, sp
@@ -127786,7 +127659,7 @@ sub_806AF08: @ 0x0806AF08
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0]
 	str r0, [sp]
 	mov r0, sp
@@ -127826,7 +127699,7 @@ sub_806AF4C: @ 0x0806AF4C
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #4]
 	str r0, [sp]
 	mov r0, sp
@@ -127862,7 +127735,7 @@ sub_806AF90: @ 0x0806AF90
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #4]
 	str r0, [sp]
 	mov r0, sp
@@ -127949,7 +127822,7 @@ sub_806B028: @ 0x0806B028
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #8]
 	str r0, [sp]
 	mov r0, sp
@@ -127985,7 +127858,7 @@ sub_806B06C: @ 0x0806B06C
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #8]
 	str r0, [sp]
 	mov r0, sp
@@ -128586,7 +128459,7 @@ sub_806B500: @ 0x0806B500
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
@@ -128620,7 +128493,7 @@ sub_806B540: @ 0x0806B540
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0xc]
 	str r0, [sp]
 	mov r1, sp
@@ -128686,7 +128559,7 @@ sub_806B5B0: @ 0x0806B5B0
 	beq _0806B5FC
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0x18]
 	bl StartEvent
 	b _0806B5FC
@@ -128699,7 +128572,7 @@ _0806B5E4:
 	beq _0806B5FC
 	movs r0, #0xe
 	ldrsb r0, [r4, r0]
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0x18]
 	bl StartEvent
 _0806B5FC:
@@ -128716,7 +128589,7 @@ sub_806B604: @ 0x0806B604
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0x10]
 	str r0, [sp, #4]
 	movs r1, #0
@@ -128738,7 +128611,7 @@ sub_806B638: @ 0x0806B638
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl GetChapterEventDefinitions
+	bl GetChapterEventInfo
 	ldr r0, [r0, #0x14]
 	pop {r1}
 	bx r1
@@ -179105,7 +178978,7 @@ sub_80841FC: @ 0x080841FC
 	mov r0, sp
 	movs r2, #4
 	bl WriteSramFast
-	ldr r2, _08084268 @ =0x03006640
+	ldr r2, _08084268 @ =ReadSramFast
 	ldr r0, [r5]
 	adds r0, r0, r4
 	add r1, sp, #4
@@ -179131,7 +179004,7 @@ _08084258: .4byte 0x87654321
 _0808425C: .4byte 0x04000200
 _08084260: .4byte 0x08689DD8
 _08084264: .4byte 0x00006EF4
-_08084268: .4byte 0x03006640
+_08084268: .4byte ReadSramFast
 _0808426C: .4byte 0x0203D52E
 
 	thumb_func_start IsSramWorking
@@ -179217,7 +179090,7 @@ LoadGlobalSaveInfo: @ 0x080842E8
 	bne _080842FE
 	mov r4, sp
 _080842FE:
-	ldr r1, _08084344 @ =0x03006640
+	ldr r1, _08084344 @ =ReadSramFast
 	ldr r0, _08084348 @ =0x08689DD8
 	ldr r0, [r0]
 	ldr r3, [r1]
@@ -179249,7 +179122,7 @@ _080842FE:
 	movs r0, #1
 	b _0808435A
 	.align 2, 0
-_08084344: .4byte 0x03006640
+_08084344: .4byte ReadSramFast
 _08084348: .4byte 0x08689DD8
 _0808434C: .4byte 0x08327314
 _08084350: .4byte 0x00011217
@@ -179385,7 +179258,7 @@ sub_8084438: @ 0x08084438
 	bne _08084446
 	mov r4, sp
 _08084446:
-	ldr r2, _08084474 @ =0x03006640
+	ldr r2, _08084474 @ =ReadSramFast
 	ldr r0, _08084478 @ =0x08689DD8
 	lsls r1, r5, #4
 	adds r1, #0x20
@@ -179407,7 +179280,7 @@ _08084446:
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-_08084474: .4byte 0x03006640
+_08084474: .4byte ReadSramFast
 _08084478: .4byte 0x08689DD8
 _0808447C: .4byte 0x0000200A
 _08084480: .4byte _08084484
@@ -179659,7 +179532,7 @@ sub_8084648: @ 0x08084648
 sub_8084668: @ 0x08084668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _0808468C @ =0x03006640
+	ldr r4, _0808468C @ =ReadSramFast
 	bl GetChapterEidData
 	adds r5, r0, #0
 	bl sub_806BA9C
@@ -179672,13 +179545,13 @@ sub_8084668: @ 0x08084668
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808468C: .4byte 0x03006640
+_0808468C: .4byte ReadSramFast
 
 	thumb_func_start sub_8084690
 sub_8084690: @ 0x08084690
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	ldr r4, _080846B4 @ =0x03006640
+	ldr r4, _080846B4 @ =ReadSramFast
 	bl GetGlobalEidData
 	adds r5, r0, #0
 	bl sub_806BA90
@@ -179691,7 +179564,7 @@ sub_8084690: @ 0x08084690
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080846B4: .4byte 0x03006640
+_080846B4: .4byte ReadSramFast
 
 	thumb_func_start sub_80846B8
 sub_80846B8: @ 0x080846B8
@@ -179710,7 +179583,7 @@ sub_80846B8: @ 0x080846B8
 sub_80846D0: @ 0x080846D0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _080846EC @ =0x03006640
+	ldr r4, _080846EC @ =ReadSramFast
 	bl GetSupplyItems
 	adds r1, r0, #0
 	ldr r3, [r4]
@@ -179721,7 +179594,7 @@ sub_80846D0: @ 0x080846D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080846EC: .4byte 0x03006640
+_080846EC: .4byte ReadSramFast
 
 	thumb_func_start sub_80846F0
 sub_80846F0: @ 0x080846F0
@@ -179903,7 +179776,7 @@ _08084838: .4byte 0x01000230
 sub_808483C: @ 0x0808483C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, _0808485C @ =0x03006640
+	ldr r0, _0808485C @ =ReadSramFast
 	ldr r1, _08084860 @ =0x0203D534
 	movs r2, #0x8c
 	lsls r2, r2, #3
@@ -179916,14 +179789,14 @@ sub_808483C: @ 0x0808483C
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808485C: .4byte 0x03006640
+_0808485C: .4byte ReadSramFast
 _08084860: .4byte 0x0203D534
 _08084864: .4byte 0x0203D530
 
 	thumb_func_start sub_8084868
 sub_8084868: @ 0x08084868
 	push {lr}
-	ldr r2, _0808487C @ =0x03006640
+	ldr r2, _0808487C @ =ReadSramFast
 	ldr r1, _08084880 @ =0x0203D994
 	ldr r3, [r2]
 	movs r2, #0x80
@@ -179931,7 +179804,7 @@ sub_8084868: @ 0x08084868
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808487C: .4byte 0x03006640
+_0808487C: .4byte ReadSramFast
 _08084880: .4byte 0x0203D994
 
 	thumb_func_start sub_8084884
@@ -180972,7 +180845,7 @@ sub_8084FF8: @ 0x08084FF8
 	mov r0, sb
 	bl sub_8084560
 	mov r8, r0
-	ldr r0, _08085050 @ =0x03006640
+	ldr r0, _08085050 @ =ReadSramFast
 	ldr r4, _08085054 @ =gBuf
 	movs r5, #0xdf
 	lsls r5, r5, #4
@@ -181001,7 +180874,7 @@ sub_8084FF8: @ 0x08084FF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085050: .4byte 0x03006640
+_08085050: .4byte ReadSramFast
 _08085054: .4byte gBuf
 _08085058: .4byte 0x00011217
 
@@ -181167,7 +181040,7 @@ sub_80851B4: @ 0x080851B4
 	movs r0, #3
 	bl sub_8085788
 _080851D4:
-	ldr r0, _08085244 @ =0x03006640
+	ldr r0, _08085244 @ =ReadSramFast
 	ldr r4, _08085248 @ =gPlaySt
 	ldr r3, [r0]
 	adds r0, r7, #0
@@ -181215,7 +181088,7 @@ _080851FA:
 	bx r0
 	.align 2, 0
 _08085240: .4byte gBmSt
-_08085244: .4byte 0x03006640
+_08085244: .4byte ReadSramFast
 _08085248: .4byte gPlaySt
 _0808524C: .4byte gUnitArrayBlue
 _08085250: .4byte 0x00000DE8
@@ -181239,7 +181112,7 @@ sub_8085270: @ 0x08085270
 	push {r4, lr}
 	adds r4, r1, #0
 	bl sub_808460C
-	ldr r1, _0808528C @ =0x03006640
+	ldr r1, _0808528C @ =ReadSramFast
 	ldr r3, [r1]
 	adds r1, r4, #0
 	movs r2, #0x20
@@ -181248,7 +181121,7 @@ sub_8085270: @ 0x08085270
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0808528C: .4byte 0x03006640
+_0808528C: .4byte ReadSramFast
 
 	thumb_func_start sub_8085290
 sub_8085290: @ 0x08085290
@@ -181665,7 +181538,7 @@ sub_80855C4: @ 0x080855C4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x28
 	adds r4, r1, #0
-	ldr r1, _08085784 @ =0x03006640
+	ldr r1, _08085784 @ =ReadSramFast
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #0x28
@@ -181892,7 +181765,7 @@ _0808577C:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085784: .4byte 0x03006640
+_08085784: .4byte ReadSramFast
 
 	thumb_func_start sub_8085788
 sub_8085788: @ 0x08085788
@@ -182056,7 +181929,7 @@ sub_80858E4: @ 0x080858E4
 	adds r0, r1, r0
 	bl sub_808460C
 	adds r6, r0, #0
-	ldr r5, _080859B4 @ =0x03006640
+	ldr r5, _080859B4 @ =ReadSramFast
 	ldr r4, _080859B8 @ =gPlaySt
 	ldr r3, [r5]
 	adds r1, r4, #0
@@ -182142,7 +182015,7 @@ _0808595A:
 	bx r0
 	.align 2, 0
 _080859B0: .4byte 0x0203DA14
-_080859B4: .4byte 0x03006640
+_080859B4: .4byte ReadSramFast
 _080859B8: .4byte gPlaySt
 _080859BC: .4byte gAction
 _080859C0: .4byte gUnitArrayBlue
@@ -182549,7 +182422,7 @@ sub_8085CE0: @ 0x08085CE0
 	push {r5, r6, r7}
 	sub sp, #0x48
 	adds r4, r1, #0
-	ldr r1, _08085EB0 @ =0x03006640
+	ldr r1, _08085EB0 @ =ReadSramFast
 	ldr r3, [r1]
 	mov r1, sp
 	movs r2, #0x34
@@ -182777,7 +182650,7 @@ _08085EA0:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085EB0: .4byte 0x03006640
+_08085EB0: .4byte ReadSramFast
 
 	thumb_func_start sub_8085EB4
 sub_8085EB4: @ 0x08085EB4
@@ -182798,7 +182671,7 @@ sub_8085EB4: @ 0x08085EB4
 sub_8085ED0: @ 0x08085ED0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, _08085EF0 @ =0x03006640
+	ldr r4, _08085EF0 @ =ReadSramFast
 	movs r0, #0
 	bl GetTrap
 	adds r1, r0, #0
@@ -182811,7 +182684,7 @@ sub_8085ED0: @ 0x08085ED0
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08085EF0: .4byte 0x03006640
+_08085EF0: .4byte ReadSramFast
 
 	thumb_func_start sub_8085EF4
 sub_8085EF4: @ 0x08085EF4
@@ -182869,7 +182742,7 @@ _08085F3C:
 sub_8085F4C: @ 0x08085F4C
 	push {r4, r5, lr}
 	adds r5, r1, #0
-	ldr r1, _08085F6C @ =0x03006640
+	ldr r1, _08085F6C @ =ReadSramFast
 	ldr r4, _08085F70 @ =gBuf
 	ldr r3, [r1]
 	adds r1, r4, #0
@@ -182882,7 +182755,7 @@ sub_8085F4C: @ 0x08085F4C
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08085F6C: .4byte 0x03006640
+_08085F6C: .4byte ReadSramFast
 _08085F70: .4byte gBuf
 
 	thumb_func_start sub_8085F74
@@ -183205,7 +183078,7 @@ sub_80861EC: @ 0x080861EC
 	adds r5, r1, #0
 	movs r0, #5
 	bl sub_808460C
-	ldr r2, _08086214 @ =0x03006640
+	ldr r2, _08086214 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
 	adds r0, r0, r1
@@ -183219,7 +183092,7 @@ sub_80861EC: @ 0x080861EC
 	movs r0, #1
 	b _0808621A
 	.align 2, 0
-_08086214: .4byte 0x03006640
+_08086214: .4byte ReadSramFast
 _08086218:
 	movs r0, #0
 _0808621A:
@@ -183234,7 +183107,7 @@ sub_8086220: @ 0x08086220
 	adds r5, r1, #0
 	movs r0, #5
 	bl sub_808460C
-	ldr r2, _08086254 @ =0x03006640
+	ldr r2, _08086254 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
 	adds r0, r0, r1
@@ -183252,7 +183125,7 @@ sub_8086220: @ 0x08086220
 	movs r0, #1
 	b _0808625E
 	.align 2, 0
-_08086254: .4byte 0x03006640
+_08086254: .4byte ReadSramFast
 _08086258: .4byte 0x0203DA18
 _0808625C:
 	movs r0, #0
@@ -183315,7 +183188,7 @@ sub_80862B8: @ 0x080862B8
 	movs r0, #5
 	bl sub_8084560
 	adds r5, r0, #0
-	ldr r1, _08086324 @ =0x03006640
+	ldr r1, _08086324 @ =ReadSramFast
 	movs r0, #0xd8
 	mov r8, r0
 	mov r0, r8
@@ -183351,7 +183224,7 @@ sub_80862B8: @ 0x080862B8
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086324: .4byte 0x03006640
+_08086324: .4byte ReadSramFast
 _08086328: .4byte 0x0203DA18
 _0808632C: .4byte 0x00020112
 
@@ -183371,7 +183244,7 @@ sub_8086330: @ 0x08086330
 	movs r0, #5
 	bl sub_8084560
 	adds r6, r0, #0
-	ldr r0, _080863BC @ =0x03006640
+	ldr r0, _080863BC @ =ReadSramFast
 	mov sb, r0
 	movs r4, #0xd8
 	mov r7, r8
@@ -183420,7 +183293,7 @@ sub_8086330: @ 0x08086330
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080863BC: .4byte 0x03006640
+_080863BC: .4byte ReadSramFast
 _080863C0: .4byte 0x0203DA18
 _080863C4: .4byte 0x0203DAF0
 _080863C8: .4byte 0x00020112
@@ -183484,7 +183357,7 @@ sub_808642C: @ 0x0808642C
 	movs r0, #5
 	bl sub_808460C
 	adds r7, r0, #0
-	ldr r1, _08086480 @ =0x03006640
+	ldr r1, _08086480 @ =ReadSramFast
 	movs r0, #0xd8
 	mov r4, r8
 	muls r4, r0, r4
@@ -183516,7 +183389,7 @@ _0808645A:
 	movs r0, #1
 	b _08086486
 	.align 2, 0
-_08086480: .4byte 0x03006640
+_08086480: .4byte ReadSramFast
 _08086484:
 	movs r0, #0
 _08086486:
@@ -183561,7 +183434,7 @@ sub_80864CC: @ 0x080864CC
 	adds r4, r0, #0
 	movs r0, #5
 	bl sub_808460C
-	ldr r1, _080864EC @ =0x03006640
+	ldr r1, _080864EC @ =ReadSramFast
 	ldr r2, _080864F0 @ =0x00000874
 	adds r0, r0, r2
 	ldr r3, [r1]
@@ -183572,7 +183445,7 @@ sub_80864CC: @ 0x080864CC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_080864EC: .4byte 0x03006640
+_080864EC: .4byte ReadSramFast
 _080864F0: .4byte 0x00000874
 
 	thumb_func_start sub_80864F4
@@ -183610,7 +183483,7 @@ sub_8086530: @ 0x08086530
 	adds r4, r0, #0
 	movs r0, #5
 	bl sub_808460C
-	ldr r1, _08086554 @ =0x03006640
+	ldr r1, _08086554 @ =ReadSramFast
 	movs r2, #0x87
 	lsls r2, r2, #4
 	adds r0, r0, r2
@@ -183622,7 +183495,7 @@ sub_8086530: @ 0x08086530
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086554: .4byte 0x03006640
+_08086554: .4byte ReadSramFast
 
 	thumb_func_start sub_8086558
 sub_8086558: @ 0x08086558
@@ -183661,7 +183534,7 @@ _08086588:
 	thumb_func_start sub_8086590
 sub_8086590: @ 0x08086590
 	push {r4, r5, lr}
-	ldr r1, _080865D0 @ =0x03006640
+	ldr r1, _080865D0 @ =ReadSramFast
 	ldr r5, _080865D4 @ =0x08689DDC
 	ldr r0, [r5]
 	ldr r4, _080865D8 @ =0x0203DBC8
@@ -183690,7 +183563,7 @@ sub_8086590: @ 0x08086590
 	movs r0, #1
 	b _080865E6
 	.align 2, 0
-_080865D0: .4byte 0x03006640
+_080865D0: .4byte ReadSramFast
 _080865D4: .4byte 0x08689DDC
 _080865D8: .4byte 0x0203DBC8
 _080865DC: .4byte 0x50414D58
@@ -183801,7 +183674,7 @@ sub_808667C: @ 0x0808667C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq _080866E4
-	ldr r1, _080866D4 @ =0x03006640
+	ldr r1, _080866D4 @ =ReadSramFast
 	ldr r0, _080866D8 @ =0x0E007000
 	movs r2, #0x80
 	lsls r2, r2, #5
@@ -183835,7 +183708,7 @@ sub_808667C: @ 0x0808667C
 	b _080866E6
 	.align 2, 0
 _080866D0: .4byte gBuf
-_080866D4: .4byte 0x03006640
+_080866D4: .4byte ReadSramFast
 _080866D8: .4byte 0x0E007000
 _080866DC: .4byte 0x50414D58
 _080866E0: .4byte 0x00020223
@@ -183850,7 +183723,7 @@ _080866E6:
 sub_80866EC: @ 0x080866EC
 	push {r4, r5, r6, lr}
 	bl sub_8086590
-	ldr r5, _08086754 @ =0x03006640
+	ldr r5, _08086754 @ =ReadSramFast
 	bl sub_8086624
 	adds r4, r0, #0
 	ldr r6, _08086758 @ =gBuf
@@ -183860,7 +183733,7 @@ sub_80866EC: @ 0x080866EC
 	adds r0, r4, #0
 	adds r1, r6, #0
 	bl _call_via_r3
-	ldr r4, _0808675C @ =0x08689DE0
+	ldr r4, _0808675C @ =gTrialLoadInfo
 	ldr r1, [r4]
 	adds r0, r6, #0
 	bl Decompress
@@ -183893,9 +183766,9 @@ sub_80866EC: @ 0x080866EC
 	pop {r0}
 	bx r0
 	.align 2, 0
-_08086754: .4byte 0x03006640
+_08086754: .4byte ReadSramFast
 _08086758: .4byte gBuf
-_0808675C: .4byte 0x08689DE0
+_0808675C: .4byte gTrialLoadInfo
 _08086760: .4byte gPlaySt
 _08086764: .4byte gBmSt
 _08086768: .4byte gActiveUnit
@@ -183969,7 +183842,7 @@ _080867E2:
 	thumb_func_start sub_80867F0
 sub_80867F0: @ 0x080867F0
 	push {lr}
-	bl sub_802BBD0
+	bl GetChapterUnk_0802BBD0
 	pop {r1}
 	bx r1
 	.align 2, 0
@@ -184063,12 +183936,12 @@ _080868F0:
 	.align 2, 0
 _080868F4: .4byte 0x00000C88
 _080868F8:
-	ldr r0, _08086900 @ =0x08689DE0
+	ldr r0, _08086900 @ =gTrialLoadInfo
 	ldr r0, [r0]
 	ldr r0, [r0, #0x10]
 	b _0808690A
 	.align 2, 0
-_08086900: .4byte 0x08689DE0
+_08086900: .4byte gTrialLoadInfo
 _08086904:
 	adds r0, r2, #0
 	bl DecodeMsg
@@ -184165,12 +184038,12 @@ _08086A04:
 	.align 2, 0
 _08086A08: .4byte 0x00000C89
 _08086A0C:
-	ldr r0, _08086A14 @ =0x08689DE0
+	ldr r0, _08086A14 @ =gTrialLoadInfo
 	ldr r0, [r0]
 	ldr r0, [r0, #0x14]
 	b _08086A1E
 	.align 2, 0
-_08086A14: .4byte 0x08689DE0
+_08086A14: .4byte gTrialLoadInfo
 _08086A18:
 	adds r0, r2, #0
 	bl DecodeMsg
@@ -201379,7 +201252,7 @@ _0808F34C:
 	movs r4, #0
 	cmp r4, r6
 	bge _0808F3C6
-	ldr r5, _0808F3E4 @ =0x086637A4
+	ldr r5, _0808F3E4 @ =ChapterInfoTable
 _0808F362:
 	adds r0, r4, #0
 	bl sub_80848BC
@@ -201449,14 +201322,14 @@ _0808F3D8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808F3E4: .4byte 0x086637A4
+_0808F3E4: .4byte ChapterInfoTable
 
 	thumb_func_start sub_808F3E8
 sub_808F3E8: @ 0x0808F3E8
 	push {lr}
 	sub sp, #0x10
 	bl sub_8086AAC
-	ldr r3, _0808F44C @ =0x086637A4
+	ldr r3, _0808F44C @ =ChapterInfoTable
 	ldr r2, [r0]
 	lsls r2, r2, #0x1a
 	lsrs r2, r2, #0x1a
@@ -201503,7 +201376,7 @@ sub_808F3E8: @ 0x0808F3E8
 	movs r0, #0
 	b _0808F46A
 	.align 2, 0
-_0808F44C: .4byte 0x086637A4
+_0808F44C: .4byte ChapterInfoTable
 _0808F450: .4byte 0x02016A2D
 _0808F454:
 	movs r2, #0
@@ -201716,7 +201589,7 @@ sub_808F5AC: @ 0x0808F5AC
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a
 	movs r3, #0
-	ldr r2, _0808F5FC @ =0x086637A4
+	ldr r2, _0808F5FC @ =ChapterInfoTable
 	lsls r0, r1, #4
 	adds r0, r0, r1
 	lsls r0, r0, #2
@@ -201743,7 +201616,7 @@ _0808F5F2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808F5FC: .4byte 0x086637A4
+_0808F5FC: .4byte ChapterInfoTable
 
 	thumb_func_start sub_808F600
 sub_808F600: @ 0x0808F600
@@ -201833,7 +201706,7 @@ sub_808F68C: @ 0x0808F68C
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a
 	movs r3, #0
-	ldr r2, _0808F6DC @ =0x086637A4
+	ldr r2, _0808F6DC @ =ChapterInfoTable
 	lsls r0, r1, #4
 	adds r0, r0, r1
 	lsls r0, r0, #2
@@ -201860,7 +201733,7 @@ _0808F6D2:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_0808F6DC: .4byte 0x086637A4
+_0808F6DC: .4byte ChapterInfoTable
 
 	thumb_func_start sub_808F6E0
 sub_808F6E0: @ 0x0808F6E0

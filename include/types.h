@@ -115,7 +115,12 @@ struct ChapterInfo
     /* 19 */ u8 wallHp;
     /* 1A */ u8 classRollSet;
 
-    /* 1B */ u8 pad_1B[0x3E - 0x1B];
+    /* 1B */ u8 pad_1B[0x38 - 0x1B];
+
+    /* 38 */ u16 msg_38;
+    /* 3A */ u8 assetEventInfo;
+
+    /* 3B */ u8 pad_3B[0x3E - 0x3B];
 
     /* 3E */ u8 numberId;
 
@@ -147,6 +152,21 @@ struct AiDecision
     /* 09 */ u8 yTarget;
 
     /* 0A */ Bool actionPerformed;
+};
+
+struct ChapterEventInfo
+{
+    /* 00 */ void const* pad_00;
+    /* 04 */ // ...
+};
+
+struct TrialLoadInfo
+{
+    /* 00 */ struct ChapterInfo const* chapterInfo;
+    /* 04 */ struct MapChangeInfo const* mapChangeInfo;
+    /* 08 */ struct ChapterEventInfo const* eventInfo;
+    /* 0C */ char const* msg_0C;
+    /* 10 */ // ...
 };
 
 enum

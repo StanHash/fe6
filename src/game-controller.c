@@ -7,6 +7,7 @@
 #include "bm.h"
 #include "unit.h"
 #include "chapter.h"
+#include "chapter-info.h"
 
 #include "constants/chapters.h"
 

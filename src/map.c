@@ -9,6 +9,7 @@
 #include "mapwork.h"
 #include "faction.h"
 #include "trap.h"
+#include "chapter-info.h"
 
 #include "constants/video-global.h"
 #include "constants/chapters.h"
@@ -212,7 +213,7 @@ void MapSetEdges(u8** map, u8 value)
 void UnpackRawMap(void* buf, int chapter)
 {
     // Decompress map data
-    Decompress(GetChapterMapAddress(chapter), buf);
+    Decompress(GetChapterMap(chapter), buf);
 
     // Setting map size
     gMapSize.x = ((u8*) buf)[0];

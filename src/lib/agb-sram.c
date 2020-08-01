@@ -1,5 +1,5 @@
 
-#include "gba/gba.h"
+#include "sram.h"
 
 static u16 verifySramFast_Work[80]; // buffer to hold code of VerifySramFast_Core
 static u16 readSramFast_Work[64];  // buffer to hold code of ReadSramFast_Core

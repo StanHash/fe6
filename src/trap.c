@@ -12,6 +12,7 @@
 #include "target-list.h"
 #include "unitsprite.h"
 #include "action.h"
+#include "chapter-info.h"
 #include "mu.h"
 
 #include "constants/items.h"

@@ -22,6 +22,7 @@
 #include "trap.h"
 #include "action.h"
 #include "prep-phase.h"
+#include "chapter-info.h"
 
 #include "constants/video-global.h"
 

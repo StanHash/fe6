@@ -141,7 +141,10 @@ JList_ElysianWhipPromotes = 0x086615F4;
 JList_GuidingRingPromotes = 0x086615F8;
 UnitSpriteTable = 0x08662C14;
 AffinityBonuses = 0x0866350C;
+ChapterInfoTable = 0x086637A4;
 ChapterAssets = 0x08664398;
+
+gTrialLoadInfo = 0x08689DE0;
 
 gNumMusicPlayers = 9;
 gMaxLines = 0;
@@ -316,6 +319,7 @@ SECTIONS
         src/movepath.o(.text);
         src/prep-phase.o(.text);
         src/code_0802B814.o(.text);
+        src/chapter-info.o(.text);
 
         asm/code.o(.text);
 
@@ -423,7 +427,7 @@ SECTIONS
 
         . = ALIGN(4); data/data.o(.data);
 
-        . = 0x6A0000; data/data-banim.o(.data);
+        . = ALIGN(4); data/data-banim.o(.data);
     } = 0
 
   /* Stabs debugging sections.  */
