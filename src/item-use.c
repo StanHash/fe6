@@ -17,6 +17,7 @@
 #include "battle.h"
 #include "action.h"
 #include "map-select.h"
+#include "unit-panel.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
@@ -705,12 +706,12 @@ void DoUseRepairStaff(struct Unit* unit)
 int RepairSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C274(GetUnit(target->uid));
+    RefreshUnitRepairInventoryPanel(GetUnit(target->uid));
 }
 
 void RepairSelectOnInit(struct MapSelectProc* proc)
 {
-    sub_802C034(proc);
+    StartUnitInventoryPanel(proc);
 }
 
 int RepairMenuEntOnChange(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -795,13 +796,13 @@ void DoUseRestoreStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
 int BarrierSelectOnInit(struct MapSelectProc* proc)
 {
-    sub_802C414(proc);
+    StartUnitHpStatusPanel(proc);
 }
 
 int BarrierSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C434(GetUnit(target->uid));
+    RefreshUnitHpStatusPanel(GetUnit(target->uid));
 }
 
 void DoUseBarrierStaff(struct Unit* unit)
@@ -817,13 +818,13 @@ void DoUseBarrierStaff(struct Unit* unit)
 
 int AttackStaffSelectOnInit(struct MapSelectProc* proc)
 {
-    sub_802C4A8(proc);
+    StartUnitResChangePanel(proc);
 }
 
 int AttackStaffSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C4BC(GetUnit(target->uid));
+    RefreshUnitResChangePanel(GetUnit(target->uid));
 }
 
 void DoUseAttackStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
@@ -839,14 +840,14 @@ void DoUseAttackStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
 int sub_8024020(struct MapSelectProc* proc)
 {
-    sub_802C514(proc);
+    StartUnitStaffOffensePanel(proc);
 }
 
 int sub_802402C(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
 
-    sub_802C534(
+    RefreshUnitStaffOffensePanel(
         GetUnit(target->uid),
         GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }

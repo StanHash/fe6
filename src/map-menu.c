@@ -22,6 +22,7 @@
 #include "supply.h"
 #include "arena.h"
 #include "action.h"
+#include "unit-panel.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -1510,14 +1511,14 @@ u8 sub_8020488(struct MenuProc* menu, struct MenuEntProc* ent)
 
 void sub_80204C0(struct MapSelectProc* proc)
 {
-    sub_802C034(proc);
+    StartUnitInventoryPanel(proc);
     sub_802CB14(proc, DecodeMsg(0xC20)); // TODO: msg ids
 }
 
 int sub_80204E0(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C160(GetUnit(target->uid));
+    RefreshUnitStealInventoryPanel(GetUnit(target->uid));
 }
 
 int sub_8020504(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1533,7 +1534,7 @@ int sub_8020504(struct MapSelectProc* proc, struct SelectTarget* target)
 
     EndMapSelect(proc);
 
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_0, BGPAL_1));
+    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_1));
 
     x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->person->msgName))) / 2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(3, 3), TEXT_COLOR_SYSTEM_WHITE, x, 7,
@@ -1621,25 +1622,25 @@ int sub_8020708(struct MenuProc* menu, struct MenuEntProc* ent)
 
 void sub_8020764(struct MapSelectProc* proc)
 {
-    sub_802C3B4(proc);
+    StartUnitHpPanel(proc);
 }
 
 int sub_8020770(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C3C8(GetUnit(target->uid));
+    RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
 void sub_8020794(struct MapSelectProc* proc)
 {
-    sub_802C5E4(proc);
+    RefreshUnitTakeRescuePanels(proc);
     sub_802CB14(proc, DecodeMsg(0xC1B)); // TODO: msg ids
 }
 
 int sub_80207B4(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C61C(GetUnit(target->uid));
+    RefreshUnitRescuePanels(GetUnit(target->uid));
 }
 
 void sub_80207D8(struct MapSelectProc* proc)
@@ -1653,71 +1654,71 @@ int sub_80207F4(struct MapSelectProc* proc, struct SelectTarget* target)
 
 void sub_80207F8(struct MapSelectProc* proc)
 {
-    sub_802C798(proc);
+    StartUnitGiveRescuePanels(proc);
     sub_802CB14(proc, DecodeMsg(0xC1E)); // TODO: msg ids
 }
 
 int sub_8020818(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C7D0(GetUnit(target->uid));
+    RefreshUnitGivePanels(GetUnit(target->uid));
 }
 
 void sub_802083C(struct MapSelectProc* proc)
 {
-    sub_802C5E4(proc);
+    RefreshUnitTakeRescuePanels(proc);
     sub_802CB14(proc, DecodeMsg(0xC1D)); // TODO: msg ids
 }
 
 int sub_802085C(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C6D4(GetUnit(target->uid));
+    RefreshUnitTakePanels(GetUnit(target->uid));
 }
 
 void sub_8020880(struct MapSelectProc* proc)
 {
-    sub_802C034(proc);
+    StartUnitInventoryPanel(proc);
     sub_802CB14(proc, DecodeMsg(0xC1F)); // TODO: msg ids
 }
 
 int sub_80208A0(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C058(GetUnit(target->uid));
+    RefreshUnitInventoryPanel(GetUnit(target->uid));
 }
 
 void sub_80208C4(struct MapSelectProc* proc)
 {
-    sub_802C3B4(proc);
+    StartUnitHpPanel(proc);
     sub_802CB14(proc, DecodeMsg(0xC22)); // TODO: msg ids
 }
 
 int sub_80208E4(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C3C8(GetUnit(target->uid));
+    RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
 void sub_8020908(struct MapSelectProc* proc)
 {
-    sub_802C3B4(proc);
+    StartUnitHpPanel(proc);
     sub_802CB14(proc, DecodeMsg(0xC23)); // TODO: msg ids
 }
 
 int sub_8020928(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C3C8(GetUnit(target->uid));
+    RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
 void sub_802094C(struct MapSelectProc* proc)
 {
-    sub_802C3B4(proc);
+    StartUnitHpPanel(proc);
 }
 
 int sub_8020958(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     sub_801D680(target->x, target->y);
-    sub_802C3C8(GetUnit(target->uid));
+    RefreshUnitHpPanel(GetUnit(target->uid));
 }

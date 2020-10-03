@@ -39,6 +39,9 @@ ASM_OBJECTS  := $(SFILES:.s=.o)
 ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
 DEPS_DIR     := .dep
 
+# not yet supported by agbcc :/
+# src/main.o:            CC1FLAGS += -mtpcs-frame
+
 src/irq.o:             CC1FLAGS += -O0
 src/random.o:          CC1FLAGS += -O0
 src/hardware.o:        CC1FLAGS += -O0
@@ -76,7 +79,7 @@ $(DEPS_DIR)/%.d: %.c
 	@$(MAKEDEP)
 
 $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) tools/agbcc/lib/libgcc.a tools/agbcc/lib/libc.a -o $@
+	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -Ltools/agbcc/lib -lgcc -lc -o $@
 
 %.gba: %.elf
 	$(OBJCOPY) --strip-debug -O binary --pad-to 0x8800000 --gap-fill=0xff $< $@

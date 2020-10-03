@@ -17,7 +17,7 @@ Img_PhaseChangeSquares = 0x08101814;
 
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
-
+Tsa_UnitPanelHeader = 0x081022AC;
 Tsa_Unk_081022FC = 0x081022FC;
 
 Anim_08102450 = 0x08102450;
@@ -194,6 +194,7 @@ SECTIONS
         . = ALIGN(4); src/arena.o(ewram_data);
         . = ALIGN(4); src/action.o(ewram_data);
         . = ALIGN(4); src/movepath.o(ewram_data);
+        . = ALIGN(4); src/unit-panel.o(ewram_data);
 
        . = 0x039688; gAiDecision = .;
     }
@@ -320,6 +321,7 @@ SECTIONS
         src/prep-phase.o(.text);
         src/code_0802B814.o(.text);
         src/chapter-info.o(.text);
+        src/unit-panel.o(.text);
 
         asm/code.o(.text);
 
@@ -383,6 +385,7 @@ SECTIONS
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/chapter.o(.rodata);
         . = ALIGN(4); src/arena.o(.rodata);
+        . = ALIGN(4); src/unit-panel.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -424,6 +427,7 @@ SECTIONS
         . = ALIGN(4); src/action.o(.data);
         . = ALIGN(4); src/movepath.o(.data);
         . = ALIGN(4); src/prep-phase.o(.data);
+        . = ALIGN(4); src/unit-panel.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

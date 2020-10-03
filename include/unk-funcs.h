@@ -162,37 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802BBF4
-// sub_802BC80
-// sub_802BCAC
-// sub_802BCF4
-// sub_802BE24
-// sub_802BE4C
-// sub_802BEA0
-// sub_802BEE0
-// sub_802BF14
-// sub_802BF48
-// sub_802BF7C
-// sub_802BFD4
-// sub_802C008
-void sub_802C034(ProcPtr parent);
-void sub_802C058(struct Unit* unit);
-void sub_802C160(struct Unit* unit);
-void sub_802C274(struct Unit* unit);
-void sub_802C3B4(ProcPtr parent);
-void sub_802C3C8(struct Unit* unit);
-void sub_802C414(ProcPtr proc);
-void sub_802C434(struct Unit* unit);
-void sub_802C4A8(ProcPtr proc);
-void sub_802C4BC(struct Unit* unit);
-void sub_802C514(ProcPtr proc);
-void sub_802C534(struct Unit* unit, int accuracy);
-// sub_802C5B4
-void sub_802C5E4(ProcPtr proc);
-void sub_802C61C(struct Unit* unit);
-void sub_802C6D4(struct Unit* unit);
-void sub_802C798(ProcPtr parent);
-void sub_802C7D0(struct Unit* unit);
 // sub_802C894
 // sub_802C8F8
 // sub_802C9C0

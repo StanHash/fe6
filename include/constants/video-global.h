@@ -9,7 +9,7 @@
 
 enum
 {
-    BGCHR_0 = 0,
+    BGCHR_WINDOW_FRAME = 0,
 
     BGCHR_TEXT_DEFAULT = 0x80,
 
