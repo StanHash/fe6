@@ -188,15 +188,15 @@ int sub_801A760(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* offon[] =
     {
-        "‚n‚e‚e",
-        "@‚n‚m",
+        TEXT("‚n‚e‚e"),
+        TEXT("@‚n‚m"),
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "ƒfƒuî•ñ");
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, TEXT("ƒfƒuî•ñ"));
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[proc->unk66]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -224,20 +224,20 @@ int sub_801A820(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* weatherNames[] =
     {
-        [DEBUG_WEATHER_NONE]      = "°‚ê",
-        [DEBUG_WEATHER_SANDSTORM] = "»—’",
-        [DEBUG_WEATHER_SNOW]      = "á",
-        [DEBUG_WEATHER_SNOWSTORM] = "á",
-        [DEBUG_WEATHER_RAIN]      = "‰J",
-        [DEBUG_WEATHER_5]         = "–é",
-        [DEBUG_WEATHER_FLAMES]    = "—nŠâ",
+        [DEBUG_WEATHER_NONE]      = TEXT("°‚ê"),
+        [DEBUG_WEATHER_SANDSTORM] = TEXT("»—’"),
+        [DEBUG_WEATHER_SNOW]      = TEXT("á"),
+        [DEBUG_WEATHER_SNOWSTORM] = TEXT("á"),
+        [DEBUG_WEATHER_RAIN]      = TEXT("‰J"),
+        [DEBUG_WEATHER_5]         = TEXT("–é"),
+        [DEBUG_WEATHER_FLAMES]    = TEXT("—nŠâ"),
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, "“V‹C");
+    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, TEXT("“V‹C"));
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, weatherNames[proc->unk58 % DEBUG_WEATHER_COUNT]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));

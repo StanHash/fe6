@@ -23,3 +23,6 @@
 #define ABS(val) ((val) >= 0 ? (val) : -(val))
 
 #define RECT_DISTANCE(xa, ya, xb, yb) (ABS((xa) - (xb)) + ABS((ya) - (yb)))
+
+// For translate-able strings.
+#define TEXT(str) (str)
