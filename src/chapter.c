@@ -68,7 +68,7 @@ void InitPlayConfig(int isHardMode)
     gPlaySt.configSeDisable = FALSE;
     gPlaySt.configWindowColor = 0;
     gPlaySt.configNoAutoEndTurn = FALSE;
-    gPlaySt.unk_1D_8 = 0;
+    gPlaySt.configNoSubtitleHelp = FALSE;
     gPlaySt.unk_1E_3 = 0;
     gPlaySt.debugRedControl = 0;
     gPlaySt.debugGreenControl = 0;

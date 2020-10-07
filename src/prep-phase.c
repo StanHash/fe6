@@ -17,6 +17,7 @@
 #include "chapter.h"
 #include "unit-rearrange.h"
 #include "chapter-info.h"
+#include "subtitle-help.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -87,7 +88,7 @@ PROC_LABEL(L_PLAYERPHASE_BEGIN),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_IDLE),
-    PROC_WHILE(sub_802CB60),
+    PROC_WHILE(IsSubtitleHelpActive),
 
     PROC_CALL(RefreshEntityMaps),
     PROC_CALL(sub_8073310),
@@ -386,7 +387,7 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
     proc->unk3C = gBmSt.cursor.x;
     proc->unk40 = gBmSt.cursor.y;
 
-    sub_802CB14(proc, DecodeMsg(0xC25)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC25)); // TODO: msg ids
     CameraMoveWatchPosition(proc, gActiveUnit->x, gActiveUnit->y);
     PlaySe(0x69); // TODO: song ids
 }
@@ -413,7 +414,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
             Anim_End(proc->ptr);
             Proc_Break(proc);
 
-            sub_802CB50();
+            EndSubtitleHelp();
 
             return;
         }
@@ -430,7 +431,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
         Anim_End(proc->ptr);
         Proc_Goto(proc, L_PLAYERPHASE_MAPFADE_MOVE);
 
-        sub_802CB50();
+        EndSubtitleHelp();
 
         PlaySe(0x6B);
 

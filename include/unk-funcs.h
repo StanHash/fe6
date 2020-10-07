@@ -162,18 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802C894
-// sub_802C8F8
-// sub_802C9C0
-// sub_802CA24
-// sub_802CA40
-// sub_802CA58
-// sub_802CA84
-// sub_802CAA4
-// sub_802CAC8
-void sub_802CB14(ProcPtr parent, char const* str);
-void sub_802CB50(void);
-s8 sub_802CB60(void);
 void sub_802CB78(ProcPtr proc, struct Unit* unit, int arg_2, int arg_3);
 // sub_802CBB4
 // sub_802CBD4

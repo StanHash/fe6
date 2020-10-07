@@ -73,7 +73,6 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_Unk_085C8080        = 0x085C8080;
 ProcScr_TerrainHealDisplay  = 0x085C8200;
 ProcScr_PoisonDamageDisplay = 0x085C8260;
 ProcScr_StatusDecayDisplay  = 0x085C82C8;
@@ -322,6 +321,7 @@ SECTIONS
         src/code_0802B814.o(.text);
         src/chapter-info.o(.text);
         src/unit-panel.o(.text);
+        src/subtitle-help.o(.text);
 
         asm/code.o(.text);
 
@@ -428,6 +428,7 @@ SECTIONS
         . = ALIGN(4); src/movepath.o(.data);
         . = ALIGN(4); src/prep-phase.o(.data);
         . = ALIGN(4); src/unit-panel.o(.data);
+        . = ALIGN(4); src/subtitle-help.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

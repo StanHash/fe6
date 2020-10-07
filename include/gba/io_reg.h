@@ -389,7 +389,7 @@
 #define REG_BLDALPHA    (*(vu16 *)REG_ADDR_BLDALPHA)
 #define REG_BLDCA       (*(vu8 *)(REG_ADDR_BLDALPHA+0))
 #define REG_BLDCB       (*(vu8 *)(REG_ADDR_BLDALPHA+1))
-#define REG_BLDY        (*(vu16 *)REG_ADDR_BLDY)
+#define REG_BLDY        (*(vu8  *)REG_ADDR_BLDY)
 
 #define REG_SOUND1CNT_L (*(vu16 *)REG_ADDR_SOUND1CNT_L)
 #define REG_NR10        (*(vu8  *)REG_ADDR_NR10)

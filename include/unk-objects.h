@@ -77,7 +77,6 @@ extern u16 const Pal_CloudWeather[];
 extern u8 const Img_MovePath[];
 extern u16 const Pal_MovePath[];
 extern u8 const Tsa_UnitPanelHeader[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_085C8080[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];

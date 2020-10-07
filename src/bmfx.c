@@ -27,6 +27,7 @@
 #include "bmio.h"
 #include "supply.h"
 #include "chapter-info.h"
+#include "subtitle-help.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -765,7 +766,7 @@ static int DiscardItem_StartItemSelect(ProcPtr proc)
 
 static int DiscardItem_PostItemSelect(ProcPtr proc)
 {
-    sub_802CB50();
+    EndSubtitleHelp();
     EndEquipInfoWindow();
 
     if (gBmSt.supplyItemOverflow == 0)
@@ -798,7 +799,7 @@ void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
 
         StartFace(0, GetUnitFid(unit), 22*8, 4, FACE_DISP_KIND(FACE_96x80));
         StartEquipInfoWindow(parent, unit, 15, 10);
-        sub_802CB14(parent, DecodeMsg(0xC26)); // TODO: msgids
+        StartSubtitleHelp(parent, DecodeMsg(0xC26)); // TODO: msgids
 
         SpawnProcLocking(ProcScr_DiscardItem, parent);
     }

@@ -29,6 +29,7 @@
 #include "bmio.h"
 #include "chapter.h"
 #include "chapter-info.h"
+#include "subtitle-help.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1009,10 +1010,10 @@ static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc)
 
 static void Event_MainLoop(struct EventProc* proc)
 {
-    if (Proc_Find(ProcScr_Unk_085C8080) != NULL)
+    if (Proc_Find(ProcScr_SubtitleHelpDarkener) != NULL)
         return;
 
-    if (sub_802CB60())
+    if (IsSubtitleHelpActive())
         return;
 
     if (IsMapFadeActive())

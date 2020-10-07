@@ -18,6 +18,7 @@
 #include "action.h"
 #include "map-select.h"
 #include "unit-panel.h"
+#include "subtitle-help.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
@@ -505,7 +506,7 @@ void DoUseRescueStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelectExt(&MapSelectInfo_085C772C, StaffSelectOnSelect),
         DecodeMsg(0xC2A)); // TODO: msg ids
 }
@@ -514,7 +515,7 @@ static void WarpSelect_Init(struct GenericProc* proc)
 {
     struct Anim* anim;
 
-    sub_802CB14(proc, DecodeMsg(0xC24)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC24)); // TODO: msg ids
 
     CameraMoveWatchPosition(proc,
         GetUnit(gAction.target)->x,
@@ -597,7 +598,7 @@ static void WarpSelect_HandleConfirm(struct GenericProc* proc)
 {
     ResetTextFont();
     EndLimitView();
-    sub_802CB50();
+    EndSubtitleHelp();
 
     SetMapCursorPosition(
         gActiveUnit->x,
@@ -612,7 +613,7 @@ static void WarpSelect_HandleCancel(struct GenericProc* proc)
 {
     ResetTextFont();
     EndLimitView();
-    sub_802CB50();
+    EndSubtitleHelp();
 
     SetMapCursorPosition(
         gActiveUnit->x,
@@ -644,7 +645,7 @@ void DoUseWarpStaff(struct Unit* unit)
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelectExt(&MapSelectInfo_085C772C, WarpOnSelectTarget),
         DecodeMsg(0xC29)); // TODO: msg ids
 
@@ -667,7 +668,7 @@ void DoUseUnlockStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelectExt(&MapSelectInfo_085C770C, UnlockOnSelectTarget),
         DecodeMsg(0xC2E)); // TODO: msg ids
 
@@ -696,7 +697,7 @@ void DoUseRepairStaff(struct Unit* unit)
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Repair),
         DecodeMsg(0xC2C)); // TODO: msg ids
 
@@ -778,7 +779,7 @@ void DoUseHealStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Heal),
         DecodeMsg(0xC28)); // TODO: msg ids
 }
@@ -789,7 +790,7 @@ void DoUseRestoreStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Restore),
         DecodeMsg(0xC2B)); // TODO: msg ids
 }
@@ -811,7 +812,7 @@ void DoUseBarrierStaff(struct Unit* unit)
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Barrier),
         DecodeMsg(0xC2D)); // TODO: msg ids
 }
@@ -833,7 +834,7 @@ void DoUseAttackStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
     MapFill(gMapMovement, -1);
 
-    sub_802CB14(
+    StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_AttackStaff),
         DecodeMsg(0xC2F)); // TODO: msg ids
 }
@@ -854,6 +855,6 @@ int sub_802402C(struct MapSelectProc* proc, struct SelectTarget* target)
 
 void sub_802406C(struct MapSelectProc* proc)
 {
-    sub_802CB50();
+    EndSubtitleHelp();
     ClearBg0Bg1();
 }

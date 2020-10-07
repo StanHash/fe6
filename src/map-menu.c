@@ -23,6 +23,7 @@
 #include "arena.h"
 #include "action.h"
 #include "unit-panel.h"
+#include "subtitle-help.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -374,7 +375,7 @@ void sub_801EE4C(struct Unit* from, struct Unit* to)
 {
     struct Unit* rescue = GetUnit(from->rescue);
 
-    sub_802CB50();
+    EndSubtitleHelp();
     StartRescueTransferAnimParentless(rescue, sub_801C160(to->x, to->y, from->x, from->y));
 }
 
@@ -463,7 +464,7 @@ u8 sub_801F004(struct MenuProc* menu, struct MenuEntProc* ent)
 
     if (gBmSt.unk_30 == TRUE && gBmSt.unk_31 == TRUE)
     {
-        sub_802CB14(
+        StartSubtitleHelp(
             sub_80417E8(&MenuInfo_085C7504, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 20),
             DecodeMsg(0xC27)); // TODO: msg ids
 
@@ -1512,7 +1513,7 @@ u8 sub_8020488(struct MenuProc* menu, struct MenuEntProc* ent)
 void sub_80204C0(struct MapSelectProc* proc)
 {
     StartUnitInventoryPanel(proc);
-    sub_802CB14(proc, DecodeMsg(0xC20)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC20)); // TODO: msg ids
 }
 
 int sub_80204E0(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1634,7 +1635,7 @@ int sub_8020770(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_8020794(struct MapSelectProc* proc)
 {
     RefreshUnitTakeRescuePanels(proc);
-    sub_802CB14(proc, DecodeMsg(0xC1B)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC1B)); // TODO: msg ids
 }
 
 int sub_80207B4(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1645,7 +1646,7 @@ int sub_80207B4(struct MapSelectProc* proc, struct SelectTarget* target)
 
 void sub_80207D8(struct MapSelectProc* proc)
 {
-    sub_802CB14(proc, DecodeMsg(0xC1C)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC1C)); // TODO: msg ids
 }
 
 int sub_80207F4(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1655,7 +1656,7 @@ int sub_80207F4(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_80207F8(struct MapSelectProc* proc)
 {
     StartUnitGiveRescuePanels(proc);
-    sub_802CB14(proc, DecodeMsg(0xC1E)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC1E)); // TODO: msg ids
 }
 
 int sub_8020818(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1667,7 +1668,7 @@ int sub_8020818(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_802083C(struct MapSelectProc* proc)
 {
     RefreshUnitTakeRescuePanels(proc);
-    sub_802CB14(proc, DecodeMsg(0xC1D)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC1D)); // TODO: msg ids
 }
 
 int sub_802085C(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1679,7 +1680,7 @@ int sub_802085C(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_8020880(struct MapSelectProc* proc)
 {
     StartUnitInventoryPanel(proc);
-    sub_802CB14(proc, DecodeMsg(0xC1F)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC1F)); // TODO: msg ids
 }
 
 int sub_80208A0(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1691,7 +1692,7 @@ int sub_80208A0(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_80208C4(struct MapSelectProc* proc)
 {
     StartUnitHpPanel(proc);
-    sub_802CB14(proc, DecodeMsg(0xC22)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC22)); // TODO: msg ids
 }
 
 int sub_80208E4(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1703,7 +1704,7 @@ int sub_80208E4(struct MapSelectProc* proc, struct SelectTarget* target)
 void sub_8020908(struct MapSelectProc* proc)
 {
     StartUnitHpPanel(proc);
-    sub_802CB14(proc, DecodeMsg(0xC23)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(0xC23)); // TODO: msg ids
 }
 
 int sub_8020928(struct MapSelectProc* proc, struct SelectTarget* target)
