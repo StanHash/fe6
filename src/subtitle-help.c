@@ -1,5 +1,5 @@
 
-#include "common.h"
+#include "subtitle-help.h"
 
 #include "hardware.h"
 #include "oam.h"

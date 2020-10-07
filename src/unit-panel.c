@@ -1,5 +1,5 @@
 
-#include "common.h"
+#include "unit-panel.h"
 
 #include "armfunc.h"
 #include "proc.h"
