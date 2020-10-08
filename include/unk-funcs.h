@@ -162,44 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-void sub_802CB78(ProcPtr proc, struct Unit* unit, int arg_2, int arg_3);
-// sub_802CBB4
-// sub_802CBD4
-// sub_802CC1C
-void sub_802CC80(struct Unit* unit, int damage);
-// sub_802CCEC
-// sub_802CD40
-// sub_802CDD8
-// sub_802CE40
-// sub_802CE78
-// sub_802CF24
-// sub_802CF7C
-// sub_802CF90
-// sub_802CFA4
-// sub_802CFB8
-// sub_802D010
-// sub_802D06C
-// sub_802D09C
-// sub_802D0C8
-// sub_802D0F4
-// sub_802D14C
-// sub_802D178
-// sub_802D1A8
-// sub_802D210
-// sub_802D234
-void sub_802D278(ProcPtr proc);
-// sub_802D2C8
-// sub_802D314
-// sub_802D34C
-// sub_802D378
-// sub_802D3B0
-// sub_802D3D4
-// sub_802D40C
-// sub_802D430
-// sub_802D438
-// sub_802D4A8
-// sub_802D4D8
-// sub_802D5E8
 // sub_802D638
 // sub_802D66C
 // sub_802D6F4
@@ -2133,8 +2095,8 @@ void sub_8061704(void);
 // MA_SetActorFacing
 // sub_80622FC
 // MA_SortMuLayers
-// sub_8062598
-// sub_8062614
+void sub_8062598(void);
+void sub_8062614(void);
 void sub_8062690(void);
 // sub_8062734
 void sub_80627D0(void);

@@ -59,6 +59,9 @@ Pal_LimitViewRed = 0x08308EF8;
 Pal_LimitViewGreen = 0x08308F58;
 Img_MovePath = 0x08308FB8;
 Pal_MovePath = 0x083091F0;
+Img_StatusHealEffect = 0x08309210;
+Pal_StatusHealEffect = 0x08309298;
+Tsa_StatusHealEffect = 0x083092B8;
 
 Tm_ChapterIntroMotif = 0x0830A574;
 Img_ChapterIntroMotif = 0x08309574;
@@ -73,10 +76,6 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_TerrainHealDisplay  = 0x085C8200;
-ProcScr_PoisonDamageDisplay = 0x085C8260;
-ProcScr_StatusDecayDisplay  = 0x085C82C8;
-ProcScr_TrapDamageDisplay   = 0x085C8320;
 ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
@@ -322,6 +321,8 @@ SECTIONS
         src/chapter-info.o(.text);
         src/unit-panel.o(.text);
         src/subtitle-help.o(.text);
+        src/mass-effect.o(.text);
+        src/code_0802D638.o(.text);
 
         asm/code.o(.text);
 
@@ -429,6 +430,7 @@ SECTIONS
         . = ALIGN(4); src/prep-phase.o(.data);
         . = ALIGN(4); src/unit-panel.o(.data);
         . = ALIGN(4); src/subtitle-help.o(.data);
+        . = ALIGN(4); src/mass-effect.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

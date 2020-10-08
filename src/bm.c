@@ -23,6 +23,7 @@
 #include "action.h"
 #include "prep-phase.h"
 #include "chapter-info.h"
+#include "mass-effect.h"
 
 #include "constants/video-global.h"
 

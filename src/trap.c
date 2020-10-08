@@ -13,6 +13,7 @@
 #include "unitsprite.h"
 #include "action.h"
 #include "chapter-info.h"
+#include "mass-effect.h"
 #include "mu.h"
 
 #include "constants/items.h"
@@ -676,7 +677,7 @@ static void StepPikeTrap_ApplyDamage(ProcPtr proc)
     MU_EndAll();
 
     gAction.extra = damage;
-    sub_802CC80(gActiveUnit, damage);
+    BeginUnitCritDamageAnim(gActiveUnit, damage);
 }
 
 static void StepFireTrap_ApplyDamage(ProcPtr proc)
@@ -684,7 +685,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
     MU_EndAll();
 
     gAction.extra = 10;
-    sub_802CC80(gActiveUnit, 10);
+    BeginUnitCritDamageAnim(gActiveUnit, 10);
 }
 
 static void StepFireTrap_08027318(ProcPtr proc)
@@ -703,12 +704,12 @@ static void StepPikeTrap_08027318(ProcPtr proc)
 
 static void StepTrap_End(ProcPtr proc)
 {
-    sub_802CB78(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
+    ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
         sub_8084AEC(gActiveUnit->person->id, 0, 3);
 
-    sub_802D278(proc);
+    FinishDamageDisplay(proc);
 
     HideUnitSprite(GetUnit(gAction.instigator));
 }

@@ -21,6 +21,8 @@ enum
     BGCHR_ICON_BEGIN = 0x280,
     BGCHR_ICON_END   = 0x300,
 
+    BGCHR_STATUSHEAL = 0x280,
+
     BGCHR_TILESET_A = 0x400,
     BGCHR_TILESET_B = 0x600,
 
@@ -50,6 +52,8 @@ enum
     BGPAL_DEBUGTEXT       = 0,
 
     BGPAL_EQUIP_INFO_ICON = 3,
+
+    BGPAL_STATUSHEAL = 3,
 
     BGPAL_LIMITVIEW = 4, // .. 5
 
@@ -99,6 +103,8 @@ enum
     OBJPAL_1 = 1,
 
     OBJPAL_TRAPFX = 2,
+
+    OBJPAL_STATUSHEAL_UNITSPRITE = 2,
 
     OBJPAL_MOVEPATH = 3,
 
