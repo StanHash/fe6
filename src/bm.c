@@ -24,6 +24,7 @@
 #include "prep-phase.h"
 #include "chapter-info.h"
 #include "mass-effect.h"
+#include "ai-phase.h"
 
 #include "constants/video-global.h"
 
@@ -107,7 +108,7 @@ PROC_LABEL(L_BMMAIN_STARTPHASE),
 
 PROC_LABEL(L_BMMAIN_DURINGPHASE),
     PROC_REPEAT(BmMain_StartPhase),
-    PROC_START_CHILD_LOCKING(ProcScr_BerserkPhase),
+    PROC_START_CHILD_LOCKING(ProcScr_AiPhase_Berserk),
 
     PROC_CALL_2(BmMain_UpdateTraps),
 
@@ -130,7 +131,7 @@ PROC_LABEL(L_BMMAIN_4),
     PROC_REPEAT(WhileFadeExists),
 
     PROC_REPEAT(BmMain_ResumePlayerPhase),
-    PROC_START_CHILD_LOCKING(ProcScr_BerserkPhase),
+    PROC_START_CHILD_LOCKING(ProcScr_AiPhase_Berserk),
 
     PROC_GOTO(L_BMMAIN_CHANGEPHASE),
 
@@ -138,7 +139,7 @@ PROC_LABEL(L_BMMAIN_8),
     PROC_SLEEP(0),
 
     PROC_REPEAT(BmMain_ResumePlayerPhase),
-    PROC_START_CHILD_LOCKING(ProcScr_BerserkPhase),
+    PROC_START_CHILD_LOCKING(ProcScr_AiPhase_Berserk),
 
     PROC_GOTO(L_BMMAIN_CHANGEPHASE),
 
@@ -158,7 +159,7 @@ PROC_LABEL(L_BMMAIN_5),
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WhileFadeExists),
 
-    PROC_START_CHILD_LOCKING(ProcScr_BerserkPhase),
+    PROC_START_CHILD_LOCKING(ProcScr_AiPhase_Berserk),
 
     PROC_GOTO(L_BMMAIN_CHANGEPHASE),
 

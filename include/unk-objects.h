@@ -9,8 +9,6 @@
 #include "menu.h"
 #include "map-select.h"
 
-extern struct AiDecision gAiDecision;
-
 extern struct Font gFont_Unk_02002770;
 extern u16 gUnk_Tm_02003238[];
 extern u16 gUnk_Tm_02003738[];
@@ -97,8 +95,6 @@ extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
-extern struct ProcScr CONST_DATA ProcScr_AiPhase[];
-extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
 extern struct ProcScr CONST_DATA ProcScr_Mu[];
@@ -138,6 +134,8 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_Heal;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Restore;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
+
+extern u32 const AiItemConfigTable[];
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];

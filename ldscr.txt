@@ -53,6 +53,8 @@ Pal_FlamesParticles = 0x08105194;
 Img_CloudWeather = 0x081051D4;
 Pal_CloudWeather = 0x081056F0;
 
+AiItemConfigTable = 0x0810DA20;
+
 Img_TalkBubble = 0x082E4394;
 Pal_TalkBubble = 0x082E4630;
 
@@ -85,8 +87,6 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_AiPhase             = 0x085C8444;
-ProcScr_BerserkPhase        = 0x085C846C;
 ProcScr_Mu                  = 0x086648B4;
 ProcScr_Unk_0868AE04        = 0x0868AE04;
 ProcScr_Unk_0868B010        = 0x0868B010;
@@ -206,8 +206,8 @@ SECTIONS
         . = ALIGN(4); src/action.o(ewram_data);
         . = ALIGN(4); src/movepath.o(ewram_data);
         . = ALIGN(4); src/unit-panel.o(ewram_data);
-
-       . = 0x039688; gAiDecision = .;
+        . = ALIGN(4); src/ai-phase.o(ewram_data);
+        . = ALIGN(4); src/ai-decide.o(ewram_data);
     }
 
     . = 0x03000000;
@@ -336,6 +336,7 @@ SECTIONS
         src/subtitle-help.o(.text);
         src/mass-effect.o(.text);
         src/battle-preview.o(.text);
+        src/ai-phase.o(.text);
 
         asm/code.o(.text);
 
@@ -446,6 +447,8 @@ SECTIONS
         . = ALIGN(4); src/subtitle-help.o(.data);
         . = ALIGN(4); src/mass-effect.o(.data);
         . = ALIGN(4); src/battle-preview.o(.data);
+        . = ALIGN(4); src/ai-phase.o(.data);
+        . = ALIGN(4); src/ai-order.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

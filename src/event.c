@@ -30,6 +30,7 @@
 #include "chapter.h"
 #include "chapter-info.h"
 #include "subtitle-help.h"
+#include "ai-decide.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

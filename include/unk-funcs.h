@@ -162,9 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802E52C
-// sub_802E58C
-// sub_802E59C
 // sub_802E5C4
 // sub_802E670
 // sub_802E6B0
@@ -237,7 +234,7 @@ Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec
 // sub_80307D4
 // sub_803081C
 // sub_8030860
-// sub_80308B0
+void sub_80308B0(void);
 // sub_8030968
 // sub_8030994
 // sub_80309E0
@@ -318,7 +315,7 @@ void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
 // sub_80326F0
 // sub_8032814
 // sub_8032838
-// sub_8032A08
+void sub_8032A08(void);
 // sub_8032A60
 // sub_8032AE0
 // sub_8032B84

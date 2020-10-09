@@ -139,23 +139,6 @@ struct MapChangeInfo
     /* 08 */ u16 const* metatiles;
 };
 
-struct AiDecision
-{
-    /* 00 */ u8 actionId;
-
-    /* 01 */ u8 unitId;
-    /* 02 */ u8 xMove;
-    /* 03 */ u8 yMove;
-    /* 04 */ u8 unk04;
-    /* 05 */ u8 unk05;
-    /* 06 */ u8 targetId;
-    /* 07 */ u8 itemSlot;
-    /* 08 */ u8 xTarget;
-    /* 09 */ u8 yTarget;
-
-    /* 0A */ Bool actionPerformed;
-};
-
 struct ChapterEventInfo
 {
     /* 00 */ void const* pad_00;
