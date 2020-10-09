@@ -91,7 +91,7 @@ struct BattleUnit
     /* 6B */ s8 statusOut;
     /* 6C */ u8 levelPrevious;
     /* 6D */ u8 expPrevious;
-    /* 6E */ u8 hpPrevious;
+    /* 6E */ s8 hpPrevious;
 
     /* 6F */ s8 hpChange;
     /* 70 */ s8 powChange;

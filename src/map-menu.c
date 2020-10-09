@@ -24,6 +24,7 @@
 #include "action.h"
 #include "unit-panel.h"
 #include "subtitle-help.h"
+#include "battle-preview.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -32,10 +33,6 @@
 #include "constants/items.h"
 
 #include "event-script.h"
-
-extern struct Font gFont_Unk_02002770;
-extern u16 gUnk_Tm_02003238[];
-extern u16 gUnk_Tm_02003738[];
 
 static void sub_801EAF8(ProcPtr proc);
 
@@ -84,7 +81,7 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C5E58[] =
 
     PROC_CALL(sub_801F35C),
 
-    PROC_WHILE_EXISTS(ProcScr_Unk_085C83C8),
+    PROC_WHILE_EXISTS(ProcScr_BattlePreview),
     PROC_WHILE_EXISTS(ProcScr_CamMove),
 
     PROC_CALL(sub_801F378),
@@ -611,7 +608,7 @@ u8 sub_801F328(struct MapSelectProc* proc, struct SelectTarget* target)
         gAction.extra = target->extra;
     }
 
-    Proc_EndEach(ProcScr_Unk_085C83C8);
+    Proc_EndEach(ProcScr_BattlePreview);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -653,7 +650,7 @@ u8 sub_801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
     else
         BattleGenerateSimulation(gActiveUnit, unit, -1, -1, gAction.itemSlot);
 
-    sub_802E36C();
+    UpdateBattlePreviewContents();
 
     return 0;
 }
@@ -664,7 +661,7 @@ u8 sub_801F420(struct MapSelectProc* proc)
     EnableBgSync(BG2_SYNC_BIT);
 
     EndLimitView();
-    sub_802E394();
+    CloseBattlePreview();
 
     return 0;
 }

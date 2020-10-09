@@ -11,6 +11,10 @@
 
 extern struct AiDecision gAiDecision;
 
+extern struct Font gFont_Unk_02002770;
+extern u16 gUnk_Tm_02003238[];
+extern u16 gUnk_Tm_02003738[];
+
 extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const* CONST_DATA TextGlyphs_System[];
 extern struct Glyph const* CONST_DATA TextGlyphs_Talk[];
@@ -80,6 +84,15 @@ extern u8 const Tsa_UnitPanelHeader[];
 extern u8 const Img_StatusHealEffect[];
 extern u16 const Pal_StatusHealEffect[];
 extern u8 const Tsa_StatusHealEffect[];
+extern u8 const Tsa_BattlePreviewFrame_Short[];
+extern u8 const Tsa_BattlePreviewFrame_Long[];
+extern u16 const Pal_BattlePreviewFrame_Blue[];
+extern u16 const Pal_BattlePreviewFrame_Red[];
+extern u16 const Pal_BattlePreviewFrame_Green[];
+extern u16 const Pal_BattlePreviewFrame_Purple[];
+extern u8 const Img_BattlePreviewFrame[];
+extern u8 const Img_BattlePreviewMultipliers[];
+extern u16 const Pal_BattlePreviewMultipliers[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
@@ -88,7 +101,6 @@ extern struct ProcScr CONST_DATA ProcScr_AiPhase[];
 extern struct ProcScr CONST_DATA ProcScr_BerserkPhase[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_085C83C8[];
 extern struct ProcScr CONST_DATA ProcScr_Mu[];
 extern struct MenuInfo CONST_DATA MenuInfo_085C7474;
 extern struct MenuInfo CONST_DATA MenuInfo_085C73E4;

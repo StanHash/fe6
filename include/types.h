@@ -27,6 +27,8 @@ struct UnitInfo;
 struct UnitSprite;
 struct SupportInfo;
 
+struct HelpBoxInfo;
+
 // Type decls for types that don't have a home yet :/
 // TODO: move
 

@@ -140,7 +140,7 @@ struct PlaySt
     u32 configNoAutoEndTurn:1;
     u32 configNoSubtitleHelp:1;
     u32 configBattleAnim:2;
-    u32 unk_1E_3:2;
+    u32 configBattlePreviewKind:2;
     u32 unk_1E_5:1;
     u32 unk_1E_6:1;
     u32 debugRedControl:2;

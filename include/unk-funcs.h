@@ -162,36 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802D638
-// sub_802D66C
-// sub_802D6F4
-// sub_802D730
-// sub_802D774
-// sub_802D7B8
-// sub_802D7F0
-// sub_802D8F8
-// sub_802DAE0
-// sub_802DCFC
-// sub_802DD38
-// sub_802DD70
-// sub_802DDC0
-// sub_802DE50
-// sub_802DE60
-// sub_802DEDC
-// sub_802DF80
-// sub_802E01C
-// sub_802E090
-// sub_802E0FC
-// sub_802E140
-// sub_802E224
-// sub_802E308
-void sub_802E36C(void);
-void sub_802E394(void);
-// sub_802E3D0
-// sub_802E43C
-// sub_802E460
-// sub_802E490
-// sub_802E4C0
 // sub_802E52C
 // sub_802E58C
 // sub_802E59C
@@ -835,7 +805,7 @@ void sub_803C080(ProcPtr parent);
 // sub_8041284
 // sub_80412B0
 // sub_80412DC
-// sub_8041308
+void sub_8041308(int arg_0);
 void sub_8041358(int x, int y, int width, int height, int winKind);
 void sub_80415CC(int x, int y);
 void sub_804163C(int x, int y);
@@ -2750,8 +2720,8 @@ void sub_807089C(void);
 // sub_80708E4
 // sub_807090C
 // sub_80709D4
-// sub_80709E8
-// sub_8070A0C
+void StartMovingHelpBox(struct HelpBoxInfo const* info, ProcPtr parent);
+void StartMovingHelpBoxExt(struct HelpBoxInfo const* info, ProcPtr parent, int x, int y);
 // sub_8070A30
 // sub_8070A70
 // sub_8070AFC
@@ -2773,7 +2743,7 @@ void sub_8070DA8(u16* tm, int palid);
 // sub_8070DC8
 void sub_8070DE8(u16* tm, int palid);
 int sub_8070E0C(struct PlaySt const* playSt);
-void sub_8070E70(void* arg_0, int arg_1);
+void sub_8070E70(void* vram, int palid);
 // sub_8070EEC
 // sub_8070F64
 // sub_8071120

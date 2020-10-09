@@ -17,6 +17,15 @@ Img_PhaseChangeSquares = 0x08101814;
 
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
+Img_BattlePreviewFrame = 0x08101AE4;
+Pal_BattlePreviewFrame_Blue = 0x08101DD4;
+Pal_BattlePreviewFrame_Red = 0x08101DF4;
+Pal_BattlePreviewFrame_Green = 0x08101E14;
+Pal_BattlePreviewFrame_Purple = 0x08101E34;
+Tsa_BattlePreviewFrame_Short = 0x08101E54;
+Tsa_BattlePreviewFrame_Long = 0x08101F98;
+Img_BattlePreviewMultipliers = 0x0810212C;
+Pal_BattlePreviewMultipliers = 0x081021D8;
 Tsa_UnitPanelHeader = 0x081022AC;
 Tsa_Unk_081022FC = 0x081022FC;
 
@@ -76,7 +85,6 @@ Tsa_Unk_0830D97C = 0x0830D97C;
 gMPlayTable             = 0x0839946C;
 gSongTable              = 0x083994D8;
 
-ProcScr_Unk_085C83C8        = 0x085C83C8;
 ProcScr_AiPhase             = 0x085C8444;
 ProcScr_BerserkPhase        = 0x085C846C;
 ProcScr_Mu                  = 0x086648B4;
@@ -142,6 +150,9 @@ AffinityBonuses = 0x0866350C;
 ChapterInfoTable = 0x086637A4;
 ChapterAssets = 0x08664398;
 
+HelpInfo_BpShort_Hp = 0x08677C4C;
+HelpInfo_BpLarge_Hp = 0x08677CF4;
+
 gTrialLoadInfo = 0x08689DE0;
 
 gNumMusicPlayers = 9;
@@ -161,6 +172,8 @@ SECTIONS
         . = 0x002788; gTradeMenuText = .; /* trademenu */
         . = 0x0027D8, gWeatherEffect = .; /* bmio */
         . = 0x002AD8; gWeatherGradient = .; /* bmio */
+        . = 0x002FD8; gBattlePreviewLabels = .; /* battle-preview */
+        . = 0x003008; gBattlePreviewIconPalBuf = .; /* battle-preview */
 
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
@@ -322,7 +335,7 @@ SECTIONS
         src/unit-panel.o(.text);
         src/subtitle-help.o(.text);
         src/mass-effect.o(.text);
-        src/code_0802D638.o(.text);
+        src/battle-preview.o(.text);
 
         asm/code.o(.text);
 
@@ -387,6 +400,7 @@ SECTIONS
         . = ALIGN(4); src/chapter.o(.rodata);
         . = ALIGN(4); src/arena.o(.rodata);
         . = ALIGN(4); src/unit-panel.o(.rodata);
+        . = ALIGN(4); src/battle-preview.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -431,6 +445,7 @@ SECTIONS
         . = ALIGN(4); src/unit-panel.o(.data);
         . = ALIGN(4); src/subtitle-help.o(.data);
         . = ALIGN(4); src/mass-effect.o(.data);
+        . = ALIGN(4); src/battle-preview.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 
