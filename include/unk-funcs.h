@@ -162,19 +162,12 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802E5C4
-// sub_802E670
-// sub_802E6B0
-// sub_802E750
-// sub_802E7C8
-// sub_802E868
-// sub_802E8D4
 // sub_802E8E0
 // sub_802E914
 // sub_802EA10
 // AiSetDecision
 // AiUpdateDecision
-// sub_802EABC
+void sub_802EABC(void);
 // sub_802EB20
 // sub_802EBD0
 // sub_802EBEC

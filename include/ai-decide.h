@@ -29,3 +29,7 @@ struct AiDecision
 };
 
 extern struct AiDecision EWRAM_DATA gAiDecision;
+
+extern Func AiDecideFunc;
+
+extern struct ProcScr CONST_DATA ProcScr_AiDecide[];

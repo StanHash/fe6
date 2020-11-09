@@ -1,5 +1,6 @@
 OUTPUT_ARCH(arm)
 
+/* rodata_1004A4 */
 Img_SystemObjects = 0x081004A4;
 Pal_SystemObjects = 0x08100928;
 Pal_UnitSprites = 0x08100968;
@@ -14,7 +15,6 @@ Pal_PhaseChangeEnemy = 0x0810137C;
 Img_PhaseChangeOther = 0x0810139C;
 Pal_PhaseChangeOther = 0x081017F4;
 Img_PhaseChangeSquares = 0x08101814;
-
 Tsa_Unk_08101974 = 0x08101974;
 Tsa_Unk_08101A2C = 0x08101A2C;
 Img_BattlePreviewFrame = 0x08101AE4;
@@ -28,9 +28,7 @@ Img_BattlePreviewMultipliers = 0x0810212C;
 Pal_BattlePreviewMultipliers = 0x081021D8;
 Tsa_UnitPanelHeader = 0x081022AC;
 Tsa_Unk_081022FC = 0x081022FC;
-
 Anim_08102450 = 0x08102450;
-
 Anim_GasTrapVertical = 0x081025A8;
 Anim_GasTrapHorizontal = 0x0810284C;
 Img_GasTrapVertical = 0x08102AC0;
@@ -45,7 +43,6 @@ Anim_FireTrap = 0x08104394;
 Img_PikeTrap = 0x08104440;
 Anim_PikeTrap = 0x081046C0;
 Pal_PikeTrap = 0x081048D4;
-
 Img_SandstormParticles = 0x08105034;
 Img_SnowstormParticles = 0x081050BC;
 Img_FlamesParticles = 0x08105154;
@@ -130,6 +127,8 @@ MapSelectInfo_085C780C = 0x085C780C;
 MapSelectInfo_085C782C = 0x085C782C;
 MapSelectInfo_085C784C = 0x085C784C;
 MapSelectInfo_085C786C = 0x085C786C;
+
+ProcScr_AiDecide = 0x085C8508;
 
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
@@ -259,6 +258,7 @@ SECTIONS
         . = 0x0042B0; gMapFloodSquareBufA = .;
         . = 0x0044B0; gActiveUnit = .;
         . = 0x0044C0; gMapFloodSt = .;
+        . = 0x004570; AiDecideFunc = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -337,6 +337,7 @@ SECTIONS
         src/mass-effect.o(.text);
         src/battle-preview.o(.text);
         src/ai-phase.o(.text);
+        src/ai-order.o(.text);
 
         asm/code.o(.text);
 
@@ -402,6 +403,8 @@ SECTIONS
         . = ALIGN(4); src/arena.o(.rodata);
         . = ALIGN(4); src/unit-panel.o(.rodata);
         . = ALIGN(4); src/battle-preview.o(.rodata);
+        . = ALIGN(4); data/rodata_105DD0.o(.rodata);
+        . = ALIGN(4); src/ai-order.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
