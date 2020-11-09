@@ -193,7 +193,7 @@ static void StatusHealEffect_OverlayBg_Loop(void)
         -(gActiveUnit->x*16 - gBmSt.camera.x), GetGameTime());
 }
 
-static struct ProcScr CONST_DATA ProcScr_StatusHealEffect_OverlayBg[] =
+struct ProcScr CONST_DATA ProcScr_StatusHealEffect_OverlayBg[] =
 {
     PROC_CALL(StatusHealEffect_OverlayBg_Init),
     PROC_REPEAT(StatusHealEffect_OverlayBg_Loop),
@@ -237,7 +237,7 @@ static void StatusHealEffect_BlendedSprite_Finish(struct GenericProc* proc)
     ShowUnitSprite(gActiveUnit);
 }
 
-static struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendedSprite[] =
+struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendedSprite[] =
 {
     PROC_CALL(StatusHealEffect_BlendedSprite_Init),
     PROC_REPEAT(StatusHealEffect_BlendedSprite_Loop),
@@ -273,7 +273,7 @@ static void StatusHealEffect_BlendAnim_Loop(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendAnim[] =
+struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendAnim[] =
 {
     PROC_CALL(StatusHealEffect_BlendAnim_InitIn),
     PROC_REPEAT(StatusHealEffect_BlendAnim_Loop),
@@ -344,7 +344,7 @@ static void StatusHealEffect_PalAnim_LoopOut(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static struct ProcScr CONST_DATA ProcScr_StatusHealEffect_PalAnim[] =
+struct ProcScr CONST_DATA ProcScr_StatusHealEffect_PalAnim[] =
 {
     PROC_CALL(StatusHealEffect_PalAnim_Init),
     PROC_REPEAT(StatusHealEffect_PalAnim_LoopIn),
@@ -365,7 +365,7 @@ static void StatusHealEffect_Finish(struct GenericProc* proc)
     gDispIo.winCt.wobj_enableBlend = 1;
 }
 
-static struct ProcScr CONST_DATA ProcScr_StatusHealEffect[] =
+struct ProcScr CONST_DATA ProcScr_StatusHealEffect[] =
 {
     PROC_START_CHILD(ProcScr_StatusHealEffect_OverlayBg),
     PROC_START_CHILD(ProcScr_StatusHealEffect_BlendedSprite),
