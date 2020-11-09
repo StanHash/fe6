@@ -128,7 +128,7 @@ MapSelectInfo_085C782C = 0x085C782C;
 MapSelectInfo_085C784C = 0x085C784C;
 MapSelectInfo_085C786C = 0x085C786C;
 
-ProcScr_AiDecide = 0x085C8508;
+ProcScr_AiPerform = 0x085C8560;
 
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
@@ -338,6 +338,7 @@ SECTIONS
         src/battle-preview.o(.text);
         src/ai-phase.o(.text);
         src/ai-order.o(.text);
+        src/ai-decide.o(.text);
 
         asm/code.o(.text);
 
@@ -452,6 +453,7 @@ SECTIONS
         . = ALIGN(4); src/battle-preview.o(.data);
         . = ALIGN(4); src/ai-phase.o(.data);
         . = ALIGN(4); src/ai-order.o(.data);
+        . = ALIGN(4); src/ai-decide.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

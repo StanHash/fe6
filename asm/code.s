@@ -3,463 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start sub_802E8E0
-sub_802E8E0: @ 0x0802E8E0
-	push {lr}
-	ldr r0, _0802E8F8 @ =gActiveUnit
-	ldr r1, [r0]
-	movs r0, #0xc0
-	ldrb r1, [r1, #0xb]
-	ands r0, r1
-	cmp r0, #0
-	bne _0802E900
-	ldr r1, _0802E8FC @ =gAction
-	movs r0, #3
-	b _0802E904
-	.align 2, 0
-_0802E8F8: .4byte gActiveUnit
-_0802E8FC: .4byte gAction
-_0802E900:
-	ldr r1, _0802E910 @ =gAction
-	movs r0, #2
-_0802E904:
-	strb r0, [r1, #0x16]
-	movs r0, #3
-	bl sub_80857B0
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802E910: .4byte gAction
-
-	thumb_func_start sub_802E914
-sub_802E914: @ 0x0802E914
-	push {r4, r5, r6, r7, lr}
-	adds r7, r0, #0
-_0802E918:
-	ldr r4, _0802E958 @ =gAiSt
-	adds r0, r4, #0
-	adds r0, #0x79
-	movs r1, #0
-	strb r1, [r0]
-	ldr r2, [r4, #0x74]
-	ldrb r0, [r2]
-	cmp r0, #0
-	beq _0802EA04
-	adds r0, r4, #0
-	adds r0, #0x7c
-	strb r1, [r0]
-	ldr r1, _0802E95C @ =gActiveUnitId
-	ldrb r0, [r2]
-	strb r0, [r1]
-	ldrb r0, [r1]
-	bl GetUnit
-	ldr r6, _0802E960 @ =gActiveUnit
-	str r0, [r6]
-	movs r5, #6
-	ldrh r1, [r0, #0xc]
-	ands r5, r1
-	cmp r5, #0
-	bne _0802E950
-	ldr r0, [r0]
-	cmp r0, #0
-	bne _0802E964
-_0802E950:
-	ldr r0, [r4, #0x74]
-	adds r0, #1
-	str r0, [r4, #0x74]
-	b _0802E918
-	.align 2, 0
-_0802E958: .4byte gAiSt
-_0802E95C: .4byte gActiveUnitId
-_0802E960: .4byte gActiveUnit
-_0802E964:
-	bl RefreshEntityMaps
-	bl RenderMap
-	bl RefreshUnitSprites
-	ldr r0, [r6]
-	bl sub_8035064
-	ldr r1, [r6]
-	adds r1, #0x40
-	movs r0, #0xf8
-	ldrh r1, [r1]
-	ands r0, r1
-	lsrs r0, r0, #3
-	adds r1, r4, #0
-	adds r1, #0x7d
-	strb r0, [r1]
-	adds r0, r4, #0
-	adds r0, #0x7a
-	strb r5, [r0]
-	bl sub_80326C4
-	bl sub_802EA10
-	ldr r0, _0802E9E0 @ =AiDecideFunc
-	ldr r0, [r0]
-	bl _call_via_r0
-	ldr r1, [r6]
-	movs r2, #0x80
-	lsls r2, r2, #3
-	adds r0, r2, #0
-	ldrh r3, [r1, #0xc]
-	orrs r0, r3
-	strh r0, [r1, #0xc]
-	ldr r2, _0802E9E4 @ =gAiDecision
-	movs r0, #0xa
-	ldrsb r0, [r2, r0]
-	cmp r0, #0
-	beq _0802E9D0
-	movs r0, #0xe
-	ldrsb r0, [r1, r0]
-	ldrb r3, [r2, #2]
-	cmp r0, r3
-	bne _0802E9E8
-	movs r0, #0xf
-	ldrsb r0, [r1, r0]
-	ldrb r1, [r2, #3]
-	cmp r0, r1
-	bne _0802E9E8
-	ldrb r0, [r2]
-	cmp r0, #0
-	bne _0802E9E8
-_0802E9D0:
-	ldr r0, [r4, #0x74]
-	adds r0, #1
-	str r0, [r4, #0x74]
-	adds r0, r7, #0
-	movs r1, #0
-	bl Proc_Goto
-	b _0802EA0A
-	.align 2, 0
-_0802E9E0: .4byte AiDecideFunc
-_0802E9E4: .4byte gAiDecision
-_0802E9E8:
-	ldr r0, _0802E9FC @ =gAiSt
-	ldr r1, [r0, #0x74]
-	adds r1, #1
-	str r1, [r0, #0x74]
-	ldr r0, _0802EA00 @ =0x085C8560
-	adds r1, r7, #0
-	bl SpawnProcLocking
-	b _0802EA0A
-	.align 2, 0
-_0802E9FC: .4byte gAiSt
-_0802EA00: .4byte 0x085C8560
-_0802EA04:
-	adds r0, r7, #0
-	bl Proc_End
-_0802EA0A:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802EA10
-sub_802EA10: @ 0x0802EA10
-	ldr r1, _0802EA2C @ =gAiDecision
-	movs r0, #0
-	strb r0, [r1]
-	strb r0, [r1, #1]
-	strb r0, [r1, #2]
-	strb r0, [r1, #3]
-	strb r0, [r1, #4]
-	strb r0, [r1, #5]
-	strb r0, [r1, #6]
-	strb r0, [r1, #7]
-	strb r0, [r1, #8]
-	strb r0, [r1, #9]
-	strb r0, [r1, #0xa]
-	bx lr
-	.align 2, 0
-_0802EA2C: .4byte gAiDecision
-
-	thumb_func_start AiSetDecision
-AiSetDecision: @ 0x0802EA30
-	push {r4, r5, r6, lr}
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6}
-	ldr r6, [sp, #0x18]
-	ldr r4, [sp, #0x1c]
-	mov r8, r4
-	ldr r4, [sp, #0x20]
-	mov sb, r4
-	ldr r4, _0802EA6C @ =gAiDecision
-	ldr r5, _0802EA70 @ =gActiveUnitId
-	ldrb r5, [r5]
-	strb r5, [r4, #1]
-	strb r0, [r4, #2]
-	strb r1, [r4, #3]
-	strb r2, [r4]
-	strb r3, [r4, #6]
-	strb r6, [r4, #7]
-	mov r0, r8
-	strb r0, [r4, #8]
-	mov r0, sb
-	strb r0, [r4, #9]
-	movs r0, #1
-	strb r0, [r4, #0xa]
-	pop {r3, r4}
-	mov r8, r3
-	mov sb, r4
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802EA6C: .4byte gAiDecision
-_0802EA70: .4byte gActiveUnitId
-
-	thumb_func_start AiUpdateDecision
-AiUpdateDecision: @ 0x0802EA74
-	push {r4, r5, lr}
-	ldr r4, [sp, #0xc]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x18
-	lsls r1, r1, #0x18
-	lsrs r5, r1, #0x18
-	lsls r2, r2, #0x18
-	lsrs r2, r2, #0x18
-	lsls r3, r3, #0x18
-	lsrs r3, r3, #0x18
-	lsls r4, r4, #0x18
-	lsrs r4, r4, #0x18
-	ldr r1, _0802EAB8 @ =gAiDecision
-	cmp r0, #0xff
-	beq _0802EA94
-	strb r0, [r1]
-_0802EA94:
-	cmp r5, #0xff
-	beq _0802EA9A
-	strb r5, [r1, #6]
-_0802EA9A:
-	cmp r2, #0xff
-	beq _0802EAA0
-	strb r2, [r1, #7]
-_0802EAA0:
-	cmp r3, #0xff
-	beq _0802EAA6
-	strb r3, [r1, #8]
-_0802EAA6:
-	cmp r4, #0xff
-	beq _0802EAAC
-	strb r4, [r1, #9]
-_0802EAAC:
-	movs r0, #1
-	strb r0, [r1, #0xa]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802EAB8: .4byte gAiDecision
-
-	thumb_func_start sub_802EABC
-sub_802EABC: @ 0x0802EABC
-	push {r4, r5, lr}
-	ldr r2, _0802EB14 @ =0x085C84D8
-	ldr r0, _0802EB18 @ =gAiSt
-	adds r1, r0, #0
-	adds r1, #0x79
-	ldrb r3, [r1]
-	lsls r0, r3, #2
-	adds r0, r0, r2
-	ldr r0, [r0]
-	cmp r0, #0
-	beq _0802EB0C
-	ldr r0, _0802EB1C @ =gAiDecision
-	ldrb r0, [r0, #0xa]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	bne _0802EB0C
-	adds r5, r2, #0
-	adds r4, r1, #0
-_0802EAE2:
-	ldrb r0, [r4]
-	adds r1, r0, #1
-	strb r1, [r4]
-	lsls r0, r0, #0x18
-	lsrs r0, r0, #0x16
-	adds r0, r0, r5
-	ldr r0, [r0]
-	bl _call_via_r0
-	ldrb r1, [r4]
-	lsls r0, r1, #2
-	adds r0, r0, r5
-	ldr r0, [r0]
-	cmp r0, #0
-	beq _0802EB0C
-	ldr r0, _0802EB1C @ =gAiDecision
-	ldrb r0, [r0, #0xa]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #0
-	beq _0802EAE2
-_0802EB0C:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802EB14: .4byte 0x085C84D8
-_0802EB18: .4byte gAiSt
-_0802EB1C: .4byte gAiDecision
-
-	thumb_func_start sub_802EB20
-sub_802EB20: @ 0x0802EB20
-	push {r4, lr}
-	sub sp, #8
-	ldr r1, _0802EB6C @ =gAiSt
-	adds r1, #0x7b
-	movs r0, #4
-	ldrb r1, [r1]
-	ands r0, r1
-	cmp r0, #0
-	bne _0802EBC8
-	ldr r4, _0802EB70 @ =gActiveUnit
-	ldr r0, [r4]
-	bl sub_8032A60
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne _0802EBAC
-	bl sub_8032AE0
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	beq _0802EBC8
-	ldr r1, [r4]
-	movs r0, #8
-	ldrb r1, [r1, #0xa]
-	ands r0, r1
-	cmp r0, #0
-	beq _0802EB74
-	bl sub_8032B84
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne _0802EB74
-	bl sub_8033064
-	b _0802EBC8
-	.align 2, 0
-_0802EB6C: .4byte gAiSt
-_0802EB70: .4byte gActiveUnit
-_0802EB74:
-	add r4, sp, #4
-	adds r0, r4, #0
-	bl sub_8032838
-	lsls r0, r0, #0x18
-	asrs r2, r0, #0x18
-	cmp r2, #1
-	bne _0802EBC8
-	add r0, sp, #4
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	movs r3, #2
-	ldrsh r1, [r4, r3]
-	str r2, [sp]
-	movs r2, #0
-	movs r3, #0
-	bl sub_803046C
-	ldr r0, _0802EBA8 @ =gAiDecision
-	ldrb r0, [r0, #0xa]
-	cmp r0, #1
-	bne _0802EBC8
-	bl sub_8033090
-	b _0802EBC8
-	.align 2, 0
-_0802EBA8: .4byte gAiDecision
-_0802EBAC:
-	ldr r1, [r4]
-	movs r0, #8
-	ldrb r1, [r1, #0xa]
-	ands r0, r1
-	cmp r0, #0
-	beq _0802EBC8
-	bl sub_8032B84
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne _0802EBC8
-	bl sub_8033064
-_0802EBC8:
-	add sp, #8
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802EBD0
-sub_802EBD0: @ 0x0802EBD0
-	push {lr}
-	ldr r1, _0802EBE8 @ =gAiSt
-	adds r1, #0x7b
-	movs r0, #4
-	ldrb r1, [r1]
-	ands r0, r1
-	cmp r0, #0
-	bne _0802EBE4
-	bl sub_8034AC8
-_0802EBE4:
-	pop {r0}
-	bx r0
-	.align 2, 0
-_0802EBE8: .4byte gAiSt
-
-	thumb_func_start sub_802EBEC
-sub_802EBEC: @ 0x0802EBEC
-	push {r4, lr}
-	movs r4, #0
-	ldr r1, _0802EC04 @ =gAiSt
-	adds r1, #0x7b
-	movs r0, #4
-	ldrb r1, [r1]
-	ands r0, r1
-	cmp r0, #0
-	beq _0802EC08
-	bl sub_8031894
-	b _0802EC1E
-	.align 2, 0
-_0802EC04: .4byte gAiSt
-_0802EC08:
-	bl sub_8030CE8
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	beq _0802EC1E
-	adds r4, #1
-	cmp r4, #0xff
-	ble _0802EC08
-	bl sub_8030D3C
-_0802EC1E:
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	thumb_func_start sub_802EC24
-sub_802EC24: @ 0x0802EC24
-	push {r4, lr}
-	movs r4, #0
-	ldr r1, _0802EC3C @ =gAiSt
-	adds r1, #0x7b
-	movs r0, #4
-	ldrb r1, [r1]
-	ands r0, r1
-	cmp r0, #0
-	beq _0802EC40
-	bl sub_80318B4
-	b _0802EC56
-	.align 2, 0
-_0802EC3C: .4byte gAiSt
-_0802EC40:
-	bl sub_8030D78
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	beq _0802EC56
-	adds r4, #1
-	cmp r4, #0xff
-	ble _0802EC40
-	bl sub_8030DCC
-_0802EC56:
-	pop {r4}
-	pop {r0}
-	bx r0
-
 	thumb_func_start sub_802EC5C
 sub_802EC5C: @ 0x0802EC5C
 	push {r4, lr}
@@ -3622,8 +3165,8 @@ _08030464:
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_803046C
-sub_803046C: @ 0x0803046C
+	thumb_func_start AiTryMoveTowards
+AiTryMoveTowards: @ 0x0803046C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -4763,8 +4306,8 @@ _08030CE2:
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8030CE8
-sub_8030CE8: @ 0x08030CE8
+	thumb_func_start AiTryExecScriptA
+AiTryExecScriptA: @ 0x08030CE8
 	push {r4, lr}
 	ldr r3, _08030D28 @ =0x030013A8
 	ldr r1, _08030D2C @ =0x085C97F8
@@ -4802,8 +4345,8 @@ _08030D30: .4byte gActiveUnit
 _08030D34: .4byte 0x030013A0
 _08030D38: .4byte 0x030013A4
 
-	thumb_func_start sub_8030D3C
-sub_8030D3C: @ 0x08030D3C
+	thumb_func_start AiExecFallbackScriptA
+AiExecFallbackScriptA: @ 0x08030D3C
 	push {r4, lr}
 	ldr r1, _08030D64 @ =0x030013A8
 	ldr r0, _08030D68 @ =0x085C8654
@@ -4830,8 +4373,8 @@ _08030D6C: .4byte 0x030013A0
 _08030D70: .4byte 0x030013A4
 _08030D74: .4byte gActiveUnit
 
-	thumb_func_start sub_8030D78
-sub_8030D78: @ 0x08030D78
+	thumb_func_start AiTryExecScriptB
+AiTryExecScriptB: @ 0x08030D78
 	push {r4, lr}
 	ldr r3, _08030DB8 @ =0x030013A8
 	ldr r2, _08030DBC @ =0x085C97EC
@@ -4869,8 +4412,8 @@ _08030DC0: .4byte gActiveUnit
 _08030DC4: .4byte 0x030013A0
 _08030DC8: .4byte 0x030013A4
 
-	thumb_func_start sub_8030DCC
-sub_8030DCC: @ 0x08030DCC
+	thumb_func_start AiExecFallbackScriptB
+AiExecFallbackScriptB: @ 0x08030DCC
 	push {r4, lr}
 	ldr r1, _08030DF4 @ =0x030013A8
 	ldr r0, _08030DF8 @ =0x085C8664
@@ -5656,7 +5199,7 @@ sub_80313AC: @ 0x080313AC
 	movs r2, #1
 	str r2, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r0, _080313F4 @ =gAiDecision
 	ldrb r1, [r0, #0xa]
 	cmp r1, #1
@@ -5706,7 +5249,7 @@ sub_80313F8: @ 0x080313F8
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	add r0, sp, #4
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -5806,7 +5349,7 @@ sub_80314C0: @ 0x080314C0
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 _080314F2:
 	ldrb r0, [r6]
 	adds r0, #1
@@ -5823,7 +5366,7 @@ sub_8031504: @ 0x08031504
 	push {r4, r5, lr}
 	sub sp, #0x14
 	adds r5, r0, #0
-	bl sub_8034AC8
+	bl AiTryDoSpecialItems
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -5872,7 +5415,7 @@ _08031554:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r4, _080315D4 @ =gAiDecision
 	ldrb r0, [r4, #2]
 	ldrb r1, [r4, #3]
@@ -6000,7 +5543,7 @@ sub_8031640: @ 0x08031640
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	b _080316AC
 	.align 2, 0
 _0803167C: .4byte 0x030013A8
@@ -6023,7 +5566,7 @@ _08031684:
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 _080316AC:
 	ldrb r0, [r7]
 	adds r0, #1
@@ -6062,7 +5605,7 @@ sub_80316C0: @ 0x080316C0
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	b _0803172C
 	.align 2, 0
 _080316FC: .4byte 0x030013A8
@@ -6085,7 +5628,7 @@ _08031704:
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 _0803172C:
 	ldrb r0, [r7]
 	adds r0, #1
@@ -6133,7 +5676,7 @@ sub_8031764: @ 0x08031764
 	ldrb r2, [r1, #0xa]
 	orrs r0, r2
 	strb r0, [r1, #0xa]
-	bl sub_8032B84
+	bl AiTryMoveTowardsEscape
 	ldrb r0, [r4]
 	adds r0, #1
 	strb r0, [r4]
@@ -6184,7 +5727,7 @@ sub_8031790: @ 0x08031790
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	b _080317F2
 	.align 2, 0
 _080317DC: .4byte gActiveUnit
@@ -6243,7 +5786,7 @@ sub_8031808: @ 0x08031808
 	ldrb r3, [r2, #2]
 	str r4, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	b _0803186A
 	.align 2, 0
 _08031854: .4byte gActiveUnit
@@ -6280,8 +5823,8 @@ AiScriptCmd_1B_NoOp: @ 0x08031880
 	.align 2, 0
 _08031890: .4byte 0x030013A0
 
-	thumb_func_start sub_8031894
-sub_8031894: @ 0x08031894
+	thumb_func_start AiDoBerserkAction
+AiDoBerserkAction: @ 0x08031894
 	push {lr}
 	ldr r0, _080318AC @ =sub_8031044
 	bl sub_8033C04
@@ -6297,8 +5840,8 @@ _080318A8:
 _080318AC: .4byte sub_8031044
 _080318B0: .4byte sub_8031074
 
-	thumb_func_start sub_80318B4
-sub_80318B4: @ 0x080318B4
+	thumb_func_start AiDoBerserkMove
+AiDoBerserkMove: @ 0x080318B4
 	push {r4, lr}
 	sub sp, #8
 	ldr r0, _080318E8 @ =sub_8031074
@@ -6317,7 +5860,7 @@ sub_80318B4: @ 0x080318B4
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 _080318DE:
 	add sp, #8
 	pop {r4}
@@ -8324,8 +7867,8 @@ _08032834:
 _08032836:
 	bx lr
 
-	thumb_func_start sub_8032838
-sub_8032838: @ 0x08032838
+	thumb_func_start AiTryGetNearestHealPoint
+AiTryGetNearestHealPoint: @ 0x08032838
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -8586,7 +8129,7 @@ _08032A2C:
 	cmp r0, #0
 	beq _08032A44
 	adds r0, r1, #0
-	bl sub_8032A60
+	bl AiUpdateGetUnitIsHealing
 _08032A44:
 	adds r4, #1
 	adds r5, #1
@@ -8602,8 +8145,8 @@ _08032A4E:
 _08032A58: .4byte gPlaySt
 _08032A5C: .4byte 0x0810DB28
 
-	thumb_func_start sub_8032A60
-sub_8032A60: @ 0x08032A60
+	thumb_func_start AiUpdateGetUnitIsHealing
+AiUpdateGetUnitIsHealing: @ 0x08032A60
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl GetUnitCurrentHp
@@ -8668,8 +8211,8 @@ _08032AD8:
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8032AE0
-sub_8032AE0: @ 0x08032AE0
+	thumb_func_start AiTryHealSelf
+AiTryHealSelf: @ 0x08032AE0
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x10
 	movs r6, #0
@@ -8754,8 +8297,8 @@ _08032B7C:
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_8032B84
-sub_8032B84: @ 0x08032B84
+	thumb_func_start AiTryMoveTowardsEscape
+AiTryMoveTowardsEscape: @ 0x08032B84
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
 	ldr r6, _08032BF4 @ =gActiveUnit
@@ -8792,7 +8335,7 @@ sub_8032B84: @ 0x08032B84
 	adds r1, r5, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r1, _08032BFC @ =gAiDecision
 	ldrb r0, [r1, #2]
 	ldrb r1, [r1, #3]
@@ -8818,7 +8361,7 @@ _08032C00:
 	adds r1, r5, #0
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r0, _08032C1C @ =gAiDecision
 	ldrb r0, [r0, #0xa]
 	lsls r0, r0, #0x18
@@ -9409,8 +8952,8 @@ sub_8033038: @ 0x08033038
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8033064
-sub_8033064: @ 0x08033064
+	thumb_func_start AiTryDanceOrStealAfterMove
+AiTryDanceOrStealAfterMove: @ 0x08033064
 	push {r4, lr}
 	ldr r4, _0803308C @ =gAiDecision
 	ldrb r0, [r4]
@@ -9433,8 +8976,8 @@ _08033086:
 	.align 2, 0
 _0803308C: .4byte gAiDecision
 
-	thumb_func_start sub_8033090
-sub_8033090: @ 0x08033090
+	thumb_func_start AiTryActionAfterMove
+AiTryActionAfterMove: @ 0x08033090
 	push {r4, lr}
 	ldr r4, _080330C4 @ =gAiDecision
 	ldrb r0, [r4, #2]
@@ -10206,7 +9749,7 @@ _08033684:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 _08033694:
 	movs r0, #1
 	add sp, #8
@@ -10411,7 +9954,7 @@ _08033806:
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 	movs r0, #1
 _0803381C:
 	add sp, #8
@@ -10521,7 +10064,7 @@ _080338DC:
 	adds r0, #1
 	ldrb r7, [r0]
 _080338EA:
-	bl sub_8030CE8
+	bl AiTryExecScriptA
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -10529,7 +10072,7 @@ _080338EA:
 	adds r5, #1
 	cmp r5, #0xff
 	ble _080338EA
-	bl sub_8030D3C
+	bl AiExecFallbackScriptA
 _08033900:
 	ldr r1, _08033918 @ =gAiDecision
 	ldrb r2, [r1, #0xa]
@@ -10551,7 +10094,7 @@ _08033920:
 	movs r1, #0
 _08033926:
 	strb r1, [r0]
-	bl sub_802EA10
+	bl AiClearDecision
 	ldr r1, _08033954 @ =gActiveUnit
 	ldr r0, [r1]
 	adds r0, #0x42
@@ -10646,7 +10189,7 @@ _080339C0:
 	ldrb r0, [r0, #6]
 	strb r0, [r1]
 _080339E2:
-	bl sub_802EA10
+	bl AiClearDecision
 _080339E6:
 	movs r0, #0
 	pop {r1}
@@ -10779,7 +10322,7 @@ sub_8033AA4: @ 0x08033AA4
 	str r2, [sp]
 	movs r2, #0
 	movs r3, #0xff
-	bl sub_803046C
+	bl AiTryMoveTowards
 _08033AEA:
 	movs r0, #1
 	add sp, #4
@@ -10843,7 +10386,7 @@ sub_8033B50: @ 0x08033B50
 	ldrb r0, [r5]
 	cmp r4, r0
 	bhi _08033B88
-	bl sub_8034AC8
+	bl AiTryDoSpecialItems
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _08033B90
@@ -12803,8 +12346,8 @@ _08034AC2:
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_8034AC8
-sub_8034AC8: @ 0x08034AC8
+	thumb_func_start AiTryDoSpecialItems
+AiTryDoSpecialItems: @ 0x08034AC8
 	push {r4, r5, r6, lr}
 	ldr r1, _08034ADC @ =gAiSt
 	adds r1, #0x7b
@@ -12909,7 +12452,7 @@ sub_8034B58: @ 0x08034B58
 	movs r2, #1
 	str r2, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r5, _08034BEC @ =gAiDecision
 	movs r4, #0xa
 	ldrsb r4, [r5, r4]
@@ -13012,7 +12555,7 @@ _08034C48:
 	movs r5, #0
 	str r5, [sp]
 	movs r2, #0
-	bl sub_803046C
+	bl AiTryMoveTowards
 	ldr r4, _08034CBC @ =gAiDecision
 	ldrb r0, [r4, #0xa]
 	cmp r0, #1

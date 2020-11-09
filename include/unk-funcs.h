@@ -162,16 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802E8E0
-// sub_802E914
-// sub_802EA10
-// AiSetDecision
-// AiUpdateDecision
-void sub_802EABC(void);
-// sub_802EB20
-// sub_802EBD0
-// sub_802EBEC
-// sub_802EC24
 // sub_802EC5C
 // sub_802ECA0
 // sub_802ECC8
@@ -221,7 +211,7 @@ void sub_802EDC4(void);
 // sub_8030270
 // sub_8030364
 // sub_80303F8
-// sub_803046C
+void AiTryMoveTowards(int x, int y, int arg_2, int arg_3, int arg_4);
 Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out);
 // sub_803079C
 // sub_80307D4
@@ -237,10 +227,10 @@ void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
 // sub_8030BDC
 // sub_8030C78
 // sub_8030CBC
-// sub_8030CE8
-// sub_8030D3C
-// sub_8030D78
-// sub_8030DCC
+Bool AiTryExecScriptA(void);
+void AiExecFallbackScriptA(void);
+Bool AiTryExecScriptB(void);
+void AiExecFallbackScriptB(void);
 // sub_8030E08
 // sub_8030E74
 // sub_8030F18
@@ -276,8 +266,8 @@ void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
 // sub_8031790
 // sub_8031808
 // AiScriptCmd_1B_NoOp
-// sub_8031894
-// sub_80318B4
+void AiDoBerserkAction(void);
+void AiDoBerserkMove(void);
 // sub_80318EC
 // sub_80318F0
 // sub_8031900
@@ -304,14 +294,14 @@ void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
 // sub_80325BC
 // sub_803260C
 // sub_803264C
-// sub_80326C4
+void sub_80326C4(void);
 // sub_80326F0
 // sub_8032814
-// sub_8032838
+Bool AiTryGetNearestHealPoint(struct Vec2* out);
 void sub_8032A08(void);
-// sub_8032A60
-// sub_8032AE0
-// sub_8032B84
+Bool AiUpdateGetUnitIsHealing(struct Unit* unit);
+Bool AiTryHealSelf(void);
+Bool AiTryMoveTowardsEscape(void);
 // sub_8032C2C
 // sub_8032CB4
 // sub_8032CE8
@@ -321,8 +311,8 @@ void sub_8032A08(void);
 // sub_8032FBC
 // sub_8032FF4
 // sub_8033038
-// sub_8033064
-// sub_8033090
+void AiTryDanceOrStealAfterMove(void);
+void AiTryActionAfterMove(void);
 // sub_80330C8
 // sub_80331EC
 // sub_8033250
@@ -359,7 +349,7 @@ void sub_8032A08(void);
 // sub_80347A4
 // sub_80348DC
 // sub_8034A60
-// sub_8034AC8
+void AiTryDoSpecialItems(void);
 // sub_8034B58
 // sub_8034BF0
 // sub_8034CC0
@@ -376,7 +366,7 @@ void sub_8032A08(void);
 // sub_8034FC4
 // sub_8034FF8
 // sub_8035028
-// sub_8035064
+void sub_8035064(struct Unit* unit);
 // sub_8035098
 // sub_80350C8
 // sub_80351E4

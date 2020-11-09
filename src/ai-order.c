@@ -74,7 +74,7 @@ void AiOrder_Berserk_Init(ProcPtr proc)
         gAiSt.units[count] = 0;
         gAiSt.unitIt = gAiSt.units;
 
-        AiDecideFunc = sub_802EABC;
+        AiDecideFunc = AiDecideAll;
         SpawnProcLocking(ProcScr_AiDecide, proc);
     }
 }
@@ -90,7 +90,7 @@ void AiOrder_Init(ProcPtr proc)
         gAiSt.units[count] = 0;
         gAiSt.unitIt = gAiSt.units;
 
-        AiDecideFunc = sub_802EABC;
+        AiDecideFunc = AiDecideAll;
         SpawnProcLocking(ProcScr_AiDecide, proc);
     }
 }

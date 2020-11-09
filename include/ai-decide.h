@@ -28,6 +28,16 @@ struct AiDecision
     /* 0A */ Bool actionPerformed;
 };
 
+void AiClearDecision(void);
+void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+
+void AiDecideAll(void);
+void AiDecideHealOrEscape(void);
+void AiDecideSpecialItems(void);
+void AiDecideScriptA(void);
+void AiDecideScriptB(void);
+
 extern struct AiDecision EWRAM_DATA gAiDecision;
 
 extern Func AiDecideFunc;
