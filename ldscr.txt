@@ -128,8 +128,6 @@ MapSelectInfo_085C782C = 0x085C782C;
 MapSelectInfo_085C784C = 0x085C784C;
 MapSelectInfo_085C786C = 0x085C786C;
 
-ProcScr_AiPerform = 0x085C8560;
-
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
 ItemInfoTable = 0x0860B648;
@@ -339,6 +337,7 @@ SECTIONS
         src/ai-phase.o(.text);
         src/ai-order.o(.text);
         src/ai-decide.o(.text);
+        src/ai-perform.o(.text);
 
         asm/code.o(.text);
 
@@ -406,6 +405,7 @@ SECTIONS
         . = ALIGN(4); src/battle-preview.o(.rodata);
         . = ALIGN(4); data/rodata_105DD0.o(.rodata);
         . = ALIGN(4); src/ai-order.o(.rodata);
+        . = ALIGN(4); src/ai-perform.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -454,6 +454,7 @@ SECTIONS
         . = ALIGN(4); src/ai-phase.o(.data);
         . = ALIGN(4); src/ai-order.o(.data);
         . = ALIGN(4); src/ai-decide.o(.data);
+        . = ALIGN(4); src/ai-perform.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

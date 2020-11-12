@@ -31,6 +31,7 @@
 #include "chapter-info.h"
 #include "subtitle-help.h"
 #include "ai-decide.h"
+#include "ai-perform.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -2840,7 +2841,7 @@ static void EventScriptedBattleWaitB(struct EventProc* proc)
     proc->onIdle = NULL;
 
     Proc_Mark(proc, PROC_MARK_6);
-    sub_802EDC4();
+    AiEndMuAndRefreshUnits();
 }
 
 static int EvtCmd_DisableAutoClear(struct EventProc* proc)

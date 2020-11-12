@@ -8,7 +8,15 @@
 
 enum
 {
-    AI_ACTION_NONE = 0, // move only
+    AI_ACTION_NONE, // move only
+    AI_ACTION_COMBAT,
+    AI_ACTION_ESCAPE,
+    AI_ACTION_STEAL,
+    AI_ACTION_PILLAGE,
+    AI_ACTION_STAFF,
+    AI_ACTION_USEITEM,
+    AI_ACTION_REFRESH,
+    AI_ACTION_TALK,
 };
 
 struct AiDecision

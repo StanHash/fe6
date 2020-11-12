@@ -5,6 +5,8 @@ This is a matching decompilation, which means that we are rewriting functions su
 
 Sometimes, we fail at getting that, in which case we have a nonmatch (a function which doesn't produce identical code to what we started with). To keep the rest of the disassembly matching, we substitue nonmatching bits of code with the original asm. Defining `NONMATCHING` to 1 will build the nonmatching bits instead.
 
+Some functions are only matching thanks to "hacks" such as register variables. Those are "fake-matching" functions.
+
 ## List of non-matching functions in fe6
 
 | File         | Function           | Opt. Level | Notes
@@ -22,3 +24,7 @@ Sometimes, we fail at getting that, in which case we have a nonmatch (a function
 | `util.c`     | `sub_801501C` | `O2` | ^
 | `util.c`     | `sub_80150DC` | `O2` | ^
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block reguarding constant loads for unit->state changes
+
+## List of fake-matching functions in fe6
+
+| `ai-perform.c` | `AiPillageAction` | `O2` | Either operation order is wrong or regalloc is wrong. register variable "fixes" it.

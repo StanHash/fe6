@@ -162,27 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802EC5C
-// sub_802ECA0
-// sub_802ECC8
-// sub_802ED68
-void sub_802EDC4(void);
-// sub_802EE54
-// sub_802EEE0
-// sub_802EF20
-// sub_802EF6C
-// sub_802EFF4
-// sub_802F02C
-// sub_802F060
-// sub_802F064
-// sub_802F0A8
-// sub_802F130
-// sub_802F1E0
-// sub_802F20C
-// sub_802F240
-// sub_802F244
-// sub_802F268
-// sub_802F29C
 // sub_802F2E8
 // sub_802F34C
 // sub_802F430
@@ -303,11 +282,11 @@ Bool AiUpdateGetUnitIsHealing(struct Unit* unit);
 Bool AiTryHealSelf(void);
 Bool AiTryMoveTowardsEscape(void);
 // sub_8032C2C
-// sub_8032CB4
-// sub_8032CE8
-// sub_8032DF4
+Bool sub_8032CB4(void);
+Bool sub_8032CE8(u16* out);
+void sub_8032DF4(u16 arg_0, u16 arg_1, u16* arg_2, u16* arg_3, u16* arg_4);
 // sub_8032F48
-// sub_8032F94
+void sub_8032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16* arg_3);
 // sub_8032FBC
 // sub_8032FF4
 // sub_8033038

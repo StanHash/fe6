@@ -38,7 +38,6 @@ static void PlayerPhase_BeginMove(ProcPtr proc);
 static void PlayerPhase_WaitForMove(ProcPtr proc);
 static void PlayerPhase_BeginActionSelect(ProcPtr proc);
 static Bool PlayerPhase_BeginAction(ProcPtr proc);
-static Bool PlayerPhase_0801B9B0(ProcPtr proc);
 static Bool PlayerPhase_WatchActiveUnit(ProcPtr proc);
 static void PlayerPhase_FinishAction(ProcPtr proc);
 static void PlayerPhase_0801BD08(ProcPtr proc);
@@ -687,7 +686,7 @@ static Bool PlayerPhase_AttemptReMove(ProcPtr proc)
     return TRUE;
 }
 
-static Bool PlayerPhase_0801B9B0(ProcPtr proc)
+Bool PlayerPhase_0801B9B0(ProcPtr proc)
 {
     if (sub_806B500())
     {
