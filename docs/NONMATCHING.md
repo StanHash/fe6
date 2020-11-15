@@ -27,4 +27,8 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 
 ## List of fake-matching functions in fe6
 
+| File           | Function          | Opt. Level | Notes
+| -------------- | ----------------- | ---------- | -----
 | `ai-perform.c` | `AiPillageAction` | `O2` | Either operation order is wrong or regalloc is wrong. register variable "fixes" it.
+| `ai-utility.c` | `AiFindClosestUnlockPosition` | `O2` | `mov r0, #0 ; cmp r0, #0 ; bne label`?
+| `ai-utility.c` | `sub_8030968` | `O2` | need to load constant before useless function call
