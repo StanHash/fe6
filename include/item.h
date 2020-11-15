@@ -53,6 +53,18 @@ enum
 
 enum
 {
+    ITEM_EFFECT_02 = 0x02,
+    ITEM_EFFECT_03,
+    ITEM_EFFECT_04,
+    ITEM_EFFECT_05,
+    ITEM_EFFECT_06,
+
+    ITEM_EFFECT_24 = 0x24,
+    ITEM_EFFECT_25,
+};
+
+enum
+{
     // Weapon level ids
 
     WPN_LEVEL_0 = 0,

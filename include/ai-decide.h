@@ -37,7 +37,7 @@ struct AiDecision
 };
 
 void AiClearDecision(void);
-void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiSetDecision(short xMove, short yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
 void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
 
 void AiDecideAll(void);

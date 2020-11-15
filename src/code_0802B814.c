@@ -26,7 +26,7 @@ Bool sub_802B814(void)
             if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (gMapTerrain[iy][ix] != TERRAIN_VILLAGE_03 && gMapTerrain[iy][ix] != TERRAIN_HOUSE)
+            if (gMapTerrain[iy][ix] != TERRAIN_VILLAGE && gMapTerrain[iy][ix] != TERRAIN_HOUSE)
                 continue;
 
             if (sub_806B028(ix, iy) == 0x0E)

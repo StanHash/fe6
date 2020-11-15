@@ -3,6 +3,7 @@
 
 #include "bm.h"
 #include "ai-order.h"
+#include "ai-utility.h"
 
 struct AiSt EWRAM_DATA gAiSt = {};
 

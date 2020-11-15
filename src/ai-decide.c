@@ -7,6 +7,7 @@
 #include "unitsprite.h"
 #include "action.h"
 #include "ai-perform.h"
+#include "ai-utility.h"
 
 struct AiDecision EWRAM_DATA gAiDecision = {};
 
@@ -127,7 +128,7 @@ void AiClearDecision(void)
     gAiDecision.actionPerformed = FALSE;
 }
 
-void AiSetDecision(u8 xMove, u8 yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
+void AiSetDecision(short xMove, short yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget)
 {
     gAiDecision.unitId = gActiveUnitId;
     gAiDecision.xMove = xMove;

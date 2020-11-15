@@ -338,6 +338,7 @@ SECTIONS
         src/ai-order.o(.text);
         src/ai-decide.o(.text);
         src/ai-perform.o(.text);
+        src/ai-utility.o(.text);
 
         asm/code.o(.text);
 
@@ -406,6 +407,8 @@ SECTIONS
         . = ALIGN(4); data/rodata_105DD0.o(.rodata);
         . = ALIGN(4); src/ai-order.o(.rodata);
         . = ALIGN(4); src/ai-perform.o(.rodata);
+        . = ALIGN(4); src/ai-utility.o(.rodata);
+        . = ALIGN(4); src/ai-data.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -455,6 +458,8 @@ SECTIONS
         . = ALIGN(4); src/ai-order.o(.data);
         . = ALIGN(4); src/ai-decide.o(.data);
         . = ALIGN(4); src/ai-perform.o(.data);
+        . = ALIGN(4); src/ai-utility.o(.data);
+        . = ALIGN(4); src/ai-data.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

@@ -32,6 +32,7 @@
 #include "subtitle-help.h"
 #include "ai-decide.h"
 #include "ai-perform.h"
+#include "ai-utility.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -1521,7 +1522,7 @@ void TryMoveUnit(struct Unit* unit, int x, int y, s8 moveClosest)
     }
     else if (moveClosest)
     {
-        GetUnitClosestValidPosition(unit, x, y, &vec);
+        AiGetUnitClosestValidPosition(unit, x, y, &vec);
     }
 
     unit->x = vec.x;
@@ -1559,7 +1560,7 @@ Bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
     }
     else
     {
-        GetUnitClosestValidPosition(unit, x, y, &vec);
+        AiGetUnitClosestValidPosition(unit, x, y, &vec);
     }
 
     MapFlood_080193F4(unit->x, unit->y, unit->job->movTerrainTable);

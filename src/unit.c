@@ -13,6 +13,7 @@
 #include "battle.h"
 #include "trap.h"
 #include "action.h"
+#include "ai-utility.h"
 
 #include "constants/terrains.h"
 #include "constants/items.h"
@@ -448,7 +449,7 @@ void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info)
     for (i = 0; (i < (int) ARRAY_COUNT(info->items)) && info->items[i]; ++i)
         UnitAddItem(unit, CreateItem(info->items[i]));
 
-    sub_8030A84(unit, info);
+    UnitInitAiFromInfo(unit, info);
 }
 
 void UnitInitStats(struct Unit* unit, struct PersonInfo const* person)
@@ -982,7 +983,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain)
     switch (terrain)
     {
 
-    case TERRAIN_CHEST_21:
+    case TERRAIN_CHEST:
         item = IID_CHESTKEY;
         break;
 

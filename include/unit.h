@@ -237,7 +237,8 @@ struct Unit
     /* 43 */ u8 aiApc;
     /* 44 */ u8 aiB;
     /* 45 */ u8 aiBpc;
-    /* 46 */ // pad?
+    /* 46 */ u8 unk_46;
+    /* 47 */ // pad?
     /* 48 */ // end
 };
 

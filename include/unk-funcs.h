@@ -162,50 +162,6 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-// sub_802F2E8
-// sub_802F34C
-// sub_802F430
-// sub_802F4C8
-// sub_802F5E0
-// sub_802F6C0
-// sub_802F714
-// sub_802F77C
-// sub_802F798
-// sub_802F7B4
-// sub_802F8B8
-// sub_802F910
-// sub_802FA58
-// sub_802FC8C
-// sub_802FD00
-// sub_802FD7C
-// sub_802FDF8
-// sub_802FE84
-// sub_802FF20
-// sub_802FFC0
-// sub_8030060
-// sub_80300E0
-// sub_8030180
-// sub_80301FC
-// sub_8030230
-// sub_8030270
-// sub_8030364
-// sub_80303F8
-void AiTryMoveTowards(int x, int y, int arg_2, int arg_3, int arg_4);
-Bool GetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out);
-// sub_803079C
-// sub_80307D4
-// sub_803081C
-// sub_8030860
-void sub_80308B0(void);
-// sub_8030968
-// sub_8030994
-// sub_80309E0
-void sub_8030A84(struct Unit* unit, struct UnitInfo const* info);
-// sub_8030AB4
-// sub_8030B94
-// sub_8030BDC
-// sub_8030C78
-// sub_8030CBC
 Bool AiTryExecScriptA(void);
 void AiExecFallbackScriptA(void);
 Bool AiTryExecScriptB(void);
@@ -271,11 +227,11 @@ void AiDoBerserkMove(void);
 // sub_8032524
 // ComputeAiAttackWeight
 // sub_80325BC
-// sub_803260C
-// sub_803264C
+int sub_803260C(int x, int y);
+int sub_803264C(int x, int y);
 void sub_80326C4(void);
 // sub_80326F0
-// sub_8032814
+Bool sub_8032814(int x, int y, u8 threshold);
 Bool AiTryGetNearestHealPoint(struct Vec2* out);
 void sub_8032A08(void);
 Bool AiUpdateGetUnitIsHealing(struct Unit* unit);
@@ -346,7 +302,7 @@ void AiTryDoSpecialItems(void);
 // sub_8034FF8
 // sub_8035028
 void sub_8035064(struct Unit* unit);
-// sub_8035098
+void sub_8035098(int x, int y, struct Unit* unit);
 // sub_80350C8
 // sub_80351E4
 // sub_80351F4

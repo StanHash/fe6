@@ -250,7 +250,7 @@ Bool AiPillageAction(struct AiPerformProc* proc)
     int x = gAiDecision.xMove;
     int register y asm("r4") = gAiDecision.yMove;
 
-    if (gMapTerrain[y][x] == TERRAIN_CHEST_21)
+    if (gMapTerrain[y][x] == TERRAIN_CHEST)
     {
         gActiveUnit->x = gAiDecision.xMove;
         gActiveUnit->y = gAiDecision.yMove;

@@ -723,7 +723,7 @@ int sub_801F534(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_VILLAGE_03 && gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_HOUSE)
+    if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_VILLAGE && gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_HOUSE)
         return MENU_NOTSHOWN;
 
     if (sub_806B028(gActiveUnit->x, gActiveUnit->y) != LOCATION_COMMAND_VISIT)
@@ -1345,7 +1345,7 @@ int sub_8020164(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_21) < 0)
+    if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST) < 0)
         return MENU_NOTSHOWN;
 
     return CanUnitUseChestKeyItem(gActiveUnit)
@@ -1355,7 +1355,7 @@ int sub_8020164(struct MenuEntInfo const* info, int id)
 u8 sub_80201A0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_CHEST;
-    gAction.itemSlot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST_21);
+    gAction.itemSlot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }

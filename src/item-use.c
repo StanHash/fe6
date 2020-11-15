@@ -350,7 +350,7 @@ Bool CanUnitUseAntitoxinItem(struct Unit* unit)
 
 Bool CanUnitUseChestKeyItem(struct Unit* unit)
 {
-    if (gMapTerrain[unit->y][unit->x] != TERRAIN_CHEST_21)
+    if (gMapTerrain[unit->y][unit->x] != TERRAIN_CHEST)
         return FALSE;
 
     if (!IsThereClosedChestAt(unit->x, unit->y))
