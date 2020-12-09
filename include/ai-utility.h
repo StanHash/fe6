@@ -52,7 +52,7 @@ s8 AiGetUnitStealItemSlot(struct Unit* unit);
 Bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out);
 Bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot);
 Bool AiGetChestUnlockItemSlot(u8* out);
-void AiTryMoveTowards(short x, short y, u8 action, u8 arg_3, u8 arg_4);
+void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4);
 Bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out);
 u8 AiGetJobRank(u8 jid);
 Bool AiUnitWithPidExists(u16 pid);

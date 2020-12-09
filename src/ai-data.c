@@ -8,69 +8,6 @@
 #include "constants/chapters.h"
 #include "constants/terrains.h"
 
-typedef void(*AiScrCmd)(u8* pc);
-
-void sub_8030E74(u8* pc);
-void sub_8030F18(u8* pc);
-void sub_8030F48(u8* pc);
-void sub_8030FB8(u8* pc);
-void sub_8031198(u8* pc);
-void sub_8031230(u8* pc);
-void sub_80312A0(u8* pc);
-void sub_80312A8(u8* pc);
-void sub_8031308(u8* pc);
-void sub_8031358(u8* pc);
-void sub_8031374(u8* pc);
-void sub_8031390(u8* pc);
-void sub_80313AC(u8* pc);
-void sub_80313F8(u8* pc);
-void sub_80314B8(u8* pc);
-void sub_80314C0(u8* pc);
-void sub_8031504(u8* pc);
-void sub_80315FC(u8* pc);
-void sub_8031640(u8* pc);
-void sub_80316C0(u8* pc);
-void sub_8031740(u8* pc);
-void sub_8031748(u8* pc);
-void sub_8031750(u8* pc);
-void sub_8031764(u8* pc);
-void sub_8031788(u8* pc);
-void sub_8031790(u8* pc);
-void sub_8031808(u8* pc);
-void AiScriptCmd_1B_NoOp(u8* pc);
-
-AiScrCmd const gUnk_0810D688[] =
-{
-    [AI_CMD_CONDITIONAL] = sub_8030E74,
-    [AI_CMD_FUNC]        = sub_8030F18,
-    [AI_CMD_CHANGEAI]    = sub_8030F48,
-    [AI_CMD_GOTO]        = sub_8030FB8,
-    [AI_CMD_ACTION_ON]   = sub_8031198,
-    [AI_CMD_ACTION]      = sub_8031230,
-    sub_80312A0,
-    sub_80312A8,
-    sub_8031308,
-    sub_8031358,
-    sub_8031374,
-    sub_8031390,
-    sub_80313AC,
-    sub_80313F8,
-    sub_80314B8,
-    sub_80314C0,
-    sub_8031504,
-    sub_80315FC,
-    sub_8031640,
-    sub_80316C0,
-    sub_8031740,
-    sub_8031748,
-    sub_8031750,
-    sub_8031764,
-    sub_8031788,
-    sub_8031790,
-    sub_8031808,
-    AiScriptCmd_1B_NoOp,
-};
-
 u8 CONST_DATA gUnk_085C864C[] =
 {
     TERRAIN_VILLAGE,
@@ -86,12 +23,12 @@ u8 CONST_DATA gUnk_085C864F[] =
     0,
 };
 
-struct AiScr CONST_DATA AiScr_Unk_085C8654[] =
+struct AiScr CONST_DATA AiScr_FallbackA[] =
 {
     AI_ACTION(100),
 };
 
-struct AiScr CONST_DATA AiScr_Unk_085C8664[] =
+struct AiScr CONST_DATA AiScr_FallbackB[] =
 {
     AI_MOVE_TO_ENEMY,
 };

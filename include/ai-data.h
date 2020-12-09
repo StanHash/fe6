@@ -32,8 +32,8 @@ struct AiHealThreshold
 
 extern u8 CONST_DATA gUnk_085C864C[];
 extern u8 CONST_DATA gUnk_085C864F[];
-extern struct AiScr CONST_DATA AiScr_Unk_085C8654[];
-extern struct AiScr CONST_DATA AiScr_Unk_085C8664[];
+extern struct AiScr CONST_DATA AiScr_FallbackA[];
+extern struct AiScr CONST_DATA AiScr_FallbackB[];
 extern u8 const* CONST_DATA gUnk_085C8674[];
 extern struct AiAttackStruct const gUnk_0810D728[];
 // extern u8 CONST_DATA gUnk_085C869C[];

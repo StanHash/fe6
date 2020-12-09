@@ -128,6 +128,9 @@ MapSelectInfo_085C782C = 0x085C782C;
 MapSelectInfo_085C784C = 0x085C784C;
 MapSelectInfo_085C786C = 0x085C786C;
 
+gAiScriptLutB = 0x085C97EC;
+gAiScriptLutA = 0x085C97F8;
+
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;
 ItemInfoTable = 0x0860B648;
@@ -220,6 +223,7 @@ SECTIONS
         . = ALIGN(4); src/anim.o(.bss);
         . = ALIGN(4); src/util.o(.bss);
         . = ALIGN(4); src/map.o(.bss);
+        . = ALIGN(4); src/ai-script.o(.bss);
 
         . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
@@ -339,6 +343,7 @@ SECTIONS
         src/ai-decide.o(.text);
         src/ai-perform.o(.text);
         src/ai-utility.o(.text);
+        src/ai-script.o(.text);
 
         asm/code.o(.text);
 
@@ -408,6 +413,7 @@ SECTIONS
         . = ALIGN(4); src/ai-order.o(.rodata);
         . = ALIGN(4); src/ai-perform.o(.rodata);
         . = ALIGN(4); src/ai-utility.o(.rodata);
+        . = ALIGN(4); src/ai-script.o(.rodata);
         . = ALIGN(4); src/ai-data.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
