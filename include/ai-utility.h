@@ -8,23 +8,13 @@
 
 enum
 {
-    AI_COMPARE_GT,
-    AI_COMPARE_GE,
-    AI_COMPARE_EQ,
-    AI_COMPARE_LE,
-    AI_COMPARE_LT,
-    AI_COMPARE_NE,
-};
-
-enum
-{
     AI_FINDPOS_FLAG_CHECK_ENEMY          = (1 << 0),
     AI_FINDPOS_FLAG_CHECK_NEARBY_ENEMIES = (1 << 1),
     AI_FINDPOS_FLAG_NO_CHESTS            = (1 << 2),
     AI_FINDPOS_FLAG_NO_DOORS             = (1 << 3),
 };
 
-Bool AiCompare(u8* left, u8 cond, u32 right);
+Bool AiCompare(u8 const* left, u8 cond, u32 right);
 Bool AiFindTargetInReachByPid(int pid, struct Vec2* out);
 Bool AiFindTargetInReachByJid(int jid, struct Vec2* out);
 Bool AiFindTargetInReachByFunc(Bool(*func)(struct Unit* unit), struct Vec2* out);

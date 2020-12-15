@@ -50,8 +50,6 @@ Pal_FlamesParticles = 0x08105194;
 Img_CloudWeather = 0x081051D4;
 Pal_CloudWeather = 0x081056F0;
 
-AiItemConfigTable = 0x0810DA20;
-
 Img_TalkBubble = 0x082E4394;
 Pal_TalkBubble = 0x082E4630;
 
@@ -127,9 +125,6 @@ MapSelectInfo_085C780C = 0x085C780C;
 MapSelectInfo_085C782C = 0x085C782C;
 MapSelectInfo_085C784C = 0x085C784C;
 MapSelectInfo_085C786C = 0x085C786C;
-
-gAiScriptLutB = 0x085C97EC;
-gAiScriptLutA = 0x085C97F8;
 
 PersonInfoTable = 0x086076D0;
 JobInfoTable = 0x0860A130;

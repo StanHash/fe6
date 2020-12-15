@@ -22,6 +22,29 @@ enum
     AI_UNIT_FLAG_6 = (1 << 6),
 };
 
+enum
+{
+    AI_A_00 = 0x00,
+    AI_A_06 = 0x06,
+};
+
+enum
+{
+    AI_B_00 = 0x00,
+    AI_B_01 = 0x01,
+    AI_B_0C = 0x0C,
+};
+
+enum
+{
+    AI_COMPARE_GT,
+    AI_COMPARE_GE,
+    AI_COMPARE_EQ,
+    AI_COMPARE_LE,
+    AI_COMPARE_LT,
+    AI_COMPARE_NE,
+};
+
 struct AiSt
 {
     /* 00 */ u8 units[116]; // TODO: constant for max number of units?

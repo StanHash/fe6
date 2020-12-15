@@ -4,6 +4,7 @@
 #include "bm.h"
 #include "ai-order.h"
 #include "ai-utility.h"
+#include "ai-data.h"
 
 struct AiSt EWRAM_DATA gAiSt = {};
 

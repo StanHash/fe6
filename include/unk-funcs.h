@@ -162,7 +162,7 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-void sub_8031900(Bool(*isEnemy)(struct Unit* unit));
+Bool sub_8031900(Bool(*isEnemy)(struct Unit* unit));
 // AiTryDoOffensiveAction
 // sub_8031C28
 // sub_8031C7C
@@ -209,23 +209,23 @@ void AiTryActionAfterMove(void);
 // sub_80331EC
 // sub_8033250
 // sub_8033380
-// sub_80333B0
+Bool sub_80333B0(void const* arg);
 // sub_80334F4
-// sub_80336B0
-// sub_80336CC
+Bool sub_80336B0(void const* arg);
+Bool sub_80336CC(void const* arg);
 // sub_80336FC
 // sub_803372C
-// sub_80337B4
+Bool sub_80337B4(void const* arg);
 // sub_8033824
-// AiFunc_DecideTalk
-// sub_8033898
+Bool AiFunc_DecideTalk(void const* arg);
+Bool sub_8033898(void const* arg);
 // sub_803395C
-// sub_8033998
+Bool sub_8033998(void const* arg);
 // sub_80339F8
 // sub_8033A30
-// sub_8033AA4
-// sub_8033B04
-// sub_8033B50
+Bool sub_8033AA4(void const* arg);
+Bool sub_8033B04(void const* arg);
+Bool sub_8033B50(void const* arg);
 // sub_8033B9C
 Bool sub_8033C04(Bool(*isEnemy)(struct Unit* unit));
 // sub_8033C8C

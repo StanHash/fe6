@@ -136,8 +136,6 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_Restore;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
 
-extern u32 const AiItemConfigTable[];
-
 extern s8 CONST_DATA TerrainHealAmountTable[];
 extern Bool CONST_DATA TerrainHealsStatusTable[];
 extern char const* CONST_DATA TerrainNameStringTable[];

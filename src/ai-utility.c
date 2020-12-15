@@ -26,7 +26,7 @@ static struct Vec2 CONST_DATA sRange3OffsetLut[] =
     { 9999, 9999 },
 };
 
-Bool AiCompare(u8* left, u8 cond, u32 right)
+Bool AiCompare(u8 const* left, u8 cond, u32 right)
 {
     switch (cond)
     {
@@ -596,7 +596,7 @@ int AiCountNearbyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2* it = sRange3OffsetLut;
+    struct Vec2 const* it = sRange3OffsetLut;
 
     it--;
 
@@ -623,7 +623,7 @@ int AiCountNearbyEnemyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2* it = sRange3OffsetLut;
+    struct Vec2 const* it = sRange3OffsetLut;
 
     it--;
 
@@ -653,7 +653,7 @@ int AiCountNearbyAlliedUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2* it = sRange3OffsetLut;
+    struct Vec2 const* it = sRange3OffsetLut;
 
     it--;
 
