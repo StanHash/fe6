@@ -162,33 +162,8 @@ void sub_801F854(int x, int y);
 // sub_802BA08
 // sub_802BA44
 
-Bool sub_8031900(Bool(*isEnemy)(struct Unit* unit));
-// AiTryDoOffensiveAction
-// sub_8031C28
-// sub_8031C7C
-// sub_8031D40
-// sub_8031ECC
-// sub_8031F24
-// sub_803206C
-// sub_803212C
-// sub_8032200
-// ShouldAiNotBattle
-// AiSimulateBattle
-// sub_8032318
-// sub_8032378
-// sub_803239C
-// sub_8032440
-// sub_8032474
-// sub_803248C
-// sub_80324EC
-// sub_8032524
-// ComputeAiAttackWeight
-// sub_80325BC
-int sub_803260C(int x, int y);
-int sub_803264C(int x, int y);
-void sub_80326C4(void);
-// sub_80326F0
-Bool sub_8032814(int x, int y, u8 threshold);
+void AiRefreshDangerMap(void);
+Bool AiCheckDangerAt(int x, int y, u8 threshold);
 Bool AiTryGetNearestHealPoint(struct Vec2* out);
 void sub_8032A08(void);
 Bool AiUpdateGetUnitIsHealing(struct Unit* unit);

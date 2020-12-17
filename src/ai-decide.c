@@ -85,7 +85,7 @@ next_unit:
         gAiSt.combatWeightTableId = (gActiveUnit->aiConfig & 0xF8) >> 3;
 
         gAiSt.dangerMapFilled = FALSE;
-        sub_80326C4();
+        AiRefreshDangerMap();
 
         AiClearDecision();
         AiDecideFunc();

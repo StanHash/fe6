@@ -38,6 +38,8 @@ enum
 
     IID_FLUX = 0x3F,
 
+    IID_ECLIPSE = 0x41,
+
     IID_HEALSTAFF = 0x43,
     IID_MENDSTAFF,
     IID_RECOVERSTAFF,

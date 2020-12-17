@@ -34,624 +34,624 @@ struct AiScr CONST_DATA AiScr_FallbackB[] =
     AI_MOVE_TO_ENEMY,
 };
 
-static u8 const gUnk_0810D6F8[] = { JID_ROY, 0 };
-static u8 const gUnk_0810D6FA[] = { JID_THIEF, JID_THIEF_F, JID_BARD, JID_DANCER, 0 };
-static u8 const gUnk_0810D6FF[] = { JID_PRIEST, JID_CLERIC, JID_TROUBADOUR, 0 };
-static u8 const gUnk_0810D703[] = { JID_CIVILIAN, JID_CIVILIAN_F, JID_CHILD, JID_CHILD_F, 0 };
-static u8 const gUnk_0810D708[] = { JID_BISHOP, JID_BISHOP_F, JID_MAGE, JID_MAGE_F, JID_SAGE, JID_SAGE_F, JID_SHAMAN, JID_SHAMAN_F, JID_DRUID, JID_DRUID_F, JID_VALKYRIE, 0 };
-static u8 const gUnk_0810D714[] = { JID_PEGASUSKNIGHT, JID_FALCOKNIGHT, JID_WYVERNRIDER, JID_WYVERNRIDER_F, JID_WYVERNLORD, JID_WYVERNLORD_F, 0 };
-static u8 const gUnk_0810D71B[] = { JID_ARMOR, JID_GENERAL, 0 };
-static u8 const gUnk_0810D71E[] = { JID_CAVALIER, JID_CAVALIER_F, JID_PALADIN, JID_PALADIN_F, 0 };
-static u8 const gUnk_0810D723[] = { JID_ARCHER, JID_ARCHER_F, JID_SNIPER, JID_SNIPER_F, 0 };
+static u8 const JList_AiJobRankRoy[] = { JID_ROY, 0 };
+static u8 const JList_AiJobRankSupport[] = { JID_THIEF, JID_THIEF_F, JID_BARD, JID_DANCER, 0 };
+static u8 const JList_AiJobRankHealers[] = { JID_PRIEST, JID_CLERIC, JID_TROUBADOUR, 0 };
+static u8 const JList_AiJobRankCivilians[] = { JID_CIVILIAN, JID_CIVILIAN_F, JID_CHILD, JID_CHILD_F, 0 };
+static u8 const JList_AiJobRankMages[] = { JID_BISHOP, JID_BISHOP_F, JID_MAGE, JID_MAGE_F, JID_SAGE, JID_SAGE_F, JID_SHAMAN, JID_SHAMAN_F, JID_DRUID, JID_DRUID_F, JID_VALKYRIE, 0 };
+static u8 const JList_AiJobRankFlyers[] = { JID_PEGASUSKNIGHT, JID_FALCOKNIGHT, JID_WYVERNRIDER, JID_WYVERNRIDER_F, JID_WYVERNLORD, JID_WYVERNLORD_F, 0 };
+static u8 const JList_AiJobRankArmors[] = { JID_ARMOR, JID_GENERAL, 0 };
+static u8 const JList_AiJobRankCavaliers[] = { JID_CAVALIER, JID_CAVALIER_F, JID_PALADIN, JID_PALADIN_F, 0 };
+static u8 const JList_AiJobRankArchers[] = { JID_ARCHER, JID_ARCHER_F, JID_SNIPER, JID_SNIPER_F, 0 };
 
-u8 const* CONST_DATA gUnk_085C8674[] =
+u8 const* CONST_DATA gAiJobRankLists[] =
 {
-    gUnk_0810D6F8,
-    gUnk_0810D6FA,
-    gUnk_0810D6FF,
-    gUnk_0810D703,
-    gUnk_0810D708,
-    gUnk_0810D714,
-    gUnk_0810D71B,
-    gUnk_0810D71E,
-    gUnk_0810D723,
+    JList_AiJobRankRoy,
+    JList_AiJobRankSupport,
+    JList_AiJobRankHealers,
+    JList_AiJobRankCivilians,
+    JList_AiJobRankMages,
+    JList_AiJobRankFlyers,
+    JList_AiJobRankArmors,
+    JList_AiJobRankCavaliers,
+    JList_AiJobRankArchers,
     NULL,
 };
 
-struct AiAttackStruct const gUnk_0810D728[] =
+struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 {
     [0] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [1] =
     {
-        .unk_00 = 1,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [2] =
     {
-        .unk_00 = 1,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 2,
-        .unk_05 = 2,
-        .unk_06 = 1,
-        .unk_07 = 2,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 2,
+        .coeffDamageTaken = 2,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 2,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [3] =
     {
-        .unk_00 = 2,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [4] =
     {
-        .unk_00 = 1,
-        .unk_01 = 0,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 2,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 0,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 2,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [5] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
-            [5] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_FLYERS] = 40,
         }
     },
 
     [6] =
     {
-        .unk_00 = 2,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 5,
-            [4] = 5,
-            [5] = 5,
-            [6] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 5,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_FLYERS] = 5,
+            [AI_JOBRANK_ARMORS] = 40,
         }
     },
 
     [7] =
     {
-        .unk_00 = 2,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 5,
-            [4] = 5,
-            [5] = 5,
-            [7] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 5,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_FLYERS] = 5,
+            [AI_JOBRANK_CAVALIERS] = 40,
         }
     },
 
     [8] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 5,
-            [3] = 40,
+            [AI_JOBRANK_ROY] = 5,
+            [AI_JOBRANK_CIVILIANS] = 40,
         }
     },
 
     [9] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 = {}
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses = {}
     },
 
     [10] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [2] = 40,
-            [4] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_HEALERS] = 40,
+            [AI_JOBRANK_MAGES] = 40,
         }
     },
 
     [11] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 2,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 2,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
-            [8] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_ARCHERS] = 40,
         }
     },
 
     [12] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 20,
-            [1] = 20,
-            [2] = 20,
-            [4] = 20,
-            [5] = 20,
-            [6] = 20,
-            [7] = 20,
-            [8] = 20,
+            [AI_JOBRANK_ROY] = 20,
+            [AI_JOBRANK_SUPPORTERS] = 20,
+            [AI_JOBRANK_HEALERS] = 20,
+            [AI_JOBRANK_MAGES] = 20,
+            [AI_JOBRANK_FLYERS] = 20,
+            [AI_JOBRANK_ARMORS] = 20,
+            [AI_JOBRANK_CAVALIERS] = 20,
+            [AI_JOBRANK_ARCHERS] = 20,
         }
     },
 
     [13] =
     {
-        .unk_00 = 1,
-        .unk_01 = 2,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 1,
-        .unk_05 = 2,
-        .unk_06 = 2,
-        .unk_07 = 2,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 2,
+        .coeffDanger = 2,
+        .coeffLowHpSelf = 2,
+        .jobRankBonuses =
         {
-            [0] = 20,
-            [1] = 25,
-            [3] = 20,
-            [4] = 25,
-            [5] = 20,
-            [6] = 20,
-            [7] = 20,
-            [8] = 20,
+            [AI_JOBRANK_ROY] = 20,
+            [AI_JOBRANK_SUPPORTERS] = 25,
+            [AI_JOBRANK_CIVILIANS] = 20,
+            [AI_JOBRANK_MAGES] = 25,
+            [AI_JOBRANK_FLYERS] = 20,
+            [AI_JOBRANK_ARMORS] = 20,
+            [AI_JOBRANK_CAVALIERS] = 20,
+            [AI_JOBRANK_ARCHERS] = 20,
         }
     },
 
     [14] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 0,
-        .unk_05 = 2,
-        .unk_06 = 0,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 2,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [15] =
     {
-        .unk_00 = 1,
-        .unk_01 = 1,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 0,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [16] =
     {
-        .unk_00 = 2,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 5,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 5,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [17] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [18] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [19] =
     {
-        .unk_00 = 2,
-        .unk_01 = 2,
-        .unk_02 = 2,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 2,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [20] =
     {
-        .unk_00 = 1,
-        .unk_01 = 0,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 2,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 0,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 2,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [21] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 0,
-        .unk_06 = 0,
-        .unk_07 = 0,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 0,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 0,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [22] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 5,
-            [4] = 5,
-            [5] = 5,
-            [6] = 50,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 5,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_FLYERS] = 5,
+            [AI_JOBRANK_ARMORS] = 50,
         }
     },
 
     [23] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 5,
-            [4] = 5,
-            [5] = 5,
-            [7] = 50,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 5,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_FLYERS] = 5,
+            [AI_JOBRANK_CAVALIERS] = 50,
         }
     },
 
     [24] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 5,
-            [3] = 80,
+            [AI_JOBRANK_ROY] = 5,
+            [AI_JOBRANK_CIVILIANS] = 80,
         }
     },
 
     [25] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 = {}
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses = {}
     },
 
     [26] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 25,
-            [2] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 25,
+            [AI_JOBRANK_HEALERS] = 40,
         }
     },
 
     [27] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 2,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 2,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
-            [8] = 40,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
+            [AI_JOBRANK_ARCHERS] = 40,
         }
     },
 
     [28] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 1,
-        .unk_03 = 2,
-        .unk_04 = 1,
-        .unk_05 = 1,
-        .unk_06 = 1,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 2,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 20,
-            [1] = 20,
-            [2] = 20,
-            [4] = 20,
-            [5] = 20,
-            [6] = 20,
-            [7] = 20,
-            [8] = 20,
+            [AI_JOBRANK_ROY] = 20,
+            [AI_JOBRANK_SUPPORTERS] = 20,
+            [AI_JOBRANK_HEALERS] = 20,
+            [AI_JOBRANK_MAGES] = 20,
+            [AI_JOBRANK_FLYERS] = 20,
+            [AI_JOBRANK_ARMORS] = 20,
+            [AI_JOBRANK_CAVALIERS] = 20,
+            [AI_JOBRANK_ARCHERS] = 20,
         }
     },
 
     [29] =
     {
-        .unk_00 = 1,
-        .unk_01 = 2,
-        .unk_02 = 1,
-        .unk_03 = 1,
-        .unk_04 = 1,
-        .unk_05 = 2,
-        .unk_06 = 1,
-        .unk_07 = 2,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 2,
+        .coeffFriendZone = 1,
+        .coeffJobRankBonus = 1,
+        .coeffTurnNumber = 1,
+        .coeffDamageTaken = 2,
+        .coeffDanger = 1,
+        .coeffLowHpSelf = 2,
+        .jobRankBonuses =
         {
-            [0] = 20,
-            [1] = 25,
-            [3] = 20,
-            [4] = 25,
-            [5] = 20,
-            [6] = 20,
-            [7] = 20,
-            [8] = 20,
+            [AI_JOBRANK_ROY] = 20,
+            [AI_JOBRANK_SUPPORTERS] = 25,
+            [AI_JOBRANK_CIVILIANS] = 20,
+            [AI_JOBRANK_MAGES] = 25,
+            [AI_JOBRANK_FLYERS] = 20,
+            [AI_JOBRANK_ARMORS] = 20,
+            [AI_JOBRANK_CAVALIERS] = 20,
+            [AI_JOBRANK_ARCHERS] = 20,
         }
     },
 
     [30] =
     {
-        .unk_00 = 2,
-        .unk_01 = 1,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 0,
-        .unk_05 = 2,
-        .unk_06 = 0,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 2,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 2,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 
     [31] =
     {
-        .unk_00 = 1,
-        .unk_01 = 1,
-        .unk_02 = 0,
-        .unk_03 = 0,
-        .unk_04 = 0,
-        .unk_05 = 1,
-        .unk_06 = 0,
-        .unk_07 = 1,
-        .unk_08 =
+        .coeffDamageDealt = 1,
+        .coeffLowHpOpponent = 1,
+        .coeffFriendZone = 0,
+        .coeffJobRankBonus = 0,
+        .coeffTurnNumber = 0,
+        .coeffDamageTaken = 1,
+        .coeffDanger = 0,
+        .coeffLowHpSelf = 1,
+        .jobRankBonuses =
         {
-            [0] = 10,
-            [1] = 15,
-            [4] = 5,
+            [AI_JOBRANK_ROY] = 10,
+            [AI_JOBRANK_SUPPORTERS] = 15,
+            [AI_JOBRANK_MAGES] = 5,
         }
     },
 };

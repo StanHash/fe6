@@ -9,6 +9,7 @@
 #include "faction.h"
 #include "ai-decide.h"
 #include "ai-data.h"
+#include "ai-battle.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
@@ -91,7 +92,7 @@ Bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
         if (unit->person == NULL)
             continue;
 
-        if (gMapRange[unit->y][unit->x] > 120)
+        if (gMapRange[unit->y][unit->x] > MAP_MOVEMENT_MAX)
             continue;
 
         if (unit->person->id != pid)
@@ -150,7 +151,7 @@ Bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
         if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
             continue;
 
-        if (gMapRange[unit->y][unit->x] > 120)
+        if (gMapRange[unit->y][unit->x] > MAP_MOVEMENT_MAX)
             continue;
 
         if (unit->job->id != jid)
@@ -187,7 +188,7 @@ Bool AiFindTargetInReachByFunc(Bool(*func)(struct Unit* unit), struct Vec2* out)
     {
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
-            if (gMapRange[iy][ix] > 120)
+            if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (gMapUnit[iy][ix] == 0)
@@ -238,7 +239,7 @@ void AiRandomMove(void)
         {
             u8 rand;
 
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (gMapUnit[iy][ix] != 0)
@@ -315,7 +316,7 @@ Bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2*
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapRange[iy][ix] > 120)
+            if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (!AiIsInByteList(terrainList, gMapTerrain[iy][ix]))
@@ -351,7 +352,7 @@ Bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2*
 
 u8 AiGetPositionRange(int x, int y)
 {
-    if (gMapRangeSigned[y][x] >= 120)
+    if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX)
         return UINT8_MAX;
 
     if (gMapUnit[y][x] != 0 && gMapUnit[y][x] != gActiveUnitId)
@@ -371,7 +372,7 @@ Bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, stru
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapRange[iy][ix] > 120)
+            if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (!AiIsInByteList(terrainList, gMapTerrain[iy][ix]))
@@ -419,7 +420,7 @@ Bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapRange[iy][ix] > 120)
+            if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             switch (gMapTerrain[iy][ix])
@@ -690,7 +691,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit* unit, u16 item)
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             MapIncInBoundedRange(ix, iy, GetItemMinRange(item), GetItemMaxRange(item));
@@ -711,7 +712,7 @@ void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit)
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             MapAddInRange(ix, iy, range, 1);
@@ -730,7 +731,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item)
     {
         for (ix = gMapSize.x-1; ix >= 0; ix--)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             MapIncInBoundedRange(ix, iy, GetItemMinRange(item), GetItemMaxRange(item));
@@ -842,7 +843,7 @@ Bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
     {
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (gMapUnit[iy][ix] != 0 && gMapUnit[iy][ix] != gActiveUnitId)
@@ -955,7 +956,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     {
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (gMapUnit[iy][ix] != 0 && gMapUnit[iy][ix] != gActiveUnitId)
@@ -967,7 +968,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
                     continue;
             }
 
-            if (!sub_8032814(ix, iy, maxDanger))
+            if (!AiCheckDangerAt(ix, iy, maxDanger))
                 continue;
 
             if (gMapRange[iy][ix] > bestRange)
@@ -1008,7 +1009,7 @@ Bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct V
     {
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if ((gMapUnit[iy][ix] | gMapOther[iy][ix]) != 0)
@@ -1032,7 +1033,7 @@ Bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct V
 u8 AiGetJobRank(u8 jid)
 {
     u8 num = 0;
-    u8 const* const* it = gUnk_085C8674;
+    u8 const* const* it = gAiJobRankLists;
 
     while (*it != NULL)
     {
@@ -1249,7 +1250,7 @@ Bool sub_8030AB4(struct Vec2* out)
         {
             u32 val;
 
-            if (gMapMovement[iy][ix] > 120)
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
             if (gMapRangeSigned[iy][ix] == 0)
@@ -1258,7 +1259,7 @@ Bool sub_8030AB4(struct Vec2* out)
             if (gMapUnit[iy][ix] != 0 && gMapUnit[iy][ix] != gActiveUnitId)
                 continue;
 
-            val = ((sub_803260C(ix, iy) + sub_803264C(ix, iy)) - gMapOther[iy][ix]/8) + INT32_MAX;
+            val = ((AiGetTerrainCombatPositionScoreComponent(ix, iy) + AiGetFriendZoneCombatPositionScoreComponent(ix, iy)) - gMapOther[iy][ix]/8) + INT32_MAX;
 
             if (maxVal >= val)
                 continue;

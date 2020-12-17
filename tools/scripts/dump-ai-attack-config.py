@@ -16,7 +16,7 @@ def main(args):
     #with open(elf_name, 'rb') as f:
     #    syms = { addr: name for addr, name in symbols.from_elf(f) }
 
-    print(f"struct AiAttackStruct const gUnk_{offset + 0x08000000:08X}[] =")
+    print(f"struct AiCombatScoreCoefficients const gUnk_{offset + 0x08000000:08X}[] =")
     print("{")
 
     with open(rom_name, 'rb') as f:

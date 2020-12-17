@@ -219,6 +219,7 @@ SECTIONS
         . = ALIGN(4); src/util.o(.bss);
         . = ALIGN(4); src/map.o(.bss);
         . = ALIGN(4); src/ai-script.o(.bss);
+        . = ALIGN(4); src/ai-battle.o(.bss);
 
         . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
@@ -339,6 +340,8 @@ SECTIONS
         src/ai-perform.o(.text);
         src/ai-utility.o(.text);
         src/ai-script.o(.text);
+        src/ai-battle.o(.text);
+        src/ai-080326C4.o(.text);
 
         asm/code.o(.text);
 
@@ -410,6 +413,7 @@ SECTIONS
         . = ALIGN(4); src/ai-utility.o(.rodata);
         . = ALIGN(4); src/ai-script.o(.rodata);
         . = ALIGN(4); src/ai-data.o(.rodata);
+        . = ALIGN(4); src/ai-battle.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -461,6 +465,7 @@ SECTIONS
         . = ALIGN(4); src/ai-perform.o(.data);
         . = ALIGN(4); src/ai-utility.o(.data);
         . = ALIGN(4); src/ai-data.o(.data);
+        . = ALIGN(4); src/ai-battle.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

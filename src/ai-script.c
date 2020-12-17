@@ -8,8 +8,9 @@
 #include "ai-decide.h"
 #include "ai-utility.h"
 #include "ai-data.h"
+#include "ai-battle.h"
 
-enum
+enum ScriptKind
 {
     AI_SCRIPT_A,
     AI_SCRIPT_B,
@@ -49,7 +50,7 @@ static void AiCmd_MoveTowardsListedTerrain(u8* pc);
 static void AiCmd_Label(u8* pc);
 
 static Bool sScrEnded;
-static u32 sScrKind;
+static enum ScriptKind sScrKind;
 static struct AiScr const* sScr;
 static AiScrFunc sScrFunc;
 
@@ -316,7 +317,7 @@ void AiCmd_ActionOnPid(u8* pc)
                 }
                 else
                 {
-                    sub_8031900(AiIsUnitEnemyAndScrPid);
+                    AiAttemptOffensiveAction(AiIsUnitEnemyAndScrPid);
                 }
             }
             else
@@ -343,12 +344,12 @@ void AiCmd_Action(u8* pc)
         if (sScr->unk_08 == NULL)
         {
             if (!sub_8033C04(AiIsUnitEnemy))
-                sub_8031900(AiIsUnitEnemy);
+                AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
         else
         {
             if (!sub_8033C04(AiIsUnitEnemyOrInScrList))
-                sub_8031900(AiIsUnitEnemyAndNotInScrList);
+                AiAttemptOffensiveAction(AiIsUnitEnemyAndNotInScrList);
         }
     }
     else
@@ -373,7 +374,7 @@ void AiCmd_ActionInPlace(u8* pc)
         gAiSt.flags |= AI_FLAG_1;
 
         if (!sub_8033C04(AiIsUnitEnemy))
-            sub_8031900(AiIsUnitEnemy);
+            AiAttemptOffensiveAction(AiIsUnitEnemy);
     }
     else
     {
@@ -390,7 +391,7 @@ void AiCmd_ActionOnJid(u8* pc)
     if (rand <= sScr->unk_01)
     {
         if (!sub_8033C04(AiIsUnitEnemyAndScrJid))
-            sub_8031900(AiIsUnitEnemyAndScrJid);
+            AiAttemptOffensiveAction(AiIsUnitEnemyAndScrJid);
     }
     else
     {
@@ -660,7 +661,7 @@ void AiCmd_Label(u8* pc)
 void AiDoBerserkAction(void)
 {
     if (!sub_8033C04(AiIsUnitEnemy))
-        sub_8031900(AiIsUnitNonActive);
+        AiAttemptOffensiveAction(AiIsUnitNonActive);
 }
 
 void AiDoBerserkMove(void)
