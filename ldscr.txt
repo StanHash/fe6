@@ -414,6 +414,7 @@ SECTIONS
         . = ALIGN(4); src/ai-script.o(.rodata);
         . = ALIGN(4); src/ai-data.o(.rodata);
         . = ALIGN(4); src/ai-battle.o(.rodata);
+        . = ALIGN(4); src/ai-080326C4.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 
@@ -466,6 +467,7 @@ SECTIONS
         . = ALIGN(4); src/ai-utility.o(.data);
         . = ALIGN(4); src/ai-data.o(.data);
         . = ALIGN(4); src/ai-battle.o(.data);
+        . = ALIGN(4); src/ai-080326C4.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

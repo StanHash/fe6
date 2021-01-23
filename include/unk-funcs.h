@@ -175,7 +175,7 @@ Bool sub_8032CE8(u16* out);
 void sub_8032DF4(u16 arg_0, u16 arg_1, u16* arg_2, u16* arg_3, u16* arg_4);
 // sub_8032F48
 void sub_8032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16* arg_3);
-// sub_8032FBC
+void sub_8032FBC(u16 item);
 // sub_8032FF4
 // sub_8033038
 void AiTryDanceOrStealAfterMove(void);

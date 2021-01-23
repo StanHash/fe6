@@ -24,6 +24,7 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `util.c`     | `sub_801501C` | `O2` | ^
 | `util.c`     | `sub_80150DC` | `O2` | ^
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block reguarding constant loads for unit->state changes
+| `ai-080326C4.c` | `sub_8032CE8` | `O2` | perc needs to be loaded into r4, I have no way of doing that.
 
 ## List of fake-matching functions in fe6
 
@@ -32,3 +33,4 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `ai-perform.c` | `AiPillageAction` | `O2` | Either operation order is wrong or regalloc is wrong. register variable "fixes" it.
 | `ai-utility.c` | `AiFindClosestUnlockPosition` | `O2` | `mov r0, #0 ; cmp r0, #0 ; bne label`?
 | `ai-utility.c` | `sub_8030968` | `O2` | need to load constant before useless function call
+| `ai-080326C4.c` | `sub_8032C2C` | `O2` | need to load 0 and do math with it.

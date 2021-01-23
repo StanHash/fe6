@@ -694,14 +694,3 @@ inline s8 const* GetWorkingMovTable(void)
 {
     return gWorkingMovTable;
 }
-
-/*
-
-	thumb_func_start GetWorkingMovTable
-GetWorkingMovTable: @ 0x0801A5A4
-	ldr r0, _0801A5A8 @ =gWorkingMovTable
-	bx lr
-	.align 2, 0
-_0801A5A8: .4byte gWorkingMovTable
-
-*/

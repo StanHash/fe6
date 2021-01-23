@@ -1,7 +1,7 @@
 
 	.section .rodata
 
-	BEGIN = 0x10DB28
+	BEGIN = 0x10DB34
 	END   = 0x380F7C
 
 	.incbin "fe6-base.gba", BEGIN, (0x2563F4 - BEGIN)

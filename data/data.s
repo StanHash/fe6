@@ -1,7 +1,7 @@
 
 	.data
 
-	BEGIN = 0x5C98CC
+	BEGIN = 0x5C98D0
 	END   = 0x69B668
 
 	.incbin "fe6-base.gba", BEGIN, (END - BEGIN)
