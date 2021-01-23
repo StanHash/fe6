@@ -221,6 +221,8 @@ SECTIONS
         . = ALIGN(4); src/ai-script.o(.bss);
         . = ALIGN(4); src/ai-battle.o(.bss);
 
+        . = 0x001440; src/mu.o(.bss);
+
         . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); *libgcc.a:fp-bit.o(.bss);
@@ -342,6 +344,13 @@ SECTIONS
         src/ai-script.o(.text);
         src/ai-battle.o(.text);
         src/ai-080326C4.o(.text);
+
+        asm/code-ai.o(.text);
+        asm/code-sio.o(.text);
+        asm/code-ui.o(.text);
+        asm/code-banim.o(.text);
+
+        src/mu.o(.text);
 
         asm/code.o(.text);
 
