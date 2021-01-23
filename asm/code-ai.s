@@ -1507,7 +1507,7 @@ sub_803395C: @ 0x0803395C
 	push {lr}
 	adds r2, r0, #0
 	ldr r1, [r2]
-	ldr r0, _08033988 @ =0x02039694
+	ldr r0, _08033988 @ =gUnk_Pid_02039694
 	ldrb r1, [r1, #4]
 	ldrb r0, [r0]
 	cmp r1, r0
@@ -1526,7 +1526,7 @@ sub_803395C: @ 0x0803395C
 	movs r0, #1
 	b _08033992
 	.align 2, 0
-_08033988: .4byte 0x02039694
+_08033988: .4byte gUnk_Pid_02039694
 _0803398C: .4byte gActiveUnit
 _08033990:
 	movs r0, #0
@@ -1538,7 +1538,7 @@ _08033992:
 	thumb_func_start sub_8033998
 sub_8033998: @ 0x08033998
 	push {lr}
-	ldr r2, _080339B8 @ =0x02039694
+	ldr r2, _080339B8 @ =gUnk_Pid_02039694
 	ldrb r1, [r0]
 	strb r1, [r2]
 	ldrb r0, [r0]
@@ -1553,7 +1553,7 @@ sub_8033998: @ 0x08033998
 	strb r1, [r0]
 	b _080339E6
 	.align 2, 0
-_080339B8: .4byte 0x02039694
+_080339B8: .4byte gUnk_Pid_02039694
 _080339BC: .4byte gAiSt
 _080339C0:
 	ldr r0, _080339EC @ =sub_803395C
@@ -1821,7 +1821,7 @@ _08033BC0:
 	bl GetItemIid
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
-	ldr r4, _08033C00 @ =0x0810DB34
+	ldr r4, _08033C00 @ =gUnk_0810DB34
 	ldrh r0, [r4]
 	cmp r0, #0
 	beq _08033BF4
@@ -1852,7 +1852,7 @@ _08033BF8:
 	pop {r1}
 	bx r1
 	.align 2, 0
-_08033C00: .4byte 0x0810DB34
+_08033C00: .4byte gUnk_0810DB34
 
 	thumb_func_start sub_8033C04
 sub_8033C04: @ 0x08033C04
@@ -1867,7 +1867,7 @@ sub_8033C04: @ 0x08033C04
 	ldrh r4, [r0, #0x1c]
 	cmp r4, #0
 	beq _08033C6C
-	ldr r0, _08033C84 @ =0x0810DB38
+	ldr r0, _08033C84 @ =gUnk_0810DB34+0x4
 	mov r8, r0
 _08033C1E:
 	adds r0, r4, #0
@@ -1917,7 +1917,7 @@ _08033C6C:
 	bx r1
 	.align 2, 0
 _08033C80: .4byte gActiveUnit
-_08033C84: .4byte 0x0810DB38
+_08033C84: .4byte gUnk_0810DB34+0x4
 _08033C88: .4byte gAiDecision
 
 	thumb_func_start sub_8033C8C
@@ -1933,7 +1933,7 @@ sub_8033C8C: @ 0x08033C8C
 	mov r8, r2
 	movs r0, #0
 	mov sl, r0
-	ldr r2, _08033D30 @ =0x085C98D0
+	ldr r2, _08033D30 @ =gUnk_085C98D0
 	movs r1, #3
 	mov sb, r1
 _08033CA8:
@@ -2005,7 +2005,7 @@ _08033D16:
 	movs r0, #0
 	b _08033D4A
 	.align 2, 0
-_08033D30: .4byte 0x085C98D0
+_08033D30: .4byte gUnk_085C98D0
 _08033D34: .4byte gMapMovement
 _08033D38: .4byte gMapUnit
 _08033D3C: .4byte gActiveUnitId
@@ -2097,7 +2097,7 @@ _08033DB8:
 	bl GetUnit
 	adds r5, r0, #0
 	movs r0, #4
-	ldr r1, _08033EC4 @ =0x02039673
+	ldr r1, _08033EC4 @ =gAiSt+0x7B
 	ldrb r1, [r1]
 	ands r0, r1
 	cmp r0, #0
@@ -2112,7 +2112,7 @@ _08033DB8:
 	cmp r0, #1
 	beq _08033E6C
 _08033E08:
-	ldr r4, _08033EC8 @ =0x02039674
+	ldr r4, _08033EC8 @ =gAiSt+0x7C
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08033E1A
@@ -2201,8 +2201,8 @@ _08033EB4: .4byte gMapSize
 _08033EB8: .4byte gMapMovement
 _08033EBC: .4byte gMapUnit
 _08033EC0: .4byte gActiveUnitId
-_08033EC4: .4byte 0x02039673
-_08033EC8: .4byte 0x02039674
+_08033EC4: .4byte gAiSt+0x7B
+_08033EC8: .4byte gAiSt+0x7C
 
 	thumb_func_start sub_8033ECC
 sub_8033ECC: @ 0x08033ECC
@@ -2279,7 +2279,7 @@ _08033F2E:
 	cmp r0, #0
 	bne _08034036
 	movs r0, #4
-	ldr r2, _08034088 @ =0x02039673
+	ldr r2, _08034088 @ =gAiSt+0x7B
 	ldrb r2, [r2]
 	ands r0, r2
 	cmp r0, #0
@@ -2294,7 +2294,7 @@ _08033F2E:
 	cmp r0, #1
 	beq _08034036
 _08033F76:
-	ldr r4, _0803408C @ =0x02039674
+	ldr r4, _0803408C @ =gAiSt+0x7C
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne _08033F88
@@ -2421,8 +2421,8 @@ _08034078: .4byte gAiSt
 _0803407C: .4byte gActiveUnit
 _08034080: .4byte gMapUnit
 _08034084: .4byte gActiveUnitId
-_08034088: .4byte 0x02039673
-_0803408C: .4byte 0x02039674
+_08034088: .4byte gAiSt+0x7B
+_0803408C: .4byte gAiSt+0x7C
 _08034090: .4byte gMapRange
 
 	thumb_func_start sub_8034094
@@ -3681,7 +3681,7 @@ sub_8034A60: @ 0x08034A60
 	bl GetItemIid
 	lsls r0, r0, #0x10
 	lsrs r3, r0, #0x10
-	ldr r6, _08034AA8 @ =0x0810DB9C
+	ldr r6, _08034AA8 @ =gUnk_0810DB9C
 	ldrh r0, [r6]
 	cmp r0, #0
 	beq _08034ABE
@@ -3711,7 +3711,7 @@ _08034A9C:
 	adds r0, r5, #0
 	b _08034AC2
 	.align 2, 0
-_08034AA8: .4byte 0x0810DB9C
+_08034AA8: .4byte gUnk_0810DB9C
 _08034AAC: .4byte gActiveUnit
 _08034AB0:
 	adds r4, #8
@@ -3751,7 +3751,7 @@ _08034AE0:
 	ldrh r4, [r0, #0x1c]
 	cmp r4, #0
 	beq _08034B2A
-	ldr r6, _08034B44 @ =0x0810DBA0
+	ldr r6, _08034B44 @ =gUnk_0810DB9C+0x4
 _08034AEE:
 	adds r0, r4, #0
 	bl GetItemKind
@@ -3794,7 +3794,7 @@ _08034B2A:
 	b _08034B52
 	.align 2, 0
 _08034B40: .4byte gActiveUnit
-_08034B44: .4byte 0x0810DBA0
+_08034B44: .4byte gUnk_0810DB9C+0x4
 _08034B48: .4byte gAiSt
 _08034B4C: .4byte gAiDecision
 _08034B50:
@@ -4083,7 +4083,7 @@ sub_8034D80: @ 0x08034D80
 	adds r5, r0, #0
 	adds r4, r1, #0
 	bl sub_8034FF8
-	ldr r0, _08034DC4 @ =0x085C98F0
+	ldr r0, _08034DC4 @ =gUnk_085C98F0
 	movs r1, #0
 	adds r2, r4, #0
 	bl AiFindClosestTerrainAdjacentPosition
@@ -4110,7 +4110,7 @@ sub_8034D80: @ 0x08034D80
 	movs r0, #1
 	b _08034DCE
 	.align 2, 0
-_08034DC4: .4byte 0x085C98F0
+_08034DC4: .4byte gUnk_085C98F0
 _08034DC8: .4byte gMapRange
 _08034DCC:
 	movs r0, #0
@@ -4124,7 +4124,7 @@ sub_8034DD4: @ 0x08034DD4
 	push {r4, lr}
 	adds r4, r1, #0
 	bl sub_8034F34
-	ldr r0, _08034DF0 @ =0x085C98F2
+	ldr r0, _08034DF0 @ =gUnk_085C98F2
 	movs r1, #0
 	adds r2, r4, #0
 	bl AiFindClosestTerrainPosition
@@ -4134,7 +4134,7 @@ sub_8034DD4: @ 0x08034DD4
 	movs r0, #1
 	b _08034DF6
 	.align 2, 0
-_08034DF0: .4byte 0x085C98F2
+_08034DF0: .4byte gUnk_085C98F2
 _08034DF4:
 	movs r0, #0
 _08034DF6:

@@ -156,11 +156,8 @@ gMaxLines = 0;
 SECTIONS
 {
     . = 0x02000000;
-    EWRAM (NOLOAD) :
-    ALIGN(4)
+    OVERLAY_0 (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; /* ??? */
-
         . = 0x001000; gMapBuf = .; /* map */
         . = 0x001F70; gChapterIntroMotifTmBuf = .; /* bmfx */
         . = 0x002770; gFont_Unk_02002770 = .; /* map-menu */
@@ -172,9 +169,26 @@ SECTIONS
 
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
+    }
 
-        . = 0x01F0E8; /* ewram_data */
+    . = 0x02000000;
+    OVERLAY_SIO (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000; gUnk_Sio_02000000 = .;
+        . = 0x001000; gUnk_Sio_Font_02001000 = .;
+        . = 0x001018; gUnk_Sio_Text_02001018 = .;
+        /* gap? */
+        . = 0x0012A0; gUnk_Sio_020012A0 = .;
+        /* gap? */
+        . = 0x001520; gUnk_Sio_02001520 = .;
+        . = 0x001524; gUnk_Sio_02001524 = .;
+        . = 0x001528; gUnk_Sio_02001528 = .;
+        . = 0x00152C; gUnk_Sio_0200152C = .;
+    }
 
+    . = 0x0201F0E8;
+    EWRAM_DATA (NOLOAD) : ALIGN(4)
+    {
         . = ALIGN(4); src/hardware.o(ewram_data);
         . = ALIGN(4); src/move.o(ewram_data);
         . = ALIGN(4); src/sound.o(ewram_data);
@@ -203,6 +217,7 @@ SECTIONS
         . = ALIGN(4); src/unit-panel.o(ewram_data);
         . = ALIGN(4); src/ai-phase.o(ewram_data);
         . = ALIGN(4); src/ai-decide.o(ewram_data);
+        . = ALIGN(4); src/ai-080326C4.o(ewram_data);
     }
 
     . = 0x03000000;
@@ -424,6 +439,7 @@ SECTIONS
         . = ALIGN(4); src/ai-data.o(.rodata);
         . = ALIGN(4); src/ai-battle.o(.rodata);
         . = ALIGN(4); src/ai-080326C4.o(.rodata);
+        . = ALIGN(4); src/code-sio.o(.rodata);
 
         . = ALIGN(4); data/rodata.o(.rodata);
 

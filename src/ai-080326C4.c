@@ -13,9 +13,41 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
+struct Unk_0810DB34
+{
+    u16 iid;
+    void(*func)(int slot, Bool(*isEnemy)(struct Unit* unit));
+};
+
+struct Unk_0810DB9C
+{
+    u16 iid;
+    void(*func)(int slot);
+};
+
+struct Unk_085C98D0
+{
+    int x, y;
+};
+
 struct AiEscapePt const* sub_8032C2C(void);
 
 static void AiFillDangerMap(void);
+
+void sub_8033D5C(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_8033ECC(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_8034094(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_8034178(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_80342C4(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_80344AC(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_803462C(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_80347A4(int slot, Bool(*isEnemy)(struct Unit* unit));
+
+void sub_8034B58(int slot);
+void sub_8034BF0(int slot);
+void sub_8034CC0(int slot);
+
+u8 EWRAM_DATA gUnk_Pid_02039694 = 0;
 
 void AiRefreshDangerMap(void)
 {
@@ -549,3 +581,46 @@ Bool sub_8032CE8(u16* out)
 }
 
 #endif // NONMATCHING
+
+struct Unk_0810DB34 const gUnk_0810DB34[] =
+{
+    { IID_HEALSTAFF, sub_8033D5C },
+    { IID_MENDSTAFF, sub_8033D5C },
+    { IID_RECOVERSTAFF, sub_8033D5C },
+    { IID_PHYSICSTAFF, sub_8033ECC },
+    { IID_FORTIFYSTAFF, sub_8034094 },
+    { IID_WARPSTAFF, sub_8034178 },
+    { IID_RESCUESTAFF, sub_8033ECC },
+    { IID_RESTORESTAFF, sub_80342C4 },
+    { IID_SILENCESTAFF, sub_80344AC },
+    { IID_SLEEPSTAFF, sub_803462C },
+    { IID_BERSERKSTAFF, sub_803462C },
+    { IID_BARRIERSTAFF, sub_80347A4 },
+    {},
+};
+
+struct Unk_0810DB9C const gUnk_0810DB9C[] =
+{
+    { IID_DOORKEY, sub_8034B58 },
+    { IID_LOCKPICK, sub_8034BF0 },
+    { IID_ANTITOXIN, sub_8034CC0 },
+    {},
+};
+
+struct Unk_085C98D0 CONST_DATA gUnk_085C98D0[] =
+{
+    { +1,  0 },
+    { -1,  0 },
+    {  0, +1 },
+    {  0, -1 },
+};
+
+u8 CONST_DATA gUnk_085C98F0[] =
+{
+    TERRAIN_DOOR, 0,
+};
+
+u8 CONST_DATA gUnk_085C98F2[] =
+{
+    TERRAIN_CHEST, 0,
+};
