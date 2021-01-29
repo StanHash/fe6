@@ -12,7 +12,7 @@
 
 #include "constants/terrains.h"
 
-Bool sub_802B814(void)
+bool sub_802B814(void)
 {
     int ix, iy;
 
@@ -37,7 +37,7 @@ Bool sub_802B814(void)
     return FALSE;
 }
 
-Bool sub_802B8A0(void)
+bool sub_802B8A0(void)
 {
     int ix, iy;
 
@@ -62,7 +62,7 @@ Bool sub_802B8A0(void)
     return FALSE;
 }
 
-Bool sub_802B928(void)
+bool sub_802B928(void)
 {
     BeginTargetList(0, 0);
 
@@ -74,14 +74,14 @@ Bool sub_802B928(void)
     return CountTargets() != 0 ? TRUE : FALSE;
 }
 
-Bool sub_802B964(void)
+bool sub_802B964(void)
 {
     ListRescueTargets(gActiveUnit);
 
     return CountTargets() != 0 ? TRUE : FALSE;
 }
 
-Bool sub_802B980(void)
+bool sub_802B980(void)
 {
     ListTradeTargets(gActiveUnit);
 

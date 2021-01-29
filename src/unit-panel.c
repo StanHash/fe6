@@ -286,7 +286,7 @@ void RefreshUnitStealInventoryPanel(struct Unit* unit)
         int yPosition = YPOSITION + i*2 + 3;
 
         int item = unit->items[i];
-        Bool stealable = IsItemStealable(item);
+        bool stealable = IsItemStealable(item);
 
         ClearText(proc->lines+i);
 

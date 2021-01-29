@@ -54,7 +54,7 @@ int CountFactionUnitsWithoutState(int faction, int prohibitedState)
     return count;
 }
 
-Bool AreUnitIdsAllied(int uidA, int uidB)
+bool AreUnitIdsAllied(int uidA, int uidB)
 {
     uidA &= 0x80;
     uidB &= 0x80;
@@ -62,7 +62,7 @@ Bool AreUnitIdsAllied(int uidA, int uidB)
     return uidA == uidB;
 }
 
-Bool AreUnitIdsSameFaction(int uidA, int uidB)
+bool AreUnitIdsSameFaction(int uidA, int uidB)
 {
     uidA &= 0xC0;
     uidB &= 0xC0;

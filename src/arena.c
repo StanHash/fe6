@@ -16,14 +16,14 @@ static void ArenaBeginInternal(struct Unit* unit);
 static int ArenaGetUnitWeaponKind(struct Unit* unit);
 static int ArenaGetJobWeaponKind(struct JobInfo const* jinfo);
 static int ArenaGenOpposingJid(int weaponKind);
-static Bool ArenaIsMagicWeaponKind(int weaponKind);
+static bool ArenaIsMagicWeaponKind(int weaponKind);
 static int ArenaGetOpposingLevel(int level);
-static int ArenaGetPowerRanking(struct Unit* unit, Bool opponentIsMagic);
+static int ArenaGetPowerRanking(struct Unit* unit, bool opponentIsMagic);
 static void ArenaGenOpponentUnit(void);
 static void ArenaGenBaseWeapons(void);
 static u16 ArenaGetUpgradedWeapon(u16 item);
-static Bool ArenaAdjustOpponentDamage(void);
-static Bool ArenaAdjustOpponentPowerRanking(void);
+static bool ArenaAdjustOpponentDamage(void);
+static bool ArenaAdjustOpponentPowerRanking(void);
 static void ArenaGenMatchupGoldValue(void);
 
 struct ArenaSt EWRAM_DATA gArenaSt = {};
@@ -326,7 +326,7 @@ static int ArenaGenOpposingJid(int weaponKind)
     return joblist[i];
 }
 
-static Bool ArenaIsMagicWeaponKind(int weaponKind)
+static bool ArenaIsMagicWeaponKind(int weaponKind)
 {
     switch (weaponKind)
     {
@@ -357,7 +357,7 @@ static int ArenaGetOpposingLevel(int level)
     return result;
 }
 
-static int ArenaGetPowerRanking(struct Unit* unit, Bool opponentIsMagic)
+static int ArenaGetPowerRanking(struct Unit* unit, bool opponentIsMagic)
 {
     int result = unit->hpMax;
 
@@ -479,9 +479,9 @@ static u16 ArenaGetUpgradedWeapon(u16 item)
     }
 }
 
-static Bool ArenaAdjustOpponentDamage(void)
+static bool ArenaAdjustOpponentDamage(void)
 {
-    Bool result = FALSE;
+    bool result = FALSE;
 
     // Update battle unit stats
 
@@ -542,7 +542,7 @@ static Bool ArenaAdjustOpponentDamage(void)
     return result;
 }
 
-static Bool ArenaAdjustOpponentPowerRanking(void)
+static bool ArenaAdjustOpponentPowerRanking(void)
 {
     int max, diff;
 
@@ -662,7 +662,7 @@ void ArenaContinueBattle(void)
         sub_8084D64();
 }
 
-Bool ArenaIsUnitAllowed(struct Unit* unit)
+bool ArenaIsUnitAllowed(struct Unit* unit)
 {
     if (unit->status == UNIT_STATUS_SILENCED)
         return FALSE;

@@ -643,23 +643,27 @@
 #define SIO_MULTI_DI_SHIFT 3
 #define SIO_MULTI_DI_MASK  0x1
 
-// keys
-#define A_BUTTON        0x0001
-#define B_BUTTON        0x0002
-#define SELECT_BUTTON   0x0004
-#define START_BUTTON    0x0008
-#define DPAD_RIGHT      0x0010
-#define DPAD_LEFT       0x0020
-#define DPAD_UP         0x0040
-#define DPAD_DOWN       0x0080
-#define R_BUTTON        0x0100
-#define L_BUTTON        0x0200
-#define KEYS_MASK       0x03FF
+enum
+{
+    KEY_BUTTON_A      = (1 << 0),
+    KEY_BUTTON_B      = (1 << 1),
+    KEY_BUTTON_SELECT = (1 << 2),
+    KEY_BUTTON_START  = (1 << 3),
+    KEY_DPAD_RIGHT    = (1 << 4),
+    KEY_DPAD_LEFT     = (1 << 5),
+    KEY_DPAD_UP       = (1 << 6),
+    KEY_DPAD_DOWN     = (1 << 7),
+    KEY_BUTTON_R      = (1 << 8),
+    KEY_BUTTON_L      = (1 << 9),
+
+    KEY_ANY           = (1 << 10) - 1,
+    KEY_DPAD_ANY      = KEY_DPAD_RIGHT + KEY_DPAD_LEFT + KEY_DPAD_UP + KEY_DPAD_DOWN,
+    KEY_BUTTON_ANY    = KEY_ANY &~ KEY_DPAD_ANY,
+};
+
 #define KEY_INTR_ENABLE 0x0400
 #define KEY_OR_INTR     0x0000
 #define KEY_AND_INTR    0x8000
-#define DPAD_ANY        0x00F0
-#define JOY_EXCL_DPAD   0x030F
 
 // interrupt flags
 #define INTR_FLAG_VBLANK  (1 <<  0)

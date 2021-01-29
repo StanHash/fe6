@@ -47,7 +47,7 @@ void TrySwitchViewedUnit(int x, int y);
 
 void PlayerPhase_BeginSeeActionRange(ProcPtr proc);
 void PlayerPhase_MoveSelectLoop(ProcPtr proc);
-Bool PlayerPhase_0801B9B0(ProcPtr proc);
+bool PlayerPhase_0801B9B0(ProcPtr proc);
 void PlayerPhase_0801BC84(ProcPtr proc);
 
 extern struct ProcScr CONST_DATA ProcScr_PlayerPhase[];

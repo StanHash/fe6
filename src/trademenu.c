@@ -52,9 +52,9 @@ struct TradeMenuProc
 
     /* 2C */ struct Unit* units[2];
 
-    /* 34 */ Bool hasItem[2][ITEMSLOT_INV_COUNT + 1];
+    /* 34 */ bool hasItem[2][ITEMSLOT_INV_COUNT + 1];
 
-    /* 40 */ Bool hasTraded;
+    /* 40 */ bool hasTraded;
 
     /* 41 */ u8 hoverColumn;
     /* 42 */ u8 hoverRow;
@@ -62,7 +62,7 @@ struct TradeMenuProc
     /* 43 */ u8 selectedColumn;
     /* 44 */ u8 selectedRow;
 
-    /* 45 */ Bool extraCellEnabled;
+    /* 45 */ bool extraCellEnabled;
 
     /* 46 */ u8 extraColumn;
     /* 47 */ u8 extraRow;
@@ -124,7 +124,7 @@ struct ProcScr CONST_DATA ProcScr_TradeMenu_HighlightUpdater[] =
 
 static void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc);
 static void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc);
-static Bool TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc);
+static bool TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc);
 static void TradeMenu_OnInitUnselected(struct TradeMenuProc* proc);
 static void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc);
 static void TradeMenu_OnInitSelected(struct TradeMenuProc* proc);
@@ -296,12 +296,12 @@ static void TradeMenu_RefreshSelectableCells(struct TradeMenuProc* proc)
     proc->hasItem[1][ITEMSLOT_INV_COUNT] = 0;
 }
 
-static Bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
+static bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 {
-    Bool changedSelection = FALSE;
+    bool changedSelection = FALSE;
     int newSelectedRow;
 
-    if ((gKeySt->repeated & DPAD_LEFT) && proc->hoverColumn == TRADEMENU_UNIT_RIGHT)
+    if ((gKeySt->repeated & KEY_DPAD_LEFT) && proc->hoverColumn == TRADEMENU_UNIT_RIGHT)
     {
         newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_LEFT, proc->hoverRow);
 
@@ -317,7 +317,7 @@ static Bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
         PlaySe(0x67);
     }
 
-    if ((gKeySt->repeated & DPAD_RIGHT) && proc->hoverColumn == TRADEMENU_UNIT_LEFT)
+    if ((gKeySt->repeated & KEY_DPAD_RIGHT) && proc->hoverColumn == TRADEMENU_UNIT_LEFT)
     {
         newSelectedRow = TradeMenu_GetAdjustedRow(proc, TRADEMENU_UNIT_RIGHT, proc->hoverRow);
 
@@ -333,7 +333,7 @@ static Bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
         PlaySe(0x67);
     }
 
-    if ((gKeySt->repeated & DPAD_UP))
+    if ((gKeySt->repeated & KEY_DPAD_UP))
     {
         if (proc->hoverRow == 0)
         {
@@ -351,7 +351,7 @@ static Bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
         PlaySe(0x66);
     }
 
-    if ((gKeySt->repeated & DPAD_DOWN))
+    if ((gKeySt->repeated & KEY_DPAD_DOWN))
     {
         if (!proc->hasItem[proc->hoverColumn][proc->hoverRow + 1])
         {
@@ -425,17 +425,17 @@ static void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         Proc_Goto(proc, L_TRADEMENU_SELECTED);
         PlaySe(0x6A); // TODO: SONG ID DEFINITIONS
     }
-    else if (gKeySt->pressed & B_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_B)
     {
         Proc_Goto(proc, L_TRADEMENU_END);
         PlaySe(0x6B); // TODO: SONG ID DEFINITIONS
     }
-    else if (gKeySt->pressed & R_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_R)
     {
         SpawnProcLocking(ProcScr_TradeMenu_HelpBox, proc);
     }
@@ -476,19 +476,19 @@ static void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
         8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
         8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         TradeMenu_ApplyItemSwap(proc);
 
         PlaySe(0x6A); // TODO: SONG ID DEFINITIONS
         Proc_Break(proc);
     }
-    else if (gKeySt->pressed & B_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_B)
     {
         PlaySe(0x6B); // TODO: SONG ID DEFINITIONS
         Proc_Break(proc);
     }
-    else if (gKeySt->pressed & R_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_R)
     {
         SpawnProcLocking(ProcScr_TradeMenu_HelpBox, proc);
     }
@@ -507,7 +507,7 @@ static void TradeMenu_OnEndSelected(struct TradeMenuProc* proc)
     proc->hoverRow = TradeMenu_GetAdjustedRow(proc, proc->hoverColumn, proc->hoverRow);
 }
 
-static Bool TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
+static bool TradeMenu_LoadForcedInitialHover(struct TradeMenuProc* proc)
 {
     if (gBmSt.unk_3F < 0)
         return TRUE;
@@ -549,14 +549,14 @@ static void TradeMenu_HelpBox_OnInit(struct GenericProc* proc)
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         item);
 
-    gKeySt->pressed = gKeySt->pressed &~ (B_BUTTON | R_BUTTON);
+    gKeySt->pressed = gKeySt->pressed &~ (KEY_BUTTON_B | KEY_BUTTON_R);
 }
 
 static void TradeMenu_HelpBox_OnLoop(struct GenericProc* proc)
 {
     struct TradeMenuProc* tradeMenu = proc->proc_parent;
 
-    Bool changedSelection = TradeMenu_UpdateSelection(tradeMenu);
+    bool changedSelection = TradeMenu_UpdateSelection(tradeMenu);
     int item = tradeMenu->units[tradeMenu->hoverColumn]->items[tradeMenu->hoverRow];
 
     if (changedSelection)
@@ -567,7 +567,7 @@ static void TradeMenu_HelpBox_OnLoop(struct GenericProc* proc)
             item);
     }
 
-    if (gKeySt->pressed & (B_BUTTON | R_BUTTON))
+    if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R))
         Proc_Break(proc);
 
     sub_80415CC(

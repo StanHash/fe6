@@ -142,10 +142,10 @@ int sub_801A674(struct MenuProc* menu)
 
 int sub_801A698(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    if (gKeySt->repeated & DPAD_RIGHT)
+    if (gKeySt->repeated & KEY_DPAD_RIGHT)
         ent->id++;
 
-    if (gKeySt->repeated & DPAD_LEFT)
+    if (gKeySt->repeated & KEY_DPAD_LEFT)
         ent->id--;
 
     if (ent->id >= CHAPTER_COUNT)
@@ -154,7 +154,7 @@ int sub_801A698(struct MenuProc* menu, struct MenuEntProc* ent)
     if (ent->id < 1)
         ent->id = 1;
 
-    if (gKeySt->repeated & (DPAD_LEFT | DPAD_RIGHT))
+    if (gKeySt->repeated & (KEY_DPAD_LEFT | KEY_DPAD_RIGHT))
     {
         DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), "        ");
         DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(ent->id)->debugName);
@@ -206,7 +206,7 @@ int sub_801A7D4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
-    if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         proc->unk66 ^= 1;
         sub_801A760(menu, ent);
@@ -245,7 +245,7 @@ int sub_801A820(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801A89C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
@@ -309,18 +309,18 @@ int sub_801A9A8(struct MenuProc* menu, struct MenuEntProc* ent)
     struct GlobalSaveInfo saveInfo;
     int clearCount, i;
 
-    if (!(gKeySt->repeated & (DPAD_RIGHT | DPAD_LEFT)))
+    if (!(gKeySt->repeated & (KEY_DPAD_RIGHT | KEY_DPAD_LEFT)))
         return 0;
 
     clearCount = GetGlobalCompletedPlaythroughCount();
 
-    if (gKeySt->repeated & DPAD_LEFT)
+    if (gKeySt->repeated & KEY_DPAD_LEFT)
     {
         if (clearCount >= 0)
             clearCount--;
     }
 
-    if (gKeySt->repeated & DPAD_RIGHT)
+    if (gKeySt->repeated & KEY_DPAD_RIGHT)
     {
         if (clearCount < MAX_SAVED_GAME_CLEARS)
             clearCount++;
@@ -451,10 +451,10 @@ int sub_801AC2C(struct MenuProc* menu, struct MenuEntProc* ent)
     int x = menu->rect.x + 2;
     int y = menu->rect.y + 8;
 
-    if (gKeySt->repeated & DPAD_RIGHT)
+    if (gKeySt->repeated & KEY_DPAD_RIGHT)
         ent->id++;
 
-    if (gKeySt->repeated & DPAD_LEFT)
+    if (gKeySt->repeated & KEY_DPAD_LEFT)
         ent->id--;
 
     if (ent->id >= CHAPTER_COUNT)
@@ -463,7 +463,7 @@ int sub_801AC2C(struct MenuProc* menu, struct MenuEntProc* ent)
     if (ent->id < 1)
         ent->id = 1;
 
-    if (gKeySt->repeated & (DPAD_RIGHT | DPAD_LEFT))
+    if (gKeySt->repeated & (KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         DebugPutStr(gBg0Tm + TM_OFFSET(x, y), "        ");
         DebugPutStr(gBg0Tm + TM_OFFSET(x, y), GetChapterInfo(ent->id)->debugName);
@@ -525,7 +525,7 @@ int sub_801AD50(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
 
-Bool sub_801AD6C(void)
+bool sub_801AD6C(void)
 {
     return !sub_80859E0(SAVE_ID_SUSPEND1) ? TRUE : FALSE;
 }
@@ -544,7 +544,7 @@ int sub_801AD84(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
 
-Bool sub_801ADB4(void)
+bool sub_801ADB4(void)
 {
     return !sub_80859E0(SAVE_ID_SUSPEND0) ? TRUE : FALSE;
 }
@@ -581,7 +581,7 @@ int sub_801AE60(struct MenuProc* menu, struct MenuEntProc* ent)
     if (IsMapFadeActive())
         return 0;
 
-    if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         if (gPlaySt.vision == 0)
             SetFogVision(GetChapterInfo(gPlaySt.chapter)->fog);
@@ -639,7 +639,7 @@ int sub_801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    if (gKeySt->pressed & (A_BUTTON | DPAD_RIGHT | DPAD_LEFT))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         int state;
 
@@ -648,10 +648,10 @@ int sub_801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
         else
             state = gPlaySt.debugRedControl;
 
-        if (gKeySt->pressed & DPAD_LEFT)
+        if (gKeySt->pressed & KEY_DPAD_LEFT)
             state--;
 
-        if (gKeySt->pressed & (DPAD_RIGHT | A_BUTTON))
+        if (gKeySt->pressed & (KEY_DPAD_RIGHT | KEY_BUTTON_A))
             state++;
 
         if (state > 2)

@@ -4,7 +4,7 @@
 #include "common.h"
 
 int GetTextPrintDelay(void);
-Bool IsFirstPlaythrough(void);
+int IsFirstPlaythrough(void);
 void InitPlayConfig(int isHardMode);
 void ResetBmSt(void);
 void StartChapter(struct GenericProc* parent);

@@ -116,7 +116,7 @@ void UnitGainSupportLevel(struct Unit* unit, int num)
     gPlaySt.supportGain++;
 }
 
-Bool CanUnitSupportNow(struct Unit* unit, int num)
+bool CanUnitSupportNow(struct Unit* unit, int num)
 {
     int exp, maxExp;
 

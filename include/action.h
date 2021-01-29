@@ -68,7 +68,7 @@ extern struct Action gAction;
 
 void SaveActionRand(void);
 void RestoreActionRand(void);
-Bool DoAction(ProcPtr proc);
+bool DoAction(ProcPtr proc);
 
 void DropRescueOnDeath(ProcPtr parent, struct Unit* unit);
 void KillUnitOnCombatDeath(struct Unit* unit, struct Unit* opponent);

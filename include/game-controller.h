@@ -40,7 +40,7 @@ void CleanupGame(ProcPtr proc);
 void StartGame(void);
 void SetNextGameAction(int action);
 void SetNextChapter(int chapter);
-Bool HasNextChapter(void);
+bool HasNextChapter(void);
 void RestartGameAndChapter(void);
 void RestartGameAndLoadSuspend(void);
 void ForceEnableSounds(void);

@@ -1,10 +1,7 @@
 
 	.section .rodata
 
-	BEGIN = 0x10F744
-	END   = 0x380F7C
-
-	.incbin "fe6-base.gba", BEGIN, (0x10FF78 - BEGIN)
+	.incbin "fe6-base.gba", 0x10F744, (0x10FF78 - 0x10F744)
 
 	.global gUnk_0810FF78
 gUnk_0810FF78: @ 0810FF78
@@ -1834,8 +1831,8 @@ gUnk_082A9190: @ 082A9190
 gUnk_082A9228: @ 082A9228
 	.incbin "fe6-base.gba", 0x2A9228, (0x2AA324 - 0x2A9228) @ length: 10FC
 
-	.global gUnk_082AA324
-gUnk_082AA324: @ 082AA324
+	.global Anim_MuFogBump
+Anim_MuFogBump: @ 082AA324
 	.incbin "fe6-base.gba", 0x2AA324, (0x2AA968 - 0x2AA324) @ length: 0644
 
 	.global gUnk_082AA968
@@ -1982,8 +1979,8 @@ gUnk_082DCAE4: @ 082DCAE4
 gUnk_082DCD70: @ 082DCD70
 	.incbin "fe6-base.gba", 0x2DCD70, (0x2DCD90 - 0x2DCD70) @ length: 0020
 
-	.global gUnk_082DCD90
-gUnk_082DCD90: @ 082DCD90
+	.global Img_MuFogBump
+Img_MuFogBump: @ 082DCD90
 	.incbin "fe6-base.gba", 0x2DCD90, (0x2DCEF4 - 0x2DCD90) @ length: 0164
 
 	.global gUnk_082DCEF4
@@ -3544,4 +3541,4 @@ gUnk_08380F5A: @ 08380F5A
 
 	.global gUnk_08380F62
 gUnk_08380F62: @ 08380F62
-	.incbin "fe6-base.gba", 0x380F62, (END - 0x380F62) @ length: 001A
+	.incbin "fe6-base.gba", 0x380F62, (0x380F7C - 0x380F62) @ length: 001A

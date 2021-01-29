@@ -236,11 +236,11 @@ void DebugPutScreen(void)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-Bool DebugUpdateScreen(u16 held, u16 pressed)
+bool DebugUpdateScreen(u16 held, u16 pressed)
 {
     int top, bottom;
 
-    if (pressed & B_BUTTON)
+    if (pressed & KEY_BUTTON_B)
         return FALSE;
 
     DebugPutScreen();
@@ -255,10 +255,10 @@ Bool DebugUpdateScreen(u16 held, u16 pressed)
     if (bottom < 0)
         bottom = 0;
 
-    if ((held & DPAD_UP) && top < sDebugTextSt.vdisp)
+    if ((held & KEY_DPAD_UP) && top < sDebugTextSt.vdisp)
         sDebugTextSt.vdisp--;
 
-    if ((held & DPAD_DOWN) && bottom > sDebugTextSt.vdisp)
+    if ((held & KEY_DPAD_DOWN) && bottom > sDebugTextSt.vdisp)
         sDebugTextSt.vdisp++;
 
     return TRUE;

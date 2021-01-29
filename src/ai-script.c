@@ -49,12 +49,12 @@ static void AiCmd_MoveTowardsTerrain(u8* pc);
 static void AiCmd_MoveTowardsListedTerrain(u8* pc);
 static void AiCmd_Label(u8* pc);
 
-static Bool sScrEnded;
+static bool sScrEnded;
 static enum ScriptKind sScrKind;
 static struct AiScr const* sScr;
 static AiScrFunc sScrFunc;
 
-Bool AiTryExecScriptA(void)
+bool AiTryExecScriptA(void)
 {
     sScr = gAiScriptLutA[0][gActiveUnit->aiA];
     sScr = sScr + gActiveUnit->aiApc;
@@ -67,7 +67,7 @@ Bool AiTryExecScriptA(void)
     return sScrEnded;
 }
 
-Bool AiExecFallbackScriptA(void)
+bool AiExecFallbackScriptA(void)
 {
     sScr = AiScr_FallbackA;
 
@@ -79,7 +79,7 @@ Bool AiExecFallbackScriptA(void)
     return sScrEnded;
 }
 
-Bool AiTryExecScriptB(void)
+bool AiTryExecScriptB(void)
 {
     sScr = gAiScriptLutB[0][gActiveUnit->aiB];
     sScr = sScr + gActiveUnit->aiBpc;
@@ -92,7 +92,7 @@ Bool AiTryExecScriptB(void)
     return sScrEnded;
 }
 
-Bool AiExecFallbackScriptB(void)
+bool AiExecFallbackScriptB(void)
 {
     sScr = AiScr_FallbackB;
 
@@ -252,7 +252,7 @@ void AiCmd_Goto(u8* pc)
     sScrEnded = FALSE;
 }
 
-Bool AiIsUnitEnemy(struct Unit* unit)
+bool AiIsUnitEnemy(struct Unit* unit)
 {
     if (AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return FALSE;
@@ -260,7 +260,7 @@ Bool AiIsUnitEnemy(struct Unit* unit)
     return TRUE;
 }
 
-Bool AiIsUnitNonActive(struct Unit* unit)
+bool AiIsUnitNonActive(struct Unit* unit)
 {
     if (unit == gActiveUnit)
         return FALSE;
@@ -268,7 +268,7 @@ Bool AiIsUnitNonActive(struct Unit* unit)
     return TRUE;
 }
 
-Bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
+bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
 {
     if (AiIsInShortList(sScr->unk_08, unit->person->id) != TRUE && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -276,7 +276,7 @@ Bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
     return FALSE;
 }
 
-Bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
+bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
 {
     if (AiIsInShortList(sScr->unk_08, unit->person->id) == TRUE || !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -284,7 +284,7 @@ Bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
     return FALSE;
 }
 
-Bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
+bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
 {
     if (unit->person->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -292,7 +292,7 @@ Bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
     return FALSE;
 }
 
-Bool AiIsUnitEnemyAndScrJid(struct Unit* unit)
+bool AiIsUnitEnemyAndScrJid(struct Unit* unit)
 {
     if (unit->job->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -675,13 +675,13 @@ void AiDoBerserkMove(void)
 }
 
 // unreferenced
-Bool sub_80318EC(void)
+bool sub_80318EC(void)
 {
     return TRUE;
 }
 
 // unreferenced
-Bool sub_80318F0(u8 const* arg)
+bool sub_80318F0(u8 const* arg)
 {
     return AiGetJobRank(arg[0]), TRUE;
 }

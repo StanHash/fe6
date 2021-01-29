@@ -21,7 +21,7 @@ void UpdateRenderMap(void);
 void RefreshEntityMaps(void);
 char const* GetTerrainName(int terrain);
 int GetTerrainHealAmount(int terrain);
-Bool DoesTerrainHealStatus(int terrain);
+bool DoesTerrainHealStatus(int terrain);
 void sub_80192E4(void);
 
 extern struct Vec2 gMapSize;

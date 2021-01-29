@@ -65,7 +65,7 @@ void EnlistArrowTrapTargets(int x, int y, int damage);
 void EnlistGasTrapTargets(int x, int y, int damage, int facing);
 void ListDamagingTrapTargets(void);
 void ListDamagingTrapTargetsForDisplay(void);
-Bool DoHandleStepTraps(ProcPtr proc);
+bool DoHandleStepTraps(ProcPtr proc);
 
 extern struct ProcScr CONST_DATA ProcScr_UpdateTraps[];
 

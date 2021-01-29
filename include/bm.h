@@ -71,7 +71,7 @@ enum
 
 struct BmSt
 {
-    /* 00 */ Bool mainLoopEnded;
+    /* 00 */ bool mainLoopEnded;
     /* 01 */ s8 lock;
     /* 02 */ s8 lockDisplay;
     /* 03 */ u8 pad_03;
@@ -89,8 +89,8 @@ struct BmSt
     /* 28 */ struct Vec2 cameraMax;
     /* 2C */ u16 inventoryItemOverflow;
     /* 2E */ u16 supplyItemOverflow;
-    /* 30 */ Bool unk_30;
-    /* 31 */ Bool unk_31;
+    /* 30 */ bool unk_30;
+    /* 31 */ bool unk_31;
     /* 32 */ short unk_32;
     /* 34 */ short unk_34;
     /* 36 */ s8 unk_36;
@@ -125,13 +125,13 @@ struct PlaySt
     /* 1A */ u8 lastSortId;
     /* 1B */ u8 unk1B;
 
-    // option bits
+    /* 1C */ // option bits
     u32 unk_1C_1:1;
     u32 unk_1C_2:1;
     u32 unk_1C_3:2;
     u32 configNoAutoCursor:1;
     u32 configTextSpeed:2;
-    u32 unk_1C_8:1;
+    u32 configWalkSpeed:1;
     u32 configBgmDisable:1;
     u32 configSeDisable:1;
     u32 configWindowColor:2;
@@ -167,9 +167,9 @@ void PutMapCursor(int x, int y, int kind);
 void SetMapCursorPosition(int x, int y);
 void PutSysArrow(int x, int y, u8 isDown);
 void PutSysAButton(int x, int y, int palid);
-Bool CameraMoveWatchPosition(ProcPtr proc, int x, int y);
-Bool IsCameraNotWatchingPosition(int x, int y);
-Bool CameraMove_08016290(ProcPtr proc);
+bool CameraMoveWatchPosition(ProcPtr proc, int x, int y);
+bool IsCameraNotWatchingPosition(int x, int y);
+bool CameraMove_08016290(ProcPtr proc);
 void Unused_08016344(int x, int y, int duration);
 int GetActiveMapSong(void);
 void StartMapSongBgm(void);

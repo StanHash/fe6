@@ -280,7 +280,7 @@ int GetUnitMapSprite(struct Unit* unit)
     }
 }
 
-Bool UnitAddItem(struct Unit* unit, int item)
+bool UnitAddItem(struct Unit* unit, int item)
 {
     int i;
 
@@ -343,7 +343,7 @@ int GetUnitItemCount(struct Unit* unit)
     return 0;
 }
 
-Bool UnitHasItem(struct Unit* unit, int item)
+bool UnitHasItem(struct Unit* unit, int item)
 {
     int i;
 
@@ -624,7 +624,7 @@ struct Unit* GetUnitByPid(int pid)
     return NULL;
 }
 
-Bool CanUnitCarry(struct Unit* unit, struct Unit* other)
+bool CanUnitCarry(struct Unit* unit, struct Unit* other)
 {
     int aid = GetUnitAid(unit);
     int con = UNIT_CON(other);
@@ -661,11 +661,11 @@ void UnitDropRescue(struct Unit* unit, int x, int y)
     rescue->y = y;
 }
 
-Bool UnitGiveRescue(struct Unit* unit, struct Unit* other)
+bool UnitGiveRescue(struct Unit* unit, struct Unit* other)
 {
     struct Unit* rescue = GetUnit(unit->rescue);
 
-    Bool couldGive = CanUnitCarry(other, rescue);
+    bool couldGive = CanUnitCarry(other, rescue);
 
     UnitDropRescue(unit, 0, 0);
     UnitRescue(other, rescue);
@@ -716,7 +716,7 @@ void UnitChangeFaction(struct Unit* unit, int faction)
         GetUnit(newUnit->rescue)->rescue = newUnit->id;
 }
 
-inline Bool CanUnitCrossTerrain(struct Unit* unit, int terrain)
+inline bool CanUnitCrossTerrain(struct Unit* unit, int terrain)
 {
     return (unit->job->movTerrainTable[terrain] > 0) ? TRUE : FALSE;
 }
@@ -857,7 +857,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
 {
     int i;
 
-    Bool visionChanged = FALSE;
+    bool visionChanged = FALSE;
 
     BeginTargetList(0, 0);
 
@@ -945,7 +945,7 @@ int GetUnitMagRange(struct Unit* unit)
     return 5 + GetUnitPower(unit) / 2;
 }
 
-Bool UnitKnowsMagic(struct Unit* unit)
+bool UnitKnowsMagic(struct Unit* unit)
 {
     u8 combinedWeaponExp = 0; 
 
@@ -1030,7 +1030,7 @@ int sub_8018258(struct Unit* unit)
     return result;
 }
 
-Bool CanActiveUnitStillMove(void)
+bool CanActiveUnitStillMove(void)
 {
     s8 adjLut[] =
     {

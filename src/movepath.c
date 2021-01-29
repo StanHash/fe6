@@ -44,11 +44,11 @@ static void AddMovePathSquare(s8 x, s8 y);
 static int FindMovePathSquare(s8 x, s8 y);
 static void MovePathFloodFromTail(void);
 static void RebuildMovePath(void);
-static Bool MovePathIsValid(void);
+static bool MovePathIsValid(void);
 static void UpdateMovePath(void);
 static u8 GetMovePathDirFrom(u8 path);
 static u8 GetMovePathDirTo(u8 path);
-static Bool ShouldDrawMovePathBitAt(short x, short y, u8 xEdge, u8 yEdge);
+static bool ShouldDrawMovePathBitAt(short x, short y, u8 xEdge, u8 yEdge);
 static void DrawMovePath(void);
 
 u16 CONST_DATA gUnk_085C7E0C[5][5] =
@@ -125,7 +125,7 @@ void GenMovePathFromMoveScript(void)
         case MOVE_CMD_FACE_RIGHT:
         case MOVE_CMD_FACE_DOWN:
         case MOVE_CMD_FACE_UP:
-        case MOVE_CMD_WAIT:
+        case MOVE_CMD_SLEEP:
             continue;
 
         case MOVE_CMD_END:
@@ -186,7 +186,7 @@ static void RebuildMovePath(void)
     GenMovePathFromMoveScript();
 }
 
-static Bool MovePathIsValid(void)
+static bool MovePathIsValid(void)
 {
     s8 i, j;
 
@@ -202,7 +202,7 @@ static Bool MovePathIsValid(void)
     return TRUE;
 }
 
-void InitMovePath(Bool displayOnly)
+void InitMovePath(bool displayOnly)
 {
     Decompress(Img_MovePath, OBJ_VRAM0 + CHR_SIZE*OBJCHR_MOVEPATH);
     ApplyPalette(Pal_MovePath, 0x10 + OBJPAL_MOVEPATH);
@@ -304,7 +304,7 @@ static u8 GetMovePathDirTo(u8 path)
         return MOVEPATH_DIR_UP;
 }
 
-static Bool ShouldDrawMovePathBitAt(short x, short y, u8 xEdge, u8 yEdge)
+static bool ShouldDrawMovePathBitAt(short x, short y, u8 xEdge, u8 yEdge)
 {
     if ((y-gBmSt.camera.y) > -yEdge && (y-gBmSt.camera.y) < DISPLAY_HEIGHT
         && (x-gBmSt.camera.x) > -xEdge && (x-gBmSt.camera.x) < DISPLAY_WIDTH)

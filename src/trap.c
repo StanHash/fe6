@@ -674,7 +674,7 @@ static void StepPikeTrap_ApplyDamage(ProcPtr proc)
     if (damage < 0)
         damage = 0;
 
-    MU_EndAll();
+    EndAllMus();
 
     gAction.extra = damage;
     BeginUnitCritDamageAnim(gActiveUnit, damage);
@@ -682,7 +682,7 @@ static void StepPikeTrap_ApplyDamage(ProcPtr proc)
 
 static void StepFireTrap_ApplyDamage(ProcPtr proc)
 {
-    MU_EndAll();
+    EndAllMus();
 
     gAction.extra = 10;
     BeginUnitCritDamageAnim(gActiveUnit, 10);
@@ -714,7 +714,7 @@ static void StepTrap_End(ProcPtr proc)
     HideUnitSprite(GetUnit(gAction.instigator));
 }
 
-Bool DoHandleStepTraps(ProcPtr proc)
+bool DoHandleStepTraps(ProcPtr proc)
 {
     struct Trap* trap;
 

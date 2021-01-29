@@ -65,7 +65,7 @@ int GetCurrentBgmSong(void)
     return sSoundSt.songId;
 }
 
-Bool IsBgmPlaying(void)
+bool IsBgmPlaying(void)
 {
     return sSoundSt.songPlaying;
 }

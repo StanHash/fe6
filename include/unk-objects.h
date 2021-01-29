@@ -14,6 +14,8 @@ extern struct Font gFont_Unk_02002770;
 extern u16 gUnk_Tm_02003238[];
 extern u16 gUnk_Tm_02003738[];
 
+extern struct MapAnimSt EWRAM_DATA gMapAnimSt;
+
 extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const* CONST_DATA TextGlyphs_System[];
 extern struct Glyph const* CONST_DATA TextGlyphs_Talk[];
@@ -92,6 +94,8 @@ extern u16 const Pal_BattlePreviewFrame_Purple[];
 extern u8 const Img_BattlePreviewFrame[];
 extern u8 const Img_BattlePreviewMultipliers[];
 extern u16 const Pal_BattlePreviewMultipliers[];
+extern u8 const Img_MuFogBump[];
+extern u16 const Anim_MuFogBump[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
@@ -137,7 +141,7 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
 
 extern s8 CONST_DATA TerrainHealAmountTable[];
-extern Bool CONST_DATA TerrainHealsStatusTable[];
+extern bool CONST_DATA TerrainHealsStatusTable[];
 extern char const* CONST_DATA TerrainNameStringTable[];
 
 extern u8 CONST_DATA JList_BowEffectiveness[];

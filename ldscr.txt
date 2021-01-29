@@ -22,9 +22,12 @@ SECTIONS
         . = 0x002AD8; gWeatherGradient = .; /* bmio */
         . = 0x002FD8; gBattlePreviewLabels = .; /* battle-preview */
         . = 0x003008; gBattlePreviewIconPalBuf = .; /* battle-preview */
-
+        . = 0x003108; /* pad */
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
+
+        . = 0x004138; gMuImgBuf = .; /* mu */
+        . = 0x00C938; /* end */
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
@@ -222,6 +225,8 @@ SECTIONS
         . = ALIGN(4); src/ai-phase.o(ewram_data);
         . = ALIGN(4); src/ai-decide.o(ewram_data);
         . = ALIGN(4); src/ai-080326C4.o(ewram_data);
+
+        . = 0x0203CDE4 - __ewram_overlay_end; gMapAnimSt = .;
     }
 
     . = 0x03000000;

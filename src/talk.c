@@ -479,7 +479,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
     if (Proc_Find(ProcScr_TalkShiftClear) != NULL)
         return;
 
-    if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeySt->pressed & (B_BUTTON | START_BUTTON)))
+    if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_START)))
     {
         SetEventTalkSkipped();
         SetTalkFaceNoMouthMove(sTalkSt->activeTalkFace);
@@ -493,7 +493,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
     if (Proc_Find(ProcScr_TalkWaitForInput) != NULL)
         return;
 
-    if (!CheckTalkFlag(TALK_FLAG_NOFAST) && (gKeySt->pressed & (A_BUTTON | B_BUTTON | DPAD_ANY)))
+    if (!CheckTalkFlag(TALK_FLAG_NOFAST) && (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY)))
     {
         sTalkSt->instantPrint = TRUE;
     }
@@ -593,7 +593,7 @@ static void Talk_OnIdle(ProcPtr proc)
     }
 }
 
-static Bool TalkPrepNextChar(ProcPtr proc)
+static bool TalkPrepNextChar(ProcPtr proc)
 {
     if (!TalkHasCorrectBubble() && sTalkSt->activeTalkFace != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_1))
     {
@@ -630,7 +630,7 @@ static Bool TalkPrepNextChar(ProcPtr proc)
     return FALSE;
 }
 
-static Bool TalkSpritePrepNextChar(ProcPtr proc)
+static bool TalkSpritePrepNextChar(ProcPtr proc)
 {
     if (sTalkSt->lineActive >= sTalkSt->lines)
     {
@@ -1192,7 +1192,7 @@ static void TalkWaitForInput_OnIdle(struct GenericProc* proc)
             gPressKeyArrowSpriteLut[frame], OAM2_CHR(0x321) + OAM2_PAL(11)); // TODO: Chr/Pal constants
     }
 
-    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | DPAD_ANY))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY))
         Proc_Break(proc);
 }
 
@@ -1274,7 +1274,7 @@ static void StartTalkChoice(struct TalkChoiceEnt const* choices, struct Text* te
 
 void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 {
-    if (gKeySt->pressed & B_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_B)
     {
         PlaySe(0x6B); // TODO: song ids
 
@@ -1283,7 +1283,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
         Proc_Break(proc);
         return;
     }
-    else if (gKeySt->pressed & A_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_A)
     {
         PlaySe(0x6A); // TODO: song ids
 
@@ -1293,7 +1293,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
         return;
     }
 
-    if ((gKeySt->pressed & DPAD_LEFT) && (proc->selectedChoice == 2))
+    if ((gKeySt->pressed & KEY_DPAD_LEFT) && (proc->selectedChoice == 2))
     {
         PlaySe(0x67); // TODO: song ids
 
@@ -1303,7 +1303,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
             proc->choices[0].onSwitch();
     }
 
-    if ((gKeySt->pressed & DPAD_RIGHT) && (proc->selectedChoice == 1))
+    if ((gKeySt->pressed & KEY_DPAD_RIGHT) && (proc->selectedChoice == 1))
     {
         PlaySe(0x67); // TODO: song ids
 
@@ -1676,7 +1676,7 @@ static void StartTalkOpen(int talkFace, ProcPtr parent)
     sTalkSt->speakWidth = sTalkSt->activeWidth;
 }
 
-static Bool TalkHasCorrectBubble(void)
+static bool TalkHasCorrectBubble(void)
 {
     if (sTalkSt->speakTalkFace == sTalkSt->activeTalkFace && sTalkSt->speakWidth == sTalkSt->activeWidth)
         return TRUE;
@@ -2068,28 +2068,28 @@ static void TalkDebug_OnIdle(struct GenericProc* proc)
 
     DebugPutObjNumber(112, 100, msg, 4);
 
-    if (gKeySt->pressed & SELECT_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_SELECT)
     {
         Proc_Break(proc);
         return;
     }
 
-    if (gKeySt->repeated & DPAD_UP)
+    if (gKeySt->repeated & KEY_DPAD_UP)
         msg++;
 
-    if (gKeySt->repeated & DPAD_DOWN)
+    if (gKeySt->repeated & KEY_DPAD_DOWN)
         msg--;
 
-    if (gKeySt->repeated & DPAD_RIGHT)
+    if (gKeySt->repeated & KEY_DPAD_RIGHT)
         msg += 10;
 
-    if (gKeySt->repeated & DPAD_LEFT)
+    if (gKeySt->repeated & KEY_DPAD_LEFT)
         msg -= 10;
 
-    if (gKeySt->repeated & R_BUTTON)
+    if (gKeySt->repeated & KEY_BUTTON_R)
         msg += 100;
 
-    if (gKeySt->repeated & L_BUTTON)
+    if (gKeySt->repeated & KEY_BUTTON_L)
         msg -= 100;
 
     if (msg < 0)
@@ -2121,7 +2121,7 @@ static void TalkDebug_OnIdle(struct GenericProc* proc)
         return;
     }
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         ClearTalk();
         EndTalk();

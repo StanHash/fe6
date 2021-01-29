@@ -11,8 +11,8 @@
 #include "anim.h"
 #include "game-controller.h"
 #include "bm.h"
+#include "mu.h"
 
-void sub_805F7E4(void);
 void sub_80841FC(void);
 void sub_808439C(void);
 
@@ -54,7 +54,7 @@ NAKEDFUNC void AgbMain(void)
     sub_80841FC();
     InitProcs();
     InitAnims();
-    sub_805F7E4();
+    InitMus();
 
     RandInitB(0x42D690E9);
     RandInit(RandNextB());

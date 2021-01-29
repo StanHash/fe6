@@ -6,21 +6,21 @@
 #include "unit.h"
 #include "map-select.h"
 
-Bool CanUnitUseItem(struct Unit* unit, int item);
+bool CanUnitUseItem(struct Unit* unit, int item);
 int GetUnitItemCantUseMsg(struct Unit* unit, int item);
 void DoUseUnitItem(struct Unit* unit, int item);
 
-Bool CanUnitUseHealItem(struct Unit* unit);
-Bool CanUnitUseBindingBladeToHeal(struct Unit* unit);
-Bool CanUnitUsePureWaterItem(struct Unit* unit);
-Bool CanUnitUseTorchItem(struct Unit* unit);
-Bool CanUnitUseAntitoxinItem(struct Unit* unit);
-Bool CanUnitUseChestKeyItem(struct Unit* unit);
-Bool CanUnitUseDoorKeyItem(struct Unit* unit);
-Bool CanUnitUseBridgeKeyItem(struct Unit* unit);
-Bool CanUnitUseLockpickItem(struct Unit* unit);
-Bool CanUnitUsePromotionItem(struct Unit* unit, int item);
-Bool CanUnitUseStatGainItem(struct Unit* unit, int item);
+bool CanUnitUseHealItem(struct Unit* unit);
+bool CanUnitUseBindingBladeToHeal(struct Unit* unit);
+bool CanUnitUsePureWaterItem(struct Unit* unit);
+bool CanUnitUseTorchItem(struct Unit* unit);
+bool CanUnitUseAntitoxinItem(struct Unit* unit);
+bool CanUnitUseChestKeyItem(struct Unit* unit);
+bool CanUnitUseDoorKeyItem(struct Unit* unit);
+bool CanUnitUseBridgeKeyItem(struct Unit* unit);
+bool CanUnitUseLockpickItem(struct Unit* unit);
+bool CanUnitUsePromotionItem(struct Unit* unit, int item);
+bool CanUnitUseStatGainItem(struct Unit* unit, int item);
 
 void DoUseRescueStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
 void DoUseWarpStaff(struct Unit* unit);

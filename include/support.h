@@ -47,7 +47,7 @@ int GetUnitSupportLevel(struct Unit* unit, int num);
 int GetUnitTotalSupportLevel(struct Unit* unit);
 void UnitGainSupportExp(struct Unit* unit, int num);
 void UnitGainSupportLevel(struct Unit* unit, int num);
-Bool CanUnitSupportNow(struct Unit* unit, int num);
+bool CanUnitSupportNow(struct Unit* unit, int num);
 int GetUnitInitialSupportExp(struct Unit* unit, int num);
 int GetUnitSupportNumByPid(struct Unit* unit, u8 pid);
 void ClearUnitSupports(struct Unit* unit);

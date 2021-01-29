@@ -21,7 +21,7 @@ enum
 
 int CountFactionMoveableUnits(int faction);
 int CountFactionUnitsWithoutState(int faction, int prohibitedState);
-Bool AreUnitIdsAllied(int uidA, int uidB);
-Bool AreUnitIdsSameFaction(int uidA, int uidB);
+bool AreUnitIdsAllied(int uidA, int uidB);
+bool AreUnitIdsSameFaction(int uidA, int uidB);
 int GetActiveFactionAlliance(void);
 int GetActiveFactionOpposingAlliance(void);

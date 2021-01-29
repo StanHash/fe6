@@ -167,7 +167,7 @@ void nullsub_12(void)
 {
 }
 
-Bool StringEquals(char const* strA, char const* strB)
+bool StringEquals(char const* strA, char const* strB)
 {
     while (*strA | *strB)
     {
@@ -606,15 +606,15 @@ static void SpacialSeTest_OnLoop(struct GenericProc* proc)
 {
     int location = 0;
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
         proc->unk66++;
 
     if (((proc->unk64++) & 0x0F) == 0)
     {
-        if (gKeySt->held & DPAD_LEFT)
+        if (gKeySt->held & KEY_DPAD_LEFT)
             location = -proc->unk66;
 
-        if (gKeySt->held & DPAD_RIGHT)
+        if (gKeySt->held & KEY_DPAD_RIGHT)
             location = +proc->unk66;
 
         PlaySeSpacial(0x9A, location); // TODO: song ids
@@ -666,15 +666,15 @@ struct ProcScr CONST_DATA ProcScr_PalFade[] =
     PROC_END,
 };
 
-struct PalFadeSt* StartPalFade(u16 const* colors, int palid, int duration, ProcPtr parent)
+struct PalFadeSt* StartPalFade(u16 const* colors, int pal, int duration, ProcPtr parent)
 {
-    struct PalFadeSt* st = sPalFadeSt + palid;
+    struct PalFadeSt* st = sPalFadeSt + pal;
 
     struct PalFadeProc* proc = SpawnProc(ProcScr_PalFade, parent);
 
-    CpuCopy16(gPal + palid * 0x10, st->fromColors, sizeof(st->fromColors));
+    CpuCopy16(gPal + pal * 0x10, st->fromColors, sizeof(st->fromColors));
 
-    st->pal = gPal + palid * 0x10;
+    st->pal = gPal + pal * 0x10;
     st->toColors = colors;
     st->clock = 0;
     st->clockEnd = duration;
@@ -870,7 +870,7 @@ struct ProcScr CONST_DATA ProcScr_FadeFromWhite[] =
     PROC_BLOCK,
 };
 
-Bool FadeExists(void)
+bool FadeExists(void)
 {
     if (!Proc_Find(ProcScr_FadeFromBlack) &&
         !Proc_Find(ProcScr_FadeToBlack) &&
@@ -1264,7 +1264,7 @@ void sub_8014A44(struct FadeUnkProc* proc)
     }
 }
 
-Bool sub_8014A68(struct FadeUnkProc* proc)
+bool sub_8014A68(struct FadeUnkProc* proc)
 {
     proc->unk_58 += proc->unk_54;
     proc->unk_5C += proc->unk_54;
@@ -1540,7 +1540,7 @@ void sub_8014E30(u16* tm, int x, int y, u16 tileref, int width, int height)
 
 #if NONMATCHING
 
-void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, Bool hflip)
+void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
 {
     int ix, iy;
 
@@ -1575,7 +1575,7 @@ void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 #else
 
 NAKEDFUNC
-void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, Bool hflip)
+void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
 {
     asm("\
         .syntax unified\n\

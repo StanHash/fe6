@@ -16,7 +16,7 @@
 struct Unk_0810DB34
 {
     u16 iid;
-    void(*func)(int slot, Bool(*isEnemy)(struct Unit* unit));
+    void(*func)(int slot, bool(*isEnemy)(struct Unit* unit));
 };
 
 struct Unk_0810DB9C
@@ -34,14 +34,14 @@ struct AiEscapePt const* sub_8032C2C(void);
 
 static void AiFillDangerMap(void);
 
-void sub_8033D5C(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_8033ECC(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_8034094(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_8034178(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_80342C4(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_80344AC(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_803462C(int slot, Bool(*isEnemy)(struct Unit* unit));
-void sub_80347A4(int slot, Bool(*isEnemy)(struct Unit* unit));
+void sub_8033D5C(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_8033ECC(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_8034094(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_8034178(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_80342C4(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_80344AC(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_803462C(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_80347A4(int slot, bool(*isEnemy)(struct Unit* unit));
 
 void sub_8034B58(int slot);
 void sub_8034BF0(int slot);
@@ -120,7 +120,7 @@ static void AiFillDangerMap(void)
     }
 }
 
-Bool AiCheckDangerAt(int x, int y, u8 threshold)
+bool AiCheckDangerAt(int x, int y, u8 threshold)
 {
     if (gMapOther[y][x] > threshold)
         return FALSE;
@@ -128,7 +128,7 @@ Bool AiCheckDangerAt(int x, int y, u8 threshold)
     return TRUE;
 }
 
-Bool AiTryGetNearestHealPoint(struct Vec2* out)
+bool AiTryGetNearestHealPoint(struct Vec2* out)
 {
     static u8 CONST_DATA fortTerrains[] = { TERRAIN_FORT, 0 };
 
@@ -229,7 +229,7 @@ void sub_8032A08(void)
     }
 }
 
-Bool AiUpdateGetUnitIsHealing(struct Unit* unit)
+bool AiUpdateGetUnitIsHealing(struct Unit* unit)
 {
     u16 hpPercentage = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
 
@@ -259,7 +259,7 @@ Bool AiUpdateGetUnitIsHealing(struct Unit* unit)
     }
 }
 
-Bool AiTryHealSelf(void)
+bool AiTryHealSelf(void)
 {
     int i;
 
@@ -293,7 +293,7 @@ Bool AiTryHealSelf(void)
     return FALSE;
 }
 
-Bool AiTryMoveTowardsEscape(void)
+bool AiTryMoveTowardsEscape(void)
 {
     struct AiEscapePt const* escapePt;
 
@@ -369,7 +369,7 @@ struct AiEscapePt const* sub_8032C2C(void)
     return result;
 }
 
-Bool sub_8032CB4(void)
+bool sub_8032CB4(void)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return FALSE;
@@ -385,7 +385,7 @@ Bool sub_8032CB4(void)
 
 #if NONMATCHING
 
-Bool sub_8032CE8(u16* out)
+bool sub_8032CE8(u16* out)
 {
     int i;
 
@@ -441,7 +441,7 @@ Bool sub_8032CE8(u16* out)
 #else // NONMATCHING
 
 NAKEDFUNC
-Bool sub_8032CE8(u16* out)
+bool sub_8032CE8(u16* out)
 {
     asm("\
         .syntax unified\n\

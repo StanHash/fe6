@@ -28,7 +28,7 @@ struct PalFadeSt
 
 int Interpolate(int method, int lo, int hi, int x, int end);
 void nullsub_12(void);
-Bool StringEquals(char const* strA, char const* strB);
+bool StringEquals(char const* strA, char const* strB);
 void StringCopy(char* dst, char const* src);
 void Decompress_Unused_08013C74(u8 const* src, u8* dst);
 void Decompress(u8 const* src, void* dst);
@@ -51,14 +51,14 @@ void StartSpacialSeTest(void);
 void nullsub_14(void);
 void StartPalFadeToBlack(int palid, int duration, ProcPtr parent);
 void StartPalFadeToWhite(int palid, int duration, ProcPtr parent);
-struct PalFadeSt* StartPalFade(u16 const* pal, int palid, int arg_2, ProcPtr parent);
+struct PalFadeSt* StartPalFade(u16 const* colors, int pal, int duration, ProcPtr parent);
 void EndPalFade(void);
 void SetPalFadeStop(struct PalFadeSt* st, int val);
 void SetBlackPal(int palid);
 void SetWhitePal(int palid);
 void SetAllBlackPals(void);
 void SetAllWhitePals(void);
-Bool FadeExists(void);
+bool FadeExists(void);
 void StartFadeToBlack(int q4_speed);
 void StartFadeFromBlack(int q4_speed);
 void StartLockingFadeToBlack(int q4_speed, ProcPtr parent);

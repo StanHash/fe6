@@ -193,7 +193,7 @@ static void PrepPhase_UpInitCamera(struct GenericProc* proc)
 
 static void PrepPhase_InitCameraLoop(struct GenericProc* proc)
 {
-    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START))
         proc->unk4A = TRUE;
 
     if (proc->unk4A && (proc->x & 0x0F) == 0 && (proc->y & 0x0F) == 0)
@@ -254,7 +254,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
     if (!IsMapFadeActive())
     {
-        if (gKeySt->pressed & L_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_L)
         {
             TrySwitchViewedUnit(gBmSt.cursor.x, gBmSt.cursor.y);
             PlaySe(0x6B); // TODO: song ids
@@ -262,9 +262,9 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             goto put_map_cursor;
         }
 
-        if ((gKeySt->pressed & R_BUTTON) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
+        if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
-            MU_EndAll();
+            EndAllMus();
             sub_8073324();
             sub_806EAE4(0x28C);
 
@@ -274,7 +274,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             return;
         }
 
-        if (gKeySt->pressed & A_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_A)
         {
             struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
@@ -318,7 +318,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             }
         }
 
-        if (gKeySt->pressed & SELECT_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_SELECT)
         {
             sub_8073324();
             ResetTextFont();
@@ -333,7 +333,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             return;
         }
 
-        if (gKeySt->pressed & START_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_START)
         {
             sub_8073324();
             sub_8087BC4();
@@ -396,7 +396,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
 {
     int x, y;
 
-    Bool isValid = ~gMapMovementSigned[gBmSt.cursor.y][gBmSt.cursor.x] ? TRUE : FALSE;
+    bool isValid = ~gMapMovementSigned[gBmSt.cursor.y][gBmSt.cursor.x] ? TRUE : FALSE;
 
     HandlePlayerMapCursor();
 
@@ -407,7 +407,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
         if ((y + 0x20 >= 0) && (y <= DISPLAY_HEIGHT))
             PutSprite(4, x, y-12, Sprite_16x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 6) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS));
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         if (isValid)
         {
@@ -426,7 +426,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
         }
     }
 
-    if (gKeySt->pressed & B_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_B)
     {
         Anim_End(proc->ptr);
         Proc_Goto(proc, L_PLAYERPHASE_MAPFADE_MOVE);

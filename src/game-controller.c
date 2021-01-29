@@ -22,7 +22,7 @@ struct GameController
     /* 2E */ short clock;
 };
 
-static Bool GC_StartClassDemo(struct GameController* proc);
+static bool GC_StartClassDemo(struct GameController* proc);
 static void GC_CheckSramResetKeyCombo(struct GameController* proc);
 static void GC_InitSramResetScreen(struct GameController* proc);
 static void GC_InitFastStartCheck(struct GameController* proc);
@@ -243,7 +243,7 @@ static int GetFurthestSaveChapter(void)
     return chapter;
 }
 
-static Bool GC_StartClassDemo(struct GameController* proc)
+static bool GC_StartClassDemo(struct GameController* proc)
 {
     int classSet, chapter;
 
@@ -269,7 +269,7 @@ static Bool GC_StartClassDemo(struct GameController* proc)
 
 static void GC_CheckSramResetKeyCombo(struct GameController* proc)
 {
-    if (gKeySt->held == (SELECT_BUTTON | DPAD_RIGHT | L_BUTTON))
+    if (gKeySt->held == (KEY_BUTTON_SELECT | KEY_DPAD_RIGHT | KEY_BUTTON_L))
         Proc_Goto(proc, L_GAMECTRL_SRAMRESET);
 }
 
@@ -290,7 +290,7 @@ static void GC_InitFastStartCheck(struct GameController* proc)
 
 static void GC_FastStartCheck(struct GameController* proc)
 {
-    if (!(gKeySt->held & START_BUTTON))
+    if (!(gKeySt->held & KEY_BUTTON_START))
     {
         Proc_Break(proc);
         return;
@@ -516,7 +516,7 @@ void SetNextChapter(int chapter)
     proc->nextChapter = chapter;
 }
 
-Bool HasNextChapter(void)
+bool HasNextChapter(void)
 {
     struct GameController* proc = GetGameController();
     return proc->nextChapter == 0 ? FALSE : TRUE;
@@ -552,7 +552,7 @@ void sub_8013A64(void)
 {
     gPlaySt.configBattleAnim = 0;
     gPlaySt.configTextSpeed = 1;
-    gPlaySt.unk_1C_8 = 0;
+    gPlaySt.configWalkSpeed = 0;
     gPlaySt.configBgmDisable = FALSE;
     gPlaySt.configSeDisable = TRUE;
     gPlaySt.configWindowColor = 0;

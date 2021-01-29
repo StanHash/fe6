@@ -49,7 +49,7 @@ void PutUnitSpriteIconsOam(void);
 void sub_8022618(void);
 void ResetUnitSpritHover(void);
 void UnitSpriteHoverUpdate(void);
-Bool IsUnitSpriteHoverEnabledAt(int x, int y);
+bool IsUnitSpriteHoverEnabledAt(int x, int y);
 void PutUnitSprite(int layer, int x, int y, struct Unit* unit);
 void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit);
 void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit);

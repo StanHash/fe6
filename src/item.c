@@ -257,7 +257,7 @@ int CreateItem(int item)
     return (uses << ITEM_USES_SHIFT) + GetItemIid(item);
 }
 
-Bool CanUnitUseWeapon(struct Unit* unit, int item)
+bool CanUnitUseWeapon(struct Unit* unit, int item)
 {
     int requiredExp, unitExp;
 
@@ -296,7 +296,7 @@ Bool CanUnitUseWeapon(struct Unit* unit, int item)
     return (unitExp >= requiredExp) ? TRUE : FALSE;
 }
 
-Bool CanUnitUseStaff(struct Unit* unit, int item)
+bool CanUnitUseStaff(struct Unit* unit, int item)
 {
     int requiredExp, unitExp;
 
@@ -321,7 +321,7 @@ Bool CanUnitUseStaff(struct Unit* unit, int item)
     return (unitExp >= requiredExp) ? TRUE : FALSE;
 }
 
-void sub_8016694(struct Text* text, int item, Bool isUseable, u16* tm)
+void sub_8016694(struct Text* text, int item, bool isUseable, u16* tm)
 {
     Text_SetParams(text, 0, (isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -333,7 +333,7 @@ void sub_8016694(struct Text* text, int item, Bool isUseable, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016720(struct Text* text, int item, Bool isUseable, u16* tm)
+void sub_8016720(struct Text* text, int item, bool isUseable, u16* tm)
 {
     Text_SetParams(text, 0, (isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -359,7 +359,7 @@ void sub_80167E4(struct Text* text, int item, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016860(struct Text* text, int item, Bool isUseable, u16* tm)
+void sub_8016860(struct Text* text, int item, bool isUseable, u16* tm)
 {
     int color;
 
@@ -421,7 +421,7 @@ int GetUnitEquippedWeaponSlot(struct Unit* unit)
     return -1;
 }
 
-Bool CanItemReachDistance(int item, int distance)
+bool CanItemReachDistance(int item, int distance)
 {
     int min = GetItemMinRange(item);
     int max = GetItemMaxRange(item);
@@ -444,7 +444,7 @@ void UnitEquipItemSlot(struct Unit* unit, int itemSlot)
     unit->items[0] = item;
 }
 
-Bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
+bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
 {
     int jid = unit->job->id;
     u8 const* list = GetItemEffectiveness(item);
@@ -614,7 +614,7 @@ char const* GetItemKindString(int kind)
     return strings[kind];
 }
 
-Bool IsItemDisplayUseable(struct Unit* unit, int item)
+bool IsItemDisplayUseable(struct Unit* unit, int item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
         return CanUnitUseWeapon(unit, item);
@@ -637,7 +637,7 @@ Bool IsItemDisplayUseable(struct Unit* unit, int item)
     return TRUE;
 }
 
-Bool Unused_08016C50(struct Unit* unit, int item)
+bool Unused_08016C50(struct Unit* unit, int item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
         return CanUnitUseWeapon(unit, item);
@@ -702,12 +702,12 @@ int FindUnitItemSlot(struct Unit* unit, int iid)
     return -1;
 }
 
-Bool IsItemStealable(int item)
+bool IsItemStealable(int item)
 {
     return GetItemKind(item) == ITEM_KIND_UNK9;
 }
 
-Bool IsItemRepairable(int item)
+bool IsItemRepairable(int item)
 {
     if (!item)
         return FALSE;

@@ -5,5 +5,5 @@
 
 void GenMovePathFromMoveScript(void);
 void GenMoveScriptFromMovePath(void);
-void InitMovePath(Bool displayOnly);
+void InitMovePath(bool displayOnly);
 void RefreshMovePath(void);

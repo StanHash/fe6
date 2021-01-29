@@ -144,8 +144,8 @@ static void KillAllRedUnits_Loop(struct GenericProc* proc)
     {
         struct MuProc* mu;
 
-        mu = MU_Start(unit);
-        MU_StartDeathFade(mu);
+        mu = StartMu(unit);
+        StartMuDeathFade(mu);
 
         proc->unk4C++;
         Proc_Break(proc);
@@ -160,7 +160,7 @@ PROC_LABEL(0),
     PROC_REPEAT(KillAllRedUnits_Loop),
     PROC_SLEEP(0x20),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_GOTO(0),
 
@@ -441,7 +441,7 @@ static void TerrainHealDisplay_Display(struct GenericProc* proc)
 
 void FinishDamageDisplay(ProcPtr proc)
 {
-    MU_EndAll();
+    EndAllMus();
 
     if (gBattleUnitA.unit.hpCur != 0)
     {

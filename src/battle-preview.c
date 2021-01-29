@@ -44,8 +44,8 @@ struct BattlePreviewProc
     /* 2C */ int unk_2C;
     /* 30 */ s8 x, y;
     /* 32 */ u8 frameKind;
-    /* 33 */ Bool ready;
-    /* 34 */ Bool needContentUpdate;
+    /* 33 */ bool ready;
+    /* 34 */ bool needContentUpdate;
     /* 35 */ s8 side; // -1 is left, +1 is right
     /* 36 */ s8 unk_36;
     /* 38 */ struct Text unitNameTextA;
@@ -53,8 +53,8 @@ struct BattlePreviewProc
     /* 48 */ struct Text itemNameText;
     /* 50 */ s8 hitCountA;
     /* 51 */ s8 hitCountB;
-    /* 52 */ Bool isEffectiveA;
-    /* 53 */ Bool isEffectiveB;
+    /* 52 */ bool isEffectiveA;
+    /* 53 */ bool isEffectiveB;
 };
 
 extern struct Text gBattlePreviewLabels[BATTLEPREVIEW_LABEL_COUNT];
@@ -168,7 +168,7 @@ static void InitBattlePreviewBattleStats(struct BattlePreviewProc* proc)
     struct BattleUnit* buFirst;
     struct BattleUnit* buSecond;
 
-    Bool followUp = BattleGetFollowUpOrder(&buFirst, &buSecond);
+    bool followUp = BattleGetFollowUpOrder(&buFirst, &buSecond);
 
     proc->hitCountA = 0;
     proc->isEffectiveA = FALSE;
@@ -708,7 +708,7 @@ int StartBattlePreviewHelpBox(ProcPtr parent)
     return 0;
 }
 
-static int sub_802E43C(int wt, Bool isEffective)
+static int sub_802E43C(int wt, bool isEffective)
 {
     static u16 lut[] =
     {

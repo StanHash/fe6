@@ -19,7 +19,7 @@ static void OnHBlankBoth(void);
 static void RefreshOnHBlank(void);
 
 static u8 sBgSyncBits;
-static Bool sPalSyncFlag;
+static bool sPalSyncFlag;
 
 static unsigned sGameTime;
 
@@ -336,7 +336,7 @@ void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
 
     if (keySt->held == 0)
     {
-        if (keySt->last && keySt->last == (keySt->previous & (L_BUTTON | R_BUTTON | B_BUTTON | A_BUTTON)))
+        if (keySt->last && keySt->last == (keySt->previous & (KEY_BUTTON_L | KEY_BUTTON_R | KEY_BUTTON_B | KEY_BUTTON_A)))
             keySt->ABLRPressed = keySt->previous;
     }
 
@@ -358,7 +358,7 @@ void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
 
     keySt->pressed2 = (keySt->held ^ keySt->pressed2) & keySt->held;
 
-    if (keys & (A_BUTTON | B_BUTTON | DPAD_ANY | R_BUTTON | L_BUTTON)) // any button other than start and select
+    if (keys & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY | KEY_BUTTON_R | KEY_BUTTON_L)) // any button other than start and select
         keySt->timeSinceStartSelect = 0;
     else if (keySt->timeSinceStartSelect < UINT16_MAX)
         keySt->timeSinceStartSelect++;
@@ -366,7 +366,7 @@ void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
 
 void RefreshKeySt(struct KeySt* keySt)
 {
-    RefreshKeyStFromKeys(keySt, (~REG_KEYINPUT) & KEYS_MASK);
+    RefreshKeyStFromKeys(keySt, (~REG_KEYINPUT) & KEY_ANY);
 }
 
 void ClearKeySt(struct KeySt* keySt)
@@ -734,7 +734,7 @@ u16* GetBgTilemap(int bg)
 
 void SoftResetIfKeyCombo(void)
 {
-    if (gKeySt->held == (A_BUTTON + B_BUTTON + SELECT_BUTTON + START_BUTTON))
+    if (gKeySt->held == (KEY_BUTTON_A + KEY_BUTTON_B + KEY_BUTTON_SELECT + KEY_BUTTON_START))
         SoftReset(0xFF);
 }
 

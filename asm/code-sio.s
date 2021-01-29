@@ -15338,17 +15338,17 @@ sub_803CBB4: @ 0x0803CBB4
 	cmp r0, #0
 	bne _0803CC32
 	adds r0, r5, #0
-	bl MU_Start
+	bl StartMu
 	ldr r1, _0803CCB8 @ =0x03001410
 	ldr r3, [sp, #0x10]
 	lsls r4, r3, #2
 	adds r4, r4, r1
 	str r0, [r4]
-	bl sub_805F91C
+	bl DisableMuCamera
 	ldr r0, [r4]
 	mov r2, sp
 	adds r1, r2, r6
-	bl sub_805FD78
+	bl SetMuMoveScript
 _0803CC32:
 	movs r0, #1
 	ldrh r3, [r5, #0xc]
@@ -15909,7 +15909,7 @@ sub_803D0A0: @ 0x0803D0A0
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r4, r0, #0
-	bl MU_Start
+	bl StartMu
 	ldr r5, _0803D0E8 @ =0x03001410
 	str r0, [r5]
 	movs r1, #0xe
@@ -15919,12 +15919,12 @@ sub_803D0A0: @ 0x0803D0A0
 	ldrsb r2, [r4, r2]
 	subs r2, #1
 	lsls r2, r2, #4
-	bl sub_80610F0
+	bl SetMuScreenPosition
 	ldr r0, [r5]
-	bl sub_805F91C
+	bl DisableMuCamera
 	ldr r0, [r5]
 	movs r1, #3
-	bl sub_805FBDC
+	bl SetMuFacing
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -16337,7 +16337,7 @@ sub_803D3C0: @ 0x0803D3C0
 	adds r4, r0, #0
 	cmp r5, #0
 	beq _0803D3F2
-	bl MU_EndAll
+	bl EndAllMus
 	adds r0, r5, #0
 	bl ShowUnitSprite
 _0803D3F2:
@@ -16360,8 +16360,8 @@ _0803D3F2:
 	cmp r1, r0
 	bne _0803D426
 	adds r0, r4, #0
-	bl MU_Start
-	bl sub_805F91C
+	bl StartMu
+	bl DisableMuCamera
 	adds r0, r4, #0
 	bl HideUnitSprite
 _0803D426:
@@ -16516,15 +16516,15 @@ sub_803D4D0: @ 0x0803D4D0
 	movs r0, #0x69
 	bl m4aSongNumStart
 _0803D554:
-	bl MU_EndAll
+	bl EndAllMus
 	ldr r0, [r6]
-	bl MU_Start
+	bl StartMu
 	ldr r4, _0803D5D0 @ =0x03001410
 	str r0, [r4]
-	bl sub_805F91C
+	bl DisableMuCamera
 	ldr r0, [r4]
 	mov r1, sp
-	bl sub_805FD78
+	bl SetMuMoveScript
 	ldr r1, [r6]
 	movs r0, #0xe
 	ldrsb r0, [r1, r0]
@@ -16588,7 +16588,7 @@ _0803D5E4:
 	ands r0, r1
 	cmp r0, #0
 	bne _0803D620
-	bl MU_EndAll
+	bl EndAllMus
 	adds r0, r5, #0
 	movs r1, #4
 	bl Proc_Goto
@@ -16817,7 +16817,7 @@ _0803D7E4:
 _0803D7FC:
 	ldr r0, _0803D844 @ =0x03001410
 	ldr r0, [r0]
-	bl sub_80608EC
+	bl EndMu
 	ldrb r0, [r6, #4]
 	add r0, sb
 	ldrb r0, [r0]
@@ -16861,7 +16861,7 @@ _0803D84C:
 	ands r0, r1
 	cmp r0, #0
 	bne _0803D878
-	bl MU_EndAll
+	bl EndAllMus
 	mov r0, r8
 	movs r1, #6
 	bl Proc_Goto
@@ -17248,7 +17248,7 @@ sub_803DB6C: @ 0x0803DB6C
 	bne _0803DBAC
 	ldr r0, _0803DBA8 @ =0x03001410
 	ldr r0, [r0, #4]
-	bl sub_80608EC
+	bl EndMu
 	b _0803DBB4
 	.align 2, 0
 _0803DBA0: .4byte 0x030013F0
@@ -17296,7 +17296,7 @@ _0803DBF8:
 	cmp r0, #0
 	beq _0803DC22
 	adds r0, r4, #0
-	bl MU_Start
+	bl StartMu
 	ldr r1, _0803DC34 @ =0x03001410
 	str r0, [r1, #4]
 	movs r0, #0xe
@@ -17402,7 +17402,7 @@ sub_803DCC0: @ 0x0803DCC0
 	bl memcpy
 	ldr r6, _0803DD24 @ =0x03001410
 	ldr r0, [r6, #4]
-	bl sub_80608EC
+	bl EndMu
 	ldrb r5, [r5, #5]
 	adds r4, r5, r4
 	ldrb r0, [r4]
@@ -17417,7 +17417,7 @@ sub_803DCC0: @ 0x0803DCC0
 	bne _0803DD0C
 	ldr r0, [r6]
 	mov r1, sp
-	bl sub_805FD78
+	bl SetMuMoveScript
 	movs r0, #7
 	strb r0, [r7, #0xe]
 _0803DD0C:
@@ -17440,7 +17440,7 @@ sub_803DD30: @ 0x0803DD30
 	mov r7, r8
 	push {r7}
 	adds r7, r0, #0
-	bl MU_IsAnyActive
+	bl MuExistsActive
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -17563,7 +17563,7 @@ sub_803DDC0: @ 0x0803DDC0
 	adds r0, r7, #0
 	movs r1, #0
 	bl SetUnitStatus
-	bl MU_EndAll
+	bl EndAllMus
 	adds r0, r6, #0
 	bl GetUnitCurrentHp
 	cmp r0, #0
@@ -17685,9 +17685,9 @@ _0803DF50: .4byte 0x0203C984
 _0803DF54: .4byte 0x03001410
 _0803DF58:
 	adds r0, r4, #0
-	bl MU_Start
+	bl StartMu
 	str r0, [r6]
-	bl sub_805F91C
+	bl DisableMuCamera
 	movs r0, #1
 	ldrh r2, [r4, #0xc]
 	orrs r0, r2
@@ -17735,10 +17735,10 @@ _0803DFB8: .4byte gUnk_Sio_0810F3B0
 _0803DFBC: .4byte 0x0203C984
 _0803DFC0:
 	mov r0, r8
-	bl MU_Start
+	bl StartMu
 	ldr r4, _0803E020 @ =0x03001410
 	str r0, [r4, #4]
-	bl sub_805F91C
+	bl DisableMuCamera
 	movs r0, #1
 	mov r5, r8
 	ldrh r5, [r5, #0xc]
@@ -17969,8 +17969,8 @@ _0803E190: .4byte gPlaySt
 	thumb_func_start sub_803E194
 sub_803E194: @ 0x0803E194
 	push {lr}
-	bl MU_EndAll
-	bl MU_EndAll
+	bl EndAllMus
+	bl EndAllMus
 	bl sub_803CD74
 	bl sub_803CDD4
 	bl RefreshUnitSprites
@@ -18162,7 +18162,7 @@ _0803E2FC:
 	bne _0803E320
 	ldr r0, _0803E31C @ =0x03001410
 	ldr r0, [r0]
-	bl sub_80608EC
+	bl EndMu
 	b _0803E328
 	.align 2, 0
 _0803E31C: .4byte 0x03001410
@@ -18214,7 +18214,7 @@ sub_803E370: @ 0x0803E370
 	adds r4, r1, #0
 	adds r6, r2, #0
 	mov r8, r3
-	bl MU_Start
+	bl StartMu
 	ldr r1, _0803E3AC @ =0x03001410
 	lsls r4, r4, #2
 	adds r4, r4, r1
@@ -18288,7 +18288,7 @@ _0803E3F4:
 	bne _0803E418
 	ldr r0, _0803E414 @ =0x03001410
 	ldr r0, [r0, #4]
-	bl sub_80608EC
+	bl EndMu
 	b _0803E420
 	.align 2, 0
 _0803E414: .4byte 0x03001410
@@ -18961,7 +18961,7 @@ sub_803E944: @ 0x0803E944
 	adds r4, r0, #0
 	movs r1, #2
 	bl sub_803E584
-	bl MU_IsAnyActive
+	bl MuExistsActive
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne _0803E95E
@@ -19125,7 +19125,7 @@ sub_803EA74: @ 0x0803EA74
 	.align 2, 0
 _0803EA8C: .4byte 0x0203C984
 _0803EA90:
-	bl MU_EndAll
+	bl EndAllMus
 	ldr r0, _0803EAA8 @ =gPlaySt
 	ldrb r1, [r0, #0xf]
 	movs r0, #6
@@ -19152,7 +19152,7 @@ sub_803EAAC: @ 0x0803EAAC
 	.align 2, 0
 _0803EAC0: .4byte 0x0203C984
 _0803EAC4:
-	bl MU_EndAll
+	bl EndAllMus
 	ldr r0, _0803EADC @ =gPlaySt
 	ldrb r1, [r0, #0xf]
 	movs r0, #7
@@ -19180,8 +19180,8 @@ sub_803EAE0: @ 0x0803EAE0
 	.align 2, 0
 _0803EAF8: .4byte 0x0203C984
 _0803EAFC:
-	bl MU_EndAll
-	bl MU_EndAll
+	bl EndAllMus
+	bl EndAllMus
 	ldr r1, _0803EB20 @ =0x0203C618
 	movs r0, #1
 	strb r0, [r1, #0xb]
@@ -19452,7 +19452,7 @@ _0803ED08:
 	adds r0, r6, #0
 	bl HideUnitSprite
 	adds r0, r6, #0
-	bl MU_Start
+	bl StartMu
 	adds r4, r0, #0
 	ldr r1, _0803ED4C @ =gWorkingMoveScr
 	movs r0, #2
@@ -19460,7 +19460,7 @@ _0803ED08:
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r4, #0
-	bl sub_805FD78
+	bl SetMuMoveScript
 	adds r0, r4, #0
 	bl sub_803F5C8
 	str r4, [r5, #0x54]
@@ -19485,7 +19485,7 @@ _0803ED50: .4byte 0x0000FDFF
 sub_803ED54: @ 0x0803ED54
 	push {lr}
 	ldr r0, [r0, #0x54]
-	bl sub_80608EC
+	bl EndMu
 	pop {r0}
 	bx r0
 
@@ -19659,7 +19659,7 @@ sub_803EE7C: @ 0x0803EE7C
 	.align 2, 0
 _0803EEA8: .4byte gBg2Tm
 _0803EEAC:
-	bl MU_EndAll
+	bl EndAllMus
 	bl RenderMap
 	bl sub_80627D0
 	ldr r0, _0803EEC8 @ =gBattleSt
@@ -19699,7 +19699,7 @@ _0803EEE8:
 	bl GetUnit
 	bl HideUnitSprite
 	adds r0, r5, #0
-	bl MU_Start
+	bl StartMu
 	adds r4, r0, #0
 	movs r0, #0xe
 	ldrsb r0, [r6, r0]
@@ -19715,7 +19715,7 @@ _0803EEE8:
 	movs r0, #4
 	strb r0, [r1, #1]
 	adds r0, r4, #0
-	bl sub_805FD78
+	bl SetMuMoveScript
 	adds r0, r4, #0
 	bl sub_803F5C8
 	str r4, [r7, #0x54]
@@ -20579,7 +20579,7 @@ sub_803F5C8: @ 0x0803F5C8
 	movs r5, #0
 	movs r0, #7
 	strb r0, [r1]
-	ldr r0, _0803F63C @ =gUnk_086648E4
+	ldr r0, _0803F63C @ =ProcScr_MuDeathFade
 	adds r1, r4, #0
 	bl SpawnProc
 	str r4, [r0, #0x54]
@@ -20629,7 +20629,7 @@ _0803F636:
 	pop {r0}
 	bx r0
 	.align 2, 0
-_0803F63C: .4byte gUnk_086648E4
+_0803F63C: .4byte ProcScr_MuDeathFade
 _0803F640: .4byte gDispIo
 _0803F644: .4byte gPlaySt
 
@@ -20684,7 +20684,7 @@ sub_803F694: @ 0x0803F694
 	movs r2, #8
 	adds r3, r4, #0
 	bl StartPalFade
-	ldr r0, _0803F6C4 @ =gUnk_086648FC
+	ldr r0, _0803F6C4 @ =ProcScr_MuRestorePalInfo
 	movs r1, #3
 	bl SpawnProc
 	str r4, [r0, #0x54]
@@ -20693,7 +20693,7 @@ sub_803F694: @ 0x0803F694
 	bx r0
 	.align 2, 0
 _0803F6C0: .4byte gPal
-_0803F6C4: .4byte gUnk_086648FC
+_0803F6C4: .4byte ProcScr_MuRestorePalInfo
 
 	thumb_func_start sub_803F6C8
 sub_803F6C8: @ 0x0803F6C8
@@ -20721,7 +20721,7 @@ sub_803F6C8: @ 0x0803F6C8
 	lsls r2, r2, #3
 	movs r0, #0x7f
 	movs r1, #2
-	bl sub_805FEC8
+	bl StartPlayMuStepSe
 _0803F700:
 	pop {r4}
 	pop {r0}
@@ -20899,7 +20899,7 @@ sub_803F850: @ 0x0803F850
 sub_803F860: @ 0x0803F860
 	push {lr}
 	ldr r0, [r0, #0x30]
-	bl MU_Hide
+	bl HideMu
 	pop {r0}
 	bx r0
 
@@ -20912,7 +20912,7 @@ sub_803F86C: @ 0x0803F86C
 	lsls r1, r1, #4
 	ldr r2, [r4, #0x38]
 	lsls r2, r2, #4
-	bl sub_80610F0
+	bl SetMuScreenPosition
 	ldr r1, [r4, #0x2c]
 	ldr r0, [r4, #0x34]
 	strb r0, [r1, #0xe]
@@ -20933,10 +20933,10 @@ sub_803F890: @ 0x0803F890
 	cmp r1, r0
 	beq _0803F8A4
 	ldr r0, [r4, #0x30]
-	bl sub_805FBDC
+	bl SetMuFacing
 _0803F8A4:
 	ldr r0, [r4, #0x30]
-	bl sub_80610D0
+	bl ShowMu
 	pop {r4}
 	pop {r0}
 	bx r0

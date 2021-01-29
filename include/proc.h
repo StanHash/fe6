@@ -113,9 +113,7 @@ struct GenericProc
     /* 54 */ void* ptr;
     /* 58 */ int unk58;
     /* 5C */ int unk5C;
-
-    /* 60 */ u8 pad60[0x64 - 0x60];
-
+    /* 60 */ int unk60;
     /* 64 */ short unk64;
     /* 66 */ short unk66;
     /* 68 */ short unk68;
@@ -135,6 +133,7 @@ enum
 {
     PROC_MARK_1 = 1,
     PROC_MARK_2 = 2,
+    PROC_MARK_MU = 4,
     PROC_MARK_5 = 5,
     PROC_MARK_6 = 6,
     PROC_MARK_7 = 7,

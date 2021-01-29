@@ -27,7 +27,7 @@ static struct Vec2 CONST_DATA sRange3OffsetLut[] =
     { 9999, 9999 },
 };
 
-Bool AiCompare(u8 const* left, u8 cond, u32 right)
+bool AiCompare(u8 const* left, u8 cond, u32 right)
 {
     switch (cond)
     {
@@ -73,7 +73,7 @@ Bool AiCompare(u8 const* left, u8 cond, u32 right)
     return FALSE;
 }
 
-Bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
+bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
 {
     int i;
 
@@ -128,7 +128,7 @@ target_not_found:
     return FALSE;
 }
 
-Bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
+bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
 {
     int i;
 
@@ -171,7 +171,7 @@ Bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
     return FALSE;
 }
 
-Bool AiFindTargetInReachByFunc(Bool(*func)(struct Unit* unit), struct Vec2* out)
+bool AiFindTargetInReachByFunc(bool(*func)(struct Unit* unit), struct Vec2* out)
 {
     short ix, iy;
 
@@ -260,7 +260,7 @@ void AiRandomMove(void)
         AiSetDecision(x, y, AI_ACTION_NONE, 0, 0, 0, 0);
 }
 
-Bool AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
+bool AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
 {
     int maxDistance = RECT_DISTANCE(unit->x, unit->y, other->x, other->y);
 
@@ -270,7 +270,7 @@ Bool AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item
     return FALSE;
 }
 
-Bool AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
+bool AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
 {
     int maxDistance = RECT_DISTANCE(unit->x, unit->y, other->x, other->y);
 
@@ -280,7 +280,7 @@ Bool AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 i
     return FALSE;
 }
 
-Bool AiIsInShortList(u16 const* list, u16 item)
+bool AiIsInShortList(u16 const* list, u16 item)
 {
     while (*list)
     {
@@ -293,7 +293,7 @@ Bool AiIsInShortList(u16 const* list, u16 item)
     return FALSE;
 }
 
-Bool AiIsInByteList(u8 const* list, u8 item)
+bool AiIsInByteList(u8 const* list, u8 item)
 {
     while (*list)
     {
@@ -306,7 +306,7 @@ Bool AiIsInByteList(u8 const* list, u8 item)
     return FALSE;
 }
 
-Bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2* out)
+bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2* out)
 {
     int ix, iy;
 
@@ -361,7 +361,7 @@ u8 AiGetPositionRange(int x, int y)
     return gMapRange[y][x];
 }
 
-Bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, struct Vec2* out)
+bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, struct Vec2* out)
 {
     struct Vec2 tmp;
     int ix, iy;
@@ -408,7 +408,7 @@ Bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, stru
     return FALSE;
 }
 
-Bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
+bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
 {
     struct Vec2 tmp;
     int ix, iy;
@@ -739,7 +739,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item)
     }
 }
 
-Bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out)
+bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out)
 {
     u8(*func)(int x, int y) = funcArg;
 
@@ -823,7 +823,7 @@ s8 AiGetUnitStealItemSlot(struct Unit* unit)
     return slot;
 }
 
-Bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
+bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
 {
     int ix, iy;
 
@@ -865,7 +865,7 @@ Bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
     return FALSE;
 }
 
-Bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
+bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
 {
     u8 const* terrains;
 
@@ -889,7 +889,7 @@ Bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
     return FALSE;
 }
 
-Bool AiGetChestUnlockItemSlot(u8* out)
+bool AiGetChestUnlockItemSlot(u8* out)
 {
     int i;
 
@@ -986,7 +986,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     }
 }
 
-Bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out)
+bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out)
 {
     short ix, iy;
     u8 bestRange;
@@ -1054,7 +1054,7 @@ u8 AiGetJobRank(u8 jid)
     return num;
 }
 
-Bool AiUnitWithPidExists(u16 pid)
+bool AiUnitWithPidExists(u16 pid)
 {
     int i;
 
@@ -1083,7 +1083,7 @@ Bool AiUnitWithPidExists(u16 pid)
     return FALSE;
 }
 
-Bool AiIsWithinRectDistance(short x, short y, u8 x2, u8 y2, u8 maxDistance)
+bool AiIsWithinRectDistance(short x, short y, u8 x2, u8 y2, u8 maxDistance)
 {
     u16 distance = RECT_DISTANCE(x, y, x2, y2);
 
@@ -1093,7 +1093,7 @@ Bool AiIsWithinRectDistance(short x, short y, u8 x2, u8 y2, u8 maxDistance)
     return FALSE;
 }
 
-Bool AiLocationIsPillageTarget(u8 x, u8 y)
+bool AiLocationIsPillageTarget(u8 x, u8 y)
 {
     u8 tmp;
 
@@ -1238,7 +1238,7 @@ void UnitInitAiFromInfo(struct Unit* unit, struct UnitInfo const* info)
     unit->aiConfig = (0xFFF8 & unit->aiConfig) | info->ai[2] | (info->ai[3] << 8);
 }
 
-Bool sub_8030AB4(struct Vec2* out)
+bool sub_8030AB4(struct Vec2* out)
 {
     int ix, iy;
 
@@ -1329,7 +1329,7 @@ int sub_8030BDC(void)
     return count;
 }
 
-Bool AiUnitHasAnyStaff(struct Unit* unit)
+bool AiUnitHasAnyStaff(struct Unit* unit)
 {
     int i;
 

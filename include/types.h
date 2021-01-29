@@ -3,7 +3,12 @@
 
 #include "gba/gba.h"
 
-typedef s8 Bool;
+#if !defined(__cpluscplus) && !defined(bool)
+
+typedef s8 bool;
+
+#endif
+
 typedef void(*Func)(void);
 
 struct Vec2
@@ -66,7 +71,7 @@ enum
     MOVE_CMD_FACE_DOWN  = MOVE_CMD_FACE_BASE + FACING_DOWN,
     MOVE_CMD_FACE_UP    = MOVE_CMD_FACE_BASE + FACING_UP,
 
-    MOVE_CMD_WAIT,
+    MOVE_CMD_SLEEP,
     MOVE_CMD_BUMP,
     MOVE_CMD_UNK11,
     MOVE_CMD_SET_SPEED,
@@ -137,6 +142,40 @@ struct MapChangeInfo
     /* 01 */ u8 x, y, width, height;
     /* 05 */ // pad
     /* 08 */ u16 const* metatiles;
+};
+
+struct BattleHit;
+struct BattleUnit;
+
+struct MapAnimActor
+{
+    /* 00 */ struct Unit* unit;
+    /* 04 */ struct BattleUnit* bu;
+    /* 08 */ struct MuProc* mu;
+    /* 0C */ u8 unk_0C;
+    /* 0D */ u8 unk_0D;
+    /* 0E */ u16 unk_0E;
+    /* 10 */ u8 unk_10;
+    /* 11 */ u8 unk_11;
+    /* 12 */ u8 unk_12;
+    /* 13 */ u8 unk_13;
+};
+
+struct MapAnimSt
+{
+    /* 00 */ struct MapAnimActor actor[4];
+    /* 50 */ struct BattleHit* hitIt;
+    /* 54 */ struct ProcScr const* specialProcScr;
+    /* 58 */ u8 attackerActor;
+    /* 59 */ u8 defenderActor;
+    /* 5A */ u16 hitAttributes;
+    /* 5C */ u8 hitInfo;
+    /* 5D */ s8 hitDamage;
+    /* 5E */ u8 unk_5E;
+    /* 5F */ u8 unk_5F;
+    /* 60 */ u8 unk_60;
+    /* 61 */ u8 unk_61;
+    /* 62 */ u8 unk_62;
 };
 
 struct ChapterEventInfo

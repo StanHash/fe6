@@ -163,15 +163,15 @@ void sub_801F854(int x, int y);
 // sub_802BA44
 
 void AiRefreshDangerMap(void);
-Bool AiCheckDangerAt(int x, int y, u8 threshold);
-Bool AiTryGetNearestHealPoint(struct Vec2* out);
+bool AiCheckDangerAt(int x, int y, u8 threshold);
+bool AiTryGetNearestHealPoint(struct Vec2* out);
 void sub_8032A08(void);
-Bool AiUpdateGetUnitIsHealing(struct Unit* unit);
-Bool AiTryHealSelf(void);
-Bool AiTryMoveTowardsEscape(void);
+bool AiUpdateGetUnitIsHealing(struct Unit* unit);
+bool AiTryHealSelf(void);
+bool AiTryMoveTowardsEscape(void);
 // sub_8032C2C
-Bool sub_8032CB4(void);
-Bool sub_8032CE8(u16* out);
+bool sub_8032CB4(void);
+bool sub_8032CE8(u16* out);
 void sub_8032DF4(u16 arg_0, u16 arg_1, u16* arg_2, u16* arg_3, u16* arg_4);
 // sub_8032F48
 void sub_8032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16* arg_3);
@@ -184,25 +184,25 @@ void AiTryActionAfterMove(void);
 // sub_80331EC
 // sub_8033250
 // sub_8033380
-Bool sub_80333B0(void const* arg);
+bool sub_80333B0(void const* arg);
 // sub_80334F4
-Bool sub_80336B0(void const* arg);
-Bool sub_80336CC(void const* arg);
+bool sub_80336B0(void const* arg);
+bool sub_80336CC(void const* arg);
 // sub_80336FC
 // sub_803372C
-Bool sub_80337B4(void const* arg);
+bool sub_80337B4(void const* arg);
 // sub_8033824
-Bool AiFunc_DecideTalk(void const* arg);
-Bool sub_8033898(void const* arg);
+bool AiFunc_DecideTalk(void const* arg);
+bool sub_8033898(void const* arg);
 // sub_803395C
-Bool sub_8033998(void const* arg);
+bool sub_8033998(void const* arg);
 // sub_80339F8
 // sub_8033A30
-Bool sub_8033AA4(void const* arg);
-Bool sub_8033B04(void const* arg);
-Bool sub_8033B50(void const* arg);
+bool sub_8033AA4(void const* arg);
+bool sub_8033B04(void const* arg);
+bool sub_8033B50(void const* arg);
 // sub_8033B9C
-Bool sub_8033C04(Bool(*isEnemy)(struct Unit* unit));
+bool sub_8033C04(bool(*isEnemy)(struct Unit* unit));
 // sub_8033C8C
 // sub_8033D5C
 // sub_8033ECC
@@ -216,7 +216,7 @@ Bool sub_8033C04(Bool(*isEnemy)(struct Unit* unit));
 // sub_80347A4
 // sub_80348DC
 // sub_8034A60
-Bool AiTryDoSpecialItems(void);
+bool AiTryDoSpecialItems(void);
 // sub_8034B58
 // sub_8034BF0
 // sub_8034CC0
@@ -912,7 +912,7 @@ s8 sub_80425C4(void);
 // sub_8047C48
 // sub_8047C68
 // sub_8047C88
-Bool sub_8047CB8(void);
+bool sub_8047CB8(void);
 void sub_8047CC8(void);
 // sub_8047D14
 // sub_8047D38
@@ -1803,90 +1803,9 @@ void sub_8047CC8(void);
 // sub_805F794
 // sub_805F7A4
 // sub_805F7B4
-// GetItemMaFacing
+u8 GetItemMaFacing(int item);
 // sub_805F7D4
-// sub_805F7E4
-struct MuProc* sub_805F820(int x, int y, int jid, int arg_3);
-// MU_Start
-// sub_805F8DC
-// sub_805F8F4
-// sub_805F91C
-// sub_805F93C
-// MU_StartExt
-// sub_805FBDC
-// MU_SetDefaultFacing
-// MU_SetDefaultFacing_Auto
-void sub_805FC80(u8 const* moveScript);
-Bool MU_Exists(void);
-// MU_IsAnyActive
-// sub_805FD40
-// sub_805FD78
-// sub_805FDEC
-// sub_805FE3C
-// sub_805FE78
-// sub_805FE9C
-// sub_805FEC8
-// sub_805FF50
-// sub_805FF68
-// sub_805FF78
-// sub_80601AC
-// sub_8060228
-// sub_80602E0
-// sub_80603C4
-// sub_8060408
-// sub_806042C
-// sub_8060460
-// sub_8060488
-// MU_State_None
-// MU_State_NoOp
-// MU_State_DuringMovement
-// sub_8060748
-// MU_OnLoop
-// MU_OnEnd
-// MU_EndAll
-// sub_80608EC
-// sub_8060904
-// sub_806091C
-void BlockAllProcsMarked4(void);
-void sub_806095C(void);
-void ApplyMoveScriptToCoordinates(int* x, int* y, u8 const* movescr);
-// MU_CanStart
-// MU_AllRestartAnimations
-// MU_GenerateConfigDefault
-// MU_ComputeDisplayPosition
-// MU_DisplayAsMMS
-// MU_GetMovementSpeed
-// MU_GetGfxBufferById
-// MU_GetSheetGfx
-// MU_GetAnimationByClassId
-// MU_StartDeathFade
-// sub_8061014
-// MU_Hide
-// sub_80610D0
-// sub_80610F0
-// sub_806113C
-// sub_8061188
-// sub_80611FC
-// sub_806124C
-// sub_806129C
-// sub_80612F0
-// sub_8061318
-// sub_8061360
-// sub_80613BC
-// sub_8061404
-// sub_806142C
-// sub_8061474
-// sub_8061494
-// sub_80614C8
-// sub_8061518
-// sub_8061554
-// sub_80615D4
-// sub_8061624
-// sub_80616B4
-void sub_8061704(void);
-// sub_8061720
-// sub_8061748
-// sub_80617E0
+
 // sub_8061838
 // sub_8061878
 // sub_80618D4
@@ -1909,7 +1828,7 @@ void sub_8061704(void);
 // sub_80620D8
 // sub_806210C
 // MA_InitActor
-// MA_SetActorFacing
+void MA_SetActorFacing(int actorA, int actorB, int facing);
 // sub_80622FC
 // MA_SortMuLayers
 void sub_8062598(void);
@@ -2160,9 +2079,9 @@ void sub_806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // sub_806AE2C
 // sub_806AE54
 // sub_806AE7C
-Bool sub_806AED8(void);
+bool sub_806AED8(void);
 void sub_806AF08(void);
-Bool sub_806AF4C(int pidA, int pidB);
+bool sub_806AF4C(int pidA, int pidB);
 void sub_806AF90(int pidA, int pidB);
 void sub_806AFD0(int pidA, int pidB, int supportLevel);
 int sub_806B028(s8 x, s8 y);
@@ -2172,23 +2091,23 @@ void sub_806B06C(s8 x, s8 y);
 // sub_806B284
 // sub_806B2AC
 // sub_806B310
-Bool IsThereClosedChestAt(s8 x, s8 y);
+bool IsThereClosedChestAt(s8 x, s8 y);
 void sub_806B354(s8 x, s8 y);
-Bool sub_806B37C(s8 x, s8 y);
+bool sub_806B37C(s8 x, s8 y);
 void sub_806B398(s8 x, s8 y);
 // sub_806B3C0
 // sub_806B3DC
-Bool sub_806B404(void);
+bool sub_806B404(void);
 void sub_806B414(void);
 void sub_806B420(void);
 // sub_806B43C
-Bool sub_806B470(void);
-Bool sub_806B4A4(void);
+bool sub_806B470(void);
+bool sub_806B4A4(void);
 // sub_806B4A8
 void sub_806B4AC(void);
 void sub_806B4C8(void);
 void sub_806B4E4(void);
-Bool sub_806B500(void);
+bool sub_806B500(void);
 void sub_806B540(void);
 // sub_806B580
 // sub_806B5B0
@@ -2221,7 +2140,7 @@ void sub_806B970(void);
 // sub_806B9F8
 void sub_806BA34(void);
 void SetEid(int flag);
-Bool CheckFlag(int flagId);
+bool CheckFlag(int flagId);
 void ClearEid(int flag);
 // GetGlobalEidData
 // sub_806BA90
@@ -2962,16 +2881,16 @@ void sub_8081620(struct Unit* unit, ProcPtr parent);
 // sub_80841EC
 // nullsub_44
 // sub_80841FC
-Bool IsSramWorking(void);
+bool IsSramWorking(void);
 // sub_8084280
 // ComputeChecksum16
-Bool LoadGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
+bool LoadGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
 void SaveGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
 // sub_8084388
 // sub_808439C
 // sub_8084414
 // sub_8084428
-Bool sub_8084438(struct SaveBlockInfo* blockInfo, int id);
+bool sub_8084438(struct SaveBlockInfo* blockInfo, int id);
 // sub_80844D4
 // sub_8084560
 // sub_808460C
@@ -2981,7 +2900,7 @@ Bool sub_8084438(struct SaveBlockInfo* blockInfo, int id);
 // sub_8084690
 // sub_80846B8
 // sub_80846D0
-Bool sub_80846F0(void);
+bool sub_80846F0(void);
 // sub_8084714
 // sub_8084718
 // sub_808474C
@@ -3032,7 +2951,7 @@ void sub_8085270(int saveId, struct PlaySt* out);
 void sub_8085788(int saveId);
 void sub_80857B0(int saveId);
 void sub_80858E4(int saveId);
-Bool sub_80859E0(int saveId);
+bool sub_80859E0(int saveId);
 // sub_8085A34
 // sub_8085A48
 // sub_8085CE0
@@ -3432,7 +3351,7 @@ void sub_80928DC(int x, int y, ProcPtr parent);
 void sub_8092CD8(ProcPtr parent);
 // sub_8092CFC
 // sub_8092D0C
-Bool sub_8092E68(void);
+bool sub_8092E68(void);
 void sub_8092E94(void);
 // sub_8092EB0
 // sub_8093064

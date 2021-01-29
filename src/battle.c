@@ -223,7 +223,7 @@ void BattleGenerateDisplayStats(struct Unit* unit, s8 itemSlot)
         gBattleUnitA.battleAttack = 0xFF;
 }
 
-Bool BattleRandRoll(u16 threshold, Bool simulationResult)
+bool BattleRandRoll(u16 threshold, bool simulationResult)
 {
     if (gBattleSt.flags & BATTLE_FLAG_SIMULATE)
         return simulationResult;
@@ -231,7 +231,7 @@ Bool BattleRandRoll(u16 threshold, Bool simulationResult)
     return RandRoll(threshold);
 }
 
-Bool BattleRandRoll2Rn(u16 threshold, Bool simulationResult)
+bool BattleRandRoll2Rn(u16 threshold, bool simulationResult)
 {
     if (gBattleSt.flags & BATTLE_FLAG_SIMULATE)
         return simulationResult;
@@ -613,7 +613,7 @@ void BattleGetBattleUnitOrder(struct BattleUnit** attacker, struct BattleUnit** 
     *defender = &gBattleUnitB;
 }
 
-Bool BattleGetFollowUpOrder(struct BattleUnit** attacker, struct BattleUnit** defender)
+bool BattleGetFollowUpOrder(struct BattleUnit** attacker, struct BattleUnit** defender)
 {
     if (gBattleUnitB.battleSpeed > 250)
         return FALSE;
@@ -638,7 +638,7 @@ Bool BattleGetFollowUpOrder(struct BattleUnit** attacker, struct BattleUnit** de
     return TRUE;
 }
 
-Bool BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender)
+bool BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender)
 {
     int i, count;
     u16 attrs;
@@ -678,7 +678,7 @@ int BattleCheckBraveEffect(struct BattleUnit* attacker)
     return TRUE;
 }
 
-Bool BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender)
+bool BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender)
 {
     s8 adjacentLut[] =
     {
@@ -856,7 +856,7 @@ void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* de
     }
 }
 
-Bool BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender)
+bool BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender)
 {
     if (attacker == &gBattleUnitB)
         gBattleHitIt->info |= BATTLE_HIT_INFO_RETALIATION;
@@ -1155,7 +1155,7 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu)
     return result;
 }
 
-Bool HasBattleUnitGainedWeaponLevel(struct BattleUnit* bu)
+bool HasBattleUnitGainedWeaponLevel(struct BattleUnit* bu)
 {
     int oldExp = bu->unit.weaponExp[bu->weaponKind];
     int newExp = GetBattleUnitUpdatedWeaponExp(bu);
@@ -1550,7 +1550,7 @@ void BeginBattleAnimations(void)
     }
     else
     {
-        MU_EndAll();
+        EndAllMus();
         RenderMap();
 
         sub_80627D0();
@@ -1768,12 +1768,12 @@ void BattleGenerateArena(struct Unit* unit)
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);
 }
 
-Bool BattleIsTriangleAttack(void)
+bool BattleIsTriangleAttack(void)
 {
     return (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK) != 0;
 }
 
-Bool DidBattleUnitBreakWeapon(struct BattleUnit* bu)
+bool DidBattleUnitBreakWeapon(struct BattleUnit* bu)
 {
     if (bu->unit.hpCur == 0)
         return FALSE;

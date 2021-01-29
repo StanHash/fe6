@@ -40,6 +40,6 @@ int ArenaGetMatchupGoldValue(void);
 int ArenaGetResult(void);
 void ArenaSetResult(int result);
 void ArenaContinueBattle(void);
-Bool ArenaIsUnitAllowed(struct Unit* unit);
+bool ArenaIsUnitAllowed(struct Unit* unit);
 
 extern struct ArenaSt gArenaSt;

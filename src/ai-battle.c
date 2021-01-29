@@ -26,7 +26,7 @@ static int AiGetLowHpScoreComponent(void);
 
 static struct AiCombatScoreCoefficients const* sCombatScoreCoefficients;
 
-Bool AiAttemptOffensiveAction(Bool(*isEnemy)(struct Unit* unit))
+bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
@@ -116,7 +116,7 @@ Bool AiAttemptOffensiveAction(Bool(*isEnemy)(struct Unit* unit))
     }
 }
 
-Bool AiAttemptCombatWithinMovement(Bool(*isEnemy)(struct Unit* unit))
+bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
@@ -215,7 +215,7 @@ void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item)
     }
 }
 
-Bool AiAttemptBallistaCombat(Bool(*isEnemy)(struct Unit* unit), struct AiCombatSimulationSt* st)
+bool AiAttemptBallistaCombat(bool(*isEnemy)(struct Unit* unit), struct AiCombatSimulationSt* st)
 {
     struct AiCombatSimulationSt tmpResult;
 
@@ -311,7 +311,7 @@ static u8 AiAttemptStealAction_GetMovementAt(int x, int y)
     return gMapMovement[y][x];
 }
 
-Bool AiAttemptStealActionWithinMovement(void)
+bool AiAttemptStealActionWithinMovement(void)
 {
     int ix, iy;
 
@@ -373,7 +373,7 @@ Bool AiAttemptStealActionWithinMovement(void)
     return FALSE;
 }
 
-Bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
+bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
 {
     int ix, iy;
 
@@ -411,7 +411,7 @@ Bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
     return AiSimulateBattleAgainstTargetAtPosition(st);
 }
 
-Bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, u16 item)
+bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, u16 item)
 {
     int ix, iy;
 
@@ -467,7 +467,7 @@ u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st)
     return score;
 }
 
-Bool AiIsBadFight(struct AiCombatSimulationSt* st)
+bool AiIsBadFight(struct AiCombatSimulationSt* st)
 {
     u16 item = gActiveUnit->items[st->itemSlot];
     struct Unit* unit = GetUnit(st->targetId);
@@ -484,7 +484,7 @@ Bool AiIsBadFight(struct AiCombatSimulationSt* st)
     return FALSE;
 }
 
-Bool AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt* st)
+bool AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt* st)
 {
     if (st->itemSlot != UINT16_MAX)
     {

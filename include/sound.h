@@ -18,7 +18,7 @@ extern struct MusicPlayerInfo gMpi_FightBgm;
 extern struct MusicPlayerInfo gMpi_MainBgm;
 
 int GetCurrentBgmSong(void);
-Bool IsBgmPlaying(void);
+bool IsBgmPlaying(void);
 void sub_8002F9C(int volume);
 void SetBgmVolume(int volume);
 void FadeBgmOut(int speed);

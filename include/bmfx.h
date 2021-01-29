@@ -8,10 +8,10 @@
 #include "menu.h"
 
 int sub_801C160(int xa, int ya, int xb, int yb);
-void StartRescueTransferAnim(struct Unit* unit, int facing, Bool arg_2, ProcPtr parent);
+void StartRescueTransferAnim(struct Unit* unit, int facing, bool arg_2, ProcPtr parent);
 void StartRescueTransferAnimParentless(struct Unit* unit, int facing);
-void StartMapFade(Bool locksGame);
-Bool IsMapFadeActive(void);
+void StartMapFade(bool locksGame);
+bool IsMapFadeActive(void);
 void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent);
 int sub_801C620(struct MenuProc* menu, struct MenuEntProc* ent);
 int sub_801C62C(struct MenuProc* menu, struct MenuEntProc* ent);

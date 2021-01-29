@@ -45,7 +45,7 @@ struct RescueTransferAnimProc
     /* 30 */ struct Unit* unit;
     /* 34 */ struct MuProc* mu;
     /* 38 */ u8 moveScript[4];
-    /* 3C */ Bool unk_3C;
+    /* 3C */ bool unk_3C;
 };
 
 struct EquipInfoWindowProc
@@ -502,7 +502,7 @@ struct ProcScr CONST_DATA ProcScr_GameOverScreen[] =
     PROC_ONEND(GameOverScreen_End),
     PROC_CALL(GameOverScreen_Init),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_START_CHILD(ProcScr_GameOverScreen_RandomScroll),
 
@@ -544,20 +544,20 @@ int sub_801C160(int xa, int ya, int xb, int yb)
 static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_MOUNTED))
-        return MU_Start(unit);
+        return StartMu(unit);
 
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_FEMALE)
-        return sub_805F820(unit->x, unit->y, JID_DISMOUNTED_F, 12);
+        return StartMuExt(unit->x, unit->y, JID_DISMOUNTED_F, 12);
     else
-        return sub_805F820(unit->x, unit->y, JID_DISMOUNTED, 12);
+        return StartMuExt(unit->x, unit->y, JID_DISMOUNTED, 12);
 }
 
 static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)
 {
-    if (MU_IsAnyActive())
+    if (MuExistsActive())
         return;
 
-    sub_80608EC(proc->mu);
+    EndMu(proc->mu);
     Proc_Break(proc);
 
     if (proc->unk_3C)
@@ -568,7 +568,7 @@ static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)
     }
 }
 
-void StartRescueTransferAnim(struct Unit* unit, int facing, Bool arg_2, ProcPtr parent)
+void StartRescueTransferAnim(struct Unit* unit, int facing, bool arg_2, ProcPtr parent)
 {
     struct RescueTransferAnimProc* proc;
 
@@ -584,7 +584,7 @@ void StartRescueTransferAnim(struct Unit* unit, int facing, Bool arg_2, ProcPtr 
     proc->unk_3C = arg_2;
 
     proc->mu = StartMuForRescueTransfterAnim(unit);
-    sub_805FD78(proc->mu, proc->moveScript);
+    SetMuMoveScript(proc->mu, proc->moveScript);
 }
 
 void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
@@ -603,7 +603,7 @@ void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
     proc->unk_3C = FALSE;
 
     proc->mu = StartMuForRescueTransfterAnim(unit);
-    sub_805FD78(proc->mu, proc->moveScript);
+    SetMuMoveScript(proc->mu, proc->moveScript);
 }
 
 static void MapFade_Init(struct GenericProc* proc)
@@ -643,7 +643,7 @@ static void MapFade_End(struct GenericProc* proc)
         UnlockGame();
 }
 
-void StartMapFade(Bool locksGame)
+void StartMapFade(bool locksGame)
 {
     struct GenericProc* proc;
 
@@ -654,7 +654,7 @@ void StartMapFade(Bool locksGame)
         LockGame();
 }
 
-Bool IsMapFadeActive(void)
+bool IsMapFadeActive(void)
 {
     return Proc_Find(ProcScr_MapFade) ? TRUE : FALSE;
 }
@@ -1436,7 +1436,7 @@ void sub_801D680(int x, int y)
     gWorkingMoveScr[0] = cmd;
     gWorkingMoveScr[1] = MOVE_CMD_HALT;
 
-    sub_805FC80(gWorkingMoveScr);
+    SetAutoMuMoveScript(gWorkingMoveScr);
 }
 
 static void GasTrapAnim_Init(struct GenericProc* proc)
@@ -1645,7 +1645,7 @@ static void sub_801DA24(struct GenericProc* proc)
 {
     proc->unk4C--;
 
-    if (proc->unk4C < 0 || (gKeySt->pressed & (A_BUTTON | B_BUTTON)))
+    if (proc->unk4C < 0 || (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B)))
         Proc_Break(proc);
 }
 
@@ -1694,7 +1694,7 @@ static void ChapterIntro_KeyListen_Init(struct GenericProc* proc)
 
 static void ChapterIntro_KeyListen_Loop(struct GenericProc* proc)
 {
-    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START))
         proc->unk50 = 1;
 
     if (proc->unk50 != 0)
@@ -2281,7 +2281,7 @@ static void GameOverScreen_LoopIdle(struct GenericProc* proc)
     if (proc->unk4E < 0)
         Proc_Goto(proc, 99);
 
-    if (gKeySt->pressed & (A_BUTTON | B_BUTTON | START_BUTTON))
+    if (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START))
         Proc_Goto(proc, 99);
 }
 

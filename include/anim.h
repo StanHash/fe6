@@ -2,6 +2,7 @@
 #pragma once
 
 #include "common.h"
+
 #include "proc.h"
 
 struct Anim
@@ -27,7 +28,7 @@ void InitAnims(void);
 struct Anim* StartAnim(u16 const* info, u16 layer);
 
 void Anim_End(struct Anim* anim);
-Bool Anim_Display(struct Anim* anim, int x, int y);
+bool Anim_Display(struct Anim* anim, int x, int y);
 void Anim_SetAnimId(struct Anim* anim, int id);
 void Anim_SetInfo(struct Anim* anim, u16 const* info);
 
@@ -37,4 +38,12 @@ ProcPtr StartAnimProc(u16 const* info, int x, int y, int oam2, int animid, int l
 void SetAnimProcParams(ProcPtr proc, int x, int y, int oam2);
 void EndAnimProc(ProcPtr proc);
 void EndEachAnimProc(void);
-Bool AnimProcExists(void);
+bool AnimProcExists(void);
+
+#define Anim_ResetClock(anim) \
+    (anim)->clock = 0; \
+    (anim)->q8_clockStep = 0x100
+
+#define Anim_Freeze(anim) \
+    (anim)->clock = 0; \
+    (anim)->q8_clockStep = 0

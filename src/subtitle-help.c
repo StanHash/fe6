@@ -231,7 +231,7 @@ void EndSubtitleHelp(void)
     Proc_EndEach(ProcScr_SubtitleHelp);
 }
 
-Bool IsSubtitleHelpActive(void)
+bool IsSubtitleHelpActive(void)
 {
     return Proc_Exists(ProcScr_SubtitleHelp);
 }

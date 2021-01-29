@@ -1,5 +1,4 @@
 
-#include "common.h"
 #include "anim.h"
 
 #include "hardware.h"
@@ -20,7 +19,7 @@ struct AnimProc
 };
 
 static void PutAnim(struct Anim* anim, int x, int y);
-static Bool ExecAnim(struct Anim* anim);
+static bool ExecAnim(struct Anim* anim);
 static void PutAnimAffine(struct Anim* anim);
 static void SyncAnimImg(struct Anim* anim);
 static void SetAnimInfo(struct Anim* anim, u16 const* info);
@@ -31,10 +30,6 @@ static void AnimProc_Update(struct AnimProc* proc);
 static void AnimProc_OnEnd(struct AnimProc* proc);
 
 #define RESOLVE_REFTABLE(table, id) ((table) + ((table)[id] >> 1))
-
-#define ResetClock(anim) \
-    (anim)->clock = 0; \
-    (anim)->q8_clockStep = 0x100
 
 static struct Anim sAnims[ANIM_COUNT];
 
@@ -76,7 +71,7 @@ void Anim_End(struct Anim* anim)
     anim->info = NULL;
 }
 
-Bool Anim_Display(struct Anim* anim, int x, int y)
+bool Anim_Display(struct Anim* anim, int x, int y)
 {
     if (!anim || !anim->info)
         return FALSE;
@@ -104,7 +99,7 @@ static void PutAnim(struct Anim* anim, int x, int y)
         SyncAnimImg(anim);
 }
 
-static Bool ExecAnim(struct Anim* anim)
+static bool ExecAnim(struct Anim* anim)
 {
     int tmp;
 
@@ -310,7 +305,7 @@ static void AnimRunFirstFrame(struct Anim* anim)
 
     tmp = anim->q8_clockStep;
 
-    ResetClock(anim);
+    Anim_ResetClock(anim);
     ExecAnim(anim);
 
     anim->q8_clockStep = tmp;
@@ -329,7 +324,7 @@ static void InitAnim(struct Anim* anim, u16 const* info, u16 layer)
     anim->activeAffine = NULL;
     anim->affineId = 0;
 
-    ResetClock(anim);
+    Anim_ResetClock(anim);
 
     anim->q8_clockOverflow = 0;
 
@@ -400,7 +395,7 @@ void EndEachAnimProc(void)
     Proc_EndEach(ProcScr_AnimProc);
 }
 
-Bool AnimProcExists(void)
+bool AnimProcExists(void)
 {
     return Proc_Exists(ProcScr_AnimProc);
 }

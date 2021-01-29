@@ -24,12 +24,12 @@
 #include "constants/chapters.h"
 #include "constants/pids.h"
 
-static Bool CanSelectMoveTo(int x, int y);
+static bool CanSelectMoveTo(int x, int y);
 static void PlayerPhase_ContinueAction(ProcPtr proc);
 static void PlayerPhase_CancelAction(ProcPtr proc);
-static Bool PlayerPhase_AttemptReMove(ProcPtr proc);
+static bool PlayerPhase_AttemptReMove(ProcPtr proc);
 
-static Bool TrySetCursorOn(int uid);
+static bool TrySetCursorOn(int uid);
 
 static void PlayerPhase_Suspend(ProcPtr proc);
 static void PlayerPhase_IdleLoop(ProcPtr proc);
@@ -37,8 +37,8 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc);
 static void PlayerPhase_BeginMove(ProcPtr proc);
 static void PlayerPhase_WaitForMove(ProcPtr proc);
 static void PlayerPhase_BeginActionSelect(ProcPtr proc);
-static Bool PlayerPhase_BeginAction(ProcPtr proc);
-static Bool PlayerPhase_WatchActiveUnit(ProcPtr proc);
+static bool PlayerPhase_BeginAction(ProcPtr proc);
+static bool PlayerPhase_WatchActiveUnit(ProcPtr proc);
 static void PlayerPhase_FinishAction(ProcPtr proc);
 static void PlayerPhase_0801BD08(ProcPtr proc);
 static void PlayerPhase_HandleAutoEnd(ProcPtr proc);
@@ -129,7 +129,7 @@ PROC_LABEL(L_PLAYERPHASE_6),
 PROC_LABEL(L_PLAYERPHASE_8),
     PROC_SLEEP(0),
 
-    PROC_CALL(MU_EndAll),
+    PROC_CALL(EndAllMus),
 
     PROC_GOTO(L_PLAYERPHASE_BEGIN),
 
@@ -202,7 +202,7 @@ static void PlayerPhase_Suspend(ProcPtr proc)
 
 void HandlePlayerMapCursor(void)
 {
-    if ((gKeySt->held & B_BUTTON) && !(gBmSt.cursorSpr.x & 7) && !(gBmSt.cursorSpr.y & 7))
+    if ((gKeySt->held & KEY_BUTTON_B) && !(gBmSt.cursorSpr.x & 7) && !(gBmSt.cursorSpr.y & 7))
     {
         HandleMapCursorInput(gKeySt->pressed2);
 
@@ -218,23 +218,23 @@ void HandlePlayerMapCursor(void)
     }
 
     if ((gBmSt.cursorSpr.x | gBmSt.cursorSpr.y) & 0xF)
-        gKeySt->pressed &= ~(A_BUTTON | B_BUTTON | START_BUTTON | R_BUTTON | L_BUTTON);
+        gKeySt->pressed &= ~(KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START | KEY_BUTTON_R | KEY_BUTTON_L);
 }
 
 static void PlayerPhase_IdleLoop(ProcPtr proc)
 {
     HandlePlayerMapCursor();
 
-    if (gKeySt->pressed & L_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_L)
     {
         TrySwitchViewedUnit(gBmSt.cursor.x, gBmSt.cursor.y);
         PlaySe(0x6B); // TODO: song ids
     }
     else if (!IsMapFadeActive())
     {
-        if ((gKeySt->pressed & R_BUTTON) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
+        if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
-            MU_EndAll();
+            EndAllMus();
             sub_8073324();
             sub_806EAE4(0x28C);
 
@@ -244,7 +244,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             return;
         }
 
-        if (gKeySt->pressed & A_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_A)
         {
             struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
@@ -284,13 +284,13 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             }
         }
 
-        if (gKeySt->pressed & SELECT_BUTTON)
+        if (gKeySt->pressed & KEY_BUTTON_SELECT)
         {
             struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
             if (unit)
             {
-                MU_EndAll();
+                EndAllMus();
                 ShowUnitSprite(unit);
             }
 
@@ -314,13 +314,13 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             return;
         }
 
-        if ((gKeySt->pressed & START_BUTTON) && !(gKeySt->held & SELECT_BUTTON))
+        if ((gKeySt->pressed & KEY_BUTTON_START) && !(gKeySt->held & KEY_BUTTON_SELECT))
         {
             struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
             if (unit)
             {
-                MU_EndAll();
+                EndAllMus();
                 ShowUnitSprite(unit);
             }
 
@@ -389,16 +389,16 @@ void DisplayUnitActionRange(struct Unit* unit)
 
 static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 {
-    if (!MU_Exists() && UNIT_FACTION(gActiveUnit) == gPlaySt.faction)
+    if (!MuExists() && UNIT_FACTION(gActiveUnit) == gPlaySt.faction)
     {
         if (gActiveUnit->status != UNIT_STATUS_SLEEP && gActiveUnit->status != UNIT_STATUS_BERSERK)
         {
-            MU_Start(gActiveUnit);
+            StartMu(gActiveUnit);
             HideUnitSprite(gActiveUnit);
         }
     }
 
-    MU_SetDefaultFacing_Auto();
+    SetAutoMuDefaultFacing();
 
     sub_806B420();
 
@@ -442,7 +442,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 
     HandlePlayerMapCursor();
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         if (sub_806B4A4())
         {
@@ -473,18 +473,18 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
         }
     }
 
-    if (gKeySt->pressed & B_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_B)
     {
         if (gActiveUnit->state & US_HAS_MOVED)
             act = ACT_FAIL;
         else
             act = ACT_CANCEL;
     }
-    else if (gKeySt->pressed & R_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_R)
     {
         act = ACT_INFOSCREEN;
     }
-    else if (gKeySt->pressed & L_BUTTON)
+    else if (gKeySt->pressed & KEY_BUTTON_L)
     {
         act = ACT_RESET_CURSOR;
     }
@@ -505,7 +505,7 @@ do_act:
         return;
 
     case ACT_CANCEL:
-        MU_EndAll();
+        EndAllMus();
 
         gActiveUnit->state &= ~US_HIDDEN;
 
@@ -535,7 +535,7 @@ do_act:
         if (uid == 0)
             break;
 
-        MU_EndAll();
+        EndAllMus();
         sub_806EAE4(0x28C);
 
         sub_80702BC(GetUnit(uid), proc);
@@ -594,15 +594,15 @@ static void PlayerPhase_CancelAction(ProcPtr proc)
         UnitBeginReMoveAction(gActiveUnit);
 
     HideUnitSprite(gActiveUnit);
-    MU_EndAll();
-    MU_Start(gActiveUnit);
+    EndAllMus();
+    StartMu(gActiveUnit);
 
     Proc_Goto(proc, L_PLAYERPHASE_MOVE);
 }
 
-static Bool PlayerPhase_BeginAction(ProcPtr proc)
+static bool PlayerPhase_BeginAction(ProcPtr proc)
 {
-    Bool camret;
+    bool camret;
 
     camret = CameraMoveWatchPosition(proc, GetUnit(gAction.instigator)->x, GetUnit(gAction.instigator)->y);
     camret = camret ^ 1;
@@ -654,7 +654,7 @@ static Bool PlayerPhase_BeginAction(ProcPtr proc)
     return camret;
 }
 
-static Bool PlayerPhase_AttemptReMove(ProcPtr proc)
+static bool PlayerPhase_AttemptReMove(ProcPtr proc)
 {
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_RE_MOVE))
         return FALSE;
@@ -686,7 +686,7 @@ static Bool PlayerPhase_AttemptReMove(ProcPtr proc)
     return TRUE;
 }
 
-Bool PlayerPhase_0801B9B0(ProcPtr proc)
+bool PlayerPhase_0801B9B0(ProcPtr proc)
 {
     if (sub_806B500())
     {
@@ -697,7 +697,7 @@ Bool PlayerPhase_0801B9B0(ProcPtr proc)
     return TRUE;
 }
 
-static Bool PlayerPhase_WatchActiveUnit(ProcPtr proc)
+static bool PlayerPhase_WatchActiveUnit(ProcPtr proc)
 {
     return !CameraMoveWatchPosition(proc, gActiveUnit->x, gActiveUnit->y);
 }
@@ -738,7 +738,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 
     if (sub_806B404())
     {
-        MU_EndAll();
+        EndAllMus();
 
         RefreshEntityMaps();
         RenderMap();
@@ -750,7 +750,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
         return;
     }
 
-    MU_EndAll();
+    EndAllMus();
 }
 
 static void sub_801BAB4(ProcPtr proc)
@@ -815,7 +815,7 @@ int GetPlayerSelectKind(struct Unit* unit)
     return PLAYER_SELECT_NOCONTROL;
 }
 
-static Bool CanSelectMoveTo(int x, int y)
+static bool CanSelectMoveTo(int x, int y)
 {
     if (gMapUnit[y][x] == 0 && gMapMovement[y][x] < MAP_MOVEMENT_MAX)
         return TRUE;
@@ -827,12 +827,12 @@ static void PlayerPhase_BeginMove(ProcPtr proc)
 {
     GenMoveScriptFromMovePath();
     ApplyWorkingMovScriptToAction(gActiveUnit->x, gActiveUnit->y);
-    sub_805FC80(gWorkingMoveScr);
+    SetAutoMuMoveScript(gWorkingMoveScr);
 }
 
 static void PlayerPhase_WaitForMove(ProcPtr proc)
 {
-    if (!MU_IsAnyActive())
+    if (!MuExistsActive())
         Proc_Break(proc);
 }
 
@@ -983,7 +983,7 @@ void EndLimitView(void)
     Proc_EndEach(ProcScr_LimitView);
 }
 
-static Bool TrySetCursorOn(int uid)
+static bool TrySetCursorOn(int uid)
 {
     struct Unit* unit = GetUnit(uid);
 

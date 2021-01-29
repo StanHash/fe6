@@ -38,7 +38,7 @@ int GetTextPrintDelay(void)
     return lut[gPlaySt.configTextSpeed];
 }
 
-Bool IsFirstPlaythrough(void)
+int IsFirstPlaythrough(void)
 {
     if (!sub_80846F0())
         return TRUE;
@@ -63,7 +63,7 @@ void InitPlayConfig(int isHardMode)
     gPlaySt.unk_1C_3 = 0;
     gPlaySt.configNoAutoCursor = FALSE;
     gPlaySt.configTextSpeed = 1;
-    gPlaySt.unk_1C_8 = 0;
+    gPlaySt.configWalkSpeed = 0;
     gPlaySt.configBgmDisable = FALSE;
     gPlaySt.configSeDisable = FALSE;
     gPlaySt.configWindowColor = 0;
@@ -236,8 +236,8 @@ void sub_80292B8(void)
 {
     ApplySystemObjectsGraphics();
 
-    MU_Start(&gBattleUnitA.unit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(&gBattleUnitA.unit);
+    SetAutoMuDefaultFacing();
 
     SpawnProc(ProcScr_DelayedUnlockBmDisplay, PROC_TREE_3);
 }
@@ -527,8 +527,8 @@ static void ResumeMapMainDuringAction(ProcPtr mapmain)
 
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0;
     HideUnitSprite(GetUnit(gAction.instigator));
-    MU_Start(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 }
 
 static void ResumeMapMainDuringBerserk(ProcPtr mapmain)

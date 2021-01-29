@@ -46,7 +46,7 @@ struct CamMoveProc
     /* 38 */ short calibration;
     /* 3A */ short distance;
     /* 3C */ int frame;
-    /* 40 */ Bool xCalibrated;
+    /* 40 */ bool xCalibrated;
 };
 
 struct UnkMapCursorProc
@@ -500,7 +500,7 @@ void ApplySystemGraphics(void)
 
 void HandleMapCursorInput(u16 keys)
 {
-    int dir = (keys >> 4) & (DPAD_ANY >> 4);
+    int dir = (keys >> 4) & (KEY_DPAD_ANY >> 4);
 
     struct Vec2 newCursor =
     {
@@ -512,7 +512,7 @@ void HandleMapCursorInput(u16 keys)
     {
         if (gMapMovement[gBmSt.cursor.y][gBmSt.cursor.x] < MAP_MOVEMENT_MAX)
             if (gMapMovement[newCursor.y][newCursor.x] >= MAP_MOVEMENT_MAX)
-                if ((keys & DPAD_ANY) != (gKeySt->pressed & DPAD_ANY))
+                if ((keys & KEY_DPAD_ANY) != (gKeySt->pressed & KEY_DPAD_ANY))
                     return;
     }
 
@@ -563,7 +563,7 @@ void HandleMoveMapCursor(int step)
 
 void HandleMoveCameraWithMapCursor(int step)
 {
-    Bool updated = FALSE;
+    bool updated = FALSE;
 
     int xCursorSpr = gBmSt.cursorSpr.x;
     int yCursorSpr = gBmSt.cursorSpr.y;
@@ -861,7 +861,7 @@ static void CamMove_OnLoop(struct CamMoveProc* proc)
     gBmSt.camera.y = proc->to.y + (proc->from.y - proc->to.y) * proc->distance / proc->calibration;
 }
 
-Bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
+bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
 {
     struct CamMoveProc* cam;
 
@@ -888,7 +888,7 @@ Bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
     return TRUE;
 }
 
-Bool IsCameraNotWatchingPosition(int x, int y)
+bool IsCameraNotWatchingPosition(int x, int y)
 {
     int xTarget = GetCameraAdjustedX(x*16);
     int yTarget = GetCameraAdjustedY(y*16);
@@ -899,7 +899,7 @@ Bool IsCameraNotWatchingPosition(int x, int y)
     return TRUE;
 }
 
-Bool CameraMove_08016290(ProcPtr proc)
+bool CameraMove_08016290(ProcPtr proc)
 {
     struct CamMoveProc* cam;
 

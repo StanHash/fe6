@@ -48,7 +48,7 @@ struct TalkSt
     /* 0F */ s8 speakTalkFace;
     /* 10 */ u8 speakWidth;
     /* 11 */ u8 activeTalkFace;
-    /* 12 */ Bool instantPrint;
+    /* 12 */ bool instantPrint;
     /* 13 */ s8 printDelay;
     /* 14 */ s8 printClock;
     /* 15 */ u8 putLines;
@@ -62,7 +62,7 @@ struct TalkSt
     /* 60 */ char bufUnkStr[0x20];
 };
 
-void InitTalk(int chr, int lines, Bool unpackBubble);
+void InitTalk(int chr, int lines, bool unpackBubble);
 void InitSpriteTalk(int chr, int lines, int palid);
 void SetInitTalkTextFont(void);
 ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent);

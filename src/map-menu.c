@@ -564,7 +564,7 @@ u8 sub_801F228(struct MenuProc* menu, struct MenuEntProc* ent)
 u8 sub_801F26C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = gActiveUnit->items[ent->id];
-    Bool isUseable = CanUnitUseWeapon(gActiveUnit, item);
+    bool isUseable = CanUnitUseWeapon(gActiveUnit, item);
 
     sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 
@@ -832,7 +832,7 @@ u8 sub_801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
 int sub_801F708(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = gActiveUnit->items[ent->id];
-    Bool isUseable;
+    bool isUseable;
 
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
     {
@@ -1086,7 +1086,7 @@ int sub_801FC78(struct MenuEntInfo const* info, int id)
 
 int sub_801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    Bool isUseable = (ent->availability == MENU_ENABLED) ? TRUE : FALSE;
+    bool isUseable = (ent->availability == MENU_ENABLED) ? TRUE : FALSE;
     int item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
 
     sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -1558,7 +1558,7 @@ int sub_80205A8(struct MenuEntInfo const* info, int id)
 int sub_80205EC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = GetUnit(gAction.target)->items[ent->id];
-    Bool isUseable = IsItemStealable(item);
+    bool isUseable = IsItemStealable(item);
 
     sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }

@@ -28,7 +28,7 @@ extern struct ProcScr CONST_DATA ProcScr_BackToUnitMenu[];
 
 extern struct Unit gStatGainSimUnit;
 
-static Bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+static bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit* unit));
 
 static void SetStaffUseAction(struct Unit* unit);
 static void SetItemUseAction(struct Unit* unit);
@@ -69,7 +69,7 @@ PROC_LABEL(100),
     PROC_END,
 };
 
-Bool CanUnitUseItem(struct Unit* unit, int item)
+bool CanUnitUseItem(struct Unit* unit, int item)
 {
     if ((GetItemAttributes(item) & ITEM_ATTR_STAFF) && !CanUnitUseStaff(unit, item))
         return FALSE;
@@ -214,7 +214,7 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
     case IID_ELYSIANWHIP:
     case IID_GUIDINGRING:
     {
-        Bool boolval;
+        bool boolval;
 
         int level = gActiveUnit->level;
 
@@ -302,13 +302,13 @@ void DoUseUnitItem(struct Unit* unit, int item)
     }
 }
 
-static Bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit*))
+static bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit*))
 {
     listTargets(unit);
     return CountTargets() != 0;
 }
 
-Bool CanUnitUseHealItem(struct Unit* unit)
+bool CanUnitUseHealItem(struct Unit* unit)
 {
     if (GetUnitCurrentHp(unit) == GetUnitMaxHp(unit))
         return FALSE;
@@ -316,7 +316,7 @@ Bool CanUnitUseHealItem(struct Unit* unit)
     return TRUE;
 }
 
-Bool CanUnitUseBindingBladeToHeal(struct Unit* unit)
+bool CanUnitUseBindingBladeToHeal(struct Unit* unit)
 {
     if (!CanUnitUseWeapon(unit, IID_BINDINGBLADE))
         return FALSE;
@@ -324,7 +324,7 @@ Bool CanUnitUseBindingBladeToHeal(struct Unit* unit)
     return CanUnitUseHealItem(unit);
 }
 
-Bool CanUnitUsePureWaterItem(struct Unit* unit)
+bool CanUnitUsePureWaterItem(struct Unit* unit)
 {
     if (unit->barrier == 7)
         return FALSE;
@@ -332,7 +332,7 @@ Bool CanUnitUsePureWaterItem(struct Unit* unit)
     return TRUE;
 }
 
-Bool CanUnitUseTorchItem(struct Unit* unit)
+bool CanUnitUseTorchItem(struct Unit* unit)
 {
     if (gPlaySt.vision != 0 && unit->torch != 4)
         return TRUE;
@@ -340,7 +340,7 @@ Bool CanUnitUseTorchItem(struct Unit* unit)
     return FALSE;
 }
 
-Bool CanUnitUseAntitoxinItem(struct Unit* unit)
+bool CanUnitUseAntitoxinItem(struct Unit* unit)
 {
     if (unit->status != UNIT_STATUS_POISON)
         return FALSE;
@@ -348,7 +348,7 @@ Bool CanUnitUseAntitoxinItem(struct Unit* unit)
     return TRUE;
 }
 
-Bool CanUnitUseChestKeyItem(struct Unit* unit)
+bool CanUnitUseChestKeyItem(struct Unit* unit)
 {
     if (gMapTerrain[unit->y][unit->x] != TERRAIN_CHEST)
         return FALSE;
@@ -359,19 +359,19 @@ Bool CanUnitUseChestKeyItem(struct Unit* unit)
     return TRUE;
 }
 
-Bool CanUnitUseDoorKeyItem(struct Unit* unit)
+bool CanUnitUseDoorKeyItem(struct Unit* unit)
 {
     ListOpenTerrainTargets(unit, TERRAIN_DOOR);
     return CountTargets();
 }
 
-Bool CanUnitUseBridgeKeyItem(struct Unit* unit)
+bool CanUnitUseBridgeKeyItem(struct Unit* unit)
 {
     ListOpenTerrainTargets(unit, TERRAIN_BRIDGE_14);
     return CountTargets();
 }
 
-Bool CanUnitUseLockpickItem(struct Unit* unit)
+bool CanUnitUseLockpickItem(struct Unit* unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_STEAL))
         return FALSE;
@@ -382,7 +382,7 @@ Bool CanUnitUseLockpickItem(struct Unit* unit)
     return TRUE;
 }
 
-Bool CanUnitUsePromotionItem(struct Unit* unit, int item)
+bool CanUnitUsePromotionItem(struct Unit* unit, int item)
 {
     u8 const* jlist = NULL;
 
@@ -425,9 +425,9 @@ Bool CanUnitUsePromotionItem(struct Unit* unit, int item)
     return FALSE;
 }
 
-Bool CanUnitUseStatGainItem(struct Unit* unit, int item)
+bool CanUnitUseStatGainItem(struct Unit* unit, int item)
 {
-    Bool result;
+    bool result;
 
     struct ItemBonuses const* bonuses = GetItemBonuses(item);
 
@@ -544,11 +544,11 @@ static void WarpSelect_Init(struct GenericProc* proc)
 
 static void WarpSelect_Loop(struct GenericProc* proc)
 {
-    Bool warpAllowed = gMapMovementSigned[gBmSt.cursor.y][gBmSt.cursor.x] != -1;
+    bool warpAllowed = gMapMovementSigned[gBmSt.cursor.y][gBmSt.cursor.x] != -1;
 
     HandlePlayerMapCursor();
 
-    if (gKeySt->pressed & A_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_A)
     {
         if (warpAllowed)
         {
@@ -572,7 +572,7 @@ static void WarpSelect_Loop(struct GenericProc* proc)
         }
     }
 
-    if (gKeySt->pressed & B_BUTTON)
+    if (gKeySt->pressed & KEY_BUTTON_B)
     {
         Proc_Goto(proc, 99);
 

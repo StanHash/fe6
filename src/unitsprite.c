@@ -718,7 +718,7 @@ void PutUnitSpriteIconsOam(void)
 
     int i, x, y;
 
-    Bool displayRescueIcon = GetGameTime() % 32 < 20 ? TRUE : FALSE;
+    bool displayRescueIcon = GetGameTime() % 32 < 20 ? TRUE : FALSE;
 
     int poisonIconFrame = GetGameTime() / 8 % ARRAY_COUNT(sPoisonIconSprites);
     int sleepIconFrame = GetGameTime() / 16 % ARRAY_COUNT(sSleepIconSprites);
@@ -861,7 +861,7 @@ void UnitSpriteHoverUpdate(void)
 
             if (sHoverCounter == 5)
             {
-                MU_Start(unit);
+                StartMu(unit);
                 HideUnitSprite(unit);
 
                 return;
@@ -878,13 +878,13 @@ not_hover:
 
         if (unit)
         {
-            MU_EndAll();
+            EndAllMus();
             ShowUnitSprite(unit);
         }
     }
 }
 
-Bool IsUnitSpriteHoverEnabledAt(int x, int y)
+bool IsUnitSpriteHoverEnabledAt(int x, int y)
 {
     struct Unit* unit = GetUnit(gMapUnit[y][x]);
 

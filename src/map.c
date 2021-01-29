@@ -630,7 +630,7 @@ int GetTerrainHealAmount(int terrain)
     return TerrainHealAmountTable[terrain];
 }
 
-Bool DoesTerrainHealStatus(int terrain)
+bool DoesTerrainHealStatus(int terrain)
 {
     return TerrainHealsStatusTable[terrain];
 }

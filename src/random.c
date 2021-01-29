@@ -82,12 +82,12 @@ int RandNext(int max)
     return NextRN() / (UINT16_MAX / max);
 }
 
-Bool RandRoll(int threshold)
+bool RandRoll(int threshold)
 {
     return (threshold > RandNext_100());
 }
 
-Bool RandRoll2Rn(int threshold)
+bool RandRoll2Rn(int threshold)
 {
     int rand;
 

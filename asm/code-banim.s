@@ -11303,7 +11303,7 @@ _08047EEC:
 	movs r3, #4
 	bl sub_805B5C8
 	bl EnablePalSync
-	bl MU_EndAll
+	bl EndAllMus
 	adds r0, r7, #0
 	bl Proc_Break
 _08047FC4:

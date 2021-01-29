@@ -10,8 +10,8 @@ void RandGetSt(u16* st);
 
 int RandNext_100(void);
 int RandNext(int max);
-Bool RandRoll(int threshold);
-Bool RandRoll2Rn(int threshold);
+bool RandRoll(int threshold);
+bool RandRoll2Rn(int threshold);
 
 void RandInitB(int seed);
 unsigned RandNextB(void);

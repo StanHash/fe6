@@ -30,17 +30,17 @@ struct DeathDropAnimProc
     /* 48 */ short clockEnd;
 };
 
-static Bool DoRescueAction(ProcPtr proc);
-static Bool DoRescueDropAction(ProcPtr proc);
-static Bool sub_802A208(ProcPtr proc);
-static Bool sub_802A274(ProcPtr proc);
-static Bool sub_802A2C0(ProcPtr proc);
-static Bool DoCombatAction(ProcPtr proc);
-static Bool sub_802A35C(ProcPtr proc);
-static Bool DoRefreshAction(ProcPtr proc);
-static Bool DoTalkAction(ProcPtr proc);
-static Bool DoSupportAction(ProcPtr proc);
-static Bool DoStealAction(ProcPtr proc);
+static bool DoRescueAction(ProcPtr proc);
+static bool DoRescueDropAction(ProcPtr proc);
+static bool sub_802A208(ProcPtr proc);
+static bool sub_802A274(ProcPtr proc);
+static bool sub_802A2C0(ProcPtr proc);
+static bool DoCombatAction(ProcPtr proc);
+static bool sub_802A35C(ProcPtr proc);
+static bool DoRefreshAction(ProcPtr proc);
+static bool DoTalkAction(ProcPtr proc);
+static bool DoSupportAction(ProcPtr proc);
+static bool DoStealAction(ProcPtr proc);
 
 struct Action EWRAM_DATA gAction = {};
 
@@ -112,7 +112,7 @@ void RestoreActionRand(void)
     RandSetSt(gAction.actionRandSt);
 }
 
-Bool DoAction(ProcPtr proc)
+bool DoAction(ProcPtr proc)
 {
     gActiveUnit = GetUnit(gAction.instigator);
 
@@ -171,7 +171,7 @@ Bool DoAction(ProcPtr proc)
     }
 }
 
-static Bool DoRescueAction(ProcPtr proc)
+static bool DoRescueAction(ProcPtr proc)
 {
     struct Unit* instigator = GetUnit(gAction.instigator);
     struct Unit* target = GetUnit(gAction.target);
@@ -183,7 +183,7 @@ static Bool DoRescueAction(ProcPtr proc)
     return FALSE;
 }
 
-static Bool DoRescueDropAction(ProcPtr proc)
+static bool DoRescueDropAction(ProcPtr proc)
 {
     struct Unit* target = GetUnit(gAction.target);
 
@@ -192,7 +192,7 @@ static Bool DoRescueDropAction(ProcPtr proc)
         gWorkingMoveScr[0] = MOVE_CMD_BUMP;
         gWorkingMoveScr[1] = MOVE_CMD_HALT;
 
-        sub_805FC80(gWorkingMoveScr);
+        SetAutoMuMoveScript(gWorkingMoveScr);
 
         return FALSE;
     }
@@ -205,7 +205,7 @@ static Bool DoRescueDropAction(ProcPtr proc)
     return FALSE;
 }
 
-static Bool sub_802A208(ProcPtr proc)
+static bool sub_802A208(ProcPtr proc)
 {
     int x = GetUnit(gAction.instigator)->x;
     int y = GetUnit(gAction.instigator)->y;
@@ -222,7 +222,7 @@ static void sub_802A234(ProcPtr proc, struct Unit* unitA, struct Unit* unitB)
     StartRescueTransferAnim(rescue, sub_801C160(unitB->x, unitB->y, unitA->x, unitA->y), FALSE, proc);
 }
 
-static Bool sub_802A274(ProcPtr proc)
+static bool sub_802A274(ProcPtr proc)
 {
     UnitSyncMovement(GetUnit(gAction.target));
 
@@ -232,7 +232,7 @@ static Bool sub_802A274(ProcPtr proc)
     return FALSE;
 }
 
-static Bool sub_802A2C0(ProcPtr proc)
+static bool sub_802A2C0(ProcPtr proc)
 {
     UnitSyncMovement(GetUnit(gAction.instigator));
 
@@ -242,7 +242,7 @@ static Bool sub_802A2C0(ProcPtr proc)
     return FALSE;
 }
 
-static Bool DoCombatAction(ProcPtr proc)
+static bool DoCombatAction(ProcPtr proc)
 {
     struct Unit* target = GetUnit(gAction.target);
 
@@ -259,13 +259,13 @@ static Bool DoCombatAction(ProcPtr proc)
     return FALSE;
 }
 
-static Bool sub_802A35C(ProcPtr proc)
+static bool sub_802A35C(ProcPtr proc)
 {
     SpawnProcLocking(ProcScr_085C7DC4, proc);
     return FALSE;
 }
 
-static Bool DoRefreshAction(ProcPtr proc)
+static bool DoRefreshAction(ProcPtr proc)
 {
     GetUnit(gAction.target)->state &= ~(US_TURN_ENDED | US_HAS_MOVED | US_HAS_MOVED_AI);
 
@@ -281,13 +281,13 @@ static Bool DoRefreshAction(ProcPtr proc)
     return FALSE;
 }
 
-static Bool DoTalkAction(ProcPtr proc)
+static bool DoTalkAction(ProcPtr proc)
 {
     sub_806AF90(GetUnit(gAction.instigator)->person->id, GetUnit(gAction.target)->person->id);
     return FALSE;
 }
 
-static Bool DoSupportAction(ProcPtr proc)
+static bool DoSupportAction(ProcPtr proc)
 {
     int expA, expB;
 
@@ -320,7 +320,7 @@ static Bool DoSupportAction(ProcPtr proc)
     return FALSE;
 }
 
-static Bool DoStealAction(ProcPtr proc)
+static bool DoStealAction(ProcPtr proc)
 {
     int item = GetUnit(gAction.target)->items[gAction.itemSlot];
     UnitRemoveItem(GetUnit(gAction.target), gAction.itemSlot);
@@ -335,7 +335,7 @@ static Bool DoStealAction(ProcPtr proc)
 
     BattleApplyMiscAction(proc);
 
-    MU_EndAll();
+    EndAllMus();
     sub_8062690();
 
     return FALSE;
@@ -430,7 +430,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
     {
         mu = Proc_Find(ProcScr_Mu);
 
-        MU_StartDeathFade(mu);
+        StartMuDeathFade(mu);
         proc->ptr = mu;
     }
 
@@ -439,14 +439,14 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
         RefreshUnitSprites();
         HideUnitSprite(GetUnit(gBattleUnitB.unit.id));
 
-        mu = MU_Start(&gBattleUnitB.unit);
+        mu = StartMu(&gBattleUnitB.unit);
 
         gWorkingMoveScr[0] = MOVE_CMD_MOVE_BASE
             + sub_80629FC(gBattleUnitA.unit.x, gBattleUnitA.unit.y, gBattleUnitB.unit.x, gBattleUnitB.unit.y);
         gWorkingMoveScr[1] = MOVE_CMD_HALT;
 
-        sub_805FD78(mu, gWorkingMoveScr);
-        MU_StartDeathFade(mu);
+        SetMuMoveScript(mu, gWorkingMoveScr);
+        StartMuDeathFade(mu);
 
         proc->ptr = mu;
     }
@@ -454,7 +454,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
 
 static void CombatAction_PostBanimDeathFadesEnd(struct GenericProc* proc)
 {
-    sub_80608EC(proc->ptr);
+    EndMu(proc->ptr);
 }
 
 static void CombatAction_DoHandleDeaths(struct GenericProc* proc)

@@ -66,7 +66,7 @@ struct BattleUnit
     /* 4E */ u8 weaponKind;
     /* 4F */ u8 weaponItemSlot;
 
-    /* 50 */ Bool canCounter;
+    /* 50 */ bool canCounter;
 
     /* 51 */ s8 wtHitBonus;
     /* 52 */ s8 wtDamageBonus;
@@ -103,10 +103,10 @@ struct BattleUnit
     /* 76 */ s8 conChange;
 
     /* 77 */ s8 wexpGain;
-    /* 78 */ Bool nonZeroDamage;
-    /* 79 */ Bool weaponBroke;
+    /* 78 */ bool nonZeroDamage;
+    /* 79 */ bool weaponBroke;
 
-    /* 7A */ Bool hasItemEffectTarget;
+    /* 7A */ bool hasItemEffectTarget;
     /* 7B */ /* pad */
 };
 
@@ -126,8 +126,8 @@ void BattleGenerateBallistaSimulation(struct Unit* unit, struct Unit* target, in
 void BattleGenerateBallistaReal(struct Unit* instigator, struct Unit* target);
 void BattleGenerate(struct Unit* instigator, struct Unit* target);
 void BattleGenerateDisplayStats(struct Unit* unit, s8 itemSlot);
-Bool BattleRandRoll(u16 threshold, Bool simResult);
-Bool BattleRandRoll2Rn(u16 threshold, Bool simResult);
+bool BattleRandRoll(u16 threshold, bool simResult);
+bool BattleRandRoll2Rn(u16 threshold, bool simResult);
 void InitBattleUnit(struct BattleUnit* bu, struct Unit* unit);
 void InitBattleUnitWithoutBonuses(struct BattleUnit* bu, struct Unit* unit);
 void SetBattleUnitTerrainBonuses(struct BattleUnit* bu, int terrain);
@@ -151,16 +151,16 @@ void ComputeBattleUnitSpecialWeaponStats(struct BattleUnit* attacker, struct Bat
 void ClearBattleHits(void);
 void BattleUnwind(void);
 void BattleGetBattleUnitOrder(struct BattleUnit** attacker, struct BattleUnit** defender);
-Bool BattleGetFollowUpOrder(struct BattleUnit** attacker, struct BattleUnit** defender);
-Bool BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender);
+bool BattleGetFollowUpOrder(struct BattleUnit** attacker, struct BattleUnit** defender);
+bool BattleGenerateRoundHits(struct BattleUnit* attacker, struct BattleUnit* defender);
 int GetBattleUnitHitCount(struct BattleUnit* attacker);
 int BattleCheckBraveEffect(struct BattleUnit* attacker);
-Bool BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
+bool BattleCheckTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
 void BattleUpdateBattleStats(struct BattleUnit* attacker, struct BattleUnit* defender);
 void BattleGenerateHitAttributes(struct BattleUnit* attacker);
 void BattleGenerateHitTriangleAttack(struct BattleUnit* attacker, struct BattleUnit* defender);
 void BattleGenerateHitEffects(struct BattleUnit* attacker, struct BattleUnit* defender);
-Bool BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender);
+bool BattleGenerateHit(struct BattleUnit* attacker, struct BattleUnit* defender);
 void BattleApplyExpGains(void);
 int GetStatIncrease(int growth);
 int GetAutoleveledStatIncrease(int growth, int levelCount);
@@ -170,7 +170,7 @@ void GenerateBattleUnitStatGainsComparatively(struct BattleUnit* bu, struct Unit
 void CheckBattleUnitStatCaps(struct Unit* unit, struct BattleUnit* bu);
 void BattleApplyUnitUpdates(void);
 int GetBattleUnitUpdatedWeaponExp(struct BattleUnit* bu);
-Bool HasBattleUnitGainedWeaponLevel(struct BattleUnit* bu);
+bool HasBattleUnitGainedWeaponLevel(struct BattleUnit* bu);
 void UpdateUnitFromBattle(struct Unit* unit, struct BattleUnit* bu);
 void UpdateUnitDuringBattle(struct Unit* unit, struct BattleUnit* bu);
 void BattleApplyBallistaUpdates(void);
@@ -203,8 +203,8 @@ void BattleApplyMiscAction(ProcPtr proc);
 void BattleApplyItemEffect(ProcPtr proc);
 int GetOffensiveStaffAccuracy(struct Unit* unit, struct Unit* target);
 void BattleGenerateArena(struct Unit* unit);
-Bool BattleIsTriangleAttack(void);
-Bool DidBattleUnitBreakWeapon(struct BattleUnit* bu);
+bool BattleIsTriangleAttack(void);
+bool DidBattleUnitBreakWeapon(struct BattleUnit* bu);
 void BattleHitAdvance(void);
 void BattleHitTerminate(void);
 

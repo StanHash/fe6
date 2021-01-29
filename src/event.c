@@ -96,7 +96,7 @@ struct EventProc
     /* 3C */ struct UnitInfo const* unitInfo;
     /* 40 */ int msgParam;
     /* 44 */ s8 background;
-    /* 45 */ Bool noMap;
+    /* 45 */ bool noMap;
     /* 46 */ u8 flags;
     /* 47 */ // pad
     /* 48 */ u16 sleepDuration;
@@ -160,11 +160,11 @@ static void Event_ResetText(struct EventProc* proc);
 static void Event_RestartFromQueued(struct EventProc* proc);
 static void Event_MaybeEndMapMain(struct EventProc* proc);
 static void Event_ClearTextOnSkip(struct EventProc* proc);
-static Bool Event_SkipAllowed(struct EventProc* proc);
+static bool Event_SkipAllowed(struct EventProc* proc);
 static void Event_DarkenThenFunc(void(*func)(struct EventProc* proc), struct EventProc* eproc);
 static void Event_MainLoop(struct EventProc* proc);
 static void Event_WaitForFaceEnd(struct EventProc* proc);
-static Bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr);
+static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr);
 static void WaitForMu_0800F094(struct GenericProc* proc);
 static void WaitForMu_OnLoop(struct GenericProc* proc);
 static void FlashCursor_OnInit(struct GenericProc* proc);
@@ -396,15 +396,15 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     }
 }
 
-Bool sub_800CE44(void)
+bool sub_800CE44(void)
 {
-    if (gKeySt->held & R_BUTTON)
+    if (gKeySt->held & KEY_BUTTON_R)
         return TRUE;
 
     return FALSE;
 }
 
-Bool sub_800CE74(void)
+bool sub_800CE74(void)
 {
     sUnk_030000F0 = 0;
     return TRUE;
@@ -766,7 +766,7 @@ static void FadeFromBg_ClearScreen(struct GenericProc* proc)
 {
     InitBmDisplay();
     UnlockBmDisplay();
-    sub_806095C();
+    ReleaseMus();
 
     TmFill(gBg0Tm, 0);
     TmFill(gBg1Tm, 0);
@@ -914,10 +914,10 @@ static void Event_ClearTextOnSkip(struct EventProc* proc)
     Proc_EndEach(ProcScr_TalkOpen);
 
     if (proc->background == -1)
-        sub_8061704();
+        SetMuMaxWalkSpeed();
 }
 
-static Bool Event_SkipAllowed(struct EventProc* proc)
+static bool Event_SkipAllowed(struct EventProc* proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return FALSE;
@@ -1022,7 +1022,7 @@ static void Event_MainLoop(struct EventProc* proc)
     if (IsMapFadeActive())
         return;
 
-    if (Event_SkipAllowed(proc) && (gKeySt->pressed & START_BUTTON))
+    if (Event_SkipAllowed(proc) && (gKeySt->pressed & KEY_BUTTON_START))
     {
         if (proc->onSkip)
             proc->onSkip();
@@ -1113,7 +1113,7 @@ static int EvtCmd_Background(struct EventProc* proc)
     if (proc->background == -1)
     {
         LockBmDisplay();
-        BlockAllProcsMarked4();
+        LockMus();
     }
 
     DisplayBackground(proc->script[0]);
@@ -1132,7 +1132,7 @@ static int EvtCmd_BackgroundMore(struct EventProc* proc)
     if (proc->background == -1)
     {
         LockBmDisplay();
-        BlockAllProcsMarked4();
+        LockMus();
     }
 
     DisplayBackgroundNoClear(proc->script[0]);
@@ -1339,7 +1339,7 @@ static int EvtCmd_CameraPid(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static Bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
+static bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
 {
     if (proc->flags & EVENT_FLAG_UNITCAM)
     {
@@ -1347,7 +1347,7 @@ static Bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
             return FALSE;
     }
 
-    if (!MU_CanStart())
+    if (!CanStartMu())
         return FALSE;
 
     return TRUE;
@@ -1538,7 +1538,7 @@ void TryMoveUnit(struct Unit* unit, int x, int y, s8 moveClosest)
     RefreshEntityMaps();
 }
 
-Bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
+bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
 {
     struct Vec2 vec;
 
@@ -1572,16 +1572,16 @@ Bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
     return DisplayMovement(proc, unit, gWorkingMoveScr);
 }
 
-static Bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr)
+static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr)
 {
     struct GenericProc* gproc;
 
-    struct MuProc* mu = MU_Start(unit);
+    struct MuProc* mu = StartMu(unit);
 
     int x, y;
 
     if (!(proc->flags & EVENT_FLAG_UNITCAM))
-        sub_805F91C(mu);
+        DisableMuCamera(mu);
 
     gproc = SpawnProc(ProcScr_EventWaitForMu, PROC_TREE_3);
     gproc->ptr = mu;
@@ -1599,7 +1599,7 @@ static Bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const*
     gproc->x = x;
     gproc->y = y;
 
-    sub_805FD78(mu, movescr);
+    SetMuMoveScript(mu, movescr);
 
     gMapOther[y][x] = unit->id;
 
@@ -1615,10 +1615,10 @@ static void WaitForMu_OnLoop(struct GenericProc* proc)
     struct MuProc* mu = proc->ptr;
     struct Unit* unit;
 
-    if (sub_805FD40(mu))
+    if (IsMuActive(mu))
         return;
 
-    sub_80608EC(mu);
+    EndMu(mu);
 
     unit = mu->unit;
 
@@ -1687,7 +1687,7 @@ int GetNextAvailableBlueUnitId(int start)
     return 0;
 }
 
-Bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
+bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
 {
     if (info->xLoad == info->xMove)
         if (info->yLoad == info->yMove)
@@ -1814,7 +1814,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
 
 static void EventMovementWait(struct EventProc* proc)
 {
-    if (MU_IsAnyActive())
+    if (MuExistsActive())
         return;
 
     MapFill(gMapOther, 0);
@@ -1823,7 +1823,7 @@ static void EventMovementWait(struct EventProc* proc)
 
 static int EvtCmd_WaitForMovement(struct EventProc* proc)
 {
-    if (MU_IsAnyActive())
+    if (MuExistsActive())
         return EVENT_CMDRET_REPEAT;
 
     MapFill(gMapOther, 0);
@@ -2369,10 +2369,10 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
 
     HideUnitSprite(unit);
 
-    mu = MU_Start(unit);
+    mu = StartMu(unit);
 
-    MU_SetDefaultFacing_Auto();
-    MU_StartDeathFade(mu);
+    SetAutoMuDefaultFacing();
+    StartMuDeathFade(mu);
 
     proc->onIdle = EventRemoveDisplayedWait;
     proc->sleepDuration = 60;
@@ -2387,7 +2387,7 @@ static void EventRemoveDisplayedWait(struct EventProc* proc)
 
     struct Unit* unit = GetUnitByPid(proc->pidParam);
 
-    MU_EndAll();
+    EndAllMus();
 
     ClearUnit(unit);
 
@@ -2573,7 +2573,7 @@ int EventEndBattleMap(ProcPtr proc)
 
 static int EvtCmd_NextChapter(struct EventProc* proc)
 {
-    MU_EndAll();
+    EndAllMus();
 
     SetNextChapter(proc->script[0]);
     SetNextGameAction(GAME_ACTION_1);
@@ -2785,8 +2785,8 @@ static int EvtCmd_FightScript(struct EventProc* proc)
 
     HideUnitSprite(gActiveUnit);
 
-    MU_Start(gActiveUnit);
-    MU_SetDefaultFacing_Auto();
+    StartMu(gActiveUnit);
+    SetAutoMuDefaultFacing();
 
     if (GetItemKind(unitA->items[0]) == ITEM_KIND_STAFF)
     {
@@ -3442,12 +3442,12 @@ void sub_8011F64(void)
 {
 }
 
-Bool IsEventRunning(void)
+bool IsEventRunning(void)
 {
     return Proc_FindMarked(PROC_MARK_6) != NULL ? TRUE : FALSE;
 }
 
-Bool IsEventProcRunning(void)
+bool IsEventProcRunning(void)
 {
     return Proc_FindActive(ProcScr_Event) != NULL ? TRUE : FALSE;
 }
@@ -3458,7 +3458,7 @@ void KillTalkAndEvent(void)
     Proc_EndEachMarked(PROC_MARK_7);
     Proc_EndEachMarked(PROC_MARK_5);
 
-    MU_EndAll();
+    EndAllMus();
 }
 
 void SetFightEventFaceConfig(void)
@@ -3678,7 +3678,7 @@ void InitPlayerDeployUnitPositions(void)
 
 static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
 {
-    Bool spotOccupied;
+    bool spotOccupied;
 
     struct UnitInfo const* info = sub_806B638();
 

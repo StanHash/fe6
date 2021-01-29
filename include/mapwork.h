@@ -15,7 +15,7 @@ struct MapFloodSt
 {
     /* 00 */ struct MapFloodSquareEnt* activeQueue;
     /* 04 */ struct MapFloodSquareEnt* waitingQueue;
-    /* 08 */ Bool hasUnit;
+    /* 08 */ bool hasUnit;
     /* 09 */ u8 move;
     /* 0A */ u8 uid;
     /* 0B */ u8 edgeMove;
