@@ -22,6 +22,7 @@
 
 #include "constants/items.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 // TODO: map-menu.h
 extern struct ProcScr CONST_DATA ProcScr_BackToUnitMenu[];
@@ -562,13 +563,13 @@ static void WarpSelect_Loop(struct GenericProc* proc)
             TmFill(gBg2Tm, 0);
             EnableBgSync(BG2_SYNC_BIT);
 
-            PlaySe(0x6A); // TODO: song ids
+            PlaySe(SONG_6A);
 
             return;
         }
         else
         {
-            PlaySe(0x6C); // TODO: song ids
+            PlaySe(SONG_6C);
         }
     }
 
@@ -579,7 +580,7 @@ static void WarpSelect_Loop(struct GenericProc* proc)
         TmFill(gBg2Tm, 0);
         EnableBgSync(BG2_SYNC_BIT);
 
-        PlaySe(0x6B); // TODO: song ids
+        PlaySe(SONG_6B);
     }
 
     if (warpAllowed != proc->unk4A)
@@ -649,7 +650,7 @@ void DoUseWarpStaff(struct Unit* unit)
         StartMapSelectExt(&MapSelectInfo_085C772C, WarpOnSelectTarget),
         DecodeMsg(0xC29)); // TODO: msg ids
 
-    PlaySe(0x6A); // TODO: song ids
+    PlaySe(SONG_6A);
 }
 
 int UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -672,7 +673,7 @@ void DoUseUnlockStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
         StartMapSelectExt(&MapSelectInfo_085C770C, UnlockOnSelectTarget),
         DecodeMsg(0xC2E)); // TODO: msg ids
 
-    PlaySe(0x6A); // TODO: song ids
+    PlaySe(SONG_6A);
 }
 
 int RepairSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -701,7 +702,7 @@ void DoUseRepairStaff(struct Unit* unit)
         StartMapSelect(&MapSelectInfo_Repair),
         DecodeMsg(0xC2C)); // TODO: msg ids
 
-    PlaySe(0x6A); // TODO: song ids
+    PlaySe(SONG_6A);
 }
 
 int RepairSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)

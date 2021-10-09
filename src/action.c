@@ -15,6 +15,7 @@
 #include "mu.h"
 
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 struct DeathDropAnimProc
 {
@@ -394,7 +395,7 @@ void DropRescueOnDeath(ProcPtr parent, struct Unit* unit)
         UseUnitSprite(GetUnitMapSprite(proc->unit));
         ForceSyncUnitSpriteSheet();
 
-        PlaySe(0xAC); // TODO: song ids
+        PlaySe(SONG_AC);
     }
 }
 

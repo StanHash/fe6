@@ -20,6 +20,7 @@
 #include "constants/items.h"
 
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 void ApplyHazardHealing(ProcPtr proc, struct Unit* unit, int hp, int status)
 {
@@ -384,7 +385,7 @@ void StartStatusHealEffect(struct Unit* unit, ProcPtr parent)
 
     SpawnProcLocking(ProcScr_StatusHealEffect, parent);
 
-    PlaySe(0xAA); // TODO: song ids
+    PlaySe(SONG_AA);
 }
 
 static void TerrainHealDisplay_Init(struct GenericProc* proc)

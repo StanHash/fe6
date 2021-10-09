@@ -14,6 +14,7 @@
 
 #include "constants/video-global.h"
 #include "constants/jids.h"
+#include "constants/songs.h"
 
 enum { MU_COUNT = 4 };
 
@@ -85,41 +86,40 @@ static short CONST_DATA sMoveOffsetLut[4*2] =
      0, -1, // down
 };
 
-// TODO: song ids
 // TODO: move mu sound scripts to own data file?
 
 u16 CONST_DATA MuSoundScr_Foot[] =
 {
     0x10, 2,
-    0x96, 0, 0, 0, 0, 0, 0, 0,
-    0x97, 0, 0, 0, 0, 0, 0, 0,
+    SONG_96, 0, 0, 0, 0, 0, 0, 0,
+    SONG_97, 0, 0, 0, 0, 0, 0, 0,
 };
 
 u16 CONST_DATA MuSoundScr_FootHeavy[] =
 {
     0x20, 2,
-    0xA4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0xA5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_A4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_A5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
 u16 CONST_DATA MuSoundScr_Mounted[] =
 {
     0x15, 3,
-    0x9A, 0, 0,
-    0x9B, 0, 0, 0, 0, 0, 0,
-    0x9C, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_9A, 0, 0,
+    SONG_9B, 0, 0, 0, 0, 0, 0,
+    SONG_9C, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
 u16 CONST_DATA MuSoundScr_Wyvern[] =
 {
     0x14, 1,
-    0xA0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_A0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
 u16 CONST_DATA MuSoundScr_Pegasus[] =
 {
     0x14, 1,
-    0xA6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    SONG_A6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 };
 
 typedef void(*MuStateFunc)(struct MuProc* mu);
@@ -640,7 +640,7 @@ void StartMuFogBump(int x, int y)
 
 void MuFogBump_Init(struct MuFogBumpProc* proc)
 {
-    PlaySe(0x77); // TODO: song ids
+    PlaySe(SONG_77);
     proc->clock = 0;
     SetObjAffineAuto(0, 0, 0x200, 0x200);
 }
@@ -1056,7 +1056,7 @@ void StartMuDeathFade(struct MuProc* mu)
 
     mu->anim->layer = 13;
 
-    PlaySe(0xD6); // TODO: song ids
+    PlaySe(SONG_D6);
 }
 
 void MuDeathFade_OnLoop(struct GenericProc* proc)

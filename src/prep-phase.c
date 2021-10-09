@@ -22,6 +22,7 @@
 
 #include "constants/video-global.h"
 #include "constants/pids.h"
+#include "constants/songs.h"
 
 enum
 {
@@ -154,7 +155,7 @@ PROC_LABEL(L_PLAYERPHASE_SEE_RANGE),
 
 static void PrepPhase_RightInitCamera(struct GenericProc* proc)
 {
-    StartBgm(0x22, NULL); // TODO: song ids
+    StartBgm(SONG_22, NULL);
 
     proc->unk4A = FALSE;
 
@@ -257,7 +258,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
         if (gKeySt->pressed & KEY_BUTTON_L)
         {
             TrySwitchViewedUnit(gBmSt.cursor.x, gBmSt.cursor.y);
-            PlaySe(0x6B); // TODO: song ids
+            PlaySe(SONG_6B);
 
             goto put_map_cursor;
         }
@@ -311,7 +312,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
                 return;
 
             case PLAYER_SELECT_4:
-                PlaySe(0x6C); // TODO: song ids
+                PlaySe(SONG_6C);
 
                 return;
 
@@ -389,7 +390,7 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
 
     StartSubtitleHelp(proc, DecodeMsg(0xC25)); // TODO: msg ids
     CameraMoveWatchPosition(proc, gActiveUnit->x, gActiveUnit->y);
-    PlaySe(0x69); // TODO: song ids
+    PlaySe(SONG_69);
 }
 
 static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
@@ -467,7 +468,7 @@ static void PrepPhase_MapSwapSelectApply(struct GenericProc* proc)
         sub_801CF10(proc, unitB, unitA->x, unitA->y);
     }
 
-    PlaySe(0x61); // TODO: song ids
+    PlaySe(SONG_61);
 }
 
 static void PrepPhase_MapSwapSelectFogFadeA(struct GenericProc* proc)

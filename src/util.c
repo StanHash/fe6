@@ -10,6 +10,7 @@
 #include "bm.h"
 
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 #if NONMATCHING
 
@@ -617,7 +618,7 @@ static void SpacialSeTest_OnLoop(struct GenericProc* proc)
         if (gKeySt->held & KEY_DPAD_RIGHT)
             location = +proc->unk66;
 
-        PlaySeSpacial(0x9A, location); // TODO: song ids
+        PlaySeSpacial(SONG_9A, location);
     }
 }
 

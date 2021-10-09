@@ -21,6 +21,7 @@
 #include "chapter.h"
 
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 struct TalkChoiceEnt
 {
@@ -576,14 +577,14 @@ static void Talk_OnIdle(ProcPtr proc)
             {
                 if (CheckTalkFlag(TALK_FLAG_7))
                 {
-                    PlaySe(0x7A); // TODO: song ids
+                    PlaySe(SONG_7A);
                 }
                 else
                 {
                     if ((GetTextPrintDelay() == 1) && !(GetGameTime() & 1))
                         break;
 
-                    PlaySe(0x6E); // TODO: song ids
+                    PlaySe(SONG_6E);
                 }
             }
         }
@@ -1276,7 +1277,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 {
     if (gKeySt->pressed & KEY_BUTTON_B)
     {
-        PlaySe(0x6B); // TODO: song ids
+        PlaySe(SONG_6B);
 
         sTalkChoiceResult = 0;
 
@@ -1285,7 +1286,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
     }
     else if (gKeySt->pressed & KEY_BUTTON_A)
     {
-        PlaySe(0x6A); // TODO: song ids
+        PlaySe(SONG_6A);
 
         sTalkChoiceResult = proc->selectedChoice;
 
@@ -1295,7 +1296,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 
     if ((gKeySt->pressed & KEY_DPAD_LEFT) && (proc->selectedChoice == 2))
     {
-        PlaySe(0x67); // TODO: song ids
+        PlaySe(SONG_67);
 
         proc->selectedChoice = 1;
 
@@ -1305,7 +1306,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
 
     if ((gKeySt->pressed & KEY_DPAD_RIGHT) && (proc->selectedChoice == 1))
     {
-        PlaySe(0x67); // TODO: song ids
+        PlaySe(SONG_67);
 
         proc->selectedChoice = 2;
 

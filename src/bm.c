@@ -27,6 +27,7 @@
 #include "ai-phase.h"
 
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 enum
 {
@@ -536,7 +537,7 @@ void HandleMapCursorInput(u16 keys)
     {
         if (gBmSt.cursor.x != gBmSt.cursorPrevious.x || gBmSt.cursor.y != gBmSt.cursorPrevious.y)
         {
-            PlaySe(0x65); // TODO: song ids
+            PlaySe(SONG_65);
             gBmSt.flags |= BM_FLAG_2;
         }
     }
@@ -962,7 +963,7 @@ int GetActiveMapSong(void)
 
     case FACTION_BLUE:
         if (CountFactionUnitsWithoutState(FACTION_RED, US_DEAD | US_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victoryBgmEnemyThreshold)
-            return 0x13; // TODO: song ids
+            return SONG_13;
 
         return GetChapterInfo(gPlaySt.chapter)->songBlueBgm;
 

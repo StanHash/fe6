@@ -20,6 +20,7 @@
 
 #include "constants/chapters.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 struct AiPerformProc
 {
@@ -242,7 +243,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
 {
     static struct PopupInfo CONST_DATA Popup_085C85D0[] =
     {
-        POPUP_SONG(0x5C), // TODO: song ids
+        POPUP_SONG(SONG_5C),
         POPUP_MSG(0x6E6), // TODO: msg ids
         POPUP_END,
     };
@@ -265,7 +266,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
         int const y2 = y-1;
         sub_806B06C(x, y2);
 
-        PlaySe(0xAB); // TODO: song ids
+        PlaySe(SONG_AB);
         StartPopup(Popup_085C85D0, 0x60, 0, proc);
     }
 

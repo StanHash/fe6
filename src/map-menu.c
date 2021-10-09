@@ -31,6 +31,7 @@
 #include "constants/terrains.h"
 #include "constants/pids.h"
 #include "constants/items.h"
+#include "constants/songs.h"
 
 #include "event-script.h"
 
@@ -1016,7 +1017,7 @@ u8 sub_801FB00(struct MenuProc* menu, struct MenuEntProc* ent)
 
     gAction.id = ACTION_USEITEM;
 
-    PlaySe(0x6A); // TODO: song ids
+    PlaySe(SONG_6A);
     return sub_801F8E0(menu);
 }
 

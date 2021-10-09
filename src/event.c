@@ -39,6 +39,7 @@
 #include "constants/video-wm.h"
 #include "constants/video-banim.h"
 #include "constants/terrains.h"
+#include "constants/songs.h"
 
 struct PopupProc
 {
@@ -4089,7 +4090,7 @@ EventScr CONST_DATA EventScr_085C46DC[] =
 
 struct PopupInfo CONST_DATA Popup_085C46FC[] =
 {
-    POPUP_SONG(0x5C), // TODO: song ids
+    POPUP_SONG(SONG_5C),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4104,7 +4105,7 @@ struct PopupInfo CONST_DATA Popup_085C46FC[] =
 
 struct PopupInfo CONST_DATA Popup_085C473C[] =
 {
-    POPUP_SONG(0x5C), // TODO: song ids
+    POPUP_SONG(SONG_5C),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4119,7 +4120,7 @@ struct PopupInfo CONST_DATA Popup_085C473C[] =
 
 struct PopupInfo CONST_DATA Popup_085C477C[] =
 {
-    POPUP_SONG(0x5A), // TODO: song ids
+    POPUP_SONG(SONG_5A),
 
     POPUP_MSG(0xC70), // TODO: msgids
     POPUP_ICON_IKIND,
@@ -4130,7 +4131,7 @@ struct PopupInfo CONST_DATA Popup_085C477C[] =
 
 struct PopupInfo CONST_DATA Popup_085C47A4[] =
 {
-    POPUP_SONG(0x5A), // TODO: song ids
+    POPUP_SONG(SONG_5A),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_NUMBER,
@@ -4144,7 +4145,7 @@ struct PopupInfo CONST_DATA Popup_085C47A4[] =
 
 struct PopupInfo CONST_DATA Popup_085C47DC[] =
 {
-    POPUP_SONG(0x5C), // TODO: song ids
+    POPUP_SONG(SONG_5C),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_NUMBER,
@@ -4158,7 +4159,7 @@ struct PopupInfo CONST_DATA Popup_085C47DC[] =
 
 struct PopupInfo CONST_DATA Popup_085C4814[] =
 {
-    POPUP_SONG(0x5A), // TODO: song ids
+    POPUP_SONG(SONG_5A),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4173,7 +4174,7 @@ struct PopupInfo CONST_DATA Popup_085C4814[] =
 
 struct PopupInfo CONST_DATA Popup_085C4854[] =
 {
-    POPUP_SONG(0x5C), // TODO: song ids
+    POPUP_SONG(SONG_5C),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4188,7 +4189,7 @@ struct PopupInfo CONST_DATA Popup_085C4854[] =
 
 struct PopupInfo CONST_DATA Popup_085C4894[] =
 {
-    POPUP_SONG(0x5A), // TODO: song ids
+    POPUP_SONG(SONG_5A),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4203,7 +4204,7 @@ struct PopupInfo CONST_DATA Popup_085C4894[] =
 
 struct PopupInfo CONST_DATA Popup_085C48D4[] =
 {
-    POPUP_SONG(0x5C), // TODO: song ids
+    POPUP_SONG(SONG_5C),
 
     POPUP_COLOR(TEXT_COLOR_0789),
     POPUP_ICON_ITEM,
@@ -4218,7 +4219,7 @@ struct PopupInfo CONST_DATA Popup_085C48D4[] =
 
 struct PopupInfo CONST_DATA Popup_085C4914[] =
 {
-    POPUP_SONG(0x5A), // TODO: song ids
+    POPUP_SONG(SONG_5A),
 
     POPUP_COLOR(TEXT_COLOR_0123),
     POPUP_MSG(0xC7A), // TODO: msgids

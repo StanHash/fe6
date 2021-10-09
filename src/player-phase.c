@@ -23,6 +23,7 @@
 #include "constants/video-global.h"
 #include "constants/chapters.h"
 #include "constants/pids.h"
+#include "constants/songs.h"
 
 static bool CanSelectMoveTo(int x, int y);
 static void PlayerPhase_ContinueAction(ProcPtr proc);
@@ -228,7 +229,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
     if (gKeySt->pressed & KEY_BUTTON_L)
     {
         TrySwitchViewedUnit(gBmSt.cursor.x, gBmSt.cursor.y);
-        PlaySe(0x6B); // TODO: song ids
+        PlaySe(SONG_6B);
     }
     else if (!IsMapFadeActive())
     {
@@ -409,7 +410,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
     if (gActiveUnit->x == gBmSt.cursor.x && gActiveUnit->y == gBmSt.cursor.y)
     {
         InitMovePath(FALSE);
-        PlaySe(0x69); // TODO: song ids
+        PlaySe(SONG_69);
     }
     else
     {
@@ -419,7 +420,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 
 void PlayerPhase_BeginSeeActionRange(ProcPtr proc)
 {
-    PlaySe(0x68); // TODO: song ids
+    PlaySe(SONG_68);
 
     gBmSt.flags &= ~BM_FLAG_1;
     DisplayUnitActionRange(gActiveUnit);
@@ -494,7 +495,7 @@ do_act:
     {
 
     case ACT_FAIL:
-        PlaySe(0x6C); // TODO: song ids
+        PlaySe(SONG_6C);
         break;
 
     case ACT_MOVE:
@@ -520,7 +521,7 @@ do_act:
         RefreshEntityMaps();
         RefreshUnitSprites();
 
-        PlaySe(0x6B); // TODO: song ids
+        PlaySe(SONG_6B);
 
         Proc_Goto(proc, L_PLAYERPHASE_IDLE);
         return;
@@ -547,7 +548,7 @@ do_act:
         CameraMoveWatchPosition(proc, gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
         SetMapCursorPosition(gActiveUnitMoveOrigin.x, gActiveUnitMoveOrigin.y);
 
-        PlaySe(0x6B); // TODO: song ids
+        PlaySe(SONG_6B);
 
         break;
 

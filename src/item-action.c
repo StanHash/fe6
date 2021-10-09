@@ -15,6 +15,7 @@
 #include "action.h"
 
 #include "constants/items.h"
+#include "constants/songs.h"
 
 static void ApplyStatusChange(ProcPtr proc);
 
@@ -362,7 +363,7 @@ void DoItemKeyAction(void)
 
     sub_806B354(x, y);
 
-    PlaySe(0xB1); // TODO: song ids
+    PlaySe(SONG_B1);
 }
 
 void DoItemPromoteAction(void)
@@ -485,7 +486,7 @@ void DoItemStatBoostAction(ProcPtr proc)
 
     }
 
-    PlaySe(0x5A); // TODO: song ids
+    PlaySe(SONG_5A);
 
     sub_801DA54(proc, GetItemIcon(item), DecodeMsg(msg));
 }

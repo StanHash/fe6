@@ -34,6 +34,7 @@
 #include "constants/pids.h"
 #include "constants/jids.h"
 #include "constants/icons.h"
+#include "constants/songs.h"
 
 extern u16 gChapterIntroMotifTmBuf[];
 
@@ -1183,7 +1184,7 @@ static void PhaseIntroText_Init(struct GenericProc* proc)
     if (GetCurrentBgmSong() != GetActiveMapSong())
         FadeBgmOut(4);
 
-    PlaySe(0x73); // TODO: song ids
+    PlaySe(SONG_73);
 
     proc->unk4C = 15;
 }
@@ -1482,7 +1483,7 @@ static void GasTrapAnim_Init(struct GenericProc* proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartAnimProc(anim, x, y, oam2, animNum, 0);
-    PlaySeSpacial(0xBA, x+8); // TODO: song ids
+    PlaySeSpacial(SONG_BA, x+8);
 }
 
 void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
@@ -1508,7 +1509,7 @@ static void FireTrapAnim_Init(struct GenericProc* proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartAnimProc(Anim_FireTrap, x, y, oam2, 0, 0);
-    PlaySeSpacial(0xBF, x+8); // TODO: song ids
+    PlaySeSpacial(SONG_BF, x+8);
 }
 
 void StartFireTrapAnim(ProcPtr parent, int x, int y)
@@ -1532,7 +1533,7 @@ static void ArrowTrapAnim_Init(struct GenericProc* proc)
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartAnimProc(Anim_ArrowTrap, x, DISPLAY_HEIGHT/2, oam2, 0, 0);
-    PlaySeSpacial(0xBC, x+8); // TODO: song ids
+    PlaySeSpacial(SONG_BC, x+8);
 
     CameraMoveWatchPosition(proc, proc->x, 31);
 }
@@ -1569,9 +1570,9 @@ static void sub_801D8E4(struct ShowMapChangeProc* proc)
     StartMapFade(FALSE);
 
     if (proc->altSong)
-        song = 0xBE; // TODO: song ids
+        song = SONG_BE;
     else
-        song = 0xBD; // TODO: song ids
+        song = SONG_BD;
 
     PlaySeSpacial(song, proc->sndx /* *16 + 8 */ - gBmSt.camera.x);
 }
@@ -1874,7 +1875,7 @@ static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc)
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    PlaySe(0x90); // TODO: song ids
+    PlaySe(SONG_90);
 }
 
 static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc)
@@ -1895,7 +1896,7 @@ static void ChapterIntro_BeginHOpenText(struct GenericProc* proc)
     proc->unk4C = 0;
 
     SetDispEnable(1, 1, 1, 1, 1);
-    PlaySe(0x91); // TODO: song ids
+    PlaySe(SONG_91);
 }
 
 static void ChapterIntro_LoopHOpenText(struct GenericProc* proc)
@@ -2212,7 +2213,7 @@ static void GameOverScreen_Init(struct GenericProc* proc)
 
     LockBmDisplay();
 
-    StartBgm(0x37, NULL); // TODO: song ids
+    StartBgm(SONG_37, NULL);
 
     gDispIo.bg0Ct.priority = 0;
     gDispIo.bg1Ct.priority = 1;

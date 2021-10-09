@@ -13,6 +13,7 @@
 #include "action.h"
 
 #include "constants/video-global.h"
+#include "constants/songs.h"
 
 extern struct Text gTradeMenuText[2][ITEMSLOT_INV_COUNT];
 
@@ -313,8 +314,7 @@ static bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
-        PlaySe(0x67);
+        PlaySe(SONG_67);
     }
 
     if ((gKeySt->repeated & KEY_DPAD_RIGHT) && proc->hoverColumn == TRADEMENU_UNIT_LEFT)
@@ -329,8 +329,7 @@ static bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
-        PlaySe(0x67);
+        PlaySe(SONG_67);
     }
 
     if ((gKeySt->repeated & KEY_DPAD_UP))
@@ -347,8 +346,7 @@ static bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
-        PlaySe(0x66);
+        PlaySe(SONG_66);
     }
 
     if ((gKeySt->repeated & KEY_DPAD_DOWN))
@@ -365,8 +363,7 @@ static bool TradeMenu_UpdateSelection(struct TradeMenuProc* proc)
 
         changedSelection = TRUE;
 
-        // TODO: SONG IDS
-        PlaySe(0x66);
+        PlaySe(SONG_66);
     }
 
 end:
@@ -428,12 +425,12 @@ static void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
     if (gKeySt->pressed & KEY_BUTTON_A)
     {
         Proc_Goto(proc, L_TRADEMENU_SELECTED);
-        PlaySe(0x6A); // TODO: SONG ID DEFINITIONS
+        PlaySe(SONG_6A);
     }
     else if (gKeySt->pressed & KEY_BUTTON_B)
     {
         Proc_Goto(proc, L_TRADEMENU_END);
-        PlaySe(0x6B); // TODO: SONG ID DEFINITIONS
+        PlaySe(SONG_6B);
     }
     else if (gKeySt->pressed & KEY_BUTTON_R)
     {
@@ -480,12 +477,12 @@ static void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
     {
         TradeMenu_ApplyItemSwap(proc);
 
-        PlaySe(0x6A); // TODO: SONG ID DEFINITIONS
+        PlaySe(SONG_6A);
         Proc_Break(proc);
     }
     else if (gKeySt->pressed & KEY_BUTTON_B)
     {
-        PlaySe(0x6B); // TODO: SONG ID DEFINITIONS
+        PlaySe(SONG_6B);
         Proc_Break(proc);
     }
     else if (gKeySt->pressed & KEY_BUTTON_R)
