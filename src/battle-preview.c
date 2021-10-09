@@ -107,12 +107,12 @@ static void InitBattlePreviewLabels(void)
 {
     static char const* gUnk_085C8388[BATTLEPREVIEW_LABEL_COUNT] =
     {
-        [BATTLEPREVIEW_LABEL_DAMAGE]  = TEXT("à–óÕ"),
-        [BATTLEPREVIEW_LABEL_HIT]     = TEXT("ñΩíÜ"),
-        [BATTLEPREVIEW_LABEL_CRIT]    = TEXT("ïKéE"),
-        [BATTLEPREVIEW_LABEL_ATTACK]  = TEXT("çUåÇ"),
-        [BATTLEPREVIEW_LABEL_DEFENSE] = TEXT("éÁîı"),
-        [BATTLEPREVIEW_LABEL_SPEED]   = TEXT("çUë¨"),
+        [BATTLEPREVIEW_LABEL_DAMAGE]  = TEXT("\x88\xD0\x97\xCD"), // "Â®ÅÂäõ"
+        [BATTLEPREVIEW_LABEL_HIT]     = TEXT("\x96\xBD\x92\x86"), // "ÂëΩ‰∏≠"
+        [BATTLEPREVIEW_LABEL_CRIT]    = TEXT("\x95\x4B\x8E\x45"), // "ÂøÖÊÆ∫"
+        [BATTLEPREVIEW_LABEL_ATTACK]  = TEXT("\x8D\x55\x8C\x82"), // "ÊîªÊíÉ"
+        [BATTLEPREVIEW_LABEL_DEFENSE] = TEXT("\x8E\xE7\x94\xF5"), // "ÂÆàÂÇô"
+        [BATTLEPREVIEW_LABEL_SPEED]   = TEXT("\x8D\x55\x91\xAC"), // "ÊîªÈÄü"
     };
 
     int i;

@@ -188,15 +188,15 @@ int sub_801A760(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* offon[] =
     {
-        TEXT("‚n‚e‚e"),
-        TEXT("@‚n‚m"),
+        TEXT("\x82\x6E\x82\x65\x82\x65"), // "ï¼¯ï¼¦ï¼¦"
+        TEXT("\x81\x40\x82\x6E\x82\x6D"), // "ã€€ï¼¯ï¼®"
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, TEXT("ƒfƒuî•ñ"));
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x83\x66\x83\x75\x8F\xEE\x95\xF1")); // "ãƒ‡ãƒ–æƒ…å ±"
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[proc->unk66]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -224,20 +224,20 @@ int sub_801A820(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* weatherNames[] =
     {
-        [DEBUG_WEATHER_NONE]      = TEXT("°‚ê"),
-        [DEBUG_WEATHER_SANDSTORM] = TEXT("»—’"),
-        [DEBUG_WEATHER_SNOW]      = TEXT("á"),
-        [DEBUG_WEATHER_SNOWSTORM] = TEXT("á"),
-        [DEBUG_WEATHER_RAIN]      = TEXT("‰J"),
-        [DEBUG_WEATHER_5]         = TEXT("–é"),
-        [DEBUG_WEATHER_FLAMES]    = TEXT("—nŠâ"),
+        [DEBUG_WEATHER_NONE]      = TEXT("\x90\xB0\x82\xEA"), // "æ™´ã‚Œ"
+        [DEBUG_WEATHER_SANDSTORM] = TEXT("\x8D\xBB\x97\x92"), // "ç ‚åµ"
+        [DEBUG_WEATHER_SNOW]      = TEXT("\x90\xE1"), // "é›ª"
+        [DEBUG_WEATHER_SNOWSTORM] = TEXT("\x90\x81\x90\xE1"), // "å¹é›ª"
+        [DEBUG_WEATHER_RAIN]      = TEXT("\x89\x4A"), // "é›¨"
+        [DEBUG_WEATHER_5]         = TEXT("\x96\xE9"), // "å¤œ"
+        [DEBUG_WEATHER_FLAMES]    = TEXT("\x97\x6E\x8A\xE2"), // "æº¶å²©"
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, TEXT("“V‹C"));
+    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, TEXT("\x93\x56\x8B\x43")); // "å¤©æ°—"
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, weatherNames[proc->unk58 % DEBUG_WEATHER_COUNT]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -296,8 +296,8 @@ int sub_801A944(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "Žü‰ñ”");
-    Text_InsertDrawString(&ent->text, 72, TEXT_COLOR_SYSTEM_BLUE, "Žü–Ú");
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "\x8E\xFC\x89\xF1\x90\x94"); // "å‘¨å›žæ•°"
+    Text_InsertDrawString(&ent->text, 72, TEXT_COLOR_SYSTEM_BLUE, "\x8E\xFC\x96\xDA"); // "å‘¨ç›®"
     Text_InsertDrawNumberOrBlank(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetGlobalCompletedPlaythroughCount() + 1);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -403,7 +403,7 @@ void sub_801AAE0(void)
     DebugInitBg(2, 0);
 
     if (!IsSramWorking())
-        PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "‚r‚q‚`‚l‚ª‘•’…‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+        PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ï¼³ï¼²ï¼¡ï¼­ãŒè£…ç€ã•ã‚Œã¦ã„ã¾ã›ã‚“"
 
     sub_806EA24(sub_8041834(&MenuInfo_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
 
@@ -564,13 +564,13 @@ int sub_801ADEC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* offon[] =
     {
-        "‚n‚e‚e",
-        "‚n‚m",
+        "\x82\x6E\x82\x65\x82\x65", // "ï¼¯ï¼¦ï¼¦"
+        "\x82\x6E\x82\x6D", // "ï¼¯ï¼®"
     };
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "‚³‚­“G");
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "\x82\xB3\x82\xAD\x93\x47"); // "ã•ãæ•µ"
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[gPlaySt.vision != 0]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -615,9 +615,9 @@ int sub_801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* strings[] =
     {
-        "‚b‚o",
-        "lŠÔ",
-        "•sŽQ‰Á",
+        "\x82\x62\x82\x6F", // "ï¼£ï¼°"
+        "\x90\x6C\x8A\xD4", // "äººé–“"
+        "\x95\x73\x8E\x51\x89\xC1", // "ä¸å‚åŠ "
     };
 
     int state;
@@ -629,7 +629,7 @@ int sub_801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, ent->id != 0 ? "—ÎŒR" : "ÔŒR");
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, ent->id != 0 ? "\x97\xCE\x8C\x52" : "\x90\xD4\x8C\x52"); // "ç·‘è»", "èµ¤è»"
     Text_InsertDrawString(&ent->text, 32, TEXT_COLOR_SYSTEM_BLUE, strings[state]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));

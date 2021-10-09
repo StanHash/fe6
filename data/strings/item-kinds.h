@@ -1,12 +1,11 @@
-
-char const String_ItemKind_Sword[]  = TEXT("åï");
-char const String_ItemKind_Lance[]  = TEXT("ëÑ");
-char const String_ItemKind_Axe[]    = TEXT("ïÄ");
-char const String_ItemKind_Bow[]    = TEXT("ã|");
-char const String_ItemKind_Staff[]  = TEXT("èÒ");
-char const String_ItemKind_Anima[]  = TEXT("óù");
-char const String_ItemKind_Light[]  = TEXT("åı");
-char const String_ItemKind_Elder[]  = TEXT("à≈");
-char const String_ItemKind_Unk8[]   = TEXT("ìπ");
-char const String_ItemKind_Unk9[]   = TEXT("ÉA");
-char const String_ItemKind_Dragon[] = TEXT("ó≥");
+char const String_ItemKind_Sword[]  = TEXT("\x8C\x95"); // "Ââ£"
+char const String_ItemKind_Lance[]  = TEXT("\x91\x84"); // "Êßç"
+char const String_ItemKind_Axe[]    = TEXT("\x95\x80"); // "Êñß"
+char const String_ItemKind_Bow[]    = TEXT("\x8B\x7C"); // "Âºì"
+char const String_ItemKind_Staff[]  = TEXT("\x8F\xF1"); // "Êùñ"
+char const String_ItemKind_Anima[]  = TEXT("\x97\x9D"); // "ÁêÜ"
+char const String_ItemKind_Light[]  = TEXT("\x8C\xF5"); // "ÂÖâ"
+char const String_ItemKind_Elder[]  = TEXT("\x88\xC5"); // "Èóá"
+char const String_ItemKind_Unk8[]   = TEXT("\x93\xB9"); // "ÈÅì"
+char const String_ItemKind_Unk9[]   = TEXT("\x83\x41"); // "„Ç¢"
+char const String_ItemKind_Dragon[] = TEXT("\x97\xB3"); // "Á´ú"

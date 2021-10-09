@@ -367,14 +367,14 @@ char const* GetAffinityName(int affinity)
 {
     char const* lut[] =
     {
-        TEXT("Å["),
-        TEXT("âä"),
-        TEXT("óã"),
-        TEXT("ïó"),
-        TEXT("ïX"),
-        TEXT("à≈"),
-        TEXT("åı"),
-        TEXT("óù"),
+        TEXT("\x81\x5B"), // "„Éº"
+        TEXT("\x89\x8A"), // "ÁÇé"
+        TEXT("\x97\x8B"), // "Èõ∑"
+        TEXT("\x95\x97"), // "È¢®"
+        TEXT("\x95\x58"), // "Ê∞∑"
+        TEXT("\x88\xC5"), // "Èóá"
+        TEXT("\x8C\xF5"), // "ÂÖâ"
+        TEXT("\x97\x9D"), // "ÁêÜ"
     };
 
     return lut[affinity];

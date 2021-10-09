@@ -1361,8 +1361,8 @@ static void TemporaryLock_OnLoop(struct GenericProc* proc)
     proc->unk58--;
 }
 
-static char CONST_DATA sStrZero[] = TEXT("ÇO");
-static char CONST_DATA sStrDash[] = TEXT("Å[");
+static char CONST_DATA sStrZero[] = TEXT("\x82\x4F"); // "Ôºê"
+static char CONST_DATA sStrDash[] = TEXT("\x81\x5B"); // "„Éº"
 
 int NumberToString(int number, char* buf)
 {

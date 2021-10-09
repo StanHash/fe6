@@ -150,8 +150,8 @@ static void DrawUnitHpText(struct Text* text, struct Unit* unit)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("‚g‚o"));
-    Text_InsertDrawString(text, 40, TEXT_COLOR_SYSTEM_GOLD, TEXT("^"));
+    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("\x82\x67\x82\x6F")); // "ï¼¨ï¼°"
+    Text_InsertDrawString(text, 40, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x81\x5E")); // "ï¼"
 
     Text_InsertDrawNumberOrBlank(text, 32, TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(unit));
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(unit));
@@ -161,7 +161,7 @@ static void DrawUnitConText(struct Text* text, struct Unit* unit)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("‘ÌŠi"));
+    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x91\xCC\x8A\x69")); // "ä½“æ ¼"
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, UNIT_CON(unit));
 }
 
@@ -169,7 +169,7 @@ static void DrawUnitAidText(struct Text* text, struct Unit* unit)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("‹~o"));
+    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x8B\x7E\x8F\x6F")); // "æ•‘å‡º"
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitAid(unit));
 }
 
@@ -184,7 +184,7 @@ static void DrawUnitStatusText(struct Text* text, struct Unit* unit)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("ó‘Ô"));
+    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("\x8F\xF3\x91\xD4")); // "çŠ¶æ…‹"
     Text_InsertDrawString(text, 32, TEXT_COLOR_SYSTEM_BLUE, GetUnitStatusName(unit));
 }
 
@@ -192,8 +192,8 @@ static void DrawUnitResChangeText(struct Text* text, struct Unit* unit, int bonu
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("–‚–h"));
-    Text_InsertDrawString(text, 40, TEXT_COLOR_SYSTEM_GOLD, TEXT("¨"));
+    Text_InsertDrawString(text, 0,  TEXT_COLOR_SYSTEM_GOLD, TEXT("\x96\x82\x96\x68")); // "é­”é˜²"
+    Text_InsertDrawString(text, 40, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x81\xA8")); // "â†’"
 
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitResistance(unit) + bonus);
     Text_InsertDrawNumberOrBlank(text, 32, TEXT_COLOR_SYSTEM_BLUE, GetUnitResistance(unit));
@@ -203,7 +203,7 @@ static void DrawUnitResUnkText(struct Text* text, struct Unit* unit, int unused)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("–‚–h"));
+    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x96\x82\x96\x68")); // "é­”é˜²"
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitResistance(unit));
 }
 
@@ -211,7 +211,7 @@ static void DrawAccuracyText(struct Text* text, int accuracy)
 {
     ClearText(text);
 
-    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("–½’†"));
+    Text_InsertDrawString(text, 0, TEXT_COLOR_SYSTEM_GOLD, TEXT("\x96\xBD\x92\x86")); // "å‘½ä¸­"
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, accuracy);
 }
 
@@ -244,7 +244,7 @@ void RefreshUnitInventoryPanel(struct Unit* unit)
         int offset;
 
         ClearText(proc->lines+0);
-        Text_InsertDrawString(proc->lines+0, 0, TEXT_COLOR_SYSTEM_GRAY, TEXT("‰½‚à‚ ‚è‚Ü‚¹‚ñ"));
+        Text_InsertDrawString(proc->lines+0, 0, TEXT_COLOR_SYSTEM_GRAY, TEXT("\x89\xBD\x82\xE0\x82\xA0\x82\xE8\x82\xDC\x82\xB9\x82\xF1")); // "ä½•ã‚‚ã‚ã‚Šã¾ã›ã‚“"
 
         offset = TM_OFFSET(xPosition+3, YPOSITION+3);
         PutText(proc->lines+0, gBg0Tm + offset);

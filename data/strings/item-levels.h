@@ -1,8 +1,7 @@
-
-char const String_ItemLevel_None[] = TEXT("Å[");
-char const String_ItemLevel_E[]    = TEXT("Çd");
-char const String_ItemLevel_D[]    = TEXT("Çc");
-char const String_ItemLevel_C[]    = TEXT("Çb");
-char const String_ItemLevel_B[]    = TEXT("Ça");
-char const String_ItemLevel_A[]    = TEXT("Ç`");
-char const String_ItemLevel_S[]    = TEXT("Çr");
+char const String_ItemLevel_None[] = TEXT("\x81\x5B"); // "„Éº"
+char const String_ItemLevel_E[]    = TEXT("\x82\x64"); // "Ôº•"
+char const String_ItemLevel_D[]    = TEXT("\x82\x63"); // "Ôº§"
+char const String_ItemLevel_C[]    = TEXT("\x82\x62"); // "Ôº£"
+char const String_ItemLevel_B[]    = TEXT("\x82\x61"); // "Ôº¢"
+char const String_ItemLevel_A[]    = TEXT("\x82\x60"); // "Ôº°"
+char const String_ItemLevel_S[]    = TEXT("\x82\x72"); // "Ôº≥"
