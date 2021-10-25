@@ -56,34 +56,34 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         adds r6, r1, #0\n\
         ldr r5, [sp, #0x10]\n\
         cmp r5, #0\n\
-        bne _08013B32\n\
+        bne .L08013B32\n\
         adds r0, r2, #0\n\
-        b _08013BE6\n\
-    _08013B32:\n\
+        b .L08013BE6\n\
+    .L08013B32:\n\
         cmp r0, #5\n\
-        bhi _08013BE4\n\
+        bhi .L08013BE4\n\
         lsls r0, r0, #2\n\
-        ldr r1, _08013B40 @ =_08013B44\n\
+        ldr r1, .L08013B40 @ =.L08013B44\n\
         adds r0, r0, r1\n\
         ldr r0, [r0]\n\
         mov pc, r0\n\
         .align 2, 0\n\
-    _08013B40: .4byte _08013B44\n\
-    _08013B44: @ jump table\n\
-        .4byte _08013B5C @ case 0\n\
-        .4byte _08013B68 @ case 1\n\
-        .4byte _08013B78 @ case 2\n\
-        .4byte _08013B8C @ case 3\n\
-        .4byte _08013BB0 @ case 4\n\
-        .4byte _08013BC2 @ case 5\n\
-    _08013B5C:\n\
+    .L08013B40: .4byte .L08013B44\n\
+    .L08013B44: @ jump table\n\
+        .4byte .L08013B5C @ case 0\n\
+        .4byte .L08013B68 @ case 1\n\
+        .4byte .L08013B78 @ case 2\n\
+        .4byte .L08013B8C @ case 3\n\
+        .4byte .L08013BB0 @ case 4\n\
+        .4byte .L08013BC2 @ case 5\n\
+    .L08013B5C:\n\
         subs r0, r2, r6\n\
         adds r2, r0, #0\n\
         muls r2, r3, r2\n\
         adds r0, r2, #0\n\
         adds r1, r5, #0\n\
-        b _08013BA8\n\
-    _08013B68:\n\
+        b .L08013BA8\n\
+    .L08013B68:\n\
         adds r0, r3, #0\n\
         muls r0, r3, r0\n\
         subs r1, r2, r6\n\
@@ -91,8 +91,8 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         muls r2, r1, r2\n\
         adds r1, r5, #0\n\
         muls r1, r5, r1\n\
-        b _08013BA6\n\
-    _08013B78:\n\
+        b .L08013BA6\n\
+    .L08013B78:\n\
         adds r0, r3, #0\n\
         muls r0, r3, r0\n\
         adds r1, r0, #0\n\
@@ -102,8 +102,8 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         muls r2, r0, r2\n\
         adds r0, r5, #0\n\
         muls r0, r5, r0\n\
-        b _08013BA2\n\
-    _08013B8C:\n\
+        b .L08013BA2\n\
+    .L08013B8C:\n\
         adds r0, r3, #0\n\
         muls r0, r3, r0\n\
         muls r0, r3, r0\n\
@@ -115,16 +115,16 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         adds r0, r5, #0\n\
         muls r0, r5, r0\n\
         muls r0, r5, r0\n\
-    _08013BA2:\n\
+    .L08013BA2:\n\
         adds r1, r0, #0\n\
         muls r1, r5, r1\n\
-    _08013BA6:\n\
+    .L08013BA6:\n\
         adds r0, r2, #0\n\
-    _08013BA8:\n\
+    .L08013BA8:\n\
         bl Div\n\
         adds r0, r6, r0\n\
-        b _08013BE6\n\
-    _08013BB0:\n\
+        b .L08013BE6\n\
+    .L08013BB0:\n\
         subs r1, r5, r3\n\
         adds r0, r1, #0\n\
         muls r0, r1, r0\n\
@@ -133,8 +133,8 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         muls r2, r4, r2\n\
         adds r1, r5, #0\n\
         muls r1, r5, r1\n\
-        b _08013BD8\n\
-    _08013BC2:\n\
+        b .L08013BD8\n\
+    .L08013BC2:\n\
         subs r1, r5, r3\n\
         adds r0, r1, #0\n\
         muls r0, r1, r0\n\
@@ -146,15 +146,15 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
         muls r0, r5, r0\n\
         adds r1, r0, #0\n\
         muls r1, r5, r1\n\
-    _08013BD8:\n\
+    .L08013BD8:\n\
         adds r0, r2, #0\n\
         bl Div\n\
         adds r4, r6, r4\n\
         subs r0, r4, r0\n\
-        b _08013BE6\n\
-    _08013BE4:\n\
+        b .L08013BE6\n\
+    .L08013BE4:\n\
         movs r0, #0\n\
-    _08013BE6:\n\
+    .L08013BE6:\n\
         pop {r4, r5, r6}\n\
         pop {r1}\n\
         bx r1\n\
@@ -1207,21 +1207,21 @@ void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc)
         add r4, r1, #0\n\
         add r1, r2, #0\n\
         add r5, r3, #0\n\
-        ldr r7, _08014A20 @ =sLut_80149E0\n\
+        ldr r7, .L08014A20 @ =sLut_80149E0\n\
         lsl r2, r0, #1\n\
         add r2, r2, r0\n\
         lsl r6, r2, #2\n\
         add r0, r6, r7\n\
         ldr r2, [r0]\n\
-        ldr r0, _08014A24 @ =ProcScr_FadeUnk\n\
+        ldr r0, .L08014A24 @ =ProcScr_FadeUnk\n\
         bl _call_via_r2\n\
         str r4, [r0, #0x54]\n\
         str r5, [r0, #0x4C]\n\
         asr r4, r4, #4\n\
         cmp r4, #0\n\
-        bne _08014A06\n\
+        bne .L08014A06\n\
         mov r4, #1\n\
-    _08014A06:\n\
+    .L08014A06:\n\
         add r0, r7, #4\n\
         add r0, r6, r0\n\
         ldr r1, [r0]\n\
@@ -1235,8 +1235,8 @@ void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08014A20: .4byte sLut_80149E0\n\
-    _08014A24: .4byte ProcScr_FadeUnk\n\
+    .L08014A20: .4byte sLut_80149E0\n\
+    .L08014A24: .4byte ProcScr_FadeUnk\n\
     ");
 
 #endif // NONMATCHING
@@ -1599,29 +1599,29 @@ void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
         str r1, [sp, #4]\n\
         lsls r0, r0, #0x18\n\
         cmp r0, #0\n\
-        beq _08014F18\n\
+        beq .L08014F18\n\
         movs r5, #0\n\
         ldr r2, [sp, #0x2c]\n\
         cmp r5, r2\n\
-        bge _08014F60\n\
-    _08014EC8:\n\
+        bge .L08014F60\n\
+    .L08014EC8:\n\
         movs r2, #0\n\
         adds r6, r5, #1\n\
         cmp r2, ip\n\
-        bge _08014F0E\n\
+        bge .L08014F0E\n\
         lsls r3, r5, #6\n\
         movs r0, #0x80\n\
         lsls r0, r0, #3\n\
         mov r8, r0\n\
-    _08014ED8:\n\
+    .L08014ED8:\n\
         adds r0, r7, r2\n\
         adds r4, r2, #1\n\
         cmp r0, #0x1f\n\
-        bhi _08014F08\n\
+        bhi .L08014F08\n\
         mov r2, sl\n\
         adds r1, r2, r5\n\
         cmp r1, #0x1f\n\
-        bhi _08014F08\n\
+        bhi .L08014F08\n\
         lsls r1, r1, #6\n\
         lsls r0, r0, #1\n\
         ldr r2, [sp]\n\
@@ -1638,58 +1638,58 @@ void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
         mov r2, r8\n\
         eors r0, r2\n\
         strh r0, [r1]\n\
-    _08014F08:\n\
+    .L08014F08:\n\
         adds r2, r4, #0\n\
         cmp r2, ip\n\
-        blt _08014ED8\n\
-    _08014F0E:\n\
+        blt .L08014ED8\n\
+    .L08014F0E:\n\
         adds r5, r6, #0\n\
         ldr r0, [sp, #0x2c]\n\
         cmp r5, r0\n\
-        blt _08014EC8\n\
-        b _08014F60\n\
-    _08014F18:\n\
+        blt .L08014EC8\n\
+        b .L08014F60\n\
+    .L08014F18:\n\
         movs r5, #0\n\
         ldr r1, [sp, #0x2c]\n\
         cmp r5, r1\n\
-        bge _08014F60\n\
+        bge .L08014F60\n\
         lsls r2, r7, #1\n\
         mov r8, r2\n\
-    _08014F24:\n\
+    .L08014F24:\n\
         movs r2, #0\n\
         adds r6, r5, #1\n\
         cmp r2, ip\n\
-        bge _08014F58\n\
+        bge .L08014F58\n\
         lsls r0, r5, #6\n\
         ldr r1, [sp, #4]\n\
         adds r4, r1, r0\n\
         ldr r3, [sp]\n\
         add r3, r8\n\
-    _08014F36:\n\
+    .L08014F36:\n\
         adds r0, r7, r2\n\
         cmp r0, #0x1f\n\
-        bhi _08014F4E\n\
+        bhi .L08014F4E\n\
         mov r1, sl\n\
         adds r0, r1, r5\n\
         cmp r0, #0x1f\n\
-        bhi _08014F4E\n\
+        bhi .L08014F4E\n\
         lsls r0, r0, #6\n\
         adds r0, r0, r3\n\
         ldrh r1, [r4]\n\
         add r1, sb\n\
         strh r1, [r0]\n\
-    _08014F4E:\n\
+    .L08014F4E:\n\
         adds r4, #2\n\
         adds r3, #2\n\
         adds r2, #1\n\
         cmp r2, ip\n\
-        blt _08014F36\n\
-    _08014F58:\n\
+        blt .L08014F36\n\
+    .L08014F58:\n\
         adds r5, r6, #0\n\
         ldr r2, [sp, #0x2c]\n\
         cmp r5, r2\n\
-        blt _08014F24\n\
-    _08014F60:\n\
+        blt .L08014F24\n\
+    .L08014F60:\n\
         add sp, #8\n\
         pop {r3, r4, r5}\n\
         mov r8, r3\n\
@@ -1775,46 +1775,46 @@ void sub_8014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
         mov r8, r1\n\
         movs r5, #0\n\
         cmp r5, r2\n\
-        bge _0801500A\n\
+        bge .L0801500A\n\
         mov r0, sb\n\
         lsls r0, r0, #1\n\
         mov ip, r0\n\
-    _08014FCC:\n\
+    .L08014FCC:\n\
         movs r4, #0\n\
         adds r6, r5, #1\n\
         cmp r4, r7\n\
-        bge _08015002\n\
+        bge .L08015002\n\
         lsls r0, r5, #6\n\
         mov r1, r8\n\
         adds r3, r1, r0\n\
         ldr r2, [sp]\n\
         add r2, ip\n\
-    _08014FDE:\n\
+    .L08014FDE:\n\
         mov r1, sb\n\
         adds r0, r1, r4\n\
         cmp r0, #0x1f\n\
-        bhi _08014FF8\n\
+        bhi .L08014FF8\n\
         ldr r1, [sp, #4]\n\
         adds r0, r1, r5\n\
         cmp r0, #0x1f\n\
-        bhi _08014FF8\n\
+        bhi .L08014FF8\n\
         lsls r0, r0, #6\n\
         adds r0, r0, r2\n\
         ldrh r1, [r3]\n\
         add r1, sl\n\
         strh r1, [r0]\n\
-    _08014FF8:\n\
+    .L08014FF8:\n\
         adds r3, #2\n\
         adds r2, #2\n\
         adds r4, #1\n\
         cmp r4, r7\n\
-        blt _08014FDE\n\
-    _08015002:\n\
+        blt .L08014FDE\n\
+    .L08015002:\n\
         adds r5, r6, #0\n\
         ldr r2, [sp, #0x2c]\n\
         cmp r5, r2\n\
-        blt _08014FCC\n\
-    _0801500A:\n\
+        blt .L08014FCC\n\
+    .L0801500A:\n\
         add sp, #8\n\
         pop {r3, r4, r5}\n\
         mov r8, r3\n\
@@ -1914,16 +1914,16 @@ void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
         str r1, [sp, #0xc]\n\
         movs r5, #0\n\
         cmp r5, r7\n\
-        bge _080150CC\n\
+        bge .L080150CC\n\
         mov r0, sl\n\
         lsls r0, r0, #1\n\
         mov ip, r0\n\
-    _0801507E:\n\
+    .L0801507E:\n\
         movs r4, #0\n\
         adds r1, r5, #1\n\
         str r1, [sp, #0x10]\n\
         cmp r4, r8\n\
-        bge _080150C4\n\
+        bge .L080150C4\n\
         ldr r2, [sp, #0x38]\n\
         subs r0, r2, r5\n\
         subs r0, #1\n\
@@ -1935,33 +1935,33 @@ void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
         adds r3, r7, r0\n\
         ldr r2, [sp]\n\
         add r2, ip\n\
-    _0801509E:\n\
+    .L0801509E:\n\
         mov r1, sl\n\
         adds r0, r1, r4\n\
         cmp r0, #0x1f\n\
-        bhi _080150BA\n\
+        bhi .L080150BA\n\
         ldr r6, [sp, #4]\n\
         adds r0, r6, r5\n\
         cmp r0, #0x1f\n\
-        bhi _080150BA\n\
+        bhi .L080150BA\n\
         lsls r0, r0, #6\n\
         adds r0, r0, r2\n\
         ldrh r7, [r3]\n\
         ldr r6, [sp, #8]\n\
         adds r1, r7, r6\n\
         strh r1, [r0]\n\
-    _080150BA:\n\
+    .L080150BA:\n\
         adds r3, #2\n\
         adds r2, #2\n\
         adds r4, #1\n\
         cmp r4, r8\n\
-        blt _0801509E\n\
-    _080150C4:\n\
+        blt .L0801509E\n\
+    .L080150C4:\n\
         ldr r5, [sp, #0x10]\n\
         ldr r7, [sp, #0x38]\n\
         cmp r5, r7\n\
-        blt _0801507E\n\
-    _080150CC:\n\
+        blt .L0801507E\n\
+    .L080150CC:\n\
         add sp, #0x14\n\
         pop {r3, r4, r5}\n\
         mov r8, r3\n\
@@ -2031,13 +2031,13 @@ void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
         lsls r1, r3, #0x10\n\
         asrs r0, r1, #0x10\n\
         cmp r0, #0\n\
-        blt _0801514A\n\
-    _08015106:\n\
+        blt .L0801514A\n\
+    .L08015106:\n\
         asrs r0, r1, #0x10\n\
         add r0, ip\n\
         lsls r4, r3, #0x10\n\
         cmp r0, #0x1f\n\
-        bhi _0801513E\n\
+        bhi .L0801513E\n\
         lsls r0, r0, #5\n\
         adds r0, r5, r0\n\
         lsls r0, r0, #1\n\
@@ -2047,30 +2047,30 @@ void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
         lsls r3, r7, #0x10\n\
         asrs r0, r3, #0x10\n\
         cmp r0, #0\n\
-        blt _0801513E\n\
-    _08015124:\n\
+        blt .L0801513E\n\
+    .L08015124:\n\
         asrs r3, r3, #0x10\n\
         adds r0, r5, r3\n\
         cmp r0, #0x1f\n\
-        bhi _08015132\n\
+        bhi .L08015132\n\
         ldrh r7, [r2]\n\
         adds r0, r7, r6\n\
         strh r0, [r1]\n\
-    _08015132:\n\
+    .L08015132:\n\
         subs r0, r3, #1\n\
         adds r2, #2\n\
         adds r1, #2\n\
         lsls r3, r0, #0x10\n\
         cmp r3, #0\n\
-        bge _08015124\n\
-    _0801513E:\n\
-        ldr r1, _08015158 @ =0xFFFF0000\n\
+        bge .L08015124\n\
+    .L0801513E:\n\
+        ldr r1, .L08015158 @ =0xFFFF0000\n\
         adds r0, r4, r1\n\
         lsrs r3, r0, #0x10\n\
         lsls r1, r3, #0x10\n\
         cmp r1, #0\n\
-        bge _08015106\n\
-    _0801514A:\n\
+        bge .L08015106\n\
+    .L0801514A:\n\
         pop {r3, r4}\n\
         mov r8, r3\n\
         mov sb, r4\n\
@@ -2078,7 +2078,7 @@ void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08015158: .4byte 0xFFFF0000\n\
+    .L08015158: .4byte 0xFFFF0000\n\
         .syntax divided\n\
     ");
 }

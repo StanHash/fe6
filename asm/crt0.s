@@ -7,7 +7,7 @@
 _entry:
 	b crt0
 
-_08000004:
+.L08000004:
 	@ TODO: make header data look nicer
 
 	.byte 0x24, 0xFF, 0xAE, 0x51, 0x69, 0x9A, 0xA2, 0x21, 0x3D, 0x84, 0x82, 0x0A
@@ -26,20 +26,20 @@ _08000004:
 crt0:
 	mov r0, #0x12
 	msr cpsr_fc, r0
-	ldr sp, _080000F8 @ =0x03007FA0
+	ldr sp, .L080000F8 @ =0x03007FA0
 	mov r0, #0x1f
 	msr cpsr_fc, r0
-	ldr sp, _080000F4 @ =0x03007E00
-	ldr r1, _0800021C @ =0x03007FFC
+	ldr sp, .L080000F4 @ =0x03007E00
+	ldr r1, .L0800021C @ =0x03007FFC
 	add r0, pc, #0x18 @ =IrqMain
 	str r0, [r1]
-	ldr r1, _08000220 @ =AgbMain
+	ldr r1, .L08000220 @ =AgbMain
 	mov lr, pc
 	bx r1
-_080000F0:
+.L080000F0:
 	.byte 0xF2, 0xFF, 0xFF, 0xEA
-_080000F4: .4byte 0x03007E00
-_080000F8: .4byte 0x03007FA0
+.L080000F4: .4byte 0x03007E00
+.L080000F8: .4byte 0x03007FA0
 
 	.arm
 
@@ -56,69 +56,69 @@ IrqMain: @ 0x080000FC
 	push {r0, r1, r3, lr}
 	and r1, r2, r2, lsr #16
 	ands r0, r1, #0x2000
-_08000120:
-	bne _08000120
+.L08000120:
+	bne .L08000120
 	mov r2, #0
 	ands r0, r1, #1
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #2
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #4
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #8
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x10
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x20
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x40
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x80
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x100
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x200
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x400
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x800
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x1000
-	bne _080001CC
+	bne .L080001CC
 	add r2, r2, #4
 	ands r0, r1, #0x2000
-_080001C8:
-	bne _080001C8
-_080001CC:
+.L080001C8:
+	bne .L080001C8
+.L080001CC:
 	strh r0, [r3, #2]
 	mrs r3, apsr
 	bic r3, r3, #0xdf
 	orr r3, r3, #0x1f
 	msr cpsr_fc, r3
-	ldr r1, _08000224 @ =gIrqFuncs
+	ldr r1, .L08000224 @ =gIrqFuncs
 	add r1, r1, r2
 	ldr r0, [r1]
 	stmdb sp!, {lr}
 	add lr, pc, #0x0 @ =0x080001F8
 	bx r0
-_080001F8:
+.L080001F8:
 	@ TODO: decode this into arm
 
 	.byte 0x00, 0x40, 0xBD, 0xE8, 0x00, 0x30, 0x0F, 0xE1
 	.byte 0xDF, 0x30, 0xC3, 0xE3, 0x92, 0x30, 0x83, 0xE3, 0x03, 0xF0, 0x29, 0xE1, 0x0B, 0x40, 0xBD, 0xE8
 	.byte 0xB0, 0x10, 0xC3, 0xE1, 0x00, 0xF0, 0x69, 0xE1, 0x1E, 0xFF, 0x2F, 0xE1
-_0800021C: .4byte 0x03007FFC
-_08000220: .4byte AgbMain
-_08000224: .4byte gIrqFuncs
+.L0800021C: .4byte 0x03007FFC
+.L08000220: .4byte AgbMain
+.L08000224: .4byte gIrqFuncs

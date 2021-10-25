@@ -1076,19 +1076,19 @@ static i8 IsTalkFaceMoving(void)
         .section .rodata\n\
         .4byte ProcScr_TalkMoveFace\n\
         .text\n\
-        ldr r1, _0800A840\n\
+        ldr r1, .L0800A840\n\
         add r0, r1, #0\n\
         bl Proc_Find\n\
         cmp r0, #0\n\
-        beq _0800A844\n\
+        beq .L0800A844\n\
         mov r0, #1\n\
-        b _0800A848\n\
+        b .L0800A848\n\
         .align 2, 0\n\
-    _0800A840: .4byte ProcScr_TalkMoveFace\n\
-    _0800A844:\n\
+    .L0800A840: .4byte ProcScr_TalkMoveFace\n\
+    .L0800A844:\n\
         mov r0, #0\n\
-        b _0800A848\n\
-    _0800A848:\n\
+        b .L0800A848\n\
+    .L0800A848:\n\
     ");
 #endif
 

@@ -295,13 +295,13 @@ static void UpdateFaceTalk(struct FaceProc* proc)
         lsl r1, r1, #3\n\
         and r0, r1\n\
         cmp r0, #0\n\
-        beq _080081DE\n\
+        beq .L080081DE\n\
         mov r0, #0x80\n\
         lsl r0, r0, #3\n\
-        b _080081E0\n\
-    _080081DE:\n\
+        b .L080081E0\n\
+    .L080081DE:\n\
         mov r0, #0\n\
-    _080081E0:\n\
+    .L080081E0:\n\
         str r0, [r7, #8]\n\
     ");
 #endif
@@ -330,13 +330,13 @@ static void Face_OnIdle(struct FaceProc* proc)
         lsl r1, r1, #3\n\
         and r0, r1\n\
         cmp r0, #0\n\
-        beq _0800827E\n\
+        beq .L0800827E\n\
         mov r0, #0x80\n\
         lsl r0, r0, #3\n\
-        b _08008280\n\
-    _0800827E:\n\
+        b .L08008280\n\
+    .L0800827E:\n\
         mov r0, #0\n\
-    _08008280:\n\
+    .L08008280:\n\
         str r0, [r7, #4]\n\
     ");
 #endif

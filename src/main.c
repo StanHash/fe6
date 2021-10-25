@@ -94,10 +94,10 @@ NAKEDFUNC void PutBuildInfo(u16* tm)
         add r4, sp, #0x14\n\
         mov fp, r4\n\
         adds r4, r0, #0\n\
-        ldr r1, _08000B30 @ =sDbgLineA\n\
+        ldr r1, .L08000B30 @ =sDbgLineA\n\
         bl DebugPutStr\n\
         subs r4, #0x40\n\
-        ldr r1, _08000B34 @ =sDbgLineB\n\
+        ldr r1, .L08000B34 @ =sDbgLineB\n\
         adds r0, r4, #0\n\
         bl DebugPutStr\n\
         pop {r4}\n\
@@ -106,8 +106,8 @@ NAKEDFUNC void PutBuildInfo(u16* tm)
         mov sp, r2\n\
         bx r0\n\
         .align 2, 0\n\
-    _08000B30: .4byte sDbgLineA\n\
-    _08000B34: .4byte sDbgLineB\n\
+    .L08000B30: .4byte sDbgLineA\n\
+    .L08000B34: .4byte sDbgLineB\n\
         .syntax divided\n\
     ");
 }

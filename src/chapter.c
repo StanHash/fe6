@@ -352,35 +352,35 @@ void CleanupUnitsBeforeChapter(void)
         .syntax unified\n\
         push {r4, r5, r6, r7, lr}\n\
         movs r4, #0x41\n\
-    _08029374:\n\
+    .L08029374:\n\
         adds r0, r4, #0\n\
         bl GetUnit\n\
         adds r1, r0, #0\n\
         cmp r1, #0\n\
-        beq _0802938C\n\
+        beq .L0802938C\n\
         ldr r0, [r1]\n\
         cmp r0, #0\n\
-        beq _0802938C\n\
+        beq .L0802938C\n\
         adds r0, r1, #0\n\
         bl ClearUnit\n\
-    _0802938C:\n\
+    .L0802938C:\n\
         adds r4, #1\n\
         cmp r4, #0xbf\n\
-        ble _08029374\n\
-        ldr r0, _08029408 @ =gPlaySt\n\
+        ble .L08029374\n\
+        ldr r0, .L08029408 @ =gPlaySt\n\
         ldrb r0, [r0, #0xe]\n\
         cmp r0, #0x19\n\
-        beq _08029414\n\
+        beq .L08029414\n\
         movs r5, #1\n\
-    _0802939C:\n\
+    .L0802939C:\n\
         adds r0, r5, #0\n\
         bl GetUnit\n\
         adds r4, r0, #0\n\
         cmp r4, #0\n\
-        beq _080293FE\n\
+        beq .L080293FE\n\
         ldr r0, [r4]\n\
         cmp r0, #0\n\
-        beq _080293FE\n\
+        beq .L080293FE\n\
         adds r0, r4, #0\n\
         bl GetUnitMaxHp\n\
         adds r1, r0, #0\n\
@@ -393,7 +393,7 @@ void CleanupUnitsBeforeChapter(void)
         adds r1, #0x2f\n\
         movs r0, #0\n\
         strb r0, [r1]\n\
-        ldr r1, _0802940C @ =0x0000C004\n\
+        ldr r1, .L0802940C @ =0x0000C004\n\
         adds r0, r1, #0\n\
         ldrh r3, [r4, #0xc]\n\
         ands r3, r0\n\
@@ -408,38 +408,38 @@ void CleanupUnitsBeforeChapter(void)
         lsls r0, r0, #2\n\
         ands r1, r0\n\
         cmp r1, #0\n\
-        beq _080293F4\n\
-        ldr r2, _08029410 @ =0x0000FFFB\n\
+        beq .L080293F4\n\
+        ldr r2, .L08029410 @ =0x0000FFFB\n\
         adds r0, r2, #0\n\
         ands r3, r0\n\
         strh r3, [r4, #0xc]\n\
-    _080293F4:\n\
+    .L080293F4:\n\
         movs r0, #9\n\
         ldrh r1, [r4, #0xc]\n\
         orrs r0, r1\n\
         strh r0, [r4, #0xc]\n\
         strb r6, [r4, #0x19]\n\
-    _080293FE:\n\
+    .L080293FE:\n\
         adds r5, #1\n\
         cmp r5, #0x3f\n\
-        ble _0802939C\n\
-        b _08029486\n\
+        ble .L0802939C\n\
+        b .L08029486\n\
         .align 2, 0\n\
-    _08029408: .4byte gPlaySt\n\
-    _0802940C: .4byte 0x0000C004\n\
-    _08029410: .4byte 0x0000FFFB\n\
-    _08029414:\n\
+    .L08029408: .4byte gPlaySt\n\
+    .L0802940C: .4byte 0x0000C004\n\
+    .L08029410: .4byte 0x0000FFFB\n\
+    .L08029414:\n\
         movs r5, #1\n\
         movs r7, #0\n\
-    _08029418:\n\
+    .L08029418:\n\
         adds r0, r5, #0\n\
         bl GetUnit\n\
         adds r4, r0, #0\n\
         cmp r4, #0\n\
-        beq _08029480\n\
+        beq .L08029480\n\
         ldr r0, [r4]\n\
         cmp r0, #0\n\
-        beq _08029480\n\
+        beq .L08029480\n\
         movs r0, #0xff\n\
         strb r0, [r4, #0xe]\n\
         movs r0, #1\n\
@@ -455,7 +455,7 @@ void CleanupUnitsBeforeChapter(void)
         adds r0, r4, #0\n\
         adds r0, #0x2f\n\
         strb r7, [r0]\n\
-        ldr r1, _08029498 @ =0x0000C00C\n\
+        ldr r1, .L08029498 @ =0x0000C00C\n\
         adds r0, r1, #0\n\
         ldrh r3, [r4, #0xc]\n\
         ands r3, r0\n\
@@ -470,23 +470,23 @@ void CleanupUnitsBeforeChapter(void)
         lsls r0, r0, #2\n\
         ands r1, r0\n\
         cmp r1, #0\n\
-        beq _08029476\n\
-        ldr r2, _0802949C @ =0x0000FFFB\n\
+        beq .L08029476\n\
+        ldr r2, .L0802949C @ =0x0000FFFB\n\
         adds r0, r2, #0\n\
         ands r3, r0\n\
         strh r3, [r4, #0xc]\n\
-    _08029476:\n\
+    .L08029476:\n\
         movs r0, #1\n\
         ldrh r1, [r4, #0xc]\n\
         orrs r0, r1\n\
         strh r0, [r4, #0xc]\n\
         strb r6, [r4, #0x19]\n\
-    _08029480:\n\
+    .L08029480:\n\
         adds r5, #1\n\
         cmp r5, #0x3f\n\
-        ble _08029418\n\
-    _08029486:\n\
-        ldr r1, _080294A0 @ =gPlaySt\n\
+        ble .L08029418\n\
+    .L08029486:\n\
+        ldr r1, .L080294A0 @ =gPlaySt\n\
         movs r0, #0xef\n\
         ldrb r2, [r1, #0x14]\n\
         ands r0, r2\n\
@@ -495,9 +495,9 @@ void CleanupUnitsBeforeChapter(void)
         pop {r0}\n\
         bx r0\n\
         .align 2, 0\n\
-    _08029498: .4byte 0x0000C00C\n\
-    _0802949C: .4byte 0x0000FFFB\n\
-    _080294A0: .4byte gPlaySt\n\
+    .L08029498: .4byte 0x0000C00C\n\
+    .L0802949C: .4byte 0x0000FFFB\n\
+    .L080294A0: .4byte gPlaySt\n\
         .syntax divided\n\
     ");
 }

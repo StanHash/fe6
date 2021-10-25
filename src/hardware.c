@@ -681,10 +681,10 @@ void InitBgs(u16 const* config)
     asm("\n\
         ldr r0, [r7]\n\
         cmp r0, #0\n\
-        bne _080026DE\n\
+        bne .L080026DE\n\
         add r0, r7, #4\n\
         str r0, [r7]\n\
-    _080026DE:\n\
+    .L080026DE:\n\
     ");
 #endif
 
