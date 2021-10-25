@@ -558,7 +558,7 @@ int GetUnitSpritePalette(struct Unit* unit)
 
 void RefreshUnitSprites(void)
 {
-    struct UnitSprite* mapSprite;
+    struct UnitSprite* map_sprite;
 
     struct Trap* trap;
     int i;
@@ -577,10 +577,10 @@ void RefreshUnitSprites(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
-        unit->mapSprite = NULL;
+        unit->map_sprite = NULL;
 
         if (unit->state & (US_HIDDEN | US_BIT9))
             continue;
@@ -588,19 +588,19 @@ void RefreshUnitSprites(void)
         if (gMapUnit[unit->y][unit->x] == 0)
             continue;
 
-        mapSprite = AddUnitSprite(unit->y*16);
+        map_sprite = AddUnitSprite(unit->y*16);
 
-        mapSprite->y = unit->y*16;
-        mapSprite->x = unit->x*16;
+        map_sprite->y = unit->y*16;
+        map_sprite->x = unit->x*16;
 
-        mapSprite->oam2 = UseUnitSprite(GetUnitMapSprite(unit)) + OAM2_PAL(GetUnitDisplayedSpritePalette(unit));
+        map_sprite->oam2 = UseUnitSprite(GetUnitMapSprite(unit)) + OAM2_PAL(GetUnitDisplayedSpritePalette(unit));
 
-        mapSprite->config = GetInfo(GetUnitMapSprite(unit)).size;
+        map_sprite->config = GetInfo(GetUnitMapSprite(unit)).size;
 
         if (unit->state & US_BIT8)
-            mapSprite->config += 3;
+            map_sprite->config += 3;
 
-        unit->mapSprite = mapSprite;
+        unit->map_sprite = map_sprite;
     }
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
@@ -627,14 +627,14 @@ void RefreshUnitSprites(void)
 
         }
 
-        mapSprite = AddUnitSprite(trap->y*16);
+        map_sprite = AddUnitSprite(trap->y*16);
 
-        mapSprite->y = trap->y*16;
-        mapSprite->x = trap->x*16;
+        map_sprite->y = trap->y*16;
+        map_sprite->x = trap->x*16;
 
-        mapSprite->oam2 = oam2;
+        map_sprite->oam2 = oam2;
 
-        mapSprite->config = GetInfo(UNITSPRITE_42).size;
+        map_sprite->config = GetInfo(UNITSPRITE_42).size;
     }
 
     if (sSheetSyncRequest != 0)
@@ -732,7 +732,7 @@ void PutUnitSpriteIconsOam(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & US_HIDDEN)
@@ -825,7 +825,7 @@ void PutUnitSpriteIconsOam(void)
 
 void sub_8022618(void)
 {
-    gBmSt.cursorPrevious.x = -1;
+    gBmSt.cursor_previous.x = -1;
 }
 
 void ResetUnitSpritHover(void)
@@ -870,11 +870,11 @@ void UnitSpriteHoverUpdate(void)
     }
 
 not_hover:
-    if (gBmSt.cursorPrevious.x != gBmSt.cursor.x || gBmSt.cursorPrevious.y != gBmSt.cursor.y)
+    if (gBmSt.cursor_previous.x != gBmSt.cursor.x || gBmSt.cursor_previous.y != gBmSt.cursor.y)
     {
         sHoverCounter = 0;
 
-        unit = GetUnit(gMapUnit[gBmSt.cursorPrevious.y][gBmSt.cursorPrevious.x]);
+        unit = GetUnit(gMapUnit[gBmSt.cursor_previous.y][gBmSt.cursor_previous.x]);
 
         if (unit)
         {
@@ -1003,24 +1003,24 @@ void HideUnitSprite(struct Unit* unit)
     if (!unit)
         RefreshUnitSprites();
 
-    if (!unit->mapSprite)
+    if (!unit->map_sprite)
         return;
 
-    unit->mapSprite->config |= 0x80;
+    unit->map_sprite->config |= 0x80;
 }
 
 void ShowUnitSprite(struct Unit* unit)
 {
-    if (!unit->mapSprite)
+    if (!unit->map_sprite)
         return;
 
-    unit->mapSprite->config &= ~0x80;
+    unit->map_sprite->config &= ~0x80;
 }
 
 u8 sub_8022A6C(struct Unit* unit)
 {
-    if (!unit->mapSprite)
+    if (!unit->map_sprite)
         return 0x80;
 
-    return unit->mapSprite->config & 0x80;
+    return unit->map_sprite->config & 0x80;
 }

@@ -6,8 +6,8 @@ extern u8 RamFuncArea[];
 
 extern void(*DrawGlyphRamFunc)(u16 const* cvtLut, void* chr, u32 const* glyph, int offset);
 extern void(*DecodeStringRamFunc)(char const* src, char* dst);
-extern void(*PutOamHiRamFunc)(int x, int y, u16 const* oamList, int oam2);
-extern void(*PutOamLoRamFunc)(int x, int y, u16 const* oamList, int oam2);
+extern void(*PutOamHiRamFunc)(int x, int y, u16 const* oam_list, int oam2);
+extern void(*PutOamLoRamFunc)(int x, int y, u16 const* oam_list, int oam2);
 extern void(*MapFloodCoreStepRamFunc)();
 extern void(*MapFloodCoreRamFunc)(void);
 
@@ -35,14 +35,14 @@ void DecodeStringRam(char const* src, char* dst)
     DecodeStringRamFunc(src, dst);
 }
 
-void PutOamHiRam(int x, int y, u16 const* oamList, int oam2)
+void PutOamHiRam(int x, int y, u16 const* oam_list, int oam2)
 {
-    PutOamHiRamFunc(x, y, oamList, oam2);
+    PutOamHiRamFunc(x, y, oam_list, oam2);
 }
 
-void PutOamLoRam(int x, int y, u16 const* oamList, int oam2)
+void PutOamLoRam(int x, int y, u16 const* oam_list, int oam2)
 {
-    PutOamLoRamFunc(x, y, oamList, oam2);
+    PutOamLoRamFunc(x, y, oam_list, oam2);
 }
 
 void MapFloodCoreStepRam(int connect, int x, int y)

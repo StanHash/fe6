@@ -34,8 +34,8 @@ struct TalkChoiceProc
     /* 00 */ PROC_HEADER;
 
     /* 2A */ short selectedChoice;
-    /* 2C */ short xDisp;
-    /* 2E */ short yDisp;
+    /* 2C */ short x_disp;
+    /* 2E */ short y_disp;
     /* 30 */ int unused30;
     /* 34 */ struct TalkChoiceEnt const* choices;
 };
@@ -43,16 +43,16 @@ struct TalkChoiceProc
 static void TalkSkipListener_OnIdle(ProcPtr proc);
 static void Talk_OnInit(ProcPtr proc);
 static void Talk_OnIdle(ProcPtr proc);
-static s8 TalkPrepNextChar(ProcPtr proc);
-static s8 TalkSpritePrepNextChar(ProcPtr proc);
+static i8 TalkPrepNextChar(ProcPtr proc);
+static i8 TalkSpritePrepNextChar(ProcPtr proc);
 static void LockTalk(ProcPtr proc);
 static int TalkInterpret(ProcPtr proc);
 static void TalkInterpretNewFace(ProcPtr proc);
 static int GetFaceIdByX(int x);
-static void SetTalkFaceLayer(int talkFace, int toBack);
+static void SetTalkFaceLayer(int talk_face, int toBack);
 static void MoveTalkFace(int talkFaceFrom, int talkFaceTo);
-static s8 IsTalkFaceMoving(void);
-static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, s8 isSwap);
+static i8 IsTalkFaceMoving(void);
+static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap);
 static void TalkFaceMove_OnInit(struct GenericProc* proc);
 static void TalkFaceMove_OnIdle(struct GenericProc* proc);
 static void Talk_OnEnd(ProcPtr proc);
@@ -75,22 +75,22 @@ static void TalkOpen_OnEnd(struct GenericProc* proc);
 static void TalkOpen_InitBlend(struct GenericProc* proc);
 static void TalkOpen_PutTalkBubble(struct GenericProc* proc);
 static void TalkOpen_OnIdle(struct GenericProc* proc);
-static void StartTalkOpen(int talkFace, ProcPtr parent);
-static s8 TalkHasCorrectBubble(void);
-static int GetTalkFaceHPos(int talkFace);
-static void SetTalkFaceDisp(int talkFace, int faceDisp);
-static void SetTalkFaceMouthMove(int talkFace);
-static void SetTalkFaceNoMouthMove(int talkFace);
+static void StartTalkOpen(int talk_face, ProcPtr parent);
+static i8 TalkHasCorrectBubble(void);
+static int GetTalkFaceHPos(int talk_face);
+static void SetTalkFaceDisp(int talk_face, int faceDisp);
+static void SetTalkFaceMouthMove(int talk_face);
+static void SetTalkFaceNoMouthMove(int talk_face);
 static void TalkPutSpriteText_OnIdle(struct GenericProc* proc);
 static void TalkPutSpriteText_OnEnd(struct GenericProc* proc);
-static int GetStrTalkLen(char const* str, s8 isBubbleOpen);
+static int GetStrTalkLen(char const* str, i8 isBubbleOpen);
 static void TalkDebug_Unk_0800CA88(struct GenericProc* proc);
 static void TalkDebug_Unk_0800CAA0(struct GenericProc* proc);
 static void TalkDebug_OnInit(struct GenericProc* proc);
 static void TalkDebug_OnIdle(struct GenericProc* proc);
 static void TalkBgSync(int bgflags);
 
-#define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + sTalkSt->topTextNum) % sTalkSt->lines)
+#define TALK_TEXT_BY_LINE(line) (sTalkText + ((line) + sTalkSt->top_text_num) % sTalkSt->lines)
 
 static struct TalkSt sTalkStObj;
 static struct TalkSt* CONST_DATA sTalkSt = &sTalkStObj;
@@ -323,7 +323,7 @@ struct ProcScr CONST_DATA ProcScr_TalkDebug[] =
     PROC_END,
 };
 
-void InitTalk(int chr, int lines, s8 unpackBubble)
+void InitTalk(int chr, int lines, i8 unpack_bubble)
 {
     int i;
 
@@ -338,7 +338,7 @@ void InitTalk(int chr, int lines, s8 unpackBubble)
         Text_SetColor(sTalkText + i, TEXT_COLOR_0456);
     }
 
-    if (unpackBubble)
+    if (unpack_bubble)
     {
         Decompress(Img_TalkBubble, (u8*) VRAM + GetBgChrOffset(1) + 0x200);
         ApplyPalette(Pal_TalkBubble, BGPAL_TALK_BUBBLE);
@@ -383,29 +383,29 @@ void SetInitTalkTextFont(void)
 
 ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent)
 {
-    sTalkSt->xText = x;
-    sTalkSt->yText = y;
+    sTalkSt->x_text = x;
+    sTalkSt->y_text = y;
 
     sTalkSt->str = str;
-    sTalkSt->strBack = NULL;
+    sTalkSt->str_back = NULL;
 
-    sTalkSt->printColor = TEXT_COLOR_0456;
-    sTalkSt->lineActive = 0;
-    sTalkSt->topTextNum = 0;
-    sTalkSt->printDelay = GetTextPrintDelay();
-    sTalkSt->printClock = 0;
+    sTalkSt->print_color = TEXT_COLOR_0456;
+    sTalkSt->line_active = 0;
+    sTalkSt->top_text_num = 0;
+    sTalkSt->print_delay = GetTextPrintDelay();
+    sTalkSt->print_clock = 0;
 
     SetActiveTalkFace(TALK_FACE_NONE);
 
-    sTalkSt->speakTalkFace = (s8) TALK_FACE_NONE;
-    sTalkSt->putLines = FALSE;
-    sTalkSt->instantPrint = FALSE;
-    sTalkSt->unk16 = 1;
-    sTalkSt->unk17 = 0;
+    sTalkSt->speak_talk_face = (i8) TALK_FACE_NONE;
+    sTalkSt->put_lines = FALSE;
+    sTalkSt->instant_print = FALSE;
+    sTalkSt->unk_16 = 1;
+    sTalkSt->unk_17 = 0;
 
     sTalkSt->flags = 0;
 
-    sTalkSt->activeWidth = Div(7 + GetStrTalkLen(sTalkSt->str, FALSE), 8) + 2;
+    sTalkSt->active_width = Div(7 + GetStrTalkLen(sTalkSt->str, FALSE), 8) + 2;
 
     if (parent)
         return SpawnProcLocking(ProcScr_Talk, parent);
@@ -454,22 +454,22 @@ int CheckTalkFlag(int flag)
     return sTalkSt->flags & flag;
 }
 
-void SetTalkPrintDelay(int printDelay)
+void SetTalkPrintDelay(int print_delay)
 {
-    sTalkSt->printDelay = printDelay;
+    sTalkSt->print_delay = print_delay;
 
-    if (sTalkSt->printDelay < 0)
-        sTalkSt->printDelay = 0;
+    if (sTalkSt->print_delay < 0)
+        sTalkSt->print_delay = 0;
 }
 
 void SetTalkPrintColor(int color)
 {
     int i;
 
-    sTalkSt->printColor = color;
+    sTalkSt->print_color = color;
 
     for (i = 0; i < sTalkSt->lines; ++i)
-        Text_SetColor(sTalkText + i, sTalkSt->printColor);
+        Text_SetColor(sTalkText + i, sTalkSt->print_color);
 }
 
 static void TalkSkipListener_OnIdle(ProcPtr proc)
@@ -483,7 +483,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
     if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_START)))
     {
         SetEventTalkSkipped();
-        SetTalkFaceNoMouthMove(sTalkSt->activeTalkFace);
+        SetTalkFaceNoMouthMove(sTalkSt->active_talk_face);
 
         Proc_End(proc);
         EndTalk();
@@ -496,7 +496,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
 
     if (!CheckTalkFlag(TALK_FLAG_NOFAST) && (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY)))
     {
-        sTalkSt->instantPrint = TRUE;
+        sTalkSt->instant_print = TRUE;
     }
 }
 
@@ -518,19 +518,19 @@ static void Talk_OnIdle(ProcPtr proc)
     if (IsTalkFaceMoving())
         return;
 
-    if (!sTalkSt->instantPrint)
+    if (!sTalkSt->instant_print)
     {
-        sTalkSt->printClock++;
+        sTalkSt->print_clock++;
 
-        if (sTalkSt->printClock < sTalkSt->printDelay)
+        if (sTalkSt->print_clock < sTalkSt->print_delay)
             return;
     }
 
-    sTalkSt->printClock = 0;
+    sTalkSt->print_clock = 0;
 
     for (;;)
     {
-        SetTalkFaceNoMouthMove(sTalkSt->activeTalkFace);
+        SetTalkFaceNoMouthMove(sTalkSt->active_talk_face);
 
         switch (TalkInterpret(proc))
         {
@@ -543,7 +543,7 @@ static void Talk_OnIdle(ProcPtr proc)
             goto print_next_char;
 
         case 2:
-            if (sTalkSt->instantPrint || sTalkSt->printDelay <= 0)
+            if (sTalkSt->instant_print || sTalkSt->print_delay <= 0)
             {
                 break;
                 goto reset_print_clock; // ..?
@@ -553,8 +553,8 @@ static void Talk_OnIdle(ProcPtr proc)
 
         case 3:
         reset_print_clock:
-            sTalkSt->printClock = sTalkSt->printDelay;
-            sTalkSt->instantPrint = FALSE;
+            sTalkSt->print_clock = sTalkSt->print_delay;
+            sTalkSt->instant_print = FALSE;
 
             return;
 
@@ -571,7 +571,7 @@ static void Talk_OnIdle(ProcPtr proc)
                     return;
             }
 
-            sTalkSt->str = Text_DrawCharacter(TALK_TEXT_BY_LINE(sTalkSt->lineActive), sTalkSt->str);
+            sTalkSt->str = Text_DrawCharacter(TALK_TEXT_BY_LINE(sTalkSt->line_active), sTalkSt->str);
 
             if (!CheckTalkFlag(TALK_FLAG_SILENT))
             {
@@ -589,60 +589,60 @@ static void Talk_OnIdle(ProcPtr proc)
             }
         }
 
-        if (!sTalkSt->instantPrint && sTalkSt->printDelay > 0)
+        if (!sTalkSt->instant_print && sTalkSt->print_delay > 0)
             return;
     }
 }
 
 static bool TalkPrepNextChar(ProcPtr proc)
 {
-    if (!TalkHasCorrectBubble() && sTalkSt->activeTalkFace != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_1))
+    if (!TalkHasCorrectBubble() && sTalkSt->active_talk_face != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_1))
     {
-        sTalkSt->activeWidth = 2 + Div(7 + GetStrTalkLen(sTalkSt->str, FALSE), 8);
+        sTalkSt->active_width = 2 + Div(7 + GetStrTalkLen(sTalkSt->str, FALSE), 8);
         ClearTalkBubble();
 
-        StartTalkOpen(sTalkSt->activeTalkFace, proc);
-        SetTalkFaceLayer(sTalkSt->activeTalkFace, CheckTalkFlag(TALK_FLAG_4));
+        StartTalkOpen(sTalkSt->active_talk_face, proc);
+        SetTalkFaceLayer(sTalkSt->active_talk_face, CheckTalkFlag(TALK_FLAG_4));
 
         return TRUE;
     }
 
-    if (sTalkSt->lineActive >= sTalkSt->lines)
+    if (sTalkSt->line_active >= sTalkSt->lines)
     {
-        sTalkSt->instantPrint = FALSE;
+        sTalkSt->instant_print = FALSE;
         SpawnProcLocking(ProcScr_TalkShiftClear, proc);
 
         return TRUE;
     }
 
-    if (!sTalkSt->putLines)
+    if (!sTalkSt->put_lines)
     {
-        PutText(TALK_TEXT_BY_LINE(sTalkSt->lineActive),
-            gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + sTalkSt->lineActive*2));
+        PutText(TALK_TEXT_BY_LINE(sTalkSt->line_active),
+            gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + sTalkSt->line_active*2));
 
         TalkBgSync(BG0_SYNC_BIT);
 
-        sTalkSt->putLines = TRUE;
+        sTalkSt->put_lines = TRUE;
     }
 
-    if (sTalkSt->unk16 != 0)
-        SetTalkFaceMouthMove(sTalkSt->activeTalkFace);
+    if (sTalkSt->unk_16 != 0)
+        SetTalkFaceMouthMove(sTalkSt->active_talk_face);
 
     return FALSE;
 }
 
 static bool TalkSpritePrepNextChar(ProcPtr proc)
 {
-    if (sTalkSt->lineActive >= sTalkSt->lines)
+    if (sTalkSt->line_active >= sTalkSt->lines)
     {
-        sTalkSt->instantPrint = FALSE;
+        sTalkSt->instant_print = FALSE;
         SpawnProcLocking(ProcScr_Unk_085C3E7C, proc);
 
         return TRUE;
     }
 
-    if (!sTalkSt->putLines)
-        sTalkSt->putLines = TRUE;
+    if (!sTalkSt->put_lines)
+        sTalkSt->put_lines = TRUE;
 
     return FALSE;
 }
@@ -652,7 +652,7 @@ static void LockTalk(ProcPtr proc)
     SpawnProcLocking(ProcScr_TalkLock, proc);
 }
 
-s8 IsTalkLocked(void)
+i8 IsTalkLocked(void)
 {
     return Proc_Exists(ProcScr_TalkLock);
 }
@@ -677,7 +677,7 @@ static int TalkInterpret(ProcPtr proc)
         case 0x14:
             sTalkSt->str++;
 
-            sTalkSt->activeWidth = 2 + Div(7 + GetStrTalkLen(sTalkSt->str, TalkHasCorrectBubble()), 8);
+            sTalkSt->active_width = 2 + Div(7 + GetStrTalkLen(sTalkSt->str, TalkHasCorrectBubble()), 8);
 
             continue;
 
@@ -694,9 +694,9 @@ static int TalkInterpret(ProcPtr proc)
         {
             sTalkSt->str += 2;
 
-            Text_Skip(TALK_TEXT_BY_LINE(sTalkSt->lineActive), 6);
+            Text_Skip(TALK_TEXT_BY_LINE(sTalkSt->line_active), 6);
 
-            if (sTalkSt->instantPrint || sTalkSt->printDelay <= 0)
+            if (sTalkSt->instant_print || sTalkSt->print_delay <= 0)
             {
                 return 2;
             }
@@ -710,21 +710,21 @@ static int TalkInterpret(ProcPtr proc)
         return 1;
 
     case 0x00: // end
-        if (sTalkSt->strBack == NULL)
+        if (sTalkSt->str_back == NULL)
             return 0;
 
-        sTalkSt->str = sTalkSt->strBack;
-        sTalkSt->strBack = NULL;
+        sTalkSt->str = sTalkSt->str_back;
+        sTalkSt->str_back = NULL;
 
         return TalkInterpret(proc);
 
     case 0x01: // newline
-        if (sTalkSt->putLines == TRUE || sTalkSt->lineActive == 1)
+        if (sTalkSt->put_lines == TRUE || sTalkSt->line_active == 1)
         {
-            sTalkSt->lineActive++;
+            sTalkSt->line_active++;
         }
 
-        sTalkSt->putLines = FALSE;
+        sTalkSt->put_lines = FALSE;
 
         sTalkSt->str++;
         return 2;
@@ -740,14 +740,14 @@ static int TalkInterpret(ProcPtr proc)
 
     case 0x03: // wait for input to continue
         StartTalkWaitForInput(proc,
-            sTalkSt->xText*8 + Text_GetCursor(TALK_TEXT_BY_LINE(sTalkSt->lineActive)) + 4,
-            sTalkSt->yText*8 + sTalkSt->lineActive*16 + 8);
+            sTalkSt->x_text*8 + Text_GetCursor(TALK_TEXT_BY_LINE(sTalkSt->line_active)) + 4,
+            sTalkSt->y_text*8 + sTalkSt->line_active*16 + 8);
 
         sTalkSt->str++;
         return 3;
 
     case 0x04 ... 0x07:
-        if (sTalkSt->instantPrint)
+        if (sTalkSt->instant_print)
         {
             sTalkSt->str++;
             return 2;
@@ -766,13 +766,13 @@ static int TalkInterpret(ProcPtr proc)
         return 3;
 
     case 0x16:
-        sTalkSt->unk16 = 1 - sTalkSt->unk16;
+        sTalkSt->unk_16 = 1 - sTalkSt->unk_16;
 
         sTalkSt->str++;
         return 3;
 
     case 0x17:
-        sTalkSt->unk17 = 1 - sTalkSt->unk17;
+        sTalkSt->unk_17 = 1 - sTalkSt->unk_17;
 
         sTalkSt->str++;
         return 3;
@@ -810,8 +810,8 @@ static int TalkInterpret(ProcPtr proc)
         if (TalkHasCorrectBubble())
             ClearTalkBubble();
 
-        StartFaceFadeOut(sTalkSt->faces[sTalkSt->activeTalkFace]);
-        sTalkSt->faces[sTalkSt->activeTalkFace] = NULL;
+        StartFaceFadeOut(sTalkSt->faces[sTalkSt->active_talk_face]);
+        sTalkSt->faces[sTalkSt->active_talk_face] = NULL;
 
         sTalkSt->str++;
 
@@ -829,7 +829,7 @@ static int TalkInterpret(ProcPtr proc)
         return 3;
 
     case 0x08 ... 0x0F:
-        SetTalkFaceNoMouthMove(sTalkSt->activeTalkFace);
+        SetTalkFaceNoMouthMove(sTalkSt->active_talk_face);
         SetActiveTalkFace(*sTalkSt->str - 8);
 
         sTalkSt->str++;
@@ -837,36 +837,36 @@ static int TalkInterpret(ProcPtr proc)
 
     case 0x18: // Yes/No choice (default: Yes)
         StartTalkChoice(gYesNoTalkChoice,
-            TALK_TEXT_BY_LINE(sTalkSt->lineActive),
-            gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 2*sTalkSt->lineActive),
-            1, sTalkSt->printColor, proc);
+            TALK_TEXT_BY_LINE(sTalkSt->line_active),
+            gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*sTalkSt->line_active),
+            1, sTalkSt->print_color, proc);
 
         sTalkSt->str++;
         return 3;
 
     case 0x19: // Yes/No choice (default: No)
         StartTalkChoice(gYesNoTalkChoice,
-            TALK_TEXT_BY_LINE(sTalkSt->lineActive),
-            gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 2*sTalkSt->lineActive),
-            2, sTalkSt->printColor, proc);
+            TALK_TEXT_BY_LINE(sTalkSt->line_active),
+            gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*sTalkSt->line_active),
+            2, sTalkSt->print_color, proc);
 
         sTalkSt->str++;
         return 3;
 
     case 0x1A:
         StartTalkChoice(gBuySellTalkChoice,
-            TALK_TEXT_BY_LINE(sTalkSt->lineActive),
-            gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 2*sTalkSt->lineActive),
-            1, sTalkSt->printColor, proc);
+            TALK_TEXT_BY_LINE(sTalkSt->line_active),
+            gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*sTalkSt->line_active),
+            1, sTalkSt->print_color, proc);
 
         sTalkSt->str++;
         return 3;
 
     case 0x1B:
         StartTalkChoice(gBuySellTalkChoice,
-            TALK_TEXT_BY_LINE(sTalkSt->lineActive),
-            gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 2*sTalkSt->lineActive),
-            2, sTalkSt->printColor, proc);
+            TALK_TEXT_BY_LINE(sTalkSt->line_active),
+            gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*sTalkSt->line_active),
+            2, sTalkSt->print_color, proc);
 
         sTalkSt->str++;
         return 3;
@@ -876,10 +876,10 @@ static int TalkInterpret(ProcPtr proc)
         {
 
         case 0 ... 3:
-            sTalkSt->printColor = *++sTalkSt->str;
+            sTalkSt->print_color = *++sTalkSt->str;
 
             for (i = 0; i < sTalkSt->lines; ++i)
-                Text_SetColor(sTalkText + i, sTalkSt->printColor);
+                Text_SetColor(sTalkText + i, sTalkSt->print_color);
 
             sTalkSt->str++;
             return 3;
@@ -891,20 +891,20 @@ static int TalkInterpret(ProcPtr proc)
             return 3;
 
         case 5:
-            NumberToString(sTalkSt->number, sTalkSt->bufNumberStr);
+            NumberToString(sTalkSt->number, sTalkSt->buf_number_str);
 
             sTalkSt->str++;
 
-            sTalkSt->strBack = sTalkSt->str;
-            sTalkSt->str = sTalkSt->bufNumberStr;
+            sTalkSt->str_back = sTalkSt->str;
+            sTalkSt->str = sTalkSt->buf_number_str;
 
             return TalkInterpret(proc);
 
         case 6:
             sTalkSt->str++;
 
-            sTalkSt->strBack = sTalkSt->str;
-            sTalkSt->str = sTalkSt->bufUnkStr;
+            sTalkSt->str_back = sTalkSt->str;
+            sTalkSt->str = sTalkSt->buf_unk_str;
 
             return TalkInterpret(proc);
 
@@ -917,7 +917,7 @@ static int TalkInterpret(ProcPtr proc)
             return 3;
 
         case 10 ... 17:
-            MoveTalkFace(sTalkSt->activeTalkFace, *sTalkSt->str - 10);
+            MoveTalkFace(sTalkSt->active_talk_face, *sTalkSt->str - 10);
             SetActiveTalkFace(*sTalkSt->str - 10);
 
             sTalkSt->str++;
@@ -937,9 +937,9 @@ static int TalkInterpret(ProcPtr proc)
     return 3;
 }
 
-void SetActiveTalkFace(int talkFace)
+void SetActiveTalkFace(int talk_face)
 {
-    sTalkSt->activeTalkFace = talkFace;
+    sTalkSt->active_talk_face = talk_face;
 }
 
 static void TalkInterpretNewFace(ProcPtr proc)
@@ -947,7 +947,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     int faceDisp = 0;
     int fid;
 
-    if (sTalkSt->activeTalkFace == TALK_FACE_NONE)
+    if (sTalkSt->active_talk_face == TALK_FACE_NONE)
         SetActiveTalkFace(TALK_FACE_1);
 
     if (sub_80425C4())
@@ -955,7 +955,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     else
         faceDisp |= FACE_DISP_KIND(FACE_96x80);
 
-    if (GetTalkFaceHPos(sTalkSt->activeTalkFace) <= 14)
+    if (GetTalkFaceHPos(sTalkSt->active_talk_face) <= 14)
         faceDisp |= FACE_DISP_FLIPPED;
     else
         faceDisp |= 0;
@@ -968,18 +968,18 @@ static void TalkInterpretNewFace(ProcPtr proc)
     else
         fid = fid - 0x100;
 
-    sTalkSt->faces[sTalkSt->activeTalkFace] = StartFaceAuto(fid,
-        GetTalkFaceHPos(sTalkSt->activeTalkFace)*8, 80, faceDisp);
+    sTalkSt->faces[sTalkSt->active_talk_face] = StartFaceAuto(fid,
+        GetTalkFaceHPos(sTalkSt->active_talk_face)*8, 80, faceDisp);
 
-    StartFaceFadeIn(sTalkSt->faces[sTalkSt->activeTalkFace]);
+    StartFaceFadeIn(sTalkSt->faces[sTalkSt->active_talk_face]);
 
-    SetTalkFaceLayer(sTalkSt->activeTalkFace, CheckTalkFlag(TALK_FLAG_4));
+    SetTalkFaceLayer(sTalkSt->active_talk_face, CheckTalkFlag(TALK_FLAG_4));
     StartTemporaryLock(proc, 8);
 }
 
-void StartTalkFace(int fid, int x, int y, int disp, int talkFace)
+void StartTalkFace(int fid, int x, int y, int disp, int talk_face)
 {
-    sTalkSt->faces[talkFace] = StartFaceAuto(fid, x, y, disp);
+    sTalkSt->faces[talk_face] = StartFaceAuto(fid, x, y, disp);
 }
 
 static int GetFaceIdByX(int x)
@@ -991,14 +991,14 @@ static int GetFaceIdByX(int x)
         if (gFaces[i] == NULL)
             continue;
 
-        if (gFaces[i]->xDisp == x)
+        if (gFaces[i]->x_disp == x)
             return i;
     }
 
     return -1;
 }
 
-static void SetTalkFaceLayer(int talkFace, int toBack)
+static void SetTalkFaceLayer(int talk_face, int toBack)
 {
     int i;
 
@@ -1016,7 +1016,7 @@ static void SetTalkFaceLayer(int talkFace, int toBack)
         otherLayer = 6;
     }
 
-    switch (talkFace)
+    switch (talk_face)
     {
 
     case TALK_FACE_0 ... TALK_FACE_2:
@@ -1039,17 +1039,17 @@ static void SetTalkFaceLayer(int talkFace, int toBack)
         if (!sTalkSt->faces[i])
             continue;
 
-        if (i == talkFace)
-            sTalkSt->faces[i]->sprLayer = argLayer;
+        if (i == talk_face)
+            sTalkSt->faces[i]->sprite_layer = argLayer;
         else
-            sTalkSt->faces[i]->sprLayer = otherLayer;
+            sTalkSt->faces[i]->sprite_layer = otherLayer;
     }
 }
 
 static void MoveTalkFace(int talkFaceFrom, int talkFaceTo)
 {
     struct FaceProc* face;
-    s8 isSwap = FALSE;
+    i8 isSwap = FALSE;
 
     if (sTalkSt->faces[talkFaceTo] != NULL)
     {
@@ -1064,7 +1064,7 @@ static void MoveTalkFace(int talkFaceFrom, int talkFaceTo)
     sTalkSt->faces[talkFaceTo] = face;
 }
 
-static s8 IsTalkFaceMoving(void)
+static i8 IsTalkFaceMoving(void)
 {
 
 #if NONMATCHING
@@ -1094,7 +1094,7 @@ static s8 IsTalkFaceMoving(void)
 
 }
 
-static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, s8 isSwap)
+static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap)
 {
     struct GenericProc* proc;
 
@@ -1107,7 +1107,7 @@ static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, s8 isSwap)
 
     proc->unk64 = slot;
     proc->unk66 = talkFaceTo;
-    proc->unk68 = gFaces[slot]->xDisp;
+    proc->unk68 = gFaces[slot]->x_disp;
     proc->unk6A = isSwap;
 }
 
@@ -1132,28 +1132,28 @@ static void TalkFaceMove_OnIdle(struct GenericProc* proc)
     if (proc->unk5C > 16)
     {
         if (proc->unk58 == proc->unk5C / 8)
-            gFaces[proc->unk64]->yDisp++;
+            gFaces[proc->unk64]->y_disp++;
 
         if (proc->unk58 == proc->unk5C / 2)
-            gFaces[proc->unk64]->yDisp--;
+            gFaces[proc->unk64]->y_disp--;
 
         if (proc->unk58 == proc->unk5C * 5 / 8)
-            gFaces[proc->unk64]->yDisp++;
+            gFaces[proc->unk64]->y_disp++;
     }
     else
     {
         if (proc->unk58 == proc->unk5C / 2)
-            gFaces[proc->unk64]->yDisp++;
+            gFaces[proc->unk64]->y_disp++;
     }
 
     if (proc->unk58 >= proc->unk5C)
     {
-        gFaces[proc->unk64]->yDisp--;
+        gFaces[proc->unk64]->y_disp--;
         Proc_Break(proc);
     }
     else
     {
-        gFaces[proc->unk64]->xDisp = Interpolate(INTERPOLATE_RSQUARE,
+        gFaces[proc->unk64]->x_disp = Interpolate(INTERPOLATE_RSQUARE,
             proc->unk68, GetTalkFaceHPos(proc->unk66)*8,
             proc->unk58++, proc->unk5C);
     }
@@ -1211,24 +1211,24 @@ void StartTalkWaitForInput(ProcPtr parent, int x, int y)
 
 static void TalkShiftClearAll_OnInit(struct GenericProc* proc)
 {
-    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 4),
-        sTalkSt->activeWidth-2, sTalkSt->lines*2, 0);
+    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
+        sTalkSt->active_width-2, sTalkSt->lines*2, 0);
 
     TalkBgSync(BG0_SYNC_BIT);
 
     proc->unk64 = 0;
 
-    if (sTalkSt->lineActive == 0)
+    if (sTalkSt->line_active == 0)
     {
         proc->unk66 = 16;
     }
-    else if (sTalkSt->lineActive + 1 >= sTalkSt->lines)
+    else if (sTalkSt->line_active + 1 >= sTalkSt->lines)
     {
         proc->unk66 = sTalkSt->lines * 16;
     }
     else
     {
-        proc->unk66 = (sTalkSt->lineActive + 1) * 16;
+        proc->unk66 = (sTalkSt->line_active + 1) * 16;
     }
 }
 
@@ -1264,8 +1264,8 @@ static void StartTalkChoice(struct TalkChoiceEnt const* choices, struct Text* te
 
     proc->selectedChoice = defaultChoice;
 
-    proc->xDisp = (((tm - gBg0Tm) & 0x1F) * 8) - gDispIo.bgOff[0].x + x;
-    proc->yDisp = (((tm - gBg0Tm) / 0x20) * 8) - gDispIo.bgOff[0].y;
+    proc->x_disp = (((tm - gBg0Tm) & 0x1F) * 8) - gDispIo.bg_off[0].x + x;
+    proc->y_disp = (((tm - gBg0Tm) / 0x20) * 8) - gDispIo.bg_off[0].y;
 
     proc->choices = choices;
 
@@ -1314,13 +1314,13 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
             proc->choices[1].onSwitch();
     }
 
-    sub_80415CC(proc->xDisp + (proc->selectedChoice - 1) * 40 - 4, proc->yDisp);
+    sub_80415CC(proc->x_disp + (proc->selectedChoice - 1) * 40 - 4, proc->y_disp);
 }
 
 static void TalkShiftClear_OnInit(struct GenericProc* proc)
 {
-    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 4),
-        sTalkSt->activeWidth-2, sTalkSt->lines*2, 0);
+    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
+        sTalkSt->active_width-2, sTalkSt->lines*2, 0);
 
     TalkBgSync(BG0_SYNC_BIT);
 
@@ -1337,22 +1337,22 @@ static void TalkShiftClear_OnIdle(struct GenericProc* proc)
     {
         int i;
 
-        sTalkSt->lineActive--;
-        sTalkSt->topTextNum++;
+        sTalkSt->line_active--;
+        sTalkSt->top_text_num++;
 
         SetBgOffset(0, 0, 0);
 
         for (i = 0; i < sTalkSt->lines - 1; ++i)
         {
             PutText(TALK_TEXT_BY_LINE(i),
-                gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + 2*i));
+                gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*i));
         }
 
-        TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->xText, sTalkSt->yText + (sTalkSt->lines - 1)*2),
-            sTalkSt->activeWidth - 2, 2, 0);
+        TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + (sTalkSt->lines - 1)*2),
+            sTalkSt->active_width - 2, 2, 0);
 
         ClearText(TALK_TEXT_BY_LINE(sTalkSt->lines - 1));
-        Text_SetColor(TALK_TEXT_BY_LINE(sTalkSt->lines - 1), sTalkSt->printColor);
+        Text_SetColor(TALK_TEXT_BY_LINE(sTalkSt->lines - 1), sTalkSt->print_color);
 
         TalkBgSync(BG0_SYNC_BIT);
 
@@ -1367,7 +1367,7 @@ static void sub_800B3D4(ProcPtr proc)
 
 static void sub_800B3F8(ProcPtr proc)
 {
-    sTalkSt->lineActive--;
+    sTalkSt->line_active--;
 
     SpriteText_DrawBackground(sTalkText + 1);
 
@@ -1382,7 +1382,7 @@ static int GetTalkPauseCmdDuration(int cmd)
 
 void ClearTalkBubble(void)
 {
-    sTalkSt->speakTalkFace = (s8) TALK_FACE_NONE;
+    sTalkSt->speak_talk_face = (i8) TALK_FACE_NONE;
 
     TmFill(gBg1Tm, 0);
     TalkBgSync(BG1_SYNC_BIT);
@@ -1399,14 +1399,14 @@ void ClearPutTalkText(void)
     TmFill(gBg0Tm, 0);
     TalkBgSync(BG0_SYNC_BIT);
 
-    sTalkSt->lineActive = 0;
-    sTalkSt->putLines = 0;
-    sTalkSt->topTextNum = 0;
+    sTalkSt->line_active = 0;
+    sTalkSt->put_lines = 0;
+    sTalkSt->top_text_num = 0;
 
     for (i = 0; i < sTalkSt->lines; ++i)
     {
         ClearText(sTalkText + i);
-        Text_SetColor(sTalkText + i, sTalkSt->printColor);
+        Text_SetColor(sTalkText + i, sTalkSt->print_color);
     }
 }
 
@@ -1414,14 +1414,14 @@ void ClearTalkText(void)
 {
     int i;
 
-    sTalkSt->lineActive = 0;
-    sTalkSt->putLines = 0;
-    sTalkSt->topTextNum = 0;
+    sTalkSt->line_active = 0;
+    sTalkSt->put_lines = 0;
+    sTalkSt->top_text_num = 0;
 
     for (i = 0; i < sTalkSt->lines; ++i)
     {
         ClearText(sTalkText + i);
-        Text_SetColor(sTalkText + i, sTalkSt->printColor);
+        Text_SetColor(sTalkText + i, sTalkSt->print_color);
     }
 }
 
@@ -1497,8 +1497,8 @@ static void PutTalkBubble(int xAnchor, int yAnchor, int width, int height)
         break;
     }
 
-    sTalkSt->xText = x + 1;
-    sTalkSt->yText = y + 1;
+    sTalkSt->x_text = x + 1;
+    sTalkSt->y_text = y + 1;
 
     PutTalkBubbleTm(x, y, width, height);
     PutTalkBubbleTail(xTail, yAnchor, kind);
@@ -1630,8 +1630,8 @@ static void TalkOpen_InitBlend(struct GenericProc* proc)
 
     SetBlendBackdropB(1);
 
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
     SetBlendAlpha(0, 0x10);
 }
@@ -1657,14 +1657,14 @@ static void TalkOpen_OnIdle(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void StartTalkOpen(int talkFace, ProcPtr parent)
+static void StartTalkOpen(int talk_face, ProcPtr parent)
 {
     struct GenericProc* proc = SpawnProcLocking(ProcScr_TalkOpen, parent);
 
-    proc->unk64 = GetTalkFaceHPos(talkFace);
+    proc->unk64 = GetTalkFaceHPos(talk_face);
     proc->unk66 = 8;
 
-    proc->unk68 = sTalkSt->activeWidth;
+    proc->unk68 = sTalkSt->active_width;
     proc->unk6A = 6;
 
     if (proc->unk64 < 0)
@@ -1673,56 +1673,56 @@ static void StartTalkOpen(int talkFace, ProcPtr parent)
     if (proc->unk64 > 29)
         proc->unk64 = 30;
 
-    sTalkSt->speakTalkFace = talkFace;
-    sTalkSt->speakWidth = sTalkSt->activeWidth;
+    sTalkSt->speak_talk_face = talk_face;
+    sTalkSt->speak_width = sTalkSt->active_width;
 }
 
 static bool TalkHasCorrectBubble(void)
 {
-    if (sTalkSt->speakTalkFace == sTalkSt->activeTalkFace && sTalkSt->speakWidth == sTalkSt->activeWidth)
+    if (sTalkSt->speak_talk_face == sTalkSt->active_talk_face && sTalkSt->speak_width == sTalkSt->active_width)
         return TRUE;
 
     return FALSE;
 }
 
-int GetTalkFaceHPos(int talkFace)
+int GetTalkFaceHPos(int talk_face)
 {
     if (sub_80425C4())
         return 4;
 
-    return gTalkFaceHPosLut[talkFace];
+    return gTalkFaceHPosLut[talk_face];
 }
 
-static void SetTalkFaceDisp(int talkFace, int faceDisp)
+static void SetTalkFaceDisp(int talk_face, int faceDisp)
 {
     int lut[] = { 0, FACE_DISP_SMILE };
     int disp;
 
-    if (talkFace == TALK_FACE_NONE)
+    if (talk_face == TALK_FACE_NONE)
         return;
 
-    disp = GetFaceDisp(sTalkSt->faces[talkFace]);
+    disp = GetFaceDisp(sTalkSt->faces[talk_face]);
     disp &= ~(FACE_DISP_SMILE | FACE_DISP_TALK_1 | FACE_DISP_TALK_2);
 
-    SetFaceDisp(sTalkSt->faces[talkFace], disp | faceDisp | lut[sTalkSt->unk17]);
+    SetFaceDisp(sTalkSt->faces[talk_face], disp | faceDisp | lut[sTalkSt->unk_17]);
 }
 
-static void SetTalkFaceMouthMove(int talkFace)
+static void SetTalkFaceMouthMove(int talk_face)
 {
-    SetTalkFaceDisp(talkFace, FACE_DISP_TALK_1);
+    SetTalkFaceDisp(talk_face, FACE_DISP_TALK_1);
 }
 
-static void SetTalkFaceNoMouthMove(int talkFace)
+static void SetTalkFaceNoMouthMove(int talk_face)
 {
-    SetTalkFaceDisp(talkFace, 0);
+    SetTalkFaceDisp(talk_face, 0);
 }
 
-s8 IsTalkActive(void)
+i8 IsTalkActive(void)
 {
     return Proc_Exists(ProcScr_Talk);
 }
 
-s8 FaceExists(void)
+i8 FaceExists(void)
 {
     return Proc_Exists(ProcScr_Face);
 }
@@ -1739,7 +1739,7 @@ void SetTalkNumber(int number)
 
 void SetTalkUnkStr(char const* str)
 {
-    strcpy(sTalkSt->bufUnkStr, str);
+    strcpy(sTalkSt->buf_unk_str, str);
 }
 
 void PrintStringToTexts(struct Text** texts, char const* str, int x, int y)
@@ -1825,12 +1825,12 @@ void EndPutTalkSpriteText(void)
     Proc_EndEach(ProcScr_TalkPutSpriteText);
 }
 
-int GetStrTalkLen(char const* str, s8 isBubbleOpen)
+int GetStrTalkLen(char const* str, i8 isBubbleOpen)
 {
     char buf[0x20];
 
-    int speakFace = sTalkSt->speakTalkFace;
-    int activeFace = sTalkSt->activeTalkFace;
+    int speakFace = sTalkSt->speak_talk_face;
+    int activeFace = sTalkSt->active_talk_face;
 
     int chrlen;
 
@@ -1961,7 +1961,7 @@ int GetStrTalkLen(char const* str, s8 isBubbleOpen)
                 break;
 
             case 0x06:
-                StringCopy(sTalkSt->bufUnkStr, buf); // BUG: arguments are reversed?
+                StringCopy(sTalkSt->buf_unk_str, buf); // BUG: arguments are reversed?
                 currentLineLen += GetStrTalkLen(buf, isBubbleOpen);
 
                 str++;
@@ -2025,7 +2025,7 @@ ret:
     return maxLineLen;
 }
 
-s8 IsTalkDebugActive(void)
+i8 IsTalkDebugActive(void)
 {
     return Proc_Exists(ProcScr_TalkDebug);
 }

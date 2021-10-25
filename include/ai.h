@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -63,19 +62,19 @@ enum
 struct AiSt
 {
     /* 00 */ u8 units[116]; // TODO: constant for max number of units?
-    /* 74 */ u8* unitIt;
-    /* 78 */ u8 orderState;
-    /* 79 */ u8 decideState;
-    /* 7A */ u8 dangerMapFilled;
+    /* 74 */ u8* unit_it;
+    /* 78 */ u8 order_state;
+    /* 79 */ u8 decide_state;
+    /* 7A */ u8 danger_map_filled;
     /* 7B */ u8 flags;
     /* 7C */ u8 unk_7C;
-    /* 7D */ u8 combatWeightTableId;
+    /* 7D */ u8 combat_wgt_table_id;
     /* 7E */ u8 unk_7E;
     /* 7F */ u8 unk_7F;
-    /* 80 */ u32 specialItemFlags;
+    /* 80 */ u32 special_item_flags;
     /* 84 */ u8 unk_84;
-    /* 85 */ u8 bestBlueMov;
-    /* 86 */ u8 unk_86[8];
+    /* 85 */ u8 best_blue_mov;
+    /* 86 */ u8 cmd_result[8];
 };
 
 extern struct AiSt EWRAM_DATA gAiSt;

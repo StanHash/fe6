@@ -1,5 +1,3 @@
-
-
 #pragma once
 
 #include "common.h"
@@ -70,7 +68,7 @@ void AiDoBerserkMove(void);
 
 #define AI_CONDITIONAL(target, cond, left, right) { AI_CMD_CONDITIONAL, (cond), -1, (target), (right), (left), NULL }
 #define AI_CALL_FUNC(func, argptr)       { AI_CMD_CALL_FUNC, 0, -1, 0, 0, (func), (argptr) }
-#define AI_SET_AI(aiA, aiB)              { AI_CMD_SET_AI, (aiA), (aiB), 0, 0, NULL, NULL }
+#define AI_SET_AI(ai_a, ai_b)              { AI_CMD_SET_AI, (ai_a), (ai_b), 0, 0, NULL, NULL }
 #define AI_GOTO(target)                  { AI_CMD_GOTO, 0, -1, (target), 0, NULL, NULL }
 #define AI_ACTION_ON_PID(chance, pid)    { AI_CMD_ACTION_ON_PID, (chance), -1, 0, (pid), NULL, NULL }
 #define AI_ACTION_IGNORING(chance, list) { AI_CMD_ACTION, (chance), -1, 0, 0, (list), NULL }
@@ -93,8 +91,8 @@ void AiDoBerserkMove(void);
 #define AI_GOTO_IFLE(target, left, right) AI_CONDITIONAL(target, AI_COMPARE_LE, left, right)
 #define AI_GOTO_IFLT(target, left, right) AI_CONDITIONAL(target, AI_COMPARE_LT, left, right)
 #define AI_GOTO_IFNE(target, left, right) AI_CONDITIONAL(target, AI_COMPARE_NE, left, right)
-#define AI_SET_AI_A(aiA) AI_SET_AI(aiA, -1)
-#define AI_SET_AI_B(aiB) AI_SET_AI(-1, aiB)
+#define AI_SET_AI_A(ai_a) AI_SET_AI(ai_a, -1)
+#define AI_SET_AI_B(ai_b) AI_SET_AI(-1, ai_b)
 #define AI_GOTO_START AI_GOTO(0)
 #define AI_ACTION(chance) AI_ACTION_IGNORING(chance, NULL)
 #define AI_MOVE_TO_ENEMY  AI_MOVE_TO_ENEMY_IGNORING(NULL)

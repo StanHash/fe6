@@ -220,33 +220,33 @@ void UnpackRawMap(void* buf, int chapter)
     gMapSize.y = ((u8*) buf)[1];
 
     // Decompress tileset info
-    Decompress(ChapterAssets[GetChapterInfo(chapter)->assetTileset], sTilesetInfo);
+    Decompress(ChapterAssets[GetChapterInfo(chapter)->asset_tileset], sTilesetInfo);
 
     // Setting max camera offsets
-    gBmSt.cameraMax.x = gMapSize.x*16 - DISPLAY_WIDTH;
-    gBmSt.cameraMax.y = gMapSize.y*16 - DISPLAY_HEIGHT;
+    gBmSt.camera_max.x = gMapSize.x*16 - DISPLAY_WIDTH;
+    gBmSt.camera_max.y = gMapSize.y*16 - DISPLAY_HEIGHT;
 }
 
 void ApplyChapterMapGraphics(int chapter)
 {
     // Decompress tileset graphics (part 1)
     Decompress(
-        ChapterAssets[GetChapterInfo(chapter)->assetImgA],
+        ChapterAssets[GetChapterInfo(chapter)->asset_img_a],
         (void*) BG_VRAM + CHR_SIZE * BGCHR_TILESET_A);
 
     // Decompress tileset graphics (part 2, if it exists)
-    if (ChapterAssets[GetChapterInfo(chapter)->assetImgB])
+    if (ChapterAssets[GetChapterInfo(chapter)->asset_img_b])
         Decompress(
-            ChapterAssets[GetChapterInfo(chapter)->assetImgB],
+            ChapterAssets[GetChapterInfo(chapter)->asset_img_b],
             (void*) BG_VRAM + CHR_SIZE * BGCHR_TILESET_B);
 
     // Apply tileset palette
-    ApplyPalettes(ChapterAssets[GetChapterInfo(chapter)->assetPal], BGPAL_TILESET, 10);
+    ApplyPalettes(ChapterAssets[GetChapterInfo(chapter)->asset_pal], BGPAL_TILESET, 10);
 }
 
 void ApplyChapterMapPalettes(void)
 {
-    ApplyPalettes(ChapterAssets[GetChapterInfo(gPlaySt.chapter)->assetPal], BGPAL_TILESET, 10);
+    ApplyPalettes(ChapterAssets[GetChapterInfo(gPlaySt.chapter)->asset_pal], BGPAL_TILESET, 10);
 }
 
 void InitMetatilesMap(void)
@@ -299,9 +299,9 @@ void RefreshTerrainMap(void)
             gMapTerrain[iy][ix] = gMetatilesTerrainLut[gMapMetatiles[iy][ix] >> 2];
 }
 
-void PutMapMetatile(u16* tm, int xTm, int yTm, int x, int y)
+void PutMapMetatile(u16* tm, int x_tm, int y_tm, int x, int y)
 {
-    u16* out = tm + yTm * 0x40 + xTm * 2;
+    u16* out = tm + y_tm * 0x40 + x_tm * 2;
     u16* tiles = sTilesetInfo + gMapMetatiles[y][x];
 
     u16 tileref = TILEREF(0, gMapFog[y][x] ? BGPAL_TILESET : BGPAL_TILESET + 5);
@@ -316,9 +316,9 @@ void nullsub_2(void)
 {
 }
 
-void PutLimitViewSquare(u16* tm, int x, int y, int xTm, int yTm)
+void PutLimitViewSquare(u16* tm, int x, int y, int x_tm, int y_tm)
 {
-    tm = tm + 2*TM_OFFSET(xTm, yTm);
+    tm = tm + 2*TM_OFFSET(x_tm, y_tm);
 
     if (!tm)
         nullsub_2();
@@ -365,12 +365,12 @@ void RenderMap(void)
 {
     int ix, iy;
 
-    gBmSt.mapRenderAnchor.x = gBmSt.camera.x >> 4;
-    gBmSt.mapRenderAnchor.y = gBmSt.camera.y >> 4;
+    gBmSt.map_render_anchor.x = gBmSt.camera.x >> 4;
+    gBmSt.map_render_anchor.y = gBmSt.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
-            PutMapMetatile(gBg3Tm, ix, iy, gBmSt.mapRenderAnchor.x + ix, gBmSt.mapRenderAnchor.y + iy);
+            PutMapMetatile(gBg3Tm, ix, iy, gBmSt.map_render_anchor.x + ix, gBmSt.map_render_anchor.y + iy);
 
     EnableBgSync(BG3_SYNC_BIT);
     SetBgOffset(3, 0, 0);
@@ -384,12 +384,12 @@ void RenderMapForFade(void)
 
     SetBgChrOffset(2, BGCHR_TILESET_A * CHR_SIZE);
 
-    gBmSt.mapRenderAnchor.x = gBmSt.camera.x >> 4;
-    gBmSt.mapRenderAnchor.y = gBmSt.camera.y >> 4;
+    gBmSt.map_render_anchor.x = gBmSt.camera.x >> 4;
+    gBmSt.map_render_anchor.y = gBmSt.camera.y >> 4;
 
     for (iy = (10 - 1); iy >= 0; --iy)
         for (ix = (15 - 1); ix >= 0; --ix)
-            PutMapMetatile(gBg2Tm, ix, iy, gBmSt.mapRenderAnchor.x + ix, gBmSt.mapRenderAnchor.y + iy);
+            PutMapMetatile(gBg2Tm, ix, iy, gBmSt.map_render_anchor.x + ix, gBmSt.map_render_anchor.y + iy);
 
     EnableBgSync(BG2_SYNC_BIT);
     SetBgOffset(2, 0, 0);
@@ -397,45 +397,45 @@ void RenderMapForFade(void)
 
 void UpdateRenderMap(void)
 {
-    if (gBmSt.camera.x != gBmSt.cameraPrevious.x)
+    if (gBmSt.camera.x != gBmSt.camera_previous.x)
     {
-        if (gBmSt.camera.x > gBmSt.cameraPrevious.x)
+        if (gBmSt.camera.x > gBmSt.camera_previous.x)
         {
-            if (((gBmSt.camera.x - 1) ^ (gBmSt.cameraPrevious.x - 1)) & 0x10)
+            if (((gBmSt.camera.x - 1) ^ (gBmSt.camera_previous.x - 1)) & 0x10)
                 RenderMapColumn(15);
         }
         else
         {
-            if ((gBmSt.camera.x ^ gBmSt.cameraPrevious.x) & 0x10)
+            if ((gBmSt.camera.x ^ gBmSt.camera_previous.x) & 0x10)
                 RenderMapColumn(0);
         }
     }
 
-    if (gBmSt.camera.y != gBmSt.cameraPrevious.y)
+    if (gBmSt.camera.y != gBmSt.camera_previous.y)
     {
-        if (gBmSt.camera.y > gBmSt.cameraPrevious.y)
+        if (gBmSt.camera.y > gBmSt.camera_previous.y)
         {
-            if (((gBmSt.camera.y - 1) ^ (gBmSt.cameraPrevious.y - 1)) & 0x10)
+            if (((gBmSt.camera.y - 1) ^ (gBmSt.camera_previous.y - 1)) & 0x10)
                 RenderMapLine(10);
         }
         else
         {
-            if ((gBmSt.camera.y ^ gBmSt.cameraPrevious.y) & 0x10)
+            if ((gBmSt.camera.y ^ gBmSt.camera_previous.y) & 0x10)
                 RenderMapLine(0);
         }
     }
 
-    gBmSt.cameraPrevious = gBmSt.camera;
+    gBmSt.camera_previous = gBmSt.camera;
 
     SetBgOffset(3,
-        gBmSt.camera.x - (u16) gBmSt.mapRenderAnchor.x*16,
-        gBmSt.camera.y - (u16) gBmSt.mapRenderAnchor.y*16);
+        gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x*16,
+        gBmSt.camera.y - (u16) gBmSt.map_render_anchor.y*16);
 
     if (gBmSt.flags & BM_FLAG_0)
     {
         SetBgOffset(2,
-            gBmSt.camera.x - (u16) gBmSt.mapRenderAnchor.x*16,
-            gBmSt.camera.y - (u16) gBmSt.mapRenderAnchor.y*16);
+            gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x*16,
+            gBmSt.camera.y - (u16) gBmSt.map_render_anchor.y*16);
     }
 }
 
@@ -444,8 +444,8 @@ void RenderMapColumn(u16 xOffset)
     u16 x = (gBmSt.camera.x >> 4) + xOffset;
     u16 y = (gBmSt.camera.y >> 4);
 
-    u16 xTm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.mapRenderAnchor.x + xOffset) & 0xF;
-    u16 yTm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.mapRenderAnchor.y);
+    u16 x_tm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.map_render_anchor.x + xOffset) & 0xF;
+    u16 y_tm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.map_render_anchor.y);
 
     int iy;
 
@@ -454,7 +454,7 @@ void RenderMapColumn(u16 xOffset)
         for (iy = 10; iy >= 0; --iy)
         {
             PutMapMetatile(gBg3Tm,
-                xTm, (yTm + iy) & 0xF, x, (y + iy));
+                x_tm, (y_tm + iy) & 0xF, x, (y + iy));
         }
 
         EnableBgSync(BG3_SYNC_BIT);
@@ -464,10 +464,10 @@ void RenderMapColumn(u16 xOffset)
         for (iy = 10; iy >= 0; --iy)
         {
             PutMapMetatile(gBg3Tm,
-                xTm, (yTm + iy) & 0xF, x, (y + iy));
+                x_tm, (y_tm + iy) & 0xF, x, (y + iy));
 
             PutLimitViewSquare(gBg2Tm,
-                x, (y + iy), xTm, (yTm + iy) & 0xF);
+                x, (y + iy), x_tm, (y_tm + iy) & 0xF);
         }
 
         EnableBgSync(BG2_SYNC_BIT + BG3_SYNC_BIT);
@@ -479,8 +479,8 @@ void RenderMapLine(u16 yOffset)
     u16 x = (gBmSt.camera.x >> 4);
     u16 y = (gBmSt.camera.y >> 4) + yOffset;
 
-    u16 xTm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.mapRenderAnchor.x);
-    u16 yTm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.mapRenderAnchor.y + yOffset) & 0xF;
+    u16 x_tm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.map_render_anchor.x);
+    u16 y_tm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.map_render_anchor.y + yOffset) & 0xF;
 
     int ix;
 
@@ -489,7 +489,7 @@ void RenderMapLine(u16 yOffset)
         for (ix = 15; ix >= 0; --ix)
         {
             PutMapMetatile(gBg3Tm,
-                (xTm + ix) & 0xF, yTm, (x + ix), y);
+                (x_tm + ix) & 0xF, y_tm, (x + ix), y);
         }
 
         EnableBgSync(BG3_SYNC_BIT);
@@ -499,10 +499,10 @@ void RenderMapLine(u16 yOffset)
         for (ix = 15; ix >= 0; --ix)
         {
             PutMapMetatile(gBg3Tm,
-                (xTm + ix) & 0xF, yTm, (x + ix), y);
+                (x_tm + ix) & 0xF, y_tm, (x + ix), y);
 
             PutLimitViewSquare(gBg2Tm,
-                (x + ix), y, (xTm + ix) & 0xF, yTm);
+                (x + ix), y, (x_tm + ix) & 0xF, y_tm);
         }
 
         EnableBgSync(BG2_SYNC_BIT + BG3_SYNC_BIT);
@@ -529,7 +529,7 @@ void RefreshEntityMaps(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & US_HIDDEN)
@@ -556,7 +556,7 @@ void RefreshEntityMaps(void)
             if (!unit)
                 continue;
 
-            if (!unit->person)
+            if (!unit->pinfo)
                 continue;
 
             if (unit->state & US_HIDDEN)
@@ -598,7 +598,7 @@ void RefreshEntityMaps(void)
             if (!unit)
                 continue;
 
-            if (!unit->person)
+            if (!unit->pinfo)
                 continue;
 
             if (unit->state & US_HIDDEN)

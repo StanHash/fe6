@@ -8,7 +8,7 @@
 #include "hardware.h"
 #include "ramfunc.h"
 #include "proc.h"
-#include "anim.h"
+#include "sprite-anim.h"
 #include "game-controller.h"
 #include "bm.h"
 #include "mu.h"
@@ -53,7 +53,7 @@ NAKEDFUNC void AgbMain(void)
     InitRamFuncs();
     sub_80841FC();
     InitProcs();
-    InitAnims();
+    InitSpriteAnims();
     InitMus();
 
     RandInitB(0x42D690E9);

@@ -238,7 +238,7 @@ SECTIONS
         . = ALIGN(4); src/oam.o(.bss);
         . = ALIGN(4); src/talk.o(.bss);
         . = ALIGN(4); src/event.o(.bss);
-        . = ALIGN(4); src/anim.o(.bss);
+        . = ALIGN(4); src/sprite-anim.o(.bss);
         . = ALIGN(4); src/util.o(.bss);
         . = ALIGN(4); src/map.o(.bss);
         . = ALIGN(4); src/ai-script.o(.bss);
@@ -321,7 +321,7 @@ SECTIONS
         src/face.o(.text);
         src/talk.o(.text);
         src/event.o(.text);
-        src/anim.o(.text);
+        src/sprite-anim.o(.text);
         src/game-controller.o(.text);
         src/msg.o(.text);
         src/util.o(.text);
@@ -419,7 +419,7 @@ SECTIONS
         . = ALIGN(4); src/face.o(.rodata);
         . = ALIGN(4); src/talk.o(.rodata);
         . = ALIGN(4); src/event.o(.rodata);
-        . = ALIGN(4); src/anim.o(.rodata);
+        . = ALIGN(4); src/sprite-anim.o(.rodata);
         . = ALIGN(4); src/game-controller.o(.rodata);
         . = ALIGN(4); src/msg.o(.rodata);
         . = ALIGN(4); src/util.o(.rodata);
@@ -466,7 +466,7 @@ SECTIONS
         . = ALIGN(4); src/face.o(.data);
         . = ALIGN(4); src/talk.o(.data);
         . = ALIGN(4); src/event.o(.data);
-        . = ALIGN(4); src/anim.o(.data);
+        . = ALIGN(4); src/sprite-anim.o(.data);
         . = ALIGN(4); src/game-controller.o(.data);
         . = ALIGN(4); src/util.o(.data);
         . = ALIGN(4); src/bm.o(.data);

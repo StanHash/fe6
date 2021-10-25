@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -21,24 +20,24 @@ enum
 
 struct AiDecision
 {
-    /* 00 */ u8 actionId;
+    /* 00 */ u8 action_id;
 
-    /* 01 */ u8 unitId;
-    /* 02 */ u8 xMove;
-    /* 03 */ u8 yMove;
-    /* 04 */ u8 unk04;
-    /* 05 */ u8 unk05;
-    /* 06 */ u8 targetId;
-    /* 07 */ u8 itemSlot;
-    /* 08 */ u8 xTarget;
-    /* 09 */ u8 yTarget;
+    /* 01 */ u8 unit_id;
+    /* 02 */ u8 x_move;
+    /* 03 */ u8 y_move;
+    /* 04 */ u8 unk_04;
+    /* 05 */ u8 unk_05;
+    /* 06 */ u8 target_id;
+    /* 07 */ u8 item_slot;
+    /* 08 */ u8 x_target;
+    /* 09 */ u8 y_target;
 
-    /* 0A */ bool actionPerformed;
+    /* 0A */ bool action_performed;
 };
 
 void AiClearDecision(void);
-void AiSetDecision(short xMove, short yMove, u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
-void AiUpdateDecision(u8 actionId, u8 targetId, u8 itemSlot, u8 xTarget, u8 yTarget);
+void AiSetDecision(short x_move, short y_move, u8 action_id, u8 target_id, u8 item_slot, u8 x_target, u8 y_target);
+void AiUpdateDecision(u8 action_id, u8 target_id, u8 item_slot, u8 x_target, u8 y_target);
 
 void AiDecideAll(void);
 void AiDecideHealOrEscape(void);

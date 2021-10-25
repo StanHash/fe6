@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -12,9 +11,9 @@ void MapSetEdges(u8** map, u8 value);
 void ApplyChapterMapGraphics(int chapter);
 void ApplyChapterMapPalettes(void);
 void RefreshTerrainMap(void);
-void PutMapMetatile(u16* tm, int xTm, int yTm, int x, int y);
+void PutMapMetatile(u16* tm, int x_tm, int y_tm, int x, int y);
 void nullsub_2(void);
-void PutLimitViewSquare(u16* tm, int x, int y, int xTm, int yTm);
+void PutLimitViewSquare(u16* tm, int x, int y, int x_tm, int y_tm);
 void RenderMap(void);
 void RenderMapForFade(void);
 void UpdateRenderMap(void);
@@ -37,5 +36,5 @@ extern u8** gMapOther;
 extern u8* CONST_DATA gMetatilesTerrainLut;
 extern u16** CONST_DATA gMapMetatiles;
 
-#define gMapRangeSigned ((s8**) gMapRange)
-#define gMapMovementSigned ((s8**) gMapMovement)
+#define gMapRangeSigned ((i8**) gMapRange)
+#define gMapMovementSigned ((i8**) gMapMovement)

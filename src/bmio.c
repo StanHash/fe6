@@ -267,10 +267,10 @@ static void BmVSync_AnimInit(struct BmVSyncProc* proc)
     proc->palAnimClock = 0;
 
     proc->imgAnimStart = proc->imgAnimCurrent =
-        ChapterAssets[GetChapterInfo(gPlaySt.chapter)->assetImgAnims];
+        ChapterAssets[GetChapterInfo(gPlaySt.chapter)->asset_img_anims];
 
     proc->palAnimStart = proc->palAnimCurrent =
-        ChapterAssets[GetChapterInfo(gPlaySt.chapter)->assetPalAnims];
+        ChapterAssets[GetChapterInfo(gPlaySt.chapter)->asset_pal_anims];
 }
 
 static void BmVSync_End(struct BmVSyncProc* proc)
@@ -290,7 +290,7 @@ void StartBmVSync(void)
     BmVSync_AnimInit(proc);
     WeatherInit();
 
-    gBmSt.lockDisplay = 0;
+    gBmSt.lock_display = 0;
 }
 
 void EndBmVSync(void)
@@ -300,9 +300,9 @@ void EndBmVSync(void)
 
 void LockBmDisplay(void)
 {
-    gBmSt.lockDisplay++;
+    gBmSt.lock_display++;
 
-    if (gBmSt.lockDisplay > 1)
+    if (gBmSt.lock_display > 1)
         return;
 
     SetOnHBlankB(NULL);
@@ -317,9 +317,9 @@ void UnlockBmDisplay(void)
 {
     ProcPtr proc;
 
-    gBmSt.lockDisplay--;
+    gBmSt.lock_display--;
 
-    if (gBmSt.lockDisplay != 0)
+    if (gBmSt.lock_display != 0)
         return;
 
     Proc_ReleaseEachMarked(PROC_MARK_1);
@@ -954,7 +954,7 @@ void EnableTilesetPalAnim(void)
     if (proc)
     {
         proc->palAnimStart = proc->palAnimCurrent =
-            ChapterAssets[GetChapterInfo(gPlaySt.chapter)->assetPalAnims];
+            ChapterAssets[GetChapterInfo(gPlaySt.chapter)->asset_pal_anims];
     }
 }
 

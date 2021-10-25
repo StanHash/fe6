@@ -29,18 +29,18 @@ static int CONST_DATA sMaxExpLut[] =
 
 int GetUnitSupportCount(struct Unit* unit)
 {
-    if (!unit->person->supportInfo)
+    if (!unit->pinfo->support_info)
         return 0;
 
-    return unit->person->supportInfo->count;
+    return unit->pinfo->support_info->count;
 }
 
 u8 GetUnitSupportPid(struct Unit* unit, int num)
 {
-    if (!unit->person->supportInfo)
+    if (!unit->pinfo->support_info)
         return 0;
 
-    return unit->person->supportInfo->pids[num];
+    return unit->pinfo->support_info->pids[num];
 }
 
 struct Unit* GetUnitSupportUnit(struct Unit* unit, int num)
@@ -56,10 +56,10 @@ struct Unit* GetUnitSupportUnit(struct Unit* unit, int num)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
-        if (unit->person->id == pid)
+        if (unit->pinfo->id == pid)
             return unit;
     }
 
@@ -96,9 +96,9 @@ int GetUnitTotalSupportLevel(struct Unit* unit)
 
 void UnitGainSupportExp(struct Unit* unit, int num)
 {
-    if (unit->person->supportInfo)
+    if (unit->pinfo->support_info)
     {
-        int gain = unit->person->supportInfo->expGrowth[num];
+        int gain = unit->pinfo->support_info->exp_growth[num];
         int exp = unit->supports[num];
         int maxExp = sMaxExpLut[GetUnitSupportLevel(unit, num)];
 
@@ -106,14 +106,14 @@ void UnitGainSupportExp(struct Unit* unit, int num)
             gain = maxExp - exp;
 
         unit->supports[num] = exp + gain;
-        gPlaySt.supportGain += gain;
+        gPlaySt.support_gain += gain;
     }
 }
 
 void UnitGainSupportLevel(struct Unit* unit, int num)
 {
     unit->supports[num]++;
-    gPlaySt.supportGain++;
+    gPlaySt.support_gain++;
 }
 
 bool CanUnitSupportNow(struct Unit* unit, int num)
@@ -143,10 +143,10 @@ bool CanUnitSupportNow(struct Unit* unit, int num)
 
 int GetUnitInitialSupportExp(struct Unit* unit, int num)
 {
-    if (!unit->person->supportInfo)
+    if (!unit->pinfo->support_info)
         return -1;
 
-    return unit->person->supportInfo->expBase[num];
+    return unit->pinfo->support_info->exp_base[num];
 }
 
 int GetUnitSupportNumByPid(struct Unit* unit, u8 pid)
@@ -173,7 +173,7 @@ void ClearUnitSupports(struct Unit* unit)
         if (!other)
             continue;
 
-        other->supports[GetUnitSupportNumByPid(other, unit->person->id)] = 0;
+        other->supports[GetUnitSupportNumByPid(other, unit->pinfo->id)] = 0;
         unit->supports[i] = 0;
     }
 }
@@ -185,7 +185,7 @@ void DoTurnSupportExp(void)
     if (gPlaySt.turn == 1)
         return;
 
-    if (gPlaySt.supportGain >= 250)
+    if (gPlaySt.support_gain >= 250)
         return;
 
     if (gPlaySt.flags & PLAY_FLAG_5)
@@ -198,7 +198,7 @@ void DoTurnSupportExp(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & US_UNAVAILABLE)
@@ -263,22 +263,22 @@ static void ApplyAffinityBonuses(struct SupportBonuses* bonuses, int affinity, i
 {
     struct SupportBonuses const* added = GetAffinityBonuses(affinity);
 
-    bonuses->bonusAttack  += level * added->bonusAttack;
-    bonuses->bonusDefense += level * added->bonusDefense;
-    bonuses->bonusHit     += level * added->bonusHit;
-    bonuses->bonusAvoid   += level * added->bonusAvoid;
-    bonuses->bonusCrit    += level * added->bonusCrit;
-    bonuses->bonusDodge   += level * added->bonusDodge;
+    bonuses->bonus_attack  += level * added->bonus_attack;
+    bonuses->bonus_defense += level * added->bonus_defense;
+    bonuses->bonus_hit     += level * added->bonus_hit;
+    bonuses->bonus_avoid   += level * added->bonus_avoid;
+    bonuses->bonus_crit    += level * added->bonus_crit;
+    bonuses->bonus_dodge   += level * added->bonus_dodge;
 }
 
 static void InitBonuses(struct SupportBonuses* bonuses)
 {
-    bonuses->bonusAttack  = 0;
-    bonuses->bonusDefense = 0;
-    bonuses->bonusHit     = 0;
-    bonuses->bonusAvoid   = 0;
-    bonuses->bonusCrit    = 0;
-    bonuses->bonusDodge   = 0;
+    bonuses->bonus_attack  = 0;
+    bonuses->bonus_defense = 0;
+    bonuses->bonus_hit     = 0;
+    bonuses->bonus_avoid   = 0;
+    bonuses->bonus_crit    = 0;
+    bonuses->bonus_dodge   = 0;
 }
 
 int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
@@ -310,29 +310,29 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
         if (other->state & (US_UNAVAILABLE | US_RESCUED))
             continue;
 
-        levelA = GetUnitSupportLevel(other, GetUnitSupportNumByPid(other, unit->person->id));
-        ApplyAffinityBonuses(bonuses, other->person->affinity, levelA);
+        levelA = GetUnitSupportLevel(other, GetUnitSupportNumByPid(other, unit->pinfo->id));
+        ApplyAffinityBonuses(bonuses, other->pinfo->affinity, levelA);
 
         levelB = GetUnitSupportLevel(unit, i);
-        ApplyAffinityBonuses(bonuses, unit->person->affinity, levelB);
+        ApplyAffinityBonuses(bonuses, unit->pinfo->affinity, levelB);
 
         if (levelA != 0 && levelB != 0)
             result += 1 << (count - 1);
     }
 
-    bonuses->bonusAttack  /= 2;
-    bonuses->bonusDefense /= 2;
-    bonuses->bonusHit     /= 2;
-    bonuses->bonusAvoid   /= 2;
-    bonuses->bonusCrit    /= 2;
-    bonuses->bonusDodge   /= 2;
+    bonuses->bonus_attack  /= 2;
+    bonuses->bonus_defense /= 2;
+    bonuses->bonus_hit     /= 2;
+    bonuses->bonus_avoid   /= 2;
+    bonuses->bonus_crit    /= 2;
+    bonuses->bonus_dodge   /= 2;
 
     return result;
 }
 
 int GetUnitAffinityIcon(struct Unit* unit)
 {
-    int affinity = unit->person->affinity;
+    int affinity = unit->pinfo->affinity;
 
     if (!affinity)
         return -1;

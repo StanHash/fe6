@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -52,8 +51,8 @@ struct BattleSt
     /* 06 */ short defense;
     /* 08 */ short hit;
     /* 0A */ short crit;
-    /* 0C */ struct Unit* taUnitA;
-    /* 10 */ struct Unit* taUnitB;
+    /* 0C */ struct Unit* ta_unit_a;
+    /* 10 */ struct Unit* ta_unit_b;
 };
 
 struct BattleUnit
@@ -61,52 +60,51 @@ struct BattleUnit
     /* 00 */ struct Unit unit;
 
     /* 48 */ u16 weapon;
-    /* 4A */ u16 weaponBefore;
-    /* 4C */ u16 weaponAttributes;
-    /* 4E */ u8 weaponKind;
-    /* 4F */ u8 weaponItemSlot;
+    /* 4A */ u16 weapon_before;
+    /* 4C */ u16 weapon_attributes;
+    /* 4E */ u8 weapon_kind;
+    /* 4F */ u8 weapon_inventory_slot;
+    /* 50 */ bool has_inventory_weapon;
 
-    /* 50 */ bool canCounter;
-
-    /* 51 */ s8 wtHitBonus;
-    /* 52 */ s8 wtDamageBonus;
+    /* 51 */ i8 advantage_bonus_hit;
+    /* 52 */ i8 advantage_bonus_damage;
 
     /* 53 */ u8 terrain;
-    /* 54 */ s8 terrainDefense;
-    /* 55 */ s8 terrainAvoid;
-    /* 56 */ s8 terrainResistance;
+    /* 54 */ i8 terrain_defense;
+    /* 55 */ i8 terrain_avoid;
+    /* 56 */ i8 terrain_resistance;
     /* 57 */ // pad?
 
-    /* 58 */ short battleAttack;
-    /* 5A */ short battleDefense;
-    /* 5C */ short battleSpeed;
-    /* 5E */ short battleHit;
-    /* 60 */ short battleAvoid;
-    /* 62 */ short battleEffectiveHit;
-    /* 64 */ short battleCrit;
-    /* 66 */ short battleDodge;
-    /* 68 */ short battleEffectiveCrit;
+    /* 58 */ short battle_attack;
+    /* 5A */ short battle_defense;
+    /* 5C */ short battle_speed;
+    /* 5E */ short battle_hit;
+    /* 60 */ short battle_avoid;
+    /* 62 */ short battle_effective_hit;
+    /* 64 */ short battle_crit;
+    /* 66 */ short battle_dodge;
+    /* 68 */ short battle_effective_crit;
 
-    /* 6A */ s8 expGain;
-    /* 6B */ s8 statusOut;
-    /* 6C */ u8 levelPrevious;
-    /* 6D */ u8 expPrevious;
-    /* 6E */ s8 hpPrevious;
+    /* 6A */ i8 exp_gain;
+    /* 6B */ i8 output_status;
+    /* 6C */ u8 previous_level;
+    /* 6D */ u8 previous_exp;
+    /* 6E */ i8 previous_hp;
 
-    /* 6F */ s8 hpChange;
-    /* 70 */ s8 powChange;
-    /* 71 */ s8 sklChange;
-    /* 72 */ s8 spdChange;
-    /* 73 */ s8 defChange;
-    /* 74 */ s8 resChange;
-    /* 75 */ s8 lckChange;
-    /* 76 */ s8 conChange;
+    /* 6F */ i8 change_hp;
+    /* 70 */ i8 change_pow;
+    /* 71 */ i8 change_skl;
+    /* 72 */ i8 change_spd;
+    /* 73 */ i8 change_def;
+    /* 74 */ i8 change_res;
+    /* 75 */ i8 change_lck;
+    /* 76 */ i8 change_con;
 
-    /* 77 */ s8 wexpGain;
-    /* 78 */ bool nonZeroDamage;
-    /* 79 */ bool weaponBroke;
+    /* 77 */ i8 wexp_gain;
+    /* 78 */ bool dealt_damage;
+    /* 79 */ bool weapon_broke;
 
-    /* 7A */ bool hasItemEffectTarget;
+    /* 7A */ bool has_item_effect_target;
     /* 7B */ /* pad */
 };
 
@@ -117,22 +115,22 @@ struct BattleHit
     signed damage : 8;
 };
 
-void BattleGenerateSimulationInternal(struct Unit* instigator, struct Unit* target, int x, int y, int itemSlot);
+void BattleGenerateSimulationInternal(struct Unit* instigator, struct Unit* target, int x, int y, int item_slot);
 void BattleGenerateRealInternal(struct Unit* instigator, struct Unit* target);
 void BattleApplyGameStateUpdates(void);
-void BattleGenerateSimulation(struct Unit* unit, struct Unit* target, int x, int y, int itemSlot);
+void BattleGenerateSimulation(struct Unit* unit, struct Unit* target, int x, int y, int item_slot);
 void BattleGenerateReal(struct Unit* instigator, struct Unit* target);
 void BattleGenerateBallistaSimulation(struct Unit* unit, struct Unit* target, int x, int y);
 void BattleGenerateBallistaReal(struct Unit* instigator, struct Unit* target);
 void BattleGenerate(struct Unit* instigator, struct Unit* target);
-void BattleGenerateDisplayStats(struct Unit* unit, s8 itemSlot);
+void BattleGenerateDisplayStats(struct Unit* unit, i8 item_slot);
 bool BattleRandRoll(u16 threshold, bool simResult);
 bool BattleRandRoll2Rn(u16 threshold, bool simResult);
 void InitBattleUnit(struct BattleUnit* bu, struct Unit* unit);
 void InitBattleUnitWithoutBonuses(struct BattleUnit* bu, struct Unit* unit);
 void SetBattleUnitTerrainBonuses(struct BattleUnit* bu, int terrain);
 void SetBattleUnitTerrainBonusesAuto(struct BattleUnit* bu);
-void SetBattleUnitWeapon(struct BattleUnit* bu, int itemSlot);
+void SetBattleUnitWeapon(struct BattleUnit* bu, int item_slot);
 void SetBattleUnitWeaponBallista(struct BattleUnit* bu);
 void ComputeBattleUnitStats(struct BattleUnit* attacker, struct BattleUnit* defender);
 void ComputeBattleUnitEffectiveStats(struct BattleUnit* attacker, struct BattleUnit* defender);
@@ -197,7 +195,7 @@ int GetUnitSoloBattleAnimType(struct Unit* unit);
 int GetBattleAnimType(void);
 void BattlePrintDebugUnitInfo(struct BattleUnit* instigator, struct BattleUnit* target);
 void BattlePrintDebugHitInfo(void);
-void BattleInitItemEffect(struct Unit* instigator, int itemSlot);
+void BattleInitItemEffect(struct Unit* instigator, int item_slot);
 void BattleInitItemEffectTarget(struct Unit* unit);
 void BattleApplyMiscAction(ProcPtr proc);
 void BattleApplyItemEffect(ProcPtr proc);

@@ -44,12 +44,12 @@ static void AiPhase_Begin(ProcPtr proc)
     gAiSt.flags = AI_FLAG_0;
     gAiSt.unk_7E = -1;
 
-    gAiSt.orderState = 0;
+    gAiSt.order_state = 0;
 
     for (i = 0; i < 8; ++i)
-        gAiSt.unk_86[i] = 0;
+        gAiSt.cmd_result[i] = 0;
 
-    gAiSt.specialItemFlags = AiItemConfigTable[gPlaySt.chapter];
+    gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
     gAiSt.unk_84 = 0;
 
     sub_8032A08();
@@ -66,9 +66,9 @@ static void AiPhase_Berserk_Begin(ProcPtr proc)
     gAiSt.unk_7E = -1;
 
     for (i = 0; i < 8; ++i)
-        gAiSt.unk_86[i] = 0;
+        gAiSt.cmd_result[i] = 0;
 
-    gAiSt.specialItemFlags = AiItemConfigTable[gPlaySt.chapter];
+    gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
 
     sub_8032A08();
     sub_80308B0();

@@ -105,7 +105,7 @@ int sub_802B99C(void)
 
 int sub_802B9DC(void)
 {
-    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.moveCount);
+    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
     return sub_802B99C();
 }
 
@@ -129,8 +129,8 @@ void sub_802BA44(struct Unit* unit)
     {
         BuildUnitStandingRangeForReach(unit, reach);
 
-        gAction.xTarget = unit->x;
-        gAction.yTarget = unit->y;
+        gAction.x_target = unit->x;
+        gAction.y_target = unit->y;
     })
 
     BeginTargetList(0, 0);

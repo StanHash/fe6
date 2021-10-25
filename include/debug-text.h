@@ -1,7 +1,6 @@
-
 #pragma once
 
-#include "gba/gba.h"
+#include "common.h"
 
 void DebugInitBg(int bg, int vramOffset);
 void DebugPutStr(u16* tm, char const* str);
@@ -17,7 +16,7 @@ void DebugPrintNumber(int number, int length);
 void DebugPrintNumberHex(int number, int length);
 void DebugPrintStr(char const* str);
 void DebugPutScreen(void);
-s8 DebugUpdateScreen(u16 held, u16 pressed);
+bool DebugUpdateScreen(u16 held, u16 pressed);
 
 void DebugInitObj(int offset, int palid);
 void DebugPutObjStr(int x, int y, char const* str);

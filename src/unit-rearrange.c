@@ -15,11 +15,11 @@ void UnitRearrangeInit(struct Unit* buf)
 
 void UnitRearrangeAdd(struct Unit* unit)
 {
-    sUnitBufIt->person = NULL;
+    sUnitBufIt->pinfo = NULL;
     CopyUnit(unit, sUnitBufIt);
     sUnitBufIt->id = sNextId;
 
-    unit->hpMax = 0;
+    unit->max_hp = 0;
 
     sNextId++;
     sUnitBufIt++;

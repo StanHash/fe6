@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -7,17 +6,17 @@
 
 struct AiCombatSimulationSt
 {
-    /* 00 */ u8 xMove, yMove;
-    /* 02 */ u8 targetId;
-    /* 04 */ u16 itemSlot;
+    /* 00 */ u8 x_move, y_move;
+    /* 02 */ u8 target_id;
+    /* 04 */ u16 item_slot;
     /* 08 */ u32 score;
 };
 
-bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit));
-bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit));
+bool AiAttemptOffensiveAction(bool(*is_enemy)(struct Unit* unit));
+bool AiAttemptCombatWithinMovement(bool(*is_enemy)(struct Unit* unit));
 void AiFillReversedAttackRangeMap(struct Unit* unit, u16 item);
 void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item);
-bool AiAttemptBallistaCombat(bool(*isEnemy)(struct Unit* unit), struct AiCombatSimulationSt* st);
+bool AiAttemptBallistaCombat(bool(*is_enemy)(struct Unit* unit), struct AiCombatSimulationSt* st);
 bool AiAttemptStealActionWithinMovement(void);
 bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st);
 bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, u16 item);

@@ -58,6 +58,7 @@ Temporary Items
 *.map
 *.o
 src/*.s
+src/*.asm
 *.dump
 tools/agbcc
 *.exe
@@ -933,3 +934,4 @@ MigrationBackup/
 !src/lib/
 !asm/lib/
 src/lib/*.s
+src/lib/*.asm

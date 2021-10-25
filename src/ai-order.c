@@ -42,7 +42,7 @@ void AiOrder_Main(ProcPtr proc)
         AiOrder_End,
     };
 
-    funcs[gAiSt.orderState++](proc);
+    funcs[gAiSt.order_state++](proc);
 }
 
 void AiOrder_Berserk_Init(ProcPtr proc)
@@ -57,7 +57,7 @@ void AiOrder_Berserk_Init(ProcPtr proc)
     {
         struct Unit* unit = GetUnit(faction+i+1);
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->status != UNIT_STATUS_BERSERK)
@@ -72,7 +72,7 @@ void AiOrder_Berserk_Init(ProcPtr proc)
     if (count != 0)
     {
         gAiSt.units[count] = 0;
-        gAiSt.unitIt = gAiSt.units;
+        gAiSt.unit_it = gAiSt.units;
 
         AiDecideFunc = AiDecideAll;
         SpawnProcLocking(ProcScr_AiDecide, proc);
@@ -88,7 +88,7 @@ void AiOrder_Init(ProcPtr proc)
         SortAiUnitList(count);
 
         gAiSt.units[count] = 0;
-        gAiSt.unitIt = gAiSt.units;
+        gAiSt.unit_it = gAiSt.units;
 
         AiDecideFunc = AiDecideAll;
         SpawnProcLocking(ProcScr_AiDecide, proc);
@@ -141,14 +141,14 @@ int GetUnitAiScore(struct Unit* unit)
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_REFRESHER)
         return score - 149;
 
-    if (!(unit->aiFlags & AI_UNIT_FLAG_0))
+    if (!(unit->ai_flags & AI_UNIT_FLAG_0))
     {
         score += lead << 8;
 
         if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_STEAL)
             return score + 60;
 
-        if ((unit->person->id == lead) || (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_13))
+        if ((unit->pinfo->id == lead) || (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_13))
             return score + 87;
 
         score = score + GetUnitBattleAiScore(unit);
@@ -170,7 +170,7 @@ int BuildAiUnitList(void)
     {
         struct Unit* unit = GetUnit(faction+i+1);
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->status == UNIT_STATUS_SLEEP)

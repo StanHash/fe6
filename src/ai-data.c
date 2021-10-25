@@ -62,15 +62,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 {
     [0] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -80,15 +80,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [1] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -98,15 +98,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [2] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 2,
-        .coeffDamageTaken = 2,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 2,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 2,
+        .coef_damage_taken = 2,
+        .coef_danger = 1,
+        .coef_low_hp_self = 2,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -116,15 +116,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [3] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -134,15 +134,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [4] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 0,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 2,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 0,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 2,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -152,15 +152,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [5] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -171,15 +171,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [6] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 5,
@@ -191,15 +191,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [7] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 5,
@@ -211,15 +211,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [8] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 5,
             [AI_JOBRANK_CIVILIANS] = 40,
@@ -228,28 +228,28 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [9] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses = {}
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses = {}
     },
 
     [10] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_HEALERS] = 40,
@@ -259,15 +259,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [11] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 2,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 2,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -278,15 +278,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [12] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 20,
             [AI_JOBRANK_SUPPORTERS] = 20,
@@ -301,15 +301,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [13] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 2,
-        .coeffDanger = 2,
-        .coeffLowHpSelf = 2,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 2,
+        .coef_danger = 2,
+        .coef_low_hp_self = 2,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 20,
             [AI_JOBRANK_SUPPORTERS] = 25,
@@ -324,15 +324,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [14] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 2,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 2,
+        .coef_danger = 0,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -342,15 +342,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [15] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 0,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -360,15 +360,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [16] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 5,
@@ -378,15 +378,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [17] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -396,15 +396,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [18] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -414,15 +414,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [19] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 2,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 2,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -432,15 +432,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [20] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 0,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 2,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 0,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 2,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -450,15 +450,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [21] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 0,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 0,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 0,
+        .coef_danger = 0,
+        .coef_low_hp_self = 0,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -468,15 +468,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [22] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 5,
@@ -488,15 +488,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [23] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 5,
@@ -508,15 +508,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [24] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 5,
             [AI_JOBRANK_CIVILIANS] = 80,
@@ -525,28 +525,28 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [25] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses = {}
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses = {}
     },
 
     [26] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 25,
@@ -556,15 +556,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [27] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 2,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 2,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -575,15 +575,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [28] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 2,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 2,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 1,
+        .coef_danger = 1,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 20,
             [AI_JOBRANK_SUPPORTERS] = 20,
@@ -598,15 +598,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [29] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 2,
-        .coeffFriendZone = 1,
-        .coeffJobRankBonus = 1,
-        .coeffTurnNumber = 1,
-        .coeffDamageTaken = 2,
-        .coeffDanger = 1,
-        .coeffLowHpSelf = 2,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 2,
+        .coef_friend_zone = 1,
+        .coef_job_rank_bonus = 1,
+        .coef_turn_number = 1,
+        .coef_damage_taken = 2,
+        .coef_danger = 1,
+        .coef_low_hp_self = 2,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 20,
             [AI_JOBRANK_SUPPORTERS] = 25,
@@ -621,15 +621,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [30] =
     {
-        .coeffDamageDealt = 2,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 2,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 2,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 2,
+        .coef_danger = 0,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -639,15 +639,15 @@ struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[] =
 
     [31] =
     {
-        .coeffDamageDealt = 1,
-        .coeffLowHpOpponent = 1,
-        .coeffFriendZone = 0,
-        .coeffJobRankBonus = 0,
-        .coeffTurnNumber = 0,
-        .coeffDamageTaken = 1,
-        .coeffDanger = 0,
-        .coeffLowHpSelf = 1,
-        .jobRankBonuses =
+        .coef_damage_dealt = 1,
+        .coef_low_hp_opponent = 1,
+        .coef_friend_zone = 0,
+        .coef_job_rank_bonus = 0,
+        .coef_turn_number = 0,
+        .coef_damage_taken = 1,
+        .coef_danger = 0,
+        .coef_low_hp_self = 1,
+        .job_rank_bonuses =
         {
             [AI_JOBRANK_ROY] = 10,
             [AI_JOBRANK_SUPPORTERS] = 15,
@@ -1069,7 +1069,7 @@ u8 const gUnk_0810DB00[] = { -1, +1, 0, 0 };
 struct AiScr CONST_DATA AiScr_Unk_085C89C8[] =
 {
     AI_CALL_FUNC(sub_80337B4, NULL),
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_GOTO_START,
 
@@ -1083,7 +1083,7 @@ u8 const gUnk_0810DB04[] = { +32, +1, 0, 0 };
 struct AiScr CONST_DATA AiScr_Unk_085C8A18[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB04),
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
     AI_GOTO_START,
@@ -1096,7 +1096,7 @@ AI_LABEL(1),
 struct AiScr CONST_DATA AiScr_Unk_085C8A88[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB04),
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
     AI_GOTO_START,
@@ -1110,7 +1110,7 @@ AI_LABEL(1),
 struct AiScr CONST_DATA AiScr_Unk_085C8AF8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB04),
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
     AI_GOTO_START,
@@ -1136,7 +1136,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8B88[] =
 struct AiScr CONST_DATA AiScr_Unk_085C8BA8[] =
 {
     AI_MOVE_TO_LISTED_TERRAIN(TerrainList_AiArmory),
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 4),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 4),
     AI_GOTO_START,
 
 AI_BAD_LABEL(1),
@@ -1147,7 +1147,7 @@ AI_BAD_LABEL(1),
 struct AiScr CONST_DATA AiScr_Unk_085C8C08[] =
 {
     AI_MOVE_TO_LISTED_TERRAIN(TerrainList_AiSeizePoint),
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 4),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 4),
     AI_GOTO_START,
 
 AI_BAD_LABEL(1),
@@ -1203,7 +1203,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8D48[] =
     AI_ACTION(100),
 
     AI_CALL_FUNC(sub_80336B0, NULL),
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_GOTO_START,
 
@@ -1248,8 +1248,8 @@ struct AiScr CONST_DATA AiScr_Unk_085C8E58[] =
 {
     AI_ACTION_ON_PID(100, PID_LILINA),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 3),
-    AI_GOTO_IFNE(0, gAiSt.unk_86+0, 1),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 3),
+    AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 1),
 
 AI_LABEL(1),
     AI_ACTION(100),
@@ -1260,7 +1260,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8EB8[] =
 {
     AI_ACTION_ON_PID(100, PID_ROY),
 
-    AI_GOTO_IFNE(0, gAiSt.unk_86+0, 3),
+    AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 3),
 
     AI_ACTION(100),
     AI_GOTO_START,
@@ -1273,7 +1273,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8EF8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB08),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_ACTION_IN_PLACE(100),
     AI_GOTO_START,
@@ -1287,7 +1287,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8F68[] =
 {
     AI_CALL_FUNC(sub_8033898, NULL),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+1, 1),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+1, 1),
 
     AI_CALL_FUNC(sub_8033AA4, NULL),
     AI_GOTO_START,
@@ -1305,7 +1305,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8FD8[] =
 {
     AI_CALL_FUNC(sub_8033998, gUnk_0810DB0C),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+1, 1),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+1, 1),
 
     AI_CALL_FUNC(sub_8033AA4, NULL),
     AI_GOTO_START,
@@ -1322,7 +1322,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C9048[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(5, 7),
     AI_ACTION_IN_PLACE(100),
@@ -1337,7 +1337,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C90C8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(17, 6),
     AI_ACTION_IN_PLACE(100),
@@ -1352,7 +1352,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C9148[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(19, 4),
     AI_ACTION_IN_PLACE(100),
@@ -1367,7 +1367,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C91C8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(4, 2),
     AI_ACTION_IN_PLACE(100),
@@ -1382,7 +1382,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C9248[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(6, 2),
     AI_ACTION_IN_PLACE(100),
@@ -1397,7 +1397,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C92C8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(4, 3),
     AI_ACTION_IN_PLACE(100),
@@ -1412,7 +1412,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C9348[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(5, 3),
     AI_ACTION_IN_PLACE(100),
@@ -1427,7 +1427,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C93C8[] =
 {
     AI_CALL_FUNC(sub_80333B0, gUnk_0810DB10),
 
-    AI_GOTO_IFGT(1, gAiSt.unk_86+0, 0),
+    AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_MOVE_TOWARDS(6, 3),
     AI_ACTION_IN_PLACE(100),
@@ -1444,7 +1444,7 @@ struct { u8 pidA, pidB; } const gUnk_0810DB14 = { PID_LANCE, PID_ALAN };
 struct AiScr CONST_DATA AiScr_Unk_085C9448[] =
 {
     AI_MOVE_TOWARDS_PID(PID_ALAN),
-    AI_GOTO_IFNE(0, gAiSt.unk_86+0, 2),
+    AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 2),
 
     AI_CALL_FUNC(AiFunc_DecideTalk, &gUnk_0810DB14),
     AI_SET_AI(AI_A_00, AI_B_00),
@@ -1457,9 +1457,9 @@ struct AiScr CONST_DATA AiScr_AiB_Clarine[] =
 {
     AI_MOVE_TOWARDS_PID(PID_ROY),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 4),
-    AI_GOTO_IFEQ(0, gAiSt.unk_86+0, 3),
-    AI_GOTO_IFNE(0, gAiSt.unk_86+0, 2),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 4),
+    AI_GOTO_IFEQ(0, gAiSt.cmd_result+0, 3),
+    AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 2),
 
     AI_CALL_FUNC(AiFunc_DecideTalk, &gUnk_0810DB18),
     AI_SET_AI(AI_A_00, AI_B_00),
@@ -1474,8 +1474,8 @@ struct AiScr CONST_DATA AiScr_AiB_MoveToRoy[] =
 {
     AI_MOVE_TOWARDS_PID(PID_ROY),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 4),
-    AI_GOTO_IFEQ(2, gAiSt.unk_86+0, 1),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 4),
+    AI_GOTO_IFEQ(2, gAiSt.cmd_result+0, 1),
 
     AI_GOTO_START,
 
@@ -1492,8 +1492,8 @@ struct AiScr CONST_DATA AiScr_AiB_MoveToLilina[] =
 {
     AI_MOVE_TOWARDS_PID(PID_LILINA),
 
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 4),
-    AI_GOTO_IFEQ(2, gAiSt.unk_86+0, 1),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 4),
+    AI_GOTO_IFEQ(2, gAiSt.cmd_result+0, 1),
 
     AI_GOTO_START,
 
@@ -1536,7 +1536,7 @@ struct { u8 a, b; } const gUnk_0810DB20 = { 100, 0 };
 struct AiScr CONST_DATA AiScr_Unk_085C96E8[] =
 {
     AI_CALL_FUNC(sub_8033B50, &gUnk_0810DB20),
-    AI_GOTO_IFEQ(1, gAiSt.unk_86+0, 5),
+    AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 5),
 
     AI_GOTO_START,
 

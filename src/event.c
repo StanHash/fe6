@@ -48,8 +48,8 @@ struct PopupProc
     /* 2C */ struct PopupInfo const* info;
     /* 30 */ int clock;
 
-    /* 34 */ s8 xParam;
-    /* 35 */ s8 yParam;
+    /* 34 */ i8 xParam;
+    /* 35 */ i8 yParam;
 
     /* 36 */ u8 winKind;
 
@@ -93,10 +93,10 @@ struct EventProc
     /* 2C */ u32 const* scriptStart;
     /* 30 */ u32 const* script;
     /* 34 */ void(*onSkip)(void);
-    /* 38 */ void(*onIdle)(struct EventProc* proc);
+    /* 38 */ void(*on_idle)(struct EventProc* proc);
     /* 3C */ struct UnitInfo const* unitInfo;
     /* 40 */ int msgParam;
-    /* 44 */ s8 background;
+    /* 44 */ i8 background;
     /* 45 */ bool noMap;
     /* 46 */ u8 flags;
     /* 47 */ // pad
@@ -365,7 +365,7 @@ static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
         unit = CreateUnit(info);
 
     if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->factionId == FACTION_ID_RED)
-        UnitApplyBonusLevels(unit, GetChapterInfo(gPlaySt.chapter)->hardBonusLevels);
+        UnitApplyBonusLevels(unit, GetChapterInfo(gPlaySt.chapter)->hard_bonus_levels);
 
     MoveUnitFromInfo(info, unit, parent);
     RefreshEntityMaps();
@@ -387,12 +387,12 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
         TryMoveUnit(unit, info->xLoad, info->yLoad, FALSE);
         RefreshUnitSprites();
 
-        if (info->xLoad != info->xMove || info->yLoad != info->yMove)
-            TryMoveUnitDisplayed(parent, unit, info->xMove, info->yMove);
+        if (info->xLoad != info->x_move || info->yLoad != info->y_move)
+            TryMoveUnitDisplayed(parent, unit, info->x_move, info->y_move);
     }
     else
     {
-        TryMoveUnit(unit, info->xMove, info->yMove, TRUE);
+        TryMoveUnit(unit, info->x_move, info->y_move, TRUE);
         RefreshUnitSprites();
     }
 }
@@ -466,7 +466,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_UNIT_NAME:
-            result += GetStringTextLen(DecodeMsg(sPopupUnit->person->msgName));
+            result += GetStringTextLen(DecodeMsg(sPopupUnit->pinfo->msg_name));
             break;
 
         case POPUP_CMD_ITEM_NAME:
@@ -521,7 +521,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
             break;
 
         case POPUP_CMD_UNIT_NAME:
-            Text_DrawString(&text, DecodeMsg(sPopupUnit->person->msgName));
+            Text_DrawString(&text, DecodeMsg(sPopupUnit->pinfo->msg_name));
             break;
 
         case POPUP_CMD_ITEM_NAME:
@@ -828,7 +828,7 @@ static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent)
     proc->scriptStart = script;
     proc->script = script;
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
     proc->onSkip = NULL;
 
     proc->msgParam = 0;
@@ -867,7 +867,7 @@ static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent)
 static void Event_OnInit(struct EventProc* proc)
 {
     LockGame();
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static void Event_OnEnd(struct EventProc* proc)
@@ -894,7 +894,7 @@ static void Event_RestartFromQueued(struct EventProc* proc)
     {
         gEventScriptQueueIt--;
 
-        proc->onIdle = NULL;
+        proc->on_idle = NULL;
 
         proc->scriptStart = gEventScriptQueue[gEventScriptQueueIt];
         proc->script = gEventScriptQueue[gEventScriptQueueIt];
@@ -973,7 +973,7 @@ static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc)
 
     DarkenThenFunc_StepDarken(proc);
 
-    if (gDispIo.blendY == 0x10)
+    if (gDispIo.blend_y == 0x10)
     {
         func(proc->eventProc);
         Proc_Break(proc);
@@ -982,10 +982,10 @@ static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc)
 
 static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc)
 {
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.win1_enableBlend = 1;
-    gDispIo.winCt.wobj_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.win1_enableBlend = 1;
+    gDispIo.win_ct.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
     SetBlendDarken(0);
 
@@ -998,7 +998,7 @@ static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc)
 
 static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc)
 {
-    if (gDispIo.blendY == 0x10)
+    if (gDispIo.blend_y == 0x10)
     {
         Proc_End(proc);
         return;
@@ -1009,7 +1009,7 @@ static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc)
     if (proc->q4_darken >= 0x100)
         proc->q4_darken = 0x100;
 
-    gDispIo.blendY = proc->q4_darken >> 4;
+    gDispIo.blend_y = proc->q4_darken >> 4;
 }
 
 static void Event_MainLoop(struct EventProc* proc)
@@ -1050,9 +1050,9 @@ static void Event_MainLoop(struct EventProc* proc)
         return;
     }
 
-    if (proc->onIdle)
+    if (proc->on_idle)
     {
-        proc->onIdle(proc);
+        proc->on_idle(proc);
         return;
     }
 
@@ -1218,7 +1218,7 @@ static int EvtCmd_Talk(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_DISABLETEXTSKIP)
         SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    proc->onIdle = EventTalkWait;
+    proc->on_idle = EventTalkWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1238,7 +1238,7 @@ static int EvtCmd_TalkMore(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_DISABLETEXTSKIP)
         SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    proc->onIdle = EventTalkWait;
+    proc->on_idle = EventTalkWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1254,7 +1254,7 @@ static int EvtCmd_TalkAuto(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_DISABLETEXTSKIP)
         SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    proc->onIdle = EventTalkWait;
+    proc->on_idle = EventTalkWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1268,7 +1268,7 @@ static int EvtCmd_TalkContinue(struct EventProc* proc)
     }
 
     ResumeTalk();
-    proc->onIdle = EventTalkWait;
+    proc->on_idle = EventTalkWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1278,13 +1278,13 @@ static void EventTalkWait(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
         EndTalk();
-        proc->onIdle = NULL;
+        proc->on_idle = NULL;
 
         return;
     }
 
     if (!IsTalkActive() || IsTalkLocked())
-        proc->onIdle = NULL;
+        proc->on_idle = NULL;
 }
 
 static int EvtCmd_CameraPosition(struct EventProc* proc)
@@ -1364,14 +1364,14 @@ static int EvtCmd_MovePosition(struct EventProc* proc)
     int xUnit = EVTCMD_GET_X(proc->script[0]);
     int yUnit = EVTCMD_GET_Y(proc->script[0]);
 
-    int xTarget = EVTCMD_GET_X(proc->script[1]);
-    int yTarget = EVTCMD_GET_Y(proc->script[1]);
+    int x_target = EVTCMD_GET_X(proc->script[1]);
+    int y_target = EVTCMD_GET_Y(proc->script[1]);
 
     unit = GetUnit(gMapUnit[yUnit][xUnit]);
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
-        TryMoveUnit(unit, xTarget, yTarget, TRUE);
+        TryMoveUnit(unit, x_target, y_target, TRUE);
         RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
@@ -1380,7 +1380,7 @@ static int EvtCmd_MovePosition(struct EventProc* proc)
     if (!CanDisplayUnitMovement(proc, xUnit, yUnit))
         return EVENT_CMDRET_REPEAT;
 
-    TryMoveUnitDisplayed(proc, unit, xTarget, yTarget);
+    TryMoveUnitDisplayed(proc, unit, x_target, y_target);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -1392,12 +1392,12 @@ static int EvtCmd_MovePid(struct EventProc* proc)
 
     struct Unit* unit = GetUnitByPid(proc->script[0]);
 
-    int xTarget = EVTCMD_GET_X(proc->script[1]);
-    int yTarget = EVTCMD_GET_Y(proc->script[1]);
+    int x_target = EVTCMD_GET_X(proc->script[1]);
+    int y_target = EVTCMD_GET_Y(proc->script[1]);
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
-        TryMoveUnit(unit, xTarget, yTarget, TRUE);
+        TryMoveUnit(unit, x_target, y_target, TRUE);
         RefreshUnitSprites();
 
         return EVENT_CMDRET_CONTINUE;
@@ -1406,7 +1406,7 @@ static int EvtCmd_MovePid(struct EventProc* proc)
     if (!CanDisplayUnitMovement(proc, unit->x, unit->y))
         return EVENT_CMDRET_REPEAT;
 
-    TryMoveUnitDisplayed(proc, unit, xTarget, yTarget);
+    TryMoveUnitDisplayed(proc, unit, x_target, y_target);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -1503,7 +1503,7 @@ static int EvtCmd_MovePidNextTo(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-void TryMoveUnit(struct Unit* unit, int x, int y, s8 moveClosest)
+void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
 {
     struct Vec2 vec;
 
@@ -1564,7 +1564,7 @@ bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
         AiGetUnitClosestValidPosition(unit, x, y, &vec);
     }
 
-    MapFlood_080193F4(unit->x, unit->y, unit->job->movTerrainTable);
+    MapFlood_080193F4(unit->x, unit->y, unit->jinfo->mov_table);
     BuildBestMoveScript(vec.x, vec.y, gWorkingMoveScr);
 
     if (terrainChanged)
@@ -1646,7 +1646,7 @@ static int EvtCmd_LoadUnits(struct EventProc* proc)
     MapFill(gMapOther, 0);
 
     proc->unitInfo = (struct UnitInfo const*) proc->script[0];
-    proc->onIdle = EventUnitLoadWait;
+    proc->on_idle = EventUnitLoadWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1676,7 +1676,7 @@ int GetNextAvailableBlueUnitId(int start)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & US_UNAVAILABLE)
@@ -1690,8 +1690,8 @@ int GetNextAvailableBlueUnitId(int start)
 
 bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
 {
-    if (info->xLoad == info->xMove)
-        if (info->yLoad == info->yMove)
+    if (info->xLoad == info->x_move)
+        if (info->yLoad == info->y_move)
             if (gMapUnit[info->yLoad][info->xLoad] != 0)
                 return TRUE;
 
@@ -1708,7 +1708,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
     {
         if (info->pid == 0)
         {
-            proc->onIdle = EventMovementWait;
+            proc->on_idle = EventMovementWait;
             break;
         }
 
@@ -1720,7 +1720,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
                 info++;
             }
 
-            proc->onIdle = NULL;
+            proc->on_idle = NULL;
             return;
         }
 
@@ -1756,10 +1756,10 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
         blueCount++;
     })
 
-    if (blueCount > 0 && GetChapterInfo(gPlaySt.chapter)->hasPrep)
+    if (blueCount > 0 && GetChapterInfo(gPlaySt.chapter)->has_prep)
         return;
 
-    if (GetChapterInfo(gPlaySt.chapter)->hasPrep)
+    if (GetChapterInfo(gPlaySt.chapter)->has_prep)
     {
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {
@@ -1819,7 +1819,7 @@ static void EventMovementWait(struct EventProc* proc)
         return;
 
     MapFill(gMapOther, 0);
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static int EvtCmd_WaitForMovement(struct EventProc* proc)
@@ -1865,9 +1865,9 @@ static int EvtCmd_FuncUntil(struct EventProc* proc)
 {
     // script[0]: address of function
 
-    s8 result;
+    i8 result;
 
-    typedef s8(*FuncType)(struct EventProc* proc);
+    typedef i8(*FuncType)(struct EventProc* proc);
     FuncType func;
 
     u32 const* script = proc->script;
@@ -1888,9 +1888,9 @@ static int EvtCmd_FuncWhile(struct EventProc* proc)
 {
     // script[0]: address of function
 
-    s8 result;
+    i8 result;
 
-    typedef s8(*FuncType)(struct EventProc* proc);
+    typedef i8(*FuncType)(struct EventProc* proc);
     FuncType func;
 
     u32 const* script = proc->script;
@@ -1952,7 +1952,7 @@ static int EvtCmd_GotoIfnAlive(struct EventProc* proc)
         if (unit->state & US_DEAD)
             continue;
 
-        if (unit->person->id == pid)
+        if (unit->pinfo->id == pid)
             return EVENT_CMDRET_CONTINUE;
     })
 
@@ -1971,7 +1971,7 @@ static int EvtCmd_GotoIfnInTeam(struct EventProc* proc)
         if (unit->state & US_UNAVAILABLE)
             continue;
 
-        if (unit->person->id == pid)
+        if (unit->pinfo->id == pid)
             return EVENT_CMDRET_CONTINUE;
     })
 
@@ -1983,7 +1983,7 @@ static int EvtCmd_GotoIfyFunc(struct EventProc* proc)
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef s8(*FuncType)(void);
+    typedef i8(*FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];
@@ -1999,7 +1999,7 @@ static int EvtCmd_GotoIfnFunc(struct EventProc* proc)
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef s8(*FuncType)(void);
+    typedef i8(*FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];
@@ -2079,7 +2079,7 @@ static int EvtCmd_GotoIfyActive(struct EventProc* proc)
 
     int label = proc->script[0];
 
-    if (gActiveUnit->person->id != proc->script[1])
+    if (gActiveUnit->pinfo->id != proc->script[1])
         return EVENT_CMDRET_CONTINUE;
 
     while (it[0] != EVT_CMD_END)
@@ -2232,9 +2232,9 @@ static int EvtCmd_SetFaction(struct EventProc* proc)
         if (unit->state & US_DEAD)
             continue;
 
-        id = unit->person->id; // unused
+        id = unit->pinfo->id; // unused
 
-        if (unit->person->id == pid)
+        if (unit->pinfo->id == pid)
             UnitChangeFaction(unit, faction);
     })
 
@@ -2263,7 +2263,7 @@ static int EvtCmd_FlashCursorPosition(struct EventProc* proc)
     gproc->unk64 = x;
     gproc->unk66 = y;
 
-    proc->onIdle = EventFlashCursorWait;
+    proc->on_idle = EventFlashCursorWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2284,7 +2284,7 @@ static int EvtCmd_FlashCursorPid(struct EventProc* proc)
     gproc->unk64 = unit->x;
     gproc->unk66 = unit->y;
 
-    proc->onIdle = EventFlashCursorWait;
+    proc->on_idle = EventFlashCursorWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2294,7 +2294,7 @@ static void EventFlashCursorWait(struct EventProc* proc)
     if (Proc_Find(ProcScr_FlashCursor) != NULL)
         return;
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static void FlashCursor_OnInit(struct GenericProc* proc)
@@ -2375,7 +2375,7 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
     SetAutoMuDefaultFacing();
     StartMuDeathFade(mu);
 
-    proc->onIdle = EventRemoveDisplayedWait;
+    proc->on_idle = EventRemoveDisplayedWait;
     proc->sleepDuration = 60;
 
     return EVENT_CMDRET_YIELD;
@@ -2395,47 +2395,47 @@ static void EventRemoveDisplayedWait(struct EventProc* proc)
     RefreshEntityMaps();
     RefreshUnitSprites();
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
-static void SetUnitAi(struct Unit* unit, u8 aiA, u8 aiB, u8 unused)
+static void SetUnitAi(struct Unit* unit, u8 ai_a, u8 ai_b, u8 unused)
 {
-    if (aiA != 0x10)
+    if (ai_a != 0x10)
     {
-        unit->aiA = aiA;
-        unit->aiApc = 0;
+        unit->ai_a = ai_a;
+        unit->ai_a_pc = 0;
     }
 
-    if (aiB != 0x19)
+    if (ai_b != 0x19)
     {
-        unit->aiB = aiB;
-        unit->aiBpc = 0;
+        unit->ai_b = ai_b;
+        unit->ai_b_pc = 0;
 
-        if (aiB == 0x0C)
-            unit->aiFlags |= 8;
+        if (ai_b == 0x0C)
+            unit->ai_flags |= 8;
     }
 }
 
 static int EvtCmd_SetAiPid(struct EventProc* proc)
 {
     // script[0]: pid
-    // script[1]: (aiA) | (aiB << 8) | (aiC << 16)
+    // script[1]: (ai_a) | (ai_b << 8) | (ai_c << 16)
 
     u8 pid = proc->script[0];
 
-    u8 aiA = (proc->script[1] & 0x000000FF);
-    u8 aiB = (proc->script[1] & 0x0000FF00) >> 8;
-    u8 aiC = (proc->script[1] & 0x00FF0000) >> 16;
+    u8 ai_a = (proc->script[1] & 0x000000FF);
+    u8 ai_b = (proc->script[1] & 0x0000FF00) >> 8;
+    u8 ai_c = (proc->script[1] & 0x00FF0000) >> 16;
 
     FOR_UNITS_ALL(unit,
     {
         if (unit->state & (US_DEAD | US_HIDDEN))
             continue;
 
-        if (unit->person->id != pid)
+        if (unit->pinfo->id != pid)
             continue;
 
-        SetUnitAi(unit, aiA, aiB, aiC);
+        SetUnitAi(unit, ai_a, ai_b, ai_c);
     })
 
     return EVENT_CMDRET_CONTINUE;
@@ -2444,14 +2444,14 @@ static int EvtCmd_SetAiPid(struct EventProc* proc)
 static int EvtCmd_SetAiPosition(struct EventProc* proc)
 {
     // script[0]: position
-    // script[1]: (aiA) | (aiB << 8) | (aiC << 16)
+    // script[1]: (ai_a) | (ai_b << 8) | (ai_c << 16)
 
-    s8 x = EVTCMD_GET_X_RAW(proc->script[0]);
-    s8 y = EVTCMD_GET_Y_RAW(proc->script[0]);
+    i8 x = EVTCMD_GET_X_RAW(proc->script[0]);
+    i8 y = EVTCMD_GET_Y_RAW(proc->script[0]);
 
-    u8 aiA = (proc->script[1] & 0x000000FF);
-    u8 aiB = (proc->script[1] & 0x0000FF00) >> 8;
-    u8 aiC = (proc->script[1] & 0x00FF0000) >> 16;
+    u8 ai_a = (proc->script[1] & 0x000000FF);
+    u8 ai_b = (proc->script[1] & 0x0000FF00) >> 8;
+    u8 ai_c = (proc->script[1] & 0x00FF0000) >> 16;
 
     FOR_UNITS(0x41, 0xC0, unit,
     {
@@ -2464,7 +2464,7 @@ static int EvtCmd_SetAiPosition(struct EventProc* proc)
         if (unit->y != y)
             continue;
 
-        SetUnitAi(unit, aiA, aiB, aiC);
+        SetUnitAi(unit, ai_a, ai_b, ai_c);
     })
 
     return EVENT_CMDRET_CONTINUE;
@@ -2635,7 +2635,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
         ApplyChapterMapPalettes();
         ApplyUnitSpritePalettes();
 
-        proc->onIdle = EventFadeFromSkipWait;
+        proc->on_idle = EventFadeFromSkipWait;
     }
 
     proc->flags |= EVENT_FLAG_DISABLESKIP;
@@ -2648,7 +2648,7 @@ static void EventFadeFromSkipWait(struct EventProc* proc)
     proc->noMap = FALSE;
     StartFastLockingFadeFromBlack(proc);
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static int EvtCmd_NoSkipNoTextSkip(struct EventProc* proc)
@@ -2774,7 +2774,7 @@ static int EvtCmd_FightScript(struct EventProc* proc)
     int isBallista;
 
     proc->cmdShort = GetGameLock();
-    proc->onIdle = EventScriptedBattleWait;
+    proc->on_idle = EventScriptedBattleWait;
 
     unitA = GetUnitByPid(proc->script[0]);
     unitB = GetUnitByPid(proc->script[1]);
@@ -2803,8 +2803,8 @@ static int EvtCmd_FightScript(struct EventProc* proc)
         BattleGenerateBallistaReal(unitA, unitB);
     }
 
-    gBattleUnitA.expGain = 0;
-    gBattleUnitB.expGain = 0;
+    gBattleUnitA.exp_gain = 0;
+    gBattleUnitB.exp_gain = 0;
 
     ClearBattleHits();
 
@@ -2824,8 +2824,8 @@ static int EvtCmd_FightScript(struct EventProc* proc)
 
     Proc_Mark(proc, PROC_MARK_7);
 
-    gAiDecision.xMove = unitA->x;
-    gAiDecision.yMove = unitA->y;
+    gAiDecision.x_move = unitA->x;
+    gAiDecision.y_move = unitA->y;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2835,12 +2835,12 @@ static void EventScriptedBattleWaitB(struct EventProc* proc);
 static void EventScriptedBattleWait(struct EventProc* proc)
 {
     if (proc->cmdShort == GetGameLock())
-        proc->onIdle = EventScriptedBattleWaitB;
+        proc->on_idle = EventScriptedBattleWaitB;
 }
 
 static void EventScriptedBattleWaitB(struct EventProc* proc)
 {
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 
     Proc_Mark(proc, PROC_MARK_6);
     AiEndMuAndRefreshUnits();
@@ -2921,7 +2921,7 @@ static int EvtCmd_WmZoomTo(struct EventProc* proc)
     sub_80928DC(x, y, proc);
     sub_809347C(x, y);
 
-    proc->onIdle = EventWmZoomWait;
+    proc->on_idle = EventWmZoomWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2934,7 +2934,7 @@ static int EvtCmd_WmZoomBack(struct EventProc* proc)
     sub_8092CD8(proc);
     sub_80934A0();
 
-    proc->onIdle = EventWmZoomWait;
+    proc->on_idle = EventWmZoomWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2944,7 +2944,7 @@ static void EventWmZoomWait(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
         sub_8092E94();
-        proc->onIdle = NULL;
+        proc->on_idle = NULL;
 
         return;
     }
@@ -2952,7 +2952,7 @@ static void EventWmZoomWait(struct EventProc* proc)
     if (sub_8092E68())
         return;
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 struct WmEventFaceProc
@@ -3027,8 +3027,8 @@ static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmPutFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(INTERPOLATE_RSQUARE, proc->xOffStart, 0, proc->blendVal++, 0x10);
-    gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
+    int x_offset = Interpolate(INTERPOLATE_RSQUARE, proc->xOffStart, 0, proc->blendVal++, 0x10);
+    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
 
     SetBlendConfig(0, proc->blendVal, 0x10 - proc->blendVal, 0);
 
@@ -3073,7 +3073,7 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
 
     face = gFaces[proc->faceSlot];
 
-    proc->x = face->xDisp;
+    proc->x = face->x_disp;
 
     if (proc->x > DISPLAY_WIDTH/2)
         proc->xOffStart = +0x10;
@@ -3093,8 +3093,8 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
 
 static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(INTERPOLATE_SQUARE, 0, proc->xOffStart, proc->blendVal++, 0x10);
-    gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
+    int x_offset = Interpolate(INTERPOLATE_SQUARE, 0, proc->xOffStart, proc->blendVal++, 0x10);
+    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
 
     SetBlendConfig(0, 0x10 - proc->blendVal, proc->blendVal, 0);
 
@@ -3129,14 +3129,14 @@ static int EvtCmd_WmMoveFace(struct EventProc* proc)
 static void WmMoveFace_OnInit(struct WmEventFaceProc* proc)
 {
     proc->xOffStart = 0;
-    proc->blendVal = proc->x - gFaces[proc->faceSlot]->xDisp;
-    proc->x = gFaces[proc->faceSlot]->xDisp;
+    proc->blendVal = proc->x - gFaces[proc->faceSlot]->x_disp;
+    proc->x = gFaces[proc->faceSlot]->x_disp;
 }
 
 static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc)
 {
-    int xOff = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blendVal, proc->xOffStart++, 0x20);
-    gFaces[proc->faceSlot]->xDisp = proc->x + xOff;
+    int x_offset = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blendVal, proc->xOffStart++, 0x20);
+    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
 
     if (proc->xOffStart >= 0x20)
         Proc_Break(proc);
@@ -3176,7 +3176,7 @@ static int EvtCmd_WmTalk(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_DISABLETEXTSKIP)
         SetTalkFlag(TALK_FLAG_NOSKIP);
 
-    proc->onIdle = EventTalkWait;
+    proc->on_idle = EventTalkWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3259,7 +3259,7 @@ static int EvtCmd_WmRemoveHighlight(struct EventProc* proc)
     sub_80939A8(id);
     proc->cmdByte = id;
 
-    proc->onIdle = EventWmRemoveHighlightWait;
+    proc->on_idle = EventWmRemoveHighlightWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3269,7 +3269,7 @@ static void EventWmRemoveHighlightWait(struct EventProc* proc)
     if (WMHighlightExists(proc->cmdByte))
         return;
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static void EventWmRemoveHighlightsWait(struct EventProc* proc);
@@ -3282,7 +3282,7 @@ static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc)
     sub_80939A8(0);
     sub_80939A8(1);
 
-    proc->onIdle = EventWmRemoveHighlightsWait;
+    proc->on_idle = EventWmRemoveHighlightsWait;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3292,7 +3292,7 @@ static void EventWmRemoveHighlightsWait(struct EventProc* proc)
     if (sub_80939D0())
         return;
 
-    proc->onIdle = NULL;
+    proc->on_idle = NULL;
 }
 
 static int EvtCmd_WmPutDot(struct EventProc* proc)
@@ -3646,8 +3646,8 @@ void InitPlayerDeployUnits(void)
         if (unit->state & US_NOT_DEPLOYED)
             continue;
 
-        unit->x = info->xMove;
-        unit->y = info->yMove;
+        unit->x = info->x_move;
+        unit->y = info->y_move;
 
         info++;
     })
@@ -3692,7 +3692,7 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
             if (unit->state & US_UNAVAILABLE)
                 continue;
 
-            if (unit->x == info->xMove && unit->y == info->yMove)
+            if (unit->x == info->x_move && unit->y == info->y_move)
             {
                 spotOccupied = TRUE;
                 break;
@@ -3701,8 +3701,8 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
 
         if (!spotOccupied)
         {
-            unit->x = info->xMove;
-            unit->y = info->yMove;
+            unit->x = info->x_move;
+            unit->y = info->y_move;
 
             break;
         }

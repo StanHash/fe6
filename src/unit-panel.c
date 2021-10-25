@@ -83,7 +83,7 @@ static struct UnitPanelProc* StartUnitPanel(ProcPtr parent)
 
 static void InitUnitPanelSpriteTextPositions(struct UnitPanelProc* proc)
 {
-    if (GetStringTextLen(DecodeMsg(proc->unit->person->msgName)) < 40)
+    if (GetStringTextLen(DecodeMsg(proc->unit->pinfo->msg_name)) < 40)
     {
         proc->xUnitSprite = 4;
         proc->xNameText = 24;
@@ -129,7 +129,7 @@ static struct UnitPanelProc* InitUnitPanel(struct UnitPanelProc* proc, struct Un
     InitUnitPanelSpriteTextPositions(proc);
 
     Text_SetCursor(&proc->name, proc->xNameText);
-    Text_DrawString(&proc->name, DecodeMsg(unit->person->msgName));
+    Text_DrawString(&proc->name, DecodeMsg(unit->pinfo->msg_name));
 
     PutText(&proc->name, gBg0Tm + TM_OFFSET(x+3, y+1));
 

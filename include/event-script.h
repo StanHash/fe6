@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -267,11 +266,11 @@ enum
 #define EvtRemoveUnitDisplayed(pid) \
     EVT_CMD_REMOVEUNIT_DISPLAYED, (pid),
 
-#define EvtSetAi(pid, aiA, aiB, aiC) \
-    EVT_CMD_SETAI_PID, (pid), _EvtParams4(aiA, aiB, aiC, 0),
+#define EvtSetAi(pid, ai_a, ai_b, ai_c) \
+    EVT_CMD_SETAI_PID, (pid), _EvtParams4(ai_a, ai_b, ai_c, 0),
 
-#define EvtSetAiPosition(x, y, aiA, aiB, aiC) \
-    EVT_CMD_SETAI_POS, _EvtParams2(x, y), _EvtParams4(aiA, aiB, aiC, 0),
+#define EvtSetAiPosition(x, y, ai_a, ai_b, ai_c) \
+    EVT_CMD_SETAI_POS, _EvtParams2(x, y), _EvtParams4(ai_a, ai_b, ai_c, 0),
 
 #define EvtSetFlag(flag) \
     EVT_CMD_SETFLAG, (flag),

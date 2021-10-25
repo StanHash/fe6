@@ -1,10 +1,9 @@
-
 #pragma once
 
 #include "common.h"
 
 #include "proc.h"
-#include "anim.h"
+#include "sprite-anim.h"
 
 enum
 {
@@ -41,21 +40,21 @@ struct MuProc
     /* 00 */ PROC_HEADER;
 
     /* 2C */ struct Unit* unit;
-    /* 30 */ struct Anim* anim;
+    /* 30 */ struct SpriteAnim* sprite_anim;
     /* 34 */ struct MuConfig* config;
 
-    /* 38 */ u8 boolCam;
+    /* 38 */ u8 cam_b;
     /* 39 */ u8 state;
-    /* 3A */ u8 boolHidden;
+    /* 3A */ u8 hidden_b;
     /* 3B */ u8 jid;
-    /* 3C */ s8 facing;
-    /* 3D */ u8 stepSoundClock;
-    /* 3E */ u8 boolFastWalk;
+    /* 3C */ i8 facing;
+    /* 3D */ u8 step_sound_clock;
+    /* 3E */ u8 fast_walk_b;
     /* 3F */ // pad
-    /* 40 */ u16 q4_moveClock;
-    /* 42 */ short moveConfig;
-    /* 44 */ short q4_x, q4_y;
-    /* 48 */ short q4_xOffset, q4_yOffset;
+    /* 40 */ u16 move_clock_q4;
+    /* 42 */ i16 move_config;
+    /* 44 */ i16 x_q4, y_q4;
+    /* 48 */ i16 x_offset_q4, y_offset_q4;
 };
 
 struct MuConfig
@@ -64,7 +63,7 @@ struct MuConfig
     /* 01 */ u8 pal;
     /* 02 */ u16 chr;
     /* 04 */ u8 pc;
-    /* 05 */ s8 movescr[0x40];
+    /* 05 */ i8 movescr[0x40];
     /* 45 */ // 3 byte padding
     /* 48 */ struct MuProc* mu;
 };
@@ -80,13 +79,13 @@ struct MuProc* StartMuInternal(u16 x, u16 y, u16 jid, int pal);
 void SetMuFacing(struct MuProc* mu, int facing);
 void SetMuDefaultFacing(struct MuProc* mu);
 void SetAutoMuDefaultFacing(void);
-void SetAutoMuMoveScript(u8 const* moveScript);
+void SetAutoMuMoveScript(u8 const* movescr);
 bool MuExists(void);
 bool MuExistsActive(void);
 bool IsMuActive(struct MuProc* proc);
 void SetMuMoveScript(struct MuProc* mu, u8 const* movescr);
 struct MuProc* StartMuScripted(u16 x, u16 y, u16 jid, int pal, u8 const* movescr);
-void StartPlayMuStepSe(int song, int altOff, int x);
+void StartPlayMuStepSe(int song, int alt_offset, int x);
 void PlayMuStepSe(struct MuProc* mu);
 void EndMuMovement(struct MuProc* mu);
 void RunMuMoveScript(struct MuProc* mu);
@@ -112,7 +111,7 @@ void StartMuDeathFade(struct MuProc* mu);
 void HideMu(struct MuProc* mu);
 void ShowMu(struct MuProc* mu);
 void SetMuScreenPosition(struct MuProc* mu, int x, int y);
-void SetMuScreenOffset(struct MuProc* mu, int xOff, int yOff);
+void SetMuScreenOffset(struct MuProc* mu, int x_offset, int y_offset);
 void StartMuFadeIntoFlash(struct MuProc* mu, int flash);
 void StartMuFadeFromFlash(struct MuProc* mu);
 void StartMuActionAnim(struct MuProc* mu);

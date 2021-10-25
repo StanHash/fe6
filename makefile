@@ -28,7 +28,7 @@ ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I asm/include
 ROM          := fe6.gba
 ELF          := $(ROM:.gba=.elf)
 MAP          := $(ROM:.gba=.map)
-LDSCRIPT     := ldscr.txt
+LDSCRIPT     := fe6.lds
 SYM_FILES    := 
 CFILES       := $(wildcard src/*.c) $(wildcard src/lib/*.c)
 ASM_S_FILES  := $(wildcard asm/*.s) $(wildcard asm/lib/*.s)
@@ -58,7 +58,7 @@ src/sprite.o:          CC1FLAGS += -O0
 src/face.o:            CC1FLAGS += -O0
 src/talk.o:            CC1FLAGS += -O0
 src/event.o:           CC1FLAGS += -O0
-src/anim.o:            CC1FLAGS += -O0
+src/sprite-anim.o:     CC1FLAGS += -O0
 src/game-controller.o: CC1FLAGS += -O0
 src/msg.o:             CC1FLAGS += -O0
 
@@ -88,10 +88,10 @@ $(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
 
 $(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
 	@$(MAKEDEP)
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.s
-	@echo '.text' >> $*.s
-	@echo '.align 2, 0' >> $*.s
-	$(AS) $(ASFLAGS) $*.s -o $@
+	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.asm
+	@echo '.text' >> $*.asm
+	@echo '.align 2, 0' >> $*.asm
+	$(AS) $(ASFLAGS) $*.asm -o $@
 
 .SECONDEXPANSION:
 $(ASM_OBJECTS): %.o: %.s

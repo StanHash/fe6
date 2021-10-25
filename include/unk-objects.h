@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -46,20 +45,20 @@ extern u8 const Img_PhaseChangeEnemy[];
 extern u16 const Pal_PhaseChangeEnemy[];
 extern u8 const Img_PhaseChangeOther[];
 extern u16 const Pal_PhaseChangeOther[];
-extern u16 const Anim_08102450[];
-extern u16 const Anim_GasTrapVertical[];
-extern u16 const Anim_GasTrapHorizontal[];
+extern u16 const SpriteAnim_08102450[];
+extern u16 const SpriteAnim_GasTrapVertical[];
+extern u16 const SpriteAnim_GasTrapHorizontal[];
 extern u8 const Img_GasTrapVertical[];
 extern u8 const Img_GasTrapHorizontal[];
 extern u16 const Pal_GasTrap[];
 extern u8 const Img_ArrowTrap[];
 extern u16 const Pal_ArrowTrap[];
-extern u16 const Anim_ArrowTrap[];
+extern u16 const SpriteAnim_ArrowTrap[];
 extern u8 const Img_FireTrap[];
 extern u16 const Pal_FireTrap[];
-extern u16 const Anim_FireTrap[];
+extern u16 const SpriteAnim_FireTrap[];
 extern u8 const Img_PikeTrap[];
-extern u16 const Anim_PikeTrap[];
+extern u16 const SpriteAnim_PikeTrap[];
 extern u16 const Pal_PikeTrap[];
 extern u8 const Img_ChapterIntroFog[];
 extern u16 const Pal_ChapterIntroFog[];
@@ -95,7 +94,7 @@ extern u8 const Img_BattlePreviewFrame[];
 extern u8 const Img_BattlePreviewMultipliers[];
 extern u16 const Pal_BattlePreviewMultipliers[];
 extern u8 const Img_MuFogBump[];
-extern u16 const Anim_MuFogBump[];
+extern u16 const SpriteAnim_MuFogBump[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
@@ -140,7 +139,7 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_Restore;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
 
-extern s8 CONST_DATA TerrainHealAmountTable[];
+extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];
 extern char const* CONST_DATA TerrainNameStringTable[];
 
@@ -151,7 +150,7 @@ extern u8 CONST_DATA JList_OrionBoltPromotes[];
 extern u8 CONST_DATA JList_ElysianWhipPromotes[];
 extern u8 CONST_DATA JList_GuidingRingPromotes[];
 
-extern s8 CONST_DATA MoveTable_Unk_0860C912[];
+extern i8 CONST_DATA MoveTable_Unk_0860C912[];
 
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 extern struct TrialLoadInfo* CONST_DATA gTrialLoadInfo;

@@ -1,11 +1,10 @@
-
 #pragma once
 
 #include "gba/gba.h"
 
-#if !defined(__cpluscplus) && !defined(bool)
+#if !defined(__cplusplus) && !defined(bool)
 
-typedef s8 bool;
+typedef i8 bool;
 
 #endif
 
@@ -13,7 +12,7 @@ typedef void(*Func)(void);
 
 struct Vec2
 {
-    short x, y;
+    i16 x, y;
 };
 
 struct Vec2u
@@ -93,39 +92,39 @@ enum
 
 struct ChapterInfo
 {
-    /* 00 */ char const* debugName;
+    /* 00 */ char const* debug_name;
 
-    /* 04 */ u8 assetImgA;
-    /* 05 */ u8 assetImgB;
-    /* 06 */ u8 assetPal;
-    /* 07 */ u8 assetTileset;
-    /* 08 */ u8 assetMap;
-    /* 09 */ u8 assetImgAnims;
-    /* 0A */ u8 assetPalAnims;
-    /* 0B */ u8 assetMapChanges;
+    /* 04 */ u8 asset_img_a;
+    /* 05 */ u8 asset_img_b;
+    /* 06 */ u8 asset_pal;
+    /* 07 */ u8 asset_tileset;
+    /* 08 */ u8 asset_map;
+    /* 09 */ u8 asset_img_anims;
+    /* 0A */ u8 asset_pal_anims;
+    /* 0B */ u8 asset_map_changes;
 
     /* 0C */ u8 fog;
-    /* 0D */ u8 hasPrep;
-    /* 0E */ u8 unkName;
-    /* 0F */ u8 unk0F;
-    /* 10 */ u8 unk10;
+    /* 0D */ u8 has_prep;
+    /* 0E */ u8 unk_name;
+    /* 0F */ u8 unk_0F;
+    /* 10 */ u8 unk_10;
     /* 11 */ u8 weather;
-    /* 12 */ u8 banimGroundId;
-    /* 13 */ u8 hardBonusLevels;
+    /* 12 */ u8 banim_terrain_id;
+    /* 13 */ u8 hard_bonus_levels;
 
-    /* 14 */ u8 songBlueBgm;
-    /* 15 */ u8 songRedBgm;
-    /* 16 */ u8 songGreenBgm;
-    /* 17 */ u8 songIntroBgm;
-    /* 18 */ u8 songOpeningBgm;
+    /* 14 */ u8 song_blue_bgm;
+    /* 15 */ u8 song_red_bgm;
+    /* 16 */ u8 song_green_bgm;
+    /* 17 */ u8 song_intro_bgm;
+    /* 18 */ u8 song_opening_bgm;
 
-    /* 19 */ u8 wallHp;
-    /* 1A */ u8 classRollSet;
+    /* 19 */ u8 wall_hp;
+    /* 1A */ u8 class_roll_set;
 
     /* 1B */ u8 pad_1B[0x38 - 0x1B];
 
     /* 38 */ u16 msg_38;
-    /* 3A */ u8 assetEventInfo;
+    /* 3A */ u8 asset_event_info;
 
     /* 3B */ u8 pad_3B[0x3E - 0x3B];
 
@@ -133,12 +132,12 @@ struct ChapterInfo
 
     /* 3F */ u8 pad_3F[0x43 - 0x3F];
 
-    /* 43 */ s8 victoryBgmEnemyThreshold;
+    /* 43 */ i8 victory_bgm_enemy_threshold;
 };
 
 struct MapChangeInfo
 {
-    /* 00 */ s8 id;
+    /* 00 */ i8 id;
     /* 01 */ u8 x, y, width, height;
     /* 05 */ // pad
     /* 08 */ u16 const* metatiles;
@@ -164,13 +163,13 @@ struct MapAnimActor
 struct MapAnimSt
 {
     /* 00 */ struct MapAnimActor actor[4];
-    /* 50 */ struct BattleHit* hitIt;
-    /* 54 */ struct ProcScr const* specialProcScr;
-    /* 58 */ u8 attackerActor;
-    /* 59 */ u8 defenderActor;
-    /* 5A */ u16 hitAttributes;
-    /* 5C */ u8 hitInfo;
-    /* 5D */ s8 hitDamage;
+    /* 50 */ struct BattleHit* hit_it;
+    /* 54 */ struct ProcScr const* special_proc_scr;
+    /* 58 */ u8 attacker_actor;
+    /* 59 */ u8 defender_actor;
+    /* 5A */ u16 hit_attributes;
+    /* 5C */ u8 hit_info;
+    /* 5D */ i8 hit_damage;
     /* 5E */ u8 unk_5E;
     /* 5F */ u8 unk_5F;
     /* 60 */ u8 unk_60;
@@ -186,9 +185,9 @@ struct ChapterEventInfo
 
 struct TrialLoadInfo
 {
-    /* 00 */ struct ChapterInfo const* chapterInfo;
-    /* 04 */ struct MapChangeInfo const* mapChangeInfo;
-    /* 08 */ struct ChapterEventInfo const* eventInfo;
+    /* 00 */ struct ChapterInfo const* chapter_info;
+    /* 04 */ struct MapChangeInfo const* map_change_info;
+    /* 08 */ struct ChapterEventInfo const* event_info;
     /* 0C */ char const* msg_0C;
     /* 10 */ // ...
 };
@@ -217,8 +216,8 @@ struct GlobalSaveInfo
 
 struct SaveBlockInfo
 {
-    /* 00 */ u32 magicA;
-    /* 04 */ u16 magicB;
+    /* 00 */ u32 magic_a;
+    /* 04 */ u16 magic_b;
     /* 06 */ u8 kind;
     /* 08 */ u16 offset;
     /* 0A */ u16 size;

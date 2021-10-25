@@ -248,7 +248,7 @@ static bool GC_StartClassDemo(struct GameController* proc)
     int classSet, chapter;
 
     chapter = GetFurthestSaveChapter();
-    classSet = GetChapterInfo(chapter)->classRollSet;
+    classSet = GetChapterInfo(chapter)->class_roll_set;
 
     if (classSet == 6)
     {
@@ -278,7 +278,7 @@ static void GC_InitSramResetScreen(struct GameController* proc)
     InitBgs(NULL);
     ApplySystemGraphics();
 
-    gPlaySt.configTextSpeed = 1;
+    gPlaySt.config_talk_speed = 1;
 
     sub_806EA24(PROC_TREE_3, NULL, -1);
 }
@@ -544,17 +544,17 @@ void RestartGameAndLoadSuspend(void)
 
 void ForceEnableSounds(void)
 {
-    gPlaySt.configBgmDisable = FALSE;
-    gPlaySt.configSeDisable = FALSE;
+    gPlaySt.config_bgm_disable = FALSE;
+    gPlaySt.config_se_disable = FALSE;
 }
 
 void sub_8013A64(void)
 {
-    gPlaySt.configBattleAnim = 0;
-    gPlaySt.configTextSpeed = 1;
-    gPlaySt.configWalkSpeed = 0;
-    gPlaySt.configBgmDisable = FALSE;
-    gPlaySt.configSeDisable = TRUE;
-    gPlaySt.configWindowColor = 0;
+    gPlaySt.config_battle_anim = 0;
+    gPlaySt.config_talk_speed = 1;
+    gPlaySt.config_walk_speed = 0;
+    gPlaySt.config_bgm_disable = FALSE;
+    gPlaySt.config_se_disable = TRUE;
+    gPlaySt.config_window_color = 0;
     gPlaySt.unk_1C_1 = 0;
 }

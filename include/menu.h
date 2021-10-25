@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -34,7 +33,7 @@ enum
     MENU_FLAG_2 = (1 << 2),
 };
 
-struct MenuRect { s8 x, y, w, h; };
+struct MenuRect { i8 x, y, w, h; };
 
 struct MenuProc;
 struct MenuEntProc;
@@ -47,13 +46,13 @@ struct MenuEntInfo
 
     /* 0C */ u8(*available)(struct MenuEntInfo const* info, int id);
 
-    /* 10 */ int(*onDraw)(struct MenuProc* menu, struct MenuEntProc* ent);
+    /* 10 */ int(*on_draw)(struct MenuProc* menu, struct MenuEntProc* ent);
 
-    /* 14 */ u8(*onSelected)(struct MenuProc*, struct MenuEntProc* ent);
-    /* 18 */ u8(*onIdle)(struct MenuProc*, struct MenuEntProc* ent);
+    /* 14 */ u8(*on_select)(struct MenuProc*, struct MenuEntProc* ent);
+    /* 18 */ u8(*on_idle)(struct MenuProc*, struct MenuEntProc* ent);
 
-    /* 1C */ int(*onSwitchIn)(struct MenuProc* menu, struct MenuEntProc* ent);
-    /* 20 */ int(*onSwitchOut)(struct MenuProc* menu, struct MenuEntProc* ent);
+    /* 1C */ int(*on_switch_in)(struct MenuProc* menu, struct MenuEntProc* ent);
+    /* 20 */ int(*on_switch_out)(struct MenuProc* menu, struct MenuEntProc* ent);
 };
 
 struct MenuInfo
@@ -62,12 +61,12 @@ struct MenuInfo
     /* 04 */ u8 style;
     /* 08 */ struct MenuEntInfo const* entries;
 
-    /* 0C */ void(*onInit)(struct MenuProc* menu);
-    /* 10 */ void(*onEnd)(struct MenuProc* menu);
+    /* 0C */ void(*on_init)(struct MenuProc* menu);
+    /* 10 */ void(*on_end)(struct MenuProc* menu);
     /* 14 */ void(*unk_14)(struct MenuProc* menu);
-    /* 18 */ u8(*onBPress)(struct MenuProc*, struct MenuEntProc* ent);
-    /* 1C */ u8(*onRPress)(struct MenuProc* menu);
-    /* 20 */ void(*onHelpBox)(struct MenuProc* menu, struct MenuEntProc* ent);
+    /* 18 */ u8(*on_b_press)(struct MenuProc*, struct MenuEntProc* ent);
+    /* 1C */ u8(*on_r_press)(struct MenuProc* menu);
+    /* 20 */ void(*on_help_box)(struct MenuProc* menu, struct MenuEntProc* ent);
 };
 
 struct MenuProc
@@ -79,29 +78,29 @@ struct MenuProc
 
     /* 34 */ struct MenuEntProc* entries[MENU_ENTRIES_MAX];
 
-    /* 60 */ u8 entryCount;
-    /* 61 */ u8 activeEntry;
-    /* 62 */ u8 previousEntry;
+    /* 60 */ u8 entry_count;
+    /* 61 */ u8 active_entry;
+    /* 62 */ u8 previous_entry;
     /* 63 */ u8 flags;
 
-    /* 64 */ u8 backBg : 2;
-    /* 64 */ u8 frontBg : 2;
+    /* 64 */ u8 back_bg : 2;
+    /* 64 */ u8 front_bg : 2;
 
     /* 66 */ u16 tileref;
-    /* 68 */ u16 unk68;
+    /* 68 */ u16 unk_68;
 };
 
 struct MenuEntProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2A */ short x;
-    /* 2C */ short y;
+    /* 2A */ i16 x;
+    /* 2C */ i16 y;
 
     /* 30 */ struct MenuEntInfo const* info;
 
     /* 34 */ struct Text text;
 
-    /* 3C */ s8 id;
+    /* 3C */ i8 id;
     /* 3D */ u8 availability;
 };

@@ -6,7 +6,7 @@
 #include "oam.h"
 #include "sound.h"
 #include "face.h"
-#include "anim.h"
+#include "sprite-anim.h"
 #include "msg.h"
 #include "item.h"
 #include "unit.h"
@@ -29,7 +29,7 @@ extern struct ProcScr CONST_DATA ProcScr_BackToUnitMenu[];
 
 extern struct Unit gStatGainSimUnit;
 
-static bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+static bool HasSelectTarget(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 
 static void SetStaffUseAction(struct Unit* unit);
 static void SetItemUseAction(struct Unit* unit);
@@ -303,9 +303,9 @@ void DoUseUnitItem(struct Unit* unit, int item)
     }
 }
 
-static bool HasSelectTarget(struct Unit* unit, void(*listTargets)(struct Unit*))
+static bool HasSelectTarget(struct Unit* unit, void(*list_targets)(struct Unit*))
 {
-    listTargets(unit);
+    list_targets(unit);
     return CountTargets() != 0;
 }
 
@@ -417,7 +417,7 @@ bool CanUnitUsePromotionItem(struct Unit* unit, int item)
 
     while (*jlist)
     {
-        if (unit->job->id == *jlist)
+        if (unit->jinfo->id == *jlist)
             return TRUE;
 
         jlist++;
@@ -434,22 +434,22 @@ bool CanUnitUseStatGainItem(struct Unit* unit, int item)
 
     ClearUnit(&gStatGainSimUnit);
 
-    gStatGainSimUnit.person = unit->person;
-    gStatGainSimUnit.job = unit->job;
+    gStatGainSimUnit.pinfo = unit->pinfo;
+    gStatGainSimUnit.jinfo = unit->jinfo;
 
-    gStatGainSimUnit.hpMax = unit->hpMax + bonuses->hp;
+    gStatGainSimUnit.max_hp = unit->max_hp + bonuses->hp;
     gStatGainSimUnit.pow = unit->pow + bonuses->pow;
     gStatGainSimUnit.skl = unit->skl + bonuses->skl;
     gStatGainSimUnit.spd = unit->spd + bonuses->spd;
     gStatGainSimUnit.def = unit->def + bonuses->def;
     gStatGainSimUnit.res = unit->res + bonuses->res;
     gStatGainSimUnit.lck = unit->lck + bonuses->lck;
-    gStatGainSimUnit.movBonus = unit->movBonus + bonuses->mov;
-    gStatGainSimUnit.conBonus = unit->conBonus + bonuses->con;
+    gStatGainSimUnit.bonus_mov = unit->bonus_mov + bonuses->mov;
+    gStatGainSimUnit.bonus_con = unit->bonus_con + bonuses->con;
 
     UnitCheckStatOverflow(&gStatGainSimUnit);
 
-    result = gStatGainSimUnit.hpMax != unit->hpMax;
+    result = gStatGainSimUnit.max_hp != unit->max_hp;
 
     if (gStatGainSimUnit.pow != unit->pow)
         result = TRUE;
@@ -469,10 +469,10 @@ bool CanUnitUseStatGainItem(struct Unit* unit, int item)
     if (gStatGainSimUnit.lck != unit->lck)
         result = TRUE;
 
-    if (gStatGainSimUnit.movBonus != unit->movBonus)
+    if (gStatGainSimUnit.bonus_mov != unit->bonus_mov)
         result = TRUE;
 
-    if (gStatGainSimUnit.conBonus != unit->conBonus)
+    if (gStatGainSimUnit.bonus_con != unit->bonus_con)
         result = TRUE;
 
     return result;
@@ -501,9 +501,9 @@ int StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
 
-void DoUseRescueStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
+void DoUseRescueStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 {
-    listTargets(unit);
+    list_targets(unit);
 
     MapFill(gMapMovement, -1);
 
@@ -514,7 +514,7 @@ void DoUseRescueStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
 
 static void WarpSelect_Init(struct GenericProc* proc)
 {
-    struct Anim* anim;
+    struct SpriteAnim* anim;
 
     StartSubtitleHelp(proc, DecodeMsg(0xC24)); // TODO: msg ids
 
@@ -534,10 +534,10 @@ static void WarpSelect_Init(struct GenericProc* proc)
         GetUnit(gAction.target)->x,
         GetUnit(gAction.target)->y);
 
-    anim = StartAnim(Anim_08102450, 0);
+    anim = StartSpriteAnim(SpriteAnim_08102450, 0);
 
     anim->oam2 = OAM2_CHR(0) + OAM2_PAL(0);
-    Anim_SetAnimId(anim, 0);
+    SetSpriteAnimId(anim, 0);
 
     proc->ptr = anim;
     proc->unk4A = 2; // neither TRUE nor FALSE
@@ -555,8 +555,8 @@ static void WarpSelect_Loop(struct GenericProc* proc)
         {
             Proc_Break(proc);
 
-            gAction.xTarget = gBmSt.cursor.x;
-            gAction.yTarget = gBmSt.cursor.y;
+            gAction.x_target = gBmSt.cursor.x;
+            gAction.y_target = gBmSt.cursor.y;
 
             SetStaffUseAction(gActiveUnit);
 
@@ -585,12 +585,12 @@ static void WarpSelect_Loop(struct GenericProc* proc)
 
     if (warpAllowed != proc->unk4A)
     {
-        Anim_SetAnimId(proc->ptr, warpAllowed ? 0 : 1);
+        SetSpriteAnimId(proc->ptr, warpAllowed ? 0 : 1);
     }
 
-    Anim_Display(proc->ptr,
-        gBmSt.cursorSpr.x - gBmSt.camera.x,
-        gBmSt.cursorSpr.y - gBmSt.camera.y);
+    DisplaySpriteAnim(proc->ptr,
+        gBmSt.cursor_sprite.x - gBmSt.camera.x,
+        gBmSt.cursor_sprite.y - gBmSt.camera.y);
 
     proc->unk4A = warpAllowed;
 }
@@ -626,7 +626,7 @@ static void WarpSelect_HandleCancel(struct GenericProc* proc)
 static void WarpSelect_End(struct GenericProc* proc)
 {
     EndLimitView();
-    Anim_End(proc->ptr);
+    EndSpriteAnim(proc->ptr);
 }
 
 int WarpOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -655,17 +655,17 @@ void DoUseWarpStaff(struct Unit* unit)
 
 int UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    gAction.xTarget = target->x;
-    gAction.yTarget = target->y;
+    gAction.x_target = target->x;
+    gAction.y_target = target->y;
 
     SetStaffUseAction(NULL);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
 
-void DoUseUnlockStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
+void DoUseUnlockStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 {
-    listTargets(unit);
+    list_targets(unit);
 
     MapFill(gMapMovement, -1);
 
@@ -774,9 +774,9 @@ u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
-void DoUseHealStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
+void DoUseHealStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 {
-    listTargets(unit);
+    list_targets(unit);
 
     MapFill(gMapMovement, -1);
 
@@ -785,9 +785,9 @@ void DoUseHealStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
         DecodeMsg(0xC28)); // TODO: msg ids
 }
 
-void DoUseRestoreStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
+void DoUseRestoreStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 {
-    listTargets(unit);
+    list_targets(unit);
 
     MapFill(gMapMovement, -1);
 
@@ -829,9 +829,9 @@ int AttackStaffSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* t
     RefreshUnitResChangePanel(GetUnit(target->uid));
 }
 
-void DoUseAttackStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit))
+void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 {
-    listTargets(unit);
+    list_targets(unit);
 
     MapFill(gMapMovement, -1);
 

@@ -157,7 +157,7 @@ int sub_801A698(struct MenuProc* menu, struct MenuEntProc* ent)
     if (gKeySt->repeated & (KEY_DPAD_LEFT | KEY_DPAD_RIGHT))
     {
         DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), "        ");
-        DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(ent->id)->debugName);
+        DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(ent->id)->debug_name);
 
         EnableBgSync(BG0_SYNC_BIT);
     }
@@ -375,7 +375,7 @@ int sub_801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
     u32 unused[4];
 
     // required for a match
-    if (gPlaySt.playId != 0) {}
+    if (gPlaySt.playthrough_id != 0) {}
 
     sub_8084EA4();
 
@@ -389,7 +389,7 @@ int sub_801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801AABC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(1)->debugName);
+    DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(1)->debug_name);
     EnableBgSync(BG0_SYNC_BIT);
 }
 
@@ -466,7 +466,7 @@ int sub_801AC2C(struct MenuProc* menu, struct MenuEntProc* ent)
     if (gKeySt->repeated & (KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
         DebugPutStr(gBg0Tm + TM_OFFSET(x, y), "        ");
-        DebugPutStr(gBg0Tm + TM_OFFSET(x, y), GetChapterInfo(ent->id)->debugName);
+        DebugPutStr(gBg0Tm + TM_OFFSET(x, y), GetChapterInfo(ent->id)->debug_name);
 
         EnableBgSync(BG0_SYNC_BIT);
     }
@@ -623,9 +623,9 @@ int sub_801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
     int state;
 
     if (ent->id != 0)
-        state = gPlaySt.debugGreenControl;
+        state = gPlaySt.debug_control_green;
     else
-        state = gPlaySt.debugRedControl;
+        state = gPlaySt.debug_control_red;
 
     ClearText(&ent->text);
 
@@ -644,9 +644,9 @@ int sub_801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
         int state;
 
         if (ent->id != 0)
-            state = gPlaySt.debugGreenControl;
+            state = gPlaySt.debug_control_green;
         else
-            state = gPlaySt.debugRedControl;
+            state = gPlaySt.debug_control_red;
 
         if (gKeySt->pressed & KEY_DPAD_LEFT)
             state--;
@@ -661,9 +661,9 @@ int sub_801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
             state = 0;
 
         if (ent->id != 0)
-            gPlaySt.debugGreenControl = state;
+            gPlaySt.debug_control_green = state;
         else
-            gPlaySt.debugRedControl = state;
+            gPlaySt.debug_control_red = state;
 
         sub_801AED8(menu, ent);
     }

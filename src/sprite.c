@@ -9,8 +9,8 @@
 struct SpriteEntry
 {
     /* 00 */ struct SpriteEntry* next;
-    /* 04 */ s16 oam1;
-    /* 06 */ s16 oam0;
+    /* 04 */ i16 oam1;
+    /* 06 */ i16 oam0;
     /* 08 */ u16 oam2;
     /* 0A */ // pad
     /* 0C */ u16 const* object;

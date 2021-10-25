@@ -28,8 +28,8 @@ static u8 sUnk_03000015;
 
 u8 EWRAM_DATA gBuf[0x2000] = {};
 
-s8 EWRAM_DATA gUnk_020210E8[0x20] = {};
-s8 EWRAM_DATA gUnk_02021108[0x600] = {};
+i8 EWRAM_DATA gUnk_020210E8[0x20] = {};
+i8 EWRAM_DATA gUnk_02021108[0x600] = {};
 
 u16 EWRAM_DATA gPal[0x200] = {};
 
@@ -73,7 +73,7 @@ void IncGameTime(void)
     }
 }
 
-s8 FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds)
+i8 FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds)
 {
     *seconds = (time / FRAMES_PER_SECOND) % 60;
     *minutes = (time / FRAMES_PER_MINUTE) % 60;
@@ -121,31 +121,31 @@ void SyncDispIo(void)
 {
     #define SET_REG(type, reg, src) *((type*) REG_ADDR_##reg) = *((type*) &(src))
 
-    SET_REG(u16, DISPCNT,  gDispIo.dispCt);
-    SET_REG(u16, DISPSTAT, gDispIo.dispStat);
+    SET_REG(u16, DISPCNT,  gDispIo.disp_ct);
+    SET_REG(u16, DISPSTAT, gDispIo.disp_stat);
 
-    SET_REG(u16, BG0CNT,   gDispIo.bg0Ct);
-    SET_REG(u16, BG1CNT,   gDispIo.bg1Ct);
-    SET_REG(u16, BG2CNT,   gDispIo.bg2Ct);
-    SET_REG(u16, BG3CNT,   gDispIo.bg3Ct);
+    SET_REG(u16, BG0CNT,   gDispIo.bg0_ct);
+    SET_REG(u16, BG1CNT,   gDispIo.bg1_ct);
+    SET_REG(u16, BG2CNT,   gDispIo.bg2_ct);
+    SET_REG(u16, BG3CNT,   gDispIo.bg3_ct);
 
     // set both HOFS and VOFS with a single 32-bit copy
-    SET_REG(u32, BG0HOFS,  gDispIo.bgOff[0]);
-    SET_REG(u32, BG1HOFS,  gDispIo.bgOff[1]);
-    SET_REG(u32, BG2HOFS,  gDispIo.bgOff[2]);
-    SET_REG(u32, BG3HOFS,  gDispIo.bgOff[3]);
+    SET_REG(u32, BG0HOFS,  gDispIo.bg_off[0]);
+    SET_REG(u32, BG1HOFS,  gDispIo.bg_off[1]);
+    SET_REG(u32, BG2HOFS,  gDispIo.bg_off[2]);
+    SET_REG(u32, BG3HOFS,  gDispIo.bg_off[3]);
 
     // set both WIN0H and WIN1H with a single 32-bit copy
     SET_REG(u32, WIN0H,    gDispIo.win0_right);
     // set both WIN0V and WIN1V with a single 32-bit copy
     SET_REG(u32, WIN0V,    gDispIo.win0_bottom);
     // set both WININ and WINOUT with a single 32-bit copy
-    SET_REG(u32, WININ,    gDispIo.winCt);
+    SET_REG(u32, WININ,    gDispIo.win_ct);
 
     SET_REG(u16, MOSAIC,   gDispIo.mosaic);
-    SET_REG(u16, BLDCNT,   gDispIo.blendCt);
-    SET_REG(u16, BLDALPHA, gDispIo.blendCoeffA);
-    SET_REG(u8,  BLDY,     gDispIo.blendY);
+    SET_REG(u16, BLDCNT,   gDispIo.blend_ct);
+    SET_REG(u16, BLDALPHA, gDispIo.blend_coef_a);
+    SET_REG(u8,  BLDY,     gDispIo.blend_y);
 
     // set both BG2PA and BG2PB with a single 32-bit copy
     SET_REG(u32, BG2PA,    gDispIo.bg2pa);
@@ -169,10 +169,10 @@ struct BgCnt* GetBgCt(u16 bgid)
     switch (bgid)
     {
 
-    case 0: return &gDispIo.bg0Ct;
-    case 1: return &gDispIo.bg1Ct;
-    case 2: return &gDispIo.bg2Ct;
-    case 3: return &gDispIo.bg3Ct;
+    case 0: return &gDispIo.bg0_ct;
+    case 1: return &gDispIo.bg1_ct;
+    case 2: return &gDispIo.bg2_ct;
+    case 3: return &gDispIo.bg3_ct;
 
     }
 }
@@ -263,14 +263,14 @@ void SetOnVBlank(IrqFunc func)
 {
     if (func != NULL)
     {
-        gDispIo.dispStat.vblankIrqEnable = TRUE;
+        gDispIo.disp_stat.vblankIrqEnable = TRUE;
 
         SetIrqFunc(IRQ_VBLANK, func);
         REG_IE |= INTR_FLAG_VBLANK;
     }
     else
     {
-        gDispIo.dispStat.vblankIrqEnable = FALSE;
+        gDispIo.disp_stat.vblankIrqEnable = FALSE;
         REG_IE &= ~INTR_FLAG_VBLANK;
     }
 }
@@ -279,34 +279,34 @@ void SetOnVMatch(IrqFunc func)
 {
     if (func != NULL)
     {
-        gDispIo.dispStat.vcountIrqEnable = TRUE;
+        gDispIo.disp_stat.vcountIrqEnable = TRUE;
 
         SetIrqFunc(IRQ_VCOUNT, func);
         REG_IE |= INTR_FLAG_VCOUNT;
     }
     else
     {
-        gDispIo.dispStat.vcountIrqEnable = FALSE;
+        gDispIo.disp_stat.vcountIrqEnable = FALSE;
         REG_IE &= ~INTR_FLAG_VCOUNT;
 
-        gDispIo.dispStat.vcountCompare = 0;
+        gDispIo.disp_stat.vcountCompare = 0;
     }
 }
 
 void SetNextVCount(int vcount)
 {
-    u16 dispStat;
+    u16 disp_stat;
 
-    dispStat = REG_DISPSTAT;
-    dispStat = dispStat & 0xFF;
-    dispStat = dispStat | (vcount << 8);
+    disp_stat = REG_DISPSTAT;
+    disp_stat = disp_stat & 0xFF;
+    disp_stat = disp_stat | (vcount << 8);
 
-    REG_DISPSTAT = dispStat;
+    REG_DISPSTAT = disp_stat;
 }
 
 void SetVCount(int vcount)
 {
-    gDispIo.dispStat.vcountCompare = vcount;
+    gDispIo.disp_stat.vcountCompare = vcount;
 }
 
 void SetMainFunc(Func func)
@@ -332,36 +332,36 @@ void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
     if (keySt->pressed)
         keySt->last = keySt->held;
 
-    keySt->ABLRPressed = 0;
+    keySt->ablr_pressed = 0;
 
     if (keySt->held == 0)
     {
         if (keySt->last && keySt->last == (keySt->previous & (KEY_BUTTON_L | KEY_BUTTON_R | KEY_BUTTON_B | KEY_BUTTON_A)))
-            keySt->ABLRPressed = keySt->previous;
+            keySt->ablr_pressed = keySt->previous;
     }
 
     if (keySt->held && keySt->held == keySt->previous) // keys are being held
     {
-        keySt->repeatTimer--;
+        keySt->repeat_clock--;
 
-        if (keySt->repeatTimer == 0)
+        if (keySt->repeat_clock == 0)
         {
             keySt->repeated = keySt->held;
-            keySt->repeatTimer = keySt->repeatInterval; // reset repeat timer
+            keySt->repeat_clock = keySt->repeat_interval; // reset repeat timer
         }
     }
     else
     {
         // held key combination has changed. reset timer
-        keySt->repeatTimer = keySt->repeatDelay;
+        keySt->repeat_clock = keySt->repeat_delay;
     }
 
     keySt->pressed2 = (keySt->held ^ keySt->pressed2) & keySt->held;
 
     if (keys & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY | KEY_BUTTON_R | KEY_BUTTON_L)) // any button other than start and select
-        keySt->timeSinceStartSelect = 0;
-    else if (keySt->timeSinceStartSelect < UINT16_MAX)
-        keySt->timeSinceStartSelect++;
+        keySt->time_since_start_select = 0;
+    else if (keySt->time_since_start_select < UINT16_MAX)
+        keySt->time_since_start_select++;
 }
 
 void RefreshKeySt(struct KeySt* keySt)
@@ -378,15 +378,15 @@ void ClearKeySt(struct KeySt* keySt)
 
 void InitKeySt(struct KeySt* keySt)
 {
-    keySt->repeatDelay = 12;
-    keySt->repeatInterval = 4;
+    keySt->repeat_delay = 12;
+    keySt->repeat_interval = 4;
 
     keySt->previous = 0;
     keySt->held = 0;
     keySt->pressed = 0;
 
-    keySt->repeatTimer = 0;
-    keySt->timeSinceStartSelect = 0;
+    keySt->repeat_clock = 0;
+    keySt->time_since_start_select = 0;
 }
 
 void SetBgOffset(u16 bgid, u16 xOffset, u16 yOffset)
@@ -395,23 +395,23 @@ void SetBgOffset(u16 bgid, u16 xOffset, u16 yOffset)
     {
 
     case 0:
-        gDispIo.bgOff[0].x = xOffset;
-        gDispIo.bgOff[0].y = yOffset;
+        gDispIo.bg_off[0].x = xOffset;
+        gDispIo.bg_off[0].y = yOffset;
         break;
 
     case 1:
-        gDispIo.bgOff[1].x = xOffset;
-        gDispIo.bgOff[1].y = yOffset;
+        gDispIo.bg_off[1].x = xOffset;
+        gDispIo.bg_off[1].y = yOffset;
         break;
 
     case 2:
-        gDispIo.bgOff[2].x = xOffset;
-        gDispIo.bgOff[2].y = yOffset;
+        gDispIo.bg_off[2].x = xOffset;
+        gDispIo.bg_off[2].y = yOffset;
         break;
 
     case 3:
-        gDispIo.bgOff[3].x = xOffset;
-        gDispIo.bgOff[3].y = yOffset;
+        gDispIo.bg_off[3].x = xOffset;
+        gDispIo.bg_off[3].y = yOffset;
         break;
 
     }
@@ -447,7 +447,7 @@ void sub_8001B8C(void* outTm, void const* inData, u8 base, u8 linebits)
     u8 xSize = (*(u32 const*) inData);
     u8 ySize = (*(u32 const*) inData) >> 8;
 
-    s8 ix, iy;
+    i8 ix, iy;
 
     for (iy = ySize; iy >= 0; iy--)
     {
@@ -542,7 +542,7 @@ void sub_8001F88(int a, int b, int c)
         gUnk_020210E8[i] = c;
 }
 
-void sub_8001FD4(s8 a)
+void sub_8001FD4(i8 a)
 {
     int i, j;
 
@@ -559,7 +559,7 @@ void sub_8001FD4(s8 a)
     }
 }
 
-void sub_800210C(s8 a)
+void sub_800210C(i8 a)
 {
     int i, j;
 
@@ -576,7 +576,7 @@ void sub_800210C(s8 a)
     }
 }
 
-void sub_8002234(s8 a)
+void sub_8002234(i8 a)
 {
     int i, j;
 
@@ -593,7 +593,7 @@ void sub_8002234(s8 a)
     }
 }
 
-void sub_800236C(s8 a)
+void sub_800236C(i8 a)
 {
     int i, j;
 
@@ -688,13 +688,13 @@ void InitBgs(u16 const* config)
     ");
 #endif
 
-    *(u16*) &gDispIo.bg0Ct = 0;
-    *(u16*) &gDispIo.bg1Ct = 0;
-    *(u16*) &gDispIo.bg2Ct = 0;
-    *(u16*) &gDispIo.bg3Ct = 0;
+    *(u16*) &gDispIo.bg0_ct = 0;
+    *(u16*) &gDispIo.bg1_ct = 0;
+    *(u16*) &gDispIo.bg2_ct = 0;
+    *(u16*) &gDispIo.bg3_ct = 0;
 
-    gDispIo.dispCt.forcedBlank = 0;
-    gDispIo.dispCt.mode = 0;
+    gDispIo.disp_ct.forcedBlank = 0;
+    gDispIo.disp_ct.mode = 0;
 
     SetDispEnable(1, 1, 1, 1, 1);
     SetWinEnable(0, 0, 0);
@@ -779,7 +779,7 @@ void RefreshOnHBlank(void)
     case 0:
         // no funcs
 
-        gDispIo.dispStat.hblankIrqEnable = 0;
+        gDispIo.disp_stat.hblankIrqEnable = 0;
         REG_IE &= ~INTR_FLAG_HBLANK;
 
         break;
@@ -787,7 +787,7 @@ void RefreshOnHBlank(void)
     case 1:
         // only func A
 
-        gDispIo.dispStat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblankIrqEnable = 1;
 
         SetIrqFunc(IRQ_HBLANK, gOnHBlankA);
         REG_IE |= INTR_FLAG_HBLANK;
@@ -797,7 +797,7 @@ void RefreshOnHBlank(void)
     case 2:
         // only func B
 
-        gDispIo.dispStat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblankIrqEnable = 1;
 
         SetIrqFunc(IRQ_HBLANK, gOnHBlankB);
         REG_IE |= INTR_FLAG_HBLANK;
@@ -807,7 +807,7 @@ void RefreshOnHBlank(void)
     case 3:
         // both funcs
 
-        gDispIo.dispStat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblankIrqEnable = 1;
 
         SetIrqFunc(IRQ_HBLANK, OnHBlankBoth);
         REG_IE |= INTR_FLAG_HBLANK;

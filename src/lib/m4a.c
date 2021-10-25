@@ -65,9 +65,9 @@ void MPlayFadeOut(struct MusicPlayerInfo *mplayInfo, u16 speed)
 
 void m4aSoundInit(void)
 {
-    s32 i;
+    i32 i;
 
-    CpuCopy32((void *)((s32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));
+    CpuCopy32((void *)((i32)SoundMainRAM & ~1), SoundMainRAM_Buffer, sizeof(SoundMainRAM_Buffer));
 
     SoundInit(&gSoundInfo);
     MPlayExtender(gCgbChans);
@@ -160,7 +160,7 @@ void m4aSongNumContinue(u16 n)
 
 void m4aMPlayAllStop(void)
 {
-    s32 i;
+    i32 i;
 
     for (i = 0; i < NUM_MUSIC_PLAYERS; i++)
         m4aMPlayStop(gMPlayTable[i].info);
@@ -173,7 +173,7 @@ void m4aMPlayContinue(struct MusicPlayerInfo *mplayInfo)
 
 void m4aMPlayAllContinue(void)
 {
-    s32 i;
+    i32 i;
 
     for (i = 0; i < NUM_MUSIC_PLAYERS; i++)
         MPlayContinue(gMPlayTable[i].info);
@@ -211,7 +211,7 @@ void m4aMPlayFadeIn(struct MusicPlayerInfo *mplayInfo, u16 speed)
 
 void m4aMPlayImmInit(struct MusicPlayerInfo *mplayInfo)
 {
-    s32 trackCount = mplayInfo->trackCount;
+    i32 trackCount = mplayInfo->trackCount;
     struct MusicPlayerTrack *track = mplayInfo->tracks;
 
     while (trackCount > 0)
@@ -332,10 +332,10 @@ void SoundInit(struct SoundInfo *soundInfo)
                    | SOUND_ALL_MIX_FULL;
     REG_SOUNDBIAS_H = (REG_SOUNDBIAS_H & 0x3F) | 0x40;
 
-    REG_DMA1SAD = (s32)soundInfo->pcmBuffer;
-    REG_DMA1DAD = (s32)&REG_FIFO_A;
-    REG_DMA2SAD = (s32)soundInfo->pcmBuffer + PCM_DMA_BUF_SIZE;
-    REG_DMA2DAD = (s32)&REG_FIFO_B;
+    REG_DMA1SAD = (i32)soundInfo->pcmBuffer;
+    REG_DMA1DAD = (i32)&REG_FIFO_A;
+    REG_DMA2SAD = (i32)soundInfo->pcmBuffer + PCM_DMA_BUF_SIZE;
+    REG_DMA2DAD = (i32)&REG_FIFO_B;
 
     SOUND_INFO_PTR = soundInfo;
     CpuFill32(0, soundInfo, sizeof(struct SoundInfo));
@@ -450,7 +450,7 @@ void m4aSoundMode(u32 mode)
 void SoundClear(void)
 {
     struct SoundInfo *soundInfo = SOUND_INFO_PTR;
-    s32 i;
+    i32 i;
     void *chan;
 
     if (soundInfo->ident != ID_NUMBER)
@@ -465,7 +465,7 @@ void SoundClear(void)
     {
         ((struct SoundChannel *)chan)->status = 0;
         i--;
-        chan = (void *)((s32)chan + sizeof(struct SoundChannel));
+        chan = (void *)((i32)chan + sizeof(struct SoundChannel));
     }
 
     chan = soundInfo->cgbChans;
@@ -479,7 +479,7 @@ void SoundClear(void)
             soundInfo->CgbOscOff(i);
             ((struct CgbChannel *)chan)->sf = 0;
             i++;
-            chan = (void *)((s32)chan + sizeof(struct CgbChannel));
+            chan = (void *)((i32)chan + sizeof(struct CgbChannel));
         }
     }
 
@@ -567,7 +567,7 @@ void MPlayOpen(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *track
 
 void MPlayStart(struct MusicPlayerInfo *mplayInfo, struct SongHeader *songHeader)
 {
-    s32 i;
+    i32 i;
     u8 unk_B;
     struct MusicPlayerTrack *track;
 
@@ -624,7 +624,7 @@ void MPlayStart(struct MusicPlayerInfo *mplayInfo, struct SongHeader *songHeader
 
 void m4aMPlayStop(struct MusicPlayerInfo *mplayInfo)
 {
-    s32 i;
+    i32 i;
     struct MusicPlayerTrack *track;
 
     if (mplayInfo->ident != ID_NUMBER)
@@ -648,7 +648,7 @@ void m4aMPlayStop(struct MusicPlayerInfo *mplayInfo)
 
 void FadeOutBody(struct MusicPlayerInfo *mplayInfo)
 {
-    s32 i;
+    i32 i;
     struct MusicPlayerTrack *track;
     u16 fadeOI = mplayInfo->fadeOI;
     register u32 temp asm("r3");
@@ -681,7 +681,7 @@ void FadeOutBody(struct MusicPlayerInfo *mplayInfo)
     {
         mplayInfo->fadeOV -= (4 << FADE_VOL_SHIFT);
 
-        if ((s16)(mplayInfo->fadeOV & mask) <= 0)
+        if ((i16)(mplayInfo->fadeOV & mask) <= 0)
         {
             i = mplayInfo->trackCount;
             track = mplayInfo->tracks;
@@ -735,8 +735,8 @@ void TrkVolPitSet(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *tr
 {
     if (track->flags & MPT_FLG_VOLSET)
     {
-        s32 x;
-        s32 y;
+        i32 x;
+        i32 y;
 
         x = (u32)(track->vol * track->volX) >> 5;
 
@@ -759,8 +759,8 @@ void TrkVolPitSet(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *tr
 
     if (track->flags & MPT_FLG_PITSET)
     {
-        s32 bend = track->bend * track->bendRange;
-        register s32 x asm("r1") = track->tune;
+        i32 bend = track->bend * track->bendRange;
+        register i32 x asm("r1") = track->tune;
         x += bend;
         x *= 4;
         x += (track->keyShift << 8);
@@ -796,8 +796,8 @@ u32 MidiKeyToCgbFreq(u8 chanNum, u8 key, u8 fineAdjust)
     }
     else
     {
-        s32 val1;
-        s32 val2;
+        i32 val1;
+        i32 val2;
 
         if (key <= 35)
         {
@@ -895,10 +895,10 @@ void CgbModVol(struct CgbChannel *chan)
 
 void CgbSound(void)
 {
-    s32 ch;
+    i32 ch;
     struct CgbChannel *channels;
-    s32 evAdd;
-    s32 prevC15;
+    i32 evAdd;
+    i32 prevC15;
     struct SoundInfo *soundInfo = SOUND_INFO_PTR;
     vu8 *nrx0ptr;
     vu8 *nrx1ptr;
@@ -906,7 +906,7 @@ void CgbSound(void)
     vu8 *nrx3ptr;
     vu8 *nrx4ptr;
 
-    // Most comparision operations that cast to s8 perform 'and' by 0xFF.
+    // Most comparision operations that cast to i8 perform 'and' by 0xFF.
     int mask = 0xff;
 
     if (soundInfo->c15)
@@ -998,7 +998,7 @@ void CgbSound(void)
                     break;
                 }
                 channels->ec = channels->at;
-                if ((s8)(channels->at & mask))
+                if ((i8)(channels->at & mask))
                 {
                     channels->ev = 0;
                     goto EC_MINUS;
@@ -1016,7 +1016,7 @@ void CgbSound(void)
         else if (channels->sf & 0x04)
         {
             channels->echoLength--;
-            if ((s8)(channels->echoLength & mask) <= 0)
+            if ((i8)(channels->echoLength & mask) <= 0)
             {
             loc_82E0E82:
                 CgbOscOff(ch);
@@ -1029,7 +1029,7 @@ void CgbSound(void)
         {
             channels->sf &= 0xfc;
             channels->ec = channels->re;
-            if ((s8)(channels->re & mask))
+            if ((i8)(channels->re & mask))
             {
                 channels->mo |= 1;
                 if (ch != 3)
@@ -1056,7 +1056,7 @@ void CgbSound(void)
                 if ((channels->sf & 0x3) == 0)
                 {
                     channels->ev--;
-                    if ((s8)(channels->ev & mask) <= 0)
+                    if ((i8)(channels->ev & mask) <= 0)
                     {
                     loc_82E0F02:
                         channels->ev = ((channels->eg * channels->echoVolume) + 0xFF) >> 8;
@@ -1091,8 +1091,8 @@ void CgbSound(void)
                     int ev, sg;
 
                     channels->ev--;
-                    ev = (s8)(channels->ev & mask);
-                    sg = (s8)(channels->sg);
+                    ev = (i8)(channels->ev & mask);
+                    sg = (i8)(channels->sg);
                     if (ev <= sg)
                     {
                     loc_82E0F5A:
@@ -1180,7 +1180,7 @@ void CgbSound(void)
                 *nrx3ptr = (*nrx3ptr & 0x08) | channels->fr;
             }
             channels->n4 = (channels->n4 & 0xC0) + (*((u8*)(&channels->fr) + 1));
-            *nrx4ptr = (s8)(channels->n4 & mask);
+            *nrx4ptr = (i8)(channels->n4 & mask);
         }
 
         if (channels->mo & 1)
@@ -1227,7 +1227,7 @@ void m4aMPlayTempoControl(struct MusicPlayerInfo *mplayInfo, u16 tempo)
 
 void m4aMPlayVolumeControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u16 volume)
 {
-    s32 i;
+    i32 i;
     u32 bit;
     struct MusicPlayerTrack *track;
 
@@ -1259,9 +1259,9 @@ void m4aMPlayVolumeControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u16
     mplayInfo->ident = ID_NUMBER;
 }
 
-void m4aMPlayPitchControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, s16 pitch)
+void m4aMPlayPitchControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, i16 pitch)
 {
-    s32 i;
+    i32 i;
     u32 bit;
     struct MusicPlayerTrack *track;
 
@@ -1280,7 +1280,7 @@ void m4aMPlayPitchControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, s16 
         {
             if (track->flags & MPT_FLG_EXIST)
             {
-                track->keyShiftX = (s16)pitch >> 8;
+                track->keyShiftX = (i16)pitch >> 8;
                 track->pitX = pitch;
                 track->flags |= MPT_FLG_PITCHG;
             }
@@ -1294,9 +1294,9 @@ void m4aMPlayPitchControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, s16 
     mplayInfo->ident = ID_NUMBER;
 }
 
-void m4aMPlayPanpotControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, s8 pan)
+void m4aMPlayPanpotControl(struct MusicPlayerInfo *mplayInfo, u16 trackBits, i8 pan)
 {
-    s32 i;
+    i32 i;
     u32 bit;
     struct MusicPlayerTrack *track;
 
@@ -1341,7 +1341,7 @@ void ClearModM(struct MusicPlayerTrack *track)
 
 void m4aMPlayModDepthSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 modDepth)
 {
-    s32 i;
+    i32 i;
     u32 bit;
     struct MusicPlayerTrack *track;
 
@@ -1377,7 +1377,7 @@ void m4aMPlayModDepthSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 mo
 
 void m4aMPlayLFOSpeedSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 lfoSpeed)
 {
-    s32 i;
+    i32 i;
     u32 bit;
     struct MusicPlayerTrack *track;
 

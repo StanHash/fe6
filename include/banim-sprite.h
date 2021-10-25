@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -35,7 +34,7 @@ struct BaSprite
 
     /* 3C */ void const* sprData;
     /* 40 */ void const* unk40;
-    /* 44 */ void const* unk44;
+    /* 44 */ void const* unk_44;
 };
 
 enum
@@ -95,9 +94,9 @@ void BasPutOam(struct BaSprite* BaSprite);
         +16bit | 8bit  | -
         +24bit | 8bit  | 10000011b
 
-    Move(xOff, yOff):
-        +00bit | 8bit  | xOff
-        +08bit | 8bit  | yOff
+    Move(x_offset, y_offset):
+        +00bit | 8bit  | x_offset
+        +08bit | 8bit  | y_offset
         +16bit | 8bit  | -
         +24bit | 8bit  | 10000100b
 

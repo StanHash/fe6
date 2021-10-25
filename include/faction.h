@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -20,7 +19,7 @@ enum
 };
 
 int CountFactionMoveableUnits(int faction);
-int CountFactionUnitsWithoutState(int faction, int prohibitedState);
+int CountFactionUnitsWithoutState(int faction, int prohibited_state);
 bool AreUnitIdsAllied(int uidA, int uidB);
 bool AreUnitIdsSameFaction(int uidA, int uidB);
 int GetActiveFactionAlliance(void);

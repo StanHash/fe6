@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -22,14 +21,14 @@ bool CanUnitUseLockpickItem(struct Unit* unit);
 bool CanUnitUsePromotionItem(struct Unit* unit, int item);
 bool CanUnitUseStatGainItem(struct Unit* unit, int item);
 
-void DoUseRescueStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+void DoUseRescueStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 void DoUseWarpStaff(struct Unit* unit);
-void DoUseUnlockStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+void DoUseUnlockStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 void DoUseRepairStaff(struct Unit* unit);
-void DoUseHealStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
-void DoUseRestoreStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+void DoUseHealStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
+void DoUseRestoreStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 void DoUseBarrierStaff(struct Unit* unit);
-void DoUseAttackStaff(struct Unit* unit, void(*listTargets)(struct Unit* unit));
+void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 
 // StaffSelectOnSelect
 // WarpOnSelectTarget

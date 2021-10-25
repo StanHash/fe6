@@ -105,16 +105,16 @@ static void SubtitleHelpDarkenerOnHBlank(void)
 
     if (vcount < 140 || vcount > 160)
     {
-        REG_BLDCNT   = *(u16*)(&gDispIo.blendCt);
-        REG_BLDALPHA = *(u16*)(&gDispIo.blendCoeffA);
-        REG_BLDY     = gDispIo.blendY;
+        REG_BLDCNT   = *(u16*)(&gDispIo.blend_ct);
+        REG_BLDALPHA = *(u16*)(&gDispIo.blend_coef_a);
+        REG_BLDY     = gDispIo.blend_y;
     }
     else
     {
         int bldy;
 
         bldy = bldyLut[vcount - 128];
-        bldy = bldy - gBmSt.altBlendA_ca;
+        bldy = bldy - gBmSt.alt_blend_a_ca;
 
         if (bldy < 0)
             bldy = 0;
@@ -126,21 +126,21 @@ static void SubtitleHelpDarkenerOnHBlank(void)
 
 static void SubtitleHelpDarkener_Init(ProcPtr proc)
 {
-    gBmSt.altBlendA_ca = 8;
+    gBmSt.alt_blend_a_ca = 8;
     SetOnHBlankA(SubtitleHelpDarkenerOnHBlank);
 }
 
 static void SubtitleHelpDarkener_FadeIn(ProcPtr proc)
 {
-    if (gBmSt.altBlendA_ca != 0)
-        gBmSt.altBlendA_ca -= 1;
+    if (gBmSt.alt_blend_a_ca != 0)
+        gBmSt.alt_blend_a_ca -= 1;
 }
 
 static void SubtitleHelpDarkener_FadeOut(ProcPtr proc)
 {
-    gBmSt.altBlendA_ca += 1;
+    gBmSt.alt_blend_a_ca += 1;
 
-    if (gBmSt.altBlendA_ca == 8)
+    if (gBmSt.alt_blend_a_ca == 8)
     {
         SetOnHBlankA(NULL);
         Proc_Break(proc);
@@ -168,7 +168,7 @@ static void SubtitleHelp_Init(struct SubtitleHelpProc* proc)
 
 static void SubtitleHelp_OnEnd(struct SubtitleHelpProc* proc)
 {
-    gBmSt.cameraMax.y -= 16;
+    gBmSt.camera_max.y -= 16;
     CameraMove_08016290(NULL);
 
     Proc_BreakEach(ProcScr_SubtitleHelpDarkener);
@@ -211,7 +211,7 @@ struct ProcScr CONST_DATA ProcScr_SubtitleHelp[] =
 
 void StartSubtitleHelp(ProcPtr parent, char const* str)
 {
-    if (gPlaySt.configNoSubtitleHelp != TRUE)
+    if (gPlaySt.config_no_subtitle_help != TRUE)
     {
         struct SubtitleHelpProc* proc;
 
@@ -222,7 +222,7 @@ void StartSubtitleHelp(ProcPtr parent, char const* str)
 
         sub_80192E4();
 
-        gBmSt.cameraMax.y += 16;
+        gBmSt.camera_max.y += 16;
     }
 }
 

@@ -42,17 +42,17 @@ struct BattlePreviewProc
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int unk_2C;
-    /* 30 */ s8 x, y;
+    /* 30 */ i8 x, y;
     /* 32 */ u8 frameKind;
     /* 33 */ bool ready;
     /* 34 */ bool needContentUpdate;
-    /* 35 */ s8 side; // -1 is left, +1 is right
-    /* 36 */ s8 unk_36;
+    /* 35 */ i8 side; // -1 is left, +1 is right
+    /* 36 */ i8 unk_36;
     /* 38 */ struct Text unitNameTextA;
     /* 40 */ struct Text unitNameTextB; // unused, presumably by mistake
     /* 48 */ struct Text itemNameText;
-    /* 50 */ s8 hitCountA;
-    /* 51 */ s8 hitCountB;
+    /* 50 */ i8 hitCountA;
+    /* 51 */ i8 hitCountB;
     /* 52 */ bool isEffectiveA;
     /* 53 */ bool isEffectiveB;
 };
@@ -129,7 +129,7 @@ static void InitBattlePreviewLabels(void)
 
 static void PutBattlePreviewUnitName(u16* tm, struct Text* text, struct Unit* unit)
 {
-    char const* str = DecodeMsg(unit->person->msgName);
+    char const* str = DecodeMsg(unit->pinfo->msg_name);
     int pos = GetStringTextCenteredPos(6*8, str);
 
     ClearText(text);
@@ -152,7 +152,7 @@ static void BattlePreviewHitCountUpdate(struct BattleUnit* bu, u8* hitCounter, i
         *hitCounter = *hitCounter + 1;
         *usesCounter = *usesCounter - 1;
 
-        if (bu->weaponAttributes & ITEM_ATTR_BRAVE)
+        if (bu->weapon_attributes & ITEM_ATTR_BRAVE)
         {
             *hitCounter = *hitCounter + 1;
             *usesCounter = *usesCounter - 1;
@@ -162,8 +162,8 @@ static void BattlePreviewHitCountUpdate(struct BattleUnit* bu, u8* hitCounter, i
 
 static void InitBattlePreviewBattleStats(struct BattlePreviewProc* proc)
 {
-    int usesA = GetItemUses(gBattleUnitA.weaponBefore);
-    int usesB = GetItemUses(gBattleUnitB.weaponBefore);
+    int usesA = GetItemUses(gBattleUnitA.weapon_before);
+    int usesB = GetItemUses(gBattleUnitB.weapon_before);
 
     struct BattleUnit* buFirst;
     struct BattleUnit* buSecond;
@@ -173,28 +173,28 @@ static void InitBattlePreviewBattleStats(struct BattlePreviewProc* proc)
     proc->hitCountA = 0;
     proc->isEffectiveA = FALSE;
 
-    if (gBattleUnitA.weapon || gBattleUnitA.weaponBroke)
+    if (gBattleUnitA.weapon || gBattleUnitA.weapon_broke)
     {
         BattlePreviewHitCountUpdate(&gBattleUnitA, &proc->hitCountA, &usesA);
 
         if (followUp && buFirst == &gBattleUnitA)
             BattlePreviewHitCountUpdate(&gBattleUnitA, &proc->hitCountA, &usesA);
 
-        if (IsItemEffectiveAgainst(gBattleUnitA.weaponBefore, &gBattleUnitB.unit))
+        if (IsItemEffectiveAgainst(gBattleUnitA.weapon_before, &gBattleUnitB.unit))
             proc->isEffectiveA = TRUE;
     }
 
     proc->hitCountB = 0;
     proc->isEffectiveB = FALSE;
 
-    if (gBattleUnitB.weapon || gBattleUnitB.weaponBroke)
+    if (gBattleUnitB.weapon || gBattleUnitB.weapon_broke)
     {
         BattlePreviewHitCountUpdate(&gBattleUnitB, &proc->hitCountB, &usesB);
 
         if (followUp && buFirst == &gBattleUnitB)
             BattlePreviewHitCountUpdate(&gBattleUnitB, &proc->hitCountB, &usesB);
 
-        if (IsItemEffectiveAgainst(gBattleUnitB.weaponBefore, &gBattleUnitA.unit))
+        if (IsItemEffectiveAgainst(gBattleUnitB.weapon_before, &gBattleUnitA.unit))
             proc->isEffectiveB = TRUE;
     }
 }
@@ -208,37 +208,37 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc* proc)
 
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unitNameTextA, &gBattleUnitA.unit);
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(1, 11), &proc->unitNameTextA, &gBattleUnitB.unit);
-    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 13), &proc->itemNameText, gBattleUnitB.weaponBefore);
+    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 13), &proc->itemNameText, gBattleUnitB.weapon_before);
 
-    if (gBattleUnitB.weapon == 0 && !gBattleUnitB.weaponBroke)
+    if (gBattleUnitB.weapon == 0 && !gBattleUnitB.weapon_broke)
     {
         damage = -1;
 
-        gBattleUnitB.battleEffectiveHit = 0xFF;
-        gBattleUnitB.battleEffectiveCrit = 0xFF;
+        gBattleUnitB.battle_effective_hit = 0xFF;
+        gBattleUnitB.battle_effective_crit = 0xFF;
     }
     else
     {
-        damage = gBattleUnitB.battleAttack - gBattleUnitA.battleDefense;
+        damage = gBattleUnitB.battle_attack - gBattleUnitA.battle_defense;
 
         if (damage < 0)
             damage = 0;
     }
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.hpPrevious);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
     PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleEffectiveHit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleEffectiveCrit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
 
-    damage = gBattleUnitA.battleAttack - gBattleUnitB.battleDefense;
+    damage = gBattleUnitA.battle_attack - gBattleUnitB.battle_defense;
 
     if (damage < 0)
         damage = 0;
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.hpPrevious);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
     PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleEffectiveHit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleEffectiveCrit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
 
     PutTwoSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(4, 3),
         TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
@@ -247,8 +247,8 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc* proc)
     PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_HIT, gUnk_Tm_02003238 + TM_OFFSET(3, 7));
     PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUnk_Tm_02003238 + TM_OFFSET(3, 9));
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 11), GetItemIcon(gBattleUnitB.weaponBefore), TILEREF(0, BGPAL_ICONS+0));
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weaponBefore), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 11), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
 static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
@@ -258,28 +258,28 @@ static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
 
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unitNameTextA, &gBattleUnitA.unit);
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(1, 15), &proc->unitNameTextA, &gBattleUnitB.unit);
-    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 17), &proc->itemNameText, gBattleUnitB.weaponBefore);
+    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 17), &proc->itemNameText, gBattleUnitB.weapon_before);
 
     if (gBattleUnitB.weapon == 0)
     {
-        gBattleUnitB.battleAttack = 0xFF;
-        gBattleUnitB.battleEffectiveHit = 0xFF;
-        gBattleUnitB.battleEffectiveCrit = 0xFF;
+        gBattleUnitB.battle_attack = 0xFF;
+        gBattleUnitB.battle_effective_hit = 0xFF;
+        gBattleUnitB.battle_effective_crit = 0xFF;
     }
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.hpPrevious);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleAttack);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleDefense);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleEffectiveHit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleEffectiveCrit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battleSpeed);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_attack);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_defense);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_speed);
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.hpPrevious);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleAttack);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleDefense);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleEffectiveHit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleEffectiveCrit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battleSpeed);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_attack);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_defense);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
+    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_speed);
 
     PutTwoSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(4, 3),
         TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
@@ -290,8 +290,8 @@ static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
     PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUnk_Tm_02003238 + TM_OFFSET(3, 11));
     PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_SPEED, gUnk_Tm_02003238 + TM_OFFSET(3, 13));
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 15), GetItemIcon(gBattleUnitB.weaponBefore), TILEREF(0, BGPAL_ICONS+0));
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weaponBefore), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 15), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
 static void DrawBattlePreviewContents(struct BattlePreviewProc* proc)
@@ -393,16 +393,16 @@ static void PutBattlePreviewWtArrows(struct BattlePreviewProc* proc)
     int wtArrowA = WT_ARROW_NONE;
     int wtArrowB = WT_ARROW_NONE;
 
-    if (gBattleUnitA.wtHitBonus > 0)
+    if (gBattleUnitA.advantage_bonus_hit > 0)
         wtArrowA = WT_ARROW_UP;
 
-    if (gBattleUnitA.wtHitBonus < 0)
+    if (gBattleUnitA.advantage_bonus_hit < 0)
         wtArrowA = WT_ARROW_DOWN;
 
-    if (gBattleUnitB.wtHitBonus > 0)
+    if (gBattleUnitB.advantage_bonus_hit > 0)
         wtArrowB = WT_ARROW_UP;
 
-    if (gBattleUnitB.wtHitBonus < 0)
+    if (gBattleUnitB.advantage_bonus_hit < 0)
         wtArrowB = WT_ARROW_DOWN;
 
     if (wtArrowB != WT_ARROW_NONE)
@@ -520,7 +520,7 @@ static void BattlePreview_OnNewBattle(struct BattlePreviewProc* proc)
 
 static void BattlePreview_LoopSlideIn(struct BattlePreviewProc* proc)
 {
-    static s8 offsetLut[] = { 6, 8, 9, 10 };
+    static i8 offsetLut[] = { 6, 8, 9, 10 };
     int offset;
 
     int height = proc->frameKind == BATTLEPREVIEW_FRAME_SHORT ? 16 : 20;
@@ -556,7 +556,7 @@ static void BattlePreview_LoopSlideIn(struct BattlePreviewProc* proc)
 
 static void BattlePreview_LoopSlideOut(struct BattlePreviewProc* proc)
 {
-    static s8 offsetLut[] = { 9, 8, 6, 0 };
+    static i8 offsetLut[] = { 9, 8, 6, 0 };
     int offset;
 
     int height = proc->frameKind == BATTLEPREVIEW_FRAME_SHORT ? 16 : 20;
@@ -620,7 +620,7 @@ void StartBattlePreview(void)
 {
     struct BattlePreviewProc* proc;
 
-    if (gPlaySt.configBattlePreviewKind == 2)
+    if (gPlaySt.config_battle_preview_kind == 2)
     {
         ResetTextFont();
         return;
@@ -629,7 +629,7 @@ void StartBattlePreview(void)
     proc = SpawnProc(ProcScr_BattlePreview, PROC_TREE_3);
     proc->ready = FALSE;
 
-    switch (gPlaySt.configBattlePreviewKind)
+    switch (gPlaySt.config_battle_preview_kind)
     {
 
     case 0:
@@ -734,11 +734,11 @@ static int sub_802E43C(int wt, bool isEffective)
 void sub_802E460(struct GenericProc* proc)
 {
     struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
-    proc->unk4C = sub_802E43C(gBattleUnitA.wtHitBonus, bp->isEffectiveA);
+    proc->unk4C = sub_802E43C(gBattleUnitA.advantage_bonus_hit, bp->isEffectiveA);
 }
 
 void sub_802E490(struct GenericProc* proc)
 {
     struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
-    proc->unk4C = sub_802E43C(gBattleUnitB.wtHitBonus, bp->isEffectiveB);
+    proc->unk4C = sub_802E43C(gBattleUnitB.advantage_bonus_hit, bp->isEffectiveB);
 }

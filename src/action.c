@@ -45,13 +45,13 @@ static bool DoStealAction(ProcPtr proc);
 
 struct Action EWRAM_DATA gAction = {};
 
-static void DeathDropAnim_Loop(struct DeathDropAnimProc* proc);
-static void DeathDropAnim_End(struct DeathDropAnimProc* proc);
+static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc);
+static void DeathDropSpriteAnim_End(struct DeathDropAnimProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_DeathDropAnim[] =
 {
-    PROC_REPEAT(DeathDropAnim_Loop),
-    PROC_CALL(DeathDropAnim_End),
+    PROC_REPEAT(DeathDropSpriteAnim_Loop),
+    PROC_CALL(DeathDropSpriteAnim_End),
     PROC_END,
 };
 
@@ -105,12 +105,12 @@ PROC_LABEL(1),
 
 void SaveActionRand(void)
 {
-    RandGetSt(gAction.actionRandSt);
+    RandGetSt(gAction.action_rand_st);
 }
 
 void RestoreActionRand(void)
 {
-    RandSetSt(gAction.actionRandSt);
+    RandSetSt(gAction.action_rand_st);
 }
 
 bool DoAction(ProcPtr proc)
@@ -188,7 +188,7 @@ static bool DoRescueDropAction(ProcPtr proc)
 {
     struct Unit* target = GetUnit(gAction.target);
 
-    if (gMapHidden[gAction.yTarget][gAction.xTarget] != 0)
+    if (gMapHidden[gAction.y_target][gAction.x_target] != 0)
     {
         gWorkingMoveScr[0] = MOVE_CMD_BUMP;
         gWorkingMoveScr[1] = MOVE_CMD_HALT;
@@ -200,8 +200,8 @@ static bool DoRescueDropAction(ProcPtr proc)
 
     UnitSyncMovement(GetUnit(gAction.instigator));
 
-    StartRescueTransferAnim(target, sub_801C160(gAction.xTarget, gAction.yTarget, target->x, target->y), TRUE, proc);
-    UnitDropRescue(GetUnit(gAction.instigator), gAction.xTarget, gAction.yTarget);
+    StartRescueTransferAnim(target, sub_801C160(gAction.x_target, gAction.y_target, target->x, target->y), TRUE, proc);
+    UnitDropRescue(GetUnit(gAction.instigator), gAction.x_target, gAction.y_target);
 
     return FALSE;
 }
@@ -250,7 +250,7 @@ static bool DoCombatAction(ProcPtr proc)
     if (target == NULL)
         InitObstacleBattleUnit();
 
-    if (gAction.itemSlot == ITEMSLOT_BALLISTA)
+    if (gAction.item_slot == ITEMSLOT_BALLISTA)
         BattleGenerateBallistaReal(GetUnit(gAction.instigator), target);
     else
         BattleGenerateReal(GetUnit(gAction.instigator), target);
@@ -284,7 +284,7 @@ static bool DoRefreshAction(ProcPtr proc)
 
 static bool DoTalkAction(ProcPtr proc)
 {
-    sub_806AF90(GetUnit(gAction.instigator)->person->id, GetUnit(gAction.target)->person->id);
+    sub_806AF90(GetUnit(gAction.instigator)->pinfo->id, GetUnit(gAction.target)->pinfo->id);
     return FALSE;
 }
 
@@ -294,8 +294,8 @@ static bool DoSupportAction(ProcPtr proc)
 
     struct Unit* target = GetUnit(gAction.target);
 
-    int numA = GetUnitSupportNumByPid(gActiveUnit, target->person->id);
-    int numB = GetUnitSupportNumByPid(target, gActiveUnit->person->id);
+    int numA = GetUnitSupportNumByPid(gActiveUnit, target->pinfo->id);
+    int numB = GetUnitSupportNumByPid(target, gActiveUnit->pinfo->id);
 
     if (!CanUnitSupportNow(target, numB))
     {
@@ -304,7 +304,7 @@ static bool DoSupportAction(ProcPtr proc)
     UnitGainSupportLevel(gActiveUnit, numA);
     UnitGainSupportLevel(target, numB);
 
-    sub_806AFD0(gActiveUnit->person->id, target->person->id, GetUnitSupportLevel(gActiveUnit, numA));
+    sub_806AFD0(gActiveUnit->pinfo->id, target->pinfo->id, GetUnitSupportLevel(gActiveUnit, numA));
 
     expA = gActiveUnit->supports[numA];
     expB = target->supports[numB];
@@ -323,8 +323,8 @@ static bool DoSupportAction(ProcPtr proc)
 
 static bool DoStealAction(ProcPtr proc)
 {
-    int item = GetUnit(gAction.target)->items[gAction.itemSlot];
-    UnitRemoveItem(GetUnit(gAction.target), gAction.itemSlot);
+    int item = GetUnit(gAction.target)->items[gAction.item_slot];
+    UnitRemoveItem(GetUnit(gAction.target), gAction.item_slot);
     UnitAddItem(GetUnit(gAction.instigator), item);
 
     BattleInitItemEffect(GetUnit(gAction.instigator), -1);
@@ -342,7 +342,7 @@ static bool DoStealAction(ProcPtr proc)
     return FALSE;
 }
 
-static void DeathDropAnim_Loop(struct DeathDropAnimProc* proc)
+static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc* proc)
 {
     int x = Interpolate(INTERPOLATE_LINEAR, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
     int y = Interpolate(INTERPOLATE_LINEAR, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
@@ -360,7 +360,7 @@ static void DeathDropAnim_Loop(struct DeathDropAnimProc* proc)
         Proc_Break(proc);
 }
 
-static void DeathDropAnim_End(struct DeathDropAnimProc* proc)
+static void DeathDropSpriteAnim_End(struct DeathDropAnimProc* proc)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -403,7 +403,7 @@ void KillUnitOnCombatDeath(struct Unit* unit, struct Unit* opponent)
 {
     if (GetUnitCurrentHp(unit) == 0)
     {
-        sub_8084AEC(unit->person->id, opponent->person->id, 2);
+        sub_8084AEC(unit->pinfo->id, opponent->pinfo->id, 2);
         KillUnit(unit);
     }
 }
@@ -413,13 +413,13 @@ void sub_802A6B4(struct Unit* unit)
     if (GetUnitCurrentHp(unit) == 0)
     {
         KillUnit(unit);
-        sub_8084AEC(unit->person->id, 0, 6);
+        sub_8084AEC(unit->pinfo->id, 0, 6);
     }
 }
 
 static void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc* proc)
 {
-    if ((gBattleSt.flags & BATTLE_FLAG_MAPANIMS) || (gBattleUnitA.unit.hpCur != 0 && gBattleUnitB.unit.hpCur != 0))
+    if ((gBattleSt.flags & BATTLE_FLAG_MAPANIMS) || (gBattleUnitA.unit.hp != 0 && gBattleUnitB.unit.hp != 0))
         Proc_Goto(proc, 1);
 }
 
@@ -427,7 +427,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
 {
     struct MuProc* mu;
 
-    if (gBattleUnitA.unit.hpCur == 0)
+    if (gBattleUnitA.unit.hp == 0)
     {
         mu = Proc_Find(ProcScr_Mu);
 
@@ -435,7 +435,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
         proc->ptr = mu;
     }
 
-    if (gBattleUnitB.unit.hpCur == 0)
+    if (gBattleUnitB.unit.hp == 0)
     {
         RefreshUnitSprites();
         HideUnitSprite(GetUnit(gBattleUnitB.unit.id));
@@ -480,9 +480,9 @@ void sub_802A7F4(void)
 
 static void CombatAction_0802A814(struct GenericProc* proc)
 {
-    gBattleUnitB.unit.hpCur = 1;
+    gBattleUnitB.unit.hp = 1;
 
-    if (gBattleUnitA.unit.hpCur != 0)
+    if (gBattleUnitA.unit.hp != 0)
         Proc_Goto(proc, 1);
 }
 

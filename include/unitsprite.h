@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -24,7 +23,7 @@ struct UnitSprite
     /* 04 */ short x, y;
     /* 08 */ u16 oam2;
     /* 0A */ u8 unk_0A;
-    /* 0B */ s8 config;
+    /* 0B */ i8 config;
 };
 
 struct UnitSpriteInfo

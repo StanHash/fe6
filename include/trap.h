@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -34,7 +33,7 @@ struct Trap
     /* 00 */ u8 x, y;
     /* 02 */ u8 kind;
     /* 03 */ u8 extra;
-    /* 04 */ s8 data[4];
+    /* 04 */ i8 data[4];
 };
 
 void InitTraps(void);

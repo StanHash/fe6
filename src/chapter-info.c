@@ -8,7 +8,7 @@
 struct ChapterInfo const* GetChapterInfo(int chapter)
 {
     if (chapter < 0)
-        return gTrialLoadInfo->chapterInfo;
+        return gTrialLoadInfo->chapter_info;
 
     return ChapterInfoTable + chapter;
 }
@@ -16,7 +16,7 @@ struct ChapterInfo const* GetChapterInfo(int chapter)
 u8 const* GetChapterMap(int chapter)
 {
     if (chapter >= 0)
-        return ChapterAssets[GetChapterInfo(chapter)->assetMap];
+        return ChapterAssets[GetChapterInfo(chapter)->asset_map];
 
     ReadSramFast(sub_80865EC(), gBuf, sub_8086608());
     return gBuf;
@@ -25,17 +25,17 @@ u8 const* GetChapterMap(int chapter)
 struct MapChangeInfo const* GetChapterMapChanges(int chapter)
 {
     if (chapter >= 0)
-        return ChapterAssets[GetChapterInfo(chapter)->assetMapChanges];
+        return ChapterAssets[GetChapterInfo(chapter)->asset_map_changes];
 
-    return gTrialLoadInfo->mapChangeInfo;
+    return gTrialLoadInfo->map_change_info;
 }
 
 struct ChapterEventInfo const* GetChapterEventInfo(int chapter)
 {
     if (chapter >= 0)
-        return ChapterAssets[GetChapterInfo(chapter)->assetEventInfo];
+        return ChapterAssets[GetChapterInfo(chapter)->asset_event_info];
 
-    return gTrialLoadInfo->eventInfo;
+    return gTrialLoadInfo->event_info;
 }
 
 char const* GetChapterUnk_0802BBD0(int chapter)

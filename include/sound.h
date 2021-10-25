@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -34,5 +33,5 @@ void MakeBgmOverridePersist(void);
 void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
 
 #define PlaySe(id) \
-    if (!gPlaySt.configSeDisable) \
+    if (!gPlaySt.config_se_disable) \
         m4aSongNumStart((id))

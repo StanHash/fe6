@@ -26,7 +26,7 @@ static int AiGetLowHpScoreComponent(void);
 
 static struct AiCombatScoreCoefficients const* sCombatScoreCoefficients;
 
-bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
+bool AiAttemptOffensiveAction(bool(*is_enemy)(struct Unit* unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
@@ -45,7 +45,7 @@ bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
         }
     }
 
-    finResult.targetId = 0;
+    finResult.target_id = 0;
     finResult.score = 0;
 
     if (gAiSt.flags & AI_FLAG_1)
@@ -70,14 +70,14 @@ bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
         if (!CanUnitUseWeapon(gActiveUnit, item))
             continue;
 
-        tmpResult.itemSlot = i;
+        tmpResult.item_slot = i;
 
         FOR_UNITS(1, 0xC0, unit,
         {
             if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
                 continue;
 
-            if (!isEnemy(unit))
+            if (!is_enemy(unit))
                 continue;
 
             if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item))
@@ -85,7 +85,7 @@ bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
 
             AiFillReversedAttackRangeMap(unit, item);
 
-            tmpResult.targetId = unit->id;
+            tmpResult.target_id = unit->id;
 
             if (!AiSimulateBestBattleAgainstTarget(&tmpResult))
                 continue;
@@ -93,14 +93,14 @@ bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
             if (tmpResult.score >= finResult.score)
             {
                 finResult = tmpResult;
-                finResult.itemSlot = i;
+                finResult.item_slot = i;
             }
         })
     }
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_BALLISTA)
     {
-        if (AiAttemptBallistaCombat(isEnemy, &tmpResult) == TRUE)
+        if (AiAttemptBallistaCombat(is_enemy, &tmpResult) == TRUE)
         {
             if (tmpResult.score >= finResult.score)
             {
@@ -109,21 +109,21 @@ bool AiAttemptOffensiveAction(bool(*isEnemy)(struct Unit* unit))
         }
     }
 
-    if (finResult.score != 0 || finResult.targetId != 0)
+    if (finResult.score != 0 || finResult.target_id != 0)
     {
-        AiSetDecision(finResult.xMove, finResult.yMove,
-            AI_ACTION_COMBAT, finResult.targetId, finResult.itemSlot, 0, 0);
+        AiSetDecision(finResult.x_move, finResult.y_move,
+            AI_ACTION_COMBAT, finResult.target_id, finResult.item_slot, 0, 0);
     }
 }
 
-bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
+bool AiAttemptCombatWithinMovement(bool(*is_enemy)(struct Unit* unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
 
     int i;
 
-    finResult.targetId = 0;
+    finResult.target_id = 0;
     finResult.score = 0;
 
     SetWorkingMap(gMapRange);
@@ -138,14 +138,14 @@ bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
         if (!CanUnitUseWeapon(gActiveUnit, item))
             continue;
 
-        tmpResult.itemSlot = i;
+        tmpResult.item_slot = i;
 
         FOR_UNITS(1, 0xC0, unit,
         {
             if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
                 continue;
 
-            if (!isEnemy(unit))
+            if (!is_enemy(unit))
                 continue;
 
             if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item))
@@ -153,7 +153,7 @@ bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
 
             AiFillReversedAttackRangeMap(unit, item);
 
-            tmpResult.targetId = unit->id;
+            tmpResult.target_id = unit->id;
 
             if (!AiSimulateBestBattleAgainstTarget(&tmpResult))
                 continue;
@@ -161,14 +161,14 @@ bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
             if (tmpResult.score >= finResult.score)
             {
                 finResult = tmpResult;
-                finResult.itemSlot = i;
+                finResult.item_slot = i;
             }
         })
     }
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_BALLISTA)
     {
-        if (AiAttemptBallistaCombat(isEnemy, &tmpResult) == TRUE)
+        if (AiAttemptBallistaCombat(is_enemy, &tmpResult) == TRUE)
         {
             if (tmpResult.score >= finResult.score)
             {
@@ -177,10 +177,10 @@ bool AiAttemptCombatWithinMovement(bool(*isEnemy)(struct Unit* unit))
         }
     }
 
-    if (finResult.score != 0 || finResult.targetId != 0)
+    if (finResult.score != 0 || finResult.target_id != 0)
     {
-        AiSetDecision(finResult.xMove, finResult.yMove,
-            AI_ACTION_COMBAT, finResult.targetId, finResult.itemSlot, 0, 0);
+        AiSetDecision(finResult.x_move, finResult.y_move,
+            AI_ACTION_COMBAT, finResult.target_id, finResult.item_slot, 0, 0);
     }
 }
 
@@ -196,7 +196,7 @@ void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item)
 {
     int ix, iy;
 
-    SetWorkingMovTable(unit->job->movTerrainTable);
+    SetWorkingMovTable(unit->jinfo->mov_table);
 
     SetWorkingMap(gMapMovement);
     BeginMapFlood(unit->x, unit->y, move, unit->id);
@@ -215,7 +215,7 @@ void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item)
     }
 }
 
-bool AiAttemptBallistaCombat(bool(*isEnemy)(struct Unit* unit), struct AiCombatSimulationSt* st)
+bool AiAttemptBallistaCombat(bool(*is_enemy)(struct Unit* unit), struct AiCombatSimulationSt* st)
 {
     struct AiCombatSimulationSt tmpResult;
 
@@ -258,20 +258,20 @@ bool AiAttemptBallistaCombat(bool(*isEnemy)(struct Unit* unit), struct AiCombatS
     if (ballistaCount == 0)
         return FALSE;
 
-    st->targetId = 0;
+    st->target_id = 0;
     st->score = 0;
 
     for (i = 0; i < 3; ++i)
     {
         item = ballistaIids[i];
-        st->itemSlot = -1;
+        st->item_slot = -1;
 
         FOR_UNITS_ALL(unit,
         {
             if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
                 continue;
 
-            if (!isEnemy(unit))
+            if (!is_enemy(unit))
                 continue;
 
             if (!AiReachesByBirdsEyeDistance(gActiveUnit, unit, item))
@@ -279,22 +279,22 @@ bool AiAttemptBallistaCombat(bool(*isEnemy)(struct Unit* unit), struct AiCombatS
 
             AiFillReversedAttackRangeMap(unit, item);
 
-            tmpResult.targetId = unit->id;
+            tmpResult.target_id = unit->id;
 
             if (!AiSimulateBestBallistaBattleAgainstTarget(&tmpResult, item))
                 continue;
 
             if (tmpResult.score >= st->score)
             {
-                st->xMove = tmpResult.xMove;
-                st->yMove = tmpResult.yMove;
-                st->targetId = tmpResult.targetId;
+                st->x_move = tmpResult.x_move;
+                st->y_move = tmpResult.y_move;
+                st->target_id = tmpResult.target_id;
                 st->score = tmpResult.score;
             }
         })
     }
 
-    if (st->score != 0 || st->targetId != 0)
+    if (st->score != 0 || st->target_id != 0)
         return TRUE;
 
     return FALSE;
@@ -317,7 +317,7 @@ bool AiAttemptStealActionWithinMovement(void)
 
     struct Vec2 pos;
 
-    u8 itemSlot = 0;
+    u8 item_slot = 0;
     u8 rank = UINT8_MAX;
     u8 target = 0;
 
@@ -327,7 +327,7 @@ bool AiAttemptStealActionWithinMovement(void)
         {
             struct Vec2 posTmp;
             struct Unit* unit;
-            s8 slotTmp;
+            i8 slotTmp;
             u8 rankTmp;
 
             if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
@@ -358,14 +358,14 @@ bool AiAttemptStealActionWithinMovement(void)
             pos.x = posTmp.x;
             pos.y = posTmp.y;
             target = gMapUnit[iy][ix];
-            itemSlot = slotTmp;
+            item_slot = slotTmp;
         }
     }
 
     if (rank != UINT8_MAX)
     {
         gActiveUnit->unk_46++;
-        AiSetDecision(pos.x, pos.y, AI_ACTION_STEAL, target, itemSlot, 0, 0);
+        AiSetDecision(pos.x, pos.y, AI_ACTION_STEAL, target, item_slot, 0, 0);
 
         return TRUE;
     }
@@ -399,8 +399,8 @@ bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
             if (scoreTmp <= score)
                 continue;
 
-            st->xMove = ix;
-            st->yMove = iy;
+            st->x_move = ix;
+            st->y_move = iy;
             score = scoreTmp;
         }
     }
@@ -440,8 +440,8 @@ bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, 
             if (scoreTmp <= score)
                 continue;
 
-            st->xMove = ix;
-            st->yMove = iy;
+            st->x_move = ix;
+            st->y_move = iy;
             score = scoreTmp;
         }
     }
@@ -456,7 +456,7 @@ u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st)
 {
     int score;
 
-    score  = AiGetInRangeCombatPositionScoreComponent(x, y, GetUnit(st->targetId));
+    score  = AiGetInRangeCombatPositionScoreComponent(x, y, GetUnit(st->target_id));
     score += AiGetTerrainCombatPositionScoreComponent(x, y);
     score += AiGetFriendZoneCombatPositionScoreComponent(x, y);
     score -= gMapMovementSigned[y][x];
@@ -469,8 +469,8 @@ u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st)
 
 bool AiIsBadFight(struct AiCombatSimulationSt* st)
 {
-    u16 item = gActiveUnit->items[st->itemSlot];
-    struct Unit* unit = GetUnit(st->targetId);
+    u16 item = gActiveUnit->items[st->item_slot];
+    struct Unit* unit = GetUnit(st->target_id);
 
     if (GetItemIid(item) == IID_ECLIPSE)
     {
@@ -486,17 +486,17 @@ bool AiIsBadFight(struct AiCombatSimulationSt* st)
 
 bool AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt* st)
 {
-    if (st->itemSlot != UINT16_MAX)
+    if (st->item_slot != UINT16_MAX)
     {
         BattleGenerateSimulation(
-            gActiveUnit, GetUnit(st->targetId),
-            st->xMove, st->yMove, st->itemSlot);
+            gActiveUnit, GetUnit(st->target_id),
+            st->x_move, st->y_move, st->item_slot);
     }
     else
     {
         BattleGenerateBallistaSimulation(
-            gActiveUnit, GetUnit(st->targetId),
-            st->xMove, st->yMove);
+            gActiveUnit, GetUnit(st->target_id),
+            st->x_move, st->y_move);
     }
 
     if (!AiIsBadFight(st))
@@ -512,17 +512,17 @@ int AiGetDamageDealtCombatScoreComponent(void)
 {
     int score;
 
-    if (gBattleUnitB.unit.hpCur == 0)
+    if (gBattleUnitB.unit.hp == 0)
         return 50;
 
-    score = gBattleUnitA.battleAttack - gBattleUnitB.battleDefense;
-    score = gBattleUnitA.battleEffectiveHit * score;
+    score = gBattleUnitA.battle_attack - gBattleUnitB.battle_defense;
+    score = gBattleUnitA.battle_effective_hit * score;
 
     if (score < 0)
         score = 0;
 
     score = Div(score, 100);
-    score = sCombatScoreCoefficients->coeffDamageDealt * score;
+    score = sCombatScoreCoefficients->coef_damage_dealt * score;
 
     if (score > 40)
         score = 40;
@@ -534,8 +534,8 @@ int AiGetOpponentLowHpScoreComponent(void)
 {
     int score;
 
-    score = 20 - gBattleUnitB.unit.hpCur;
-    score = sCombatScoreCoefficients->coeffLowHpOpponent * score;
+    score = 20 - gBattleUnitB.unit.hp;
+    score = sCombatScoreCoefficients->coef_low_hp_opponent * score;
 
     if (score < 0)
         score = 0;
@@ -547,9 +547,9 @@ int AiGetFriendZoneCombatScoreComponent(void)
 {
     struct RangeScore
     {
-        /* 00 */ s8 x;
-        /* 01 */ s8 y;
-        /* 02 */ s8 score;
+        /* 00 */ i8 x;
+        /* 01 */ i8 y;
+        /* 02 */ i8 score;
     };
 
     static struct RangeScore CONST_DATA list[] =
@@ -595,7 +595,7 @@ int AiGetFriendZoneCombatScoreComponent(void)
             score += it->score;
     }
 
-    score = sCombatScoreCoefficients->coeffFriendZone * score;
+    score = sCombatScoreCoefficients->coef_friend_zone * score;
 
     if (score > 10)
         score = 10;
@@ -605,12 +605,12 @@ int AiGetFriendZoneCombatScoreComponent(void)
 
 int AiGetTargetJobCombatScoreComponent(void)
 {
-    u8 rank = AiGetJobRank(gBattleUnitB.unit.job->id);
+    u8 rank = AiGetJobRank(gBattleUnitB.unit.jinfo->id);
 
     int score;
 
-    score = sCombatScoreCoefficients->jobRankBonuses[rank];
-    score = sCombatScoreCoefficients->coeffJobRankBonus * score;
+    score = sCombatScoreCoefficients->job_rank_bonuses[rank];
+    score = sCombatScoreCoefficients->coef_job_rank_bonus * score;
 
     if (score > 20)
         score = 20;
@@ -620,7 +620,7 @@ int AiGetTargetJobCombatScoreComponent(void)
 
 int AiGetTurnCombatScoreComponent(void)
 {
-    return gPlaySt.turn * sCombatScoreCoefficients->coeffTurnNumber;
+    return gPlaySt.turn * sCombatScoreCoefficients->coef_turn_number;
 }
 
 int AiGetDamageTakenScoreComponent(void)
@@ -630,14 +630,14 @@ int AiGetDamageTakenScoreComponent(void)
     if (gBattleUnitB.weapon == 0)
         return -10;
 
-    score = gBattleUnitB.battleAttack - gBattleUnitA.battleDefense;
-    score = gBattleUnitB.battleEffectiveHit * score;
+    score = gBattleUnitB.battle_attack - gBattleUnitA.battle_defense;
+    score = gBattleUnitB.battle_effective_hit * score;
 
     if (score < 0)
         score = 0;
 
     score = Div(score, 100);
-    score = sCombatScoreCoefficients->coeffDamageTaken * score;
+    score = sCombatScoreCoefficients->coef_damage_taken * score;
 
     if (score > 40)
         score = 40;
@@ -650,7 +650,7 @@ int AiGetDangerScoreComponent(void)
     int score;
 
     score = gMapOther[gBattleUnitA.unit.y][gBattleUnitA.unit.x]/8;
-    score = sCombatScoreCoefficients->coeffDanger * score;
+    score = sCombatScoreCoefficients->coef_danger * score;
 
     if (score > 20)
         score = 20;
@@ -662,8 +662,8 @@ int AiGetLowHpScoreComponent(void)
 {
     int score;
 
-    score = 20 - gBattleUnitA.unit.hpCur;
-    score = sCombatScoreCoefficients->coeffLowHpSelf * score;
+    score = 20 - gBattleUnitA.unit.hp;
+    score = sCombatScoreCoefficients->coef_low_hp_self * score;
 
     if (score < 0)
         score = 0;
@@ -676,7 +676,7 @@ void AiComputeCombatScore(struct AiCombatSimulationSt* st)
     int score;
     int backup;
 
-    sCombatScoreCoefficients = gAiCombatScoreCoefficientTable + gAiSt.combatWeightTableId;
+    sCombatScoreCoefficients = gAiCombatScoreCoefficientTable + gAiSt.combat_wgt_table_id;
 
     score = AiGetDamageDealtCombatScoreComponent();
     backup = score;
@@ -718,9 +718,9 @@ int AiGetTerrainCombatPositionScoreComponent(int x, int y)
 {
     int terrain = gMapTerrain[y][x];
 
-    return gActiveUnit->job->avoTerrainTable[terrain]
-         + gActiveUnit->job->defTerrainTable[terrain]
-         + gActiveUnit->job->resTerrainTable[terrain];
+    return gActiveUnit->jinfo->avo_terrain_table[terrain]
+         + gActiveUnit->jinfo->def_terrain_table[terrain]
+         + gActiveUnit->jinfo->res_terrain_table[terrain];
 }
 
 int AiGetFriendZoneCombatPositionScoreComponent(int x, int y)

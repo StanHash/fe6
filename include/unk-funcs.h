@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -202,7 +201,7 @@ bool sub_8033AA4(void const* arg);
 bool sub_8033B04(void const* arg);
 bool sub_8033B50(void const* arg);
 // sub_8033B9C
-bool sub_8033C04(bool(*isEnemy)(struct Unit* unit));
+bool sub_8033C04(bool(*is_enemy)(struct Unit* unit));
 // sub_8033C8C
 // sub_8033D5C
 // sub_8033ECC
@@ -713,7 +712,7 @@ void sub_804256C(int arg_0);
 // sub_8042578
 // sub_8042584
 // sub_80425B0
-s8 sub_80425C4(void);
+i8 sub_80425C4(void);
 // sub_80425D8
 // nullsub_18
 // sub_80425F0
@@ -2084,17 +2083,17 @@ void sub_806AF08(void);
 bool sub_806AF4C(int pidA, int pidB);
 void sub_806AF90(int pidA, int pidB);
 void sub_806AFD0(int pidA, int pidB, int supportLevel);
-int sub_806B028(s8 x, s8 y);
-void sub_806B06C(s8 x, s8 y);
+int sub_806B028(i8 x, i8 y);
+void sub_806B06C(i8 x, i8 y);
 // sub_806B254
 // sub_806B268
 // sub_806B284
 // sub_806B2AC
 // sub_806B310
-bool IsThereClosedChestAt(s8 x, s8 y);
-void sub_806B354(s8 x, s8 y);
-bool sub_806B37C(s8 x, s8 y);
-void sub_806B398(s8 x, s8 y);
+bool IsThereClosedChestAt(i8 x, i8 y);
+void sub_806B354(i8 x, i8 y);
+bool sub_806B37C(i8 x, i8 y);
+void sub_806B398(i8 x, i8 y);
 // sub_806B3C0
 // sub_806B3DC
 bool sub_806B404(void);
@@ -2943,7 +2942,7 @@ int sub_8084F94(void);
 void sub_808505C(int saveId, int isHard);
 void sub_8085110(int arg_0);
 // sub_80851B4
-s8 sub_808525C(int saveId);
+i8 sub_808525C(int saveId);
 void sub_8085270(int saveId, struct PlaySt* out);
 // sub_8085290
 // sub_80852C4
@@ -3374,7 +3373,7 @@ void sub_8092E94(void);
 // sub_809338C
 // sub_8093394
 void sub_80933F8(void);
-s8 sub_8093444(void);
+i8 sub_8093444(void);
 // sub_809345C
 void sub_809347C(int x, int y);
 void sub_80934A0(void);
@@ -3393,8 +3392,8 @@ void StartWMHighlight(int arg_0, int id);
 // sub_809397C
 // sub_8093990
 void sub_80939A8(int id);
-s8 WMHighlightExists(int id);
-s8 sub_80939D0(void);
+i8 WMHighlightExists(int id);
+i8 sub_80939D0(void);
 void sub_80939F0(int palid, int x, int y, int id);
 void EndWMDot(int id);
 void StartWMFlag(int palid, int x, int y, int id);

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -20,7 +19,7 @@ int sub_801C6B0(struct MenuProc* menu, struct MenuEntProc* ent);
 void SetFogVision(int vision);
 void sub_801C700(struct Unit* actor, struct Unit* target);
 void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y);
-void UpdateEquipInfoWindow(int itemSlot);
+void UpdateEquipInfoWindow(int item_slot);
 void EndEquipInfoWindow(void);
 void sub_801CF10(ProcPtr parent, struct Unit* unit, int x, int y);
 void sub_801D680(int x, int y);

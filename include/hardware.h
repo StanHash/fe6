@@ -1,43 +1,42 @@
-
 #pragma once
 
 #include "common.h"
 
 struct KeySt
 {
-    /* 00 */ u8 repeatDelay;     // initial delay before generating auto-repeat presses
-    /* 01 */ u8 repeatInterval;  // time between auto-repeat presses
-    /* 02 */ u8 repeatTimer;     // (decreased by one each frame, reset to repeatDelay when Presses change and repeatInterval when reaches 0)
+    /* 00 */ u8 repeat_delay;    // initial delay before generating auto-repeat presses
+    /* 01 */ u8 repeat_interval; // time between auto-repeat presses
+    /* 02 */ u8 repeat_clock;    // (decreased by one each frame, reset to repeat_delay when Presses change and repeat_interval when reaches 0)
     /* 04 */ u16 held;           // keys that are currently held down
     /* 06 */ u16 repeated;       // auto-repeated keys
     /* 08 */ u16 pressed;        // keys that went down this frame
     /* 0A */ u16 previous;       // keys that were held down last frame
     /* 0C */ u16 last;
-    /* 0E */ bool16 ABLRPressed; // 1 for Release (A B L R Only), 0 Otherwise
+    /* 0E */ u16 ablr_pressed; // 1 for Release (A B L R Only), 0 Otherwise
     /* 10 */ u16 pressed2;
-    /* 12 */ u16 timeSinceStartSelect; // Time since last Non-Start Non-Select Button was pressed
+    /* 12 */ u16 time_since_start_select; // Time since last Non-Start Non-Select Button was pressed
 };
 
 struct DispIo
 {
-    /* 00 */ struct DispCnt dispCt;
-    /* 04 */ struct DispStat dispStat;
-    /* 08 */ u8 pad08[4];
-    /* 0C */ struct BgCnt bg0Ct;
-    /* 10 */ struct BgCnt bg1Ct;
-    /* 14 */ struct BgCnt bg2Ct;
-    /* 18 */ struct BgCnt bg3Ct;
-    /* 1C */ struct Vec2u bgOff[4];
+    /* 00 */ struct DispCnt disp_ct;
+    /* 04 */ struct DispStat disp_stat;
+    /* 08 */ u8 pad_08[4];
+    /* 0C */ struct BgCnt bg0_ct;
+    /* 10 */ struct BgCnt bg1_ct;
+    /* 14 */ struct BgCnt bg2_ct;
+    /* 18 */ struct BgCnt bg3_ct;
+    /* 1C */ struct Vec2u bg_off[4];
     /* 2C */ u8 win0_right, win0_left, win1_right, win1_left;
     /* 30 */ u8 win0_bottom, win0_top, win1_bottom, win1_top;
-    /* 34 */ struct WinCnt winCt;
+    /* 34 */ struct WinCnt win_ct;
     /* 38 */ u16 mosaic;
-    /* 3A */ u8 pad3A[2];
-    /* 3C */ struct BlendCnt blendCt;
-    /* 40 */ u8 pad40[4];
-    /* 44 */ u8 blendCoeffA;
-    /* 45 */ u8 blendCoeffB;
-    /* 46 */ u8 blendY;
+    /* 3A */ u8 pad_3A[2];
+    /* 3C */ struct BlendCnt blend_ct;
+    /* 40 */ u8 pad_40[4];
+    /* 44 */ u8 blend_coef_a;
+    /* 45 */ u8 blend_coef_b;
+    /* 46 */ u8 blend_y;
     /* 48 */ u16 bg2pa;
     /* 4A */ u16 bg2pb;
     /* 4C */ u16 bg2pc;
@@ -50,7 +49,7 @@ struct DispIo
     /* 5E */ u16 bg3pd;
     /* 60 */ u32 bg3x;
     /* 64 */ u32 bg3y;
-    /* 68 */ s8 colorAddition;
+    /* 68 */ i8 color_addition;
 };
 
 enum
@@ -64,7 +63,7 @@ enum
 unsigned GetGameTime(void);
 void SetGameTime(unsigned time);
 void IncGameTime(void);
-s8 FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds);
+bool FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds);
 void EnableBgSync(int bits);
 void EnableBgSyncById(int bgid);
 void DisableBgSync(int bits);
@@ -101,10 +100,10 @@ void sub_8001D0C(void);
 void sub_8001D44(u16 const* inPal, int bank, int count, int unk);
 void sub_8001E68(int a, int b, int c, int d);
 void sub_8001F88(int a, int b, int c);
-void sub_8001FD4(s8 a);
-void sub_800210C(s8 a);
-void sub_8002234(s8 a);
-void sub_800236C(s8 a);
+void sub_8001FD4(i8 a);
+void sub_800210C(i8 a);
+void sub_8002234(i8 a);
+void sub_800236C(i8 a);
 void sub_80024A4(void);
 void InitBgs(u16 const* config);
 u16* GetBgTilemap(int bg);
@@ -149,16 +148,16 @@ extern short const gSinLut[];
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
 
 #define SetDispEnable(bg0, bg1, bg2, bg3, obj) \
-    gDispIo.dispCt.bg0_on = (bg0); \
-    gDispIo.dispCt.bg1_on = (bg1); \
-    gDispIo.dispCt.bg2_on = (bg2); \
-    gDispIo.dispCt.bg3_on = (bg3); \
-    gDispIo.dispCt.obj_on = (obj)
+    gDispIo.disp_ct.bg0_on = (bg0); \
+    gDispIo.disp_ct.bg1_on = (bg1); \
+    gDispIo.disp_ct.bg2_on = (bg2); \
+    gDispIo.disp_ct.bg3_on = (bg3); \
+    gDispIo.disp_ct.obj_on = (obj)
 
 #define SetWinEnable(win0, win1, objwin) \
-    gDispIo.dispCt.win0_on = (win0); \
-    gDispIo.dispCt.win1_on = (win1); \
-    gDispIo.dispCt.objWin_on = (objwin)
+    gDispIo.disp_ct.win0_on = (win0); \
+    gDispIo.disp_ct.win1_on = (win1); \
+    gDispIo.disp_ct.objWin_on = (objwin)
 
 #define SetWin0Box(left, top, right, bottom) \
     gDispIo.win0_left = (left); \
@@ -173,38 +172,38 @@ extern short const gSinLut[];
     gDispIo.win1_bottom = (bottom)
 
 #define SetWin0Layers(bg0, bg1, bg2, bg3, obj) \
-    gDispIo.winCt.win0_enableBg0 = (bg0); \
-    gDispIo.winCt.win0_enableBg1 = (bg1); \
-    gDispIo.winCt.win0_enableBg2 = (bg2); \
-    gDispIo.winCt.win0_enableBg3 = (bg3); \
-    gDispIo.winCt.win0_enableObj = (obj)
+    gDispIo.win_ct.win0_enableBg0 = (bg0); \
+    gDispIo.win_ct.win0_enableBg1 = (bg1); \
+    gDispIo.win_ct.win0_enableBg2 = (bg2); \
+    gDispIo.win_ct.win0_enableBg3 = (bg3); \
+    gDispIo.win_ct.win0_enableObj = (obj)
 
 #define SetWin1Layers(bg0, bg1, bg2, bg3, obj) \
-    gDispIo.winCt.win1_enableBg0 = (bg0); \
-    gDispIo.winCt.win1_enableBg1 = (bg1); \
-    gDispIo.winCt.win1_enableBg2 = (bg2); \
-    gDispIo.winCt.win1_enableBg3 = (bg3); \
-    gDispIo.winCt.win1_enableObj = (obj)
+    gDispIo.win_ct.win1_enableBg0 = (bg0); \
+    gDispIo.win_ct.win1_enableBg1 = (bg1); \
+    gDispIo.win_ct.win1_enableBg2 = (bg2); \
+    gDispIo.win_ct.win1_enableBg3 = (bg3); \
+    gDispIo.win_ct.win1_enableObj = (obj)
 
 #define SetWObjLayers(bg0, bg1, bg2, bg3, obj) \
-    gDispIo.winCt.wobj_enableBg0 = (bg0); \
-    gDispIo.winCt.wobj_enableBg1 = (bg1); \
-    gDispIo.winCt.wobj_enableBg2 = (bg2); \
-    gDispIo.winCt.wobj_enableBg3 = (bg3); \
-    gDispIo.winCt.wobj_enableObj = (obj)
+    gDispIo.win_ct.wobj_enableBg0 = (bg0); \
+    gDispIo.win_ct.wobj_enableBg1 = (bg1); \
+    gDispIo.win_ct.wobj_enableBg2 = (bg2); \
+    gDispIo.win_ct.wobj_enableBg3 = (bg3); \
+    gDispIo.win_ct.wobj_enableObj = (obj)
 
 #define SetWOutLayers(bg0, bg1, bg2, bg3, obj) \
-    gDispIo.winCt.wout_enableBg0 = (bg0); \
-    gDispIo.winCt.wout_enableBg1 = (bg1); \
-    gDispIo.winCt.wout_enableBg2 = (bg2); \
-    gDispIo.winCt.wout_enableBg3 = (bg3); \
-    gDispIo.winCt.wout_enableObj = (obj)
+    gDispIo.win_ct.wout_enableBg0 = (bg0); \
+    gDispIo.win_ct.wout_enableBg1 = (bg1); \
+    gDispIo.win_ct.wout_enableBg2 = (bg2); \
+    gDispIo.win_ct.wout_enableBg3 = (bg3); \
+    gDispIo.win_ct.wout_enableObj = (obj)
 
 #define SetBlendConfig(eff, ca, cb, cy) \
-    gDispIo.blendCt.effect = (eff); \
-    gDispIo.blendCoeffA = (ca); \
-    gDispIo.blendCoeffB = (cb); \
-    gDispIo.blendY = (cy)
+    gDispIo.blend_ct.effect = (eff); \
+    gDispIo.blend_coef_a = (ca); \
+    gDispIo.blend_coef_b = (cb); \
+    gDispIo.blend_y = (cy)
 
 #define SetBlendAlpha(ca, cb) \
     SetBlendConfig(1, (ca), (cb), 0)
@@ -219,15 +218,15 @@ extern short const gSinLut[];
     SetBlendConfig(0, 0x10, 0, 0)
 
 #define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
-    *((u16*) &gDispIo.blendCt) &= 0xFFE0; \
-    *((u16*) &gDispIo.blendCt) |= ((bg0) + ((bg1) << 1) + ((bg2) << 2) + ((bg3) << 3) + ((obj) << 4))
+    *((u16*) &gDispIo.blend_ct) &= 0xFFE0; \
+    *((u16*) &gDispIo.blend_ct) |= ((bg0) + ((bg1) << 1) + ((bg2) << 2) + ((bg3) << 3) + ((obj) << 4))
 
 #define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
-    *((u16*) &gDispIo.blendCt) &= 0xE0FF; \
-    *((u16*) &gDispIo.blendCt) |= (((bg0) << 8) + ((bg1) << 9) + ((bg2) << 10) + ((bg3) << 11) + ((obj) << 12))
+    *((u16*) &gDispIo.blend_ct) &= 0xE0FF; \
+    *((u16*) &gDispIo.blend_ct) |= (((bg0) << 8) + ((bg1) << 9) + ((bg2) << 10) + ((bg3) << 11) + ((obj) << 12))
 
 #define SetBlendBackdropA(enable) \
-    gDispIo.blendCt.target1_bd_on = (enable);
+    gDispIo.blend_ct.target1_bd_on = (enable);
 
 #define SetBlendBackdropB(enable) \
-    gDispIo.blendCt.target2_bd_on = (enable);
+    gDispIo.blend_ct.target2_bd_on = (enable);

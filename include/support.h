@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -23,8 +22,8 @@ enum
 struct SupportInfo
 {
     /* 00 */ u8 pids[UNIT_SUPPORT_COUNT];
-    /* 0A */ u8 expBase[UNIT_SUPPORT_COUNT];
-    /* 14 */ u8 expGrowth[UNIT_SUPPORT_COUNT];
+    /* 0A */ u8 exp_base[UNIT_SUPPORT_COUNT];
+    /* 14 */ u8 exp_growth[UNIT_SUPPORT_COUNT];
     /* 1E */ u8 count;
 };
 
@@ -32,12 +31,12 @@ struct SupportBonuses
 {
     /* 00 */ u8 affinity;
 
-    /* 01 */ u8 bonusAttack;
-    /* 02 */ u8 bonusDefense;
-    /* 03 */ u8 bonusHit;
-    /* 04 */ u8 bonusAvoid;
-    /* 05 */ u8 bonusCrit;
-    /* 06 */ u8 bonusDodge;
+    /* 01 */ u8 bonus_attack;
+    /* 02 */ u8 bonus_defense;
+    /* 03 */ u8 bonus_hit;
+    /* 04 */ u8 bonus_avoid;
+    /* 05 */ u8 bonus_crit;
+    /* 06 */ u8 bonus_dodge;
 };
 
 int GetUnitSupportCount(struct Unit* unit);

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -61,7 +60,7 @@ ProcPtr StartEvent(u32 const* script);
 ProcPtr StartEventLocking(u32 const* script, ProcPtr parent);
 void DisplayBackground(int background);
 void DisplayBackgroundNoClear(int background);
-void TryMoveUnit(struct Unit* unit, int x, int y, s8 moveClosest);
+void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest);
 bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y);
 int GetNextAvailableBlueUnitId(int start);
 bool UnitInfoRequiresNoMovement(struct UnitInfo const* info);

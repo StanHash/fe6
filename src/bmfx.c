@@ -11,7 +11,7 @@
 #include "sound.h"
 #include "sprite.h"
 #include "face.h"
-#include "anim.h"
+#include "sprite-anim.h"
 #include "util.h"
 #include "msg.h"
 #include "bm.h"
@@ -45,7 +45,7 @@ struct RescueTransferAnimProc
     /* 2C */ int facing;
     /* 30 */ struct Unit* unit;
     /* 34 */ struct MuProc* mu;
-    /* 38 */ u8 moveScript[4];
+    /* 38 */ u8 movescr[4];
     /* 3C */ bool unk_3C;
 };
 
@@ -57,7 +57,7 @@ struct EquipInfoWindowProc
     /* 30 */ u8 x;
     /* 31 */ u8 y;
     /* 32 */ u8 iconPalid;
-    /* 33 */ s8 compareWeaponSlot;
+    /* 33 */ i8 compareWeaponSlot;
     /* 34 */ struct Text text[3];
 };
 
@@ -86,13 +86,13 @@ struct ShowMapChangeProc
     /* 34 */ int sndx;
 };
 
-static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc);
+static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_RescueTransferAnim[] =
 {
     PROC_19,
 
-    PROC_REPEAT(RescueTransferAnim_Loop),
+    PROC_REPEAT(RescueTransferSpriteAnim_Loop),
 
     PROC_END,
 };
@@ -102,7 +102,7 @@ struct ProcScr CONST_DATA ProcScr_RescueTransferAnimParentless[] =
     PROC_19,
 
     PROC_CALL(LockGame),
-    PROC_REPEAT(RescueTransferAnim_Loop),
+    PROC_REPEAT(RescueTransferSpriteAnim_Loop),
     PROC_CALL(UnlockGame),
 
     PROC_END,
@@ -266,38 +266,38 @@ struct ProcScr CONST_DATA ProcScr_PhaseIntro[] =
     PROC_END,
 };
 
-static void GasTrapAnim_Init(struct GenericProc* proc);
+static void GasTrapSpriteAnim_Init(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_GasTrapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(GasTrapAnim_Init),
-    PROC_WHILE(AnimProcExists),
+    PROC_CALL(GasTrapSpriteAnim_Init),
+    PROC_WHILE(SpriteAnimProcExists),
 
     PROC_END,
 };
 
-static void FireTrapAnim_Init(struct GenericProc* proc);
+static void FireTrapSpriteAnim_Init(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_FireTrapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(FireTrapAnim_Init),
-    PROC_WHILE(AnimProcExists),
+    PROC_CALL(FireTrapSpriteAnim_Init),
+    PROC_WHILE(SpriteAnimProcExists),
 
     PROC_END,
 };
 
-static void ArrowTrapAnim_Init(struct GenericProc* proc);
+static void ArrowTrapSpriteAnim_Init(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_ArrowTrapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(ArrowTrapAnim_Init),
-    PROC_WHILE(AnimProcExists),
+    PROC_CALL(ArrowTrapSpriteAnim_Init),
+    PROC_WHILE(SpriteAnimProcExists),
 
     PROC_SLEEP(15),
 
@@ -320,14 +320,14 @@ struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
     PROC_END,
 };
 
-static void PikeTrapAnim_Init(struct GenericProc* proc);
+static void PikeTrapSpriteAnim_Init(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(PikeTrapAnim_Init),
-    PROC_WHILE(AnimProcExists),
+    PROC_CALL(PikeTrapSpriteAnim_Init),
+    PROC_WHILE(SpriteAnimProcExists),
 
     PROC_END,
 };
@@ -553,7 +553,7 @@ static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
         return StartMuExt(unit->x, unit->y, JID_DISMOUNTED, 12);
 }
 
-static void RescueTransferAnim_Loop(struct RescueTransferAnimProc* proc)
+static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc* proc)
 {
     if (MuExistsActive())
         return;
@@ -578,14 +578,14 @@ void StartRescueTransferAnim(struct Unit* unit, int facing, bool arg_2, ProcPtr 
     proc->unit = unit;
     proc->facing = facing;
 
-    proc->moveScript[0] = MOVE_CMD_CAMERA_OFF;
-    proc->moveScript[1] = MOVE_CMD_MOVE_BASE + facing;
-    proc->moveScript[2] = MOVE_CMD_HALT;
+    proc->movescr[0] = MOVE_CMD_CAMERA_OFF;
+    proc->movescr[1] = MOVE_CMD_MOVE_BASE + facing;
+    proc->movescr[2] = MOVE_CMD_HALT;
 
     proc->unk_3C = arg_2;
 
     proc->mu = StartMuForRescueTransfterAnim(unit);
-    SetMuMoveScript(proc->mu, proc->moveScript);
+    SetMuMoveScript(proc->mu, proc->movescr);
 }
 
 void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
@@ -597,14 +597,14 @@ void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
     proc->unit = unit;
     proc->facing = facing;
 
-    proc->moveScript[0] = MOVE_CMD_CAMERA_OFF;
-    proc->moveScript[1] = MOVE_CMD_MOVE_BASE + facing;
-    proc->moveScript[2] = MOVE_CMD_HALT;
+    proc->movescr[0] = MOVE_CMD_CAMERA_OFF;
+    proc->movescr[1] = MOVE_CMD_MOVE_BASE + facing;
+    proc->movescr[2] = MOVE_CMD_HALT;
 
     proc->unk_3C = FALSE;
 
     proc->mu = StartMuForRescueTransfterAnim(unit);
-    SetMuMoveScript(proc->mu, proc->moveScript);
+    SetMuMoveScript(proc->mu, proc->movescr);
 }
 
 static void MapFade_Init(struct GenericProc* proc)
@@ -668,11 +668,11 @@ static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
     {
         unit = GetUnitByPid(PID_ROY);
 
-        gPlaySt.xCursor = unit->x;
-        gPlaySt.yCursor = unit->y;
+        gPlaySt.x_cursor = unit->x;
+        gPlaySt.y_cursor = unit->y;
     }
 
-    if (!gPlaySt.configNoAutoCursor)
+    if (!gPlaySt.config_no_auto_cursor)
     {
         unit = GetUnitByPid(PID_ROY);
 
@@ -681,8 +681,8 @@ static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
     }
     else
     {
-        *xOut = gPlaySt.xCursor;
-        *yOut = gPlaySt.yCursor;
+        *xOut = gPlaySt.x_cursor;
+        *yOut = gPlaySt.y_cursor;
     }
 }
 
@@ -697,7 +697,7 @@ static void GetAiInitialCursorPosition(int* xOut, int* yOut)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_HIDDEN | US_BIT9))
@@ -770,7 +770,7 @@ static int DiscardItem_PostItemSelect(ProcPtr proc)
     EndSubtitleHelp();
     EndEquipInfoWindow();
 
-    if (gBmSt.supplyItemOverflow == 0)
+    if (gBmSt.convoy_item_overflow == 0)
     {
         Proc_Goto(proc, 99);
         return TRUE;
@@ -787,7 +787,7 @@ static int DiscardItem_0801C58C(ProcPtr proc)
 
 static int DiscardItem_0801C59C(ProcPtr proc)
 {
-    return AddSupplyItem(gBmSt.supplyItemOverflow);
+    return AddSupplyItem(gBmSt.convoy_item_overflow);
 }
 
 void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
@@ -796,7 +796,7 @@ void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
 
     if (!UnitAddItem(unit, item))
     {
-        gBmSt.inventoryItemOverflow = item;
+        gBmSt.inventory_item_overflow = item;
 
         StartFace(0, GetUnitFid(unit), 22*8, 4, FACE_DISP_KIND(FACE_96x80));
         StartEquipInfoWindow(parent, unit, 15, 10);
@@ -813,7 +813,7 @@ int sub_801C620(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int sub_801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    int item = gBmSt.inventoryItemOverflow;
+    int item = gBmSt.inventory_item_overflow;
 
     Text_SetColor(&ent->text, TEXT_COLOR_SYSTEM_BLUE);
     sub_80167E4(&ent->text, item, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -826,14 +826,14 @@ int sub_801C670(struct MenuProc* menu, struct MenuEntProc* ent)
     AddSupplyItem(gActiveUnit->items[ent->id]);
 
     UnitRemoveItem(gActiveUnit, ent->id);
-    UnitAddItem(gActiveUnit, gBmSt.inventoryItemOverflow);
+    UnitAddItem(gActiveUnit, gBmSt.inventory_item_overflow);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
 int sub_801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    AddSupplyItem(gBmSt.inventoryItemOverflow);
+    AddSupplyItem(gBmSt.inventory_item_overflow);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
@@ -885,28 +885,28 @@ static void EquipInfoWindow_Loop(struct EquipInfoWindowProc* proc)
     if (proc->compareWeaponSlot < 0)
         return;
 
-    if (gBattleUnitA.battleAttack > gBattleUnitB.battleAttack)
+    if (gBattleUnitA.battle_attack > gBattleUnitB.battle_attack)
         PutSysArrow(51 + 8*proc->x, 8*(proc->y+3), FALSE);
 
-    if (gBattleUnitA.battleAttack < gBattleUnitB.battleAttack)
+    if (gBattleUnitA.battle_attack < gBattleUnitB.battle_attack)
         PutSysArrow(51 + 8*proc->x, 8*(proc->y+3), TRUE);
 
-    if (gBattleUnitA.battleHit > gBattleUnitB.battleHit)
+    if (gBattleUnitA.battle_hit > gBattleUnitB.battle_hit)
         PutSysArrow(51 + 8*proc->x, 8*(proc->y+5), FALSE);
 
-    if (gBattleUnitA.battleHit < gBattleUnitB.battleHit)
+    if (gBattleUnitA.battle_hit < gBattleUnitB.battle_hit)
         PutSysArrow(51 + 8*proc->x, 8*(proc->y+5), TRUE);
 
-    if (gBattleUnitA.battleCrit > gBattleUnitB.battleCrit)
+    if (gBattleUnitA.battle_crit > gBattleUnitB.battle_crit)
         PutSysArrow(99 + 8*proc->x, 8*(proc->y+3), FALSE);
 
-    if (gBattleUnitA.battleCrit < gBattleUnitB.battleCrit)
+    if (gBattleUnitA.battle_crit < gBattleUnitB.battle_crit)
         PutSysArrow(99 + 8*proc->x, 8*(proc->y+3), TRUE);
 
-    if (gBattleUnitA.battleAvoid > gBattleUnitB.battleAvoid)
+    if (gBattleUnitA.battle_avoid > gBattleUnitB.battle_avoid)
         PutSysArrow(99 + 8*proc->x, 8*(proc->y+5), FALSE);
 
-    if (gBattleUnitA.battleAvoid < gBattleUnitB.battleAvoid)
+    if (gBattleUnitA.battle_avoid < gBattleUnitB.battle_avoid)
         PutSysArrow(99 + 8*proc->x, 8*(proc->y+5), TRUE);
 }
 
@@ -933,13 +933,13 @@ void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y)
 
     BattleGenerateDisplayStats(proc->unit, -1);
 
-    gBattleUnitB.battleAttack = gBattleUnitA.battleAttack;
-    gBattleUnitB.battleHit = gBattleUnitA.battleHit;
-    gBattleUnitB.battleCrit = gBattleUnitA.battleCrit;
-    gBattleUnitB.battleAvoid = gBattleUnitA.battleAvoid;
+    gBattleUnitB.battle_attack = gBattleUnitA.battle_attack;
+    gBattleUnitB.battle_hit = gBattleUnitA.battle_hit;
+    gBattleUnitB.battle_crit = gBattleUnitA.battle_crit;
+    gBattleUnitB.battle_avoid = gBattleUnitA.battle_avoid;
 }
 
-void UpdateEquipInfoWindow(int itemSlot)
+void UpdateEquipInfoWindow(int item_slot)
 {
     struct EquipInfoWindowProc* proc = Proc_Find(ProcScr_EquipInfoWindow);
 
@@ -951,20 +951,20 @@ void UpdateEquipInfoWindow(int itemSlot)
 
     sub_8041358(proc->x, proc->y, 14, 8, 0);
 
-    switch (itemSlot)
+    switch (item_slot)
     {
 
     case ITEMSLOT_INV0 ... ITEMSLOT_INV_COUNT - 1:
-        item = proc->unit->items[itemSlot];
+        item = proc->unit->items[item_slot];
         break;
 
     case ITEMSLOT_OVERFLOW:
-        item = gBmSt.inventoryItemOverflow;
+        item = gBmSt.inventory_item_overflow;
         break;
 
     default:
-        item = itemSlot;
-        itemSlot = ITEMSLOT_BALLISTA;
+        item = item_slot;
+        item_slot = ITEMSLOT_BALLISTA;
 
     }
 
@@ -992,10 +992,10 @@ void UpdateEquipInfoWindow(int itemSlot)
             line++;
         }
 
-        gBattleUnitA.battleAttack = gBattleUnitB.battleAttack;
-        gBattleUnitA.battleHit = gBattleUnitB.battleHit;
-        gBattleUnitA.battleCrit = gBattleUnitB.battleCrit;
-        gBattleUnitA.battleAvoid = gBattleUnitB.battleAvoid;
+        gBattleUnitA.battle_attack = gBattleUnitB.battle_attack;
+        gBattleUnitA.battle_hit = gBattleUnitB.battle_hit;
+        gBattleUnitA.battle_crit = gBattleUnitB.battle_crit;
+        gBattleUnitA.battle_avoid = gBattleUnitB.battle_avoid;
 
         PutText(proc->text + 0, gBg0Tm + TM_OFFSET(proc->x+1, proc->y+1));
         PutText(proc->text + 1, gBg0Tm + TM_OFFSET(proc->x+1, proc->y+3));
@@ -1010,14 +1010,14 @@ void UpdateEquipInfoWindow(int itemSlot)
 
         int color;
 
-        BattleGenerateDisplayStats(proc->unit, itemSlot);
+        BattleGenerateDisplayStats(proc->unit, item_slot);
 
-        if (itemSlot == ITEMSLOT_BALLISTA)
+        if (item_slot == ITEMSLOT_BALLISTA)
         {
-            gBattleUnitB.battleAttack = gBattleUnitA.battleAttack;
-            gBattleUnitB.battleHit = gBattleUnitA.battleHit;
-            gBattleUnitB.battleCrit = gBattleUnitA.battleCrit;
-            gBattleUnitB.battleAvoid = gBattleUnitA.battleAvoid;
+            gBattleUnitB.battle_attack = gBattleUnitA.battle_attack;
+            gBattleUnitB.battle_hit = gBattleUnitA.battle_hit;
+            gBattleUnitB.battle_crit = gBattleUnitA.battle_crit;
+            gBattleUnitB.battle_avoid = gBattleUnitA.battle_avoid;
         }
 
         if (CanUnitUseWeapon(proc->unit, gBattleUnitA.weapon))
@@ -1031,10 +1031,10 @@ void UpdateEquipInfoWindow(int itemSlot)
         Text_InsertDrawString(proc->text + 1, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x95\x4B\x8E\x45")); // "必殺"
         Text_InsertDrawString(proc->text + 2, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x89\xF1\x94\xF0")); // "回避"
 
-        Text_InsertDrawNumberOrBlank(proc->text + 1, 0x20+4, color, gBattleUnitA.battleAttack);
-        Text_InsertDrawNumberOrBlank(proc->text + 2, 0x20+4, color, gBattleUnitA.battleHit);
-        Text_InsertDrawNumberOrBlank(proc->text + 1, 0x50+4, color, gBattleUnitA.battleCrit);
-        Text_InsertDrawNumberOrBlank(proc->text + 2, 0x50+4, color, gBattleUnitA.battleAvoid);
+        Text_InsertDrawNumberOrBlank(proc->text + 1, 0x20+4, color, gBattleUnitA.battle_attack);
+        Text_InsertDrawNumberOrBlank(proc->text + 2, 0x20+4, color, gBattleUnitA.battle_hit);
+        Text_InsertDrawNumberOrBlank(proc->text + 1, 0x50+4, color, gBattleUnitA.battle_crit);
+        Text_InsertDrawNumberOrBlank(proc->text + 2, 0x50+4, color, gBattleUnitA.battle_avoid);
 
         PutText(proc->text + 0, gBg0Tm + TM_OFFSET(proc->x+1, proc->y+1));
         PutText(proc->text + 1, gBg0Tm + TM_OFFSET(proc->x+1, proc->y+3));
@@ -1135,8 +1135,8 @@ static void PhaseIntroVMatchHi(void)
         | BLDCNT_TARGETA(0, 1, 0, 0, 0)
         | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.altBlendB_ca;
-    REG_BLDCB = gBmSt.altBlendB_cb;
+    REG_BLDCA = gBmSt.alt_blend_b_ca;
+    REG_BLDCB = gBmSt.alt_blend_b_cb;
 
     SetNextVCount(72);
     SetOnVMatch(PhaseIntroVMatchMid);
@@ -1148,8 +1148,8 @@ static void PhaseIntroVMatchMid(void)
         | BLDCNT_TARGETA(1, 0, 0, 0, 0)
         | BLDCNT_TARGETB(0, 1, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.altBlendA_ca;
-    REG_BLDCB = gBmSt.altBlendA_cb;
+    REG_BLDCA = gBmSt.alt_blend_a_ca;
+    REG_BLDCB = gBmSt.alt_blend_a_cb;
 
     SetNextVCount(96);
     SetOnVMatch(PhaseIntroVMatchLo);
@@ -1161,8 +1161,8 @@ static void PhaseIntroVMatchLo(void)
         | BLDCNT_TARGETA(0, 1, 0, 0, 0)
         | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
-    REG_BLDCA = gBmSt.altBlendB_ca;
-    REG_BLDCB = gBmSt.altBlendB_cb;
+    REG_BLDCA = gBmSt.alt_blend_b_ca;
+    REG_BLDCB = gBmSt.alt_blend_b_cb;
 
     SetNextVCount(0);
     SetOnVMatch(PhaseIntroVMatchHi);
@@ -1193,8 +1193,8 @@ static void PhaseIntroText_InLoop(struct GenericProc* proc)
 {
     SetBgOffset(0, Interpolate(INTERPOLATE_CUBIC, -28, -64, proc->unk4C, 0x10), 0);
 
-    gBmSt.altBlendA_ca++;
-    gBmSt.altBlendA_cb--;
+    gBmSt.alt_blend_a_ca++;
+    gBmSt.alt_blend_a_cb--;
 
     proc->unk4C--;
 
@@ -1209,8 +1209,8 @@ static void PhaseIntroText_OutLoop(struct GenericProc* proc)
 {
     SetBgOffset(0, Interpolate(INTERPOLATE_RCUBIC, +36, -28, proc->unk4C, 0x10), 0);
 
-    gBmSt.altBlendA_ca--;
-    gBmSt.altBlendA_cb++;
+    gBmSt.alt_blend_a_ca--;
+    gBmSt.alt_blend_a_cb++;
 
     proc->unk4C--;
 
@@ -1319,8 +1319,8 @@ static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc)
 
     blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->unk4C, 0x20);
 
-    gBmSt.altBlendB_ca = blend;
-    gBmSt.altBlendB_cb = 0x10 - blend;
+    gBmSt.alt_blend_b_ca = blend;
+    gBmSt.alt_blend_b_cb = 0x10 - blend;
 
     proc->unk4C++;
 
@@ -1338,8 +1338,8 @@ static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc)
 
     blend = Interpolate(INTERPOLATE_LINEAR, 0, 7, proc->unk4C, 0x20);
 
-    gBmSt.altBlendB_ca = blend;
-    gBmSt.altBlendB_cb = 0x10 - blend;
+    gBmSt.alt_blend_b_ca = blend;
+    gBmSt.alt_blend_b_cb = 0x10 - blend;
 
     proc->unk4C--;
 
@@ -1394,16 +1394,16 @@ static void PhaseIntro_InitDisp(ProcPtr proc)
     SetWin0Layers(1, 0, 1, 1, 1);
     SetWOutLayers(1, 1, 1, 1, 1);
 
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
-    gBmSt.altBlendB_ca = 0;
-    gBmSt.altBlendB_cb = 0x10;
+    gBmSt.alt_blend_b_ca = 0;
+    gBmSt.alt_blend_b_cb = 0x10;
 
-    gBmSt.altBlendA_ca = 0;
-    gBmSt.altBlendA_cb = 0x10;
+    gBmSt.alt_blend_a_ca = 0;
+    gBmSt.alt_blend_a_cb = 0x10;
 
-    SetBlendAlpha(gBmSt.altBlendB_ca, gBmSt.altBlendB_cb);
+    SetBlendAlpha(gBmSt.alt_blend_b_ca, gBmSt.alt_blend_b_cb);
 
     SetBlendTargetA(0, 1, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 1, 1);
@@ -1414,7 +1414,7 @@ static void PhaseIntro_InitDisp(ProcPtr proc)
 
 static void PhaseIntro_WaitForEnd(ProcPtr proc)
 {
-    SetBlendAlpha(gBmSt.altBlendB_ca, gBmSt.altBlendB_cb);
+    SetBlendAlpha(gBmSt.alt_blend_b_ca, gBmSt.alt_blend_b_cb);
 
     if (Proc_Find(ProcScr_PhaseIntroText) == NULL && Proc_Find(ProcScr_PhaseIntroSquares) == NULL && Proc_Find(ProcScr_PhaseIntroBlendBox) == NULL)
     {
@@ -1440,7 +1440,7 @@ void sub_801D680(int x, int y)
     SetAutoMuMoveScript(gWorkingMoveScr);
 }
 
-static void GasTrapAnim_Init(struct GenericProc* proc)
+static void GasTrapSpriteAnim_Init(struct GenericProc* proc)
 {
     int x, y, oam2;
 
@@ -1453,24 +1453,24 @@ static void GasTrapAnim_Init(struct GenericProc* proc)
 
     case FACING_UP:
         img = Img_GasTrapVertical;
-        anim = Anim_GasTrapVertical;
+        anim = SpriteAnim_GasTrapVertical;
         break;
 
     case FACING_DOWN:
         img = Img_GasTrapVertical;
-        anim = Anim_GasTrapVertical;
+        anim = SpriteAnim_GasTrapVertical;
         animNum = 1;
         break;
 
     case FACING_LEFT:
         img = Img_GasTrapHorizontal;
-        anim = Anim_GasTrapHorizontal;
+        anim = SpriteAnim_GasTrapHorizontal;
         animNum = 1;
         break;
 
     case FACING_RIGHT:
         img = Img_GasTrapHorizontal;
-        anim = Anim_GasTrapHorizontal;
+        anim = SpriteAnim_GasTrapHorizontal;
         break;
 
     }
@@ -1482,7 +1482,7 @@ static void GasTrapAnim_Init(struct GenericProc* proc)
     y = proc->y*16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
-    StartAnimProc(anim, x, y, oam2, animNum, 0);
+    StartSpriteAnimProc(anim, x, y, oam2, animNum, 0);
     PlaySeSpacial(SONG_BA, x+8);
 }
 
@@ -1497,7 +1497,7 @@ void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
     proc->unk4A = facing;
 }
 
-static void FireTrapAnim_Init(struct GenericProc* proc)
+static void FireTrapSpriteAnim_Init(struct GenericProc* proc)
 {
     int x, y, oam2;
 
@@ -1508,7 +1508,7 @@ static void FireTrapAnim_Init(struct GenericProc* proc)
     y = proc->y*16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
-    StartAnimProc(Anim_FireTrap, x, y, oam2, 0, 0);
+    StartSpriteAnimProc(SpriteAnim_FireTrap, x, y, oam2, 0, 0);
     PlaySeSpacial(SONG_BF, x+8);
 }
 
@@ -1522,7 +1522,7 @@ void StartFireTrapAnim(ProcPtr parent, int x, int y)
     proc->y = y;
 }
 
-static void ArrowTrapAnim_Init(struct GenericProc* proc)
+static void ArrowTrapSpriteAnim_Init(struct GenericProc* proc)
 {
     int x, oam2;
 
@@ -1532,7 +1532,7 @@ static void ArrowTrapAnim_Init(struct GenericProc* proc)
     x = proc->x*16 + 8 - gBmSt.camera.x;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
-    StartAnimProc(Anim_ArrowTrap, x, DISPLAY_HEIGHT/2, oam2, 0, 0);
+    StartSpriteAnimProc(SpriteAnim_ArrowTrap, x, DISPLAY_HEIGHT/2, oam2, 0, 0);
     PlaySeSpacial(SONG_BC, x+8);
 
     CameraMoveWatchPosition(proc, proc->x, 31);
@@ -1595,7 +1595,7 @@ void sub_801D920(ProcPtr parent, int unused, int trapid)
     proc->altSong = trap->extra;
 }
 
-static void PikeTrapAnim_Init(struct GenericProc* proc)
+static void PikeTrapSpriteAnim_Init(struct GenericProc* proc)
 {
     int x, y, oam2;
 
@@ -1606,7 +1606,7 @@ static void PikeTrapAnim_Init(struct GenericProc* proc)
     y = proc->y*16 + 8 - gBmSt.camera.y;
     oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
 
-    StartAnimProc(Anim_PikeTrap, x, y, oam2, proc->unk4A, 0);
+    StartSpriteAnimProc(SpriteAnim_PikeTrap, x, y, oam2, proc->unk4A, 0);
     PlaySeSpacial(0xBB, x + 8);
 }
 
@@ -1805,8 +1805,8 @@ static void ChapterIntro_Init(struct GenericProc* proc)
     SetWin0Layers(1, 1, 1, 1, 1);
     SetWOutLayers(0, 0, 1, 1, 1);
 
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
     SetWin0Box(0, 0, 0, 0);
 
@@ -2003,12 +2003,12 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
     ApplyUnitSpritePalettes();
     ApplySystemObjectsGraphics();
 
-    val = GetChapterInfo(gPlaySt.chapter)->unk0F;
+    val = GetChapterInfo(gPlaySt.chapter)->unk_0F;
     val = GetCameraCenteredX(val*16);
     val = (val + 15) & 0x1F0;
     gBmSt.camera.x = val;
 
-    val = GetChapterInfo(gPlaySt.chapter)->unk10;
+    val = GetChapterInfo(gPlaySt.chapter)->unk_10;
     val = GetCameraCenteredY(val*16);
     val = (val + 15) & 0x3F0;
     gBmSt.camera.y = val;
@@ -2054,7 +2054,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
         proc->unk4C--;
 
         if (proc->unk4C == 24)
-            StartBgm(GetChapterInfo(gPlaySt.chapter)->songOpeningBgm, NULL);
+            StartBgm(GetChapterInfo(gPlaySt.chapter)->song_opening_bgm, NULL);
 
         if (proc->unk4C < 0)
         {
@@ -2137,7 +2137,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
 
     proc->unk4C = 14;
 
-    StartBgm(GetChapterInfo(gPlaySt.chapter)->songOpeningBgm, NULL);
+    StartBgm(GetChapterInfo(gPlaySt.chapter)->song_opening_bgm, NULL);
 }
 
 static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
@@ -2215,10 +2215,10 @@ static void GameOverScreen_Init(struct GenericProc* proc)
 
     StartBgm(SONG_37, NULL);
 
-    gDispIo.bg0Ct.priority = 0;
-    gDispIo.bg1Ct.priority = 1;
-    gDispIo.bg2Ct.priority = 2;
-    gDispIo.bg3Ct.priority = 3;
+    gDispIo.bg0_ct.priority = 0;
+    gDispIo.bg1_ct.priority = 1;
+    gDispIo.bg2_ct.priority = 2;
+    gDispIo.bg3_ct.priority = 3;
 
     SetBgChrOffset(2, 0);
     SetBgChrOffset(3, 0);

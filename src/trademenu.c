@@ -191,11 +191,11 @@ static void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
 
     StartSpriteRefresher(proc, 7, 0, -4, Sprite_085C6234, OAM2_PAL(OBJPAL_TRADEMENU_8) + OAM2_CHR(OBJCHR_TRADEMENU_240) + OAM2_LAYER(2));
 
-    str = DecodeMsg(proc->units[TRADEMENU_UNIT_LEFT]->person->msgName);
+    str = DecodeMsg(proc->units[TRADEMENU_UNIT_LEFT]->pinfo->msg_name);
     x = (UNIT_PANEL_WIDTH*8 - GetStringTextLen(str))/2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 0), TEXT_COLOR_SYSTEM_WHITE, x, UNIT_PANEL_WIDTH, str);
 
-    str = DecodeMsg(proc->units[TRADEMENU_UNIT_RIGHT]->person->msgName);
+    str = DecodeMsg(proc->units[TRADEMENU_UNIT_RIGHT]->pinfo->msg_name);
     x = (UNIT_PANEL_WIDTH*8 - GetStringTextLen(str))/2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(24, 0), TEXT_COLOR_SYSTEM_WHITE, x, UNIT_PANEL_WIDTH, str);
 

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -9,7 +8,7 @@ typedef void(*ProcFunc)(ProcPtr proc);
 
 struct ProcScr
 {
-    short cmdid;
+    short cmd;
     short imm;
     void const* ptr;
 };
@@ -49,15 +48,15 @@ enum
 #define PROC_CALL(func)                   { PROC_CMD_CALL, 0, (func) }
 #define PROC_REPEAT(func)                 { PROC_CMD_REPEAT, 0, (func) }
 #define PROC_ONEND(func)                  { PROC_CMD_ONEND, 0, (func) }
-#define PROC_START_CHILD(procScr)         { PROC_CMD_START_CHILD, 0, (procScr) }
-#define PROC_START_CHILD_LOCKING(procScr) { PROC_CMD_START_CHILD_BLOCKING, 1, (procScr) }
-#define PROC_START_BUGGED(procScr)        { PROC_CMD_START_BUGGED, 0, (procScr) }
-#define PROC_WHILE_EXISTS(procScr)        { PROC_CMD_WHILE_EXISTS, 0, (procScr) }
-#define PROC_END_EACH(procScr)            { PROC_CMD_END_EACH, 0, (procScr) }
-#define PROC_BREAK_EACH(procScr)          { PROC_CMD_BREAK_EACH, 0, (procScr) }
+#define PROC_START_CHILD(procscr)         { PROC_CMD_START_CHILD, 0, (procscr) }
+#define PROC_START_CHILD_LOCKING(procscr) { PROC_CMD_START_CHILD_BLOCKING, 1, (procscr) }
+#define PROC_START_BUGGED(procscr)        { PROC_CMD_START_BUGGED, 0, (procscr) }
+#define PROC_WHILE_EXISTS(procscr)        { PROC_CMD_WHILE_EXISTS, 0, (procscr) }
+#define PROC_END_EACH(procscr)            { PROC_CMD_END_EACH, 0, (procscr) }
+#define PROC_BREAK_EACH(procscr)          { PROC_CMD_BREAK_EACH, 0, (procscr) }
 #define PROC_LABEL(label)                 { PROC_CMD_LABEL, (label), 0 }
 #define PROC_GOTO(label)                  { PROC_CMD_GOTO, (label), 0 }
-#define PROC_GOTO_SCR(procScr)            { PROC_CMD_GOTO_SCR, 0, (procScr) }
+#define PROC_GOTO_SCR(procscr)            { PROC_CMD_GOTO_SCR, 0, (procscr) }
 #define PROC_SLEEP(duration)              { PROC_CMD_SLEEP, (duration), 0 }
 #define PROC_MARK(mark)                   { PROC_CMD_MARK, (mark), 0 }
 #define PROC_BLOCK                        { PROC_CMD_BLOCK, 0, 0 }
@@ -71,23 +70,23 @@ enum
 #define PROC_CALL_ARG(func, arg)          { PROC_CMD_CALL_ARG, (arg), (func) }
 #define PROC_19                           { PROC_CMD_19, 0, 0 }
 
-#define PROC_HEADER                                                                        \
-    struct ProcScr const* proc_script; /* pointer to proc script */                        \
-    struct ProcScr const* proc_scrCur; /* pointer to currently executing script command */ \
-    ProcFunc proc_endFunc; /* callback to run upon delegint the process */                 \
-    ProcFunc proc_repeatFunc; /* callback to run once each frame. */                       \
-                          /* disables script execution when not null */                    \
-    char const* proc_name;                                                                 \
-    ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */        \
-                         /* this member is an integer which is the root index. */          \
-    ProcPtr proc_child; /* pointer to most recently added child */                         \
-    ProcPtr proc_next; /* next sibling */                                                  \
-    ProcPtr proc_prev; /* previous sibling */                                              \
-    s16 proc_sleepTime;                                                                    \
-    u8 proc_mark;                                                                          \
-    u8 proc_flags;                                                                         \
-    u8 proc_lockCnt; /* wait semaphore. Process execution */                               \
-                     /* is blocked when this is nonzero. */                                \
+#define PROC_HEADER                                                                           \
+    struct ProcScr const* proc_script; /* pointer to proc script */                           \
+    struct ProcScr const* proc_script_pc; /* pointer to currently executing script command */ \
+    ProcFunc proc_end_func; /* callback to run upon delegint the process */                   \
+    ProcFunc proc_repeat_func; /* callback to run once each frame. */                         \
+                          /* disables script execution when not null */                       \
+    char const* proc_name;                                                                    \
+    ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */           \
+                         /* this member is an integer which is the root index. */             \
+    ProcPtr proc_child; /* pointer to most recently added child */                            \
+    ProcPtr proc_next; /* next sibling */                                                     \
+    ProcPtr proc_prev; /* previous sibling */                                                 \
+    i16 proc_sleep_clock;                                                                     \
+    u8 proc_mark;                                                                             \
+    u8 proc_flags;                                                                            \
+    u8 proc_lock_cnt; /* wait semaphore. Process execution */                                 \
+                      /* is blocked when this is nonzero. */                                  \
 
 struct GenericProc
 {

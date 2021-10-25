@@ -19,7 +19,7 @@ void VBlankIntrWait(void);
 
 u16 Sqrt(u32 num);
 
-u16 ArcTan2(s16 x, s16 y);
+u16 ArcTan2(i16 x, i16 y);
 
 #define CPU_SET_SRC_FIXED 0x01000000
 #define CPU_SET_16BIT     0x00000000
@@ -31,9 +31,9 @@ void CpuSet(const void *src, void *dest, u32 control);
 
 void CpuFastSet(const void *src, void *dest, u32 control);
 
-void BgAffineSet(struct BgAffineSrcData *src, struct BgAffineDstData *dest, s32 count);
+void BgAffineSet(struct BgAffineSrcData *src, struct BgAffineDstData *dest, i32 count);
 
-void ObjAffineSet(struct ObjAffineSrcData *src, void *dest, s32 count, s32 offset);
+void ObjAffineSet(struct ObjAffineSrcData *src, void *dest, i32 count, i32 offset);
 
 void LZ77UnCompWram(u8 const* src, void* dst);
 

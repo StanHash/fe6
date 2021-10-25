@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -7,15 +6,15 @@
 
 struct AiCombatScoreCoefficients
 {
-    /* 00 */ u8 coeffDamageDealt;
-    /* 01 */ u8 coeffLowHpOpponent;
-    /* 02 */ u8 coeffFriendZone;
-    /* 03 */ u8 coeffJobRankBonus;
-    /* 04 */ u8 coeffTurnNumber;
-    /* 05 */ u8 coeffDamageTaken;
-    /* 06 */ u8 coeffDanger;
-    /* 07 */ u8 coeffLowHpSelf;
-    /* 08 */ u8 jobRankBonuses[9];
+    /* 00 */ u8 coef_damage_dealt;
+    /* 01 */ u8 coef_low_hp_opponent;
+    /* 02 */ u8 coef_friend_zone;
+    /* 03 */ u8 coef_job_rank_bonus;
+    /* 04 */ u8 coef_turn_number;
+    /* 05 */ u8 coef_damage_taken;
+    /* 06 */ u8 coef_danger;
+    /* 07 */ u8 coef_low_hp_self;
+    /* 08 */ u8 job_rank_bonuses[9];
 };
 
 struct AiEscapePt
@@ -26,8 +25,8 @@ struct AiEscapePt
 
 struct AiHealThreshold
 {
-    u8 exitThreshold;
-    u8 enterThreshold;
+    u8 exit_threshold;
+    u8 enter_threshold;
 };
 
 extern u8 CONST_DATA gUnk_085C864C[];

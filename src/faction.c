@@ -16,7 +16,7 @@ int CountFactionMoveableUnits(int faction)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_TURN_ENDED | US_DEAD | US_NOT_DEPLOYED | US_RESCUED | US_UNDER_A_ROOF))
@@ -31,7 +31,7 @@ int CountFactionMoveableUnits(int faction)
     return count;
 }
 
-int CountFactionUnitsWithoutState(int faction, int prohibitedState)
+int CountFactionUnitsWithoutState(int faction, int prohibited_state)
 {
     int i, count = 0;
 
@@ -42,10 +42,10 @@ int CountFactionUnitsWithoutState(int faction, int prohibitedState)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
-        if (unit->state & prohibitedState)
+        if (unit->state & prohibited_state)
             continue;
 
         count++;

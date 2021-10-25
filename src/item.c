@@ -31,17 +31,17 @@ inline int GetItemIid(int item)
 
 inline char const* GetItemName(int item)
 {
-    return DecodeMsg(GetItemInfo(ITEM_IID(item))->msgName);
+    return DecodeMsg(GetItemInfo(ITEM_IID(item))->msg_name);
 }
 
 inline int GetItemDescMsg(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->msgDesc;
+    return GetItemInfo(ITEM_IID(item))->msg_desc;
 }
 
 inline int GetItemUseDescMsg(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->msgDescUse;
+    return GetItemInfo(ITEM_IID(item))->msg_desc_use;
 }
 
 inline int GetItemKind(int item)
@@ -95,27 +95,27 @@ inline int GetItemCrit(int item)
 
 inline int GetItemValue(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->costPerUse * GetItemUses(item);
+    return GetItemInfo(ITEM_IID(item))->cost_per_use * GetItemUses(item);
 }
 
 inline int GetItemMinRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encodedRange >> 4;
+    return GetItemInfo(ITEM_IID(item))->encoded_range >> 4;
 }
 
 inline int GetItemMaxRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encodedRange & 0xF;
+    return GetItemInfo(ITEM_IID(item))->encoded_range & 0xF;
 }
 
 inline int GetItemEncodedRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encodedRange;
+    return GetItemInfo(ITEM_IID(item))->encoded_range;
 }
 
 inline int GetItemRequiredExp(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->requiredExp;
+    return GetItemInfo(ITEM_IID(item))->required_wexp;
 }
 
 inline u8 const* GetItemEffectiveness(int item)
@@ -138,22 +138,22 @@ inline int GetItemIcon(int item)
 
 inline int GetItemWeaponEffect(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->weaponEffect;
+    return GetItemInfo(ITEM_IID(item))->weapon_effect;
 }
 
 inline int GetItemEffect(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->itemEffect;
+    return GetItemInfo(ITEM_IID(item))->item_effect;
 }
 
 inline int GetItemCostPerUse(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->costPerUse;
+    return GetItemInfo(ITEM_IID(item))->cost_per_use;
 }
 
 inline int GetItemMaxValue(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->costPerUse * GetItemMaxUses(item);
+    return GetItemInfo(ITEM_IID(item))->cost_per_use * GetItemMaxUses(item);
 }
 
 int GetItemHpBonus(int item)
@@ -259,7 +259,7 @@ int CreateItem(int item)
 
 bool CanUnitUseWeapon(struct Unit* unit, int item)
 {
-    int requiredExp, unitExp;
+    int required_wexp, unitExp;
 
     if (!item)
         return FALSE;
@@ -290,15 +290,15 @@ bool CanUnitUseWeapon(struct Unit* unit, int item)
     if ((unit->status == UNIT_STATUS_SILENCED) && (GetItemAttributes(item) & ITEM_ATTR_MAGIC))
         return FALSE;
 
-    requiredExp = GetItemRequiredExp(item);
-    unitExp = (unit->weaponExp[GetItemKind(item)]);
+    required_wexp = GetItemRequiredExp(item);
+    unitExp = (unit->wexp[GetItemKind(item)]);
 
-    return (unitExp >= requiredExp) ? TRUE : FALSE;
+    return (unitExp >= required_wexp) ? TRUE : FALSE;
 }
 
 bool CanUnitUseStaff(struct Unit* unit, int item)
 {
-    int requiredExp, unitExp;
+    int required_wexp, unitExp;
 
     if (!item)
         return FALSE;
@@ -315,34 +315,34 @@ bool CanUnitUseStaff(struct Unit* unit, int item)
     if (unit->status == UNIT_STATUS_BERSERK)
         return FALSE;
 
-    requiredExp = GetItemRequiredExp(item);
-    unitExp = (unit->weaponExp[GetItemKind(item)]);
+    required_wexp = GetItemRequiredExp(item);
+    unitExp = (unit->wexp[GetItemKind(item)]);
 
-    return (unitExp >= requiredExp) ? TRUE : FALSE;
+    return (unitExp >= required_wexp) ? TRUE : FALSE;
 }
 
-void sub_8016694(struct Text* text, int item, bool isUseable, u16* tm)
+void sub_8016694(struct Text* text, int item, bool is_usable, u16* tm)
 {
-    Text_SetParams(text, 0, (isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
+    Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
 
     PutText(text, tm + 2);
 
-    PutNumberOrBlank(tm + 11, isUseable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
+    PutNumberOrBlank(tm + 11, is_usable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
 
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016720(struct Text* text, int item, bool isUseable, u16* tm)
+void sub_8016720(struct Text* text, int item, bool is_usable, u16* tm)
 {
-    Text_SetParams(text, 0, (isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
+    Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
 
     PutText(text, tm + 2);
 
-    PutNumberOrBlank(tm + 10, isUseable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
-    PutNumberOrBlank(tm + 13, isUseable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemMaxUses(item));
-    PutSpecialChar(tm + 11, isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_SLASH);
+    PutNumberOrBlank(tm + 10, is_usable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemUses(item));
+    PutNumberOrBlank(tm + 13, is_usable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY, GetItemMaxUses(item));
+    PutSpecialChar(tm + 11, is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY, TEXT_SPECIAL_SLASH);
 
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
@@ -359,20 +359,20 @@ void sub_80167E4(struct Text* text, int item, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016860(struct Text* text, int item, bool isUseable, u16* tm)
+void sub_8016860(struct Text* text, int item, bool is_usable, u16* tm)
 {
     int color;
 
     ClearText(text);
 
-    color = isUseable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY;
+    color = is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY;
 
     Text_SetColor(text, color);
     Text_DrawString(text, GetItemName(item));
 
     PutSpecialChar(tm + 12, color, TEXT_SPECIAL_SLASH);
 
-    color = isUseable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY;
+    color = is_usable ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY;
 
     PutNumberOrBlank(tm + 11, color, GetItemUses(item));
     PutNumberOrBlank(tm + 14, color, GetItemMaxUses(item));
@@ -432,13 +432,13 @@ bool CanItemReachDistance(int item, int distance)
     return FALSE;
 }
 
-void UnitEquipItemSlot(struct Unit* unit, int itemSlot)
+void UnitEquipItemSlot(struct Unit* unit, int item_slot)
 {
     int item, i;
 
-    item = unit->items[itemSlot];
+    item = unit->items[item_slot];
 
-    for (i = itemSlot; i != 0; --i)
+    for (i = item_slot; i != 0; --i)
         unit->items[i] = unit->items[i - 1];
 
     unit->items[0] = item;
@@ -446,7 +446,7 @@ void UnitEquipItemSlot(struct Unit* unit, int itemSlot)
 
 bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
 {
-    int jid = unit->job->id;
+    int jid = unit->jinfo->id;
     u8 const* list = GetItemEffectiveness(item);
 
     if (!list)
@@ -759,12 +759,12 @@ int GetItemReach(int item)
     }
 }
 
-int GetUnitWeaponReach(struct Unit* unit, int itemSlot)
+int GetUnitWeaponReach(struct Unit* unit, int item_slot)
 {
     int i, item, result = 0;
 
-    if (itemSlot >= 0)
-        return GetItemReach(unit->items[itemSlot]);
+    if (item_slot >= 0)
+        return GetItemReach(unit->items[item_slot]);
 
     for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = unit->items[i]); ++i)
     {
@@ -775,13 +775,13 @@ int GetUnitWeaponReach(struct Unit* unit, int itemSlot)
     return result;
 }
 
-int GetUnitItemUseReach(struct Unit* unit, int itemSlot)
+int GetUnitItemUseReach(struct Unit* unit, int item_slot)
 {
     int i, tmp, range = 0;
 
-    if (itemSlot >= 0)
+    if (item_slot >= 0)
     {
-        tmp = unit->items[itemSlot];
+        tmp = unit->items[item_slot];
 
         if (!CanUnitUseItem(unit, tmp))
             return REACH_NONE;

@@ -152,7 +152,7 @@ struct BaSprite* BasCreate2(void const* script)
     bas->unk2C = NULL;
     bas->sprDataPool = NULL;
     bas->unk40 = NULL;
-    bas->unk44 = NULL;
+    bas->unk_44 = NULL;
 
     BasInsert(bas);
 
@@ -190,7 +190,7 @@ struct BaSprite* BasCreate(void const* script, u16 displayPriority)
     bas->unk2C = NULL;
     bas->sprDataPool = NULL;
     bas->unk40 = NULL;
-    bas->unk44 = NULL;
+    bas->unk_44 = NULL;
 
     BasInsert(bas);
 
@@ -310,8 +310,8 @@ int BasRunScript(struct BaSprite* bas)
                 break;
 
             case BAS_INS_KIND_MOVE:
-                bas->xPosition += (s8) (ins);
-                bas->yPosition += (s8) (ins >> 8);
+                bas->xPosition += (i8) (ins);
+                bas->yPosition += (i8) (ins >> 8);
 
                 bas->timer = (ins >> 16) & 0xFF;
 

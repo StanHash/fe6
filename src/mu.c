@@ -3,7 +3,7 @@
 
 #include "oam.h"
 #include "sound.h"
-#include "anim.h"
+#include "sprite-anim.h"
 #include "util.h"
 #include "unit.h"
 #include "map.h"
@@ -25,7 +25,7 @@ struct MuFogBumpProc
 
     /* 2C */ int x, y;
     /* 34 */ u8 pad_34[0x50 - 0x34];
-    /* 50 */ struct Anim* anim;
+    /* 50 */ struct SpriteAnim* anim;
     /* 54 */ u8 pad_54[0x64 - 0x54];
     /* 64 */ short clock;
 };
@@ -255,7 +255,7 @@ struct MuProc* StartMuExt(int x, int y, int jid, int pal)
     struct MuProc* mu;
 
     mu = StartMuInternal(x, y, jid, pal);
-    mu->boolCam = TRUE;
+    mu->cam_b = TRUE;
 
     return mu;
 }
@@ -264,10 +264,10 @@ struct MuProc* StartMu(struct Unit* unit)
 {
     struct MuProc* mu;
 
-    mu = StartMuInternal(unit->x, unit->y, unit->job->id, GetUnitSpritePalette(unit));
+    mu = StartMuInternal(unit->x, unit->y, unit->jinfo->id, GetUnitSpritePalette(unit));
 
     mu->unit = unit;
-    mu->boolCam = TRUE;
+    mu->cam_b = TRUE;
 
     return mu;
 }
@@ -279,12 +279,12 @@ void UpdateMu(struct MuProc* mu)
 
 void EnableMuCamera(struct MuProc* mu)
 {
-    mu->boolCam = TRUE;
+    mu->cam_b = TRUE;
 }
 
 void DisableMuCamera(struct MuProc* mu)
 {
-    mu->boolCam = FALSE;
+    mu->cam_b = FALSE;
 }
 
 struct MuProc* StartUiMu(struct Unit* unit, int x, int y)
@@ -296,8 +296,8 @@ struct MuProc* StartUiMu(struct Unit* unit, int x, int y)
     if (mu == NULL)
         return NULL;
 
-    mu->q4_x = x << 4;
-    mu->q4_y = y << 4;
+    mu->x_q4 = x << 4;
+    mu->y_q4 = y << 4;
     mu->state = MU_STATE_DISPLAY_UI;
 
     return mu;
@@ -306,7 +306,7 @@ struct MuProc* StartUiMu(struct Unit* unit, int x, int y)
 struct MuProc* StartMuInternal(u16 x, u16 y, u16 jid, int pal)
 {
     struct MuProc* mu;
-    struct Anim* anim;
+    struct SpriteAnim* anim;
     struct MuConfig* config;
 
     u16 soundDelay = 0;
@@ -327,35 +327,35 @@ struct MuProc* StartMuInternal(u16 x, u16 y, u16 jid, int pal)
     mu->unit = NULL;
     mu->state = MU_STATE_INACTIVE;
 
-    mu->q4_x = (x * 16) << 4;
-    mu->q4_y = (y * 16) << 4;
+    mu->x_q4 = (x * 16) << 4;
+    mu->y_q4 = (y * 16) << 4;
 
-    mu->q4_xOffset = 0;
-    mu->q4_yOffset = 0;
+    mu->x_offset_q4 = 0;
+    mu->y_offset_q4 = 0;
 
     mu->facing = 11;
 
-    mu->q4_moveClock = 0;
-    mu->stepSoundClock = soundDelay;
+    mu->move_clock_q4 = 0;
+    mu->step_sound_clock = soundDelay;
 
     mu->jid = jid;
 
-    mu->boolHidden = FALSE;
+    mu->hidden_b = FALSE;
 
-    mu->moveConfig = 0;
-    mu->boolFastWalk = FALSE;
+    mu->move_config = 0;
+    mu->fast_walk_b = FALSE;
 
     config->pal = pal;
 
-    anim = StartAnim(GetMuAnimForJid(jid), 10);
-    Anim_SetAnimId(anim, 4);
+    anim = StartSpriteAnim(GetMuAnimForJid(jid), 10);
+    SetSpriteAnimId(anim, 4);
 
     Decompress(GetMuImg(mu), GetMuImgBufById(config->id));
 
     anim->img = GetMuImgBufById(config->id);
     anim->oam2 = config->chr + OAM2_PAL(config->pal) + OAM2_LAYER(2);
 
-    mu->anim = anim;
+    mu->sprite_anim = anim;
     mu->config = config;
     mu->config->mu = mu;
 
@@ -365,7 +365,7 @@ struct MuProc* StartMuInternal(u16 x, u16 y, u16 jid, int pal)
 void SetMuFacing(struct MuProc* mu, int facing)
 {
     mu->facing = facing;
-    Anim_SetAnimId(mu->anim, mu->facing);
+    SetSpriteAnimId(mu->sprite_anim, mu->facing);
 }
 
 void SetMuDefaultFacing(struct MuProc* mu)
@@ -497,7 +497,7 @@ void MuStepSe_PlaySeB(struct GenericProc* proc)
         PlaySeSpacial(proc->unk5C, proc->unk66);
 }
 
-void StartPlayMuStepSe(int song, int altOff, int x)
+void StartPlayMuStepSe(int song, int alt_offset, int x)
 {
     struct GenericProc* proc;
 
@@ -517,7 +517,7 @@ void StartPlayMuStepSe(int song, int altOff, int x)
     else if (proc->unk60 == 0)
 #endif
     {
-        proc->unk5C = song + altOff;
+        proc->unk5C = song + alt_offset;
         proc->unk66 = x;
     }
 }
@@ -541,7 +541,7 @@ void RunMuMoveScript(struct MuProc* mu)
         {
 
         case MOVE_CMD_SLEEP:
-            mu->q4_moveClock = mu->config->movescr[mu->config->pc++];
+            mu->move_clock_q4 = mu->config->movescr[mu->config->pc++];
             mu->state = MU_STATE_SLEEPING;
 
             return;
@@ -552,8 +552,8 @@ void RunMuMoveScript(struct MuProc* mu)
             mu->state = MU_STATE_BUMPING;
 
             StartMuFogBump(
-                (mu->q4_x >> 4) - gBmSt.camera.x,
-                (mu->q4_y >> 4) - gBmSt.camera.y);
+                (mu->x_q4 >> 4) - gBmSt.camera.x,
+                (mu->y_q4 >> 4) - gBmSt.camera.y);
 
             return;
 
@@ -600,7 +600,7 @@ void RunMuMoveScript(struct MuProc* mu)
             continue;
 
         case MOVE_CMD_SET_SPEED:
-            mu->moveConfig = mu->config->movescr[mu->config->pc++];
+            mu->move_config = mu->config->movescr[mu->config->pc++];
             continue;
 
         case MOVE_CMD_CAMERA_ON:
@@ -621,14 +621,14 @@ void RunMuMoveScript(struct MuProc* mu)
 void StartMuFogBump(int x, int y)
 {
     struct MuFogBumpProc* proc;
-    struct Anim* anim;
+    struct SpriteAnim* anim;
 
     Decompress(Img_MuFogBump, OBJ_VRAM0 + OBJCHR_MU_180 * CHR_SIZE);
 
-    anim = StartAnim(Anim_MuFogBump, 2);
+    anim = StartSpriteAnim(SpriteAnim_MuFogBump, 2);
     anim->oam2 = OAM2_CHR(OBJCHR_MU_180) + OAM2_PAL(OBJPAL_1);
 
-    Anim_SetAnimId(anim, 0);
+    SetSpriteAnimId(anim, 0);
 
     proc = SpawnProc(ProcScr_MuFogBump, PROC_TREE_3);
 
@@ -655,7 +655,7 @@ void MuFogBump_ScaleLoop(struct MuFogBumpProc* proc)
     scale = Interpolate(INTERPOLATE_RCUBIC, 0x200, 0x100, proc->clock, 8);
     SetObjAffineAuto(0, 0, scale, scale);
 
-    Anim_Display(proc->anim,
+    DisplaySpriteAnim(proc->anim,
         (proc->x - 8),
         (proc->y - 8) | OAM0_AFFINE_ENABLE | OAM0_DOUBLESIZE);
 }
@@ -665,7 +665,7 @@ void MuFogBump_EndLoop(struct MuFogBumpProc* proc)
     if (proc->clock++ >= 40)
         Proc_Break(proc);
 
-    Anim_Display(proc->anim,
+    DisplaySpriteAnim(proc->anim,
         (proc->x),
         (proc->y) | OAM0_AFFINE_ENABLE);
 }
@@ -688,13 +688,13 @@ void Mu_OnState_08060460(struct MuProc* mu)
 
 void Mu_OnStateSleeping(struct MuProc* mu)
 {
-    if (mu->q4_moveClock == 0)
+    if (mu->move_clock_q4 == 0)
     {
         mu->state = MU_STATE_MOVEMENT;
         return;
     }
 
-    mu->q4_moveClock--;
+    mu->move_clock_q4--;
 }
 
 void Mu_OnStateNone(struct MuProc* mu)
@@ -709,28 +709,28 @@ void Mu_OnStateMovement(struct MuProc* mu)
 {
     int q4_moveSpeed = GetMuQ4MovementSpeed(mu);
 
-    mu->q4_moveClock += q4_moveSpeed;
+    mu->move_clock_q4 += q4_moveSpeed;
 
-    mu->q4_x += q4_moveSpeed * sMoveOffsetLut[mu->facing*2+0];
-    mu->q4_y += q4_moveSpeed * sMoveOffsetLut[mu->facing*2+1];
+    mu->x_q4 += q4_moveSpeed * sMoveOffsetLut[mu->facing*2+0];
+    mu->y_q4 += q4_moveSpeed * sMoveOffsetLut[mu->facing*2+1];
 
-    if ((mu->q4_moveClock >> 4) >= 16)
+    if ((mu->move_clock_q4 >> 4) >= 16)
     {
-        mu->q4_moveClock -= 16 << 4;
+        mu->move_clock_q4 -= 16 << 4;
 
-        mu->q4_x -= mu->q4_moveClock * sMoveOffsetLut[mu->facing*2+0];
-        mu->q4_y -= mu->q4_moveClock * sMoveOffsetLut[mu->facing*2+1];
+        mu->x_q4 -= mu->move_clock_q4 * sMoveOffsetLut[mu->facing*2+0];
+        mu->y_q4 -= mu->move_clock_q4 * sMoveOffsetLut[mu->facing*2+1];
 
-        mu->q4_moveClock = 0;
+        mu->move_clock_q4 = 0;
 
-        mu->q4_x &= ~0xF;
-        mu->q4_y &= ~0xF;
+        mu->x_q4 &= ~0xF;
+        mu->y_q4 &= ~0xF;
     }
 
-    if (mu->boolCam)
+    if (mu->cam_b)
     {
-        gBmSt.camera.x = GetCameraAdjustedX(mu->q4_x >> 4);
-        gBmSt.camera.y = GetCameraAdjustedY(mu->q4_y >> 4);
+        gBmSt.camera.x = GetCameraAdjustedX(mu->x_q4 >> 4);
+        gBmSt.camera.y = GetCameraAdjustedY(mu->y_q4 >> 4);
     }
 
     UpdateMuStepSounds(mu);
@@ -738,7 +738,7 @@ void Mu_OnStateMovement(struct MuProc* mu)
 
 void UpdateMuStepSounds(struct MuProc* mu)
 {
-    struct JobInfo const* jinfo = GetJobInfo(mu->jid);
+    struct JInfo const* jinfo = GetJobInfo(mu->jid);
 
     u16 const* soundScript;
     int pc;
@@ -792,7 +792,7 @@ void UpdateMuStepSounds(struct MuProc* mu)
         }
     }
 
-    pc = DivRem(mu->stepSoundClock++, soundScript[0]);
+    pc = DivRem(mu->step_sound_clock++, soundScript[0]);
     GetMuDisplayPosition(mu, &pos);
 
     if (soundScript[2 + pc] != 0)
@@ -805,7 +805,7 @@ void Mu_OnLoop(struct MuProc* mu)
 {
     if (mu->state != MU_STATE_NONE)
     {
-        if (mu->q4_moveClock == 0)
+        if (mu->move_clock_q4 == 0)
         {
             if (mu->state == MU_STATE_SLEEPING || mu->state == MU_STATE_MOVEMENT)
                 RunMuMoveScript(mu);
@@ -820,7 +820,7 @@ void Mu_OnLoop(struct MuProc* mu)
 void Mu_OnEnd(struct MuProc* mu)
 {
     mu->config->id = 0;
-    Anim_End(mu->anim);
+    EndSpriteAnim(mu->sprite_anim);
 }
 
 void EndAllMus(void)
@@ -915,7 +915,7 @@ void ResetMuAnims(void)
     {
         if (sMuConfig[i].id != 0)
         {
-            Anim_ResetClock(sMuConfig[i].mu->anim);
+            ResetSpriteAnimClock(sMuConfig[i].mu->sprite_anim);
         }
     }
 }
@@ -946,14 +946,14 @@ bool GetMuDisplayPosition(struct MuProc* mu, struct Vec2* out)
     {
 
     case MU_STATE_DISPLAY_UI:
-        out->x = (mu->q4_x + mu->q4_xOffset) >> 4;
-        out->y = (mu->q4_y + mu->q4_yOffset) >> 4;
+        out->x = (mu->x_q4 + mu->x_offset_q4) >> 4;
+        out->y = (mu->y_q4 + mu->y_offset_q4) >> 4;
 
         return TRUE;
 
     default:
-        x = ((mu->q4_x + mu->q4_xOffset) >> 4) - gBmSt.camera.x + 8;
-        y = ((mu->q4_y + mu->q4_yOffset) >> 4) - gBmSt.camera.y + 8;
+        x = ((mu->x_q4 + mu->x_offset_q4) >> 4) - gBmSt.camera.x + 8;
+        y = ((mu->y_q4 + mu->y_offset_q4) >> 4) - gBmSt.camera.y + 8;
 
         out->x = x;
         out->y = y + 8;
@@ -970,7 +970,7 @@ void PutMu(struct MuProc* mu)
 {
     struct Vec2 pos;
 
-    if (mu->boolHidden)
+    if (mu->hidden_b)
         return;
 
     if (!GetMuDisplayPosition(mu, &pos))
@@ -990,7 +990,7 @@ void PutMu(struct MuProc* mu)
             break;
 
         // ew
-        if (gMapFog[Div(((mu->q4_y + mu->q4_yOffset) >> 4) + 8, 16)][Div(((mu->q4_x + mu->q4_xOffset) >> 4) + 8, 16)] == 0)
+        if (gMapFog[Div(((mu->y_q4 + mu->y_offset_q4) >> 4) + 8, 16)][Div(((mu->x_q4 + mu->x_offset_q4) >> 4) + 8, 16)] == 0)
             return;
 
     }
@@ -998,23 +998,23 @@ void PutMu(struct MuProc* mu)
     if (mu->state == MU_STATE_DEATHFADE)
         pos.y |= OAM0_BLEND;
 
-    Anim_Display(mu->anim, pos.x, pos.y);
+    DisplaySpriteAnim(mu->sprite_anim, pos.x, pos.y);
 }
 
 u16 GetMuQ4MovementSpeed(struct MuProc* mu)
 {
-    if (mu->moveConfig != 0)
-        return mu->moveConfig;
+    if (mu->move_config != 0)
+        return mu->move_config;
 
-    if (mu->boolFastWalk)
+    if (mu->fast_walk_b)
         return 16 << 4;
 
     if (!IsFirstPlaythrough() && (gKeySt->held & KEY_BUTTON_A))
         return 8 << 4;
 
-    if (gPlaySt.configWalkSpeed == 0)
+    if (gPlaySt.config_walk_speed == 0)
     {
-        return sMuWalkSpeedLut[GetJobInfo(mu->jid)->walkSpeed] << 4;
+        return sMuWalkSpeedLut[GetJobInfo(mu->jid)->walk_speed] << 4;
     }
     else
     {
@@ -1050,11 +1050,11 @@ void StartMuDeathFade(struct MuProc* mu)
 
     SetBlendConfig(0, proc->unk64 >> 1, 0x10, 0);
 
-    Anim_Freeze(mu->anim);
+    FreezeSpriteAnim(mu->sprite_anim);
 
     StartMuFlashFadeFrom(mu, MU_FLASH_WHITE);
 
-    mu->anim->layer = 13;
+    mu->sprite_anim->layer = 13;
 
     PlaySe(SONG_D6);
 }
@@ -1072,29 +1072,29 @@ void MuDeathFade_OnLoop(struct GenericProc* proc)
 
 void HideMu(struct MuProc* mu)
 {
-    mu->boolHidden = TRUE;
+    mu->hidden_b = TRUE;
 }
 
 void ShowMu(struct MuProc* mu)
 {
-    mu->boolHidden = FALSE;
+    mu->hidden_b = FALSE;
 }
 
 void SetMuScreenPosition(struct MuProc* mu, int x, int y)
 {
-    mu->q4_x = x << 4;
-    mu->q4_y = y << 4;
+    mu->x_q4 = x << 4;
+    mu->y_q4 = y << 4;
 }
 
-void SetMuScreenOffset(struct MuProc* mu, int xOff, int yOff)
+void SetMuScreenOffset(struct MuProc* mu, int x_offset, int y_offset)
 {
-    mu->q4_xOffset = xOff << 4;
-    mu->q4_yOffset = yOff << 4;
+    mu->x_offset_q4 = x_offset << 4;
+    mu->y_offset_q4 = y_offset << 4;
 }
 
 void StartMuFadeIntoFlash(struct MuProc* mu, int flash)
 {
-    mu->anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
 
     ApplyPalette(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE);
     StartPalFade(gMuFlashPalLut[flash], 0x10 + OBJPAL_MU_FADE, 8, mu);
@@ -1113,52 +1113,52 @@ void StartMuFadeFromFlash(struct MuProc* mu)
 void MuRestorePalInfo_Apply(struct GenericProc* proc)
 {
     struct MuProc* mu = proc->ptr;
-    mu->anim->oam2 = mu->config->chr + OAM2_PAL(mu->config->pal) + OAM2_LAYER(2);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(mu->config->pal) + OAM2_LAYER(2);
 }
 
 static void MuActionAnimFinishFunc(int arg);
 
 void StartMuActionAnim(struct MuProc* mu)
 {
-    Anim_SetAnimId(mu->anim, 4);
-    Anim_ResetClock(mu->anim);
+    SetSpriteAnimId(mu->sprite_anim, 4);
+    ResetSpriteAnimClock(mu->sprite_anim);
 
-    CallDelayedArg(MuActionAnimFinishFunc, (int) mu->anim, 30);
+    CallDelayedArg(MuActionAnimFinishFunc, (int) mu->sprite_anim, 30);
 }
 
 static void MuActionAnimFinishFunc(int arg)
 {
-    Anim_Freeze((struct Anim*) arg);
+    FreezeSpriteAnim((struct SpriteAnim*) arg);
 }
 
 static void MuDelayedFaceTargetFunc(int arg);
 
 void StartMuDelayedFaceTarget(struct MuProc* mu)
 {
-    Anim_ResetClock(mu->anim);
+    ResetSpriteAnimClock(mu->sprite_anim);
 
-    CallDelayedArg(MuDelayedFaceTargetFunc, (int) mu->anim, 30);
+    CallDelayedArg(MuDelayedFaceTargetFunc, (int) mu->sprite_anim, 30);
 }
 
 static void MuDelayedFaceTargetFunc(int arg)
 {
-    MA_SetActorFacing(gMapAnimSt.attackerActor, 1-gMapAnimSt.attackerActor, GetItemMaFacing(gMapAnimSt.actor[0].bu->weaponBefore));
-    Anim_Freeze((struct Anim*) arg);
+    MA_SetActorFacing(gMapAnimSt.attacker_actor, 1-gMapAnimSt.attacker_actor, GetItemMaFacing(gMapAnimSt.actor[0].bu->weapon_before));
+    FreezeSpriteAnim((struct SpriteAnim*) arg);
 }
 
 static void MuSlowDownAnimFreezeFunc(int arg);
 
 void StartMuSlowDownAnim(struct MuProc* mu)
 {
-    mu->anim->clock = 0;
-    mu->anim->q8_clockStep = 0x40;
+    mu->sprite_anim->clock = 0;
+    mu->sprite_anim->clock_interval_q8 = 0x40;
 
-    CallDelayedArg(MuSlowDownAnimFreezeFunc, (int) mu->anim, 20);
+    CallDelayedArg(MuSlowDownAnimFreezeFunc, (int) mu->sprite_anim, 20);
 }
 
 static void MuSlowDownAnimFreezeFunc(int arg)
 {
-    Anim_Freeze((struct Anim*) arg);
+    FreezeSpriteAnim((struct SpriteAnim*) arg);
 }
 
 void sub_806142C(struct MuProc* mu, int flash)
@@ -1178,12 +1178,12 @@ void sub_8061474(struct MuFadeProc* proc)
 
 void sub_8061494(struct MuFadeProc* proc)
 {
-    proc->mu->anim->oam2 = proc->mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
+    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
 }
 
 void sub_80614C8(struct MuFadeProc* proc)
 {
-    proc->mu->anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
+    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
 }
 
 void sub_8061518(struct MuFadeProc* proc)
@@ -1207,7 +1207,7 @@ void sub_8061554(struct MuFadeProc* proc)
 
 void sub_80615D4(struct MuFadeProc* proc)
 {
-    proc->mu->anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
+    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
 }
 
 void StartMuFlashFadeFrom(struct MuProc* mu, int flash)
@@ -1216,7 +1216,7 @@ void StartMuFlashFadeFrom(struct MuProc* mu, int flash)
 
     ApplyPalette(gMuFlashPalLut[flash], 0x10+OBJPAL_MU_FADE);
 
-    mu->anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
     StartPalFade(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE, 20, mu);
 
     proc = SpawnProc(ProcScr_MuFlashFadeFrom, mu);
@@ -1225,7 +1225,7 @@ void StartMuFlashFadeFrom(struct MuProc* mu, int flash)
 
 void MuFlashFadeFrom_RestorePal(struct MuFadeProc* proc)
 {
-    proc->mu->anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
+    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
 }
 
 static void MuMaxWalkSpeedFunc(ProcPtr mu);
@@ -1237,16 +1237,16 @@ void SetMuMaxWalkSpeed(void)
 
 static void MuMaxWalkSpeedFunc(ProcPtr mu)
 {
-    ((struct MuProc*) mu)->boolFastWalk = TRUE;
+    ((struct MuProc*) mu)->fast_walk_b = TRUE;
 }
 
 void SetMuSpecialSprite(struct MuProc* mu, int jid, u16 const* pal)
 {
-    Anim_Freeze(mu->anim);
+    FreezeSpriteAnim(mu->sprite_anim);
 
     mu->jid = jid;
 
-    Anim_SetInfo(mu->anim, GetMuAnimForJid(mu->jid));
+    SetSpriteAnimInfo(mu->sprite_anim, GetMuAnimForJid(mu->jid));
     Decompress(GetMuImg(mu), GetMuImgBufById(mu->config->id));
     ApplyPalette(pal, 0x10+mu->config->pal);
 }
@@ -1254,5 +1254,5 @@ void SetMuSpecialSprite(struct MuProc* mu, int jid, u16 const* pal)
 void SetMuPal(struct MuProc* mu, int pal)
 {
     mu->config->pal = pal;
-    mu->anim->oam2 = mu->config->chr + OAM2_PAL(pal) + OAM2_LAYER(2);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(pal) + OAM2_LAYER(2);
 }

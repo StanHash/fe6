@@ -43,7 +43,7 @@ struct WaveData
     u32 freq;
     u32 loopStart;
     u32 size; // number of samples
-    s8 data[1]; // samples
+    i8 data[1]; // samples
 };
 
 #define TONEDATA_TYPE_CGB    0x07
@@ -172,9 +172,9 @@ struct SoundInfo
     u8 pcmDmaPeriod; // number of V-blanks per PCM DMA
     u8 maxLines;
     u8 gap[3];
-    s32 pcmSamplesPerVBlank;
-    s32 pcmFreq;
-    s32 divFreq;
+    i32 pcmSamplesPerVBlank;
+    i32 pcmFreq;
+    i32 divFreq;
     struct CgbChannel *cgbChans;
     u32 func;
     u32 intp;
@@ -186,7 +186,7 @@ struct SoundInfo
     u32 ExtVolPit;
     u8 gap2[16];
     struct SoundChannel chans[MAX_DIRECTSOUND_CHANNELS];
-    s8 pcmBuffer[PCM_DMA_BUF_SIZE * 2];
+    i8 pcmBuffer[PCM_DMA_BUF_SIZE * 2];
 };
 
 struct SongHeader
@@ -250,19 +250,19 @@ struct MusicPlayerTrack
     u8 runningStatus;
     u8 keyM;
     u8 pitM;
-    s8 keyShift;
-    s8 keyShiftX;
-    s8 tune;
+    i8 keyShift;
+    i8 keyShiftX;
+    i8 tune;
     u8 pitX;
-    s8 bend;
+    i8 bend;
     u8 bendRange;
     u8 volMR;
     u8 volML;
     u8 vol;
     u8 volX;
-    s8 pan;
-    s8 panX;
-    s8 modM;
+    i8 pan;
+    i8 panX;
+    i8 modM;
     u8 mod;
     u8 modT;
     u8 lfoSpeed;
@@ -363,7 +363,7 @@ extern const u32 gFreqTable[];
 extern const u16 gPcmSamplesPerVBlankTable[];
 
 extern const u8 gCgbScaleTable[];
-extern const s16 gCgbFreqTable[];
+extern const i16 gCgbFreqTable[];
 extern const u8 gNoiseTable[];
 
 extern const struct PokemonCrySong gPokemonCrySongTemplate;
@@ -410,13 +410,13 @@ void m4aMPlayLFOSpeedSet(struct MusicPlayerInfo *mplayInfo, u16 trackBits, u8 lf
 
 struct MusicPlayerInfo *SetPokemonCryTone(struct ToneData *tone);
 void SetPokemonCryVolume(u8 val);
-void SetPokemonCryPanpot(s8 val);
-void SetPokemonCryPitch(s16 val);
+void SetPokemonCryPanpot(i8 val);
+void SetPokemonCryPitch(i16 val);
 void SetPokemonCryLength(u16 val);
 void SetPokemonCryRelease(u8 val);
 void SetPokemonCryProgress(u32 val);
 int IsPokemonCryPlaying(struct MusicPlayerInfo *mplayInfo);
-void SetPokemonCryChorus(s8 val);
+void SetPokemonCryChorus(i8 val);
 void SetPokemonCryStereo(u32 val);
 void SetPokemonCryPriority(u8 val);
 

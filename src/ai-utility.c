@@ -77,7 +77,7 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
 {
     int i;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
     MapMarkFloodEdges();
 
     out->x = -1;
@@ -89,20 +89,20 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
         if (unit == NULL)
             continue;
 
-        if (unit->person == NULL)
+        if (unit->pinfo == NULL)
             continue;
 
         if (gMapRange[unit->y][unit->x] > MAP_MOVEMENT_MAX)
             continue;
 
-        if (unit->person->id != pid)
+        if (unit->pinfo->id != pid)
             continue;
 
         if (unit->state & US_DEAD)
             goto target_dead;
 
         if (unit->state & US_RESCUED)
-            gAiSt.unk_86[0] = 3;
+            gAiSt.cmd_result[0] = 3;
 
         out->x = unit->x;
         out->y = unit->y;
@@ -113,18 +113,18 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
 
     if (GetUnitByPid(pid)->state & (US_DEAD | US_NOT_DEPLOYED))
     {
-        gAiSt.unk_86[0] = 1;
+        gAiSt.cmd_result[0] = 1;
         return FALSE;
     }
 
     goto target_not_found;
 
 target_dead:
-    gAiSt.unk_86[0] = 1;
+    gAiSt.cmd_result[0] = 1;
     return FALSE;
 
 target_not_found:
-    gAiSt.unk_86[0] = 4;
+    gAiSt.cmd_result[0] = 4;
     return FALSE;
 }
 
@@ -134,7 +134,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
 
     u8 bestDistance = UINT8_MAX;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     out->x = -1;
 
@@ -145,7 +145,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
         if (unit == NULL)
             continue;
 
-        if (unit->person == NULL)
+        if (unit->pinfo == NULL)
             continue;
 
         if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
@@ -154,7 +154,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
         if (gMapRange[unit->y][unit->x] > MAP_MOVEMENT_MAX)
             continue;
 
-        if (unit->job->id != jid)
+        if (unit->jinfo->id != jid)
             continue;
 
         if (bestDistance < gMapRangeSigned[unit->y][unit->x])
@@ -180,7 +180,7 @@ bool AiFindTargetInReachByFunc(bool(*func)(struct Unit* unit), struct Vec2* out)
     short x = 0;
     short y = 0;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     x = -1;
 
@@ -496,7 +496,7 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
 
 #if NONMATCHING
 
-    gAiSt.unk_86[1] = 1;
+    gAiSt.cmd_result[1] = 1;
 
 #else
     {
@@ -505,12 +505,12 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
     asm("mov %0, #0" : "=r" (r0));
 
     if (!r0)
-        gAiSt.unk_86[1] = 1;
+        gAiSt.cmd_result[1] = 1;
     }
 #endif
 
     if (count == 0)
-        gAiSt.unk_86[0] = 5;
+        gAiSt.cmd_result[0] = 5;
 
     if (bestDistance != UINT8_MAX)
         return TRUE;
@@ -745,7 +745,7 @@ bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), 
 
     u8 best = UINT8_MAX;
 
-    s8 adjacencyLut[4*2] =
+    i8 adjacencyLut[4*2] =
     {
         +1,  0,
         -1,  0,
@@ -794,7 +794,7 @@ int AiGetItemStealRank(u16 item)
     return -1;
 }
 
-s8 AiGetUnitStealItemSlot(struct Unit* unit)
+i8 AiGetUnitStealItemSlot(struct Unit* unit)
 {
     u16 item;
     int i;
@@ -869,7 +869,7 @@ bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
 {
     u8 const* terrains;
 
-    SetWorkingMovTable(gActiveUnit->job->movTerrainTable);
+    SetWorkingMovTable(gActiveUnit->jinfo->mov_table);
     SetWorkingMap(gMapRange);
 
     BeginMapFlood(gActiveUnit->x, gActiveUnit->y, 124, gActiveUnit->id);
@@ -881,7 +881,7 @@ bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
     if (AiFindClosestTerrainPosition(terrains, AI_FINDPOS_FLAG_CHECK_ENEMY, out) == TRUE)
         return TRUE;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(terrains, 0, out) == TRUE)
         return TRUE;
@@ -897,7 +897,7 @@ bool AiGetChestUnlockItemSlot(u8* out)
 
     if (GetUnitItemCount(gActiveUnit) == ITEMSLOT_INV_COUNT)
     {
-        gActiveUnit->aiFlags |= AI_UNIT_FLAG_3;
+        gActiveUnit->ai_flags |= AI_UNIT_FLAG_3;
         return FALSE;
     }
 
@@ -940,7 +940,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
 
     if (arg_4)
     {
-        MapFlood_080193F4(x, y, gActiveUnit->job->movTerrainTable);
+        MapFlood_080193F4(x, y, gActiveUnit->jinfo->mov_table);
     }
     else
     {
@@ -964,7 +964,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
 
             if (maxDanger == 0)
             {
-                if (UNIT_MOV(gActiveUnit) < gAiSt.bestBlueMov && gMapOther[iy][ix] != 0)
+                if (UNIT_MOV(gActiveUnit) < gAiSt.best_blue_mov && gMapOther[iy][ix] != 0)
                     continue;
             }
 
@@ -999,7 +999,7 @@ bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct V
         return TRUE;
     }
 
-    MapFlood_080193F4(x, y, unit->job->movTerrainTable);
+    MapFlood_080193F4(x, y, unit->jinfo->mov_table);
     MapFlood_080193C0(unit);
 
     bestRange = 124;
@@ -1065,10 +1065,10 @@ bool AiUnitWithPidExists(u16 pid)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
-        if (unit->person->id != pid)
+        if (unit->pinfo->id != pid)
             continue;
 
         if (unit->state & US_RESCUED)
@@ -1124,7 +1124,7 @@ void sub_80308B0(void)
 {
     int i, j, item;
 
-    gAiSt.bestBlueMov = 0;
+    gAiSt.best_blue_mov = 0;
 
     for (i = FACTION_BLUE + 1; i < FACTION_BLUE + 0x40; ++i)
     {
@@ -1135,7 +1135,7 @@ void sub_80308B0(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_HIDDEN | US_DEAD))
@@ -1143,8 +1143,8 @@ void sub_80308B0(void)
 
         mov = UNIT_MOV(unit);
 
-        if (mov > gAiSt.bestBlueMov)
-            gAiSt.bestBlueMov = mov;
+        if (mov > gAiSt.best_blue_mov)
+            gAiSt.best_blue_mov = mov;
 
         for (j = 0; (j < ITEMSLOT_INV_COUNT) && (item = unit->items[j]); ++j)
         {
@@ -1152,7 +1152,7 @@ void sub_80308B0(void)
                 continue;
 
             if (GetItemAttributes(item) & ITEM_ATTR_MAGIC)
-                unit->aiFlags |= AI_UNIT_FLAG_0;
+                unit->ai_flags |= AI_UNIT_FLAG_0;
 
             sub_8030968(unit, item);
             sub_8030994(unit, item);
@@ -1172,8 +1172,8 @@ void sub_8030968(struct Unit* unit, u16 item)
         {
         }
 
-        flag |= unit->aiFlags;
-        unit->aiFlags = flag;
+        flag |= unit->ai_flags;
+        unit->ai_flags = flag;
     }
 }
 
@@ -1199,7 +1199,7 @@ void sub_8030994(struct Unit* unit, u16 item)
 
     }
 
-    unit->aiFlags |= flag;
+    unit->ai_flags |= flag;
 }
 
 void sub_80309E0(struct Unit* unit)
@@ -1233,9 +1233,9 @@ void sub_80309E0(struct Unit* unit)
 
 void UnitInitAiFromInfo(struct Unit* unit, struct UnitInfo const* info)
 {
-    unit->aiA = info->ai[0];
-    unit->aiB = info->ai[1];
-    unit->aiConfig = (0xFFF8 & unit->aiConfig) | info->ai[2] | (info->ai[3] << 8);
+    unit->ai_a = info->ai[0];
+    unit->ai_b = info->ai[1];
+    unit->ai_config = (0xFFF8 & unit->ai_config) | info->ai[2] | (info->ai[3] << 8);
 }
 
 bool sub_8030AB4(struct Vec2* out)
@@ -1289,13 +1289,13 @@ int sub_8030B94(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_HIDDEN | US_DEAD))
             continue;
 
-        if (unit->aiFlags & AI_FLAG_0)
+        if (unit->ai_flags & AI_FLAG_0)
             count++;
     }
 
@@ -1321,7 +1321,7 @@ int sub_8030BDC(void)
             if (!AreUnitIdsAllied(gActiveUnitId, gMapUnit[iy][ix]))
                 continue;
 
-            if (GetUnit(gMapUnit[iy][ix])->aiFlags & AI_FLAG_0)
+            if (GetUnit(gMapUnit[iy][ix])->ai_flags & AI_FLAG_0)
                 count++;
         }
     }

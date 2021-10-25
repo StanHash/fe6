@@ -10,9 +10,9 @@
 
 struct SpecialCharSt
 {
-    s8 color;
-    s8 id;
-    s16 chrPosition;
+    i8 color;
+    i8 id;
+    i16 chr_position;
 };
 
 struct TextPrintProc
@@ -21,9 +21,9 @@ struct TextPrintProc
 
     /* 2C */ struct Text* text;
     /* 30 */ char const* str;
-    /* 34 */ s8 interval;
-    /* 35 */ s8 clock;
-    /* 36 */ s8 charPerTick;
+    /* 34 */ i8 interval;
+    /* 35 */ i8 clock;
+    /* 36 */ i8 charPerTick;
 };
 
 static u8* GetTextDrawDest(struct Text* text);
@@ -37,7 +37,7 @@ static u8* GetSpriteTextDrawDest(struct Text* text);
 static void DrawSpriteTextGlyph(struct Text* text, struct Glyph const* glyph);
 static void TextPrint_OnLoop(struct TextPrintProc* proc);
 static void GreenText_OnLoop(ProcPtr proc);
-static void DrawSpecialCharGlyph(int chrPosition, int color, struct Glyph const* glyph);
+static void DrawSpecialCharGlyph(int chr_position, int color, struct Glyph const* glyph);
 static int AddSpecialChar(struct SpecialCharSt* st, int color, int id);
 static int GetSpecialCharChr(int color, int id);
 
@@ -98,16 +98,16 @@ void ResetText(void)
     sSpecialCharStList[0].color = -1;
 }
 
-void InitTextFont(struct Font* font, void* drawDest, int chr, int palid)
+void InitTextFont(struct Font* font, void* draw_dest, int chr, int palid)
 {
     if (font == NULL)
         font = &gDefaultFont;
 
-    font->drawDest = drawDest;
-    font->getDrawDest = GetTextDrawDest;
+    font->draw_dest = draw_dest;
+    font->get_draw_dest = GetTextDrawDest;
     font->palid = palid;
     font->tileref = TILEREF(chr, palid);
-    font->chrCounter = 0;
+    font->chr_counter = 0;
     font->lang = GetLang();
 
     SetTextFont(font);
@@ -128,7 +128,7 @@ void SetTextFontGlyphs(int glyphSet)
 
 void ResetTextFont(void)
 {
-    gActiveFont->chrCounter = 0;
+    gActiveFont->chr_counter = 0;
     sSpecialCharStList[0].color = -1;
 }
 
@@ -142,26 +142,26 @@ void SetTextFont(struct Font* font)
 
 void InitText(struct Text* text, int width)
 {
-    text->chrPosition = gActiveFont->chrCounter;
-    text->tWidth = width;
-    text->dbId = 0;
-    text->dbEnabled = FALSE;
-    text->isPrinting = FALSE;
+    text->chr_position = gActiveFont->chr_counter;
+    text->tile_width = width;
+    text->db_id = 0;
+    text->db_enabled = FALSE;
+    text->is_printing = FALSE;
 
-    gActiveFont->chrCounter += width;
+    gActiveFont->chr_counter += width;
 
     ClearText(text);
 }
 
 void InitTextDb(struct Text* text, int width)
 {
-    text->chrPosition = gActiveFont->chrCounter;
-    text->tWidth = width;
-    text->dbId = 0;
-    text->dbEnabled = TRUE;
-    text->isPrinting = FALSE;
+    text->chr_position = gActiveFont->chr_counter;
+    text->tile_width = width;
+    text->db_id = 0;
+    text->db_enabled = TRUE;
+    text->is_printing = FALSE;
 
-    gActiveFont->chrCounter += width * 2;
+    gActiveFont->chr_counter += width * 2;
 }
 
 void InitTextList(struct TextInitInfo const* info)
@@ -178,19 +178,19 @@ void ClearText(struct Text* text)
     text->x = 0;
     text->color = 0;
 
-    CpuFastFill16(0, gActiveFont->getDrawDest(text), text->tWidth * 2 * CHR_SIZE);
+    CpuFastFill16(0, gActiveFont->get_draw_dest(text), text->tile_width * 2 * CHR_SIZE);
 }
 
 void ClearTextPart(struct Text* text, int tileOff, int tileWidth)
 {
-    u8* dst = gActiveFont->drawDest + (text->chrPosition + text->dbId * text->tWidth + tileOff) * 2 * CHR_SIZE;
+    u8* dst = gActiveFont->draw_dest + (text->chr_position + text->db_id * text->tile_width + tileOff) * 2 * CHR_SIZE;
 
     CpuFastFill16(0, dst, tileWidth * 2 * CHR_SIZE);
 }
 
 int Text_GetChrOffset(struct Text* text)
 {
-    return (text->chrPosition + text->dbId * text->tWidth) * 2;
+    return (text->chr_position + text->db_id * text->tile_width) * 2;
 }
 
 int Text_GetCursor(struct Text* text)
@@ -226,10 +226,10 @@ void Text_SetParams(struct Text* text, int x, int color)
 
 void PutText(struct Text* text, u16* tm)
 {
-    int tileref = gActiveFont->tileref + (text->chrPosition + text->dbId * text->tWidth) * 2;
+    int tileref = gActiveFont->tileref + (text->chr_position + text->db_id * text->tile_width) * 2;
     int i;
 
-    for (i = 0; i < text->tWidth; i++)
+    for (i = 0; i < text->tile_width; i++)
     {
         tm[0x00] = tileref++;
         tm[0x20] = tileref++;
@@ -237,17 +237,17 @@ void PutText(struct Text* text, u16* tm)
         tm++;
     }
 
-    if (!text->dbEnabled)
+    if (!text->db_enabled)
         return;
 
-    text->dbId = text->dbId ^ 1;
+    text->db_id = text->db_id ^ 1;
 }
 
 void PutBlankText(struct Text* text, u16* tm)
 {
     int i;
 
-    for (i = 0; i < text->tWidth; i++)
+    for (i = 0; i < text->tile_width; i++)
     {
         tm[0x00] = 0;
         tm[0x20] = 0;
@@ -279,7 +279,7 @@ int GetStringTextLen(char const* str)
 
         while (glyph)
         {
-            if (glyph->sjisByte1 == byte1)
+            if (glyph->sjis_byte_1 == byte1)
             {
                 result += glyph->width;
                 break;
@@ -306,7 +306,7 @@ char const* GetCharTextLen(char const* str, int* outWidth)
 
     while (glyph)
     {
-        if (glyph->sjisByte1 == byte1)
+        if (glyph->sjis_byte_1 == byte1)
         {
             *outWidth = glyph->width;
             break;
@@ -387,9 +387,9 @@ void Text_DrawString(struct Text* text, char const* str)
 
         while (glyph)
         {
-            if (glyph->sjisByte1 == byte1)
+            if (glyph->sjis_byte_1 == byte1)
             {
-                gActiveFont->drawGlyph(text, glyph);
+                gActiveFont->draw_glyph(text, glyph);
                 break;
             }
 
@@ -454,9 +454,9 @@ retry_draw:
 
     while (glyph)
     {
-        if (glyph->sjisByte1 == byte1)
+        if (glyph->sjis_byte_1 == byte1)
         {
-            gActiveFont->drawGlyph(text, glyph);
+            gActiveFont->draw_glyph(text, glyph);
             break;
         }
 
@@ -476,9 +476,9 @@ retry_draw:
 
 static u8* GetTextDrawDest(struct Text* text)
 {
-    int chrNumber = (text->chrPosition + text->dbId * text->tWidth + text->x / 8);
+    int chrNumber = (text->chr_position + text->db_id * text->tile_width + text->x / 8);
 
-    return gActiveFont->drawDest + chrNumber * 2 * CHR_SIZE;
+    return gActiveFont->draw_dest + chrNumber * 2 * CHR_SIZE;
 }
 
 static u16 const* GetColorLut(int color)
@@ -488,11 +488,11 @@ static u16 const* GetColorLut(int color)
 
 static void DrawTextGlyph(struct Text* text, struct Glyph const* glyph)
 {
-    u8* drawDest = gActiveFont->getDrawDest(text);
+    u8* draw_dest = gActiveFont->get_draw_dest(text);
     int subx = text->x & 7;
     u32 const* bitmap = glyph->bitmap;
 
-    DrawGlyphRam(GetColorLut(text->color), drawDest, bitmap, subx);
+    DrawGlyphRam(GetColorLut(text->color), draw_dest, bitmap, subx);
     text->x += glyph->width;
 }
 
@@ -500,7 +500,7 @@ static void DrawTextGlyphNoClear(struct Text* text, struct Glyph const* glyph)
 {
     int i;
 
-    u32* dst = (u32*) gActiveFont->getDrawDest(text);
+    u32* dst = (u32*) gActiveFont->get_draw_dest(text);
     int subx = text->x & 7;
     u32 const* bitmap = glyph->bitmap;
 
@@ -537,7 +537,7 @@ void InitSystemTextFont(void)
     ApplyPalette(Pal_SystemText, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
-    gActiveFont->drawGlyph = DrawTextGlyph;
+    gActiveFont->draw_glyph = DrawTextGlyph;
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
 }
 
@@ -546,23 +546,23 @@ void InitTalkTextFont(void)
     ApplyPalette(Pal_TalkText, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
-    gActiveFont->drawGlyph = DrawTextGlyph;
+    gActiveFont->draw_glyph = DrawTextGlyph;
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 }
 
 void SetTextDrawNoClear(void)
 {
-    gActiveFont->drawGlyph = DrawTextGlyphNoClear;
+    gActiveFont->draw_glyph = DrawTextGlyphNoClear;
 }
 
-void PutDrawText(struct Text* text, u16* tm, int color, int x, int tWidth, const char* str)
+void PutDrawText(struct Text* text, u16* tm, int color, int x, int tile_width, const char* str)
 {
     struct Text tmpText;
 
     if (text == NULL)
     {
         text = &tmpText;
-        InitText(text, tWidth);
+        InitText(text, tile_width);
     }
 
     Text_SetCursor(text, x);
@@ -597,7 +597,7 @@ static void Text_DrawStringAscii(struct Text* text, char const* str)
         if (glyph == NULL)
             glyph = gActiveFont->glyphs['?'];
 
-        gActiveFont->drawGlyph(text, glyph);
+        gActiveFont->draw_glyph(text, glyph);
     }
 }
 
@@ -608,7 +608,7 @@ static char const* Text_DrawCharacterAscii(struct Text* text, char const* str)
     if (glyph == NULL)
         glyph = gActiveFont->glyphs['?'];
 
-    gActiveFont->drawGlyph(text, glyph);
+    gActiveFont->draw_glyph(text, glyph);
 
     return str;
 }
@@ -632,29 +632,29 @@ void sub_80065BC(void)
 {
 }
 
-void InitSpriteTextFont(struct Font* font, u8* drawDest, int palid)
+void InitSpriteTextFont(struct Font* font, u8* draw_dest, int palid)
 {
-    font->drawDest = drawDest;
-    font->getDrawDest = GetSpriteTextDrawDest;
+    font->draw_dest = draw_dest;
+    font->get_draw_dest = GetSpriteTextDrawDest;
     font->palid = (palid & 0xF) + 0x10;
-    font->tileref = ((u32) drawDest & 0x1FFFF) >> 5;
-    font->chrCounter = 0;
+    font->tileref = ((u32) draw_dest & 0x1FFFF) >> 5;
+    font->chr_counter = 0;
     font->lang = GetLang();
 
     SetTextFont(font);
 
-    font->drawGlyph = DrawSpriteTextGlyph;
+    font->draw_glyph = DrawSpriteTextGlyph;
 }
 
 void InitSpriteText(struct Text* text)
 {
-    text->chrPosition = gActiveFont->chrCounter;
-    text->tWidth = 0x20;
-    text->dbId = 0;
-    text->dbEnabled = 0;
-    text->isPrinting = FALSE;
+    text->chr_position = gActiveFont->chr_counter;
+    text->tile_width = 0x20;
+    text->db_id = 0;
+    text->db_enabled = FALSE;
+    text->is_printing = FALSE;
 
-    gActiveFont->chrCounter += 2 * 0x20;
+    gActiveFont->chr_counter += 2 * 0x20;
 
     text->x = 0;
     text->color = 0;
@@ -662,34 +662,34 @@ void InitSpriteText(struct Text* text)
 
 void SpriteText_DrawBackground(struct Text* text)
 {
-    if (text->tWidth == 0)
+    if (text->tile_width == 0)
         return;
 
     text->x = 0;
 
-    CpuFastFill(0x44444444, gActiveFont->getDrawDest(text),                   0x1B * CHR_SIZE);
-    CpuFastFill(0x44444444, gActiveFont->getDrawDest(text) + 0x20 * CHR_SIZE, 0x1B * CHR_SIZE);
+    CpuFastFill(0x44444444, gActiveFont->get_draw_dest(text),                   0x1B * CHR_SIZE);
+    CpuFastFill(0x44444444, gActiveFont->get_draw_dest(text) + 0x20 * CHR_SIZE, 0x1B * CHR_SIZE);
 }
 
 void SpriteText_DrawBackgroundExt(struct Text* text, u32 line)
 {
     text->x = 0;
 
-    CpuFastFill(line, gActiveFont->getDrawDest(text), 2 * 0x20 * CHR_SIZE);
+    CpuFastFill(line, gActiveFont->get_draw_dest(text), 2 * 0x20 * CHR_SIZE);
 }
 
 static u8* GetSpriteTextDrawDest(struct Text* text)
 {
-    int chr = (text->chrPosition + text->dbId * text->tWidth + text->x / 8);
+    int chr = (text->chr_position + text->db_id * text->tile_width + text->x / 8);
 
-    return gActiveFont->drawDest + chr * CHR_SIZE;
+    return gActiveFont->draw_dest + chr * CHR_SIZE;
 }
 
 static void DrawSpriteTextGlyph(struct Text* text, struct Glyph const* glyph)
 {
     int i;
 
-    u32* dst = (u32*) gActiveFont->getDrawDest(text);
+    u32* dst = (u32*) gActiveFont->get_draw_dest(text);
     int subx = text->x & 7;
     u32 const* bitmap = glyph->bitmap;
 
@@ -709,7 +709,7 @@ static void DrawSpriteTextGlyph(struct Text* text, struct Glyph const* glyph)
         bitmap++;
     }
 
-    dst = (u32*) (gActiveFont->getDrawDest(text) + 0x20 * CHR_SIZE);
+    dst = (u32*) (gActiveFont->get_draw_dest(text) + 0x20 * CHR_SIZE);
 
     for (i = 0; i < 8; ++i)
     {
@@ -746,7 +746,7 @@ static void TextPrint_OnLoop(struct TextPrintProc* proc)
             // fallthrough
 
         case 1: // newline
-            proc->text->isPrinting = FALSE;
+            proc->text->is_printing = FALSE;
             Proc_Break(proc);
 
             return;
@@ -783,14 +783,14 @@ char const* StartTextPrint(struct Text* text, char const* str, int interval, int
     proc->interval = interval;
     proc->clock = 0;
 
-    text->isPrinting = TRUE;
+    text->is_printing = TRUE;
 
     return GetStringLineEnd(str);
 }
 
-s8 IsTextPrinting(struct Text* text)
+i8 IsTextPrinting(struct Text* text)
 {
-    return text->isPrinting;
+    return text->is_printing;
 }
 
 void EndTextPrinting(void)
@@ -819,11 +819,11 @@ void EndGreenText(void)
     Proc_EndEach(ProcScr_GreenTextColor);
 }
 
-static void DrawSpecialCharGlyph(int chrPosition, int color, struct Glyph const* glyph)
+static void DrawSpecialCharGlyph(int chr_position, int color, struct Glyph const* glyph)
 {
     int i;
 
-    u32* dst = (u32*) (gActiveFont->drawDest + chrPosition * 2 * CHR_SIZE);
+    u32* dst = (u32*) (gActiveFont->draw_dest + chr_position * 2 * CHR_SIZE);
     u32 const* bitmap = glyph->bitmap;
 
     int lo, hi;
@@ -846,13 +846,13 @@ static int AddSpecialChar(struct SpecialCharSt* st, int color, int id)
 {
     st->color = color;
     st->id = id;
-    st->chrPosition = gActiveFont->chrCounter++;
+    st->chr_position = gActiveFont->chr_counter++;
 
     (st + 1)->color = -1;
 
-    DrawSpecialCharGlyph(st->chrPosition, color, TextGlyphs_Special[id]);
+    DrawSpecialCharGlyph(st->chr_position, color, TextGlyphs_Special[id]);
 
-    return st->chrPosition;
+    return st->chr_position;
 }
 
 static int GetSpecialCharChr(int color, int id)
@@ -865,7 +865,7 @@ static int GetSpecialCharChr(int color, int id)
             return AddSpecialChar(it, color, id);
 
         if (it->color == color && it->id == id)
-            return it->chrPosition;
+            return it->chr_position;
 
         it++;
     }
@@ -972,10 +972,10 @@ inline void PutNumber2DigitSmall(u16* tm, int color, int number)
     PutNumber2DigitExt(tm, color, number, TEXT_SPECIAL_SMALLNUM_0);
 }
 
-void PutTime(u16* tm, int color, int time, s8 alwaysDisplayPunctuation)
+void PutTime(u16* tm, int color, int time, i8 alwaysDisplayPunctuation)
 {
     u16 hours, minutes, seconds;
-    s8 hs = FormatTime(time, &hours, &minutes, &seconds);
+    i8 hs = FormatTime(time, &hours, &minutes, &seconds);
 
     PutNumber(tm + 2, color, hours);
     PutNumber2Digit(tm + 5, color, minutes);

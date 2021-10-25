@@ -113,16 +113,16 @@ Tsa_UnitPanelHeader: @ 081022AC
 Tsa_Unk_081022FC: @ 081022FC
 	.incbin "fe6-base.gba", 0x1022FC, (0x102450 - 0x1022FC) @ length: 0154
 
-	.global Anim_08102450
-Anim_08102450: @ 08102450
+	.global SpriteAnim_08102450
+SpriteAnim_08102450: @ 08102450
 	.incbin "fe6-base.gba", 0x102450, (0x1025A8 - 0x102450) @ length: 0158
 
-	.global Anim_GasTrapVertical
-Anim_GasTrapVertical: @ 081025A8
+	.global SpriteAnim_GasTrapVertical
+SpriteAnim_GasTrapVertical: @ 081025A8
 	.incbin "fe6-base.gba", 0x1025A8, (0x10284C - 0x1025A8) @ length: 02A4
 
-	.global Anim_GasTrapHorizontal
-Anim_GasTrapHorizontal: @ 0810284C
+	.global SpriteAnim_GasTrapHorizontal
+SpriteAnim_GasTrapHorizontal: @ 0810284C
 	.incbin "fe6-base.gba", 0x10284C, (0x102AC0 - 0x10284C) @ length: 0274
 
 	.global Img_GasTrapVertical
@@ -145,8 +145,8 @@ Pal_ArrowTrap: @ 0810363C
 Img_ArrowTrap: @ 0810365C
 	.incbin "fe6-base.gba", 0x10365C, (0x103934 - 0x10365C) @ length: 02D8
 
-	.global Anim_ArrowTrap
-Anim_ArrowTrap: @ 08103934
+	.global SpriteAnim_ArrowTrap
+SpriteAnim_ArrowTrap: @ 08103934
 	.incbin "fe6-base.gba", 0x103934, (0x103EF0 - 0x103934) @ length: 05BC
 
 	.global Img_FireTrap
@@ -157,16 +157,16 @@ Img_FireTrap: @ 08103EF0
 Pal_FireTrap: @ 08104374
 	.incbin "fe6-base.gba", 0x104374, (0x104394 - 0x104374) @ length: 0020
 
-	.global Anim_FireTrap
-Anim_FireTrap: @ 08104394
+	.global SpriteAnim_FireTrap
+SpriteAnim_FireTrap: @ 08104394
 	.incbin "fe6-base.gba", 0x104394, (0x104440 - 0x104394) @ length: 00AC
 
 	.global Img_PikeTrap
 Img_PikeTrap: @ 08104440
 	.incbin "fe6-base.gba", 0x104440, (0x1046C0 - 0x104440) @ length: 0280
 
-	.global Anim_PikeTrap
-Anim_PikeTrap: @ 081046C0
+	.global SpriteAnim_PikeTrap
+SpriteAnim_PikeTrap: @ 081046C0
 	.incbin "fe6-base.gba", 0x1046C0, (0x1048D4 - 0x1046C0) @ length: 0214
 
 	.global Pal_PikeTrap

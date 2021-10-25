@@ -187,7 +187,7 @@ u8 sub_801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
     EndLimitView();
 
     CameraMoveWatchPosition(
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22),
+        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22),
         gActiveUnit->x, gActiveUnit->y);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_SE_6B | MENU_ACT_CLEAR;
@@ -201,8 +201,8 @@ static void BackToUnitMenu_CamWatch(ProcPtr proc)
 
         Proc_EndEach(ProcScr_CamMove);
 
-        if (GetCameraAdjustedY(y<<4) > gBmSt.cameraMax.y)
-            y = (gBmSt.cameraMax.y>>4) + 2;
+        if (GetCameraAdjustedY(y<<4) > gBmSt.camera_max.y)
+            y = (gBmSt.camera_max.y>>4) + 2;
 
         CameraMoveWatchPosition(proc, gActiveUnit->x, y);
     }
@@ -210,7 +210,7 @@ static void BackToUnitMenu_CamWatch(ProcPtr proc)
 
 static void BackToUnitMenu_RestartMenu(ProcPtr proc)
 {
-    sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
+    sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 }
 
 u8 sub_801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -236,7 +236,7 @@ u8 sub_801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ResetTextFont();
 
-    sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
+    sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     EndLimitView();
 
@@ -309,8 +309,8 @@ u8 sub_801ED58(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_DROP;
 
     gAction.target = gActiveUnit->rescue;
-    gAction.xTarget = target->x;
-    gAction.yTarget = target->y;
+    gAction.x_target = target->x;
+    gAction.y_target = target->y;
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -320,7 +320,7 @@ int sub_801ED7C(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_RESCUE_TRANSFER)
+    if (gBmSt.partial_actions_taken & PARTIAL_ACTION_RESCUE_TRANSFER)
         return MENU_NOTSHOWN;
 
     if (gActiveUnit->state & US_RESCUING)
@@ -347,7 +347,7 @@ int sub_801EDE4(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_RESCUE_TRANSFER)
+    if (gBmSt.partial_actions_taken & PARTIAL_ACTION_RESCUE_TRANSFER)
         return MENU_NOTSHOWN;
 
     if (!(gActiveUnit->state & US_RESCUING))
@@ -463,7 +463,7 @@ u8 sub_801F004(struct MenuProc* menu, struct MenuEntProc* ent)
     if (gBmSt.unk_30 == TRUE && gBmSt.unk_31 == TRUE)
     {
         StartSubtitleHelp(
-            sub_80417E8(&MenuInfo_085C7504, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 20),
+            sub_80417E8(&MenuInfo_085C7504, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 20),
             DecodeMsg(0xC27)); // TODO: msg ids
 
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
@@ -550,7 +550,7 @@ int sub_801F1DC(struct MenuEntInfo const* info, int id)
 u8 sub_801F228(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     UnitEquipItemSlot(gActiveUnit, ent->id);
-    gAction.itemSlot = ITEMSLOT_INV0;
+    gAction.item_slot = ITEMSLOT_INV0;
 
     ClearBg0Bg1();
 
@@ -565,9 +565,9 @@ u8 sub_801F228(struct MenuProc* menu, struct MenuEntProc* ent)
 u8 sub_801F26C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = gActiveUnit->items[ent->id];
-    bool isUseable = CanUnitUseWeapon(gActiveUnit, item);
+    bool is_usable = CanUnitUseWeapon(gActiveUnit, item);
 
-    sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    sub_8016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 
     return 0;
 }
@@ -604,8 +604,8 @@ u8 sub_801F328(struct MapSelectProc* proc, struct SelectTarget* target)
 
     if (target->uid == 0)
     {
-        gAction.xTarget = target->x;
-        gAction.yTarget = target->y;
+        gAction.x_target = target->x;
+        gAction.y_target = target->y;
         gAction.extra = target->extra;
     }
 
@@ -639,17 +639,17 @@ u8 sub_801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
 
     if (target->uid == 0)
     {
-        gAction.xTarget = target->x;
-        gAction.yTarget = target->y;
+        gAction.x_target = target->x;
+        gAction.y_target = target->y;
         gAction.extra = target->extra;
 
         InitObstacleBattleUnit();
     }
 
-    if (gAction.itemSlot == ITEMSLOT_BALLISTA)
+    if (gAction.item_slot == ITEMSLOT_BALLISTA)
         BattleGenerateBallistaSimulation(gActiveUnit, unit, gActiveUnit->x, gActiveUnit->y);
     else
-        BattleGenerateSimulation(gActiveUnit, unit, -1, -1, gAction.itemSlot);
+        BattleGenerateSimulation(gActiveUnit, unit, -1, -1, gAction.item_slot);
 
     UpdateBattlePreviewContents();
 
@@ -672,7 +672,7 @@ int sub_801F444(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_TRADED)
+    if (gBmSt.partial_actions_taken & PARTIAL_ACTION_TRADED)
         return MENU_NOTSHOWN;
 
     ListTradeTargets(gActiveUnit);
@@ -833,7 +833,7 @@ u8 sub_801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
 int sub_801F708(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = gActiveUnit->items[ent->id];
-    bool isUseable;
+    bool is_usable;
 
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
     {
@@ -841,9 +841,9 @@ int sub_801F708(struct MenuProc* menu, struct MenuEntProc* ent)
         return 0;
     }
 
-    isUseable = CanUnitUseItem(gActiveUnit, item);
+    is_usable = CanUnitUseItem(gActiveUnit, item);
 
-    sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    sub_8016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
     EnableBgSync(BG0_SYNC_BIT);
 }
 
@@ -865,7 +865,7 @@ u8 sub_801F7D0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     struct MenuRect rect;
 
-    gAction.itemSlot = ent->id;
+    gAction.item_slot = ent->id;
 
     rect.x = ent->x + 9;
     rect.y = ent->y - 1;
@@ -948,7 +948,7 @@ u8 sub_801F948(struct MenuProc* menu)
         ClearBg0Bg1();
         EndFaceById(0);
 
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
+        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6B | MENU_ACT_CLEAR;
     }
@@ -971,7 +971,7 @@ u8 sub_801F948(struct MenuProc* menu)
 
 int sub_801FA14(struct MenuEntInfo const* info, int id)
 {
-    int item = gActiveUnit->items[gAction.itemSlot];
+    int item = gActiveUnit->items[gAction.item_slot];
 
     if (GetItemEffect(item) == 0)
         return MENU_NOTSHOWN;
@@ -988,7 +988,7 @@ int sub_801FA14(struct MenuEntInfo const* info, int id)
 
 int sub_801FA84(struct MenuEntInfo const* info, int id)
 {
-    int item = gActiveUnit->items[gAction.itemSlot];
+    int item = gActiveUnit->items[gAction.item_slot];
 
     if (!(GetItemAttributes(item) & ITEM_ATTR_WEAPON))
         return MENU_NOTSHOWN;
@@ -999,7 +999,7 @@ int sub_801FA84(struct MenuEntInfo const* info, int id)
 
 int sub_801FACC(struct MenuEntInfo const* info, int id)
 {
-    int item = gActiveUnit->items[gAction.itemSlot];
+    int item = gActiveUnit->items[gAction.item_slot];
 
     if (GetItemAttributes(item) & ITEM_ATTR_IMPORTANT)
         return MENU_DISABLED;
@@ -1011,7 +1011,7 @@ u8 sub_801FB00(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability == MENU_DISABLED)
     {
-        MenuFrozenHelpBox(menu, GetUnitItemCantUseMsg(gActiveUnit, gActiveUnit->items[gAction.itemSlot]));
+        MenuFrozenHelpBox(menu, GetUnitItemCantUseMsg(gActiveUnit, gActiveUnit->items[gAction.item_slot]));
         return MENU_ACT_SE_6B;
     }
 
@@ -1029,14 +1029,14 @@ u8 sub_801FB68(struct MenuProc* menu, struct MenuEntProc* ent)
         return MENU_ACT_SE_6B;
     }
 
-    UnitEquipItemSlot(gActiveUnit, gAction.itemSlot);
+    UnitEquipItemSlot(gActiveUnit, gAction.item_slot);
 
     return sub_801F8F8(menu);
 }
 
 u8 sub_801FBA8(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    gBmSt.unk_3F = gAction.itemSlot;
+    gBmSt.unk_3F = gAction.item_slot;
 
     sub_801F8E0(menu);
     EndFaceById(0);
@@ -1061,14 +1061,14 @@ u8 sub_801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
     rect.w = 5;
     rect.h = 0;
 
-    sub_8041844(&MenuInfo_085C7528, rect, menu)->activeEntry = 1;
+    sub_8041844(&MenuInfo_085C7528, rect, menu)->active_entry = 1;
 
     return MENU_ACT_SE_6A | MENU_ACT_DOOM;
 }
 
 u8 sub_801FC50(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    UnitRemoveItem(gActiveUnit, gAction.itemSlot);
+    UnitRemoveItem(gActiveUnit, gAction.item_slot);
 
     sub_801F948(menu);
     return MENU_ACT_SKIPCURSOR;
@@ -1087,17 +1087,17 @@ int sub_801FC78(struct MenuEntInfo const* info, int id)
 
 int sub_801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    bool isUseable = (ent->availability == MENU_ENABLED) ? TRUE : FALSE;
+    bool is_usable = (ent->availability == MENU_ENABLED) ? TRUE : FALSE;
     int item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
 
-    sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    sub_8016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
 u8 sub_801FD04(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ClearBg0Bg1();
 
-    gAction.itemSlot = ITEMSLOT_BALLISTA;
+    gAction.item_slot = ITEMSLOT_BALLISTA;
 
     sub_8021278(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C77EC);
@@ -1200,11 +1200,11 @@ int sub_801FEE8(struct MenuEntInfo const* info, int id)
 u8 sub_801FF20(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     UnitEquipItemSlot(gActiveUnit, ent->id);
-    gAction.itemSlot = ITEMSLOT_INV0;
+    gAction.item_slot = ITEMSLOT_INV0;
 
     ClearBg0Bg1();
 
-    DoUseUnitItem(gActiveUnit, gActiveUnit->items[gAction.itemSlot]);
+    DoUseUnitItem(gActiveUnit, gActiveUnit->items[gAction.item_slot]);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
 }
@@ -1336,7 +1336,7 @@ u8 sub_802013C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_DOOR;
     gAction.instigator = gActiveUnit->id;
-    gAction.itemSlot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR);
+    gAction.item_slot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -1356,7 +1356,7 @@ int sub_8020164(struct MenuEntInfo const* info, int id)
 u8 sub_80201A0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_CHEST;
-    gAction.itemSlot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST);
+    gAction.item_slot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
 }
@@ -1368,7 +1368,7 @@ int sub_80201C4(struct MenuEntInfo const* info, int id)
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_NOTSHOWN;
 
-    if (gBmSt.partialActionsTaken & PARTIAL_ACTION_SUPPLY)
+    if (gBmSt.partial_actions_taken & PARTIAL_ACTION_SUPPLY)
         return MENU_NOTSHOWN;
 
     if (GetUnitItemCount(gActiveUnit) == 0 && CountSupplyItems() == 0)
@@ -1535,9 +1535,9 @@ int sub_8020504(struct MapSelectProc* proc, struct SelectTarget* target)
 
     TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_1));
 
-    x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->person->msgName))) / 2;
+    x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->pinfo->msg_name))) / 2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(3, 3), TEXT_COLOR_SYSTEM_WHITE, x, 7,
-        DecodeMsg(GetUnit(gAction.target)->person->msgName));
+        DecodeMsg(GetUnit(gAction.target)->pinfo->msg_name));
 
     PutFace80x72(gBg0Tm + TM_OFFSET(3, 5), GetUnitFid(GetUnit(gAction.target)),
         BGCHR_STEALSELECT_FACE, BGPAL_STEALSELECT_FACE);
@@ -1559,9 +1559,9 @@ int sub_80205A8(struct MenuEntInfo const* info, int id)
 int sub_80205EC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = GetUnit(gAction.target)->items[ent->id];
-    bool isUseable = IsItemStealable(item);
+    bool is_usable = IsItemStealable(item);
 
-    sub_8016694(&ent->text, item, isUseable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    sub_8016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
 u8 sub_8020640(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -1572,7 +1572,7 @@ u8 sub_8020640(struct MenuProc* menu, struct MenuEntProc* ent)
         return MENU_ACT_SE_6B;
     }
 
-    gAction.itemSlot = ent->id;
+    gAction.item_slot = ent->id;
     gAction.id = ACTION_STEAL;
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
@@ -1582,7 +1582,7 @@ int sub_8020678(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->id >= ITEMSLOT_INV_COUNT)
     {
-        sub_80706FC(ent->x*8, ent->y*8, gBmSt.inventoryItemOverflow);
+        sub_80706FC(ent->x*8, ent->y*8, gBmSt.inventory_item_overflow);
         return 0;
     }
 

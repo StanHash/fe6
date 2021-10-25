@@ -55,7 +55,7 @@ int AddSupplyItem(int item)
 {
     int i;
 
-    gBmSt.supplyItemOverflow = 0;
+    gBmSt.convoy_item_overflow = 0;
 
     for (i = 0; i < SUPPLY_ITEM_COUNT; ++i)
     {
@@ -66,7 +66,7 @@ int AddSupplyItem(int item)
         }
     }
 
-    gBmSt.supplyItemOverflow = item;
+    gBmSt.convoy_item_overflow = item;
     return -1;
 }
 

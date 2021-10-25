@@ -1,11 +1,10 @@
-
 #pragma once
 
 #include "common.h"
 
 int GetTextPrintDelay(void);
 int IsFirstPlaythrough(void);
-void InitPlayConfig(int isHardMode);
+void InitPlayConfig(int is_hard);
 void ResetBmSt(void);
 void StartChapter(struct GenericProc* parent);
 void sub_8029084(void);

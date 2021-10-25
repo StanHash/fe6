@@ -21,8 +21,8 @@
 #include "constants/icons.h"
 #include "constants/faces.h"
 
-extern struct PersonInfo CONST_DATA PersonInfoTable[];
-extern struct JobInfo CONST_DATA JobInfoTable[];
+extern struct PInfo CONST_DATA PersonInfoTable[];
+extern struct JInfo CONST_DATA JobInfoTable[];
 
 extern struct Unit* CONST_DATA gUnitLut[0x100];
 
@@ -39,7 +39,7 @@ inline struct Unit* GetUnit(int uid)
     return gUnitLut[uid & 0xFF];
 }
 
-inline struct JobInfo const* GetJobInfo(int jid)
+inline struct JInfo const* GetJobInfo(int jid)
 {
     if (jid < 1)
         return NULL;
@@ -47,7 +47,7 @@ inline struct JobInfo const* GetJobInfo(int jid)
     return JobInfoTable + (jid - 1);
 }
 
-inline struct PersonInfo const* GetPersonInfo(int pid)
+inline struct PInfo const* GetPersonInfo(int pid)
 {
     if (pid < 1)
         return NULL;
@@ -100,7 +100,7 @@ struct Unit* GetFreeUnit(int faction)
     {
         struct Unit* unit = GetUnit(i);
 
-        if (unit->person == NULL)
+        if (unit->pinfo == NULL)
             return unit;
     }
 
@@ -109,15 +109,15 @@ struct Unit* GetFreeUnit(int faction)
 
 inline int GetUnitMaxHp(struct Unit* unit)
 {
-    return unit->hpMax + GetItemHpBonus(GetUnitEquippedWeapon(unit));
+    return unit->max_hp + GetItemHpBonus(GetUnitEquippedWeapon(unit));
 }
 
 inline int GetUnitCurrentHp(struct Unit* unit)
 {
-    if (unit->hpCur > GetUnitMaxHp(unit))
-        unit->hpCur = GetUnitMaxHp(unit);
+    if (unit->hp > GetUnitMaxHp(unit))
+        unit->hp = GetUnitMaxHp(unit);
 
-    return unit->hpCur;
+    return unit->hp;
 }
 
 inline int GetUnitPower(struct Unit* unit)
@@ -162,11 +162,11 @@ inline int GetUnitLuck(struct Unit* unit)
 
 inline int GetUnitFid(struct Unit* unit)
 {
-    if (unit->person->fid != FID_NONE)
-        return unit->person->fid;
+    if (unit->pinfo->fid != FID_NONE)
+        return unit->pinfo->fid;
 
-    if (unit->job->fid != FID_NONE)
-        return unit->job->fid;
+    if (unit->jinfo->fid != FID_NONE)
+        return unit->jinfo->fid;
 
 #if BUGFIX
     return FID_NONE;
@@ -175,8 +175,8 @@ inline int GetUnitFid(struct Unit* unit)
 
 inline int GetUnitChibiId(struct Unit* unit)
 {
-    if (unit->person->chibiId != 0)
-        return FID_FACTION_CHIBI + unit->person->chibiId;
+    if (unit->pinfo->chibi_id != 0)
+        return FID_FACTION_CHIBI + unit->pinfo->chibi_id;
 
     return GetUnitFid(unit);
 }
@@ -196,15 +196,15 @@ inline void SetUnitLeaderPid(struct Unit* unit, int pid)
 
 inline void SetUnitHp(struct Unit* unit, int hp)
 {
-    unit->hpCur = hp;
+    unit->hp = hp;
 
-    if (unit->hpCur > GetUnitMaxHp(unit))
-        unit->hpCur = GetUnitMaxHp(unit);
+    if (unit->hp > GetUnitMaxHp(unit))
+        unit->hp = GetUnitMaxHp(unit);
 }
 
 inline void AddUnitHp(struct Unit* unit, int amount)
 {
-    int hp = unit->hpCur;
+    int hp = unit->hp;
 
     hp += amount;
 
@@ -214,7 +214,7 @@ inline void AddUnitHp(struct Unit* unit, int amount)
     if (hp < 0)
         hp = 0;
 
-    unit->hpCur = hp;
+    unit->hp = hp;
 }
 
 int GetUnitVision(struct Unit* unit)
@@ -232,12 +232,12 @@ void SetUnitStatus(struct Unit* unit, int status)
     if (status == UNIT_STATUS_NONE)
     {
         unit->status = UNIT_STATUS_NONE;
-        unit->statusDuration = 0;
+        unit->status_duration = 0;
     }
     else
     {
         unit->status = status;
-        unit->statusDuration = 5;
+        unit->status_duration = 5;
     }
 }
 
@@ -260,7 +260,7 @@ inline char const* GetUnitStatusName(struct Unit* unit)
 int GetUnitMapSprite(struct Unit* unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BALLISTA))
-        return unit->job->mapSprite;
+        return unit->jinfo->map_sprite;
 
     switch (gMapTerrain[unit->y][unit->x])
     {
@@ -275,7 +275,7 @@ int GetUnitMapSprite(struct Unit* unit)
         return UNITSPRITE_BALLISTA_KILLER;
 
     default:
-        return unit->job->mapSprite;
+        return unit->jinfo->map_sprite;
 
     }
 }
@@ -400,7 +400,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
     ClearUnit(unit);
 
     UnitInitFromInfo(unit, info);
-    UnitInitStats(unit, unit->person);
+    UnitInitStats(unit, unit->pinfo);
 
     UnitHideIfUnderRoof(unit);
 
@@ -425,7 +425,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
 
     UnitCheckStatOverflow(unit);
 
-    unit->hpCur = GetUnitMaxHp(unit);
+    unit->hp = GetUnitMaxHp(unit);
 
     return unit;
 }
@@ -434,17 +434,17 @@ void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info)
 {
     int i;
 
-    unit->person = GetPersonInfo(info->pid);
+    unit->pinfo = GetPersonInfo(info->pid);
 
     if (info->jid != 0)
-        unit->job = GetJobInfo(info->jid);
+        unit->jinfo = GetJobInfo(info->jid);
     else
-        unit->job = GetJobInfo(unit->person->jidDefault);
+        unit->jinfo = GetJobInfo(unit->pinfo->jid_default);
 
     unit->level = info->level;
 
-    unit->x = info->xMove;
-    unit->y = info->yMove;
+    unit->x = info->x_move;
+    unit->y = info->y_move;
 
     for (i = 0; (i < (int) ARRAY_COUNT(info->items)) && info->items[i]; ++i)
         UnitAddItem(unit, CreateItem(info->items[i]));
@@ -452,26 +452,26 @@ void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info)
     UnitInitAiFromInfo(unit, info);
 }
 
-void UnitInitStats(struct Unit* unit, struct PersonInfo const* person)
+void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo)
 {
     int i;
 
-    unit->hpMax = person->hpBase + unit->job->hpBase;
-    unit->pow = person->powBase + unit->job->powBase;
-    unit->skl = person->sklBase + unit->job->sklBase;
-    unit->spd = person->spdBase + unit->job->spdBase;
-    unit->def = person->defBase + unit->job->defBase;
-    unit->res = person->resBase + unit->job->resBase;
-    unit->lck = person->lckBase;
+    unit->max_hp = pinfo->base_hp + unit->jinfo->base_hp;
+    unit->pow = pinfo->base_pow + unit->jinfo->base_pow;
+    unit->skl = pinfo->base_skl + unit->jinfo->base_skl;
+    unit->spd = pinfo->base_spd + unit->jinfo->base_spd;
+    unit->def = pinfo->base_def + unit->jinfo->base_def;
+    unit->res = pinfo->base_res + unit->jinfo->base_res;
+    unit->lck = pinfo->base_lck;
 
-    unit->conBonus = 0;
+    unit->bonus_con = 0;
 
     for (i = 0; i < UNIT_WEAPON_EXP_COUNT; ++i)
     {
-        unit->weaponExp[i] = unit->job->weaponExp[i];
+        unit->wexp[i] = unit->jinfo->wexp[i];
 
-        if (unit->person->weaponExp[i] != 0)
-            unit->weaponExp[i] = unit->person->weaponExp[i];
+        if (unit->pinfo->wexp[i] != 0)
+            unit->wexp[i] = unit->pinfo->wexp[i];
     }
 
     if (UNIT_FACTION(unit) == FACTION_BLUE && (unit->level != UNIT_LEVEL_MAX))
@@ -483,7 +483,7 @@ void UnitInitStats(struct Unit* unit, struct PersonInfo const* person)
 void sub_8017764(struct Unit* unit)
 {
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BIT23)
-        unit->person = GetPersonInfo(unit->person->id - 1);
+        unit->pinfo = GetPersonInfo(unit->pinfo->id - 1);
 }
 
 void UnitInitSupports(struct Unit* unit)
@@ -518,10 +518,10 @@ void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info)
 
         kind = GetItemKind(item);
 
-        if (unit->weaponExp[kind] == 0)
+        if (unit->wexp[kind] == 0)
             item = 0;
 
-        unit->weaponExp[kind] = GetItemRequiredExp(item);
+        unit->wexp[kind] = GetItemRequiredExp(item);
     }
 }
 
@@ -531,52 +531,52 @@ void UnitAutolevelCore(struct Unit* unit, u8 jid, int levelCount)
 
     if (levelCount)
     {
-        unit->hpMax += GetAutoleveledStatIncrease(unit->job->hpGrowth,  levelCount);
-        unit->pow   += GetAutoleveledStatIncrease(unit->job->powGrowth, levelCount);
-        unit->skl   += GetAutoleveledStatIncrease(unit->job->sklGrowth, levelCount);
-        unit->spd   += GetAutoleveledStatIncrease(unit->job->spdGrowth, levelCount);
-        unit->def   += GetAutoleveledStatIncrease(unit->job->defGrowth, levelCount);
-        unit->res   += GetAutoleveledStatIncrease(unit->job->resGrowth, levelCount);
-        unit->lck   += GetAutoleveledStatIncrease(unit->job->lckGrowth, levelCount);
+        unit->max_hp += GetAutoleveledStatIncrease(unit->jinfo->growth_hp,  levelCount);
+        unit->pow   += GetAutoleveledStatIncrease(unit->jinfo->growth_pow, levelCount);
+        unit->skl   += GetAutoleveledStatIncrease(unit->jinfo->growth_skl, levelCount);
+        unit->spd   += GetAutoleveledStatIncrease(unit->jinfo->growth_spd, levelCount);
+        unit->def   += GetAutoleveledStatIncrease(unit->jinfo->growth_def, levelCount);
+        unit->res   += GetAutoleveledStatIncrease(unit->jinfo->growth_res, levelCount);
+        unit->lck   += GetAutoleveledStatIncrease(unit->jinfo->growth_lck, levelCount);
     }
 }
 
 void UnitApplyBonusLevels(struct Unit* unit, int levelCount)
 {
-    UnitAutolevelCore(unit, unit->job->id, levelCount);
+    UnitAutolevelCore(unit, unit->jinfo->id, levelCount);
     UnitCheckStatOverflow(unit);
 
-    unit->hpCur = GetUnitMaxHp(unit);
+    unit->hp = GetUnitMaxHp(unit);
 }
 
 void UnitAutolevel(struct Unit* unit)
 {
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_PROMOTED)
-        UnitAutolevelCore(unit, unit->job->jidPromote, UNIT_LEVEL_MAX - 1);
+        UnitAutolevelCore(unit, unit->jinfo->jid_promote, UNIT_LEVEL_MAX - 1);
 
-    UnitAutolevelCore(unit, unit->job->id, unit->level - 1);
+    UnitAutolevelCore(unit, unit->jinfo->id, unit->level - 1);
 }
 
 void UnitAutolevelPlayer(struct Unit* unit)
 {
-    int i, levelCount = unit->level - unit->person->levelBase;
+    int i, levelCount = unit->level - unit->pinfo->base_level;
 
     for (i = 0; i < levelCount; ++i)
     {
-        unit->hpMax += GetStatIncrease(unit->person->hpGrowth);
-        unit->pow += GetStatIncrease(unit->person->powGrowth);
-        unit->skl += GetStatIncrease(unit->person->sklGrowth);
-        unit->spd += GetStatIncrease(unit->person->spdGrowth);
-        unit->def += GetStatIncrease(unit->person->defGrowth);
-        unit->res += GetStatIncrease(unit->person->resGrowth);
-        unit->lck += GetStatIncrease(unit->person->lckGrowth);
+        unit->max_hp += GetStatIncrease(unit->pinfo->growth_hp);
+        unit->pow += GetStatIncrease(unit->pinfo->growth_pow);
+        unit->skl += GetStatIncrease(unit->pinfo->growth_skl);
+        unit->spd += GetStatIncrease(unit->pinfo->growth_spd);
+        unit->def += GetStatIncrease(unit->pinfo->growth_def);
+        unit->res += GetStatIncrease(unit->pinfo->growth_res);
+        unit->lck += GetStatIncrease(unit->pinfo->growth_lck);
     }
 }
 
 void UnitCheckStatOverflow(struct Unit* unit)
 {
-    if (unit->hpMax > UNIT_HP_CAP(unit))
-        unit->hpMax = UNIT_HP_CAP(unit);
+    if (unit->max_hp > UNIT_HP_CAP(unit))
+        unit->max_hp = UNIT_HP_CAP(unit);
 
     if (unit->pow > UNIT_POW_CAP(unit))
         unit->pow = UNIT_POW_CAP(unit);
@@ -596,11 +596,11 @@ void UnitCheckStatOverflow(struct Unit* unit)
     if (unit->lck > UNIT_LCK_CAP(unit))
         unit->lck = UNIT_LCK_CAP(unit);
 
-    if (unit->conBonus > (UNIT_CON_CAP(unit) - UNIT_CON_BASE(unit)))
-        unit->conBonus = (UNIT_CON_CAP(unit) - UNIT_CON_BASE(unit));
+    if (unit->bonus_con > (UNIT_CON_CAP(unit) - UNIT_CON_BASE(unit)))
+        unit->bonus_con = (UNIT_CON_CAP(unit) - UNIT_CON_BASE(unit));
 
-    if (unit->movBonus > (UNIT_MOV_CAP(unit) - UNIT_MOV_BASE(unit)))
-        unit->movBonus = (UNIT_MOV_CAP(unit) - UNIT_MOV_BASE(unit));
+    if (unit->bonus_mov > (UNIT_MOV_CAP(unit) - UNIT_MOV_BASE(unit)))
+        unit->bonus_mov = (UNIT_MOV_CAP(unit) - UNIT_MOV_BASE(unit));
 }
 
 struct Unit* GetUnitByPid(int pid)
@@ -614,10 +614,10 @@ struct Unit* GetUnitByPid(int pid)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
-        if (unit->person->id == pid)
+        if (unit->pinfo->id == pid)
             return unit;
     }
 
@@ -680,7 +680,7 @@ inline char const* GetUnitRescueName(struct Unit* unit)
     if (unit->rescue == 0)
         return sStatusNameStringLut[UNIT_STATUS_NONE];
 
-    return DecodeMsg(GetUnit(unit->rescue)->person->msgName);
+    return DecodeMsg(GetUnit(unit->rescue)->pinfo->msg_name);
 }
 
 void KillUnit(struct Unit* unit)
@@ -693,7 +693,7 @@ void KillUnit(struct Unit* unit)
     else
     {
         // mark as free
-        unit->person = NULL;
+        unit->pinfo = NULL;
     }
 }
 
@@ -718,7 +718,7 @@ void UnitChangeFaction(struct Unit* unit, int faction)
 
 inline bool CanUnitCrossTerrain(struct Unit* unit, int terrain)
 {
-    return (unit->job->movTerrainTable[terrain] > 0) ? TRUE : FALSE;
+    return (unit->jinfo->mov_table[terrain] > 0) ? TRUE : FALSE;
 }
 
 void UnitSyncMovement(struct Unit* unit)
@@ -791,9 +791,9 @@ void UnitBeginAction(struct Unit* unit)
 
     gAction.instigator = unit->id;
     gAction.id = ACTION_NONE;
-    gAction.moveCount = 0;
+    gAction.move_count = 0;
 
-    gBmSt.partialActionsTaken = 0;
+    gBmSt.partial_actions_taken = 0;
     gBmSt.unk_3F = 0xFF;
 
     sub_8025780();
@@ -812,7 +812,7 @@ void UnitBeginReMoveAction(struct Unit* unit)
 
     gAction.id = ACTION_NONE;
 
-    gBmSt.partialActionsTaken = 0;
+    gBmSt.partial_actions_taken = 0;
 
     sub_8025780();
 
@@ -827,7 +827,7 @@ void sub_8017EDC(int x, int y)
 
     gActiveUnit->state |= US_TURN_ENDED;
 
-    PidStatsAddSquaresMoved(gActiveUnit->person->id, gAction.moveCount);
+    PidStatsAddSquaresMoved(gActiveUnit->pinfo->id, gAction.move_count);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
         gActiveUnit->state = gActiveUnit->state &~ US_HIDDEN;
@@ -846,7 +846,7 @@ void ClearActiveFactionTurnEndedState(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         unit->state &= ~(US_TURN_ENDED + US_HAS_MOVED + US_HAS_MOVED_AI);
@@ -868,7 +868,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_UNAVAILABLE | US_RESCUED))
@@ -883,11 +883,11 @@ void TickActiveFactionTurnAndListStatusHeals(void)
             visionChanged = TRUE;
         }
 
-        if (unit->statusDuration != 0)
+        if (unit->status_duration != 0)
         {
-            unit->statusDuration--;
+            unit->status_duration--;
 
-            if (unit->statusDuration == 0)
+            if (unit->status_duration == 0)
                 EnlistTarget(unit->x, unit->y, unit->id, 0);
         }
     }
@@ -913,18 +913,18 @@ void sub_801809C(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         unit->state &= ~US_BIT8;
     }
 }
 
-void UnitUpdateUsedItem(struct Unit* unit, int itemSlot)
+void UnitUpdateUsedItem(struct Unit* unit, int item_slot)
 {
-    if (unit->items[itemSlot] != 0)
+    if (unit->items[item_slot] != 0)
     {
-        unit->items[itemSlot] = GetItemAfterUse(unit->items[itemSlot]);
+        unit->items[item_slot] = GetItemAfterUse(unit->items[item_slot]);
         UnitRemoveInvalidItems(unit);
     }
 }
@@ -949,10 +949,10 @@ bool UnitKnowsMagic(struct Unit* unit)
 {
     u8 combinedWeaponExp = 0; 
 
-    combinedWeaponExp |= unit->weaponExp[ITEM_KIND_STAFF];
-    combinedWeaponExp |= unit->weaponExp[ITEM_KIND_ANIMA];
-    combinedWeaponExp |= unit->weaponExp[ITEM_KIND_LIGHT];
-    combinedWeaponExp |= unit->weaponExp[ITEM_KIND_ELDER];
+    combinedWeaponExp |= unit->wexp[ITEM_KIND_STAFF];
+    combinedWeaponExp |= unit->wexp[ITEM_KIND_ANIMA];
+    combinedWeaponExp |= unit->wexp[ITEM_KIND_LIGHT];
+    combinedWeaponExp |= unit->wexp[ITEM_KIND_ELDER];
 
     return combinedWeaponExp ? TRUE : FALSE;
 }
@@ -1032,7 +1032,7 @@ int sub_8018258(struct Unit* unit)
 
 bool CanActiveUnitStillMove(void)
 {
-    s8 adjLut[] =
+    i8 adjLut[] =
     {
         -1,  0,
          0, -1,
@@ -1040,7 +1040,7 @@ bool CanActiveUnitStillMove(void)
          0, +1,
     };
 
-    int move = UNIT_MOV(gActiveUnit) - gAction.moveCount;
+    int move = UNIT_MOV(gActiveUnit) - gAction.move_count;
 
     int xUnit = gActiveUnit->x;
     int yUnit = gActiveUnit->y;
@@ -1057,7 +1057,7 @@ bool CanActiveUnitStillMove(void)
         if (gMapUnit[yLocal][xLocal] & FACTION_RED)
             continue;
 
-        cost = gActiveUnit->job->movTerrainTable[gMapTerrain[yLocal][xLocal]];
+        cost = gActiveUnit->jinfo->mov_table[gMapTerrain[yLocal][xLocal]];
 
         if ((cost < 0) || (cost > move))
             continue;

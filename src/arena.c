@@ -14,11 +14,11 @@
 
 static void ArenaBeginInternal(struct Unit* unit);
 static int ArenaGetUnitWeaponKind(struct Unit* unit);
-static int ArenaGetJobWeaponKind(struct JobInfo const* jinfo);
-static int ArenaGenOpposingJid(int weaponKind);
-static bool ArenaIsMagicWeaponKind(int weaponKind);
+static int ArenaGetJobWeaponKind(struct JInfo const* jinfo);
+static int ArenaGenOpposingJid(int weapon_kind);
+static bool ArenaIsMagicWeaponKind(int weapon_kind);
 static int ArenaGetOpposingLevel(int level);
-static int ArenaGetPowerRanking(struct Unit* unit, bool opponentIsMagic);
+static int ArenaGetPowerRanking(struct Unit* unit, bool opponent_is_magic);
 static void ArenaGenOpponentUnit(void);
 static void ArenaGenBaseWeapons(void);
 static u16 ArenaGetUpgradedWeapon(u16 item);
@@ -171,17 +171,17 @@ static void ArenaBeginInternal(struct Unit* unit)
     gArenaSt.player = unit;
     gArenaSt.opponent = &gArenaOpponent;
 
-    gArenaSt.playerJid = unit->job->id;
-    gArenaSt.playerWeaponKind = ArenaGetUnitWeaponKind(unit);
+    gArenaSt.player_jid = unit->jinfo->id;
+    gArenaSt.player_weapon_kind = ArenaGetUnitWeaponKind(unit);
 
-    gArenaSt.opponentJid = ArenaGenOpposingJid(gArenaSt.playerWeaponKind);
-    gArenaSt.opponentWeaponKind = ArenaGetJobWeaponKind(GetJobInfo(gArenaSt.opponentJid));
+    gArenaSt.opponent_jid = ArenaGenOpposingJid(gArenaSt.player_weapon_kind);
+    gArenaSt.opponent_weapon_kind = ArenaGetJobWeaponKind(GetJobInfo(gArenaSt.opponent_jid));
 
-    gArenaSt.playerIsMagic = ArenaIsMagicWeaponKind(gArenaSt.playerWeaponKind);
-    gArenaSt.opponentIsMagic = ArenaIsMagicWeaponKind(gArenaSt.opponentWeaponKind);
+    gArenaSt.player_is_magic = ArenaIsMagicWeaponKind(gArenaSt.player_weapon_kind);
+    gArenaSt.opponent_is_magic = ArenaIsMagicWeaponKind(gArenaSt.opponent_weapon_kind);
 
-    gArenaSt.playerLevel = unit->level;
-    gArenaSt.opponentLevel = ArenaGetOpposingLevel(gArenaSt.playerLevel);
+    gArenaSt.player_level = unit->level;
+    gArenaSt.opponent_level = ArenaGetOpposingLevel(gArenaSt.player_level);
 
     ArenaGenOpponentUnit();
     ArenaGenBaseWeapons();
@@ -194,8 +194,8 @@ static void ArenaBeginInternal(struct Unit* unit)
         if (!ArenaAdjustOpponentDamage())
             break;
 
-    gArenaSt.playerPowerRanking = ArenaGetPowerRanking(gArenaSt.player, gArenaSt.opponentIsMagic);
-    gArenaSt.opponentPowerRanking = ArenaGetPowerRanking(gArenaSt.opponent, gArenaSt.playerIsMagic);
+    gArenaSt.player_power_ranking = ArenaGetPowerRanking(gArenaSt.player, gArenaSt.opponent_is_magic);
+    gArenaSt.opponent_power_ranking = ArenaGetPowerRanking(gArenaSt.opponent, gArenaSt.player_is_magic);
 
     ArenaGenMatchupGoldValue();
 
@@ -206,15 +206,15 @@ static void ArenaBeginInternal(struct Unit* unit)
 
 void ArenaBegin(struct Unit* unit)
 {
-    RandGetSt(gAction.arenaBeginRandSt);
+    RandGetSt(gAction.arena_begin_rand_st);
     ArenaBeginInternal(unit);
 }
 
 void ArenaResume(struct Unit* unit)
 {
-    RandSetSt(gAction.arenaBeginRandSt);
+    RandSetSt(gAction.arena_begin_rand_st);
     ArenaBeginInternal(unit);
-    RandSetSt(gAction.actionRandSt);
+    RandSetSt(gAction.action_rand_st);
 }
 
 static int ArenaGetUnitWeaponKind(struct Unit* unit)
@@ -229,9 +229,9 @@ static int ArenaGetUnitWeaponKind(struct Unit* unit)
         if (i == ITEM_KIND_STAFF)
             continue;
 
-        if (wexp < unit->weaponExp[i])
+        if (wexp < unit->wexp[i])
         {
-            wexp = unit->weaponExp[i];
+            wexp = unit->wexp[i];
             kind = i;
         }
     }
@@ -239,7 +239,7 @@ static int ArenaGetUnitWeaponKind(struct Unit* unit)
     return kind;
 }
 
-static int ArenaGetJobWeaponKind(struct JobInfo const* job)
+static int ArenaGetJobWeaponKind(struct JInfo const* jinfo)
 {
     int i;
 
@@ -251,9 +251,9 @@ static int ArenaGetJobWeaponKind(struct JobInfo const* job)
         if (i == ITEM_KIND_STAFF)
             continue;
 
-        if (wexp < job->weaponExp[i])
+        if (wexp < jinfo->wexp[i])
         {
-            wexp = job->weaponExp[i];
+            wexp = jinfo->wexp[i];
             kind = i;
         }
     }
@@ -261,7 +261,7 @@ static int ArenaGetJobWeaponKind(struct JobInfo const* job)
     return kind;
 }
 
-static int ArenaGenOpposingJid(int weaponKind)
+static int ArenaGenOpposingJid(int weapon_kind)
 {
     int promoteflag;
     int jobnum, i;
@@ -269,7 +269,7 @@ static int ArenaGenOpposingJid(int weaponKind)
     int jobcount = 0;
     u8 const* joblist = NULL;
 
-    switch (weaponKind)
+    switch (weapon_kind)
     {
 
     case ITEM_KIND_SWORD:
@@ -292,7 +292,7 @@ static int ArenaGenOpposingJid(int weaponKind)
 
     promoteflag = UNIT_ATTRIBUTES(gArenaSt.player) & UNIT_ATTR_PROMOTED;
 
-    // Iterating through the list is done by skipping jobs that aren't of the same tier as the player's job
+    // Iterating through the list is done by skipping jobs that aren't of the same tier as the player's jinfo
     // Therefore we are working with a "sudo-list" that omits the skipped jobs
 
     // First, we iterate through this "sudo-list" once to count the number of jobs it contains.
@@ -310,7 +310,7 @@ static int ArenaGenOpposingJid(int weaponKind)
     jobnum = RandNext(jobcount);
 
     // Then, since we can't access elements of that "sudo-list" via indexes directly, we need to iterate again
-    // This time, we count up to jobnum and when we reach that we have the job we want
+    // This time, we count up to jobnum and when we reach that we have the jinfo we want
 
     for (i = 0, jobcount = 0; TRUE; ++i)
     {
@@ -318,7 +318,7 @@ static int ArenaGenOpposingJid(int weaponKind)
             continue; // skip jobs that aren't of the same tier as player
 
         if (jobcount == jobnum)
-            break; // we reached the job we want
+            break; // we reached the jinfo we want
 
         ++jobcount;
     }
@@ -326,9 +326,9 @@ static int ArenaGenOpposingJid(int weaponKind)
     return joblist[i];
 }
 
-static bool ArenaIsMagicWeaponKind(int weaponKind)
+static bool ArenaIsMagicWeaponKind(int weapon_kind)
 {
-    switch (weaponKind)
+    switch (weapon_kind)
     {
 
     case ITEM_KIND_SWORD:
@@ -357,18 +357,18 @@ static int ArenaGetOpposingLevel(int level)
     return result;
 }
 
-static int ArenaGetPowerRanking(struct Unit* unit, bool opponentIsMagic)
+static int ArenaGetPowerRanking(struct Unit* unit, bool opponent_is_magic)
 {
-    int result = unit->hpMax;
+    int result = unit->max_hp;
 
-    result += unit->hpMax;
+    result += unit->max_hp;
     result += unit->pow*2;
     result += unit->skl*2;
     result += unit->spd*2;
     result += unit->lck;
     result += UNIT_CON_BASE(unit);
 
-    if (opponentIsMagic)
+    if (opponent_is_magic)
         result += GetUnitResistance(unit)*2;
     else
         result += GetUnitDefense(unit)*2;
@@ -388,9 +388,9 @@ static void ArenaGenOpponentUnit(void)
     struct Unit* unit = &gArenaOpponent;
 
     info.pid = PID_ARENA_OPPONENT;
-    info.jid = gArenaSt.opponentJid;
+    info.jid = gArenaSt.opponent_jid;
     info.factionId = 0;
-    info.level = gArenaSt.opponentLevel;
+    info.level = gArenaSt.opponent_level;
     info.autolevel = TRUE;
     info.items[0] = 0;
     info.items[1] = 0;
@@ -406,7 +406,7 @@ static void ArenaGenOpponentUnit(void)
     unit->id = FACTION_RED+0;
 
     UnitInitFromInfo(unit, &info);
-    UnitInitStats(unit, unit->person);
+    UnitInitStats(unit, unit->pinfo);
 
     level = unit->level;
 
@@ -438,15 +438,15 @@ static void ArenaGenBaseWeapons(void)
         [ITEM_KIND_ELDER] = IID_FLUX,
     };
 
-    gArenaSt.playerWeapon = CreateItem(arenaWeapons[gArenaSt.playerWeaponKind]);
-    gArenaSt.opponentWeapon = CreateItem(arenaWeapons[gArenaSt.opponentWeaponKind]);
+    gArenaSt.player_weapon = CreateItem(arenaWeapons[gArenaSt.player_weapon_kind]);
+    gArenaSt.opponent_weapon = CreateItem(arenaWeapons[gArenaSt.opponent_weapon_kind]);
 
     gArenaSt.range = 1;
 
-    if (gArenaSt.playerWeaponKind == ITEM_KIND_BOW)
+    if (gArenaSt.player_weapon_kind == ITEM_KIND_BOW)
         gArenaSt.range = 2;
 
-    if (gArenaSt.opponentWeaponKind == ITEM_KIND_BOW)
+    if (gArenaSt.opponent_weapon_kind == ITEM_KIND_BOW)
         gArenaSt.range = 2;
 }
 
@@ -485,28 +485,28 @@ static bool ArenaAdjustOpponentDamage(void)
 
     // Update battle unit stats
 
-    gBattleUnitA.battleAttack = GetUnitPower(gArenaSt.player) + 5;
+    gBattleUnitA.battle_attack = GetUnitPower(gArenaSt.player) + 5;
 
-    if (gArenaSt.opponentIsMagic)
-        gBattleUnitA.battleDefense = GetUnitResistance(gArenaSt.player);
+    if (gArenaSt.opponent_is_magic)
+        gBattleUnitA.battle_defense = GetUnitResistance(gArenaSt.player);
     else
-        gBattleUnitA.battleDefense = GetUnitDefense(gArenaSt.player);
+        gBattleUnitA.battle_defense = GetUnitDefense(gArenaSt.player);
 
-    gBattleUnitB.battleAttack = GetUnitPower(gArenaSt.opponent) + 5;
+    gBattleUnitB.battle_attack = GetUnitPower(gArenaSt.opponent) + 5;
 
-    if (gArenaSt.playerIsMagic)
-        gBattleUnitB.battleDefense = GetUnitResistance(gArenaSt.opponent);
+    if (gArenaSt.player_is_magic)
+        gBattleUnitB.battle_defense = GetUnitResistance(gArenaSt.opponent);
     else
-        gBattleUnitB.battleDefense = GetUnitDefense(gArenaSt.opponent);
+        gBattleUnitB.battle_defense = GetUnitDefense(gArenaSt.opponent);
 
-    if (gBattleUnitA.battleAttack - gBattleUnitB.battleDefense < GetUnitMaxHp(gArenaSt.opponent)/6)
+    if (gBattleUnitA.battle_attack - gBattleUnitB.battle_defense < GetUnitMaxHp(gArenaSt.opponent)/6)
     {
         // Player does too little damage
         // Nerfing opponent defenses
 
         result = TRUE;
 
-        if (gArenaSt.playerIsMagic)
+        if (gArenaSt.player_is_magic)
         {
             gArenaSt.opponent->res -= 4;
 
@@ -525,7 +525,7 @@ static bool ArenaAdjustOpponentDamage(void)
         gArenaSt.opponent->skl += 1;
     }
 
-    if (gBattleUnitB.battleAttack - gBattleUnitA.battleDefense < GetUnitMaxHp(gArenaSt.player)/6)
+    if (gBattleUnitB.battle_attack - gBattleUnitA.battle_defense < GetUnitMaxHp(gArenaSt.player)/6)
     {
         // Opponent does too little damage
         // Buffing opponent offenses
@@ -536,7 +536,7 @@ static bool ArenaAdjustOpponentDamage(void)
         gArenaSt.opponent->spd += 2;
         gArenaSt.opponent->skl += 2;
 
-        gArenaSt.opponentWeapon = ArenaGetUpgradedWeapon(gArenaSt.opponentWeapon);
+        gArenaSt.opponent_weapon = ArenaGetUpgradedWeapon(gArenaSt.opponent_weapon);
     }
 
     return result;
@@ -546,23 +546,23 @@ static bool ArenaAdjustOpponentPowerRanking(void)
 {
     int max, diff;
 
-    gArenaSt.playerPowerRanking = ArenaGetPowerRanking(gArenaSt.player, gArenaSt.opponentIsMagic);
-    gArenaSt.opponentPowerRanking = ArenaGetPowerRanking(gArenaSt.opponent, gArenaSt.playerIsMagic);
+    gArenaSt.player_power_ranking = ArenaGetPowerRanking(gArenaSt.player, gArenaSt.opponent_is_magic);
+    gArenaSt.opponent_power_ranking = ArenaGetPowerRanking(gArenaSt.opponent, gArenaSt.player_is_magic);
 
-    max = gArenaSt.playerPowerRanking > gArenaSt.opponentPowerRanking
-        ? gArenaSt.playerPowerRanking : gArenaSt.opponentPowerRanking;
+    max = gArenaSt.player_power_ranking > gArenaSt.opponent_power_ranking
+        ? gArenaSt.player_power_ranking : gArenaSt.opponent_power_ranking;
 
-    diff = ABS(gArenaSt.playerPowerRanking - gArenaSt.opponentPowerRanking);
+    diff = ABS(gArenaSt.player_power_ranking - gArenaSt.opponent_power_ranking);
 
     if (diff*100/max <= 20)
         return FALSE;
 
-    if (gArenaSt.playerPowerRanking < gArenaSt.opponentPowerRanking)
+    if (gArenaSt.player_power_ranking < gArenaSt.opponent_power_ranking)
     {
-        if (gArenaSt.opponent->hpMax != 0)
+        if (gArenaSt.opponent->max_hp != 0)
         {
-            gArenaSt.opponent->hpMax -= 1;
-            gArenaSt.opponent->hpCur -= 1;
+            gArenaSt.opponent->max_hp -= 1;
+            gArenaSt.opponent->hp -= 1;
         }
 
         if (gArenaSt.opponent->pow != 0)
@@ -587,10 +587,10 @@ static bool ArenaAdjustOpponentPowerRanking(void)
     }
     else
     {
-        if (gArenaSt.opponent->hpMax < 80)
+        if (gArenaSt.opponent->max_hp < 80)
         {
-            gArenaSt.opponent->hpMax += 2;
-            gArenaSt.opponent->hpCur += 2;
+            gArenaSt.opponent->max_hp += 2;
+            gArenaSt.opponent->hp += 2;
         }
 
         if (gArenaSt.opponent->pow < 30)
@@ -617,19 +617,19 @@ static bool ArenaAdjustOpponentPowerRanking(void)
 
 static void ArenaGenMatchupGoldValue(void)
 {
-    int value = gArenaSt.opponentPowerRanking - gArenaSt.playerPowerRanking;
+    int value = gArenaSt.opponent_power_ranking - gArenaSt.player_power_ranking;
 
     value = 800 + 10*(value/2);
 
     if (value < 1)
         value = 1;
 
-    gArenaSt.matchupGoldValue = value;
+    gArenaSt.matchup_gold_value = value;
 }
 
 int ArenaGetMatchupGoldValue(void)
 {
-    return gArenaSt.matchupGoldValue;
+    return gArenaSt.matchup_gold_value;
 }
 
 int ArenaGetResult(void)
@@ -646,19 +646,19 @@ void ArenaContinueBattle(void)
 {
     int something = gBmSt.unk_3C;
 
-    gAction.extra = gBattleUnitB.unit.hpCur;
+    gAction.extra = gBattleUnitB.unit.hp;
 
     gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
     sub_80857B0(SAVE_ID_SUSPEND0);
 
     BattleUnwind();
 
-    if (gBattleUnitB.unit.hpCur == 0)
+    if (gBattleUnitB.unit.hp == 0)
         BattleApplyExpGains();
 
     UpdateUnitDuringBattle(gArenaSt.player, &gBattleUnitA);
 
-    if (!something || gBattleUnitB.unit.hpCur == 0)
+    if (!something || gBattleUnitB.unit.hp == 0)
         sub_8084D64();
 }
 

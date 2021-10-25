@@ -1,4 +1,3 @@
-
 #pragma once
 
 #if defined(MODERN) && MODERN

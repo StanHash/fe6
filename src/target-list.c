@@ -306,10 +306,10 @@ void TryEnlistTalkUnitTarget(struct Unit* unit)
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
         return;
 
-    if (!sub_806AF4C(gSubjectUnit->person->id, unit->person->id))
+    if (!sub_806AF4C(gSubjectUnit->pinfo->id, unit->pinfo->id))
         return;
 
-    EnlistTarget(unit->x, unit->y, unit->id, unit->person->id);
+    EnlistTarget(unit->x, unit->y, unit->id, unit->pinfo->id);
 }
 
 void ListTalkTargets(struct Unit* unit)
@@ -446,7 +446,7 @@ void ListTerrainHealingTargets(int faction)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_UNAVAILABLE | US_RESCUED))
@@ -480,7 +480,7 @@ void ListPoisonDamageTargets(int faction)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (unit->state & (US_UNAVAILABLE | US_RESCUED))
@@ -779,7 +779,7 @@ void ListSaintsStaffTargets(struct Unit* unit)
         if (!other)
             continue;
 
-        if (!other->person)
+        if (!other->pinfo)
             continue;
 
         if (other->state & US_UNAVAILABLE)
@@ -806,8 +806,8 @@ void sub_8021B30(int arg_0)
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {
-            sub_8084AEC(other->person->id, 0, arg_0);
-            sub_8084A10(other->person->id);
+            sub_8084AEC(other->pinfo->id, 0, arg_0);
+            sub_8084A10(other->pinfo->id);
         }
     }
 }

@@ -23,7 +23,7 @@ struct TalkSpriteEnt
 
 static void UpdateFaceTalk(struct FaceProc* proc);
 static void Face_OnIdle(struct FaceProc* proc);
-static void PutFaceTm(u16* tm, u8 const* data, int tileref, s8 isFlipped);
+static void PutFaceTm(u16* tm, u8 const* data, int tileref, i8 is_flipped);
 static void FaceChibiSpr_OnIdle(struct FaceProc* proc);
 static void EndFacePtr(struct GenericProc* proc);
 static void EndFaceIn8Frames(struct FaceProc* proc);
@@ -224,7 +224,7 @@ struct FaceInfo const* GetFaceInfo(int fid)
 
 int GetFace_Unk(int fid)
 {
-    return GetFaceInfo(fid)->unk0E;
+    return GetFaceInfo(fid)->unk_0E;
 }
 
 void InitFaces(void)
@@ -246,7 +246,7 @@ void SetFaceConfig(struct FaceVramEnt const* config)
 
     for (i = 0; i < FACE_SLOT_COUNT; ++i)
     {
-        sFaceConfig[i].chrOff = config[i].chrOff;
+        sFaceConfig[i].chr_off = config[i].chr_off;
         sFaceConfig[i].palid = config[i].palid;
     }
 }
@@ -269,19 +269,19 @@ static void UpdateFaceTalk(struct FaceProc* proc)
     int sprnum;
     int oam0;
 
-    proc->talkFrameClock--;
+    proc->talk_frame_clock--;
 
-    if (proc->talkFrameClock < 0)
+    if (proc->talk_frame_clock < 0)
     {
-        proc->talkFrameClock = 1 + ((RandNextB() >> 16) & 7); // 1 + rand(0..6)
-        proc->talkFrame = (proc->talkFrame + 1) & 3;
+        proc->talk_frame_clock = 1 + ((RandNextB() >> 16) & 7); // 1 + rand(0..6)
+        proc->talk_frame = (proc->talk_frame + 1) & 3;
     }
 
     sprnum = GetFaceDisp(proc) & FACE_DISP_SMILE ? 0 : 8;
     sprnum = GetFaceDisp(proc) & FACE_DISP_FLIPPED ? sprnum + 4 : sprnum;
 
     if (GetFaceDisp(proc) & (FACE_DISP_TALK_1 | FACE_DISP_TALK_2))
-        sprnum += proc->talkFrame;
+        sprnum += proc->talk_frame;
 
 #if NONMATCHING
 
@@ -306,10 +306,10 @@ static void UpdateFaceTalk(struct FaceProc* proc)
     ");
 #endif
 
-    oam0 += OAM0_Y(proc->yDisp + proc->yOffMouth);
+    oam0 += OAM0_Y(proc->y_disp + proc->y_offset_mouth);
 
-    PutSpriteExt(proc->sprLayer,
-        OAM1_X(proc->xDisp + proc->xOffMouth), oam0,
+    PutSpriteExt(proc->sprite_layer,
+        OAM1_X(proc->x_disp + proc->x_offset_mouth), oam0,
         sTalkFrameSpriteTable[sprnum].sprite,
         proc->oam2 + sTalkFrameSpriteTable[sprnum].chr);
 }
@@ -341,9 +341,9 @@ static void Face_OnIdle(struct FaceProc* proc)
     ");
 #endif
 
-    oam0 += OAM0_Y(proc->yDisp);
+    oam0 += OAM0_Y(proc->y_disp);
 
-    PutSpriteExt(proc->sprLayer, OAM1_X(proc->xDisp), oam0, proc->sprite, proc->oam2);
+    PutSpriteExt(proc->sprite_layer, OAM1_X(proc->x_disp), oam0, proc->sprite, proc->oam2);
     UpdateFaceTalk(proc);
 }
 
@@ -370,7 +370,7 @@ struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp)
 
     info = GetFaceInfo(fid);
 
-    Decompress(info->img, (u8*) VRAM + 0x10000 + sFaceConfig[slot].chrOff);
+    Decompress(info->img, (u8*) VRAM + 0x10000 + sFaceConfig[slot].chr_off);
     ApplyPalette(info->pal, 0x10 + sFaceConfig[slot].palid);
 
     proc = SpawnProc(ProcScr_Face, PROC_TREE_5);
@@ -394,22 +394,22 @@ struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp)
     }
 
     proc->slot = slot;
-    proc->sprLayer = 5;
+    proc->sprite_layer = 5;
 
-    proc->xDisp = x;
-    proc->yDisp = y;
+    proc->x_disp = x;
+    proc->y_disp = y;
 
-    xMouthRel = 4 - info->xMouth;
+    xMouthRel = 4 - info->x_mouth;
 
-    proc->xOffMouth = GetFaceDisp(proc) & FACE_DISP_FLIPPED ? xMouthRel : -xMouthRel;
-    proc->xOffMouth = proc->xOffMouth * 8;
+    proc->x_offset_mouth = GetFaceDisp(proc) & FACE_DISP_FLIPPED ? xMouthRel : -xMouthRel;
+    proc->x_offset_mouth = proc->x_offset_mouth * 8;
 
-    proc->yOffMouth = info->yMouth * 8;
+    proc->y_offset_mouth = info->y_mouth * 8;
 
-    proc->talkFrameClock = 0;
-    proc->talkFrame = 0;
+    proc->talk_frame_clock = 0;
+    proc->talk_frame = 0;
 
-    proc->oam2 = (sFaceConfig[slot].chrOff / CHR_SIZE) + OAM2_PAL(sFaceConfig[slot].palid) + oam2Layer;
+    proc->oam2 = (sFaceConfig[slot].chr_off / CHR_SIZE) + OAM2_PAL(sFaceConfig[slot].palid) + oam2Layer;
 
     proc->fid = fid;
 
@@ -488,7 +488,7 @@ void UnpackFaceGraphics(int fid, int chr, int pal)
     ApplyPalette(info->pal, pal);
 }
 
-void PutFaceTm(u16* tm, u8 const* data, int tileref, s8 isFlipped)
+void PutFaceTm(u16* tm, u8 const* data, int tileref, i8 is_flipped)
 {
     int width = *data++;
     int height = *data++;
@@ -497,7 +497,7 @@ void PutFaceTm(u16* tm, u8 const* data, int tileref, s8 isFlipped)
 
     int ix, iy;
 
-    if (!isFlipped)
+    if (!is_flipped)
     {
         for (iy = 0; iy < height; ++iy)
         {
@@ -531,9 +531,9 @@ void PutFaceTm(u16* tm, u8 const* data, int tileref, s8 isFlipped)
     }
 }
 
-void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, s8 isFlipped)
+void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, i8 is_flipped)
 {
-    PutFaceTm(tm, FaceTm_Unk_085C3C18, tileref, isFlipped);
+    PutFaceTm(tm, FaceTm_Unk_085C3C18, tileref, is_flipped);
 }
 
 void sub_8008874(u16* tm, int tileref)
@@ -552,17 +552,17 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal)
     {
         struct FaceInfo const* info = GetFaceInfo(fid);
 
-        RegisterVramMove(info->imgChibi, VRAM + chr * CHR_SIZE, 0x10 * CHR_SIZE);
+        RegisterVramMove(info->img_chibi, VRAM + chr * CHR_SIZE, 0x10 * CHR_SIZE);
         ApplyPalette(info->pal, pal);
     }
 }
 
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, s8 isFlipped)
+void PutFaceChibi(int fid, u16* tm, int chr, int pal, i8 is_flipped)
 {
     UnpackFaceChibiGraphics(fid, chr, pal);
 
     chr &= 0x3FF;
-    PutFaceTm(tm, FaceTm_Unk_085C3C92, TILEREF(chr, pal), isFlipped);
+    PutFaceTm(tm, FaceTm_Unk_085C3C92, TILEREF(chr, pal), is_flipped);
 }
 
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
@@ -582,10 +582,10 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
     {
         struct FaceInfo const* info = GetFaceInfo(fid);
 
-        RegisterVramMove(info->imgChibi + CHR_SIZE * 0,  (chr + 0x00) * CHR_SIZE, 4 * CHR_SIZE);
-        RegisterVramMove(info->imgChibi + CHR_SIZE * 4,  (chr + 0x20) * CHR_SIZE, 4 * CHR_SIZE);
-        RegisterVramMove(info->imgChibi + CHR_SIZE * 8,  (chr + 0x04) * CHR_SIZE, 4 * CHR_SIZE);
-        RegisterVramMove(info->imgChibi + CHR_SIZE * 12, (chr + 0x24) * CHR_SIZE, 4 * CHR_SIZE);
+        RegisterVramMove(info->img_chibi + CHR_SIZE * 0,  (chr + 0x00) * CHR_SIZE, 4 * CHR_SIZE);
+        RegisterVramMove(info->img_chibi + CHR_SIZE * 4,  (chr + 0x20) * CHR_SIZE, 4 * CHR_SIZE);
+        RegisterVramMove(info->img_chibi + CHR_SIZE * 8,  (chr + 0x04) * CHR_SIZE, 4 * CHR_SIZE);
+        RegisterVramMove(info->img_chibi + CHR_SIZE * 12, (chr + 0x24) * CHR_SIZE, 4 * CHR_SIZE);
 
         ApplyPalette(info->pal, 0x10 + pal);
     }
@@ -594,12 +594,12 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
 static void FaceChibiSpr_OnIdle(struct FaceProc* proc)
 {
     PutSprite(5,
-        proc->xDisp - gDispIo.bgOff[0].x,
-        proc->yDisp - gDispIo.bgOff[0].y,
+        proc->x_disp - gDispIo.bg_off[0].x,
+        proc->y_disp - gDispIo.bg_off[0].y,
         proc->sprite, proc->oam2);
 }
 
-void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, s8 isFlipped, ProcPtr parent)
+void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, i8 is_flipped, ProcPtr parent)
 {
     struct FaceProc* proc;
 
@@ -607,12 +607,12 @@ void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, s8 isFlipped, Pr
 
     proc = SpawnProc(ProcScr_FaceChibiSpr, parent);
 
-    proc->xDisp = x;
-    proc->yDisp = y;
+    proc->x_disp = x;
+    proc->y_disp = y;
 
     proc->oam2 = chr + OAM2_PAL(pal);
 
-    proc->sprite = isFlipped
+    proc->sprite = is_flipped
         ? Sprite_FaceChibi_Flipped
         : Sprite_FaceChibi;
 }
@@ -634,7 +634,7 @@ void PutFace80x72(u16* tm, int fid, int chr, int pal)
     Decompress(info->img, (u8*) VRAM + chr * CHR_SIZE);
     ApplyPalette(info->pal, pal);
 
-    if (info->xMouth != 0 && info->yMouth != 0)
+    if (info->x_mouth != 0 && info->y_mouth != 0)
     {
         int i;
 

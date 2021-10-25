@@ -24,15 +24,15 @@ inline void SetWorkingMap(u8** map)
 
 void MapFlood_08019344(struct Unit* unit)
 {
-    SetWorkingMovTable(unit->job->movTerrainTable);
+    SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
 
     BeginMapFlood(unit->x, unit->y, UNIT_MOV(unit), unit->id);
 }
 
-void MapFlood_08019384(struct Unit* unit, s8 move)
+void MapFlood_08019384(struct Unit* unit, i8 move)
 {
-    SetWorkingMovTable(unit->job->movTerrainTable);
+    SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
 
     BeginMapFlood(unit->x, unit->y, move, unit->id);
@@ -40,23 +40,23 @@ void MapFlood_08019384(struct Unit* unit, s8 move)
 
 void MapFlood_080193C0(struct Unit* unit)
 {
-    SetWorkingMovTable(unit->job->movTerrainTable);
+    SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
 
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_080193F4(int x, int y, s8 const* movTable)
+void MapFlood_080193F4(int x, int y, i8 const* mov_table)
 {
-    SetWorkingMovTable(movTable);
+    SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapRange);
 
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_08019424(int x, int y, s8 const* movTable)
+void MapFlood_08019424(int x, int y, i8 const* mov_table)
 {
-    SetWorkingMovTable(movTable);
+    SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapMovement);
 
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
@@ -64,49 +64,49 @@ void MapFlood_08019424(int x, int y, s8 const* movTable)
 
 void MapFlood_08019454(struct Unit* unit, int x, int y, int move)
 {
-    SetWorkingMovTable(unit->job->movTerrainTable);
+    SetWorkingMovTable(unit->jinfo->mov_table);
 
     BeginMapFlood(x, y, move, unit->id);
 }
 
-void SetWorkingMovTable(s8 const* movTable)
+void SetWorkingMovTable(i8 const* mov_table)
 {
     int i;
 
     for (i = 0; i < TERRAIN_COUNT; ++i)
-        gWorkingMovTable[i] = movTable[i];
+        gWorkingMovTable[i] = mov_table[i];
 }
 
 void BeginMapFlood(int x, int y, int move, int uid)
 {
-    gMapFloodSt.waitingQueue = gMapFloodSquareBufB;
-    gMapFloodSt.activeQueue = gMapFloodSquareBufA;
+    gMapFloodSt.waiting_queue = gMapFloodSquareBufB;
+    gMapFloodSt.active_queue = gMapFloodSquareBufA;
 
     gMapFloodSt.move = move;
 
     if (uid == 0)
     {
-        gMapFloodSt.hasUnit = FALSE;
+        gMapFloodSt.has_unit = FALSE;
     }
     else
     {
-        gMapFloodSt.hasUnit = TRUE;
+        gMapFloodSt.has_unit = TRUE;
         gMapFloodSt.uid = uid;
     }
 
-    gMapFloodSt.edgeMove = MAP_MOVEMENT_MAX;
+    gMapFloodSt.edge_move = MAP_MOVEMENT_MAX;
 
     MapFill(gWorkingMap, -1);
 
-    gMapFloodSt.waitingQueue->x = x;
-    gMapFloodSt.waitingQueue->y = y;
-    gMapFloodSt.waitingQueue->connect = 5;
-    gMapFloodSt.waitingQueue->leastMov = 0;
+    gMapFloodSt.waiting_queue->x = x;
+    gMapFloodSt.waiting_queue->y = y;
+    gMapFloodSt.waiting_queue->connect = 5;
+    gMapFloodSt.waiting_queue->least_mov = 0;
 
     gWorkingMap[y][x] = 0;
 
-    gMapFloodSt.waitingQueue++;
-    gMapFloodSt.waitingQueue->connect = 4;
+    gMapFloodSt.waiting_queue++;
+    gMapFloodSt.waiting_queue->connect = 4;
 
     MapFloodCoreRam();
 }
@@ -118,28 +118,28 @@ void sub_8019528(int connect, int x, int y)
 
     short squareMove;
 
-    x += gMapFloodSt.activeQueue->x;
-    y += gMapFloodSt.activeQueue->y;
+    x += gMapFloodSt.active_queue->x;
+    y += gMapFloodSt.active_queue->y;
 
     squareMove = (u8) gWorkingMovTable[gMapTerrain[y][x]]
-        + (s8) gWorkingMap[(u8) gMapFloodSt.activeQueue->y][(u8) gMapFloodSt.activeQueue->x];
+        + (i8) gWorkingMap[(u8) gMapFloodSt.active_queue->y][(u8) gMapFloodSt.active_queue->x];
 
     if (squareMove >= gWorkingMap[y][x])
         return;
 
-    if (gMapFloodSt.hasUnit && gMapUnit[y][x])
+    if (gMapFloodSt.has_unit && gMapUnit[y][x])
         if ((gMapUnit[y][x] ^ gMapFloodSt.uid) & 0x80)
             return;
 
     if (squareMove > gMapFloodSt.move)
         return;
 
-    gMapFloodSt.waitingQueue->x = x;
-    gMapFloodSt.waitingQueue->y = y;
-    gMapFloodSt.waitingQueue->connect = connect;
-    gMapFloodSt.waitingQueue->leastMov = squareMove;
+    gMapFloodSt.waiting_queue->x = x;
+    gMapFloodSt.waiting_queue->y = y;
+    gMapFloodSt.waiting_queue->connect = connect;
+    gMapFloodSt.waiting_queue->least_mov = squareMove;
 
-    gMapFloodSt.waitingQueue++;
+    gMapFloodSt.waiting_queue++;
 
     gWorkingMap[y][x] = squareMove;
 }
@@ -167,7 +167,7 @@ void BuildBestMoveScript(int x, int y, u8* output)
 
     // As we build the list *in reverse*, the directions are also "reversed" as we traverse the path.
 
-    while (((s8**) gWorkingMap)[y][x] != 0)
+    while (((i8**) gWorkingMap)[y][x] != 0)
     {
         // Build neighbor cost list
 
@@ -284,8 +284,8 @@ void ApplyWorkingMovScriptToAction(int x, int y)
 
     for (;;)
     {
-        gAction.xMove = x;
-        gAction.yMove = y;
+        gAction.x_move = x;
+        gAction.y_move = y;
 
         switch (*it)
         {
@@ -336,24 +336,24 @@ void MapMovementMarkFloodEdges(void)
             if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (gMapMovementSigned[iy][ix] == gMapFloodSt.edgeMove)
+            if (gMapMovementSigned[iy][ix] == gMapFloodSt.edge_move)
                 continue;
 
             if (gMapMovementSigned[iy][ix - 1] < 0 && (ix != 0))
-                gMapMovementSigned[iy][ix - 1] = gMapFloodSt.edgeMove;
+                gMapMovementSigned[iy][ix - 1] = gMapFloodSt.edge_move;
 
             if (gMapMovementSigned[iy][ix + 1] < 0 && (ix != (gMapSize.x - 1)))
-                gMapMovementSigned[iy][ix + 1] = gMapFloodSt.edgeMove;
+                gMapMovementSigned[iy][ix + 1] = gMapFloodSt.edge_move;
 
             if (gMapMovementSigned[iy - 1][ix] < 0 && (iy != 0))
-                gMapMovementSigned[iy - 1][ix] = gMapFloodSt.edgeMove;
+                gMapMovementSigned[iy - 1][ix] = gMapFloodSt.edge_move;
 
             if (gMapMovementSigned[iy + 1][ix] < 0 && (iy != (gMapSize.y - 1)))
-                gMapMovementSigned[iy + 1][ix] = gMapFloodSt.edgeMove;
+                gMapMovementSigned[iy + 1][ix] = gMapFloodSt.edge_move;
         }
     }
 
-    gMapFloodSt.edgeMove++;
+    gMapFloodSt.edge_move++;
 }
 
 void MapMarkFloodEdges(void)
@@ -367,24 +367,24 @@ void MapMarkFloodEdges(void)
             if (gWorkingMap[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if ((s8) gWorkingMap[iy][ix] == gMapFloodSt.edgeMove)
+            if ((i8) gWorkingMap[iy][ix] == gMapFloodSt.edge_move)
                 continue;
 
-            if ((s8) gWorkingMap[iy][ix - 1] < 0 && (ix != 0))
-                gWorkingMap[iy][ix - 1] = gMapFloodSt.edgeMove;
+            if ((i8) gWorkingMap[iy][ix - 1] < 0 && (ix != 0))
+                gWorkingMap[iy][ix - 1] = gMapFloodSt.edge_move;
 
-            if ((s8) gWorkingMap[iy][ix + 1] < 0 && (ix != (gMapSize.x - 1)))
-                gWorkingMap[iy][ix + 1] = gMapFloodSt.edgeMove;
+            if ((i8) gWorkingMap[iy][ix + 1] < 0 && (ix != (gMapSize.x - 1)))
+                gWorkingMap[iy][ix + 1] = gMapFloodSt.edge_move;
 
-            if ((s8) gWorkingMap[iy - 1][ix] < 0 && (iy != 0))
-                gWorkingMap[iy - 1][ix] = gMapFloodSt.edgeMove;
+            if ((i8) gWorkingMap[iy - 1][ix] < 0 && (iy != 0))
+                gWorkingMap[iy - 1][ix] = gMapFloodSt.edge_move;
 
-            if ((s8) gWorkingMap[iy + 1][ix] < 0 && (iy != (gMapSize.y - 1)))
-                gWorkingMap[iy + 1][ix] = gMapFloodSt.edgeMove;
+            if ((i8) gWorkingMap[iy + 1][ix] < 0 && (iy != (gMapSize.y - 1)))
+                gWorkingMap[iy + 1][ix] = gMapFloodSt.edge_move;
         }
     }
 
-    gMapFloodSt.edgeMove++;
+    gMapFloodSt.edge_move++;
 }
 
 void MapAddInRange(int x, int y, int range, int value)
@@ -450,10 +450,10 @@ void MapAddInRange(int x, int y, int range, int value)
     }
 }
 
-inline void MapIncInBoundedRange(short x, short y, short minRange, short maxRange)
+inline void MapIncInBoundedRange(short x, short y, short min_range, short max_range)
 {
-    MapAddInRange(x, y, maxRange,     +1);
-    MapAddInRange(x, y, minRange - 1, -1);
+    MapAddInRange(x, y, max_range,     +1);
+    MapAddInRange(x, y, min_range - 1, -1);
 }
 
 void BuildUnitCompleteAttackRange(struct Unit* unit)
@@ -690,7 +690,7 @@ void BuildUnitCompleteStaffRange(struct Unit* unit)
     #undef FOR_EACH_IN_MOVEMENT_RANGE
 }
 
-inline s8 const* GetWorkingMovTable(void)
+inline i8 const* GetWorkingMovTable(void)
 {
     return gWorkingMovTable;
 }

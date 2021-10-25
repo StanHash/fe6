@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -14,7 +13,7 @@ struct SpriteProc
 
     /* 34 */ u8 pad34[0x50 - 0x34];
 
-    /* 50 */ s16 layer;
+    /* 50 */ i16 layer;
     /* 52 */ u16 tileref;
     /* 54 */ u16 const* object;
 };

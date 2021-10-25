@@ -1831,8 +1831,8 @@ gUnk_082A9190: @ 082A9190
 gUnk_082A9228: @ 082A9228
 	.incbin "fe6-base.gba", 0x2A9228, (0x2AA324 - 0x2A9228) @ length: 10FC
 
-	.global Anim_MuFogBump
-Anim_MuFogBump: @ 082AA324
+	.global SpriteAnim_MuFogBump
+SpriteAnim_MuFogBump: @ 082AA324
 	.incbin "fe6-base.gba", 0x2AA324, (0x2AA968 - 0x2AA324) @ length: 0644
 
 	.global gUnk_082AA968

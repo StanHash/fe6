@@ -56,13 +56,13 @@ static AiScrFunc sScrFunc;
 
 bool AiTryExecScriptA(void)
 {
-    sScr = gAiScriptLutA[0][gActiveUnit->aiA];
-    sScr = sScr + gActiveUnit->aiApc;
+    sScr = gAiScriptLutA[0][gActiveUnit->ai_a];
+    sScr = sScr + gActiveUnit->ai_a_pc;
 
     sScrEnded = TRUE;
     sScrKind = AI_SCRIPT_A;
 
-    AiDoExecScript(&gActiveUnit->aiApc);
+    AiDoExecScript(&gActiveUnit->ai_a_pc);
 
     return sScrEnded;
 }
@@ -74,20 +74,20 @@ bool AiExecFallbackScriptA(void)
     sScrEnded = TRUE;
     sScrKind = AI_SCRIPT_A;
 
-    AiDoExecScript(&gActiveUnit->aiApc);
+    AiDoExecScript(&gActiveUnit->ai_a_pc);
 
     return sScrEnded;
 }
 
 bool AiTryExecScriptB(void)
 {
-    sScr = gAiScriptLutB[0][gActiveUnit->aiB];
-    sScr = sScr + gActiveUnit->aiBpc;
+    sScr = gAiScriptLutB[0][gActiveUnit->ai_b];
+    sScr = sScr + gActiveUnit->ai_b_pc;
 
     sScrEnded = TRUE;
     sScrKind = AI_SCRIPT_B;
 
-    AiDoExecScript(&gActiveUnit->aiBpc);
+    AiDoExecScript(&gActiveUnit->ai_b_pc);
 
     return sScrEnded;
 }
@@ -99,7 +99,7 @@ bool AiExecFallbackScriptB(void)
     sScrEnded = TRUE;
     sScrKind = AI_SCRIPT_B;
 
-    AiDoExecScript(&gActiveUnit->aiBpc);
+    AiDoExecScript(&gActiveUnit->ai_b_pc);
 
     return sScrEnded;
 }
@@ -163,11 +163,11 @@ void AiCmd_Conditional(u8* pc)
 
         if (sScrKind == AI_SCRIPT_A)
         {
-            scr = gAiScriptLutA[0][gActiveUnit->aiA];
+            scr = gAiScriptLutA[0][gActiveUnit->ai_a];
         }
         else
         {
-            scr = gAiScriptLutB[0][gActiveUnit->aiB];
+            scr = gAiScriptLutB[0][gActiveUnit->ai_b];
         }
 
         if (target != 0)
@@ -200,25 +200,25 @@ void AiCmd_CallFunc(u8* pc)
 
 void AiCmd_SetAi(u8* pc)
 {
-    u8 aiA = sScr->unk_01;
-    u8 aiB = sScr->unk_02;
+    u8 ai_a = sScr->unk_01;
+    u8 ai_b = sScr->unk_02;
 
-    if (aiA != UINT8_MAX)
+    if (ai_a != UINT8_MAX)
     {
-        gActiveUnit->aiA = aiA;
-        gActiveUnit->aiApc = 0;
+        gActiveUnit->ai_a = ai_a;
+        gActiveUnit->ai_a_pc = 0;
     }
 
-    if (aiB != UINT8_MAX)
+    if (ai_b != UINT8_MAX)
     {
-        gActiveUnit->aiB = aiB;
-        gActiveUnit->aiBpc = 0;
+        gActiveUnit->ai_b = ai_b;
+        gActiveUnit->ai_b_pc = 0;
     }
 
-    if ((sScrKind == AI_SCRIPT_A && aiA == UINT8_MAX) || (sScrKind == AI_SCRIPT_B && aiB == UINT8_MAX))
+    if ((sScrKind == AI_SCRIPT_A && ai_a == UINT8_MAX) || (sScrKind == AI_SCRIPT_B && ai_b == UINT8_MAX))
         (*pc)++;
 
-    gAiSt.decideState = 0;
+    gAiSt.decide_state = 0;
 }
 
 void AiCmd_Goto(u8* pc)
@@ -230,11 +230,11 @@ void AiCmd_Goto(u8* pc)
 
     if (sScrKind == AI_SCRIPT_A)
     {
-        scr = gAiScriptLutA[0][gActiveUnit->aiA];
+        scr = gAiScriptLutA[0][gActiveUnit->ai_a];
     }
     else
     {
-        scr = gAiScriptLutB[0][gActiveUnit->aiB];
+        scr = gAiScriptLutB[0][gActiveUnit->ai_b];
     }
 
     if (target != 0)
@@ -270,7 +270,7 @@ bool AiIsUnitNonActive(struct Unit* unit)
 
 bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
 {
-    if (AiIsInShortList(sScr->unk_08, unit->person->id) != TRUE && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
+    if (AiIsInShortList(sScr->unk_08, unit->pinfo->id) != TRUE && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
 
     return FALSE;
@@ -278,7 +278,7 @@ bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
 
 bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
 {
-    if (AiIsInShortList(sScr->unk_08, unit->person->id) == TRUE || !AreUnitIdsAllied(gActiveUnit->id, unit->id))
+    if (AiIsInShortList(sScr->unk_08, unit->pinfo->id) == TRUE || !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
 
     return FALSE;
@@ -286,7 +286,7 @@ bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
 
 bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
 {
-    if (unit->person->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
+    if (unit->pinfo->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
 
     return FALSE;
@@ -294,7 +294,7 @@ bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
 
 bool AiIsUnitEnemyAndScrJid(struct Unit* unit)
 {
-    if (unit->job->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
+    if (unit->jinfo->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
 
     return FALSE;
@@ -312,7 +312,7 @@ void AiCmd_ActionOnPid(u8* pc)
             {
                 if (GetUnitByPid(sScr->unk_04)->state & US_RESCUED)
                 {
-                    gAiSt.unk_86[0] = 3;
+                    gAiSt.cmd_result[0] = 3;
                     sScrEnded = FALSE;
                 }
                 else
@@ -322,14 +322,14 @@ void AiCmd_ActionOnPid(u8* pc)
             }
             else
             {
-                gAiSt.unk_86[0] = 1;
+                gAiSt.cmd_result[0] = 1;
                 sScrEnded = FALSE;
             }
         }
     }
     else
     {
-        gAiSt.decideState = 4;
+        gAiSt.decide_state = 4;
     }
 
     (*pc)++;
@@ -354,7 +354,7 @@ void AiCmd_Action(u8* pc)
     }
     else
     {
-        gAiSt.decideState = 4;
+        gAiSt.decide_state = 4;
     }
 
     (*pc)++;
@@ -378,7 +378,7 @@ void AiCmd_ActionInPlace(u8* pc)
     }
     else
     {
-        gAiSt.decideState = 4;
+        gAiSt.decide_state = 4;
     }
 
     (*pc)++;
@@ -395,7 +395,7 @@ void AiCmd_ActionOnJid(u8* pc)
     }
     else
     {
-        gAiSt.decideState = 4;
+        gAiSt.decide_state = 4;
     }
 
     (*pc)++;
@@ -425,9 +425,9 @@ void AiCmd_MoveTowards(u8* pc)
         sScr->unk_01, sScr->unk_03,
         AI_ACTION_NONE, sScr->unk_02, TRUE);
 
-    if (gAiDecision.actionPerformed == TRUE)
-        if (gAiDecision.xMove == sScr->unk_01)
-            if (gAiDecision.yMove == sScr->unk_03)
+    if (gAiDecision.action_performed == TRUE)
+        if (gAiDecision.x_move == sScr->unk_01)
+            if (gAiDecision.y_move == sScr->unk_03)
                 (*pc)++;
 }
 
@@ -439,20 +439,20 @@ void AiCmd_MoveTowardsPid(u8* pc)
     {
         AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, sScr->unk_02, TRUE);
 
-        if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.xMove, gAiDecision.yMove, 1) == TRUE)
+        if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.x_move, gAiDecision.y_move, 1) == TRUE)
         {
             struct Unit* unit = GetUnitByPid(sScr->unk_04);
 
             if (unit->state & US_RESCUED)
             {
-                gAiSt.unk_86[0] = 3;
+                gAiSt.cmd_result[0] = 3;
             }
             else
             {
                 AiUpdateDecision(0, 0, 0, 0, unit->id);
 
-                gAiSt.unk_86[0] = 2;
-                gAiDecision.actionPerformed = FALSE;
+                gAiSt.cmd_result[0] = 2;
+                gAiDecision.action_performed = FALSE;
                 sScrEnded = FALSE;
             }
         }
@@ -500,15 +500,15 @@ void AiCmd_Pillage(u8* pc)
     else
     {
         struct Vec2 pos;
-        u8 itemSlot;
+        u8 item_slot;
 
-        if (AiFindPillageLocation(&pos, &itemSlot) == TRUE)
+        if (AiFindPillageLocation(&pos, &item_slot) == TRUE)
         {
             AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, -1, TRUE);
 
-            if (AiLocationIsPillageTarget(gAiDecision.xMove, gAiDecision.yMove) == TRUE)
+            if (AiLocationIsPillageTarget(gAiDecision.x_move, gAiDecision.y_move) == TRUE)
             {
-                AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_PILLAGE, 0, itemSlot, 0, 0);
+                AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_PILLAGE, 0, item_slot, 0, 0);
 
                 if (sScr->unk_03 != 0)
                 {
@@ -604,7 +604,7 @@ void AiCmd_MoveRandom(u8* pc)
 
 void AiCmd_Escape(u8* pc)
 {
-    gActiveUnit->aiFlags |= AI_UNIT_FLAG_3;
+    gActiveUnit->ai_flags |= AI_UNIT_FLAG_3;
     AiTryMoveTowardsEscape();
     (*pc)++;
 }
@@ -618,7 +618,7 @@ void AiCmd_MoveTowardsTerrain(u8* pc)
 {
     struct Vec2 pos;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(&sScr->unk_03, 0, &pos) == TRUE)
     {
@@ -626,7 +626,7 @@ void AiCmd_MoveTowardsTerrain(u8* pc)
     }
     else
     {
-        gAiSt.unk_86[0] = 4;
+        gAiSt.cmd_result[0] = 4;
         sScrEnded = FALSE;
     }
 
@@ -637,7 +637,7 @@ void AiCmd_MoveTowardsListedTerrain(u8* pc)
 {
     struct Vec2 pos;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->job->movTerrainTable);
+    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(sScr->unk_08, 0, &pos) == TRUE)
     {
@@ -645,7 +645,7 @@ void AiCmd_MoveTowardsListedTerrain(u8* pc)
     }
     else
     {
-        gAiSt.unk_86[0] = 4;
+        gAiSt.cmd_result[0] = 4;
         sScrEnded = FALSE;
     }
 

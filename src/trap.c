@@ -200,7 +200,7 @@ void InitMapTraps(void)
                 if (gMapTerrain[iy-1][ix] == TERRAIN_WALL_1B)
                     break; // walls are stacked, only the topmost tile gets a trap
 
-                AddTrap(ix, iy, TRAP_OBSTACLE, GetChapterInfo(gPlaySt.chapter)->wallHp);
+                AddTrap(ix, iy, TRAP_OBSTACLE, GetChapterInfo(gPlaySt.chapter)->wall_hp);
                 break;
 
             }
@@ -426,7 +426,7 @@ void UpdateRoofedUnits(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         if (!(unit->state & US_UNDER_A_ROOF))
@@ -692,7 +692,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
 static void StepFireTrap_08027318(ProcPtr proc)
 {
     if (GetUnitCurrentHp(gActiveUnit) <= 10)
-        sub_8084A10(gActiveUnit->person->id);
+        sub_8084A10(gActiveUnit->pinfo->id);
 }
 
 static void StepPikeTrap_08027318(ProcPtr proc)
@@ -700,7 +700,7 @@ static void StepPikeTrap_08027318(ProcPtr proc)
     int damage = 10 - GetUnitDefense(gActiveUnit);
 
     if (GetUnitCurrentHp(gActiveUnit) <= damage)
-        sub_8084A10(gActiveUnit->person->id);
+        sub_8084A10(gActiveUnit->pinfo->id);
 }
 
 static void StepTrap_End(ProcPtr proc)
@@ -708,7 +708,7 @@ static void StepTrap_End(ProcPtr proc)
     ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
-        sub_8084AEC(gActiveUnit->person->id, 0, 3);
+        sub_8084AEC(gActiveUnit->pinfo->id, 0, 3);
 
     FinishDamageDisplay(proc);
 

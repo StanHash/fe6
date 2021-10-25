@@ -760,10 +760,10 @@ void SetAllWhitePals(void)
 
 static void FadeToBlack_OnInit(struct GenericProc* proc)
 {
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.win1_enableBlend = 1;
-    gDispIo.winCt.wobj_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.win1_enableBlend = 1;
+    gDispIo.win_ct.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
     SetBlendDarken(0);
 
@@ -776,7 +776,7 @@ static void FadeToBlack_OnInit(struct GenericProc* proc)
 
 static void FadeToCommon_OnLoop(struct GenericProc* proc)
 {
-    if (gDispIo.blendY == 0x10)
+    if (gDispIo.blend_y == 0x10)
     {
         Proc_End(proc);
         return;
@@ -787,15 +787,15 @@ static void FadeToCommon_OnLoop(struct GenericProc* proc)
     if (proc->unk66 >= 0x100)
         proc->unk66 = 0x100;
 
-    gDispIo.blendY = proc->unk66 >> 4;
+    gDispIo.blend_y = proc->unk66 >> 4;
 }
 
 static void FadeFromBlack_OnInit(struct GenericProc* proc)
 {
-    gDispIo.winCt.win0_enableBlend = 1;
-    gDispIo.winCt.win1_enableBlend = 1;
-    gDispIo.winCt.wobj_enableBlend = 1;
-    gDispIo.winCt.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enableBlend = 1;
+    gDispIo.win_ct.win1_enableBlend = 1;
+    gDispIo.win_ct.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
 
     SetBlendDarken(0x10);
 
@@ -809,7 +809,7 @@ static void FadeFromBlack_OnInit(struct GenericProc* proc)
 
 static void FadeFromCommon_OnLoop(struct GenericProc* proc)
 {
-    if (gDispIo.blendY == 0)
+    if (gDispIo.blend_y == 0)
     {
         Proc_End(proc);
         return;
@@ -820,7 +820,7 @@ static void FadeFromCommon_OnLoop(struct GenericProc* proc)
     if (proc->unk66 <= 0)
         proc->unk66 = 0;
 
-    gDispIo.blendY = proc->unk66 >> 4;
+    gDispIo.blend_y = proc->unk66 >> 4;
 }
 
 static void FadeToWhite_OnInit(struct GenericProc* proc)
@@ -1138,7 +1138,7 @@ struct FadeUnkProc
 
     /* 29 */ u8 pad_29[0x4C - 0x29];
 
-    /* 4C */ Func onEnd;
+    /* 4C */ Func on_end;
     /* 50 */ int pad_50;
     /* 54 */ int unk_54;
     /* 58 */ int unk_58;
@@ -1146,7 +1146,7 @@ struct FadeUnkProc
 };
 
 void sub_8014A38(struct FadeUnkProc* proc);
-s8 sub_8014A68(struct FadeUnkProc* proc);
+i8 sub_8014A68(struct FadeUnkProc* proc);
 void sub_8014A44(struct FadeUnkProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
@@ -1165,7 +1165,7 @@ struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
 struct LutItem_80149E0
 {
     ProcPtr(*spawnProc)(struct ProcScr const*, ProcPtr);
-    void(*unk_04)(s8);
+    void(*unk_04)(i8);
     int unit;
 };
 
@@ -1191,7 +1191,7 @@ void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc)
     struct FadeUnkProc* proc = sLut_80149E0[kind].spawnProc(ProcScr_FadeUnk, parent);
 
     proc->unk_54 = speed;
-    proc->onEnd = endFunc;
+    proc->on_end = endFunc;
 
     speed = speed >> 4;
 
@@ -1251,15 +1251,15 @@ void sub_8014A38(struct FadeUnkProc* proc)
 {
     proc->unk_58 = 0;
     proc->unk_5C = 0;
-    proc->onEnd = 0;
+    proc->on_end = 0;
 }
 
 void sub_8014A44(struct FadeUnkProc* proc)
 {
     if (!sub_8014A68(proc))
     {
-        if (proc->onEnd)
-            proc->onEnd();
+        if (proc->on_end)
+            proc->on_end();
 
         Proc_Break(proc);
     }
@@ -1308,7 +1308,7 @@ void sub_8014ADC(void)
     struct FadeUnkProc* proc = Proc_Find(ProcScr_FadeUnk);
 
     if (proc)
-        proc->onEnd = NULL;
+        proc->on_end = NULL;
 }
 
 void sub_8014AF8(void)
@@ -2280,16 +2280,16 @@ u16* GetTmOffsetById(int bgid, int x, int y)
 
 void sub_8015344(void)
 {
-    if (gDispIo.bg0Ct.colorMode == 0)
+    if (gDispIo.bg0_ct.colorMode == 0)
         sub_8015208((u16*) (VRAM + GetBgChrOffset(0)), 0x10, 0);
 
-    if (gDispIo.bg1Ct.colorMode == 0)
+    if (gDispIo.bg1_ct.colorMode == 0)
         sub_8015208((u16*) (VRAM + GetBgChrOffset(1)), 0x10, 0);
 
-    if (gDispIo.bg2Ct.colorMode == 0)
+    if (gDispIo.bg2_ct.colorMode == 0)
         sub_8015208((u16*) (VRAM + GetBgChrOffset(2)), 0x10, 0);
 
-    if (gDispIo.bg3Ct.colorMode == 0)
+    if (gDispIo.bg3_ct.colorMode == 0)
         sub_8015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
 }
 

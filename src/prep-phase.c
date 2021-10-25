@@ -5,7 +5,7 @@
 #include "oam.h"
 #include "sound.h"
 #include "sprite.h"
-#include "anim.h"
+#include "sprite-anim.h"
 #include "event.h"
 #include "msg.h"
 #include "util.h"
@@ -217,7 +217,7 @@ static void PrepPhase_InitCameraLoop(struct GenericProc* proc)
 
 static void PrepPhase_Init(struct GenericProc* proc)
 {
-    if (!GetChapterInfo(gPlaySt.chapter)->hasPrep)
+    if (!GetChapterInfo(gPlaySt.chapter)->has_prep)
     {
         Proc_End(proc);
         return;
@@ -286,8 +286,8 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             case PLAYER_SELECT_TURNENDED:
                 sub_8073324();
 
-                gPlaySt.xCursor = gBmSt.cursor.x;
-                gPlaySt.yCursor = gBmSt.cursor.y;
+                gPlaySt.x_cursor = gBmSt.cursor.x;
+                gPlaySt.y_cursor = gBmSt.cursor.y;
 
                 sub_8041834(&MenuInfo_085C7624);
 
@@ -324,8 +324,8 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             sub_8073324();
             ResetTextFont();
 
-            gPlaySt.xCursor = gBmSt.cursor.x;
-            gPlaySt.yCursor = gBmSt.cursor.y;
+            gPlaySt.x_cursor = gBmSt.cursor.x;
+            gPlaySt.y_cursor = gBmSt.cursor.y;
 
             sub_8041834(&MenuInfo_085C7624);
 
@@ -346,7 +346,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
     }
 
 put_map_cursor:
-    PutMapCursor(gBmSt.cursorSpr.x, gBmSt.cursorSpr.y, MAP_CURSOR_DEFAULT);
+    PutMapCursor(gBmSt.cursor_sprite.x, gBmSt.cursor_sprite.y, MAP_CURSOR_DEFAULT);
 }
 
 u8 sub_802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -362,7 +362,7 @@ u8 sub_802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
 static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
 {
     struct UnitInfo const* info;
-    struct Anim* anim;
+    struct SpriteAnim* anim;
 
     info = sub_806B638();
     info++;
@@ -372,15 +372,15 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
 
     while (info->pid != 0)
     {
-        gMapMovement[info->yMove][info->xMove] = 0;
+        gMapMovement[info->y_move][info->x_move] = 0;
         info++;
     }
 
     StartLimitView(LIMITVIEW_BLUE);
 
-    anim = StartAnim(Anim_08102450, 0);
+    anim = StartSpriteAnim(SpriteAnim_08102450, 0);
     anim->oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
-    Anim_SetAnimId(anim, 0);
+    SetSpriteAnimId(anim, 0);
     proc->ptr = anim;
 
     proc->unk4A = 2;
@@ -412,7 +412,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
     {
         if (isValid)
         {
-            Anim_End(proc->ptr);
+            EndSpriteAnim(proc->ptr);
             Proc_Break(proc);
 
             EndSubtitleHelp();
@@ -429,7 +429,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
 
     if (gKeySt->pressed & KEY_BUTTON_B)
     {
-        Anim_End(proc->ptr);
+        EndSpriteAnim(proc->ptr);
         Proc_Goto(proc, L_PLAYERPHASE_MAPFADE_MOVE);
 
         EndSubtitleHelp();
@@ -440,9 +440,9 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc* proc)
     }
 
     if (isValid != proc->unk4A)
-        Anim_SetAnimId(proc->ptr, isValid ? 0 : 1);
+        SetSpriteAnimId(proc->ptr, isValid ? 0 : 1);
 
-    Anim_Display(proc->ptr, gBmSt.cursorSpr.x-gBmSt.camera.x, gBmSt.cursorSpr.y-gBmSt.camera.y);
+    DisplaySpriteAnim(proc->ptr, gBmSt.cursor_sprite.x-gBmSt.camera.x, gBmSt.cursor_sprite.y-gBmSt.camera.y);
 
     proc->unk4A = isValid;
 }

@@ -6429,7 +6429,7 @@ sub_8064994: @ 0x08064994
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r5, r7}
 	pop {r0}
@@ -6488,7 +6488,7 @@ sub_8064A10: @ 0x08064A10
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r5, r7}
 	pop {r0}
@@ -6604,7 +6604,7 @@ sub_8064B20: @ 0x08064B20
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -6703,7 +6703,7 @@ sub_8064BEC: @ 0x08064BEC
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r7}
 	pop {r0}
@@ -9076,7 +9076,7 @@ _08065E92:
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	bl sub_8069C34
 	bl sub_8069C74
 	bl sub_8067324
@@ -9251,7 +9251,7 @@ _08066018:
 	bls _08066086
 	ldr r0, [r7]
 	bl Proc_Break
-	bl EndEachAnimProc
+	bl EndEachSpriteAnimProc
 _08066086:
 	add sp, #0x10
 	pop {r7}
@@ -9487,7 +9487,7 @@ sub_8066214: @ 0x08066214
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, [r7]
 	adds r1, r0, #0
 	adds r0, #0x48
@@ -10180,7 +10180,7 @@ sub_8066784: @ 0x08066784
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r7}
 	pop {r0}
@@ -10214,7 +10214,7 @@ sub_80667F0: @ 0x080667F0
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r7}
 	pop {r0}
@@ -10243,7 +10243,7 @@ sub_8066830: @ 0x08066830
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	add sp, #0xc
 	pop {r4, r7}
 	pop {r0}
@@ -10655,7 +10655,7 @@ sub_8066B3C: @ 0x08066B3C
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, [r7]
 	adds r1, r0, #0
 	adds r0, #0x48
@@ -11498,7 +11498,7 @@ sub_80671F4: @ 0x080671F4
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, _080672A8 @ =gUnk_082A84A4
 	ldr r2, [r7]
 	ldr r1, [r2, #0x30]
@@ -11509,7 +11509,7 @@ sub_80671F4: @ 0x080671F4
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 _0806729E:
 	add sp, #0x10
 	pop {r4, r7}
@@ -12462,7 +12462,7 @@ sub_8067A14: @ 0x08067A14
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl EndEachAnimProc
+	bl EndEachSpriteAnimProc
 	add sp, #4
 	pop {r7}
 	pop {r0}
@@ -12637,7 +12637,7 @@ sub_8067B08: @ 0x08067B08
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	b _08067CE8
 	.align 2, 0
 _08067B88: .4byte gUnk_082DBDB0
@@ -12683,7 +12683,7 @@ _08067BA4:
 	movs r1, #2
 	str r1, [sp, #4]
 	ldr r1, [r7]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, _08067CF0 @ =gUnk_082A75FC
 	ldr r2, [r7]
 	subs r1, r2, #3
@@ -12716,7 +12716,7 @@ _08067BA4:
 	str r5, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, [r7, #0xc]
 	cmp r0, #0
 	ble _08067C72
@@ -12753,7 +12753,7 @@ _08067BA4:
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 _08067C72:
 	ldr r0, [r7, #0xc]
 	cmp r0, #0
@@ -13789,7 +13789,7 @@ _08068456:
 	str r4, [sp]
 	movs r4, #2
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, _080684A0 @ =gPlaySt
 	ldrb r1, [r0, #0x1d]
 	lsls r2, r1, #0x1e
@@ -13818,7 +13818,7 @@ sub_80684A4: @ 0x080684A4
 	sub sp, #4
 	mov r7, sp
 	str r0, [r7]
-	bl EndEachAnimProc
+	bl EndEachSpriteAnimProc
 	add sp, #4
 	pop {r7}
 	pop {r0}
@@ -14732,7 +14732,7 @@ _08068B22:
 	ldr r1, [r0, #0x30]
 	adds r0, r1, #0
 	movs r1, #5
-	bl Anim_SetAnimId
+	bl SetSpriteAnimId
 	add sp, #8
 	pop {r7}
 	pop {r0}
@@ -80819,7 +80819,7 @@ sub_80890D0: @ 0x080890D0
 	ldr r0, [r4, #0x5c]
 	cmp r0, #0
 	beq _080890DE
-	bl EndAnimProc
+	bl EndSpriteAnimProc
 _080890DE:
 	ldr r0, [r4, #0x54]
 	bl Proc_End
@@ -80916,7 +80916,7 @@ sub_8089180: @ 0x08089180
 	ldr r0, [r4, #0x5c]
 	cmp r0, #0
 	beq _080891A8
-	bl EndAnimProc
+	bl EndSpriteAnimProc
 _080891A8:
 	adds r0, r4, #0
 	adds r0, #0x35
@@ -81966,7 +81966,7 @@ _080899B8:
 	str r7, [sp]
 	movs r4, #4
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r1, [r6, #0x14]
 	str r0, [r1, #0x5c]
 _080899D6:
@@ -82724,7 +82724,7 @@ _08089F38:
 	ldr r0, [r2, #0x5c]
 	cmp r0, #0
 	beq _08089FCE
-	bl EndAnimProc
+	bl EndSpriteAnimProc
 	mov r2, r8
 	ldr r1, [r2, #0x14]
 	movs r0, #0
@@ -82782,7 +82782,7 @@ _0808A01C:
 	adds r2, #0x34
 	movs r3, #0xd0
 	lsls r3, r3, #1
-	bl SetAnimProcParams
+	bl SetSpriteAnimProcParameters
 	b _0808A07C
 _0808A042:
 	ldr r0, [r2, #0x5c]
@@ -82793,7 +82793,7 @@ _0808A042:
 	adds r2, #0x34
 	movs r3, #0xd0
 	lsls r3, r3, #1
-	bl SetAnimProcParams
+	bl SetSpriteAnimProcParameters
 	mov r1, r8
 	ldr r0, [r1, #0x14]
 	adds r2, r0, #0
@@ -101180,7 +101180,7 @@ sub_809345C: @ 0x0809345C
 	push {lr}
 	movs r0, #8
 	bl Proc_EndEachMarked
-	bl EndEachAnimProc
+	bl EndEachSpriteAnimProc
 	bl EndPutTalkSpriteText
 	ldr r0, _08093478 @ =gUnk_0868C648
 	bl Proc_EndEach
@@ -101657,7 +101657,7 @@ _080937FC:
 	adds r0, r0, r1
 	ldr r0, [r0]
 	movs r1, #0xd
-	bl StartAnim
+	bl StartSpriteAnim
 	adds r1, r0, #0
 	str r1, [r5, #0x50]
 	movs r4, #0
@@ -101749,7 +101749,7 @@ sub_80938BC: @ 0x080938BC
 	lsls r2, r2, #3
 	ldrb r3, [r3, #9]
 	orrs r2, r3
-	bl Anim_Display
+	bl DisplaySpriteAnim
 	ldr r1, _08093958 @ =gSinLut
 	adds r2, r5, #0
 	adds r2, #0x44
@@ -101814,7 +101814,7 @@ sub_8093960: @ 0x08093960
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x50]
-	bl Anim_End
+	bl EndSpriteAnim
 	adds r4, #0x66
 	movs r1, #0
 	ldrsh r0, [r4, r1]
@@ -101928,7 +101928,7 @@ sub_80939F0: @ 0x080939F0
 	movs r3, #0xc4
 	lsls r3, r3, #2
 	adds r0, r6, #0
-	bl SetAnimProcParams
+	bl SetSpriteAnimProcParameters
 	b _08093A62
 _08093A34:
 	ldr r0, _08093A70 @ =gUnk_082D3674
@@ -101948,7 +101948,7 @@ _08093A34:
 	str r4, [sp]
 	movs r4, #0xa
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	adds r1, r0, #0
 	adds r0, r7, #0
 	bl SetWMDot
@@ -101969,7 +101969,7 @@ EndWMDot: @ 0x08093A74
 	bl GetWMDot
 	cmp r0, #0
 	beq _08093A84
-	bl EndAnimProc
+	bl EndSpriteAnimProc
 _08093A84:
 	adds r0, r4, #0
 	movs r1, #0
@@ -102014,7 +102014,7 @@ StartWMFlag: @ 0x08093A94
 	lsls r0, r0, #2
 	orrs r3, r0
 	adds r0, r6, #0
-	bl SetAnimProcParams
+	bl SetSpriteAnimProcParameters
 	b _08093B0A
 _08093AE0:
 	ldr r0, _08093B18 @ =gUnk_082D3674
@@ -102032,7 +102032,7 @@ _08093AE0:
 	str r6, [sp]
 	movs r4, #7
 	str r4, [sp, #4]
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	adds r1, r0, #0
 	mov r0, r8
 	bl SetWMFlag
@@ -102053,7 +102053,7 @@ EndWMFlag: @ 0x08093B1C
 	bl GetWMFlag
 	cmp r0, #0
 	beq _08093B2C
-	bl EndAnimProc
+	bl EndSpriteAnimProc
 _08093B2C:
 	adds r0, r4, #0
 	movs r1, #0
@@ -102191,7 +102191,7 @@ sub_8093C24: @ 0x08093C24
 	adds r4, r0, #0
 	ldr r0, _08093C58 @ =gUnk_082D38A4
 	movs r1, #0xb
-	bl StartAnim
+	bl StartSpriteAnim
 	str r0, [r4, #0x50]
 	adds r2, r0, #0
 	adds r0, r4, #0
@@ -102238,7 +102238,7 @@ _08093C60:
 	bne _08093C94
 	ldr r0, [r4, #0x50]
 	movs r1, #1
-	bl Anim_SetAnimId
+	bl SetSpriteAnimId
 	b _08093C9C
 	.align 2, 0
 _08093C8C: .4byte gUnk_0868C734
@@ -102246,7 +102246,7 @@ _08093C90: .4byte gUnk_082D5910
 _08093C94:
 	ldr r0, [r4, #0x50]
 	movs r1, #2
-	bl Anim_SetAnimId
+	bl SetSpriteAnimId
 _08093C9C:
 	ldr r6, _08093D34 @ =gUnk_0868C734
 	movs r2, #0
@@ -102507,7 +102507,7 @@ sub_8093E90: @ 0x08093E90
 	movs r1, #0
 	bl SetWMMapText
 	ldr r0, [r4, #0x50]
-	bl Anim_End
+	bl EndSpriteAnim
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -102656,7 +102656,7 @@ _08093F96:
 	ands r2, r0
 	add r2, sl
 	ldr r0, [sp, #4]
-	bl Anim_Display
+	bl DisplaySpriteAnim
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -114286,7 +114286,7 @@ _08099A80: .4byte 0x0000E0FF
 sub_8099A84: @ 0x08099A84
 	push {lr}
 	ldr r0, [r0, #0x50]
-	bl Anim_End
+	bl EndSpriteAnim
 	pop {r0}
 	bx r0
 
@@ -114308,7 +114308,7 @@ sub_8099A90: @ 0x08099A90
 	strh r0, [r1]
 	ldr r0, _08099ACC @ =gUnk_08375908
 	movs r1, #0xd
-	bl StartAnim
+	bl StartSpriteAnim
 	str r0, [r4, #0x50]
 	movs r1, #0xc0
 	lsls r1, r1, #4
@@ -114363,7 +114363,7 @@ sub_8099B18: @ 0x08099B18
 	subs r1, r1, r0
 	adds r0, r4, #0
 	movs r2, #0x10
-	bl Anim_Display
+	bl DisplaySpriteAnim
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -114920,7 +114920,7 @@ nullsub_53: @ 0x08099F98
 sub_8099F9C: @ 0x08099F9C
 	push {lr}
 	ldr r0, [r0, #0x50]
-	bl Anim_End
+	bl EndSpriteAnim
 	pop {r0}
 	bx r0
 
@@ -114930,7 +114930,7 @@ sub_8099FA8: @ 0x08099FA8
 	adds r4, r0, #0
 	ldr r0, _08099FCC @ =gUnk_0837AAE8
 	movs r1, #2
-	bl StartAnim
+	bl StartSpriteAnim
 	str r0, [r4, #0x50]
 	movs r2, #0
 	movs r1, #0x88
@@ -114974,7 +114974,7 @@ _08099FFE:
 	ldr r0, [r4, #0x50]
 	ldr r2, [r4, #0x30]
 	movs r1, #0x78
-	bl Anim_Display
+	bl DisplaySpriteAnim
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -117444,7 +117444,7 @@ _0809B368: .4byte gPlaySt
 	thumb_func_start sub_809B36C
 sub_809B36C: @ 0x0809B36C
 	push {lr}
-	bl EndEachAnimProc
+	bl EndEachSpriteAnimProc
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -117601,14 +117601,14 @@ sub_809B4A8: @ 0x0809B4A8
 	movs r1, #0xa3
 	movs r2, #0x1b
 	movs r3, #0
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	str r4, [sp]
 	str r4, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x78
 	movs r2, #0x55
 	movs r3, #0
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	movs r0, #1
 	str r0, [sp]
 	str r4, [sp, #4]
@@ -117616,7 +117616,7 @@ sub_809B4A8: @ 0x0809B4A8
 	movs r1, #0x78
 	movs r2, #0x78
 	movs r3, #0
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	movs r0, #2
 	str r0, [sp]
 	str r4, [sp, #4]
@@ -117624,7 +117624,7 @@ sub_809B4A8: @ 0x0809B4A8
 	movs r1, #0x78
 	movs r2, #0x98
 	movs r3, #0
-	bl StartAnimProc
+	bl StartSpriteAnimProc
 	ldr r0, _0809B534 @ =gUnk_08692258
 	adds r1, r6, #0
 	bl SpawnProc

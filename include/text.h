@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -9,30 +8,30 @@ struct Glyph
 {
     struct Glyph const* next;
 
-    u8 sjisByte1;
+    u8 sjis_byte_1;
     u8 width;
     u32 bitmap[16];
 };
 
 struct Text
 {
-    /* 00 */ u16 chrPosition;
+    /* 00 */ u16 chr_position;
     /* 02 */ u8 x;
     /* 03 */ u8 color;
-    /* 04 */ u8 tWidth;
-    /* 05 */ s8 dbEnabled;
-    /* 06 */ u8 dbId;
-    /* 07 */ s8 isPrinting;
+    /* 04 */ u8 tile_width;
+    /* 05 */ bool db_enabled;
+    /* 06 */ u8 db_id;
+    /* 07 */ bool is_printing;
 };
 
 struct Font
 {
-    /* 00 */ u8* drawDest;
+    /* 00 */ u8* draw_dest;
     /* 04 */ struct Glyph const* const* glyphs;
-    /* 08 */ void(*drawGlyph)(struct Text* text, struct Glyph const* glyph);
-    /* 0C */ u8*(*getDrawDest)(struct Text* text);
+    /* 08 */ void(*draw_glyph)(struct Text* text, struct Glyph const* glyph);
+    /* 0C */ u8*(*get_draw_dest)(struct Text* text);
     /* 10 */ u16 tileref;
-    /* 12 */ u16 chrCounter;
+    /* 12 */ u16 chr_counter;
     /* 14 */ u16 palid;
     /* 16 */ u8 lang;
 };
@@ -131,7 +130,7 @@ enum
 
 int GetLang(void);
 void ResetText(void);
-void InitTextFont(struct Font* font, void* drawDest, int chr, int palid);
+void InitTextFont(struct Font* font, void* draw_dest, int chr, int palid);
 void SetTextFontGlyphs(int glyphSet);
 void ResetTextFont(void);
 void SetTextFont(struct Font* font);
@@ -161,15 +160,15 @@ char const* Text_DrawCharacter(struct Text* text, char const* str);
 void InitSystemTextFont(void);
 void InitTalkTextFont(void);
 void SetTextDrawNoClear(void);
-void PutDrawText(struct Text* text, u16* tm, int color, int x, int tWidth, char const* str);
+void PutDrawText(struct Text* text, u16* tm, int color, int x, int tile_width, char const* str);
 void Text_InsertDrawString(struct Text* text, int x, int color, char const* str);
 void Text_InsertDrawNumberOrBlank(struct Text* text, int x, int color, int number);
-void InitSpriteTextFont(struct Font* font, u8* drawDest, int palid);
+void InitSpriteTextFont(struct Font* font, u8* draw_dest, int palid);
 void InitSpriteText(struct Text* text);
 void SpriteText_DrawBackground(struct Text* text);
 void SpriteText_DrawBackgroundExt(struct Text* text, u32 line);
 char const* StartTextPrint(struct Text* text, char const* str, int interval, int charPerTick);
-s8 IsTextPrinting(struct Text* text);
+i8 IsTextPrinting(struct Text* text);
 void EndTextPrinting(void);
 void StartGreenText(ProcPtr parent);
 void EndGreenText(void);
@@ -183,7 +182,7 @@ void PutNumberBonus(int number, u16* tm);
 void PutNumber2DigitExt(u16* tm, int color, int number, int idZero);
 void PutNumber2Digit(u16* tm, int color, int number);
 void PutNumber2DigitSmall(u16* tm, int color, int number);
-void PutTime(u16* tm, int color, int time, s8 alwaysDisplayPunctuation);
+void PutTime(u16* tm, int color, int time, i8 alwaysDisplayPunctuation);
 void PutTwoSpecialChar(u16* tm, int color, int idA, int idB);
 
 extern struct Font EWRAM_DATA gDefaultFont;

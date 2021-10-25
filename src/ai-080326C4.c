@@ -16,7 +16,7 @@
 struct Unk_0810DB34
 {
     u16 iid;
-    void(*func)(int slot, bool(*isEnemy)(struct Unit* unit));
+    void(*func)(int slot, bool(*is_enemy)(struct Unit* unit));
 };
 
 struct Unk_0810DB9C
@@ -34,14 +34,14 @@ struct AiEscapePt const* sub_8032C2C(void);
 
 static void AiFillDangerMap(void);
 
-void sub_8033D5C(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_8033ECC(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_8034094(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_8034178(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_80342C4(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_80344AC(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_803462C(int slot, bool(*isEnemy)(struct Unit* unit));
-void sub_80347A4(int slot, bool(*isEnemy)(struct Unit* unit));
+void sub_8033D5C(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_8033ECC(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_8034094(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_8034178(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_80342C4(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_80344AC(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_803462C(int slot, bool(*is_enemy)(struct Unit* unit));
+void sub_80347A4(int slot, bool(*is_enemy)(struct Unit* unit));
 
 void sub_8034B58(int slot);
 void sub_8034BF0(int slot);
@@ -51,9 +51,9 @@ u8 EWRAM_DATA gUnk_Pid_02039694 = 0;
 
 void AiRefreshDangerMap(void)
 {
-    if (!gAiSt.dangerMapFilled)
+    if (!gAiSt.danger_map_filled)
     {
-        gAiSt.dangerMapFilled = TRUE;
+        gAiSt.danger_map_filled = TRUE;
 
         MapFill(gMapOther, 0);
         AiFillDangerMap();
@@ -76,7 +76,7 @@ static void AiFillDangerMap(void)
         if (unit == NULL)
             continue;
 
-        if (unit->person == NULL)
+        if (unit->pinfo == NULL)
             continue;
 
         if (unit->state & (US_HIDDEN | US_DEAD | US_NOT_DEPLOYED))
@@ -139,7 +139,7 @@ bool AiTryGetNearestHealPoint(struct Vec2* out)
     int currentCount = 10000;
     int currentMove = UINT8_MAX;
 
-    if (gActiveUnit->aiConfig & 0x2000) // TODO: AI CONFIG CONSTANTS
+    if (gActiveUnit->ai_config & 0x2000) // TODO: AI CONFIG CONSTANTS
         return FALSE;
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13)
@@ -163,7 +163,7 @@ bool AiTryGetNearestHealPoint(struct Vec2* out)
 
                 unit = GetUnit(gMapUnit[iy][ix]);
 
-                if (!(unit->aiFlags & AI_UNIT_FLAG_2))
+                if (!(unit->ai_flags & AI_UNIT_FLAG_2))
                     continue;
             }
             else
@@ -175,8 +175,8 @@ bool AiTryGetNearestHealPoint(struct Vec2* out)
 
                     unit = GetUnit(gMapUnit[iy][ix]);
 
-                    if (unit->aiConfig & 0x2000) // TODO: AI CONFIG CONSTANTS
-                        if (!(unit->aiFlags & AI_UNIT_FLAG_2))
+                    if (unit->ai_config & 0x2000) // TODO: AI CONFIG CONSTANTS
+                        if (!(unit->ai_flags & AI_UNIT_FLAG_2))
                             continue;
                 }
             }
@@ -198,7 +198,7 @@ bool AiTryGetNearestHealPoint(struct Vec2* out)
         if (gMapUnit[out->y][out->x] != 0 && gMapUnit[out->y][out->x] != gActiveUnitId)
         {
             unit = GetUnit(gMapUnit[out->y][out->x]);
-            unit->aiFlags |= AI_UNIT_FLAG_1;
+            unit->ai_flags |= AI_UNIT_FLAG_1;
         }
 
         return TRUE;
@@ -222,7 +222,7 @@ void sub_8032A08(void)
         if (!unit)
             continue;
 
-        if (!unit->person)
+        if (!unit->pinfo)
             continue;
 
         AiUpdateGetUnitIsHealing(unit);
@@ -233,23 +233,23 @@ bool AiUpdateGetUnitIsHealing(struct Unit* unit)
 {
     u16 hpPercentage = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
 
-    if (unit->aiFlags & AI_UNIT_FLAG_0)
+    if (unit->ai_flags & AI_UNIT_FLAG_0)
     {
-        if (gUnk_085C8820[unit->aiConfig & 7].exitThreshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & 7].exit_threshold > hpPercentage)
         {
             return TRUE;
         }
         else
         {
-            unit->aiFlags &= ~AI_UNIT_FLAG_0;
+            unit->ai_flags &= ~AI_UNIT_FLAG_0;
             return FALSE;
         }
     }
     else
     {
-        if (gUnk_085C8820[unit->aiConfig & 7].enterThreshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & 7].enter_threshold > hpPercentage)
         {
-            unit->aiFlags |= AI_UNIT_FLAG_0;
+            unit->ai_flags |= AI_UNIT_FLAG_0;
             return TRUE;
         }
         else
@@ -306,7 +306,7 @@ bool AiTryMoveTowardsEscape(void)
         {
             AiTryMoveTowards(escapePt->x, escapePt->y, AI_ACTION_NONE, -1, TRUE);
 
-            AiSetDecision(gAiDecision.xMove, gAiDecision.yMove, AI_ACTION_ESCAPE,
+            AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_ESCAPE,
                 escapePt->x, escapePt->y, escapePt->facing, 0);
 
             return TRUE;
@@ -314,7 +314,7 @@ bool AiTryMoveTowardsEscape(void)
         else
         {
             AiTryMoveTowards(escapePt->x, escapePt->y, AI_ACTION_NONE, -1, FALSE);
-            return gAiDecision.actionPerformed;
+            return gAiDecision.action_performed;
         }
     }
 
@@ -374,7 +374,7 @@ bool sub_8032CB4(void)
     if (gActiveUnit->state & US_HAS_MOVED)
         return FALSE;
 
-    if (gAiDecision.actionId == AI_ACTION_COMBAT)
+    if (gAiDecision.action_id == AI_ACTION_COMBAT)
         return FALSE;
 
     if (gActiveUnit->status == UNIT_STATUS_BERSERK)

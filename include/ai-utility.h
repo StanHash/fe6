@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -38,7 +37,7 @@ void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit);
 void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item);
 bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*func)(int x, int y), struct Vec2* out);
 int AiGetItemStealRank(u16 item);
-s8 AiGetUnitStealItemSlot(struct Unit* unit);
+i8 AiGetUnitStealItemSlot(struct Unit* unit);
 bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out);
 bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot);
 bool AiGetChestUnlockItemSlot(u8* out);

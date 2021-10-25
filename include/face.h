@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "gba/gba.h"
@@ -8,15 +7,15 @@
 struct FaceInfo
 {
     /* 00 */ u8 const* img;
-    /* 04 */ u8 const* imgChibi;
+    /* 04 */ u8 const* img_chibi;
     /* 08 */ u16 const* pal;
-    /* 0C */ u8 xMouth, yMouth;
-    /* 0E */ u8 unk0E;
+    /* 0C */ u8 x_mouth, y_mouth;
+    /* 0E */ u8 unk_0E;
 };
 
 struct FaceVramEnt
 {
-    /* 00 */ u32 chrOff;
+    /* 00 */ u32 chr_off;
     /* 04 */ u16 palid;
 };
 
@@ -26,14 +25,14 @@ struct FaceProc
 
     /* 29 */ // pad
     /* 2A */ u16 disp;
-    /* 2C */ s8 slot;
-    /* 2D */ s8 sprLayer;
-    /* 2E */ short xDisp;
-    /* 30 */ short yDisp;
-    /* 32 */ short xOffMouth;
-    /* 34 */ short yOffMouth;
-    /* 36 */ s8 talkFrame;
-    /* 37 */ s8 talkFrameClock;
+    /* 2C */ i8 slot;
+    /* 2D */ i8 sprite_layer;
+    /* 2E */ short x_disp;
+    /* 30 */ short y_disp;
+    /* 32 */ short x_offset_mouth;
+    /* 34 */ short y_offset_mouth;
+    /* 36 */ i8 talk_frame;
+    /* 37 */ i8 talk_frame_clock;
     /* 38 */ u16 oam2;
     /* 3A */ // pad
     /* 3C */ u16 const* sprite;
@@ -92,12 +91,12 @@ int GetFaceDisp(struct FaceProc* proc);
 int GetFaceDispById(int slot);
 void FaceRefreshSprite(struct FaceProc* proc);
 void UnpackFaceGraphics(int fid, int chr, int pal);
-void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, s8 isFlipped);
+void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, i8 is_flipped);
 void sub_8008874(u16* tm, int tileref);
 void UnpackFaceChibiGraphics(int fid, int chr, int pal);
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, s8 isFlipped);
+void PutFaceChibi(int fid, u16* tm, int chr, int pal, i8 is_flipped);
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);
-void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, s8 isFlipped, ProcPtr parent);
+void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, i8 is_flipped, ProcPtr parent);
 void EndFaceChibiSpr(void);
 void PutFace80x72(u16* tm, int fid, int chr, int pal);
 void StartFaceFadeIn(struct FaceProc* proc);

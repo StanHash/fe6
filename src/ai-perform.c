@@ -116,7 +116,7 @@ void AiPerform_WatchUnit(struct AiPerformProc* proc)
 
     if (gPlaySt.vision != 0 && gPlaySt.faction == FACTION_RED)
     {
-        if (gMapFog[gActiveUnit->y][gActiveUnit->x] != 0 || gMapFog[gAiDecision.yMove][gAiDecision.xMove] != 0)
+        if (gMapFog[gActiveUnit->y][gActiveUnit->x] != 0 || gMapFog[gAiDecision.y_move][gAiDecision.x_move] != 0)
         {
             CameraMoveWatchPosition(proc, gActiveUnit->x, gActiveUnit->y);
         }
@@ -124,9 +124,9 @@ void AiPerform_WatchUnit(struct AiPerformProc* proc)
         {
             proc->isUnitVisible = FALSE;
 
-            if (gAiDecision.actionId == AI_ACTION_PILLAGE)
+            if (gAiDecision.action_id == AI_ACTION_PILLAGE)
             {
-                CameraMoveWatchPosition(proc, gAiDecision.xMove, gAiDecision.yMove);
+                CameraMoveWatchPosition(proc, gAiDecision.x_move, gAiDecision.y_move);
             }
         }
     }
@@ -145,7 +145,7 @@ void AiPerform_StartMovement(struct AiPerformProc* proc)
     MapFlood_08019344(gActiveUnit);
     SetWorkingMap(gMapMovement);
 
-    BuildBestMoveScript(gAiDecision.xMove, gAiDecision.yMove, gWorkingMoveScr);
+    BuildBestMoveScript(gAiDecision.x_move, gAiDecision.y_move, gWorkingMoveScr);
 
     if (proc->isUnitVisible)
     {
@@ -157,13 +157,13 @@ void AiPerform_StartMovement(struct AiPerformProc* proc)
 
 void AiEndMuAndRefreshUnits(void)
 {
-    SetMapCursorPosition(gAiDecision.xMove, gAiDecision.yMove);
+    SetMapCursorPosition(gAiDecision.x_move, gAiDecision.y_move);
 
     if (gPlaySt.vision != 0 && gPlaySt.faction != FACTION_RED)
     {
         RenderMapForFade();
 
-        sub_8017EDC(gAiDecision.xMove, gAiDecision.yMove);
+        sub_8017EDC(gAiDecision.x_move, gAiDecision.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -172,7 +172,7 @@ void AiEndMuAndRefreshUnits(void)
     }
     else
     {
-        sub_8017EDC(gAiDecision.xMove, gAiDecision.yMove);
+        sub_8017EDC(gAiDecision.x_move, gAiDecision.y_move);
 
         RenderMap();
         RefreshEntityMaps();
@@ -192,19 +192,19 @@ void AiEndMuAndRefreshUnits(void)
 void AiStartCombatAction(struct AiPerformProc* proc)
 {
     gAction.id = ACTION_COMBAT;
-    gAction.target = gAiDecision.targetId;
+    gAction.target = gAiDecision.target_id;
 
-    gActiveUnit->x = gAiDecision.xMove;
-    gActiveUnit->y = gAiDecision.yMove;
+    gActiveUnit->x = gAiDecision.x_move;
+    gActiveUnit->y = gAiDecision.y_move;
 
-    if ((s8) gAiDecision.itemSlot != -1)
+    if ((i8) gAiDecision.item_slot != -1)
     {
-        UnitEquipItemSlot(gActiveUnit, gAiDecision.itemSlot);
-        BattleGenerateReal(gActiveUnit, GetUnit(gAiDecision.targetId));
+        UnitEquipItemSlot(gActiveUnit, gAiDecision.item_slot);
+        BattleGenerateReal(gActiveUnit, GetUnit(gAiDecision.target_id));
     }
     else
     {
-        BattleGenerateBallistaReal(gActiveUnit, GetUnit(gAiDecision.targetId));
+        BattleGenerateBallistaReal(gActiveUnit, GetUnit(gAiDecision.target_id));
     }
 
     if (gKeySt->held & KEY_BUTTON_R)
@@ -223,18 +223,18 @@ void AiStartEscapeAction(struct AiPerformProc* proc)
         { MOVE_CMD_MOVE_UP,    MOVE_CMD_MOVE_UP,    MOVE_CMD_HALT },
     };
 
-    if (gAiDecision.xTarget != 5 && proc->isUnitVisible)
-        SetAutoMuMoveScript(scripts[gAiDecision.xTarget]);
+    if (gAiDecision.x_target != 5 && proc->isUnitVisible)
+        SetAutoMuMoveScript(scripts[gAiDecision.x_target]);
 }
 
 void AiStartStealAction(struct AiPerformProc* proc)
 {
-    struct Unit* target = GetUnit(gAiDecision.targetId);
+    struct Unit* target = GetUnit(gAiDecision.target_id);
 
-    u16 item = target->items[gAiDecision.itemSlot];
+    u16 item = target->items[gAiDecision.item_slot];
 
     UnitAddItem(gActiveUnit, item);
-    UnitRemoveItem(target, gAiDecision.itemSlot);
+    UnitRemoveItem(target, gAiDecision.item_slot);
 
     StartPopup_08012178(item, proc);
 }
@@ -248,16 +248,16 @@ bool AiPillageAction(struct AiPerformProc* proc)
         POPUP_END,
     };
 
-    int x = gAiDecision.xMove;
-    int register y asm("r4") = gAiDecision.yMove;
+    int x = gAiDecision.x_move;
+    int register y asm("r4") = gAiDecision.y_move;
 
     if (gMapTerrain[y][x] == TERRAIN_CHEST)
     {
-        gActiveUnit->x = gAiDecision.xMove;
-        gActiveUnit->y = gAiDecision.yMove;
+        gActiveUnit->x = gAiDecision.x_move;
+        gActiveUnit->y = gAiDecision.y_move;
 
         gAction.id = ACTION_USEITEM;
-        gAction.itemSlot = gAiDecision.itemSlot;
+        gAction.item_slot = gAiDecision.item_slot;
 
         DoItemAction(proc);
     }
@@ -275,12 +275,12 @@ bool AiPillageAction(struct AiPerformProc* proc)
 
 bool AiStaffAction(struct AiPerformProc* proc)
 {
-    gActiveUnit->x = gAiDecision.xMove;
-    gActiveUnit->y = gAiDecision.yMove;
+    gActiveUnit->x = gAiDecision.x_move;
+    gActiveUnit->y = gAiDecision.y_move;
 
     gAction.id = ACTION_STAFF;
-    gAction.target = gAiDecision.targetId;
-    gAction.itemSlot = gAiDecision.itemSlot;
+    gAction.target = gAiDecision.target_id;
+    gAction.item_slot = gAiDecision.item_slot;
 
     DoItemAction(proc);
 
@@ -289,11 +289,11 @@ bool AiStaffAction(struct AiPerformProc* proc)
 
 bool AiUseItemAction(struct AiPerformProc* proc)
 {
-    gActiveUnit->x = gAiDecision.xMove;
-    gActiveUnit->y = gAiDecision.yMove;
+    gActiveUnit->x = gAiDecision.x_move;
+    gActiveUnit->y = gAiDecision.y_move;
 
     gAction.id = ACTION_USEITEM;
-    gAction.itemSlot = gAiDecision.itemSlot;
+    gAction.item_slot = gAiDecision.item_slot;
 
     DoItemAction(proc);
 
@@ -307,14 +307,14 @@ bool AiRefreshAction(struct AiPerformProc* proc)
 
 bool AiTalkAction(struct AiPerformProc* proc)
 {
-    gActiveUnit->x = gAiDecision.xMove;
-    gActiveUnit->y = gAiDecision.yMove;
+    gActiveUnit->x = gAiDecision.x_move;
+    gActiveUnit->y = gAiDecision.y_move;
 
-    if (gAiDecision.targetId == 0)
+    if (gAiDecision.target_id == 0)
     {
         sub_806AF90(
-            GetUnit(gAiDecision.itemSlot)->person->id,
-            GetUnit(gAiDecision.xTarget)->person->id);
+            GetUnit(gAiDecision.item_slot)->pinfo->id,
+            GetUnit(gAiDecision.x_target)->pinfo->id);
     }
 
     return TRUE;
@@ -327,14 +327,14 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
     int x = 0;
     int y = 0;
 
-    switch (gAiDecision.actionId)
+    switch (gAiDecision.action_id)
     {
 
     case AI_ACTION_NONE:
         return;
 
     case AI_ACTION_COMBAT:
-        target = GetUnit(gAiDecision.targetId);
+        target = GetUnit(gAiDecision.target_id);
 
         x = target->x;
         y = target->y;
@@ -345,7 +345,7 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
         return;
 
     case AI_ACTION_STEAL:
-        target = GetUnit(gAiDecision.targetId);
+        target = GetUnit(gAiDecision.target_id);
 
         x = target->x;
         y = target->y;
@@ -359,7 +359,7 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
         return;
 
     case AI_ACTION_REFRESH:
-        target = GetUnit(gAiDecision.targetId);
+        target = GetUnit(gAiDecision.target_id);
 
         x = target->x;
         y = target->y;
@@ -367,7 +367,7 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
         break;
 
     case AI_ACTION_TALK:
-        target = GetUnit(gAiDecision.yTarget);
+        target = GetUnit(gAiDecision.y_target);
 
         x = target->x;
         y = target->y;
@@ -375,10 +375,10 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
         break;
 
     case AI_ACTION_STAFF:
-        if (gAiDecision.targetId == 0)
+        if (gAiDecision.target_id == 0)
             return;
 
-        target = GetUnit(gAiDecision.targetId);
+        target = GetUnit(gAiDecision.target_id);
 
         x = target->x;
         y = target->y;
@@ -395,7 +395,7 @@ void AiPerform_StartAction(struct AiPerformProc* proc)
 {
     proc->unk_30 = 0;
 
-    switch (gAiDecision.actionId)
+    switch (gAiDecision.action_id)
     {
 
     case AI_ACTION_NONE:
@@ -453,7 +453,7 @@ void AiPerform_0802F20C(struct AiPerformProc* proc)
     sub_8032A08();
     AiEndMuAndRefreshUnits();
 
-    if (!gActiveUnit->person || gActiveUnit->state & (US_HIDDEN | US_DEAD))
+    if (!gActiveUnit->pinfo || gActiveUnit->state & (US_HIDDEN | US_DEAD))
         Proc_Goto(proc, 1);
 }
 
@@ -466,7 +466,7 @@ bool AiEscapeAction(struct AiPerformProc* proc)
 {
     if (!MuExistsActive())
     {
-        gActiveUnit->person = NULL;
+        gActiveUnit->pinfo = NULL;
         return TRUE;
     }
 
@@ -495,7 +495,7 @@ void AiPerform_0802F29C(struct AiPerformProc* proc)
     {
         u16 var_10, var_12, var_14;
 
-        sub_8032DF4(gAiDecision.xMove, gAiDecision.yMove, &var_10, &var_12, &var_14);
+        sub_8032DF4(gAiDecision.x_move, gAiDecision.y_move, &var_10, &var_12, &var_14);
         sub_8032F94(var_10, var_12, var_14, var_04);
     }
 }

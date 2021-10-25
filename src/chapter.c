@@ -35,7 +35,7 @@ int GetTextPrintDelay(void)
 {
     u8 lut[4] = { 8, 4, 1, 0 };
 
-    return lut[gPlaySt.configTextSpeed];
+    return lut[gPlaySt.config_talk_speed];
 }
 
 int IsFirstPlaythrough(void)
@@ -49,29 +49,29 @@ int IsFirstPlaythrough(void)
     return gPlaySt.unk_1D_5;
 }
 
-void InitPlayConfig(int isHardMode)
+void InitPlayConfig(int is_hard)
 {
     CpuFill16(0, &gPlaySt, sizeof(gPlaySt));
 
     gPlaySt.chapter = CHAPTER_CH01;
 
-    if (isHardMode)
+    if (is_hard)
         gPlaySt.flags |= PLAY_FLAG_HARD;
 
-    gPlaySt.configBattleAnim = 0; // TODO: battle anim type constants
+    gPlaySt.config_battle_anim = 0; // TODO: battle anim type constants
     gPlaySt.unk_1C_2 = 0;
     gPlaySt.unk_1C_3 = 0;
-    gPlaySt.configNoAutoCursor = FALSE;
-    gPlaySt.configTextSpeed = 1;
-    gPlaySt.configWalkSpeed = 0;
-    gPlaySt.configBgmDisable = FALSE;
-    gPlaySt.configSeDisable = FALSE;
-    gPlaySt.configWindowColor = 0;
-    gPlaySt.configNoAutoEndTurn = FALSE;
-    gPlaySt.configNoSubtitleHelp = FALSE;
-    gPlaySt.configBattlePreviewKind = 0;
-    gPlaySt.debugRedControl = 0;
-    gPlaySt.debugGreenControl = 0;
+    gPlaySt.config_no_auto_cursor = FALSE;
+    gPlaySt.config_talk_speed = 1;
+    gPlaySt.config_walk_speed = 0;
+    gPlaySt.config_bgm_disable = FALSE;
+    gPlaySt.config_se_disable = FALSE;
+    gPlaySt.config_window_color = 0;
+    gPlaySt.config_no_auto_end_turn = FALSE;
+    gPlaySt.config_no_subtitle_help = FALSE;
+    gPlaySt.config_battle_preview_kind = 0;
+    gPlaySt.debug_control_red = 0;
+    gPlaySt.debug_control_green = 0;
     gPlaySt.unk_1C_1 = 0;
     gPlaySt.unk_1D_5 = 0;
 }
@@ -111,7 +111,7 @@ void StartChapter(struct GenericProc* parent)
     InitMapTraps();
 
     gPlaySt.unk_04 = GetGameTime();
-    gPlaySt.supportGain = 0;
+    gPlaySt.support_gain = 0;
 
     sub_806B604();
 
@@ -170,7 +170,7 @@ void ResumeChapterFromSuspend(struct GenericProc* parent)
 
     ResetBmSt();
 
-    SetMapCursorPosition(gPlaySt.xCursor, gPlaySt.yCursor);
+    SetMapCursorPosition(gPlaySt.x_cursor, gPlaySt.y_cursor);
 
     ApplySystemGraphics();
     ApplyUnitSpritePalettes();
@@ -260,7 +260,7 @@ ProcPtr StartMapMain(struct GenericProc* parent)
     struct GenericProc* proc = SpawnProc(ProcScr_BmMain, PROC_TREE_2);
     proc->ptr = parent;
 
-    parent->proc_lockCnt++;
+    parent->proc_lock_cnt++;
 
     StartBmVSync();
     SpawnProc(ProcScr_MapTask, PROC_TREE_4);
@@ -278,7 +278,7 @@ void EndMapMain(void)
     mapmain = Proc_Find(ProcScr_BmMain);
     parent = mapmain->ptr;
 
-    parent->proc_lockCnt--;
+    parent->proc_lock_cnt--;
 
     Proc_End(mapmain);
 }
@@ -553,7 +553,7 @@ static void ResumeMapMainDuringArena(ProcPtr mapmain)
     SetDispEnable(0, 0, 0, 0, 0);
 
     RefreshEntityMaps();
-    gMapUnit[gAction.yMove][gAction.xMove] = 0;
+    gMapUnit[gAction.y_move][gAction.x_move] = 0;
     RefreshUnitSprites();
 
     Proc_Goto(mapmain, L_BMMAIN_8);
@@ -575,7 +575,7 @@ void sub_8029654(void)
 {
     SetNextGameAction(GAME_ACTION_2);
 
-    gPlaySt.endingId = GetEndingId();
+    gPlaySt.ending_id = GetEndingId();
 
     sub_8084908(&gPlaySt);
     sub_8084EA4();

@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -115,22 +114,22 @@ enum
 
 struct ItemBonuses
 {
-    /* 00 */ s8 hp;
-    /* 01 */ s8 pow;
-    /* 02 */ s8 skl;
-    /* 03 */ s8 spd;
-    /* 04 */ s8 def;
-    /* 05 */ s8 res;
-    /* 06 */ s8 lck;
-    /* 07 */ s8 mov;
-    /* 08 */ s8 con;
+    /* 00 */ i8 hp;
+    /* 01 */ i8 pow;
+    /* 02 */ i8 skl;
+    /* 03 */ i8 spd;
+    /* 04 */ i8 def;
+    /* 05 */ i8 res;
+    /* 06 */ i8 lck;
+    /* 07 */ i8 mov;
+    /* 08 */ i8 con;
 };
 
 struct ItemInfo
 {
-    /* 00 */ u16 msgName;
-    /* 02 */ u16 msgDesc;
-    /* 04 */ u16 msgDescUse;
+    /* 00 */ u16 msg_name;
+    /* 02 */ u16 msg_desc;
+    /* 04 */ u16 msg_desc_use;
     /* 06 */ u8 id;
     /* 07 */ u8 kind;
     /* 08 */ u16 attributes;
@@ -142,12 +141,12 @@ struct ItemInfo
     /* 16 */ u8 hit;
     /* 17 */ u8 weight;
     /* 18 */ u8 crit;
-    /* 19 */ u8 encodedRange;
-    /* 1A */ u16 costPerUse;
-    /* 1C */ u8 requiredExp;
+    /* 19 */ u8 encoded_range;
+    /* 1A */ u16 cost_per_use;
+    /* 1C */ u8 required_wexp;
     /* 1D */ u8 icon;
-    /* 1E */ u8 itemEffect;
-    /* 1F */ u8 weaponEffect;
+    /* 1E */ u8 item_effect;
+    /* 1F */ u8 weapon_effect;
 };
 
 int GetItemIid(int item);
@@ -184,15 +183,15 @@ int GetItemLckBonus(int item);
 int CreateItem(int item);
 bool CanUnitUseWeapon(struct Unit* unit, int item);
 bool CanUnitUseStaff(struct Unit* unit, int item);
-void sub_8016694(struct Text* text, int item, bool isUseable, u16* tm);
-void sub_8016720(struct Text* text, int item, bool isUseable, u16* tm);
+void sub_8016694(struct Text* text, int item, bool is_usable, u16* tm);
+void sub_8016720(struct Text* text, int item, bool is_usable, u16* tm);
 void sub_80167E4(struct Text* text, int item, u16* tm);
-void sub_8016860(struct Text* text, int item, bool isUseable, u16* tm);
+void sub_8016860(struct Text* text, int item, bool is_usable, u16* tm);
 u16 GetItemAfterUse(int item);
 u16 GetUnitEquippedWeapon(struct Unit* unit);
 int GetUnitEquippedWeaponSlot(struct Unit* unit);
 bool CanItemReachDistance(int item, int distance);
-void UnitEquipItemSlot(struct Unit* unit, int itemSlot);
+void UnitEquipItemSlot(struct Unit* unit, int item_slot);
 bool IsItemEffectiveAgainst(u16 item, struct Unit* unit);
 char const* GetItemRangeString(int item);
 int GetWeaponLevelFromExp(int wexp);
@@ -206,8 +205,8 @@ int FindUnitItemSlot(struct Unit* unit, int iid);
 bool IsItemStealable(int item);
 bool IsItemRepairable(int item);
 int GetItemReach(int item);
-int GetUnitWeaponReach(struct Unit* unit, int itemSlot);
-int GetUnitItemUseReach(struct Unit* unit, int itemSlot);
+int GetUnitWeaponReach(struct Unit* unit, int item_slot);
+int GetUnitItemUseReach(struct Unit* unit, int item_slot);
 int GetUnitStaffReach(struct Unit* unit);
 int GetTotalConvoyItemsValue(void);
 int GetTotalUnitItemsValue(void);

@@ -167,7 +167,7 @@ PROC_LABEL(L_BMMAIN_5),
     PROC_END,
 };
 
-static s8 CONST_DATA sDirKeysToOffsetLut[][2] =
+static i8 CONST_DATA sDirKeysToOffsetLut[][2] =
 {
     {  0,  0 }, // 0000 none
     { +1,  0 }, // 0001 right
@@ -313,7 +313,7 @@ struct PlaySt EWRAM_DATA gPlaySt = {};
 static struct Vec2 EWRAM_DATA sLastCoordMapCursorDrawn = {};
 static u32 EWRAM_DATA sLastTimeMapCursorDrawn = 0;
 
-static s8 EWRAM_DATA sCameraAnimTable[0x100] = {};
+static i8 EWRAM_DATA sCameraAnimTable[0x100] = {};
 
 void OnVBlank(void)
 {
@@ -326,9 +326,9 @@ void OnVBlank(void)
 
     SyncLoOam();
 
-    if (gBmSt.mainLoopEnded)
+    if (gBmSt.main_loop_ended)
     {
-        gBmSt.mainLoopEnded = FALSE;
+        gBmSt.main_loop_ended = FALSE;
 
         SyncDispIo();
         SyncBgsAndPal();
@@ -358,8 +358,8 @@ void OnMain(void)
     Proc_Run(gProcTreeRootArray[4]);
     PutSpriteLayerOam(13);
 
-    gBmSt.mainLoopEnded = TRUE;
-    gBmSt.mainLoopEndScanline = REG_VCOUNT;
+    gBmSt.main_loop_ended = TRUE;
+    gBmSt.main_loop_end_scanline = REG_VCOUNT;
 
     VBlankIntrWait();
 }
@@ -467,17 +467,17 @@ void InitBmBgLayers(void)
 {
     if (gPlaySt.weather == WEATHER_CLOUDS)
     {
-        gDispIo.bg0Ct.priority = 0;
-        gDispIo.bg1Ct.priority = 1;
-        gDispIo.bg2Ct.priority = 2;
-        gDispIo.bg3Ct.priority = 2;
+        gDispIo.bg0_ct.priority = 0;
+        gDispIo.bg1_ct.priority = 1;
+        gDispIo.bg2_ct.priority = 2;
+        gDispIo.bg3_ct.priority = 2;
     }
     else
     {
-        gDispIo.bg0Ct.priority = 0;
-        gDispIo.bg1Ct.priority = 1;
-        gDispIo.bg2Ct.priority = 2;
-        gDispIo.bg3Ct.priority = 3;
+        gDispIo.bg0_ct.priority = 0;
+        gDispIo.bg1_ct.priority = 1;
+        gDispIo.bg2_ct.priority = 2;
+        gDispIo.bg3_ct.priority = 3;
     }
 }
 
@@ -519,23 +519,23 @@ void HandleMapCursorInput(u16 keys)
 
     if (newCursor.x >= 0 && newCursor.x < gMapSize.x)
     {
-        gBmSt.cursorSprTarget.x += sDirKeysToOffsetLut[dir][0]*16;
+        gBmSt.cursor_sprite_target.x += sDirKeysToOffsetLut[dir][0]*16;
 
-        gBmSt.cursorPrevious.x = gBmSt.cursor.x;
+        gBmSt.cursor_previous.x = gBmSt.cursor.x;
         gBmSt.cursor.x = newCursor.x;
     }
 
     if (newCursor.y >= 0 && newCursor.y < gMapSize.y)
     {
-        gBmSt.cursorSprTarget.y += sDirKeysToOffsetLut[dir][1]*16;
+        gBmSt.cursor_sprite_target.y += sDirKeysToOffsetLut[dir][1]*16;
 
-        gBmSt.cursorPrevious.y = gBmSt.cursor.y;
+        gBmSt.cursor_previous.y = gBmSt.cursor.y;
         gBmSt.cursor.y = newCursor.y;
     }
 
     if (!(gBmSt.flags & BM_FLAG_2))
     {
-        if (gBmSt.cursor.x != gBmSt.cursorPrevious.x || gBmSt.cursor.y != gBmSt.cursorPrevious.y)
+        if (gBmSt.cursor.x != gBmSt.cursor_previous.x || gBmSt.cursor.y != gBmSt.cursor_previous.y)
         {
             PlaySe(SONG_65);
             gBmSt.flags |= BM_FLAG_2;
@@ -549,25 +549,25 @@ void HandleMapCursorInput(u16 keys)
 
 void HandleMoveMapCursor(int step)
 {
-    if (gBmSt.cursorSpr.x < gBmSt.cursorSprTarget.x)
-        gBmSt.cursorSpr.x += step;
+    if (gBmSt.cursor_sprite.x < gBmSt.cursor_sprite_target.x)
+        gBmSt.cursor_sprite.x += step;
 
-    if (gBmSt.cursorSpr.x > gBmSt.cursorSprTarget.x)
-        gBmSt.cursorSpr.x -= step;
+    if (gBmSt.cursor_sprite.x > gBmSt.cursor_sprite_target.x)
+        gBmSt.cursor_sprite.x -= step;
 
-    if (gBmSt.cursorSpr.y < gBmSt.cursorSprTarget.y)
-        gBmSt.cursorSpr.y += step;
+    if (gBmSt.cursor_sprite.y < gBmSt.cursor_sprite_target.y)
+        gBmSt.cursor_sprite.y += step;
 
-    if (gBmSt.cursorSpr.y > gBmSt.cursorSprTarget.y)
-        gBmSt.cursorSpr.y -= step;
+    if (gBmSt.cursor_sprite.y > gBmSt.cursor_sprite_target.y)
+        gBmSt.cursor_sprite.y -= step;
 }
 
 void HandleMoveCameraWithMapCursor(int step)
 {
     bool updated = FALSE;
 
-    int xCursorSpr = gBmSt.cursorSpr.x;
-    int yCursorSpr = gBmSt.cursorSpr.y;
+    int xCursorSpr = gBmSt.cursor_sprite.x;
+    int yCursorSpr = gBmSt.cursor_sprite.y;
 
     if (gBmSt.camera.x + CAMERA_MARGIN_LEFT > xCursorSpr)
     {
@@ -588,9 +588,9 @@ void HandleMoveCameraWithMapCursor(int step)
 
     if (gBmSt.camera.x + CAMERA_MARGIN_RIGHT < xCursorSpr)
     {
-        if (xCursorSpr - CAMERA_MARGIN_RIGHT > gBmSt.cameraMax.x)
+        if (xCursorSpr - CAMERA_MARGIN_RIGHT > gBmSt.camera_max.x)
         {
-            gBmSt.camera.x = gBmSt.cameraMax.x;
+            gBmSt.camera.x = gBmSt.camera_max.x;
         }
         else
         {
@@ -622,9 +622,9 @@ void HandleMoveCameraWithMapCursor(int step)
 
     if (gBmSt.camera.y + CAMERA_MARGIN_BOTTOM < yCursorSpr)
     {
-        if (yCursorSpr - CAMERA_MARGIN_BOTTOM > gBmSt.cameraMax.y)
+        if (yCursorSpr - CAMERA_MARGIN_BOTTOM > gBmSt.camera_max.y)
         {
-            gBmSt.camera.y = gBmSt.cameraMax.y;
+            gBmSt.camera.y = gBmSt.camera_max.y;
         }
         else
         {
@@ -665,8 +665,8 @@ u16 GetCameraAdjustedX(int x)
 
     if (gBmSt.camera.x + CAMERA_MARGIN_RIGHT < x)
     {
-        result = (x - CAMERA_MARGIN_RIGHT) > gBmSt.cameraMax.x
-            ? gBmSt.cameraMax.x : (x - CAMERA_MARGIN_RIGHT);
+        result = (x - CAMERA_MARGIN_RIGHT) > gBmSt.camera_max.x
+            ? gBmSt.camera_max.x : (x - CAMERA_MARGIN_RIGHT);
     }
 
     return result;
@@ -684,8 +684,8 @@ u16 GetCameraAdjustedY(int y)
 
     if (gBmSt.camera.y + CAMERA_MARGIN_BOTTOM < y)
     {
-        result = (y - CAMERA_MARGIN_BOTTOM) > gBmSt.cameraMax.y
-            ? gBmSt.cameraMax.y : (y - CAMERA_MARGIN_BOTTOM);
+        result = (y - CAMERA_MARGIN_BOTTOM) > gBmSt.camera_max.y
+            ? gBmSt.camera_max.y : (y - CAMERA_MARGIN_BOTTOM);
     }
 
     return result;
@@ -698,8 +698,8 @@ u16 GetCameraCenteredX(int x)
     if (result < 0)
         result = 0;
 
-    if (result > gBmSt.cameraMax.x)
-        result = gBmSt.cameraMax.x;
+    if (result > gBmSt.camera_max.x)
+        result = gBmSt.camera_max.x;
 
     return result &~ 0xF;
 }
@@ -711,8 +711,8 @@ u16 GetCameraCenteredY(int y)
     if (result < 0)
         result = 0;
 
-    if (result > gBmSt.cameraMax.y)
-        result = gBmSt.cameraMax.y;
+    if (result > gBmSt.camera_max.y)
+        result = gBmSt.camera_max.y;
 
     return result &~ 0xF;
 }
@@ -775,11 +775,11 @@ void SetMapCursorPosition(int x, int y)
     gBmSt.cursor.x = x;
     gBmSt.cursor.y = y;
 
-    gBmSt.cursorSprTarget.x = x*16;
-    gBmSt.cursorSprTarget.y = y*16;
+    gBmSt.cursor_sprite_target.x = x*16;
+    gBmSt.cursor_sprite_target.y = y*16;
 
-    gBmSt.cursorSpr.x = x*16;
-    gBmSt.cursorSpr.y = y*16;
+    gBmSt.cursor_sprite.x = x*16;
+    gBmSt.cursor_sprite.y = y*16;
 }
 
 void PutSysArrow(int x, int y, u8 isDown)
@@ -802,7 +802,7 @@ void PutSysAButton(int x, int y, int palid)
 
 static void CamMove_OnInit(struct CamMoveProc* proc)
 {
-    s8 speed = 1;
+    i8 speed = 1;
 
     int xDiff = ABS(proc->to.x - proc->from.x);
     int yDiff = ABS(proc->to.y - proc->from.y);
@@ -866,10 +866,10 @@ bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
 {
     struct CamMoveProc* cam;
 
-    int xTarget = GetCameraAdjustedX(x*16);
-    int yTarget = GetCameraAdjustedY(y*16);
+    int x_target = GetCameraAdjustedX(x*16);
+    int y_target = GetCameraAdjustedY(y*16);
 
-    if ((xTarget == gBmSt.camera.x && yTarget == gBmSt.camera.y) || Proc_Find(ProcScr_CamMove) != NULL)
+    if ((x_target == gBmSt.camera.x && y_target == gBmSt.camera.y) || Proc_Find(ProcScr_CamMove) != NULL)
         return FALSE;
 
     if (proc)
@@ -880,8 +880,8 @@ bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
     cam->from.x = gBmSt.camera.x;
     cam->from.y = gBmSt.camera.y;
 
-    cam->to.x = xTarget;
-    cam->to.y = yTarget;
+    cam->to.x = x_target;
+    cam->to.y = y_target;
 
     cam->watchedCoord.x = x;
     cam->watchedCoord.y = y;
@@ -891,10 +891,10 @@ bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
 
 bool IsCameraNotWatchingPosition(int x, int y)
 {
-    int xTarget = GetCameraAdjustedX(x*16);
-    int yTarget = GetCameraAdjustedY(y*16);
+    int x_target = GetCameraAdjustedX(x*16);
+    int y_target = GetCameraAdjustedY(y*16);
 
-    if (xTarget == gBmSt.camera.x && yTarget == gBmSt.camera.y)
+    if (x_target == gBmSt.camera.x && y_target == gBmSt.camera.y)
         return FALSE;
 
     return TRUE;
@@ -904,7 +904,7 @@ bool CameraMove_08016290(ProcPtr proc)
 {
     struct CamMoveProc* cam;
 
-    if ((gBmSt.camera.y <= gBmSt.cameraMax.y) || Proc_Find(ProcScr_CamMove) != NULL)
+    if ((gBmSt.camera.y <= gBmSt.camera_max.y) || Proc_Find(ProcScr_CamMove) != NULL)
         return FALSE;
 
     if (proc)
@@ -916,7 +916,7 @@ bool CameraMove_08016290(ProcPtr proc)
     cam->from.y = gBmSt.camera.y;
 
     cam->to.x = gBmSt.camera.x;
-    cam->to.y = gBmSt.cameraMax.y;
+    cam->to.y = gBmSt.camera_max.y;
 
     return TRUE;
 }
@@ -956,16 +956,16 @@ int GetActiveMapSong(void)
     {
 
     case FACTION_RED:
-        return GetChapterInfo(gPlaySt.chapter)->songRedBgm;
+        return GetChapterInfo(gPlaySt.chapter)->song_red_bgm;
 
     case FACTION_GREEN:
-        return GetChapterInfo(gPlaySt.chapter)->songGreenBgm;
+        return GetChapterInfo(gPlaySt.chapter)->song_green_bgm;
 
     case FACTION_BLUE:
-        if (CountFactionUnitsWithoutState(FACTION_RED, US_DEAD | US_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victoryBgmEnemyThreshold)
+        if (CountFactionUnitsWithoutState(FACTION_RED, US_DEAD | US_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victory_bgm_enemy_threshold)
             return SONG_13;
 
-        return GetChapterInfo(gPlaySt.chapter)->songBlueBgm;
+        return GetChapterInfo(gPlaySt.chapter)->song_blue_bgm;
 
     }
 }

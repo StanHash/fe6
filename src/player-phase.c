@@ -203,7 +203,7 @@ static void PlayerPhase_Suspend(ProcPtr proc)
 
 void HandlePlayerMapCursor(void)
 {
-    if ((gKeySt->held & KEY_BUTTON_B) && !(gBmSt.cursorSpr.x & 7) && !(gBmSt.cursorSpr.y & 7))
+    if ((gKeySt->held & KEY_BUTTON_B) && !(gBmSt.cursor_sprite.x & 7) && !(gBmSt.cursor_sprite.y & 7))
     {
         HandleMapCursorInput(gKeySt->pressed2);
 
@@ -218,7 +218,7 @@ void HandlePlayerMapCursor(void)
         HandleMoveCameraWithMapCursor(4);
     }
 
-    if ((gBmSt.cursorSpr.x | gBmSt.cursorSpr.y) & 0xF)
+    if ((gBmSt.cursor_sprite.x | gBmSt.cursor_sprite.y) & 0xF)
         gKeySt->pressed &= ~(KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START | KEY_BUTTON_R | KEY_BUTTON_L);
 }
 
@@ -256,10 +256,10 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             case PLAYER_SELECT_TURNENDED:
                 sub_8073324();
 
-                gPlaySt.xCursor = gBmSt.cursor.x;
-                gPlaySt.yCursor = gBmSt.cursor.y;
+                gPlaySt.x_cursor = gBmSt.cursor.x;
+                gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 23);
+                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
                 sub_806B4E4();
 
                 Proc_Goto(proc, L_PLAYERPHASE_IDLE);
@@ -268,7 +268,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_CONTROL:
                 UnitBeginAction(unit);
-                sub_8084B84(gActiveUnit->person->id);
+                sub_8084B84(gActiveUnit->pinfo->id);
 
                 Proc_Break(proc);
 
@@ -297,8 +297,8 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             sub_8073324();
 
-            gPlaySt.xCursor = gBmSt.cursor.x;
-            gPlaySt.yCursor = gBmSt.cursor.y;
+            gPlaySt.x_cursor = gBmSt.cursor.x;
+            gPlaySt.y_cursor = gBmSt.cursor.y;
 
             if (gPlaySt.chapter == CHAPTER_TUTORIAL)
             {
@@ -306,7 +306,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             }
             else
             {
-                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 23);
+                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
                 sub_806B4E4();
             }
 
@@ -337,7 +337,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 put_cursor:
     UnitSpriteHoverUpdate();
 
-    PutMapCursor(gBmSt.cursorSpr.x, gBmSt.cursorSpr.y,
+    PutMapCursor(gBmSt.cursor_sprite.x, gBmSt.cursor_sprite.y,
         IsUnitSpriteHoverEnabledAt(gBmSt.cursor.x, gBmSt.cursor.y) ? MAP_CURSOR_STRETCHED : MAP_CURSOR_DEFAULT);
 }
 
@@ -345,7 +345,7 @@ void DisplayUnitActionRange(struct Unit* unit)
 {
     int flags = LIMITVIEW_BLUE;
 
-    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.moveCount);
+    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
 
     if (!(gActiveUnit->state & US_HAS_MOVED))
     {
@@ -567,7 +567,7 @@ do_act:
     if (GetPlayerSelectKind(gActiveUnit) == PLAYER_SELECT_CONTROL)
         RefreshMovePath();
 
-    PutMapCursor(gBmSt.cursorSpr.x, gBmSt.cursorSpr.y, MAP_CURSOR_REGULAR);
+    PutMapCursor(gBmSt.cursor_sprite.x, gBmSt.cursor_sprite.y, MAP_CURSOR_REGULAR);
 }
 
 static void PlayerPhase_ContinueAction(ProcPtr proc)
@@ -612,7 +612,7 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
     {
 
     case ACTION_NONE:
-        if (gBmSt.partialActionsTaken != 0)
+        if (gBmSt.partial_actions_taken != 0)
         {
             gAction.id = ACTION_1C;
             break;
@@ -622,13 +622,13 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
         return TRUE;
 
     case ACTION_TRADED:
-        gBmSt.partialActionsTaken |= PARTIAL_ACTION_TRADED;
+        gBmSt.partial_actions_taken |= PARTIAL_ACTION_TRADED;
 
         PlayerPhase_ContinueAction(proc);
         return TRUE;
 
     case ACTION_TRADED_SUPPLY:
-        gBmSt.partialActionsTaken |= PARTIAL_ACTION_SUPPLY;
+        gBmSt.partial_actions_taken |= PARTIAL_ACTION_SUPPLY;
 
         PlayerPhase_ContinueAction(proc);
         return TRUE;
@@ -639,7 +639,7 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
 
     case ACTION_GIVE:
     case ACTION_TAKE:
-        gBmSt.partialActionsTaken |= PARTIAL_ACTION_RESCUE_TRANSFER;
+        gBmSt.partial_actions_taken |= PARTIAL_ACTION_RESCUE_TRANSFER;
 
         PlayerPhase_ContinueAction(proc);
         return TRUE;
@@ -666,7 +666,7 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
     if (gAction.id == ACTION_COMBAT || gAction.id == ACTION_STAFF)
         return FALSE;
 
-    if (UNIT_MOV(gActiveUnit) <= gAction.moveCount)
+    if (UNIT_MOV(gActiveUnit) <= gAction.move_count)
         return FALSE;
 
     if (!CanActiveUnitStillMove())
@@ -709,7 +709,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
     {
         RenderMapForFade();
 
-        sub_8017EDC(gAction.xMove, gAction.yMove);
+        sub_8017EDC(gAction.x_move, gAction.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -720,7 +720,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
     }
     else
     {
-        sub_8017EDC(gAction.xMove, gAction.yMove);
+        sub_8017EDC(gAction.x_move, gAction.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -728,8 +728,8 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 
     SetMapCursorPosition(gActiveUnit->x, gActiveUnit->y);
 
-    gPlaySt.xCursor = gBmSt.cursor.x;
-    gPlaySt.yCursor = gBmSt.cursor.y;
+    gPlaySt.x_cursor = gBmSt.cursor.x;
+    gPlaySt.y_cursor = gBmSt.cursor.y;
 
     if (PlayerPhase_AttemptReMove(proc))
     {
@@ -757,20 +757,20 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 static void sub_801BAB4(ProcPtr proc)
 {
     if (gAction.id != ACTION_TRAPPED)
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
+        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }
 
 static void PlayerPhase_BeginActionSelect(ProcPtr proc)
 {
-    gActiveUnit->x = gAction.xMove;
-    gActiveUnit->y = gAction.yMove;
+    gActiveUnit->x = gAction.x_move;
+    gActiveUnit->y = gAction.y_move;
 
     UnitSyncMovement(gActiveUnit);
 
-    if (!(gActiveUnit->state & US_HAS_MOVED) && gAction.id == ACTION_NONE && gBmSt.partialActionsTaken == 0)
-        gAction.moveCount = gMapMovement[gAction.yMove][gAction.xMove];
+    if (!(gActiveUnit->state & US_HAS_MOVED) && gAction.id == ACTION_NONE && gBmSt.partial_actions_taken == 0)
+        gAction.move_count = gMapMovement[gAction.y_move][gAction.x_move];
 
     ResetTextFont();
 
@@ -781,7 +781,7 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
     }
 
     if (gAction.id != ACTION_TRAPPED)
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursorSprTarget.x - gBmSt.camera.x, 1, 22);
+        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }
@@ -795,7 +795,7 @@ int GetPlayerSelectKind(struct Unit* unit)
 
     if (gBmSt.flags & BM_FLAG_4)
     {
-        if (unit->person->id == PID_ROY)
+        if (unit->pinfo->id == PID_ROY)
             return PLAYER_SELECT_4;
 
         faction = FACTION_BLUE;
@@ -904,7 +904,7 @@ static void LimitView_Init(struct GenericProc* proc)
 
     for (iy = 9; iy >= 0; --iy)
         for (ix = 14; ix >= 0; --ix)
-            PutLimitViewSquare(gBg2Tm, gBmSt.mapRenderAnchor.x + ix, gBmSt.mapRenderAnchor.y + iy, ix, iy);
+            PutLimitViewSquare(gBg2Tm, gBmSt.map_render_anchor.x + ix, gBmSt.map_render_anchor.y + iy, ix, iy);
 
     EnableBgSync(BG2_SYNC_BIT);
     SetBgOffset(2, 0, 0);
@@ -991,7 +991,7 @@ static bool TrySetCursorOn(int uid)
     if (!unit)
         return FALSE;
 
-    if (!unit->person)
+    if (!unit->pinfo)
         return FALSE;
 
     if (unit->state & (US_HIDDEN | US_TURN_ENDED | US_DEAD))
@@ -1032,6 +1032,6 @@ void TrySwitchViewedUnit(int x, int y)
 
 static void PlayerPhase_HandleAutoEnd(ProcPtr proc)
 {
-    if (!gPlaySt.configNoAutoEndTurn && CountFactionMoveableUnits(gPlaySt.faction) == 0)
+    if (!gPlaySt.config_no_auto_end_turn && CountFactionMoveableUnits(gPlaySt.faction) == 0)
         Proc_Goto(proc, L_PLAYERPHASE_END);
 }

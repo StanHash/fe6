@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "common.h"
@@ -107,136 +106,136 @@ enum
     ITEMSLOT_BALLISTA = ITEMSLOT_INV_COUNT + 3,
 };
 
-struct PersonInfo
+struct PInfo
 {
-    /* 00 */ u16 msgName;
-    /* 02 */ u16 msgDesc;
+    /* 00 */ u16 msg_name;
+    /* 02 */ u16 msg_desc;
     /* 04 */ u8 id;
-    /* 05 */ u8 jidDefault;
+    /* 05 */ u8 jid_default;
     /* 06 */ u16 fid;
-    /* 08 */ u8 chibiId;
+    /* 08 */ u8 chibi_id;
     /* 09 */ u8 affinity;
-    /* 0A */ u8 unk0A;
+    /* 0A */ u8 unk_0A;
 
-    /* 0B */ s8 levelBase;
-    /* 0C */ s8 hpBase;
-    /* 0D */ s8 powBase;
-    /* 0E */ s8 sklBase;
-    /* 0F */ s8 spdBase;
-    /* 10 */ s8 defBase;
-    /* 11 */ s8 resBase;
-    /* 12 */ s8 lckBase;
-    /* 13 */ s8 conBonus;
+    /* 0B */ i8 base_level;
+    /* 0C */ i8 base_hp;
+    /* 0D */ i8 base_pow;
+    /* 0E */ i8 base_skl;
+    /* 0F */ i8 base_spd;
+    /* 10 */ i8 base_def;
+    /* 11 */ i8 base_res;
+    /* 12 */ i8 base_lck;
+    /* 13 */ i8 bonus_con;
 
-    /* 14 */ u8 weaponExp[UNIT_WEAPON_EXP_COUNT];
+    /* 14 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
 
-    /* 1C */ u8 hpGrowth;
-    /* 1D */ u8 powGrowth;
-    /* 1E */ u8 sklGrowth;
-    /* 1F */ u8 spdGrowth;
-    /* 20 */ u8 defGrowth;
-    /* 21 */ u8 resGrowth;
-    /* 22 */ u8 lckGrowth;
+    /* 1C */ u8 growth_hp;
+    /* 1D */ u8 growth_pow;
+    /* 1E */ u8 growth_skl;
+    /* 1F */ u8 growth_spd;
+    /* 20 */ u8 growth_def;
+    /* 21 */ u8 growth_res;
+    /* 22 */ u8 growth_lck;
 
-    /* 23 */ u8 banimPalA;
-    /* 24 */ u8 banimPalB;
+    /* 23 */ u8 banim_pal_a;
+    /* 24 */ u8 banim_pal_b;
     /* 25 */ // pad
 
     /* 28 */ u32 attributes;
 
-    /* 2C */ struct SupportInfo const* supportInfo;
+    /* 2C */ struct SupportInfo const* support_info;
 };
 
-struct JobInfo
+struct JInfo
 {
-    /* 00 */ u16 msgName;
-    /* 02 */ u16 msgDesc;
+    /* 00 */ u16 msg_name;
+    /* 02 */ u16 msg_desc;
     /* 04 */ u8 id;
-    /* 05 */ u8 jidPromote;
-    /* 06 */ u8 mapSprite;
-    /* 07 */ u8 walkSpeed;
+    /* 05 */ u8 jid_promote;
+    /* 06 */ u8 map_sprite;
+    /* 07 */ u8 walk_speed;
     /* 08 */ u16 fid;
-    /* 0A */ u8 unk0A;
+    /* 0A */ u8 unk_0A;
 
-    /* 0B */ s8 hpBase;
-    /* 0C */ s8 powBase;
-    /* 0D */ s8 sklBase;
-    /* 0E */ s8 spdBase;
-    /* 0F */ s8 defBase;
-    /* 10 */ s8 resBase;
-    /* 11 */ s8 conBase;
-    /* 12 */ s8 movBase;
+    /* 0B */ i8 base_hp;
+    /* 0C */ i8 base_pow;
+    /* 0D */ i8 base_skl;
+    /* 0E */ i8 base_spd;
+    /* 0F */ i8 base_def;
+    /* 10 */ i8 base_res;
+    /* 11 */ i8 base_con;
+    /* 12 */ i8 base_mov;
 
-    /* 13 */ s8 hpMax;
-    /* 14 */ s8 powMax;
-    /* 15 */ s8 sklMax;
-    /* 16 */ s8 spdMax;
-    /* 17 */ s8 defMax;
-    /* 18 */ s8 resMax;
-    /* 19 */ s8 conMax;
+    /* 13 */ i8 max_hp;
+    /* 14 */ i8 max_pow;
+    /* 15 */ i8 max_skl;
+    /* 16 */ i8 max_spd;
+    /* 17 */ i8 max_def;
+    /* 18 */ i8 max_res;
+    /* 19 */ i8 max_con;
 
-    /* 1A */ s8 powerLevel;
+    /* 1A */ i8 power_level;
 
-    /* 1B */ s8 hpGrowth;
-    /* 1C */ s8 powGrowth;
-    /* 1D */ s8 sklGrowth;
-    /* 1E */ s8 spdGrowth;
-    /* 1F */ s8 defGrowth;
-    /* 20 */ s8 resGrowth;
-    /* 21 */ s8 lckGrowth;
+    /* 1B */ i8 growth_hp;
+    /* 1C */ i8 growth_pow;
+    /* 1D */ i8 growth_skl;
+    /* 1E */ i8 growth_spd;
+    /* 1F */ i8 growth_def;
+    /* 20 */ i8 growth_res;
+    /* 21 */ i8 growth_lck;
     /* 22 */ // pad
 
     /* 24 */ u32 attributes;
 
-    /* 28 */ u8 weaponExp[UNIT_WEAPON_EXP_COUNT];
+    /* 28 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
 
-    /* 30 */ void const* banimInfo;
+    /* 30 */ void const* banim_info;
 
-    /* 34 */ s8 const* movTerrainTable;
-    /* 38 */ s8 const* avoTerrainTable;
-    /* 3C */ s8 const* defTerrainTable;
-    /* 40 */ s8 const* resTerrainTable;
+    /* 34 */ i8 const* mov_table;
+    /* 38 */ i8 const* avo_terrain_table;
+    /* 3C */ i8 const* def_terrain_table;
+    /* 40 */ i8 const* res_terrain_table;
 
-    /* 44 */ void const* unk44;
+    /* 44 */ void const* unk_44;
 };
 
 struct Unit
 {
-    /* 00 */ struct PersonInfo const* person;
-    /* 04 */ struct JobInfo const* job;
-    /* 08 */ s8 level;
+    /* 00 */ struct PInfo const* pinfo;
+    /* 04 */ struct JInfo const* jinfo;
+    /* 08 */ i8 level;
     /* 09 */ u8 exp;
-    /* 0A */ u8 aiFlags;
-    /* 0B */ s8 id;
+    /* 0A */ u8 ai_flags;
+    /* 0B */ i8 id;
     /* 0C */ u16 state;
-    /* 0E */ s8 x;
-    /* 0F */ s8 y;
-    /* 10 */ s8 hpMax;
-    /* 11 */ s8 hpCur;
-    /* 12 */ s8 pow;
-    /* 13 */ s8 skl;
-    /* 14 */ s8 spd;
-    /* 15 */ s8 def;
-    /* 16 */ s8 res;
-    /* 17 */ s8 lck;
-    /* 18 */ s8 conBonus;
+    /* 0E */ i8 x;
+    /* 0F */ i8 y;
+    /* 10 */ i8 max_hp;
+    /* 11 */ i8 hp;
+    /* 12 */ i8 pow;
+    /* 13 */ i8 skl;
+    /* 14 */ i8 spd;
+    /* 15 */ i8 def;
+    /* 16 */ i8 res;
+    /* 17 */ i8 lck;
+    /* 18 */ i8 bonus_con;
     /* 19 */ u8 rescue;
-    /* 1A */ s8 movBonus;
+    /* 1A */ i8 bonus_mov;
     /* 1B */ // pad?
     /* 1C */ u16 items[ITEMSLOT_INV_COUNT];
-    /* 26 */ u8 weaponExp[UNIT_WEAPON_EXP_COUNT];
+    /* 26 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
     /* 2E */ u8 status : 4;
-    /* 2E */ u8 statusDuration : 4;
+    /* 2E */ u8 status_duration : 4;
     /* 2F */ u8 torch : 4;
     /* 2F */ u8 barrier : 4;
     /* 30 */ u8 supports[UNIT_SUPPORT_COUNT];
     /* 3A */ // pad?
-    /* 3C */ struct UnitSprite* mapSprite;
-    /* 40 */ u16 aiConfig;
-    /* 42 */ u8 aiA;
-    /* 43 */ u8 aiApc;
-    /* 44 */ u8 aiB;
-    /* 45 */ u8 aiBpc;
+    /* 3C */ struct UnitSprite* map_sprite;
+    /* 40 */ u16 ai_config;
+    /* 42 */ u8 ai_a;
+    /* 43 */ u8 ai_a_pc;
+    /* 44 */ u8 ai_b;
+    /* 45 */ u8 ai_b_pc;
     /* 46 */ u8 unk_46;
     /* 47 */ // pad?
     /* 48 */ // end
@@ -251,7 +250,7 @@ struct UnitInfo
     /* 03 */ u8 factionId : 2;
     /* 03 */ u8 level : 5;
     /* 04 */ u8 xLoad, yLoad;
-    /* 06 */ u8 xMove, yMove;
+    /* 06 */ u8 x_move, y_move;
     /* 08 */ u8 items[4];
     /* 0C */ u8 ai[4];
 };
@@ -279,8 +278,8 @@ char const* GetUnitRescueName(struct Unit* unit);
 char const* GetUnitStatusName(struct Unit* unit);
 void SetUnitStatus(struct Unit* unit, int status);
 struct Unit* GetUnit(int uid);
-struct JobInfo const* GetJobInfo(int jid);
-struct PersonInfo const* GetPersonInfo(int pid);
+struct JInfo const* GetJobInfo(int jid);
+struct PInfo const* GetPersonInfo(int pid);
 int GetUnitMapSprite(struct Unit* unit);
 bool UnitAddItem(struct Unit* unit, int item);
 void UnitRemoveItem(struct Unit* unit, int slot);
@@ -290,7 +289,7 @@ bool UnitHasItem(struct Unit* unit, int item);
 int BatchCreateUnits(struct UnitInfo const* info);
 struct Unit* CreateUnit(struct UnitInfo const* info);
 void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info);
-void UnitInitStats(struct Unit* unit, struct PersonInfo const* person);
+void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo);
 void sub_8017764(struct Unit* unit);
 void UnitInitSupports(struct Unit* unit);
 void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info);
@@ -315,7 +314,7 @@ void sub_8017EDC(int x, int y);
 void ClearActiveFactionTurnEndedState(void);
 void TickActiveFactionTurnAndListStatusHeals(void);
 void sub_801809C(void);
-void UnitUpdateUsedItem(struct Unit* unit, int itemSlot);
+void UnitUpdateUsedItem(struct Unit* unit, int item_slot);
 int GetUnitAid(struct Unit* unit);
 int GetUnitMagRange(struct Unit* unit);
 bool UnitKnowsMagic(struct Unit* unit);
@@ -336,23 +335,23 @@ extern struct Unit EWRAM_DATA gUnitArrayGreen[UNIT_AMOUNT_GREEN];
 extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 
 #define UNIT_FACTION(unit) ((unit)->id & 0xC0)
-#define UNIT_ATTRIBUTES(unit) (((unit)->person->attributes) | ((unit)->job->attributes))
+#define UNIT_ATTRIBUTES(unit) (((unit)->pinfo->attributes) | ((unit)->jinfo->attributes))
 
 #define UNIT_HP_CAP(unit)  (UNIT_FACTION(unit) == FACTION_RED ? 80 : 60)
-#define UNIT_POW_CAP(unit) ((unit)->job->powMax)
-#define UNIT_SKL_CAP(unit) ((unit)->job->sklMax)
-#define UNIT_SPD_CAP(unit) ((unit)->job->spdMax)
-#define UNIT_DEF_CAP(unit) ((unit)->job->defMax)
-#define UNIT_RES_CAP(unit) ((unit)->job->resMax)
+#define UNIT_POW_CAP(unit) ((unit)->jinfo->max_pow)
+#define UNIT_SKL_CAP(unit) ((unit)->jinfo->max_skl)
+#define UNIT_SPD_CAP(unit) ((unit)->jinfo->max_spd)
+#define UNIT_DEF_CAP(unit) ((unit)->jinfo->max_def)
+#define UNIT_RES_CAP(unit) ((unit)->jinfo->max_res)
 #define UNIT_LCK_CAP(unit) (30)
-#define UNIT_CON_CAP(unit) ((unit)->job->conMax)
+#define UNIT_CON_CAP(unit) ((unit)->jinfo->max_con)
 #define UNIT_MOV_CAP(unit) (15)
 
-#define UNIT_CON_BASE(unit) ((unit)->job->conBase + (unit)->person->conBonus)
-#define UNIT_MOV_BASE(unit) ((unit)->job->movBase)
+#define UNIT_CON_BASE(unit) ((unit)->jinfo->base_con + (unit)->pinfo->bonus_con)
+#define UNIT_MOV_BASE(unit) ((unit)->jinfo->base_mov)
 
-#define UNIT_CON(unit) (UNIT_CON_BASE(unit) + (unit)->conBonus)
-#define UNIT_MOV(unit) ((unit)->movBonus + UNIT_MOV_BASE(unit))
+#define UNIT_CON(unit) (UNIT_CON_BASE(unit) + (unit)->bonus_con)
+#define UNIT_MOV(unit) ((unit)->bonus_mov + UNIT_MOV_BASE(unit))
 
 #define FOR_UNITS(begin, end, varName, body) \
 { \
@@ -363,7 +362,7 @@ extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
         varName = GetUnit(_uid); \
         if (!varName) \
             continue; \
-        if (!varName->person) \
+        if (!varName->pinfo) \
             continue; \
         body \
     } \

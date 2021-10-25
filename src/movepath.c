@@ -29,19 +29,19 @@ struct MovePath
     /* 00 */ PROC_HEADER;
 #endif
 
-    /* 29 */ s8 xLast;
-    /* 2A */ s8 yLast;
+    /* 29 */ i8 xLast;
+    /* 2A */ i8 yLast;
     /* 2B */ u8 initMove;
-    /* 2C */ s8 path;
-    /* 2D */ s8 x[MOVEPATH_MAX];
-    /* 41 */ s8 y[MOVEPATH_MAX];
-    /* 55 */ s8 move[MOVEPATH_MAX];
+    /* 2C */ i8 path;
+    /* 2D */ i8 x[MOVEPATH_MAX];
+    /* 41 */ i8 y[MOVEPATH_MAX];
+    /* 55 */ i8 move[MOVEPATH_MAX];
 };
 
 static void SetMovePathLastCursorPosition(u16 x, u16 y);
-static void CutMovePath(s8 path);
-static void AddMovePathSquare(s8 x, s8 y);
-static int FindMovePathSquare(s8 x, s8 y);
+static void CutMovePath(i8 path);
+static void AddMovePathSquare(i8 x, i8 y);
+static int FindMovePathSquare(i8 x, i8 y);
 static void MovePathFloodFromTail(void);
 static void RebuildMovePath(void);
 static bool MovePathIsValid(void);
@@ -70,9 +70,9 @@ static void SetMovePathLastCursorPosition(u16 x, u16 y)
     gMovePath->yLast = y;
 }
 
-static void CutMovePath(s8 path)
+static void CutMovePath(i8 path)
 {
-    s8 i;
+    i8 i;
 
     if (gMovePath->path < path)
         return;
@@ -88,7 +88,7 @@ static void CutMovePath(s8 path)
     }
 }
 
-static void AddMovePathSquare(s8 x, s8 y)
+static void AddMovePathSquare(i8 x, i8 y)
 {
     gMovePath->path++;
 
@@ -99,9 +99,9 @@ static void AddMovePathSquare(s8 x, s8 y)
         - GetWorkingMovTable()[gMapTerrain[y][x]];
 }
 
-static int FindMovePathSquare(s8 x, s8 y)
+static int FindMovePathSquare(i8 x, i8 y)
 {
-    s8 i;
+    i8 i;
 
     for (i = 0; i <= gMovePath->path; ++i)
     {
@@ -114,7 +114,7 @@ static int FindMovePathSquare(s8 x, s8 y)
 
 void GenMovePathFromMoveScript(void)
 {
-    s8 i = 0;
+    i8 i = 0;
 
     for (;;)
     {
@@ -154,7 +154,7 @@ void GenMovePathFromMoveScript(void)
 
 void GenMoveScriptFromMovePath(void)
 {
-    s8 i;
+    i8 i;
 
     for (i = 1; i <= gMovePath->path; ++i)
     {
@@ -188,7 +188,7 @@ static void RebuildMovePath(void)
 
 static bool MovePathIsValid(void)
 {
-    s8 i, j;
+    i8 i, j;
 
     for (i = gMovePath->path; i > 0; --i)
     {
@@ -202,14 +202,14 @@ static bool MovePathIsValid(void)
     return TRUE;
 }
 
-void InitMovePath(bool displayOnly)
+void InitMovePath(bool display_only)
 {
     Decompress(Img_MovePath, OBJ_VRAM0 + CHR_SIZE*OBJCHR_MOVEPATH);
     ApplyPalette(Pal_MovePath, 0x10 + OBJPAL_MOVEPATH);
 
-    if (!displayOnly)
+    if (!display_only)
     {
-        gMovePath->initMove = UNIT_MOV(gActiveUnit) - gAction.moveCount;
+        gMovePath->initMove = UNIT_MOV(gActiveUnit) - gAction.move_count;
 
         CutMovePath(0);
         AddMovePathSquare(gActiveUnit->x, gActiveUnit->y);
@@ -232,7 +232,7 @@ static void UpdateMovePath(void)
 
         if (gWorkingMapSigned[gBmSt.cursor.y][gBmSt.cursor.x] != -1)
         {
-            s8 cut;
+            i8 cut;
 
             if ((cut = FindMovePathSquare(gBmSt.cursor.x, gBmSt.cursor.y)) != -1)
             {
@@ -315,7 +315,7 @@ static bool ShouldDrawMovePathBitAt(short x, short y, u8 xEdge, u8 yEdge)
 
 static void DrawMovePath(void)
 {
-    s8 i;
+    i8 i;
 
     if (gMovePath->path == 0)
         return;

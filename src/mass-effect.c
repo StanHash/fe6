@@ -46,11 +46,11 @@ void BeginUnitHealAnim(struct Unit* unit, int hp)
     BattleInitItemEffect(unit, -1);
 
     gBattleUnitA.weapon = IID_VULNERARY;
-    gBattleUnitA.weaponBefore = IID_VULNERARY;
+    gBattleUnitA.weapon_before = IID_VULNERARY;
 
     AddUnitHp(&gBattleUnitA.unit, hp);
 
-    gBattleHitIt->damage = gBattleUnitA.hpPrevious - gBattleUnitA.unit.hpCur;
+    gBattleHitIt->damage = gBattleUnitA.previous_hp - gBattleUnitA.unit.hp;
 
     BattleHitTerminate();
 
@@ -63,12 +63,12 @@ void BeginUnitDamageAnim(struct Unit* unit, int damage)
 
     AddUnitHp(&gBattleUnitA.unit, -damage);
 
-    if (gBattleUnitA.unit.hpCur < 0)
-        gBattleUnitA.unit.hpCur = 0;
+    if (gBattleUnitA.unit.hp < 0)
+        gBattleUnitA.unit.hp = 0;
 
-    gBattleHitIt->damage = gBattleUnitA.hpPrevious - gBattleUnitA.unit.hpCur;
+    gBattleHitIt->damage = gBattleUnitA.previous_hp - gBattleUnitA.unit.hp;
 
-    if (gBattleUnitA.unit.hpCur == 0)
+    if (gBattleUnitA.unit.hp == 0)
         gBattleHitIt->info |= BATTLE_HIT_INFO_FINISHES;
 
     BattleHitTerminate();
@@ -84,12 +84,12 @@ void BeginUnitCritDamageAnim(struct Unit* unit, int damage)
 
     AddUnitHp(&gBattleUnitA.unit, -damage);
 
-    if (gBattleUnitA.unit.hpCur < 0)
-        gBattleUnitA.unit.hpCur = 0;
+    if (gBattleUnitA.unit.hp < 0)
+        gBattleUnitA.unit.hp = 0;
 
-    gBattleHitIt->damage = gBattleUnitA.hpPrevious - gBattleUnitA.unit.hpCur;
+    gBattleHitIt->damage = gBattleUnitA.previous_hp - gBattleUnitA.unit.hp;
 
-    if (gBattleUnitA.unit.hpCur == 0)
+    if (gBattleUnitA.unit.hp == 0)
     {
         gBattleHitIt->attributes |= BATTLE_HIT_ATTR_CRIT;
         gBattleHitIt->info |= BATTLE_HIT_INFO_FINISHES;
@@ -208,8 +208,8 @@ static void StatusHealEffect_BlendedSprite_Init(struct GenericProc* proc)
 
     SetWinEnable(0, 0, 1);
 
-    gDispIo.winCt.wout_enableBlend = 0;
-    gDispIo.winCt.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 0;
+    gDispIo.win_ct.wobj_enableBlend = 1;
 
     SetWOutLayers(0, 0, 0, 1, 1);
     SetWObjLayers(1, 0, 0, 1, 1);
@@ -248,21 +248,21 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendedSprite[] =
     PROC_END,
 };
 
-static void StatusHealEffect_BlendAnim_InitIn(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_InitIn(struct GenericProc* proc)
 {
     proc->unk4C = 15;
     proc->x = 0;
     proc->unk34 = 1;
 }
 
-static void StatusHealEffect_BlendAnim_InitOut(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_InitOut(struct GenericProc* proc)
 {
     proc->unk4C = 15;
     proc->x = 0x10;
     proc->unk34 = -1;
 }
 
-static void StatusHealEffect_BlendAnim_Loop(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_Loop(struct GenericProc* proc)
 {
     proc->x += proc->unk34;
 
@@ -276,18 +276,18 @@ static void StatusHealEffect_BlendAnim_Loop(struct GenericProc* proc)
 
 struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendAnim[] =
 {
-    PROC_CALL(StatusHealEffect_BlendAnim_InitIn),
-    PROC_REPEAT(StatusHealEffect_BlendAnim_Loop),
+    PROC_CALL(StatusHealEffect_BlendSpriteAnim_InitIn),
+    PROC_REPEAT(StatusHealEffect_BlendSpriteAnim_Loop),
 
     PROC_SLEEP(0x20),
 
-    PROC_CALL(StatusHealEffect_BlendAnim_InitOut),
-    PROC_REPEAT(StatusHealEffect_BlendAnim_Loop),
+    PROC_CALL(StatusHealEffect_BlendSpriteAnim_InitOut),
+    PROC_REPEAT(StatusHealEffect_BlendSpriteAnim_Loop),
 
     PROC_END,
 };
 
-static void StatusHealEffect_PalAnim_Init(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_Init(struct GenericProc* proc)
 {
     u16 const* pal = NULL;
 
@@ -313,7 +313,7 @@ static void StatusHealEffect_PalAnim_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void StatusHealEffect_PalAnim_SetOutlineIntensity(struct GenericProc* proc, int intensity)
+static void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct GenericProc* proc, int intensity)
 {
     if (intensity > 31)
         intensity = 31;
@@ -325,9 +325,9 @@ static void StatusHealEffect_PalAnim_SetOutlineIntensity(struct GenericProc* pro
     EnablePalSync();
 }
 
-static void StatusHealEffect_PalAnim_LoopIn(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_LoopIn(struct GenericProc* proc)
 {
-    StatusHealEffect_PalAnim_SetOutlineIntensity(proc, proc->unk4C);
+    StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk4C);
 
     proc->unk4C++;
 
@@ -335,9 +335,9 @@ static void StatusHealEffect_PalAnim_LoopIn(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void StatusHealEffect_PalAnim_LoopOut(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_LoopOut(struct GenericProc* proc)
 {
-    StatusHealEffect_PalAnim_SetOutlineIntensity(proc, proc->unk4C);
+    StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk4C);
 
     proc->unk4C--;
 
@@ -347,9 +347,9 @@ static void StatusHealEffect_PalAnim_LoopOut(struct GenericProc* proc)
 
 struct ProcScr CONST_DATA ProcScr_StatusHealEffect_PalAnim[] =
 {
-    PROC_CALL(StatusHealEffect_PalAnim_Init),
-    PROC_REPEAT(StatusHealEffect_PalAnim_LoopIn),
-    PROC_REPEAT(StatusHealEffect_PalAnim_LoopOut),
+    PROC_CALL(StatusHealEffect_PalSpriteAnim_Init),
+    PROC_REPEAT(StatusHealEffect_PalSpriteAnim_LoopIn),
+    PROC_REPEAT(StatusHealEffect_PalSpriteAnim_LoopOut),
 
     PROC_END,
 };
@@ -362,8 +362,8 @@ static void StatusHealEffect_Finish(struct GenericProc* proc)
 
     SetBlendNone();
 
-    gDispIo.winCt.wout_enableBlend = 1;
-    gDispIo.winCt.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.wobj_enableBlend = 1;
 }
 
 struct ProcScr CONST_DATA ProcScr_StatusHealEffect[] =
@@ -444,7 +444,7 @@ void FinishDamageDisplay(ProcPtr proc)
 {
     EndAllMus();
 
-    if (gBattleUnitA.unit.hpCur != 0)
+    if (gBattleUnitA.unit.hp != 0)
     {
         ShowUnitSprite(GetUnit(gAction.instigator));
     }
