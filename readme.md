@@ -17,7 +17,7 @@ More better instructions will come eventually.
 
 * Have [devkitARM](https://devkitpro.org/wiki/Getting_Started) or another arm-none-eabi toolchain
 
-* Build and install the [**agbcc**](https://github.com/pret/agbcc) compiler. (`./build.sh` then `./install.sh path/to/fe6`)
+* Build and install the [**agbcc**](https://github.com/pret/agbcc) compiler by running the [`tools/install-agbcc.sh`](tools/install-agbcc.sh) script.
 
 * Build fe6 using `make`
   * For non-devkitARM toolchains, do `make TOOLCHAIN=/path/to/toolchain/`
@@ -32,8 +32,8 @@ If you are still willing to contribute to fe6 specifically, I won't deny you fro
 
 * [**StanHash/fe1**](https://github.com/StanHash/fe1), a disassembly of Fire Emblem : Shadow Dragon and the Blade of Light
 * [**ZaneAvernathy/FireEmblem5**](https://github.com/ZaneAvernathy/FireEmblem5), a disassembly of Fire Emblem: Thracia 776
-* [**FireEmblemUniverse/fireemblem8u**](https://github.com/FireEmblemUniverse/fireemblem8u), a decompilation of Fire Emblem: The Sacred Stones (US)
+* [**StanHash/fe8**](https://github.com/StanHash/fe8), a decompilation of Fire Emblem: The Sacred Stones (US)
 
 ## Contact
 
-You can find me over at the [Fire Emblem Universe Discord](https://feuniverse.us/t/feu-discord-server/1480?u=stanh) under the handle `nat5#4387`. I also lurk some other places, including the pret discord, so you can find me there too.
+You can find me over at the [Fire Emblem Universe Discord](https://feuniverse.us/t/feu-discord-server/1480?u=stanh) under the handle `nat5#4387`.
