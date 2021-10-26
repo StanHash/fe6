@@ -25,8 +25,8 @@ gUnk_08664D5C: @ 08664D5C
 gUnk_08664DA4: @ 08664DA4
 	.incbin "fe6-base.gba", 0x664DA4, (0x664E4C - 0x664DA4) @ length: 00A8
 
-	.global gUnk_08664E4C
-gUnk_08664E4C: @ 08664E4C
+	.global ProcScr_Unk_08664E4C
+ProcScr_Unk_08664E4C: @ 08664E4C
 	.incbin "fe6-base.gba", 0x664E4C, (0x664EE4 - 0x664E4C) @ length: 0098
 
 	.global gUnk_08664EE4

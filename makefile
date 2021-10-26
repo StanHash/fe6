@@ -63,6 +63,7 @@ src/game-controller.o: CC1FLAGS += -O0
 src/msg.o:             CC1FLAGS += -O0
 
 src/mu.o:              CC1FLAGS += -O0
+src/manim.o:           CC1FLAGS += -O0
 
 src/lib/agb-sram.o:    CC1FLAGS += -O1
 

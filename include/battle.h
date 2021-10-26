@@ -110,9 +110,9 @@ struct BattleUnit
 
 struct BattleHit
 {
-    unsigned attributes : 16;
-    unsigned info : 8;
-    signed damage : 8;
+    u16 attributes;
+    u8 info;
+    i8 damage;
 };
 
 void BattleGenerateSimulationInternal(struct Unit* instigator, struct Unit* target, int x, int y, int item_slot);

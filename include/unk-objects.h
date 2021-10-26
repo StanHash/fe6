@@ -138,6 +138,7 @@ extern struct MapSelectInfo CONST_DATA MapSelectInfo_Heal;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Restore;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_Barrier;
 extern struct MapSelectInfo CONST_DATA MapSelectInfo_AttackStaff;
+extern struct ProcScr CONST_DATA ProcScr_Unk_08664E4C[];
 
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];

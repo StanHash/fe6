@@ -1807,9 +1807,9 @@ u8 GetItemMaFacing(int item);
 
 // sub_8061838
 // sub_8061878
-// sub_80618D4
+bool sub_80618D4(struct BattleUnit* bu);
 // sub_8061908
-// sub_8061964
+bool sub_8061964(struct BattleUnit* bu);
 // sub_806199C
 // sub_80619B0
 // sub_80619E8
@@ -1843,7 +1843,7 @@ int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8062BA0
 // sub_8062BD4
 // sub_8062C38
-// sub_8062CF0
+void sub_8062CF0(void);
 // MA_StartBattleInfoBox
 // sub_8062D64
 // sub_8062D80
@@ -1872,7 +1872,7 @@ int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8064A10
 // sub_8064A8C
 // sub_8064B20
-// sub_8064B7C
+void sub_8064B7C(struct Unit* unit);
 // sub_8064BEC
 // sub_8064C50
 // sub_8064CC0
@@ -1979,7 +1979,7 @@ int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8068938
 // sub_80689F0
 // sub_8068A1C
-// sub_8068A48
+struct ProcScr const* sub_8068A48(void);
 // sub_8068A74
 // sub_8068AA8
 // sub_8068ADC

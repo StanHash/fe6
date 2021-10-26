@@ -227,6 +227,8 @@ SECTIONS
         . = ALIGN(4); src/ai-080326C4.o(ewram_data);
 
         . = 0x0203CDE4 - __ewram_overlay_end; gMapAnimSt = .;
+
+        . = 0x02040000 - __ewram_overlay_end; /* end */
     }
 
     . = 0x03000000;
@@ -296,6 +298,8 @@ SECTIONS
         . = 0x006600; gMpi_03006600 = .;
         . = 0x006640; ReadSramFast = .;
         . = 0x006644; VerifySramFast = .;
+
+        . = 0x008000; /* end */
     }
 
     . = 0x08000000;
@@ -373,6 +377,7 @@ SECTIONS
         asm/code-banim.o(.text);
 
         src/mu.o(.text);
+        src/manim.o(.text);
 
         asm/code.o(.text);
 
@@ -450,6 +455,8 @@ SECTIONS
         . = ALIGN(4); src/code-sio.o(.rodata);
         . = ALIGN(4); data/data-code-sio.o(.rodata);
         . = ALIGN(4); src/code-ui.o(.rodata);
+        . = ALIGN(4); data/rodata_10F744.o(.rodata);
+        . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/lib/m4a-tables.o(.rodata);

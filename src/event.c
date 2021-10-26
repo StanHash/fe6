@@ -3483,7 +3483,7 @@ ProcPtr StartTalkSupportEvent(int msgid)
     return proc;
 }
 
-void StartPopup_08012040(u16 item, ProcPtr parent)
+void StartWeaponBrokePopup(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
     StartPopup(Popup_085C46FC, 0x60, 0, parent);
@@ -3495,7 +3495,7 @@ void StartPopup_08012070(u16 item, ProcPtr parent)
     StartPopup(Popup_085C473C, 0x60, 0, parent);
 }
 
-void StartPopup_080120A0(u16 item, ProcPtr parent)
+void StartWeaponLevelGainedPopup(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
     StartPopup(Popup_085C477C, 0x60, 0, parent);
