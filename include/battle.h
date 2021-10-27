@@ -88,7 +88,7 @@ struct BattleUnit
     /* 6A */ i8 exp_gain;
     /* 6B */ i8 output_status;
     /* 6C */ u8 previous_level;
-    /* 6D */ u8 previous_exp;
+    /* 6D */ i8 previous_exp;
     /* 6E */ i8 previous_hp;
 
     /* 6F */ i8 change_hp;

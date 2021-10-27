@@ -1835,12 +1835,12 @@ gUnk_082A9228: @ 082A9228
 SpriteAnim_MuFogBump: @ 082AA324
 	.incbin "fe6-base.gba", 0x2AA324, (0x2AA968 - 0x2AA324) @ length: 0644
 
-	.global gUnk_082AA968
-gUnk_082AA968: @ 082AA968
+	.global Pal_ManimFireDragonMu
+Pal_ManimFireDragonMu: @ 082AA968
 	.incbin "fe6-base.gba", 0x2AA968, (0x2AA988 - 0x2AA968) @ length: 0020
 
-	.global gUnk_082AA988
-gUnk_082AA988: @ 082AA988
+	.global Pal_ManimDivineDragonMu
+Pal_ManimDivineDragonMu: @ 082AA988
 	.incbin "fe6-base.gba", 0x2AA988, (0x2AA9A8 - 0x2AA988) @ length: 0020
 
 	.global gUnk_082AA9A8

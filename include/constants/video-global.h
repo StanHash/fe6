@@ -132,6 +132,8 @@ enum
 
     OBJPAL_TRADEMENU_8 = 8,
 
+    OBJPAL_MANIM_SPECIALMU = 8, // .. 9
+
     OBJPAL_7 = 7,
     OBJPAL_10 = 10,
 

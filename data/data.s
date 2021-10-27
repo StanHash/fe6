@@ -49,8 +49,8 @@ gUnk_08664F20: @ 08664F20
 gUnk_08664F58: @ 08664F58
 	.incbin "fe6-base.gba", 0x664F58, (0x664F90 - 0x664F58) @ length: 0038
 
-	.global gUnk_08664F90
-gUnk_08664F90: @ 08664F90
+	.global ProcScr_MAnimExpBar
+ProcScr_MAnimExpBar: @ 08664F90
 	.incbin "fe6-base.gba", 0x664F90, (0x665008 - 0x664F90) @ length: 0078
 
 	.global gUnk_08665008

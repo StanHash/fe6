@@ -1801,7 +1801,7 @@ void sub_8047CC8(void);
 // sub_805F784
 // sub_805F794
 // sub_805F7A4
-// sub_805F7B4
+u8 sub_805F7B4(int item);
 u8 GetItemMaFacing(int item);
 // sub_805F7D4
 
@@ -1844,7 +1844,7 @@ int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8062BD4
 // sub_8062C38
 void sub_8062CF0(void);
-// MA_StartBattleInfoBox
+void MA_StartBattleInfoBox(int x, int y, ProcPtr proc);
 // sub_8062D64
 // sub_8062D80
 // sub_8062E94
@@ -2115,9 +2115,9 @@ struct UnitInfo const* sub_806B638(void);
 // sub_806B650
 // sub_806B6B0
 // sub_806B6F8
-// sub_806B754
-// ShouldDisplayDeathQuote
-// sub_806B808
+void sub_806B754(u8 pid_a, u8 pid_b);
+bool ShouldDisplayDeathQuote(u8 pid);
+void sub_806B808(u8 pid);
 // sub_806B898
 // nullsub_27
 // nullsub_28

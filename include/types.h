@@ -170,7 +170,7 @@ struct MapAnimSt
     /* 5A */ u16 hit_attributes;
     /* 5C */ u8 hit_info;
     /* 5D */ i8 hit_damage;
-    /* 5E */ u8 unk_5E;
+    /* 5E */ u8 actor_count;
     /* 5F */ u8 unk_5F;
     /* 60 */ u8 unk_60;
     /* 61 */ u8 unk_61;
