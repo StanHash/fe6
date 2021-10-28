@@ -17,6 +17,13 @@
 #include "constants/songs.h"
 #include "constants/terrains.h"
 
+enum
+{
+    MANIM_FACING_OPPONENT,
+    MANIM_FACING_DEFAULT,
+    MANIM_FACING_UNKNOWN,
+};
+
 struct MAnimExpBarProc
 {
     /* 00 */ PROC_HEADER;
@@ -120,7 +127,7 @@ void sub_80619E8(void)
     gMapAnimSt.hit_info = gMapAnimSt.hit_it->info;
     gMapAnimSt.hit_damage = gMapAnimSt.hit_it->damage;
 
-    if (gMapAnimSt.actor_count == 1)
+    if (gMapAnimSt.main_actor_count == 1)
     {
         gMapAnimSt.attacker_actor = 0;
         gMapAnimSt.defender_actor = 0;
@@ -165,7 +172,7 @@ void MA_MoveCameraOntoActor(ProcPtr proc)
 
 void MA_MoveCamOntoTarget(ProcPtr proc)
 {
-    if (gMapAnimSt.actor_count == 1)
+    if (gMapAnimSt.main_actor_count == 1)
         return;
 
     CameraMoveWatchPosition(proc, gMapAnimSt.actor[1].unit->x, gMapAnimSt.actor[1].unit->y);
@@ -175,7 +182,7 @@ void MA_DisplayDeathQuote(ProcPtr proc)
 {
     int actor_num = -1;
 
-    switch (gMapAnimSt.actor_count)
+    switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
@@ -209,7 +216,7 @@ void MapAnimProc_DisplayDeathFade(ProcPtr proc)
 {
     int actor_num = -1;
 
-    switch (gMapAnimSt.actor_count)
+    switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
@@ -237,7 +244,7 @@ void MapAnimProc_DisplayExpBar(ProcPtr proc)
     struct MAnimExpBarProc* exp_bar_proc;
     int actor_num = -1;
 
-    switch (gMapAnimSt.actor_count)
+    switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
@@ -285,7 +292,7 @@ void sub_8061E14(ProcPtr proc)
     if (sub_805F7B4(gMapAnimSt.actor[0].bu->weapon_before) == 0)
         return;
 
-    if (gMapAnimSt.actor_count == 1)
+    if (gMapAnimSt.main_actor_count == 1)
     {
         y = (gMapAnimSt.actor[0].unit->y << 4) - gBmSt.camera.y;
 
@@ -299,7 +306,7 @@ void sub_8061E14(ProcPtr proc)
         int array[2];
         int i, actor_num;
 
-        for (i = 0; i < gMapAnimSt.actor_count; ++i)
+        for (i = 0; i < gMapAnimSt.main_actor_count; ++i)
         {
             array[i] = (gMapAnimSt.actor[i].unit->y << 4) - gBmSt.camera.y;
         }
@@ -326,7 +333,7 @@ void sub_8061E14(ProcPtr proc)
 
 void sub_8061FD0(ProcPtr proc)
 {
-    switch (gMapAnimSt.actor_count)
+    switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
@@ -364,7 +371,7 @@ void sub_8062018(int actor_num)
 
 void sub_80620D8(ProcPtr proc)
 {
-    switch (gMapAnimSt.actor_count)
+    switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
@@ -396,6 +403,206 @@ void MA_InitActor(int actor_num, struct BattleUnit* bu, struct Unit* unit)
 
     if (bu->terrain == TERRAIN_WALL_1B)
         HideMu(gMapAnimSt.actor[actor_num].mu);
+}
+
+void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
+{
+    int mu_facing;
+
+    switch (manim_facing)
+    {
+
+    case MANIM_FACING_OPPONENT:
+        mu_facing = sub_80629FC(
+            gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y,
+            gMapAnimSt.actor[opponent_actor_num].unit->x, gMapAnimSt.actor[opponent_actor_num].unit->y);
+
+        SetMuFacing(gMapAnimSt.actor[actor_num].mu, mu_facing);
+        break;
+
+    case MANIM_FACING_DEFAULT:
+        SetMuDefaultFacing(gMapAnimSt.actor[actor_num].mu);
+        break;
+
+    case MANIM_FACING_UNKNOWN:
+        mu_facing = sub_80629FC(
+            gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y, 0, 0);
+
+        SetMuFacing(gMapAnimSt.actor[actor_num].mu, mu_facing);
+        // break;
+
+    }
+}
+
+void sub_80622FC(void)
+{
+    int manim_facing = GetItemMaFacing(gMapAnimSt.actor[0].bu->weapon_before);
+
+    MA_SortMuLayers();
+
+    switch (gMapAnimSt.main_actor_count)
+    {
+
+    case 2:
+        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+        {
+            // In triangle attacks, both partners face the opponent too
+            MA_SetActorFacing(2, 1, manim_facing);
+            MA_SetActorFacing(3, 1, manim_facing);
+        }
+
+        MA_SetActorFacing(1, 0, manim_facing);
+
+        // fallthrough
+
+    case 1:
+        MA_SetActorFacing(0, 1, manim_facing);
+        break;
+
+    }
+}
+
+void MA_SortMuLayers(void)
+{
+    u8 array[4];
+    u8 tmp;
+    int i, j;
+    int swap_requests;
+
+    int actor_count = gMapAnimSt.main_actor_count;
+
+    switch (gMapAnimSt.main_actor_count)
+    {
+
+    case 2:
+        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+        {
+            actor_count += 2;
+        }
+
+        break;
+
+    case 1:
+        break;
+
+    }
+
+    // initialize index array
+
+    for (i = 0; i < actor_count; ++i)
+        array[i] = i;
+
+    // sort index array
+    // it uses selection sort
+
+    for (i = 0; i < actor_count - 1; ++i)
+    {
+        for (j = i + 1; j < actor_count; ++j)
+        {
+            swap_requests = 0;
+
+            if (gMapAnimSt.actor[array[i]].unit->y == gMapAnimSt.actor[array[j]].unit->y)
+            {
+                if (gMapAnimSt.actor[array[i]].unit->x >= gMapAnimSt.actor[array[j]].unit->x)
+                    swap_requests++;
+            }
+            else if (gMapAnimSt.actor[array[i]].unit->y >= gMapAnimSt.actor[array[j]].unit->y)
+            {
+                swap_requests++;
+            }
+
+            if (swap_requests != 0)
+            {
+                tmp = array[i];
+                array[i] = array[j];
+                array[j] = tmp;
+            }
+        }
+    }
+
+    // apply
+
+    for (i = 0; i < actor_count; ++i)
+        gMapAnimSt.actor[array[i]].mu->sprite_anim->layer = gManimMuSpriteLayerLut[i];
+}
+
+void sub_8062598(void)
+{
+    gBattleUnitA.weapon_before = IID_VULNERARY;
+
+    gMapAnimSt.unk_62 = 0;
+    gMapAnimSt.main_actor_count = 1;
+
+    gMapAnimSt.hit_it = gBattleHits;
+    sub_80619E8();
+
+    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    SpawnProc(ProcScr_Unk_08664C0C, PROC_TREE_3);
+}
+
+void sub_8062614(void)
+{
+    gBattleUnitA.weapon_before = IID_VULNERARY;
+
+    gMapAnimSt.unk_62 = 0;
+    gMapAnimSt.main_actor_count = 1;
+
+    gMapAnimSt.hit_it = gBattleHits;
+    sub_80619E8();
+
+    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    SpawnProc(ProcScr_Unk_08664C4C, PROC_TREE_3);
+}
+
+void sub_8062690(void)
+{
+    gBattleUnitA.weapon_before = IID_IRONSWORD;
+
+    gMapAnimSt.unk_62 = 1;
+    gMapAnimSt.main_actor_count = 2;
+
+    gMapAnimSt.attacker_actor = 0;
+    gMapAnimSt.defender_actor = 1;
+
+    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    SpawnProc(ProcScr_Unk_08664C8C, PROC_TREE_3);
+}
+
+void sub_8062734(void)
+{
+    gBattleUnitA.weapon_before = IID_FORTIFYSTAFF;
+
+    gMapAnimSt.unk_62 = 2;
+    gMapAnimSt.main_actor_count = 1;
+
+    gMapAnimSt.attacker_actor = 0;
+    gMapAnimSt.defender_actor = 0;
+
+    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    SpawnProc(ProcScr_Unk_08664D5C, PROC_TREE_3);
+}
+
+void sub_80627D0(void)
+{
+    if (gBattleSt.flags & BATTLE_FLAG_REFRESH)
+    {
+        sub_8062734();
+        return;
+    }
+
+    gMapAnimSt.unk_62 = 0;
+
+    sub_806283C(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+
+    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    SpawnProc(ProcScr_Unk_08664DA4, PROC_TREE_3);
+}
+
+void sub_806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+{
+    gMapAnimSt.main_actor_count = sub_805F784(bu_a->weapon_before);
+    gMapAnimSt.hit_it = battle_hits;
+    gMapAnimSt.special_proc_scr = sub_805F7A4(bu_a->weapon_before);
 }
 
 /*

@@ -3,8 +3,8 @@
 
 	.incbin "fe6-base.gba", 0x307544, (0x3075B4 - 0x307544)
 
-	.global gUnk_083075B4
-gUnk_083075B4: @ 083075B4
+	.global gManimMuSpriteLayerLut
+gManimMuSpriteLayerLut: @ 083075B4
 	.incbin "fe6-base.gba", 0x3075B4, (0x307928 - 0x3075B4) @ length: 0374
 
 	.global gUnk_08307928

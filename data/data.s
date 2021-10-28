@@ -5,24 +5,24 @@
 MuInfoTable: @ 086649B4
 	.incbin "fe6-base.gba", 0x6649B4, (0x664C0C - 0x6649B4) @ length: 0258
 
-	.global gUnk_08664C0C
-gUnk_08664C0C: @ 08664C0C
+	.global ProcScr_Unk_08664C0C
+ProcScr_Unk_08664C0C: @ 08664C0C
 	.incbin "fe6-base.gba", 0x664C0C, (0x664C4C - 0x664C0C) @ length: 0040
 
-	.global gUnk_08664C4C
-gUnk_08664C4C: @ 08664C4C
+	.global ProcScr_Unk_08664C4C
+ProcScr_Unk_08664C4C: @ 08664C4C
 	.incbin "fe6-base.gba", 0x664C4C, (0x664C8C - 0x664C4C) @ length: 0040
 
-	.global gUnk_08664C8C
-gUnk_08664C8C: @ 08664C8C
+	.global ProcScr_Unk_08664C8C
+ProcScr_Unk_08664C8C: @ 08664C8C
 	.incbin "fe6-base.gba", 0x664C8C, (0x664D5C - 0x664C8C) @ length: 00D0
 
-	.global gUnk_08664D5C
-gUnk_08664D5C: @ 08664D5C
+	.global ProcScr_Unk_08664D5C
+ProcScr_Unk_08664D5C: @ 08664D5C
 	.incbin "fe6-base.gba", 0x664D5C, (0x664DA4 - 0x664D5C) @ length: 0048
 
-	.global gUnk_08664DA4
-gUnk_08664DA4: @ 08664DA4
+	.global ProcScr_Unk_08664DA4
+ProcScr_Unk_08664DA4: @ 08664DA4
 	.incbin "fe6-base.gba", 0x664DA4, (0x664E4C - 0x664DA4) @ length: 00A8
 
 	.global ProcScr_Unk_08664E4C

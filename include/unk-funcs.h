@@ -1798,9 +1798,9 @@ void sub_8047CC8(void);
 // sub_805F71C
 // nullsub_10
 // sub_805F750
-// sub_805F784
+u8 sub_805F784(int item);
 // sub_805F794
-// sub_805F7A4
+struct ProcScr const* sub_805F7A4(int item);
 u8 sub_805F7B4(int item);
 u8 GetItemMaFacing(int item);
 // sub_805F7D4
@@ -1827,16 +1827,16 @@ bool sub_8061964(struct BattleUnit* bu);
 // sub_80620D8
 // sub_806210C
 // MA_InitActor
-void MA_SetActorFacing(int actorA, int actorB, int facing);
+void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing);
 // sub_80622FC
-// MA_SortMuLayers
+void MA_SortMuLayers(void);
 void sub_8062598(void);
 void sub_8062614(void);
 void sub_8062690(void);
 // sub_8062734
 void sub_80627D0(void);
-// sub_806283C
-// sub_8062890
+void sub_806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits);
+void sub_8062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits);
 int sub_80629FC(int xa, int ya, int xb, int yb);
 // sub_8062A80
 // sub_8062AB4
