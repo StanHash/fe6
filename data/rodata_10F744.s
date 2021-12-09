@@ -1939,8 +1939,8 @@ gUnk_082DBDB0: @ 082DBDB0
 gUnk_082DC5B0: @ 082DC5B0
 	.incbin "fe6-base.gba", 0x2DC5B0, (0x2DC618 - 0x2DC5B0) @ length: 0068
 
-	.global gUnk_082DC618
-gUnk_082DC618: @ 082DC618
+	.global Img_Unk_082DC618
+Img_Unk_082DC618: @ 082DC618
 	.incbin "fe6-base.gba", 0x2DC618, (0x2DC6DC - 0x2DC618) @ length: 00C4
 
 	.global gUnk_082DC6DC

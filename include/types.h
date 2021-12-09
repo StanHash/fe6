@@ -151,8 +151,8 @@ struct MapAnimActor
     /* 00 */ struct Unit* unit;
     /* 04 */ struct BattleUnit* bu;
     /* 08 */ struct MuProc* mu;
-    /* 0C */ u8 unk_0C;
-    /* 0D */ u8 unk_0D;
+    /* 0C */ u8 hp_max;
+    /* 0D */ u8 hp_cur;
     /* 0E */ u16 unk_0E;
     /* 10 */ u8 unk_10;
     /* 11 */ u8 unk_11;

@@ -96,6 +96,7 @@ extern u16 const Pal_BattlePreviewMultipliers[];
 extern u8 const Img_MuFogBump[];
 extern u16 const SpriteAnim_MuFogBump[];
 extern u8 const gManimMuSpriteLayerLut[];
+extern u8 const Img_Unk_082DC618[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];

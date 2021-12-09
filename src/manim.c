@@ -7,6 +7,7 @@
 #include "util.h"
 #include "item.h"
 #include "unit.h"
+#include "unitsprite.h"
 #include "battle.h"
 #include "faction.h"
 #include "mu.h"
@@ -186,13 +187,13 @@ void MA_DisplayDeathQuote(ProcPtr proc)
     {
 
     case 2:
-        if (gMapAnimSt.actor[1].unk_0D == 0)
+        if (gMapAnimSt.actor[1].hp_cur == 0)
             actor_num = 1;
 
         // fallthrough
 
     case 1:
-        if (gMapAnimSt.actor[0].unk_0D == 0)
+        if (gMapAnimSt.actor[0].hp_cur == 0)
             actor_num = 0;
 
         break;
@@ -220,13 +221,13 @@ void MapAnimProc_DisplayDeathFade(ProcPtr proc)
     {
 
     case 2:
-        if (gMapAnimSt.actor[1].unk_0D == 0)
+        if (gMapAnimSt.actor[1].hp_cur == 0)
             actor_num = 1;
 
         // fallthrough
 
     case 1:
-        if (gMapAnimSt.actor[0].unk_0D == 0)
+        if (gMapAnimSt.actor[0].hp_cur == 0)
             actor_num = 0;
 
         break;
@@ -603,6 +604,61 @@ void sub_806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct Battle
     gMapAnimSt.main_actor_count = sub_805F784(bu_a->weapon_before);
     gMapAnimSt.hit_it = battle_hits;
     gMapAnimSt.special_proc_scr = sub_805F7A4(bu_a->weapon_before);
+}
+
+void sub_8062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+{
+    int i;
+
+    MA_InitActor(0, bu_a, &bu_a->unit);
+
+    if (gMapAnimSt.main_actor_count > 1)
+    {
+        HideUnitSprite(&gBattleUnitB.unit);
+        MA_InitActor(1, bu_b, &bu_b->unit);
+    }
+
+    if (gBattleHits->attributes & BATTLE_HIT_ATTR_TATTACK)
+    {
+        MA_InitActor(2, bu_a, gBattleSt.ta_unit_a);
+        MA_InitActor(3, bu_a, gBattleSt.ta_unit_b);
+
+        HideUnitSprite(gBattleSt.ta_unit_a);
+        HideUnitSprite(gBattleSt.ta_unit_b);
+    }
+
+    sub_80622FC();
+
+    for (i = 0; i < gMapAnimSt.main_actor_count; ++i)
+    {
+        gMapAnimSt.actor[i].hp_cur = gMapAnimSt.actor[i].bu->previous_hp;
+        gMapAnimSt.actor[i].hp_max = GetUnitMaxHp(gMapAnimSt.actor[i].unit);
+    }
+
+    SetBlendNone();
+}
+
+int sub_80629FC(int x_from, int y_from, int x_to, int y_to)
+{
+    if (ABS(x_to - x_from) * 2 < ABS(y_to - y_from))
+    {
+        if (y_from < y_to)
+            return FACING_DOWN;
+        else
+            return FACING_UP;
+    }
+    else
+    {
+        if (x_from < x_to)
+            return FACING_RIGHT;
+        else
+            return FACING_LEFT;
+    }
+}
+
+void sub_8062A80(int chr)
+{
+    Decompress(Img_Unk_082DC618, (u8*) VRAM + GetBgChrOffset(0) + ((chr & 0x3FF) << 5));
 }
 
 /*
