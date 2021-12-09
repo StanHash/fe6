@@ -2145,7 +2145,7 @@ void ClearEid(int flag);
 // sub_806BA90
 // GetChapterEidData
 // sub_806BA9C
-// sub_806BAA0
+// EvtCheck_IsHard
 // sub_806BAB8
 // sub_806BAF0
 // sub_806BB34

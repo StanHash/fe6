@@ -370,14 +370,16 @@ SECTIONS
         src/ai-script.o(.text);
         src/ai-battle.o(.text);
         src/ai-080326C4.o(.text);
-
         asm/code-ai.o(.text);
         asm/code-sio.o(.text);
         asm/code-ui.o(.text);
         asm/code-banim.o(.text);
-
         src/mu.o(.text);
         src/manim.o(.text);
+        asm/code-manim.o(.text);
+        src/event-trigger.o(.text);
+        asm/code-event-trigger.o(.text);
+        src/event-functions.o(.text);
 
         asm/code.o(.text);
 
