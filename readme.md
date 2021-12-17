@@ -24,9 +24,9 @@ More better instructions will come eventually.
 
 ## Contributing
 
-I am not in active need of contributions. If you want to contribute to a GBA Fire Emblem decompilation project you may want to consider contributing to fireemblem8u (see below) first (for example: by porting code from fe6 to fe8u).
+Please do. I'm going to be pretty strict on what I accept though, so mind your formatting and naming conventions.
 
-If you are still willing to contribute to fe6 specifically, I won't deny you from helping. Be warned that I will be quite picky about code quality/style and such.
+You can also consider porting stuff from fe6 over to fe8.
 
 ## See also
 
