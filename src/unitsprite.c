@@ -738,7 +738,7 @@ void PutUnitSpriteIconsOam(void)
         if (unit->state & US_HIDDEN)
             continue;
 
-        if (sub_8022A6C(unit) != 0)
+        if (GetUnitSpriteHiddenFlag(unit) != 0)
             continue;
 
         // Display status icon
@@ -1017,7 +1017,7 @@ void ShowUnitSprite(struct Unit* unit)
     unit->map_sprite->config &= ~0x80;
 }
 
-u8 sub_8022A6C(struct Unit* unit)
+u8 GetUnitSpriteHiddenFlag(struct Unit* unit)
 {
     if (!unit->map_sprite)
         return 0x80;

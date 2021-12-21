@@ -72,8 +72,6 @@ struct BattleUnit EWRAM_DATA gBattleUnitB = {};
 struct BattleHit EWRAM_DATA gBattleHits[BATTLE_HIT_MAX] = {};
 struct BattleHit* EWRAM_DATA gBattleHitIt = NULL;
 
-#define CanBattleUnitGainExp(bu) ((bu)->unit.exp != 0xFF)
-
 void BattleGenerateSimulationInternal(struct Unit* instigator, struct Unit* target, int x, int y, int item_slot)
 {
     InitBattleUnit(&gBattleUnitA, instigator);

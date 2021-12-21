@@ -55,4 +55,4 @@ void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* un
 void sub_8022A2C(void);
 void HideUnitSprite(struct Unit* unit);
 void ShowUnitSprite(struct Unit* unit);
-u8 sub_8022A6C(struct Unit* unit);
+u8 GetUnitSpriteHiddenFlag(struct Unit* unit);

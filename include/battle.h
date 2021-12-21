@@ -213,3 +213,5 @@ extern struct BattleUnit gBattleUnitB;
 
 extern struct BattleHit gBattleHits[];
 extern struct BattleHit* gBattleHitIt;
+
+#define CanBattleUnitGainExp(bu) ((bu)->unit.exp != 0xFF)
