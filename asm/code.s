@@ -12,7 +12,7 @@ sub_806BB34: @ 0x0806BB34
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BB5E
-	bl sub_806C36C
+	bl IsKleinInNonBlueTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806BB5E
@@ -40,7 +40,7 @@ sub_806BB68: @ 0x0806BB68
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806BB92
-	bl sub_806C294
+	bl IsKleinInBlueTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806BB92
@@ -68,7 +68,7 @@ sub_806BB9C: @ 0x0806BB9C
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BBC6
-	bl sub_806C294
+	bl IsKleinInBlueTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806BBC6
@@ -400,7 +400,7 @@ sub_806BE00: @ 0x0806BE00
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BE28
-	bl sub_806C36C
+	bl IsKleinInNonBlueTeam
 	cmp r0, #0
 	beq .L0806BE28
 	adds r0, r4, #0
@@ -426,7 +426,7 @@ sub_806BE30: @ 0x0806BE30
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BE58
-	bl sub_806C294
+	bl IsKleinInBlueTeam
 	cmp r0, #0
 	beq .L0806BE58
 	adds r0, r4, #0
@@ -452,7 +452,7 @@ sub_806BE60: @ 0x0806BE60
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806BE88
-	bl sub_806C294
+	bl IsKleinInBlueTeam
 	cmp r0, #0
 	beq .L0806BE88
 	adds r0, r4, #0
@@ -553,7 +553,7 @@ sub_806BF14: @ 0x0806BF14
 	cmp r0, #0
 	beq .L0806BF32
 	movs r0, #0xda
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BF32
@@ -903,8 +903,8 @@ sub_806C158: @ 0x0806C158
 	pop {r1}
 	bx r1
 
-	thumb_func_start IsCharacterInBlueTeam
-IsCharacterInBlueTeam: @ 0x0806C168
+	thumb_func_start IsPidInBlueTeam
+IsPidInBlueTeam: @ 0x0806C168
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
@@ -942,7 +942,7 @@ IsCharacterInBlueTeam: @ 0x0806C168
 sub_806C1A4: @ 0x0806C1A4
 	push {lr}
 	movs r0, #9
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -952,7 +952,7 @@ sub_806C1A4: @ 0x0806C1A4
 sub_806C1B4: @ 0x0806C1B4
 	push {lr}
 	movs r0, #0x26
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -962,7 +962,7 @@ sub_806C1B4: @ 0x0806C1B4
 sub_806C1C4: @ 0x0806C1C4
 	push {lr}
 	movs r0, #0x11
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -972,7 +972,7 @@ sub_806C1C4: @ 0x0806C1C4
 sub_806C1D4: @ 0x0806C1D4
 	push {lr}
 	movs r0, #0x2a
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -982,7 +982,7 @@ sub_806C1D4: @ 0x0806C1D4
 sub_806C1E4: @ 0x0806C1E4
 	push {lr}
 	movs r0, #5
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -992,7 +992,7 @@ sub_806C1E4: @ 0x0806C1E4
 sub_806C1F4: @ 0x0806C1F4
 	push {lr}
 	movs r0, #0x35
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1002,7 +1002,7 @@ sub_806C1F4: @ 0x0806C1F4
 sub_806C204: @ 0x0806C204
 	push {lr}
 	movs r0, #0x37
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1012,7 +1012,7 @@ sub_806C204: @ 0x0806C204
 sub_806C214: @ 0x0806C214
 	push {lr}
 	movs r0, #0x32
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1022,7 +1022,7 @@ sub_806C214: @ 0x0806C214
 sub_806C224: @ 0x0806C224
 	push {lr}
 	movs r0, #0x36
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1032,7 +1032,7 @@ sub_806C224: @ 0x0806C224
 sub_806C234: @ 0x0806C234
 	push {lr}
 	movs r0, #0x2c
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1042,7 +1042,7 @@ sub_806C234: @ 0x0806C234
 sub_806C244: @ 0x0806C244
 	push {lr}
 	movs r0, #0x3c
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1052,7 +1052,7 @@ sub_806C244: @ 0x0806C244
 sub_806C254: @ 0x0806C254
 	push {lr}
 	movs r0, #0x34
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1062,7 +1062,7 @@ sub_806C254: @ 0x0806C254
 IsItTeamFae: @ 0x0806C264
 	push {lr}
 	movs r0, #3
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1072,7 +1072,7 @@ IsItTeamFae: @ 0x0806C264
 sub_806C274: @ 0x0806C274
 	push {lr}
 	movs r0, #4
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1082,17 +1082,17 @@ sub_806C274: @ 0x0806C274
 sub_806C284: @ 0x0806C284
 	push {lr}
 	movs r0, #6
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_806C294
-sub_806C294: @ 0x0806C294
+	thumb_func_start IsKleinInBlueTeam
+IsKleinInBlueTeam: @ 0x0806C294
 	push {lr}
 	movs r0, #0xf
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1102,7 +1102,7 @@ sub_806C294: @ 0x0806C294
 sub_806C2A4: @ 0x0806C2A4
 	push {lr}
 	movs r0, #0x2e
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1112,7 +1112,7 @@ sub_806C2A4: @ 0x0806C2A4
 sub_806C2B4: @ 0x0806C2B4
 	push {lr}
 	movs r0, #0xb
-	bl IsCharacterInBlueTeam
+	bl IsPidInBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1164,8 +1164,8 @@ sub_806C2F8: @ 0x0806C2F8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_806C310
-sub_806C310: @ 0x0806C310
+	thumb_func_start IsPidInNonBlueTeam
+IsPidInNonBlueTeam: @ 0x0806C310
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
 	lsrs r5, r0, #0x18
@@ -1203,7 +1203,7 @@ sub_806C310: @ 0x0806C310
 sub_806C34C: @ 0x0806C34C
 	push {lr}
 	movs r0, #0x2e
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1213,17 +1213,17 @@ sub_806C34C: @ 0x0806C34C
 sub_806C35C: @ 0x0806C35C
 	push {lr}
 	movs r0, #0x5e
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_806C36C
-sub_806C36C: @ 0x0806C36C
+	thumb_func_start IsKleinInNonBlueTeam
+IsKleinInNonBlueTeam: @ 0x0806C36C
 	push {lr}
 	movs r0, #0xf
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1233,7 +1233,7 @@ sub_806C36C: @ 0x0806C36C
 sub_806C37C: @ 0x0806C37C
 	push {lr}
 	movs r0, #0x35
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1243,7 +1243,7 @@ sub_806C37C: @ 0x0806C37C
 sub_806C38C: @ 0x0806C38C
 	push {lr}
 	movs r0, #0x27
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1253,7 +1253,7 @@ sub_806C38C: @ 0x0806C38C
 sub_806C39C: @ 0x0806C39C
 	push {lr}
 	movs r0, #0x33
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1263,7 +1263,7 @@ sub_806C39C: @ 0x0806C39C
 sub_806C3AC: @ 0x0806C3AC
 	push {lr}
 	movs r0, #0xc4
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1273,7 +1273,7 @@ sub_806C3AC: @ 0x0806C3AC
 sub_806C3BC: @ 0x0806C3BC
 	push {lr}
 	movs r0, #0xc6
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1283,7 +1283,7 @@ sub_806C3BC: @ 0x0806C3BC
 sub_806C3CC: @ 0x0806C3CC
 	push {lr}
 	movs r0, #0xb
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1293,7 +1293,7 @@ sub_806C3CC: @ 0x0806C3CC
 sub_806C3DC: @ 0x0806C3DC
 	push {lr}
 	movs r0, #0x1d
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1303,7 +1303,7 @@ sub_806C3DC: @ 0x0806C3DC
 sub_806C3EC: @ 0x0806C3EC
 	push {lr}
 	movs r0, #0xd5
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1313,7 +1313,7 @@ sub_806C3EC: @ 0x0806C3EC
 sub_806C3FC: @ 0x0806C3FC
 	push {lr}
 	movs r0, #0xd6
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1323,7 +1323,7 @@ sub_806C3FC: @ 0x0806C3FC
 sub_806C40C: @ 0x0806C40C
 	push {lr}
 	movs r0, #0xd7
-	bl sub_806C310
+	bl IsPidInNonBlueTeam
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}

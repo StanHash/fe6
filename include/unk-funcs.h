@@ -2189,7 +2189,7 @@ void ClearEid(int flag);
 // sub_806C138
 // sub_806C148
 // sub_806C158
-// IsCharacterInBlueTeam
+// IsPidInBlueTeam
 // sub_806C1A4
 // sub_806C1B4
 // sub_806C1C4
@@ -2205,15 +2205,15 @@ void ClearEid(int flag);
 // IsItTeamFae
 // sub_806C274
 // sub_806C284
-// sub_806C294
+// IsKleinInBlueTeam
 // sub_806C2A4
 // sub_806C2B4
 // sub_806C2C4
 // sub_806C2F8
-// sub_806C310
+// IsPidInNonBlueTeam
 // sub_806C34C
 // sub_806C35C
-// sub_806C36C
+// IsKleinInNonBlueTeam
 // sub_806C37C
 // sub_806C38C
 // sub_806C39C
