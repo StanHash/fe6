@@ -11,3 +11,9 @@ void ApplyDataMoves(void);
         (src), \
         (void*) VRAM + (0x1FFFF & (offset)), \
         (size))
+
+#define RegisterVramFill(value, offset, size) \
+    RegisterDataFill( \
+        (value), \
+        (void*) VRAM + (0x1FFFF & (offset)), \
+        (size))
