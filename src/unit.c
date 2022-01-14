@@ -991,7 +991,7 @@ int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain)
         item = IID_DOORKEY;
         break;
 
-    case TERRAIN_BRIDGE_14:
+    case TERRAIN_DRAWBRIDGE:
         item = IID_BRIDGEKEY;
         break;
 

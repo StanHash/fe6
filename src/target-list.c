@@ -399,13 +399,13 @@ void TryEnlistDoorPositionTarget(int x, int y)
 
 void TryEnlistBridgePositionTarget(int x, int y)
 {
-    if (gMapTerrain[y][x] != TERRAIN_BRIDGE_14)
+    if (gMapTerrain[y][x] != TERRAIN_DRAWBRIDGE)
         return;
 
     if (!sub_806B37C(x, y))
         return;
 
-    EnlistTarget(x, y, TERRAIN_BRIDGE_14, 0);
+    EnlistTarget(x, y, TERRAIN_DRAWBRIDGE, 0);
 }
 
 void ListOpenTerrainTargets(struct Unit* unit, int terrain)
@@ -424,7 +424,7 @@ void ListOpenTerrainTargets(struct Unit* unit, int terrain)
         ListAdjacentTargetPositions(x, y, TryEnlistDoorPositionTarget);
         break;
 
-    case TERRAIN_BRIDGE_14:
+    case TERRAIN_DRAWBRIDGE:
         ListAdjacentTargetPositions(x, y, TryEnlistBridgePositionTarget);
         break;
 

@@ -368,7 +368,7 @@ bool CanUnitUseDoorKeyItem(struct Unit* unit)
 
 bool CanUnitUseBridgeKeyItem(struct Unit* unit)
 {
-    ListOpenTerrainTargets(unit, TERRAIN_BRIDGE_14);
+    ListOpenTerrainTargets(unit, TERRAIN_DRAWBRIDGE);
     return CountTargets();
 }
 
