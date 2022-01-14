@@ -2131,8 +2131,8 @@ gUnk_082E2440: @ 082E2440
 gUnk_082E25D4: @ 082E25D4
 	.incbin "fe6-base.gba", 0x2E25D4, (0x2E278C - 0x2E25D4) @ length: 01B8
 
-	.global gUnk_082E278C
-gUnk_082E278C: @ 082E278C
+	.global Pal_Unk_082E278C
+Pal_Unk_082E278C: @ 082E278C
 	.incbin "fe6-base.gba", 0x2E278C, (0x2E28F8 - 0x2E278C) @ length: 016C
 
 	.global Img_Background_082E28F8

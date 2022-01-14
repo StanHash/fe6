@@ -36,6 +36,17 @@ struct MAnimExpBarProc
     /* 6A */ short unk_6A;
 };
 
+struct MAnimInfoWindowProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2A */ u16 unk_2A;
+    /* 2C */ u16 unk_2C;
+    /* 2E */ u8 unk_2E;
+    /* 2F */ u8 unk_2F;
+    /* 30 */ ProcPtr main_proc;
+};
+
 void func_fe6_08061838(ProcPtr proc)
 {
     switch (gMapAnimSt.unk_62)
@@ -659,6 +670,101 @@ int func_fe6_080629FC(int x_from, int y_from, int x_to, int y_to)
 void func_fe6_08062A80(int chr)
 {
     Decompress(Img_Unk_082DC618, (u8*) VRAM + GetBgChrOffset(0) + ((chr & 0x3FF) << 5));
+}
+
+void func_fe6_08062AB4(u16* tm, int num, int tileref, int len, u16 blank_tileref)
+{
+    char buf[8];
+    int i, j;
+
+    for (i = sizeof(buf)-1; i >= 0; --i)
+    {
+        buf[i] = '0' + num % 10;
+        num = num / 10;
+
+        if (num == 0)
+        {
+            for (j = i - 1; j >= 0; --j)
+                buf[j] = ' ';
+
+            break;
+        }
+    }
+
+    func_fe6_08013E8C(tm, buf + sizeof(buf) - 1, tileref, len);
+
+    for (i = len - 1; i > 0; --i)
+    {
+        if (buf[sizeof(buf) - 1 - i] != ' ')
+            return;
+
+        *(tm - i) = blank_tileref;
+    }
+}
+
+void func_fe6_08062BA0(u8 const* src)
+{
+    func_fe6_08062A80(0x20);
+    Decompress(src, (void*) (VRAM + CHR_SIZE * 42)); // TODO: CHR constant
+    ApplyPalette(Pal_Unk_082E278C, 5);
+}
+
+void func_fe6_08062BD4(u16* tm, int* arg_1, int pal, int arg_3, int chr)
+{
+    int tmp;
+
+    if (*arg_1 > arg_3)
+        tmp = arg_3;
+    else
+        tmp = *arg_1;
+
+    *tm = TILEREF(chr + tmp, pal);
+    *arg_1 += 1 - arg_3;
+
+    if (*arg_1 < 0)
+        *arg_1 = 0;
+}
+
+void func_fe6_08062C38(u16* tm, int arg_1, int arg_2, int arg_3, u16* arg_4)
+{
+    int unk, count = 0;
+    u16* it;
+
+    for (it = arg_4; it[0]; it += 2)
+        count -= 1 - it[0];
+
+    count += 1;
+
+    if (arg_1 == arg_2)
+        unk = count;
+    else
+        unk = ((count << 8) / arg_1 * arg_2) >> 8;
+
+    if (unk == 0 && arg_2 > 0)
+        unk++;
+
+    for (it = arg_4; it[0]; ++tm, it += 2)
+        func_fe6_08062BD4(tm, &unk, gUnk_08664F00[arg_3], it[0], it[1]);
+}
+
+void func_fe6_08062CF0(void)
+{
+    Proc_EndEach(ProcScr_MAnimInfoWindow);
+}
+
+void MA_StartBattleInfoBox(int arg0, int arg1, ProcPtr main_proc)
+{
+    struct MAnimInfoWindowProc* proc = SpawnProc(ProcScr_MAnimInfoWindow, PROC_TREE_3);
+
+    proc->unk_2E = arg0;
+    proc->unk_2F = arg1;
+    proc->main_proc = main_proc;
+}
+
+void func_fe6_08062D64(struct MAnimInfoWindowProc* proc)
+{
+    SetOnHBlankA(NULL);
+    ClearBg0Bg1();
 }
 
 /*

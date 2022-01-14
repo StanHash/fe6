@@ -97,6 +97,7 @@ extern u8 const Img_MuFogBump[];
 extern u16 const SpriteAnim_MuFogBump[];
 extern u8 const gManimMuSpriteLayerLut[];
 extern u8 const Img_Unk_082DC618[];
+extern u16 const Pal_Unk_082E278C[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
@@ -149,6 +150,7 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_08664C4C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08664C8C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08664D5C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08664DA4[];
+extern struct ProcScr CONST_DATA ProcScr_MAnimInfoWindow[];
 
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];
@@ -167,6 +169,8 @@ extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 extern struct TrialLoadInfo* CONST_DATA gTrialLoadInfo;
 
 extern void const* CONST_DATA ChapterAssets[];
+
+extern int CONST_DATA gUnk_08664F00[];
 
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];
