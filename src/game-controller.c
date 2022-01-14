@@ -83,7 +83,7 @@ PROC_LABEL(L_GAMECTRL_CLASSDEMO),
 PROC_LABEL(L_GAMECTRL_SCENEDEMO),
     PROC_CALL(GC_InitDemo),
 
-    PROC_CALL_ARG(sub_806DB00, 0),
+    PROC_CALL_ARG(func_fe6_0806DB00, 0),
     PROC_SLEEP(0),
 
     PROC_CALL(CleanupGame),
@@ -106,7 +106,7 @@ PROC_LABEL(L_GAMECTRL_TITLE),
 PROC_LABEL(L_GAMECTRL_MAINMENU),
     PROC_CALL(ForceEnableSounds),
 
-    PROC_CALL(sub_8089200),
+    PROC_CALL(func_fe6_08089200),
     PROC_SLEEP(0),
 
     PROC_CALL(GC_PostMainMenu),
@@ -134,7 +134,7 @@ PROC_LABEL(L_GAMECTRL_POSTCHAPTER),
 
     PROC_CALL(GC_InitNextChapter),
 
-    PROC_CALL(sub_8089234),
+    PROC_CALL(func_fe6_08089234),
     PROC_SLEEP(0),
 
     PROC_GOTO(L_GAMECTRL_CHAPTER),
@@ -164,7 +164,7 @@ PROC_LABEL(L_GAMECTRL_POSTTRIAL),
 
     PROC_CALL(GC_ClearSuspend),
 
-    PROC_CALL(sub_808FD6C),
+    PROC_CALL(func_fe6_0808FD6C),
     PROC_SLEEP(0),
 
     PROC_GOTO(L_GAMECTRL_TITLE),
@@ -180,15 +180,15 @@ PROC_LABEL(L_GAMECTRL_TUTORIAL),
     PROC_GOTO(L_GAMECTRL_MAINMENU),
 
 PROC_LABEL(L_GAMECTRL_LINK),
-    PROC_CALL(sub_803BA64),
+    PROC_CALL(func_fe6_0803BA64),
     PROC_SLEEP(0),
 
     PROC_GOTO(L_GAMECTRL_MAINMENU),
 
 PROC_LABEL(L_GAMECTRL_PREENDING),
-    PROC_CALL(sub_8029654),
+    PROC_CALL(func_fe6_08029654),
 
-    PROC_CALL(sub_8089234),
+    PROC_CALL(func_fe6_08089234),
     PROC_SLEEP(0),
 
     // fallthrough
@@ -205,13 +205,13 @@ PROC_LABEL(L_GAMECTRL_SRAMRESET),
     PROC_CALL(StartMidFadeFromBlack),
     PROC_REPEAT(WhileFadeExists),
 
-    PROC_CALL(sub_803C080),
+    PROC_CALL(func_fe6_0803C080),
     PROC_SLEEP(0),
 
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WhileFadeExists),
 
-    PROC_CALL(sub_806EABC),
+    PROC_CALL(func_fe6_0806EABC),
 
     PROC_GOTO(L_GAMECTRL_OPENINGSEQ),
 
@@ -228,10 +228,10 @@ static int GetFurthestSaveChapter(void)
 
     for (i = SAVE_ID_GAME0; i < SAVE_ID_GAME2 + 1; ++i)
     {
-        if (!sub_808525C(i))
+        if (!func_fe6_0808525C(i))
             continue;
 
-        sub_8085270(i, &playSt);
+        func_fe6_08085270(i, &playSt);
 
         if (number < GetChapterInfo(playSt.chapter)->numberId)
         {
@@ -262,7 +262,7 @@ static bool GC_StartClassDemo(struct GameController* proc)
         classSet = 0;
 
     proc->previousDemoClassSet = classSet;
-    sub_80947F0(classSet, proc);
+    func_fe6_080947F0(classSet, proc);
 
     return FALSE;
 }
@@ -280,7 +280,7 @@ static void GC_InitSramResetScreen(struct GameController* proc)
 
     gPlaySt.config_talk_speed = 1;
 
-    sub_806EA24(PROC_TREE_3, NULL, -1);
+    func_fe6_0806EA24(PROC_TREE_3, NULL, -1);
 }
 
 static void GC_InitFastStartCheck(struct GameController* proc)
@@ -408,8 +408,8 @@ static void GC_InitTutorial(struct GameController* proc)
 
     gPlaySt.flags |= PLAY_FLAG_3;
 
-    sub_806BA34();
-    sub_806B970();
+    func_fe6_0806BA34();
+    func_fe6_0806B970();
 
     InitUnits();
 
@@ -419,13 +419,13 @@ static void GC_InitTutorial(struct GameController* proc)
 static void GC_InitTrialMap(struct GameController* proc)
 {
     LoadTrialMapBonusUnits();
-    sub_8084818();
+    func_fe6_08084818();
     CleanupUnitsBeforeChapter();
 }
 
 static void GC_ClearSuspend(struct GameController* proc)
 {
-    sub_8085788(SAVE_ID_SUSPEND0);
+    func_fe6_08085788(SAVE_ID_SUSPEND0);
 }
 
 static void GC_PostChapter(struct GameController* proc)
@@ -465,7 +465,7 @@ static void GC_PostLoadSuspend(struct GameController* proc)
 
 static void GC_InitNextChapter(struct GameController* proc)
 {
-    sub_8084908(&gPlaySt);
+    func_fe6_08084908(&gPlaySt);
     gPlaySt.chapter = proc->nextChapter;
 
     CleanupUnitsBeforeChapter();
@@ -548,7 +548,7 @@ void ForceEnableSounds(void)
     gPlaySt.config_se_disable = FALSE;
 }
 
-void sub_8013A64(void)
+void func_fe6_08013A64(void)
 {
     gPlaySt.config_battle_anim = 0;
     gPlaySt.config_talk_speed = 1;

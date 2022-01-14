@@ -356,12 +356,12 @@ void DoItemKeyAction(void)
     x = GetUnit(gAction.instigator)->x;
     y = GetUnit(gAction.instigator)->y;
 
-    sub_806B398(x-1, y);
-    sub_806B398(x+1, y);
-    sub_806B398(x, y-1);
-    sub_806B398(x, y+1);
+    func_fe6_0806B398(x-1, y);
+    func_fe6_0806B398(x+1, y);
+    func_fe6_0806B398(x, y-1);
+    func_fe6_0806B398(x, y+1);
 
-    sub_806B354(x, y);
+    func_fe6_0806B354(x, y);
 
     PlaySe(SONG_B1);
 }
@@ -397,7 +397,7 @@ void DoItemPromoteAction(void)
     BeginBattleAnimations();
 }
 
-void sub_8027DB4(struct Unit* unit, int item)
+void func_fe6_08027DB4(struct Unit* unit, int item)
 {
     gBattleUnitA.weapon_before = gBattleUnitB.weapon_before = item;
     gBattleUnitA.weapon = gBattleUnitB.weapon = item;
@@ -488,7 +488,7 @@ void DoItemStatBoostAction(ProcPtr proc)
 
     PlaySe(SONG_5A);
 
-    sub_801DA54(proc, GetItemIcon(item), DecodeMsg(msg));
+    func_fe6_0801DA54(proc, GetItemIcon(item), DecodeMsg(msg));
 }
 
 void DoItemAction(ProcPtr proc)

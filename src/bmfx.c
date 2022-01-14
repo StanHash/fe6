@@ -137,13 +137,13 @@ struct ProcScr CONST_DATA ProcScr_InitPhaseCursor[] =
     PROC_END,
 };
 
-static void sub_801C510(ProcPtr proc);
+static void func_fe6_0801C510(ProcPtr proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_085C5988[] =
 {
     PROC_19,
 
-    PROC_CALL(sub_801C510),
+    PROC_CALL(func_fe6_0801C510),
     PROC_SLEEP(1),
 
     PROC_END,
@@ -178,18 +178,18 @@ struct ProcScr CONST_DATA ProcScr_EquipInfoWindow[] =
     PROC_END,
 };
 
-static void sub_801CD60(struct UnkProc2* proc);
-static void sub_801CDE4(struct UnkProc2* proc);
-static void sub_801CEE0(struct UnkProc2* proc);
+static void func_fe6_0801CD60(struct UnkProc2* proc);
+static void func_fe6_0801CDE4(struct UnkProc2* proc);
+static void func_fe6_0801CEE0(struct UnkProc2* proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_085C59F8[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_801CD60),
-    PROC_REPEAT(sub_801CDE4),
+    PROC_CALL(func_fe6_0801CD60),
+    PROC_REPEAT(func_fe6_0801CDE4),
 
-    PROC_CALL(sub_801CEE0),
+    PROC_CALL(func_fe6_0801CEE0),
 
     PROC_END,
 };
@@ -304,17 +304,17 @@ struct ProcScr CONST_DATA ProcScr_ArrowTrapAnim[] =
     PROC_END,
 };
 
-static void sub_801D8B8(struct ShowMapChangeProc* proc);
-static void sub_801D8E4(struct ShowMapChangeProc* proc);
+static void func_fe6_0801D8B8(struct ShowMapChangeProc* proc);
+static void func_fe6_0801D8E4(struct ShowMapChangeProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_801D8B8),
+    PROC_CALL(func_fe6_0801D8B8),
     PROC_WHILE_EXISTS(ProcScr_CamMove),
 
-    PROC_CALL(sub_801D8E4),
+    PROC_CALL(func_fe6_0801D8E4),
     PROC_WHILE(IsMapFadeActive),
 
     PROC_END,
@@ -332,13 +332,13 @@ struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
     PROC_END,
 };
 
-static void sub_801DA1C(struct GenericProc* proc);
-static void sub_801DA24(struct GenericProc* proc);
+static void func_fe6_0801DA1C(struct GenericProc* proc);
+static void func_fe6_0801DA24(struct GenericProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_085C5BA0[] =
 {
-    PROC_CALL(sub_801DA1C),
-    PROC_REPEAT(sub_801DA24),
+    PROC_CALL(func_fe6_0801DA1C),
+    PROC_REPEAT(func_fe6_0801DA24),
 
     PROC_CALL(ClearBg0Bg1),
 
@@ -519,7 +519,7 @@ PROC_LABEL(99),
     PROC_END,
 };
 
-int sub_801C160(int xa, int ya, int xb, int yb)
+int func_fe6_0801C160(int xa, int ya, int xb, int yb)
 {
     if (xa == xb)
     {
@@ -638,7 +638,7 @@ static void MapFade_Loop(struct GenericProc* proc)
 
 static void MapFade_End(struct GenericProc* proc)
 {
-    sub_801809C();
+    func_fe6_0801809C();
 
     if (proc->unk4E)
         UnlockGame();
@@ -743,9 +743,9 @@ static void InitPhaseCursor_Init(ProcPtr proc)
     }
 }
 
-static void sub_801C510(ProcPtr proc)
+static void func_fe6_0801C510(ProcPtr proc)
 {
-    struct Unit* unit = GetUnit(sub_806EACC());
+    struct Unit* unit = GetUnit(func_fe6_0806EACC());
 
     if (unit != NULL)
     {
@@ -760,7 +760,7 @@ static void sub_801C510(ProcPtr proc)
 static int DiscardItem_StartItemSelect(ProcPtr proc)
 {
     ApplyIconPalettes(BGPAL_ICONS);
-    sub_8041818(&MenuInfo_085C74E0, proc);
+    func_fe6_08041818(&MenuInfo_085C74E0, proc);
 
     return FALSE;
 }
@@ -781,7 +781,7 @@ static int DiscardItem_PostItemSelect(ProcPtr proc)
 
 static int DiscardItem_0801C58C(ProcPtr proc)
 {
-    sub_8081620(NULL, proc);
+    func_fe6_08081620(NULL, proc);
     return FALSE;
 }
 
@@ -806,22 +806,22 @@ void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
     }
 }
 
-int sub_801C620(struct MenuProc* menu, struct MenuEntProc* ent)
+int func_fe6_0801C620(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    return sub_801F708(menu, ent);
+    return func_fe6_0801F708(menu, ent);
 }
 
-int sub_801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
+int func_fe6_0801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     int item = gBmSt.inventory_item_overflow;
 
     Text_SetColor(&ent->text, TEXT_COLOR_SYSTEM_BLUE);
-    sub_80167E4(&ent->text, item, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    func_fe6_080167E4(&ent->text, item, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-int sub_801C670(struct MenuProc* menu, struct MenuEntProc* ent)
+int func_fe6_0801C670(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     AddSupplyItem(gActiveUnit->items[ent->id]);
 
@@ -831,7 +831,7 @@ int sub_801C670(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
 }
 
-int sub_801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
+int func_fe6_0801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     AddSupplyItem(gBmSt.inventory_item_overflow);
 
@@ -854,7 +854,7 @@ void SetFogVision(int vision)
     StartMapFade(TRUE);
 }
 
-void sub_801C700(struct Unit* actor, struct Unit* target)
+void func_fe6_0801C700(struct Unit* actor, struct Unit* target)
 {
     int ix, iy;
 
@@ -949,7 +949,7 @@ void UpdateEquipInfoWindow(int item_slot)
     ClearText(proc->text + 1);
     ClearText(proc->text + 2);
 
-    sub_8041358(proc->x, proc->y, 14, 8, 0);
+    func_fe6_08041358(proc->x, proc->y, 14, 8, 0);
 
     switch (item_slot)
     {
@@ -1056,7 +1056,7 @@ void EndEquipInfoWindow(void)
     Proc_EndEach(ProcScr_EquipInfoWindow);
 }
 
-static void sub_801CD60(struct UnkProc2* proc)
+static void func_fe6_0801CD60(struct UnkProc2* proc)
 {
     int xd, yd, dist;
 
@@ -1074,7 +1074,7 @@ static void sub_801CD60(struct UnkProc2* proc)
     proc->unk_3C = 0;
 }
 
-static void sub_801CDE4(struct UnkProc2* proc)
+static void func_fe6_0801CDE4(struct UnkProc2* proc)
 {
     int var = Interpolate(INTERPOLATE_LINEAR, 0, 1 << 16, proc->unk_3C, proc->unk_3E);
 
@@ -1102,7 +1102,7 @@ static void sub_801CDE4(struct UnkProc2* proc)
         Proc_Break(proc);
 }
 
-static void sub_801CEE0(struct UnkProc2* proc)
+static void func_fe6_0801CEE0(struct UnkProc2* proc)
 {
     proc->unit->x = proc->unk_34 / 16;
     proc->unit->y = proc->unk_36 / 16;
@@ -1111,7 +1111,7 @@ static void sub_801CEE0(struct UnkProc2* proc)
     RefreshUnitSprites();
 }
 
-void sub_801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
+void func_fe6_0801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
 {
     struct UnkProc2* proc;
 
@@ -1430,9 +1430,9 @@ static void PhaseIntro_WaitForEnd(ProcPtr proc)
     }
 }
 
-void sub_801D680(int x, int y)
+void func_fe6_0801D680(int x, int y)
 {
-    int cmd = MOVE_CMD_FACE_BASE + sub_80629FC(gActiveUnit->x, gActiveUnit->y, x, y);
+    int cmd = MOVE_CMD_FACE_BASE + func_fe6_080629FC(gActiveUnit->x, gActiveUnit->y, x, y);
 
     gWorkingMoveScr[0] = cmd;
     gWorkingMoveScr[1] = MOVE_CMD_HALT;
@@ -1546,7 +1546,7 @@ void StartArrowTrapAnim(ProcPtr parent, int x)
     proc->x = x;
 }
 
-static void sub_801D8B8(struct ShowMapChangeProc* proc)
+static void func_fe6_0801D8B8(struct ShowMapChangeProc* proc)
 {
     struct MapChangeInfo const* info = GetMapChange(proc->mcId);
 
@@ -1558,13 +1558,13 @@ static void sub_801D8B8(struct ShowMapChangeProc* proc)
     proc->sndx = x;
 }
 
-static void sub_801D8E4(struct ShowMapChangeProc* proc)
+static void func_fe6_0801D8E4(struct ShowMapChangeProc* proc)
 {
     int x, song;
 
     RenderMapForFade();
 
-    sub_80188F4();
+    func_fe6_080188F4();
     RenderMap();
 
     StartMapFade(FALSE);
@@ -1577,7 +1577,7 @@ static void sub_801D8E4(struct ShowMapChangeProc* proc)
     PlaySeSpacial(song, proc->sndx /* *16 + 8 */ - gBmSt.camera.x);
 }
 
-void sub_801D920(ProcPtr parent, int unused, int trapid)
+void func_fe6_0801D920(ProcPtr parent, int unused, int trapid)
 {
     struct ShowMapChangeProc* proc;
     struct Trap* trap;
@@ -1637,12 +1637,12 @@ void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)
     }
 }
 
-static void sub_801DA1C(struct GenericProc* proc)
+static void func_fe6_0801DA1C(struct GenericProc* proc)
 {
     proc->unk4C = 120; // 2 seconds
 }
 
-static void sub_801DA24(struct GenericProc* proc)
+static void func_fe6_0801DA24(struct GenericProc* proc)
 {
     proc->unk4C--;
 
@@ -1650,7 +1650,7 @@ static void sub_801DA24(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-void sub_801DA54(ProcPtr parent, int icon, char const* str)
+void func_fe6_0801DA54(ProcPtr parent, int icon, char const* str)
 {
     int x, len = GetStringTextLen(str);
 
@@ -1661,7 +1661,7 @@ void sub_801DA54(ProcPtr parent, int icon, char const* str)
 
     x = (DISPLAY_WIDTH - len) / 16;
 
-    sub_8041358(x, 8, len / 8, 4, 0);
+    func_fe6_08041358(x, 8, len / 8, 4, 0);
 
     if (icon >= 0)
     {
@@ -1810,20 +1810,20 @@ static void ChapterIntro_Init(struct GenericProc* proc)
 
     SetWin0Box(0, 0, 0, 0);
 
-    sub_8070CB4(8, BGPAL_CHAPTERINTRO_0);
-    sub_8070CB4(0, BGPAL_CHAPTERINTRO_1);
+    func_fe6_08070CB4(8, BGPAL_CHAPTERINTRO_0);
+    func_fe6_08070CB4(0, BGPAL_CHAPTERINTRO_1);
 
-    sub_8070D78(BGCHR_CHAPTERINTRO_80);
+    func_fe6_08070D78(BGCHR_CHAPTERINTRO_80);
 
-    sub_8070D08(BGCHR_CHAPTERINTRO_100, sub_8070E0C(&gPlaySt));
+    func_fe6_08070D08(BGCHR_CHAPTERINTRO_100, func_fe6_08070E0C(&gPlaySt));
 
-    sub_8070DE8(gBg1Tm + TM_OFFSET(0, 8), BGPAL_CHAPTERINTRO_0);
-    sub_8070DA8(gBg0Tm + TM_OFFSET(3, 9), BGPAL_CHAPTERINTRO_1);
+    func_fe6_08070DE8(gBg1Tm + TM_OFFSET(0, 8), BGPAL_CHAPTERINTRO_0);
+    func_fe6_08070DA8(gBg0Tm + TM_OFFSET(3, 9), BGPAL_CHAPTERINTRO_1);
 
-    sub_8001D0C();
-    sub_8001E68(BGPAL_CHAPTERINTRO_0, 2, 0x40, -1);
+    func_fe6_08001D0C();
+    func_fe6_08001E68(BGPAL_CHAPTERINTRO_0, 2, 0x40, -1);
 
-    sub_8000234_t();
+    func_fe6_08000234_t();
 
     EnablePalSync();
 
@@ -1938,7 +1938,7 @@ static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc)
 
 static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc)
 {
-    sub_8000234_t();
+    func_fe6_08000234_t();
     EnablePalSync();
 
     proc->unk4C--;
@@ -1951,15 +1951,15 @@ static void ChapterIntro_Begin_0801E220(struct GenericProc* proc)
 {
     proc->unk4C = 13;
 
-    sub_8001D0C();
-    sub_8001D44(gPal + 0x10*BGPAL_CHAPTERINTRO_FOG, BGPAL_CHAPTERINTRO_FOG, 2, -1);
+    func_fe6_08001D0C();
+    func_fe6_08001D44(gPal + 0x10*BGPAL_CHAPTERINTRO_FOG, BGPAL_CHAPTERINTRO_FOG, 2, -1);
 }
 
 static void ChapterIntro_Loop_0801E244(struct GenericProc* proc)
 {
     if ((GetGameTime() % 4) == 0)
     {
-        sub_8000234_t();
+        func_fe6_08000234_t();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2019,14 +2019,14 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
 
 static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc)
 {
-    sub_8001D0C();
+    func_fe6_08001D0C();
 
-    sub_8001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +1);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +1);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
+    func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
 
-    sub_8000234_t();
+    func_fe6_08000234_t();
     EnablePalSync();
 
     proc->unk4C = 30;
@@ -2041,7 +2041,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
     {
         int val;
 
-        sub_8000234_t();
+        func_fe6_08000234_t();
 
         if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
             ApplyFlamesWeatherGradient();
@@ -2096,17 +2096,17 @@ static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc)
 
 static void ChapterIntro_BeginFadeOut(struct GenericProc* proc)
 {
-    sub_8001D0C();
-    sub_8001D44(gPal, 0, 6, -2);
+    func_fe6_08001D0C();
+    func_fe6_08001D44(gPal, 0, 6, -2);
 
     proc->unk4C = 15;
 
-    sub_80030B4(1);
+    func_fe6_080030B4(1);
 }
 
 static void ChapterIntro_LoopFadeOut(struct GenericProc* proc)
 {
-    sub_8000234_t();
+    func_fe6_08000234_t();
     EnablePalSync();
 
     proc->unk4C--;
@@ -2125,14 +2125,14 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
 {
     ClearBg0Bg1();
 
-    sub_8001D0C();
+    func_fe6_08001D0C();
 
-    sub_8001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +2);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +2);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
-    sub_8001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
+    func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
 
-    sub_8000234_t();
+    func_fe6_08000234_t();
     EnablePalSync();
 
     proc->unk4C = 14;
@@ -2142,7 +2142,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
 
 static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
 {
-    sub_8000234_t();
+    func_fe6_08000234_t();
 
     if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
         ApplyFlamesWeatherGradient();
@@ -2244,14 +2244,14 @@ static void GameOverScreen_Init(struct GenericProc* proc)
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    sub_8001D0C();
-    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, +1);
-    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, +1);
+    func_fe6_08001D0C();
+    func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, +1);
+    func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, +1);
 
     proc->unk4C = 21;
 
     for (i = 0; i < 10; ++i)
-        sub_8000234_t();
+        func_fe6_08000234_t();
 
     EnablePalSync();
 }
@@ -2260,7 +2260,7 @@ static void GameOverScreen_LoopFadeIn(struct GenericProc* proc)
 {
     if ((GetGameTime() % 8) == 0)
     {
-        sub_8000234_t();
+        func_fe6_08000234_t();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2288,16 +2288,16 @@ static void GameOverScreen_LoopIdle(struct GenericProc* proc)
 
 static void GameOverScreen_BeginFadeOut(struct GenericProc* proc)
 {
-    sub_8001D0C();
-    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, -1);
-    sub_8001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, -1);
+    func_fe6_08001D0C();
+    func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, -1);
+    func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, -1);
 
     FadeBgmOut(4);
 }
 
 static void GameOverScreen_LoopFadeOut(struct GenericProc* proc)
 {
-    sub_8000234_t();
+    func_fe6_08000234_t();
     EnablePalSync();
 
     proc->unk4C++;

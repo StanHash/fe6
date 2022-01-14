@@ -36,7 +36,7 @@ struct MAnimExpBarProc
     /* 6A */ short unk_6A;
 };
 
-void sub_8061838(ProcPtr proc)
+void func_fe6_08061838(ProcPtr proc)
 {
     switch (gMapAnimSt.unk_62)
     {
@@ -52,14 +52,14 @@ void sub_8061838(ProcPtr proc)
     StartPopup_08012178(gMapAnimSt.actor[1].bu->weapon, proc);
 }
 
-void sub_8061878(ProcPtr proc)
+void func_fe6_08061878(ProcPtr proc)
 {
     struct BattleUnit* bu = NULL;
 
-    if (sub_80618D4(&gBattleUnitA))
+    if (func_fe6_080618D4(&gBattleUnitA))
         bu = &gBattleUnitA;
 
-    if (sub_80618D4(&gBattleUnitB))
+    if (func_fe6_080618D4(&gBattleUnitB))
         bu = &gBattleUnitB;
 
     if (bu != NULL)
@@ -68,7 +68,7 @@ void sub_8061878(ProcPtr proc)
     }
 }
 
-bool sub_80618D4(struct BattleUnit* bu)
+bool func_fe6_080618D4(struct BattleUnit* bu)
 {
     if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
         return DidBattleUnitBreakWeapon(bu);
@@ -76,14 +76,14 @@ bool sub_80618D4(struct BattleUnit* bu)
     return FALSE;
 }
 
-void sub_8061908(ProcPtr proc)
+void func_fe6_08061908(ProcPtr proc)
 {
     struct BattleUnit* bu = NULL;
 
-    if (sub_8061964(&gBattleUnitA))
+    if (func_fe6_08061964(&gBattleUnitA))
         bu = &gBattleUnitA;
 
-    if (sub_8061964(&gBattleUnitB))
+    if (func_fe6_08061964(&gBattleUnitB))
         bu = &gBattleUnitB;
 
     if (bu != NULL)
@@ -92,7 +92,7 @@ void sub_8061908(ProcPtr proc)
     }
 }
 
-bool sub_8061964(struct BattleUnit* bu)
+bool func_fe6_08061964(struct BattleUnit* bu)
 {
     if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
         if (HasBattleUnitGainedWeaponLevel(bu))
@@ -101,16 +101,16 @@ bool sub_8061964(struct BattleUnit* bu)
     return FALSE;
 }
 
-void sub_806199C(ProcPtr proc)
+void func_fe6_0806199C(ProcPtr proc)
 {
     ResetText();
 }
 
-void sub_80619B0(ProcPtr proc)
+void func_fe6_080619B0(ProcPtr proc)
 {
     ResetMuAnims();
     ResetTextFont();
-    sub_8062CF0();
+    func_fe6_08062CF0();
     InitBmBgLayers();
     LoadUiFrameGraphics();
     ApplySystemObjectsGraphics();
@@ -119,7 +119,7 @@ void sub_80619B0(ProcPtr proc)
         EndAllMus();
 }
 
-void sub_80619E8(void)
+void func_fe6_080619E8(void)
 {
     gMapAnimSt.attacker_actor = !!(gMapAnimSt.hit_it->info & BATTLE_HIT_INFO_RETALIATION);
     gMapAnimSt.defender_actor = 1 - gMapAnimSt.attacker_actor;
@@ -137,7 +137,7 @@ void sub_80619E8(void)
     gMapAnimSt.hit_it++;
 }
 
-void sub_8061AC8(ProcPtr proc)
+void func_fe6_08061AC8(ProcPtr proc)
 {
     if (gMapAnimSt.hit_it->info & BATTLE_HIT_INFO_END)
     {
@@ -147,21 +147,21 @@ void sub_8061AC8(ProcPtr proc)
         return;
     }
 
-    sub_80619E8();
+    func_fe6_080619E8();
 
     Proc_Break(proc);
 }
 
-void sub_8061B10(ProcPtr proc)
+void func_fe6_08061B10(ProcPtr proc)
 {
-    SpawnProcLocking(sub_8068A48(), proc);
+    SpawnProcLocking(func_fe6_08068A48(), proc);
 }
 
-void sub_8061B30(ProcPtr proc)
+void func_fe6_08061B30(ProcPtr proc)
 {
     if (gMapAnimSt.hit_attributes & BATTLE_HIT_ATTR_POISON)
     {
-        sub_8064B7C(gMapAnimSt.actor[gMapAnimSt.defender_actor].unit);
+        func_fe6_08064B7C(gMapAnimSt.actor[gMapAnimSt.defender_actor].unit);
         StartTemporaryLock(proc, 100);
     }
 }
@@ -206,8 +206,8 @@ void MA_DisplayDeathQuote(ProcPtr proc)
 
         if (ShouldDisplayDeathQuote(pid))
         {
-            sub_8062CF0();
-            sub_806B808(pid);
+            func_fe6_08062CF0();
+            func_fe6_0806B808(pid);
             DisableEventSkip();
         }
     }
@@ -272,7 +272,7 @@ void MapAnimProc_DisplayExpBar(ProcPtr proc)
     }
 }
 
-void sub_8061E14(ProcPtr proc)
+void func_fe6_08061E14(ProcPtr proc)
 {
     int y;
 
@@ -290,7 +290,7 @@ void sub_8061E14(ProcPtr proc)
 
     }
 
-    if (sub_805F7B4(gMapAnimSt.actor[0].bu->weapon_before) == 0)
+    if (func_fe6_0805F7B4(gMapAnimSt.actor[0].bu->weapon_before) == 0)
         return;
 
     if (gMapAnimSt.main_actor_count == 1)
@@ -332,13 +332,13 @@ void sub_8061E14(ProcPtr proc)
     MA_StartBattleInfoBox(15, y / 8, proc);
 }
 
-void sub_8061FD0(ProcPtr proc)
+void func_fe6_08061FD0(ProcPtr proc)
 {
     switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
-        sub_806B754(
+        func_fe6_0806B754(
             gMapAnimSt.actor[0].unit->pinfo->id,
             gMapAnimSt.actor[1].unit->pinfo->id);
 
@@ -352,7 +352,7 @@ void sub_8061FD0(ProcPtr proc)
     DisableEventSkip();
 }
 
-void sub_8062018(int actor_num)
+void func_fe6_08062018(int actor_num)
 {
     switch (GetItemIid(gMapAnimSt.actor[actor_num].bu->weapon_before))
     {
@@ -370,23 +370,23 @@ void sub_8062018(int actor_num)
     }
 }
 
-void sub_80620D8(ProcPtr proc)
+void func_fe6_080620D8(ProcPtr proc)
 {
     switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
-        sub_8062018(1);
+        func_fe6_08062018(1);
         // fallthrough
 
     case 1:
-        sub_8062018(0);
+        func_fe6_08062018(0);
         // fallthrough
 
     }
 }
 
-void sub_806210C(void)
+void func_fe6_0806210C(void)
 {
     PlaySe(SONG_A0);
 }
@@ -414,7 +414,7 @@ void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
     {
 
     case MANIM_FACING_OPPONENT:
-        mu_facing = sub_80629FC(
+        mu_facing = func_fe6_080629FC(
             gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y,
             gMapAnimSt.actor[opponent_actor_num].unit->x, gMapAnimSt.actor[opponent_actor_num].unit->y);
 
@@ -426,7 +426,7 @@ void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
         break;
 
     case MANIM_FACING_UNKNOWN:
-        mu_facing = sub_80629FC(
+        mu_facing = func_fe6_080629FC(
             gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y, 0, 0);
 
         SetMuFacing(gMapAnimSt.actor[actor_num].mu, mu_facing);
@@ -435,7 +435,7 @@ void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
     }
 }
 
-void sub_80622FC(void)
+void func_fe6_080622FC(void)
 {
     int manim_facing = GetItemMaFacing(gMapAnimSt.actor[0].bu->weapon_before);
 
@@ -527,7 +527,7 @@ void MA_SortMuLayers(void)
         gMapAnimSt.actor[array[i]].mu->sprite_anim->layer = gManimMuSpriteLayerLut[i];
 }
 
-void sub_8062598(void)
+void func_fe6_08062598(void)
 {
     gBattleUnitA.weapon_before = IID_VULNERARY;
 
@@ -535,13 +535,13 @@ void sub_8062598(void)
     gMapAnimSt.main_actor_count = 1;
 
     gMapAnimSt.hit_it = gBattleHits;
-    sub_80619E8();
+    func_fe6_080619E8();
 
-    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_08062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
     SpawnProc(ProcScr_Unk_08664C0C, PROC_TREE_3);
 }
 
-void sub_8062614(void)
+void func_fe6_08062614(void)
 {
     gBattleUnitA.weapon_before = IID_VULNERARY;
 
@@ -549,13 +549,13 @@ void sub_8062614(void)
     gMapAnimSt.main_actor_count = 1;
 
     gMapAnimSt.hit_it = gBattleHits;
-    sub_80619E8();
+    func_fe6_080619E8();
 
-    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_08062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
     SpawnProc(ProcScr_Unk_08664C4C, PROC_TREE_3);
 }
 
-void sub_8062690(void)
+void func_fe6_08062690(void)
 {
     gBattleUnitA.weapon_before = IID_IRONSWORD;
 
@@ -565,11 +565,11 @@ void sub_8062690(void)
     gMapAnimSt.attacker_actor = 0;
     gMapAnimSt.defender_actor = 1;
 
-    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_08062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
     SpawnProc(ProcScr_Unk_08664C8C, PROC_TREE_3);
 }
 
-void sub_8062734(void)
+void func_fe6_08062734(void)
 {
     gBattleUnitA.weapon_before = IID_FORTIFYSTAFF;
 
@@ -579,34 +579,34 @@ void sub_8062734(void)
     gMapAnimSt.attacker_actor = 0;
     gMapAnimSt.defender_actor = 0;
 
-    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_08062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
     SpawnProc(ProcScr_Unk_08664D5C, PROC_TREE_3);
 }
 
-void sub_80627D0(void)
+void func_fe6_080627D0(void)
 {
     if (gBattleSt.flags & BATTLE_FLAG_REFRESH)
     {
-        sub_8062734();
+        func_fe6_08062734();
         return;
     }
 
     gMapAnimSt.unk_62 = 0;
 
-    sub_806283C(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_0806283C(&gBattleUnitA, &gBattleUnitB, gBattleHits);
 
-    sub_8062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
+    func_fe6_08062890(&gBattleUnitA, &gBattleUnitB, gBattleHits);
     SpawnProc(ProcScr_Unk_08664DA4, PROC_TREE_3);
 }
 
-void sub_806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+void func_fe6_0806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
 {
-    gMapAnimSt.main_actor_count = sub_805F784(bu_a->weapon_before);
+    gMapAnimSt.main_actor_count = func_fe6_0805F784(bu_a->weapon_before);
     gMapAnimSt.hit_it = battle_hits;
-    gMapAnimSt.special_proc_scr = sub_805F7A4(bu_a->weapon_before);
+    gMapAnimSt.special_proc_scr = func_fe6_0805F7A4(bu_a->weapon_before);
 }
 
-void sub_8062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+void func_fe6_08062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
 {
     int i;
 
@@ -627,7 +627,7 @@ void sub_8062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct Battle
         HideUnitSprite(gBattleSt.ta_unit_b);
     }
 
-    sub_80622FC();
+    func_fe6_080622FC();
 
     for (i = 0; i < gMapAnimSt.main_actor_count; ++i)
     {
@@ -638,7 +638,7 @@ void sub_8062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct Battle
     SetBlendNone();
 }
 
-int sub_80629FC(int x_from, int y_from, int x_to, int y_to)
+int func_fe6_080629FC(int x_from, int y_from, int x_to, int y_to)
 {
     if (ABS(x_to - x_from) * 2 < ABS(y_to - y_from))
     {
@@ -656,7 +656,7 @@ int sub_80629FC(int x_from, int y_from, int x_to, int y_to)
     }
 }
 
-void sub_8062A80(int chr)
+void func_fe6_08062A80(int chr)
 {
     Decompress(Img_Unk_082DC618, (u8*) VRAM + GetBgChrOffset(0) + ((chr & 0x3FF) << 5));
 }

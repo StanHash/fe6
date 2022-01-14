@@ -117,7 +117,7 @@ void StartMuFadeFromFlash(struct MuProc* mu);
 void StartMuActionAnim(struct MuProc* mu);
 void StartMuDelayedFaceTarget(struct MuProc* mu);
 void StartMuSlowDownAnim(struct MuProc* mu);
-void sub_806142C(struct MuProc* mu, int flash);
+void func_fe6_0806142C(struct MuProc* mu, int flash);
 void StartMuFlashFadeFrom(struct MuProc* mu, int flash);
 void SetMuMaxWalkSpeed(void);
 void SetMuSpecialSprite(struct MuProc* mu, int jid, u16 const* pal);

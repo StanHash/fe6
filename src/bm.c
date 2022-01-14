@@ -411,9 +411,9 @@ int BmMain_ChangePhase(ProcPtr proc)
 
     HandleChangePhase();
 
-    if (sub_806AED8() == TRUE)
+    if (func_fe6_0806AED8() == TRUE)
     {
-        sub_806AF08();
+        func_fe6_0806AF08();
         return FALSE;
     }
 
@@ -460,7 +460,7 @@ int BmMain_UpdateTraps(ProcPtr proc)
 void BmMain_SuspendBeforePhase(ProcPtr proc)
 {
     gAction.suspendPoint = SUSPEND_POINT_CHANGE_PHASE;
-    sub_80857B0(SAVE_ID_SUSPEND0);
+    func_fe6_080857B0(SAVE_ID_SUSPEND0);
 }
 
 void InitBmBgLayers(void)

@@ -321,7 +321,7 @@ bool CanUnitUseStaff(struct Unit* unit, int item)
     return (unitExp >= required_wexp) ? TRUE : FALSE;
 }
 
-void sub_8016694(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016694(struct Text* text, int item, bool is_usable, u16* tm)
 {
     Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -333,7 +333,7 @@ void sub_8016694(struct Text* text, int item, bool is_usable, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016720(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016720(struct Text* text, int item, bool is_usable, u16* tm)
 {
     Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -347,7 +347,7 @@ void sub_8016720(struct Text* text, int item, bool is_usable, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_80167E4(struct Text* text, int item, u16* tm)
+void func_fe6_080167E4(struct Text* text, int item, u16* tm)
 {
     Text_SetCursor(text, 0);
     Text_DrawString(text, GetItemName(item));
@@ -359,7 +359,7 @@ void sub_80167E4(struct Text* text, int item, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void sub_8016860(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016860(struct Text* text, int item, bool is_usable, u16* tm)
 {
     int color;
 
@@ -890,7 +890,7 @@ int GetTotalUnitItemsValue(void)
     return result;
 }
 
-int sub_8017104(void)
+int func_fe6_08017104(void)
 {
     int halved, heldValue;
 

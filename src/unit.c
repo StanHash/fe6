@@ -420,7 +420,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
         }
     }
 
-    sub_8017764(unit);
+    func_fe6_08017764(unit);
     UnitInitSupports(unit);
 
     UnitCheckStatOverflow(unit);
@@ -480,7 +480,7 @@ void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo)
         unit->exp = 0xFF;
 }
 
-void sub_8017764(struct Unit* unit)
+void func_fe6_08017764(struct Unit* unit)
 {
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BIT23)
         unit->pinfo = GetPersonInfo(unit->pinfo->id - 1);
@@ -796,7 +796,7 @@ void UnitBeginAction(struct Unit* unit)
     gBmSt.partial_actions_taken = 0;
     gBmSt.unk_3F = 0xFF;
 
-    sub_8025780();
+    func_fe6_08025780();
 
     gActiveUnit->state |= US_HIDDEN;
     gMapUnit[unit->y][unit->x] = 0;
@@ -814,13 +814,13 @@ void UnitBeginReMoveAction(struct Unit* unit)
 
     gBmSt.partial_actions_taken = 0;
 
-    sub_8025780();
+    func_fe6_08025780();
 
     gActiveUnit->state |= US_HIDDEN;
     gMapUnit[unit->y][unit->x] = 0;
 }
 
-void sub_8017EDC(int x, int y)
+void func_fe6_08017EDC(int x, int y)
 {
     gActiveUnit->x = x;
     gActiveUnit->y = y;
@@ -902,7 +902,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
     }
 }
 
-void sub_801809C(void)
+void func_fe6_0801809C(void)
 {
     int i;
 
@@ -957,7 +957,7 @@ bool UnitKnowsMagic(struct Unit* unit)
     return combinedWeaponExp ? TRUE : FALSE;
 }
 
-void sub_80181B0(struct Unit* unit, int x, int y)
+void func_fe6_080181B0(struct Unit* unit, int x, int y)
 {
     if (!(unit->state & US_UNDER_A_ROOF))
     {
@@ -1014,7 +1014,7 @@ int GetAidIconFromAttributes(int attributes)
     return ICON_NONE;
 }
 
-int sub_8018258(struct Unit* unit)
+int func_fe6_08018258(struct Unit* unit)
 {
     int i, item, result = 0;
 

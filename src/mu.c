@@ -189,39 +189,39 @@ struct ProcScr CONST_DATA ProcScr_MuRestorePalInfo[] =
     PROC_END,
 };
 
-static void sub_8061474(struct MuFadeProc* proc);
-static void sub_8061494(struct MuFadeProc* proc);
-static void sub_80614C8(struct MuFadeProc* proc);
-static void sub_8061518(struct MuFadeProc* proc);
-static void sub_8061554(struct MuFadeProc* proc);
-static void sub_80615D4(struct MuFadeProc* proc);
+static void func_fe6_08061474(struct MuFadeProc* proc);
+static void func_fe6_08061494(struct MuFadeProc* proc);
+static void func_fe6_080614C8(struct MuFadeProc* proc);
+static void func_fe6_08061518(struct MuFadeProc* proc);
+static void func_fe6_08061554(struct MuFadeProc* proc);
+static void func_fe6_080615D4(struct MuFadeProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_08664914[] =
 {
-    PROC_CALL(sub_8061474),
+    PROC_CALL(func_fe6_08061474),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8061494),
+    PROC_CALL(func_fe6_08061494),
     PROC_SLEEP(2),
 
-    PROC_CALL(sub_80614C8),
+    PROC_CALL(func_fe6_080614C8),
     PROC_SLEEP(3),
 
-    PROC_CALL(sub_8061494),
+    PROC_CALL(func_fe6_08061494),
     PROC_SLEEP(2),
 
-    PROC_CALL(sub_80614C8),
+    PROC_CALL(func_fe6_080614C8),
     PROC_SLEEP(3),
 
-    PROC_CALL(sub_8061494),
+    PROC_CALL(func_fe6_08061494),
     PROC_SLEEP(1),
 
-    PROC_CALL(sub_8061518),
-    PROC_REPEAT(sub_8061554),
+    PROC_CALL(func_fe6_08061518),
+    PROC_REPEAT(func_fe6_08061554),
 
     PROC_SLEEP(17),
 
-    PROC_CALL(sub_80615D4),
+    PROC_CALL(func_fe6_080615D4),
 
     PROC_END,
 };
@@ -828,14 +828,14 @@ void EndAllMus(void)
     Proc_EndEach(ProcScr_Mu);
 }
 
-static void sub_8060904(struct MuProc* mu);
+static void func_fe6_08060904(struct MuProc* mu);
 
 void EndMu(struct MuProc* mu)
 {
-    sub_8060904(mu);
+    func_fe6_08060904(mu);
 }
 
-static void sub_8060904(struct MuProc* mu)
+static void func_fe6_08060904(struct MuProc* mu)
 {
     Proc_End(mu);
 }
@@ -1161,7 +1161,7 @@ static void MuSlowDownAnimFreezeFunc(int arg)
     FreezeSpriteAnim((struct SpriteAnim*) arg);
 }
 
-void sub_806142C(struct MuProc* mu, int flash)
+void func_fe6_0806142C(struct MuProc* mu, int flash)
 {
     struct MuFadeProc* proc;
 
@@ -1171,27 +1171,27 @@ void sub_806142C(struct MuProc* mu, int flash)
     proc->mu = mu;
 }
 
-void sub_8061474(struct MuFadeProc* proc)
+void func_fe6_08061474(struct MuFadeProc* proc)
 {
     proc->clock = 0;
 }
 
-void sub_8061494(struct MuFadeProc* proc)
+void func_fe6_08061494(struct MuFadeProc* proc)
 {
     proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
 }
 
-void sub_80614C8(struct MuFadeProc* proc)
+void func_fe6_080614C8(struct MuFadeProc* proc)
 {
     proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
 }
 
-void sub_8061518(struct MuFadeProc* proc)
+void func_fe6_08061518(struct MuFadeProc* proc)
 {
     StartPalFade(gPal + ((0x20 * (0x10 + proc->mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE, 20, proc);
 }
 
-void sub_8061554(struct MuFadeProc* proc)
+void func_fe6_08061554(struct MuFadeProc* proc)
 {
     proc->clock++;
 
@@ -1205,7 +1205,7 @@ void sub_8061554(struct MuFadeProc* proc)
     }
 }
 
-void sub_80615D4(struct MuFadeProc* proc)
+void func_fe6_080615D4(struct MuFadeProc* proc)
 {
     proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(proc->mu->config->pal) + OAM2_LAYER(2);
 }

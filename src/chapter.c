@@ -40,7 +40,7 @@ int GetTextPrintDelay(void)
 
 int IsFirstPlaythrough(void)
 {
-    if (!sub_80846F0())
+    if (!func_fe6_080846F0())
         return TRUE;
 
     if (gPlaySt.flags & PLAY_FLAG_5)
@@ -96,7 +96,7 @@ void StartChapter(struct GenericProc* parent)
 
     ApplySystemGraphics();
     ApplyUnitSpritePalettes();
-    sub_806B970();
+    func_fe6_0806B970();
     ResetUnitSprites();
     InitTraps();
 
@@ -113,7 +113,7 @@ void StartChapter(struct GenericProc* parent)
     gPlaySt.unk_04 = GetGameTime();
     gPlaySt.support_gain = 0;
 
-    sub_806B604();
+    func_fe6_0806B604();
 
     StartMapMain(parent);
 
@@ -124,7 +124,7 @@ void StartChapter(struct GenericProc* parent)
     SetBlendDarken(0x10);
 }
 
-void sub_8029084(void)
+void func_fe6_08029084(void)
 {
     InitBgs(NULL);
 
@@ -161,7 +161,7 @@ void ResumeChapterFromSuspend(struct GenericProc* parent)
     ProcPtr mapmain;
 
     if (gPlaySt.chapter < 0)
-        sub_80866EC();
+        func_fe6_080866EC();
 
     InitBgs(NULL);
 
@@ -215,7 +215,7 @@ void ResumeChapterFromSuspend(struct GenericProc* parent)
     SetBlendDarken(0x10);
 }
 
-void sub_8029240(void)
+void func_fe6_08029240(void)
 {
     SetMainFunc(OnMain);
     SetOnVBlank(OnVBlank);
@@ -232,7 +232,7 @@ void sub_8029240(void)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-void sub_80292B8(void)
+void func_fe6_080292B8(void)
 {
     ApplySystemObjectsGraphics();
 
@@ -558,7 +558,7 @@ static void ResumeMapMainDuringArena(ProcPtr mapmain)
 
     Proc_Goto(mapmain, L_BMMAIN_8);
 
-    sub_8097EAC();
+    func_fe6_08097EAC();
 }
 
 static void ResumeMapMainDuringPhaseChange(ProcPtr mapmain)
@@ -571,12 +571,12 @@ static void ResumeMapMainDuringPhaseChange(ProcPtr mapmain)
     Proc_Goto(mapmain, L_BMMAIN_6);
 }
 
-void sub_8029654(void)
+void func_fe6_08029654(void)
 {
     SetNextGameAction(GAME_ACTION_2);
 
     gPlaySt.ending_id = GetEndingId();
 
-    sub_8084908(&gPlaySt);
-    sub_8084EA4();
+    func_fe6_08084908(&gPlaySt);
+    func_fe6_08084EA4();
 }

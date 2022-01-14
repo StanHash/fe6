@@ -342,7 +342,7 @@ static EventScr CONST_DATA EventScr_MoneyChest[];
 #define EVTCMD_GET_X(script) (EVTCMD_GET_X_RAW(script) & 0x8000 ? -1 : EVTCMD_GET_X_RAW(script))
 #define EVTCMD_GET_Y(script) (EVTCMD_GET_Y_RAW(script) & 0x8000 ? -1 : EVTCMD_GET_Y_RAW(script))
 
-void sub_800CCD4(void)
+void func_fe6_0800CCD4(void)
 {
     sUnk_085C3FD8++;
 }
@@ -397,7 +397,7 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     }
 }
 
-bool sub_800CE44(void)
+bool func_fe6_0800CE44(void)
 {
     if (gKeySt->held & KEY_BUTTON_R)
         return TRUE;
@@ -405,13 +405,13 @@ bool sub_800CE44(void)
     return FALSE;
 }
 
-bool sub_800CE74(void)
+bool func_fe6_0800CE74(void)
 {
     sUnk_030000F0 = 0;
     return TRUE;
 }
 
-int sub_800CE90(void)
+int func_fe6_0800CE90(void)
 {
     static u8 CONST_DATA gUnk_085C3FDC[] = { 9, 27, 28, 31, 38, 1, 0 };
 
@@ -620,7 +620,7 @@ static void Popup_Display(struct PopupProc* proc)
     else
         y = proc->yParam;
 
-    sub_8041358(x, y, width + 2, 4, proc->winKind);
+    func_fe6_08041358(x, y, width + 2, 4, proc->winKind);
 
     proc->frameX = x;
     proc->frameY = y;
@@ -911,7 +911,7 @@ static void Event_MaybeEndMapMain(struct EventProc* proc)
 
 static void Event_ClearTextOnSkip(struct EventProc* proc)
 {
-    sub_8014AF8();
+    func_fe6_08014AF8();
     Proc_EndEach(ProcScr_TalkOpen);
 
     if (proc->background == -1)
@@ -926,7 +926,7 @@ static bool Event_SkipAllowed(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_DISABLESKIP)
         return FALSE;
 
-    if (sub_80425C4())
+    if (func_fe6_080425C4())
         return FALSE;
 
     return TRUE;
@@ -1034,7 +1034,7 @@ static void Event_MainLoop(struct EventProc* proc)
         {
             proc->noMap = TRUE;
 
-            if (sub_8093444())
+            if (func_fe6_08093444())
                 Event_ClearTextOnSkip(proc);
             else
                 Event_DarkenThenFunc(Event_ClearTextOnSkip, proc);
@@ -2610,7 +2610,7 @@ static int EvtCmd_SetMap(struct EventProc* proc)
 
     gPlaySt.chapter = proc->script[0];
 
-    sub_8029084();
+    func_fe6_08029084();
     CleanupUnitsBeforeChapter();
 
     gBmSt.camera.x = GetCameraCenteredX(proc->script[1] * 16);
@@ -2882,12 +2882,12 @@ static int EvtCmd_WmStart(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80922B0();
+    func_fe6_080922B0();
 
     SetFaceConfig(gWmEventFaceConfig);
     proc->background = 0;
 
-    sub_80933F8();
+    func_fe6_080933F8();
 
     StartWMIntroRotation(proc);
     PlayWMIntroBGM();
@@ -2918,8 +2918,8 @@ static int EvtCmd_WmZoomTo(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80928DC(x, y, proc);
-    sub_809347C(x, y);
+    func_fe6_080928DC(x, y, proc);
+    func_fe6_0809347C(x, y);
 
     proc->on_idle = EventWmZoomWait;
 
@@ -2931,8 +2931,8 @@ static int EvtCmd_WmZoomBack(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8092CD8(proc);
-    sub_80934A0();
+    func_fe6_08092CD8(proc);
+    func_fe6_080934A0();
 
     proc->on_idle = EventWmZoomWait;
 
@@ -2943,13 +2943,13 @@ static void EventWmZoomWait(struct EventProc* proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
-        sub_8092E94();
+        func_fe6_08092E94();
         proc->on_idle = NULL;
 
         return;
     }
 
-    if (sub_8092E68())
+    if (func_fe6_08092E68())
         return;
 
     proc->on_idle = NULL;
@@ -3186,7 +3186,7 @@ static int EvtCmd_WmTalkBoxBottom(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8093518();
+    func_fe6_08093518();
 
     proc->cmdShort = 14;
 
@@ -3201,7 +3201,7 @@ static int EvtCmd_WmTalkBoxTop(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8093518();
+    func_fe6_08093518();
 
     proc->cmdShort = 0;
 
@@ -3229,7 +3229,7 @@ static int EvtCmd_WmArrow(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80934BC(x, y);
+    func_fe6_080934BC(x, y);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -3256,7 +3256,7 @@ static int EvtCmd_WmRemoveHighlight(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80939A8(id);
+    func_fe6_080939A8(id);
     proc->cmdByte = id;
 
     proc->on_idle = EventWmRemoveHighlightWait;
@@ -3279,8 +3279,8 @@ static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80939A8(0);
-    sub_80939A8(1);
+    func_fe6_080939A8(0);
+    func_fe6_080939A8(1);
 
     proc->on_idle = EventWmRemoveHighlightsWait;
 
@@ -3289,7 +3289,7 @@ static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc)
 
 static void EventWmRemoveHighlightsWait(struct EventProc* proc)
 {
-    if (sub_80939D0())
+    if (func_fe6_080939D0())
         return;
 
     proc->on_idle = NULL;
@@ -3307,7 +3307,7 @@ static int EvtCmd_WmPutDot(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_80939F0(x, y, palid, id);
+    func_fe6_080939F0(x, y, palid, id);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -3380,7 +3380,7 @@ static int EvtCmd_WmRemoveMapText(struct EventProc* proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    sub_8093BB4(id);
+    func_fe6_08093BB4(id);
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -3434,12 +3434,12 @@ void ClearTalk(void)
     InitFaces();
 }
 
-void sub_8011F4C(void)
+void func_fe6_08011F4C(void)
 {
     StartTalkEvent(0x281); // TODO: msgids
 }
 
-void sub_8011F64(void)
+void func_fe6_08011F64(void)
 {
 }
 
@@ -3615,7 +3615,7 @@ void SetEventTalkSkipped(void)
 
 int GetPlayerDeployCount(void)
 {
-    struct UnitInfo const* info = sub_806B638();
+    struct UnitInfo const* info = func_fe6_0806B638();
 
     int count = 0;
 
@@ -3630,7 +3630,7 @@ int GetPlayerDeployCount(void)
 
 void InitPlayerDeployUnits(void)
 {
-    struct UnitInfo const* info = sub_806B638();
+    struct UnitInfo const* info = func_fe6_0806B638();
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
@@ -3681,7 +3681,7 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
 {
     bool spotOccupied;
 
-    struct UnitInfo const* info = sub_806B638();
+    struct UnitInfo const* info = func_fe6_0806B638();
 
     while (info->pid != 0)
     {
@@ -3711,7 +3711,7 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
     }
 }
 
-void sub_80126FC(int a, int b)
+void func_fe6_080126FC(int a, int b)
 {
 }
 
@@ -3733,17 +3733,17 @@ void ResetWeather(void)
     SetWeather(WEATHER_NONE);
 }
 
-void sub_8012780(void)
+void func_fe6_08012780(void)
 {
     m4aMPlayFadeOut(&gMpi_MainBgm, 3);
 }
 
-void sub_8012798(void)
+void func_fe6_08012798(void)
 {
     m4aMPlayFadeOutTemporarily(&gMpi_FightBgm, 3);
 }
 
-void sub_80127B0(void)
+void func_fe6_080127B0(void)
 {
     m4aMPlayFadeIn(&gMpi_FightBgm, 2);
 }

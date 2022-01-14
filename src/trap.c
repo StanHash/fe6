@@ -158,17 +158,17 @@ void AddArrowTrap(int x, int turnCountdown, int turnInterval)
     AddDamagingTrap(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
 }
 
-void sub_8026BA4(int x, int y, int turnCountdown, int turnInterval)
+void func_fe6_08026BA4(int x, int y, int turnCountdown, int turnInterval)
 {
     AddDamagingTrap(x, y, TRAP_8, 0, turnCountdown, turnInterval, 0);
 }
 
-void sub_8026BC0(int x, int y)
+void func_fe6_08026BC0(int x, int y)
 {
     AddTrap(x, y, TRAP_STEP_FIRE, 0);
 }
 
-void sub_8026BD0(int x, int y, int extra)
+void func_fe6_08026BD0(int x, int y, int extra)
 {
     AddTrap(x, y, TRAP_STEP_PIKE, extra);
 }
@@ -654,7 +654,7 @@ static void UpdateTraps_08027248(ProcPtr proc)
 
 static void UpdateTraps_08027264(ProcPtr proc)
 {
-    sub_8021B30(3);
+    func_fe6_08021B30(3);
 }
 
 static void StepPikeTrap_StartAnim(ProcPtr proc)
@@ -692,7 +692,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
 static void StepFireTrap_08027318(ProcPtr proc)
 {
     if (GetUnitCurrentHp(gActiveUnit) <= 10)
-        sub_8084A10(gActiveUnit->pinfo->id);
+        func_fe6_08084A10(gActiveUnit->pinfo->id);
 }
 
 static void StepPikeTrap_08027318(ProcPtr proc)
@@ -700,7 +700,7 @@ static void StepPikeTrap_08027318(ProcPtr proc)
     int damage = 10 - GetUnitDefense(gActiveUnit);
 
     if (GetUnitCurrentHp(gActiveUnit) <= damage)
-        sub_8084A10(gActiveUnit->pinfo->id);
+        func_fe6_08084A10(gActiveUnit->pinfo->id);
 }
 
 static void StepTrap_End(ProcPtr proc)
@@ -708,7 +708,7 @@ static void StepTrap_End(ProcPtr proc)
     ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
-        sub_8084AEC(gActiveUnit->pinfo->id, 0, 3);
+        func_fe6_08084AEC(gActiveUnit->pinfo->id, 0, 3);
 
     FinishDamageDisplay(proc);
 
@@ -768,7 +768,7 @@ disarm:
     trap->kind = TRAP_STEP_DISARMED;
 
     PlaySe(SONG_B1);
-    sub_801DA54(proc, -1, DecodeMsg(0xC1A)); // TODO: msg ids
+    func_fe6_0801DA54(proc, -1, DecodeMsg(0xC1A)); // TODO: msg ids
 
     return FALSE;
 }

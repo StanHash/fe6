@@ -3,24 +3,24 @@
 
 	.syntax unified
 
-	thumb_func_start sub_804256C
-sub_804256C: @ 0x0804256C
+	thumb_func_start func_fe6_0804256C
+func_fe6_0804256C: @ 0x0804256C
 	ldr r1, .L08042574 @ =0x0203CCE4
 	str r0, [r1]
 	bx lr
 	.align 2, 0
 .L08042574: .4byte 0x0203CCE4
 
-	thumb_func_start sub_8042578
-sub_8042578: @ 0x08042578
+	thumb_func_start func_fe6_08042578
+func_fe6_08042578: @ 0x08042578
 	ldr r0, .L08042580 @ =0x0203CCE4
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
 .L08042580: .4byte 0x0203CCE4
 
-	thumb_func_start sub_8042584
-sub_8042584: @ 0x08042584
+	thumb_func_start func_fe6_08042584
+func_fe6_08042584: @ 0x08042584
 	push {r4, lr}
 	ldr r4, .L080425A4 @ =0x0203CCEC
 	ldr r0, .L080425A8 @ =gUnk_085CB508
@@ -39,8 +39,8 @@ sub_8042584: @ 0x08042584
 .L080425A8: .4byte gUnk_085CB508
 .L080425AC: .4byte 0x0203CCE8
 
-	thumb_func_start sub_80425B0
-sub_80425B0: @ 0x080425B0
+	thumb_func_start func_fe6_080425B0
+func_fe6_080425B0: @ 0x080425B0
 	push {lr}
 	ldr r0, .L080425C0 @ =0x0203CCEC
 	ldr r0, [r0]
@@ -50,8 +50,8 @@ sub_80425B0: @ 0x080425B0
 	.align 2, 0
 .L080425C0: .4byte 0x0203CCEC
 
-	thumb_func_start sub_80425C4
-sub_80425C4: @ 0x080425C4
+	thumb_func_start func_fe6_080425C4
+func_fe6_080425C4: @ 0x080425C4
 	ldr r0, .L080425D0 @ =0x0203CCE8
 	ldr r0, [r0]
 	cmp r0, #1
@@ -65,8 +65,8 @@ sub_80425C4: @ 0x080425C4
 .L080425D6:
 	bx lr
 
-	thumb_func_start sub_80425D8
-sub_80425D8: @ 0x080425D8
+	thumb_func_start func_fe6_080425D8
+func_fe6_080425D8: @ 0x080425D8
 	push {lr}
 	ldr r1, .L080425E8 @ =0x0203CCE8
 	movs r0, #0
@@ -77,13 +77,13 @@ sub_80425D8: @ 0x080425D8
 	.align 2, 0
 .L080425E8: .4byte 0x0203CCE8
 
-	thumb_func_start nullsub_18
-nullsub_18: @ 0x080425EC
+	thumb_func_start func_fe6_080425EC
+func_fe6_080425EC: @ 0x080425EC
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_80425F0
-sub_80425F0: @ 0x080425F0
+	thumb_func_start func_fe6_080425F0
+func_fe6_080425F0: @ 0x080425F0
 	push {r4, lr}
 	bl BasInit
 	ldr r4, .L0804263C @ =gUnk_Banim_0200005C
@@ -91,10 +91,10 @@ sub_80425F0: @ 0x080425F0
 	movs r1, #3
 	bl SpawnProc
 	str r0, [r4]
-	ldr r0, .L08042644 @ =sub_8042660
+	ldr r0, .L08042644 @ =func_fe6_08042660
 	bl SetMainFunc
-	bl sub_8044900
-	bl sub_805884C
+	bl func_fe6_08044900
+	bl func_fe6_0805884C
 	ldr r0, .L08042648 @ =gUnk_Banim_0201771C
 	movs r1, #0
 	str r1, [r0]
@@ -111,7 +111,7 @@ sub_80425F0: @ 0x080425F0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08042634
-	bl sub_805C520
+	bl func_fe6_0805C520
 .L08042634:
 	pop {r4}
 	pop {r0}
@@ -119,7 +119,7 @@ sub_80425F0: @ 0x080425F0
 	.align 2, 0
 .L0804263C: .4byte gUnk_Banim_0200005C
 .L08042640: .4byte gUnk_085CB528
-.L08042644: .4byte sub_8042660
+.L08042644: .4byte func_fe6_08042660
 .L08042648: .4byte gUnk_Banim_0201771C
 .L0804264C: .4byte gUnk_Banim_02000010
 .L08042650: .4byte gUnk_Banim_02000014
@@ -127,8 +127,8 @@ sub_80425F0: @ 0x080425F0
 .L08042658: .4byte gUnk_Banim_0200001C
 .L0804265C: .4byte 0x0203CCF0
 
-	thumb_func_start sub_8042660
-sub_8042660: @ 0x08042660
+	thumb_func_start func_fe6_08042660
+func_fe6_08042660: @ 0x08042660
 	push {lr}
 	ldr r0, .L08042678 @ =gKeySt
 	ldr r0, [r0]
@@ -137,7 +137,7 @@ sub_8042660: @ 0x08042660
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L08042680
-	bl sub_8042704
+	bl func_fe6_08042704
 	b .L0804268C
 	.align 2, 0
 .L08042678: .4byte gKeySt
@@ -147,7 +147,7 @@ sub_8042660: @ 0x08042660
 	ldr r0, [r0]
 	cmp r0, #1
 	bne .L0804268C
-	bl sub_8042704
+	bl func_fe6_08042704
 .L0804268C:
 	ldr r0, .L080426A4 @ =gUnk_Banim_0201771C
 	ldr r0, [r0]
@@ -180,7 +180,7 @@ sub_8042660: @ 0x08042660
 	ldr r0, .L080426D4 @ =gUnk_Banim_0200005C
 	ldr r0, [r0]
 	bl Proc_End
-	bl sub_8047D14
+	bl func_fe6_08047D14
 	b .L080426E4
 	.align 2, 0
 .L080426D0: .4byte 0x0203CCF0
@@ -189,7 +189,7 @@ sub_8042660: @ 0x08042660
 	ldr r0, .L080426F8 @ =gUnk_Banim_0200005C
 	ldr r0, [r0]
 	bl Proc_End
-	bl sub_80438B4
+	bl func_fe6_080438B4
 .L080426E4:
 	ldr r1, .L080426FC @ =gBmSt
 	movs r0, #1
@@ -205,11 +205,11 @@ sub_8042660: @ 0x08042660
 .L080426FC: .4byte gBmSt
 .L08042700: .4byte 0x04000006
 
-	thumb_func_start sub_8042704
-sub_8042704: @ 0x08042704
+	thumb_func_start func_fe6_08042704
+func_fe6_08042704: @ 0x08042704
 	push {r4, lr}
 	bl ClearSprites
-	bl sub_805BD9C
+	bl func_fe6_0805BD9C
 	bl GetGameLock
 	lsls r0, r0, #0x18
 	cmp r0, #0
@@ -228,7 +228,7 @@ sub_8042704: @ 0x08042704
 	ldr r0, [r4, #4]
 	bl Proc_Run
 	bl BasUpdateAll
-	bl sub_804A5DC
+	bl func_fe6_0804A5DC
 	ldr r0, [r4, #0x10]
 	bl Proc_Run
 	ldr r1, .L08042774 @ =gUnk_Banim_02000018
@@ -256,13 +256,13 @@ sub_8042704: @ 0x08042704
 .L08042778: .4byte gUnk_Banim_0201E124
 .L0804277C: .4byte gUnk_Banim_02000010
 
-	thumb_func_start nullsub_19
-nullsub_19: @ 0x08042780
+	thumb_func_start func_fe6_08042780
+func_fe6_08042780: @ 0x08042780
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_8042784
-sub_8042784: @ 0x08042784
+	thumb_func_start func_fe6_08042784
+func_fe6_08042784: @ 0x08042784
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080427A4 @ =gUnk_Banim_0201E12C
@@ -289,12 +289,12 @@ sub_8042784: @ 0x08042784
 .L080427B4:
 	str r0, [r1]
 .L080427B6:
-	bl sub_804B294
-	bl sub_8058F28
+	bl func_fe6_0804B294
+	bl func_fe6_08058F28
 	ldr r0, .L080427D0 @ =gUnk_Banim_0200001C
 	movs r1, #1
 	str r1, [r0]
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	bne .L080427D4
 	movs r0, #0
@@ -322,7 +322,7 @@ sub_8042784: @ 0x08042784
 	ldrb r0, [r1, #1]
 	ldrb r1, [r1]
 .L080427FA:
-	bl sub_806B6F8
+	bl func_fe6_0806B6F8
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	str r0, [r4, #0x54]
@@ -336,8 +336,8 @@ sub_8042784: @ 0x08042784
 	.align 2, 0
 .L08042814: .4byte 0x0203CD84
 
-	thumb_func_start sub_8042818
-sub_8042818: @ 0x08042818
+	thumb_func_start func_fe6_08042818
+func_fe6_08042818: @ 0x08042818
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -347,7 +347,7 @@ sub_8042818: @ 0x08042818
 	asrs r0, r0, #0x10
 	cmp r0, #0x1f
 	bne .L08042860
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	beq .L08042858
 	ldr r0, [r4, #0x54]
@@ -359,17 +359,17 @@ sub_8042818: @ 0x08042818
 .L0804283E:
 	movs r0, #1
 	movs r1, #7
-	bl sub_8048DA4
+	bl func_fe6_08048DA4
 	movs r0, #1
 	movs r1, #7
 	movs r2, #0
-	bl sub_8048E88
-	ldr r0, .L08042854 @ =sub_804286C
+	bl func_fe6_08048E88
+	ldr r0, .L08042854 @ =func_fe6_0804286C
 	b .L0804285A
 	.align 2, 0
-.L08042854: .4byte sub_804286C
+.L08042854: .4byte func_fe6_0804286C
 .L08042858:
-	ldr r0, .L08042868 @ =sub_8042970
+	ldr r0, .L08042868 @ =func_fe6_08042970
 .L0804285A:
 	str r0, [r4, #0xc]
 	movs r0, #0
@@ -379,20 +379,20 @@ sub_8042818: @ 0x08042818
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042868: .4byte sub_8042970
+.L08042868: .4byte func_fe6_08042970
 
-	thumb_func_start sub_804286C
-sub_804286C: @ 0x0804286C
+	thumb_func_start func_fe6_0804286C
+func_fe6_0804286C: @ 0x0804286C
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	bl sub_8048DF4
+	bl func_fe6_08048DF4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L080428F6
-	bl sub_8043960
-	bl sub_8044264
+	bl func_fe6_08043960
+	bl func_fe6_08044264
 	movs r0, #0
 	str r0, [sp]
 	ldr r1, .L080428D0 @ =gBg0Tm
@@ -410,7 +410,7 @@ sub_804286C: @ 0x0804286C
 	bl SetBgOffset
 	movs r0, #1
 	bl EnableBgSync
-	bl sub_80438D8
+	bl func_fe6_080438D8
 	ldr r0, [r4, #0x54]
 	cmp r0, #1
 	bne .L080428F2
@@ -422,7 +422,7 @@ sub_804286C: @ 0x0804286C
 	ldr r1, .L080428E0 @ =0x0203CD84
 	ldrb r0, [r1]
 	ldrb r1, [r1, #1]
-	bl sub_806B754
+	bl func_fe6_0806B754
 	b .L080428EE
 	.align 2, 0
 .L080428D0: .4byte gBg0Tm
@@ -434,12 +434,12 @@ sub_804286C: @ 0x0804286C
 	ldr r1, .L08042900 @ =0x0203CD84
 	ldrb r0, [r1, #1]
 	ldrb r1, [r1]
-	bl sub_806B754
+	bl func_fe6_0806B754
 .L080428EE:
 	movs r0, #0
 	str r0, [r4, #0x54]
 .L080428F2:
-	ldr r0, .L08042904 @ =sub_8042908
+	ldr r0, .L08042904 @ =func_fe6_08042908
 	str r0, [r4, #0xc]
 .L080428F6:
 	add sp, #4
@@ -448,48 +448,48 @@ sub_804286C: @ 0x0804286C
 	bx r0
 	.align 2, 0
 .L08042900: .4byte 0x0203CD84
-.L08042904: .4byte sub_8042908
+.L08042904: .4byte func_fe6_08042908
 
-	thumb_func_start sub_8042908
-sub_8042908: @ 0x08042908
+	thumb_func_start func_fe6_08042908
+func_fe6_08042908: @ 0x08042908
 	push {r4, lr}
 	adds r4, r0, #0
 	bl IsEventRunning
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08042942
-	bl sub_8044608
+	bl func_fe6_08044608
 	movs r0, #1
 	bl EnableBgSync
 	movs r0, #0
 	movs r1, #7
-	bl sub_8048DA4
+	bl func_fe6_08048DA4
 	movs r0, #0
 	movs r1, #7
 	movs r2, #0
-	bl sub_8048E88
-	bl sub_8043970
-	bl sub_8044274
-	bl sub_80438C8
-	ldr r0, .L08042948 @ =sub_804294C
+	bl func_fe6_08048E88
+	bl func_fe6_08043970
+	bl func_fe6_08044274
+	bl func_fe6_080438C8
+	ldr r0, .L08042948 @ =func_fe6_0804294C
 	str r0, [r4, #0xc]
 .L08042942:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042948: .4byte sub_804294C
+.L08042948: .4byte func_fe6_0804294C
 
-	thumb_func_start sub_804294C
-sub_804294C: @ 0x0804294C
+	thumb_func_start func_fe6_0804294C
+func_fe6_0804294C: @ 0x0804294C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8048DF4
+	bl func_fe6_08048DF4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08042964
-	ldr r0, .L0804296C @ =sub_8042970
+	ldr r0, .L0804296C @ =func_fe6_08042970
 	str r0, [r4, #0xc]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -498,37 +498,37 @@ sub_804294C: @ 0x0804294C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804296C: .4byte sub_8042970
+.L0804296C: .4byte func_fe6_08042970
 
-	thumb_func_start sub_8042970
-sub_8042970: @ 0x08042970
+	thumb_func_start func_fe6_08042970
+func_fe6_08042970: @ 0x08042970
 	ldr r1, .L08042984 @ =0x0203CCF4
 	movs r2, #0
 	ldrsh r1, [r1, r2]
 	str r1, [r0, #0x44]
 	movs r1, #0
 	str r1, [r0, #0x48]
-	ldr r1, .L08042988 @ =sub_804298C
+	ldr r1, .L08042988 @ =func_fe6_0804298C
 	str r1, [r0, #0xc]
 	bx lr
 	.align 2, 0
 .L08042984: .4byte 0x0203CCF4
-.L08042988: .4byte sub_804298C
+.L08042988: .4byte func_fe6_0804298C
 
-	thumb_func_start sub_804298C
-sub_804298C: @ 0x0804298C
+	thumb_func_start func_fe6_0804298C
+func_fe6_0804298C: @ 0x0804298C
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	bl sub_80588E0
+	bl func_fe6_080588E0
 	adds r5, r0, #0
 	ldr r0, [r4, #0x48]
 	cmp r0, #2
 	bne .L080429A8
-	ldr r0, .L080429A4 @ =sub_8042A5C
+	ldr r0, .L080429A4 @ =func_fe6_08042A5C
 	str r0, [r4, #0xc]
 	b .L08042A2C
 	.align 2, 0
-.L080429A4: .4byte sub_8042A5C
+.L080429A4: .4byte func_fe6_08042A5C
 .L080429A8:
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
@@ -542,8 +542,8 @@ sub_804298C: @ 0x0804298C
 	cmp r0, #0
 	beq .L080429C8
 	adds r0, r1, #0
-	bl sub_80590B8
-	ldr r0, .L080429F4 @ =sub_8042A3C
+	bl func_fe6_080590B8
+	ldr r0, .L080429F4 @ =func_fe6_08042A3C
 	str r0, [r4, #0xc]
 .L080429C8:
 	movs r0, #4
@@ -551,8 +551,8 @@ sub_804298C: @ 0x0804298C
 	cmp r0, #0
 	beq .L080429DA
 	ldr r0, [r4, #0x5c]
-	bl sub_80599D0
-	ldr r0, .L080429F4 @ =sub_8042A3C
+	bl func_fe6_080599D0
+	ldr r0, .L080429F4 @ =func_fe6_08042A3C
 	str r0, [r4, #0xc]
 .L080429DA:
 	movs r0, #0x10
@@ -560,15 +560,15 @@ sub_804298C: @ 0x0804298C
 	cmp r0, #0
 	beq .L080429EC
 	ldr r0, [r4, #0x5c]
-	bl sub_8059D8C
-	ldr r0, .L080429F4 @ =sub_8042A3C
+	bl func_fe6_08059D8C
+	ldr r0, .L080429F4 @ =func_fe6_08042A3C
 	str r0, [r4, #0xc]
 .L080429EC:
 	str r6, [r4, #0x44]
 	b .L08042A26
 	.align 2, 0
 .L080429F0: .4byte gUnk_Banim_02000000
-.L080429F4: .4byte sub_8042A3C
+.L080429F4: .4byte func_fe6_08042A3C
 .L080429F8:
 	ldr r0, .L08042A34 @ =gUnk_Banim_02000000
 	ldr r1, [r0, #8]
@@ -578,8 +578,8 @@ sub_804298C: @ 0x0804298C
 	cmp r0, #0
 	beq .L08042A10
 	adds r0, r1, #0
-	bl sub_80590B8
-	ldr r0, .L08042A38 @ =sub_8042A3C
+	bl func_fe6_080590B8
+	ldr r0, .L08042A38 @ =func_fe6_08042A3C
 	str r0, [r4, #0xc]
 .L08042A10:
 	movs r0, #8
@@ -587,8 +587,8 @@ sub_804298C: @ 0x0804298C
 	cmp r0, #0
 	beq .L08042A22
 	ldr r0, [r4, #0x5c]
-	bl sub_80599D0
-	ldr r0, .L08042A38 @ =sub_8042A3C
+	bl func_fe6_080599D0
+	ldr r0, .L08042A38 @ =func_fe6_08042A3C
 	str r0, [r4, #0xc]
 .L08042A22:
 	movs r0, #0
@@ -603,29 +603,29 @@ sub_804298C: @ 0x0804298C
 	bx r0
 	.align 2, 0
 .L08042A34: .4byte gUnk_Banim_02000000
-.L08042A38: .4byte sub_8042A3C
+.L08042A38: .4byte func_fe6_08042A3C
 
-	thumb_func_start sub_8042A3C
-sub_8042A3C: @ 0x08042A3C
+	thumb_func_start func_fe6_08042A3C
+func_fe6_08042A3C: @ 0x08042A3C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_8058880
+	bl func_fe6_08058880
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08042A52
-	ldr r0, .L08042A58 @ =sub_804298C
+	ldr r0, .L08042A58 @ =func_fe6_0804298C
 	str r0, [r4, #0xc]
 .L08042A52:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042A58: .4byte sub_804298C
+.L08042A58: .4byte func_fe6_0804298C
 
-	thumb_func_start sub_8042A5C
-sub_8042A5C: @ 0x08042A5C
+	thumb_func_start func_fe6_08042A5C
+func_fe6_08042A5C: @ 0x08042A5C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08042A88 @ =0x0203CCF4
@@ -641,28 +641,28 @@ sub_8042A5C: @ 0x08042A5C
 	ldr r0, [r0]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r0, .L08042A94 @ =sub_8042AA8
+	ldr r0, .L08042A94 @ =func_fe6_08042AA8
 	b .L08042A9A
 	.align 2, 0
 .L08042A88: .4byte 0x0203CCF4
 .L08042A8C: .4byte gUnk_Banim_0201773C
 .L08042A90: .4byte gUnk_Banim_02000000
-.L08042A94: .4byte sub_8042AA8
+.L08042A94: .4byte func_fe6_08042AA8
 .L08042A98:
-	ldr r0, .L08042AA4 @ =sub_8042AC4
+	ldr r0, .L08042AA4 @ =func_fe6_08042AC4
 .L08042A9A:
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042AA4: .4byte sub_8042AC4
+.L08042AA4: .4byte func_fe6_08042AC4
 
-	thumb_func_start sub_8042AA8
-sub_8042AA8: @ 0x08042AA8
+	thumb_func_start func_fe6_08042AA8
+func_fe6_08042AA8: @ 0x08042AA8
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
 	adds r0, #1
@@ -671,28 +671,28 @@ sub_8042AA8: @ 0x08042AA8
 	asrs r0, r0, #0x10
 	cmp r0, #8
 	bne .L08042ABC
-	ldr r0, .L08042AC0 @ =sub_8042AC4
+	ldr r0, .L08042AC0 @ =func_fe6_08042AC4
 	str r0, [r1, #0xc]
 .L08042ABC:
 	bx lr
 	.align 2, 0
-.L08042AC0: .4byte sub_8042AC4
+.L08042AC0: .4byte func_fe6_08042AC4
 
-	thumb_func_start sub_8042AC4
-sub_8042AC4: @ 0x08042AC4
+	thumb_func_start func_fe6_08042AC4
+func_fe6_08042AC4: @ 0x08042AC4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L08042B08 @ =gUnk_Banim_02000000
 	ldr r0, [r4]
-	bl sub_8046DA0
+	bl func_fe6_08046DA0
 	ldr r0, [r4, #8]
-	bl sub_8046DA0
+	bl func_fe6_08046DA0
 	ldr r1, .L08042B0C @ =0x0203CDCC
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	movs r2, #2
 	ldrsh r1, [r1, r2]
-	bl sub_80471E4
+	bl func_fe6_080471E4
 	ldr r1, .L08042B10 @ =gBattleSt
 	movs r0, #0x40
 	ldrb r1, [r1, #1]
@@ -700,11 +700,11 @@ sub_8042AC4: @ 0x08042AC4
 	cmp r0, #0
 	beq .L08042AF6
 	ldr r0, [r4]
-	bl sub_8046ED8
+	bl func_fe6_08046ED8
 .L08042AF6:
 	ldr r0, [r4]
-	bl sub_8046A6C
-	ldr r0, .L08042B14 @ =sub_8042B18
+	bl func_fe6_08046A6C
+	ldr r0, .L08042B14 @ =func_fe6_08042B18
 	str r0, [r5, #0xc]
 	pop {r4, r5}
 	pop {r0}
@@ -713,10 +713,10 @@ sub_8042AC4: @ 0x08042AC4
 .L08042B08: .4byte gUnk_Banim_02000000
 .L08042B0C: .4byte 0x0203CDCC
 .L08042B10: .4byte gBattleSt
-.L08042B14: .4byte sub_8042B18
+.L08042B14: .4byte func_fe6_08042B18
 
-	thumb_func_start sub_8042B18
-sub_8042B18: @ 0x08042B18
+	thumb_func_start func_fe6_08042B18
+func_fe6_08042B18: @ 0x08042B18
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08042B30 @ =0x0203CD88
@@ -725,46 +725,46 @@ sub_8042B18: @ 0x08042B18
 	beq .L08042B3C
 	ldr r0, .L08042B34 @ =gUnk_Banim_02000000
 	ldr r0, [r0, #8]
-	bl sub_805E578
-	ldr r0, .L08042B38 @ =sub_8042B4C
+	bl func_fe6_0805E578
+	ldr r0, .L08042B38 @ =func_fe6_08042B4C
 	b .L08042B3E
 	.align 2, 0
 .L08042B30: .4byte 0x0203CD88
 .L08042B34: .4byte gUnk_Banim_02000000
-.L08042B38: .4byte sub_8042B4C
+.L08042B38: .4byte func_fe6_08042B4C
 .L08042B3C:
-	ldr r0, .L08042B48 @ =sub_8042B74
+	ldr r0, .L08042B48 @ =func_fe6_08042B74
 .L08042B3E:
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042B48: .4byte sub_8042B74
+.L08042B48: .4byte func_fe6_08042B74
 
-	thumb_func_start sub_8042B4C
-sub_8042B4C: @ 0x08042B4C
+	thumb_func_start func_fe6_08042B4C
+func_fe6_08042B4C: @ 0x08042B4C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_805E560
+	bl func_fe6_0805E560
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08042B68
-	bl nullsub_5
+	bl func_fe6_0805E574
 	movs r0, #0x1e
 	strh r0, [r4, #0x2c]
-	ldr r0, .L08042B70 @ =sub_8042B74
+	ldr r0, .L08042B70 @ =func_fe6_08042B74
 	str r0, [r4, #0xc]
 .L08042B68:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042B70: .4byte sub_8042B74
+.L08042B70: .4byte func_fe6_08042B74
 
-	thumb_func_start sub_8042B74
-sub_8042B74: @ 0x08042B74
+	thumb_func_start func_fe6_08042B74
+func_fe6_08042B74: @ 0x08042B74
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x2c]
@@ -819,7 +819,7 @@ sub_8042B74: @ 0x08042B74
 	ldr r0, .L08042BF0 @ =gUnk_Banim_0201E124
 	str r7, [r0]
 	str r7, [r0, #4]
-	ldr r0, .L08042BF4 @ =sub_8042BF8
+	ldr r0, .L08042BF4 @ =func_fe6_08042BF8
 	str r0, [r5, #0xc]
 .L08042BE0:
 	pop {r4, r5, r6, r7}
@@ -829,22 +829,22 @@ sub_8042B74: @ 0x08042B74
 .L08042BE8: .4byte 0x0203CCF8
 .L08042BEC: .4byte gUnk_Banim_02000000
 .L08042BF0: .4byte gUnk_Banim_0201E124
-.L08042BF4: .4byte sub_8042BF8
+.L08042BF4: .4byte func_fe6_08042BF8
 
-	thumb_func_start sub_8042BF8
-sub_8042BF8: @ 0x08042BF8
+	thumb_func_start func_fe6_08042BF8
+func_fe6_08042BF8: @ 0x08042BF8
 	ldr r2, .L08042C04 @ =gUnk_Banim_0200001C
 	movs r1, #0
 	str r1, [r2]
-	ldr r1, .L08042C08 @ =sub_8042C0C
+	ldr r1, .L08042C08 @ =func_fe6_08042C0C
 	str r1, [r0, #0xc]
 	bx lr
 	.align 2, 0
 .L08042C04: .4byte gUnk_Banim_0200001C
-.L08042C08: .4byte sub_8042C0C
+.L08042C08: .4byte func_fe6_08042C0C
 
-	thumb_func_start sub_8042C0C
-sub_8042C0C: @ 0x08042C0C
+	thumb_func_start func_fe6_08042C0C
+func_fe6_08042C0C: @ 0x08042C0C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08042C24 @ =0x0203CD14
@@ -853,40 +853,40 @@ sub_8042C0C: @ 0x08042C0C
 	bne .L08042C30
 	ldr r0, .L08042C28 @ =gUnk_Banim_02000000
 	ldr r0, [r0, #8]
-	bl sub_805C86C
-	ldr r0, .L08042C2C @ =sub_8042C48
+	bl func_fe6_0805C86C
+	ldr r0, .L08042C2C @ =func_fe6_08042C48
 	b .L08042C3A
 	.align 2, 0
 .L08042C24: .4byte 0x0203CD14
 .L08042C28: .4byte gUnk_Banim_02000000
-.L08042C2C: .4byte sub_8042C48
+.L08042C2C: .4byte func_fe6_08042C48
 .L08042C30:
 	adds r1, r4, #0
 	adds r1, #0x29
 	movs r0, #0
 	strb r0, [r1]
-	ldr r0, .L08042C44 @ =sub_8042C74
+	ldr r0, .L08042C44 @ =func_fe6_08042C74
 .L08042C3A:
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042C44: .4byte sub_8042C74
+.L08042C44: .4byte func_fe6_08042C74
 
-	thumb_func_start sub_8042C48
-sub_8042C48: @ 0x08042C48
+	thumb_func_start func_fe6_08042C48
+func_fe6_08042C48: @ 0x08042C48
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_805C840
+	bl func_fe6_0805C840
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne .L08042C64
-	bl sub_805C858
+	bl func_fe6_0805C858
 	ldr r0, .L08042C6C @ =0x0203CDBC
 	strh r4, [r0]
-	ldr r0, .L08042C70 @ =sub_80433B0
+	ldr r0, .L08042C70 @ =func_fe6_080433B0
 	str r0, [r5, #0xc]
 .L08042C64:
 	pop {r4, r5}
@@ -894,10 +894,10 @@ sub_8042C48: @ 0x08042C48
 	bx r0
 	.align 2, 0
 .L08042C6C: .4byte 0x0203CDBC
-.L08042C70: .4byte sub_80433B0
+.L08042C70: .4byte func_fe6_080433B0
 
-	thumb_func_start sub_8042C74
-sub_8042C74: @ 0x08042C74
+	thumb_func_start func_fe6_08042C74
+func_fe6_08042C74: @ 0x08042C74
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	movs r4, #0
@@ -935,7 +935,7 @@ sub_8042C74: @ 0x08042C74
 	adds r1, r1, r0
 	cmp r1, #2
 	bne .L08042D5A
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L08042D58
 	ldr r5, .L08042CF8 @ =0x0203CDBC
@@ -983,21 +983,21 @@ sub_8042C74: @ 0x08042C74
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne .L08042D2C
-	bl sub_804C56C
+	bl func_fe6_0804C56C
 	movs r0, #4
 	b .L08042D12
 .L08042D2C:
 	bl ArenaContinueBattle
-	bl sub_8049F1C
+	bl func_fe6_08049F1C
 	bl BasInit
-	bl sub_804B048
-	bl sub_804B294
+	bl func_fe6_0804B048
+	bl func_fe6_0804B294
 	strh r4, [r6, #0x2c]
-	ldr r0, .L08042D48 @ =sub_8042B74
+	ldr r0, .L08042D48 @ =func_fe6_08042B74
 	str r0, [r6, #0xc]
 	b .L08042D5A
 	.align 2, 0
-.L08042D48: .4byte sub_8042B74
+.L08042D48: .4byte func_fe6_08042B74
 .L08042D4C:
 	ldr r0, .L08042D68 @ =gUnk_Banim_0201E124
 	ldr r1, [r0]
@@ -1010,7 +1010,7 @@ sub_8042C74: @ 0x08042C74
 .L08042D5A:
 	cmp r4, #1
 	bne .L08042D62
-	ldr r0, .L08042D6C @ =sub_8042D70
+	ldr r0, .L08042D6C @ =func_fe6_08042D70
 	str r0, [r6, #0xc]
 .L08042D62:
 	pop {r4, r5, r6}
@@ -1018,22 +1018,22 @@ sub_8042C74: @ 0x08042C74
 	bx r0
 	.align 2, 0
 .L08042D68: .4byte gUnk_Banim_0201E124
-.L08042D6C: .4byte sub_8042D70
+.L08042D6C: .4byte func_fe6_08042D70
 
-	thumb_func_start sub_8042D70
-sub_8042D70: @ 0x08042D70
+	thumb_func_start func_fe6_08042D70
+func_fe6_08042D70: @ 0x08042D70
 	adds r2, r0, #0
 	adds r2, #0x29
 	movs r1, #0
 	strb r1, [r2]
-	ldr r1, .L08042D80 @ =sub_8042D84
+	ldr r1, .L08042D80 @ =func_fe6_08042D84
 	str r1, [r0, #0xc]
 	bx lr
 	.align 2, 0
-.L08042D80: .4byte sub_8042D84
+.L08042D80: .4byte func_fe6_08042D84
 
-	thumb_func_start sub_8042D84
-sub_8042D84: @ 0x08042D84
+	thumb_func_start func_fe6_08042D84
+func_fe6_08042D84: @ 0x08042D84
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, .L08042DFC @ =gUnk_Banim_02017720
@@ -1044,20 +1044,20 @@ sub_8042D84: @ 0x08042D84
 	ldr r4, [r0]
 	cmp r4, #0
 	bne .L08042DF4
-	bl sub_8048ED8
+	bl func_fe6_08048ED8
 	lsls r0, r0, #0x18
 	asrs r6, r0, #0x18
 	cmp r6, #1
 	bne .L08042DF4
 	strh r4, [r5, #0x2c]
-	ldr r0, .L08042E04 @ =sub_8042E14
+	ldr r0, .L08042E04 @ =func_fe6_08042E14
 	str r0, [r5, #0xc]
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08042DC0
 	ldr r0, .L08042E08 @ =gUnk_Banim_02000000
 	ldr r0, [r0]
-	bl sub_8058A08
+	bl func_fe6_08058A08
 	ldrh r0, [r0]
 	cmp r0, #1
 	beq .L08042DF4
@@ -1088,7 +1088,7 @@ sub_8042D84: @ 0x08042D84
 	ldr r0, [r0]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08042DF4:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1096,13 +1096,13 @@ sub_8042D84: @ 0x08042D84
 	.align 2, 0
 .L08042DFC: .4byte gUnk_Banim_02017720
 .L08042E00: .4byte gUnk_Banim_02017730
-.L08042E04: .4byte sub_8042E14
+.L08042E04: .4byte func_fe6_08042E14
 .L08042E08: .4byte gUnk_Banim_02000000
 .L08042E0C: .4byte 0x0203CDBC
 .L08042E10: .4byte gUnk_Banim_0201773C
 
-	thumb_func_start sub_8042E14
-sub_8042E14: @ 0x08042E14
+	thumb_func_start func_fe6_08042E14
+func_fe6_08042E14: @ 0x08042E14
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -1112,7 +1112,7 @@ sub_8042E14: @ 0x08042E14
 	asrs r0, r0, #0x10
 	cmp r0, #0x1d
 	ble .L08042E4C
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	beq .L08042E48
 	ldr r0, .L08042E40 @ =0x0203CDBC
@@ -1122,13 +1122,13 @@ sub_8042E14: @ 0x08042E14
 	ldrsh r0, [r0, r2]
 	cmn r1, r0
 	beq .L08042E48
-	ldr r0, .L08042E44 @ =sub_8042E58
+	ldr r0, .L08042E44 @ =func_fe6_08042E58
 	b .L08042E4A
 	.align 2, 0
 .L08042E40: .4byte 0x0203CDBC
-.L08042E44: .4byte sub_8042E58
+.L08042E44: .4byte func_fe6_08042E58
 .L08042E48:
-	ldr r0, .L08042E54 @ =sub_804340C
+	ldr r0, .L08042E54 @ =func_fe6_0804340C
 .L08042E4A:
 	str r0, [r4, #0xc]
 .L08042E4C:
@@ -1136,10 +1136,10 @@ sub_8042E14: @ 0x08042E14
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042E54: .4byte sub_804340C
+.L08042E54: .4byte func_fe6_0804340C
 
-	thumb_func_start sub_8042E58
-sub_8042E58: @ 0x08042E58
+	thumb_func_start func_fe6_08042E58
+func_fe6_08042E58: @ 0x08042E58
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -1225,7 +1225,7 @@ sub_8042E58: @ 0x08042E58
 	str r2, [sp, #4]
 	movs r2, #0x12
 	movs r3, #3
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	ldr r0, .L08042F70 @ =gUnk_08113D50
 	ldr r1, .L08042F74 @ =gPal+0x20
 	movs r2, #8
@@ -1233,7 +1233,7 @@ sub_8042E58: @ 0x08042E58
 	movs r0, #2
 	bl EnableBgSync
 	bl EnablePalSync
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	bne .L08042F78
 	movs r1, #4
@@ -1292,7 +1292,7 @@ sub_8042E58: @ 0x08042E58
 	strb r0, [r7, #0x14]
 .L08042FA2:
 	movs r0, #1
-	bl sub_8043908
+	bl func_fe6_08043908
 	ldr r0, .L08042FBC @ =0x0203CDBC
 	movs r6, #0
 	ldrsh r0, [r0, r6]
@@ -1326,7 +1326,7 @@ sub_8042E58: @ 0x08042E58
 .L08042FE8:
 	ldr r0, .L08043064 @ =gUnk_Banim_0201947C
 	adds r1, r6, #0
-	bl sub_805B458
+	bl func_fe6_0805B458
 	lsls r5, r5, #5
 	mov r8, r5
 	lsls r4, r4, #5
@@ -1370,7 +1370,7 @@ sub_8042E58: @ 0x08042E58
 	movs r0, #0
 	ldr r1, [sp, #8]
 	strh r0, [r1, #0x2c]
-	ldr r0, .L08043074 @ =sub_8043078
+	ldr r0, .L08043074 @ =func_fe6_08043078
 	str r0, [r1, #0xc]
 	add sp, #0xc
 	pop {r3, r4, r5}
@@ -1386,10 +1386,10 @@ sub_8042E58: @ 0x08042E58
 .L08043068: .4byte gUnk_08113884
 .L0804306C: .4byte gUnk_08113B84
 .L08043070: .4byte 0x060020E0
-.L08043074: .4byte sub_8043078
+.L08043074: .4byte func_fe6_08043078
 
-	thumb_func_start sub_8043078
-sub_8043078: @ 0x08043078
+	thumb_func_start func_fe6_08043078
+func_fe6_08043078: @ 0x08043078
 	adds r2, r0, #0
 	ldrh r1, [r2, #0x2c]
 	adds r1, #1
@@ -1400,11 +1400,11 @@ sub_8043078: @ 0x08043078
 	ble .L08043098
 	movs r0, #0
 	strh r0, [r2, #0x2c]
-	ldr r0, .L08043094 @ =sub_80430C4
+	ldr r0, .L08043094 @ =func_fe6_080430C4
 	str r0, [r2, #0xc]
 	b .L080430BE
 	.align 2, 0
-.L08043094: .4byte sub_80430C4
+.L08043094: .4byte func_fe6_080430C4
 .L08043098:
 	ldr r3, .L080430C0 @ =gDispIo
 	adds r2, r3, #0
@@ -1430,8 +1430,8 @@ sub_8043078: @ 0x08043078
 	.align 2, 0
 .L080430C0: .4byte gDispIo
 
-	thumb_func_start sub_80430C4
-sub_80430C4: @ 0x080430C4
+	thumb_func_start func_fe6_080430C4
+func_fe6_080430C4: @ 0x080430C4
 	push {r4, lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -1466,26 +1466,26 @@ sub_80430C4: @ 0x080430C4
 	adds r0, r0, r3
 	strh r0, [r1, #0x2e]
 .L08043104:
-	ldr r0, .L08043128 @ =sub_804312C
+	ldr r0, .L08043128 @ =func_fe6_0804312C
 	str r0, [r1, #0xc]
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x74
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #0x74
 	movs r1, #0x78
 	movs r2, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L0804311C:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L08043124: .4byte 0x0203CDB8
-.L08043128: .4byte sub_804312C
+.L08043128: .4byte func_fe6_0804312C
 
-	thumb_func_start sub_804312C
-sub_804312C: @ 0x0804312C
+	thumb_func_start func_fe6_0804312C
+func_fe6_0804312C: @ 0x0804312C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -1517,7 +1517,7 @@ sub_804312C: @ 0x0804312C
 .L08043168:
 	mov r0, r8
 	adds r1, r5, #0
-	bl sub_805B458
+	bl func_fe6_0805B458
 	lsls r4, r4, #5
 	mov sb, r4
 	lsls r6, r6, #5
@@ -1570,7 +1570,7 @@ sub_804312C: @ 0x0804312C
 	ble .L080431E2
 	movs r0, #0
 	strh r0, [r7, #0x2c]
-	ldr r0, .L08043204 @ =sub_8043208
+	ldr r0, .L08043204 @ =func_fe6_08043208
 	str r0, [r7, #0xc]
 .L080431E2:
 	add sp, #4
@@ -1586,10 +1586,10 @@ sub_804312C: @ 0x0804312C
 .L080431F8: .4byte gUnk_08113884
 .L080431FC: .4byte gUnk_08113B84
 .L08043200: .4byte 0x060020E0
-.L08043204: .4byte sub_8043208
+.L08043204: .4byte func_fe6_08043208
 
-	thumb_func_start sub_8043208
-sub_8043208: @ 0x08043208
+	thumb_func_start func_fe6_08043208
+func_fe6_08043208: @ 0x08043208
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0x2c
@@ -1597,7 +1597,7 @@ sub_8043208: @ 0x08043208
 	cmp r0, #0
 	bne .L0804321A
 	movs r0, #0x74
-	bl sub_805BD54
+	bl func_fe6_0805BD54
 .L0804321A:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -1608,17 +1608,17 @@ sub_8043208: @ 0x08043208
 	ble .L08043230
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	ldr r0, .L08043238 @ =sub_804323C
+	ldr r0, .L08043238 @ =func_fe6_0804323C
 	str r0, [r4, #0xc]
 .L08043230:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043238: .4byte sub_804323C
+.L08043238: .4byte func_fe6_0804323C
 
-	thumb_func_start sub_804323C
-sub_804323C: @ 0x0804323C
+	thumb_func_start func_fe6_0804323C
+func_fe6_0804323C: @ 0x0804323C
 	adds r1, r0, #0
 	ldrh r2, [r1, #0x2c]
 	adds r2, #1
@@ -1629,11 +1629,11 @@ sub_804323C: @ 0x0804323C
 	ble .L0804325C
 	movs r0, #0
 	strh r0, [r1, #0x2c]
-	ldr r0, .L08043258 @ =sub_8043288
+	ldr r0, .L08043258 @ =func_fe6_08043288
 	str r0, [r1, #0xc]
 	b .L08043282
 	.align 2, 0
-.L08043258: .4byte sub_8043288
+.L08043258: .4byte func_fe6_08043288
 .L0804325C:
 	ldr r3, .L08043284 @ =gDispIo
 	adds r1, r3, #0
@@ -1659,8 +1659,8 @@ sub_804323C: @ 0x0804323C
 	.align 2, 0
 .L08043284: .4byte gDispIo
 
-	thumb_func_start sub_8043288
-sub_8043288: @ 0x08043288
+	thumb_func_start func_fe6_08043288
+func_fe6_08043288: @ 0x08043288
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -1694,16 +1694,16 @@ sub_8043288: @ 0x08043288
 	adds r1, r1, r0
 	cmp r1, #0x63
 	ble .L080432CC
-	bl sub_8043590
+	bl func_fe6_08043590
 .L080432CC:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
 	cmp r0, #0x28
 	ble .L080433A4
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	movs r0, #0
-	bl sub_8043908
-	bl sub_805894C
+	bl func_fe6_08043908
+	bl func_fe6_0805894C
 	cmp r0, #0
 	bne .L0804331C
 	ldr r3, .L08043318 @ =gDispIo
@@ -1794,13 +1794,13 @@ sub_8043288: @ 0x08043288
 	adds r1, r1, r0
 	cmp r1, #0x63
 	ble .L080433A0
-	ldr r0, .L0804339C @ =sub_80433B0
+	ldr r0, .L0804339C @ =func_fe6_080433B0
 	b .L080433A2
 	.align 2, 0
 .L08043398: .4byte 0x0203CDB8
-.L0804339C: .4byte sub_80433B0
+.L0804339C: .4byte func_fe6_080433B0
 .L080433A0:
-	ldr r0, .L080433AC @ =sub_804340C
+	ldr r0, .L080433AC @ =func_fe6_0804340C
 .L080433A2:
 	str r0, [r4, #0xc]
 .L080433A4:
@@ -1808,10 +1808,10 @@ sub_8043288: @ 0x08043288
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080433AC: .4byte sub_804340C
+.L080433AC: .4byte func_fe6_0804340C
 
-	thumb_func_start sub_80433B0
-sub_80433B0: @ 0x080433B0
+	thumb_func_start func_fe6_080433B0
+func_fe6_080433B0: @ 0x080433B0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L080433C4 @ =0x0203CDBC
@@ -1829,85 +1829,85 @@ sub_80433B0: @ 0x080433B0
 	ldr r0, .L080433E0 @ =gUnk_Banim_02000000
 	ldr r0, [r0, #8]
 .L080433D0:
-	bl sub_805D5B0
-	ldr r0, .L080433E4 @ =sub_80433E8
+	bl func_fe6_0805D5B0
+	ldr r0, .L080433E4 @ =func_fe6_080433E8
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L080433E0: .4byte gUnk_Banim_02000000
-.L080433E4: .4byte sub_80433E8
+.L080433E4: .4byte func_fe6_080433E8
 
-	thumb_func_start sub_80433E8
-sub_80433E8: @ 0x080433E8
+	thumb_func_start func_fe6_080433E8
+func_fe6_080433E8: @ 0x080433E8
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_805D128
+	bl func_fe6_0805D128
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08043400
-	bl sub_805D140
-	ldr r0, .L08043408 @ =sub_804340C
+	bl func_fe6_0805D140
+	ldr r0, .L08043408 @ =func_fe6_0804340C
 	str r0, [r4, #0xc]
 .L08043400:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043408: .4byte sub_804340C
+.L08043408: .4byte func_fe6_0804340C
 
-	thumb_func_start sub_804340C
-sub_804340C: @ 0x0804340C
+	thumb_func_start func_fe6_0804340C
+func_fe6_0804340C: @ 0x0804340C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_805F498
-	ldr r0, .L08043420 @ =sub_8043424
+	bl func_fe6_0805F498
+	ldr r0, .L08043420 @ =func_fe6_08043424
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043420: .4byte sub_8043424
+.L08043420: .4byte func_fe6_08043424
 
-	thumb_func_start sub_8043424
-sub_8043424: @ 0x08043424
+	thumb_func_start func_fe6_08043424
+func_fe6_08043424: @ 0x08043424
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_805F148
+	bl func_fe6_0805F148
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L0804343C
-	bl sub_805F15C
-	ldr r0, .L08043444 @ =sub_8043448
+	bl func_fe6_0805F15C
+	ldr r0, .L08043444 @ =func_fe6_08043448
 	str r0, [r4, #0xc]
 .L0804343C:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043444: .4byte sub_8043448
+.L08043444: .4byte func_fe6_08043448
 
-	thumb_func_start sub_8043448
-sub_8043448: @ 0x08043448
+	thumb_func_start func_fe6_08043448
+func_fe6_08043448: @ 0x08043448
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L08043478 @ =gUnk_Banim_02000000
 	ldr r0, [r4]
-	bl sub_8046E9C
+	bl func_fe6_08046E9C
 	ldr r0, [r4, #8]
-	bl sub_8046E9C
-	bl sub_804722C
-	bl sub_8046B48
+	bl func_fe6_08046E9C
+	bl func_fe6_0804722C
+	bl func_fe6_08046B48
 	ldr r0, .L0804347C @ =0x0203CCF4
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	str r0, [r5, #0x44]
 	movs r0, #0
 	str r0, [r5, #0x48]
-	ldr r0, .L08043480 @ =sub_8043484
+	ldr r0, .L08043480 @ =func_fe6_08043484
 	str r0, [r5, #0xc]
 	pop {r4, r5}
 	pop {r0}
@@ -1915,22 +1915,22 @@ sub_8043448: @ 0x08043448
 	.align 2, 0
 .L08043478: .4byte gUnk_Banim_02000000
 .L0804347C: .4byte 0x0203CCF4
-.L08043480: .4byte sub_8043484
+.L08043480: .4byte func_fe6_08043484
 
-	thumb_func_start sub_8043484
-sub_8043484: @ 0x08043484
+	thumb_func_start func_fe6_08043484
+func_fe6_08043484: @ 0x08043484
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	bl sub_80588E0
+	bl func_fe6_080588E0
 	adds r5, r0, #0
 	ldr r0, [r4, #0x48]
 	cmp r0, #2
 	bne .L080434A0
-	ldr r0, .L0804349C @ =sub_8043554
+	ldr r0, .L0804349C @ =func_fe6_08043554
 	str r0, [r4, #0xc]
 	b .L08043524
 	.align 2, 0
-.L0804349C: .4byte sub_8043554
+.L0804349C: .4byte func_fe6_08043554
 .L080434A0:
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
@@ -1944,8 +1944,8 @@ sub_8043484: @ 0x08043484
 	cmp r0, #0
 	beq .L080434C0
 	adds r0, r1, #0
-	bl sub_80588A4
-	ldr r0, .L080434EC @ =sub_8043534
+	bl func_fe6_080588A4
+	ldr r0, .L080434EC @ =func_fe6_08043534
 	str r0, [r4, #0xc]
 .L080434C0:
 	movs r0, #4
@@ -1953,8 +1953,8 @@ sub_8043484: @ 0x08043484
 	cmp r0, #0
 	beq .L080434D2
 	ldr r0, [r4, #0x5c]
-	bl sub_80588A4
-	ldr r0, .L080434EC @ =sub_8043534
+	bl func_fe6_080588A4
+	ldr r0, .L080434EC @ =func_fe6_08043534
 	str r0, [r4, #0xc]
 .L080434D2:
 	movs r0, #0x10
@@ -1962,15 +1962,15 @@ sub_8043484: @ 0x08043484
 	cmp r0, #0
 	beq .L080434E4
 	ldr r0, [r4, #0x5c]
-	bl sub_80588A4
-	ldr r0, .L080434EC @ =sub_8043534
+	bl func_fe6_080588A4
+	ldr r0, .L080434EC @ =func_fe6_08043534
 	str r0, [r4, #0xc]
 .L080434E4:
 	str r6, [r4, #0x44]
 	b .L0804351E
 	.align 2, 0
 .L080434E8: .4byte gUnk_Banim_02000000
-.L080434EC: .4byte sub_8043534
+.L080434EC: .4byte func_fe6_08043534
 .L080434F0:
 	ldr r0, .L0804352C @ =gUnk_Banim_02000000
 	ldr r1, [r0, #8]
@@ -1980,8 +1980,8 @@ sub_8043484: @ 0x08043484
 	cmp r0, #0
 	beq .L08043508
 	adds r0, r1, #0
-	bl sub_80588A4
-	ldr r0, .L08043530 @ =sub_8043534
+	bl func_fe6_080588A4
+	ldr r0, .L08043530 @ =func_fe6_08043534
 	str r0, [r4, #0xc]
 .L08043508:
 	movs r0, #8
@@ -1989,8 +1989,8 @@ sub_8043484: @ 0x08043484
 	cmp r0, #0
 	beq .L0804351A
 	ldr r0, [r4, #0x5c]
-	bl sub_80588A4
-	ldr r0, .L08043530 @ =sub_8043534
+	bl func_fe6_080588A4
+	ldr r0, .L08043530 @ =func_fe6_08043534
 	str r0, [r4, #0xc]
 .L0804351A:
 	movs r0, #0
@@ -2005,29 +2005,29 @@ sub_8043484: @ 0x08043484
 	bx r0
 	.align 2, 0
 .L0804352C: .4byte gUnk_Banim_02000000
-.L08043530: .4byte sub_8043534
+.L08043530: .4byte func_fe6_08043534
 
-	thumb_func_start sub_8043534
-sub_8043534: @ 0x08043534
+	thumb_func_start func_fe6_08043534
+func_fe6_08043534: @ 0x08043534
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80588BC
+	bl func_fe6_080588BC
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L0804354A
-	ldr r0, .L08043550 @ =sub_8043484
+	ldr r0, .L08043550 @ =func_fe6_08043484
 	str r0, [r4, #0xc]
 .L0804354A:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043550: .4byte sub_8043484
+.L08043550: .4byte func_fe6_08043484
 
-	thumb_func_start sub_8043554
-sub_8043554: @ 0x08043554
+	thumb_func_start func_fe6_08043554
+func_fe6_08043554: @ 0x08043554
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08043580 @ =gUnk_Banim_0201771C
@@ -2041,10 +2041,10 @@ sub_8043554: @ 0x08043554
 	movs r0, #2
 	movs r1, #7
 	movs r2, #0
-	bl sub_8048E88
-	bl sub_805C738
+	bl func_fe6_08048E88
+	bl func_fe6_0805C738
 .L08043576:
-	ldr r0, .L08043588 @ =nullsub_20
+	ldr r0, .L08043588 @ =func_fe6_0804358C
 	str r0, [r4, #0xc]
 	pop {r4}
 	pop {r0}
@@ -2052,15 +2052,15 @@ sub_8043554: @ 0x08043554
 	.align 2, 0
 .L08043580: .4byte gUnk_Banim_0201771C
 .L08043584: .4byte 0x0203CCF0
-.L08043588: .4byte nullsub_20
+.L08043588: .4byte func_fe6_0804358C
 
-	thumb_func_start nullsub_20
-nullsub_20: @ 0x0804358C
+	thumb_func_start func_fe6_0804358C
+func_fe6_0804358C: @ 0x0804358C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_8043590
-sub_8043590: @ 0x08043590
+	thumb_func_start func_fe6_08043590
+func_fe6_08043590: @ 0x08043590
 	push {lr}
 	ldr r0, .L080435A8 @ =gUnk_085CB550
 	movs r1, #3
@@ -2074,8 +2074,8 @@ sub_8043590: @ 0x08043590
 	.align 2, 0
 .L080435A8: .4byte gUnk_085CB550
 
-	thumb_func_start sub_80435AC
-sub_80435AC: @ 0x080435AC
+	thumb_func_start func_fe6_080435AC
+func_fe6_080435AC: @ 0x080435AC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -2088,11 +2088,11 @@ sub_80435AC: @ 0x080435AC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5b
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #0x5b
 	movs r1, #0x78
 	movs r2, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	b .L080435E6
 .L080435D4:
 	cmp r0, #0x74
@@ -2107,8 +2107,8 @@ sub_80435AC: @ 0x080435AC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80435EC
-sub_80435EC: @ 0x080435EC
+	thumb_func_start func_fe6_080435EC
+func_fe6_080435EC: @ 0x080435EC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -2149,8 +2149,8 @@ sub_80435EC: @ 0x080435EC
 .L08043634: .4byte gUnk_08113224
 .L08043638: .4byte 0x01000008
 
-	thumb_func_start sub_804363C
-sub_804363C: @ 0x0804363C
+	thumb_func_start func_fe6_0804363C
+func_fe6_0804363C: @ 0x0804363C
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
 	lsls r0, r0, #0x10
@@ -2205,8 +2205,8 @@ sub_804363C: @ 0x0804363C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80436A4
-sub_80436A4: @ 0x080436A4
+	thumb_func_start func_fe6_080436A4
+func_fe6_080436A4: @ 0x080436A4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -2218,16 +2218,16 @@ sub_80436A4: @ 0x080436A4
 	bl SpawnProc
 	str r0, [r4]
 	movs r0, #0
-	bl sub_8043908
-	bl sub_80438C8
-	bl sub_8043970
-	bl sub_8043950
+	bl func_fe6_08043908
+	bl func_fe6_080438C8
+	bl func_fe6_08043970
+	bl func_fe6_08043950
 	ldr r1, .L08043858 @ =gUnk_Banim_02000030
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	movs r2, #2
 	ldrsh r1, [r1, r2]
-	bl sub_8043918
+	bl func_fe6_08043918
 	ldr r6, .L0804385C @ =0x0203CD08
 	movs r1, #0
 	ldrsh r0, [r6, r1]
@@ -2284,33 +2284,33 @@ sub_80436A4: @ 0x080436A4
 	ldrsh r0, [r6, r1]
 	ldr r7, .L08043888 @ =gUnk_Banim_020176F8
 	adds r1, r7, #0
-	bl sub_804363C
+	bl func_fe6_0804363C
 	ldr r5, .L0804388C @ =0x0203CDB0
 	movs r2, #0
 	ldrsh r0, [r5, r2]
 	adds r1, r7, #6
-	bl sub_804363C
+	bl func_fe6_0804363C
 	ldr r4, .L08043890 @ =0x0203CDB4
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	adds r1, r7, #0
 	adds r1, #0xc
-	bl sub_804363C
+	bl func_fe6_0804363C
 	movs r2, #2
 	ldrsh r0, [r6, r2]
 	adds r1, r7, #0
 	adds r1, #0x12
-	bl sub_804363C
+	bl func_fe6_0804363C
 	movs r1, #2
 	ldrsh r0, [r5, r1]
 	adds r1, r7, #0
 	adds r1, #0x18
-	bl sub_804363C
+	bl func_fe6_0804363C
 	movs r2, #2
 	ldrsh r0, [r4, r2]
 	adds r1, r7, #0
 	adds r1, #0x1e
-	bl sub_804363C
+	bl func_fe6_0804363C
 	movs r0, #0
 	str r0, [sp]
 	ldr r1, .L08043894 @ =gUnk_Banim_020169C0
@@ -2419,8 +2419,8 @@ sub_80436A4: @ 0x080436A4
 .L080438AC: .4byte 0x0203CD80
 .L080438B0: .4byte Pal_SystemObjects
 
-	thumb_func_start sub_80438B4
-sub_80438B4: @ 0x080438B4
+	thumb_func_start func_fe6_080438B4
+func_fe6_080438B4: @ 0x080438B4
 	push {lr}
 	ldr r0, .L080438C4 @ =gUnk_Banim_02000060
 	ldr r0, [r0]
@@ -2430,8 +2430,8 @@ sub_80438B4: @ 0x080438B4
 	.align 2, 0
 .L080438C4: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_80438C8
-sub_80438C8: @ 0x080438C8
+	thumb_func_start func_fe6_080438C8
+func_fe6_080438C8: @ 0x080438C8
 	ldr r0, .L080438D4 @ =gUnk_Banim_02000060
 	ldr r1, [r0]
 	movs r0, #0
@@ -2441,8 +2441,8 @@ sub_80438C8: @ 0x080438C8
 	.align 2, 0
 .L080438D4: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_80438D8
-sub_80438D8: @ 0x080438D8
+	thumb_func_start func_fe6_080438D8
+func_fe6_080438D8: @ 0x080438D8
 	ldr r0, .L080438E4 @ =gUnk_Banim_02000060
 	ldr r1, [r0]
 	movs r0, #1
@@ -2452,8 +2452,8 @@ sub_80438D8: @ 0x080438D8
 	.align 2, 0
 .L080438E4: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_80438E8
-sub_80438E8: @ 0x080438E8
+	thumb_func_start func_fe6_080438E8
+func_fe6_080438E8: @ 0x080438E8
 	ldr r0, .L080438F4 @ =gUnk_Banim_02000060
 	ldr r1, [r0]
 	movs r0, #1
@@ -2462,8 +2462,8 @@ sub_80438E8: @ 0x080438E8
 	.align 2, 0
 .L080438F4: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_80438F8
-sub_80438F8: @ 0x080438F8
+	thumb_func_start func_fe6_080438F8
+func_fe6_080438F8: @ 0x080438F8
 	ldr r0, .L08043904 @ =gUnk_Banim_02000060
 	ldr r1, [r0]
 	movs r0, #1
@@ -2472,8 +2472,8 @@ sub_80438F8: @ 0x080438F8
 	.align 2, 0
 .L08043904: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043908
-sub_8043908: @ 0x08043908
+	thumb_func_start func_fe6_08043908
+func_fe6_08043908: @ 0x08043908
 	lsls r0, r0, #0x10
 	ldr r1, .L08043914 @ =gUnk_Banim_02000060
 	ldr r1, [r1]
@@ -2483,8 +2483,8 @@ sub_8043908: @ 0x08043908
 	.align 2, 0
 .L08043914: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043918
-sub_8043918: @ 0x08043918
+	thumb_func_start func_fe6_08043918
+func_fe6_08043918: @ 0x08043918
 	ldr r2, .L08043928 @ =gUnk_Banim_02000060
 	ldr r2, [r2]
 	movs r3, #0
@@ -2496,8 +2496,8 @@ sub_8043918: @ 0x08043918
 	.align 2, 0
 .L08043928: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_804392C
-sub_804392C: @ 0x0804392C
+	thumb_func_start func_fe6_0804392C
+func_fe6_0804392C: @ 0x0804392C
 	ldr r2, .L0804393C @ =gUnk_Banim_02000060
 	ldr r2, [r2]
 	strh r0, [r2, #0x32]
@@ -2509,8 +2509,8 @@ sub_804392C: @ 0x0804392C
 	.align 2, 0
 .L0804393C: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043940
-sub_8043940: @ 0x08043940
+	thumb_func_start func_fe6_08043940
+func_fe6_08043940: @ 0x08043940
 	ldr r0, .L0804394C @ =gUnk_Banim_02000060
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -2520,8 +2520,8 @@ sub_8043940: @ 0x08043940
 	.align 2, 0
 .L0804394C: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043950
-sub_8043950: @ 0x08043950
+	thumb_func_start func_fe6_08043950
+func_fe6_08043950: @ 0x08043950
 	ldr r0, .L0804395C @ =gUnk_Banim_02000060
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -2531,8 +2531,8 @@ sub_8043950: @ 0x08043950
 	.align 2, 0
 .L0804395C: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043960
-sub_8043960: @ 0x08043960
+	thumb_func_start func_fe6_08043960
+func_fe6_08043960: @ 0x08043960
 	ldr r0, .L0804396C @ =gUnk_Banim_02000060
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -2542,8 +2542,8 @@ sub_8043960: @ 0x08043960
 	.align 2, 0
 .L0804396C: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043970
-sub_8043970: @ 0x08043970
+	thumb_func_start func_fe6_08043970
+func_fe6_08043970: @ 0x08043970
 	ldr r0, .L0804397C @ =gUnk_Banim_02000060
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -2553,8 +2553,8 @@ sub_8043970: @ 0x08043970
 	.align 2, 0
 .L0804397C: .4byte gUnk_Banim_02000060
 
-	thumb_func_start sub_8043980
-sub_8043980: @ 0x08043980
+	thumb_func_start func_fe6_08043980
+func_fe6_08043980: @ 0x08043980
 	adds r3, r0, #0
 	cmp r1, #0
 	ble .L080439A8
@@ -2598,8 +2598,8 @@ sub_8043980: @ 0x08043980
 	.align 2, 0
 .L080439C8: .4byte gUnk_085CB700
 
-	thumb_func_start sub_80439CC
-sub_80439CC: @ 0x080439CC
+	thumb_func_start func_fe6_080439CC
+func_fe6_080439CC: @ 0x080439CC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -2676,7 +2676,7 @@ sub_80439CC: @ 0x080439CC
 	movs r1, #0x1e
 	movs r2, #8
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	mov r3, sl
 	ldr r0, [r3, #0x4c]
 	cmp r0, #0
@@ -2698,14 +2698,14 @@ sub_80439CC: @ 0x080439CC
 	adds r1, r5, #0
 	movs r2, #0xf
 	adds r3, r4, #0
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
 	movs r1, #0xf
 	adds r2, r4, #0
 	movs r3, #2
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 .L08043AA0:
 	mov r4, sl
 	ldr r0, [r4, #0x50]
@@ -2729,14 +2729,14 @@ sub_80439CC: @ 0x080439CC
 	adds r1, r5, #0
 	movs r2, #0x10
 	adds r3, r4, #0
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
 	movs r1, #0x10
 	adds r2, r4, #0
 	movs r3, #3
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 .L08043AE0:
 	movs r0, #1
 	bl EnableBgSync
@@ -2963,7 +2963,7 @@ sub_80439CC: @ 0x080439CC
 	strh r2, [r0, #4]
 	strh r4, [r0, #0xc]
 	movs r0, #0
-	bl sub_80449E4
+	bl func_fe6_080449E4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #1
@@ -3000,7 +3000,7 @@ sub_80439CC: @ 0x080439CC
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl sub_805BB24
+	bl func_fe6_0805BB24
 .L08043CFE:
 	mov r3, sl
 	ldr r0, [r3, #0x4c]
@@ -3028,7 +3028,7 @@ sub_80439CC: @ 0x080439CC
 	strh r2, [r0, #4]
 	strh r4, [r0, #0xc]
 	movs r0, #1
-	bl sub_80449E4
+	bl func_fe6_080449E4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #1
@@ -3060,7 +3060,7 @@ sub_80439CC: @ 0x080439CC
 	lsls r2, r2, #1
 	str r3, [sp]
 	movs r3, #0x80
-	bl sub_805BB24
+	bl func_fe6_0805BB24
 .L08043D7A:
 	mov r3, sl
 	ldr r0, [r3, #0x50]
@@ -3131,13 +3131,13 @@ sub_80439CC: @ 0x080439CC
 	lsls r1, r3, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_805B380
+	bl func_fe6_0805B380
 	ldr r0, [sp, #0xd8]
 	cmp r0, #1
 	bne .L08043E0E
 	ldr r1, .L08043E68 @ =gUnk_Banim_02016E40
 	adds r0, r4, #0
-	bl sub_80435EC
+	bl func_fe6_080435EC
 .L08043E0E:
 	add r1, sp, #8
 	ldr r0, [sp, #0xe4]
@@ -3161,13 +3161,13 @@ sub_80439CC: @ 0x080439CC
 	lsls r2, r7, #0x10
 	asrs r2, r2, #0x10
 	adds r0, r4, #0
-	bl sub_805B380
+	bl func_fe6_0805B380
 	ldr r2, [sp, #0xd8]
 	cmp r2, #1
 	bne .L08043E4C
 	ldr r1, .L08043E6C @ =gUnk_Banim_02017240
 	adds r0, r4, #0
-	bl sub_80435EC
+	bl func_fe6_080435EC
 .L08043E4C:
 	cmp r5, #0
 	beq .L08043E70
@@ -3271,13 +3271,13 @@ sub_80439CC: @ 0x080439CC
 	lsls r1, r3, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_805B380
+	bl func_fe6_0805B380
 	ldr r0, [sp, #0xd8]
 	cmp r0, #1
 	bne .L08043F28
 	ldr r1, .L08043F7C @ =gUnk_Banim_02017040
 	adds r0, r4, #0
-	bl sub_80435EC
+	bl func_fe6_080435EC
 .L08043F28:
 	add r1, sp, #8
 	ldr r0, [sp, #0xe4]
@@ -3301,13 +3301,13 @@ sub_80439CC: @ 0x080439CC
 	lsls r2, r7, #0x10
 	asrs r2, r2, #0x10
 	adds r0, r4, #0
-	bl sub_805B380
+	bl func_fe6_0805B380
 	ldr r2, [sp, #0xd8]
 	cmp r2, #1
 	bne .L08043F66
 	ldr r1, .L08043F80 @ =gUnk_Banim_02017440
 	adds r0, r4, #0
-	bl sub_80435EC
+	bl func_fe6_080435EC
 .L08043F66:
 	cmp r5, #0
 	beq .L08043F84
@@ -3459,7 +3459,7 @@ sub_80439CC: @ 0x080439CC
 	adds r1, r0, #0
 	add r0, sp, #8
 	ldr r2, [sp, #0xe8]
-	bl sub_8043980
+	bl func_fe6_08043980
 	add r0, sp, #8
 	movs r1, #0xe5
 	lsls r1, r1, #1
@@ -3512,7 +3512,7 @@ sub_80439CC: @ 0x080439CC
 	adds r1, r0, #0
 	add r0, sp, #8
 	ldr r2, [sp, #0xe8]
-	bl sub_8043980
+	bl func_fe6_08043980
 	add r0, sp, #8
 	movs r1, #0xe5
 	lsls r1, r1, #1
@@ -3573,8 +3573,8 @@ sub_80439CC: @ 0x080439CC
 .L08044190: .4byte 0x0000D1DC
 .L08044194: .4byte 0x0000E1DE
 
-	thumb_func_start sub_8044198
-sub_8044198: @ 0x08044198
+	thumb_func_start func_fe6_08044198
+func_fe6_08044198: @ 0x08044198
 	push {r4, lr}
 	ldr r4, .L080441C0 @ =gUnk_Banim_02000064
 	ldr r0, .L080441C4 @ =gUnk_085CB718
@@ -3583,10 +3583,10 @@ sub_8044198: @ 0x08044198
 	str r0, [r4]
 	movs r0, #0
 	movs r1, #0
-	bl sub_804421C
-	bl sub_80441DC
-	bl sub_8044274
-	bl sub_8044254
+	bl func_fe6_0804421C
+	bl func_fe6_080441DC
+	bl func_fe6_08044274
+	bl func_fe6_08044254
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -3594,8 +3594,8 @@ sub_8044198: @ 0x08044198
 .L080441C0: .4byte gUnk_Banim_02000064
 .L080441C4: .4byte gUnk_085CB718
 
-	thumb_func_start sub_80441C8
-sub_80441C8: @ 0x080441C8
+	thumb_func_start func_fe6_080441C8
+func_fe6_080441C8: @ 0x080441C8
 	push {lr}
 	ldr r0, .L080441D8 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
@@ -3605,8 +3605,8 @@ sub_80441C8: @ 0x080441C8
 	.align 2, 0
 .L080441D8: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_80441DC
-sub_80441DC: @ 0x080441DC
+	thumb_func_start func_fe6_080441DC
+func_fe6_080441DC: @ 0x080441DC
 	ldr r0, .L080441E8 @ =gUnk_Banim_02000064
 	ldr r1, [r0]
 	movs r0, #0
@@ -3616,8 +3616,8 @@ sub_80441DC: @ 0x080441DC
 	.align 2, 0
 .L080441E8: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_80441EC
-sub_80441EC: @ 0x080441EC
+	thumb_func_start func_fe6_080441EC
+func_fe6_080441EC: @ 0x080441EC
 	ldr r0, .L080441F8 @ =gUnk_Banim_02000064
 	ldr r1, [r0]
 	movs r0, #1
@@ -3627,8 +3627,8 @@ sub_80441EC: @ 0x080441EC
 	.align 2, 0
 .L080441F8: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_80441FC
-sub_80441FC: @ 0x080441FC
+	thumb_func_start func_fe6_080441FC
+func_fe6_080441FC: @ 0x080441FC
 	ldr r0, .L08044208 @ =gUnk_Banim_02000064
 	ldr r1, [r0]
 	movs r0, #1
@@ -3637,8 +3637,8 @@ sub_80441FC: @ 0x080441FC
 	.align 2, 0
 .L08044208: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_804420C
-sub_804420C: @ 0x0804420C
+	thumb_func_start func_fe6_0804420C
+func_fe6_0804420C: @ 0x0804420C
 	ldr r0, .L08044218 @ =gUnk_Banim_02000064
 	ldr r1, [r0]
 	movs r0, #1
@@ -3647,8 +3647,8 @@ sub_804420C: @ 0x0804420C
 	.align 2, 0
 .L08044218: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_804421C
-sub_804421C: @ 0x0804421C
+	thumb_func_start func_fe6_0804421C
+func_fe6_0804421C: @ 0x0804421C
 	ldr r2, .L0804422C @ =gUnk_Banim_02000064
 	ldr r2, [r2]
 	movs r3, #0
@@ -3660,8 +3660,8 @@ sub_804421C: @ 0x0804421C
 	.align 2, 0
 .L0804422C: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044230
-sub_8044230: @ 0x08044230
+	thumb_func_start func_fe6_08044230
+func_fe6_08044230: @ 0x08044230
 	ldr r2, .L08044240 @ =gUnk_Banim_02000064
 	ldr r2, [r2]
 	strh r0, [r2, #0x32]
@@ -3673,8 +3673,8 @@ sub_8044230: @ 0x08044230
 	.align 2, 0
 .L08044240: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044244
-sub_8044244: @ 0x08044244
+	thumb_func_start func_fe6_08044244
+func_fe6_08044244: @ 0x08044244
 	ldr r0, .L08044250 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -3684,8 +3684,8 @@ sub_8044244: @ 0x08044244
 	.align 2, 0
 .L08044250: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044254
-sub_8044254: @ 0x08044254
+	thumb_func_start func_fe6_08044254
+func_fe6_08044254: @ 0x08044254
 	ldr r0, .L08044260 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -3695,8 +3695,8 @@ sub_8044254: @ 0x08044254
 	.align 2, 0
 .L08044260: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044264
-sub_8044264: @ 0x08044264
+	thumb_func_start func_fe6_08044264
+func_fe6_08044264: @ 0x08044264
 	ldr r0, .L08044270 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -3706,8 +3706,8 @@ sub_8044264: @ 0x08044264
 	.align 2, 0
 .L08044270: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044274
-sub_8044274: @ 0x08044274
+	thumb_func_start func_fe6_08044274
+func_fe6_08044274: @ 0x08044274
 	ldr r0, .L08044280 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -3717,8 +3717,8 @@ sub_8044274: @ 0x08044274
 	.align 2, 0
 .L08044280: .4byte gUnk_Banim_02000064
 
-	thumb_func_start sub_8044284
-sub_8044284: @ 0x08044284
+	thumb_func_start func_fe6_08044284
+func_fe6_08044284: @ 0x08044284
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3778,7 +3778,7 @@ sub_8044284: @ 0x08044284
 	movs r1, #0x1e
 	movs r2, #7
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	cmp r6, #0
 	ble .L0804436E
 	ldr r0, [r7, #0x4c]
@@ -3800,14 +3800,14 @@ sub_8044284: @ 0x08044284
 	adds r1, r5, #0
 	movs r2, #0xf
 	adds r3, r4, #0
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
 	movs r1, #0xf
 	adds r2, r4, #0
 	movs r3, #2
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 .L08044334:
 	ldr r0, [r7, #0x50]
 	cmp r0, #0
@@ -3828,14 +3828,14 @@ sub_8044284: @ 0x08044284
 	str r1, [sp, #4]
 	adds r1, r5, #0
 	adds r3, r4, #0
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
 	movs r1, #0xf
 	adds r2, r4, #0
 	movs r3, #3
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 .L0804436E:
 	movs r0, #1
 	bl EnableBgSync
@@ -3853,8 +3853,8 @@ sub_8044284: @ 0x08044284
 .L08044388: .4byte gUnk_08112968
 .L0804438C: .4byte gUnk_08112A1C
 
-	thumb_func_start sub_8044390
-sub_8044390: @ 0x08044390
+	thumb_func_start func_fe6_08044390
+func_fe6_08044390: @ 0x08044390
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	ldr r4, .L08044484 @ =gDispIo
@@ -3956,10 +3956,10 @@ sub_8044390: @ 0x08044390
 	adds r1, r6, #0
 	adds r2, r5, #0
 	bl CpuFastSet
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	bne .L08044498
-	bl sub_80444EC
+	bl func_fe6_080444EC
 	b .L080444A4
 	.align 2, 0
 .L08044484: .4byte gDispIo
@@ -3974,7 +3974,7 @@ sub_8044390: @ 0x08044390
 	adds r2, r5, #0
 	bl CpuFastSet
 .L080444A4:
-	bl sub_8044608
+	bl func_fe6_08044608
 	bl EnablePalSync
 	movs r0, #1
 	bl EnableBgSync
@@ -4005,8 +4005,8 @@ sub_8044390: @ 0x08044390
 	.align 2, 0
 .L080444E8: .4byte gDispIo
 
-	thumb_func_start sub_80444EC
-sub_80444EC: @ 0x080444EC
+	thumb_func_start func_fe6_080444EC
+func_fe6_080444EC: @ 0x080444EC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -4124,7 +4124,7 @@ sub_80444EC: @ 0x080444EC
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
 	adds r0, r4, #0
-	bl sub_804BF40
+	bl func_fe6_0804BF40
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -4140,8 +4140,8 @@ sub_80444EC: @ 0x080444EC
 .L08044600: .4byte gUnk_085CBDB0
 .L08044604: .4byte 0x0203CCF6
 
-	thumb_func_start sub_8044608
-sub_8044608: @ 0x08044608
+	thumb_func_start func_fe6_08044608
+func_fe6_08044608: @ 0x08044608
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	ldr r4, .L08044648 @ =Pal_SystemText
@@ -4329,7 +4329,7 @@ sub_8044608: @ 0x08044608
 	adds r1, r6, #0
 	movs r2, #2
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	adds r4, #0x3e
 	movs r5, #0x80
 	str r5, [sp]
@@ -4337,13 +4337,13 @@ sub_8044608: @ 0x08044608
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #2
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 	str r5, [sp]
 	adds r0, r6, #0
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #3
-	bl sub_805B01C
+	bl func_fe6_0805B01C
 	movs r0, #1
 	bl EnableBgSync
 	ldr r6, .L08044860 @ =0x0203CD08
@@ -4388,8 +4388,8 @@ sub_8044608: @ 0x08044608
 .L08044868: .4byte gPal+0x40
 .L0804486C: .4byte gUnk_Banim_02000030
 
-	thumb_func_start sub_8044870
-sub_8044870: @ 0x08044870
+	thumb_func_start func_fe6_08044870
+func_fe6_08044870: @ 0x08044870
 	push {r4, r5, lr}
 	ldr r0, .L08044888 @ =0x0203CD14
 	movs r1, #0
@@ -4428,12 +4428,12 @@ sub_8044870: @ 0x08044870
 	ldr r4, .L080448E4 @ =0x0203CD84
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
-	bl sub_806B6F8
+	bl func_fe6_0806B6F8
 	lsls r0, r0, #0x18
 	asrs r5, r0, #0x18
 	ldrb r0, [r4, #1]
 	ldrb r1, [r4]
-	bl sub_806B6F8
+	bl func_fe6_0806B6F8
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
 .L080448D8:
@@ -4460,8 +4460,8 @@ sub_8044870: @ 0x08044870
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_8044900
-sub_8044900: @ 0x08044900
+	thumb_func_start func_fe6_08044900
+func_fe6_08044900: @ 0x08044900
 	push {r4, lr}
 	ldr r0, .L0804496C @ =gUnk_Banim_02017720
 	movs r4, #0
@@ -4539,8 +4539,8 @@ sub_8044900: @ 0x08044900
 .L080449BC: .4byte 0x06012000
 .L080449C0: .4byte gUnk_Banim_0201E7A4
 
-	thumb_func_start sub_80449C4
-sub_80449C4: @ 0x080449C4
+	thumb_func_start func_fe6_080449C4
+func_fe6_080449C4: @ 0x080449C4
 	ldr r0, .L080449D8 @ =gUnk_Banim_02017720
 	ldr r0, [r0]
 	cmp r0, #0
@@ -4559,8 +4559,8 @@ sub_80449C4: @ 0x080449C4
 .L080449E2:
 	bx lr
 
-	thumb_func_start sub_80449E4
-sub_80449E4: @ 0x080449E4
+	thumb_func_start func_fe6_080449E4
+func_fe6_080449E4: @ 0x080449E4
 	ldr r1, .L080449F0 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4570,8 +4570,8 @@ sub_80449E4: @ 0x080449E4
 	.align 2, 0
 .L080449F0: .4byte gUnk_Banim_02017778
 
-	thumb_func_start sub_80449F4
-sub_80449F4: @ 0x080449F4
+	thumb_func_start func_fe6_080449F4
+func_fe6_080449F4: @ 0x080449F4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, .L08044A24 @ =gUnk_Banim_02017720
@@ -4586,7 +4586,7 @@ sub_80449F4: @ 0x080449F4
 	adds r6, r0, #0
 	str r4, [r6, #0x64]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08044A30
 	ldr r0, .L08044A2C @ =gUnk_Banim_02000000
@@ -4607,7 +4607,7 @@ sub_80449F4: @ 0x080449F4
 	str r0, [r6, #0x60]
 	ldr r4, .L08044A90 @ =0x0203CD46
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -4616,21 +4616,21 @@ sub_80449F4: @ 0x080449F4
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r5, r5, #1
 	adds r5, r5, r0
 	adds r0, r5, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x4c]
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xf
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x50]
@@ -4654,7 +4654,7 @@ sub_80449F4: @ 0x080449F4
 	str r1, [r6, #0x54]
 	str r1, [r6, #0x58]
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044ABC @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4667,20 +4667,20 @@ sub_80449F4: @ 0x080449F4
 	.align 2, 0
 .L08044ABC: .4byte gUnk_Banim_02017778
 
-	thumb_func_start sub_8044AC0
-sub_8044AC0: @ 0x08044AC0
+	thumb_func_start func_fe6_08044AC0
+func_fe6_08044AC0: @ 0x08044AC0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	adds r5, r0, #0
 	ldr r4, .L08044B88 @ =gUnk_Banim_02000000
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r6, [r0]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -4702,7 +4702,7 @@ sub_8044AC0: @ 0x08044AC0
 	adds r0, r1, r0
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044B8C @ =0x0203CDA0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4721,13 +4721,13 @@ sub_8044AC0: @ 0x08044AC0
 	ldr r1, .L08044B90 @ =0x0203CD84
 	mov r8, r1
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
 	cmp r0, #0x66
 	beq .L08044B46
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -4741,7 +4741,7 @@ sub_8044AC0: @ 0x08044AC0
 	bne .L08044BB4
 	ldr r4, .L08044B94 @ =0x0203CD46
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r1, [r0]
@@ -4749,7 +4749,7 @@ sub_8044AC0: @ 0x08044AC0
 	movs r4, #0
 	strh r1, [r0]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044B98 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4757,7 +4757,7 @@ sub_8044AC0: @ 0x08044AC0
 	ldr r0, [r5, #0x50]
 	cmp r0, #0
 	bne .L08044C44
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	bne .L08044B9C
 	movs r0, #0
@@ -4770,7 +4770,7 @@ sub_8044AC0: @ 0x08044AC0
 .L08044B98: .4byte gUnk_Banim_02017778
 .L08044B9C:
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
 	bl ShouldDisplayDeathQuote
@@ -4796,7 +4796,7 @@ sub_8044AC0: @ 0x08044AC0
 	bne .L08044C50
 	ldr r4, .L08044C00 @ =0x0203CD46
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r1, [r0]
@@ -4804,7 +4804,7 @@ sub_8044AC0: @ 0x08044AC0
 	movs r4, #0
 	strh r1, [r0]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044C04 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4812,7 +4812,7 @@ sub_8044AC0: @ 0x08044AC0
 	ldr r0, [r5, #0x50]
 	cmp r0, #0
 	bne .L08044C44
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	bne .L08044C08
 	movs r0, #0
@@ -4822,7 +4822,7 @@ sub_8044AC0: @ 0x08044AC0
 .L08044C04: .4byte gUnk_Banim_02017778
 .L08044C08:
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
 	bl ShouldDisplayDeathQuote
@@ -4834,15 +4834,15 @@ sub_8044AC0: @ 0x08044AC0
 .L08044C1E:
 	adds r0, r6, #0
 	adds r1, r7, #0
-	bl sub_80455C0
+	bl func_fe6_080455C0
 	b .L08044C44
 .L08044C28:
-	bl sub_804C554
+	bl func_fe6_0804C554
 	adds r0, r6, #0
 	adds r1, r7, #0
-	bl sub_80457E8
+	bl func_fe6_080457E8
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044C4C @ =0x0203CCF8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -4870,8 +4870,8 @@ sub_8044AC0: @ 0x08044AC0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8044C68
-sub_8044C68: @ 0x08044C68
+	thumb_func_start func_fe6_08044C68
+func_fe6_08044C68: @ 0x08044C68
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08044CB0 @ =gUnk_Banim_02017744
@@ -4886,12 +4886,12 @@ sub_8044C68: @ 0x08044C68
 	movs r0, #1
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x64]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r4, r0, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B768
+	bl func_fe6_0804B768
 	cmp r0, #1
 	bne .L08044CFA
 	ldr r0, .L08044CB8 @ =0x0203CD14
@@ -4919,19 +4919,19 @@ sub_8044C68: @ 0x08044C68
 	movs r0, #0x10
 	strh r0, [r5, #0x2e]
 	adds r0, r4, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L08044CFA
 .L08044CE8:
 	movs r0, #0x14
 	strh r0, [r5, #0x2e]
 	adds r0, r4, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08044CFA:
 	adds r0, r5, #0
 	bl Proc_Break
@@ -4941,8 +4941,8 @@ sub_8044C68: @ 0x08044C68
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8044D08
-sub_8044D08: @ 0x08044D08
+	thumb_func_start func_fe6_08044D08
+func_fe6_08044D08: @ 0x08044D08
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -4956,7 +4956,7 @@ sub_8044D08: @ 0x08044D08
 	cmp r1, r0
 	bne .L08044D2E
 	ldr r0, [r2, #0x64]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	movs r0, #4
 	bl EnableBgSync
 	b .L08044D44
@@ -4977,8 +4977,8 @@ sub_8044D08: @ 0x08044D08
 	.align 2, 0
 .L08044D48: .4byte gUnk_Banim_02017720
 
-	thumb_func_start sub_8044D4C
-sub_8044D4C: @ 0x08044D4C
+	thumb_func_start func_fe6_08044D4C
+func_fe6_08044D4C: @ 0x08044D4C
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, .L08044D84 @ =gUnk_Banim_02017720
@@ -4992,10 +4992,10 @@ sub_8044D4C: @ 0x08044D4C
 	bl SpawnProc
 	adds r6, r0, #0
 	adds r0, r4, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	str r0, [r6, #0x64]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08044D90
 	ldr r0, .L08044D8C @ =gUnk_Banim_02000000
@@ -5016,7 +5016,7 @@ sub_8044D4C: @ 0x08044D4C
 	str r0, [r6, #0x60]
 	ldr r4, .L08044DF0 @ =0x0203CD46
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -5025,21 +5025,21 @@ sub_8044D4C: @ 0x08044D4C
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r5, r5, #1
 	adds r5, r5, r0
 	adds r0, r5, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x4c]
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xf
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x50]
@@ -5068,7 +5068,7 @@ sub_8044D4C: @ 0x08044D4C
 	ldr r0, .L08044E24 @ =gUnk_Banim_02017748
 	str r1, [r0]
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044E28 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5082,14 +5082,14 @@ sub_8044D4C: @ 0x08044D4C
 .L08044E24: .4byte gUnk_Banim_02017748
 .L08044E28: .4byte gUnk_Banim_02017778
 
-	thumb_func_start sub_8044E2C
-sub_8044E2C: @ 0x08044E2C
+	thumb_func_start func_fe6_08044E2C
+func_fe6_08044E2C: @ 0x08044E2C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, [r5, #0x58]
 	cmp r1, #0
 	bne .L08044E7C
@@ -5106,7 +5106,7 @@ sub_8044E2C: @ 0x08044E2C
 	adds r0, r1, r0
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044EC8 @ =0x0203CDA0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5130,7 +5130,7 @@ sub_8044E2C: @ 0x08044E2C
 	bne .L08044ED8
 	ldr r4, .L08044ECC @ =0x0203CD46
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r1, [r0]
@@ -5138,7 +5138,7 @@ sub_8044E2C: @ 0x08044E2C
 	movs r4, #0
 	strh r1, [r0]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044ED0 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5176,8 +5176,8 @@ sub_8044E2C: @ 0x08044E2C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8044EEC
-sub_8044EEC: @ 0x08044EEC
+	thumb_func_start func_fe6_08044EEC
+func_fe6_08044EEC: @ 0x08044EEC
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x2c]
@@ -5191,7 +5191,7 @@ sub_8044EEC: @ 0x08044EEC
 	ble .L08044F86
 	ldr r4, .L08044F68 @ =0x0203CD46
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -5200,21 +5200,21 @@ sub_8044EEC: @ 0x08044EEC
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r5, r5, #1
 	adds r5, r5, r0
 	adds r0, r5, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x4c]
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xf
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x50]
@@ -5244,7 +5244,7 @@ sub_8044EEC: @ 0x08044EEC
 	adds r0, r6, #0
 	bl Proc_Break
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08044F8C @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5257,27 +5257,27 @@ sub_8044EEC: @ 0x08044EEC
 	.align 2, 0
 .L08044F8C: .4byte gUnk_Banim_02017778
 
-	thumb_func_start sub_8044F90
-sub_8044F90: @ 0x08044F90
+	thumb_func_start func_fe6_08044F90
+func_fe6_08044F90: @ 0x08044F90
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	adds r5, r0, #0
 	ldr r4, .L08045064 @ =gUnk_Banim_02000000
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r7, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r6, [r0]
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -5300,7 +5300,7 @@ sub_8044F90: @ 0x08044F90
 	adds r0, r1, r0
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08045068 @ =0x0203CDA0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5311,12 +5311,12 @@ sub_8044F90: @ 0x08044F90
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x75
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r7, r0]
 	movs r0, #0x75
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r2, #0x2e
 	ldrsh r1, [r5, r2]
 	ldr r0, [r5, #0x50]
@@ -5333,7 +5333,7 @@ sub_8044F90: @ 0x08044F90
 	bne .L080450C4
 	ldr r4, .L0804506C @ =0x0203CD46
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r1, [r0]
@@ -5341,7 +5341,7 @@ sub_8044F90: @ 0x08044F90
 	movs r4, #0
 	strh r1, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08045070 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5351,7 +5351,7 @@ sub_8044F90: @ 0x08044F90
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne .L080450B8
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	bne .L08045074
 	movs r0, #0
@@ -5364,7 +5364,7 @@ sub_8044F90: @ 0x08044F90
 .L08045074:
 	ldr r4, .L08045098 @ =0x0203CD84
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r4
 	ldrb r0, [r0]
 	bl ShouldDisplayDeathQuote
@@ -5375,17 +5375,17 @@ sub_8044F90: @ 0x08044F90
 	bne .L0804509C
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_80455C0
+	bl func_fe6_080455C0
 	b .L080450B8
 	.align 2, 0
 .L08045098: .4byte 0x0203CD84
 .L0804509C:
-	bl sub_804C554
+	bl func_fe6_0804C554
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_80457E8
+	bl func_fe6_080457E8
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080450C0 @ =0x0203CCF8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5412,11 +5412,11 @@ sub_8044F90: @ 0x08044F90
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80450DC
-sub_80450DC: @ 0x080450DC
+	thumb_func_start func_fe6_080450DC
+func_fe6_080450DC: @ 0x080450DC
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
-	bl sub_80588E0
+	bl func_fe6_080588E0
 	adds r7, r0, #0
 	ldr r1, .L08045114 @ =gUnk_Banim_02017720
 	ldr r5, [r1]
@@ -5430,7 +5430,7 @@ sub_80450DC: @ 0x080450DC
 	adds r4, r0, #0
 	strh r5, [r4, #0x2c]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08045120
 	ldr r0, .L0804511C @ =gUnk_Banim_02000000
@@ -5451,13 +5451,13 @@ sub_80450DC: @ 0x080450DC
 	str r0, [r4, #0x60]
 	ldr r0, [r4, #0x60]
 	movs r1, #1
-	bl sub_8056A18
+	bl func_fe6_08056A18
 	str r6, [r4, #0x64]
 	adds r4, #0x29
 	movs r0, #0
 	strb r0, [r4]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804514C
 	movs r0, #0x10
@@ -5477,24 +5477,24 @@ sub_80450DC: @ 0x080450DC
 	cmp r4, #1
 	bne .L08045164
 	adds r0, r6, #0
-	bl sub_805A998
+	bl func_fe6_0805A998
 .L08045164:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd7
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0xd7
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L0804517A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8045180
-sub_8045180: @ 0x08045180
+	thumb_func_start func_fe6_08045180
+func_fe6_08045180: @ 0x08045180
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r0, #0x29
@@ -5503,7 +5503,7 @@ sub_8045180: @ 0x08045180
 	bne .L080451C6
 	ldr r4, .L080451AC @ =0x0203CD84
 	ldr r0, [r5, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r4
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -5545,8 +5545,8 @@ sub_8045180: @ 0x08045180
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80451E0
-sub_80451E0: @ 0x080451E0
+	thumb_func_start func_fe6_080451E0
+func_fe6_080451E0: @ 0x080451E0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r1, .L08045210 @ =gUnk_Banim_02017720
@@ -5560,7 +5560,7 @@ sub_80451E0: @ 0x080451E0
 	bl SpawnProc
 	adds r6, r0, #0
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804521C
 	ldr r0, .L08045218 @ =gUnk_Banim_02000000
@@ -5581,7 +5581,7 @@ sub_80451E0: @ 0x080451E0
 	str r0, [r6, #0x60]
 	ldr r4, .L08045280 @ =0x0203CD46
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -5590,21 +5590,21 @@ sub_80451E0: @ 0x080451E0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r5, r5, #1
 	adds r5, r5, r0
 	adds r0, r5, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	str r0, [r6, #0x4c]
 	ldr r0, [r6, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0xf
 	adds r4, r4, r0
 	adds r0, r4, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	str r1, [r6, #0x50]
@@ -5637,7 +5637,7 @@ sub_80451E0: @ 0x080451E0
 	strh r0, [r6, #0x2e]
 	str r7, [r6, #0x64]
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080452B4 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5650,8 +5650,8 @@ sub_80451E0: @ 0x080451E0
 	.align 2, 0
 .L080452B4: .4byte gUnk_Banim_02017778
 
-	thumb_func_start sub_80452B8
-sub_80452B8: @ 0x080452B8
+	thumb_func_start func_fe6_080452B8
+func_fe6_080452B8: @ 0x080452B8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x60]
@@ -5671,7 +5671,7 @@ sub_80452B8: @ 0x080452B8
 	adds r0, r1, r0
 	strh r0, [r5, #0x2e]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0804534C @ =0x0203CDA0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5682,12 +5682,12 @@ sub_80452B8: @ 0x080452B8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x75
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0x75
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r2, #0x2e
 	ldrsh r1, [r5, r2]
 	ldr r0, [r5, #0x50]
@@ -5704,7 +5704,7 @@ sub_80452B8: @ 0x080452B8
 	bne .L08045358
 	ldr r4, .L08045350 @ =0x0203CD46
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r1, [r0]
@@ -5712,7 +5712,7 @@ sub_80452B8: @ 0x080452B8
 	movs r4, #0
 	strh r1, [r0]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08045354 @ =gUnk_Banim_02017778
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -5737,8 +5737,8 @@ sub_80452B8: @ 0x080452B8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804536C
-sub_804536C: @ 0x0804536C
+	thumb_func_start func_fe6_0804536C
+func_fe6_0804536C: @ 0x0804536C
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -5764,10 +5764,10 @@ sub_804536C: @ 0x0804536C
 	str r5, [r4, #0x64]
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8056A18
+	bl func_fe6_08056A18
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_8045478
+	bl func_fe6_08045478
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6}
@@ -5777,22 +5777,22 @@ sub_804536C: @ 0x0804536C
 .L080453B8: .4byte gUnk_Banim_02017720
 .L080453BC: .4byte gUnk_085CB7E0
 
-	thumb_func_start sub_80453C0
-sub_80453C0: @ 0x080453C0
+	thumb_func_start func_fe6_080453C0
+func_fe6_080453C0: @ 0x080453C0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	ldr r5, .L08045428 @ =0x0203CD84
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	cmp r0, #0x66
 	beq .L080453EA
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	cmp r0, #3
@@ -5805,7 +5805,7 @@ sub_80453C0: @ 0x080453C0
 	bne .L0804546C
 	ldr r5, .L0804542C @ =0x0203CD46
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r0]
@@ -5817,7 +5817,7 @@ sub_80453C0: @ 0x080453C0
 	cmp r0, #1
 	bne .L08045420
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r0]
@@ -5838,7 +5838,7 @@ sub_80453C0: @ 0x080453C0
 	bne .L0804546C
 	ldr r5, .L08045474 @ =0x0203CD46
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r0]
@@ -5850,7 +5850,7 @@ sub_80453C0: @ 0x080453C0
 	cmp r0, #1
 	bne .L08045466
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r1, [r0]
@@ -5866,8 +5866,8 @@ sub_80453C0: @ 0x080453C0
 	.align 2, 0
 .L08045474: .4byte 0x0203CD46
 
-	thumb_func_start sub_8045478
-sub_8045478: @ 0x08045478
+	thumb_func_start func_fe6_08045478
+func_fe6_08045478: @ 0x08045478
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -5885,8 +5885,8 @@ sub_8045478: @ 0x08045478
 	.align 2, 0
 .L08045498: .4byte gUnk_085CB808
 
-	thumb_func_start sub_804549C
-sub_804549C: @ 0x0804549C
+	thumb_func_start func_fe6_0804549C
+func_fe6_0804549C: @ 0x0804549C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -5908,7 +5908,7 @@ sub_804549C: @ 0x0804549C
 	cmp r1, r0
 	bne .L08045504
 	mov r0, r8
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r5, .L080454FC @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r5
@@ -5919,7 +5919,7 @@ sub_804549C: @ 0x0804549C
 	mov r2, r8
 	strh r0, [r2, #2]
 	ldr r0, [r7, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r5
 	ldrh r0, [r0]
@@ -5936,7 +5936,7 @@ sub_804549C: @ 0x0804549C
 .L08045500: .4byte gUnk_Banim_0201E12C
 .L08045504:
 	mov r0, r8
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08045520
 	movs r2, #0x2c
@@ -5956,7 +5956,7 @@ sub_804549C: @ 0x0804549C
 	ldrh r4, [r0]
 .L0804552A:
 	ldr r0, [r7, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r6, .L08045570 @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r6
@@ -5970,7 +5970,7 @@ sub_804549C: @ 0x0804549C
 	mov r2, r8
 	strh r1, [r2, #2]
 	ldr r0, [r7, #0x60]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r6
 	ldr r1, [r5]
@@ -5993,8 +5993,8 @@ sub_804549C: @ 0x0804549C
 .L08045570: .4byte gUnk_Banim_02000020
 .L08045574: .4byte gUnk_Banim_0201E12C
 
-	thumb_func_start sub_8045578
-sub_8045578: @ 0x08045578
+	thumb_func_start func_fe6_08045578
+func_fe6_08045578: @ 0x08045578
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r1, .L0804559C @ =gUnk_Banim_02017720
@@ -6016,8 +6016,8 @@ sub_8045578: @ 0x08045578
 .L0804559C: .4byte gUnk_Banim_02017720
 .L080455A0: .4byte gUnk_085CB820
 
-	thumb_func_start sub_80455A4
-sub_80455A4: @ 0x080455A4
+	thumb_func_start func_fe6_080455A4
+func_fe6_080455A4: @ 0x080455A4
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -6033,8 +6033,8 @@ sub_80455A4: @ 0x080455A4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80455C0
-sub_80455C0: @ 0x080455C0
+	thumb_func_start func_fe6_080455C0
+func_fe6_080455C0: @ 0x080455C0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -6047,11 +6047,11 @@ sub_80455C0: @ 0x080455C0
 	ldr r1, .L08045608 @ =gUnk_Banim_02017730
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L080455FC
 	ldr r0, [r6, #0x5c]
-	bl sub_805A77C
+	bl func_fe6_0805A77C
 	str r0, [r6, #0x64]
 	ldr r2, .L0804560C @ =gUnk_Banim_02000028
 	ldr r1, .L08045610 @ =gUnk_Banim_0201E12C
@@ -6072,12 +6072,12 @@ sub_80455C0: @ 0x080455C0
 .L0804560C: .4byte gUnk_Banim_02000028
 .L08045610: .4byte gUnk_Banim_0201E12C
 
-	thumb_func_start sub_8045614
-sub_8045614: @ 0x08045614
+	thumb_func_start func_fe6_08045614
+func_fe6_08045614: @ 0x08045614
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r7, r0, #0
 	movs r6, #0
 	ldr r0, .L08045680 @ =gUnk_Banim_02017744
@@ -6090,7 +6090,7 @@ sub_8045614: @ 0x08045614
 	bne .L08045646
 	ldr r4, .L08045688 @ =gUnk_Banim_0201E124
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -6108,7 +6108,7 @@ sub_8045614: @ 0x08045614
 	cmp r0, #0
 	beq .L08045674
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08045690 @ =gUnk_Banim_0201773C
 	ldr r1, [r1]
 	cmp r0, r1
@@ -6116,7 +6116,7 @@ sub_8045614: @ 0x08045614
 	movs r1, #1
 	rsbs r1, r1, #0
 	adds r0, r7, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 .L08045674:
@@ -6133,8 +6133,8 @@ sub_8045614: @ 0x08045614
 .L0804568C: .4byte 0x0203CD14
 .L08045690: .4byte gUnk_Banim_0201773C
 
-	thumb_func_start sub_8045694
-sub_8045694: @ 0x08045694
+	thumb_func_start func_fe6_08045694
+func_fe6_08045694: @ 0x08045694
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -6146,11 +6146,11 @@ sub_8045694: @ 0x08045694
 	bne .L080456BE
 	movs r0, #1
 	movs r1, #7
-	bl sub_8048DA4
+	bl func_fe6_08048DA4
 	movs r0, #1
 	movs r1, #7
 	movs r2, #0
-	bl sub_8048E88
+	bl func_fe6_08048E88
 	adds r0, r4, #0
 	bl Proc_Break
 .L080456BE:
@@ -6158,18 +6158,18 @@ sub_8045694: @ 0x08045694
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80456C4
-sub_80456C4: @ 0x080456C4
+	thumb_func_start func_fe6_080456C4
+func_fe6_080456C4: @ 0x080456C4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	bl sub_8048DF4
+	bl func_fe6_08048DF4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08045734
-	bl sub_8043960
-	bl sub_8044264
+	bl func_fe6_08043960
+	bl func_fe6_08044264
 	movs r0, #0
 	str r0, [sp]
 	ldr r1, .L0804573C @ =gBg0Tm
@@ -6187,21 +6187,21 @@ sub_80456C4: @ 0x080456C4
 	bl SetBgOffset
 	movs r0, #1
 	bl EnableBgSync
-	bl sub_80438D8
+	bl func_fe6_080438D8
 	ldr r5, .L08045748 @ =0x0203CD84
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r5
 	ldrb r0, [r0]
 	cmp r0, #0x66
 	bne .L08045720
-	bl sub_805AFD4
+	bl func_fe6_0805AFD4
 .L08045720:
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r0, r0, r5
 	ldrb r0, [r0]
-	bl sub_806B808
+	bl func_fe6_0806B808
 	adds r0, r4, #0
 	bl Proc_Break
 .L08045734:
@@ -6215,8 +6215,8 @@ sub_80456C4: @ 0x080456C4
 .L08045744: .4byte gUnk_Banim_02000030
 .L08045748: .4byte 0x0203CD84
 
-	thumb_func_start sub_804574C
-sub_804574C: @ 0x0804574C
+	thumb_func_start func_fe6_0804574C
+func_fe6_0804574C: @ 0x0804574C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	bl IsEventRunning
@@ -6224,13 +6224,13 @@ sub_804574C: @ 0x0804574C
 	asrs r5, r0, #0x18
 	cmp r5, #0
 	bne .L080457A4
-	bl sub_804C554
+	bl func_fe6_0804C554
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_80457E8
-	bl sub_8044608
+	bl func_fe6_080457E8
+	bl func_fe6_08044608
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080457AC @ =0x0203CCF8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -6239,14 +6239,14 @@ sub_804574C: @ 0x0804574C
 	bl EnableBgSync
 	movs r0, #0
 	movs r1, #7
-	bl sub_8048DA4
+	bl func_fe6_08048DA4
 	movs r0, #0
 	movs r1, #7
 	movs r2, #0
-	bl sub_8048E88
-	bl sub_8043970
-	bl sub_8044274
-	bl sub_80438C8
+	bl func_fe6_08048E88
+	bl func_fe6_08043970
+	bl func_fe6_08044274
+	bl func_fe6_080438C8
 	adds r0, r4, #0
 	bl Proc_Break
 .L080457A4:
@@ -6256,12 +6256,12 @@ sub_804574C: @ 0x0804574C
 	.align 2, 0
 .L080457AC: .4byte 0x0203CCF8
 
-	thumb_func_start sub_80457B0
-sub_80457B0: @ 0x080457B0
+	thumb_func_start func_fe6_080457B0
+func_fe6_080457B0: @ 0x080457B0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x64]
-	bl sub_8048DF4
+	bl func_fe6_08048DF4
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
@@ -6269,7 +6269,7 @@ sub_80457B0: @ 0x080457B0
 	ldr r0, .L080457E4 @ =gUnk_Banim_02017730
 	movs r1, #0
 	str r1, [r0]
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L080457D6
 	adds r0, r6, #0
@@ -6285,8 +6285,8 @@ sub_80457B0: @ 0x080457B0
 	.align 2, 0
 .L080457E4: .4byte gUnk_Banim_02017730
 
-	thumb_func_start sub_80457E8
-sub_80457E8: @ 0x080457E8
+	thumb_func_start func_fe6_080457E8
+func_fe6_080457E8: @ 0x080457E8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -6306,7 +6306,7 @@ sub_80457E8: @ 0x080457E8
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
 	adds r0, r4, #0
-	bl sub_8046ED8
+	bl func_fe6_08046ED8
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -6315,16 +6315,16 @@ sub_80457E8: @ 0x080457E8
 .L08045820: .4byte gUnk_Banim_0201772C
 .L08045824: .4byte gUnk_085CB888
 
-	thumb_func_start sub_8045828
-sub_8045828: @ 0x08045828
+	thumb_func_start func_fe6_08045828
+func_fe6_08045828: @ 0x08045828
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	bl sub_80588E0
+	bl func_fe6_080588E0
 	adds r4, r0, #0
 	ldr r6, [r5, #0x5c]
 	ldr r7, [r5, #0x60]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08045844
 	movs r0, #0x15
@@ -6353,8 +6353,8 @@ sub_8045828: @ 0x08045828
 	orrs r0, r1
 	strh r0, [r7]
 	ldr r0, [r5, #0x5c]
-	bl sub_8058A1C
-	bl sub_8058D34
+	bl func_fe6_08058A1C
+	bl func_fe6_08058D34
 	b .L0804589C
 	.align 2, 0
 .L0804587C: .4byte gUnk_Banim_02017744
@@ -6370,17 +6370,17 @@ sub_8045828: @ 0x08045828
 	beq .L080458A8
 	ldr r0, [r5, #0x5c]
 	ldr r1, [r5, #0x60]
-	bl sub_8045974
+	bl func_fe6_08045974
 .L0804589C:
 	ldr r0, [r5, #0x5c]
-	bl sub_8058A08
+	bl func_fe6_08058A08
 	movs r1, #1
 	strh r1, [r0]
 	b .L080458B0
 .L080458A8:
 	ldr r0, [r5, #0x5c]
 	ldr r1, [r5, #0x60]
-	bl sub_8045974
+	bl func_fe6_08045974
 .L080458B0:
 	movs r0, #0x32
 	strh r0, [r5, #0x2e]
@@ -6391,15 +6391,15 @@ sub_8045828: @ 0x08045828
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80458C0
-sub_80458C0: @ 0x080458C0
+	thumb_func_start func_fe6_080458C0
+func_fe6_080458C0: @ 0x080458C0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	bl sub_80588E0
+	bl func_fe6_080588E0
 	adds r5, r0, #0
 	ldr r6, [r4, #0x5c]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080458DA
 	movs r0, #0x15
@@ -6421,16 +6421,16 @@ sub_80458C0: @ 0x080458C0
 	beq .L08045918
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_8045B24
+	bl func_fe6_08045B24
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0xd6
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r0, #0x64
 	strh r0, [r4, #0x2e]
 	b .L08045966
@@ -6445,16 +6445,16 @@ sub_80458C0: @ 0x080458C0
 .L08045926:
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
-	bl sub_80459F8
+	bl func_fe6_080459F8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r2, #2
 	ldrsh r1, [r6, r2]
 	movs r0, #0xd6
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r0, #0x32
 	strh r0, [r4, #0x2e]
 	b .L08045966
@@ -6480,8 +6480,8 @@ sub_80458C0: @ 0x080458C0
 .L0804596C: .4byte gUnk_Banim_02017720
 .L08045970: .4byte gUnk_Banim_0201772C
 
-	thumb_func_start sub_8045974
-sub_8045974: @ 0x08045974
+	thumb_func_start func_fe6_08045974
+func_fe6_08045974: @ 0x08045974
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -6499,8 +6499,8 @@ sub_8045974: @ 0x08045974
 	.align 2, 0
 .L08045994: .4byte gUnk_085CB8A8
 
-	thumb_func_start sub_8045998
-sub_8045998: @ 0x08045998
+	thumb_func_start func_fe6_08045998
+func_fe6_08045998: @ 0x08045998
 	push {r4, r5, lr}
 	adds r2, r0, #0
 	ldr r3, [r2, #0x5c]
@@ -6551,8 +6551,8 @@ sub_8045998: @ 0x08045998
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80459F8
-sub_80459F8: @ 0x080459F8
+	thumb_func_start func_fe6_080459F8
+func_fe6_080459F8: @ 0x080459F8
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -6609,8 +6609,8 @@ sub_80459F8: @ 0x080459F8
 .L08045A68: .4byte 0x0000FFE0
 .L08045A6C: .4byte 0x0000E0FF
 
-	thumb_func_start sub_8045A70
-sub_8045A70: @ 0x08045A70
+	thumb_func_start func_fe6_08045A70
+func_fe6_08045A70: @ 0x08045A70
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -6700,8 +6700,8 @@ sub_8045A70: @ 0x08045A70
 	.align 2, 0
 .L08045B20: .4byte gDispIo
 
-	thumb_func_start sub_8045B24
-sub_8045B24: @ 0x08045B24
+	thumb_func_start func_fe6_08045B24
+func_fe6_08045B24: @ 0x08045B24
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -6722,7 +6722,7 @@ sub_8045B24: @ 0x08045B24
 	strh r3, [r0, #0x2c]
 	strh r3, [r0, #0x2e]
 	ldr r0, [r0, #0x5c]
-	bl sub_8058A34
+	bl func_fe6_08058A34
 	ldr r5, .L08045BEC @ =gDispIo
 	adds r2, r5, #0
 	adds r2, #0x3c
@@ -6803,8 +6803,8 @@ sub_8045B24: @ 0x08045B24
 .L08045BF0: .4byte 0x0000FFE0
 .L08045BF4: .4byte 0x0000E0FF
 
-	thumb_func_start sub_8045BF8
-sub_8045BF8: @ 0x08045BF8
+	thumb_func_start func_fe6_08045BF8
+func_fe6_08045BF8: @ 0x08045BF8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -6879,8 +6879,8 @@ sub_8045BF8: @ 0x08045BF8
 	.align 2, 0
 .L08045C8C: .4byte gDispIo
 
-	thumb_func_start sub_8045C90
-sub_8045C90: @ 0x08045C90
+	thumb_func_start func_fe6_08045C90
+func_fe6_08045C90: @ 0x08045C90
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	lsls r1, r1, #0x10
@@ -6910,7 +6910,7 @@ sub_8045C90: @ 0x08045C90
 	bl SpawnProc
 	adds r4, r0, #0
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r2, r4, #0
 	adds r2, #0x29
 	movs r1, #0
@@ -6989,8 +6989,8 @@ sub_8045C90: @ 0x08045C90
 .L08045D64: .4byte gUnk_Banim_0201E12C
 .L08045D68: .4byte gUnk_Banim_02017740
 
-	thumb_func_start sub_8045D6C
-sub_8045D6C: @ 0x08045D6C
+	thumb_func_start func_fe6_08045D6C
+func_fe6_08045D6C: @ 0x08045D6C
 	push {r4, r5, lr}
 	ldr r3, .L08045D9C @ =gUnk_Banim_02000000
 	ldr r4, [r3]
@@ -7018,24 +7018,24 @@ sub_8045D6C: @ 0x08045D6C
 .L08045D9C: .4byte gUnk_Banim_02000000
 .L08045DA0: .4byte gUnk_Banim_02000020
 
-	thumb_func_start sub_8045DA4
-sub_8045DA4: @ 0x08045DA4
+	thumb_func_start func_fe6_08045DA4
+func_fe6_08045DA4: @ 0x08045DA4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0x32
 	ldrsh r1, [r4, r0]
 	adds r0, r4, #0
-	bl sub_8045D6C
-	bl sub_805894C
+	bl func_fe6_08045D6C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08045DC2
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
-	bl sub_8058F60
+	bl func_fe6_08058F60
 .L08045DC2:
 	movs r1, #0x32
 	ldrsh r0, [r4, r1]
-	bl sub_8045EE8
+	bl func_fe6_08045EE8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -7045,8 +7045,8 @@ sub_8045DA4: @ 0x08045DA4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8045DDC
-sub_8045DDC: @ 0x08045DDC
+	thumb_func_start func_fe6_08045DDC
+func_fe6_08045DDC: @ 0x08045DDC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -7065,20 +7065,20 @@ sub_8045DDC: @ 0x08045DDC
 	ldr r5, .L08045E4C @ =gUnk_Banim_0201E12C
 	str r1, [r5]
 	adds r0, r4, #0
-	bl sub_8045D6C
-	bl sub_805894C
+	bl func_fe6_08045D6C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08045E14
 	ldr r0, [r5]
-	bl sub_8058F60
+	bl func_fe6_08058F60
 .L08045E14:
 	ldr r0, [r5]
-	bl sub_8045EE8
-	bl sub_804C500
+	bl func_fe6_08045EE8
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L08045E28
 	ldr r0, [r5]
-	bl sub_804C50C
+	bl func_fe6_0804C50C
 .L08045E28:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -7100,8 +7100,8 @@ sub_8045DDC: @ 0x08045DDC
 	.align 2, 0
 .L08045E4C: .4byte gUnk_Banim_0201E12C
 
-	thumb_func_start sub_8045E50
-sub_8045E50: @ 0x08045E50
+	thumb_func_start func_fe6_08045E50
+func_fe6_08045E50: @ 0x08045E50
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -7120,20 +7120,20 @@ sub_8045E50: @ 0x08045E50
 	ldr r5, .L08045EBC @ =gUnk_Banim_0201E12C
 	str r1, [r5]
 	adds r0, r4, #0
-	bl sub_8045D6C
-	bl sub_805894C
+	bl func_fe6_08045D6C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08045E88
 	ldr r0, [r5]
-	bl sub_8058F60
+	bl func_fe6_08058F60
 .L08045E88:
 	ldr r0, [r5]
-	bl sub_8045EE8
-	bl sub_804C500
+	bl func_fe6_08045EE8
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L08045E9C
 	ldr r0, [r5]
-	bl sub_804C50C
+	bl func_fe6_0804C50C
 .L08045E9C:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -7173,15 +7173,15 @@ sub_8045E50: @ 0x08045E50
 .L08045EE0: .4byte gUnk_Banim_0201773C
 .L08045EE4: .4byte gUnk_Banim_02017740
 
-	thumb_func_start sub_8045EE8
-sub_8045EE8: @ 0x08045EE8
+	thumb_func_start func_fe6_08045EE8
+func_fe6_08045EE8: @ 0x08045EE8
 	push {r4, r5, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	bne .L08045F38
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	bne .L08045F38
 	asrs r4, r5, #3
@@ -7207,7 +7207,7 @@ sub_8045EE8: @ 0x08045EE8
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	movs r0, #4
 	bl EnableBgSync
 .L08045F38:
@@ -7219,8 +7219,8 @@ sub_8045EE8: @ 0x08045EE8
 .L08045F40: .4byte gUnk_Banim_0201C8FE
 .L08045F44: .4byte gBg2Tm
 
-	thumb_func_start sub_8045F48
-sub_8045F48: @ 0x08045F48
+	thumb_func_start func_fe6_08045F48
+func_fe6_08045F48: @ 0x08045F48
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -7252,8 +7252,8 @@ sub_8045F48: @ 0x08045F48
 .L08045F80: .4byte gUnk_085CB918
 .L08045F84: .4byte gUnk_085CB930
 
-	thumb_func_start sub_8045F88
-sub_8045F88: @ 0x08045F88
+	thumb_func_start func_fe6_08045F88
+func_fe6_08045F88: @ 0x08045F88
 	push {r4, lr}
 	adds r2, r0, #0
 	ldr r3, [r2, #0x44]
@@ -7311,8 +7311,8 @@ sub_8045F88: @ 0x08045F88
 	.align 2, 0
 .L08045FF4: .4byte gUnk_Banim_02017758
 
-	thumb_func_start sub_8045FF8
-sub_8045FF8: @ 0x08045FF8
+	thumb_func_start func_fe6_08045FF8
+func_fe6_08045FF8: @ 0x08045FF8
 	push {lr}
 	ldr r0, .L08046008 @ =gUnk_085CB988
 	movs r1, #3
@@ -7322,13 +7322,13 @@ sub_8045FF8: @ 0x08045FF8
 	.align 2, 0
 .L08046008: .4byte gUnk_085CB988
 
-	thumb_func_start nullsub_21
-nullsub_21: @ 0x0804600C
+	thumb_func_start func_fe6_0804600C
+func_fe6_0804600C: @ 0x0804600C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_8046010
-sub_8046010: @ 0x08046010
+	thumb_func_start func_fe6_08046010
+func_fe6_08046010: @ 0x08046010
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08046020 @ =gUnk_Banim_02017740
@@ -7456,8 +7456,8 @@ sub_8046010: @ 0x08046010
 	.align 2, 0
 .L08046108: .4byte gUnk_08111C60
 
-	thumb_func_start sub_804610C
-sub_804610C: @ 0x0804610C
+	thumb_func_start func_fe6_0804610C
+func_fe6_0804610C: @ 0x0804610C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -7489,17 +7489,17 @@ sub_804610C: @ 0x0804610C
 	movs r3, #0
 	ldrsh r2, [r2, r3]
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r4, #0x10
 	asrs r1, r1, #0x10
 	adds r2, r5, #0
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	movs r0, #2
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0804617C
 	ldrh r1, [r7, #0x34]
@@ -7537,7 +7537,7 @@ sub_804610C: @ 0x0804610C
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl SetBgOffset
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080461E2
 	ldrh r2, [r7, #0x34]
@@ -7554,7 +7554,7 @@ sub_804610C: @ 0x0804610C
 	movs r0, #3
 	bl SetBgOffset
 .L080461E2:
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08046200
 	ldr r4, .L080461FC @ =gUnk_Banim_02000020
@@ -7612,13 +7612,13 @@ sub_804610C: @ 0x0804610C
 	lsls r2, r3, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r4, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r5, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	b .L080462B2
 	.align 2, 0
 .L0804626C: .4byte gUnk_Banim_02000020
@@ -7632,7 +7632,7 @@ sub_804610C: @ 0x0804610C
 	cmp r0, #2
 	bgt .L080462B2
 	ldr r0, [r7, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080462A4
 	lsls r1, r6, #0x10
@@ -7641,7 +7641,7 @@ sub_804610C: @ 0x0804610C
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	b .L080462B2
 .L080462A4:
 	lsls r1, r4, #0x10
@@ -7649,7 +7649,7 @@ sub_804610C: @ 0x0804610C
 	lsls r2, r5, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 .L080462B2:
 	pop {r3}
 	mov r8, r3
@@ -7657,8 +7657,8 @@ sub_804610C: @ 0x0804610C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80462BC
-sub_80462BC: @ 0x080462BC
+	thumb_func_start func_fe6_080462BC
+func_fe6_080462BC: @ 0x080462BC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -7730,7 +7730,7 @@ sub_80462BC: @ 0x080462BC
 	str r0, [r5, #0x44]
 	movs r0, #1
 	str r0, [r5, #0x48]
-	bl sub_8058998
+	bl func_fe6_08058998
 	adds r4, r0, #0
 	cmp r4, #0
 	beq .L08046358
@@ -7740,7 +7740,7 @@ sub_80462BC: @ 0x080462BC
 	.align 2, 0
 .L08046354: .4byte gUnk_08111C60
 .L08046358:
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L08046364
 	str r4, [r5, #0x64]
@@ -7757,7 +7757,7 @@ sub_80462BC: @ 0x080462BC
 .L08046374: .4byte 0x0203CD14
 .L08046378:
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080463A8 @ =gUnk_Banim_0201E12C
 	ldr r1, [r1]
 	ldr r2, .L080463AC @ =gUnk_Banim_02000028
@@ -7768,7 +7768,7 @@ sub_80462BC: @ 0x080462BC
 	lsls r1, r1, #0x10
 	lsrs r4, r1, #0x10
 	mov r0, sb
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080463B4
 	movs r0, #0x40
@@ -7816,7 +7816,7 @@ sub_80462BC: @ 0x080462BC
 	str r1, [r5, #0x64]
 	ldr r4, .L08046454 @ =gUnk_Banim_02000034
 	mov r0, sb
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -7826,7 +7826,7 @@ sub_80462BC: @ 0x080462BC
 	bl RegisterDataMove
 	ldr r4, .L0804645C @ =gUnk_Banim_02000044
 	mov r0, sb
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -7838,15 +7838,15 @@ sub_80462BC: @ 0x080462BC
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	mov r0, sb
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
-	bl sub_804C478
+	bl func_fe6_0804C478
 	ldr r0, .L08046468 @ =gUnk_Banim_0201E12C
 	ldr r0, [r0]
-	bl sub_8045EE8
+	bl func_fe6_08045EE8
 .L08046446:
 	pop {r3, r4}
 	mov r8, r3
@@ -7862,8 +7862,8 @@ sub_80462BC: @ 0x080462BC
 .L08046464: .4byte 0x0203CD14
 .L08046468: .4byte gUnk_Banim_0201E12C
 
-	thumb_func_start sub_804646C
-sub_804646C: @ 0x0804646C
+	thumb_func_start func_fe6_0804646C
+func_fe6_0804646C: @ 0x0804646C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -7889,7 +7889,7 @@ sub_804646C: @ 0x0804646C
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080464DE
 	movs r0, #3
@@ -7905,7 +7905,7 @@ sub_804646C: @ 0x0804646C
 	blt .L080464DE
 	cmp r0, #2
 	bgt .L080464DE
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080464D6
 	movs r0, #3
@@ -7915,14 +7915,14 @@ sub_804646C: @ 0x0804646C
 .L080464D6:
 	ldr r0, .L08046580 @ =gUnk_Banim_0201E12C
 	ldr r0, [r0]
-	bl sub_8045EE8
+	bl func_fe6_08045EE8
 .L080464DE:
 	ldr r0, [r6, #0x64]
 	cmp r0, #0
 	beq .L080464EE
 	bl BasRemove
 	ldr r0, .L08046584 @ =gUnk_Banim_0201E0FC
-	bl sub_804C330
+	bl func_fe6_0804C330
 .L080464EE:
 	ldr r3, .L08046588 @ =gUnk_Banim_02000020
 	movs r4, #0
@@ -7941,12 +7941,12 @@ sub_804646C: @ 0x0804646C
 	movs r3, #0
 	ldrsh r2, [r2, r3]
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r4, #0x10
 	asrs r1, r1, #0x10
 	adds r2, r5, #0
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	ldr r1, .L08046590 @ =gUnk_Banim_02017738
 	movs r0, #0
 	str r0, [r1]
@@ -7955,7 +7955,7 @@ sub_804646C: @ 0x0804646C
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne .L08046576
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08046542
 	movs r0, #3
@@ -7976,7 +7976,7 @@ sub_804646C: @ 0x0804646C
 	rsbs r1, r2, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r4]
 	rsbs r0, r3, #0
 	lsls r0, r0, #0x10
@@ -7985,7 +7985,7 @@ sub_804646C: @ 0x0804646C
 	rsbs r1, r4, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
+	bl func_fe6_08044230
 .L08046576:
 	adds r0, r6, #0
 	bl Proc_End
@@ -8006,7 +8006,7 @@ sub_804646C: @ 0x0804646C
 	cmp r0, #0
 	beq .L080465C4
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r0, r1, #4
 	subs r0, r0, r1
@@ -8017,7 +8017,7 @@ sub_804646C: @ 0x0804646C
 	movs r1, #0xf
 	movs r2, #5
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 .L080465C4:
 	ldr r4, .L08046620 @ =gUnk_Banim_02017758
 	movs r1, #0x2c
@@ -8041,7 +8041,7 @@ sub_804646C: @ 0x0804646C
 	cmp r0, #0
 	beq .L0804662C
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08046624 @ =gUnk_Banim_0201E12C
 	ldr r1, [r1]
 	ldr r2, .L08046628 @ =gUnk_Banim_02000028
@@ -8104,7 +8104,7 @@ sub_804646C: @ 0x0804646C
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r5]
 	ldrh r1, [r4]
 	adds r0, r3, r1
@@ -8117,9 +8117,9 @@ sub_804646C: @ 0x0804646C
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
+	bl func_fe6_08044230
 .L08046696:
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080466B0
 	ldr r0, .L080466CC @ =gUnk_Banim_02017758
@@ -8131,7 +8131,7 @@ sub_804646C: @ 0x0804646C
 	movs r0, #3
 	bl SetBgOffset
 .L080466B0:
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080466D8
 	ldr r2, .L080466D4 @ =gUnk_Banim_02000020
@@ -8191,13 +8191,13 @@ sub_804646C: @ 0x0804646C
 	lsls r2, r3, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r4, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r5, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	b .L08046786
 	.align 2, 0
 .L08046740: .4byte gUnk_Banim_02000020
@@ -8211,7 +8211,7 @@ sub_804646C: @ 0x0804646C
 	cmp r0, #2
 	bgt .L08046786
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046778
 	lsls r1, r7, #0x10
@@ -8220,7 +8220,7 @@ sub_804646C: @ 0x0804646C
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	b .L08046786
 .L08046778:
 	lsls r1, r4, #0x10
@@ -8228,7 +8228,7 @@ sub_804646C: @ 0x0804646C
 	lsls r2, r5, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 .L08046786:
 	add sp, #4
 	pop {r3}
@@ -8238,8 +8238,8 @@ sub_804646C: @ 0x0804646C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8046794
-sub_8046794: @ 0x08046794
+	thumb_func_start func_fe6_08046794
+func_fe6_08046794: @ 0x08046794
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -8267,8 +8267,8 @@ sub_8046794: @ 0x08046794
 .L080467C8: .4byte gUnk_Banim_020165C0
 .L080467CC: .4byte 0x01000100
 
-	thumb_func_start sub_80467D0
-sub_80467D0: @ 0x080467D0
+	thumb_func_start func_fe6_080467D0
+func_fe6_080467D0: @ 0x080467D0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -8296,8 +8296,8 @@ sub_80467D0: @ 0x080467D0
 .L08046808: .4byte gUnk_Banim_020165C0
 .L0804680C: .4byte 0x01000100
 
-	thumb_func_start sub_8046810
-sub_8046810: @ 0x08046810
+	thumb_func_start func_fe6_08046810
+func_fe6_08046810: @ 0x08046810
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08046844 @ =gUnk_Banim_020165C0
@@ -8324,8 +8324,8 @@ sub_8046810: @ 0x08046810
 	.align 2, 0
 .L08046844: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_8046848
-sub_8046848: @ 0x08046848
+	thumb_func_start func_fe6_08046848
+func_fe6_08046848: @ 0x08046848
 	push {r4, lr}
 	adds r4, r0, #0
 	bl EnablePalSync
@@ -8335,8 +8335,8 @@ sub_8046848: @ 0x08046848
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804685C
-sub_804685C: @ 0x0804685C
+	thumb_func_start func_fe6_0804685C
+func_fe6_0804685C: @ 0x0804685C
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -8355,8 +8355,8 @@ sub_804685C: @ 0x0804685C
 	.align 2, 0
 .L0804687C: .4byte gUnk_085CB9F8
 
-	thumb_func_start sub_8046880
-sub_8046880: @ 0x08046880
+	thumb_func_start func_fe6_08046880
+func_fe6_08046880: @ 0x08046880
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, .L080468D0 @ =gPal
@@ -8370,7 +8370,7 @@ sub_8046880: @ 0x08046880
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805B644
+	bl func_fe6_0805B644
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -8397,8 +8397,8 @@ sub_8046880: @ 0x08046880
 .L080468D0: .4byte gPal
 .L080468D4: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_80468D8
-sub_80468D8: @ 0x080468D8
+	thumb_func_start func_fe6_080468D8
+func_fe6_080468D8: @ 0x080468D8
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -8423,7 +8423,7 @@ sub_80468D8: @ 0x080468D8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_805B644
+	bl func_fe6_0805B644
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -8449,8 +8449,8 @@ sub_80468D8: @ 0x080468D8
 .L08046940: .4byte gPal
 .L08046944: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_8046948
-sub_8046948: @ 0x08046948
+	thumb_func_start func_fe6_08046948
+func_fe6_08046948: @ 0x08046948
 	push {r4, lr}
 	adds r4, r0, #0
 	bl EnablePalSync
@@ -8460,8 +8460,8 @@ sub_8046948: @ 0x08046948
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804695C
-sub_804695C: @ 0x0804695C
+	thumb_func_start func_fe6_0804695C
+func_fe6_0804695C: @ 0x0804695C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -8490,8 +8490,8 @@ sub_804695C: @ 0x0804695C
 	.align 2, 0
 .L08046990: .4byte gUnk_085CBA20
 
-	thumb_func_start sub_8046994
-sub_8046994: @ 0x08046994
+	thumb_func_start func_fe6_08046994
+func_fe6_08046994: @ 0x08046994
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -8509,12 +8509,12 @@ sub_8046994: @ 0x08046994
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80469B4
-sub_80469B4: @ 0x080469B4
+	thumb_func_start func_fe6_080469B4
+func_fe6_080469B4: @ 0x080469B4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080469D8
 	ldr r0, .L080469D0 @ =gUnk_081134A4
@@ -8550,12 +8550,12 @@ sub_80469B4: @ 0x080469B4
 .L08046A04: .4byte gUnk_081134A4
 .L08046A08: .4byte gPal+0x380
 
-	thumb_func_start sub_8046A0C
-sub_8046A0C: @ 0x08046A0C
+	thumb_func_start func_fe6_08046A0C
+func_fe6_08046A0C: @ 0x08046A0C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046A3C
 	ldr r0, .L08046A30 @ =0x0203CD08
@@ -8594,8 +8594,8 @@ sub_8046A0C: @ 0x08046A0C
 .L08046A64: .4byte gUnk_08113424
 .L08046A68: .4byte gPal+0x380
 
-	thumb_func_start sub_8046A6C
-sub_8046A6C: @ 0x08046A6C
+	thumb_func_start func_fe6_08046A6C
+func_fe6_08046A6C: @ 0x08046A6C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -8626,7 +8626,7 @@ sub_8046A6C: @ 0x08046A6C
 	ldr r6, .L08046B38 @ =gUnk_Banim_0201DF6C
 	adds r1, r6, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	mov r2, r8
 	movs r1, #0
 	ldrsh r0, [r2, r1]
@@ -8637,7 +8637,7 @@ sub_8046A6C: @ 0x08046A6C
 	ldr r4, .L08046B40 @ =gUnk_Banim_0201DFCC
 	adds r1, r4, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	ldr r5, .L08046B44 @ =gUnk_Banim_0201E02C
 	movs r0, #5
 	mov sb, r0
@@ -8646,7 +8646,7 @@ sub_8046A6C: @ 0x08046A6C
 	adds r1, r4, #0
 	adds r2, r5, #0
 	movs r3, #0x10
-	bl sub_805B88C
+	bl func_fe6_0805B88C
 	mov r1, r8
 	movs r2, #2
 	ldrsh r0, [r1, r2]
@@ -8655,7 +8655,7 @@ sub_8046A6C: @ 0x08046A6C
 	adds r6, #0x30
 	adds r1, r6, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	mov r1, r8
 	movs r2, #2
 	ldrsh r0, [r1, r2]
@@ -8664,7 +8664,7 @@ sub_8046A6C: @ 0x08046A6C
 	adds r4, #0x30
 	adds r1, r4, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	adds r5, #0x60
 	mov r0, sb
 	str r0, [sp]
@@ -8672,7 +8672,7 @@ sub_8046A6C: @ 0x08046A6C
 	adds r1, r4, #0
 	adds r2, r5, #0
 	movs r3, #0x10
-	bl sub_805B88C
+	bl func_fe6_0805B88C
 	add sp, #4
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -8692,8 +8692,8 @@ sub_8046A6C: @ 0x08046A6C
 .L08046B40: .4byte gUnk_Banim_0201DFCC
 .L08046B44: .4byte gUnk_Banim_0201E02C
 
-	thumb_func_start sub_8046B48
-sub_8046B48: @ 0x08046B48
+	thumb_func_start func_fe6_08046B48
+func_fe6_08046B48: @ 0x08046B48
 	push {lr}
 	ldr r0, .L08046B58 @ =gUnk_Banim_02017774
 	ldr r0, [r0]
@@ -8703,8 +8703,8 @@ sub_8046B48: @ 0x08046B48
 	.align 2, 0
 .L08046B58: .4byte gUnk_Banim_02017774
 
-	thumb_func_start sub_8046B5C
-sub_8046B5C: @ 0x08046B5C
+	thumb_func_start func_fe6_08046B5C
+func_fe6_08046B5C: @ 0x08046B5C
 	ldr r0, .L08046B68 @ =gUnk_Banim_02017774
 	ldr r1, [r0]
 	movs r0, #1
@@ -8713,8 +8713,8 @@ sub_8046B5C: @ 0x08046B5C
 	.align 2, 0
 .L08046B68: .4byte gUnk_Banim_02017774
 
-	thumb_func_start sub_8046B6C
-sub_8046B6C: @ 0x08046B6C
+	thumb_func_start func_fe6_08046B6C
+func_fe6_08046B6C: @ 0x08046B6C
 	ldr r0, .L08046B78 @ =gUnk_Banim_02017774
 	ldr r1, [r0]
 	movs r0, #0
@@ -8723,8 +8723,8 @@ sub_8046B6C: @ 0x08046B6C
 	.align 2, 0
 .L08046B78: .4byte gUnk_Banim_02017774
 
-	thumb_func_start sub_8046B7C
-sub_8046B7C: @ 0x08046B7C
+	thumb_func_start func_fe6_08046B7C
+func_fe6_08046B7C: @ 0x08046B7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -8740,7 +8740,7 @@ sub_8046B7C: @ 0x08046B7C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0
@@ -8764,7 +8764,7 @@ sub_8046B7C: @ 0x08046B7C
 	adds r1, r5, #0
 	adds r2, r6, #0
 	mov r3, r8
-	bl sub_805B90C
+	bl func_fe6_0805B90C
 	adds r4, #0x20
 	adds r5, #0x30
 	adds r6, #0x30
@@ -8780,7 +8780,7 @@ sub_8046B7C: @ 0x08046B7C
 	adds r1, r5, #0
 	adds r2, r6, #0
 	mov r3, r8
-	bl sub_805B90C
+	bl func_fe6_0805B90C
 	bl EnablePalSync
 .L08046BF4:
 	add sp, #0xc
@@ -8797,8 +8797,8 @@ sub_8046B7C: @ 0x08046B7C
 .L08046C0C: .4byte gUnk_Banim_0201DFCC
 .L08046C10: .4byte gUnk_Banim_0201E02C
 
-	thumb_func_start sub_8046C14
-sub_8046C14: @ 0x08046C14
+	thumb_func_start func_fe6_08046C14
+func_fe6_08046C14: @ 0x08046C14
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -8829,11 +8829,11 @@ sub_8046C14: @ 0x08046C14
 	.align 2, 0
 .L08046C4C: .4byte gUnk_085CBA70
 
-	thumb_func_start sub_8046C50
-sub_8046C50: @ 0x08046C50
+	thumb_func_start func_fe6_08046C50
+func_fe6_08046C50: @ 0x08046C50
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -8844,7 +8844,7 @@ sub_8046C50: @ 0x08046C50
 	cmp r0, r1
 	blt .L08046CF6
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046CB0
 	ldr r0, .L08046CA8 @ =gUnk_08113564
@@ -8861,14 +8861,14 @@ sub_8046C50: @ 0x08046C50
 	cmp r0, #0
 	beq .L08046C96
 	movs r0, #0
-	bl sub_8058EC8
+	bl func_fe6_08058EC8
 .L08046C96:
 	movs r0, #0x10
 	ands r0, r5
 	cmp r0, #0
 	beq .L08046CE0
 	movs r0, #0
-	bl sub_8058EC8
+	bl func_fe6_08058EC8
 	b .L08046CE0
 	.align 2, 0
 .L08046CA8: .4byte gUnk_08113564
@@ -8888,14 +8888,14 @@ sub_8046C50: @ 0x08046C50
 	cmp r0, #0
 	beq .L08046CD2
 	movs r0, #1
-	bl sub_8058EC8
+	bl func_fe6_08058EC8
 .L08046CD2:
 	movs r0, #0x20
 	ands r0, r5
 	cmp r0, #0
 	beq .L08046CE0
 	movs r0, #1
-	bl sub_8058EC8
+	bl func_fe6_08058EC8
 .L08046CE0:
 	bl EnablePalSync
 	movs r0, #0x2c
@@ -8914,14 +8914,14 @@ sub_8046C50: @ 0x08046C50
 .L08046CFC: .4byte gUnk_08113564
 .L08046D00: .4byte gPal+0x320
 
-	thumb_func_start sub_8046D04
-sub_8046D04: @ 0x08046D04
+	thumb_func_start func_fe6_08046D04
+func_fe6_08046D04: @ 0x08046D04
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r4, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046D54
 	ldr r0, .L08046D4C @ =gUnk_Banim_0200004C
@@ -8939,14 +8939,14 @@ sub_8046D04: @ 0x08046D04
 	cmp r0, #0
 	beq .L08046D3C
 	movs r0, #0
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L08046D3C:
 	movs r0, #0x10
 	ands r0, r4
 	cmp r0, #0
 	beq .L08046D86
 	movs r0, #0
-	bl sub_8058E90
+	bl func_fe6_08058E90
 	b .L08046D86
 	.align 2, 0
 .L08046D4C: .4byte gUnk_Banim_0200004C
@@ -8967,14 +8967,14 @@ sub_8046D04: @ 0x08046D04
 	cmp r0, #0
 	beq .L08046D78
 	movs r0, #1
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L08046D78:
 	movs r0, #0x20
 	ands r0, r4
 	cmp r0, #0
 	beq .L08046D86
 	movs r0, #1
-	bl sub_8058E90
+	bl func_fe6_08058E90
 .L08046D86:
 	bl EnablePalSync
 	adds r0, r5, #0
@@ -8986,12 +8986,12 @@ sub_8046D04: @ 0x08046D04
 .L08046D98: .4byte gUnk_Banim_0200004C
 .L08046D9C: .4byte gPal+0x320
 
-	thumb_func_start sub_8046DA0
-sub_8046DA0: @ 0x08046DA0
+	thumb_func_start func_fe6_08046DA0
+func_fe6_08046DA0: @ 0x08046DA0
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046DB8
 	ldr r0, .L08046DB4 @ =0x0203CD7C
@@ -9031,13 +9031,13 @@ sub_8046DA0: @ 0x08046DA0
 	strh r1, [r4, #0x34]
 	strh r1, [r4, #0x32]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08046E50 @ =gUnk_Banim_02017764
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	str r4, [r0]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046E5C
 	ldr r5, .L08046E54 @ =gUnk_Banim_0200004C
@@ -9045,13 +9045,13 @@ sub_8046DA0: @ 0x08046DA0
 	ldr r4, .L08046E58 @ =gUnk_02021108
 	adds r1, r4, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	ldr r0, [r5]
 	adds r5, r4, #0
 	adds r5, #0x30
 	adds r1, r5, #0
 	movs r2, #0x10
-	bl sub_805B834
+	bl func_fe6_0805B834
 	movs r0, #0xc0
 	lsls r0, r0, #1
 	adds r2, r4, r0
@@ -9060,7 +9060,7 @@ sub_8046DA0: @ 0x08046DA0
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r3, #0x10
-	bl sub_805B88C
+	bl func_fe6_0805B88C
 	b .L08046E8C
 	.align 2, 0
 .L08046E40: .4byte 0x0203CD80
@@ -9076,13 +9076,13 @@ sub_8046DA0: @ 0x08046DA0
 	ldr r4, .L08046E98 @ =gUnk_02021108+0x60
 	adds r1, r4, #0
 	movs r2, #0x10
-	bl sub_805B7F4
+	bl func_fe6_0805B7F4
 	ldr r0, [r5, #4]
 	adds r5, r4, #0
 	adds r5, #0x30
 	adds r1, r5, #0
 	movs r2, #0x10
-	bl sub_805B834
+	bl func_fe6_0805B834
 	movs r0, #0xa8
 	lsls r0, r0, #2
 	adds r2, r4, r0
@@ -9091,7 +9091,7 @@ sub_8046DA0: @ 0x08046DA0
 	adds r0, r4, #0
 	adds r1, r5, #0
 	movs r3, #0x10
-	bl sub_805B88C
+	bl func_fe6_0805B88C
 .L08046E8C:
 	add sp, #4
 	pop {r4, r5, r6}
@@ -9101,25 +9101,25 @@ sub_8046DA0: @ 0x08046DA0
 .L08046E94: .4byte gUnk_Banim_0200004C
 .L08046E98: .4byte gUnk_02021108+0x60
 
-	thumb_func_start sub_8046E9C
-sub_8046E9C: @ 0x08046E9C
+	thumb_func_start func_fe6_08046E9C
+func_fe6_08046E9C: @ 0x08046E9C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, .L08046ED4 @ =gUnk_Banim_02017764
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
 	cmp r0, #0
 	beq .L08046ECE
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	ldr r0, [r0]
 	bl Proc_End
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r5
 	movs r1, #0
@@ -9131,11 +9131,11 @@ sub_8046E9C: @ 0x08046E9C
 	.align 2, 0
 .L08046ED4: .4byte gUnk_Banim_02017764
 
-	thumb_func_start sub_8046ED8
-sub_8046ED8: @ 0x08046ED8
+	thumb_func_start func_fe6_08046ED8
+func_fe6_08046ED8: @ 0x08046ED8
 	push {r4, lr}
 	ldr r4, .L08046EF4 @ =gUnk_Banim_02017764
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -9148,11 +9148,11 @@ sub_8046ED8: @ 0x08046ED8
 	.align 2, 0
 .L08046EF4: .4byte gUnk_Banim_02017764
 
-	thumb_func_start sub_8046EF8
-sub_8046EF8: @ 0x08046EF8
+	thumb_func_start func_fe6_08046EF8
+func_fe6_08046EF8: @ 0x08046EF8
 	push {r4, lr}
 	ldr r4, .L08046F14 @ =gUnk_Banim_02017764
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -9165,13 +9165,13 @@ sub_8046EF8: @ 0x08046EF8
 	.align 2, 0
 .L08046F14: .4byte gUnk_Banim_02017764
 
-	thumb_func_start sub_8046F18
-sub_8046F18: @ 0x08046F18
+	thumb_func_start func_fe6_08046F18
+func_fe6_08046F18: @ 0x08046F18
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r1, #0
 	ldr r4, .L08046F44 @ =gUnk_Banim_02017764
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -9182,7 +9182,7 @@ sub_8046F18: @ 0x08046F18
 	movs r1, #0
 	movs r2, #0
 	movs r3, #0
-	bl sub_8046F64
+	bl func_fe6_08046F64
 .L08046F3C:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -9190,11 +9190,11 @@ sub_8046F18: @ 0x08046F18
 	.align 2, 0
 .L08046F44: .4byte gUnk_Banim_02017764
 
-	thumb_func_start sub_8046F48
-sub_8046F48: @ 0x08046F48
+	thumb_func_start func_fe6_08046F48
+func_fe6_08046F48: @ 0x08046F48
 	push {r4, lr}
 	ldr r4, .L08046F60 @ =gUnk_Banim_02017764
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -9205,8 +9205,8 @@ sub_8046F48: @ 0x08046F48
 	.align 2, 0
 .L08046F60: .4byte gUnk_Banim_02017764
 
-	thumb_func_start sub_8046F64
-sub_8046F64: @ 0x08046F64
+	thumb_func_start func_fe6_08046F64
+func_fe6_08046F64: @ 0x08046F64
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -9215,10 +9215,10 @@ sub_8046F64: @ 0x08046F64
 	mov r8, r1
 	adds r6, r2, #0
 	adds r7, r3, #0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046FE8
 	ldr r0, .L08046FDC @ =gUnk_Banim_0200004C
@@ -9235,20 +9235,20 @@ sub_8046F64: @ 0x08046F64
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B6C8
+	bl func_fe6_0805B6C8
 	movs r0, #1
 	ands r0, r5
 	cmp r0, #0
 	beq .L08046FB4
 	movs r0, #0
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L08046FB4:
 	movs r0, #0x10
 	ands r0, r5
 	cmp r0, #0
 	beq .L08046FC2
 	movs r0, #0
-	bl sub_8058E90
+	bl func_fe6_08058E90
 .L08046FC2:
 	movs r0, #0x11
 	ands r0, r5
@@ -9260,7 +9260,7 @@ sub_8046F64: @ 0x08046F64
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B6C8
+	bl func_fe6_0805B6C8
 	b .L0804703E
 	.align 2, 0
 .L08046FDC: .4byte gUnk_Banim_0200004C
@@ -9281,20 +9281,20 @@ sub_8046F64: @ 0x08046F64
 	movs r1, #0x19
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B6C8
+	bl func_fe6_0805B6C8
 	movs r0, #2
 	ands r0, r5
 	cmp r0, #0
 	beq .L08047018
 	movs r0, #1
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L08047018:
 	movs r0, #0x20
 	ands r0, r5
 	cmp r0, #0
 	beq .L08047026
 	movs r0, #1
-	bl sub_8058E90
+	bl func_fe6_08058E90
 .L08047026:
 	movs r0, #0x22
 	ands r0, r5
@@ -9306,7 +9306,7 @@ sub_8046F64: @ 0x08046F64
 	movs r1, #7
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B6C8
+	bl func_fe6_0805B6C8
 .L0804703E:
 	add sp, #8
 	pop {r3}
@@ -9319,13 +9319,13 @@ sub_8046F64: @ 0x08046F64
 .L08047050: .4byte gPal+0x320
 .L08047054: .4byte 0xFFFFFCE0
 
-	thumb_func_start sub_8047058
-sub_8047058: @ 0x08047058
+	thumb_func_start func_fe6_08047058
+func_fe6_08047058: @ 0x08047058
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	beq .L0804714E
 	adds r0, r4, #0
@@ -9347,7 +9347,7 @@ sub_8047058: @ 0x08047058
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -9407,11 +9407,11 @@ sub_8047058: @ 0x08047058
 	ldrsh r2, [r4, r3]
 	movs r5, #0x36
 	ldrsh r3, [r4, r5]
-	bl sub_8046F64
+	bl func_fe6_08046F64
 	b .L0804714A
 .L080470FA:
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804712C
 	ldr r0, .L08047124 @ =gPal+0x2E0
@@ -9427,7 +9427,7 @@ sub_8047058: @ 0x08047058
 	ldrsh r4, [r4, r6]
 	str r4, [sp, #4]
 	str r5, [sp, #8]
-	bl sub_805B90C
+	bl func_fe6_0805B90C
 	b .L0804714A
 	.align 2, 0
 .L08047124: .4byte gPal+0x2E0
@@ -9446,7 +9446,7 @@ sub_8047058: @ 0x08047058
 	ldrsh r4, [r4, r6]
 	str r4, [sp, #4]
 	str r5, [sp, #8]
-	bl sub_805B90C
+	bl func_fe6_0805B90C
 .L0804714A:
 	bl EnablePalSync
 .L0804714E:
@@ -9458,14 +9458,14 @@ sub_8047058: @ 0x08047058
 .L08047158: .4byte gPal+0x320
 .L0804715C: .4byte gUnk_02021108+0x60
 
-	thumb_func_start sub_8047160
-sub_8047160: @ 0x08047160
+	thumb_func_start func_fe6_08047160
+func_fe6_08047160: @ 0x08047160
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r5, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080471A8
 	ldr r0, .L080471A0 @ =gUnk_Banim_0200004C
@@ -9478,14 +9478,14 @@ sub_8047160: @ 0x08047160
 	cmp r0, #0
 	beq .L0804718E
 	movs r0, #0
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L0804718E:
 	movs r0, #0x10
 	ands r0, r5
 	cmp r0, #0
 	beq .L080471D0
 	movs r0, #0
-	bl sub_8058E90
+	bl func_fe6_08058E90
 	b .L080471D0
 	.align 2, 0
 .L080471A0: .4byte gUnk_Banim_0200004C
@@ -9501,14 +9501,14 @@ sub_8047160: @ 0x08047160
 	cmp r0, #0
 	beq .L080471C2
 	movs r0, #1
-	bl sub_8058E58
+	bl func_fe6_08058E58
 .L080471C2:
 	movs r0, #0x20
 	ands r0, r5
 	cmp r0, #0
 	beq .L080471D0
 	movs r0, #1
-	bl sub_8058E90
+	bl func_fe6_08058E90
 .L080471D0:
 	bl EnablePalSync
 	pop {r4, r5}
@@ -9518,8 +9518,8 @@ sub_8047160: @ 0x08047160
 .L080471DC: .4byte gUnk_Banim_0200004C
 .L080471E0: .4byte gPal+0x320
 
-	thumb_func_start sub_80471E4
-sub_80471E4: @ 0x080471E4
+	thumb_func_start func_fe6_080471E4
+func_fe6_080471E4: @ 0x080471E4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -9553,8 +9553,8 @@ sub_80471E4: @ 0x080471E4
 .L08047224: .4byte gUnk_08112144
 .L08047228: .4byte gUnk_Banim_0201776C
 
-	thumb_func_start sub_804722C
-sub_804722C: @ 0x0804722C
+	thumb_func_start func_fe6_0804722C
+func_fe6_0804722C: @ 0x0804722C
 	push {r4, lr}
 	ldr r4, .L08047244 @ =gUnk_Banim_0201776C
 	ldr r0, [r4]
@@ -9570,8 +9570,8 @@ sub_804722C: @ 0x0804722C
 	.align 2, 0
 .L08047244: .4byte gUnk_Banim_0201776C
 
-	thumb_func_start sub_8047248
-sub_8047248: @ 0x08047248
+	thumb_func_start func_fe6_08047248
+func_fe6_08047248: @ 0x08047248
 	ldr r0, .L08047254 @ =gUnk_Banim_0201776C
 	ldr r1, [r0]
 	movs r0, #1
@@ -9580,8 +9580,8 @@ sub_8047248: @ 0x08047248
 	.align 2, 0
 .L08047254: .4byte gUnk_Banim_0201776C
 
-	thumb_func_start sub_8047258
-sub_8047258: @ 0x08047258
+	thumb_func_start func_fe6_08047258
+func_fe6_08047258: @ 0x08047258
 	ldr r0, .L08047264 @ =gUnk_Banim_0201776C
 	ldr r1, [r0]
 	movs r0, #0
@@ -9590,8 +9590,8 @@ sub_8047258: @ 0x08047258
 	.align 2, 0
 .L08047264: .4byte gUnk_Banim_0201776C
 
-	thumb_func_start sub_8047268
-sub_8047268: @ 0x08047268
+	thumb_func_start func_fe6_08047268
+func_fe6_08047268: @ 0x08047268
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x50]
@@ -9603,7 +9603,7 @@ sub_8047268: @ 0x08047268
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0
@@ -9620,7 +9620,7 @@ sub_8047268: @ 0x08047268
 	ldr r3, [r4, #0x4c]
 	movs r1, #0x1d
 	movs r2, #1
-	bl sub_805B644
+	bl func_fe6_0805B644
 .L080472A8:
 	ldr r0, [r4, #0x58]
 	cmp r0, #0
@@ -9632,7 +9632,7 @@ sub_8047268: @ 0x08047268
 	ldr r3, [r4, #0x4c]
 	movs r1, #0x1e
 	movs r2, #1
-	bl sub_805B644
+	bl func_fe6_0805B644
 .L080472C2:
 	bl EnablePalSync
 .L080472C6:
@@ -9642,8 +9642,8 @@ sub_8047268: @ 0x08047268
 	.align 2, 0
 .L080472CC: .4byte gPal
 
-	thumb_func_start sub_80472D0
-sub_80472D0: @ 0x080472D0
+	thumb_func_start func_fe6_080472D0
+func_fe6_080472D0: @ 0x080472D0
 	push {r4, lr}
 	adds r4, r0, #0
 	bl InitIcons
@@ -9667,10 +9667,10 @@ sub_80472D0: @ 0x080472D0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8047300
-sub_8047300: @ 0x08047300
+	thumb_func_start func_fe6_08047300
+func_fe6_08047300: @ 0x08047300
 	push {r4, r5, lr}
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r4, r0, #0
 	cmp r4, #0
 	bne .L0804734C
@@ -9709,8 +9709,8 @@ sub_8047300: @ 0x08047300
 	.align 2, 0
 .L08047354: .4byte gUnk_Banim_02017770
 
-	thumb_func_start sub_8047358
-sub_8047358: @ 0x08047358
+	thumb_func_start func_fe6_08047358
+func_fe6_08047358: @ 0x08047358
 	ldr r0, .L0804736C @ =gUnk_Banim_02017770
 	ldr r0, [r0]
 	cmp r0, #0
@@ -9724,8 +9724,8 @@ sub_8047358: @ 0x08047358
 	.align 2, 0
 .L0804736C: .4byte gUnk_Banim_02017770
 
-	thumb_func_start sub_8047370
-sub_8047370: @ 0x08047370
+	thumb_func_start func_fe6_08047370
+func_fe6_08047370: @ 0x08047370
 	push {lr}
 	ldr r1, .L08047388 @ =gUnk_Banim_02017770
 	ldr r0, [r1]
@@ -9740,8 +9740,8 @@ sub_8047370: @ 0x08047370
 	.align 2, 0
 .L08047388: .4byte gUnk_Banim_02017770
 
-	thumb_func_start sub_804738C
-sub_804738C: @ 0x0804738C
+	thumb_func_start func_fe6_0804738C
+func_fe6_0804738C: @ 0x0804738C
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -9765,7 +9765,7 @@ sub_804738C: @ 0x0804738C
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -9788,8 +9788,8 @@ sub_804738C: @ 0x0804738C
 .L080473E8: .4byte gUnk_Banim_0201C77C
 .L080473EC: .4byte gPal+0xC0
 
-	thumb_func_start sub_80473F0
-sub_80473F0: @ 0x080473F0
+	thumb_func_start func_fe6_080473F0
+func_fe6_080473F0: @ 0x080473F0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08047428 @ =gUnk_Banim_0201C77C
@@ -9802,7 +9802,7 @@ sub_80473F0: @ 0x080473F0
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #8
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r5, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -9820,8 +9820,8 @@ sub_80473F0: @ 0x080473F0
 .L08047428: .4byte gUnk_Banim_0201C77C
 .L0804742C: .4byte gPal+0xC0
 
-	thumb_func_start sub_8047430
-sub_8047430: @ 0x08047430
+	thumb_func_start func_fe6_08047430
+func_fe6_08047430: @ 0x08047430
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -9846,7 +9846,7 @@ sub_8047430: @ 0x08047430
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r1, [r5, #0x2c]
 	adds r1, #1
@@ -9878,8 +9878,8 @@ sub_8047430: @ 0x08047430
 .L080474A8: .4byte gPal+0xC0
 .L080474AC: .4byte gUnk_Banim_02017770
 
-	thumb_func_start sub_80474B0
-sub_80474B0: @ 0x080474B0
+	thumb_func_start func_fe6_080474B0
+func_fe6_080474B0: @ 0x080474B0
 	ldr r1, .L080474B8 @ =gUnk_Banim_02017724
 	movs r0, #1
 	str r0, [r1]
@@ -9887,8 +9887,8 @@ sub_80474B0: @ 0x080474B0
 	.align 2, 0
 .L080474B8: .4byte gUnk_Banim_02017724
 
-	thumb_func_start sub_80474BC
-sub_80474BC: @ 0x080474BC
+	thumb_func_start func_fe6_080474BC
+func_fe6_080474BC: @ 0x080474BC
 	ldr r1, .L080474C4 @ =gUnk_Banim_02017724
 	movs r0, #0
 	str r0, [r1]
@@ -9896,8 +9896,8 @@ sub_80474BC: @ 0x080474BC
 	.align 2, 0
 .L080474C4: .4byte gUnk_Banim_02017724
 
-	thumb_func_start sub_80474C8
-sub_80474C8: @ 0x080474C8
+	thumb_func_start func_fe6_080474C8
+func_fe6_080474C8: @ 0x080474C8
 	push {lr}
 	movs r0, #1
 	movs r1, #0
@@ -9906,8 +9906,8 @@ sub_80474C8: @ 0x080474C8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80474D8
-sub_80474D8: @ 0x080474D8
+	thumb_func_start func_fe6_080474D8
+func_fe6_080474D8: @ 0x080474D8
 	push {lr}
 	sub sp, #4
 	movs r0, #0
@@ -9925,8 +9925,8 @@ sub_80474D8: @ 0x080474D8
 .L080474F8: .4byte gBg1Tm
 .L080474FC: .4byte 0x01000200
 
-	thumb_func_start sub_8047500
-sub_8047500: @ 0x08047500
+	thumb_func_start func_fe6_08047500
+func_fe6_08047500: @ 0x08047500
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -10033,8 +10033,8 @@ sub_8047500: @ 0x08047500
 .L080475D0: .4byte 0x0000FFE0
 .L080475D4: .4byte 0x0000E0FF
 
-	thumb_func_start sub_80475D8
-sub_80475D8: @ 0x080475D8
+	thumb_func_start func_fe6_080475D8
+func_fe6_080475D8: @ 0x080475D8
 	ldr r3, .L080475FC @ =gDispIo
 	adds r1, r3, #0
 	adds r1, #0x3c
@@ -10055,28 +10055,28 @@ sub_80475D8: @ 0x080475D8
 	.align 2, 0
 .L080475FC: .4byte gDispIo
 
-	thumb_func_start sub_8047600
-sub_8047600: @ 0x08047600
+	thumb_func_start func_fe6_08047600
+func_fe6_08047600: @ 0x08047600
 	push {lr}
 	movs r2, #3
 	movs r3, #4
-	bl sub_8047620
+	bl func_fe6_08047620
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8047610
-sub_8047610: @ 0x08047610
+	thumb_func_start func_fe6_08047610
+func_fe6_08047610: @ 0x08047610
 	push {lr}
 	movs r2, #5
 	movs r3, #5
-	bl sub_8047620
+	bl func_fe6_08047620
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8047620
-sub_8047620: @ 0x08047620
+	thumb_func_start func_fe6_08047620
+func_fe6_08047620: @ 0x08047620
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -10086,7 +10086,7 @@ sub_8047620: @ 0x08047620
 	adds r4, r1, #0
 	str r2, [sp]
 	mov sl, r3
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804764C
 	ldr r0, .L08047648 @ =gUnk_Banim_02000000
@@ -10118,23 +10118,23 @@ sub_8047620: @ 0x08047620
 .L08047668: .4byte gUnk_Banim_02000000
 .L0804766C:
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	ldrh r0, [r7, #0xe]
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_804A57C
+	bl func_fe6_0804A57C
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	ldrh r0, [r5, #0xe]
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_804A57C
+	bl func_fe6_0804A57C
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
 	lsls r0, r6, #0x10
@@ -10145,12 +10145,12 @@ sub_8047620: @ 0x08047620
 	cmp r0, #0
 	beq .L080476BC
 	adds r0, r7, #0
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	bne .L080476BC
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_8046F18
+	bl func_fe6_08046F18
 .L080476BC:
 	lsls r0, r4, #0x10
 	asrs r1, r0, #0x10
@@ -10161,12 +10161,12 @@ sub_8047620: @ 0x08047620
 	cmp r1, #0
 	beq .L080476DE
 	adds r0, r5, #0
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	bne .L080476DE
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_8046F18
+	bl func_fe6_08046F18
 .L080476DE:
 	lsls r0, r6, #0x10
 	asrs r0, r0, #0x10
@@ -10187,46 +10187,46 @@ sub_8047620: @ 0x08047620
 .L080476FC:
 	ldr r4, .L08047764 @ =0x0203CD46
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	adds r4, #1
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r0, r6, #1
 	adds r0, r0, r1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r6, r0, #0x10
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r0, r4, #1
 	adds r0, r0, r1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r6, r4
 	beq .L0804778A
 	adds r0, r5, #0
-	bl sub_80449F4
+	bl func_fe6_080449F4
 	adds r0, r7, #0
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L08047768
 	adds r0, r5, #0
 	adds r1, r7, #0
 	mov r2, sl
-	bl sub_80462BC
+	bl func_fe6_080462BC
 	b .L08047772
 	.align 2, 0
 .L08047764: .4byte 0x0203CD46
@@ -10234,27 +10234,27 @@ sub_8047620: @ 0x08047620
 	adds r0, r5, #0
 	adds r1, r7, #0
 	ldr r2, [sp]
-	bl sub_80462BC
+	bl func_fe6_080462BC
 .L08047772:
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #5
-	bl sub_804695C
+	bl func_fe6_0804695C
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L0804779C
 .L0804778A:
 	adds r0, r5, #0
 	mov r1, r8
 	movs r2, #0
-	bl sub_804536C
+	bl func_fe6_0804536C
 	b .L0804779C
 .L08047796:
 	adds r0, r5, #0
-	bl sub_80450DC
+	bl func_fe6_080450DC
 .L0804779C:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -10265,14 +10265,14 @@ sub_8047620: @ 0x08047620
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80477AC
-sub_80477AC: @ 0x080477AC
+	thumb_func_start func_fe6_080477AC
+func_fe6_080477AC: @ 0x080477AC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
 	push {r6, r7}
 	mov sb, r1
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080477CC
 	ldr r0, .L080477C8 @ =gUnk_Banim_02000000
@@ -10291,32 +10291,32 @@ sub_80477AC: @ 0x080477AC
 	mov r8, r0
 	ldr r4, .L08047830 @ =0x0203CD46
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	adds r4, #1
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r0, r6, #1
 	adds r0, r0, r1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r6, r0, #0x10
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	lsls r0, r4, #1
 	adds r0, r0, r1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	mov r0, sb
@@ -10332,31 +10332,31 @@ sub_80477AC: @ 0x080477AC
 	cmp r6, r4
 	beq .L08047876
 	adds r0, r5, #0
-	bl sub_8044D4C
+	bl func_fe6_08044D4C
 	adds r0, r7, #0
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L08047854
 	adds r0, r5, #0
 	adds r1, r7, #0
 	movs r2, #4
-	bl sub_80462BC
+	bl func_fe6_080462BC
 	b .L0804785E
 .L08047854:
 	adds r0, r5, #0
 	adds r1, r7, #0
 	movs r2, #3
-	bl sub_80462BC
+	bl func_fe6_080462BC
 .L0804785E:
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #5
-	bl sub_804695C
+	bl func_fe6_0804695C
 	adds r0, r5, #0
 	movs r1, #0
 	movs r2, #8
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L08047892
 .L08047876:
 	ldr r1, .L08047888 @ =gUnk_Banim_02017748
@@ -10365,13 +10365,13 @@ sub_80477AC: @ 0x080477AC
 	adds r0, r5, #0
 	mov r1, r8
 	movs r2, #1
-	bl sub_804536C
+	bl func_fe6_0804536C
 	b .L08047892
 	.align 2, 0
 .L08047888: .4byte gUnk_Banim_02017748
 .L0804788C:
 	adds r0, r5, #0
-	bl sub_80450DC
+	bl func_fe6_080450DC
 .L08047892:
 	pop {r3, r4}
 	mov r8, r3
@@ -10381,11 +10381,11 @@ sub_80477AC: @ 0x080477AC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80478A0
-sub_80478A0: @ 0x080478A0
+	thumb_func_start func_fe6_080478A0
+func_fe6_080478A0: @ 0x080478A0
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080478B8
 	ldr r0, .L080478B4 @ =gUnk_Banim_02000000
@@ -10405,17 +10405,17 @@ sub_80478A0: @ 0x080478A0
 	.align 2, 0
 .L080478C8: .4byte gUnk_Banim_02000000
 .L080478CC:
-	bl sub_8045578
+	bl func_fe6_08045578
 	b .L080478D6
 .L080478D2:
-	bl sub_80450DC
+	bl func_fe6_080450DC
 .L080478D6:
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80478DC
-sub_80478DC: @ 0x080478DC
+	thumb_func_start func_fe6_080478DC
+func_fe6_080478DC: @ 0x080478DC
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r7, r1, #0
@@ -10427,7 +10427,7 @@ sub_80478DC: @ 0x080478DC
 	cmp r0, #0
 	bne .L08047908
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08047904
 	adds r0, r7, #0
@@ -10439,7 +10439,7 @@ sub_80478DC: @ 0x080478DC
 	b .L08047918
 .L08047908:
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08047916
 	adds r0, r5, #0
@@ -10463,8 +10463,8 @@ sub_80478DC: @ 0x080478DC
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8047938
-sub_8047938: @ 0x08047938
+	thumb_func_start func_fe6_08047938
+func_fe6_08047938: @ 0x08047938
 	push {r4, lr}
 	sub sp, #8
 	adds r3, r0, #0
@@ -10477,7 +10477,7 @@ sub_8047938: @ 0x08047938
 	adds r4, r1, #0
 .L0804794C:
 	adds r0, r3, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08047974
 	ldr r1, .L08047970 @ =gBg1Tm
@@ -10488,7 +10488,7 @@ sub_8047938: @ 0x08047938
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	b .L08047988
 	.align 2, 0
 .L0804796C: .4byte 0x0203CD14
@@ -10502,7 +10502,7 @@ sub_8047938: @ 0x08047938
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 .L08047988:
 	movs r0, #2
 	bl EnableBgSync
@@ -10513,8 +10513,8 @@ sub_8047938: @ 0x08047938
 	.align 2, 0
 .L08047998: .4byte gBg1Tm
 
-	thumb_func_start sub_804799C
-sub_804799C: @ 0x0804799C
+	thumb_func_start func_fe6_0804799C
+func_fe6_0804799C: @ 0x0804799C
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r4, r0, #0
@@ -10538,7 +10538,7 @@ sub_804799C: @ 0x0804799C
 .L080479C8:
 	ldr r5, .L080479EC @ =gUnk_Banim_0201977C
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080479F4
 	ldr r1, .L080479F0 @ =gBg1Tm
@@ -10549,7 +10549,7 @@ sub_804799C: @ 0x0804799C
 	adds r0, r5, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	b .L08047A08
 	.align 2, 0
 .L080479EC: .4byte gUnk_Banim_0201977C
@@ -10563,7 +10563,7 @@ sub_804799C: @ 0x0804799C
 	adds r0, r5, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 .L08047A08:
 	movs r0, #2
 	bl EnableBgSync
@@ -10574,8 +10574,8 @@ sub_804799C: @ 0x0804799C
 	.align 2, 0
 .L08047A18: .4byte gBg1Tm
 
-	thumb_func_start sub_8047A1C
-sub_8047A1C: @ 0x08047A1C
+	thumb_func_start func_fe6_08047A1C
+func_fe6_08047A1C: @ 0x08047A1C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r4, r0, #0
@@ -10586,7 +10586,7 @@ sub_8047A1C: @ 0x08047A1C
 	adds r1, r7, #0
 	bl LZ77UnCompWram
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08047A5C
 	ldr r1, .L08047A58 @ =gBg1Tm
@@ -10599,7 +10599,7 @@ sub_8047A1C: @ 0x08047A1C
 	adds r0, #0xff
 	str r0, [sp, #4]
 	adds r0, r7, #0
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	b .L08047A74
 	.align 2, 0
 .L08047A54: .4byte gUnk_Banim_0201977C
@@ -10615,7 +10615,7 @@ sub_8047A1C: @ 0x08047A1C
 	adds r0, #0xff
 	str r0, [sp, #4]
 	adds r0, r7, #0
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 .L08047A74:
 	movs r0, #2
 	bl EnableBgSync
@@ -10626,8 +10626,8 @@ sub_8047A1C: @ 0x08047A1C
 	.align 2, 0
 .L08047A84: .4byte gBg1Tm
 
-	thumb_func_start sub_8047A88
-sub_8047A88: @ 0x08047A88
+	thumb_func_start func_fe6_08047A88
+func_fe6_08047A88: @ 0x08047A88
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	ldr r5, .L08047AA8 @ =0x06010800
@@ -10645,8 +10645,8 @@ sub_8047A88: @ 0x08047A88
 .L08047AA8: .4byte 0x06010800
 .L08047AAC: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_8047AB0
-sub_8047AB0: @ 0x08047AB0
+	thumb_func_start func_fe6_08047AB0
+func_fe6_08047AB0: @ 0x08047AB0
 	push {lr}
 	adds r2, r1, #0
 	ldr r1, .L08047AC8 @ =gPal+0x240
@@ -10659,8 +10659,8 @@ sub_8047AB0: @ 0x08047AB0
 	.align 2, 0
 .L08047AC8: .4byte gPal+0x240
 
-	thumb_func_start sub_8047ACC
-sub_8047ACC: @ 0x08047ACC
+	thumb_func_start func_fe6_08047ACC
+func_fe6_08047ACC: @ 0x08047ACC
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
 	ldr r5, .L08047AEC @ =0x06002000
@@ -10678,8 +10678,8 @@ sub_8047ACC: @ 0x08047ACC
 .L08047AEC: .4byte 0x06002000
 .L08047AF0: .4byte gUnk_Banim_0201777C
 
-	thumb_func_start sub_8047AF4
-sub_8047AF4: @ 0x08047AF4
+	thumb_func_start func_fe6_08047AF4
+func_fe6_08047AF4: @ 0x08047AF4
 	push {lr}
 	adds r2, r1, #0
 	ldr r1, .L08047B0C @ =gPal+0x20
@@ -10692,8 +10692,8 @@ sub_8047AF4: @ 0x08047AF4
 	.align 2, 0
 .L08047B0C: .4byte gPal+0x20
 
-	thumb_func_start sub_8047B10
-sub_8047B10: @ 0x08047B10
+	thumb_func_start func_fe6_08047B10
+func_fe6_08047B10: @ 0x08047B10
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r3, #0
@@ -10720,8 +10720,8 @@ sub_8047B10: @ 0x08047B10
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8047B3C
-sub_8047B3C: @ 0x08047B3C
+	thumb_func_start func_fe6_08047B3C
+func_fe6_08047B3C: @ 0x08047B3C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r3, #0
@@ -10749,8 +10749,8 @@ sub_8047B3C: @ 0x08047B3C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8047B6C
-sub_8047B6C: @ 0x08047B6C
+	thumb_func_start func_fe6_08047B6C
+func_fe6_08047B6C: @ 0x08047B6C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r3, #0
@@ -10782,8 +10782,8 @@ sub_8047B6C: @ 0x08047B6C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8047BA4
-sub_8047BA4: @ 0x08047BA4
+	thumb_func_start func_fe6_08047BA4
+func_fe6_08047BA4: @ 0x08047BA4
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r3, r1, #0
@@ -10851,8 +10851,8 @@ sub_8047BA4: @ 0x08047BA4
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8047C1C
-sub_8047C1C: @ 0x08047C1C
+	thumb_func_start func_fe6_08047C1C
+func_fe6_08047C1C: @ 0x08047C1C
 	ldr r1, .L08047C24 @ =gUnk_Banim_02017754
 	movs r0, #1
 	str r0, [r1]
@@ -10860,8 +10860,8 @@ sub_8047C1C: @ 0x08047C1C
 	.align 2, 0
 .L08047C24: .4byte gUnk_Banim_02017754
 
-	thumb_func_start sub_8047C28
-sub_8047C28: @ 0x08047C28
+	thumb_func_start func_fe6_08047C28
+func_fe6_08047C28: @ 0x08047C28
 	ldr r0, .L08047C38 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -10881,8 +10881,8 @@ sub_8047C28: @ 0x08047C28
 .L08047C46:
 	bx lr
 
-	thumb_func_start sub_8047C48
-sub_8047C48: @ 0x08047C48
+	thumb_func_start func_fe6_08047C48
+func_fe6_08047C48: @ 0x08047C48
 	push {lr}
 	sub sp, #4
 	ldr r1, .L08047C60 @ =gUnk_Banim_0201C8BC
@@ -10897,8 +10897,8 @@ sub_8047C48: @ 0x08047C48
 .L08047C60: .4byte gUnk_Banim_0201C8BC
 .L08047C64: .4byte 0x050002D6
 
-	thumb_func_start sub_8047C68
-sub_8047C68: @ 0x08047C68
+	thumb_func_start func_fe6_08047C68
+func_fe6_08047C68: @ 0x08047C68
 	push {lr}
 	sub sp, #4
 	ldr r1, .L08047C80 @ =gUnk_Banim_0201D414
@@ -10913,8 +10913,8 @@ sub_8047C68: @ 0x08047C68
 .L08047C80: .4byte gUnk_Banim_0201D414
 .L08047C84: .4byte 0x050002D6
 
-	thumb_func_start sub_8047C88
-sub_8047C88: @ 0x08047C88
+	thumb_func_start func_fe6_08047C88
+func_fe6_08047C88: @ 0x08047C88
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	lsls r2, r2, #0x10
@@ -10942,38 +10942,38 @@ sub_8047C88: @ 0x08047C88
 	.align 2, 0
 .L08047CB4: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_8047CB8
-sub_8047CB8: @ 0x08047CB8
+	thumb_func_start func_fe6_08047CB8
+func_fe6_08047CB8: @ 0x08047CB8
 	push {lr}
-	bl sub_8049058
+	bl func_fe6_08049058
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8047CC8
-sub_8047CC8: @ 0x08047CC8
+	thumb_func_start func_fe6_08047CC8
+func_fe6_08047CC8: @ 0x08047CC8
 	push {lr}
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	bne .L08047CD8
-	bl sub_804C580
+	bl func_fe6_0804C580
 	b .L08047D04
 .L08047CD8:
-	bl sub_8042584
+	bl func_fe6_08042584
 	bl BasInit
-	bl sub_8044870
+	bl func_fe6_08044870
 	ldr r1, .L08047D08 @ =gUnk_Banim_0201773C
 	str r0, [r1]
-	bl sub_8047DAC
+	bl func_fe6_08047DAC
 	ldr r1, .L08047D0C @ =gUnk_Banim_02000000
 	movs r0, #0
 	str r0, [r1]
 	str r0, [r1, #4]
 	str r0, [r1, #8]
 	str r0, [r1, #0xc]
-	ldr r0, .L08047D10 @ =sub_8047D38
+	ldr r0, .L08047D10 @ =func_fe6_08047D38
 	bl SetMainFunc
 	movs r0, #0
 	bl SetOnHBlankA
@@ -10983,28 +10983,28 @@ sub_8047CC8: @ 0x08047CC8
 	.align 2, 0
 .L08047D08: .4byte gUnk_Banim_0201773C
 .L08047D0C: .4byte gUnk_Banim_02000000
-.L08047D10: .4byte sub_8047D38
+.L08047D10: .4byte func_fe6_08047D38
 
-	thumb_func_start sub_8047D14
-sub_8047D14: @ 0x08047D14
+	thumb_func_start func_fe6_08047D14
+func_fe6_08047D14: @ 0x08047D14
 	push {lr}
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	bne .L08047D24
-	bl sub_804C5A4
+	bl func_fe6_0804C5A4
 	b .L08047D2E
 .L08047D24:
-	bl sub_80481B4
-	ldr r0, .L08047D34 @ =sub_8047D38
+	bl func_fe6_080481B4
+	ldr r0, .L08047D34 @ =func_fe6_08047D38
 	bl SetMainFunc
 .L08047D2E:
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08047D34: .4byte sub_8047D38
+.L08047D34: .4byte func_fe6_08047D38
 
-	thumb_func_start sub_8047D38
-sub_8047D38: @ 0x08047D38
+	thumb_func_start func_fe6_08047D38
+func_fe6_08047D38: @ 0x08047D38
 	push {r4, lr}
 	ldr r0, .L08047D9C @ =gKeySt
 	ldr r0, [r0]
@@ -11029,7 +11029,7 @@ sub_8047D38: @ 0x08047D38
 	ldr r0, [r4, #0x10]
 	bl Proc_Run
 	bl BasUpdateAll
-	bl sub_804A5DC
+	bl func_fe6_0804A5DC
 	movs r0, #0xd
 	bl PutSpriteLayerOam
 	ldr r1, .L08047DA4 @ =gBmSt
@@ -11048,8 +11048,8 @@ sub_8047D38: @ 0x08047D38
 .L08047DA4: .4byte gBmSt
 .L08047DA8: .4byte 0x04000006
 
-	thumb_func_start sub_8047DAC
-sub_8047DAC: @ 0x08047DAC
+	thumb_func_start func_fe6_08047DAC
+func_fe6_08047DAC: @ 0x08047DAC
 	push {lr}
 	ldr r0, .L08047DBC @ =gUnk_085CBB18
 	movs r1, #3
@@ -11059,8 +11059,8 @@ sub_8047DAC: @ 0x08047DAC
 	.align 2, 0
 .L08047DBC: .4byte gUnk_085CBB18
 
-	thumb_func_start sub_8047DC0
-sub_8047DC0: @ 0x08047DC0
+	thumb_func_start func_fe6_08047DC0
+func_fe6_08047DC0: @ 0x08047DC0
 	push {r4, r5, r6, lr}
 	mov r6, sl
 	mov r5, sb
@@ -11193,8 +11193,8 @@ sub_8047DC0: @ 0x08047DC0
 .L08047ECC: .4byte gDispIo
 .L08047ED0: .4byte 0x0000FFE0
 
-	thumb_func_start sub_8047ED4
-sub_8047ED4: @ 0x08047ED4
+	thumb_func_start func_fe6_08047ED4
+func_fe6_08047ED4: @ 0x08047ED4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -11301,7 +11301,7 @@ sub_8047ED4: @ 0x08047ED4
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #4
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	bl EndAllMus
 	adds r0, r7, #0
@@ -11318,8 +11318,8 @@ sub_8047ED4: @ 0x08047ED4
 .L08047FD4: .4byte gDispIo
 .L08047FD8: .4byte gPal
 
-	thumb_func_start sub_8047FDC
-sub_8047FDC: @ 0x08047FDC
+	thumb_func_start func_fe6_08047FDC
+func_fe6_08047FDC: @ 0x08047FDC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08048008 @ =0x0203CCF0
@@ -11327,8 +11327,8 @@ sub_8047FDC: @ 0x08047FDC
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08048040
-	bl sub_80436A4
-	bl sub_8044198
+	bl func_fe6_080436A4
+	bl func_fe6_08044198
 	ldr r0, .L0804800C @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -11348,37 +11348,37 @@ sub_8047FDC: @ 0x08047FDC
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bne .L08048022
-	bl sub_80438E8
-	bl sub_80441FC
+	bl func_fe6_080438E8
+	bl func_fe6_080441FC
 .L08048022:
 	movs r1, #2
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bne .L08048040
-	bl sub_80438F8
-	bl sub_804420C
+	bl func_fe6_080438F8
+	bl func_fe6_0804420C
 	b .L08048040
 	.align 2, 0
 .L08048034: .4byte 0x0203CCF8
 .L08048038:
-	bl sub_80438E8
-	bl sub_80441FC
+	bl func_fe6_080438E8
+	bl func_fe6_080441FC
 .L08048040:
-	bl sub_8044390
+	bl func_fe6_08044390
 	movs r0, #0
-	bl sub_80489E8
+	bl func_fe6_080489E8
 	movs r0, #0
-	bl sub_8048574
+	bl func_fe6_08048574
 	movs r0, #0
 	movs r1, #0xb
-	bl sub_8048DA4
+	bl func_fe6_08048DA4
 	movs r0, #0
 	movs r1, #0xb
 	movs r2, #0
-	bl sub_8048E88
+	bl func_fe6_08048E88
 	movs r0, #0
 	movs r1, #0xb
-	bl sub_8048F88
+	bl func_fe6_08048F88
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	adds r0, r5, #0
@@ -11388,8 +11388,8 @@ sub_8047FDC: @ 0x08047FDC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804807C
-sub_804807C: @ 0x0804807C
+	thumb_func_start func_fe6_0804807C
+func_fe6_0804807C: @ 0x0804807C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -11404,11 +11404,11 @@ sub_804807C: @ 0x0804807C
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080480A0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080480B0
 .L080480A0:
-	bl sub_80425F0
+	bl func_fe6_080425F0
 	adds r0, r4, #0
 	bl Proc_End
 	b .L080480BC
@@ -11416,7 +11416,7 @@ sub_804807C: @ 0x0804807C
 .L080480AC: .4byte 0x0203CCF2
 .L080480B0:
 	strh r0, [r4, #0x2c]
-	bl sub_80425F0
+	bl func_fe6_080425F0
 	adds r0, r4, #0
 	bl Proc_Break
 .L080480BC:
@@ -11425,8 +11425,8 @@ sub_804807C: @ 0x0804807C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80480C4
-sub_80480C4: @ 0x080480C4
+	thumb_func_start func_fe6_080480C4
+func_fe6_080480C4: @ 0x080480C4
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -11438,7 +11438,7 @@ sub_80480C4: @ 0x080480C4
 	movs r1, #4
 	movs r2, #0x10
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -11456,8 +11456,8 @@ sub_80480C4: @ 0x080480C4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8048100
-sub_8048100: @ 0x08048100
+	thumb_func_start func_fe6_08048100
+func_fe6_08048100: @ 0x08048100
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08048114 @ =0x0203CCF6
@@ -11480,12 +11480,12 @@ sub_8048100: @ 0x08048100
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
-	bl sub_805F100
+	bl func_fe6_0805F100
 	ldr r0, .L08048150 @ =gPal
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -11496,8 +11496,8 @@ sub_8048100: @ 0x08048100
 .L0804814C: .4byte 0x0203CCF2
 .L08048150: .4byte gPal
 
-	thumb_func_start sub_8048154
-sub_8048154: @ 0x08048154
+	thumb_func_start func_fe6_08048154
+func_fe6_08048154: @ 0x08048154
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -11514,12 +11514,12 @@ sub_8048154: @ 0x08048154
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
-	bl sub_805F0DC
+	bl func_fe6_0805F0DC
 	ldr r0, .L080481B0 @ =gPal
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -11541,8 +11541,8 @@ sub_8048154: @ 0x08048154
 .L080481AC: .4byte 0x0203CCF2
 .L080481B0: .4byte gPal
 
-	thumb_func_start sub_80481B4
-sub_80481B4: @ 0x080481B4
+	thumb_func_start func_fe6_080481B4
+func_fe6_080481B4: @ 0x080481B4
 	push {lr}
 	ldr r0, .L080481C8 @ =gUnk_085CBB60
 	movs r1, #3
@@ -11554,8 +11554,8 @@ sub_80481B4: @ 0x080481B4
 	.align 2, 0
 .L080481C8: .4byte gUnk_085CBB60
 
-	thumb_func_start sub_80481CC
-sub_80481CC: @ 0x080481CC
+	thumb_func_start func_fe6_080481CC
+func_fe6_080481CC: @ 0x080481CC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -11564,7 +11564,7 @@ sub_80481CC: @ 0x080481CC
 	ldrsh r0, [r7, r1]
 	cmp r0, #0
 	beq .L080481E6
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r6, r0, #0
 	cmp r6, #0
 	beq .L080481F4
@@ -11587,12 +11587,12 @@ sub_80481CC: @ 0x080481CC
 	movs r1, #0
 	ldrsh r0, [r7, r1]
 	subs r0, #1
-	bl sub_805F0DC
+	bl func_fe6_0805F0DC
 	ldr r0, .L08048240 @ =gPal
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -11612,8 +11612,8 @@ sub_80481CC: @ 0x080481CC
 	.align 2, 0
 .L08048240: .4byte gPal
 
-	thumb_func_start sub_8048244
-sub_8048244: @ 0x08048244
+	thumb_func_start func_fe6_08048244
+func_fe6_08048244: @ 0x08048244
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08048264 @ =0x0203CCF2
@@ -11621,7 +11621,7 @@ sub_8048244: @ 0x08048244
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804825A
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08048268
 .L0804825A:
@@ -11637,7 +11637,7 @@ sub_8048244: @ 0x08048244
 	asrs r0, r0, #0x18
 	bl ApplyChapterMapGraphics
 	movs r0, #0x10
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	bl RenderMap
 	movs r0, #3
 	movs r1, #0
@@ -11652,8 +11652,8 @@ sub_8048244: @ 0x08048244
 	.align 2, 0
 .L08048294: .4byte gPlaySt
 
-	thumb_func_start sub_8048298
-sub_8048298: @ 0x08048298
+	thumb_func_start func_fe6_08048298
+func_fe6_08048298: @ 0x08048298
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -11662,7 +11662,7 @@ sub_8048298: @ 0x08048298
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080482B2
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r5, r0, #0
 	cmp r5, #0
 	beq .L080482C0
@@ -11681,7 +11681,7 @@ sub_8048298: @ 0x08048298
 	movs r1, #0x10
 	movs r2, #4
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -11698,8 +11698,8 @@ sub_8048298: @ 0x08048298
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80482F4
-sub_80482F4: @ 0x080482F4
+	thumb_func_start func_fe6_080482F4
+func_fe6_080482F4: @ 0x080482F4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0
@@ -11725,15 +11725,15 @@ sub_80482F4: @ 0x080482F4
 	strh r0, [r4, #0x3a]
 	bl BasInit
 	movs r0, #1
-	bl sub_80489E8
+	bl func_fe6_080489E8
 	movs r0, #1
-	bl sub_8048574
-	movs r0, #1
-	movs r1, #0xb
-	bl sub_8048DA4
+	bl func_fe6_08048574
 	movs r0, #1
 	movs r1, #0xb
-	bl sub_8048F88
+	bl func_fe6_08048DA4
+	movs r0, #1
+	movs r1, #0xb
+	bl func_fe6_08048F88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -11742,8 +11742,8 @@ sub_80482F4: @ 0x080482F4
 	.align 2, 0
 .L08048350: .4byte 0x0203CD16
 
-	thumb_func_start sub_8048354
-sub_8048354: @ 0x08048354
+	thumb_func_start func_fe6_08048354
+func_fe6_08048354: @ 0x08048354
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -11754,7 +11754,7 @@ sub_8048354: @ 0x08048354
 	asrs r0, r0, #0x10
 	cmp r0, #0xc
 	ble .L080483D4
-	bl sub_80438B4
+	bl func_fe6_080438B4
 	adds r0, r4, #0
 	bl Proc_Break
 	bl InitBmBgLayers
@@ -11812,8 +11812,8 @@ sub_8048354: @ 0x08048354
 	.align 2, 0
 .L080483DC: .4byte gDispIo
 
-	thumb_func_start sub_80483E0
-sub_80483E0: @ 0x080483E0
+	thumb_func_start func_fe6_080483E0
+func_fe6_080483E0: @ 0x080483E0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r4, #0
@@ -11822,7 +11822,7 @@ sub_80483E0: @ 0x080483E0
 	movs r0, #0xf
 	strh r0, [r5, #0x2e]
 	bl ResetUnitSprites
-	bl sub_80292B8
+	bl func_fe6_080292B8
 	bl RefreshUnitSprites
 	bl ForceSyncUnitSpriteSheet
 	bl ApplyUnitSpritePalettes
@@ -11859,15 +11859,15 @@ sub_80483E0: @ 0x080483E0
 	ldrb r2, [r1]
 	orrs r0, r2
 	strb r0, [r1]
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	beq .L08048450
 	bl ApplyChapterMapPalettes
 .L08048450:
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	bne .L0804845C
-	bl sub_803CF58
+	bl func_fe6_0803CF58
 .L0804845C:
 	adds r0, r5, #0
 	bl Proc_Break
@@ -11878,8 +11878,8 @@ sub_80483E0: @ 0x080483E0
 .L08048468: .4byte gDispIo
 .L0804846C: .4byte 0x0000FFE0
 
-	thumb_func_start sub_8048470
-sub_8048470: @ 0x08048470
+	thumb_func_start func_fe6_08048470
+func_fe6_08048470: @ 0x08048470
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -11991,20 +11991,20 @@ sub_8048470: @ 0x08048470
 .L08048554: .4byte gBg2Tm
 .L08048558: .4byte 0x01000200
 
-	thumb_func_start sub_804855C
-sub_804855C: @ 0x0804855C
+	thumb_func_start func_fe6_0804855C
+func_fe6_0804855C: @ 0x0804855C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80425B0
-	bl sub_8029240
+	bl func_fe6_080425B0
+	bl func_fe6_08029240
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8048574
-sub_8048574: @ 0x08048574
+	thumb_func_start func_fe6_08048574
+func_fe6_08048574: @ 0x08048574
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r3, .L080485DC @ =gDispIo
@@ -12482,8 +12482,8 @@ sub_8048574: @ 0x08048574
 	.align 2, 0
 .L08048948: .4byte gUnk_085CBD08
 
-	thumb_func_start sub_804894C
-sub_804894C: @ 0x0804894C
+	thumb_func_start func_fe6_0804894C
+func_fe6_0804894C: @ 0x0804894C
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -12562,8 +12562,8 @@ sub_804894C: @ 0x0804894C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80489E8
-sub_80489E8: @ 0x080489E8
+	thumb_func_start func_fe6_080489E8
+func_fe6_080489E8: @ 0x080489E8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08048A14 @ =gUnk_085CBD28
@@ -12593,7 +12593,7 @@ sub_80489E8: @ 0x080489E8
 	ldrsh r5, [r0, r1]
 	cmp r5, #1
 	bne .L08048A30
-	bl sub_8058F00
+	bl func_fe6_08058F00
 	cmp r0, #0
 	beq .L08048A30
 	str r5, [r4, #0x4c]
@@ -12603,7 +12603,7 @@ sub_80489E8: @ 0x080489E8
 	ldrsh r5, [r0, r2]
 	cmp r5, #1
 	bne .L08048A5E
-	bl sub_8058F00
+	bl func_fe6_08058F00
 	cmp r0, #1
 	beq .L08048A5E
 	str r5, [r4, #0x50]
@@ -12626,8 +12626,8 @@ sub_80489E8: @ 0x080489E8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8048A64
-sub_8048A64: @ 0x08048A64
+	thumb_func_start func_fe6_08048A64
+func_fe6_08048A64: @ 0x08048A64
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, .L08048B74 @ =gUnk_081122C0
@@ -12640,7 +12640,7 @@ sub_8048A64: @ 0x08048A64
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldrb r6, [r0]
-	bl sub_804B048
+	bl func_fe6_0804B048
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L08048A9C
@@ -12653,7 +12653,7 @@ sub_8048A64: @ 0x08048A64
 	ldr r0, .L08048B84 @ =gPal
 	movs r1, #0x17
 	movs r2, #1
-	bl sub_805B780
+	bl func_fe6_0805B780
 .L08048A9C:
 	ldr r5, .L08048B88 @ =0x0203CCF8
 	ldrh r3, [r5]
@@ -12803,8 +12803,8 @@ sub_8048A64: @ 0x08048A64
 	.align 2, 0
 .L08048BEC: .4byte gUnk_081122D0
 
-	thumb_func_start sub_8048BF0
-sub_8048BF0: @ 0x08048BF0
+	thumb_func_start func_fe6_08048BF0
+func_fe6_08048BF0: @ 0x08048BF0
 	push {r4, r5, r6, r7, lr}
 	ldr r4, .L08048C10 @ =0xFFFFFCB4
 	add sp, r4
@@ -12860,7 +12860,7 @@ sub_8048BF0: @ 0x08048BF0
 	str r1, [sp]
 	add r1, sp, #4
 	adds r2, r3, #0
-	bl sub_805BB24
+	bl func_fe6_0805BB24
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L08048C96
@@ -12938,7 +12938,7 @@ sub_8048BF0: @ 0x08048BF0
 	str r1, [sp]
 	add r1, sp, #4
 	adds r2, r3, #0
-	bl sub_805BB24
+	bl func_fe6_0805BB24
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L08048D36
@@ -13015,16 +13015,16 @@ sub_8048BF0: @ 0x08048BF0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8048D98
-sub_8048D98: @ 0x08048D98
+	thumb_func_start func_fe6_08048D98
+func_fe6_08048D98: @ 0x08048D98
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8048DA4
-sub_8048DA4: @ 0x08048DA4
+	thumb_func_start func_fe6_08048DA4
+func_fe6_08048DA4: @ 0x08048DA4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -13049,11 +13049,11 @@ sub_8048DA4: @ 0x08048DA4
 	adds r1, r1, r2
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_8043918
+	bl func_fe6_08043918
 	ldr r1, .L08048DF0 @ =gUnk_Banim_0201E0EC
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8043950
+	bl func_fe6_08043950
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -13062,8 +13062,8 @@ sub_8048DA4: @ 0x08048DA4
 .L08048DEC: .4byte gUnk_Banim_02000030
 .L08048DF0: .4byte gUnk_Banim_0201E0EC
 
-	thumb_func_start sub_8048DF4
-sub_8048DF4: @ 0x08048DF4
+	thumb_func_start func_fe6_08048DF4
+func_fe6_08048DF4: @ 0x08048DF4
 	ldr r0, .L08048E00 @ =gUnk_Banim_0201E0EC
 	ldr r0, [r0]
 	cmp r0, #0
@@ -13077,8 +13077,8 @@ sub_8048DF4: @ 0x08048DF4
 .L08048E06:
 	bx lr
 
-	thumb_func_start sub_8048E08
-sub_8048E08: @ 0x08048E08
+	thumb_func_start func_fe6_08048E08
+func_fe6_08048E08: @ 0x08048E08
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -13092,7 +13092,7 @@ sub_8048E08: @ 0x08048E08
 	ldr r1, .L08048E30 @ =gUnk_Banim_0201E0EC
 	movs r0, #0
 	str r0, [r1]
-	bl sub_8043940
+	bl func_fe6_08043940
 	adds r0, r4, #0
 	bl Proc_Break
 	b .L08048E7C
@@ -13134,7 +13134,7 @@ sub_8048E08: @ 0x08048E08
 	adds r1, r1, r2
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_8043918
+	bl func_fe6_08043918
 .L08048E7C:
 	add sp, #4
 	pop {r4}
@@ -13143,8 +13143,8 @@ sub_8048E08: @ 0x08048E08
 	.align 2, 0
 .L08048E84: .4byte gUnk_Banim_02000030
 
-	thumb_func_start sub_8048E88
-sub_8048E88: @ 0x08048E88
+	thumb_func_start func_fe6_08048E88
+func_fe6_08048E88: @ 0x08048E88
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -13164,27 +13164,27 @@ sub_8048E88: @ 0x08048E88
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	movs r0, #0
-	bl sub_804421C
+	bl func_fe6_0804421C
 	b .L08048EC4
 	.align 2, 0
 .L08048EB8: .4byte gUnk_085CBD68
 .L08048EBC:
 	movs r0, #0
 	movs r1, #0
-	bl sub_804421C
+	bl func_fe6_0804421C
 .L08048EC4:
 	ldr r1, .L08048ED4 @ =gUnk_Banim_0201E0F0
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8044254
+	bl func_fe6_08044254
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L08048ED4: .4byte gUnk_Banim_0201E0F0
 
-	thumb_func_start sub_8048ED8
-sub_8048ED8: @ 0x08048ED8
+	thumb_func_start func_fe6_08048ED8
+func_fe6_08048ED8: @ 0x08048ED8
 	ldr r0, .L08048EE4 @ =gUnk_Banim_0201E0F0
 	ldr r0, [r0]
 	cmp r0, #0
@@ -13198,8 +13198,8 @@ sub_8048ED8: @ 0x08048ED8
 .L08048EEA:
 	bx lr
 
-	thumb_func_start sub_8048EEC
-sub_8048EEC: @ 0x08048EEC
+	thumb_func_start func_fe6_08048EEC
+func_fe6_08048EEC: @ 0x08048EEC
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -13218,8 +13218,8 @@ sub_8048EEC: @ 0x08048EEC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8048F0C
-sub_8048F0C: @ 0x08048F0C
+	thumb_func_start func_fe6_08048F0C
+func_fe6_08048F0C: @ 0x08048F0C
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -13233,11 +13233,11 @@ sub_8048F0C: @ 0x08048F0C
 	ldr r0, .L08048F3C @ =gUnk_Banim_0201E0F0
 	movs r1, #0
 	str r1, [r0]
-	bl sub_8044244
+	bl func_fe6_08044244
 	ldr r0, [r4, #0x44]
 	cmp r0, #2
 	bne .L08048F34
-	bl sub_80441C8
+	bl func_fe6_080441C8
 .L08048F34:
 	adds r0, r4, #0
 	bl Proc_Break
@@ -13274,7 +13274,7 @@ sub_8048F0C: @ 0x08048F0C
 	lsls r1, r0, #0x10
 	lsrs r1, r1, #0x10
 	movs r0, #0
-	bl sub_804421C
+	bl func_fe6_0804421C
 .L08048F7E:
 	add sp, #4
 	pop {r4}
@@ -13282,8 +13282,8 @@ sub_8048F0C: @ 0x08048F0C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8048F88
-sub_8048F88: @ 0x08048F88
+	thumb_func_start func_fe6_08048F88
+func_fe6_08048F88: @ 0x08048F88
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -13318,8 +13318,8 @@ sub_8048F88: @ 0x08048F88
 	.align 2, 0
 .L08048FCC: .4byte gUnk_Banim_0201E0F4
 
-	thumb_func_start sub_8048FD0
-sub_8048FD0: @ 0x08048FD0
+	thumb_func_start func_fe6_08048FD0
+func_fe6_08048FD0: @ 0x08048FD0
 	ldr r0, .L08048FDC @ =gUnk_Banim_0201E0F4
 	ldr r0, [r0]
 	cmp r0, #0
@@ -13333,8 +13333,8 @@ sub_8048FD0: @ 0x08048FD0
 .L08048FE2:
 	bx lr
 
-	thumb_func_start sub_8048FE4
-sub_8048FE4: @ 0x08048FE4
+	thumb_func_start func_fe6_08048FE4
+func_fe6_08048FE4: @ 0x08048FE4
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -13393,8 +13393,8 @@ sub_8048FE4: @ 0x08048FE4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8049058
-sub_8049058: @ 0x08049058
+	thumb_func_start func_fe6_08049058
+func_fe6_08049058: @ 0x08049058
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -13410,13 +13410,13 @@ sub_8049058: @ 0x08049058
 	cmp r0, #0
 	bne .L08049080
 	movs r0, #0
-	bl sub_804C4F4
+	bl func_fe6_0804C4F4
 	b .L08049086
 	.align 2, 0
 .L0804907C: .4byte gBattleSt
 .L08049080:
 	movs r0, #1
-	bl sub_804C4F4
+	bl func_fe6_0804C4F4
 .L08049086:
 	ldr r1, .L0804909C @ =gBmSt
 	movs r0, #0x40
@@ -13425,13 +13425,13 @@ sub_8049058: @ 0x08049058
 	cmp r0, #0
 	bne .L080490A0
 	movs r0, #0
-	bl sub_804256C
+	bl func_fe6_0804256C
 	b .L080490A6
 	.align 2, 0
 .L0804909C: .4byte gBmSt
 .L080490A0:
 	movs r0, #1
-	bl sub_804256C
+	bl func_fe6_0804256C
 .L080490A6:
 	ldr r1, .L080490C0 @ =gBattleSt
 	movs r0, #0x10
@@ -13490,14 +13490,14 @@ sub_8049058: @ 0x08049058
 	adds r0, r4, #0
 	ldrb r1, [r5, #0xb]
 	ands r0, r1
-	bl sub_804A500
+	bl func_fe6_0804A500
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	ldr r0, .L08049150 @ =gBattleUnitB
 	ldrb r0, [r0, #0xb]
 	ands r4, r0
 	adds r0, r4, #0
-	bl sub_804A500
+	bl func_fe6_0804A500
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	ldr r1, .L08049154 @ =gBattleSt
@@ -13527,7 +13527,7 @@ sub_8049058: @ 0x08049058
 	bl GetItemIid
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F784
+	bl func_fe6_0805F784
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	str r0, [sp, #0x18]
@@ -13537,7 +13537,7 @@ sub_8049058: @ 0x08049058
 	strh r0, [r1, #2]
 	strh r0, [r1]
 	movs r4, #0
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	beq .L080491A4
 	lsls r0, r7, #0x10
@@ -13788,7 +13788,7 @@ sub_8049058: @ 0x08049058
 	adds r0, #0x48
 	ldrh r1, [r0]
 	mov r0, r8
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	ldr r5, .L080493A4 @ =0x0203CD76
 	ldr r4, .L080493A8 @ =0x0203CD00
 	strh r0, [r4]
@@ -13797,7 +13797,7 @@ sub_8049058: @ 0x08049058
 	adds r0, #0x48
 	ldrh r1, [r0]
 	mov r0, sb
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	strh r0, [r4, #2]
 	strh r0, [r5, #2]
 	ldr r0, [sp, #0x14]
@@ -13818,7 +13818,7 @@ sub_8049058: @ 0x08049058
 	adds r0, #0x4a
 	ldrh r1, [r0]
 	mov r0, r8
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	ldr r2, .L08049514 @ =0x0203CD76
 	ldr r1, .L08049518 @ =0x0203CD00
 	strh r0, [r1]
@@ -13831,7 +13831,7 @@ sub_8049058: @ 0x08049058
 	adds r0, #0x4a
 	ldrh r1, [r0]
 	mov r0, sb
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	ldr r2, .L08049514 @ =0x0203CD76
 	ldr r1, .L08049518 @ =0x0203CD00
 	strh r0, [r1, #2]
@@ -13842,7 +13842,7 @@ sub_8049058: @ 0x08049058
 	cmp r7, #0
 	beq .L080493F6
 	ldr r0, [sp, #0x10]
-	bl sub_804A49C
+	bl func_fe6_0804A49C
 	ldr r1, .L0804951C @ =0x0203CD04
 	strh r0, [r1]
 .L080493F6:
@@ -13852,7 +13852,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0
 	beq .L0804940A
 	mov r0, sl
-	bl sub_804A49C
+	bl func_fe6_0804A49C
 	ldr r1, .L0804951C @ =0x0203CD04
 	strh r0, [r1, #2]
 .L0804940A:
@@ -13864,7 +13864,7 @@ sub_8049058: @ 0x08049058
 	ldr r1, [sp]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl sub_804A4B8
+	bl func_fe6_0804A4B8
 	ldr r1, .L08049520 @ =0x0203CD90
 	str r0, [r1]
 .L08049422:
@@ -13877,7 +13877,7 @@ sub_8049058: @ 0x08049058
 	ldr r1, [sp, #4]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl sub_804A4B8
+	bl func_fe6_0804A4B8
 	ldr r1, .L08049520 @ =0x0203CD90
 	str r0, [r1, #4]
 .L0804943C:
@@ -13910,7 +13910,7 @@ sub_8049058: @ 0x08049058
 	bl GetChapterInfo
 	ldrb r1, [r0, #0x12]
 	adds r0, r4, #0
-	bl sub_8049C5C
+	bl func_fe6_08049C5C
 	strh r0, [r5]
 .L0804947E:
 	mov r4, r8
@@ -13924,7 +13924,7 @@ sub_8049058: @ 0x08049058
 	bl GetChapterInfo
 	ldrb r1, [r0, #0x12]
 	adds r0, r4, #0
-	bl sub_8049C5C
+	bl func_fe6_08049C5C
 	strh r0, [r5, #2]
 .L0804949C:
 	ldr r1, .L08049534 @ =gBmSt
@@ -13946,7 +13946,7 @@ sub_8049058: @ 0x08049058
 	bl GetChapterInfo
 	ldrb r1, [r0, #0x12]
 	movs r0, #0x30
-	bl sub_8049C5C
+	bl func_fe6_08049C5C
 	strh r0, [r5]
 .L080494CA:
 	mov r2, r8
@@ -13961,7 +13961,7 @@ sub_8049058: @ 0x08049058
 	bl GetChapterInfo
 	ldrb r1, [r0, #0x12]
 	adds r0, r4, #0
-	bl sub_8049C5C
+	bl func_fe6_08049C5C
 	strh r0, [r5, #2]
 .L080494EA:
 	ldr r0, .L08049538 @ =0x0203CD14
@@ -14057,7 +14057,7 @@ sub_8049058: @ 0x08049058
 	ldrsb r0, [r2, r0]
 	strh r0, [r1, #2]
 .L080495AA:
-	bl sub_8049F1C
+	bl func_fe6_08049F1C
 	ldr r0, .L080495D0 @ =0x0203CD14
 	ldrh r0, [r0]
 	cmp r0, #4
@@ -14083,7 +14083,7 @@ sub_8049058: @ 0x08049058
 	ldr r1, [sp]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl sub_8049D98
+	bl func_fe6_08049D98
 	ldr r1, .L08049918 @ =0x0203CD0C
 	strh r0, [r1]
 .L080495F0:
@@ -14095,7 +14095,7 @@ sub_8049058: @ 0x08049058
 	ldr r1, [sp, #4]
 	adds r1, #0x4a
 	ldrh r1, [r1]
-	bl sub_8049D98
+	bl func_fe6_08049D98
 	ldr r1, .L08049918 @ =0x0203CD0C
 	strh r0, [r1, #2]
 .L08049608:
@@ -14132,7 +14132,7 @@ sub_8049058: @ 0x08049058
 	adds r1, #0x4a
 	ldrh r2, [r1]
 	movs r1, #0
-	bl sub_8049E9C
+	bl func_fe6_08049E9C
 .L0804964A:
 	ldr r4, [sp, #0x20]
 	cmp r4, #0
@@ -14142,14 +14142,14 @@ sub_8049058: @ 0x08049058
 	adds r1, #0x4a
 	ldrh r2, [r1]
 	movs r1, #1
-	bl sub_8049E9C
+	bl func_fe6_08049E9C
 .L0804965E:
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	movs r4, #0
 	strh r4, [r0]
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 	ldr r0, .L08049924 @ =0x0203CD14
 	movs r1, #0
@@ -14168,7 +14168,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x53
 	bne .L0804969A
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L0804969A:
 	ldr r2, [sp, #0x20]
@@ -14182,7 +14182,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x53
 	bne .L080496B8
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L080496B8:
 	ldr r3, [sp, #0x1c]
@@ -14196,7 +14196,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x54
 	bne .L080496D6
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L080496D6:
 	ldr r4, [sp, #0x20]
@@ -14210,7 +14210,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x54
 	bne .L080496F4
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L080496F4:
 	ldr r0, [sp, #0x1c]
@@ -14224,7 +14224,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x70
 	bne .L08049712
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L08049712:
 	ldr r1, [sp, #0x20]
@@ -14238,7 +14238,7 @@ sub_8049058: @ 0x08049058
 	cmp r4, #0x70
 	bne .L08049730
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	strh r4, [r0]
 .L08049730:
 	ldr r2, [sp, #0x1c]
@@ -14250,7 +14250,7 @@ sub_8049058: @ 0x08049058
 	ldr r3, [sp, #0x10]
 	ldrb r3, [r3, #0xb]
 	ands r0, r3
-	bl sub_804A500
+	bl func_fe6_0804A500
 	ldr r1, .L08049928 @ =0x0203CD08
 	strh r0, [r1]
 .L0804974A:
@@ -14263,7 +14263,7 @@ sub_8049058: @ 0x08049058
 	mov r1, sl
 	ldrb r1, [r1, #0xb]
 	ands r0, r1
-	bl sub_804A500
+	bl func_fe6_0804A500
 	ldr r1, .L08049928 @ =0x0203CD08
 	strh r0, [r1, #2]
 .L08049764:
@@ -14603,7 +14603,7 @@ sub_8049058: @ 0x08049058
 .L080499EC:
 	str r0, [r1, #4]
 .L080499EE:
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	beq .L08049A00
 	ldr r0, .L08049A10 @ =gPlaySt
@@ -14656,7 +14656,7 @@ sub_8049058: @ 0x08049058
 	bl GetChapterInfo
 	ldrb r1, [r0, #0x12]
 	adds r0, r4, #0
-	bl sub_8049CFC
+	bl func_fe6_08049CFC
 	strh r0, [r5]
 .L08049A6A:
 	movs r4, #0
@@ -14679,7 +14679,7 @@ sub_8049058: @ 0x08049058
 	bne .L08049A92
 	movs r4, #1
 .L08049A92:
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	bne .L08049A9C
 	movs r4, #1
@@ -14820,8 +14820,8 @@ sub_8049058: @ 0x08049058
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8049BAC
-sub_8049BAC: @ 0x08049BAC
+	thumb_func_start func_fe6_08049BAC
+func_fe6_08049BAC: @ 0x08049BAC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -14922,8 +14922,8 @@ sub_8049BAC: @ 0x08049BAC
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8049C5C
-sub_8049C5C: @ 0x08049C5C
+	thumb_func_start func_fe6_08049C5C
+func_fe6_08049C5C: @ 0x08049C5C
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 	lsls r1, r1, #0x10
@@ -15005,8 +15005,8 @@ sub_8049C5C: @ 0x08049C5C
 	.align 2, 0
 .L08049CF8: .4byte gUnk_0860CC0F
 
-	thumb_func_start sub_8049CFC
-sub_8049CFC: @ 0x08049CFC
+	thumb_func_start func_fe6_08049CFC
+func_fe6_08049CFC: @ 0x08049CFC
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 	lsls r1, r1, #0x10
@@ -15087,8 +15087,8 @@ sub_8049CFC: @ 0x08049CFC
 	.align 2, 0
 .L08049D94: .4byte gUnk_0860CE0D
 
-	thumb_func_start sub_8049D98
-sub_8049D98: @ 0x08049D98
+	thumb_func_start func_fe6_08049D98
+func_fe6_08049D98: @ 0x08049D98
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
@@ -15195,8 +15195,8 @@ sub_8049D98: @ 0x08049D98
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_8049E9C
-sub_8049E9C: @ 0x08049E9C
+	thumb_func_start func_fe6_08049E9C
+func_fe6_08049E9C: @ 0x08049E9C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, r2, #0
@@ -15253,8 +15253,8 @@ sub_8049E9C: @ 0x08049E9C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8049F1C
-sub_8049F1C: @ 0x08049F1C
+	thumb_func_start func_fe6_08049F1C
+func_fe6_08049F1C: @ 0x08049F1C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -15559,7 +15559,7 @@ sub_8049F1C: @ 0x08049F1C
 .L0804A184: .4byte gUnk_08112266
 .L0804A188:
 	movs r0, #2
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	cmp r0, #1
 	beq .L0804A1AC
 	cmp r0, #1
@@ -15663,7 +15663,7 @@ sub_8049F1C: @ 0x08049F1C
 	cmp r0, r2
 	bne .L0804A290
 	lsls r0, r7, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15696,7 +15696,7 @@ sub_8049F1C: @ 0x08049F1C
 	mov r2, r8
 	lsls r0, r2, #1
 	adds r0, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r5, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r5, r1]
@@ -15739,7 +15739,7 @@ sub_8049F1C: @ 0x08049F1C
 	mov r2, r8
 	lsls r0, r2, #1
 	adds r0, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r5, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r5, r1]
@@ -15762,7 +15762,7 @@ sub_8049F1C: @ 0x08049F1C
 	adds r0, r0, r4
 	strh r2, [r0]
 	lsls r0, r7, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15787,7 +15787,7 @@ sub_8049F1C: @ 0x08049F1C
 .L0804A34C: .4byte 0x0203CDA4
 .L0804A350:
 	lsls r0, r7, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15808,7 +15808,7 @@ sub_8049F1C: @ 0x08049F1C
 	mov r5, r8
 	lsls r0, r5, #1
 	adds r0, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15847,7 +15847,7 @@ sub_8049F1C: @ 0x08049F1C
 	mov r5, r8
 	lsls r0, r5, #1
 	adds r0, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15888,7 +15888,7 @@ sub_8049F1C: @ 0x08049F1C
 .L0804A414: .4byte 0x0203CD4A
 .L0804A418:
 	lsls r0, r7, #1
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	ldr r2, [sp, #4]
 	movs r1, #3
 	ldrsb r1, [r2, r1]
@@ -15945,8 +15945,8 @@ sub_8049F1C: @ 0x08049F1C
 	.align 2, 0
 .L0804A480: .4byte 0x0203CD4A
 
-	thumb_func_start sub_804A484
-sub_804A484: @ 0x0804A484
+	thumb_func_start func_fe6_0804A484
+func_fe6_0804A484: @ 0x0804A484
 	ldr r1, .L0804A494 @ =gBattleHits
 	movs r0, #2
 	ldrb r1, [r1, #2]
@@ -15962,8 +15962,8 @@ sub_804A484: @ 0x0804A484
 .L0804A49A:
 	bx lr
 
-	thumb_func_start sub_804A49C
-sub_804A49C: @ 0x0804A49C
+	thumb_func_start func_fe6_0804A49C
+func_fe6_0804A49C: @ 0x0804A49C
 	ldr r2, [r0]
 	ldr r1, [r0, #4]
 	ldr r0, [r2, #0x28]
@@ -15979,8 +15979,8 @@ sub_804A49C: @ 0x0804A49C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_804A4B8
-sub_804A4B8: @ 0x0804A4B8
+	thumb_func_start func_fe6_0804A4B8
+func_fe6_0804A4B8: @ 0x0804A4B8
 	push {lr}
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
@@ -16023,8 +16023,8 @@ sub_804A4B8: @ 0x0804A4B8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_804A500
-sub_804A500: @ 0x0804A500
+	thumb_func_start func_fe6_0804A500
+func_fe6_0804A500: @ 0x0804A500
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	adds r1, r0, #0
@@ -16051,29 +16051,29 @@ sub_804A500: @ 0x0804A500
 .L0804A526:
 	bx lr
 
-	thumb_func_start sub_804A528
-sub_804A528: @ 0x0804A528
+	thumb_func_start func_fe6_0804A528
+func_fe6_0804A528: @ 0x0804A528
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	lsls r4, r1, #0x10
 	lsrs r4, r4, #0x10
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0804A550 @ =0x0203CD76
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
-	bl sub_804B048
+	bl func_fe6_0804B048
 	adds r0, r5, #0
 	movs r1, #6
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L0804A550: .4byte 0x0203CD76
 
-	thumb_func_start sub_804A554
-sub_804A554: @ 0x0804A554
+	thumb_func_start func_fe6_0804A554
+func_fe6_0804A554: @ 0x0804A554
 	ldr r1, .L0804A570 @ =0x0203CD1E
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -16095,8 +16095,8 @@ sub_804A554: @ 0x0804A554
 .L0804A57A:
 	bx lr
 
-	thumb_func_start sub_804A57C
-sub_804A57C: @ 0x0804A57C
+	thumb_func_start func_fe6_0804A57C
+func_fe6_0804A57C: @ 0x0804A57C
 	ldr r1, .L0804A59C @ =0x0203CD1E
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -16120,8 +16120,8 @@ sub_804A57C: @ 0x0804A57C
 .L0804A5A6:
 	bx lr
 
-	thumb_func_start sub_804A5A8
-sub_804A5A8: @ 0x0804A5A8
+	thumb_func_start func_fe6_0804A5A8
+func_fe6_0804A5A8: @ 0x0804A5A8
 	ldr r1, .L0804A5B8 @ =0x0203CD4A
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -16134,8 +16134,8 @@ sub_804A5A8: @ 0x0804A5A8
 .L0804A5B8: .4byte 0x0203CD4A
 .L0804A5BC: .4byte 0x00000FFF
 
-	thumb_func_start sub_804A5C0
-sub_804A5C0: @ 0x0804A5C0
+	thumb_func_start func_fe6_0804A5C0
+func_fe6_0804A5C0: @ 0x0804A5C0
 	ldr r1, .L0804A5D4 @ =0x0203CD4A
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -16150,8 +16150,8 @@ sub_804A5C0: @ 0x0804A5C0
 .L0804A5D4: .4byte 0x0203CD4A
 .L0804A5D8: .4byte 0xFFFFF000
 
-	thumb_func_start sub_804A5DC
-sub_804A5DC: @ 0x0804A5DC
+	thumb_func_start func_fe6_0804A5DC
+func_fe6_0804A5DC: @ 0x0804A5DC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -16159,8 +16159,8 @@ sub_804A5DC: @ 0x0804A5DC
 	sub sp, #4
 	movs r2, #0
 
-	thumb_func_start sub_0804A5E8
-sub_0804A5E8: @ 0x0804A5E8
+	thumb_func_start func_fe6_00804A5E8
+func_fe6_00804A5E8: @ 0x0804A5E8
 	ldr r1, .L0804A640 @ =gUnk_Banim_02000000
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -16310,7 +16310,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	bne .L0804A79E
 	b .L0804AD82
 .L0804A79E:
-	bl sub_80449C4
+	bl func_fe6_080449C4
 	cmp r0, #1
 	beq .L0804A7A8
 	b .L0804AD82
@@ -16344,11 +16344,11 @@ sub_0804A5E8: @ 0x0804A5E8
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804A7EA
 	adds r0, r7, #0
-	bl sub_8057860
+	bl func_fe6_08057860
 .L0804A7EA:
 	ldrh r1, [r7, #0x10]
 	b .L0804ACCA
@@ -16384,17 +16384,17 @@ sub_0804A5E8: @ 0x0804A5E8
 	orrs r1, r5
 	strh r1, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r2, r0, #0
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 	mov r4, r8
 	adds r0, r4, #0
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	ldr r2, [sp]
 	cmp r0, #1
 	beq .L0804A84C
@@ -16409,7 +16409,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804A866
 	b .L0804AD82
@@ -16450,27 +16450,27 @@ sub_0804A5E8: @ 0x0804A5E8
 	orrs r1, r0
 	strh r1, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804A8B6
 	b .L0804AD82
 .L0804A8B6:
 	adds r0, r7, #0
-	bl sub_804C898
+	bl func_fe6_0804C898
 	b .L0804AD82
 	.align 2, 0
 .L0804A8C0: .4byte 0x0000FFDF
 .L0804A8C4: .4byte 0x0000FFBF
 .L0804A8C8:
 	adds r0, r7, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r2, r0, #0
 	cmp r2, #0
 	bne .L0804A8D6
 	b .L0804AD82
 .L0804A8D6:
 	str r2, [sp]
-	bl sub_804B88C
+	bl func_fe6_0804B88C
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -16488,33 +16488,33 @@ sub_0804A5E8: @ 0x0804A5E8
 	b .L0804AD82
 .L0804A8F8:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804A904
 	b .L0804AD82
 .L0804A904:
 	adds r0, r7, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r2, r0, #0
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	ldr r2, [sp]
 	cmp r0, #0
 	bne .L0804A93C
 	adds r0, r2, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	ldr r2, [sp]
 	cmp r0, #2
 	beq .L0804A93C
 	adds r0, r2, #0
-	bl sub_8056B08
+	bl func_fe6_08056B08
 	ldr r2, [sp]
 .L0804A93C:
 	cmp r2, #0
@@ -16527,32 +16527,32 @@ sub_0804A5E8: @ 0x0804A5E8
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 .L0804A958:
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	b .L0804AD82
 .L0804A968:
 	adds r0, r7, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
 	ldr r4, .L0804A9A8 @ =gUnk_Banim_02000000
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r2, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -16599,10 +16599,10 @@ sub_0804A5E8: @ 0x0804A5E8
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	movs r1, #4
 	ldr r2, [sp]
 	ldrh r0, [r2, #0x10]
@@ -16624,7 +16624,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	ldrb r4, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r2, [sp]
 	cmp r0, #0
 	bne .L0804AA48
@@ -16644,7 +16644,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	ldr r4, [r0]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r1, r0, #2
 	adds r1, r1, r0
 	lsls r1, r1, #2
@@ -16667,7 +16667,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	ldr r4, .L0804AAD8 @ =0x0203CD98
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -16678,7 +16678,7 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AA98:
 	ldr r4, .L0804AADC @ =gUnk_Banim_0201E13C
 	adds r0, r2, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r0]
@@ -16689,10 +16689,10 @@ sub_0804A5E8: @ 0x0804A5E8
 	b .L0804AD8A
 .L0804AAB0:
 	adds r0, r2, #0
-	bl sub_804AF70
+	bl func_fe6_0804AF70
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r2, [sp]
@@ -16716,10 +16716,10 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AAEE:
 	adds r0, r2, #0
 	mov r1, r8
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	b .L0804AD8A
 	.align 2, 0
 .L0804AB00: .4byte gUnk_081122C0
@@ -16752,23 +16752,23 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AB34: .4byte 0x0000FFDF
 .L0804AB38:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AB44
 	b .L0804AD82
 .L0804AB44:
 	movs r0, #3
-	bl sub_8046010
+	bl func_fe6_08046010
 	b .L0804AD82
 .L0804AB4C:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AB58
 	b .L0804AD82
 .L0804AB58:
 	movs r0, #0
-	bl sub_8046010
+	bl func_fe6_08046010
 	b .L0804AD82
 .L0804AB60:
 	ldrh r1, [r7, #0x10]
@@ -16801,13 +16801,13 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AB98: .4byte 0x0000F3FF
 .L0804AB9C:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804ABA8
 	b .L0804AD82
 .L0804ABA8:
 	adds r0, r7, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r2, r0, #0
 	cmp r2, #0
 	beq .L0804ABDA
@@ -16817,19 +16817,19 @@ sub_0804A5E8: @ 0x0804A5E8
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r1, r0, #0
 	ldr r2, [sp]
 	adds r0, r2, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldr r2, [sp]
 .L0804ABDA:
 	adds r0, r2, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
@@ -16837,96 +16837,96 @@ sub_0804A5E8: @ 0x0804A5E8
 	b .L0804AD82
 .L0804ABEA:
 	adds r0, r7, #0
-	bl sub_8056C3C
+	bl func_fe6_08056C3C
 	b .L0804AD82
 .L0804ABF2:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804ABFE
 	b .L0804AD82
 .L0804ABFE:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_8056D80
+	bl func_fe6_08056D80
 	b .L0804AD82
 .L0804AC08:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC14
 	b .L0804AD82
 .L0804AC14:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_8056D80
+	bl func_fe6_08056D80
 	b .L0804AD82
 .L0804AC1E:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC2A
 	b .L0804AD82
 .L0804AC2A:
 	adds r0, r7, #0
-	bl sub_8056F50
+	bl func_fe6_08056F50
 	b .L0804AD82
 .L0804AC32:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	b .L0804AD82
 .L0804AC3A:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC46
 	b .L0804AD82
 .L0804AC46:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_80571A0
+	bl func_fe6_080571A0
 	b .L0804AD82
 .L0804AC50:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC5C
 	b .L0804AD82
 .L0804AC5C:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_80571A0
+	bl func_fe6_080571A0
 	b .L0804AD82
 .L0804AC66:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC72
 	b .L0804AD82
 .L0804AC72:
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_8057344
+	bl func_fe6_08057344
 	b .L0804AD82
 .L0804AC7C:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	beq .L0804AC88
 	b .L0804AD82
 .L0804AC88:
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_8057344
+	bl func_fe6_08057344
 	b .L0804AD82
 .L0804AC92:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
 	movs r1, #2
-	bl sub_8057344
+	bl func_fe6_08057344
 	b .L0804AD82
 .L0804ACA6:
 	ldrh r1, [r7, #0x10]
@@ -16939,11 +16939,11 @@ sub_0804A5E8: @ 0x0804A5E8
 	orrs r0, r1
 	strh r0, [r7, #0x10]
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl sub_805755C
+	bl func_fe6_0805755C
 	b .L0804AD82
 .L0804ACCA:
 	movs r0, #0x40
@@ -16970,11 +16970,11 @@ sub_0804A5E8: @ 0x0804A5E8
 	adds r0, #0x20
 	strh r0, [r7, #2]
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0804AD10 @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -16989,11 +16989,11 @@ sub_0804A5E8: @ 0x0804A5E8
 	subs r0, #0x20
 	strh r0, [r7, #2]
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0804AD38 @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -17005,37 +17005,37 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AD38: .4byte gUnk_Banim_02000020
 .L0804AD3C:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl sub_80575E8
+	bl func_fe6_080575E8
 	b .L0804AD82
 .L0804AD4E:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl sub_80576AC
+	bl func_fe6_080576AC
 	b .L0804AD82
 .L0804AD60:
 	subs r0, r3, #1
 	adds r0, r2, r0
 	ldrb r1, [r0]
 	adds r0, r7, #0
-	bl sub_805BE7C
+	bl func_fe6_0805BE7C
 	b .L0804AD82
 .L0804AD6E:
 	adds r0, r7, #0
-	bl sub_8057D20
+	bl func_fe6_08057D20
 	b .L0804AD82
 .L0804AD76:
 	subs r0, r3, #1
 	adds r0, r2, r0
 	ldrb r1, [r0]
 	adds r0, r7, #0
-	bl sub_805BE7C
+	bl func_fe6_0805BE7C
 .L0804AD82:
 	ldrb r0, [r7, #0x14]
 	subs r0, #1
@@ -17055,12 +17055,12 @@ sub_0804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	beq .L0804ADFA
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804ADF0
 	ldr r4, .L0804AE4C @ =0x0203CD98
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -17074,7 +17074,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	bne .L0804ADF0
 	ldr r4, .L0804AE50 @ =gUnk_Banim_0201E13C
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r0]
@@ -17082,9 +17082,9 @@ sub_0804A5E8: @ 0x0804A5E8
 	cmp r1, r0
 	beq .L0804ADF0
 	adds r0, r7, #0
-	bl sub_804AFA0
+	bl func_fe6_0804AFA0
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r1, [r7, #0x28]
@@ -17114,7 +17114,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	beq .L0804AE98
 	adds r0, r7, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -17124,14 +17124,14 @@ sub_0804A5E8: @ 0x0804A5E8
 	beq .L0804AE60
 	ldr r6, .L0804AE58 @ =gUnk_Banim_02000000
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r6
 	ldr r2, [r0]
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	ldr r4, .L0804AE5C @ =0x0000FFFD
 	b .L0804AED0
 	.align 2, 0
@@ -17143,7 +17143,7 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AE60:
 	ldr r5, .L0804AE90 @ =gUnk_Banim_02000000
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r5
 	ldr r2, [r0]
@@ -17153,7 +17153,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	ands r0, r1
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -17173,7 +17173,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	beq .L0804AF18
 	adds r0, r7, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -17183,14 +17183,14 @@ sub_0804A5E8: @ 0x0804A5E8
 	beq .L0804AF52
 	ldr r6, .L0804AF10 @ =gUnk_Banim_02000000
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r6
 	ldr r2, [r0]
 	adds r0, r2, #0
 	mov r1, r8
 	str r2, [sp]
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	ldr r4, .L0804AF14 @ =0x00007FFF
 .L0804AED0:
 	adds r0, r4, #0
@@ -17202,7 +17202,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	strh r0, [r2, #0x10]
 	adds r0, r7, #0
 	str r2, [sp]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -17210,7 +17210,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	ldr r6, [r0]
 	adds r0, r6, #0
 	mov r1, r8
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	ldrh r0, [r6, #0x10]
 	ands r4, r0
 	orrs r4, r5
@@ -17228,16 +17228,16 @@ sub_0804A5E8: @ 0x0804A5E8
 .L0804AF14: .4byte 0x00007FFF
 .L0804AF18:
 	adds r0, r7, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804AF52
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	ldrh r2, [r7, #0xe]
 	lsls r0, r2, #1
 	adds r0, r0, r1
-	bl sub_804A554
+	bl func_fe6_0804A554
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
@@ -17246,7 +17246,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	cmp r8, r0
 	bne .L0804AF52
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0804AF6C @ =gUnk_Banim_0201E124
 	lsls r0, r0, #2
 	adds r0, r0, r1
@@ -17256,7 +17256,7 @@ sub_0804A5E8: @ 0x0804A5E8
 	mov r2, sb
 	cmp r2, #3
 	bhi .L0804AF5C
-	bl sub_0804A5E8
+	bl func_fe6_00804A5E8
 .L0804AF5C:
 	add sp, #4
 	pop {r3, r4}
@@ -17268,8 +17268,8 @@ sub_0804A5E8: @ 0x0804A5E8
 	.align 2, 0
 .L0804AF6C: .4byte gUnk_Banim_0201E124
 
-	thumb_func_start sub_804AF70
-sub_804AF70: @ 0x0804AF70
+	thumb_func_start func_fe6_0804AF70
+func_fe6_0804AF70: @ 0x0804AF70
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0804AF84 @ =gUnk_085CBDD8
@@ -17282,12 +17282,12 @@ sub_804AF70: @ 0x0804AF70
 	.align 2, 0
 .L0804AF84: .4byte gUnk_085CBDD8
 
-	thumb_func_start sub_804AF88
-sub_804AF88: @ 0x0804AF88
+	thumb_func_start func_fe6_0804AF88
+func_fe6_0804AF88: @ 0x0804AF88
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804AFA0
+	bl func_fe6_0804AFA0
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -17295,8 +17295,8 @@ sub_804AF88: @ 0x0804AF88
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804AFA0
-sub_804AFA0: @ 0x0804AFA0
+	thumb_func_start func_fe6_0804AFA0
+func_fe6_0804AFA0: @ 0x0804AFA0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0804AFCC @ =0x000003FF
@@ -17320,8 +17320,8 @@ sub_804AFA0: @ 0x0804AFA0
 .L0804AFCC: .4byte 0x000003FF
 .L0804AFD0: .4byte 0x06010000
 
-	thumb_func_start sub_804AFD4
-sub_804AFD4: @ 0x0804AFD4
+	thumb_func_start func_fe6_0804AFD4
+func_fe6_0804AFD4: @ 0x0804AFD4
 	adds r2, r0, #0
 	ldr r0, .L0804AFF8 @ =0x0203CDD0
 	lsls r1, r1, #1
@@ -17344,8 +17344,8 @@ sub_804AFD4: @ 0x0804AFD4
 	.align 2, 0
 .L0804AFF8: .4byte 0x0203CDD0
 
-	thumb_func_start sub_804AFFC
-sub_804AFFC: @ 0x0804AFFC
+	thumb_func_start func_fe6_0804AFFC
+func_fe6_0804AFFC: @ 0x0804AFFC
 	adds r2, r0, #0
 	cmp r1, #0
 	bne .L0804B00C
@@ -17392,8 +17392,8 @@ sub_804AFFC: @ 0x0804AFFC
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_804B048
-sub_804B048: @ 0x0804B048
+	thumb_func_start func_fe6_0804B048
+func_fe6_0804B048: @ 0x0804B048
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -17430,7 +17430,7 @@ sub_804B048: @ 0x0804B048
 	str r0, [r1]
 	adds r0, r7, #0
 	movs r1, #0
-	bl sub_804AFFC
+	bl func_fe6_0804AFFC
 	lsls r0, r0, #5
 	ldr r1, .L0804B0F8 @ =0x086A0008
 	adds r0, r0, r1
@@ -17450,7 +17450,7 @@ sub_804B048: @ 0x0804B048
 	bl LZ77UnCompWram
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_804AFD4
+	bl func_fe6_0804AFD4
 .L0804B0C4:
 	ldr r1, .L0804B120 @ =gUnk_Banim_0200004C
 	mov r2, r8
@@ -17525,7 +17525,7 @@ sub_804B048: @ 0x0804B048
 	str r0, [r1]
 	adds r0, r7, #0
 	movs r1, #1
-	bl sub_804AFFC
+	bl func_fe6_0804AFFC
 	lsls r0, r0, #5
 	add r0, sl
 	ldr r0, [r0, #0x1c]
@@ -17544,7 +17544,7 @@ sub_804B048: @ 0x0804B048
 	bl LZ77UnCompWram
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804AFD4
+	bl func_fe6_0804AFD4
 .L0804B1A6:
 	ldr r1, .L0804B27C @ =gUnk_Banim_0200004C
 	mov r2, r8
@@ -17578,7 +17578,7 @@ sub_804B048: @ 0x0804B048
 	ldr r0, [r0, #4]
 	ldr r0, [r0, #0x30]
 	movs r1, #0
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	lsls r0, r0, #0x10
 	ldr r5, .L0804B284 @ =0x0203CD90
 	lsrs r0, r0, #0xb
@@ -17586,7 +17586,7 @@ sub_804B048: @ 0x0804B048
 	ldr r0, [r0, #0x1c]
 	str r0, [r5]
 	ldr r0, [r6]
-	bl sub_804A49C
+	bl func_fe6_0804A49C
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	movs r7, #1
@@ -17603,14 +17603,14 @@ sub_804B048: @ 0x0804B048
 	ldr r0, [r0, #4]
 	ldr r0, [r0, #0x30]
 	movs r1, #0
-	bl sub_8049BAC
+	bl func_fe6_08049BAC
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0xb
 	add r0, sl
 	ldr r0, [r0, #0x1c]
 	str r0, [r5, #4]
 	ldr r0, [r6, #4]
-	bl sub_804A49C
+	bl func_fe6_0804A49C
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, r7
@@ -17646,8 +17646,8 @@ sub_804B048: @ 0x0804B048
 .L0804B28C: .4byte 0x000057F0
 .L0804B290: .4byte 0x0203CD88
 
-	thumb_func_start sub_804B294
-sub_804B294: @ 0x0804B294
+	thumb_func_start func_fe6_0804B294
+func_fe6_0804B294: @ 0x0804B294
 	push {lr}
 	ldr r0, .L0804B2AC @ =0x0203CD14
 	movs r1, #0
@@ -17671,18 +17671,18 @@ sub_804B294: @ 0x0804B294
 .L0804B2C8:
 	movs r0, #6
 	movs r1, #6
-	bl sub_804B324
+	bl func_fe6_0804B324
 	b .L0804B30E
 .L0804B2D2:
 	movs r0, #8
 	movs r1, #8
-	bl sub_804B324
+	bl func_fe6_0804B324
 	b .L0804B30E
 .L0804B2DC:
 	movs r0, #8
 	movs r1, #8
-	bl sub_804B324
-	bl sub_8044870
+	bl func_fe6_0804B324
+	bl func_fe6_08044870
 	cmp r0, #0
 	bne .L0804B300
 	ldr r1, .L0804B2FC @ =gUnk_Banim_02000000
@@ -17714,8 +17714,8 @@ sub_804B294: @ 0x0804B294
 .L0804B31C: .4byte gUnk_Banim_02000000
 .L0804B320: .4byte 0x0203CD46
 
-	thumb_func_start sub_804B324
-sub_804B324: @ 0x0804B324
+	thumb_func_start func_fe6_0804B324
+func_fe6_0804B324: @ 0x0804B324
 	push {r4, r5, r6, lr}
 	adds r2, r0, #0
 	adds r6, r1, #0
@@ -17730,13 +17730,13 @@ sub_804B324: @ 0x0804B324
 	cmp r0, #1
 	bne .L0804B344
 	adds r0, r2, #0
-	bl sub_804B37C
+	bl func_fe6_0804B37C
 .L0804B344:
 	ldrh r5, [r5, #2]
 	cmp r5, #1
 	bne .L0804B350
 	adds r0, r6, #0
-	bl sub_804B4C0
+	bl func_fe6_0804B4C0
 .L0804B350:
 	ldr r0, .L0804B378 @ =0x0203CD14
 	ldrh r0, [r0]
@@ -17760,8 +17760,8 @@ sub_804B324: @ 0x0804B324
 .L0804B374: .4byte 0x0203CCF8
 .L0804B378: .4byte 0x0203CD14
 
-	thumb_func_start sub_804B37C
-sub_804B37C: @ 0x0804B37C
+	thumb_func_start func_fe6_0804B37C
+func_fe6_0804B37C: @ 0x0804B37C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -17910,8 +17910,8 @@ sub_804B37C: @ 0x0804B37C
 .L0804B4B8: .4byte gUnk_Banim_020041C0
 .L0804B4BC: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_804B4C0
-sub_804B4C0: @ 0x0804B4C0
+	thumb_func_start func_fe6_0804B4C0
+func_fe6_0804B4C0: @ 0x0804B4C0
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldr r2, .L0804B5A8 @ =gUnk_08112298
@@ -18044,12 +18044,12 @@ sub_804B4C0: @ 0x0804B4C0
 .L0804B5D8: .4byte gUnk_Banim_020099C0
 .L0804B5DC: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_804B5E0
-sub_804B5E0: @ 0x0804B5E0
+	thumb_func_start func_fe6_0804B5E0
+func_fe6_0804B5E0: @ 0x0804B5E0
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804B600
 	ldr r0, .L0804B5FC @ =gUnk_08112298
@@ -18074,7 +18074,7 @@ sub_804B5E0: @ 0x0804B5E0
 	cmp r5, #0xff
 	beq .L0804B654
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804B638
 	ldr r0, .L0804B630 @ =gUnk_Banim_02000054
@@ -18130,7 +18130,7 @@ sub_804B5E0: @ 0x0804B5E0
 	strb r6, [r4, #0x12]
 	strb r3, [r4, #0x14]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r1, r0, #1
 	adds r1, r1, r0
 	lsls r1, r1, #2
@@ -18148,8 +18148,8 @@ sub_804B5E0: @ 0x0804B5E0
 .L0804B6A8: .4byte 0x0000F3FF
 .L0804B6AC: .4byte gUnk_Banim_020041C0
 
-	thumb_func_start sub_804B6B0
-sub_804B6B0: @ 0x0804B6B0
+	thumb_func_start func_fe6_0804B6B0
+func_fe6_0804B6B0: @ 0x0804B6B0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldrh r0, [r0, #0xc]
@@ -18163,8 +18163,8 @@ sub_804B6B0: @ 0x0804B6B0
 .L0804B6C2:
 	bx lr
 
-	thumb_func_start sub_804B6C4
-sub_804B6C4: @ 0x0804B6C4
+	thumb_func_start func_fe6_0804B6C4
+func_fe6_0804B6C4: @ 0x0804B6C4
 	movs r1, #0x80
 	lsls r1, r1, #2
 	ldrh r0, [r0, #0xc]
@@ -18178,8 +18178,8 @@ sub_804B6C4: @ 0x0804B6C4
 .L0804B6D6:
 	bx lr
 
-	thumb_func_start sub_804B6D8
-sub_804B6D8: @ 0x0804B6D8
+	thumb_func_start func_fe6_0804B6D8
+func_fe6_0804B6D8: @ 0x0804B6D8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #9
@@ -18210,8 +18210,8 @@ sub_804B6D8: @ 0x0804B6D8
 .L0804B71E:
 	bx lr
 
-	thumb_func_start sub_804B720
-sub_804B720: @ 0x0804B720
+	thumb_func_start func_fe6_0804B720
+func_fe6_0804B720: @ 0x0804B720
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #9
@@ -18242,8 +18242,8 @@ sub_804B720: @ 0x0804B720
 .L0804B766:
 	bx lr
 
-	thumb_func_start sub_804B768
-sub_804B768: @ 0x0804B768
+	thumb_func_start func_fe6_0804B768
+func_fe6_0804B768: @ 0x0804B768
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #9
@@ -18274,8 +18274,8 @@ sub_804B768: @ 0x0804B768
 .L0804B7AE:
 	bx lr
 
-	thumb_func_start sub_804B7B0
-sub_804B7B0: @ 0x0804B7B0
+	thumb_func_start func_fe6_0804B7B0
+func_fe6_0804B7B0: @ 0x0804B7B0
 	push {lr}
 	adds r2, r0, #0
 	ldrb r0, [r2, #0x12]
@@ -18301,10 +18301,10 @@ sub_804B7B0: @ 0x0804B7B0
 	.4byte .L0804B806 @ case 9
 .L0804B7F0:
 	adds r0, r2, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804B802
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	bne .L0804B806
 .L0804B802:
@@ -18316,11 +18316,11 @@ sub_804B7B0: @ 0x0804B7B0
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_804B80C
-sub_804B80C: @ 0x0804B80C
+	thumb_func_start func_fe6_0804B80C
+func_fe6_0804B80C: @ 0x0804B80C
 	push {r4, lr}
 	ldr r4, .L0804B824 @ =gUnk_Banim_02000000
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r1, #1
 	eors r1, r0
 	lsls r1, r1, #3
@@ -18332,33 +18332,33 @@ sub_804B80C: @ 0x0804B80C
 	.align 2, 0
 .L0804B824: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_804B828
-sub_804B828: @ 0x0804B828
+	thumb_func_start func_fe6_0804B828
+func_fe6_0804B828: @ 0x0804B828
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	ldrh r0, [r4, #0xe]
 	subs r0, #1
 	lsls r0, r0, #1
 	adds r0, r0, r1
-	bl sub_804A554
+	bl func_fe6_0804A554
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_804B848
-sub_804B848: @ 0x0804B848
+	thumb_func_start func_fe6_0804B848
+func_fe6_0804B848: @ 0x0804B848
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	ldrh r4, [r4, #0xe]
 	lsls r0, r4, #1
 	adds r0, r0, r1
-	bl sub_804A554
+	bl func_fe6_0804A554
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -18366,11 +18366,11 @@ sub_804B848: @ 0x0804B848
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_804B868
-sub_804B868: @ 0x0804B868
+	thumb_func_start func_fe6_0804B868
+func_fe6_0804B868: @ 0x0804B868
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r2, r0, #0
 	ldrh r0, [r4, #0xe]
 	subs r0, #1
@@ -18378,25 +18378,25 @@ sub_804B868: @ 0x0804B868
 	movs r1, #1
 	eors r1, r2
 	adds r0, r0, r1
-	bl sub_804A554
+	bl func_fe6_0804A554
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_804B88C
-sub_804B88C: @ 0x0804B88C
+	thumb_func_start func_fe6_0804B88C
+func_fe6_0804B88C: @ 0x0804B88C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r2, r0, #0
 	ldrh r4, [r4, #0xe]
 	lsls r0, r4, #1
 	movs r1, #1
 	eors r1, r2
 	adds r0, r0, r1
-	bl sub_804A554
+	bl func_fe6_0804A554
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	pop {r4}
@@ -18404,8 +18404,8 @@ sub_804B88C: @ 0x0804B88C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_804B8B0
-sub_804B8B0: @ 0x0804B8B0
+	thumb_func_start func_fe6_0804B8B0
+func_fe6_0804B8B0: @ 0x0804B8B0
 	cmp r0, #0
 	bne .L0804B8C8
 	ldr r2, .L0804B8C4 @ =gUnk_Banim_02000000
@@ -18437,8 +18437,8 @@ sub_804B8B0: @ 0x0804B8B0
 	.align 2, 0
 .L0804B8E4: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_804B8E8
-sub_804B8E8: @ 0x0804B8E8
+	thumb_func_start func_fe6_0804B8E8
+func_fe6_0804B8E8: @ 0x0804B8E8
 	push {r4, lr}
 	cmp r0, #0
 	bne .L0804B908
@@ -18477,8 +18477,8 @@ sub_804B8E8: @ 0x0804B8E8
 .L0804B928: .4byte gUnk_Banim_02000000
 .L0804B92C: .4byte 0x0000FFFD
 
-	thumb_func_start sub_804B930
-sub_804B930: @ 0x0804B930
+	thumb_func_start func_fe6_0804B930
+func_fe6_0804B930: @ 0x0804B930
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -18574,15 +18574,15 @@ sub_804B930: @ 0x0804B930
 	.4byte .L0804BA72 @ case 50
 .L0804BA44:
 	adds r0, r4, #0
-	bl sub_804BACC
+	bl func_fe6_0804BACC
 	b .L0804BA72
 .L0804BA4C:
 	adds r0, r4, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804BA5C
 	adds r0, r4, #0
-	bl sub_8058158
+	bl func_fe6_08058158
 .L0804BA5C:
 	ldr r0, [r4, #0x20]
 	adds r0, #4
@@ -18590,11 +18590,11 @@ sub_804B930: @ 0x0804B930
 	b .L0804BA72
 .L0804BA64:
 	adds r0, r4, #0
-	bl sub_804BAF0
+	bl func_fe6_0804BAF0
 	b .L0804BA72
 .L0804BA6C:
 	adds r0, r4, #0
-	bl sub_804BACC
+	bl func_fe6_0804BACC
 .L0804BA72:
 	ldrb r0, [r4, #0x14]
 	subs r0, #1
@@ -18613,7 +18613,7 @@ sub_804B930: @ 0x0804B930
 	cmp r0, #0
 	beq .L0804BAB4
 	adds r0, r4, #0
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804BAAA
 	ldr r1, [r6, #0x28]
@@ -18621,7 +18621,7 @@ sub_804B930: @ 0x0804B930
 	cmp r1, r0
 	beq .L0804BAAA
 	adds r0, r4, #0
-	bl sub_804AFA0
+	bl func_fe6_0804AFA0
 	ldr r0, [r4, #0x28]
 	str r0, [r6, #0x28]
 .L0804BAAA:
@@ -18645,8 +18645,8 @@ sub_804B930: @ 0x0804B930
 	.align 2, 0
 .L0804BAC8: .4byte 0x0000FFFF
 
-	thumb_func_start sub_804BACC
-sub_804BACC: @ 0x0804BACC
+	thumb_func_start func_fe6_0804BACC
+func_fe6_0804BACC: @ 0x0804BACC
 	adds r1, r0, #0
 	ldr r0, .L0804BAEC @ =0x0000FFFE
 	strh r0, [r1, #0xe]
@@ -18666,12 +18666,12 @@ sub_804BACC: @ 0x0804BACC
 	.align 2, 0
 .L0804BAEC: .4byte 0x0000FFFE
 
-	thumb_func_start sub_804BAF0
-sub_804BAF0: @ 0x0804BAF0
+	thumb_func_start func_fe6_0804BAF0
+func_fe6_0804BAF0: @ 0x0804BAF0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r6, [r7, #0x44]
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #0
 	bne .L0804BB40
 	ldr r3, .L0804BB48 @ =gUnk_08112298
@@ -18703,7 +18703,7 @@ sub_804BAF0: @ 0x0804BAF0
 	cmp r1, r0
 	beq .L0804BB40
 	adds r0, r7, #0
-	bl sub_804AF70
+	bl func_fe6_0804AF70
 	ldr r0, [r7, #0x28]
 	str r0, [r6, #0x28]
 .L0804BB40:
@@ -18715,8 +18715,8 @@ sub_804BAF0: @ 0x0804BAF0
 .L0804BB4C: .4byte 0x086A0008
 .L0804BB50: .4byte 0x000057F0
 
-	thumb_func_start sub_804BB54
-sub_804BB54: @ 0x0804BB54
+	thumb_func_start func_fe6_0804BB54
+func_fe6_0804BB54: @ 0x0804BB54
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -18895,8 +18895,8 @@ sub_804BB54: @ 0x0804BB54
 .L0804BCC0: .4byte 0x000057F0
 .L0804BCC4: .4byte gPal+0x200
 
-	thumb_func_start sub_804BCC8
-sub_804BCC8: @ 0x0804BCC8
+	thumb_func_start func_fe6_0804BCC8
+func_fe6_0804BCC8: @ 0x0804BCC8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -19057,16 +19057,16 @@ sub_804BCC8: @ 0x0804BCC8
 .L0804BE0C: .4byte 0x000057F0
 .L0804BE10: .4byte gPal+0x200
 
-	thumb_func_start sub_804BE14
-sub_804BE14: @ 0x0804BE14
+	thumb_func_start func_fe6_0804BE14
+func_fe6_0804BE14: @ 0x0804BE14
 	push {lr}
 	strh r1, [r0, #6]
-	bl sub_804BCC8
+	bl func_fe6_0804BCC8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804BE20
-sub_804BE20: @ 0x0804BE20
+	thumb_func_start func_fe6_0804BE20
+func_fe6_0804BE20: @ 0x0804BE20
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	strh r1, [r0, #2]
@@ -19082,8 +19082,8 @@ sub_804BE20: @ 0x0804BE20
 	strh r0, [r2, #4]
 	bx lr
 
-	thumb_func_start sub_804BE3C
-sub_804BE3C: @ 0x0804BE3C
+	thumb_func_start func_fe6_0804BE3C
+func_fe6_0804BE3C: @ 0x0804BE3C
 	lsls r1, r1, #0x10
 	ldr r2, [r0, #0x10]
 	lsrs r1, r1, #6
@@ -19093,8 +19093,8 @@ sub_804BE3C: @ 0x0804BE3C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_804BE4C
-sub_804BE4C: @ 0x0804BE4C
+	thumb_func_start func_fe6_0804BE4C
+func_fe6_0804BE4C: @ 0x0804BE4C
 	ldr r1, [r0, #0x10]
 	ldr r2, [r0, #0x14]
 	ldr r0, .L0804BE64 @ =0x0000FFFE
@@ -19113,8 +19113,8 @@ sub_804BE4C: @ 0x0804BE4C
 .L0804BE6A:
 	bx lr
 
-	thumb_func_start sub_804BE6C
-sub_804BE6C: @ 0x0804BE6C
+	thumb_func_start func_fe6_0804BE6C
+func_fe6_0804BE6C: @ 0x0804BE6C
 	ldr r3, [r0, #0x10]
 	movs r2, #8
 	ldrh r1, [r3, #0x10]
@@ -19126,8 +19126,8 @@ sub_804BE6C: @ 0x0804BE6C
 	strh r0, [r3, #0x10]
 	bx lr
 
-	thumb_func_start sub_804BE80
-sub_804BE80: @ 0x0804BE80
+	thumb_func_start func_fe6_0804BE80
+func_fe6_0804BE80: @ 0x0804BE80
 	ldr r1, [r0, #0x10]
 	ldr r0, .L0804BE90 @ =0x0000FFFF
 	ldrh r1, [r1, #0xe]
@@ -19142,8 +19142,8 @@ sub_804BE80: @ 0x0804BE80
 .L0804BE96:
 	bx lr
 
-	thumb_func_start sub_804BE98
-sub_804BE98: @ 0x0804BE98
+	thumb_func_start func_fe6_0804BE98
+func_fe6_0804BE98: @ 0x0804BE98
 	push {r4, lr}
 	ldr r4, .L0804BEB0 @ =gUnk_Banim_0201E138
 	ldr r0, .L0804BEB4 @ =gUnk_085CBDF0
@@ -19158,8 +19158,8 @@ sub_804BE98: @ 0x0804BE98
 .L0804BEB0: .4byte gUnk_Banim_0201E138
 .L0804BEB4: .4byte gUnk_085CBDF0
 
-	thumb_func_start sub_804BEB8
-sub_804BEB8: @ 0x0804BEB8
+	thumb_func_start func_fe6_0804BEB8
+func_fe6_0804BEB8: @ 0x0804BEB8
 	push {lr}
 	ldr r0, .L0804BEC8 @ =gUnk_Banim_0201E138
 	ldr r0, [r0]
@@ -19169,16 +19169,16 @@ sub_804BEB8: @ 0x0804BEB8
 	.align 2, 0
 .L0804BEC8: .4byte gUnk_Banim_0201E138
 
-	thumb_func_start sub_804BECC
-sub_804BECC: @ 0x0804BECC
+	thumb_func_start func_fe6_0804BECC
+func_fe6_0804BECC: @ 0x0804BECC
 	push {lr}
 	bl BasUpdateAll
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804BED8
-sub_804BED8: @ 0x0804BED8
+	thumb_func_start func_fe6_0804BED8
+func_fe6_0804BED8: @ 0x0804BED8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0804BEFC @ =gUnk_085CBE08
@@ -19186,7 +19186,7 @@ sub_804BED8: @ 0x0804BED8
 	bl SpawnProc
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl sub_804BB54
+	bl func_fe6_0804BB54
 	str r4, [r5, #0x5c]
 	str r5, [r4, #0x30]
 	movs r0, #1
@@ -19197,8 +19197,8 @@ sub_804BED8: @ 0x0804BED8
 	.align 2, 0
 .L0804BEFC: .4byte gUnk_085CBE08
 
-	thumb_func_start sub_804BF00
-sub_804BF00: @ 0x0804BF00
+	thumb_func_start func_fe6_0804BF00
+func_fe6_0804BF00: @ 0x0804BF00
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x10]
@@ -19215,23 +19215,23 @@ sub_804BF00: @ 0x0804BF00
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804BF24
-sub_804BF24: @ 0x0804BF24
+	thumb_func_start func_fe6_0804BF24
+func_fe6_0804BF24: @ 0x0804BF24
 	push {r4, lr}
 	ldr r4, [r0, #0x5c]
 	ldr r1, [r4, #0x10]
 	adds r0, r4, #0
-	bl sub_804B930
+	bl func_fe6_0804B930
 	ldr r1, [r4, #0x14]
 	adds r0, r4, #0
-	bl sub_804B930
+	bl func_fe6_0804B930
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804BF40
-sub_804BF40: @ 0x0804BF40
+	thumb_func_start func_fe6_0804BF40
+func_fe6_0804BF40: @ 0x0804BF40
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -19358,7 +19358,7 @@ sub_804BF40: @ 0x0804BF40
 	bl CpuFastSet
 	bl EnablePalSync
 	adds r0, r6, #0
-	bl sub_804C330
+	bl func_fe6_0804C330
 	b .L0804C0AC
 	.align 2, 0
 .L0804C048: .4byte gPal
@@ -19561,7 +19561,7 @@ sub_804BF40: @ 0x0804BF40
 .L0804C1E4:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_805B9E0
+	bl func_fe6_0805B9E0
 	str r0, [r6, #0x14]
 .L0804C1EE:
 	movs r0, #6
@@ -19676,7 +19676,7 @@ sub_804BF40: @ 0x0804BF40
 .L0804C2D0:
 	movs r1, #0x68
 	movs r3, #2
-	bl sub_805B9E0
+	bl func_fe6_0805B9E0
 	str r0, [r6, #0x18]
 .L0804C2DA:
 	add sp, #0xc
@@ -19689,8 +19689,8 @@ sub_804BF40: @ 0x0804BF40
 	.align 2, 0
 .L0804C2E8: .4byte gUnk_085CCDAC
 
-	thumb_func_start sub_804C2EC
-sub_804C2EC: @ 0x0804C2EC
+	thumb_func_start func_fe6_0804C2EC
+func_fe6_0804C2EC: @ 0x0804C2EC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0xe
@@ -19714,8 +19714,8 @@ sub_804C2EC: @ 0x0804C2EC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804C318
-sub_804C318: @ 0x0804C318
+	thumb_func_start func_fe6_0804C318
+func_fe6_0804C318: @ 0x0804C318
 	push {r4, r5, lr}
 	ldr r4, [sp, #0xc]
 	ldr r5, [r0, #0x14]
@@ -19729,8 +19729,8 @@ sub_804C318: @ 0x0804C318
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804C330
-sub_804C330: @ 0x0804C330
+	thumb_func_start func_fe6_0804C330
+func_fe6_0804C330: @ 0x0804C330
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -19754,7 +19754,7 @@ sub_804C330: @ 0x0804C330
 	ldr r1, [r1]
 	str r1, [sp, #0x14]
 	movs r0, #0
-	bl sub_8047C48
+	bl func_fe6_08047C48
 	movs r1, #0xc
 	ldrsh r0, [r7, r1]
 	cmp r0, #4
@@ -19844,7 +19844,7 @@ sub_804C330: @ 0x0804C330
 	ldr r0, [sp, #0x10]
 	mov r1, sb
 	movs r3, #0x42
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	mov r0, sl
 	lsls r2, r0, #1
 	adds r2, r2, r4
@@ -19860,7 +19860,7 @@ sub_804C330: @ 0x0804C330
 	ldr r0, [sp, #0x14]
 	mov r1, sb
 	movs r3, #0x42
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	lsls r0, r5, #1
 	adds r4, r4, r0
 	ldr r2, .L0804C470 @ =0xFFFFFA96
@@ -19876,7 +19876,7 @@ sub_804C330: @ 0x0804C330
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	movs r0, #4
 	bl EnableBgSync
 	add sp, #0x18
@@ -19892,8 +19892,8 @@ sub_804C330: @ 0x0804C330
 .L0804C470: .4byte 0xFFFFFA96
 .L0804C474: .4byte gBg2Tm
 
-	thumb_func_start sub_804C478
-sub_804C478: @ 0x0804C478
+	thumb_func_start func_fe6_0804C478
+func_fe6_0804C478: @ 0x0804C478
 	push {lr}
 	sub sp, #0x10
 	lsls r1, r1, #0x10
@@ -19946,7 +19946,7 @@ sub_804C478: @ 0x0804C478
 	str r1, [sp, #8]
 	str r1, [sp, #0xc]
 	movs r3, #0x42
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	add sp, #0x10
 	pop {r0}
 	bx r0
@@ -19954,24 +19954,24 @@ sub_804C478: @ 0x0804C478
 .L0804C4EC: .4byte gUnk_081122DA
 .L0804C4F0: .4byte gUnk_Banim_0201CF70
 
-	thumb_func_start sub_804C4F4
-sub_804C4F4: @ 0x0804C4F4
+	thumb_func_start func_fe6_0804C4F4
+func_fe6_0804C4F4: @ 0x0804C4F4
 	ldr r1, .L0804C4FC @ =0x0203CDD4
 	str r0, [r1]
 	bx lr
 	.align 2, 0
 .L0804C4FC: .4byte 0x0203CDD4
 
-	thumb_func_start sub_804C500
-sub_804C500: @ 0x0804C500
+	thumb_func_start func_fe6_0804C500
+func_fe6_0804C500: @ 0x0804C500
 	ldr r0, .L0804C508 @ =0x0203CDD4
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
 .L0804C508: .4byte 0x0203CDD4
 
-	thumb_func_start sub_804C50C
-sub_804C50C: @ 0x0804C50C
+	thumb_func_start func_fe6_0804C50C
+func_fe6_0804C50C: @ 0x0804C50C
 	push {r4, lr}
 	sub sp, #0x10
 	asrs r4, r0, #3
@@ -19994,7 +19994,7 @@ sub_804C50C: @ 0x0804C50C
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	movs r0, #8
 	bl EnableBgSync
 	add sp, #0x10
@@ -20005,41 +20005,41 @@ sub_804C50C: @ 0x0804C50C
 .L0804C54C: .4byte gUnk_Banim_0201D424
 .L0804C550: .4byte gBg3Tm
 
-	thumb_func_start sub_804C554
-sub_804C554: @ 0x0804C554
+	thumb_func_start func_fe6_0804C554
+func_fe6_0804C554: @ 0x0804C554
 	push {lr}
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L0804C568
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8f
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 .L0804C568:
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804C56C
-sub_804C56C: @ 0x0804C56C
+	thumb_func_start func_fe6_0804C56C
+func_fe6_0804C56C: @ 0x0804C56C
 	push {lr}
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	beq .L0804C57C
 	movs r0, #0x8e
-	bl sub_805BD54
+	bl func_fe6_0805BD54
 .L0804C57C:
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804C580
-sub_804C580: @ 0x0804C580
+	thumb_func_start func_fe6_0804C580
+func_fe6_0804C580: @ 0x0804C580
 	push {lr}
-	bl sub_8042584
+	bl func_fe6_08042584
 	bl BasInit
-	bl sub_8044870
+	bl func_fe6_08044870
 	ldr r1, .L0804C5A0 @ =gUnk_Banim_0201773C
 	str r0, [r1]
-	bl sub_804C5BC
+	bl func_fe6_0804C5BC
 	movs r0, #0
 	bl SetOnHBlankA
 	pop {r0}
@@ -20047,20 +20047,20 @@ sub_804C580: @ 0x0804C580
 	.align 2, 0
 .L0804C5A0: .4byte gUnk_Banim_0201773C
 
-	thumb_func_start sub_804C5A4
-sub_804C5A4: @ 0x0804C5A4
+	thumb_func_start func_fe6_0804C5A4
+func_fe6_0804C5A4: @ 0x0804C5A4
 	push {lr}
 	bl BasInit
-	bl sub_804C744
-	ldr r0, .L0804C5B8 @ =sub_8047D38
+	bl func_fe6_0804C744
+	ldr r0, .L0804C5B8 @ =func_fe6_08047D38
 	bl SetMainFunc
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804C5B8: .4byte sub_8047D38
+.L0804C5B8: .4byte func_fe6_08047D38
 
-	thumb_func_start sub_804C5BC
-sub_804C5BC: @ 0x0804C5BC
+	thumb_func_start func_fe6_0804C5BC
+func_fe6_0804C5BC: @ 0x0804C5BC
 	push {lr}
 	ldr r0, .L0804C5CC @ =gUnk_085CBE20
 	movs r1, #3
@@ -20070,8 +20070,8 @@ sub_804C5BC: @ 0x0804C5BC
 	.align 2, 0
 .L0804C5CC: .4byte gUnk_085CBE20
 
-	thumb_func_start sub_804C5D0
-sub_804C5D0: @ 0x0804C5D0
+	thumb_func_start func_fe6_0804C5D0
+func_fe6_0804C5D0: @ 0x0804C5D0
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -20083,11 +20083,11 @@ sub_804C5D0: @ 0x0804C5D0
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
-	bl sub_8044390
-	bl sub_804B048
-	bl sub_80436A4
-	bl sub_8044198
-	bl sub_80425F0
+	bl func_fe6_08044390
+	bl func_fe6_0804B048
+	bl func_fe6_080436A4
+	bl func_fe6_08044198
+	bl func_fe6_080425F0
 	ldr r0, .L0804C64C @ =gUnk_08118330
 	ldr r4, .L0804C650 @ =gPal+0xC0
 	adds r1, r4, #0
@@ -20109,7 +20109,7 @@ sub_804C5D0: @ 0x0804C5D0
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	mov r0, r8
 	bl Proc_Break
@@ -20125,8 +20125,8 @@ sub_804C5D0: @ 0x0804C5D0
 .L0804C650: .4byte gPal+0xC0
 .L0804C654: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_804C658
-sub_804C658: @ 0x0804C658
+	thumb_func_start func_fe6_0804C658
+func_fe6_0804C658: @ 0x0804C658
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
@@ -20150,9 +20150,9 @@ sub_804C658: @ 0x0804C658
 	str r4, [sp, #0xc]
 	adds r0, r6, #0
 	movs r3, #0x42
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	movs r0, #0
-	bl sub_804C50C
+	bl func_fe6_0804C50C
 	movs r0, #8
 	bl EnableBgSync
 	strh r4, [r5, #0x2c]
@@ -20161,7 +20161,7 @@ sub_804C658: @ 0x0804C658
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8e
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r5, #0
 	bl Proc_Break
 	add sp, #0x10
@@ -20175,8 +20175,8 @@ sub_804C658: @ 0x0804C658
 .L0804C6C4: .4byte gUnk_Banim_0201977C
 .L0804C6C8: .4byte gUnk_Banim_0201D414
 
-	thumb_func_start sub_804C6CC
-sub_804C6CC: @ 0x0804C6CC
+	thumb_func_start func_fe6_0804C6CC
+func_fe6_0804C6CC: @ 0x0804C6CC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -20200,7 +20200,7 @@ sub_804C6CC: @ 0x0804C6CC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -20223,31 +20223,31 @@ sub_804C6CC: @ 0x0804C6CC
 .L0804C728: .4byte gUnk_Banim_020165C0
 .L0804C72C: .4byte gPal
 
-	thumb_func_start sub_804C730
-sub_804C730: @ 0x0804C730
+	thumb_func_start func_fe6_0804C730
+func_fe6_0804C730: @ 0x0804C730
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_804C818
+	bl func_fe6_0804C818
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804C744
-sub_804C744: @ 0x0804C744
+	thumb_func_start func_fe6_0804C744
+func_fe6_0804C744: @ 0x0804C744
 	push {lr}
 	ldr r0, .L0804C758 @ =gUnk_085CBE50
 	movs r1, #3
 	bl SpawnProc
-	bl sub_804C84C
+	bl func_fe6_0804C84C
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L0804C758: .4byte gUnk_085CBE50
 
-	thumb_func_start sub_804C75C
-sub_804C75C: @ 0x0804C75C
+	thumb_func_start func_fe6_0804C75C
+func_fe6_0804C75C: @ 0x0804C75C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0804C780 @ =gPal
@@ -20268,8 +20268,8 @@ sub_804C75C: @ 0x0804C75C
 .L0804C780: .4byte gPal
 .L0804C784: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_804C788
-sub_804C788: @ 0x0804C788
+	thumb_func_start func_fe6_0804C788
+func_fe6_0804C788: @ 0x0804C788
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -20293,7 +20293,7 @@ sub_804C788: @ 0x0804C788
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -20316,12 +20316,12 @@ sub_804C788: @ 0x0804C788
 .L0804C7E4: .4byte gUnk_Banim_020165C0
 .L0804C7E8: .4byte gPal
 
-	thumb_func_start sub_804C7EC
-sub_804C7EC: @ 0x0804C7EC
+	thumb_func_start func_fe6_0804C7EC
+func_fe6_0804C7EC: @ 0x0804C7EC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80425B0
-	bl sub_80438B4
+	bl func_fe6_080425B0
+	bl func_fe6_080438B4
 	ldr r0, .L0804C810 @ =OnMain
 	bl SetMainFunc
 	ldr r0, .L0804C814 @ =OnVBlank
@@ -20335,8 +20335,8 @@ sub_804C7EC: @ 0x0804C7EC
 .L0804C810: .4byte OnMain
 .L0804C814: .4byte OnVBlank
 
-	thumb_func_start sub_804C818
-sub_804C818: @ 0x0804C818
+	thumb_func_start func_fe6_0804C818
+func_fe6_0804C818: @ 0x0804C818
 	push {r4, lr}
 	ldr r4, .L0804C83C @ =gUnk_Banim_0201E144
 	ldr r0, .L0804C840 @ =gUnk_085CBE78
@@ -20359,8 +20359,8 @@ sub_804C818: @ 0x0804C818
 .L0804C844: .4byte gUnk_08112370
 .L0804C848: .4byte gUnk_085CBE90
 
-	thumb_func_start sub_804C84C
-sub_804C84C: @ 0x0804C84C
+	thumb_func_start func_fe6_0804C84C
+func_fe6_0804C84C: @ 0x0804C84C
 	push {lr}
 	ldr r0, .L0804C85C @ =gUnk_Banim_0201E144
 	ldr r0, [r0]
@@ -20370,15 +20370,15 @@ sub_804C84C: @ 0x0804C84C
 	.align 2, 0
 .L0804C85C: .4byte gUnk_Banim_0201E144
 
-	thumb_func_start sub_804C860
-sub_804C860: @ 0x0804C860
+	thumb_func_start func_fe6_0804C860
+func_fe6_0804C860: @ 0x0804C860
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #0
@@ -20398,12 +20398,12 @@ sub_804C860: @ 0x0804C860
 	.align 2, 0
 .L0804C894: .4byte gPal+0xC0
 
-	thumb_func_start sub_804C898
-sub_804C898: @ 0x0804C898
+	thumb_func_start func_fe6_0804C898
+func_fe6_0804C898: @ 0x0804C898
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0804C8C4 @ =0x0203CD0C
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldr r1, .L0804C8C8 @ =gUnk_085D0DA0
@@ -20425,13 +20425,13 @@ sub_804C898: @ 0x0804C898
 .L0804C8C8: .4byte gUnk_085D0DA0
 .L0804C8CC: .4byte gUnk_Banim_0201E7A4
 
-	thumb_func_start nullsub_22
-nullsub_22: @ 0x0804C8D0
+	thumb_func_start func_fe6_0804C8D0
+func_fe6_0804C8D0: @ 0x0804C8D0
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_804C8D4
-sub_804C8D4: @ 0x0804C8D4
+	thumb_func_start func_fe6_0804C8D4
+func_fe6_0804C8D4: @ 0x0804C8D4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -20465,8 +20465,8 @@ sub_804C8D4: @ 0x0804C8D4
 .L0804C910: .4byte gUnk_Banim_02017744
 .L0804C914: .4byte gUnk_085D0E94
 
-	thumb_func_start sub_804C918
-sub_804C918: @ 0x0804C918
+	thumb_func_start func_fe6_0804C918
+func_fe6_0804C918: @ 0x0804C918
 	ldr r1, .L0804C924 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -20475,8 +20475,8 @@ sub_804C918: @ 0x0804C918
 	.align 2, 0
 .L0804C924: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804C928
-sub_804C928: @ 0x0804C928
+	thumb_func_start func_fe6_0804C928
+func_fe6_0804C928: @ 0x0804C928
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -20550,8 +20550,8 @@ sub_804C928: @ 0x0804C928
 .L0804C9B4: .4byte gUnk_08605A94
 .L0804C9B8: .4byte gDispIo
 
-	thumb_func_start sub_804C9BC
-sub_804C9BC: @ 0x0804C9BC
+	thumb_func_start func_fe6_0804C9BC
+func_fe6_0804C9BC: @ 0x0804C9BC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -20574,8 +20574,8 @@ sub_804C9BC: @ 0x0804C9BC
 .L0804C9E4: .4byte gUnk_Banim_02017744
 .L0804C9E8: .4byte gUnk_085D0EB4
 
-	thumb_func_start sub_804C9EC
-sub_804C9EC: @ 0x0804C9EC
+	thumb_func_start func_fe6_0804C9EC
+func_fe6_0804C9EC: @ 0x0804C9EC
 	ldr r1, .L0804C9F8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -20584,8 +20584,8 @@ sub_804C9EC: @ 0x0804C9EC
 	.align 2, 0
 .L0804C9F8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804C9FC
-sub_804C9FC: @ 0x0804C9FC
+	thumb_func_start func_fe6_0804C9FC
+func_fe6_0804C9FC: @ 0x0804C9FC
 	push {r4, r5, lr}
 	adds r3, r0, #0
 	ldr r0, .L0804CA38 @ =gUnk_Banim_0201E3D8
@@ -20624,8 +20624,8 @@ sub_804C9FC: @ 0x0804C9FC
 .L0804CA40: .4byte gUnk_Banim_0201E524
 .L0804CA44: .4byte gDispIo
 
-	thumb_func_start sub_804CA48
-sub_804CA48: @ 0x0804CA48
+	thumb_func_start func_fe6_0804CA48
+func_fe6_0804CA48: @ 0x0804CA48
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -20653,8 +20653,8 @@ sub_804CA48: @ 0x0804CA48
 	str r5, [r7, #0x54]
 	str r6, [r7, #0x58]
 	mov r0, r8
-	bl sub_804B80C
-	bl sub_804B6C4
+	bl func_fe6_0804B80C
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804CA9C
 	ldr r0, .L0804CA98 @ =0x0000FFB8
@@ -20673,7 +20673,7 @@ sub_804CA48: @ 0x0804CA48
 	cmp r0, #0
 	beq .L0804CACA
 	mov r0, r8
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804CAC4
 	ldrh r0, [r7, #0x32]
@@ -20696,8 +20696,8 @@ sub_804CA48: @ 0x0804CA48
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804CAD8
-sub_804CAD8: @ 0x0804CAD8
+	thumb_func_start func_fe6_0804CAD8
+func_fe6_0804CAD8: @ 0x0804CAD8
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	ldr r0, .L0804CB20 @ =gUnk_Banim_0201E14C
@@ -20790,8 +20790,8 @@ sub_804CAD8: @ 0x0804CAD8
 	.align 2, 0
 .L0804CB88: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804CB8C
-sub_804CB8C: @ 0x0804CB8C
+	thumb_func_start func_fe6_0804CB8C
+func_fe6_0804CB8C: @ 0x0804CB8C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -20893,26 +20893,26 @@ sub_804CB8C: @ 0x0804CB8C
 .L0804CC60: .4byte gUnk_Banim_0201E7A4
 .L0804CC64: .4byte gUnk_085D0EEC
 
-	thumb_func_start sub_804CC68
-sub_804CC68: @ 0x0804CC68
+	thumb_func_start func_fe6_0804CC68
+func_fe6_0804CC68: @ 0x0804CC68
 	push {lr}
 	adds r3, r2, #0
 	movs r2, #0
-	bl sub_804CB8C
+	bl func_fe6_0804CB8C
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804CC78
-sub_804CC78: @ 0x0804CC78
+	thumb_func_start func_fe6_0804CC78
+func_fe6_0804CC78: @ 0x0804CC78
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804CC84
-sub_804CC84: @ 0x0804CC84
+	thumb_func_start func_fe6_0804CC84
+func_fe6_0804CC84: @ 0x0804CC84
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0804CCA8 @ =gBmSt
@@ -21004,8 +21004,8 @@ sub_804CC84: @ 0x0804CC84
 .L0804CD44: .4byte gUnk_Banim_02017744
 .L0804CD48: .4byte gUnk_Banim_0201E7A4
 
-	thumb_func_start sub_804CD4C
-sub_804CD4C: @ 0x0804CD4C
+	thumb_func_start func_fe6_0804CD4C
+func_fe6_0804CD4C: @ 0x0804CD4C
 	ldr r0, .L0804CD78 @ =0x04000004
 	ldrh r1, [r0]
 	movs r0, #1
@@ -21034,8 +21034,8 @@ sub_804CD4C: @ 0x0804CD4C
 .L0804CD80: .4byte gUnk_Banim_0201E154
 .L0804CD84: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start sub_804CD88
-sub_804CD88: @ 0x0804CD88
+	thumb_func_start func_fe6_0804CD88
+func_fe6_0804CD88: @ 0x0804CD88
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -21071,8 +21071,8 @@ sub_804CD88: @ 0x0804CD88
 .L0804CDC8: .4byte gUnk_Banim_02017744
 .L0804CDCC: .4byte gUnk_085D0F0C
 
-	thumb_func_start sub_804CDD0
-sub_804CDD0: @ 0x0804CDD0
+	thumb_func_start func_fe6_0804CDD0
+func_fe6_0804CDD0: @ 0x0804CDD0
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -21206,8 +21206,8 @@ sub_804CDD0: @ 0x0804CDD0
 .L0804CECC: .4byte gDispIo
 .L0804CED0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804CED4
-sub_804CED4: @ 0x0804CED4
+	thumb_func_start func_fe6_0804CED4
+func_fe6_0804CED4: @ 0x0804CED4
 	push {r4, r5, r6, lr}
 	mov r6, sl
 	mov r5, sb
@@ -21240,7 +21240,7 @@ sub_804CED4: @ 0x0804CED4
 	mov r0, sl
 	str r0, [r4, #0x54]
 	mov r0, r8
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	strh r5, [r4, #0x32]
 	strh r6, [r4, #0x3a]
 	pop {r3, r4, r5}
@@ -21254,8 +21254,8 @@ sub_804CED4: @ 0x0804CED4
 .L0804CF2C: .4byte gUnk_Banim_02017744
 .L0804CF30: .4byte gUnk_085D0F24
 
-	thumb_func_start sub_804CF34
-sub_804CF34: @ 0x0804CF34
+	thumb_func_start func_fe6_0804CF34
+func_fe6_0804CF34: @ 0x0804CF34
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -21277,7 +21277,7 @@ sub_804CF34: @ 0x0804CF34
 	adds r0, r0, r4
 	ldrh r7, [r0]
 	adds r0, r7, #0
-	bl sub_8013F7C
+	bl func_fe6_08013F7C
 	adds r6, r0, #0
 	movs r1, #0x2e
 	ldrsh r0, [r5, r1]
@@ -21403,8 +21403,8 @@ sub_804CF34: @ 0x0804CF34
 .L0804D048: .4byte gUnk_Banim_02017744
 .L0804D04C: .4byte gDispIo
 
-	thumb_func_start sub_804D050
-sub_804D050: @ 0x0804D050
+	thumb_func_start func_fe6_0804D050
+func_fe6_0804D050: @ 0x0804D050
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -21419,7 +21419,7 @@ sub_804D050: @ 0x0804D050
 	str r5, [r4, #0x5c]
 	movs r0, #6
 	movs r1, #0
-	bl sub_8045F48
+	bl func_fe6_08045F48
 	str r0, [r4, #0x60]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -21431,8 +21431,8 @@ sub_804D050: @ 0x0804D050
 .L0804D080: .4byte gUnk_Banim_02017744
 .L0804D084: .4byte gUnk_085D0F3C
 
-	thumb_func_start sub_804D088
-sub_804D088: @ 0x0804D088
+	thumb_func_start func_fe6_0804D088
+func_fe6_0804D088: @ 0x0804D088
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -21469,7 +21469,7 @@ sub_804D088: @ 0x0804D088
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r5]
 	ldrh r1, [r4]
 	adds r0, r3, r1
@@ -21482,8 +21482,8 @@ sub_804D088: @ 0x0804D088
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
-	bl sub_805894C
+	bl func_fe6_08044230
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0804D10C
 	ldrh r1, [r5]
@@ -21494,7 +21494,7 @@ sub_804D088: @ 0x0804D088
 	movs r0, #3
 	bl SetBgOffset
 .L0804D10C:
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0804D12C
 	ldr r3, .L0804D128 @ =gUnk_Banim_02000020
@@ -21546,13 +21546,13 @@ sub_804D088: @ 0x0804D088
 	lsls r2, r6, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	mov r2, r8
 	ldrh r0, [r2, #0x2c]
 	adds r0, #1
@@ -21583,7 +21583,7 @@ sub_804D088: @ 0x0804D088
 	rsbs r1, r2, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r4]
 	rsbs r0, r3, #0
 	lsls r0, r0, #0x10
@@ -21592,8 +21592,8 @@ sub_804D088: @ 0x0804D088
 	rsbs r1, r4, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
-	bl sub_805894C
+	bl func_fe6_08044230
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0804D1F4
 	movs r0, #3
@@ -21618,13 +21618,13 @@ sub_804D088: @ 0x0804D088
 	movs r3, #0
 	ldrsh r2, [r0, r3]
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	mov r4, r8
 	ldr r0, [r4, #0x60]
 	bl Proc_End
@@ -21646,12 +21646,12 @@ sub_804D088: @ 0x0804D088
 .L0804D254: .4byte gUnk_Banim_02017744
 .L0804D258: .4byte gUnk_Banim_02000030
 
-	thumb_func_start sub_804D25C
-sub_804D25C: @ 0x0804D25C
+	thumb_func_start func_fe6_0804D25C
+func_fe6_0804D25C: @ 0x0804D25C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D27C @ =gUnk_085D0F54
 	movs r1, #3
 	bl SpawnProc
@@ -21664,12 +21664,12 @@ sub_804D25C: @ 0x0804D25C
 	.align 2, 0
 .L0804D27C: .4byte gUnk_085D0F54
 
-	thumb_func_start sub_804D280
-sub_804D280: @ 0x0804D280
+	thumb_func_start func_fe6_0804D280
+func_fe6_0804D280: @ 0x0804D280
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r4, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -21688,7 +21688,7 @@ sub_804D280: @ 0x0804D280
 	cmp r0, #0xa
 	bne .L0804D2CE
 	adds r0, r4, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #1
@@ -21700,7 +21700,7 @@ sub_804D280: @ 0x0804D280
 	orrs r0, r1
 	strh r0, [r4, #0x10]
 .L0804D2C4:
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804D2CE:
@@ -21708,12 +21708,12 @@ sub_804D280: @ 0x0804D280
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804D2D4
-sub_804D2D4: @ 0x0804D2D4
+	thumb_func_start func_fe6_0804D2D4
+func_fe6_0804D2D4: @ 0x0804D2D4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D308 @ =gUnk_085D0F6C
 	movs r1, #3
 	bl SpawnProc
@@ -21722,10 +21722,10 @@ sub_804D2D4: @ 0x0804D2D4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -21734,12 +21734,12 @@ sub_804D2D4: @ 0x0804D2D4
 	.align 2, 0
 .L0804D308: .4byte gUnk_085D0F6C
 
-	thumb_func_start sub_804D30C
-sub_804D30C: @ 0x0804D30C
+	thumb_func_start func_fe6_0804D30C
+func_fe6_0804D30C: @ 0x0804D30C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -21751,9 +21751,9 @@ sub_804D30C: @ 0x0804D30C
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	ldr r0, [r5, #0x5c]
-	bl sub_804D3A8
+	bl func_fe6_0804D3A8
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #1
 	bne .L0804D38A
@@ -21765,32 +21765,32 @@ sub_804D30C: @ 0x0804D30C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
 	beq .L0804D37C
 	ldr r0, [r5, #0x5c]
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L0804D370
 	adds r0, r6, #0
-	bl sub_8056B08
+	bl func_fe6_08056B08
 	b .L0804D37C
 .L0804D370:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804D3A0
 	ldr r0, [r5, #0x5c]
-	bl sub_8056C3C
+	bl func_fe6_08056C3C
 .L0804D37C:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804D3A0
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804D3A0
 .L0804D38A:
 	movs r1, #0x2c
@@ -21799,7 +21799,7 @@ sub_804D30C: @ 0x0804D30C
 	beq .L0804D3A0
 	cmp r0, #0x50
 	bne .L0804D3A0
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804D3A0:
@@ -21808,8 +21808,8 @@ sub_804D30C: @ 0x0804D30C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804D3A8
-sub_804D3A8: @ 0x0804D3A8
+	thumb_func_start func_fe6_0804D3A8
+func_fe6_0804D3A8: @ 0x0804D3A8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -21830,11 +21830,11 @@ sub_804D3A8: @ 0x0804D3A8
 	ldr r0, .L0804D400 @ =gUnk_085D3E0C
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804D404
 	ldrh r0, [r5, #2]
@@ -21867,15 +21867,15 @@ sub_804D3A8: @ 0x0804D3A8
 	strh r0, [r6, #0x2e]
 	ldr r0, [r6, #0x5c]
 	ldr r1, [r6, #0x60]
-	bl sub_804D590
+	bl func_fe6_0804D590
 	str r0, [r6, #0x64]
 	ldr r0, .L0804D444 @ =gUnk_0811B3E8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D448 @ =gUnk_0811AFE8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -21884,8 +21884,8 @@ sub_804D3A8: @ 0x0804D3A8
 .L0804D444: .4byte gUnk_0811B3E8
 .L0804D448: .4byte gUnk_0811AFE8
 
-	thumb_func_start sub_804D44C
-sub_804D44C: @ 0x0804D44C
+	thumb_func_start func_fe6_0804D44C
+func_fe6_0804D44C: @ 0x0804D44C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -21927,8 +21927,8 @@ sub_804D44C: @ 0x0804D44C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804D4A4
-sub_804D4A4: @ 0x0804D4A4
+	thumb_func_start func_fe6_0804D4A4
+func_fe6_0804D4A4: @ 0x0804D4A4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804D4C8 @ =gUnk_Banim_0201774C
@@ -21937,7 +21937,7 @@ sub_804D4A4: @ 0x0804D4A4
 	ldr r0, [r4, #0x64]
 	bl Proc_End
 	ldr r0, [r4, #0x5c]
-	bl sub_804D4CC
+	bl func_fe6_0804D4CC
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -21946,8 +21946,8 @@ sub_804D4A4: @ 0x0804D4A4
 	.align 2, 0
 .L0804D4C8: .4byte gUnk_Banim_0201774C
 
-	thumb_func_start sub_804D4CC
-sub_804D4CC: @ 0x0804D4CC
+	thumb_func_start func_fe6_0804D4CC
+func_fe6_0804D4CC: @ 0x0804D4CC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -21967,11 +21967,11 @@ sub_804D4CC: @ 0x0804D4CC
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804D51C
 	ldrh r0, [r5, #2]
@@ -21989,14 +21989,14 @@ sub_804D4CC: @ 0x0804D4CC
 	strh r0, [r5, #2]
 	ldr r0, .L0804D548 @ =gUnk_0811B3E8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D54C @ =gUnk_0811AFE8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	ldr r0, [r6, #0x5c]
 	ldr r1, [r6, #0x60]
-	bl sub_804D590
+	bl func_fe6_0804D590
 	str r0, [r6, #0x64]
 	add sp, #4
 	pop {r4, r5, r6}
@@ -22006,8 +22006,8 @@ sub_804D4CC: @ 0x0804D4CC
 .L0804D548: .4byte gUnk_0811B3E8
 .L0804D54C: .4byte gUnk_0811AFE8
 
-	thumb_func_start sub_804D550
-sub_804D550: @ 0x0804D550
+	thumb_func_start func_fe6_0804D550
+func_fe6_0804D550: @ 0x0804D550
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -22038,8 +22038,8 @@ sub_804D550: @ 0x0804D550
 .L0804D588: .4byte gUnk_Banim_02017744
 .L0804D58C: .4byte gUnk_Banim_02017750
 
-	thumb_func_start sub_804D590
-sub_804D590: @ 0x0804D590
+	thumb_func_start func_fe6_0804D590
+func_fe6_0804D590: @ 0x0804D590
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r1, #0
@@ -22063,7 +22063,7 @@ sub_804D590: @ 0x0804D590
 	ldrsh r2, [r6, r0]
 	movs r0, #0xcd
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r4, #0
 	pop {r4, r5, r6}
 	pop {r1}
@@ -22072,8 +22072,8 @@ sub_804D590: @ 0x0804D590
 .L0804D5CC: .4byte gUnk_Banim_02017744
 .L0804D5D0: .4byte gUnk_085D0FBC
 
-	thumb_func_start sub_804D5D4
-sub_804D5D4: @ 0x0804D5D4
+	thumb_func_start func_fe6_0804D5D4
+func_fe6_0804D5D4: @ 0x0804D5D4
 	ldr r1, .L0804D5E0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -22082,8 +22082,8 @@ sub_804D5D4: @ 0x0804D5D4
 	.align 2, 0
 .L0804D5E0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804D5E4
-sub_804D5E4: @ 0x0804D5E4
+	thumb_func_start func_fe6_0804D5E4
+func_fe6_0804D5E4: @ 0x0804D5E4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -22094,7 +22094,7 @@ sub_804D5E4: @ 0x0804D5E4
 	cmp r0, #8
 	bne .L0804D626
 	ldr r0, [r4, #0x60]
-	bl sub_805C76C
+	bl func_fe6_0805C76C
 	adds r2, r0, #0
 	ldr r0, [r4, #0x60]
 	ldrh r0, [r0, #2]
@@ -22105,7 +22105,7 @@ sub_804D5E4: @ 0x0804D5E4
 	asrs r2, r2, #0x10
 	movs r0, #0xcd
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	ldrh r1, [r4, #0x2e]
@@ -22120,12 +22120,12 @@ sub_804D5E4: @ 0x0804D5E4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804D62C
-sub_804D62C: @ 0x0804D62C
+	thumb_func_start func_fe6_0804D62C
+func_fe6_0804D62C: @ 0x0804D62C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D660 @ =gUnk_085D0FDC
 	movs r1, #3
 	bl SpawnProc
@@ -22134,10 +22134,10 @@ sub_804D62C: @ 0x0804D62C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -22146,14 +22146,14 @@ sub_804D62C: @ 0x0804D62C
 	.align 2, 0
 .L0804D660: .4byte gUnk_085D0FDC
 
-	thumb_func_start sub_804D664
-sub_804D664: @ 0x0804D664
+	thumb_func_start func_fe6_0804D664
+func_fe6_0804D664: @ 0x0804D664
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -22165,9 +22165,9 @@ sub_804D664: @ 0x0804D664
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	ldr r0, [r5, #0x5c]
-	bl sub_804D728
+	bl func_fe6_0804D728
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -22175,7 +22175,7 @@ sub_804D664: @ 0x0804D664
 	ldrsh r2, [r0, r3]
 	movs r0, #0xcc
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #1
 	bne .L0804D6FA
@@ -22187,32 +22187,32 @@ sub_804D664: @ 0x0804D664
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
 	beq .L0804D6EC
 	ldr r0, [r5, #0x5c]
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L0804D6E0
 	adds r0, r6, #0
-	bl sub_8056B08
+	bl func_fe6_08056B08
 	b .L0804D6EC
 .L0804D6E0:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804D720
 	ldr r0, [r5, #0x5c]
-	bl sub_8056C3C
+	bl func_fe6_08056C3C
 .L0804D6EC:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804D720
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804D720
 .L0804D6FA:
 	movs r3, #0x2c
@@ -22222,14 +22222,14 @@ sub_804D664: @ 0x0804D664
 	cmp r1, r0
 	bne .L0804D70E
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	b .L0804D720
 .L0804D70E:
 	adds r0, r4, #0
 	adds r0, #0xa
 	cmp r1, r0
 	bne .L0804D720
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804D720:
@@ -22238,8 +22238,8 @@ sub_804D664: @ 0x0804D664
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804D728
-sub_804D728: @ 0x0804D728
+	thumb_func_start func_fe6_0804D728
+func_fe6_0804D728: @ 0x0804D728
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -22260,14 +22260,14 @@ sub_804D728: @ 0x0804D728
 	ldr r0, .L0804D784 @ =gUnk_085D4274
 	str r0, [sp]
 	adds r0, r5, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L0804D788 @ =gUnk_0811B3E8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D78C @ =gUnk_0811B408
 	movs r1, #0x60
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -22282,8 +22282,8 @@ sub_804D728: @ 0x0804D728
 .L0804D788: .4byte gUnk_0811B3E8
 .L0804D78C: .4byte gUnk_0811B408
 
-	thumb_func_start sub_804D790
-sub_804D790: @ 0x0804D790
+	thumb_func_start func_fe6_0804D790
+func_fe6_0804D790: @ 0x0804D790
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -22308,12 +22308,12 @@ sub_804D790: @ 0x0804D790
 	.align 2, 0
 .L0804D7BC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804D7C0
-sub_804D7C0: @ 0x0804D7C0
+	thumb_func_start func_fe6_0804D7C0
+func_fe6_0804D7C0: @ 0x0804D7C0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D810 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22322,22 +22322,22 @@ sub_804D7C0: @ 0x0804D7C0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D814 @ =gUnk_0811B674
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D818 @ =gUnk_0811B444
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22346,12 +22346,12 @@ sub_804D7C0: @ 0x0804D7C0
 .L0804D814: .4byte gUnk_0811B674
 .L0804D818: .4byte gUnk_0811B444
 
-	thumb_func_start sub_804D81C
-sub_804D81C: @ 0x0804D81C
+	thumb_func_start func_fe6_0804D81C
+func_fe6_0804D81C: @ 0x0804D81C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D86C @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22360,22 +22360,22 @@ sub_804D81C: @ 0x0804D81C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D870 @ =gUnk_0811B8B0
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D874 @ =gUnk_0811B694
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22384,12 +22384,12 @@ sub_804D81C: @ 0x0804D81C
 .L0804D870: .4byte gUnk_0811B8B0
 .L0804D874: .4byte gUnk_0811B694
 
-	thumb_func_start sub_804D878
-sub_804D878: @ 0x0804D878
+	thumb_func_start func_fe6_0804D878
+func_fe6_0804D878: @ 0x0804D878
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D8C8 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22398,22 +22398,22 @@ sub_804D878: @ 0x0804D878
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D8CC @ =gUnk_0811BAE8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D8D0 @ =gUnk_0811B8D0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22422,12 +22422,12 @@ sub_804D878: @ 0x0804D878
 .L0804D8CC: .4byte gUnk_0811BAE8
 .L0804D8D0: .4byte gUnk_0811B8D0
 
-	thumb_func_start sub_804D8D4
-sub_804D8D4: @ 0x0804D8D4
+	thumb_func_start func_fe6_0804D8D4
+func_fe6_0804D8D4: @ 0x0804D8D4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D924 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22436,22 +22436,22 @@ sub_804D8D4: @ 0x0804D8D4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D928 @ =gUnk_0811BD24
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D92C @ =gUnk_0811BB08
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22460,12 +22460,12 @@ sub_804D8D4: @ 0x0804D8D4
 .L0804D928: .4byte gUnk_0811BD24
 .L0804D92C: .4byte gUnk_0811BB08
 
-	thumb_func_start sub_804D930
-sub_804D930: @ 0x0804D930
+	thumb_func_start func_fe6_0804D930
+func_fe6_0804D930: @ 0x0804D930
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D980 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22474,22 +22474,22 @@ sub_804D930: @ 0x0804D930
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D984 @ =gUnk_0811BF70
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D988 @ =gUnk_0811BD44
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22498,12 +22498,12 @@ sub_804D930: @ 0x0804D930
 .L0804D984: .4byte gUnk_0811BF70
 .L0804D988: .4byte gUnk_0811BD44
 
-	thumb_func_start sub_804D98C
-sub_804D98C: @ 0x0804D98C
+	thumb_func_start func_fe6_0804D98C
+func_fe6_0804D98C: @ 0x0804D98C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804D9DC @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22512,22 +22512,22 @@ sub_804D98C: @ 0x0804D98C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804D9E0 @ =gUnk_0811C1D8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804D9E4 @ =gUnk_0811BF90
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22536,12 +22536,12 @@ sub_804D98C: @ 0x0804D98C
 .L0804D9E0: .4byte gUnk_0811C1D8
 .L0804D9E4: .4byte gUnk_0811BF90
 
-	thumb_func_start sub_804D9E8
-sub_804D9E8: @ 0x0804D9E8
+	thumb_func_start func_fe6_0804D9E8
+func_fe6_0804D9E8: @ 0x0804D9E8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DA38 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22550,22 +22550,22 @@ sub_804D9E8: @ 0x0804D9E8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804DA3C @ =gUnk_0811C430
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804DA40 @ =gUnk_0811C1F8
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22574,12 +22574,12 @@ sub_804D9E8: @ 0x0804D9E8
 .L0804DA3C: .4byte gUnk_0811C430
 .L0804DA40: .4byte gUnk_0811C1F8
 
-	thumb_func_start sub_804DA44
-sub_804DA44: @ 0x0804DA44
+	thumb_func_start func_fe6_0804DA44
+func_fe6_0804DA44: @ 0x0804DA44
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DA94 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22588,22 +22588,22 @@ sub_804DA44: @ 0x0804DA44
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804DA98 @ =gUnk_0811C6B4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804DA9C @ =gUnk_0811C450
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22612,12 +22612,12 @@ sub_804DA44: @ 0x0804DA44
 .L0804DA98: .4byte gUnk_0811C6B4
 .L0804DA9C: .4byte gUnk_0811C450
 
-	thumb_func_start sub_804DAA0
-sub_804DAA0: @ 0x0804DAA0
+	thumb_func_start func_fe6_0804DAA0
+func_fe6_0804DAA0: @ 0x0804DAA0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DAF0 @ =gUnk_085D100C
 	movs r1, #3
 	bl SpawnProc
@@ -22626,22 +22626,22 @@ sub_804DAA0: @ 0x0804DAA0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_804DBAC
+	bl func_fe6_0804DBAC
 	ldr r0, .L0804DAF4 @ =gUnk_0811C944
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804DAF8 @ =gUnk_0811C6D4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22650,8 +22650,8 @@ sub_804DAA0: @ 0x0804DAA0
 .L0804DAF4: .4byte gUnk_0811C944
 .L0804DAF8: .4byte gUnk_0811C6D4
 
-	thumb_func_start sub_804DAFC
-sub_804DAFC: @ 0x0804DAFC
+	thumb_func_start func_fe6_0804DAFC
+func_fe6_0804DAFC: @ 0x0804DAFC
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x2c]
@@ -22664,7 +22664,7 @@ sub_804DAFC: @ 0x0804DAFC
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -22672,12 +22672,12 @@ sub_804DAFC: @ 0x0804DAFC
 	ldrsh r2, [r0, r3]
 	movs r0, #0xca
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #1
 	bne .L0804DB86
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	movs r0, #9
 	ldrh r1, [r6, #0x10]
@@ -22687,32 +22687,32 @@ sub_804DAFC: @ 0x0804DAFC
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
 	beq .L0804DB78
 	ldr r0, [r5, #0x5c]
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L0804DB6C
 	adds r0, r6, #0
-	bl sub_8056B08
+	bl func_fe6_08056B08
 	b .L0804DB78
 .L0804DB6C:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804DBA4
 	ldr r0, [r5, #0x5c]
-	bl sub_8056C3C
+	bl func_fe6_08056C3C
 .L0804DB78:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804DBA4
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804DBA4
 .L0804DB86:
 	movs r3, #0x2c
@@ -22720,12 +22720,12 @@ sub_804DAFC: @ 0x0804DAFC
 	cmp r0, #0xe
 	bne .L0804DB96
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	b .L0804DBA4
 .L0804DB96:
 	cmp r0, #0x10
 	bne .L0804DBA4
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804DBA4:
@@ -22734,8 +22734,8 @@ sub_804DAFC: @ 0x0804DAFC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804DBAC
-sub_804DBAC: @ 0x0804DBAC
+	thumb_func_start func_fe6_0804DBAC
+func_fe6_0804DBAC: @ 0x0804DBAC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -22768,11 +22768,11 @@ sub_804DBAC: @ 0x0804DBAC
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804DC14
 	ldrh r0, [r4, #2]
@@ -22792,8 +22792,8 @@ sub_804DBAC: @ 0x0804DBAC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804DC24
-sub_804DC24: @ 0x0804DC24
+	thumb_func_start func_fe6_0804DC24
+func_fe6_0804DC24: @ 0x0804DC24
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -22818,12 +22818,12 @@ sub_804DC24: @ 0x0804DC24
 	.align 2, 0
 .L0804DC50: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804DC54
-sub_804DC54: @ 0x0804DC54
+	thumb_func_start func_fe6_0804DC54
+func_fe6_0804DC54: @ 0x0804DC54
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DC88 @ =gUnk_085D103C
 	movs r1, #3
 	bl SpawnProc
@@ -22832,10 +22832,10 @@ sub_804DC54: @ 0x0804DC54
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -22844,12 +22844,12 @@ sub_804DC54: @ 0x0804DC54
 	.align 2, 0
 .L0804DC88: .4byte gUnk_085D103C
 
-	thumb_func_start sub_804DC8C
-sub_804DC8C: @ 0x0804DC8C
+	thumb_func_start func_fe6_0804DC8C
+func_fe6_0804DC8C: @ 0x0804DC8C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r4, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -22860,16 +22860,16 @@ sub_804DC8C: @ 0x0804DC8C
 	cmp r0, #0x27
 	bne .L0804DCC4
 	adds r0, r4, #0
-	bl sub_804DD38
+	bl func_fe6_0804DD38
 	adds r0, r4, #0
-	bl sub_804DDC8
+	bl func_fe6_0804DDC8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r4, r0]
 	movs r0, #0xef
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804DCC4:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -22883,9 +22883,9 @@ sub_804DC8C: @ 0x0804DC8C
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r4, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804DD00
 	ldr r0, .L0804DCF8 @ =gUnk_Banim_0200004C
@@ -22905,7 +22905,7 @@ sub_804DC8C: @ 0x0804DC8C
 	bl CpuFastSet
 .L0804DD0C:
 	adds r0, r4, #0
-	bl sub_8046EF8
+	bl func_fe6_08046EF8
 	b .L0804DD32
 	.align 2, 0
 .L0804DD14: .4byte gUnk_Banim_0200004C
@@ -22917,7 +22917,7 @@ sub_804DC8C: @ 0x0804DC8C
 	ldrh r1, [r4, #0x10]
 	orrs r0, r1
 	strh r0, [r4, #0x10]
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804DD32:
@@ -22925,8 +22925,8 @@ sub_804DC8C: @ 0x0804DC8C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804DD38
-sub_804DD38: @ 0x0804DD38
+	thumb_func_start func_fe6_0804DD38
+func_fe6_0804DD38: @ 0x0804DD38
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r1, .L0804DD80 @ =gUnk_Banim_02017744
@@ -22943,16 +22943,16 @@ sub_804DD38: @ 0x0804DD38
 	ldr r0, .L0804DD88 @ =gUnk_0811CAF8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L0804DD8C @ =gUnk_0811CD14
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r4, #0x5c]
 	ldr r2, .L0804DD90 @ =gUnk_0811D0D4
 	adds r1, r2, #0
-	bl sub_804799C
-	bl sub_80474C8
-	bl sub_8047500
+	bl func_fe6_0804799C
+	bl func_fe6_080474C8
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -22963,8 +22963,8 @@ sub_804DD38: @ 0x0804DD38
 .L0804DD8C: .4byte gUnk_0811CD14
 .L0804DD90: .4byte gUnk_0811D0D4
 
-	thumb_func_start sub_804DD94
-sub_804DD94: @ 0x0804DD94
+	thumb_func_start func_fe6_0804DD94
+func_fe6_0804DD94: @ 0x0804DD94
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -22974,8 +22974,8 @@ sub_804DD94: @ 0x0804DD94
 	asrs r0, r0, #0x10
 	cmp r0, #0x1f
 	bne .L0804DDBC
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804DDC4 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -22989,8 +22989,8 @@ sub_804DD94: @ 0x0804DD94
 	.align 2, 0
 .L0804DDC4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804DDC8
-sub_804DDC8: @ 0x0804DDC8
+	thumb_func_start func_fe6_0804DDC8
+func_fe6_0804DDC8: @ 0x0804DDC8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804DDF4 @ =gUnk_Banim_02017744
@@ -23017,15 +23017,15 @@ sub_804DDC8: @ 0x0804DDC8
 .L0804DDFC: .4byte gUnk_08119CDC
 .L0804DE00: .4byte gUnk_0811CD14
 
-	thumb_func_start sub_804DE04
-sub_804DE04: @ 0x0804DE04
+	thumb_func_start func_fe6_0804DE04
+func_fe6_0804DE04: @ 0x0804DE04
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -23034,7 +23034,7 @@ sub_804DE04: @ 0x0804DE04
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804DE40
 .L0804DE2A:
 	movs r0, #1
@@ -23054,12 +23054,12 @@ sub_804DE04: @ 0x0804DE04
 	.align 2, 0
 .L0804DE48: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804DE4C
-sub_804DE4C: @ 0x0804DE4C
+	thumb_func_start func_fe6_0804DE4C
+func_fe6_0804DE4C: @ 0x0804DE4C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DE80 @ =gUnk_085D108C
 	movs r1, #3
 	bl SpawnProc
@@ -23068,10 +23068,10 @@ sub_804DE4C: @ 0x0804DE4C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -23080,12 +23080,12 @@ sub_804DE4C: @ 0x0804DE4C
 	.align 2, 0
 .L0804DE80: .4byte gUnk_085D108C
 
-	thumb_func_start sub_804DE84
-sub_804DE84: @ 0x0804DE84
+	thumb_func_start func_fe6_0804DE84
+func_fe6_0804DE84: @ 0x0804DE84
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r4, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -23096,16 +23096,16 @@ sub_804DE84: @ 0x0804DE84
 	cmp r0, #0x19
 	bne .L0804DEBC
 	adds r0, r4, #0
-	bl sub_804DD38
+	bl func_fe6_0804DD38
 	adds r0, r4, #0
-	bl sub_804DDC8
+	bl func_fe6_0804DDC8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r4, r0]
 	movs r0, #0xef
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804DEBC:
 	movs r1, #0x2c
 	ldrsh r0, [r5, r1]
@@ -23119,9 +23119,9 @@ sub_804DE84: @ 0x0804DE84
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r4, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804DEF8
 	ldr r0, .L0804DEF0 @ =gUnk_Banim_0200004C
@@ -23141,7 +23141,7 @@ sub_804DE84: @ 0x0804DE84
 	bl CpuFastSet
 .L0804DF04:
 	adds r0, r4, #0
-	bl sub_8046EF8
+	bl func_fe6_08046EF8
 	b .L0804DF2A
 	.align 2, 0
 .L0804DF0C: .4byte gUnk_Banim_0200004C
@@ -23153,7 +23153,7 @@ sub_804DE84: @ 0x0804DE84
 	ldrh r1, [r4, #0x10]
 	orrs r0, r1
 	strh r0, [r4, #0x10]
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804DF2A:
@@ -23161,12 +23161,12 @@ sub_804DE84: @ 0x0804DE84
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804DF30
-sub_804DF30: @ 0x0804DF30
+	thumb_func_start func_fe6_0804DF30
+func_fe6_0804DF30: @ 0x0804DF30
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804DF7C @ =gUnk_085D10A4
 	movs r1, #3
 	bl SpawnProc
@@ -23175,10 +23175,10 @@ sub_804DF30: @ 0x0804DF30
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r1, r4, #0
 	adds r1, #0x29
 	strb r0, [r1]
@@ -23190,19 +23190,19 @@ sub_804DF30: @ 0x0804DF30
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L0804DF7C: .4byte gUnk_085D10A4
 
-	thumb_func_start sub_804DF80
-sub_804DF80: @ 0x0804DF80
+	thumb_func_start func_fe6_0804DF80
+func_fe6_0804DF80: @ 0x0804DF80
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -23214,7 +23214,7 @@ sub_804DF80: @ 0x0804DF80
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L0804E038
 .L0804DFA6:
 	movs r1, #0x2c
@@ -23228,7 +23228,7 @@ sub_804DF80: @ 0x0804DF80
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0804E038
 	.align 2, 0
 .L0804DFC4: .4byte 0x00000137
@@ -23236,7 +23236,7 @@ sub_804DF80: @ 0x0804DF80
 	cmp r0, #0x2a
 	bne .L0804DFD4
 	adds r0, r6, #0
-	bl sub_804E040
+	bl func_fe6_0804E040
 	b .L0804E038
 .L0804DFD4:
 	cmp r0, #0x2d
@@ -23249,39 +23249,39 @@ sub_804DF80: @ 0x0804DF80
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #2
 	beq .L0804E018
 	ldr r0, [r5, #0x5c]
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L0804E00C
 	adds r0, r6, #0
-	bl sub_8056B08
+	bl func_fe6_08056B08
 	b .L0804E018
 .L0804E00C:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E038
 	ldr r0, [r5, #0x5c]
-	bl sub_8056C3C
+	bl func_fe6_08056C3C
 .L0804E018:
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E038
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804E038
 .L0804E026:
 	cmp r0, #0x3e
 	beq .L0804E038
 	cmp r0, #0x40
 	bne .L0804E038
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r5, #0
 	bl Proc_Break
 .L0804E038:
@@ -23290,8 +23290,8 @@ sub_804DF80: @ 0x0804DF80
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804E040
-sub_804E040: @ 0x0804E040
+	thumb_func_start func_fe6_0804E040
+func_fe6_0804E040: @ 0x0804E040
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -23312,7 +23312,7 @@ sub_804E040: @ 0x0804E040
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldrh r0, [r6, #4]
@@ -23324,7 +23324,7 @@ sub_804E040: @ 0x0804E040
 	ands r0, r1
 	strh r0, [r6, #8]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L0804E0A4
 	movs r1, #0xe4
@@ -23348,8 +23348,8 @@ sub_804E040: @ 0x0804E040
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804E0B8
-sub_804E0B8: @ 0x0804E0B8
+	thumb_func_start func_fe6_0804E0B8
+func_fe6_0804E0B8: @ 0x0804E0B8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -23374,13 +23374,13 @@ sub_804E0B8: @ 0x0804E0B8
 	.align 2, 0
 .L0804E0E4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E0E8
-sub_804E0E8: @ 0x0804E0E8
+	thumb_func_start func_fe6_0804E0E8
+func_fe6_0804E0E8: @ 0x0804E0E8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804E120 @ =gUnk_085D10D4
 	movs r1, #3
 	bl SpawnProc
@@ -23389,10 +23389,10 @@ sub_804E0E8: @ 0x0804E0E8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -23401,12 +23401,12 @@ sub_804E0E8: @ 0x0804E0E8
 	.align 2, 0
 .L0804E120: .4byte gUnk_085D10D4
 
-	thumb_func_start sub_804E124
-sub_804E124: @ 0x0804E124
+	thumb_func_start func_fe6_0804E124
+func_fe6_0804E124: @ 0x0804E124
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -23417,7 +23417,7 @@ sub_804E124: @ 0x0804E124
 	bne .L0804E148
 	ldr r0, [r4, #0x5c]
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L0804E1BA
 .L0804E148:
 	cmp r0, #6
@@ -23425,15 +23425,15 @@ sub_804E124: @ 0x0804E124
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	adds r0, r5, #0
 	movs r1, #9
-	bl sub_804E1C0
+	bl func_fe6_0804E1C0
 	adds r0, r5, #0
 	movs r1, #9
-	bl sub_804E2B4
+	bl func_fe6_0804E2B4
 	adds r0, r5, #0
-	bl sub_804E3C0
+	bl func_fe6_0804E3C0
 	movs r0, #0x86
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -23441,7 +23441,7 @@ sub_804E124: @ 0x0804E124
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0804E1BA
 .L0804E180:
 	cmp r0, #0xa
@@ -23453,20 +23453,20 @@ sub_804E124: @ 0x0804E124
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E1BA
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804E1BA
 .L0804E1A4:
 	cmp r0, #0x19
 	beq .L0804E1BA
 	cmp r0, #0x1e
 	bne .L0804E1BA
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804E1BA:
@@ -23474,8 +23474,8 @@ sub_804E124: @ 0x0804E124
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804E1C0
-sub_804E1C0: @ 0x0804E1C0
+	thumb_func_start func_fe6_0804E1C0
+func_fe6_0804E1C0: @ 0x0804E1C0
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -23494,17 +23494,17 @@ sub_804E1C0: @ 0x0804E1C0
 	strh r6, [r4, #0x2e]
 	ldr r0, .L0804E228 @ =gUnk_0811F22C
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0804E22C @ =gUnk_0811E36C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L0804E230 @ =gUnk_0811F32C
 	ldr r5, .L0804E234 @ =gUnk_Banim_0201977C
 	adds r1, r5, #0
 	bl LZ77UnCompWram
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E23C
 	ldr r1, .L0804E238 @ =gBg1Tm
@@ -23515,7 +23515,7 @@ sub_804E1C0: @ 0x0804E1C0
 	adds r0, r5, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	b .L0804E250
 	.align 2, 0
 .L0804E220: .4byte gUnk_Banim_02017744
@@ -23534,11 +23534,11 @@ sub_804E1C0: @ 0x0804E1C0
 	adds r0, r5, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 .L0804E250:
 	movs r0, #2
 	bl EnableBgSync
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r2, .L0804E27C @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -23558,8 +23558,8 @@ sub_804E1C0: @ 0x0804E1C0
 .L0804E278: .4byte gBg1Tm
 .L0804E27C: .4byte gDispIo
 
-	thumb_func_start sub_804E280
-sub_804E280: @ 0x0804E280
+	thumb_func_start func_fe6_0804E280
+func_fe6_0804E280: @ 0x0804E280
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -23570,12 +23570,12 @@ sub_804E280: @ 0x0804E280
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0804E2AA
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804E2B0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804E2AA:
@@ -23585,8 +23585,8 @@ sub_804E280: @ 0x0804E280
 	.align 2, 0
 .L0804E2B0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E2B4
-sub_804E2B4: @ 0x0804E2B4
+	thumb_func_start func_fe6_0804E2B4
+func_fe6_0804E2B4: @ 0x0804E2B4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -23603,7 +23603,7 @@ sub_804E2B4: @ 0x0804E2B4
 	strh r0, [r6, #0x2c]
 	strh r5, [r6, #0x2e]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E2EC
 	movs r0, #0xd8
@@ -23620,8 +23620,8 @@ sub_804E2B4: @ 0x0804E2B4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804E2F8
-sub_804E2F8: @ 0x0804E2F8
+	thumb_func_start func_fe6_0804E2F8
+func_fe6_0804E2F8: @ 0x0804E2F8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -23639,7 +23639,7 @@ sub_804E2F8: @ 0x0804E2F8
 	ldr r4, .L0804E330 @ =gDispIo
 	strh r0, [r4, #0x20]
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E334
 	ldrh r4, [r4, #0x20]
@@ -23667,7 +23667,7 @@ sub_804E2F8: @ 0x0804E2F8
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B094
+	bl func_fe6_0805B094
 	adds r0, r7, #1
 	mov r1, r8
 	ands r0, r1
@@ -23677,7 +23677,7 @@ sub_804E2F8: @ 0x0804E2F8
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B094
+	bl func_fe6_0805B094
 	adds r0, r7, #2
 	mov r2, r8
 	ands r0, r2
@@ -23687,7 +23687,7 @@ sub_804E2F8: @ 0x0804E2F8
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B094
+	bl func_fe6_0805B094
 	movs r0, #2
 	bl EnableBgSync
 	ldrh r0, [r6, #0x2c]
@@ -23702,7 +23702,7 @@ sub_804E2F8: @ 0x0804E2F8
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r6, #0
 	bl Proc_Break
 .L0804E3AC:
@@ -23716,8 +23716,8 @@ sub_804E2F8: @ 0x0804E2F8
 .L0804E3B8: .4byte gBg1Tm
 .L0804E3BC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E3C0
-sub_804E3C0: @ 0x0804E3C0
+	thumb_func_start func_fe6_0804E3C0
+func_fe6_0804E3C0: @ 0x0804E3C0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804E3EC @ =gUnk_Banim_02017744
@@ -23744,15 +23744,15 @@ sub_804E3C0: @ 0x0804E3C0
 .L0804E3F4: .4byte gUnk_08119D56
 .L0804E3F8: .4byte gUnk_0811F22C
 
-	thumb_func_start sub_804E3FC
-sub_804E3FC: @ 0x0804E3FC
+	thumb_func_start func_fe6_0804E3FC
+func_fe6_0804E3FC: @ 0x0804E3FC
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -23761,14 +23761,14 @@ sub_804E3FC: @ 0x0804E3FC
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804E43C
 .L0804E422:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r1, r0
 	bne .L0804E43C
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804E444 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -23782,13 +23782,13 @@ sub_804E3FC: @ 0x0804E3FC
 	.align 2, 0
 .L0804E444: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E448
-sub_804E448: @ 0x0804E448
+	thumb_func_start func_fe6_0804E448
+func_fe6_0804E448: @ 0x0804E448
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804E480 @ =gUnk_085D113C
 	movs r1, #3
 	bl SpawnProc
@@ -23797,10 +23797,10 @@ sub_804E448: @ 0x0804E448
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -23809,15 +23809,15 @@ sub_804E448: @ 0x0804E448
 	.align 2, 0
 .L0804E480: .4byte gUnk_085D113C
 
-	thumb_func_start sub_804E484
-sub_804E484: @ 0x0804E484
+	thumb_func_start func_fe6_0804E484
+func_fe6_0804E484: @ 0x0804E484
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -23830,7 +23830,7 @@ sub_804E484: @ 0x0804E484
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0804E4B2:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -23843,12 +23843,12 @@ sub_804E484: @ 0x0804E484
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_804E540
+	bl func_fe6_0804E540
 	ldr r0, [r4, #0x5c]
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -23856,12 +23856,12 @@ sub_804E484: @ 0x0804E484
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E536
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804E536
 	.align 2, 0
 .L0804E4FC: .4byte 0x0000010D
@@ -23876,7 +23876,7 @@ sub_804E484: @ 0x0804E484
 	movs r1, #0
 	movs r2, #0xe
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L0804E536
 .L0804E51A:
 	adds r0, r6, #0
@@ -23886,8 +23886,8 @@ sub_804E484: @ 0x0804E484
 	adds r0, #5
 	cmp r1, r0
 	bne .L0804E536
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804E536:
@@ -23897,8 +23897,8 @@ sub_804E484: @ 0x0804E484
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804E540
-sub_804E540: @ 0x0804E540
+	thumb_func_start func_fe6_0804E540
+func_fe6_0804E540: @ 0x0804E540
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -23916,7 +23916,7 @@ sub_804E540: @ 0x0804E540
 	movs r0, #0x34
 	strh r0, [r4, #0x2e]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r3, .L0804E5A0 @ =gUnk_085D6E78
 	cmp r0, #0
 	bne .L0804E570
@@ -23926,15 +23926,15 @@ sub_804E540: @ 0x0804E540
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L0804E5A8 @ =gUnk_081203F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804E5AC @ =gUnk_0811F6F4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -23947,8 +23947,8 @@ sub_804E540: @ 0x0804E540
 .L0804E5A8: .4byte gUnk_081203F4
 .L0804E5AC: .4byte gUnk_0811F6F4
 
-	thumb_func_start sub_804E5B0
-sub_804E5B0: @ 0x0804E5B0
+	thumb_func_start func_fe6_0804E5B0
+func_fe6_0804E5B0: @ 0x0804E5B0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -23974,12 +23974,12 @@ sub_804E5B0: @ 0x0804E5B0
 	.align 2, 0
 .L0804E5E0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E5E4
-sub_804E5E4: @ 0x0804E5E4
+	thumb_func_start func_fe6_0804E5E4
+func_fe6_0804E5E4: @ 0x0804E5E4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804E618 @ =gUnk_085D116C
 	movs r1, #3
 	bl SpawnProc
@@ -23988,10 +23988,10 @@ sub_804E5E4: @ 0x0804E5E4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -24000,13 +24000,13 @@ sub_804E5E4: @ 0x0804E5E4
 	.align 2, 0
 .L0804E618: .4byte gUnk_085D116C
 
-	thumb_func_start sub_804E61C
-sub_804E61C: @ 0x0804E61C
+	thumb_func_start func_fe6_0804E61C
+func_fe6_0804E61C: @ 0x0804E61C
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -24018,27 +24018,27 @@ sub_804E61C: @ 0x0804E61C
 	bne .L0804E67C
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5a
-	bl sub_804D050
+	bl func_fe6_0804D050
 	adds r0, r5, #0
-	bl sub_804E6BC
+	bl func_fe6_0804E6BC
 	adds r0, r5, #0
-	bl sub_804E778
+	bl func_fe6_0804E778
 	adds r0, r5, #0
-	bl sub_804E848
+	bl func_fe6_0804E848
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x28
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	ldr r0, .L0804E678 @ =0x0000011D
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0804E6B2
 	.align 2, 0
 .L0804E678: .4byte 0x0000011D
@@ -24052,19 +24052,19 @@ sub_804E61C: @ 0x0804E61C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E6B2
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804E6B2
 .L0804E6A0:
 	cmp r0, #0x78
 	beq .L0804E6B2
 	cmp r0, #0x82
 	bne .L0804E6B2
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804E6B2:
@@ -24074,8 +24074,8 @@ sub_804E61C: @ 0x0804E61C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804E6BC
-sub_804E6BC: @ 0x0804E6BC
+	thumb_func_start func_fe6_0804E6BC
+func_fe6_0804E6BC: @ 0x0804E6BC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -24093,7 +24093,7 @@ sub_804E6BC: @ 0x0804E6BC
 	movs r0, #0x34
 	strh r0, [r5, #0x2e]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r3, .L0804E714 @ =gUnk_085D9208
 	cmp r0, #0
 	bne .L0804E6EC
@@ -24103,11 +24103,11 @@ sub_804E6BC: @ 0x0804E6BC
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E71C
 	ldrh r0, [r4, #2]
@@ -24125,11 +24125,11 @@ sub_804E6BC: @ 0x0804E6BC
 	strh r0, [r4, #2]
 	ldr r0, .L0804E73C @ =gUnk_081203F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804E740 @ =gUnk_0811F6F4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -24138,8 +24138,8 @@ sub_804E6BC: @ 0x0804E6BC
 .L0804E73C: .4byte gUnk_081203F4
 .L0804E740: .4byte gUnk_0811F6F4
 
-	thumb_func_start sub_804E744
-sub_804E744: @ 0x0804E744
+	thumb_func_start func_fe6_0804E744
+func_fe6_0804E744: @ 0x0804E744
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -24165,8 +24165,8 @@ sub_804E744: @ 0x0804E744
 	.align 2, 0
 .L0804E774: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E778
-sub_804E778: @ 0x0804E778
+	thumb_func_start func_fe6_0804E778
+func_fe6_0804E778: @ 0x0804E778
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -24186,20 +24186,20 @@ sub_804E778: @ 0x0804E778
 	ldr r0, .L0804E7E0 @ =gUnk_0813A6F8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r5, #0x5c]
 	ldr r2, .L0804E7E4 @ =gUnk_0813BA64
 	adds r1, r2, #0
-	bl sub_804799C
-	bl sub_80474C8
-	bl sub_8047500
+	bl func_fe6_0804799C
+	bl func_fe6_080474C8
+	bl func_fe6_08047500
 	ldr r0, .L0804E7E8 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804E808
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E7EC
 	movs r0, #1
@@ -24226,7 +24226,7 @@ sub_804E778: @ 0x0804E778
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B0D4
+	bl func_fe6_0805B0D4
 .L0804E808:
 	add sp, #4
 	pop {r4, r5}
@@ -24235,8 +24235,8 @@ sub_804E778: @ 0x0804E778
 	.align 2, 0
 .L0804E810: .4byte gBg1Tm+0x3C
 
-	thumb_func_start sub_804E814
-sub_804E814: @ 0x0804E814
+	thumb_func_start func_fe6_0804E814
+func_fe6_0804E814: @ 0x0804E814
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -24247,8 +24247,8 @@ sub_804E814: @ 0x0804E814
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0804E83E
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804E844 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -24262,8 +24262,8 @@ sub_804E814: @ 0x0804E814
 	.align 2, 0
 .L0804E844: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E848
-sub_804E848: @ 0x0804E848
+	thumb_func_start func_fe6_0804E848
+func_fe6_0804E848: @ 0x0804E848
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804E874 @ =gUnk_Banim_02017744
@@ -24290,15 +24290,15 @@ sub_804E848: @ 0x0804E848
 .L0804E87C: .4byte gUnk_08119D78
 .L0804E880: .4byte gUnk_0813B6B4
 
-	thumb_func_start sub_804E884
-sub_804E884: @ 0x0804E884
+	thumb_func_start func_fe6_0804E884
+func_fe6_0804E884: @ 0x0804E884
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -24307,7 +24307,7 @@ sub_804E884: @ 0x0804E884
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804E8C0
 .L0804E8AA:
 	movs r0, #1
@@ -24327,13 +24327,13 @@ sub_804E884: @ 0x0804E884
 	.align 2, 0
 .L0804E8C8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804E8CC
-sub_804E8CC: @ 0x0804E8CC
+	thumb_func_start func_fe6_0804E8CC
+func_fe6_0804E8CC: @ 0x0804E8CC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804E904 @ =gUnk_085D11D4
 	movs r1, #3
 	bl SpawnProc
@@ -24342,10 +24342,10 @@ sub_804E8CC: @ 0x0804E8CC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -24354,12 +24354,12 @@ sub_804E8CC: @ 0x0804E8CC
 	.align 2, 0
 .L0804E904: .4byte gUnk_085D11D4
 
-	thumb_func_start sub_804E908
-sub_804E908: @ 0x0804E908
+	thumb_func_start func_fe6_0804E908
+func_fe6_0804E908: @ 0x0804E908
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -24370,9 +24370,9 @@ sub_804E908: @ 0x0804E908
 	bne .L0804E942
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5a
-	bl sub_804D050
+	bl func_fe6_0804D050
 	ldr r0, [r4, #0x5c]
-	bl sub_804E988
+	bl func_fe6_0804E988
 	movs r0, #0x8f
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -24380,7 +24380,7 @@ sub_804E908: @ 0x0804E908
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804E942:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -24393,20 +24393,20 @@ sub_804E908: @ 0x0804E908
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804E980
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804E980
 .L0804E96A:
 	cmp r0, #0x32
 	beq .L0804E980
 	cmp r0, #0x3c
 	bne .L0804E980
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804E980:
@@ -24415,8 +24415,8 @@ sub_804E908: @ 0x0804E908
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804E988
-sub_804E988: @ 0x0804E988
+	thumb_func_start func_fe6_0804E988
+func_fe6_0804E988: @ 0x0804E988
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -24434,11 +24434,11 @@ sub_804E988: @ 0x0804E988
 	str r2, [sp]
 	adds r0, r4, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804E9D4
 	ldrh r0, [r6, #2]
@@ -24456,11 +24456,11 @@ sub_804E988: @ 0x0804E988
 	strh r0, [r6, #2]
 	ldr r0, .L0804E9F4 @ =gUnk_081214B8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804E9F8 @ =gUnk_0811F6F4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -24469,8 +24469,8 @@ sub_804E988: @ 0x0804E988
 .L0804E9F4: .4byte gUnk_081214B8
 .L0804E9F8: .4byte gUnk_0811F6F4
 
-	thumb_func_start sub_804E9FC
-sub_804E9FC: @ 0x0804E9FC
+	thumb_func_start func_fe6_0804E9FC
+func_fe6_0804E9FC: @ 0x0804E9FC
 	push {lr}
 	ldr r2, .L0804EA10 @ =gUnk_Banim_02017744
 	ldr r1, [r2]
@@ -24483,12 +24483,12 @@ sub_804E9FC: @ 0x0804E9FC
 	.align 2, 0
 .L0804EA10: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EA14
-sub_804EA14: @ 0x0804EA14
+	thumb_func_start func_fe6_0804EA14
+func_fe6_0804EA14: @ 0x0804EA14
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_080474C8
 	ldr r0, .L0804EA48 @ =gUnk_085D120C
 	movs r1, #3
 	bl SpawnProc
@@ -24497,10 +24497,10 @@ sub_804EA14: @ 0x0804EA14
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -24509,12 +24509,12 @@ sub_804EA14: @ 0x0804EA14
 	.align 2, 0
 .L0804EA48: .4byte gUnk_085D120C
 
-	thumb_func_start sub_804EA4C
-sub_804EA4C: @ 0x0804EA4C
+	thumb_func_start func_fe6_0804EA4C
+func_fe6_0804EA4C: @ 0x0804EA4C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -24525,20 +24525,20 @@ sub_804EA4C: @ 0x0804EA4C
 	bne .L0804EA90
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5a
-	bl sub_804D050
+	bl func_fe6_0804D050
 	ldr r0, [r4, #0x5c]
-	bl sub_804EAD4
+	bl func_fe6_0804EAD4
 	ldr r0, [r4, #0x5c]
-	bl sub_804EB7C
+	bl func_fe6_0804EB7C
 	ldr r0, [r4, #0x5c]
-	bl sub_804EC04
+	bl func_fe6_0804EC04
 	ldr r0, .L0804EAB8 @ =0x0000011F
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804EA90:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -24551,12 +24551,12 @@ sub_804EA4C: @ 0x0804EA4C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804EACE
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804EACE
 	.align 2, 0
 .L0804EAB8: .4byte 0x0000011F
@@ -24565,7 +24565,7 @@ sub_804EA4C: @ 0x0804EA4C
 	beq .L0804EACE
 	cmp r0, #0x30
 	bne .L0804EACE
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804EACE:
@@ -24573,8 +24573,8 @@ sub_804EA4C: @ 0x0804EA4C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804EAD4
-sub_804EAD4: @ 0x0804EAD4
+	thumb_func_start func_fe6_0804EAD4
+func_fe6_0804EAD4: @ 0x0804EAD4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804EB10 @ =gUnk_Banim_02017744
@@ -24596,8 +24596,8 @@ sub_804EAD4: @ 0x0804EAD4
 	ldr r0, .L0804EB20 @ =gUnk_081214F8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -24608,15 +24608,15 @@ sub_804EAD4: @ 0x0804EAD4
 .L0804EB1C: .4byte gUnk_085D123C
 .L0804EB20: .4byte gUnk_081214F8
 
-	thumb_func_start sub_804EB24
-sub_804EB24: @ 0x0804EB24
+	thumb_func_start func_fe6_0804EB24
+func_fe6_0804EB24: @ 0x0804EB24
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -24629,19 +24629,19 @@ sub_804EB24: @ 0x0804EB24
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0804EB70
 .L0804EB52:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0804EB70
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804EB78 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804EB70:
@@ -24651,8 +24651,8 @@ sub_804EB24: @ 0x0804EB24
 	.align 2, 0
 .L0804EB78: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EB7C
-sub_804EB7C: @ 0x0804EB7C
+	thumb_func_start func_fe6_0804EB7C
+func_fe6_0804EB7C: @ 0x0804EB7C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804EBA8 @ =gUnk_Banim_02017744
@@ -24679,15 +24679,15 @@ sub_804EB7C: @ 0x0804EB7C
 .L0804EBB0: .4byte gUnk_08119E30
 .L0804EBB4: .4byte gUnk_0813E75C
 
-	thumb_func_start sub_804EBB8
-sub_804EBB8: @ 0x0804EBB8
+	thumb_func_start func_fe6_0804EBB8
+func_fe6_0804EBB8: @ 0x0804EBB8
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -24696,14 +24696,14 @@ sub_804EBB8: @ 0x0804EBB8
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804EBF8
 .L0804EBDE:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r1, r0
 	bne .L0804EBF8
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804EC00 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -24717,8 +24717,8 @@ sub_804EBB8: @ 0x0804EBB8
 	.align 2, 0
 .L0804EC00: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EC04
-sub_804EC04: @ 0x0804EC04
+	thumb_func_start func_fe6_0804EC04
+func_fe6_0804EC04: @ 0x0804EC04
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -24740,11 +24740,11 @@ sub_804EC04: @ 0x0804EC04
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804EC54
 	ldrh r0, [r6, #2]
@@ -24764,11 +24764,11 @@ sub_804EC04: @ 0x0804EC04
 	strh r0, [r6, #4]
 	ldr r0, .L0804EC7C @ =gUnk_081214D8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804EC80 @ =gUnk_0811F6F4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -24777,8 +24777,8 @@ sub_804EC04: @ 0x0804EC04
 .L0804EC7C: .4byte gUnk_081214D8
 .L0804EC80: .4byte gUnk_0811F6F4
 
-	thumb_func_start sub_804EC84
-sub_804EC84: @ 0x0804EC84
+	thumb_func_start func_fe6_0804EC84
+func_fe6_0804EC84: @ 0x0804EC84
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -24804,13 +24804,13 @@ sub_804EC84: @ 0x0804EC84
 	.align 2, 0
 .L0804ECB4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804ECB8
-sub_804ECB8: @ 0x0804ECB8
+	thumb_func_start func_fe6_0804ECB8
+func_fe6_0804ECB8: @ 0x0804ECB8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804ECF0 @ =gUnk_085D12A4
 	movs r1, #3
 	bl SpawnProc
@@ -24819,10 +24819,10 @@ sub_804ECB8: @ 0x0804ECB8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -24831,14 +24831,14 @@ sub_804ECB8: @ 0x0804ECB8
 	.align 2, 0
 .L0804ECF0: .4byte gUnk_085D12A4
 
-	thumb_func_start sub_804ECF4
-sub_804ECF4: @ 0x0804ECF4
+	thumb_func_start func_fe6_0804ECF4
+func_fe6_0804ECF4: @ 0x0804ECF4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -24850,7 +24850,7 @@ sub_804ECF4: @ 0x0804ECF4
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0804ED1E:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -24858,11 +24858,11 @@ sub_804ECF4: @ 0x0804ECF4
 	cmp r1, r0
 	bne .L0804ED3C
 	adds r0, r5, #0
-	bl sub_804ED94
+	bl func_fe6_0804ED94
 	adds r0, r5, #0
-	bl sub_804EE9C
+	bl func_fe6_0804EE9C
 	adds r0, r5, #0
-	bl sub_804EF24
+	bl func_fe6_0804EF24
 	b .L0804ED8E
 .L0804ED3C:
 	adds r0, r6, #4
@@ -24875,19 +24875,19 @@ sub_804ECF4: @ 0x0804ECF4
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r5, r0]
 	movs r0, #0xf5
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804ED8E
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804ED8E
 .L0804ED72:
 	adds r0, r6, #0
@@ -24897,8 +24897,8 @@ sub_804ECF4: @ 0x0804ECF4
 	adds r0, #0x10
 	cmp r1, r0
 	bne .L0804ED8E
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804ED8E:
@@ -24906,8 +24906,8 @@ sub_804ECF4: @ 0x0804ECF4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804ED94
-sub_804ED94: @ 0x0804ED94
+	thumb_func_start func_fe6_0804ED94
+func_fe6_0804ED94: @ 0x0804ED94
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804EDEC @ =gUnk_Banim_02017744
@@ -24931,15 +24931,15 @@ sub_804ED94: @ 0x0804ED94
 	ldr r0, .L0804EE00 @ =gUnk_0812C68C
 	movs r1, #0x86
 	lsls r1, r1, #5
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r0, .L0804EE04 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804EE12
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804EE08
 	movs r0, #1
@@ -24965,8 +24965,8 @@ sub_804ED94: @ 0x0804ED94
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804EE18
-sub_804EE18: @ 0x0804EE18
+	thumb_func_start func_fe6_0804EE18
+func_fe6_0804EE18: @ 0x0804EE18
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -24975,7 +24975,7 @@ sub_804EE18: @ 0x0804EE18
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -24988,7 +24988,7 @@ sub_804EE18: @ 0x0804EE18
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	cmp r5, #0
 	bne .L0804EE4E
 	ldr r6, .L0804EE68 @ =0x0000011F
@@ -25003,7 +25003,7 @@ sub_804EE18: @ 0x0804EE18
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L0804EE8E
 	.align 2, 0
 .L0804EE68: .4byte 0x0000011F
@@ -25013,12 +25013,12 @@ sub_804EE18: @ 0x0804EE18
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0804EE8E
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804EE98 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804EE8E:
@@ -25029,8 +25029,8 @@ sub_804EE18: @ 0x0804EE18
 	.align 2, 0
 .L0804EE98: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EE9C
-sub_804EE9C: @ 0x0804EE9C
+	thumb_func_start func_fe6_0804EE9C
+func_fe6_0804EE9C: @ 0x0804EE9C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804EEC8 @ =gUnk_Banim_02017744
@@ -25057,15 +25057,15 @@ sub_804EE9C: @ 0x0804EE9C
 .L0804EED0: .4byte gUnk_08119EDC
 .L0804EED4: .4byte gUnk_0812CF48
 
-	thumb_func_start sub_804EED8
-sub_804EED8: @ 0x0804EED8
+	thumb_func_start func_fe6_0804EED8
+func_fe6_0804EED8: @ 0x0804EED8
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -25074,14 +25074,14 @@ sub_804EED8: @ 0x0804EED8
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804EF18
 .L0804EEFE:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r1, r0
 	bne .L0804EF18
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804EF20 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -25095,8 +25095,8 @@ sub_804EED8: @ 0x0804EED8
 	.align 2, 0
 .L0804EF20: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EF24
-sub_804EF24: @ 0x0804EF24
+	thumb_func_start func_fe6_0804EF24
+func_fe6_0804EF24: @ 0x0804EF24
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -25116,15 +25116,15 @@ sub_804EF24: @ 0x0804EF24
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L0804EF7C @ =gUnk_0812D80C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804EF80 @ =gUnk_0812D374
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -25137,8 +25137,8 @@ sub_804EF24: @ 0x0804EF24
 .L0804EF7C: .4byte gUnk_0812D80C
 .L0804EF80: .4byte gUnk_0812D374
 
-	thumb_func_start sub_804EF84
-sub_804EF84: @ 0x0804EF84
+	thumb_func_start func_fe6_0804EF84
+func_fe6_0804EF84: @ 0x0804EF84
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -25163,13 +25163,13 @@ sub_804EF84: @ 0x0804EF84
 	.align 2, 0
 .L0804EFB0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804EFB4
-sub_804EFB4: @ 0x0804EFB4
+	thumb_func_start func_fe6_0804EFB4
+func_fe6_0804EFB4: @ 0x0804EFB4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804EFF4 @ =gUnk_085D131C
 	movs r1, #3
 	bl SpawnProc
@@ -25182,10 +25182,10 @@ sub_804EFB4: @ 0x0804EFB4
 	adds r0, #0x2a
 	strb r1, [r0]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -25194,13 +25194,13 @@ sub_804EFB4: @ 0x0804EFB4
 	.align 2, 0
 .L0804EFF4: .4byte gUnk_085D131C
 
-	thumb_func_start sub_804EFF8
-sub_804EFF8: @ 0x0804EFF8
+	thumb_func_start func_fe6_0804EFF8
+func_fe6_0804EFF8: @ 0x0804EFF8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804F038 @ =gUnk_085D131C
 	movs r1, #3
 	bl SpawnProc
@@ -25213,10 +25213,10 @@ sub_804EFF8: @ 0x0804EFF8
 	movs r0, #1
 	strb r0, [r1]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -25225,15 +25225,15 @@ sub_804EFF8: @ 0x0804EFF8
 	.align 2, 0
 .L0804F038: .4byte gUnk_085D131C
 
-	thumb_func_start sub_804F03C
-sub_804F03C: @ 0x0804F03C
+	thumb_func_start func_fe6_0804F03C
+func_fe6_0804F03C: @ 0x0804F03C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
 	push {r6, r7}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	ldr r0, .L0804F068 @ =0x0203CD14
 	movs r1, #0
@@ -25265,9 +25265,9 @@ sub_804F03C: @ 0x0804F03C
 	cmp r0, #1
 	bne .L0804F0A4
 	ldr r0, [r4, #0x5c]
-	bl sub_804F144
+	bl func_fe6_0804F144
 	ldr r0, [r4, #0x5c]
-	bl sub_804F1FC
+	bl func_fe6_0804F1FC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -25275,7 +25275,7 @@ sub_804F03C: @ 0x0804F03C
 	ldrsh r2, [r0, r3]
 	movs r0, #0xf1
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804F0A4:
 	movs r1, #0x2c
 	ldrsh r0, [r4, r1]
@@ -25284,7 +25284,7 @@ sub_804F03C: @ 0x0804F03C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L0804F138
 .L0804F0B8:
 	cmp r0, r7
@@ -25297,7 +25297,7 @@ sub_804F03C: @ 0x0804F03C
 	adds r5, #0x29
 	ldrb r1, [r5]
 	adds r0, r6, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r5]
 	cmp r0, #0
 	bne .L0804F138
@@ -25312,9 +25312,9 @@ sub_804F03C: @ 0x0804F03C
 	ldrsh r2, [r6, r0]
 	movs r0, #0xf7
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r6, #0
-	bl sub_804F2D0
+	bl func_fe6_0804F2D0
 	b .L0804F11A
 .L0804F0F8:
 	movs r1, #0x80
@@ -25323,24 +25323,24 @@ sub_804F03C: @ 0x0804F03C
 	ldrsh r2, [r6, r3]
 	movs r0, #0xf8
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r6, #0
-	bl sub_804F3B8
+	bl func_fe6_0804F3B8
 	adds r0, r6, #0
-	bl sub_804F484
+	bl func_fe6_0804F484
 	adds r0, r6, #0
-	bl sub_804F510
+	bl func_fe6_0804F510
 .L0804F11A:
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804F138
 .L0804F122:
 	cmp r0, r8
 	beq .L0804F138
 	cmp r0, sb
 	bne .L0804F138
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804F138:
@@ -25351,8 +25351,8 @@ sub_804F03C: @ 0x0804F03C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804F144
-sub_804F144: @ 0x0804F144
+	thumb_func_start func_fe6_0804F144
+func_fe6_0804F144: @ 0x0804F144
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F188 @ =gUnk_Banim_02017744
@@ -25374,12 +25374,12 @@ sub_804F144: @ 0x0804F144
 	str r1, [r0, #0x50]
 	ldr r0, .L0804F19C @ =gUnk_0812E4A4
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0804F1A0 @ =gUnk_0812D8AC
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -25392,15 +25392,15 @@ sub_804F144: @ 0x0804F144
 .L0804F19C: .4byte gUnk_0812E4A4
 .L0804F1A0: .4byte gUnk_0812D8AC
 
-	thumb_func_start sub_804F1A4
-sub_804F1A4: @ 0x0804F1A4
+	thumb_func_start func_fe6_0804F1A4
+func_fe6_0804F1A4: @ 0x0804F1A4
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -25413,19 +25413,19 @@ sub_804F1A4: @ 0x0804F1A4
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0804F1F0
 .L0804F1D2:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0804F1F0
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804F1F8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804F1F0:
@@ -25435,8 +25435,8 @@ sub_804F1A4: @ 0x0804F1A4
 	.align 2, 0
 .L0804F1F8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F1FC
-sub_804F1FC: @ 0x0804F1FC
+	thumb_func_start func_fe6_0804F1FC
+func_fe6_0804F1FC: @ 0x0804F1FC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -25457,11 +25457,11 @@ sub_804F1FC: @ 0x0804F1FC
 	ldr r0, .L0804F254 @ =gUnk_085E294C
 	str r0, [sp]
 	adds r0, r6, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F258
 	ldrh r0, [r6, #2]
@@ -25484,11 +25484,11 @@ sub_804F1FC: @ 0x0804F1FC
 	strh r0, [r5, #4]
 	ldr r0, .L0804F280 @ =gUnk_0812FFD8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804F284 @ =gUnk_0812F9DC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -25497,8 +25497,8 @@ sub_804F1FC: @ 0x0804F1FC
 .L0804F280: .4byte gUnk_0812FFD8
 .L0804F284: .4byte gUnk_0812F9DC
 
-	thumb_func_start sub_804F288
-sub_804F288: @ 0x0804F288
+	thumb_func_start func_fe6_0804F288
+func_fe6_0804F288: @ 0x0804F288
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -25515,7 +25515,7 @@ sub_804F288: @ 0x0804F288
 	ldrsh r2, [r0, r3]
 	movs r0, #0xf2
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0804F2C6
 .L0804F2AE:
 	cmp r0, #0x32
@@ -25535,8 +25535,8 @@ sub_804F288: @ 0x0804F288
 	.align 2, 0
 .L0804F2CC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F2D0
-sub_804F2D0: @ 0x0804F2D0
+	thumb_func_start func_fe6_0804F2D0
+func_fe6_0804F2D0: @ 0x0804F2D0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F328 @ =gUnk_Banim_02017744
@@ -25560,15 +25560,15 @@ sub_804F2D0: @ 0x0804F2D0
 	str r0, [r5, #0x54]
 	ldr r0, .L0804F33C @ =gUnk_08138BF0
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L0804F340 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804F34E
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F344
 	movs r0, #1
@@ -25594,15 +25594,15 @@ sub_804F2D0: @ 0x0804F2D0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804F354
-sub_804F354: @ 0x0804F354
+	thumb_func_start func_fe6_0804F354
+func_fe6_0804F354: @ 0x0804F354
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -25615,25 +25615,25 @@ sub_804F354: @ 0x0804F354
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0804F3AE
 .L0804F390:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L0804F3AE
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804F3B4 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L0804F3AE:
@@ -25643,8 +25643,8 @@ sub_804F354: @ 0x0804F354
 	.align 2, 0
 .L0804F3B4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F3B8
-sub_804F3B8: @ 0x0804F3B8
+	thumb_func_start func_fe6_0804F3B8
+func_fe6_0804F3B8: @ 0x0804F3B8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -25662,20 +25662,20 @@ sub_804F3B8: @ 0x0804F3B8
 	ldr r0, .L0804F41C @ =gUnk_0813A6F8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r5, #0x5c]
 	ldr r2, .L0804F420 @ =gUnk_0813B8B4
 	adds r1, r2, #0
-	bl sub_804799C
-	bl sub_80474C8
-	bl sub_8047500
+	bl func_fe6_0804799C
+	bl func_fe6_080474C8
+	bl func_fe6_08047500
 	ldr r0, .L0804F424 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804F444
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F428
 	movs r0, #1
@@ -25702,7 +25702,7 @@ sub_804F3B8: @ 0x0804F3B8
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B0D4
+	bl func_fe6_0805B0D4
 .L0804F444:
 	add sp, #4
 	pop {r4, r5}
@@ -25711,8 +25711,8 @@ sub_804F3B8: @ 0x0804F3B8
 	.align 2, 0
 .L0804F44C: .4byte gBg1Tm+0x3C
 
-	thumb_func_start sub_804F450
-sub_804F450: @ 0x0804F450
+	thumb_func_start func_fe6_0804F450
+func_fe6_0804F450: @ 0x0804F450
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -25722,8 +25722,8 @@ sub_804F450: @ 0x0804F450
 	asrs r0, r0, #0x10
 	cmp r0, #0x28
 	bne .L0804F478
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804F480 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -25737,8 +25737,8 @@ sub_804F450: @ 0x0804F450
 	.align 2, 0
 .L0804F480: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F484
-sub_804F484: @ 0x0804F484
+	thumb_func_start func_fe6_0804F484
+func_fe6_0804F484: @ 0x0804F484
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F4B8 @ =gUnk_Banim_02017744
@@ -25758,7 +25758,7 @@ sub_804F484: @ 0x0804F484
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -25768,15 +25768,15 @@ sub_804F484: @ 0x0804F484
 .L0804F4C0: .4byte gUnk_08119FA6
 .L0804F4C4: .4byte gUnk_0813B6B4
 
-	thumb_func_start sub_804F4C8
-sub_804F4C8: @ 0x0804F4C8
+	thumb_func_start func_fe6_0804F4C8
+func_fe6_0804F4C8: @ 0x0804F4C8
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -25785,7 +25785,7 @@ sub_804F4C8: @ 0x0804F4C8
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L0804F504
 .L0804F4EE:
 	movs r0, #1
@@ -25805,8 +25805,8 @@ sub_804F4C8: @ 0x0804F4C8
 	.align 2, 0
 .L0804F50C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F510
-sub_804F510: @ 0x0804F510
+	thumb_func_start func_fe6_0804F510
+func_fe6_0804F510: @ 0x0804F510
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -25826,11 +25826,11 @@ sub_804F510: @ 0x0804F510
 	str r2, [sp]
 	adds r0, r5, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F560
 	ldrh r0, [r6, #2]
@@ -25853,11 +25853,11 @@ sub_804F510: @ 0x0804F510
 	str r0, [r6, #0x1c]
 	ldr r0, .L0804F58C @ =gUnk_0813BD74
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804F590 @ =gUnk_0813BAFC
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -25866,8 +25866,8 @@ sub_804F510: @ 0x0804F510
 .L0804F58C: .4byte gUnk_0813BD74
 .L0804F590: .4byte gUnk_0813BAFC
 
-	thumb_func_start sub_804F594
-sub_804F594: @ 0x0804F594
+	thumb_func_start func_fe6_0804F594
+func_fe6_0804F594: @ 0x0804F594
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -25892,13 +25892,13 @@ sub_804F594: @ 0x0804F594
 	.align 2, 0
 .L0804F5C0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F5C4
-sub_804F5C4: @ 0x0804F5C4
+	thumb_func_start func_fe6_0804F5C4
+func_fe6_0804F5C4: @ 0x0804F5C4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804F5FC @ =gUnk_085D14D4
 	movs r1, #3
 	bl SpawnProc
@@ -25907,10 +25907,10 @@ sub_804F5C4: @ 0x0804F5C4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -25919,17 +25919,17 @@ sub_804F5C4: @ 0x0804F5C4
 	.align 2, 0
 .L0804F5FC: .4byte gUnk_085D14D4
 
-	thumb_func_start sub_804F600
-sub_804F600: @ 0x0804F600
+	thumb_func_start func_fe6_0804F600
+func_fe6_0804F600: @ 0x0804F600
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -25944,7 +25944,7 @@ sub_804F600: @ 0x0804F600
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0804F636:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -25952,9 +25952,9 @@ sub_804F600: @ 0x0804F600
 	cmp r1, r0
 	bne .L0804F692
 	adds r0, r5, #0
-	bl sub_804F738
+	bl func_fe6_0804F738
 	adds r0, r5, #0
-	bl sub_804F99C
+	bl func_fe6_0804F99C
 	ldr r3, .L0804F6A8 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -25979,7 +25979,7 @@ sub_804F600: @ 0x0804F600
 	movs r1, #0
 	movs r2, #0x10
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r0, #0x91
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -25987,7 +25987,7 @@ sub_804F600: @ 0x0804F600
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0804F692:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -25997,7 +25997,7 @@ sub_804F600: @ 0x0804F600
 	bne .L0804F6AC
 	ldr r0, [r4, #0x5c]
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L0804F72C
 	.align 2, 0
 .L0804F6A8: .4byte gDispIo
@@ -26007,23 +26007,23 @@ sub_804F600: @ 0x0804F600
 	cmp r1, r0
 	bne .L0804F6E8
 	adds r0, r5, #0
-	bl sub_804F820
+	bl func_fe6_0804F820
 	adds r0, r5, #0
-	bl sub_804F908
+	bl func_fe6_0804F908
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x18
 	movs r2, #0x10
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	ldr r0, .L0804F6E4 @ =0x00000123
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0804F72C
 	.align 2, 0
 .L0804F6E4: .4byte 0x00000123
@@ -26039,12 +26039,12 @@ sub_804F600: @ 0x0804F600
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804F72C
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804F72C
 .L0804F710:
 	adds r0, r6, #0
@@ -26054,8 +26054,8 @@ sub_804F600: @ 0x0804F600
 	adds r0, #0x19
 	cmp r1, r0
 	bne .L0804F72C
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804F72C:
@@ -26066,8 +26066,8 @@ sub_804F600: @ 0x0804F600
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804F738
-sub_804F738: @ 0x0804F738
+	thumb_func_start func_fe6_0804F738
+func_fe6_0804F738: @ 0x0804F738
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F78C @ =gUnk_Banim_02017744
@@ -26091,14 +26091,14 @@ sub_804F738: @ 0x0804F738
 	str r0, [r5, #0x54]
 	ldr r0, .L0804F7A0 @ =gUnk_081521C0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0804F7A4 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804F7B2
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F7A8
 	movs r0, #1
@@ -26120,20 +26120,20 @@ sub_804F738: @ 0x0804F738
 	movs r2, #0
 	bl SetBgOffset
 .L0804F7B2:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804F7BC
-sub_804F7BC: @ 0x0804F7BC
+	thumb_func_start func_fe6_0804F7BC
+func_fe6_0804F7BC: @ 0x0804F7BC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -26147,24 +26147,24 @@ sub_804F7BC: @ 0x0804F7BC
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L0804F816
 .L0804F7F8:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0804F816
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804F81C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804F816:
@@ -26174,8 +26174,8 @@ sub_804F7BC: @ 0x0804F7BC
 	.align 2, 0
 .L0804F81C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F820
-sub_804F820: @ 0x0804F820
+	thumb_func_start func_fe6_0804F820
+func_fe6_0804F820: @ 0x0804F820
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F874 @ =gUnk_Banim_02017744
@@ -26199,14 +26199,14 @@ sub_804F820: @ 0x0804F820
 	str r0, [r5, #0x54]
 	ldr r0, .L0804F888 @ =gUnk_0814A498
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0804F88C @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804F89A
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804F890
 	movs r0, #1
@@ -26228,20 +26228,20 @@ sub_804F820: @ 0x0804F820
 	movs r2, #0
 	bl SetBgOffset
 .L0804F89A:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804F8A4
-sub_804F8A4: @ 0x0804F8A4
+	thumb_func_start func_fe6_0804F8A4
+func_fe6_0804F8A4: @ 0x0804F8A4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -26255,24 +26255,24 @@ sub_804F8A4: @ 0x0804F8A4
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L0804F8FE
 .L0804F8E0:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0804F8FE
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0804F904 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804F8FE:
@@ -26282,8 +26282,8 @@ sub_804F8A4: @ 0x0804F8A4
 	.align 2, 0
 .L0804F904: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F908
-sub_804F908: @ 0x0804F908
+	thumb_func_start func_fe6_0804F908
+func_fe6_0804F908: @ 0x0804F908
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -26303,18 +26303,18 @@ sub_804F908: @ 0x0804F908
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #2]
 	adds r1, #0x18
 	strh r1, [r0, #2]
 	ldr r0, .L0804F964 @ =gUnk_081AC0F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804F968 @ =gUnk_08152E78
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -26326,8 +26326,8 @@ sub_804F908: @ 0x0804F908
 .L0804F964: .4byte gUnk_081AC0F4
 .L0804F968: .4byte gUnk_08152E78
 
-	thumb_func_start sub_804F96C
-sub_804F96C: @ 0x0804F96C
+	thumb_func_start func_fe6_0804F96C
+func_fe6_0804F96C: @ 0x0804F96C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -26352,8 +26352,8 @@ sub_804F96C: @ 0x0804F96C
 	.align 2, 0
 .L0804F998: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804F99C
-sub_804F99C: @ 0x0804F99C
+	thumb_func_start func_fe6_0804F99C
+func_fe6_0804F99C: @ 0x0804F99C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804F9D8 @ =gUnk_Banim_02017744
@@ -26372,11 +26372,11 @@ sub_804F99C: @ 0x0804F99C
 	str r2, [r0, #0x48]
 	ldr r0, .L0804F9E0 @ =gUnk_081AC0F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804F9E4 @ =gUnk_08152E78
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -26386,15 +26386,15 @@ sub_804F99C: @ 0x0804F99C
 .L0804F9E0: .4byte gUnk_081AC0F4
 .L0804F9E4: .4byte gUnk_08152E78
 
-	thumb_func_start sub_804F9E8
-sub_804F9E8: @ 0x0804F9E8
+	thumb_func_start func_fe6_0804F9E8
+func_fe6_0804F9E8: @ 0x0804F9E8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r4, #0
 .L0804F9EE:
 	ldr r0, [r5, #0x5c]
 	adds r1, r4, #0
-	bl sub_804FA14
+	bl func_fe6_0804FA14
 	adds r4, #1
 	cmp r4, #0x1f
 	ble .L0804F9EE
@@ -26410,8 +26410,8 @@ sub_804F9E8: @ 0x0804F9E8
 	.align 2, 0
 .L0804FA10: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804FA14
-sub_804FA14: @ 0x0804FA14
+	thumb_func_start func_fe6_0804FA14
+func_fe6_0804FA14: @ 0x0804FA14
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -26461,16 +26461,16 @@ sub_804FA14: @ 0x0804FA14
 	strh r1, [r0, #4]
 	ldr r5, .L0804FAB0 @ =0x0000FFFF
 	adds r0, r5, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	strh r0, [r7, #0x32]
 	adds r0, r5, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	strh r0, [r7, #0x3a]
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804FAB8
 	adds r0, r5, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FAB4 @ =0x000001FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26485,7 +26485,7 @@ sub_804FA14: @ 0x0804FA14
 .L0804FAB4: .4byte 0x000001FF
 .L0804FAB8:
 	adds r0, r5, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FB14 @ =0x000001FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26497,7 +26497,7 @@ sub_804FA14: @ 0x0804FA14
 	strh r0, [r7, #0x34]
 	ldr r4, .L0804FB18 @ =0x0000FF0F
 	adds r0, r4, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FB1C @ =0x000003FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26505,10 +26505,10 @@ sub_804FA14: @ 0x0804FA14
 	adds r0, r0, r1
 	strh r0, [r7, #0x3c]
 	adds r0, r4, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	strh r0, [r7, #0x36]
 	adds r0, r4, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	strh r0, [r7, #0x3e]
 	movs r0, #7
 	mov r2, r8
@@ -26518,7 +26518,7 @@ sub_804FA14: @ 0x0804FA14
 	cmp r0, #0
 	bne .L0804FB24
 	adds r0, r4, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FB14 @ =0x000001FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26532,7 +26532,7 @@ sub_804FA14: @ 0x0804FA14
 .L0804FB20: .4byte 0xFFFFFF00
 .L0804FB24:
 	adds r0, r4, #0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FB5C @ =0x000001FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26543,7 +26543,7 @@ sub_804FA14: @ 0x0804FA14
 	adds r0, r0, r1
 	strh r0, [r7, #0x38]
 	ldr r0, .L0804FB60 @ =0x0000FF0F
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	ldr r2, .L0804FB64 @ =0x000003FF
 	adds r1, r2, #0
 	ands r0, r1
@@ -26564,8 +26564,8 @@ sub_804FA14: @ 0x0804FA14
 .L0804FB64: .4byte 0x000003FF
 .L0804FB68: .4byte 0xFFFFFF00
 
-	thumb_func_start sub_804FB6C
-sub_804FB6C: @ 0x0804FB6C
+	thumb_func_start func_fe6_0804FB6C
+func_fe6_0804FB6C: @ 0x0804FB6C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r3, [r4, #0x60]
@@ -26664,13 +26664,13 @@ sub_804FB6C: @ 0x0804FB6C
 	.align 2, 0
 .L0804FC24: .4byte gUnk_085E7ACC
 
-	thumb_func_start sub_804FC28
-sub_804FC28: @ 0x0804FC28
+	thumb_func_start func_fe6_0804FC28
+func_fe6_0804FC28: @ 0x0804FC28
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0804FC60 @ =gUnk_085D15EC
 	movs r1, #3
 	bl SpawnProc
@@ -26679,10 +26679,10 @@ sub_804FC28: @ 0x0804FC28
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -26691,14 +26691,14 @@ sub_804FC28: @ 0x0804FC28
 	.align 2, 0
 .L0804FC60: .4byte gUnk_085D15EC
 
-	thumb_func_start sub_804FC64
-sub_804FC64: @ 0x0804FC64
+	thumb_func_start func_fe6_0804FC64
+func_fe6_0804FC64: @ 0x0804FC64
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -26710,7 +26710,7 @@ sub_804FC64: @ 0x0804FC64
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0804FC8E:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -26723,11 +26723,11 @@ sub_804FC64: @ 0x0804FC64
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_804FD24
+	bl func_fe6_0804FD24
 	adds r0, r5, #0
-	bl sub_804FE60
+	bl func_fe6_0804FE60
 .L0804FCB4:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -26738,7 +26738,7 @@ sub_804FC64: @ 0x0804FC64
 	adds r0, r5, #0
 	movs r1, #2
 	movs r2, #3
-	bl sub_804FF94
+	bl func_fe6_0804FF94
 .L0804FCCA:
 	movs r3, #0x2c
 	ldrsh r1, [r4, r3]
@@ -26747,7 +26747,7 @@ sub_804FC64: @ 0x0804FC64
 	cmp r1, r0
 	bne .L0804FD00
 	adds r0, r5, #0
-	bl sub_804FDD4
+	bl func_fe6_0804FDD4
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -26755,12 +26755,12 @@ sub_804FC64: @ 0x0804FC64
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0804FD1C
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0804FD1C
 	.align 2, 0
 .L0804FCFC: .4byte 0x00000119
@@ -26772,8 +26772,8 @@ sub_804FC64: @ 0x0804FC64
 	adds r0, #5
 	cmp r1, r0
 	bne .L0804FD1C
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0804FD1C:
@@ -26782,8 +26782,8 @@ sub_804FC64: @ 0x0804FC64
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_804FD24
-sub_804FD24: @ 0x0804FD24
+	thumb_func_start func_fe6_0804FD24
+func_fe6_0804FD24: @ 0x0804FD24
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804FD60 @ =gUnk_Banim_02017744
@@ -26806,8 +26806,8 @@ sub_804FD24: @ 0x0804FD24
 	str r1, [r0, #0x54]
 	ldr r0, .L0804FD74 @ =gUnk_0813E75C
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -26819,15 +26819,15 @@ sub_804FD24: @ 0x0804FD24
 .L0804FD70: .4byte gUnk_085D161C
 .L0804FD74: .4byte gUnk_0813E75C
 
-	thumb_func_start sub_804FD78
-sub_804FD78: @ 0x0804FD78
+	thumb_func_start func_fe6_0804FD78
+func_fe6_0804FD78: @ 0x0804FD78
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -26840,13 +26840,13 @@ sub_804FD78: @ 0x0804FD78
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0804FDCA
 .L0804FDB4:
 	movs r0, #1
@@ -26866,8 +26866,8 @@ sub_804FD78: @ 0x0804FD78
 	.align 2, 0
 .L0804FDD0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804FDD4
-sub_804FDD4: @ 0x0804FDD4
+	thumb_func_start func_fe6_0804FDD4
+func_fe6_0804FDD4: @ 0x0804FDD4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804FDF0 @ =gUnk_Banim_02017744
@@ -26885,8 +26885,8 @@ sub_804FDD4: @ 0x0804FDD4
 .L0804FDF0: .4byte gUnk_Banim_02017744
 .L0804FDF4: .4byte gUnk_085D1674
 
-	thumb_func_start sub_804FDF8
-sub_804FDF8: @ 0x0804FDF8
+	thumb_func_start func_fe6_0804FDF8
+func_fe6_0804FDF8: @ 0x0804FDF8
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -26895,15 +26895,15 @@ sub_804FDF8: @ 0x0804FDF8
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L0804FE34 @ =gUnk_0812D80C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0804FE38 @ =gUnk_0812D374
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	add sp, #4
@@ -26915,8 +26915,8 @@ sub_804FDF8: @ 0x0804FDF8
 .L0804FE34: .4byte gUnk_0812D80C
 .L0804FE38: .4byte gUnk_0812D374
 
-	thumb_func_start sub_804FE3C
-sub_804FE3C: @ 0x0804FE3C
+	thumb_func_start func_fe6_0804FE3C
+func_fe6_0804FE3C: @ 0x0804FE3C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x60]
@@ -26933,8 +26933,8 @@ sub_804FE3C: @ 0x0804FE3C
 	.align 2, 0
 .L0804FE5C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804FE60
-sub_804FE60: @ 0x0804FE60
+	thumb_func_start func_fe6_0804FE60
+func_fe6_0804FE60: @ 0x0804FE60
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0804FE7C @ =gUnk_Banim_02017744
@@ -26952,8 +26952,8 @@ sub_804FE60: @ 0x0804FE60
 .L0804FE7C: .4byte gUnk_Banim_02017744
 .L0804FE80: .4byte gUnk_085D169C
 
-	thumb_func_start sub_804FE84
-sub_804FE84: @ 0x0804FE84
+	thumb_func_start func_fe6_0804FE84
+func_fe6_0804FE84: @ 0x0804FE84
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0x8d
@@ -26964,10 +26964,10 @@ sub_804FE84: @ 0x0804FE84
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x26
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #5
@@ -26978,8 +26978,8 @@ sub_804FE84: @ 0x0804FE84
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_804FEB8
-sub_804FEB8: @ 0x0804FEB8
+	thumb_func_start func_fe6_0804FEB8
+func_fe6_0804FEB8: @ 0x0804FEB8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -27003,7 +27003,7 @@ sub_804FEB8: @ 0x0804FEB8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl sub_805B644
+	bl func_fe6_0805B644
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
 	strh r0, [r6, #0x2c]
@@ -27027,8 +27027,8 @@ sub_804FEB8: @ 0x0804FEB8
 .L0804FF14: .4byte gPal
 .L0804FF18: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_804FF1C
-sub_804FF1C: @ 0x0804FF1C
+	thumb_func_start func_fe6_0804FF1C
+func_fe6_0804FF1C: @ 0x0804FF1C
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -27069,8 +27069,8 @@ sub_804FF1C: @ 0x0804FF1C
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	ble .L0804FF84
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r1, .L0804FF90 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -27086,8 +27086,8 @@ sub_804FF1C: @ 0x0804FF1C
 .L0804FF8C: .4byte gDispIo
 .L0804FF90: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_804FF94
-sub_804FF94: @ 0x0804FF94
+	thumb_func_start func_fe6_0804FF94
+func_fe6_0804FF94: @ 0x0804FF94
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -27118,8 +27118,8 @@ sub_804FF94: @ 0x0804FF94
 .L0804FFD0: .4byte gUnk_Banim_020165C0
 .L0804FFD4: .4byte gUnk_085D16DC
 
-	thumb_func_start sub_804FFD8
-sub_804FFD8: @ 0x0804FFD8
+	thumb_func_start func_fe6_0804FFD8
+func_fe6_0804FFD8: @ 0x0804FFD8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -27137,7 +27137,7 @@ sub_804FFD8: @ 0x0804FFD8
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -27165,8 +27165,8 @@ sub_804FFD8: @ 0x0804FFD8
 	.align 2, 0
 .L08050034: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_8050038
-sub_8050038: @ 0x08050038
+	thumb_func_start func_fe6_08050038
+func_fe6_08050038: @ 0x08050038
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08050074 @ =gUnk_Banim_020165C0
@@ -27198,13 +27198,13 @@ sub_8050038: @ 0x08050038
 .L08050074: .4byte gUnk_Banim_020165C0
 .L08050078: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805007C
-sub_805007C: @ 0x0805007C
+	thumb_func_start func_fe6_0805007C
+func_fe6_0805007C: @ 0x0805007C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080500B4 @ =gUnk_085D16FC
 	movs r1, #3
 	bl SpawnProc
@@ -27213,10 +27213,10 @@ sub_805007C: @ 0x0805007C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -27225,15 +27225,15 @@ sub_805007C: @ 0x0805007C
 	.align 2, 0
 .L080500B4: .4byte gUnk_085D16FC
 
-	thumb_func_start sub_80500B8
-sub_80500B8: @ 0x080500B8
+	thumb_func_start func_fe6_080500B8
+func_fe6_080500B8: @ 0x080500B8
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r2, r0, #0
 	ldr r0, .L08050110 @ =0x0203CD14
 	movs r1, #0
@@ -27252,7 +27252,7 @@ sub_80500B8: @ 0x080500B8
 	cmp r0, #1
 	bne .L08050114
 	ldr r0, [r4, #0x5c]
-	bl sub_8050308
+	bl func_fe6_08050308
 	movs r0, #0x84
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -27261,11 +27261,11 @@ sub_80500B8: @ 0x080500B8
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L080501B0
 	.align 2, 0
 .L08050110: .4byte 0x0203CD14
@@ -27277,7 +27277,7 @@ sub_80500B8: @ 0x080500B8
 	bne .L08050128
 	ldr r0, [r4, #0x5c]
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L080501B0
 .L08050128:
 	adds r0, r2, #6
@@ -27285,23 +27285,23 @@ sub_80500B8: @ 0x080500B8
 	cmp r1, r0
 	bne .L08050164
 	adds r0, r5, #0
-	bl sub_80501B8
+	bl func_fe6_080501B8
 	adds r0, r5, #0
-	bl sub_805027C
+	bl func_fe6_0805027C
 	str r6, [sp]
 	str r6, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #6
 	movs r2, #5
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	ldr r0, .L08050160 @ =0x00000109
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080501B0
 	.align 2, 0
 .L08050160: .4byte 0x00000109
@@ -27318,12 +27318,12 @@ sub_80500B8: @ 0x080500B8
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L080501B0
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L080501B0
 .L0805018E:
 	adds r0, r2, #0
@@ -27336,8 +27336,8 @@ sub_80500B8: @ 0x080500B8
 	adds r0, r3, r0
 	cmp r1, r0
 	bne .L080501B0
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L080501B0:
@@ -27346,8 +27346,8 @@ sub_80500B8: @ 0x080500B8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80501B8
-sub_80501B8: @ 0x080501B8
+	thumb_func_start func_fe6_080501B8
+func_fe6_080501B8: @ 0x080501B8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r1, .L08050204 @ =gUnk_Banim_02017744
@@ -27369,10 +27369,10 @@ sub_80501B8: @ 0x080501B8
 	ldr r0, .L08050214 @ =gUnk_08159D98
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050218
 	movs r0, #1
@@ -27396,15 +27396,15 @@ sub_80501B8: @ 0x080501B8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050228
-sub_8050228: @ 0x08050228
+	thumb_func_start func_fe6_08050228
+func_fe6_08050228: @ 0x08050228
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -27416,19 +27416,19 @@ sub_8050228: @ 0x08050228
 	ldr r1, [r1]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_8047A1C
+	bl func_fe6_08047A1C
 	b .L08050272
 .L08050254:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r1, r0
 	bne .L08050272
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08050278 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08050272:
@@ -27438,8 +27438,8 @@ sub_8050228: @ 0x08050228
 	.align 2, 0
 .L08050278: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805027C
-sub_805027C: @ 0x0805027C
+	thumb_func_start func_fe6_0805027C
+func_fe6_0805027C: @ 0x0805027C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080502B0 @ =gUnk_Banim_02017744
@@ -27460,7 +27460,7 @@ sub_805027C: @ 0x0805027C
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -27470,15 +27470,15 @@ sub_805027C: @ 0x0805027C
 .L080502B8: .4byte gUnk_0811A0E8
 .L080502BC: .4byte gUnk_0815B364
 
-	thumb_func_start sub_80502C0
-sub_80502C0: @ 0x080502C0
+	thumb_func_start func_fe6_080502C0
+func_fe6_080502C0: @ 0x080502C0
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -27487,7 +27487,7 @@ sub_80502C0: @ 0x080502C0
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L080502FC
 .L080502E6:
 	movs r0, #1
@@ -27507,8 +27507,8 @@ sub_80502C0: @ 0x080502C0
 	.align 2, 0
 .L08050304: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8050308
-sub_8050308: @ 0x08050308
+	thumb_func_start func_fe6_08050308
+func_fe6_08050308: @ 0x08050308
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -27529,11 +27529,11 @@ sub_8050308: @ 0x08050308
 	ldr r0, .L08050360 @ =gUnk_085E9160
 	str r0, [sp]
 	adds r0, r4, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r6, #0x60]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050364
 	ldrh r0, [r5, #2]
@@ -27555,11 +27555,11 @@ sub_8050308: @ 0x08050308
 	strh r0, [r6, #0x2e]
 	ldr r0, .L08050388 @ =gUnk_0815BED4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805038C @ =gUnk_0815B910
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -27568,8 +27568,8 @@ sub_8050308: @ 0x08050308
 .L08050388: .4byte gUnk_0815BED4
 .L0805038C: .4byte gUnk_0815B910
 
-	thumb_func_start sub_8050390
-sub_8050390: @ 0x08050390
+	thumb_func_start func_fe6_08050390
+func_fe6_08050390: @ 0x08050390
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -27592,13 +27592,13 @@ sub_8050390: @ 0x08050390
 	.align 2, 0
 .L080503B8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80503BC
-sub_80503BC: @ 0x080503BC
+	thumb_func_start func_fe6_080503BC
+func_fe6_080503BC: @ 0x080503BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080503F4 @ =gUnk_085D176C
 	movs r1, #3
 	bl SpawnProc
@@ -27607,10 +27607,10 @@ sub_80503BC: @ 0x080503BC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -27619,14 +27619,14 @@ sub_80503BC: @ 0x080503BC
 	.align 2, 0
 .L080503F4: .4byte gUnk_085D176C
 
-	thumb_func_start sub_80503F8
-sub_80503F8: @ 0x080503F8
+	thumb_func_start func_fe6_080503F8
+func_fe6_080503F8: @ 0x080503F8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -27643,15 +27643,15 @@ sub_80503F8: @ 0x080503F8
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_80504F0
+	bl func_fe6_080504F0
 	b .L080504E8
 .L08050434:
 	cmp r0, #0x18
 	bne .L08050440
 	ldr r0, [r4, #0x5c]
-	bl sub_80506B4
+	bl func_fe6_080506B4
 	b .L080504E8
 .L08050440:
 	cmp r0, #0x82
@@ -27659,7 +27659,7 @@ sub_80503F8: @ 0x080503F8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L080504E8
 .L08050450:
 	movs r0, #0x2c
@@ -27669,7 +27669,7 @@ sub_80503F8: @ 0x080503F8
 	cmp r1, r0
 	bne .L08050466
 	adds r0, r5, #0
-	bl sub_80506F8
+	bl func_fe6_080506F8
 	str r0, [r4, #0x64]
 	b .L080504E8
 .L08050466:
@@ -27683,9 +27683,9 @@ sub_80503F8: @ 0x080503F8
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
-	bl sub_80505A0
+	bl func_fe6_080505A0
 	b .L080504E8
 	.align 2, 0
 .L08050488: .4byte 0x0000010B
@@ -27704,7 +27704,7 @@ sub_80503F8: @ 0x080503F8
 	bne .L080504CC
 	ldr r0, [r4, #0x5c]
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -27712,12 +27712,12 @@ sub_80503F8: @ 0x080503F8
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L080504E8
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L080504E8
 .L080504CC:
 	adds r0, r2, #0
@@ -27727,8 +27727,8 @@ sub_80503F8: @ 0x080503F8
 	adds r0, #0xa
 	cmp r1, r0
 	bne .L080504E8
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L080504E8:
@@ -27737,8 +27737,8 @@ sub_80503F8: @ 0x080503F8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80504F0
-sub_80504F0: @ 0x080504F0
+	thumb_func_start func_fe6_080504F0
+func_fe6_080504F0: @ 0x080504F0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08050548 @ =gUnk_Banim_02017744
@@ -27762,15 +27762,15 @@ sub_80504F0: @ 0x080504F0
 	str r0, [r5, #0x54]
 	ldr r0, .L0805055C @ =gUnk_0815F880
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L08050560 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0805056E
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050564
 	movs r0, #1
@@ -27793,7 +27793,7 @@ sub_80504F0: @ 0x080504F0
 	bl SetBgOffset
 .L0805056E:
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050584
 	ldr r0, .L08050580 @ =gDispIo
@@ -27818,8 +27818,8 @@ sub_80504F0: @ 0x080504F0
 	.align 2, 0
 .L0805059C: .4byte gDispIo
 
-	thumb_func_start sub_80505A0
-sub_80505A0: @ 0x080505A0
+	thumb_func_start func_fe6_080505A0
+func_fe6_080505A0: @ 0x080505A0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08050620 @ =gUnk_Banim_02017744
@@ -27844,8 +27844,8 @@ sub_80505A0: @ 0x080505A0
 	str r0, [r5, #0x54]
 	ldr r0, .L08050634 @ =gUnk_0815F8A0
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r3, .L08050638 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -27871,7 +27871,7 @@ sub_80505A0: @ 0x080505A0
 	cmp r0, #0
 	beq .L0805064A
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050640
 	movs r0, #1
@@ -27898,15 +27898,15 @@ sub_80505A0: @ 0x080505A0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050650
-sub_8050650: @ 0x08050650
+	thumb_func_start func_fe6_08050650
+func_fe6_08050650: @ 0x08050650
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -27919,25 +27919,25 @@ sub_8050650: @ 0x08050650
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L080506AA
 .L0805068C:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L080506AA
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L080506B0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L080506AA:
@@ -27947,8 +27947,8 @@ sub_8050650: @ 0x08050650
 	.align 2, 0
 .L080506B0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80506B4
-sub_80506B4: @ 0x080506B4
+	thumb_func_start func_fe6_080506B4
+func_fe6_080506B4: @ 0x080506B4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -27962,13 +27962,13 @@ sub_80506B4: @ 0x080506B4
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	ldr r3, .L080506F4 @ =gUnk_085D0E8C
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -27979,8 +27979,8 @@ sub_80506B4: @ 0x080506B4
 .L080506F0: .4byte gUnk_085D18E4
 .L080506F4: .4byte gUnk_085D0E8C
 
-	thumb_func_start sub_80506F8
-sub_80506F8: @ 0x080506F8
+	thumb_func_start func_fe6_080506F8
+func_fe6_080506F8: @ 0x080506F8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -27994,13 +27994,13 @@ sub_80506F8: @ 0x080506F8
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	ldr r3, .L08050740 @ =gUnk_085D0E8C
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldrh r1, [r0, #4]
 	subs r1, #4
@@ -28015,8 +28015,8 @@ sub_80506F8: @ 0x080506F8
 .L0805073C: .4byte gUnk_085D192C
 .L08050740: .4byte gUnk_085D0E8C
 
-	thumb_func_start sub_8050744
-sub_8050744: @ 0x08050744
+	thumb_func_start func_fe6_08050744
+func_fe6_08050744: @ 0x08050744
 	push {lr}
 	ldr r2, .L08050758 @ =gUnk_Banim_02017744
 	ldr r1, [r2]
@@ -28029,8 +28029,8 @@ sub_8050744: @ 0x08050744
 	.align 2, 0
 .L08050758: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805075C
-sub_805075C: @ 0x0805075C
+	thumb_func_start func_fe6_0805075C
+func_fe6_0805075C: @ 0x0805075C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -28041,11 +28041,11 @@ sub_805075C: @ 0x0805075C
 	strh r0, [r1, #6]
 	ldr r0, .L08050790 @ =gUnk_081629D4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08050794 @ =gUnk_08161DDC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -28056,8 +28056,8 @@ sub_805075C: @ 0x0805075C
 .L08050790: .4byte gUnk_081629D4
 .L08050794: .4byte gUnk_08161DDC
 
-	thumb_func_start sub_8050798
-sub_8050798: @ 0x08050798
+	thumb_func_start func_fe6_08050798
+func_fe6_08050798: @ 0x08050798
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -28068,11 +28068,11 @@ sub_8050798: @ 0x08050798
 	strh r0, [r1, #6]
 	ldr r0, .L080507CC @ =gUnk_081629D4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080507D0 @ =gUnk_081621DC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -28083,8 +28083,8 @@ sub_8050798: @ 0x08050798
 .L080507CC: .4byte gUnk_081629D4
 .L080507D0: .4byte gUnk_081621DC
 
-	thumb_func_start sub_80507D4
-sub_80507D4: @ 0x080507D4
+	thumb_func_start func_fe6_080507D4
+func_fe6_080507D4: @ 0x080507D4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -28095,11 +28095,11 @@ sub_80507D4: @ 0x080507D4
 	strh r0, [r1, #6]
 	ldr r0, .L08050808 @ =gUnk_081629D4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805080C @ =gUnk_0816261C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -28110,8 +28110,8 @@ sub_80507D4: @ 0x080507D4
 .L08050808: .4byte gUnk_081629D4
 .L0805080C: .4byte gUnk_0816261C
 
-	thumb_func_start sub_8050810
-sub_8050810: @ 0x08050810
+	thumb_func_start func_fe6_08050810
+func_fe6_08050810: @ 0x08050810
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -28133,8 +28133,8 @@ sub_8050810: @ 0x08050810
 	.align 2, 0
 .L08050838: .4byte gUnk_085EB1A8
 
-	thumb_func_start sub_805083C
-sub_805083C: @ 0x0805083C
+	thumb_func_start func_fe6_0805083C
+func_fe6_0805083C: @ 0x0805083C
 	adds r1, r0, #0
 	ldr r2, [r1, #0x60]
 	ldrh r0, [r1, #0x2c]
@@ -28155,13 +28155,13 @@ sub_805083C: @ 0x0805083C
 	.align 2, 0
 .L0805085C: .4byte gUnk_085EB1DC
 
-	thumb_func_start sub_8050860
-sub_8050860: @ 0x08050860
+	thumb_func_start func_fe6_08050860
+func_fe6_08050860: @ 0x08050860
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08050898 @ =gUnk_085D195C
 	movs r1, #3
 	bl SpawnProc
@@ -28170,10 +28170,10 @@ sub_8050860: @ 0x08050860
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -28182,17 +28182,17 @@ sub_8050860: @ 0x08050860
 	.align 2, 0
 .L08050898: .4byte gUnk_085D195C
 
-	thumb_func_start sub_805089C
-sub_805089C: @ 0x0805089C
+	thumb_func_start func_fe6_0805089C
+func_fe6_0805089C: @ 0x0805089C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -28207,7 +28207,7 @@ sub_805089C: @ 0x0805089C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L080508D2:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -28238,16 +28238,16 @@ sub_805089C: @ 0x0805089C
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x28
 	movs r2, #0x28
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	adds r0, r6, #0
-	bl sub_8050A70
+	bl func_fe6_08050A70
 	movs r0, #0x92
 	lsls r0, r0, #1
 	b .L08050982
@@ -28264,22 +28264,22 @@ sub_805089C: @ 0x0805089C
 	movs r1, #0x52
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_804C8D4
+	bl func_fe6_0804C8D4
 	adds r1, r0, #0
 	adds r0, r6, #0
 	movs r2, #0x3c
-	bl sub_8050D68
+	bl func_fe6_08050D68
 	ldr r0, .L08050964 @ =gDispIo
 	movs r1, #0x20
 	ldrsh r2, [r0, r1]
-	ldr r3, .L08050968 @ =sub_804CD4C
+	ldr r3, .L08050968 @ =func_fe6_0804CD4C
 	adds r0, r6, #0
 	movs r1, #0x53
-	bl sub_804CB8C
+	bl func_fe6_0804CB8C
 	b .L080509D8
 	.align 2, 0
 .L08050964: .4byte gDispIo
-.L08050968: .4byte sub_804CD4C
+.L08050968: .4byte func_fe6_0804CD4C
 .L0805096C:
 	adds r0, r5, #0
 	adds r0, #0x64
@@ -28289,7 +28289,7 @@ sub_805089C: @ 0x0805089C
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r6, #0
-	bl sub_80509E4
+	bl func_fe6_080509E4
 	ldr r0, .L08050994 @ =0x00000125
 .L08050982:
 	movs r1, #0x80
@@ -28297,7 +28297,7 @@ sub_805089C: @ 0x0805089C
 	movs r3, #2
 	ldrsh r2, [r6, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080509D8
 	.align 2, 0
 .L08050994: .4byte 0x00000125
@@ -28313,12 +28313,12 @@ sub_805089C: @ 0x0805089C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r6, #0
-	bl sub_80477AC
+	bl func_fe6_080477AC
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L080509D8
 	adds r0, r6, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L080509D8
 .L080509C0:
 	adds r0, r5, #0
@@ -28328,7 +28328,7 @@ sub_805089C: @ 0x0805089C
 	adds r0, #0x14
 	cmp r1, r0
 	bne .L080509D8
-	bl sub_80474BC
+	bl func_fe6_080474BC
 	adds r0, r4, #0
 	bl Proc_Break
 .L080509D8:
@@ -28339,8 +28339,8 @@ sub_805089C: @ 0x0805089C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80509E4
-sub_80509E4: @ 0x080509E4
+	thumb_func_start func_fe6_080509E4
+func_fe6_080509E4: @ 0x080509E4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -28368,15 +28368,15 @@ sub_80509E4: @ 0x080509E4
 	str r0, [r6, #0x54]
 	ldr r0, .L08050A58 @ =gUnk_0816B328
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L08050A5C @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08050A6A
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050A60
 	movs r0, #1
@@ -28402,8 +28402,8 @@ sub_80509E4: @ 0x080509E4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050A70
-sub_8050A70: @ 0x08050A70
+	thumb_func_start func_fe6_08050A70
+func_fe6_08050A70: @ 0x08050A70
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08050AE0 @ =gUnk_Banim_02017744
@@ -28427,8 +28427,8 @@ sub_8050A70: @ 0x08050A70
 	str r0, [r5, #0x54]
 	ldr r0, .L08050AF4 @ =gUnk_0816B328
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r2, .L08050AF8 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -28446,7 +28446,7 @@ sub_8050A70: @ 0x08050A70
 	cmp r0, #0
 	beq .L08050B0A
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050B00
 	movs r0, #1
@@ -28473,15 +28473,15 @@ sub_8050A70: @ 0x08050A70
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050B10
-sub_8050B10: @ 0x08050B10
+	thumb_func_start func_fe6_08050B10
+func_fe6_08050B10: @ 0x08050B10
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -28494,20 +28494,20 @@ sub_8050B10: @ 0x08050B10
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08050B8E
 .L08050B4C:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050B8E
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r7, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -28517,8 +28517,8 @@ sub_8050B10: @ 0x08050B10
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
-	bl sub_8047358
+	bl func_fe6_080475D8
+	bl func_fe6_08047358
 	adds r0, r7, #0
 	bl Proc_End
 	b .L08050B8E
@@ -28536,8 +28536,8 @@ sub_8050B10: @ 0x08050B10
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050B94
-sub_8050B94: @ 0x08050B94
+	thumb_func_start func_fe6_08050B94
+func_fe6_08050B94: @ 0x08050B94
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, .L08050BB8 @ =gUnk_Banim_02017748
@@ -28548,8 +28548,8 @@ sub_8050B94: @ 0x08050B94
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
-	bl sub_8047358
+	bl func_fe6_080475D8
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_End
 	b .L08050C1A
@@ -28592,12 +28592,12 @@ sub_8050B94: @ 0x08050B94
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08050C14
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	strh r0, [r4, #0x2e]
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08050C14:
 	adds r0, r4, #0
 	bl Proc_Break
@@ -28611,12 +28611,12 @@ sub_8050B94: @ 0x08050B94
 .L08050C28: .4byte gUnk_085D19BC
 .L08050C2C: .4byte 0x0203CD14
 
-	thumb_func_start sub_8050C30
-sub_8050C30: @ 0x08050C30
+	thumb_func_start func_fe6_08050C30
+func_fe6_08050C30: @ 0x08050C30
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -28632,7 +28632,7 @@ sub_8050C30: @ 0x08050C30
 	cmp r0, #0
 	beq .L08050C7A
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050C70
 	movs r0, #1
@@ -28657,7 +28657,7 @@ sub_8050C30: @ 0x08050C30
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r4, #0
 	bl Proc_Break
 .L08050C96:
@@ -28665,15 +28665,15 @@ sub_8050C30: @ 0x08050C30
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050C9C
-sub_8050C9C: @ 0x08050C9C
+	thumb_func_start func_fe6_08050C9C
+func_fe6_08050C9C: @ 0x08050C9C
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -28686,26 +28686,26 @@ sub_8050C9C: @ 0x08050C9C
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08050CFA
 .L08050CD8:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050CFA
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08050D00 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
-	bl sub_8047358
+	bl func_fe6_080475D8
+	bl func_fe6_08047358
 	adds r0, r7, #0
 	bl Proc_Break
 .L08050CFA:
@@ -28715,15 +28715,15 @@ sub_8050C9C: @ 0x08050C9C
 	.align 2, 0
 .L08050D00: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8050D04
-sub_8050D04: @ 0x08050D04
+	thumb_func_start func_fe6_08050D04
+func_fe6_08050D04: @ 0x08050D04
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -28736,25 +28736,25 @@ sub_8050D04: @ 0x08050D04
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08050D5E
 .L08050D40:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050D5E
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08050D64 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_Break
 .L08050D5E:
@@ -28764,8 +28764,8 @@ sub_8050D04: @ 0x08050D04
 	.align 2, 0
 .L08050D64: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8050D68
-sub_8050D68: @ 0x08050D68
+	thumb_func_start func_fe6_08050D68
+func_fe6_08050D68: @ 0x08050D68
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -28789,8 +28789,8 @@ sub_8050D68: @ 0x08050D68
 .L08050D90: .4byte gUnk_Banim_02017744
 .L08050D94: .4byte gUnk_085D1B54
 
-	thumb_func_start sub_8050D98
-sub_8050D98: @ 0x08050D98
+	thumb_func_start func_fe6_08050D98
+func_fe6_08050D98: @ 0x08050D98
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -28827,13 +28827,13 @@ sub_8050D98: @ 0x08050D98
 	.align 2, 0
 .L08050DDC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8050DE0
-sub_8050DE0: @ 0x08050DE0
+	thumb_func_start func_fe6_08050DE0
+func_fe6_08050DE0: @ 0x08050DE0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08050E18 @ =gUnk_085D1B6C
 	movs r1, #3
 	bl SpawnProc
@@ -28842,10 +28842,10 @@ sub_8050DE0: @ 0x08050DE0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -28854,14 +28854,14 @@ sub_8050DE0: @ 0x08050DE0
 	.align 2, 0
 .L08050E18: .4byte gUnk_085D1B6C
 
-	thumb_func_start sub_8050E1C
-sub_8050E1C: @ 0x08050E1C
+	thumb_func_start func_fe6_08050E1C
+func_fe6_08050E1C: @ 0x08050E1C
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -28873,7 +28873,7 @@ sub_8050E1C: @ 0x08050E1C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08050E46:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -28887,9 +28887,9 @@ sub_8050E1C: @ 0x08050E1C
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_8050ED4
+	bl func_fe6_08050ED4
 	b .L08050ECC
 .L08050E6A:
 	adds r0, r6, #0
@@ -28902,10 +28902,10 @@ sub_8050E1C: @ 0x08050E1C
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -28913,12 +28913,12 @@ sub_8050E1C: @ 0x08050E1C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08050ECC
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08050ECC
 	.align 2, 0
 .L08050EAC: .4byte 0x00000121
@@ -28930,8 +28930,8 @@ sub_8050E1C: @ 0x08050E1C
 	adds r0, #1
 	cmp r1, r0
 	bne .L08050ECC
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08050ECC:
@@ -28940,8 +28940,8 @@ sub_8050E1C: @ 0x08050E1C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8050ED4
-sub_8050ED4: @ 0x08050ED4
+	thumb_func_start func_fe6_08050ED4
+func_fe6_08050ED4: @ 0x08050ED4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08050F28 @ =gUnk_Banim_02017744
@@ -28965,14 +28965,14 @@ sub_8050ED4: @ 0x08050ED4
 	str r0, [r5, #0x54]
 	ldr r0, .L08050F3C @ =gUnk_085D1C20
 	str r0, [r5, #0x58]
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r0, .L08050F40 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08050F4E
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08050F44
 	movs r0, #1
@@ -28998,8 +28998,8 @@ sub_8050ED4: @ 0x08050ED4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8050F54
-sub_8050F54: @ 0x08050F54
+	thumb_func_start func_fe6_08050F54
+func_fe6_08050F54: @ 0x08050F54
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -29009,7 +29009,7 @@ sub_8050F54: @ 0x08050F54
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -29024,24 +29024,24 @@ sub_8050F54: @ 0x08050F54
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	adds r4, r5, r4
 	ldr r0, [r4]
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r7, #0x5c]
 	adds r6, r5, r6
 	ldr r1, [r6]
 	add r5, r8
 	ldr r2, [r5]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	ldr r0, .L08050FBC @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08050FFA
 	ldr r0, [r7, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08050FC4
@@ -29058,7 +29058,7 @@ sub_8050F54: @ 0x08050F54
 	movs r1, #3
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L08050FFA
 	.align 2, 0
 .L08050FD8: .4byte gBg1Tm+0x3A
@@ -29067,12 +29067,12 @@ sub_8050F54: @ 0x08050F54
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L08050FFA
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08051008 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L08050FFA:
@@ -29085,13 +29085,13 @@ sub_8050F54: @ 0x08050F54
 	.align 2, 0
 .L08051008: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805100C
-sub_805100C: @ 0x0805100C
+	thumb_func_start func_fe6_0805100C
+func_fe6_0805100C: @ 0x0805100C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08051048 @ =gUnk_085D1D28
 	movs r1, #3
 	bl SpawnProc
@@ -29100,10 +29100,10 @@ sub_805100C: @ 0x0805100C
 	movs r6, #0
 	strh r6, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	ldr r0, .L0805104C @ =gUnk_Banim_0201E7A8
@@ -29115,8 +29115,8 @@ sub_805100C: @ 0x0805100C
 .L08051048: .4byte gUnk_085D1D28
 .L0805104C: .4byte gUnk_Banim_0201E7A8
 
-	thumb_func_start sub_8051050
-sub_8051050: @ 0x08051050
+	thumb_func_start func_fe6_08051050
+func_fe6_08051050: @ 0x08051050
 	push {lr}
 	adds r2, r0, #0
 	adds r3, r1, #0
@@ -29128,7 +29128,7 @@ sub_8051050: @ 0x08051050
 	beq .L08051070
 	adds r1, #0xff
 	movs r0, #0xfe
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805107A
 	.align 2, 0
 .L0805106C: .4byte gUnk_Banim_0201E7A8
@@ -29136,7 +29136,7 @@ sub_8051050: @ 0x08051050
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xff
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805107A:
 	ldr r1, .L08051088 @ =gUnk_Banim_0201E7A8
 	ldr r0, [r1]
@@ -29147,15 +29147,15 @@ sub_8051050: @ 0x08051050
 	.align 2, 0
 .L08051088: .4byte gUnk_Banim_0201E7A8
 
-	thumb_func_start sub_805108C
-sub_805108C: @ 0x0805108C
+	thumb_func_start func_fe6_0805108C
+func_fe6_0805108C: @ 0x0805108C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -29168,7 +29168,7 @@ sub_805108C: @ 0x0805108C
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L080510BA:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -29177,11 +29177,11 @@ sub_805108C: @ 0x0805108C
 	bne .L080510DC
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	adds r0, r5, #0
-	bl sub_80511BC
+	bl func_fe6_080511BC
 	adds r0, r5, #0
-	bl sub_8051288
+	bl func_fe6_08051288
 	movs r0, #0x30
 	b .L08051102
 .L080510DC:
@@ -29191,7 +29191,7 @@ sub_805108C: @ 0x0805108C
 	bne .L080510F0
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #0xa0
 	b .L08051102
 .L080510F0:
@@ -29201,11 +29201,11 @@ sub_805108C: @ 0x0805108C
 	bne .L0805110A
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #0x70
 .L08051102:
 	movs r1, #0
-	bl sub_8051050
+	bl func_fe6_08051050
 	b .L080511B4
 .L0805110A:
 	adds r0, r4, #0
@@ -29214,7 +29214,7 @@ sub_805108C: @ 0x0805108C
 	bne .L0805113E
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #0x10
 	str r0, [sp]
 	str r7, [sp, #4]
@@ -29222,14 +29222,14 @@ sub_805108C: @ 0x0805108C
 	movs r1, #3
 	movs r2, #0xa
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	adds r0, r1, #0
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080511B4
 .L0805113E:
 	adds r0, r4, #0
@@ -29238,7 +29238,7 @@ sub_805108C: @ 0x0805108C
 	bne .L08051184
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -29247,19 +29247,19 @@ sub_805108C: @ 0x0805108C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldr r0, .L08051180 @ =0x00000101
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L080511B4
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L080511B4
 	.align 2, 0
 .L08051180: .4byte 0x00000101
@@ -29274,15 +29274,15 @@ sub_805108C: @ 0x0805108C
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #8
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L080511B4
 .L0805119E:
 	adds r0, r4, #0
 	adds r0, #0x71
 	cmp r1, r0
 	bne .L080511B4
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r6, #0
 	bl Proc_Break
 .L080511B4:
@@ -29291,8 +29291,8 @@ sub_805108C: @ 0x0805108C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80511BC
-sub_80511BC: @ 0x080511BC
+	thumb_func_start func_fe6_080511BC
+func_fe6_080511BC: @ 0x080511BC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080511F4 @ =gUnk_Banim_02017744
@@ -29315,7 +29315,7 @@ sub_80511BC: @ 0x080511BC
 	str r1, [r0, #0x54]
 	ldr r1, .L08051208 @ =gUnk_085D1E90
 	str r1, [r0, #0x58]
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -29327,8 +29327,8 @@ sub_80511BC: @ 0x080511BC
 .L08051204: .4byte gUnk_085D1D58
 .L08051208: .4byte gUnk_085D1E90
 
-	thumb_func_start sub_805120C
-sub_805120C: @ 0x0805120C
+	thumb_func_start func_fe6_0805120C
+func_fe6_0805120C: @ 0x0805120C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -29337,7 +29337,7 @@ sub_805120C: @ 0x0805120C
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -29352,29 +29352,29 @@ sub_805120C: @ 0x0805120C
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	adds r4, r5, r4
 	ldr r0, [r4]
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r7, #0x5c]
 	adds r6, r5, r6
 	ldr r1, [r6]
 	add r5, r8
 	ldr r2, [r5]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08051278
 .L0805125A:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L08051278
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08051284 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L08051278:
@@ -29386,8 +29386,8 @@ sub_805120C: @ 0x0805120C
 	.align 2, 0
 .L08051284: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051288
-sub_8051288: @ 0x08051288
+	thumb_func_start func_fe6_08051288
+func_fe6_08051288: @ 0x08051288
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080512B4 @ =gUnk_Banim_02017744
@@ -29412,8 +29412,8 @@ sub_8051288: @ 0x08051288
 .L080512B4: .4byte gUnk_Banim_02017744
 .L080512B8: .4byte gUnk_085D2100
 
-	thumb_func_start sub_80512BC
-sub_80512BC: @ 0x080512BC
+	thumb_func_start func_fe6_080512BC
+func_fe6_080512BC: @ 0x080512BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x2c]
@@ -29439,10 +29439,10 @@ sub_80512BC: @ 0x080512BC
 	ldr r2, [r0]
 	ldr r0, [r5, #0x60]
 	adds r1, r4, #0
-	bl sub_8051328
+	bl func_fe6_08051328
 	adds r0, r4, #0
 	movs r1, #1
-	bl sub_8051050
+	bl func_fe6_08051050
 	ldrh r0, [r5, #0x2e]
 	adds r0, #1
 	strh r0, [r5, #0x2e]
@@ -29465,8 +29465,8 @@ sub_80512BC: @ 0x080512BC
 .L08051320: .4byte gUnk_085D2120
 .L08051324: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051328
-sub_8051328: @ 0x08051328
+	thumb_func_start func_fe6_08051328
+func_fe6_08051328: @ 0x08051328
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -29488,18 +29488,18 @@ sub_8051328: @ 0x08051328
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
 	strh r1, [r0, #4]
 	ldr r0, .L0805138C @ =gUnk_081AB190
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08051390 @ =gUnk_081AAECC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -29513,8 +29513,8 @@ sub_8051328: @ 0x08051328
 .L0805138C: .4byte gUnk_081AB190
 .L08051390: .4byte gUnk_081AAECC
 
-	thumb_func_start sub_8051394
-sub_8051394: @ 0x08051394
+	thumb_func_start func_fe6_08051394
+func_fe6_08051394: @ 0x08051394
 	push {lr}
 	ldr r0, [r0, #0x60]
 	bl BasRemove
@@ -29527,13 +29527,13 @@ sub_8051394: @ 0x08051394
 	.align 2, 0
 .L080513A8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80513AC
-sub_80513AC: @ 0x080513AC
+	thumb_func_start func_fe6_080513AC
+func_fe6_080513AC: @ 0x080513AC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080513E4 @ =gUnk_085D2178
 	movs r1, #3
 	bl SpawnProc
@@ -29542,10 +29542,10 @@ sub_80513AC: @ 0x080513AC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -29554,15 +29554,15 @@ sub_80513AC: @ 0x080513AC
 	.align 2, 0
 .L080513E4: .4byte gUnk_085D2178
 
-	thumb_func_start sub_80513E8
-sub_80513E8: @ 0x080513E8
+	thumb_func_start func_fe6_080513E8
+func_fe6_080513E8: @ 0x080513E8
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -29575,7 +29575,7 @@ sub_80513E8: @ 0x080513E8
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08051416:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -29583,18 +29583,18 @@ sub_80513E8: @ 0x080513E8
 	cmp r1, r0
 	bne .L08051448
 	adds r0, r5, #0
-	bl sub_805151C
-	bl sub_80516B8
+	bl func_fe6_0805151C
+	bl func_fe6_080516B8
 	adds r0, r5, #0
 	movs r1, #0xa0
-	bl sub_8051624
+	bl func_fe6_08051624
 	ldr r0, .L08051444 @ =0x0000012D
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08051514
 	.align 2, 0
 .L08051444: .4byte 0x0000012D
@@ -29605,14 +29605,14 @@ sub_80513E8: @ 0x080513E8
 	bne .L0805146A
 	adds r0, r5, #0
 	movs r1, #0x3c
-	bl sub_8051720
+	bl func_fe6_08051720
 	movs r0, #0x97
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08051514
 .L0805146A:
 	adds r0, r4, #0
@@ -29621,7 +29621,7 @@ sub_80513E8: @ 0x080513E8
 	bne .L0805147C
 	ldr r0, [r6, #0x5c]
 	movs r1, #3
-	bl sub_80467D0
+	bl func_fe6_080467D0
 	b .L08051514
 .L0805147C:
 	adds r0, r4, #0
@@ -29630,31 +29630,31 @@ sub_80513E8: @ 0x080513E8
 	bne .L080514F4
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_804D050
+	bl func_fe6_0804D050
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_8051870
+	bl func_fe6_08051870
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x50
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_804CD88
-	ldr r2, .L080514EC @ =sub_8051C00
+	bl func_fe6_0804CD88
+	ldr r2, .L080514EC @ =func_fe6_08051C00
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	movs r0, #0x64
-	bl sub_8051C30
+	bl func_fe6_08051C30
 	adds r0, r5, #0
-	bl sub_8051A14
+	bl func_fe6_08051A14
 	ldr r0, .L080514F0 @ =0x0000012F
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -29663,15 +29663,15 @@ sub_80513E8: @ 0x080513E8
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08051514
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08051514
 	.align 2, 0
-.L080514EC: .4byte sub_8051C00
+.L080514EC: .4byte func_fe6_08051C00
 .L080514F0: .4byte 0x0000012F
 .L080514F4:
 	adds r0, r4, #0
@@ -29683,8 +29683,8 @@ sub_80513E8: @ 0x080513E8
 	adds r0, r4, r2
 	cmp r1, r0
 	bne .L08051514
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r6, #0
 	bl Proc_Break
 .L08051514:
@@ -29693,8 +29693,8 @@ sub_80513E8: @ 0x080513E8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805151C
-sub_805151C: @ 0x0805151C
+	thumb_func_start func_fe6_0805151C
+func_fe6_0805151C: @ 0x0805151C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051570 @ =gUnk_Banim_02017744
@@ -29718,14 +29718,14 @@ sub_805151C: @ 0x0805151C
 	str r0, [r5, #0x54]
 	ldr r0, .L08051584 @ =gUnk_081408CC
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08051588 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08051596
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805158C
 	movs r0, #1
@@ -29747,13 +29747,13 @@ sub_805151C: @ 0x0805151C
 	movs r2, #0
 	bl SetBgOffset
 .L08051596:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80515A0
-sub_80515A0: @ 0x080515A0
+	thumb_func_start func_fe6_080515A0
+func_fe6_080515A0: @ 0x080515A0
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -29761,7 +29761,7 @@ sub_80515A0: @ 0x080515A0
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -29774,20 +29774,20 @@ sub_80515A0: @ 0x080515A0
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	ldr r0, .L080515F0 @ =gBg1Tm+0x3C
 	ldr r1, .L080515F4 @ =0x0000011F
 	str r1, [sp]
 	movs r1, #2
 	movs r2, #0x14
 	movs r3, #1
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L08051616
 	.align 2, 0
 .L080515F0: .4byte gBg1Tm+0x3C
@@ -29797,12 +29797,12 @@ sub_80515A0: @ 0x080515A0
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08051616
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08051620 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_Break
 .L08051616:
@@ -29813,8 +29813,8 @@ sub_80515A0: @ 0x080515A0
 	.align 2, 0
 .L08051620: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051624
-sub_8051624: @ 0x08051624
+	thumb_func_start func_fe6_08051624
+func_fe6_08051624: @ 0x08051624
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -29837,7 +29837,7 @@ sub_8051624: @ 0x08051624
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -29847,15 +29847,15 @@ sub_8051624: @ 0x08051624
 .L08051664: .4byte gUnk_0811A50E
 .L08051668: .4byte gUnk_081408CC
 
-	thumb_func_start sub_805166C
-sub_805166C: @ 0x0805166C
+	thumb_func_start func_fe6_0805166C
+func_fe6_0805166C: @ 0x0805166C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -29864,7 +29864,7 @@ sub_805166C: @ 0x0805166C
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 .L08051690:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -29887,8 +29887,8 @@ sub_805166C: @ 0x0805166C
 	.align 2, 0
 .L080516B4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80516B8
-sub_80516B8: @ 0x080516B8
+	thumb_func_start func_fe6_080516B8
+func_fe6_080516B8: @ 0x080516B8
 	push {lr}
 	ldr r0, .L080516D0 @ =gUnk_Banim_02017744
 	ldr r1, [r0]
@@ -29903,8 +29903,8 @@ sub_80516B8: @ 0x080516B8
 .L080516D0: .4byte gUnk_Banim_02017744
 .L080516D4: .4byte gUnk_085D2230
 
-	thumb_func_start sub_80516D8
-sub_80516D8: @ 0x080516D8
+	thumb_func_start func_fe6_080516D8
+func_fe6_080516D8: @ 0x080516D8
 	push {lr}
 	ldr r2, .L080516E8 @ =gDispIo
 	movs r1, #8
@@ -29915,8 +29915,8 @@ sub_80516D8: @ 0x080516D8
 	.align 2, 0
 .L080516E8: .4byte gDispIo
 
-	thumb_func_start sub_80516EC
-sub_80516EC: @ 0x080516EC
+	thumb_func_start func_fe6_080516EC
+func_fe6_080516EC: @ 0x080516EC
 	push {lr}
 	ldr r2, .L080516FC @ =gDispIo
 	movs r1, #0x10
@@ -29927,8 +29927,8 @@ sub_80516EC: @ 0x080516EC
 	.align 2, 0
 .L080516FC: .4byte gDispIo
 
-	thumb_func_start sub_8051700
-sub_8051700: @ 0x08051700
+	thumb_func_start func_fe6_08051700
+func_fe6_08051700: @ 0x08051700
 	push {lr}
 	ldr r2, .L08051718 @ =gDispIo
 	movs r1, #0x18
@@ -29944,8 +29944,8 @@ sub_8051700: @ 0x08051700
 .L08051718: .4byte gDispIo
 .L0805171C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051720
-sub_8051720: @ 0x08051720
+	thumb_func_start func_fe6_08051720
+func_fe6_08051720: @ 0x08051720
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -29967,10 +29967,10 @@ sub_8051720: @ 0x08051720
 	ldr r0, .L08051768 @ =gUnk_08143EE4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	ldr r0, .L0805176C @ =gUnk_08144A00
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -29980,8 +29980,8 @@ sub_8051720: @ 0x08051720
 .L08051768: .4byte gUnk_08143EE4
 .L0805176C: .4byte gUnk_08144A00
 
-	thumb_func_start sub_8051770
-sub_8051770: @ 0x08051770
+	thumb_func_start func_fe6_08051770
+func_fe6_08051770: @ 0x08051770
 	push {r4, lr}
 	adds r3, r0, #0
 	ldrh r0, [r3, #0x2c]
@@ -30033,7 +30033,7 @@ sub_8051770: @ 0x08051770
 	str r2, [r3, #0x48]
 	ldr r0, [r3, #0x5c]
 	movs r2, #0x50
-	bl sub_80517E4
+	bl func_fe6_080517E4
 .L080517DA:
 	pop {r4}
 	pop {r0}
@@ -30041,8 +30041,8 @@ sub_8051770: @ 0x08051770
 	.align 2, 0
 .L080517E0: .4byte gUnk_085D2288
 
-	thumb_func_start sub_80517E4
-sub_80517E4: @ 0x080517E4
+	thumb_func_start func_fe6_080517E4
+func_fe6_080517E4: @ 0x080517E4
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -30068,7 +30068,7 @@ sub_80517E4: @ 0x080517E4
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
@@ -30084,8 +30084,8 @@ sub_80517E4: @ 0x080517E4
 .L08051834: .4byte gUnk_085D22E0
 .L08051838: .4byte gUnk_085E5C10
 
-	thumb_func_start sub_805183C
-sub_805183C: @ 0x0805183C
+	thumb_func_start func_fe6_0805183C
+func_fe6_0805183C: @ 0x0805183C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -30111,8 +30111,8 @@ sub_805183C: @ 0x0805183C
 	.align 2, 0
 .L0805186C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051870
-sub_8051870: @ 0x08051870
+	thumb_func_start func_fe6_08051870
+func_fe6_08051870: @ 0x08051870
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -30146,7 +30146,7 @@ sub_8051870: @ 0x08051870
 	bl LZ77UnCompWram
 	movs r0, #2
 	bl EnableBgSync
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r2, .L08051904 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -30173,8 +30173,8 @@ sub_8051870: @ 0x08051870
 .L08051900: .4byte gUnk_08143DA8
 .L08051904: .4byte gDispIo
 
-	thumb_func_start sub_8051908
-sub_8051908: @ 0x08051908
+	thumb_func_start func_fe6_08051908
+func_fe6_08051908: @ 0x08051908
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r4, r0, #0
@@ -30216,7 +30216,7 @@ sub_8051908: @ 0x08051908
 	movs r0, #0
 .L0805194E:
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldrh r0, [r4, #0x30]
 	adds r0, #1
 	strh r0, [r4, #0x30]
@@ -30240,7 +30240,7 @@ sub_8051908: @ 0x08051908
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
 	b .L080519CE
@@ -30252,7 +30252,7 @@ sub_8051908: @ 0x08051908
 .L080519A0:
 	ldr r0, .L080519FC @ =gUnk_08143A98
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08051A00 @ =gUnk_Banim_0201B77C
 	ldr r1, .L08051A04 @ =0x06002000
 	movs r2, #0x80
@@ -30266,7 +30266,7 @@ sub_8051908: @ 0x08051908
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
 .L080519CE:
@@ -30278,12 +30278,12 @@ sub_8051908: @ 0x08051908
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L080519F4
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08051A10 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_End
 .L080519F4:
@@ -30299,8 +30299,8 @@ sub_8051908: @ 0x08051908
 .L08051A0C: .4byte gBg1Tm
 .L08051A10: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051A14
-sub_8051A14: @ 0x08051A14
+	thumb_func_start func_fe6_08051A14
+func_fe6_08051A14: @ 0x08051A14
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051A50 @ =gUnk_Banim_02017744
@@ -30320,10 +30320,10 @@ sub_8051A14: @ 0x08051A14
 	ldr r0, .L08051A58 @ =gUnk_08143EE4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	ldr r0, .L08051A5C @ =gUnk_08144A00
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -30333,8 +30333,8 @@ sub_8051A14: @ 0x08051A14
 .L08051A58: .4byte gUnk_08143EE4
 .L08051A5C: .4byte gUnk_08144A00
 
-	thumb_func_start sub_8051A60
-sub_8051A60: @ 0x08051A60
+	thumb_func_start func_fe6_08051A60
+func_fe6_08051A60: @ 0x08051A60
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -30371,21 +30371,21 @@ sub_8051A60: @ 0x08051A60
 	adds r1, r2, #0
 	adds r2, #1
 	str r2, [r4, #0x48]
-	bl sub_8051AC4
+	bl func_fe6_08051AC4
 	ldr r0, [r4, #0x5c]
 	ldr r2, [r4, #0x48]
 	adds r1, r2, #0
 	adds r2, #1
 	str r2, [r4, #0x48]
-	bl sub_8051AC4
+	bl func_fe6_08051AC4
 .L08051ABC:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8051AC4
-sub_8051AC4: @ 0x08051AC4
+	thumb_func_start func_fe6_08051AC4
+func_fe6_08051AC4: @ 0x08051AC4
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r4, r0, #0
@@ -30412,12 +30412,12 @@ sub_8051AC4: @ 0x08051AC4
 	ldrh r0, [r0]
 	strh r0, [r6, #0x2e]
 	movs r0, #0xe0
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	adds r0, #8
 	strh r0, [r6, #0x32]
 	strh r4, [r6, #0x3a]
 	movs r0, #9
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	cmp r0, #9
 	bhi .L08051B78
 	lsls r0, r0, #2
@@ -30491,8 +30491,8 @@ sub_8051AC4: @ 0x08051AC4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8051BAC
-sub_8051BAC: @ 0x08051BAC
+	thumb_func_start func_fe6_08051BAC
+func_fe6_08051BAC: @ 0x08051BAC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -30534,8 +30534,8 @@ sub_8051BAC: @ 0x08051BAC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8051C00
-sub_8051C00: @ 0x08051C00
+	thumb_func_start func_fe6_08051C00
+func_fe6_08051C00: @ 0x08051C00
 	ldr r0, .L08051C24 @ =0x04000004
 	ldrh r1, [r0]
 	movs r0, #1
@@ -30559,8 +30559,8 @@ sub_8051C00: @ 0x08051C00
 .L08051C28: .4byte 0x04000014
 .L08051C2C: .4byte gUnk_Banim_0201E154
 
-	thumb_func_start sub_8051C30
-sub_8051C30: @ 0x08051C30
+	thumb_func_start func_fe6_08051C30
+func_fe6_08051C30: @ 0x08051C30
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051C54 @ =gUnk_Banim_02017744
@@ -30581,8 +30581,8 @@ sub_8051C30: @ 0x08051C30
 .L08051C54: .4byte gUnk_Banim_02017744
 .L08051C58: .4byte gUnk_085D2340
 
-	thumb_func_start sub_8051C5C
-sub_8051C5C: @ 0x08051C5C
+	thumb_func_start func_fe6_08051C5C
+func_fe6_08051C5C: @ 0x08051C5C
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
 	ldr r0, .L08051CBC @ =gUnk_Banim_0201E3D8
@@ -30640,13 +30640,13 @@ sub_8051C5C: @ 0x08051C5C
 .L08051CC8: .4byte gSinLut
 .L08051CCC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051CD0
-sub_8051CD0: @ 0x08051CD0
+	thumb_func_start func_fe6_08051CD0
+func_fe6_08051CD0: @ 0x08051CD0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08051D08 @ =gUnk_085D2358
 	movs r1, #3
 	bl SpawnProc
@@ -30655,10 +30655,10 @@ sub_8051CD0: @ 0x08051CD0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -30667,14 +30667,14 @@ sub_8051CD0: @ 0x08051CD0
 	.align 2, 0
 .L08051D08: .4byte gUnk_085D2358
 
-	thumb_func_start sub_8051D0C
-sub_8051D0C: @ 0x08051D0C
+	thumb_func_start func_fe6_08051D0C
+func_fe6_08051D0C: @ 0x08051D0C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r3, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -30690,11 +30690,11 @@ sub_8051D0C: @ 0x08051D0C
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_8051DFC
+	bl func_fe6_08051DFC
 	ldr r0, [r4, #0x5c]
-	bl sub_8051FEC
+	bl func_fe6_08051FEC
 	b .L08051DF6
 	.align 2, 0
 .L08051D4C: .4byte 0x00000127
@@ -30715,7 +30715,7 @@ sub_8051D0C: @ 0x08051D0C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L08051DF6
 .L08051D74:
 	movs r0, #0x2c
@@ -30725,7 +30725,7 @@ sub_8051D0C: @ 0x08051D0C
 	cmp r1, r0
 	bne .L08051D9C
 	adds r0, r5, #0
-	bl sub_8051E80
+	bl func_fe6_08051E80
 	ldr r0, .L08051D98 @ =0x00000129
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -30733,7 +30733,7 @@ sub_8051D0C: @ 0x08051D0C
 	ldrsh r2, [r5, r3]
 .L08051D90:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08051DF6
 	.align 2, 0
 .L08051D98: .4byte 0x00000129
@@ -30744,7 +30744,7 @@ sub_8051D0C: @ 0x08051D0C
 	bne .L08051DAE
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L08051DF6
 .L08051DAE:
 	adds r0, r3, #0
@@ -30752,7 +30752,7 @@ sub_8051D0C: @ 0x08051D0C
 	cmp r1, r0
 	bne .L08051DDC
 	adds r0, r5, #0
-	bl sub_8051F04
+	bl func_fe6_08051F04
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -30760,12 +30760,12 @@ sub_8051D0C: @ 0x08051D0C
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08051DF6
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08051DF6
 .L08051DDC:
 	adds r0, r3, #0
@@ -30774,8 +30774,8 @@ sub_8051D0C: @ 0x08051D0C
 	beq .L08051DF6
 	cmp r2, #0x64
 	bne .L08051DF6
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08051DF6:
@@ -30783,8 +30783,8 @@ sub_8051D0C: @ 0x08051D0C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8051DFC
-sub_8051DFC: @ 0x08051DFC
+	thumb_func_start func_fe6_08051DFC
+func_fe6_08051DFC: @ 0x08051DFC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051E50 @ =gUnk_Banim_02017744
@@ -30808,14 +30808,14 @@ sub_8051DFC: @ 0x08051DFC
 	str r0, [r5, #0x54]
 	ldr r0, .L08051E64 @ =gUnk_08176A6C
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08051E68 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08051E76
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08051E6C
 	movs r0, #1
@@ -30837,13 +30837,13 @@ sub_8051DFC: @ 0x08051DFC
 	movs r2, #0
 	bl SetBgOffset
 .L08051E76:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8051E80
-sub_8051E80: @ 0x08051E80
+	thumb_func_start func_fe6_08051E80
+func_fe6_08051E80: @ 0x08051E80
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051ED4 @ =gUnk_Banim_02017744
@@ -30867,14 +30867,14 @@ sub_8051E80: @ 0x08051E80
 	str r0, [r5, #0x54]
 	ldr r0, .L08051EE8 @ =gUnk_08176A6C
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08051EEC @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08051EFA
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08051EF0
 	movs r0, #1
@@ -30896,13 +30896,13 @@ sub_8051E80: @ 0x08051E80
 	movs r2, #0
 	bl SetBgOffset
 .L08051EFA:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8051F04
-sub_8051F04: @ 0x08051F04
+	thumb_func_start func_fe6_08051F04
+func_fe6_08051F04: @ 0x08051F04
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08051F58 @ =gUnk_Banim_02017744
@@ -30926,14 +30926,14 @@ sub_8051F04: @ 0x08051F04
 	str r0, [r5, #0x54]
 	ldr r0, .L08051F6C @ =gUnk_08176A4C
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08051F70 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08051F7E
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08051F74
 	movs r0, #1
@@ -30955,20 +30955,20 @@ sub_8051F04: @ 0x08051F04
 	movs r2, #0
 	bl SetBgOffset
 .L08051F7E:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8051F88
-sub_8051F88: @ 0x08051F88
+	thumb_func_start func_fe6_08051F88
+func_fe6_08051F88: @ 0x08051F88
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -30981,25 +30981,25 @@ sub_8051F88: @ 0x08051F88
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08051FE2
 .L08051FC4:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08051FE2
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08051FE8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_Break
 .L08051FE2:
@@ -31009,8 +31009,8 @@ sub_8051F88: @ 0x08051F88
 	.align 2, 0
 .L08051FE8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8051FEC
-sub_8051FEC: @ 0x08051FEC
+	thumb_func_start func_fe6_08051FEC
+func_fe6_08051FEC: @ 0x08051FEC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -31030,11 +31030,11 @@ sub_8051FEC: @ 0x08051FEC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08052038
 	ldrh r0, [r6, #2]
@@ -31051,11 +31051,11 @@ sub_8051FEC: @ 0x08051FEC
 	strh r0, [r6, #2]
 	ldr r0, .L08052058 @ =gUnk_0817AC2C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805205C @ =gUnk_0817AAC0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -31064,8 +31064,8 @@ sub_8051FEC: @ 0x08051FEC
 .L08052058: .4byte gUnk_0817AC2C
 .L0805205C: .4byte gUnk_0817AAC0
 
-	thumb_func_start sub_8052060
-sub_8052060: @ 0x08052060
+	thumb_func_start func_fe6_08052060
+func_fe6_08052060: @ 0x08052060
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -31090,13 +31090,13 @@ sub_8052060: @ 0x08052060
 	.align 2, 0
 .L0805208C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052090
-sub_8052090: @ 0x08052090
+	thumb_func_start func_fe6_08052090
+func_fe6_08052090: @ 0x08052090
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080520C8 @ =gUnk_085D2500
 	movs r1, #3
 	bl SpawnProc
@@ -31105,10 +31105,10 @@ sub_8052090: @ 0x08052090
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -31117,17 +31117,17 @@ sub_8052090: @ 0x08052090
 	.align 2, 0
 .L080520C8: .4byte gUnk_085D2500
 
-	thumb_func_start sub_80520CC
-sub_80520CC: @ 0x080520CC
+	thumb_func_start func_fe6_080520CC
+func_fe6_080520CC: @ 0x080520CC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -31141,7 +31141,7 @@ sub_80520CC: @ 0x080520CC
 	bne .L08052100
 	ldr r0, [r4, #0x5c]
 	subs r1, #1
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08052100:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -31149,7 +31149,7 @@ sub_80520CC: @ 0x080520CC
 	cmp r1, r0
 	bne .L08052158
 	adds r0, r5, #0
-	bl sub_8052238
+	bl func_fe6_08052238
 	ldr r3, .L08052154 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -31174,10 +31174,10 @@ sub_80520CC: @ 0x080520CC
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	adds r0, r5, #0
 	movs r1, #0xaa
-	bl sub_80524F4
+	bl func_fe6_080524F4
 	movs r0, #0x95
 	lsls r0, r0, #1
 	b .L08052162
@@ -31195,7 +31195,7 @@ sub_80520CC: @ 0x080520CC
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805222A
 	.align 2, 0
 .L08052174: .4byte 0x0000011B
@@ -31207,7 +31207,7 @@ sub_80520CC: @ 0x080520CC
 	bne .L08052194
 	adds r0, r5, #0
 	movs r1, #0x19
-	bl sub_80526F4
+	bl func_fe6_080526F4
 	b .L0805222A
 	.align 2, 0
 .L08052190: .4byte 0x0000013B
@@ -31219,7 +31219,7 @@ sub_80520CC: @ 0x080520CC
 	bne .L080521C6
 	adds r0, r5, #0
 	movs r1, #0xc
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -31227,12 +31227,12 @@ sub_80520CC: @ 0x080520CC
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047610
+	bl func_fe6_08047610
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L0805222A
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L0805222A
 .L080521C6:
 	movs r2, #0xad
@@ -31246,16 +31246,16 @@ sub_80520CC: @ 0x080520CC
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_804D050
+	bl func_fe6_0804D050
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_8052334
+	bl func_fe6_08052334
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_8052460
+	bl func_fe6_08052460
 	mov r3, r8
 	str r3, [sp]
 	str r3, [sp, #4]
@@ -31263,9 +31263,9 @@ sub_80520CC: @ 0x080520CC
 	movs r1, #0x46
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	adds r0, r5, #0
-	bl sub_8052848
+	bl func_fe6_08052848
 	b .L0805222A
 .L08052212:
 	movs r2, #0xf5
@@ -31273,8 +31273,8 @@ sub_80520CC: @ 0x080520CC
 	adds r0, r6, r2
 	cmp r1, r0
 	bne .L0805222A
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805222A:
@@ -31286,8 +31286,8 @@ sub_80520CC: @ 0x080520CC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8052238
-sub_8052238: @ 0x08052238
+	thumb_func_start func_fe6_08052238
+func_fe6_08052238: @ 0x08052238
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L0805228C @ =gUnk_Banim_02017744
@@ -31310,16 +31310,16 @@ sub_8052238: @ 0x08052238
 	str r0, [r5, #0x54]
 	ldr r0, .L080522A0 @ =gUnk_081BB35C
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_80474C8
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_080474C8
+	bl func_fe6_08047500
 	ldr r0, .L080522A4 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L080522B4
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080522A8
 	movs r0, #1
@@ -31342,7 +31342,7 @@ sub_8052238: @ 0x08052238
 	b .L080522C8
 .L080522B4:
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080522C8
 	movs r0, #1
@@ -31355,15 +31355,15 @@ sub_8052238: @ 0x08052238
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80522D0
-sub_80522D0: @ 0x080522D0
+	thumb_func_start func_fe6_080522D0
+func_fe6_080522D0: @ 0x080522D0
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r0, #0x2c
 	adds r1, r6, #0
 	adds r1, #0x44
 	ldr r2, [r6, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -31375,25 +31375,25 @@ sub_80522D0: @ 0x080522D0
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r6, #0x5c]
 	adds r4, r4, r5
 	ldr r1, [r4]
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_8047A1C
+	bl func_fe6_08047A1C
 	b .L08052328
 .L0805230A:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08052328
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08052330 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r6, #0
 	bl Proc_Break
 .L08052328:
@@ -31403,8 +31403,8 @@ sub_80522D0: @ 0x080522D0
 	.align 2, 0
 .L08052330: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052334
-sub_8052334: @ 0x08052334
+	thumb_func_start func_fe6_08052334
+func_fe6_08052334: @ 0x08052334
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -31426,12 +31426,12 @@ sub_8052334: @ 0x08052334
 	ldr r0, .L08052384 @ =gUnk_081B8E64
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08052388 @ =gUnk_081BB37C
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_80474C8
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_080474C8
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -31441,8 +31441,8 @@ sub_8052334: @ 0x08052334
 .L08052384: .4byte gUnk_081B8E64
 .L08052388: .4byte gUnk_081BB37C
 
-	thumb_func_start sub_805238C
-sub_805238C: @ 0x0805238C
+	thumb_func_start func_fe6_0805238C
+func_fe6_0805238C: @ 0x0805238C
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -31473,7 +31473,7 @@ sub_805238C: @ 0x0805238C
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
 	b .L0805241E
@@ -31504,7 +31504,7 @@ sub_805238C: @ 0x0805238C
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	movs r0, #2
 	bl EnableBgSync
 .L0805241E:
@@ -31516,8 +31516,8 @@ sub_805238C: @ 0x0805238C
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08052444
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r1, .L0805245C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -31536,8 +31536,8 @@ sub_805238C: @ 0x0805238C
 .L08052458: .4byte gBg1Tm
 .L0805245C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052460
-sub_8052460: @ 0x08052460
+	thumb_func_start func_fe6_08052460
+func_fe6_08052460: @ 0x08052460
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -31560,7 +31560,7 @@ sub_8052460: @ 0x08052460
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -31570,15 +31570,15 @@ sub_8052460: @ 0x08052460
 .L080524A0: .4byte gUnk_0811A618
 .L080524A4: .4byte gUnk_081BB37C
 
-	thumb_func_start sub_80524A8
-sub_80524A8: @ 0x080524A8
+	thumb_func_start func_fe6_080524A8
+func_fe6_080524A8: @ 0x080524A8
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -31587,7 +31587,7 @@ sub_80524A8: @ 0x080524A8
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 .L080524CC:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -31610,8 +31610,8 @@ sub_80524A8: @ 0x080524A8
 	.align 2, 0
 .L080524F0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80524F4
-sub_80524F4: @ 0x080524F4
+	thumb_func_start func_fe6_080524F4
+func_fe6_080524F4: @ 0x080524F4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -31632,11 +31632,11 @@ sub_80524F4: @ 0x080524F4
 	str r2, [r0, #0x48]
 	ldr r0, .L0805253C @ =gUnk_081BC0A8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08052540 @ =gUnk_081BBBB4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -31646,8 +31646,8 @@ sub_80524F4: @ 0x080524F4
 .L0805253C: .4byte gUnk_081BC0A8
 .L08052540: .4byte gUnk_081BBBB4
 
-	thumb_func_start sub_8052544
-sub_8052544: @ 0x08052544
+	thumb_func_start func_fe6_08052544
+func_fe6_08052544: @ 0x08052544
 	push {lr}
 	adds r3, r0, #0
 	ldrh r0, [r3, #0x2c]
@@ -31685,14 +31685,14 @@ sub_8052544: @ 0x08052544
 	adds r1, r2, #0
 	adds r2, #1
 	str r2, [r3, #0x48]
-	bl sub_8052598
+	bl func_fe6_08052598
 .L08052592:
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8052598
-sub_8052598: @ 0x08052598
+	thumb_func_start func_fe6_08052598
+func_fe6_08052598: @ 0x08052598
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, .L08052624 @ =gUnk_Banim_02017744
@@ -31707,14 +31707,14 @@ sub_8052598: @ 0x08052598
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x1e
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	adds r0, #0x8c
 	strh r0, [r4, #0x2e]
 	movs r0, #0x1e
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	adds r5, r0, #0
 	movs r0, #0x1e
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	adds r1, r0, #0
 	adds r0, r5, #0
 	adds r0, #0x46
@@ -31739,7 +31739,7 @@ sub_8052598: @ 0x08052598
 	strh r0, [r4, #0x34]
 .L080525F8:
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08052610
 	movs r0, #0xf0
@@ -31751,7 +31751,7 @@ sub_8052598: @ 0x08052598
 	strh r0, [r4, #0x34]
 .L08052610:
 	movs r0, #2
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	cmp r0, #0
 	beq .L08052638
 	cmp r0, #1
@@ -31801,8 +31801,8 @@ sub_8052598: @ 0x08052598
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805267C
-sub_805267C: @ 0x0805267C
+	thumb_func_start func_fe6_0805267C
+func_fe6_0805267C: @ 0x0805267C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -31861,8 +31861,8 @@ sub_805267C: @ 0x0805267C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80526F4
-sub_80526F4: @ 0x080526F4
+	thumb_func_start func_fe6_080526F4
+func_fe6_080526F4: @ 0x080526F4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -31899,7 +31899,7 @@ sub_80526F4: @ 0x080526F4
 	strh r0, [r5, #0x34]
 .L0805273A:
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08052752
 	movs r0, #0xf0
@@ -31915,7 +31915,7 @@ sub_80526F4: @ 0x080526F4
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r5, #0x60]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -31926,7 +31926,7 @@ sub_80526F4: @ 0x080526F4
 	adds r0, r6, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r5, #0x64]
 	ldrh r1, [r5, #0x32]
 	strh r1, [r0, #2]
@@ -31944,8 +31944,8 @@ sub_80526F4: @ 0x080526F4
 .L0805279C: .4byte gUnk_08603B34
 .L080527A0: .4byte gUnk_08603B58
 
-	thumb_func_start sub_80527A4
-sub_80527A4: @ 0x080527A4
+	thumb_func_start func_fe6_080527A4
+func_fe6_080527A4: @ 0x080527A4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -32025,8 +32025,8 @@ sub_80527A4: @ 0x080527A4
 .L08052840: .4byte gUnk_08603B58
 .L08052844: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052848
-sub_8052848: @ 0x08052848
+	thumb_func_start func_fe6_08052848
+func_fe6_08052848: @ 0x08052848
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08052870 @ =gUnk_Banim_02017744
@@ -32050,8 +32050,8 @@ sub_8052848: @ 0x08052848
 .L08052870: .4byte gUnk_Banim_02017744
 .L08052874: .4byte gUnk_085D25D8
 
-	thumb_func_start sub_8052878
-sub_8052878: @ 0x08052878
+	thumb_func_start func_fe6_08052878
+func_fe6_08052878: @ 0x08052878
 	push {lr}
 	adds r3, r0, #0
 	ldrh r0, [r3, #0x2c]
@@ -32088,14 +32088,14 @@ sub_8052878: @ 0x08052878
 	adds r1, r2, #0
 	adds r2, #1
 	str r2, [r3, #0x48]
-	bl sub_80528CC
+	bl func_fe6_080528CC
 .L080528C6:
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80528CC
-sub_80528CC: @ 0x080528CC
+	thumb_func_start func_fe6_080528CC
+func_fe6_080528CC: @ 0x080528CC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08052928 @ =gUnk_Banim_02017744
@@ -32112,7 +32112,7 @@ sub_80528CC: @ 0x080528CC
 	movs r0, #0x14
 	strh r0, [r5, #0x2e]
 	movs r0, #0x78
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	adds r1, r0, #0
 	subs r1, #0x3c
 	strh r1, [r5, #0x32]
@@ -32134,7 +32134,7 @@ sub_80528CC: @ 0x080528CC
 	adds r0, r0, r1
 	strh r0, [r5, #0x3c]
 	movs r0, #2
-	bl sub_805B9C8
+	bl func_fe6_0805B9C8
 	cmp r0, #1
 	bne .L08052938
 	ldr r0, .L08052934 @ =gUnk_08603BA4
@@ -32176,8 +32176,8 @@ sub_80528CC: @ 0x080528CC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8052974
-sub_8052974: @ 0x08052974
+	thumb_func_start func_fe6_08052974
+func_fe6_08052974: @ 0x08052974
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -32236,13 +32236,13 @@ sub_8052974: @ 0x08052974
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80529EC
-sub_80529EC: @ 0x080529EC
+	thumb_func_start func_fe6_080529EC
+func_fe6_080529EC: @ 0x080529EC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08052A24 @ =gUnk_085D2608
 	movs r1, #3
 	bl SpawnProc
@@ -32251,10 +32251,10 @@ sub_80529EC: @ 0x080529EC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -32263,15 +32263,15 @@ sub_80529EC: @ 0x080529EC
 	.align 2, 0
 .L08052A24: .4byte gUnk_085D2608
 
-	thumb_func_start sub_8052A28
-sub_8052A28: @ 0x08052A28
+	thumb_func_start func_fe6_08052A28
+func_fe6_08052A28: @ 0x08052A28
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -32284,7 +32284,7 @@ sub_8052A28: @ 0x08052A28
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08052A56:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -32294,39 +32294,39 @@ sub_8052A28: @ 0x08052A28
 	ldr r4, .L08052AC4 @ =0x000001D1
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_8052BA8
+	bl func_fe6_08052BA8
 	adds r0, r5, #0
-	bl sub_8052D40
+	bl func_fe6_08052D40
 	adds r0, r5, #0
-	bl sub_8052C68
+	bl func_fe6_08052C68
 	ldr r1, .L08052AC8 @ =0x0000018B
 	adds r0, r5, #0
 	movs r2, #0xa
-	bl sub_805315C
+	bl func_fe6_0805315C
 	ldr r1, .L08052ACC @ =0x0000019F
 	adds r0, r5, #0
 	movs r2, #0x14
-	bl sub_80531C4
+	bl func_fe6_080531C4
 	adds r0, r5, #0
-	bl sub_8052DF4
+	bl func_fe6_08052DF4
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_805304C
+	bl func_fe6_0805304C
 	movs r0, #3
 	str r0, [sp]
 	adds r0, r5, #0
 	adds r1, r4, #0
 	movs r2, #0x14
 	movs r3, #0x80
-	bl sub_804C8D4
+	bl func_fe6_0804C8D4
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0x8c
-	bl sub_80530E4
-	ldr r2, .L08052AD0 @ =sub_804CD4C
+	bl func_fe6_080530E4
+	ldr r2, .L08052AD0 @ =func_fe6_0804CD4C
 	adds r0, r5, #0
 	adds r1, r4, #0
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	movs r0, #0x82
 	lsls r0, r0, #1
 	b .L08052B38
@@ -32334,7 +32334,7 @@ sub_8052A28: @ 0x08052A28
 .L08052AC4: .4byte 0x000001D1
 .L08052AC8: .4byte 0x0000018B
 .L08052ACC: .4byte 0x0000019F
-.L08052AD0: .4byte sub_804CD4C
+.L08052AD0: .4byte func_fe6_0804CD4C
 .L08052AD4:
 	adds r0, r4, #0
 	adds r0, #0x92
@@ -32353,7 +32353,7 @@ sub_8052A28: @ 0x08052A28
 	adds r0, r5, #0
 	movs r1, #0xa
 	movs r2, #0x14
-	bl sub_804685C
+	bl func_fe6_0804685C
 	b .L08052B9A
 .L08052AFA:
 	ldr r2, .L08052B48 @ =0x000001D5
@@ -32362,24 +32362,24 @@ sub_8052A28: @ 0x08052A28
 	bne .L08052B4C
 	adds r0, r5, #0
 	movs r1, #0xa0
-	bl sub_805327C
+	bl func_fe6_0805327C
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x6e
 	movs r2, #0x28
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	adds r0, r5, #0
 	movs r1, #0x8c
 	movs r2, #0x18
-	bl sub_8053420
+	bl func_fe6_08053420
 	adds r0, r5, #0
 	movs r1, #0x3c
-	bl sub_8053530
+	bl func_fe6_08053530
 	adds r0, r5, #0
 	movs r1, #0x5a
-	bl sub_804D050
+	bl func_fe6_0804D050
 	movs r0, #0x83
 	lsls r0, r0, #1
 .L08052B38:
@@ -32387,7 +32387,7 @@ sub_8052A28: @ 0x08052A28
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08052B9A
 	.align 2, 0
 .L08052B48: .4byte 0x000001D5
@@ -32404,12 +32404,12 @@ sub_8052A28: @ 0x08052A28
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08052B9A
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08052B9A
 	.align 2, 0
 .L08052B78: .4byte 0x0000020D
@@ -32422,8 +32422,8 @@ sub_8052A28: @ 0x08052A28
 	adds r0, r4, r2
 	cmp r1, r0
 	bne .L08052B9A
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r6, #0
 	bl Proc_Break
 .L08052B9A:
@@ -32434,8 +32434,8 @@ sub_8052A28: @ 0x08052A28
 	.align 2, 0
 .L08052BA4: .4byte 0x00000271
 
-	thumb_func_start sub_8052BA8
-sub_8052BA8: @ 0x08052BA8
+	thumb_func_start func_fe6_08052BA8
+func_fe6_08052BA8: @ 0x08052BA8
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r4, r0, #0
@@ -32454,8 +32454,8 @@ sub_8052BA8: @ 0x08052BA8
 	ldr r0, .L08052C20 @ =gUnk_0817AC4C
 	movs r1, #0x84
 	lsls r1, r1, #5
-	bl sub_8047ACC
-	bl sub_80474D8
+	bl func_fe6_08047ACC
+	bl func_fe6_080474D8
 	ldr r0, .L08052C24 @ =gUnk_0817B438
 	ldr r4, .L08052C28 @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
@@ -32468,8 +32468,8 @@ sub_8052BA8: @ 0x08052BA8
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805B1AC
-	bl sub_8047500
+	bl func_fe6_0805B1AC
+	bl func_fe6_08047500
 	ldr r2, .L08052C30 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -32494,8 +32494,8 @@ sub_8052BA8: @ 0x08052BA8
 .L08052C2C: .4byte gBg1Tm
 .L08052C30: .4byte gDispIo
 
-	thumb_func_start sub_8052C34
-sub_8052C34: @ 0x08052C34
+	thumb_func_start func_fe6_08052C34
+func_fe6_08052C34: @ 0x08052C34
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -32506,12 +32506,12 @@ sub_8052C34: @ 0x08052C34
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08052C5E
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08052C64 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_End
 .L08052C5E:
@@ -32521,8 +32521,8 @@ sub_8052C34: @ 0x08052C34
 	.align 2, 0
 .L08052C64: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052C68
-sub_8052C68: @ 0x08052C68
+	thumb_func_start func_fe6_08052C68
+func_fe6_08052C68: @ 0x08052C68
 	push {r4, lr}
 	ldr r1, .L08052C94 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -32547,8 +32547,8 @@ sub_8052C68: @ 0x08052C68
 .L08052C94: .4byte gUnk_Banim_02017744
 .L08052C98: .4byte gUnk_085D2638
 
-	thumb_func_start sub_8052C9C
-sub_8052C9C: @ 0x08052C9C
+	thumb_func_start func_fe6_08052C9C
+func_fe6_08052C9C: @ 0x08052C9C
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -32630,8 +32630,8 @@ sub_8052C9C: @ 0x08052C9C
 .L08052D38: .4byte gDispIo
 .L08052D3C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052D40
-sub_8052D40: @ 0x08052D40
+	thumb_func_start func_fe6_08052D40
+func_fe6_08052D40: @ 0x08052D40
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08052D7C @ =gUnk_Banim_02017744
@@ -32648,12 +32648,12 @@ sub_8052D40: @ 0x08052D40
 	strh r1, [r0, #0x2e]
 	ldr r0, .L08052D84 @ =gUnk_0817B418
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08052D88 @ =gPal
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x10
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	pop {r4}
 	pop {r0}
@@ -32664,8 +32664,8 @@ sub_8052D40: @ 0x08052D40
 .L08052D84: .4byte gUnk_0817B418
 .L08052D88: .4byte gPal
 
-	thumb_func_start sub_8052D8C
-sub_8052D8C: @ 0x08052D8C
+	thumb_func_start func_fe6_08052D8C
+func_fe6_08052D8C: @ 0x08052D8C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -32681,12 +32681,12 @@ sub_8052D8C: @ 0x08052D8C
 	adds r4, r0, #0
 	ldr r0, .L08052DE8 @ =gUnk_0817B418
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08052DEC @ =gPal
 	movs r1, #1
 	movs r2, #1
 	adds r3, r4, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -32712,8 +32712,8 @@ sub_8052D8C: @ 0x08052D8C
 .L08052DEC: .4byte gPal
 .L08052DF0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8052DF4
-sub_8052DF4: @ 0x08052DF4
+	thumb_func_start func_fe6_08052DF4
+func_fe6_08052DF4: @ 0x08052DF4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	movs r4, #0
@@ -32728,11 +32728,11 @@ sub_8052DF4: @ 0x08052DF4
 	bls .L08052DFA
 	ldr r0, .L08052E28 @ =gUnk_0817BBB4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08052E2C @ =gUnk_0817B8D0
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -32741,8 +32741,8 @@ sub_8052DF4: @ 0x08052DF4
 .L08052E28: .4byte gUnk_0817BBB4
 .L08052E2C: .4byte gUnk_0817B8D0
 
-	thumb_func_start sub_8052E30
-sub_8052E30: @ 0x08052E30
+	thumb_func_start func_fe6_08052E30
+func_fe6_08052E30: @ 0x08052E30
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -32764,7 +32764,7 @@ sub_8052E30: @ 0x08052E30
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r1, .L08052E98 @ =0x0000F3FF
 	ldrh r2, [r0, #8]
@@ -32793,8 +32793,8 @@ sub_8052E30: @ 0x08052E30
 .L08052E94: .4byte gUnk_085D26B0
 .L08052E98: .4byte 0x0000F3FF
 
-	thumb_func_start sub_8052E9C
-sub_8052E9C: @ 0x08052E9C
+	thumb_func_start func_fe6_08052E9C
+func_fe6_08052E9C: @ 0x08052E9C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -32866,8 +32866,8 @@ sub_8052E9C: @ 0x08052E9C
 	.align 2, 0
 .L08052F24: .4byte gSinLut
 
-	thumb_func_start sub_8052F28
-sub_8052F28: @ 0x08052F28
+	thumb_func_start func_fe6_08052F28
+func_fe6_08052F28: @ 0x08052F28
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -32939,8 +32939,8 @@ sub_8052F28: @ 0x08052F28
 	.align 2, 0
 .L08052FB0: .4byte gSinLut
 
-	thumb_func_start sub_8052FB4
-sub_8052FB4: @ 0x08052FB4
+	thumb_func_start func_fe6_08052FB4
+func_fe6_08052FB4: @ 0x08052FB4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -33016,8 +33016,8 @@ sub_8052FB4: @ 0x08052FB4
 .L08053044: .4byte gSinLut
 .L08053048: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805304C
-sub_805304C: @ 0x0805304C
+	thumb_func_start func_fe6_0805304C
+func_fe6_0805304C: @ 0x0805304C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -33047,8 +33047,8 @@ sub_805304C: @ 0x0805304C
 .L08053084: .4byte gUnk_0811A62A
 .L08053088: .4byte gUnk_0817BBB6
 
-	thumb_func_start sub_805308C
-sub_805308C: @ 0x0805308C
+	thumb_func_start func_fe6_0805308C
+func_fe6_0805308C: @ 0x0805308C
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -33056,7 +33056,7 @@ sub_805308C: @ 0x0805308C
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -33067,7 +33067,7 @@ sub_805308C: @ 0x0805308C
 	str r2, [sp]
 	adds r2, r3, #0
 	movs r3, #0xf
-	bl sub_8047B6C
+	bl func_fe6_08047B6C
 .L080530B6:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -33092,8 +33092,8 @@ sub_805308C: @ 0x0805308C
 .L080530DC: .4byte gPal+0x2
 .L080530E0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80530E4
-sub_80530E4: @ 0x080530E4
+	thumb_func_start func_fe6_080530E4
+func_fe6_080530E4: @ 0x080530E4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -33117,8 +33117,8 @@ sub_80530E4: @ 0x080530E4
 .L0805310C: .4byte gUnk_Banim_02017744
 .L08053110: .4byte gUnk_085D26F0
 
-	thumb_func_start sub_8053114
-sub_8053114: @ 0x08053114
+	thumb_func_start func_fe6_08053114
+func_fe6_08053114: @ 0x08053114
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -33155,8 +33155,8 @@ sub_8053114: @ 0x08053114
 	.align 2, 0
 .L08053158: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805315C
-sub_805315C: @ 0x0805315C
+	thumb_func_start func_fe6_0805315C
+func_fe6_0805315C: @ 0x0805315C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -33180,8 +33180,8 @@ sub_805315C: @ 0x0805315C
 .L08053184: .4byte gUnk_Banim_02017744
 .L08053188: .4byte gUnk_085D2708
 
-	thumb_func_start sub_805318C
-sub_805318C: @ 0x0805318C
+	thumb_func_start func_fe6_0805318C
+func_fe6_0805318C: @ 0x0805318C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -33199,7 +33199,7 @@ sub_805318C: @ 0x0805318C
 	ldr r0, [r4, #0x5c]
 	movs r2, #0x30
 	ldrsh r1, [r4, r2]
-	bl sub_8046794
+	bl func_fe6_08046794
 	adds r0, r4, #0
 	bl Proc_Break
 .L080531B8:
@@ -33209,8 +33209,8 @@ sub_805318C: @ 0x0805318C
 	.align 2, 0
 .L080531C0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80531C4
-sub_80531C4: @ 0x080531C4
+	thumb_func_start func_fe6_080531C4
+func_fe6_080531C4: @ 0x080531C4
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -33234,8 +33234,8 @@ sub_80531C4: @ 0x080531C4
 .L080531EC: .4byte gUnk_Banim_02017744
 .L080531F0: .4byte gUnk_085D2720
 
-	thumb_func_start sub_80531F4
-sub_80531F4: @ 0x080531F4
+	thumb_func_start func_fe6_080531F4
+func_fe6_080531F4: @ 0x080531F4
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -33255,8 +33255,8 @@ sub_80531F4: @ 0x080531F4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053218
-sub_8053218: @ 0x08053218
+	thumb_func_start func_fe6_08053218
+func_fe6_08053218: @ 0x08053218
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -33272,12 +33272,12 @@ sub_8053218: @ 0x08053218
 	adds r4, r0, #0
 	ldr r0, .L08053270 @ =gUnk_0817B418
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08053274 @ =gPal
 	movs r1, #1
 	movs r2, #1
 	adds r3, r4, #0
-	bl sub_805B644
+	bl func_fe6_0805B644
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
 	strh r0, [r5, #0x2c]
@@ -33302,8 +33302,8 @@ sub_8053218: @ 0x08053218
 .L08053274: .4byte gPal
 .L08053278: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805327C
-sub_805327C: @ 0x0805327C
+	thumb_func_start func_fe6_0805327C
+func_fe6_0805327C: @ 0x0805327C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -33330,17 +33330,17 @@ sub_805327C: @ 0x0805327C
 	str r0, [r5, #0x54]
 	ldr r0, .L08053334 @ =gUnk_08181E60
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08053318
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	ldr r4, .L08053338 @ =gDispIo
 	movs r2, #4
 	rsbs r2, r2, #0
@@ -33390,21 +33390,21 @@ sub_805327C: @ 0x0805327C
 .L08053338: .4byte gDispIo
 .L0805333C: .4byte 0x0000F3FF
 
-	thumb_func_start sub_8053340
-sub_8053340: @ 0x08053340
+	thumb_func_start func_fe6_08053340
+func_fe6_08053340: @ 0x08053340
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	adds r7, r0, #0
 	ldr r0, [r7, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	mov r8, r0
 	adds r0, r7, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -33417,13 +33417,13 @@ sub_8053340: @ 0x08053340
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 .L08053388:
 	ldrh r0, [r7, #0x2e]
 	adds r0, #1
@@ -33433,7 +33433,7 @@ sub_8053340: @ 0x08053340
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08053408
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080533F2
 	ldr r3, .L08053414 @ =gDispIo
@@ -33478,12 +33478,12 @@ sub_8053340: @ 0x08053340
 	mov r3, r8
 	strh r1, [r3, #8]
 .L080533F2:
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0805341C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L08053408:
@@ -33497,8 +33497,8 @@ sub_8053340: @ 0x08053340
 .L08053418: .4byte 0x0000F3FF
 .L0805341C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053420
-sub_8053420: @ 0x08053420
+	thumb_func_start func_fe6_08053420
+func_fe6_08053420: @ 0x08053420
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -33525,7 +33525,7 @@ sub_8053420: @ 0x08053420
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	movs r0, #0x78
@@ -33535,7 +33535,7 @@ sub_8053420: @ 0x08053420
 	movs r0, #0x14
 	strh r0, [r5, #0xa]
 	bl BasSort
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L08053486
 	ldr r0, .L080534B0 @ =0x0000F3FF
@@ -33549,11 +33549,11 @@ sub_8053420: @ 0x08053420
 .L08053486:
 	ldr r0, .L080534B4 @ =gUnk_081629D4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080534B8 @ =gUnk_081830F4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -33568,8 +33568,8 @@ sub_8053420: @ 0x08053420
 .L080534B4: .4byte gUnk_081629D4
 .L080534B8: .4byte gUnk_081830F4
 
-	thumb_func_start sub_80534BC
-sub_80534BC: @ 0x080534BC
+	thumb_func_start func_fe6_080534BC
+func_fe6_080534BC: @ 0x080534BC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r2, [r4, #0x60]
@@ -33590,7 +33590,7 @@ sub_80534BC: @ 0x080534BC
 	ldr r0, .L080534F8 @ =gUnk_0818360C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 .L080534EE:
@@ -33601,8 +33601,8 @@ sub_80534BC: @ 0x080534BC
 .L080534F4: .4byte gUnk_085EC478
 .L080534F8: .4byte gUnk_0818360C
 
-	thumb_func_start sub_80534FC
-sub_80534FC: @ 0x080534FC
+	thumb_func_start func_fe6_080534FC
+func_fe6_080534FC: @ 0x080534FC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -33628,8 +33628,8 @@ sub_80534FC: @ 0x080534FC
 	.align 2, 0
 .L0805352C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053530
-sub_8053530: @ 0x08053530
+	thumb_func_start func_fe6_08053530
+func_fe6_08053530: @ 0x08053530
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -33656,8 +33656,8 @@ sub_8053530: @ 0x08053530
 .L08053560: .4byte gUnk_Banim_02017744
 .L08053564: .4byte gUnk_085D2798
 
-	thumb_func_start sub_8053568
-sub_8053568: @ 0x08053568
+	thumb_func_start func_fe6_08053568
+func_fe6_08053568: @ 0x08053568
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -33719,7 +33719,7 @@ sub_8053568: @ 0x08053568
 	adds r1, r7, #0
 	adds r2, r6, #0
 	adds r3, r5, #0
-	bl sub_80535F8
+	bl func_fe6_080535F8
 .L080535E4:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -33729,8 +33729,8 @@ sub_8053568: @ 0x08053568
 .L080535F0: .4byte gUnk_085D287C
 .L080535F4: .4byte gUnk_085D2944
 
-	thumb_func_start sub_80535F8
-sub_80535F8: @ 0x080535F8
+	thumb_func_start func_fe6_080535F8
+func_fe6_080535F8: @ 0x080535F8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -33796,14 +33796,14 @@ sub_80535F8: @ 0x080535F8
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	movs r0, #0x80
 	lsls r0, r0, #1
 	strh r0, [r4, #2]
 	strh r0, [r4, #4]
-	bl sub_805894C
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L080536AE
 	ldr r0, .L080536C0 @ =0x0000F3FF
@@ -33825,8 +33825,8 @@ sub_80535F8: @ 0x080535F8
 .L080536BC: .4byte gUnk_085EBF50
 .L080536C0: .4byte 0x0000F3FF
 
-	thumb_func_start sub_80536C4
-sub_80536C4: @ 0x080536C4
+	thumb_func_start func_fe6_080536C4
+func_fe6_080536C4: @ 0x080536C4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -33903,13 +33903,13 @@ sub_80536C4: @ 0x080536C4
 .L0805375C: .4byte gSinLut
 .L08053760: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053764
-sub_8053764: @ 0x08053764
+	thumb_func_start func_fe6_08053764
+func_fe6_08053764: @ 0x08053764
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0805379C @ =gUnk_085D2A24
 	movs r1, #3
 	bl SpawnProc
@@ -33918,10 +33918,10 @@ sub_8053764: @ 0x08053764
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -33930,17 +33930,17 @@ sub_8053764: @ 0x08053764
 	.align 2, 0
 .L0805379C: .4byte gUnk_085D2A24
 
-	thumb_func_start sub_80537A0
-sub_80537A0: @ 0x080537A0
+	thumb_func_start func_fe6_080537A0
+func_fe6_080537A0: @ 0x080537A0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -33955,7 +33955,7 @@ sub_80537A0: @ 0x080537A0
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L080537D6:
 	movs r2, #0x2c
 	ldrsh r1, [r6, r2]
@@ -33986,25 +33986,25 @@ sub_80537A0: @ 0x080537A0
 	movs r1, #0
 	movs r2, #0x1e
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0xa0
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	ldr r0, [r6, #0x5c]
-	bl sub_8053954
+	bl func_fe6_08053954
 	ldr r0, [r6, #0x5c]
-	bl sub_8053CB4
+	bl func_fe6_08053CB4
 	movs r0, #0x9c
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08053946
 	.align 2, 0
 .L08053844: .4byte gDispIo
@@ -34019,25 +34019,25 @@ sub_80537A0: @ 0x080537A0
 	movs r1, #0x52
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_804C8D4
+	bl func_fe6_0804C8D4
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #0x3c
-	bl sub_8050D68
-	ldr r2, .L08053878 @ =sub_804CD4C
+	bl func_fe6_08050D68
+	ldr r2, .L08053878 @ =func_fe6_0804CD4C
 	adds r0, r5, #0
 	movs r1, #0x53
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	b .L08053946
 	.align 2, 0
-.L08053878: .4byte sub_804CD4C
+.L08053878: .4byte func_fe6_0804CD4C
 .L0805387C:
 	adds r0, r4, #0
 	adds r0, #0xd2
 	cmp r1, r0
 	bne .L0805388C
 	adds r0, r5, #0
-	bl sub_80539C4
+	bl func_fe6_080539C4
 	b .L08053946
 .L0805388C:
 	adds r0, r4, #0
@@ -34050,7 +34050,7 @@ sub_80537A0: @ 0x080537A0
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08053946
 	.align 2, 0
 .L080538A8: .4byte 0x00000139
@@ -34060,7 +34060,7 @@ sub_80537A0: @ 0x080537A0
 	cmp r1, r0
 	bne .L080538BC
 	ldr r0, [r6, #0x5c]
-	bl sub_8053AFC
+	bl func_fe6_08053AFC
 	b .L08053946
 .L080538BC:
 	movs r2, #0x9e
@@ -34075,10 +34075,10 @@ sub_80537A0: @ 0x080537A0
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -34087,12 +34087,12 @@ sub_80537A0: @ 0x080537A0
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08053946
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08053946
 .L08053902:
 	movs r2, #0xa3
@@ -34101,14 +34101,14 @@ sub_80537A0: @ 0x080537A0
 	cmp r1, r0
 	bne .L08053924
 	adds r0, r5, #0
-	bl sub_8053A44
+	bl func_fe6_08053A44
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x10
 	movs r2, #0xa
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L08053946
 .L08053924:
 	movs r3, #0xaf
@@ -34121,8 +34121,8 @@ sub_80537A0: @ 0x080537A0
 	adds r0, r4, r2
 	cmp r1, r0
 	bne .L08053946
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r6, #0
 	bl Proc_Break
 .L08053946:
@@ -34134,8 +34134,8 @@ sub_80537A0: @ 0x080537A0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053954
-sub_8053954: @ 0x08053954
+	thumb_func_start func_fe6_08053954
+func_fe6_08053954: @ 0x08053954
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080539A8 @ =gUnk_Banim_02017744
@@ -34158,8 +34158,8 @@ sub_8053954: @ 0x08053954
 	str r1, [r0, #0x54]
 	ldr r0, .L080539BC @ =gUnk_0816B328
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r2, .L080539C0 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -34183,8 +34183,8 @@ sub_8053954: @ 0x08053954
 .L080539BC: .4byte gUnk_0816B328
 .L080539C0: .4byte gDispIo
 
-	thumb_func_start sub_80539C4
-sub_80539C4: @ 0x080539C4
+	thumb_func_start func_fe6_080539C4
+func_fe6_080539C4: @ 0x080539C4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08053A28 @ =gUnk_Banim_02017744
@@ -34208,8 +34208,8 @@ sub_80539C4: @ 0x080539C4
 	str r1, [r0, #0x54]
 	ldr r0, .L08053A3C @ =gUnk_0818BBCC
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r3, .L08053A40 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -34241,8 +34241,8 @@ sub_80539C4: @ 0x080539C4
 .L08053A3C: .4byte gUnk_0818BBCC
 .L08053A40: .4byte gDispIo
 
-	thumb_func_start sub_8053A44
-sub_8053A44: @ 0x08053A44
+	thumb_func_start func_fe6_08053A44
+func_fe6_08053A44: @ 0x08053A44
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08053A80 @ =gUnk_Banim_02017744
@@ -34265,8 +34265,8 @@ sub_8053A44: @ 0x08053A44
 	str r1, [r0, #0x54]
 	ldr r0, .L08053A94 @ =gUnk_0818BBEC
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -34278,15 +34278,15 @@ sub_8053A44: @ 0x08053A44
 .L08053A90: .4byte gUnk_085D2AC0
 .L08053A94: .4byte gUnk_0818BBEC
 
-	thumb_func_start sub_8053A98
-sub_8053A98: @ 0x08053A98
+	thumb_func_start func_fe6_08053A98
+func_fe6_08053A98: @ 0x08053A98
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	adds r0, #0x2c
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -34299,25 +34299,25 @@ sub_8053A98: @ 0x08053A98
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08053AF2
 .L08053AD4:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08053AF2
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08053AF8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_Break
 .L08053AF2:
@@ -34327,8 +34327,8 @@ sub_8053A98: @ 0x08053A98
 	.align 2, 0
 .L08053AF8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053AFC
-sub_8053AFC: @ 0x08053AFC
+	thumb_func_start func_fe6_08053AFC
+func_fe6_08053AFC: @ 0x08053AFC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -34342,7 +34342,7 @@ sub_8053AFC: @ 0x08053AFC
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -34351,7 +34351,7 @@ sub_8053AFC: @ 0x08053AFC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r4, #0x60]
 	ldr r0, .L08053B60 @ =0x0000F3FF
@@ -34363,7 +34363,7 @@ sub_8053AFC: @ 0x08053AFC
 	orrs r0, r1
 	strh r0, [r6, #8]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08053B64
 	ldrh r0, [r6, #2]
@@ -34382,7 +34382,7 @@ sub_8053AFC: @ 0x08053AFC
 	ldrh r0, [r6, #4]
 	subs r0, #0x10
 	strh r0, [r6, #4]
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08053B7E
 	ldrh r0, [r6, #2]
@@ -34395,8 +34395,8 @@ sub_8053AFC: @ 0x08053AFC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053B88
-sub_8053B88: @ 0x08053B88
+	thumb_func_start func_fe6_08053B88
+func_fe6_08053B88: @ 0x08053B88
 	push {lr}
 	ldr r2, .L08053B9C @ =gUnk_Banim_02017744
 	ldr r1, [r2]
@@ -34409,8 +34409,8 @@ sub_8053B88: @ 0x08053B88
 	.align 2, 0
 .L08053B9C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053BA0
-sub_8053BA0: @ 0x08053BA0
+	thumb_func_start func_fe6_08053BA0
+func_fe6_08053BA0: @ 0x08053BA0
 	push {r4, lr}
 	adds r1, r0, #0
 	ldr r2, [r1, #0x60]
@@ -34430,11 +34430,11 @@ sub_8053BA0: @ 0x08053BA0
 	strh r0, [r1, #0x2e]
 	ldr r0, .L08053BDC @ =gUnk_0818EA78
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08053BE0 @ =gUnk_0818DD18
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	b .L08053BF4
 	.align 2, 0
 .L08053BD8: .4byte gUnk_085EC630
@@ -34454,8 +34454,8 @@ sub_8053BA0: @ 0x08053BA0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053BFC
-sub_8053BFC: @ 0x08053BFC
+	thumb_func_start func_fe6_08053BFC
+func_fe6_08053BFC: @ 0x08053BFC
 	push {r4, lr}
 	adds r1, r0, #0
 	ldr r2, [r1, #0x60]
@@ -34475,11 +34475,11 @@ sub_8053BFC: @ 0x08053BFC
 	strh r0, [r1, #0x2e]
 	ldr r0, .L08053C38 @ =gUnk_0818EA78
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08053C3C @ =gUnk_0818E1E4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	b .L08053C50
 	.align 2, 0
 .L08053C34: .4byte gUnk_085EC938
@@ -34499,8 +34499,8 @@ sub_8053BFC: @ 0x08053BFC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053C58
-sub_8053C58: @ 0x08053C58
+	thumb_func_start func_fe6_08053C58
+func_fe6_08053C58: @ 0x08053C58
 	push {r4, lr}
 	adds r1, r0, #0
 	ldr r2, [r1, #0x60]
@@ -34520,11 +34520,11 @@ sub_8053C58: @ 0x08053C58
 	strh r0, [r1, #0x2e]
 	ldr r0, .L08053C94 @ =gUnk_0818EA78
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08053C98 @ =gUnk_0818E67C
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	b .L08053CAC
 	.align 2, 0
 .L08053C90: .4byte gUnk_085ECC34
@@ -34544,8 +34544,8 @@ sub_8053C58: @ 0x08053C58
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8053CB4
-sub_8053CB4: @ 0x08053CB4
+	thumb_func_start func_fe6_08053CB4
+func_fe6_08053CB4: @ 0x08053CB4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08053CEC @ =gUnk_Banim_02017744
@@ -34563,11 +34563,11 @@ sub_8053CB4: @ 0x08053CB4
 	strh r1, [r0, #0x30]
 	ldr r0, .L08053CF4 @ =gUnk_081629D4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08053CF8 @ =gUnk_08161DDC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -34577,8 +34577,8 @@ sub_8053CB4: @ 0x08053CB4
 .L08053CF4: .4byte gUnk_081629D4
 .L08053CF8: .4byte gUnk_08161DDC
 
-	thumb_func_start sub_8053CFC
-sub_8053CFC: @ 0x08053CFC
+	thumb_func_start func_fe6_08053CFC
+func_fe6_08053CFC: @ 0x08053CFC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -34604,7 +34604,7 @@ sub_8053CFC: @ 0x08053CFC
 	ldrsh r1, [r1, r3]
 	movs r3, #0
 	ldrsh r2, [r2, r3]
-	bl sub_8053D5C
+	bl func_fe6_08053D5C
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
 	strh r0, [r4, #0x2e]
@@ -34626,8 +34626,8 @@ sub_8053CFC: @ 0x08053CFC
 .L08053D54: .4byte gUnk_085D2B8C
 .L08053D58: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053D5C
-sub_8053D5C: @ 0x08053D5C
+	thumb_func_start func_fe6_08053D5C
+func_fe6_08053D5C: @ 0x08053D5C
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -34651,7 +34651,7 @@ sub_8053D5C: @ 0x08053D5C
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	strh r6, [r0, #2]
 	mov r1, r8
@@ -34667,8 +34667,8 @@ sub_8053D5C: @ 0x08053D5C
 .L08053DA8: .4byte gUnk_085D2BA4
 .L08053DAC: .4byte gUnk_085EAC34
 
-	thumb_func_start sub_8053DB0
-sub_8053DB0: @ 0x08053DB0
+	thumb_func_start func_fe6_08053DB0
+func_fe6_08053DB0: @ 0x08053DB0
 	push {lr}
 	ldr r2, .L08053DC4 @ =gUnk_Banim_02017744
 	ldr r1, [r2]
@@ -34681,13 +34681,13 @@ sub_8053DB0: @ 0x08053DB0
 	.align 2, 0
 .L08053DC4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8053DC8
-sub_8053DC8: @ 0x08053DC8
+	thumb_func_start func_fe6_08053DC8
+func_fe6_08053DC8: @ 0x08053DC8
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08053E00 @ =gUnk_085D2BC4
 	movs r1, #3
 	bl SpawnProc
@@ -34696,10 +34696,10 @@ sub_8053DC8: @ 0x08053DC8
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -34708,17 +34708,17 @@ sub_8053DC8: @ 0x08053DC8
 	.align 2, 0
 .L08053E00: .4byte gUnk_085D2BC4
 
-	thumb_func_start sub_8053E04
-sub_8053E04: @ 0x08053E04
+	thumb_func_start func_fe6_08053E04
+func_fe6_08053E04: @ 0x08053E04
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r4, r0, #0
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -34733,7 +34733,7 @@ sub_8053E04: @ 0x08053E04
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08053E3A:
 	movs r2, #0x2c
 	ldrsh r1, [r6, r2]
@@ -34742,10 +34742,10 @@ sub_8053E04: @ 0x08053E04
 	bne .L08053ED0
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_8053FF4
+	bl func_fe6_08053FF4
 	adds r0, r5, #0
 	movs r1, #0x64
-	bl sub_80540D0
+	bl func_fe6_080540D0
 	movs r4, #0x80
 	lsls r4, r4, #1
 	movs r0, #1
@@ -34754,11 +34754,11 @@ sub_8053E04: @ 0x08053E04
 	movs r1, #0x64
 	movs r2, #2
 	adds r3, r4, #0
-	bl sub_804C8D4
-	ldr r2, .L08053EC8 @ =sub_804CD4C
+	bl func_fe6_0804C8D4
+	ldr r2, .L08053EC8 @ =func_fe6_0804CD4C
 	adds r0, r5, #0
 	movs r1, #0x69
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	ldr r3, .L08053ECC @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -34783,23 +34783,23 @@ sub_8053E04: @ 0x08053E04
 	movs r1, #0
 	movs r2, #0xf
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0x46
 	movs r2, #0xf
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r0, #0x98
 	lsls r0, r0, #1
 	adds r1, r4, #0
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08053FE8
 	.align 2, 0
-.L08053EC8: .4byte sub_804CD4C
+.L08053EC8: .4byte func_fe6_0804CD4C
 .L08053ECC: .4byte gDispIo
 .L08053ED0:
 	adds r0, r4, #0
@@ -34808,7 +34808,7 @@ sub_8053E04: @ 0x08053E04
 	bne .L08053EE8
 	adds r0, r5, #0
 	movs r1, #0x4a
-	bl sub_8054168
+	bl func_fe6_08054168
 	ldr r0, .L08053EE4 @ =0x00000131
 	b .L08053F40
 	.align 2, 0
@@ -34819,7 +34819,7 @@ sub_8053E04: @ 0x08053E04
 	cmp r1, r0
 	bne .L08053EF8
 	adds r0, r5, #0
-	bl sub_80541FC
+	bl func_fe6_080541FC
 	b .L08053FE8
 .L08053EF8:
 	adds r0, r4, #0
@@ -34865,7 +34865,7 @@ sub_8053E04: @ 0x08053E04
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08053FE8
 	.align 2, 0
 .L08053F50: .4byte 0x00000117
@@ -34878,9 +34878,9 @@ sub_8053E04: @ 0x08053E04
 	bne .L08053FA2
 	adds r0, r5, #0
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	adds r0, r5, #0
-	bl sub_80543C4
+	bl func_fe6_080543C4
 	movs r0, #9
 	ldrh r3, [r5, #0x10]
 	orrs r0, r3
@@ -34889,19 +34889,19 @@ sub_8053E04: @ 0x08053E04
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_8047600
+	bl func_fe6_08047600
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r5, r0]
 	adds r0, r7, #0
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08053FE8
 	adds r0, r5, #0
-	bl sub_805C358
+	bl func_fe6_0805C358
 	b .L08053FE8
 .L08053FA2:
 	movs r2, #0xb8
@@ -34910,7 +34910,7 @@ sub_8053E04: @ 0x08053E04
 	cmp r1, r0
 	bne .L08053FC6
 	adds r0, r5, #0
-	bl sub_805428C
+	bl func_fe6_0805428C
 	movs r0, #0
 	str r0, [sp]
 	str r0, [sp, #4]
@@ -34918,7 +34918,7 @@ sub_8053E04: @ 0x08053E04
 	movs r1, #0x12
 	movs r2, #8
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L08053FE8
 .L08053FC6:
 	movs r3, #0xcd
@@ -34931,8 +34931,8 @@ sub_8053E04: @ 0x08053E04
 	adds r0, r4, r2
 	cmp r1, r0
 	bne .L08053FE8
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r6, #0
 	bl Proc_Break
 .L08053FE8:
@@ -34943,8 +34943,8 @@ sub_8053E04: @ 0x08053E04
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8053FF4
-sub_8053FF4: @ 0x08053FF4
+	thumb_func_start func_fe6_08053FF4
+func_fe6_08053FF4: @ 0x08053FF4
 	push {r4, r5, lr}
 	sub sp, #8
 	adds r4, r0, #0
@@ -34963,8 +34963,8 @@ sub_8053FF4: @ 0x08053FF4
 	ldr r0, .L08054070 @ =gUnk_0818EA98
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_80474D8
+	bl func_fe6_08047ACC
+	bl func_fe6_080474D8
 	ldr r0, .L08054074 @ =gUnk_0818F3D8
 	ldr r4, .L08054078 @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
@@ -34977,10 +34977,10 @@ sub_8053FF4: @ 0x08053FF4
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r2, .L08054080 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -35005,22 +35005,22 @@ sub_8053FF4: @ 0x08053FF4
 .L0805407C: .4byte gBg1Tm
 .L08054080: .4byte gDispIo
 
-	thumb_func_start sub_8054084
-sub_8054084: @ 0x08054084
+	thumb_func_start func_fe6_08054084
+func_fe6_08054084: @ 0x08054084
 	push {lr}
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0805409C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L0805409C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80540A0
-sub_80540A0: @ 0x080540A0
+	thumb_func_start func_fe6_080540A0
+func_fe6_080540A0: @ 0x080540A0
 	push {lr}
 	adds r2, r0, #0
 	ldr r0, .L080540CC @ =gDispIo
@@ -35046,8 +35046,8 @@ sub_80540A0: @ 0x080540A0
 	.align 2, 0
 .L080540CC: .4byte gDispIo
 
-	thumb_func_start sub_80540D0
-sub_80540D0: @ 0x080540D0
+	thumb_func_start func_fe6_080540D0
+func_fe6_080540D0: @ 0x080540D0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -35070,7 +35070,7 @@ sub_80540D0: @ 0x080540D0
 	str r1, [r0, #0x4c]
 	adds r0, r1, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -35080,8 +35080,8 @@ sub_80540D0: @ 0x080540D0
 .L08054110: .4byte gUnk_0811A758
 .L08054114: .4byte gUnk_0818F1F8
 
-	thumb_func_start sub_8054118
-sub_8054118: @ 0x08054118
+	thumb_func_start func_fe6_08054118
+func_fe6_08054118: @ 0x08054118
 	ldr r1, .L08054124 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -35090,15 +35090,15 @@ sub_8054118: @ 0x08054118
 	.align 2, 0
 .L08054124: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8054128
-sub_8054128: @ 0x08054128
+	thumb_func_start func_fe6_08054128
+func_fe6_08054128: @ 0x08054128
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -35107,7 +35107,7 @@ sub_8054128: @ 0x08054128
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 .L0805414C:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -35124,8 +35124,8 @@ sub_8054128: @ 0x08054128
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8054168
-sub_8054168: @ 0x08054168
+	thumb_func_start func_fe6_08054168
+func_fe6_08054168: @ 0x08054168
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -35147,15 +35147,15 @@ sub_8054168: @ 0x08054168
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L080541C0 @ =gUnk_0819875C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080541C4 @ =gUnk_08197BE0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -35167,8 +35167,8 @@ sub_8054168: @ 0x08054168
 .L080541C0: .4byte gUnk_0819875C
 .L080541C4: .4byte gUnk_08197BE0
 
-	thumb_func_start sub_80541C8
-sub_80541C8: @ 0x080541C8
+	thumb_func_start func_fe6_080541C8
+func_fe6_080541C8: @ 0x080541C8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -35194,8 +35194,8 @@ sub_80541C8: @ 0x080541C8
 	.align 2, 0
 .L080541F8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80541FC
-sub_80541FC: @ 0x080541FC
+	thumb_func_start func_fe6_080541FC
+func_fe6_080541FC: @ 0x080541FC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08054260 @ =gUnk_Banim_02017744
@@ -35219,8 +35219,8 @@ sub_80541FC: @ 0x080541FC
 	str r0, [r5, #0x54]
 	ldr r0, .L08054274 @ =gUnk_08193598
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -35231,7 +35231,7 @@ sub_80541FC: @ 0x080541FC
 	cmp r0, #0
 	beq .L08054286
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805427C
 	movs r0, #1
@@ -35257,8 +35257,8 @@ sub_80541FC: @ 0x080541FC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805428C
-sub_805428C: @ 0x0805428C
+	thumb_func_start func_fe6_0805428C
+func_fe6_0805428C: @ 0x0805428C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L080542E4 @ =gUnk_Banim_02017744
@@ -35282,15 +35282,15 @@ sub_805428C: @ 0x0805428C
 	str r0, [r5, #0x54]
 	ldr r0, .L080542F8 @ =gUnk_081935B8
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L080542FC @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0805430A
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08054300
 	movs r0, #1
@@ -35316,8 +35316,8 @@ sub_805428C: @ 0x0805428C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8054310
-sub_8054310: @ 0x08054310
+	thumb_func_start func_fe6_08054310
+func_fe6_08054310: @ 0x08054310
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -35325,7 +35325,7 @@ sub_8054310: @ 0x08054310
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r4, r0, #0x10
 	cmp r4, #0
@@ -35338,20 +35338,20 @@ sub_8054310: @ 0x08054310
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, [r7, #0x5c]
 	adds r5, r4, r5
 	ldr r1, [r5]
 	adds r4, r4, r6
 	ldr r2, [r4]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	ldr r0, .L08054374 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080543B6
 	ldr r0, [r7, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L0805437C
@@ -35360,7 +35360,7 @@ sub_8054310: @ 0x08054310
 	movs r1, #3
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L0805438C
 	.align 2, 0
 .L08054374: .4byte 0x0203CD14
@@ -35372,7 +35372,7 @@ sub_8054310: @ 0x08054310
 	movs r1, #3
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 .L0805438C:
 	movs r0, #2
 	bl EnableBgSync
@@ -35384,12 +35384,12 @@ sub_8054310: @ 0x08054310
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L080543B6
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L080543C0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_Break
 .L080543B6:
@@ -35400,8 +35400,8 @@ sub_8054310: @ 0x08054310
 	.align 2, 0
 .L080543C0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80543C4
-sub_80543C4: @ 0x080543C4
+	thumb_func_start func_fe6_080543C4
+func_fe6_080543C4: @ 0x080543C4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080543FC @ =gUnk_Banim_02017744
@@ -35418,11 +35418,11 @@ sub_80543C4: @ 0x080543C4
 	str r1, [r0, #0x44]
 	ldr r0, .L08054404 @ =gUnk_0819877C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08054408 @ =gUnk_08197BE0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -35432,8 +35432,8 @@ sub_80543C4: @ 0x080543C4
 .L08054404: .4byte gUnk_0819877C
 .L08054408: .4byte gUnk_08197BE0
 
-	thumb_func_start sub_805440C
-sub_805440C: @ 0x0805440C
+	thumb_func_start func_fe6_0805440C
+func_fe6_0805440C: @ 0x0805440C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -35450,7 +35450,7 @@ sub_805440C: @ 0x0805440C
 	adds r1, r2, #0
 	adds r2, #1
 	str r2, [r4, #0x44]
-	bl sub_8054458
+	bl func_fe6_08054458
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
 	strh r0, [r4, #0x2e]
@@ -35471,8 +35471,8 @@ sub_805440C: @ 0x0805440C
 	.align 2, 0
 .L08054454: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8054458
-sub_8054458: @ 0x08054458
+	thumb_func_start func_fe6_08054458
+func_fe6_08054458: @ 0x08054458
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -35538,8 +35538,8 @@ sub_8054458: @ 0x08054458
 	.align 2, 0
 .L080544D4: .4byte gUnk_085ED8F8
 
-	thumb_func_start sub_80544D8
-sub_80544D8: @ 0x080544D8
+	thumb_func_start func_fe6_080544D8
+func_fe6_080544D8: @ 0x080544D8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -35601,13 +35601,13 @@ sub_80544D8: @ 0x080544D8
 .L08054550: .4byte gSinLut
 .L08054554: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8054558
-sub_8054558: @ 0x08054558
+	thumb_func_start func_fe6_08054558
+func_fe6_08054558: @ 0x08054558
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0805457C @ =gUnk_085D2E3C
 	movs r1, #3
 	bl SpawnProc
@@ -35620,12 +35620,12 @@ sub_8054558: @ 0x08054558
 	.align 2, 0
 .L0805457C: .4byte gUnk_085D2E3C
 
-	thumb_func_start sub_8054580
-sub_8054580: @ 0x08054580
+	thumb_func_start func_fe6_08054580
+func_fe6_08054580: @ 0x08054580
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -35636,7 +35636,7 @@ sub_8054580: @ 0x08054580
 	cmp r0, #1
 	bne .L080545B0
 	ldr r0, [r4, #0x5c]
-	bl sub_8054F8C
+	bl func_fe6_08054F8C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -35649,10 +35649,10 @@ sub_8054580: @ 0x08054580
 	bne .L08054618
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054B98
+	bl func_fe6_08054B98
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054D78
+	bl func_fe6_08054D78
 	ldr r3, .L08054614 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -35676,12 +35676,12 @@ sub_8054580: @ 0x08054580
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x23
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	movs r0, #0x87
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -35705,20 +35705,20 @@ sub_8054580: @ 0x08054580
 	bne .L08054668
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054C54
+	bl func_fe6_08054C54
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054DE8
+	bl func_fe6_08054DE8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x1d
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, .L08054664 @ =0x0000010F
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -35726,7 +35726,7 @@ sub_8054580: @ 0x08054580
 	ldrsh r2, [r5, r3]
 .L0805465C:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080546A0
 	.align 2, 0
 .L08054664: .4byte 0x0000010F
@@ -35734,15 +35734,15 @@ sub_8054580: @ 0x08054580
 	cmp r0, #0xa6
 	bne .L08054674
 	adds r0, r5, #0
-	bl sub_80451E0
+	bl func_fe6_080451E0
 	b .L080546A0
 .L08054674:
 	cmp r0, #0xb5
 	bne .L080546A0
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r5, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #1
@@ -35762,13 +35762,13 @@ sub_8054580: @ 0x08054580
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80546A8
-sub_80546A8: @ 0x080546A8
+	thumb_func_start func_fe6_080546A8
+func_fe6_080546A8: @ 0x080546A8
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080546CC @ =gUnk_085D2E54
 	movs r1, #3
 	bl SpawnProc
@@ -35781,14 +35781,14 @@ sub_80546A8: @ 0x080546A8
 	.align 2, 0
 .L080546CC: .4byte gUnk_085D2E54
 
-	thumb_func_start sub_80546D0
-sub_80546D0: @ 0x080546D0
+	thumb_func_start func_fe6_080546D0
+func_fe6_080546D0: @ 0x080546D0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -35799,7 +35799,7 @@ sub_80546D0: @ 0x080546D0
 	cmp r0, #1
 	bne .L08054706
 	ldr r0, [r4, #0x5c]
-	bl sub_8054F8C
+	bl func_fe6_08054F8C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -35812,10 +35812,10 @@ sub_80546D0: @ 0x080546D0
 	bne .L0805476C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_8054B98
+	bl func_fe6_08054B98
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_8054D78
+	bl func_fe6_08054D78
 	ldr r3, .L08054768 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -35839,12 +35839,12 @@ sub_80546D0: @ 0x080546D0
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x23
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	movs r0, #0x88
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -35869,7 +35869,7 @@ sub_80546D0: @ 0x080546D0
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L08054840
 .L0805478A:
 	movs r3, #0x2c
@@ -35880,10 +35880,10 @@ sub_80546D0: @ 0x080546D0
 	bne .L08054800
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_8054C54
+	bl func_fe6_08054C54
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_8054DE8
+	bl func_fe6_08054DE8
 	ldr r3, .L080547F8 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -35907,12 +35907,12 @@ sub_80546D0: @ 0x080546D0
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x1d
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, .L080547FC @ =0x00000111
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -35920,7 +35920,7 @@ sub_80546D0: @ 0x080546D0
 	ldrsh r2, [r5, r3]
 .L080547EE:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08054840
 	.align 2, 0
 .L080547F8: .4byte gDispIo
@@ -35931,17 +35931,17 @@ sub_80546D0: @ 0x080546D0
 	cmp r1, r0
 	bne .L08054810
 	adds r0, r5, #0
-	bl sub_80451E0
+	bl func_fe6_080451E0
 	b .L08054840
 .L08054810:
 	adds r0, r2, #0
 	adds r0, #0xb5
 	cmp r1, r0
 	bne .L08054840
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r5, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #1
@@ -35961,13 +35961,13 @@ sub_80546D0: @ 0x080546D0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8054848
-sub_8054848: @ 0x08054848
+	thumb_func_start func_fe6_08054848
+func_fe6_08054848: @ 0x08054848
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L0805486C @ =gUnk_085D2E6C
 	movs r1, #3
 	bl SpawnProc
@@ -35980,14 +35980,14 @@ sub_8054848: @ 0x08054848
 	.align 2, 0
 .L0805486C: .4byte gUnk_085D2E6C
 
-	thumb_func_start sub_8054870
-sub_8054870: @ 0x08054870
+	thumb_func_start func_fe6_08054870
+func_fe6_08054870: @ 0x08054870
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -35998,7 +35998,7 @@ sub_8054870: @ 0x08054870
 	cmp r0, #1
 	bne .L080548A6
 	ldr r0, [r4, #0x5c]
-	bl sub_8054F8C
+	bl func_fe6_08054F8C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -36011,10 +36011,10 @@ sub_8054870: @ 0x08054870
 	bne .L0805490C
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_8054B98
+	bl func_fe6_08054B98
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_8054D78
+	bl func_fe6_08054D78
 	ldr r3, .L08054908 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -36038,12 +36038,12 @@ sub_8054870: @ 0x08054870
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x23
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	movs r0, #0x89
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -36068,7 +36068,7 @@ sub_8054870: @ 0x08054870
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L080549E0
 .L0805492A:
 	movs r3, #0x2c
@@ -36079,10 +36079,10 @@ sub_8054870: @ 0x08054870
 	bne .L080549A0
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_8054C54
+	bl func_fe6_08054C54
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
-	bl sub_8054DE8
+	bl func_fe6_08054DE8
 	ldr r3, .L08054998 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -36106,12 +36106,12 @@ sub_8054870: @ 0x08054870
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x1d
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, .L0805499C @ =0x00000113
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -36119,7 +36119,7 @@ sub_8054870: @ 0x08054870
 	ldrsh r2, [r5, r3]
 .L0805498E:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080549E0
 	.align 2, 0
 .L08054998: .4byte gDispIo
@@ -36130,17 +36130,17 @@ sub_8054870: @ 0x08054870
 	cmp r1, r0
 	bne .L080549B0
 	adds r0, r5, #0
-	bl sub_80451E0
+	bl func_fe6_080451E0
 	b .L080549E0
 .L080549B0:
 	adds r0, r2, #0
 	adds r0, #0xb5
 	cmp r1, r0
 	bne .L080549E0
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r5, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #1
@@ -36160,13 +36160,13 @@ sub_8054870: @ 0x08054870
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80549E8
-sub_80549E8: @ 0x080549E8
+	thumb_func_start func_fe6_080549E8
+func_fe6_080549E8: @ 0x080549E8
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08054A0C @ =gUnk_085D2E84
 	movs r1, #3
 	bl SpawnProc
@@ -36179,14 +36179,14 @@ sub_80549E8: @ 0x080549E8
 	.align 2, 0
 .L08054A0C: .4byte gUnk_085D2E84
 
-	thumb_func_start sub_8054A10
-sub_8054A10: @ 0x08054A10
+	thumb_func_start func_fe6_08054A10
+func_fe6_08054A10: @ 0x08054A10
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r2, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -36197,10 +36197,10 @@ sub_8054A10: @ 0x08054A10
 	cmp r0, #1
 	bne .L08054A4E
 	ldr r0, [r4, #0x5c]
-	bl sub_8054F8C
+	bl func_fe6_08054F8C
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_80550EC
+	bl func_fe6_080550EC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -36213,10 +36213,10 @@ sub_8054A10: @ 0x08054A10
 	bne .L08054AB4
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054B98
+	bl func_fe6_08054B98
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054D78
+	bl func_fe6_08054D78
 	ldr r3, .L08054AB0 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -36240,12 +36240,12 @@ sub_8054A10: @ 0x08054A10
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x23
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	movs r0, #0x87
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -36269,11 +36269,11 @@ sub_8054A10: @ 0x08054A10
 	bne .L08054ADA
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_80550EC
+	bl func_fe6_080550EC
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L08054B90
 .L08054ADA:
 	movs r3, #0x2c
@@ -36284,10 +36284,10 @@ sub_8054A10: @ 0x08054A10
 	bne .L08054B50
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054C54
+	bl func_fe6_08054C54
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8054DE8
+	bl func_fe6_08054DE8
 	ldr r3, .L08054B48 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -36311,12 +36311,12 @@ sub_8054A10: @ 0x08054A10
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x1d
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, .L08054B4C @ =0x0000010F
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -36324,7 +36324,7 @@ sub_8054A10: @ 0x08054A10
 	ldrsh r2, [r5, r3]
 .L08054B3E:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08054B90
 	.align 2, 0
 .L08054B48: .4byte gDispIo
@@ -36335,17 +36335,17 @@ sub_8054A10: @ 0x08054A10
 	cmp r1, r0
 	bne .L08054B60
 	adds r0, r5, #0
-	bl sub_80451E0
+	bl func_fe6_080451E0
 	b .L08054B90
 .L08054B60:
 	adds r0, r2, #0
 	adds r0, #0xdd
 	cmp r1, r0
 	bne .L08054B90
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r5, #0
-	bl sub_804B848
+	bl func_fe6_0804B848
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	movs r1, #1
@@ -36365,8 +36365,8 @@ sub_8054A10: @ 0x08054A10
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8054B98
-sub_8054B98: @ 0x08054B98
+	thumb_func_start func_fe6_08054B98
+func_fe6_08054B98: @ 0x08054B98
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -36399,7 +36399,7 @@ sub_8054B98: @ 0x08054B98
 	ldr r0, .L08054BF4 @ =gUnk_081AC114
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L08054C4A
 	.align 2, 0
 .L08054BE0: .4byte gUnk_Banim_02017744
@@ -36421,14 +36421,14 @@ sub_8054B98: @ 0x08054B98
 	ldr r0, .L08054C38 @ =gUnk_081AB1B0
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08054C3C @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08054C4A
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08054C40
 	movs r0, #1
@@ -36446,13 +36446,13 @@ sub_8054B98: @ 0x08054B98
 	movs r2, #0
 	bl SetBgOffset
 .L08054C4A:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8054C54
-sub_8054C54: @ 0x08054C54
+	thumb_func_start func_fe6_08054C54
+func_fe6_08054C54: @ 0x08054C54
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -36485,7 +36485,7 @@ sub_8054C54: @ 0x08054C54
 	ldr r0, .L08054CB0 @ =gUnk_081AC114
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L08054CFE
 	.align 2, 0
 .L08054C9C: .4byte gUnk_Banim_02017744
@@ -36503,14 +36503,14 @@ sub_8054C54: @ 0x08054C54
 	ldr r0, .L08054CEC @ =gUnk_081AB1B0
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08054CF0 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08054CFE
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08054CF4
 	movs r0, #1
@@ -36528,20 +36528,20 @@ sub_8054C54: @ 0x08054C54
 	movs r2, #0
 	bl SetBgOffset
 .L08054CFE:
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8054D08
-sub_8054D08: @ 0x08054D08
+	thumb_func_start func_fe6_08054D08
+func_fe6_08054D08: @ 0x08054D08
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -36556,7 +36556,7 @@ sub_8054D08: @ 0x08054D08
 	lsls r3, r3, #4
 	adds r1, r1, r3
 	adds r2, r2, r3
-	bl sub_8047938
+	bl func_fe6_08047938
 	b .L08054D6C
 .L08054D3A:
 	movs r0, #1
@@ -36568,8 +36568,8 @@ sub_8054D08: @ 0x08054D08
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne .L08054D54
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 .L08054D54:
 	movs r0, #1
 	movs r1, #0
@@ -36588,8 +36588,8 @@ sub_8054D08: @ 0x08054D08
 	.align 2, 0
 .L08054D74: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8054D78
-sub_8054D78: @ 0x08054D78
+	thumb_func_start func_fe6_08054D78
+func_fe6_08054D78: @ 0x08054D78
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -36648,8 +36648,8 @@ sub_8054D78: @ 0x08054D78
 	.align 2, 0
 .L08054DE4: .4byte gUnk_081ADBCC
 
-	thumb_func_start sub_8054DE8
-sub_8054DE8: @ 0x08054DE8
+	thumb_func_start func_fe6_08054DE8
+func_fe6_08054DE8: @ 0x08054DE8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -36708,15 +36708,15 @@ sub_8054DE8: @ 0x08054DE8
 	.align 2, 0
 .L08054E54: .4byte gUnk_081ADBCC
 
-	thumb_func_start sub_8054E58
-sub_8054E58: @ 0x08054E58
+	thumb_func_start func_fe6_08054E58
+func_fe6_08054E58: @ 0x08054E58
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -36725,7 +36725,7 @@ sub_8054E58: @ 0x08054E58
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L08054E94
 .L08054E7E:
 	movs r0, #1
@@ -36745,8 +36745,8 @@ sub_8054E58: @ 0x08054E58
 	.align 2, 0
 .L08054E9C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8054EA0
-sub_8054EA0: @ 0x08054EA0
+	thumb_func_start func_fe6_08054EA0
+func_fe6_08054EA0: @ 0x08054EA0
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -36776,8 +36776,8 @@ sub_8054EA0: @ 0x08054EA0
 .L08054ED4: .4byte gUnk_Banim_02017744
 .L08054ED8: .4byte gUnk_085D2ED4
 
-	thumb_func_start sub_8054EDC
-sub_8054EDC: @ 0x08054EDC
+	thumb_func_start func_fe6_08054EDC
+func_fe6_08054EDC: @ 0x08054EDC
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -36793,8 +36793,8 @@ sub_8054EDC: @ 0x08054EDC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8054EF8
-sub_8054EF8: @ 0x08054EF8
+	thumb_func_start func_fe6_08054EF8
+func_fe6_08054EF8: @ 0x08054EF8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -36870,8 +36870,8 @@ sub_8054EF8: @ 0x08054EF8
 	.align 2, 0
 .L08054F88: .4byte gDispIo
 
-	thumb_func_start sub_8054F8C
-sub_8054F8C: @ 0x08054F8C
+	thumb_func_start func_fe6_08054F8C
+func_fe6_08054F8C: @ 0x08054F8C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -36893,15 +36893,15 @@ sub_8054F8C: @ 0x08054F8C
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08054FE4 @ =gUnk_081AC0F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08054FE8 @ =gUnk_081ABEA0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -36913,8 +36913,8 @@ sub_8054F8C: @ 0x08054F8C
 .L08054FE4: .4byte gUnk_081AC0F4
 .L08054FE8: .4byte gUnk_081ABEA0
 
-	thumb_func_start sub_8054FEC
-sub_8054FEC: @ 0x08054FEC
+	thumb_func_start func_fe6_08054FEC
+func_fe6_08054FEC: @ 0x08054FEC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -36938,15 +36938,15 @@ sub_8054FEC: @ 0x08054FEC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08055048 @ =gUnk_081AC0F4
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805504C @ =gUnk_081ABEA0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -36958,8 +36958,8 @@ sub_8054FEC: @ 0x08054FEC
 .L08055048: .4byte gUnk_081AC0F4
 .L0805504C: .4byte gUnk_081ABEA0
 
-	thumb_func_start sub_8055050
-sub_8055050: @ 0x08055050
+	thumb_func_start func_fe6_08055050
+func_fe6_08055050: @ 0x08055050
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -36985,8 +36985,8 @@ sub_8055050: @ 0x08055050
 	.align 2, 0
 .L08055080: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055084
-sub_8055084: @ 0x08055084
+	thumb_func_start func_fe6_08055084
+func_fe6_08055084: @ 0x08055084
 	push {r4, r5, lr}
 	adds r2, r0, #0
 	ldr r3, [r2, #0x60]
@@ -37013,8 +37013,8 @@ sub_8055084: @ 0x08055084
 	.align 2, 0
 .L080550B4: .4byte gUnk_085F0AA4
 
-	thumb_func_start sub_80550B8
-sub_80550B8: @ 0x080550B8
+	thumb_func_start func_fe6_080550B8
+func_fe6_080550B8: @ 0x080550B8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -37040,8 +37040,8 @@ sub_80550B8: @ 0x080550B8
 	.align 2, 0
 .L080550E8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80550EC
-sub_80550EC: @ 0x080550EC
+	thumb_func_start func_fe6_080550EC
+func_fe6_080550EC: @ 0x080550EC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -37079,8 +37079,8 @@ sub_80550EC: @ 0x080550EC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8055134
-sub_8055134: @ 0x08055134
+	thumb_func_start func_fe6_08055134
+func_fe6_08055134: @ 0x08055134
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -37110,7 +37110,7 @@ sub_8055134: @ 0x08055134
 	cmp r0, #0
 	beq .L08055188
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r5, #0x88
 	cmp r0, #0
 	bne .L08055196
@@ -37122,7 +37122,7 @@ sub_8055134: @ 0x08055134
 .L08055184: .4byte 0x0203CD14
 .L08055188:
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r5, #0x70
 	cmp r0, #0
 	bne .L08055196
@@ -37140,7 +37140,7 @@ sub_8055134: @ 0x08055134
 	cmp r0, #0
 	beq .L080551C8
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r5, #0x4c
 	cmp r0, #0
 	bne .L080551D6
@@ -37152,7 +37152,7 @@ sub_8055134: @ 0x08055134
 .L080551C4: .4byte 0x0203CD14
 .L080551C8:
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r5, #0x64
 	cmp r0, #0
 	bne .L080551D6
@@ -37165,7 +37165,7 @@ sub_8055134: @ 0x08055134
 	str r2, [sp]
 	adds r1, r7, #0
 	adds r3, r7, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	strh r5, [r0, #2]
 	strh r6, [r0, #4]
@@ -37180,8 +37180,8 @@ sub_8055134: @ 0x08055134
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8055200
-sub_8055200: @ 0x08055200
+	thumb_func_start func_fe6_08055200
+func_fe6_08055200: @ 0x08055200
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -37207,13 +37207,13 @@ sub_8055200: @ 0x08055200
 	.align 2, 0
 .L08055230: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055234
-sub_8055234: @ 0x08055234
+	thumb_func_start func_fe6_08055234
+func_fe6_08055234: @ 0x08055234
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08055260 @ =gUnk_085D2F4C
 	movs r1, #3
 	bl SpawnProc
@@ -37229,13 +37229,13 @@ sub_8055234: @ 0x08055234
 	.align 2, 0
 .L08055260: .4byte gUnk_085D2F4C
 
-	thumb_func_start sub_8055264
-sub_8055264: @ 0x08055264
+	thumb_func_start func_fe6_08055264
+func_fe6_08055264: @ 0x08055264
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08055290 @ =gUnk_085D2F4C
 	movs r1, #3
 	bl SpawnProc
@@ -37251,8 +37251,8 @@ sub_8055264: @ 0x08055264
 	.align 2, 0
 .L08055290: .4byte gUnk_085D2F4C
 
-	thumb_func_start sub_8055294
-sub_8055294: @ 0x08055294
+	thumb_func_start func_fe6_08055294
+func_fe6_08055294: @ 0x08055294
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -37264,7 +37264,7 @@ sub_8055294: @ 0x08055294
 	cmp r1, #1
 	bne .L080552C2
 	ldr r0, [r4, #0x5c]
-	bl sub_8054FEC
+	bl func_fe6_08054FEC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -37272,18 +37272,18 @@ sub_8055294: @ 0x08055294
 	ldrsh r2, [r0, r3]
 	movs r0, #0xf3
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08055358
 .L080552C2:
 	cmp r1, #0x34
 	bne .L080552DA
 	ldr r0, [r4, #0x5c]
-	bl sub_8055364
+	bl func_fe6_08055364
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
 	adds r1, #0x29
 	ldrb r1, [r1]
-	bl sub_8055434
+	bl func_fe6_08055434
 	b .L08055358
 .L080552DA:
 	cmp r1, #0xb7
@@ -37294,14 +37294,14 @@ sub_8055294: @ 0x08055294
 	lsls r1, r1, #1
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
-	bl sub_80554C8
+	bl func_fe6_080554C8
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
 	adds r1, #0x29
 	ldrb r1, [r1]
-	bl sub_8055628
+	bl func_fe6_08055628
 	ldr r3, .L08055340 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -37325,12 +37325,12 @@ sub_8055294: @ 0x08055294
 	movs r1, #1
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xb4
 	movs r2, #0x28
 	movs r3, #1
-	bl sub_8054EA0
+	bl func_fe6_08054EA0
 	b .L08055358
 	.align 2, 0
 .L08055340: .4byte gDispIo
@@ -37338,8 +37338,8 @@ sub_8055294: @ 0x08055294
 	ldr r0, .L08055360 @ =0x000001C5
 	cmp r1, r0
 	bne .L08055358
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055358:
@@ -37349,8 +37349,8 @@ sub_8055294: @ 0x08055294
 	.align 2, 0
 .L08055360: .4byte 0x000001C5
 
-	thumb_func_start sub_8055364
-sub_8055364: @ 0x08055364
+	thumb_func_start func_fe6_08055364
+func_fe6_08055364: @ 0x08055364
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080553A0 @ =gUnk_Banim_02017744
@@ -37372,8 +37372,8 @@ sub_8055364: @ 0x08055364
 	ldr r0, .L080553B0 @ =gUnk_081AB1B0
 	movs r1, #0x80
 	lsls r1, r1, #3
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -37384,19 +37384,19 @@ sub_8055364: @ 0x08055364
 .L080553AC: .4byte gUnk_085D2F7C
 .L080553B0: .4byte gUnk_081AB1B0
 
-	thumb_func_start sub_80553B4
-sub_80553B4: @ 0x080553B4
+	thumb_func_start func_fe6_080553B4
+func_fe6_080553B4: @ 0x080553B4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -37409,7 +37409,7 @@ sub_80553B4: @ 0x080553B4
 	adds r0, r0, r2
 	ldr r2, [r0]
 	adds r0, r6, #0
-	bl sub_804799C
+	bl func_fe6_0804799C
 	ldr r0, .L08055404 @ =gUnk_0811A9BA
 	lsls r1, r5, #1
 	adds r0, r1, r0
@@ -37420,7 +37420,7 @@ sub_80553B4: @ 0x080553B4
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805542A
 	.align 2, 0
 .L08055404: .4byte gUnk_0811A9BA
@@ -37430,12 +37430,12 @@ sub_80553B4: @ 0x080553B4
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0805542A
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08055430 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805542A:
@@ -37445,8 +37445,8 @@ sub_80553B4: @ 0x080553B4
 	.align 2, 0
 .L08055430: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055434
-sub_8055434: @ 0x08055434
+	thumb_func_start func_fe6_08055434
+func_fe6_08055434: @ 0x08055434
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -37483,15 +37483,15 @@ sub_8055434: @ 0x08055434
 	.align 2, 0
 .L0805547C: .4byte gUnk_081AEA8C
 
-	thumb_func_start sub_8055480
-sub_8055480: @ 0x08055480
+	thumb_func_start func_fe6_08055480
+func_fe6_08055480: @ 0x08055480
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -37500,7 +37500,7 @@ sub_8055480: @ 0x08055480
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L080554BC
 .L080554A6:
 	movs r0, #1
@@ -37520,8 +37520,8 @@ sub_8055480: @ 0x08055480
 	.align 2, 0
 .L080554C4: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80554C8
-sub_80554C8: @ 0x080554C8
+	thumb_func_start func_fe6_080554C8
+func_fe6_080554C8: @ 0x080554C8
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r1, .L0805555C @ =gUnk_Banim_02017744
@@ -37543,7 +37543,7 @@ sub_80554C8: @ 0x080554C8
 	ldr r0, .L0805556C @ =gUnk_081AC114
 	movs r1, #0xa8
 	lsls r1, r1, #5
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r4, .L08055570 @ =gDispIo
 	movs r1, #4
 	rsbs r1, r1, #0
@@ -37566,7 +37566,7 @@ sub_80554C8: @ 0x080554C8
 	ldrb r1, [r4, #0x18]
 	orrs r0, r1
 	strb r0, [r4, #0x18]
-	bl sub_8047C1C
+	bl func_fe6_08047C1C
 	ldr r0, .L08055574 @ =0x0000F3FF
 	ldrh r2, [r5, #8]
 	ands r0, r2
@@ -37575,7 +37575,7 @@ sub_80554C8: @ 0x080554C8
 	adds r1, r2, #0
 	orrs r0, r1
 	strh r0, [r5, #8]
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r0, .L08055578 @ =0x0000FFE0
 	ldrh r1, [r4, #0x3c]
 	ands r0, r1
@@ -37602,12 +37602,12 @@ sub_80554C8: @ 0x080554C8
 .L08055578: .4byte 0x0000FFE0
 .L0805557C: .4byte 0x0000E0FF
 
-	thumb_func_start sub_8055580
-sub_8055580: @ 0x08055580
+	thumb_func_start func_fe6_08055580
+func_fe6_08055580: @ 0x08055580
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldr r6, [r4, #0x5c]
 	adds r0, r4, #0
@@ -37615,7 +37615,7 @@ sub_8055580: @ 0x08055580
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -37628,14 +37628,14 @@ sub_8055580: @ 0x08055580
 	adds r0, r0, r2
 	ldr r2, [r0]
 	adds r0, r5, #0
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08055614
 .L080555BA:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L08055614
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L0805561C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -37670,7 +37670,7 @@ sub_8055580: @ 0x08055580
 	adds r1, r2, #0
 	orrs r0, r1
 	strh r0, [r6, #8]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055614:
@@ -37682,8 +37682,8 @@ sub_8055580: @ 0x08055580
 .L08055620: .4byte gDispIo
 .L08055624: .4byte 0x0000F3FF
 
-	thumb_func_start sub_8055628
-sub_8055628: @ 0x08055628
+	thumb_func_start func_fe6_08055628
+func_fe6_08055628: @ 0x08055628
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -37720,15 +37720,15 @@ sub_8055628: @ 0x08055628
 	.align 2, 0
 .L08055670: .4byte gUnk_081AEC8C
 
-	thumb_func_start sub_8055674
-sub_8055674: @ 0x08055674
+	thumb_func_start func_fe6_08055674
+func_fe6_08055674: @ 0x08055674
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -37737,7 +37737,7 @@ sub_8055674: @ 0x08055674
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L080556B0
 .L0805569A:
 	movs r0, #1
@@ -37757,13 +37757,13 @@ sub_8055674: @ 0x08055674
 	.align 2, 0
 .L080556B8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80556BC
-sub_80556BC: @ 0x080556BC
+	thumb_func_start func_fe6_080556BC
+func_fe6_080556BC: @ 0x080556BC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080556F4 @ =gUnk_085D2FE8
 	movs r1, #3
 	bl SpawnProc
@@ -37772,10 +37772,10 @@ sub_80556BC: @ 0x080556BC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -37784,17 +37784,17 @@ sub_80556BC: @ 0x080556BC
 	.align 2, 0
 .L080556F4: .4byte gUnk_085D2FE8
 
-	thumb_func_start sub_80556F8
-sub_80556F8: @ 0x080556F8
+	thumb_func_start func_fe6_080556F8
+func_fe6_080556F8: @ 0x080556F8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -37809,7 +37809,7 @@ sub_80556F8: @ 0x080556F8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0805572E:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -37817,7 +37817,7 @@ sub_80556F8: @ 0x080556F8
 	cmp r1, r0
 	bne .L080557A4
 	adds r0, r6, #0
-	bl sub_805581C
+	bl func_fe6_0805581C
 	movs r5, #8
 	str r5, [sp]
 	str r7, [sp, #4]
@@ -37825,7 +37825,7 @@ sub_80556F8: @ 0x080556F8
 	movs r1, #0x28
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r4, #0x10
 	str r4, [sp]
 	str r7, [sp, #4]
@@ -37833,35 +37833,35 @@ sub_80556F8: @ 0x080556F8
 	movs r1, #0x47
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r5, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x66
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r4, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x85
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0xa4
 	movs r2, #0x3c
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r6, r0]
 	movs r0, #0xfd
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08055810
 .L080557A4:
 	adds r0, r5, #0
@@ -37869,7 +37869,7 @@ sub_80556F8: @ 0x080556F8
 	cmp r1, r0
 	bne .L080557B4
 	adds r0, r6, #0
-	bl sub_80558D4
+	bl func_fe6_080558D4
 	b .L08055810
 .L080557B4:
 	adds r0, r5, #0
@@ -37880,7 +37880,7 @@ sub_80556F8: @ 0x080556F8
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L08055810
 .L080557CA:
 	adds r0, r5, #0
@@ -37895,10 +37895,10 @@ sub_80556F8: @ 0x080556F8
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r6, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	adds r0, r6, #0
 	movs r1, #0
-	bl sub_8046F18
+	bl func_fe6_08046F18
 	b .L08055810
 .L080557F0:
 	movs r2, #0x96
@@ -37910,8 +37910,8 @@ sub_80556F8: @ 0x080556F8
 	ldrh r1, [r6, #0x10]
 	orrs r0, r1
 	strh r0, [r6, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055810:
@@ -37922,8 +37922,8 @@ sub_80556F8: @ 0x080556F8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805581C
-sub_805581C: @ 0x0805581C
+	thumb_func_start func_fe6_0805581C
+func_fe6_0805581C: @ 0x0805581C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08055858 @ =gUnk_Banim_02017744
@@ -37946,8 +37946,8 @@ sub_805581C: @ 0x0805581C
 	str r1, [r0, #0x54]
 	ldr r0, .L0805586C @ =gUnk_081B1710
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -37959,15 +37959,15 @@ sub_805581C: @ 0x0805581C
 .L08055868: .4byte gUnk_085D304C
 .L0805586C: .4byte gUnk_081B1710
 
-	thumb_func_start sub_8055870
-sub_8055870: @ 0x08055870
+	thumb_func_start func_fe6_08055870
+func_fe6_08055870: @ 0x08055870
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -37981,24 +37981,24 @@ sub_8055870: @ 0x08055870
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L080558CA
 .L080558AC:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L080558CA
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L080558D0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L080558CA:
@@ -38008,8 +38008,8 @@ sub_8055870: @ 0x08055870
 	.align 2, 0
 .L080558D0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80558D4
-sub_80558D4: @ 0x080558D4
+	thumb_func_start func_fe6_080558D4
+func_fe6_080558D4: @ 0x080558D4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -38027,11 +38027,11 @@ sub_80558D4: @ 0x080558D4
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r6, r0, #0
 	str r6, [r5, #0x60]
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805591C
 	ldrh r0, [r6, #2]
@@ -38051,11 +38051,11 @@ sub_80558D4: @ 0x080558D4
 	strh r0, [r6, #4]
 	ldr r0, .L08055944 @ =gUnk_081B7650
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08055948 @ =gUnk_081B7468
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -38064,8 +38064,8 @@ sub_80558D4: @ 0x080558D4
 .L08055944: .4byte gUnk_081B7650
 .L08055948: .4byte gUnk_081B7468
 
-	thumb_func_start sub_805594C
-sub_805594C: @ 0x0805594C
+	thumb_func_start func_fe6_0805594C
+func_fe6_0805594C: @ 0x0805594C
 	ldr r1, .L08055958 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -38074,13 +38074,13 @@ sub_805594C: @ 0x0805594C
 	.align 2, 0
 .L08055958: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805595C
-sub_805595C: @ 0x0805595C
+	thumb_func_start func_fe6_0805595C
+func_fe6_0805595C: @ 0x0805595C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08055994 @ =gUnk_085D30A0
 	movs r1, #3
 	bl SpawnProc
@@ -38089,10 +38089,10 @@ sub_805595C: @ 0x0805595C
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -38101,17 +38101,17 @@ sub_805595C: @ 0x0805595C
 	.align 2, 0
 .L08055994: .4byte gUnk_085D30A0
 
-	thumb_func_start sub_8055998
-sub_8055998: @ 0x08055998
+	thumb_func_start func_fe6_08055998
+func_fe6_08055998: @ 0x08055998
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -38124,7 +38124,7 @@ sub_8055998: @ 0x08055998
 	cmp r0, #1
 	bne .L080559DC
 	ldr r0, [r4, #0x5c]
-	bl sub_8055B84
+	bl func_fe6_08055B84
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -38132,7 +38132,7 @@ sub_8055998: @ 0x08055998
 	ldrsh r2, [r0, r3]
 	movs r0, #0xfa
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L080559DC:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x29
@@ -38140,7 +38140,7 @@ sub_8055998: @ 0x08055998
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 	b .L08055A92
 .L080559EE:
 	movs r3, #0x2c
@@ -38150,21 +38150,21 @@ sub_8055998: @ 0x08055998
 	cmp r1, r0
 	bne .L08055A22
 	ldr r0, [r4, #0x5c]
-	bl sub_8055AA0
+	bl func_fe6_08055AA0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #2
 	ldrsh r2, [r5, r0]
 	movs r0, #0xfb
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	ldr r0, [r4, #0x5c]
 	str r7, [sp]
 	str r7, [sp, #4]
 	movs r1, #0x42
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L08055A92
 .L08055A22:
 	adds r0, r6, #0
@@ -38177,8 +38177,8 @@ sub_8055998: @ 0x08055998
 	ldrsh r2, [r5, r3]
 	movs r0, #0xfc
 	movs r3, #1
-	bl sub_805C804
-	bl sub_805BD8C
+	bl func_fe6_0805C804
+	bl func_fe6_0805BD8C
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -38187,20 +38187,20 @@ sub_8055998: @ 0x08055998
 	adds r6, #0x29
 	ldrb r1, [r6]
 	adds r0, r5, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	ldrb r0, [r6]
 	cmp r0, #0
 	bne .L08055A92
 	adds r0, r5, #0
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	bne .L08055A92
 	adds r0, r5, #0
 	movs r1, #3
-	bl sub_8046F18
+	bl func_fe6_08046F18
 	b .L08055A92
 .L08055A74:
 	adds r0, r6, #0
@@ -38211,8 +38211,8 @@ sub_8055998: @ 0x08055998
 	ldrh r3, [r5, #0x10]
 	orrs r0, r3
 	strh r0, [r5, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055A92:
@@ -38224,8 +38224,8 @@ sub_8055998: @ 0x08055998
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8055AA0
-sub_8055AA0: @ 0x08055AA0
+	thumb_func_start func_fe6_08055AA0
+func_fe6_08055AA0: @ 0x08055AA0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08055B00 @ =gUnk_Banim_02017744
@@ -38247,19 +38247,19 @@ sub_8055AA0: @ 0x08055AA0
 	str r0, [r5, #0x50]
 	ldr r0, .L08055B10 @ =gUnk_081B4254
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08055B14 @ =gUnk_081B2348
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r0, .L08055B18 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08055B26
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08055B1C
 	movs r0, #1
@@ -38285,15 +38285,15 @@ sub_8055AA0: @ 0x08055AA0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8055B2C
-sub_8055B2C: @ 0x08055B2C
+	thumb_func_start func_fe6_08055B2C
+func_fe6_08055B2C: @ 0x08055B2C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -38306,19 +38306,19 @@ sub_8055B2C: @ 0x08055B2C
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08055B78
 .L08055B5A:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08055B78
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08055B80 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055B78:
@@ -38328,8 +38328,8 @@ sub_8055B2C: @ 0x08055B2C
 	.align 2, 0
 .L08055B80: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055B84
-sub_8055B84: @ 0x08055B84
+	thumb_func_start func_fe6_08055B84
+func_fe6_08055B84: @ 0x08055B84
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -38347,15 +38347,15 @@ sub_8055B84: @ 0x08055B84
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08055BD4 @ =gUnk_081B4254
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08055BD8 @ =gUnk_081B3D34
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -38367,8 +38367,8 @@ sub_8055B84: @ 0x08055B84
 .L08055BD4: .4byte gUnk_081B4254
 .L08055BD8: .4byte gUnk_081B3D34
 
-	thumb_func_start sub_8055BDC
-sub_8055BDC: @ 0x08055BDC
+	thumb_func_start func_fe6_08055BDC
+func_fe6_08055BDC: @ 0x08055BDC
 	push {lr}
 	ldr r0, [r0, #0x60]
 	bl BasRemove
@@ -38381,13 +38381,13 @@ sub_8055BDC: @ 0x08055BDC
 	.align 2, 0
 .L08055BF0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055BF4
-sub_8055BF4: @ 0x08055BF4
+	thumb_func_start func_fe6_08055BF4
+func_fe6_08055BF4: @ 0x08055BF4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08055C2C @ =gUnk_085D3138
 	movs r1, #3
 	bl SpawnProc
@@ -38396,10 +38396,10 @@ sub_8055BF4: @ 0x08055BF4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -38408,17 +38408,17 @@ sub_8055BF4: @ 0x08055BF4
 	.align 2, 0
 .L08055C2C: .4byte gUnk_085D3138
 
-	thumb_func_start sub_8055C30
-sub_8055C30: @ 0x08055C30
+	thumb_func_start func_fe6_08055C30
+func_fe6_08055C30: @ 0x08055C30
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -38431,7 +38431,7 @@ sub_8055C30: @ 0x08055C30
 	cmp r0, #1
 	bne .L08055C74
 	ldr r0, [r4, #0x5c]
-	bl sub_8055E14
+	bl func_fe6_08055E14
 	ldr r0, .L08055CC8 @ =0x0000011B
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -38439,7 +38439,7 @@ sub_8055C30: @ 0x08055C30
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L08055C74:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x64
@@ -38447,7 +38447,7 @@ sub_8055C30: @ 0x08055C30
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08055C84:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -38456,11 +38456,11 @@ sub_8055C30: @ 0x08055C30
 	cmp r1, r0
 	bne .L08055CCC
 	adds r0, r5, #0
-	bl sub_8055E6C
+	bl func_fe6_08055E6C
 	adds r0, r5, #0
-	bl sub_8055ED0
+	bl func_fe6_08055ED0
 	ldr r0, [r4, #0x5c]
-	bl sub_8055D30
+	bl func_fe6_08055D30
 	movs r0, #0x10
 	str r0, [sp]
 	str r7, [sp, #4]
@@ -38468,14 +38468,14 @@ sub_8055C30: @ 0x08055C30
 	movs r1, #0
 	movs r2, #0x14
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r5, #0
 	movs r1, #0xe6
 	movs r2, #0x14
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L08055D22
 	.align 2, 0
 .L08055CC8: .4byte 0x0000011B
@@ -38492,17 +38492,17 @@ sub_8055C30: @ 0x08055C30
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L08055D22
 	adds r0, r5, #0
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	bne .L08055D22
 	adds r0, r5, #0
 	movs r1, #2
-	bl sub_8046F18
+	bl func_fe6_08046F18
 	b .L08055D22
 .L08055D02:
 	movs r2, #0xb9
@@ -38514,8 +38514,8 @@ sub_8055C30: @ 0x08055C30
 	ldrh r3, [r5, #0x10]
 	orrs r0, r3
 	strh r0, [r5, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055D22:
@@ -38527,8 +38527,8 @@ sub_8055C30: @ 0x08055C30
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8055D30
-sub_8055D30: @ 0x08055D30
+	thumb_func_start func_fe6_08055D30
+func_fe6_08055D30: @ 0x08055D30
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08055D90 @ =gUnk_Banim_02017744
@@ -38550,19 +38550,19 @@ sub_8055D30: @ 0x08055D30
 	str r0, [r5, #0x50]
 	ldr r0, .L08055DA0 @ =gUnk_081B6688
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08055DA4 @ =gUnk_081B57BC
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r0, .L08055DA8 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08055DB6
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08055DAC
 	movs r0, #1
@@ -38588,15 +38588,15 @@ sub_8055D30: @ 0x08055D30
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8055DBC
-sub_8055DBC: @ 0x08055DBC
+	thumb_func_start func_fe6_08055DBC
+func_fe6_08055DBC: @ 0x08055DBC
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -38609,19 +38609,19 @@ sub_8055DBC: @ 0x08055DBC
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08055E08
 .L08055DEA:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08055E08
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08055E10 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08055E08:
@@ -38631,8 +38631,8 @@ sub_8055DBC: @ 0x08055DBC
 	.align 2, 0
 .L08055E10: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055E14
-sub_8055E14: @ 0x08055E14
+	thumb_func_start func_fe6_08055E14
+func_fe6_08055E14: @ 0x08055E14
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -38650,15 +38650,15 @@ sub_8055E14: @ 0x08055E14
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08055E64 @ =gUnk_081B7650
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08055E68 @ =gUnk_081B7468
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -38670,8 +38670,8 @@ sub_8055E14: @ 0x08055E14
 .L08055E64: .4byte gUnk_081B7650
 .L08055E68: .4byte gUnk_081B7468
 
-	thumb_func_start sub_8055E6C
-sub_8055E6C: @ 0x08055E6C
+	thumb_func_start func_fe6_08055E6C
+func_fe6_08055E6C: @ 0x08055E6C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -38689,13 +38689,13 @@ sub_8055E6C: @ 0x08055E6C
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r5, r0, #0
 	str r5, [r4, #0x60]
 	ldrh r0, [r5, #4]
 	subs r0, #8
 	strh r0, [r5, #4]
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08055EAC
 	ldrh r0, [r5, #2]
@@ -38711,8 +38711,8 @@ sub_8055E6C: @ 0x08055E6C
 .L08055EB8: .4byte gUnk_085D31C8
 .L08055EBC: .4byte gUnk_085FE3C4
 
-	thumb_func_start sub_8055EC0
-sub_8055EC0: @ 0x08055EC0
+	thumb_func_start func_fe6_08055EC0
+func_fe6_08055EC0: @ 0x08055EC0
 	ldr r1, .L08055ECC @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -38721,8 +38721,8 @@ sub_8055EC0: @ 0x08055EC0
 	.align 2, 0
 .L08055ECC: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055ED0
-sub_8055ED0: @ 0x08055ED0
+	thumb_func_start func_fe6_08055ED0
+func_fe6_08055ED0: @ 0x08055ED0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L08055EEC @ =gUnk_Banim_02017744
@@ -38740,8 +38740,8 @@ sub_8055ED0: @ 0x08055ED0
 .L08055EEC: .4byte gUnk_Banim_02017744
 .L08055EF0: .4byte gUnk_085D31E8
 
-	thumb_func_start sub_8055EF4
-sub_8055EF4: @ 0x08055EF4
+	thumb_func_start func_fe6_08055EF4
+func_fe6_08055EF4: @ 0x08055EF4
 	push {r4, lr}
 	movs r3, #0x8e
 	lsls r3, r3, #1
@@ -38752,14 +38752,14 @@ sub_8055EF4: @ 0x08055EF4
 	ldrsh r2, [r0, r4]
 	adds r0, r3, #0
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8055F14
-sub_8055F14: @ 0x08055F14
+	thumb_func_start func_fe6_08055F14
+func_fe6_08055F14: @ 0x08055F14
 	ldr r1, .L08055F20 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -38768,13 +38768,13 @@ sub_8055F14: @ 0x08055F14
 	.align 2, 0
 .L08055F20: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8055F24
-sub_8055F24: @ 0x08055F24
+	thumb_func_start func_fe6_08055F24
+func_fe6_08055F24: @ 0x08055F24
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L08055F5C @ =gUnk_085D3230
 	movs r1, #3
 	bl SpawnProc
@@ -38783,10 +38783,10 @@ sub_8055F24: @ 0x08055F24
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -38795,17 +38795,17 @@ sub_8055F24: @ 0x08055F24
 	.align 2, 0
 .L08055F5C: .4byte gUnk_085D3230
 
-	thumb_func_start sub_8055F60
-sub_8055F60: @ 0x08055F60
+	thumb_func_start func_fe6_08055F60
+func_fe6_08055F60: @ 0x08055F60
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -38820,7 +38820,7 @@ sub_8055F60: @ 0x08055F60
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08055F96:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -38828,7 +38828,7 @@ sub_8055F60: @ 0x08055F60
 	cmp r1, r0
 	bne .L08056010
 	adds r0, r6, #0
-	bl sub_8056080
+	bl func_fe6_08056080
 	movs r5, #8
 	str r5, [sp]
 	str r7, [sp, #4]
@@ -38836,7 +38836,7 @@ sub_8055F60: @ 0x08055F60
 	movs r1, #0x28
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r4, #0x10
 	str r4, [sp]
 	str r7, [sp, #4]
@@ -38844,35 +38844,35 @@ sub_8055F60: @ 0x08055F60
 	movs r1, #0x47
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r5, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x66
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r4, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0x85
 	movs r2, #0x1e
 	movs r3, #8
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	str r7, [sp]
 	str r7, [sp, #4]
 	adds r0, r6, #0
 	movs r1, #0xa4
 	movs r2, #0x3c
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	ldr r0, .L0805600C @ =0x00000103
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r3, #2
 	ldrsh r2, [r6, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L08056074
 	.align 2, 0
 .L0805600C: .4byte 0x00000103
@@ -38882,7 +38882,7 @@ sub_8055F60: @ 0x08055F60
 	cmp r1, r0
 	bne .L08056020
 	adds r0, r6, #0
-	bl sub_8056138
+	bl func_fe6_08056138
 	b .L08056074
 .L08056020:
 	adds r0, r5, #0
@@ -38893,7 +38893,7 @@ sub_8055F60: @ 0x08055F60
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L08056074
 .L08056036:
 	adds r0, r5, #0
@@ -38908,7 +38908,7 @@ sub_8055F60: @ 0x08055F60
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r6, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	b .L08056074
 .L08056054:
 	movs r2, #0x96
@@ -38920,8 +38920,8 @@ sub_8055F60: @ 0x08055F60
 	ldrh r3, [r6, #0x10]
 	orrs r0, r3
 	strh r0, [r6, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L08056074:
@@ -38932,8 +38932,8 @@ sub_8055F60: @ 0x08055F60
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056080
-sub_8056080: @ 0x08056080
+	thumb_func_start func_fe6_08056080
+func_fe6_08056080: @ 0x08056080
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080560BC @ =gUnk_Banim_02017744
@@ -38956,8 +38956,8 @@ sub_8056080: @ 0x08056080
 	str r1, [r0, #0x54]
 	ldr r0, .L080560D0 @ =gUnk_081B4274
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -38969,15 +38969,15 @@ sub_8056080: @ 0x08056080
 .L080560CC: .4byte gUnk_085D3294
 .L080560D0: .4byte gUnk_081B4274
 
-	thumb_func_start sub_80560D4
-sub_80560D4: @ 0x080560D4
+	thumb_func_start func_fe6_080560D4
+func_fe6_080560D4: @ 0x080560D4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r3, r0, #0x10
 	cmp r3, #0
@@ -38991,24 +38991,24 @@ sub_80560D4: @ 0x080560D4
 	ldr r1, [r1]
 	adds r2, r4, r2
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	adds r4, r4, r5
 	ldr r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	b .L0805612E
 .L08056110:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0805612E
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08056134 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805612E:
@@ -39018,8 +39018,8 @@ sub_80560D4: @ 0x080560D4
 	.align 2, 0
 .L08056134: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056138
-sub_8056138: @ 0x08056138
+	thumb_func_start func_fe6_08056138
+func_fe6_08056138: @ 0x08056138
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -39037,15 +39037,15 @@ sub_8056138: @ 0x08056138
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08056188 @ =gUnk_081B7670
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805618C @ =gUnk_081B7468
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -39057,8 +39057,8 @@ sub_8056138: @ 0x08056138
 .L08056188: .4byte gUnk_081B7670
 .L0805618C: .4byte gUnk_081B7468
 
-	thumb_func_start sub_8056190
-sub_8056190: @ 0x08056190
+	thumb_func_start func_fe6_08056190
+func_fe6_08056190: @ 0x08056190
 	ldr r1, .L0805619C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -39067,13 +39067,13 @@ sub_8056190: @ 0x08056190
 	.align 2, 0
 .L0805619C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80561A0
-sub_80561A0: @ 0x080561A0
+	thumb_func_start func_fe6_080561A0
+func_fe6_080561A0: @ 0x080561A0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080561D8 @ =gUnk_085D32E8
 	movs r1, #3
 	bl SpawnProc
@@ -39082,10 +39082,10 @@ sub_80561A0: @ 0x080561A0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -39094,15 +39094,15 @@ sub_80561A0: @ 0x080561A0
 	.align 2, 0
 .L080561D8: .4byte gUnk_085D32E8
 
-	thumb_func_start sub_80561DC
-sub_80561DC: @ 0x080561DC
+	thumb_func_start func_fe6_080561DC
+func_fe6_080561DC: @ 0x080561DC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -39115,7 +39115,7 @@ sub_80561DC: @ 0x080561DC
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L0805620A:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -39123,13 +39123,13 @@ sub_80561DC: @ 0x080561DC
 	cmp r1, r0
 	bne .L0805625C
 	adds r0, r5, #0
-	bl sub_80564E4
+	bl func_fe6_080564E4
 	adds r0, r5, #0
 	movs r1, #0x4a
-	bl sub_80562C0
+	bl func_fe6_080562C0
 	adds r0, r5, #0
 	movs r1, #0x4a
-	bl sub_8056444
+	bl func_fe6_08056444
 	movs r4, #0x80
 	lsls r4, r4, #1
 	movs r0, #1
@@ -39138,20 +39138,20 @@ sub_80561DC: @ 0x080561DC
 	movs r1, #0x4a
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_804C8D4
-	ldr r2, .L08056258 @ =sub_804CD4C
+	bl func_fe6_0804C8D4
+	ldr r2, .L08056258 @ =func_fe6_0804CD4C
 	adds r0, r5, #0
 	movs r1, #0x4a
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	movs r1, #2
 	ldrsh r2, [r5, r1]
 	movs r0, #0xf9
 	adds r1, r4, #0
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080562B6
 	.align 2, 0
-.L08056258: .4byte sub_804CD4C
+.L08056258: .4byte func_fe6_0804CD4C
 .L0805625C:
 	adds r0, r6, #0
 	adds r0, #0x4a
@@ -39159,7 +39159,7 @@ sub_80561DC: @ 0x080561DC
 	bne .L08056298
 	adds r0, r5, #0
 	movs r1, #5
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #9
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
@@ -39167,17 +39167,17 @@ sub_80561DC: @ 0x080561DC
 	adds r4, #0x29
 	ldrb r1, [r4]
 	adds r0, r5, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	ldrb r0, [r4]
 	cmp r0, #0
 	bne .L080562B6
 	adds r0, r5, #0
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	cmp r0, #0
 	bne .L080562B6
 	adds r0, r5, #0
 	movs r1, #4
-	bl sub_8046F18
+	bl func_fe6_08046F18
 	b .L080562B6
 .L08056298:
 	adds r0, r6, #0
@@ -39188,8 +39188,8 @@ sub_80561DC: @ 0x080561DC
 	ldrh r1, [r5, #0x10]
 	orrs r0, r1
 	strh r0, [r5, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r4, #0
 	bl Proc_Break
 .L080562B6:
@@ -39199,8 +39199,8 @@ sub_80561DC: @ 0x080561DC
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80562C0
-sub_80562C0: @ 0x080562C0
+	thumb_func_start func_fe6_080562C0
+func_fe6_080562C0: @ 0x080562C0
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -39219,11 +39219,11 @@ sub_80562C0: @ 0x080562C0
 	strh r4, [r0, #0x2e]
 	ldr r0, .L080563C0 @ =gUnk_081B7690
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L080563C4 @ =gUnk_081B4E9C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L080563C8 @ =gUnk_081B4F9C
 	ldr r1, .L080563CC @ =gBg1Tm
 	movs r2, #1
@@ -39232,10 +39232,10 @@ sub_80562C0: @ 0x080562C0
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r0, .L080563D0 @ =gDispIo
 	mov ip, r0
 	mov r2, ip
@@ -39331,8 +39331,8 @@ sub_80562C0: @ 0x080562C0
 .L080563D8: .4byte 0x0000E0FF
 .L080563DC: .4byte 0x0000F3FF
 
-	thumb_func_start sub_80563E0
-sub_80563E0: @ 0x080563E0
+	thumb_func_start func_fe6_080563E0
+func_fe6_080563E0: @ 0x080563E0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, [r4, #0x5c]
@@ -39348,8 +39348,8 @@ sub_80563E0: @ 0x080563E0
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0805642C
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r0, [r5, #0x1c]
 	ldr r1, .L08056438 @ =0xFFFFF7FF
 	ands r0, r1
@@ -39378,8 +39378,8 @@ sub_80563E0: @ 0x080563E0
 .L0805643C: .4byte 0x0000F3FF
 .L08056440: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056444
-sub_8056444: @ 0x08056444
+	thumb_func_start func_fe6_08056444
+func_fe6_08056444: @ 0x08056444
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -39401,8 +39401,8 @@ sub_8056444: @ 0x08056444
 .L08056468: .4byte gUnk_Banim_02017744
 .L0805646C: .4byte gUnk_085D3318
 
-	thumb_func_start sub_8056470
-sub_8056470: @ 0x08056470
+	thumb_func_start func_fe6_08056470
+func_fe6_08056470: @ 0x08056470
 	push {r4, lr}
 	sub sp, #0x48
 	adds r4, r0, #0
@@ -39451,8 +39451,8 @@ sub_8056470: @ 0x08056470
 .L080564CC: .4byte 0xFFFFF7FF
 .L080564D0: .4byte 0x0000F3FF
 
-	thumb_func_start sub_80564D4
-sub_80564D4: @ 0x080564D4
+	thumb_func_start func_fe6_080564D4
+func_fe6_080564D4: @ 0x080564D4
 	ldr r1, .L080564E0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -39461,8 +39461,8 @@ sub_80564D4: @ 0x080564D4
 	.align 2, 0
 .L080564E0: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80564E4
-sub_80564E4: @ 0x080564E4
+	thumb_func_start func_fe6_080564E4
+func_fe6_080564E4: @ 0x080564E4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -39476,13 +39476,13 @@ sub_80564E4: @ 0x080564E4
 	adds r4, r0, #0
 	str r5, [r4, #0x5c]
 	adds r0, r5, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	ldr r3, .L08056534 @ =gUnk_085D0E8C
 	ldr r0, [r4, #0x5c]
 	str r3, [sp]
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r1, .L08056538 @ =0x0000F3FF
 	ldrh r2, [r0, #8]
@@ -39502,8 +39502,8 @@ sub_80564E4: @ 0x080564E4
 .L08056534: .4byte gUnk_085D0E8C
 .L08056538: .4byte 0x0000F3FF
 
-	thumb_func_start sub_805653C
-sub_805653C: @ 0x0805653C
+	thumb_func_start func_fe6_0805653C
+func_fe6_0805653C: @ 0x0805653C
 	push {lr}
 	ldr r2, .L08056550 @ =gUnk_Banim_02017744
 	ldr r1, [r2]
@@ -39516,8 +39516,8 @@ sub_805653C: @ 0x0805653C
 	.align 2, 0
 .L08056550: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056554
-sub_8056554: @ 0x08056554
+	thumb_func_start func_fe6_08056554
+func_fe6_08056554: @ 0x08056554
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39528,11 +39528,11 @@ sub_8056554: @ 0x08056554
 	strh r0, [r1, #6]
 	ldr r0, .L08056588 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805658C @ =gUnk_081B76B0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39543,8 +39543,8 @@ sub_8056554: @ 0x08056554
 .L08056588: .4byte gUnk_081B7F68
 .L0805658C: .4byte gUnk_081B76B0
 
-	thumb_func_start sub_8056590
-sub_8056590: @ 0x08056590
+	thumb_func_start func_fe6_08056590
+func_fe6_08056590: @ 0x08056590
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39555,11 +39555,11 @@ sub_8056590: @ 0x08056590
 	strh r0, [r1, #6]
 	ldr r0, .L080565C4 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080565C8 @ =gUnk_081B76B0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39570,8 +39570,8 @@ sub_8056590: @ 0x08056590
 .L080565C4: .4byte gUnk_081B7F68
 .L080565C8: .4byte gUnk_081B76B0
 
-	thumb_func_start sub_80565CC
-sub_80565CC: @ 0x080565CC
+	thumb_func_start func_fe6_080565CC
+func_fe6_080565CC: @ 0x080565CC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39582,11 +39582,11 @@ sub_80565CC: @ 0x080565CC
 	strh r0, [r1, #6]
 	ldr r0, .L08056600 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08056604 @ =gUnk_081B76B0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39597,8 +39597,8 @@ sub_80565CC: @ 0x080565CC
 .L08056600: .4byte gUnk_081B7F68
 .L08056604: .4byte gUnk_081B76B0
 
-	thumb_func_start sub_8056608
-sub_8056608: @ 0x08056608
+	thumb_func_start func_fe6_08056608
+func_fe6_08056608: @ 0x08056608
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39609,11 +39609,11 @@ sub_8056608: @ 0x08056608
 	strh r0, [r1, #6]
 	ldr r0, .L0805663C @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08056640 @ =gUnk_081B76B0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39624,8 +39624,8 @@ sub_8056608: @ 0x08056608
 .L0805663C: .4byte gUnk_081B7F68
 .L08056640: .4byte gUnk_081B76B0
 
-	thumb_func_start sub_8056644
-sub_8056644: @ 0x08056644
+	thumb_func_start func_fe6_08056644
+func_fe6_08056644: @ 0x08056644
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39636,11 +39636,11 @@ sub_8056644: @ 0x08056644
 	strh r0, [r1, #6]
 	ldr r0, .L08056678 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805667C @ =gUnk_081B76B0
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39651,8 +39651,8 @@ sub_8056644: @ 0x08056644
 .L08056678: .4byte gUnk_081B7F68
 .L0805667C: .4byte gUnk_081B76B0
 
-	thumb_func_start sub_8056680
-sub_8056680: @ 0x08056680
+	thumb_func_start func_fe6_08056680
+func_fe6_08056680: @ 0x08056680
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39663,11 +39663,11 @@ sub_8056680: @ 0x08056680
 	strh r0, [r1, #6]
 	ldr r0, .L080566B4 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080566B8 @ =gUnk_081B7B48
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39678,8 +39678,8 @@ sub_8056680: @ 0x08056680
 .L080566B4: .4byte gUnk_081B7F68
 .L080566B8: .4byte gUnk_081B7B48
 
-	thumb_func_start sub_80566BC
-sub_80566BC: @ 0x080566BC
+	thumb_func_start func_fe6_080566BC
+func_fe6_080566BC: @ 0x080566BC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39690,11 +39690,11 @@ sub_80566BC: @ 0x080566BC
 	strh r0, [r1, #6]
 	ldr r0, .L080566F0 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080566F4 @ =gUnk_081B7B48
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39705,8 +39705,8 @@ sub_80566BC: @ 0x080566BC
 .L080566F0: .4byte gUnk_081B7F68
 .L080566F4: .4byte gUnk_081B7B48
 
-	thumb_func_start sub_80566F8
-sub_80566F8: @ 0x080566F8
+	thumb_func_start func_fe6_080566F8
+func_fe6_080566F8: @ 0x080566F8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39717,11 +39717,11 @@ sub_80566F8: @ 0x080566F8
 	strh r0, [r1, #6]
 	ldr r0, .L0805672C @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08056730 @ =gUnk_081B7B48
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39732,8 +39732,8 @@ sub_80566F8: @ 0x080566F8
 .L0805672C: .4byte gUnk_081B7F68
 .L08056730: .4byte gUnk_081B7B48
 
-	thumb_func_start sub_8056734
-sub_8056734: @ 0x08056734
+	thumb_func_start func_fe6_08056734
+func_fe6_08056734: @ 0x08056734
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39744,11 +39744,11 @@ sub_8056734: @ 0x08056734
 	strh r0, [r1, #6]
 	ldr r0, .L08056768 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805676C @ =gUnk_081B7B48
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39759,8 +39759,8 @@ sub_8056734: @ 0x08056734
 .L08056768: .4byte gUnk_081B7F68
 .L0805676C: .4byte gUnk_081B7B48
 
-	thumb_func_start sub_8056770
-sub_8056770: @ 0x08056770
+	thumb_func_start func_fe6_08056770
+func_fe6_08056770: @ 0x08056770
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -39771,11 +39771,11 @@ sub_8056770: @ 0x08056770
 	strh r0, [r1, #6]
 	ldr r0, .L080567A4 @ =gUnk_081B7F68
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080567A8 @ =gUnk_081B7B48
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -39786,13 +39786,13 @@ sub_8056770: @ 0x08056770
 .L080567A4: .4byte gUnk_081B7F68
 .L080567A8: .4byte gUnk_081B7B48
 
-	thumb_func_start sub_80567AC
-sub_80567AC: @ 0x080567AC
+	thumb_func_start func_fe6_080567AC
+func_fe6_080567AC: @ 0x080567AC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_80474B0
-	bl sub_8047300
-	bl sub_80474C8
+	bl func_fe6_080474B0
+	bl func_fe6_08047300
+	bl func_fe6_080474C8
 	ldr r0, .L080567E4 @ =gUnk_085D33F0
 	movs r1, #3
 	bl SpawnProc
@@ -39801,10 +39801,10 @@ sub_80567AC: @ 0x080567AC
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r5, #0
-	bl sub_804B868
+	bl func_fe6_0804B868
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
-	bl sub_804B6D8
+	bl func_fe6_0804B6D8
 	adds r4, #0x29
 	strb r0, [r4]
 	pop {r4, r5}
@@ -39813,14 +39813,14 @@ sub_80567AC: @ 0x080567AC
 	.align 2, 0
 .L080567E4: .4byte gUnk_085D33F0
 
-	thumb_func_start sub_80567E8
-sub_80567E8: @ 0x080567E8
+	thumb_func_start func_fe6_080567E8
+func_fe6_080567E8: @ 0x080567E8
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r4, r0, #0
-	bl sub_8047C28
+	bl func_fe6_08047C28
 	adds r6, r0, #0
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -39833,7 +39833,7 @@ sub_80567E8: @ 0x080567E8
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl sub_8045C90
+	bl func_fe6_08045C90
 .L08056814:
 	movs r0, #0x2c
 	ldrsh r1, [r5, r0]
@@ -39841,11 +39841,11 @@ sub_80567E8: @ 0x080567E8
 	cmp r1, r0
 	bne .L08056844
 	ldr r0, [r5, #0x5c]
-	bl sub_80568B4
+	bl func_fe6_080568B4
 	adds r0, r4, #0
-	bl sub_8056968
+	bl func_fe6_08056968
 	adds r0, r4, #0
-	bl sub_80569C0
+	bl func_fe6_080569C0
 	movs r0, #0x81
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -39853,7 +39853,7 @@ sub_80567E8: @ 0x080567E8
 	movs r3, #2
 	ldrsh r2, [r4, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L080568AE
 .L08056844:
 	adds r0, r6, #0
@@ -39866,7 +39866,7 @@ sub_80567E8: @ 0x080567E8
 	bne .L0805685C
 .L08056854:
 	adds r0, r4, #0
-	bl sub_80569C0
+	bl func_fe6_080569C0
 	b .L080568AE
 .L0805685C:
 	adds r0, r6, #0
@@ -39877,7 +39877,7 @@ sub_80567E8: @ 0x080567E8
 	movs r1, #1
 	movs r2, #5
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L080568AE
 .L08056872:
 	adds r0, r6, #0
@@ -39892,7 +39892,7 @@ sub_80567E8: @ 0x080567E8
 	adds r0, #0x29
 	ldrb r1, [r0]
 	adds r0, r4, #0
-	bl sub_80478A0
+	bl func_fe6_080478A0
 	b .L080568AE
 .L08056890:
 	adds r0, r6, #0
@@ -39903,8 +39903,8 @@ sub_80567E8: @ 0x080567E8
 	ldrh r3, [r4, #0x10]
 	orrs r0, r3
 	strh r0, [r4, #0x10]
-	bl sub_80474BC
-	bl sub_8047358
+	bl func_fe6_080474BC
+	bl func_fe6_08047358
 	adds r0, r5, #0
 	bl Proc_Break
 .L080568AE:
@@ -39912,8 +39912,8 @@ sub_80567E8: @ 0x080567E8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80568B4
-sub_80568B4: @ 0x080568B4
+	thumb_func_start func_fe6_080568B4
+func_fe6_080568B4: @ 0x080568B4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L080568F8 @ =gUnk_Banim_02017744
@@ -39934,12 +39934,12 @@ sub_80568B4: @ 0x080568B4
 	str r1, [r0, #0x50]
 	ldr r0, .L08056908 @ =gUnk_081B8934
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0805690C @ =gUnk_081B80A8
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -39951,15 +39951,15 @@ sub_80568B4: @ 0x080568B4
 .L08056908: .4byte gUnk_081B8934
 .L0805690C: .4byte gUnk_081B80A8
 
-	thumb_func_start sub_8056910
-sub_8056910: @ 0x08056910
+	thumb_func_start func_fe6_08056910
+func_fe6_08056910: @ 0x08056910
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -39972,19 +39972,19 @@ sub_8056910: @ 0x08056910
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0805695C
 .L0805693E:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0805695C
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08056964 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805695C:
@@ -39994,8 +39994,8 @@ sub_8056910: @ 0x08056910
 	.align 2, 0
 .L08056964: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056968
-sub_8056968: @ 0x08056968
+	thumb_func_start func_fe6_08056968
+func_fe6_08056968: @ 0x08056968
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -40013,15 +40013,15 @@ sub_8056968: @ 0x08056968
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L080569B8 @ =gUnk_081B8E44
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L080569BC @ =gUnk_081B7468
 	movs r1, #0x80
 	lsls r1, r1, #4
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -40033,8 +40033,8 @@ sub_8056968: @ 0x08056968
 .L080569B8: .4byte gUnk_081B8E44
 .L080569BC: .4byte gUnk_081B7468
 
-	thumb_func_start sub_80569C0
-sub_80569C0: @ 0x080569C0
+	thumb_func_start func_fe6_080569C0
+func_fe6_080569C0: @ 0x080569C0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -40052,7 +40052,7 @@ sub_80569C0: @ 0x080569C0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -40063,8 +40063,8 @@ sub_80569C0: @ 0x080569C0
 .L080569F8: .4byte gUnk_085D3454
 .L080569FC: .4byte gUnk_086030FC
 
-	thumb_func_start sub_8056A00
-sub_8056A00: @ 0x08056A00
+	thumb_func_start func_fe6_08056A00
+func_fe6_08056A00: @ 0x08056A00
 	push {lr}
 	ldr r0, [r0, #0x60]
 	bl BasRemove
@@ -40077,8 +40077,8 @@ sub_8056A00: @ 0x08056A00
 	.align 2, 0
 .L08056A14: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056A18
-sub_8056A18: @ 0x08056A18
+	thumb_func_start func_fe6_08056A18
+func_fe6_08056A18: @ 0x08056A18
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -40096,8 +40096,8 @@ sub_8056A18: @ 0x08056A18
 	.align 2, 0
 .L08056A38: .4byte gUnk_085D3474
 
-	thumb_func_start sub_8056A3C
-sub_8056A3C: @ 0x08056A3C
+	thumb_func_start func_fe6_08056A3C
+func_fe6_08056A3C: @ 0x08056A3C
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -40110,7 +40110,7 @@ sub_8056A3C: @ 0x08056A3C
 	ldr r0, [r1, #0x5c]
 	adds r1, #0x29
 	ldrb r1, [r1]
-	bl sub_8056A68
+	bl func_fe6_08056A68
 	b .L08056A64
 .L08056A5A:
 	cmp r0, #0xa
@@ -40121,8 +40121,8 @@ sub_8056A3C: @ 0x08056A3C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056A68
-sub_8056A68: @ 0x08056A68
+	thumb_func_start func_fe6_08056A68
+func_fe6_08056A68: @ 0x08056A68
 	push {r4, r5, r6, lr}
 	sub sp, #0xc
 	adds r5, r0, #0
@@ -40149,7 +40149,7 @@ sub_8056A68: @ 0x08056A68
 	ldr r4, .L08056AD4 @ =gUnk_085CDD18
 .L08056A9A:
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r2, #0xa2
 	lsls r2, r2, #7
 	cmp r0, #0
@@ -40169,7 +40169,7 @@ sub_8056A68: @ 0x08056A68
 	str r2, [sp, #8]
 	adds r2, r4, #0
 	movs r3, #2
-	bl sub_805B9E0
+	bl func_fe6_0805B9E0
 	str r0, [r6, #0x60]
 	add sp, #0xc
 	pop {r4, r5, r6}
@@ -40178,8 +40178,8 @@ sub_8056A68: @ 0x08056A68
 	.align 2, 0
 .L08056AD4: .4byte gUnk_085CDD18
 
-	thumb_func_start sub_8056AD8
-sub_8056AD8: @ 0x08056AD8
+	thumb_func_start func_fe6_08056AD8
+func_fe6_08056AD8: @ 0x08056AD8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
@@ -40204,11 +40204,11 @@ sub_8056AD8: @ 0x08056AD8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056B08
-sub_8056B08: @ 0x08056B08
+	thumb_func_start func_fe6_08056B08
+func_fe6_08056B08: @ 0x08056B08
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474C8
+	bl func_fe6_080474C8
 	ldr r0, .L08056B24 @ =gUnk_085D34A4
 	movs r1, #3
 	bl SpawnProc
@@ -40221,8 +40221,8 @@ sub_8056B08: @ 0x08056B08
 	.align 2, 0
 .L08056B24: .4byte gUnk_085D34A4
 
-	thumb_func_start sub_8056B28
-sub_8056B28: @ 0x08056B28
+	thumb_func_start func_fe6_08056B28
+func_fe6_08056B28: @ 0x08056B28
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -40233,9 +40233,9 @@ sub_8056B28: @ 0x08056B28
 	cmp r0, #1
 	bne .L08056B48
 	ldr r0, [r4, #0x5c]
-	bl sub_8056B58
+	bl func_fe6_08056B58
 	ldr r0, [r4, #0x5c]
-	bl sub_8056BD0
+	bl func_fe6_08056BD0
 	b .L08056B52
 .L08056B48:
 	cmp r0, #0x11
@@ -40247,8 +40247,8 @@ sub_8056B28: @ 0x08056B28
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056B58
-sub_8056B58: @ 0x08056B58
+	thumb_func_start func_fe6_08056B58
+func_fe6_08056B58: @ 0x08056B58
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08056B94 @ =gUnk_085D34BC
@@ -40261,15 +40261,15 @@ sub_8056B58: @ 0x08056B58
 	ldr r0, .L08056B98 @ =gUnk_08122A3C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08056B9C @ =gUnk_08123B1C
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r4, #0x5c]
 	ldr r1, .L08056BA0 @ =gUnk_08123D1C
 	ldr r2, .L08056BA4 @ =gUnk_081241BC
-	bl sub_804799C
-	bl sub_8047500
+	bl func_fe6_0804799C
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -40280,8 +40280,8 @@ sub_8056B58: @ 0x08056B58
 .L08056BA0: .4byte gUnk_08123D1C
 .L08056BA4: .4byte gUnk_081241BC
 
-	thumb_func_start sub_8056BA8
-sub_8056BA8: @ 0x08056BA8
+	thumb_func_start func_fe6_08056BA8
+func_fe6_08056BA8: @ 0x08056BA8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -40291,8 +40291,8 @@ sub_8056BA8: @ 0x08056BA8
 	asrs r0, r0, #0x10
 	cmp r0, #0x11
 	bne .L08056BC8
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08056BC8:
@@ -40301,8 +40301,8 @@ sub_8056BA8: @ 0x08056BA8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056BD0
-sub_8056BD0: @ 0x08056BD0
+	thumb_func_start func_fe6_08056BD0
+func_fe6_08056BD0: @ 0x08056BD0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08056BF4 @ =gUnk_085D34D4
@@ -40324,15 +40324,15 @@ sub_8056BD0: @ 0x08056BD0
 .L08056BF8: .4byte gUnk_0811AE34
 .L08056BFC: .4byte gUnk_08123B1C
 
-	thumb_func_start sub_8056C00
-sub_8056C00: @ 0x08056C00
+	thumb_func_start func_fe6_08056C00
+func_fe6_08056C00: @ 0x08056C00
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -40341,7 +40341,7 @@ sub_8056C00: @ 0x08056C00
 	lsls r1, r1, #5
 	adds r0, r0, r1
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	b .L08056C34
 .L08056C26:
 	movs r0, #1
@@ -40356,11 +40356,11 @@ sub_8056C00: @ 0x08056C00
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056C3C
-sub_8056C3C: @ 0x08056C3C
+	thumb_func_start func_fe6_08056C3C
+func_fe6_08056C3C: @ 0x08056C3C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474C8
+	bl func_fe6_080474C8
 	ldr r0, .L08056C58 @ =gUnk_085D34F4
 	movs r1, #3
 	bl SpawnProc
@@ -40373,12 +40373,12 @@ sub_8056C3C: @ 0x08056C3C
 	.align 2, 0
 .L08056C58: .4byte gUnk_085D34F4
 
-	thumb_func_start sub_8056C5C
-sub_8056C5C: @ 0x08056C5C
+	thumb_func_start func_fe6_08056C5C
+func_fe6_08056C5C: @ 0x08056C5C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r1, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -40389,13 +40389,13 @@ sub_8056C5C: @ 0x08056C5C
 	bne .L08056C80
 	ldr r0, [r4, #0x5c]
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L08056C96
 .L08056C80:
 	cmp r0, #4
 	bne .L08056C8C
 	adds r0, r1, #0
-	bl sub_8056C9C
+	bl func_fe6_08056C9C
 	b .L08056C96
 .L08056C8C:
 	cmp r0, #0x18
@@ -40407,8 +40407,8 @@ sub_8056C5C: @ 0x08056C5C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056C9C
-sub_8056C9C: @ 0x08056C9C
+	thumb_func_start func_fe6_08056C9C
+func_fe6_08056C9C: @ 0x08056C9C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08056CFC @ =gUnk_Banim_02017744
@@ -40430,19 +40430,19 @@ sub_8056C9C: @ 0x08056C9C
 	str r0, [r5, #0x50]
 	ldr r0, .L08056D0C @ =gUnk_08124B64
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08056D10 @ =gUnk_0812479C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r0, .L08056D14 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08056D22
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056D18
 	movs r0, #1
@@ -40468,15 +40468,15 @@ sub_8056C9C: @ 0x08056C9C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056D28
-sub_8056D28: @ 0x08056D28
+	thumb_func_start func_fe6_08056D28
+func_fe6_08056D28: @ 0x08056D28
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -40489,19 +40489,19 @@ sub_8056D28: @ 0x08056D28
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08056D74
 .L08056D56:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08056D74
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08056D7C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08056D74:
@@ -40511,8 +40511,8 @@ sub_8056D28: @ 0x08056D28
 	.align 2, 0
 .L08056D7C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8056D80
-sub_8056D80: @ 0x08056D80
+	thumb_func_start func_fe6_08056D80
+func_fe6_08056D80: @ 0x08056D80
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -40524,23 +40524,23 @@ sub_8056D80: @ 0x08056D80
 	strh r1, [r0, #0x2c]
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl sub_8056DB4
+	bl func_fe6_08056DB4
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L08056DA4: .4byte gUnk_085D354C
 
-	thumb_func_start sub_8056DA8
-sub_8056DA8: @ 0x08056DA8
+	thumb_func_start func_fe6_08056DA8
+func_fe6_08056DA8: @ 0x08056DA8
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056DB4
-sub_8056DB4: @ 0x08056DB4
+	thumb_func_start func_fe6_08056DB4
+func_fe6_08056DB4: @ 0x08056DB4
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -40571,7 +40571,7 @@ sub_8056DB4: @ 0x08056DB4
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	movs r0, #0xc0
@@ -40581,7 +40581,7 @@ sub_8056DB4: @ 0x08056DB4
 	movs r5, #0
 	strh r0, [r4, #8]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056E20
 	movs r1, #0xe4
@@ -40603,8 +40603,8 @@ sub_8056DB4: @ 0x08056DB4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056E34
-sub_8056E34: @ 0x08056E34
+	thumb_func_start func_fe6_08056E34
+func_fe6_08056E34: @ 0x08056E34
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
@@ -40621,7 +40621,7 @@ sub_8056E34: @ 0x08056E34
 	cmp r0, #0
 	bne .L08056E6C
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056E64
 	ldr r0, .L08056E60 @ =gUnk_085DDBF4
@@ -40635,7 +40635,7 @@ sub_8056E34: @ 0x08056E34
 .L08056E68: .4byte gUnk_085DC954
 .L08056E6C:
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056E80
 	ldr r0, .L08056E7C @ =gUnk_085E0194
@@ -40659,8 +40659,8 @@ sub_8056E34: @ 0x08056E34
 	.align 2, 0
 .L08056E98: .4byte gUnk_085DEEC4
 
-	thumb_func_start sub_8056E9C
-sub_8056E9C: @ 0x08056E9C
+	thumb_func_start func_fe6_08056E9C
+func_fe6_08056E9C: @ 0x08056E9C
 	push {lr}
 	adds r1, r0, #0
 	ldr r0, [r1, #0x5c]
@@ -40682,12 +40682,12 @@ sub_8056E9C: @ 0x08056E9C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056EC4
-sub_8056EC4: @ 0x08056EC4
+	thumb_func_start func_fe6_08056EC4
+func_fe6_08056EC4: @ 0x08056EC4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
-	bl sub_80449C4
+	bl func_fe6_080449C4
 	cmp r0, #1
 	bne .L08056F1E
 	adds r0, r5, #0
@@ -40696,7 +40696,7 @@ sub_8056EC4: @ 0x08056EC4
 	cmp r0, #0
 	bne .L08056EF8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056EF0
 	ldr r0, .L08056EEC @ =gUnk_085DDC1C
@@ -40710,7 +40710,7 @@ sub_8056EC4: @ 0x08056EC4
 .L08056EF4: .4byte gUnk_085DC97C
 .L08056EF8:
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08056F0C
 	ldr r0, .L08056F08 @ =gUnk_085E01BC
@@ -40734,8 +40734,8 @@ sub_8056EC4: @ 0x08056EC4
 	.align 2, 0
 .L08056F24: .4byte gUnk_085DEEEC
 
-	thumb_func_start sub_8056F28
-sub_8056F28: @ 0x08056F28
+	thumb_func_start func_fe6_08056F28
+func_fe6_08056F28: @ 0x08056F28
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -40756,8 +40756,8 @@ sub_8056F28: @ 0x08056F28
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056F50
-sub_8056F50: @ 0x08056F50
+	thumb_func_start func_fe6_08056F50
+func_fe6_08056F50: @ 0x08056F50
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L08056F7C @ =gUnk_Banim_02017744
@@ -40775,7 +40775,7 @@ sub_8056F50: @ 0x08056F50
 	cmp r0, #0
 	bne .L08056F88
 	adds r0, r4, #0
-	bl sub_8056FA0
+	bl func_fe6_08056FA0
 	b .L08056F8E
 	.align 2, 0
 .L08056F7C: .4byte gUnk_Banim_02017744
@@ -40783,22 +40783,22 @@ sub_8056F50: @ 0x08056F50
 .L08056F84: .4byte 0x0203CD14
 .L08056F88:
 	adds r0, r4, #0
-	bl sub_80570A0
+	bl func_fe6_080570A0
 .L08056F8E:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8056F94
-sub_8056F94: @ 0x08056F94
+	thumb_func_start func_fe6_08056F94
+func_fe6_08056F94: @ 0x08056F94
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8056FA0
-sub_8056FA0: @ 0x08056FA0
+	thumb_func_start func_fe6_08056FA0
+func_fe6_08056FA0: @ 0x08056FA0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -40818,7 +40818,7 @@ sub_8056FA0: @ 0x08056FA0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -40829,13 +40829,13 @@ sub_8056FA0: @ 0x08056FA0
 .L08056FDC: .4byte gUnk_085D35AC
 .L08056FE0: .4byte gUnk_085D0E8C
 
-	thumb_func_start sub_8056FE4
-sub_8056FE4: @ 0x08056FE4
+	thumb_func_start func_fe6_08056FE4
+func_fe6_08056FE4: @ 0x08056FE4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08056FFC
 	ldr r0, .L08056FF8 @ =gUnk_085D7190
@@ -40851,11 +40851,11 @@ sub_8056FE4: @ 0x08056FE4
 	strh r0, [r4, #6]
 	ldr r0, .L08057028 @ =gUnk_08121498
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805702C @ =gUnk_08120414
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
@@ -40866,13 +40866,13 @@ sub_8056FE4: @ 0x08056FE4
 .L08057028: .4byte gUnk_08121498
 .L0805702C: .4byte gUnk_08120414
 
-	thumb_func_start sub_8057030
-sub_8057030: @ 0x08057030
+	thumb_func_start func_fe6_08057030
+func_fe6_08057030: @ 0x08057030
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08057048
 	ldr r0, .L08057044 @ =gUnk_085D77E4
@@ -40888,11 +40888,11 @@ sub_8057030: @ 0x08057030
 	strh r0, [r4, #6]
 	ldr r0, .L08057074 @ =gUnk_08121498
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08057078 @ =gUnk_08120CB4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
@@ -40903,8 +40903,8 @@ sub_8057030: @ 0x08057030
 .L08057074: .4byte gUnk_08121498
 .L08057078: .4byte gUnk_08120CB4
 
-	thumb_func_start sub_805707C
-sub_805707C: @ 0x0805707C
+	thumb_func_start func_fe6_0805707C
+func_fe6_0805707C: @ 0x0805707C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0805709C @ =gUnk_Banim_02017744
@@ -40921,8 +40921,8 @@ sub_805707C: @ 0x0805707C
 	.align 2, 0
 .L0805709C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80570A0
-sub_80570A0: @ 0x080570A0
+	thumb_func_start func_fe6_080570A0
+func_fe6_080570A0: @ 0x080570A0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -40942,7 +40942,7 @@ sub_80570A0: @ 0x080570A0
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	add sp, #4
 	pop {r4, r5}
@@ -40953,13 +40953,13 @@ sub_80570A0: @ 0x080570A0
 .L080570DC: .4byte gUnk_085D35E4
 .L080570E0: .4byte gUnk_085D0E8C
 
-	thumb_func_start sub_80570E4
-sub_80570E4: @ 0x080570E4
+	thumb_func_start func_fe6_080570E4
+func_fe6_080570E4: @ 0x080570E4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L080570FC
 	ldr r0, .L080570F8 @ =gUnk_085D71D8
@@ -40975,11 +40975,11 @@ sub_80570E4: @ 0x080570E4
 	strh r0, [r4, #6]
 	ldr r0, .L08057128 @ =gUnk_08121498
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805712C @ =gUnk_08120414
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
@@ -40990,13 +40990,13 @@ sub_80570E4: @ 0x080570E4
 .L08057128: .4byte gUnk_08121498
 .L0805712C: .4byte gUnk_08120414
 
-	thumb_func_start sub_8057130
-sub_8057130: @ 0x08057130
+	thumb_func_start func_fe6_08057130
+func_fe6_08057130: @ 0x08057130
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x60]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #1
 	bne .L08057148
 	ldr r0, .L08057144 @ =gUnk_085D77F4
@@ -41012,11 +41012,11 @@ sub_8057130: @ 0x08057130
 	strh r0, [r4, #6]
 	ldr r0, .L08057174 @ =gUnk_08121498
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08057178 @ =gUnk_08120CB4
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
@@ -41027,8 +41027,8 @@ sub_8057130: @ 0x08057130
 .L08057174: .4byte gUnk_08121498
 .L08057178: .4byte gUnk_08120CB4
 
-	thumb_func_start sub_805717C
-sub_805717C: @ 0x0805717C
+	thumb_func_start func_fe6_0805717C
+func_fe6_0805717C: @ 0x0805717C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, .L0805719C @ =gUnk_Banim_02017744
@@ -41045,8 +41045,8 @@ sub_805717C: @ 0x0805717C
 	.align 2, 0
 .L0805719C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80571A0
-sub_80571A0: @ 0x080571A0
+	thumb_func_start func_fe6_080571A0
+func_fe6_080571A0: @ 0x080571A0
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	adds r7, r1, #0
@@ -41054,7 +41054,7 @@ sub_80571A0: @ 0x080571A0
 	ldr r4, [r0]
 	cmp r4, #0
 	bne .L08057200
-	bl sub_80474C8
+	bl func_fe6_080474C8
 	ldr r0, .L080571F0 @ =gUnk_085D361C
 	movs r1, #3
 	bl SpawnProc
@@ -41063,7 +41063,7 @@ sub_80571A0: @ 0x080571A0
 	strh r4, [r5, #0x2c]
 	ldr r4, .L080571F4 @ =0x0203CD76
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -41078,7 +41078,7 @@ sub_80571A0: @ 0x080571A0
 	blt .L080571F8
 	ldr r0, [r5, #0x5c]
 	adds r1, r7, #0
-	bl sub_8057224
+	bl func_fe6_08057224
 	b .L08057200
 	.align 2, 0
 .L080571EC: .4byte gUnk_Banim_02017744
@@ -41087,15 +41087,15 @@ sub_80571A0: @ 0x080571A0
 .L080571F8:
 	ldr r0, [r5, #0x5c]
 	adds r1, r7, #2
-	bl sub_8057224
+	bl func_fe6_08057224
 .L08057200:
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8057208
-sub_8057208: @ 0x08057208
+	thumb_func_start func_fe6_08057208
+func_fe6_08057208: @ 0x08057208
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -41111,8 +41111,8 @@ sub_8057208: @ 0x08057208
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8057224
-sub_8057224: @ 0x08057224
+	thumb_func_start func_fe6_08057224
+func_fe6_08057224: @ 0x08057224
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -41173,18 +41173,18 @@ sub_8057224: @ 0x08057224
 	ldr r0, .L080572D0 @ =gUnk_08129504
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L080572D4 @ =gUnk_0812A258
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L080572D8 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080572E6
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080572DC
 	movs r0, #1
@@ -41208,15 +41208,15 @@ sub_8057224: @ 0x08057224
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80572EC
-sub_80572EC: @ 0x080572EC
+	thumb_func_start func_fe6_080572EC
+func_fe6_080572EC: @ 0x080572EC
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -41229,19 +41229,19 @@ sub_80572EC: @ 0x080572EC
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08057338
 .L0805731A:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08057338
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08057340 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_End
 .L08057338:
@@ -41251,8 +41251,8 @@ sub_80572EC: @ 0x080572EC
 	.align 2, 0
 .L08057340: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8057344
-sub_8057344: @ 0x08057344
+	thumb_func_start func_fe6_08057344
+func_fe6_08057344: @ 0x08057344
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -41267,7 +41267,7 @@ sub_8057344: @ 0x08057344
 	strh r4, [r0, #0x2c]
 	adds r0, r5, #0
 	adds r1, r6, #0
-	bl sub_8057380
+	bl func_fe6_08057380
 .L08057366:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -41276,16 +41276,16 @@ sub_8057344: @ 0x08057344
 .L0805736C: .4byte gUnk_Banim_02017744
 .L08057370: .4byte gUnk_085D36A4
 
-	thumb_func_start sub_8057374
-sub_8057374: @ 0x08057374
+	thumb_func_start func_fe6_08057374
+func_fe6_08057374: @ 0x08057374
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8057380
-sub_8057380: @ 0x08057380
+	thumb_func_start func_fe6_08057380
+func_fe6_08057380: @ 0x08057380
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -41320,11 +41320,11 @@ sub_8057380: @ 0x08057380
 	str r2, [sp]
 	adds r0, r6, #0
 	adds r1, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r5, #0x60]
 	ldr r4, .L08057408 @ =0x0203CDC0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -41408,7 +41408,7 @@ sub_8057380: @ 0x08057380
 .L080574E0: .4byte gUnk_0812C62C
 .L080574E4:
 	ldr r0, [r5, #0x5c]
-	bl sub_805C2B0
+	bl func_fe6_0805C2B0
 	cmp r0, #0
 	beq .L080574F8
 	ldr r0, .L080574F4 @ =gUnk_0812C62C
@@ -41419,19 +41419,19 @@ sub_8057380: @ 0x08057380
 	ldr r0, .L08057504 @ =gUnk_0812C64C
 .L080574FA:
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	b .L08057510
 	.align 2, 0
 .L08057504: .4byte gUnk_0812C64C
 .L08057508:
 	ldr r0, .L08057524 @ =gUnk_0812C66C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 .L08057510:
 	ldr r0, .L08057528 @ =gUnk_0812C1BC
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5, r6}
 	pop {r0}
@@ -41440,8 +41440,8 @@ sub_8057380: @ 0x08057380
 .L08057524: .4byte gUnk_0812C66C
 .L08057528: .4byte gUnk_0812C1BC
 
-	thumb_func_start sub_805752C
-sub_805752C: @ 0x0805752C
+	thumb_func_start func_fe6_0805752C
+func_fe6_0805752C: @ 0x0805752C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -41466,8 +41466,8 @@ sub_805752C: @ 0x0805752C
 	.align 2, 0
 .L08057558: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805755C
-sub_805755C: @ 0x0805755C
+	thumb_func_start func_fe6_0805755C
+func_fe6_0805755C: @ 0x0805755C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08057574 @ =gUnk_085D36D4
@@ -41482,8 +41482,8 @@ sub_805755C: @ 0x0805755C
 	.align 2, 0
 .L08057574: .4byte gUnk_085D36D4
 
-	thumb_func_start sub_8057578
-sub_8057578: @ 0x08057578
+	thumb_func_start func_fe6_08057578
+func_fe6_08057578: @ 0x08057578
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
 	ldr r6, [r7, #0x5c]
@@ -41498,26 +41498,26 @@ sub_8057578: @ 0x08057578
 	movs r1, #1
 	movs r2, #0x28
 	movs r3, #0
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	b .L080575DE
 .L0805759A:
 	cmp r0, #0xa
 	bne .L080575A8
 	adds r0, r6, #0
 	movs r1, #0x14
-	bl sub_8046794
+	bl func_fe6_08046794
 	b .L080575DE
 .L080575A8:
 	cmp r0, #0x2d
 	bne .L080575DE
 	ldr r5, .L080575E4 @ =gUnk_Banim_02000000
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r5
 	ldr r4, [r0]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -41539,8 +41539,8 @@ sub_8057578: @ 0x08057578
 	.align 2, 0
 .L080575E4: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_80575E8
-sub_80575E8: @ 0x080575E8
+	thumb_func_start func_fe6_080575E8
+func_fe6_080575E8: @ 0x080575E8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -41562,15 +41562,15 @@ sub_80575E8: @ 0x080575E8
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08057654 @ =gUnk_0811CAD8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L08057658 @ =gUnk_0811C964
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -41578,7 +41578,7 @@ sub_80575E8: @ 0x080575E8
 	ldrsh r2, [r0, r3]
 	movs r0, #0xee
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -41590,8 +41590,8 @@ sub_80575E8: @ 0x080575E8
 .L08057654: .4byte gUnk_0811CAD8
 .L08057658: .4byte gUnk_0811C964
 
-	thumb_func_start sub_805765C
-sub_805765C: @ 0x0805765C
+	thumb_func_start func_fe6_0805765C
+func_fe6_0805765C: @ 0x0805765C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -41608,7 +41608,7 @@ sub_805765C: @ 0x0805765C
 	ldrsh r2, [r0, r3]
 	movs r0, #0xee
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L08057680:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -41631,8 +41631,8 @@ sub_805765C: @ 0x0805765C
 	.align 2, 0
 .L080576A8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_80576AC
-sub_80576AC: @ 0x080576AC
+	thumb_func_start func_fe6_080576AC
+func_fe6_080576AC: @ 0x080576AC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -41654,15 +41654,15 @@ sub_80576AC: @ 0x080576AC
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	ldr r0, .L08057718 @ =gUnk_0811CAD8
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805771C @ =gUnk_0811C964
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r4, #0x5c]
@@ -41670,7 +41670,7 @@ sub_80576AC: @ 0x080576AC
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe1
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -41682,8 +41682,8 @@ sub_80576AC: @ 0x080576AC
 .L08057718: .4byte gUnk_0811CAD8
 .L0805771C: .4byte gUnk_0811C964
 
-	thumb_func_start sub_8057720
-sub_8057720: @ 0x08057720
+	thumb_func_start func_fe6_08057720
+func_fe6_08057720: @ 0x08057720
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -41709,13 +41709,13 @@ sub_8057720: @ 0x08057720
 	.align 2, 0
 .L08057750: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8057754
-sub_8057754: @ 0x08057754
+	thumb_func_start func_fe6_08057754
+func_fe6_08057754: @ 0x08057754
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
 	adds r7, r2, #0
-	bl sub_805894C
+	bl func_fe6_0805894C
 	adds r4, r0, #0
 	cmp r4, #0
 	bne .L0805778E
@@ -41747,8 +41747,8 @@ sub_8057754: @ 0x08057754
 .L08057798: .4byte gUnk_085D371C
 .L0805779C: .4byte gDispIo
 
-	thumb_func_start sub_80577A0
-sub_80577A0: @ 0x080577A0
+	thumb_func_start func_fe6_080577A0
+func_fe6_080577A0: @ 0x080577A0
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -41790,8 +41790,8 @@ sub_80577A0: @ 0x080577A0
 	.align 2, 0
 .L080577F0: .4byte gDispIo
 
-	thumb_func_start sub_80577F4
-sub_80577F4: @ 0x080577F4
+	thumb_func_start func_fe6_080577F4
+func_fe6_080577F4: @ 0x080577F4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -41844,12 +41844,12 @@ sub_80577F4: @ 0x080577F4
 .L08057858: .4byte gDispIo
 .L0805785C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8057860
-sub_8057860: @ 0x08057860
+	thumb_func_start func_fe6_08057860
+func_fe6_08057860: @ 0x08057860
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r4, .L08057894 @ =gUnk_Banim_02017760
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -41857,13 +41857,13 @@ sub_8057860: @ 0x08057860
 	cmp r0, #0
 	bne .L080578BC
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #1
 	strh r1, [r0]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805789C
 	ldr r0, .L08057898 @ =0x0203CD7C
@@ -41891,12 +41891,12 @@ sub_8057860: @ 0x08057860
 .L080578BC:
 	ldr r4, .L080578F0 @ =gUnk_Banim_02000000
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r4
 	ldr r6, [r0]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -41925,9 +41925,9 @@ sub_8057860: @ 0x08057860
 	movs r0, #0xf0
 	movs r2, #0x78
 	movs r3, #0
-	bl sub_805C804
+	bl func_fe6_0805C804
 	adds r0, r5, #0
-	bl sub_805792C
+	bl func_fe6_0805792C
 .L08057916:
 	pop {r4, r5, r6}
 	pop {r0}
@@ -41935,19 +41935,19 @@ sub_8057860: @ 0x08057860
 	.align 2, 0
 .L0805791C: .4byte gUnk_085D373C
 
-	thumb_func_start sub_8057920
-sub_8057920: @ 0x08057920
+	thumb_func_start func_fe6_08057920
+func_fe6_08057920: @ 0x08057920
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805792C
-sub_805792C: @ 0x0805792C
+	thumb_func_start func_fe6_0805792C
+func_fe6_0805792C: @ 0x0805792C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474C8
+	bl func_fe6_080474C8
 	ldr r0, .L08057948 @ =gUnk_085D3754
 	movs r1, #3
 	bl SpawnProc
@@ -41960,8 +41960,8 @@ sub_805792C: @ 0x0805792C
 	.align 2, 0
 .L08057948: .4byte gUnk_085D3754
 
-	thumb_func_start sub_805794C
-sub_805794C: @ 0x0805794C
+	thumb_func_start func_fe6_0805794C
+func_fe6_0805794C: @ 0x0805794C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldrh r0, [r6, #0x2c]
@@ -41972,30 +41972,30 @@ sub_805794C: @ 0x0805794C
 	cmp r0, #1
 	bne .L08057966
 	ldr r0, [r6, #0x5c]
-	bl sub_80579C0
+	bl func_fe6_080579C0
 	b .L080579B6
 .L08057966:
 	cmp r0, #0x15
 	bne .L08057980
 	ldr r0, [r6, #0x5c]
-	ldr r2, .L0805797C @ =sub_8057A34
+	ldr r2, .L0805797C @ =func_fe6_08057A34
 	movs r1, #0x2d
-	bl sub_804CC68
-	bl sub_8057A5C
+	bl func_fe6_0804CC68
+	bl func_fe6_08057A5C
 	b .L080579B6
 	.align 2, 0
-.L0805797C: .4byte sub_8057A34
+.L0805797C: .4byte func_fe6_08057A34
 .L08057980:
 	cmp r0, #0x46
 	bne .L080579B6
 	ldr r5, .L080579BC @ =gUnk_Banim_02000000
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
 	adds r0, r0, r5
 	ldr r4, [r0]
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, #1
 	lsls r0, r0, #2
@@ -42017,8 +42017,8 @@ sub_805794C: @ 0x0805794C
 	.align 2, 0
 .L080579BC: .4byte gUnk_Banim_02000000
 
-	thumb_func_start sub_80579C0
-sub_80579C0: @ 0x080579C0
+	thumb_func_start func_fe6_080579C0
+func_fe6_080579C0: @ 0x080579C0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L080579FC @ =gUnk_085D376C
@@ -42031,15 +42031,15 @@ sub_80579C0: @ 0x080579C0
 	ldr r0, .L08057A00 @ =gUnk_08124618
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08057A04 @ =gUnk_081246D8
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r4, #0x5c]
 	ldr r2, .L08057A08 @ =gUnk_081246F8
 	adds r1, r2, #0
-	bl sub_804799C
-	bl sub_8047500
+	bl func_fe6_0804799C
+	bl func_fe6_08047500
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -42049,8 +42049,8 @@ sub_80579C0: @ 0x080579C0
 .L08057A04: .4byte gUnk_081246D8
 .L08057A08: .4byte gUnk_081246F8
 
-	thumb_func_start sub_8057A0C
-sub_8057A0C: @ 0x08057A0C
+	thumb_func_start func_fe6_08057A0C
+func_fe6_08057A0C: @ 0x08057A0C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -42060,8 +42060,8 @@ sub_8057A0C: @ 0x08057A0C
 	asrs r0, r0, #0x10
 	cmp r0, #0x3c
 	bne .L08057A2C
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08057A2C:
@@ -42070,8 +42070,8 @@ sub_8057A0C: @ 0x08057A0C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8057A34
-sub_8057A34: @ 0x08057A34
+	thumb_func_start func_fe6_08057A34
+func_fe6_08057A34: @ 0x08057A34
 	ldr r0, .L08057A50 @ =0x04000004
 	ldrh r1, [r0]
 	movs r0, #1
@@ -42092,8 +42092,8 @@ sub_8057A34: @ 0x08057A34
 .L08057A54: .4byte 0x04000016
 .L08057A58: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start sub_8057A5C
-sub_8057A5C: @ 0x08057A5C
+	thumb_func_start func_fe6_08057A5C
+func_fe6_08057A5C: @ 0x08057A5C
 	push {lr}
 	ldr r0, .L08057A78 @ =gUnk_085D3784
 	movs r1, #3
@@ -42102,14 +42102,14 @@ sub_8057A5C: @ 0x08057A5C
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
 	str r1, [r0, #0x44]
-	bl sub_8057B2C
+	bl func_fe6_08057B2C
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L08057A78: .4byte gUnk_085D3784
 
-	thumb_func_start sub_8057A7C
-sub_8057A7C: @ 0x08057A7C
+	thumb_func_start func_fe6_08057A7C
+func_fe6_08057A7C: @ 0x08057A7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -42200,8 +42200,8 @@ sub_8057A7C: @ 0x08057A7C
 	.align 2, 0
 .L08057B28: .4byte 0xFFFF0000
 
-	thumb_func_start sub_8057B2C
-sub_8057B2C: @ 0x08057B2C
+	thumb_func_start func_fe6_08057B2C
+func_fe6_08057B2C: @ 0x08057B2C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08057B48 @ =gUnk_085D379C
@@ -42218,8 +42218,8 @@ sub_8057B2C: @ 0x08057B2C
 	.align 2, 0
 .L08057B48: .4byte gUnk_085D379C
 
-	thumb_func_start sub_8057B4C
-sub_8057B4C: @ 0x08057B4C
+	thumb_func_start func_fe6_08057B4C
+func_fe6_08057B4C: @ 0x08057B4C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -42253,11 +42253,11 @@ sub_8057B4C: @ 0x08057B4C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8057B90
-sub_8057B90: @ 0x08057B90
+	thumb_func_start func_fe6_08057B90
+func_fe6_08057B90: @ 0x08057B90
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_80474C8
+	bl func_fe6_080474C8
 	ldr r0, .L08057BAC @ =gUnk_085D38A4
 	movs r1, #3
 	bl SpawnProc
@@ -42270,8 +42270,8 @@ sub_8057B90: @ 0x08057B90
 	.align 2, 0
 .L08057BAC: .4byte gUnk_085D38A4
 
-	thumb_func_start sub_8057BB0
-sub_8057BB0: @ 0x08057BB0
+	thumb_func_start func_fe6_08057BB0
+func_fe6_08057BB0: @ 0x08057BB0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldrh r0, [r5, #0x2c]
@@ -42283,19 +42283,19 @@ sub_8057BB0: @ 0x08057BB0
 	bne .L08057BE6
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x49
-	bl sub_8057BF8
+	bl func_fe6_08057BF8
 	movs r4, #0xa0
 	lsls r4, r4, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r5, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L08057BE6:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x64
@@ -42307,8 +42307,8 @@ sub_8057BB0: @ 0x08057BB0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8057BF8
-sub_8057BF8: @ 0x08057BF8
+	thumb_func_start func_fe6_08057BF8
+func_fe6_08057BF8: @ 0x08057BF8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -42332,12 +42332,12 @@ sub_8057BF8: @ 0x08057BF8
 	str r1, [r0, #0x50]
 	ldr r0, .L08057C88 @ =gUnk_0812BE10
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L08057C8C @ =gUnk_0812B19C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
-	bl sub_8047500
+	bl func_fe6_08047ACC
+	bl func_fe6_08047500
 	ldr r3, .L08057C90 @ =gDispIo
 	movs r1, #4
 	rsbs r1, r1, #0
@@ -42376,15 +42376,15 @@ sub_8057BF8: @ 0x08057BF8
 .L08057C8C: .4byte gUnk_0812B19C
 .L08057C90: .4byte gDispIo
 
-	thumb_func_start sub_8057C94
-sub_8057C94: @ 0x08057C94
+	thumb_func_start func_fe6_08057C94
+func_fe6_08057C94: @ 0x08057C94
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -42397,7 +42397,7 @@ sub_8057C94: @ 0x08057C94
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 .L08057CC0:
 	ldrh r0, [r4, #0x2e]
 	adds r0, #1
@@ -42429,12 +42429,12 @@ sub_8057C94: @ 0x08057C94
 	ldrb r1, [r3, #0x14]
 	orrs r0, r1
 	strb r0, [r3, #0x14]
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08057D1C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08057D12:
@@ -42445,14 +42445,14 @@ sub_8057C94: @ 0x08057C94
 .L08057D18: .4byte gDispIo
 .L08057D1C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8057D20
-sub_8057D20: @ 0x08057D20
+	thumb_func_start func_fe6_08057D20
+func_fe6_08057D20: @ 0x08057D20
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #4
 	adds r7, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08057D4C @ =0x0203CD76
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -42545,7 +42545,7 @@ sub_8057D20: @ 0x08057D20
 	adds r1, r4, #0
 	adds r2, r6, #0
 	adds r3, r4, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r4, r0, #0
 	str r4, [r5, #0x60]
 	movs r0, #0xc0
@@ -42557,7 +42557,7 @@ sub_8057D20: @ 0x08057D20
 	strh r0, [r4, #0xa]
 	bl BasSort
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08057E74
 	movs r1, #0xe4
@@ -42576,8 +42576,8 @@ sub_8057D20: @ 0x08057D20
 	orrs r0, r1
 	strh r0, [r4, #8]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
-	bl sub_804B8B0
+	bl func_fe6_0804B6C4
+	bl func_fe6_0804B8B0
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -42586,8 +42586,8 @@ sub_8057D20: @ 0x08057D20
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8057E98
-sub_8057E98: @ 0x08057E98
+	thumb_func_start func_fe6_08057E98
+func_fe6_08057E98: @ 0x08057E98
 	push {lr}
 	adds r2, r0, #0
 	ldr r1, [r2, #0x60]
@@ -42611,20 +42611,20 @@ sub_8057E98: @ 0x08057E98
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8057EC4
-sub_8057EC4: @ 0x08057EC4
+	thumb_func_start func_fe6_08057EC4
+func_fe6_08057EC4: @ 0x08057EC4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x60]
 	ldr r0, [r4, #0x5c]
 	ldrh r0, [r0, #2]
 	strh r0, [r1, #2]
-	bl sub_80449C4
+	bl func_fe6_080449C4
 	cmp r0, #1
 	bne .L08057EEE
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
-	bl sub_804B8E8
+	bl func_fe6_0804B6C4
+	bl func_fe6_0804B8E8
 	ldr r0, [r4, #0x60]
 	bl BasRemove
 	adds r0, r4, #0
@@ -42634,8 +42634,8 @@ sub_8057EC4: @ 0x08057EC4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8057EF4
-sub_8057EF4: @ 0x08057EF4
+	thumb_func_start func_fe6_08057EF4
+func_fe6_08057EF4: @ 0x08057EF4
 	ldr r0, .L08057F00 @ =0x0203CDD8
 	movs r1, #0
 	str r1, [r0]
@@ -42646,8 +42646,8 @@ sub_8057EF4: @ 0x08057EF4
 .L08057F00: .4byte 0x0203CDD8
 .L08057F04: .4byte 0x0203CDDC
 
-	thumb_func_start sub_8057F08
-sub_8057F08: @ 0x08057F08
+	thumb_func_start func_fe6_08057F08
+func_fe6_08057F08: @ 0x08057F08
 	push {r4, lr}
 	ldr r4, .L08057F20 @ =0x0203CDD8
 	ldr r0, [r4]
@@ -42663,8 +42663,8 @@ sub_8057F08: @ 0x08057F08
 	.align 2, 0
 .L08057F20: .4byte 0x0203CDD8
 
-	thumb_func_start sub_8057F24
-sub_8057F24: @ 0x08057F24
+	thumb_func_start func_fe6_08057F24
+func_fe6_08057F24: @ 0x08057F24
 	push {r4, lr}
 	ldr r4, .L08057F3C @ =0x0203CDDC
 	ldr r0, [r4]
@@ -42680,35 +42680,35 @@ sub_8057F24: @ 0x08057F24
 	.align 2, 0
 .L08057F3C: .4byte 0x0203CDDC
 
-	thumb_func_start sub_8057F40
-sub_8057F40: @ 0x08057F40
+	thumb_func_start func_fe6_08057F40
+func_fe6_08057F40: @ 0x08057F40
 	ldr r1, .L08057F48 @ =0x0203CDD8
 	str r0, [r1]
 	bx lr
 	.align 2, 0
 .L08057F48: .4byte 0x0203CDD8
 
-	thumb_func_start sub_8057F4C
-sub_8057F4C: @ 0x08057F4C
+	thumb_func_start func_fe6_08057F4C
+func_fe6_08057F4C: @ 0x08057F4C
 	ldr r1, .L08057F54 @ =0x0203CDDC
 	str r0, [r1]
 	bx lr
 	.align 2, 0
 .L08057F54: .4byte 0x0203CDDC
 
-	thumb_func_start sub_8057F58
-sub_8057F58: @ 0x08057F58
+	thumb_func_start func_fe6_08057F58
+func_fe6_08057F58: @ 0x08057F58
 	ldr r0, [r0, #0x44]
 	ldr r0, [r0, #0x2c]
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_8057F60
-sub_8057F60: @ 0x08057F60
+	thumb_func_start func_fe6_08057F60
+func_fe6_08057F60: @ 0x08057F60
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08057F7C
 	ldr r0, .L08057F78 @ =gUnk_081122C5
@@ -42749,11 +42749,11 @@ sub_8057F60: @ 0x08057F60
 	.align 2, 0
 .L08057FB4: .4byte gUnk_081122CA
 
-	thumb_func_start sub_8057FB8
-sub_8057FB8: @ 0x08057FB8
+	thumb_func_start func_fe6_08057FB8
+func_fe6_08057FB8: @ 0x08057FB8
 	push {r4, lr}
 	sub sp, #4
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r4, r0, #0
 	movs r0, #0
 	str r0, [sp]
@@ -42772,8 +42772,8 @@ sub_8057FB8: @ 0x08057FB8
 	.align 2, 0
 .L08057FE4: .4byte 0x01000200
 
-	thumb_func_start sub_8057FE8
-sub_8057FE8: @ 0x08057FE8
+	thumb_func_start func_fe6_08057FE8
+func_fe6_08057FE8: @ 0x08057FE8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -42783,7 +42783,7 @@ sub_8057FE8: @ 0x08057FE8
 	adds r6, r3, #0
 	lsls r4, r4, #0x10
 	lsrs r4, r4, #0x10
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	mov r8, r0
 	cmp r4, #0
 	bne .L08058008
@@ -42817,8 +42817,8 @@ sub_8057FE8: @ 0x08057FE8
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805803C
-sub_805803C: @ 0x0805803C
+	thumb_func_start func_fe6_0805803C
+func_fe6_0805803C: @ 0x0805803C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r6, r2, #0
@@ -42827,7 +42827,7 @@ sub_805803C: @ 0x0805803C
 	lsls r3, r3, #0x10
 	lsrs r3, r3, #0x10
 	adds r5, r3, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r4, r0, #0
 	cmp r5, #1
 	bne .L0805805E
@@ -42850,7 +42850,7 @@ sub_805803C: @ 0x0805803C
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	b .L08058094
 .L08058080:
 	ldr r1, [r4, #0x14]
@@ -42861,7 +42861,7 @@ sub_805803C: @ 0x0805803C
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 .L08058094:
 	movs r0, #1
 	ldrh r4, [r4, #0x12]
@@ -42873,11 +42873,11 @@ sub_805803C: @ 0x0805803C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80580A8
-sub_80580A8: @ 0x080580A8
+	thumb_func_start func_fe6_080580A8
+func_fe6_080580A8: @ 0x080580A8
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r4, r0, #0
 	ldrh r0, [r4, #0xa]
 	lsls r5, r0, #5
@@ -42897,11 +42897,11 @@ sub_80580A8: @ 0x080580A8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80580D8
-sub_80580D8: @ 0x080580D8
+	thumb_func_start func_fe6_080580D8
+func_fe6_080580D8: @ 0x080580D8
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	ldrh r0, [r0, #0xc]
 	lsls r1, r0, #5
 	ldr r0, .L080580FC @ =gPal
@@ -42916,11 +42916,11 @@ sub_80580D8: @ 0x080580D8
 	.align 2, 0
 .L080580FC: .4byte gPal
 
-	thumb_func_start sub_8058100
-sub_8058100: @ 0x08058100
+	thumb_func_start func_fe6_08058100
+func_fe6_08058100: @ 0x08058100
 	push {r4, r5, r6, lr}
 	adds r6, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r4, r0, #0
 	ldrh r0, [r4, #0xe]
 	lsls r5, r0, #5
@@ -42940,11 +42940,11 @@ sub_8058100: @ 0x08058100
 	.align 2, 0
 .L0805812C: .4byte 0x06010000
 
-	thumb_func_start sub_8058130
-sub_8058130: @ 0x08058130
+	thumb_func_start func_fe6_08058130
+func_fe6_08058130: @ 0x08058130
 	push {r4, lr}
 	adds r4, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	ldrh r0, [r0, #0x10]
 	lsls r1, r0, #5
 	ldr r0, .L08058154 @ =gPal+0x200
@@ -42959,11 +42959,11 @@ sub_8058130: @ 0x08058130
 	.align 2, 0
 .L08058154: .4byte gPal+0x200
 
-	thumb_func_start sub_8058158
-sub_8058158: @ 0x08058158
+	thumb_func_start func_fe6_08058158
+func_fe6_08058158: @ 0x08058158
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	ldr r1, .L08058178 @ =gUnk_085D3904
 	ldrh r0, [r0]
 	lsls r0, r0, #2
@@ -42977,20 +42977,20 @@ sub_8058158: @ 0x08058158
 	.align 2, 0
 .L08058178: .4byte gUnk_085D3904
 
-	thumb_func_start nullsub_23
-nullsub_23: @ 0x0805817C
+	thumb_func_start func_fe6_0805817C
+func_fe6_0805817C: @ 0x0805817C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_8058180
-sub_8058180: @ 0x08058180
+	thumb_func_start func_fe6_08058180
+func_fe6_08058180: @ 0x08058180
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805819C @ =gUnk_085D3924
 	movs r1, #3
 	bl SpawnProc
 	adds r5, r0, #0
-	bl sub_8057F40
+	bl func_fe6_08057F40
 	str r4, [r5, #0x5c]
 	pop {r4, r5}
 	pop {r0}
@@ -42998,28 +42998,28 @@ sub_8058180: @ 0x08058180
 	.align 2, 0
 .L0805819C: .4byte gUnk_085D3924
 
-	thumb_func_start sub_80581A0
-sub_80581A0: @ 0x080581A0
+	thumb_func_start func_fe6_080581A0
+func_fe6_080581A0: @ 0x080581A0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_80581C0
+	bl func_fe6_080581C0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_805826C
+	bl func_fe6_0805826C
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80581C0
-sub_80581C0: @ 0x080581C0
+	thumb_func_start func_fe6_080581C0
+func_fe6_080581C0: @ 0x080581C0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r6, r0, #0
 	ldr r0, .L0805820C @ =gUnk_085D394C
 	adds r1, r4, #0
@@ -43035,15 +43035,15 @@ sub_80581C0: @ 0x080581C0
 	str r0, [r4, #0x4c]
 	ldr r1, .L08058218 @ =gUnk_0812E4A4
 	adds r0, r5, #0
-	bl sub_80580D8
+	bl func_fe6_080580D8
 	ldr r0, [r4, #0x5c]
 	ldr r1, .L0805821C @ =gUnk_0812D8AC
-	bl sub_80580A8
+	bl func_fe6_080580A8
 	ldr r0, [r6, #0x24]
 	bl _call_via_r0
 	ldr r0, [r4, #0x5c]
 	adds r1, r6, #0
-	bl sub_8057F60
+	bl func_fe6_08057F60
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -43054,15 +43054,15 @@ sub_80581C0: @ 0x080581C0
 .L08058218: .4byte gUnk_0812E4A4
 .L0805821C: .4byte gUnk_0812D8AC
 
-	thumb_func_start sub_8058220
-sub_8058220: @ 0x08058220
+	thumb_func_start func_fe6_08058220
+func_fe6_08058220: @ 0x08058220
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -43074,7 +43074,7 @@ sub_8058220: @ 0x08058220
 	ldr r2, [r1]
 	movs r1, #1
 	movs r3, #1
-	bl sub_805803C
+	bl func_fe6_0805803C
 	b .L08058264
 .L0805824C:
 	movs r0, #1
@@ -43082,8 +43082,8 @@ sub_8058220: @ 0x08058220
 	cmp r1, r0
 	bne .L08058264
 	ldr r0, [r4, #0x5c]
-	bl sub_8057FB8
-	bl sub_80475D8
+	bl func_fe6_08057FB8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08058264:
@@ -43092,12 +43092,12 @@ sub_8058220: @ 0x08058220
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805826C
-sub_805826C: @ 0x0805826C
+	thumb_func_start func_fe6_0805826C
+func_fe6_0805826C: @ 0x0805826C
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r7, r0, #0
 	ldr r0, .L080582A8 @ =gUnk_085D3994
 	adds r1, r4, #0
@@ -43110,11 +43110,11 @@ sub_805826C: @ 0x0805826C
 	ldr r3, .L080582B0 @ =gUnk_085E2920
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_8057FE8
+	bl func_fe6_08057FE8
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080582B4
 	ldrh r0, [r5, #2]
@@ -43141,10 +43141,10 @@ sub_805826C: @ 0x0805826C
 	strh r0, [r4, #4]
 	ldr r0, [r6, #0x5c]
 	ldr r1, .L080582E4 @ =gUnk_0812FFD8
-	bl sub_8058130
+	bl func_fe6_08058130
 	ldr r0, [r6, #0x5c]
 	ldr r1, .L080582E8 @ =gUnk_0812F9DC
-	bl sub_8058100
+	bl func_fe6_08058100
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -43152,8 +43152,8 @@ sub_805826C: @ 0x0805826C
 .L080582E4: .4byte gUnk_0812FFD8
 .L080582E8: .4byte gUnk_0812F9DC
 
-	thumb_func_start sub_80582EC
-sub_80582EC: @ 0x080582EC
+	thumb_func_start func_fe6_080582EC
+func_fe6_080582EC: @ 0x080582EC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -43172,15 +43172,15 @@ sub_80582EC: @ 0x080582EC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8058310
-sub_8058310: @ 0x08058310
+	thumb_func_start func_fe6_08058310
+func_fe6_08058310: @ 0x08058310
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805832C @ =gUnk_085D39AC
 	movs r1, #3
 	bl SpawnProc
 	adds r5, r0, #0
-	bl sub_8057F40
+	bl func_fe6_08057F40
 	str r4, [r5, #0x5c]
 	pop {r4, r5}
 	pop {r0}
@@ -43188,30 +43188,30 @@ sub_8058310: @ 0x08058310
 	.align 2, 0
 .L0805832C: .4byte gUnk_085D39AC
 
-	thumb_func_start sub_8058330
-sub_8058330: @ 0x08058330
+	thumb_func_start func_fe6_08058330
+func_fe6_08058330: @ 0x08058330
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_8058358
+	bl func_fe6_08058358
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_8058438
+	bl func_fe6_08058438
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_80584AC
+	bl func_fe6_080584AC
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8058358
-sub_8058358: @ 0x08058358
+	thumb_func_start func_fe6_08058358
+func_fe6_08058358: @ 0x08058358
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r6, r0, #0
 	ldr r0, .L080583A0 @ =gUnk_085D39D4
 	movs r1, #3
@@ -43227,15 +43227,15 @@ sub_8058358: @ 0x08058358
 	str r0, [r4, #0x4c]
 	ldr r1, .L080583AC @ =gUnk_0812CF48
 	adds r0, r5, #0
-	bl sub_80580D8
+	bl func_fe6_080580D8
 	ldr r0, [r4, #0x5c]
 	ldr r1, .L080583B0 @ =gUnk_0812C68C
-	bl sub_80580A8
+	bl func_fe6_080580A8
 	ldr r0, [r6, #0x24]
 	bl _call_via_r0
 	ldr r0, [r4, #0x5c]
 	adds r1, r6, #0
-	bl sub_8057F60
+	bl func_fe6_08057F60
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -43246,21 +43246,21 @@ sub_8058358: @ 0x08058358
 .L080583AC: .4byte gUnk_0812CF48
 .L080583B0: .4byte gUnk_0812C68C
 
-	thumb_func_start sub_80583B4
-sub_80583B4: @ 0x080583B4
+	thumb_func_start func_fe6_080583B4
+func_fe6_080583B4: @ 0x080583B4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r4, r0, #0
 	movs r7, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r6, r0, #0
 	adds r0, r4, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -43272,7 +43272,7 @@ sub_80583B4: @ 0x080583B4
 	ldr r2, [r1]
 	movs r1, #0
 	movs r3, #1
-	bl sub_805803C
+	bl func_fe6_0805803C
 	cmp r5, #0
 	bne .L080583F8
 	ldrh r0, [r6, #0xa]
@@ -43293,7 +43293,7 @@ sub_80583B4: @ 0x080583B4
 	str r7, [sp]
 	movs r1, #2
 	movs r2, #0x14
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L0805842E
 .L08058416:
 	movs r0, #1
@@ -43301,8 +43301,8 @@ sub_80583B4: @ 0x080583B4
 	cmp r5, r0
 	bne .L0805842E
 	ldr r0, [r4, #0x5c]
-	bl sub_8057FB8
-	bl sub_80475D8
+	bl func_fe6_08057FB8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805842E:
@@ -43312,15 +43312,15 @@ sub_80583B4: @ 0x080583B4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8058438
-sub_8058438: @ 0x08058438
+	thumb_func_start func_fe6_08058438
+func_fe6_08058438: @ 0x08058438
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L08058460 @ =gUnk_085D39F4
 	movs r1, #3
 	bl SpawnProc
 	adds r4, r0, #0
-	bl sub_8057F4C
+	bl func_fe6_08057F4C
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -43337,15 +43337,15 @@ sub_8058438: @ 0x08058438
 .L08058464: .4byte gUnk_0811AF5C
 .L08058468: .4byte gUnk_0812CF48
 
-	thumb_func_start sub_805846C
-sub_805846C: @ 0x0805846C
+	thumb_func_start func_fe6_0805846C
+func_fe6_0805846C: @ 0x0805846C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -43354,14 +43354,14 @@ sub_805846C: @ 0x0805846C
 	ldr r0, [r4, #0x5c]
 	lsls r2, r2, #5
 	adds r1, r1, r2
-	bl sub_80580D8
+	bl func_fe6_080580D8
 	b .L080584A4
 .L08058492:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L080584A4
-	bl sub_8057F24
+	bl func_fe6_08057F24
 	adds r0, r4, #0
 	bl Proc_Break
 .L080584A4:
@@ -43370,11 +43370,11 @@ sub_805846C: @ 0x0805846C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80584AC
-sub_80584AC: @ 0x080584AC
+	thumb_func_start func_fe6_080584AC
+func_fe6_080584AC: @ 0x080584AC
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r7, r0, #0
 	ldr r0, .L080584E8 @ =gUnk_085D3A14
 	movs r1, #3
@@ -43387,11 +43387,11 @@ sub_80584AC: @ 0x080584AC
 	ldr r3, .L080584F0 @ =gUnk_085E19DC
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_8057FE8
+	bl func_fe6_08057FE8
 	adds r4, r0, #0
 	str r4, [r6, #0x60]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080584F4
 	ldrh r0, [r5, #2]
@@ -43416,10 +43416,10 @@ sub_80584AC: @ 0x080584AC
 	strh r0, [r4, #4]
 	ldr r0, [r6, #0x5c]
 	ldr r1, .L08058520 @ =gUnk_0812D80C
-	bl sub_8058130
+	bl func_fe6_08058130
 	ldr r0, [r6, #0x5c]
 	ldr r1, .L08058524 @ =gUnk_0812D374
-	bl sub_8058100
+	bl func_fe6_08058100
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -43427,8 +43427,8 @@ sub_80584AC: @ 0x080584AC
 .L08058520: .4byte gUnk_0812D80C
 .L08058524: .4byte gUnk_0812D374
 
-	thumb_func_start sub_8058528
-sub_8058528: @ 0x08058528
+	thumb_func_start func_fe6_08058528
+func_fe6_08058528: @ 0x08058528
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -43447,8 +43447,8 @@ sub_8058528: @ 0x08058528
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805854C
-sub_805854C: @ 0x0805854C
+	thumb_func_start func_fe6_0805854C
+func_fe6_0805854C: @ 0x0805854C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08058564 @ =gUnk_085D3A2C
@@ -43463,20 +43463,20 @@ sub_805854C: @ 0x0805854C
 	.align 2, 0
 .L08058564: .4byte gUnk_085D3A2C
 
-	thumb_func_start sub_8058568
-sub_8058568: @ 0x08058568
+	thumb_func_start func_fe6_08058568
+func_fe6_08058568: @ 0x08058568
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_80587C0
+	bl func_fe6_080587C0
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_80585DC
+	bl func_fe6_080585DC
 	ldr r0, [r4, #0x5c]
 	adds r1, r4, #0
-	bl sub_805867C
+	bl func_fe6_0805867C
 	ldr r3, .L080585D8 @ =gDispIo
 	adds r2, r3, #0
 	adds r2, #0x3c
@@ -43501,13 +43501,13 @@ sub_8058568: @ 0x08058568
 	movs r1, #1
 	movs r2, #0xc
 	movs r3, #0
-	bl sub_80586F0
+	bl func_fe6_080586F0
 	ldr r0, [r4, #0x5c]
 	str r4, [sp]
 	movs r1, #0x23
 	movs r2, #0x19
 	movs r3, #1
-	bl sub_80586F0
+	bl func_fe6_080586F0
 	adds r0, r4, #0
 	bl Proc_Break
 	add sp, #4
@@ -43517,17 +43517,17 @@ sub_8058568: @ 0x08058568
 	.align 2, 0
 .L080585D8: .4byte gDispIo
 
-	thumb_func_start sub_80585DC
-sub_80585DC: @ 0x080585DC
+	thumb_func_start func_fe6_080585DC
+func_fe6_080585DC: @ 0x080585DC
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r6, r0, #0
 	ldr r0, .L08058620 @ =gUnk_085D3A54
 	movs r1, #3
 	bl SpawnProc
 	adds r4, r0, #0
-	bl sub_8057F40
+	bl func_fe6_08057F40
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -43538,12 +43538,12 @@ sub_80585DC: @ 0x080585DC
 	str r0, [r4, #0x4c]
 	ldr r1, .L0805862C @ =gUnk_081AB1B0
 	adds r0, r5, #0
-	bl sub_80580A8
+	bl func_fe6_080580A8
 	ldr r0, [r6, #0x24]
 	bl _call_via_r0
 	ldr r0, [r4, #0x5c]
 	adds r1, r6, #0
-	bl sub_8057F60
+	bl func_fe6_08057F60
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -43553,15 +43553,15 @@ sub_80585DC: @ 0x080585DC
 .L08058628: .4byte gUnk_085D3A6C
 .L0805862C: .4byte gUnk_081AB1B0
 
-	thumb_func_start sub_8058630
-sub_8058630: @ 0x08058630
+	thumb_func_start func_fe6_08058630
+func_fe6_08058630: @ 0x08058630
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -43573,7 +43573,7 @@ sub_8058630: @ 0x08058630
 	ldr r2, [r1]
 	movs r1, #1
 	movs r3, #0
-	bl sub_805803C
+	bl func_fe6_0805803C
 	b .L08058674
 .L0805865C:
 	movs r0, #1
@@ -43581,8 +43581,8 @@ sub_8058630: @ 0x08058630
 	cmp r1, r0
 	bne .L08058674
 	ldr r0, [r4, #0x5c]
-	bl sub_8057FB8
-	bl sub_80475D8
+	bl func_fe6_08057FB8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08058674:
@@ -43591,15 +43591,15 @@ sub_8058630: @ 0x08058630
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805867C
-sub_805867C: @ 0x0805867C
+	thumb_func_start func_fe6_0805867C
+func_fe6_0805867C: @ 0x0805867C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L080586A4 @ =gUnk_085D3A70
 	movs r1, #3
 	bl SpawnProc
 	adds r4, r0, #0
-	bl sub_8057F4C
+	bl func_fe6_08057F4C
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -43616,15 +43616,15 @@ sub_805867C: @ 0x0805867C
 .L080586A8: .4byte gUnk_0811AFA4
 .L080586AC: .4byte gUnk_081ABCA0
 
-	thumb_func_start sub_80586B0
-sub_80586B0: @ 0x080586B0
+	thumb_func_start func_fe6_080586B0
+func_fe6_080586B0: @ 0x080586B0
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -43633,14 +43633,14 @@ sub_80586B0: @ 0x080586B0
 	ldr r0, [r4, #0x5c]
 	lsls r2, r2, #5
 	adds r1, r1, r2
-	bl sub_80580D8
+	bl func_fe6_080580D8
 	b .L080586E8
 .L080586D6:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L080586E8
-	bl sub_8057F24
+	bl func_fe6_08057F24
 	adds r0, r4, #0
 	bl Proc_Break
 .L080586E8:
@@ -43649,8 +43649,8 @@ sub_80586B0: @ 0x080586B0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80586F0
-sub_80586F0: @ 0x080586F0
+	thumb_func_start func_fe6_080586F0
+func_fe6_080586F0: @ 0x080586F0
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -43675,8 +43675,8 @@ sub_80586F0: @ 0x080586F0
 	.align 2, 0
 .L0805871C: .4byte gUnk_085D3A90
 
-	thumb_func_start sub_8058720
-sub_8058720: @ 0x08058720
+	thumb_func_start func_fe6_08058720
+func_fe6_08058720: @ 0x08058720
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -43692,8 +43692,8 @@ sub_8058720: @ 0x08058720
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805873C
-sub_805873C: @ 0x0805873C
+	thumb_func_start func_fe6_0805873C
+func_fe6_0805873C: @ 0x0805873C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -43763,11 +43763,11 @@ sub_805873C: @ 0x0805873C
 	.align 2, 0
 .L080587BC: .4byte gDispIo
 
-	thumb_func_start sub_80587C0
-sub_80587C0: @ 0x080587C0
+	thumb_func_start func_fe6_080587C0
+func_fe6_080587C0: @ 0x080587C0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_8057F58
+	bl func_fe6_08057F58
 	adds r6, r0, #0
 	ldr r0, .L08058814 @ =gUnk_085D3AB0
 	movs r1, #3
@@ -43782,7 +43782,7 @@ sub_80587C0: @ 0x080587C0
 	adds r0, r5, #0
 	movs r1, #1
 	adds r2, r3, #0
-	bl sub_8057FE8
+	bl func_fe6_08057FE8
 	str r0, [r4, #0x60]
 	ldrh r2, [r0, #2]
 	ldrh r3, [r6, #6]
@@ -43794,10 +43794,10 @@ sub_80587C0: @ 0x080587C0
 	strh r1, [r0, #4]
 	ldr r0, [r4, #0x5c]
 	ldr r1, .L0805881C @ =gUnk_081AC0F4
-	bl sub_8058130
+	bl func_fe6_08058130
 	ldr r0, [r4, #0x5c]
 	ldr r1, .L08058820 @ =gUnk_081ABEA0
-	bl sub_8058100
+	bl func_fe6_08058100
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -43807,8 +43807,8 @@ sub_80587C0: @ 0x080587C0
 .L0805881C: .4byte gUnk_081AC0F4
 .L08058820: .4byte gUnk_081ABEA0
 
-	thumb_func_start sub_8058824
-sub_8058824: @ 0x08058824
+	thumb_func_start func_fe6_08058824
+func_fe6_08058824: @ 0x08058824
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -43829,8 +43829,8 @@ sub_8058824: @ 0x08058824
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805884C
-sub_805884C: @ 0x0805884C
+	thumb_func_start func_fe6_0805884C
+func_fe6_0805884C: @ 0x0805884C
 	ldr r1, .L0805886C @ =gUnk_Banim_0201E7AC
 	movs r0, #0
 	str r0, [r1]
@@ -43854,11 +43854,11 @@ sub_805884C: @ 0x0805884C
 .L08058878: .4byte gUnk_Banim_0201E7C4
 .L0805887C: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start sub_8058880
-sub_8058880: @ 0x08058880
+	thumb_func_start func_fe6_08058880
+func_fe6_08058880: @ 0x08058880
 	push {r4, lr}
 	ldr r4, .L08058898 @ =gUnk_Banim_0201E7C0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
@@ -43875,10 +43875,10 @@ sub_8058880: @ 0x08058880
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_80588A4
-sub_80588A4: @ 0x080588A4
+	thumb_func_start func_fe6_080588A4
+func_fe6_080588A4: @ 0x080588A4
 	push {lr}
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080588B8 @ =gUnk_Banim_0201E7C8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -43889,11 +43889,11 @@ sub_80588A4: @ 0x080588A4
 	.align 2, 0
 .L080588B8: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start sub_80588BC
-sub_80588BC: @ 0x080588BC
+	thumb_func_start func_fe6_080588BC
+func_fe6_080588BC: @ 0x080588BC
 	push {r4, lr}
 	ldr r4, .L080588D4 @ =gUnk_Banim_0201E7C0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
@@ -43910,19 +43910,19 @@ sub_80588BC: @ 0x080588BC
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_80588E0
-sub_80588E0: @ 0x080588E0
+	thumb_func_start func_fe6_080588E0
+func_fe6_080588E0: @ 0x080588E0
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L080588F2
 	movs r4, #1
 .L080588F2:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L08058902
@@ -43930,7 +43930,7 @@ sub_80588E0: @ 0x080588E0
 	orrs r4, r0
 .L08058902:
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x54
 	bne .L08058912
@@ -43938,7 +43938,7 @@ sub_80588E0: @ 0x080588E0
 	orrs r4, r0
 .L08058912:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x54
 	bne .L08058922
@@ -43946,7 +43946,7 @@ sub_80588E0: @ 0x080588E0
 	orrs r4, r0
 .L08058922:
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L08058932
@@ -43954,7 +43954,7 @@ sub_80588E0: @ 0x080588E0
 	orrs r4, r0
 .L08058932:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L08058942
@@ -43967,19 +43967,19 @@ sub_80588E0: @ 0x080588E0
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805894C
-sub_805894C: @ 0x0805894C
+	thumb_func_start func_fe6_0805894C
+func_fe6_0805894C: @ 0x0805894C
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L0805895E
 	movs r4, #1
 .L0805895E:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L0805896E
@@ -43987,7 +43987,7 @@ sub_805894C: @ 0x0805894C
 	orrs r4, r0
 .L0805896E:
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L0805897E
@@ -43995,7 +43995,7 @@ sub_805894C: @ 0x0805894C
 	orrs r4, r0
 .L0805897E:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L0805898E
@@ -44008,19 +44008,19 @@ sub_805894C: @ 0x0805894C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8058998
-sub_8058998: @ 0x08058998
+	thumb_func_start func_fe6_08058998
+func_fe6_08058998: @ 0x08058998
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L080589AA
 	movs r4, #0x10
 .L080589AA:
 	movs r0, #1
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x70
 	bne .L080589BA
@@ -44033,11 +44033,11 @@ sub_8058998: @ 0x08058998
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_80589C4
-sub_80589C4: @ 0x080589C4
+	thumb_func_start func_fe6_080589C4
+func_fe6_080589C4: @ 0x080589C4
 	push {r4, lr}
 	adds r4, r0, #0
-	bl sub_8058A08
+	bl func_fe6_08058A08
 	ldrh r0, [r0]
 	cmp r0, #1
 	beq .L080589F4
@@ -44046,7 +44046,7 @@ sub_80589C4: @ 0x080589C4
 	cmp r0, #2
 	bne .L080589E8
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080589F0 @ =gUnk_Banim_0201773C
 	ldr r1, [r1]
 	cmp r0, r1
@@ -44064,8 +44064,8 @@ sub_80589C4: @ 0x080589C4
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_80589FC
-sub_80589FC: @ 0x080589FC
+	thumb_func_start func_fe6_080589FC
+func_fe6_080589FC: @ 0x080589FC
 	lsls r0, r0, #1
 	ldr r1, .L08058A04 @ =0x0203CDE0
 	adds r0, r0, r1
@@ -44073,10 +44073,10 @@ sub_80589FC: @ 0x080589FC
 	.align 2, 0
 .L08058A04: .4byte 0x0203CDE0
 
-	thumb_func_start sub_8058A08
-sub_8058A08: @ 0x08058A08
+	thumb_func_start func_fe6_08058A08
+func_fe6_08058A08: @ 0x08058A08
 	push {lr}
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	ldr r1, .L08058A18 @ =gUnk_Banim_0201E7C4
 	adds r0, r0, r1
@@ -44085,11 +44085,11 @@ sub_8058A08: @ 0x08058A08
 	.align 2, 0
 .L08058A18: .4byte gUnk_Banim_0201E7C4
 
-	thumb_func_start sub_8058A1C
-sub_8058A1C: @ 0x08058A1C
+	thumb_func_start func_fe6_08058A1C
+func_fe6_08058A1C: @ 0x08058A1C
 	push {r4, lr}
 	ldr r4, .L08058A30 @ =gUnk_Banim_0201E7AC
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -44099,11 +44099,11 @@ sub_8058A1C: @ 0x08058A1C
 	.align 2, 0
 .L08058A30: .4byte gUnk_Banim_0201E7AC
 
-	thumb_func_start sub_8058A34
-sub_8058A34: @ 0x08058A34
+	thumb_func_start func_fe6_08058A34
+func_fe6_08058A34: @ 0x08058A34
 	push {r4, lr}
 	ldr r4, .L08058A4C @ =gUnk_Banim_0201E7B4
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
@@ -44114,8 +44114,8 @@ sub_8058A34: @ 0x08058A34
 	.align 2, 0
 .L08058A4C: .4byte gUnk_Banim_0201E7B4
 
-	thumb_func_start sub_8058A50
-sub_8058A50: @ 0x08058A50
+	thumb_func_start func_fe6_08058A50
+func_fe6_08058A50: @ 0x08058A50
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
 	ldr r1, .L08058A78 @ =gUnk_Banim_02000000
@@ -44139,8 +44139,8 @@ sub_8058A50: @ 0x08058A50
 .L08058A78: .4byte gUnk_Banim_02000000
 .L08058A7C: .4byte 0x0000F3FF
 
-	thumb_func_start sub_8058A80
-sub_8058A80: @ 0x08058A80
+	thumb_func_start func_fe6_08058A80
+func_fe6_08058A80: @ 0x08058A80
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r6, .L08058AAC @ =gUnk_081BF434
@@ -44150,7 +44150,7 @@ sub_8058A80: @ 0x08058A80
 	movs r2, #8
 	bl CpuFastSet
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08058AB4
 	adds r1, r5, #0
@@ -44175,8 +44175,8 @@ sub_8058A80: @ 0x08058A80
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8058ACC
-sub_8058ACC: @ 0x08058ACC
+	thumb_func_start func_fe6_08058ACC
+func_fe6_08058ACC: @ 0x08058ACC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -44191,9 +44191,9 @@ sub_8058ACC: @ 0x08058ACC
 	adds r1, r7, #0
 	bl LZ77UnCompWram
 	movs r0, #0
-	bl sub_8047C68
+	bl func_fe6_08047C68
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08058B50
@@ -44220,7 +44220,7 @@ sub_8058ACC: @ 0x08058ACC
 	adds r0, r7, #0
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl sub_805B2BC
+	bl func_fe6_0805B2BC
 	adds r4, #0x42
 	ldr r2, .L08058B7C @ =gBg3Tm
 	movs r0, #0x20
@@ -44231,7 +44231,7 @@ sub_8058ACC: @ 0x08058ACC
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	ldr r1, .L08058B80 @ =0x06008000
 	movs r2, #0x80
 	lsls r2, r2, #6
@@ -44256,8 +44256,8 @@ sub_8058ACC: @ 0x08058ACC
 .L08058B7C: .4byte gBg3Tm
 .L08058B80: .4byte 0x06008000
 
-	thumb_func_start sub_8058B84
-sub_8058B84: @ 0x08058B84
+	thumb_func_start func_fe6_08058B84
+func_fe6_08058B84: @ 0x08058B84
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -44272,9 +44272,9 @@ sub_8058B84: @ 0x08058B84
 	adds r1, r7, #0
 	bl LZ77UnCompWram
 	movs r0, #0
-	bl sub_8047C68
+	bl func_fe6_08047C68
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08058C08
@@ -44301,7 +44301,7 @@ sub_8058B84: @ 0x08058B84
 	adds r0, r7, #0
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl sub_805B2BC
+	bl func_fe6_0805B2BC
 	adds r4, #0x42
 	ldr r2, .L08058C34 @ =gBg3Tm
 	movs r0, #0x20
@@ -44312,7 +44312,7 @@ sub_8058B84: @ 0x08058B84
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	ldr r1, .L08058C38 @ =0x06008000
 	movs r2, #0x80
 	lsls r2, r2, #6
@@ -44337,8 +44337,8 @@ sub_8058B84: @ 0x08058B84
 .L08058C34: .4byte gBg3Tm
 .L08058C38: .4byte 0x06008000
 
-	thumb_func_start sub_8058C3C
-sub_8058C3C: @ 0x08058C3C
+	thumb_func_start func_fe6_08058C3C
+func_fe6_08058C3C: @ 0x08058C3C
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r4, r0, #0
@@ -44349,9 +44349,9 @@ sub_8058C3C: @ 0x08058C3C
 	ldr r1, .L08058CD8 @ =gUnk_Banim_0201977C
 	bl LZ77UnCompWram
 	movs r0, #0
-	bl sub_8047C68
+	bl func_fe6_08047C68
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08058CBE
 	ldr r0, .L08058CDC @ =0x0203CD14
@@ -44381,7 +44381,7 @@ sub_8058C3C: @ 0x08058C3C
 	str r1, [sp, #0xc]
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl sub_805B2BC
+	bl func_fe6_0805B2BC
 	adds r4, #0x42
 	ldr r2, .L08058CE4 @ =gBg3Tm
 	movs r0, #0x20
@@ -44392,7 +44392,7 @@ sub_8058C3C: @ 0x08058C3C
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	ldr r0, .L08058CD0 @ =gUnk_Banim_0201777C
 	ldr r1, .L08058CE8 @ =0x06008000
 	movs r2, #0x80
@@ -44415,8 +44415,8 @@ sub_8058C3C: @ 0x08058C3C
 .L08058CE4: .4byte gBg3Tm
 .L08058CE8: .4byte 0x06008000
 
-	thumb_func_start sub_8058CEC
-sub_8058CEC: @ 0x08058CEC
+	thumb_func_start func_fe6_08058CEC
+func_fe6_08058CEC: @ 0x08058CEC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08058D04 @ =gUnk_086046D8
@@ -44431,8 +44431,8 @@ sub_8058CEC: @ 0x08058CEC
 	.align 2, 0
 .L08058D04: .4byte gUnk_086046D8
 
-	thumb_func_start sub_8058D08
-sub_8058D08: @ 0x08058D08
+	thumb_func_start func_fe6_08058D08
+func_fe6_08058D08: @ 0x08058D08
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r1, [r4, #0x44]
@@ -44455,8 +44455,8 @@ sub_8058D08: @ 0x08058D08
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8058D34
-sub_8058D34: @ 0x08058D34
+	thumb_func_start func_fe6_08058D34
+func_fe6_08058D34: @ 0x08058D34
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -44470,9 +44470,9 @@ sub_8058D34: @ 0x08058D34
 	adds r0, r4, #0
 	bl RegisterDataMove
 	movs r0, #0
-	bl sub_8047C68
+	bl func_fe6_08047C68
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r5, r0, #0
 	cmp r5, #0
 	bne .L08058E14
@@ -44488,7 +44488,7 @@ sub_8058D34: @ 0x08058D34
 	adds r1, r6, #0
 	movs r2, #0x1e
 	movs r3, #0x16
-	bl sub_805B1DC
+	bl func_fe6_0805B1DC
 	ldr r0, .L08058DAC @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -44521,7 +44521,7 @@ sub_8058D34: @ 0x08058D34
 	ldr r4, .L08058E00 @ =gUnk_Banim_0201E12C
 	ldr r0, [r4]
 	adds r0, #0x30
-	bl sub_8058CEC
+	bl func_fe6_08058CEC
 	ldr r1, [r4]
 	adds r1, #0x30
 	lsls r1, r1, #0x10
@@ -44537,19 +44537,19 @@ sub_8058D34: @ 0x08058D34
 	movs r1, #2
 	movs r2, #0x16
 	movs r3, #0xf0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	adds r0, r6, #4
 	str r4, [sp]
 	movs r1, #2
 	movs r2, #0x16
 	movs r3, #0xf0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	b .L08058E14
 	.align 2, 0
 .L08058E00: .4byte gUnk_Banim_0201E12C
 .L08058E04:
 	movs r0, #0x10
-	bl sub_8058CEC
+	bl func_fe6_08058CEC
 	movs r0, #3
 	movs r1, #0x10
 	movs r2, #0x10
@@ -44563,8 +44563,8 @@ sub_8058D34: @ 0x08058D34
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8058E24
-sub_8058E24: @ 0x08058E24
+	thumb_func_start func_fe6_08058E24
+func_fe6_08058E24: @ 0x08058E24
 	push {r4, lr}
 	sub sp, #4
 	movs r0, #0
@@ -44587,8 +44587,8 @@ sub_8058E24: @ 0x08058E24
 .L08058E50: .4byte 0x01000008
 .L08058E54: .4byte 0x06008000
 
-	thumb_func_start sub_8058E58
-sub_8058E58: @ 0x08058E58
+	thumb_func_start func_fe6_08058E58
+func_fe6_08058E58: @ 0x08058E58
 	push {lr}
 	cmp r0, #0
 	bne .L08058E74
@@ -44613,8 +44613,8 @@ sub_8058E58: @ 0x08058E58
 .L08058E88: .4byte gUnk_081BF434
 .L08058E8C: .4byte gPal+0xE0
 
-	thumb_func_start sub_8058E90
-sub_8058E90: @ 0x08058E90
+	thumb_func_start func_fe6_08058E90
+func_fe6_08058E90: @ 0x08058E90
 	push {lr}
 	cmp r0, #0
 	bne .L08058EAC
@@ -44639,8 +44639,8 @@ sub_8058E90: @ 0x08058E90
 .L08058EC0: .4byte gUnk_081C4DE8
 .L08058EC4: .4byte gPal+0xE0
 
-	thumb_func_start sub_8058EC8
-sub_8058EC8: @ 0x08058EC8
+	thumb_func_start func_fe6_08058EC8
+func_fe6_08058EC8: @ 0x08058EC8
 	push {lr}
 	cmp r0, #0
 	bne .L08058EE4
@@ -44665,10 +44665,10 @@ sub_8058EC8: @ 0x08058EC8
 .L08058EF8: .4byte gUnk_08113564
 .L08058EFC: .4byte gPal+0xE0
 
-	thumb_func_start sub_8058F00
-sub_8058F00: @ 0x08058F00
+	thumb_func_start func_fe6_08058F00
+func_fe6_08058F00: @ 0x08058F00
 	push {lr}
-	bl sub_8058998
+	bl func_fe6_08058998
 	adds r1, r0, #0
 	movs r0, #0x10
 	ands r0, r1
@@ -44690,24 +44690,24 @@ sub_8058F00: @ 0x08058F00
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8058F28
-sub_8058F28: @ 0x08058F28
+	thumb_func_start func_fe6_08058F28
+func_fe6_08058F28: @ 0x08058F28
 	push {lr}
-	bl sub_8058F00
-	bl sub_804B8B0
+	bl func_fe6_08058F00
+	bl func_fe6_0804B8B0
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8058F38
-sub_8058F38: @ 0x08058F38
+	thumb_func_start func_fe6_08058F38
+func_fe6_08058F38: @ 0x08058F38
 	push {lr}
-	bl sub_8058998
+	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08058F58
 	ldr r0, .L08058F54 @ =gUnk_Banim_02000000
 	ldr r0, [r0]
-	bl sub_8058A08
+	bl func_fe6_08058A08
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L08058F58
@@ -44722,8 +44722,8 @@ sub_8058F38: @ 0x08058F38
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_8058F60
-sub_8058F60: @ 0x08058F60
+	thumb_func_start func_fe6_08058F60
+func_fe6_08058F60: @ 0x08058F60
 	push {r4, lr}
 	sub sp, #0x10
 	asrs r4, r0, #3
@@ -44746,7 +44746,7 @@ sub_8058F60: @ 0x08058F60
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	movs r0, #8
 	bl EnableBgSync
 	add sp, #0x10
@@ -44757,8 +44757,8 @@ sub_8058F60: @ 0x08058F60
 .L08058FA0: .4byte gUnk_Banim_0201D456
 .L08058FA4: .4byte gBg3Tm
 
-	thumb_func_start sub_8058FA8
-sub_8058FA8: @ 0x08058FA8
+	thumb_func_start func_fe6_08058FA8
+func_fe6_08058FA8: @ 0x08058FA8
 	push {r4, lr}
 	sub sp, #0x10
 	ldr r4, .L08058FDC @ =gUnk_Banim_0201977C
@@ -44780,7 +44780,7 @@ sub_8058FA8: @ 0x08058FA8
 	str r3, [sp, #0xc]
 	adds r0, r4, #0
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	b .L08059006
 	.align 2, 0
 .L08058FDC: .4byte gUnk_Banim_0201977C
@@ -44800,7 +44800,7 @@ sub_8058FA8: @ 0x08058FA8
 	str r1, [sp, #0xc]
 	movs r1, #0x1e
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 .L08059006:
 	movs r0, #8
 	bl EnableBgSync
@@ -44811,8 +44811,8 @@ sub_8058FA8: @ 0x08058FA8
 	.align 2, 0
 .L08059014: .4byte gBg3Tm
 
-	thumb_func_start sub_8059018
-sub_8059018: @ 0x08059018
+	thumb_func_start func_fe6_08059018
+func_fe6_08059018: @ 0x08059018
 	push {lr}
 	sub sp, #0x10
 	ldr r1, .L08059068 @ =gUnk_Banim_0201E7CC
@@ -44843,10 +44843,10 @@ sub_8059018: @ 0x08059018
 	movs r3, #0
 	str r3, [sp, #0xc]
 	movs r3, #0x42
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	ldr r0, .L08059074 @ =gUnk_Banim_0201E12C
 	ldr r0, [r0]
-	bl sub_8058F60
+	bl func_fe6_08058F60
 	add sp, #0x10
 	pop {r0}
 	bx r0
@@ -44856,8 +44856,8 @@ sub_8059018: @ 0x08059018
 .L08059070: .4byte gUnk_Banim_0201D414
 .L08059074: .4byte gUnk_Banim_0201E12C
 
-	thumb_func_start sub_8059078
-sub_8059078: @ 0x08059078
+	thumb_func_start func_fe6_08059078
+func_fe6_08059078: @ 0x08059078
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805908C @ =gUnk_086046F0
@@ -44870,31 +44870,31 @@ sub_8059078: @ 0x08059078
 	.align 2, 0
 .L0805908C: .4byte gUnk_086046F0
 
-	thumb_func_start sub_8059090
-sub_8059090: @ 0x08059090
+	thumb_func_start func_fe6_08059090
+func_fe6_08059090: @ 0x08059090
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, [r5, #0x5c]
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe6
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r4, r0]
 	movs r0, #0xe6
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80590B8
-sub_80590B8: @ 0x080590B8
+	thumb_func_start func_fe6_080590B8
+func_fe6_080590B8: @ 0x080590B8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r4, r0, #0
 	ldr r0, .L080590F0 @ =gUnk_08604710
 	movs r1, #3
@@ -44905,7 +44905,7 @@ sub_80590B8: @ 0x080590B8
 	adds r4, r4, r0
 	str r5, [r4]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080590F8 @ =gUnk_Banim_0201E7C8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -44922,8 +44922,8 @@ sub_80590B8: @ 0x080590B8
 .L080590F4: .4byte gUnk_Banim_0201E7AC
 .L080590F8: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start sub_80590FC
-sub_80590FC: @ 0x080590FC
+	thumb_func_start func_fe6_080590FC
+func_fe6_080590FC: @ 0x080590FC
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -44935,7 +44935,7 @@ sub_80590FC: @ 0x080590FC
 	movs r1, #4
 	movs r2, #0x10
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -44949,7 +44949,7 @@ sub_80590FC: @ 0x080590FC
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #1
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805913C:
@@ -44958,12 +44958,12 @@ sub_80590FC: @ 0x080590FC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059144
-sub_8059144: @ 0x08059144
+	thumb_func_start func_fe6_08059144
+func_fe6_08059144: @ 0x08059144
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -44988,17 +44988,17 @@ sub_8059144: @ 0x08059144
 	strh r0, [r1]
 	ldr r0, [r4, #0x5c]
 	movs r1, #0
-	bl sub_8059690
+	bl func_fe6_08059690
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe8
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xe8
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45009,8 +45009,8 @@ sub_8059144: @ 0x08059144
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80591AC
-sub_80591AC: @ 0x080591AC
+	thumb_func_start func_fe6_080591AC
+func_fe6_080591AC: @ 0x080591AC
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -45028,17 +45028,17 @@ sub_80591AC: @ 0x080591AC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80591CC
-sub_80591CC: @ 0x080591CC
+	thumb_func_start func_fe6_080591CC
+func_fe6_080591CC: @ 0x080591CC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08059244
-	bl sub_8058E24
+	bl func_fe6_08058E24
 	ldr r0, .L0805923C @ =gBg3Tm
 	movs r1, #0xf0
 	lsls r1, r1, #8
@@ -45072,7 +45072,7 @@ sub_80591CC: @ 0x080591CC
 	orrs r0, r1
 	strb r0, [r3, #0x14]
 	movs r0, #1
-	bl sub_8058A50
+	bl func_fe6_08058A50
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45086,7 +45086,7 @@ sub_80591CC: @ 0x080591CC
 	ldrsh r0, [r4, r2]
 	cmp r0, #0
 	bne .L080592A8
-	bl sub_8058E24
+	bl func_fe6_08058E24
 	ldr r0, .L080592C8 @ =gBg3Tm
 	movs r1, #0xf0
 	lsls r1, r1, #8
@@ -45120,11 +45120,11 @@ sub_80591CC: @ 0x080591CC
 	movs r0, #8
 	bl EnableBgSync
 	movs r0, #1
-	bl sub_8058A50
+	bl func_fe6_08058A50
 	adds r0, r4, #0
-	bl sub_8058A80
+	bl func_fe6_08058A80
 	adds r0, r4, #0
-	bl sub_8058ACC
+	bl func_fe6_08058ACC
 .L080592A8:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45145,12 +45145,12 @@ sub_80591CC: @ 0x080591CC
 .L080592C8: .4byte gBg3Tm
 .L080592CC: .4byte gDispIo
 
-	thumb_func_start sub_80592D0
-sub_80592D0: @ 0x080592D0
+	thumb_func_start func_fe6_080592D0
+func_fe6_080592D0: @ 0x080592D0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -45166,9 +45166,9 @@ sub_80592D0: @ 0x080592D0
 	cmp r0, #0
 	bne .L08059302
 	adds r0, r4, #0
-	bl sub_8058B84
+	bl func_fe6_08058B84
 	movs r0, #5
-	bl sub_8046010
+	bl func_fe6_08046010
 .L08059302:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45180,7 +45180,7 @@ sub_80592D0: @ 0x080592D0
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	ldr r0, [r4, #0x5c]
-	bl sub_8059078
+	bl func_fe6_08059078
 	adds r0, r4, #0
 	bl Proc_Break
 .L08059320:
@@ -45189,20 +45189,20 @@ sub_80592D0: @ 0x080592D0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8059328
-sub_8059328: @ 0x08059328
+	thumb_func_start func_fe6_08059328
+func_fe6_08059328: @ 0x08059328
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r6, r0, #0x18
 	cmp r6, #1
 	bne .L0805937C
 	adds r0, r5, #0
-	bl sub_8058C3C
+	bl func_fe6_08058C3C
 	ldr r0, [r5, #0x5c]
-	bl sub_80598F0
+	bl func_fe6_080598F0
 	ldr r1, [r5, #0x5c]
 	ldr r0, .L08059374 @ =0x0000FFFD
 	ldrh r2, [r1]
@@ -45211,9 +45211,9 @@ sub_8059328: @ 0x08059328
 	strh r0, [r1]
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x55
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059378 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -45231,9 +45231,9 @@ sub_8059328: @ 0x08059328
 	cmp r0, #0
 	bne .L080593A2
 	adds r0, r5, #0
-	bl sub_8058C3C
+	bl func_fe6_08058C3C
 	ldr r0, [r5, #0x5c]
-	bl sub_80598F0
+	bl func_fe6_080598F0
 	ldr r1, [r5, #0x5c]
 	ldr r0, .L080593CC @ =0x0000FFFD
 	ldrh r2, [r1]
@@ -45241,7 +45241,7 @@ sub_8059328: @ 0x08059328
 	strh r0, [r1]
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x55
-	bl sub_804A528
+	bl func_fe6_0804A528
 .L080593A2:
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -45251,7 +45251,7 @@ sub_8059328: @ 0x08059328
 	cmp r0, #0x3d
 	bne .L080593C6
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L080593D0 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -45267,13 +45267,13 @@ sub_8059328: @ 0x08059328
 .L080593CC: .4byte 0x0000FFFD
 .L080593D0: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_80593D4
-sub_80593D4: @ 0x080593D4
+	thumb_func_start func_fe6_080593D4
+func_fe6_080593D4: @ 0x080593D4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L080593FC @ =gUnk_Banim_0201E7C8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
@@ -45290,12 +45290,12 @@ sub_80593D4: @ 0x080593D4
 	.align 2, 0
 .L080593FC: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start sub_8059400
-sub_8059400: @ 0x08059400
+	thumb_func_start func_fe6_08059400
+func_fe6_08059400: @ 0x08059400
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_8058A34
+	bl func_fe6_08058A34
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -45303,12 +45303,12 @@ sub_8059400: @ 0x08059400
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8059418
-sub_8059418: @ 0x08059418
+	thumb_func_start func_fe6_08059418
+func_fe6_08059418: @ 0x08059418
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -45324,7 +45324,7 @@ sub_8059418: @ 0x08059418
 	cmp r0, #0
 	bne .L0805944E
 	adds r0, r4, #0
-	bl sub_8058B84
+	bl func_fe6_08058B84
 	ldr r0, [r4, #0x5c]
 	movs r1, #2
 	ldrh r2, [r0]
@@ -45347,17 +45347,17 @@ sub_8059418: @ 0x08059418
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805946C
-sub_805946C: @ 0x0805946C
+	thumb_func_start func_fe6_0805946C
+func_fe6_0805946C: @ 0x0805946C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L0805948E
-	bl sub_8058E24
+	bl func_fe6_08058E24
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45368,13 +45368,13 @@ sub_805946C: @ 0x0805946C
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
 	bne .L080594AC
-	bl sub_8058E24
+	bl func_fe6_08058E24
 	movs r0, #0x10
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	adds r0, r4, #0
-	bl sub_8058A80
+	bl func_fe6_08058A80
 	adds r0, r4, #0
-	bl sub_8058ACC
+	bl func_fe6_08058ACC
 .L080594AC:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45393,8 +45393,8 @@ sub_805946C: @ 0x0805946C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_80594CC
-sub_80594CC: @ 0x080594CC
+	thumb_func_start func_fe6_080594CC
+func_fe6_080594CC: @ 0x080594CC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0x2c
@@ -45402,23 +45402,23 @@ sub_80594CC: @ 0x080594CC
 	cmp r0, #0
 	bne .L08059504
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08059504
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
-	bl sub_8059690
+	bl func_fe6_08059690
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe9
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xe9
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L08059504:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45460,7 +45460,7 @@ sub_80594CC: @ 0x080594CC
 	orrs r0, r1
 	strb r0, [r3, #0x18]
 	movs r0, #2
-	bl sub_8058A50
+	bl func_fe6_08058A50
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45473,12 +45473,12 @@ sub_80594CC: @ 0x080594CC
 .L08059570: .4byte gBg3Tm
 .L08059574: .4byte gDispIo
 
-	thumb_func_start sub_8059578
-sub_8059578: @ 0x08059578
+	thumb_func_start func_fe6_08059578
+func_fe6_08059578: @ 0x08059578
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -45504,18 +45504,18 @@ sub_8059578: @ 0x08059578
 	ldr r5, [r6, #0x5c]
 	ldr r4, .L080595E8 @ =0x0203CD00
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	adds r0, r5, #0
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r6, #0x5c]
 	movs r1, #0
 	movs r2, #0xa
 	movs r3, #1
-	bl sub_8046C14
+	bl func_fe6_08046C14
 	movs r0, #0
 	strh r0, [r6, #0x2c]
 	adds r0, r6, #0
@@ -45528,8 +45528,8 @@ sub_8059578: @ 0x08059578
 .L080595E4: .4byte 0x0000FFFD
 .L080595E8: .4byte 0x0203CD00
 
-	thumb_func_start sub_80595EC
-sub_80595EC: @ 0x080595EC
+	thumb_func_start func_fe6_080595EC
+func_fe6_080595EC: @ 0x080595EC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -45540,7 +45540,7 @@ sub_80595EC: @ 0x080595EC
 	cmp r0, #0x51
 	bne .L0805960E
 	movs r0, #0x10
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45550,8 +45550,8 @@ sub_80595EC: @ 0x080595EC
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059614
-sub_8059614: @ 0x08059614
+	thumb_func_start func_fe6_08059614
+func_fe6_08059614: @ 0x08059614
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -45574,7 +45574,7 @@ sub_8059614: @ 0x08059614
 	movs r1, #0x10
 	movs r2, #4
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -45594,12 +45594,12 @@ sub_8059614: @ 0x08059614
 	.align 2, 0
 .L08059668: .4byte gPlaySt
 
-	thumb_func_start sub_805966C
-sub_805966C: @ 0x0805966C
+	thumb_func_start func_fe6_0805966C
+func_fe6_0805966C: @ 0x0805966C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0805968C @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -45613,8 +45613,8 @@ sub_805966C: @ 0x0805966C
 	.align 2, 0
 .L0805968C: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_8059690
-sub_8059690: @ 0x08059690
+	thumb_func_start func_fe6_08059690
+func_fe6_08059690: @ 0x08059690
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -45641,7 +45641,7 @@ sub_8059690: @ 0x08059690
 	adds r0, r5, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r4, #0x60]
 	movs r3, #0
 	movs r1, #0x98
@@ -45656,7 +45656,7 @@ sub_8059690: @ 0x08059690
 	adds r1, #8
 	strh r1, [r0, #4]
 	strh r3, [r4, #0x2c]
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r2, .L08059720 @ =gDispIo+0x3C
 	ldr r0, .L08059724 @ =0x0000FFE0
 	ldrh r1, [r2]
@@ -45670,7 +45670,7 @@ sub_8059690: @ 0x08059690
 	strh r0, [r2]
 	ldr r0, .L0805972C @ =gUnk_081C1C74
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	movs r0, #8
 	ldrh r1, [r5]
 	orrs r0, r1
@@ -45687,8 +45687,8 @@ sub_8059690: @ 0x08059690
 .L08059728: .4byte 0x0000E0FF
 .L0805972C: .4byte gUnk_081C1C74
 
-	thumb_func_start sub_8059730
-sub_8059730: @ 0x08059730
+	thumb_func_start func_fe6_08059730
+func_fe6_08059730: @ 0x08059730
 	push {r4, lr}
 	ldr r4, [r0, #0x5c]
 	ldr r2, .L08059750 @ =gUnk_Banim_02017744
@@ -45708,8 +45708,8 @@ sub_8059730: @ 0x08059730
 .L08059750: .4byte gUnk_Banim_02017744
 .L08059754: .4byte 0x0000FFF7
 
-	thumb_func_start sub_8059758
-sub_8059758: @ 0x08059758
+	thumb_func_start func_fe6_08059758
+func_fe6_08059758: @ 0x08059758
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45739,8 +45739,8 @@ sub_8059758: @ 0x08059758
 .L08059794: .4byte 0x06014000
 .L08059798: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_805979C
-sub_805979C: @ 0x0805979C
+	thumb_func_start func_fe6_0805979C
+func_fe6_0805979C: @ 0x0805979C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45770,8 +45770,8 @@ sub_805979C: @ 0x0805979C
 .L080597D8: .4byte 0x06014000
 .L080597DC: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_80597E0
-sub_80597E0: @ 0x080597E0
+	thumb_func_start func_fe6_080597E0
+func_fe6_080597E0: @ 0x080597E0
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45801,8 +45801,8 @@ sub_80597E0: @ 0x080597E0
 .L0805981C: .4byte 0x06014000
 .L08059820: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_8059824
-sub_8059824: @ 0x08059824
+	thumb_func_start func_fe6_08059824
+func_fe6_08059824: @ 0x08059824
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45832,8 +45832,8 @@ sub_8059824: @ 0x08059824
 .L08059860: .4byte 0x06014000
 .L08059864: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_8059868
-sub_8059868: @ 0x08059868
+	thumb_func_start func_fe6_08059868
+func_fe6_08059868: @ 0x08059868
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45863,8 +45863,8 @@ sub_8059868: @ 0x08059868
 .L080598A4: .4byte 0x06014000
 .L080598A8: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_80598AC
-sub_80598AC: @ 0x080598AC
+	thumb_func_start func_fe6_080598AC
+func_fe6_080598AC: @ 0x080598AC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r1, [r6, #0x60]
@@ -45894,11 +45894,11 @@ sub_80598AC: @ 0x080598AC
 .L080598E8: .4byte 0x06014000
 .L080598EC: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_80598F0
-sub_80598F0: @ 0x080598F0
+	thumb_func_start func_fe6_080598F0
+func_fe6_080598F0: @ 0x080598F0
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r4, r0, #0
 	ldr r0, .L08059920 @ =gUnk_08604828
 	movs r1, #4
@@ -45921,12 +45921,12 @@ sub_80598F0: @ 0x080598F0
 .L08059920: .4byte gUnk_08604828
 .L08059924: .4byte gUnk_Banim_0201E7B4
 
-	thumb_func_start sub_8059928
-sub_8059928: @ 0x08059928
+	thumb_func_start func_fe6_08059928
+func_fe6_08059928: @ 0x08059928
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_8046F48
+	bl func_fe6_08046F48
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L080599CA
@@ -45962,7 +45962,7 @@ sub_8059928: @ 0x08059928
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -46009,11 +46009,11 @@ sub_8059928: @ 0x08059928
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_80599D0
-sub_80599D0: @ 0x080599D0
+	thumb_func_start func_fe6_080599D0
+func_fe6_080599D0: @ 0x080599D0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r4, r0, #0
 	ldr r0, .L08059A10 @ =gUnk_08604840
 	movs r1, #3
@@ -46024,7 +46024,7 @@ sub_80599D0: @ 0x080599D0
 	adds r4, r4, r0
 	str r6, [r4]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059A18 @ =gUnk_Banim_0201E7C8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -46032,7 +46032,7 @@ sub_80599D0: @ 0x080599D0
 	strh r1, [r0]
 	str r5, [r6, #0x5c]
 	adds r0, r5, #0
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46052,8 +46052,8 @@ sub_80599D0: @ 0x080599D0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8059A28
-sub_8059A28: @ 0x08059A28
+	thumb_func_start func_fe6_08059A28
+func_fe6_08059A28: @ 0x08059A28
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -46069,13 +46069,13 @@ sub_8059A28: @ 0x08059A28
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059A44
-sub_8059A44: @ 0x08059A44
+	thumb_func_start func_fe6_08059A44
+func_fe6_08059A44: @ 0x08059A44
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r4, .L08059AA0 @ =0x0203CD08
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
@@ -46086,7 +46086,7 @@ sub_8059A44: @ 0x08059A44
 	adds r1, r6, #0
 	bl LZ77UnCompWram
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	movs r1, #0xd0
 	lsls r1, r1, #1
 	cmp r0, #0
@@ -46102,7 +46102,7 @@ sub_8059A44: @ 0x08059A44
 	bl CpuFastSet
 	bl EnablePalSync
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46120,10 +46120,10 @@ sub_8059A44: @ 0x08059A44
 	strh r0, [r5, #0x2c]
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x6b
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r5, #0x5c]
 	movs r1, #0
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	adds r0, r5, #0
 	bl Proc_Break
 .L08059ACA:
@@ -46131,21 +46131,21 @@ sub_8059A44: @ 0x08059A44
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059AD0
-sub_8059AD0: @ 0x08059AD0
+	thumb_func_start func_fe6_08059AD0
+func_fe6_08059AD0: @ 0x08059AD0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r5, r0, #0x18
 	cmp r5, #1
 	bne .L08059B04
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5b
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059B00 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -46166,13 +46166,13 @@ sub_8059AD0: @ 0x08059AD0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xdc
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xdc
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L08059B2A:
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r0, #0x20]
@@ -46184,18 +46184,18 @@ sub_8059AD0: @ 0x08059AD0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xde
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xde
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5b
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059B74 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -46210,20 +46210,20 @@ sub_8059AD0: @ 0x08059AD0
 	.align 2, 0
 .L08059B74: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_8059B78
-sub_8059B78: @ 0x08059B78
+	thumb_func_start func_fe6_08059B78
+func_fe6_08059B78: @ 0x08059B78
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L08059BA4 @ =gUnk_Banim_0201E7C8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
 	cmp r0, #2
 	bne .L08059BDC
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46237,21 +46237,21 @@ sub_8059B78: @ 0x08059B78
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xdd
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r5, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xdd
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x6c
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, [r5, #0x5c]
 	movs r1, #0
-	bl sub_804B5E0
+	bl func_fe6_0804B5E0
 	ldr r0, [r5, #0x5c]
-	bl sub_8059C78
+	bl func_fe6_08059C78
 	adds r0, r5, #0
 	bl Proc_Break
 .L08059BDC:
@@ -46260,12 +46260,12 @@ sub_8059B78: @ 0x08059B78
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_8059BE4
-sub_8059BE4: @ 0x08059BE4
+	thumb_func_start func_fe6_08059BE4
+func_fe6_08059BE4: @ 0x08059BE4
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46285,13 +46285,13 @@ sub_8059BE4: @ 0x08059BE4
 	bne .L08059C2E
 	ldr r4, .L08059C34 @ =0x0203CD00
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r2, #0
 	ldrsh r1, [r0, r2]
 	adds r0, r5, #0
-	bl sub_804A528
+	bl func_fe6_0804A528
 	strh r7, [r6, #0x2c]
 	adds r0, r6, #0
 	bl Proc_Break
@@ -46302,8 +46302,8 @@ sub_8059BE4: @ 0x08059BE4
 	.align 2, 0
 .L08059C34: .4byte 0x0203CD00
 
-	thumb_func_start sub_8059C38
-sub_8059C38: @ 0x08059C38
+	thumb_func_start func_fe6_08059C38
+func_fe6_08059C38: @ 0x08059C38
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -46319,12 +46319,12 @@ sub_8059C38: @ 0x08059C38
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059C54
-sub_8059C54: @ 0x08059C54
+	thumb_func_start func_fe6_08059C54
+func_fe6_08059C54: @ 0x08059C54
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059C74 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -46338,8 +46338,8 @@ sub_8059C54: @ 0x08059C54
 	.align 2, 0
 .L08059C74: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_8059C78
-sub_8059C78: @ 0x08059C78
+	thumb_func_start func_fe6_08059C78
+func_fe6_08059C78: @ 0x08059C78
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r1, .L08059CD0 @ =gUnk_Banim_02017744
@@ -46362,18 +46362,18 @@ sub_8059C78: @ 0x08059C78
 	ldr r0, .L08059CE0 @ =gUnk_081C864C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L08059CE4 @ =gUnk_081C8F38
 	movs r1, #0x20
-	bl sub_8047AF4
-	bl sub_8047500
+	bl func_fe6_08047AF4
+	bl func_fe6_08047500
 	ldr r0, .L08059CE8 @ =0x0203CD14
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L08059CF8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08059CEC
 	movs r0, #1
@@ -46425,15 +46425,15 @@ sub_8059C78: @ 0x08059C78
 	.align 2, 0
 .L08059D30: .4byte gDispIo
 
-	thumb_func_start sub_8059D34
-sub_8059D34: @ 0x08059D34
+	thumb_func_start func_fe6_08059D34
+func_fe6_08059D34: @ 0x08059D34
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -46446,19 +46446,19 @@ sub_8059D34: @ 0x08059D34
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L08059D80
 .L08059D62:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08059D80
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	ldr r1, .L08059D88 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl sub_80475D8
+	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L08059D80:
@@ -46468,11 +46468,11 @@ sub_8059D34: @ 0x08059D34
 	.align 2, 0
 .L08059D88: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_8059D8C
-sub_8059D8C: @ 0x08059D8C
+	thumb_func_start func_fe6_08059D8C
+func_fe6_08059D8C: @ 0x08059D8C
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r4, r0, #0
 	ldr r0, .L08059DC4 @ =gUnk_086048D0
 	movs r1, #3
@@ -46483,7 +46483,7 @@ sub_8059D8C: @ 0x08059D8C
 	adds r4, r4, r0
 	str r5, [r4]
 	adds r0, r6, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L08059DCC @ =gUnk_Banim_0201E7C8
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -46500,8 +46500,8 @@ sub_8059D8C: @ 0x08059D8C
 .L08059DC8: .4byte gUnk_Banim_0201E7AC
 .L08059DCC: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start sub_8059DD0
-sub_8059DD0: @ 0x08059DD0
+	thumb_func_start func_fe6_08059DD0
+func_fe6_08059DD0: @ 0x08059DD0
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -46513,7 +46513,7 @@ sub_8059DD0: @ 0x08059DD0
 	movs r1, #4
 	movs r2, #0x10
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -46529,13 +46529,13 @@ sub_8059DD0: @ 0x08059DD0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_8059E08
-sub_8059E08: @ 0x08059E08
+	thumb_func_start func_fe6_08059E08
+func_fe6_08059E08: @ 0x08059E08
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x74
-	bl sub_804A528
+	bl func_fe6_0804A528
 	ldr r0, .L08059E6C @ =gUnk_Banim_02000000
 	ldr r3, [r0]
 	ldr r4, [r0, #4]
@@ -46552,13 +46552,13 @@ sub_8059E08: @ 0x08059E08
 	subs r0, r2, r0
 	strh r0, [r4, #2]
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	beq .L08059E5A
 	ldr r0, [r5, #0x5c]
-	bl sub_805A77C
+	bl func_fe6_0805A77C
 	ldr r2, .L08059E7C @ =gUnk_Banim_0201E7B4
 	str r0, [r2]
 	ldr r1, [r6]
@@ -46584,8 +46584,8 @@ sub_8059E08: @ 0x08059E08
 .L08059E78: .4byte gUnk_Banim_0201E12C
 .L08059E7C: .4byte gUnk_Banim_0201E7B4
 
-	thumb_func_start sub_8059E80
-sub_8059E80: @ 0x08059E80
+	thumb_func_start func_fe6_08059E80
+func_fe6_08059E80: @ 0x08059E80
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -46596,7 +46596,7 @@ sub_8059E80: @ 0x08059E80
 	ldr r1, .L08059F08 @ =gUnk_Banim_0201977C
 	bl LZ77UnCompWram
 	ldr r0, .L08059F0C @ =0x001F001F
-	bl sub_8047C68
+	bl func_fe6_08047C68
 	ldr r0, .L08059F10 @ =gBg3Tm
 	movs r1, #0x1f
 	bl TmFill
@@ -46649,15 +46649,15 @@ sub_8059E80: @ 0x08059E80
 .L08059F24: .4byte gUnk_Banim_0201F00C
 .L08059F28: .4byte 0x01000008
 
-	thumb_func_start sub_8059F2C
-sub_8059F2C: @ 0x08059F2C
+	thumb_func_start func_fe6_08059F2C
+func_fe6_08059F2C: @ 0x08059F2C
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
 	ldr r0, .L08059F4C @ =gUnk_Banim_0201E7B4
 	ldr r5, [r0]
 	ldr r0, [r6, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46709,24 +46709,24 @@ sub_8059F2C: @ 0x08059F2C
 	movs r2, #8
 	bl CpuFastSet
 	ldr r0, .L08059FF8 @ =gUnk_081C4E28
-	bl sub_8058FA8
+	bl func_fe6_08058FA8
 	ldr r0, [r6, #0x5c]
 	movs r1, #3
 	movs r2, #0x64
-	bl sub_804685C
+	bl func_fe6_0804685C
 	ldr r4, .L08059FFC @ =0x0000013F
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r0, [r6, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r0, #6
-	bl sub_8046010
+	bl func_fe6_08046010
 	adds r5, r0, #0
 	movs r0, #0x72
 	strh r0, [r5, #0x3c]
@@ -46744,21 +46744,21 @@ sub_8059F2C: @ 0x08059F2C
 .L08059FF8: .4byte gUnk_081C4E28
 .L08059FFC: .4byte 0x0000013F
 
-	thumb_func_start sub_805A000
-sub_805A000: @ 0x0805A000
+	thumb_func_start func_fe6_0805A000
+func_fe6_0805A000: @ 0x0805A000
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
 	push {r6, r7}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L0805A028
 	ldr r0, [r4, #0x5c]
-	bl sub_805A410
+	bl func_fe6_0805A410
 	str r0, [r4, #0x64]
 	adds r0, r4, #0
 	bl Proc_Break
@@ -46813,7 +46813,7 @@ sub_805A000: @ 0x0805A000
 	ldr r0, [r5]
 	strh r6, [r0, #0x3a]
 	ldr r0, [r4, #0x5c]
-	bl sub_805A410
+	bl func_fe6_0805A410
 	str r0, [r4, #0x64]
 	adds r0, r4, #0
 	bl Proc_Break
@@ -46832,8 +46832,8 @@ sub_805A000: @ 0x0805A000
 .L0805A0B4: .4byte 0x00007FFF
 .L0805A0B8: .4byte gUnk_Banim_02017734
 
-	thumb_func_start sub_805A0BC
-sub_805A0BC: @ 0x0805A0BC
+	thumb_func_start func_fe6_0805A0BC
+func_fe6_0805A0BC: @ 0x0805A0BC
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x64]
@@ -46843,7 +46843,7 @@ sub_805A0BC: @ 0x0805A0BC
 	cmp r0, #1
 	bne .L0805A132
 	ldr r0, [r4, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -46857,10 +46857,10 @@ sub_805A0BC: @ 0x0805A0BC
 	strb r0, [r5]
 	strh r1, [r4, #0x2c]
 	ldr r0, [r4, #0x5c]
-	bl sub_805A598
+	bl func_fe6_0805A598
 	str r0, [r4, #0x64]
 	ldr r0, [r4, #0x5c]
-	bl sub_805A7EC
+	bl func_fe6_0805A7EC
 	adds r1, r0, #0
 	ldr r0, .L0805A10C @ =gUnk_Banim_0201E7B4
 	str r1, [r0, #4]
@@ -46886,7 +46886,7 @@ sub_805A0BC: @ 0x0805A0BC
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805A132:
@@ -46897,8 +46897,8 @@ sub_805A0BC: @ 0x0805A0BC
 .L0805A138: .4byte gUnk_Banim_0201E7B4
 .L0805A13C: .4byte 0x0000FFF5
 
-	thumb_func_start sub_805A140
-sub_805A140: @ 0x0805A140
+	thumb_func_start func_fe6_0805A140
+func_fe6_0805A140: @ 0x0805A140
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -46912,26 +46912,26 @@ sub_805A140: @ 0x0805A140
 	ldr r1, [r6, #4]
 	mov sb, r1
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne .L0805A1A8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
-	bl sub_804B8E8
+	bl func_fe6_0804B6C4
+	bl func_fe6_0804B8E8
 	ldr r0, .L0805A19C @ =gUnk_Banim_0201EFCC
 	ldr r1, .L0805A1A0 @ =gPal+0xC0
 	movs r2, #8
 	bl CpuFastSet
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0805A1A4 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_805A858
+	bl func_fe6_0805A858
 	adds r0, r5, #0
 	bl Proc_Break
 	b .L0805A216
@@ -46978,16 +46978,16 @@ sub_805A140: @ 0x0805A140
 	adds r0, #0x29
 	strb r4, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
-	bl sub_804B8E8
+	bl func_fe6_0804B6C4
+	bl func_fe6_0804B8E8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0805A224 @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_805A858
+	bl func_fe6_0805A858
 	adds r0, r5, #0
 	bl Proc_Break
 .L0805A216:
@@ -47001,29 +47001,29 @@ sub_805A140: @ 0x0805A140
 	.align 2, 0
 .L0805A224: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_805A228
-sub_805A228: @ 0x0805A228
+	thumb_func_start func_fe6_0805A228
+func_fe6_0805A228: @ 0x0805A228
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0805A268 @ =gUnk_Banim_0201E7C8
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
 	cmp r0, #2
 	bne .L0805A262
-	bl sub_805A894
+	bl func_fe6_0805A894
 	ldr r4, .L0805A26C @ =gUnk_Banim_0201E7C4
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L0805A25C
 	ldr r0, [r5, #0x5c]
-	bl sub_805AB5C
+	bl func_fe6_0805AB5C
 	str r0, [r5, #0x64]
 .L0805A25C:
 	adds r0, r5, #0
@@ -47036,14 +47036,14 @@ sub_805A228: @ 0x0805A228
 .L0805A268: .4byte gUnk_Banim_0201E7C8
 .L0805A26C: .4byte gUnk_Banim_0201E7C4
 
-	thumb_func_start sub_805A270
-sub_805A270: @ 0x0805A270
+	thumb_func_start func_fe6_0805A270
+func_fe6_0805A270: @ 0x0805A270
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x64]
 	ldr r4, .L0805A29C @ =gUnk_Banim_0201E7C4
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
@@ -47052,7 +47052,7 @@ sub_805A270: @ 0x0805A270
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	movs r2, #0x20
-	bl sub_805A658
+	bl func_fe6_0805A658
 	str r0, [r5, #0x64]
 	adds r0, r5, #0
 	bl Proc_Break
@@ -47075,28 +47075,28 @@ sub_805A270: @ 0x0805A270
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805A2BC
-sub_805A2BC: @ 0x0805A2BC
+	thumb_func_start func_fe6_0805A2BC
+func_fe6_0805A2BC: @ 0x0805A2BC
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x64]
 	ldr r4, .L0805A2E0 @ =gUnk_Banim_0201E7C4
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L0805A2E4
 	ldr r0, [r5, #0x5c]
-	bl sub_805A4C8
+	bl func_fe6_0805A4C8
 	str r0, [r5, #0x64]
 	b .L0805A30E
 	.align 2, 0
 .L0805A2E0: .4byte gUnk_Banim_0201E7C4
 .L0805A2E4:
 	ldr r0, [r5, #0x5c]
-	bl sub_80589C4
+	bl func_fe6_080589C4
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -47109,10 +47109,10 @@ sub_805A2BC: @ 0x0805A2BC
 	movs r0, #2
 	strb r0, [r1]
 	ldr r0, [r5, #0x5c]
-	bl sub_805A4C8
+	bl func_fe6_0805A4C8
 	str r0, [r5, #0x64]
 	movs r0, #0x10
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 .L0805A30E:
 	adds r0, r5, #0
 	bl Proc_Break
@@ -47127,19 +47127,19 @@ sub_805A2BC: @ 0x0805A2BC
 	movs r0, #2
 	strb r0, [r1]
 	ldr r0, [r5, #0x5c]
-	bl sub_805A4C8
+	bl func_fe6_0805A4C8
 	str r0, [r5, #0x64]
 	movs r0, #0x10
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0805A358 @ =0x0203CCF8
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
-	bl sub_804B8B0
+	bl func_fe6_0804B6C4
+	bl func_fe6_0804B8B0
 	adds r0, r5, #0
 	bl Proc_Break
 .L0805A352:
@@ -47149,8 +47149,8 @@ sub_805A2BC: @ 0x0805A2BC
 	.align 2, 0
 .L0805A358: .4byte 0x0203CCF8
 
-	thumb_func_start sub_805A35C
-sub_805A35C: @ 0x0805A35C
+	thumb_func_start func_fe6_0805A35C
+func_fe6_0805A35C: @ 0x0805A35C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, [r5, #0x64]
@@ -47178,8 +47178,8 @@ sub_805A35C: @ 0x0805A35C
 	.align 2, 0
 .L0805A390: .4byte gBg3Tm
 
-	thumb_func_start sub_805A394
-sub_805A394: @ 0x0805A394
+	thumb_func_start func_fe6_0805A394
+func_fe6_0805A394: @ 0x0805A394
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -47202,7 +47202,7 @@ sub_805A394: @ 0x0805A394
 	movs r1, #0x10
 	movs r2, #4
 	bl Interpolate
-	bl sub_805B9A4
+	bl func_fe6_0805B9A4
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
 	strh r0, [r4, #0x2c]
@@ -47222,12 +47222,12 @@ sub_805A394: @ 0x0805A394
 	.align 2, 0
 .L0805A3E8: .4byte gPlaySt
 
-	thumb_func_start sub_805A3EC
-sub_805A3EC: @ 0x0805A3EC
+	thumb_func_start func_fe6_0805A3EC
+func_fe6_0805A3EC: @ 0x0805A3EC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	ldr r1, .L0805A40C @ =gUnk_Banim_0201E7C0
 	lsls r0, r0, #1
 	adds r0, r0, r1
@@ -47241,8 +47241,8 @@ sub_805A3EC: @ 0x0805A3EC
 	.align 2, 0
 .L0805A40C: .4byte gUnk_Banim_0201E7C0
 
-	thumb_func_start sub_805A410
-sub_805A410: @ 0x0805A410
+	thumb_func_start func_fe6_0805A410
+func_fe6_0805A410: @ 0x0805A410
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805A430 @ =gUnk_08604948
@@ -47260,8 +47260,8 @@ sub_805A410: @ 0x0805A410
 	.align 2, 0
 .L0805A430: .4byte gUnk_08604948
 
-	thumb_func_start sub_805A434
-sub_805A434: @ 0x0805A434
+	thumb_func_start func_fe6_0805A434
+func_fe6_0805A434: @ 0x0805A434
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -47284,7 +47284,7 @@ sub_805A434: @ 0x0805A434
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -47304,7 +47304,7 @@ sub_805A434: @ 0x0805A434
 	movs r1, #0x1e
 	movs r2, #5
 	movs r3, #0
-	bl sub_805B094
+	bl func_fe6_0805B094
 	movs r0, #4
 	bl EnableBgSync
 	adds r0, r6, #0
@@ -47319,8 +47319,8 @@ sub_805A434: @ 0x0805A434
 .L0805A4AC: .4byte gPal+0x80
 .L0805A4B0: .4byte gBg2Tm+0x2C0
 
-	thumb_func_start sub_805A4B4
-sub_805A4B4: @ 0x0805A4B4
+	thumb_func_start func_fe6_0805A4B4
+func_fe6_0805A4B4: @ 0x0805A4B4
 	push {lr}
 	adds r1, r0, #0
 	adds r1, #0x29
@@ -47332,8 +47332,8 @@ sub_805A4B4: @ 0x0805A4B4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805A4C8
-sub_805A4C8: @ 0x0805A4C8
+	thumb_func_start func_fe6_0805A4C8
+func_fe6_0805A4C8: @ 0x0805A4C8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805A50C @ =gUnk_08604968
@@ -47347,7 +47347,7 @@ sub_805A4C8: @ 0x0805A4C8
 	strb r0, [r1]
 	strh r0, [r5, #0x2c]
 	ldr r0, .L0805A510 @ =gUnk_Banim_0201E0FC
-	bl sub_804BF40
+	bl func_fe6_0804BF40
 	ldr r4, .L0805A514 @ =gPal+0x80
 	ldr r1, .L0805A518 @ =gUnk_Banim_0201F00C
 	adds r0, r4, #0
@@ -47358,7 +47358,7 @@ sub_805A4C8: @ 0x0805A4C8
 	movs r1, #4
 	movs r2, #2
 	movs r3, #0x10
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
@@ -47369,8 +47369,8 @@ sub_805A4C8: @ 0x0805A4C8
 .L0805A514: .4byte gPal+0x80
 .L0805A518: .4byte gUnk_Banim_0201F00C
 
-	thumb_func_start sub_805A51C
-sub_805A51C: @ 0x0805A51C
+	thumb_func_start func_fe6_0805A51C
+func_fe6_0805A51C: @ 0x0805A51C
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -47393,7 +47393,7 @@ sub_805A51C: @ 0x0805A51C
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -47419,8 +47419,8 @@ sub_805A51C: @ 0x0805A51C
 .L0805A57C: .4byte gUnk_Banim_0201F00C
 .L0805A580: .4byte gPal+0x80
 
-	thumb_func_start sub_805A584
-sub_805A584: @ 0x0805A584
+	thumb_func_start func_fe6_0805A584
+func_fe6_0805A584: @ 0x0805A584
 	push {lr}
 	adds r1, r0, #0
 	adds r1, #0x29
@@ -47432,8 +47432,8 @@ sub_805A584: @ 0x0805A584
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805A598
-sub_805A598: @ 0x0805A598
+	thumb_func_start func_fe6_0805A598
+func_fe6_0805A598: @ 0x0805A598
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805A5C0 @ =gUnk_08604988
@@ -47456,8 +47456,8 @@ sub_805A598: @ 0x0805A598
 	.align 2, 0
 .L0805A5C0: .4byte gUnk_08604988
 
-	thumb_func_start sub_805A5C4
-sub_805A5C4: @ 0x0805A5C4
+	thumb_func_start func_fe6_0805A5C4
+func_fe6_0805A5C4: @ 0x0805A5C4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -47472,7 +47472,7 @@ sub_805A5C4: @ 0x0805A5C4
 	cmp r0, #0
 	bne .L0805A5EC
 	ldr r0, .L0805A5E8 @ =gUnk_081C4E28
-	bl sub_8058FA8
+	bl func_fe6_08058FA8
 	b .L0805A602
 	.align 2, 0
 .L0805A5E8: .4byte gUnk_081C4E28
@@ -47480,13 +47480,13 @@ sub_805A5C4: @ 0x0805A5C4
 	cmp r0, #1
 	bne .L0805A5FC
 	ldr r0, .L0805A5F8 @ =gUnk_081C5264
-	bl sub_8058FA8
+	bl func_fe6_08058FA8
 	b .L0805A602
 	.align 2, 0
 .L0805A5F8: .4byte gUnk_081C5264
 .L0805A5FC:
 	ldr r0, .L0805A638 @ =gUnk_081C5688
-	bl sub_8058FA8
+	bl func_fe6_08058FA8
 .L0805A602:
 	movs r1, #0
 	strh r1, [r4, #0x2c]
@@ -47517,8 +47517,8 @@ sub_805A5C4: @ 0x0805A5C4
 	.align 2, 0
 .L0805A638: .4byte gUnk_081C5688
 
-	thumb_func_start sub_805A63C
-sub_805A63C: @ 0x0805A63C
+	thumb_func_start func_fe6_0805A63C
+func_fe6_0805A63C: @ 0x0805A63C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r1, [r4, #0x32]
@@ -47532,8 +47532,8 @@ sub_805A63C: @ 0x0805A63C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805A658
-sub_805A658: @ 0x0805A658
+	thumb_func_start func_fe6_0805A658
+func_fe6_0805A658: @ 0x0805A658
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -47577,8 +47577,8 @@ sub_805A658: @ 0x0805A658
 .L0805A6B0: .4byte gUnk_Banim_0201EFCC
 .L0805A6B4: .4byte gUnk_Banim_0201EFEC
 
-	thumb_func_start sub_805A6B8
-sub_805A6B8: @ 0x0805A6B8
+	thumb_func_start func_fe6_0805A6B8
+func_fe6_0805A6B8: @ 0x0805A6B8
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -47598,8 +47598,8 @@ sub_805A6B8: @ 0x0805A6B8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805A6DC
-sub_805A6DC: @ 0x0805A6DC
+	thumb_func_start func_fe6_0805A6DC
+func_fe6_0805A6DC: @ 0x0805A6DC
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -47629,12 +47629,12 @@ sub_805A6DC: @ 0x0805A6DC
 	movs r1, #6
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -47662,8 +47662,8 @@ sub_805A6DC: @ 0x0805A6DC
 .L0805A760: .4byte gPal+0xC0
 .L0805A764: .4byte gUnk_Banim_0201EFEC
 
-	thumb_func_start sub_805A768
-sub_805A768: @ 0x0805A768
+	thumb_func_start func_fe6_0805A768
+func_fe6_0805A768: @ 0x0805A768
 	push {lr}
 	adds r1, r0, #0
 	adds r1, #0x29
@@ -47675,8 +47675,8 @@ sub_805A768: @ 0x0805A768
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805A77C
-sub_805A77C: @ 0x0805A77C
+	thumb_func_start func_fe6_0805A77C
+func_fe6_0805A77C: @ 0x0805A77C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L0805A7B8 @ =gUnk_086049D0
@@ -47709,8 +47709,8 @@ sub_805A77C: @ 0x0805A77C
 .L0805A7B8: .4byte gUnk_086049D0
 .L0805A7BC: .4byte gUnk_08605A50
 
-	thumb_func_start sub_805A7C0
-sub_805A7C0: @ 0x0805A7C0
+	thumb_func_start func_fe6_0805A7C0
+func_fe6_0805A7C0: @ 0x0805A7C0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x60]
@@ -47733,8 +47733,8 @@ sub_805A7C0: @ 0x0805A7C0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805A7EC
-sub_805A7EC: @ 0x0805A7EC
+	thumb_func_start func_fe6_0805A7EC
+func_fe6_0805A7EC: @ 0x0805A7EC
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r0, .L0805A824 @ =gUnk_086049E8
@@ -47765,8 +47765,8 @@ sub_805A7EC: @ 0x0805A7EC
 .L0805A824: .4byte gUnk_086049E8
 .L0805A828: .4byte gUnk_08605A70
 
-	thumb_func_start sub_805A82C
-sub_805A82C: @ 0x0805A82C
+	thumb_func_start func_fe6_0805A82C
+func_fe6_0805A82C: @ 0x0805A82C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x60]
@@ -47789,8 +47789,8 @@ sub_805A82C: @ 0x0805A82C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805A858
-sub_805A858: @ 0x0805A858
+	thumb_func_start func_fe6_0805A858
+func_fe6_0805A858: @ 0x0805A858
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805A884 @ =gUnk_08604A00
@@ -47818,8 +47818,8 @@ sub_805A858: @ 0x0805A858
 .L0805A88C: .4byte gUnk_08604A18
 .L0805A890: .4byte gUnk_Banim_0201E7BC
 
-	thumb_func_start sub_805A894
-sub_805A894: @ 0x0805A894
+	thumb_func_start func_fe6_0805A894
+func_fe6_0805A894: @ 0x0805A894
 	push {r4, lr}
 	ldr r4, .L0805A8AC @ =gUnk_Banim_0201E7BC
 	ldr r0, [r4]
@@ -47835,8 +47835,8 @@ sub_805A894: @ 0x0805A894
 	.align 2, 0
 .L0805A8AC: .4byte gUnk_Banim_0201E7BC
 
-	thumb_func_start sub_805A8B0
-sub_805A8B0: @ 0x0805A8B0
+	thumb_func_start func_fe6_0805A8B0
+func_fe6_0805A8B0: @ 0x0805A8B0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
@@ -47888,7 +47888,7 @@ sub_805A8B0: @ 0x0805A8B0
 	ldr r0, .L0805A928 @ =gUnk_081BC19A
 	str r0, [r4, #0x48]
 	ldr r0, [r4, #0x5c]
-	bl sub_8057B90
+	bl func_fe6_08057B90
 	b .L0805A930
 	.align 2, 0
 .L0805A928: .4byte gUnk_081BC19A
@@ -47902,7 +47902,7 @@ sub_805A8B0: @ 0x0805A8B0
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r1, r0, #0x10
 	cmp r1, #0
@@ -47911,7 +47911,7 @@ sub_805A8B0: @ 0x0805A8B0
 	lsls r1, r1, #2
 	adds r1, r1, r0
 	ldr r0, [r1]
-	bl sub_8059018
+	bl func_fe6_08059018
 	b .L0805A992
 	.align 2, 0
 .L0805A954: .4byte gUnk_081BC132
@@ -47925,7 +47925,7 @@ sub_805A8B0: @ 0x0805A8B0
 	cmp r0, #0
 	bne .L0805A97E
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	movs r1, #8
 	ldrh r0, [r0, #0x10]
 	ands r1, r0
@@ -47935,7 +47935,7 @@ sub_805A8B0: @ 0x0805A8B0
 	strh r0, [r4, #0x2e]
 	b .L0805A992
 .L0805A97E:
-	bl sub_80449C4
+	bl func_fe6_080449C4
 	cmp r0, #1
 	bne .L0805A992
 	movs r0, #0
@@ -47949,8 +47949,8 @@ sub_805A8B0: @ 0x0805A8B0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805A998
-sub_805A998: @ 0x0805A998
+	thumb_func_start func_fe6_0805A998
+func_fe6_0805A998: @ 0x0805A998
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805A9E4 @ =gUnk_08604A3C
@@ -47980,7 +47980,7 @@ sub_805A998: @ 0x0805A998
 	ldr r0, .L0805A9F4 @ =0x00000143
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
@@ -47992,8 +47992,8 @@ sub_805A998: @ 0x0805A998
 .L0805A9F0: .4byte gUnk_Banim_0201EFEC
 .L0805A9F4: .4byte 0x00000143
 
-	thumb_func_start sub_805A9F8
-sub_805A9F8: @ 0x0805A9F8
+	thumb_func_start func_fe6_0805A9F8
+func_fe6_0805A9F8: @ 0x0805A9F8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -48027,12 +48027,12 @@ sub_805A9F8: @ 0x0805A9F8
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r5, #0
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	movs r0, #0x8f
 	lsls r0, r0, #2
 	adds r1, r4, r0
@@ -48070,8 +48070,8 @@ sub_805A9F8: @ 0x0805A9F8
 .L0805AA98: .4byte gUnk_Banim_0201EFEC
 .L0805AA9C: .4byte 0x0000023E
 
-	thumb_func_start sub_805AAA0
-sub_805AAA0: @ 0x0805AAA0
+	thumb_func_start func_fe6_0805AAA0
+func_fe6_0805AAA0: @ 0x0805AAA0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -48105,12 +48105,12 @@ sub_805AAA0: @ 0x0805AAA0
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r5, #0
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	movs r0, #0x8f
 	lsls r0, r0, #2
 	adds r1, r4, r0
@@ -48152,16 +48152,16 @@ sub_805AAA0: @ 0x0805AAA0
 .L0805AB48: .4byte gUnk_Banim_0201EFEC
 .L0805AB4C: .4byte 0x0000023E
 
-	thumb_func_start sub_805AB50
-sub_805AB50: @ 0x0805AB50
+	thumb_func_start func_fe6_0805AB50
+func_fe6_0805AB50: @ 0x0805AB50
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805AB5C
-sub_805AB5C: @ 0x0805AB5C
+	thumb_func_start func_fe6_0805AB5C
+func_fe6_0805AB5C: @ 0x0805AB5C
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r4, r0, #0
@@ -48189,11 +48189,11 @@ sub_805AB5C: @ 0x0805AB5C
 	str r4, [sp, #0xc]
 	adds r0, r6, #0
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x64
 	movs r2, #0xc8
-	bl sub_805A658
+	bl func_fe6_0805A658
 	str r0, [r5, #0x60]
 	adds r0, r5, #0
 	add sp, #0x10
@@ -48206,8 +48206,8 @@ sub_805AB5C: @ 0x0805AB5C
 .L0805ABB8: .4byte gUnk_Banim_0201977C
 .L0805ABBC: .4byte gBg3Tm
 
-	thumb_func_start sub_805ABC0
-sub_805ABC0: @ 0x0805ABC0
+	thumb_func_start func_fe6_0805ABC0
+func_fe6_0805ABC0: @ 0x0805ABC0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -48221,11 +48221,11 @@ sub_805ABC0: @ 0x0805ABC0
 	movs r1, #3
 	movs r2, #2
 	movs r3, #3
-	bl sub_805AE1C
+	bl func_fe6_0805AE1C
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 .L0805ABE8:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x23
@@ -48234,11 +48234,11 @@ sub_805ABC0: @ 0x0805ABC0
 	movs r1, #3
 	movs r2, #2
 	movs r3, #3
-	bl sub_805AE1C
+	bl func_fe6_0805AE1C
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 .L0805AC04:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x32
@@ -48247,11 +48247,11 @@ sub_805ABC0: @ 0x0805ABC0
 	movs r1, #3
 	movs r2, #2
 	movs r3, #3
-	bl sub_805AE1C
+	bl func_fe6_0805AE1C
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 .L0805AC20:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x64
@@ -48262,12 +48262,12 @@ sub_805ABC0: @ 0x0805ABC0
 	lsls r0, r0, #1
 	strh r0, [r4, #0x2e]
 	adds r0, #0x19
-	bl sub_805BD54
+	bl func_fe6_0805BD54
 	movs r0, #0xa3
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805AC48:
@@ -48277,8 +48277,8 @@ sub_805ABC0: @ 0x0805ABC0
 	.align 2, 0
 .L0805AC50: .4byte 0x00000147
 
-	thumb_func_start sub_805AC54
-sub_805AC54: @ 0x0805AC54
+	thumb_func_start func_fe6_0805AC54
+func_fe6_0805AC54: @ 0x0805AC54
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -48373,7 +48373,7 @@ sub_805AC54: @ 0x0805AC54
 	bne .L0805AD1E
 	movs r0, #8
 	movs r1, #0
-	bl sub_8045F48
+	bl func_fe6_08045F48
 	str r0, [r7, #0x5c]
 .L0805AD1E:
 	ldrh r6, [r7, #0x2c]
@@ -48383,7 +48383,7 @@ sub_805AC54: @ 0x0805AC54
 	bl Proc_End
 	movs r0, #9
 	movs r1, #0
-	bl sub_8045F48
+	bl func_fe6_08045F48
 	str r0, [r7, #0x5c]
 .L0805AD34:
 	ldrh r0, [r7, #0x2c]
@@ -48393,7 +48393,7 @@ sub_805AC54: @ 0x0805AC54
 	bl Proc_End
 	movs r0, #0xa
 	movs r1, #0
-	bl sub_8045F48
+	bl func_fe6_08045F48
 	str r0, [r7, #0x5c]
 .L0805AD4A:
 	ldrh r1, [r7, #0x2c]
@@ -48403,7 +48403,7 @@ sub_805AC54: @ 0x0805AC54
 	movs r1, #0x3c
 	movs r2, #0x1e
 	movs r3, #0x78
-	bl sub_805AE1C
+	bl func_fe6_0805AE1C
 .L0805AD5C:
 	ldrh r2, [r7, #0x2c]
 	cmp r2, #0xc8
@@ -48461,8 +48461,8 @@ sub_805AC54: @ 0x0805AC54
 .L0805ADDC: .4byte gPal+0xC0
 .L0805ADE0: .4byte 0x01000010
 
-	thumb_func_start sub_805ADE4
-sub_805ADE4: @ 0x0805ADE4
+	thumb_func_start func_fe6_0805ADE4
+func_fe6_0805ADE4: @ 0x0805ADE4
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -48482,8 +48482,8 @@ sub_805ADE4: @ 0x0805ADE4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805AE08
-sub_805AE08: @ 0x0805AE08
+	thumb_func_start func_fe6_0805AE08
+func_fe6_0805AE08: @ 0x0805AE08
 	push {lr}
 	adds r1, r0, #0
 	adds r1, #0x29
@@ -48495,8 +48495,8 @@ sub_805AE08: @ 0x0805AE08
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805AE1C
-sub_805AE1C: @ 0x0805AE1C
+	thumb_func_start func_fe6_0805AE1C
+func_fe6_0805AE1C: @ 0x0805AE1C
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -48536,8 +48536,8 @@ sub_805AE1C: @ 0x0805AE1C
 .L0805AE64: .4byte gUnk_08604A9C
 .L0805AE68: .4byte gDispIo
 
-	thumb_func_start sub_805AE6C
-sub_805AE6C: @ 0x0805AE6C
+	thumb_func_start func_fe6_0805AE6C
+func_fe6_0805AE6C: @ 0x0805AE6C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -48561,7 +48561,7 @@ sub_805AE6C: @ 0x0805AE6C
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_805B644
+	bl func_fe6_0805B644
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -48589,8 +48589,8 @@ sub_805AE6C: @ 0x0805AE6C
 .L0805AED4: .4byte gPal
 .L0805AED8: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_805AEDC
-sub_805AEDC: @ 0x0805AEDC
+	thumb_func_start func_fe6_0805AEDC
+func_fe6_0805AEDC: @ 0x0805AEDC
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r0, .L0805AF2C @ =gPal
@@ -48604,7 +48604,7 @@ sub_805AEDC: @ 0x0805AEDC
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl sub_805B644
+	bl func_fe6_0805B644
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -48631,8 +48631,8 @@ sub_805AEDC: @ 0x0805AEDC
 .L0805AF2C: .4byte gPal
 .L0805AF30: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_805AF34
-sub_805AF34: @ 0x0805AF34
+	thumb_func_start func_fe6_0805AF34
+func_fe6_0805AF34: @ 0x0805AF34
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -48656,7 +48656,7 @@ sub_805AF34: @ 0x0805AF34
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl sub_805B644
+	bl func_fe6_0805B644
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -48684,8 +48684,8 @@ sub_805AF34: @ 0x0805AF34
 .L0805AF9C: .4byte gPal
 .L0805AFA0: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_805AFA4
-sub_805AFA4: @ 0x0805AFA4
+	thumb_func_start func_fe6_0805AFA4
+func_fe6_0805AFA4: @ 0x0805AFA4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r2, .L0805AFD0 @ =gDispIo
@@ -48708,8 +48708,8 @@ sub_805AFA4: @ 0x0805AFA4
 	.align 2, 0
 .L0805AFD0: .4byte gDispIo
 
-	thumb_func_start sub_805AFD4
-sub_805AFD4: @ 0x0805AFD4
+	thumb_func_start func_fe6_0805AFD4
+func_fe6_0805AFD4: @ 0x0805AFD4
 	push {lr}
 	ldr r0, .L0805AFE8 @ =gUnk_08604ACC
 	movs r1, #3
@@ -48721,8 +48721,8 @@ sub_805AFD4: @ 0x0805AFD4
 	.align 2, 0
 .L0805AFE8: .4byte gUnk_08604ACC
 
-	thumb_func_start sub_805AFEC
-sub_805AFEC: @ 0x0805AFEC
+	thumb_func_start func_fe6_0805AFEC
+func_fe6_0805AFEC: @ 0x0805AFEC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -48735,8 +48735,8 @@ sub_805AFEC: @ 0x0805AFEC
 	ldr r0, .L0805B018 @ =0x00000145
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
-	bl sub_805BD8C
+	bl func_fe6_0805BCA8
+	bl func_fe6_0805BD8C
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805B012:
@@ -48746,8 +48746,8 @@ sub_805AFEC: @ 0x0805AFEC
 	.align 2, 0
 .L0805B018: .4byte 0x00000145
 
-	thumb_func_start sub_805B01C
-sub_805B01C: @ 0x0805B01C
+	thumb_func_start func_fe6_0805B01C
+func_fe6_0805B01C: @ 0x0805B01C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -48814,8 +48814,8 @@ sub_805B01C: @ 0x0805B01C
 	.align 2, 0
 .L0805B090: .4byte 0x00000FFF
 
-	thumb_func_start sub_805B094
-sub_805B094: @ 0x0805B094
+	thumb_func_start func_fe6_0805B094
+func_fe6_0805B094: @ 0x0805B094
 	push {r4, r5, r6, r7, lr}
 	adds r5, r3, #0
 	ldr r7, [sp, #0x14]
@@ -48853,8 +48853,8 @@ sub_805B094: @ 0x0805B094
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B0D4
-sub_805B0D4: @ 0x0805B0D4
+	thumb_func_start func_fe6_0805B0D4
+func_fe6_0805B0D4: @ 0x0805B0D4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -48914,8 +48914,8 @@ sub_805B0D4: @ 0x0805B0D4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B13C
-sub_805B13C: @ 0x0805B13C
+	thumb_func_start func_fe6_0805B13C
+func_fe6_0805B13C: @ 0x0805B13C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -48976,8 +48976,8 @@ sub_805B13C: @ 0x0805B13C
 .L0805B1A4: .4byte gUnk_08605D14
 .L0805B1A8: .4byte 0x00000FFF
 
-	thumb_func_start sub_805B1AC
-sub_805B1AC: @ 0x0805B1AC
+	thumb_func_start func_fe6_0805B1AC
+func_fe6_0805B1AC: @ 0x0805B1AC
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r6, r1, #0
@@ -48995,15 +48995,15 @@ sub_805B1AC: @ 0x0805B1AC
 	str r5, [sp, #0xc]
 	adds r2, r6, #0
 	movs r3, #0x20
-	bl sub_805B20C
+	bl func_fe6_0805B20C
 	add sp, #0x10
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B1DC
-sub_805B1DC: @ 0x0805B1DC
+	thumb_func_start func_fe6_0805B1DC
+func_fe6_0805B1DC: @ 0x0805B1DC
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r6, r1, #0
@@ -49021,15 +49021,15 @@ sub_805B1DC: @ 0x0805B1DC
 	str r5, [sp, #0xc]
 	adds r2, r6, #0
 	movs r3, #0x20
-	bl sub_805B2BC
+	bl func_fe6_0805B2BC
 	add sp, #0x10
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B20C
-sub_805B20C: @ 0x0805B20C
+	thumb_func_start func_fe6_0805B20C
+func_fe6_0805B20C: @ 0x0805B20C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49127,8 +49127,8 @@ sub_805B20C: @ 0x0805B20C
 	.align 2, 0
 .L0805B2B8: .4byte 0xFFFF0000
 
-	thumb_func_start sub_805B2BC
-sub_805B2BC: @ 0x0805B2BC
+	thumb_func_start func_fe6_0805B2BC
+func_fe6_0805B2BC: @ 0x0805B2BC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49235,8 +49235,8 @@ sub_805B2BC: @ 0x0805B2BC
 	.align 2, 0
 .L0805B37C: .4byte 0xFFFF0000
 
-	thumb_func_start sub_805B380
-sub_805B380: @ 0x0805B380
+	thumb_func_start func_fe6_0805B380
+func_fe6_0805B380: @ 0x0805B380
 	push {r4, r5, r6, r7, lr}
 	adds r3, r0, #0
 	adds r6, r1, #0
@@ -49366,8 +49366,8 @@ sub_805B380: @ 0x0805B380
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B458
-sub_805B458: @ 0x0805B458
+	thumb_func_start func_fe6_0805B458
+func_fe6_0805B458: @ 0x0805B458
 	push {r4, r5, r6, r7, lr}
 	adds r2, r0, #0
 	adds r3, r1, #0
@@ -49440,8 +49440,8 @@ sub_805B458: @ 0x0805B458
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B4D8
-sub_805B4D8: @ 0x0805B4D8
+	thumb_func_start func_fe6_0805B4D8
+func_fe6_0805B4D8: @ 0x0805B4D8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49564,8 +49564,8 @@ sub_805B4D8: @ 0x0805B4D8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805B5C8
-sub_805B5C8: @ 0x0805B5C8
+	thumb_func_start func_fe6_0805B5C8
+func_fe6_0805B5C8: @ 0x0805B5C8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -49631,8 +49631,8 @@ sub_805B5C8: @ 0x0805B5C8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B644
-sub_805B644: @ 0x0805B644
+	thumb_func_start func_fe6_0805B644
+func_fe6_0805B644: @ 0x0805B644
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49702,8 +49702,8 @@ sub_805B644: @ 0x0805B644
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B6C8
-sub_805B6C8: @ 0x0805B6C8
+	thumb_func_start func_fe6_0805B6C8
+func_fe6_0805B6C8: @ 0x0805B6C8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49797,8 +49797,8 @@ sub_805B6C8: @ 0x0805B6C8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B780
-sub_805B780: @ 0x0805B780
+	thumb_func_start func_fe6_0805B780
+func_fe6_0805B780: @ 0x0805B780
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -49860,8 +49860,8 @@ sub_805B780: @ 0x0805B780
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B7F4
-sub_805B7F4: @ 0x0805B7F4
+	thumb_func_start func_fe6_0805B7F4
+func_fe6_0805B7F4: @ 0x0805B7F4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r3, r1, #0
@@ -49897,8 +49897,8 @@ sub_805B7F4: @ 0x0805B7F4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805B834
-sub_805B834: @ 0x0805B834
+	thumb_func_start func_fe6_0805B834
+func_fe6_0805B834: @ 0x0805B834
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -49945,8 +49945,8 @@ sub_805B834: @ 0x0805B834
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B88C
-sub_805B88C: @ 0x0805B88C
+	thumb_func_start func_fe6_0805B88C
+func_fe6_0805B88C: @ 0x0805B88C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -50011,8 +50011,8 @@ sub_805B88C: @ 0x0805B88C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B90C
-sub_805B90C: @ 0x0805B90C
+	thumb_func_start func_fe6_0805B90C
+func_fe6_0805B90C: @ 0x0805B90C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -50094,8 +50094,8 @@ sub_805B90C: @ 0x0805B90C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805B9A4
-sub_805B9A4: @ 0x0805B9A4
+	thumb_func_start func_fe6_0805B9A4
+func_fe6_0805B9A4: @ 0x0805B9A4
 	push {r4, lr}
 	adds r4, r0, #0
 	bl ApplyChapterMapPalettes
@@ -50103,7 +50103,7 @@ sub_805B9A4: @ 0x0805B9A4
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	pop {r4}
 	pop {r0}
@@ -50111,8 +50111,8 @@ sub_805B9A4: @ 0x0805B9A4
 	.align 2, 0
 .L0805B9C4: .4byte gPal
 
-	thumb_func_start sub_805B9C8
-sub_805B9C8: @ 0x0805B9C8
+	thumb_func_start func_fe6_0805B9C8
+func_fe6_0805B9C8: @ 0x0805B9C8
 	push {r4, lr}
 	adds r4, r0, #0
 	bl RandNextB
@@ -50124,8 +50124,8 @@ sub_805B9C8: @ 0x0805B9C8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805B9E0
-sub_805B9E0: @ 0x0805B9E0
+	thumb_func_start func_fe6_0805B9E0
+func_fe6_0805B9E0: @ 0x0805B9E0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -50164,8 +50164,8 @@ sub_805B9E0: @ 0x0805B9E0
 	.align 2, 0
 .L0805BA28: .4byte gUnk_08605D28
 
-	thumb_func_start sub_805BA2C
-sub_805BA2C: @ 0x0805BA2C
+	thumb_func_start func_fe6_0805BA2C
+func_fe6_0805BA2C: @ 0x0805BA2C
 	push {r4, r5, lr}
 	sub sp, #0x48
 	adds r2, r0, #0
@@ -50270,8 +50270,8 @@ sub_805BA2C: @ 0x0805BA2C
 	.align 2, 0
 .L0805BAE8: .4byte 0x0FFFFFFC
 
-	thumb_func_start sub_805BAEC
-sub_805BAEC: @ 0x0805BAEC
+	thumb_func_start func_fe6_0805BAEC
+func_fe6_0805BAEC: @ 0x0805BAEC
 	lsrs r1, r0, #0x1e
 	movs r2, #0xc0
 	lsls r2, r2, #8
@@ -50287,8 +50287,8 @@ sub_805BAEC: @ 0x0805BAEC
 	.align 2, 0
 .L0805BB04: .4byte gUnk_081C9EF4
 
-	thumb_func_start sub_805BB08
-sub_805BB08: @ 0x0805BB08
+	thumb_func_start func_fe6_0805BB08
+func_fe6_0805BB08: @ 0x0805BB08
 	lsrs r1, r0, #0x1e
 	movs r2, #0xc0
 	lsls r2, r2, #8
@@ -50304,8 +50304,8 @@ sub_805BB08: @ 0x0805BB08
 	.align 2, 0
 .L0805BB20: .4byte gUnk_081C9F14
 
-	thumb_func_start sub_805BB24
-sub_805BB24: @ 0x0805BB24
+	thumb_func_start func_fe6_0805BB24
+func_fe6_0805BB24: @ 0x0805BB24
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -50420,7 +50420,7 @@ sub_805BB24: @ 0x0805BB24
 	ldrh r0, [r7, #4]
 	strh r0, [r6, #4]
 	adds r0, r2, #0
-	bl sub_805BAEC
+	bl func_fe6_0805BAEC
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x11
@@ -50443,7 +50443,7 @@ sub_805BB24: @ 0x0805BB24
 	subs r4, r4, r1
 	strh r4, [r6, #6]
 	ldr r0, [r7]
-	bl sub_805BB08
+	bl func_fe6_0805BB08
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x11
@@ -50491,8 +50491,8 @@ sub_805BB24: @ 0x0805BB24
 .L0805BCA0: .4byte 0xFFFF0004
 .L0805BCA4: .4byte 0xC1FFFFFF
 
-	thumb_func_start sub_805BCA8
-sub_805BCA8: @ 0x0805BCA8
+	thumb_func_start func_fe6_0805BCA8
+func_fe6_0805BCA8: @ 0x0805BCA8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r1, #0
@@ -50504,12 +50504,12 @@ sub_805BCA8: @ 0x0805BCA8
 	lsrs r4, r0, #0x18
 	cmp r4, #0
 	bne .L0805BCFA
-	bl sub_805BDB4
+	bl func_fe6_0805BDB4
 	cmp r0, #0
 	bne .L0805BCEC
-	bl sub_805BDA8
+	bl func_fe6_0805BDA8
 	adds r0, r5, #0
-	bl sub_8002F9C
+	bl func_fe6_08002F9C
 	ldr r0, .L0805BCE8 @ =gPlaySt
 	ldrb r0, [r0, #0x1d]
 	lsls r0, r0, #0x1e
@@ -50536,8 +50536,8 @@ sub_805BCA8: @ 0x0805BCA8
 	.align 2, 0
 .L0805BD00: .4byte gUnk_08605D40
 
-	thumb_func_start sub_805BD04
-sub_805BD04: @ 0x0805BD04
+	thumb_func_start func_fe6_0805BD04
+func_fe6_0805BD04: @ 0x0805BD04
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -50551,12 +50551,12 @@ sub_805BD04: @ 0x0805BD04
 	bl Proc_Break
 	b .L0805BD4A
 .L0805BD1E:
-	bl sub_805BDB4
+	bl func_fe6_0805BDB4
 	cmp r0, #0
 	bne .L0805BD4A
-	bl sub_805BDA8
+	bl func_fe6_0805BDA8
 	ldr r0, [r4, #0x44]
-	bl sub_8002F9C
+	bl func_fe6_08002F9C
 	ldr r0, .L0805BD50 @ =gPlaySt
 	ldrb r0, [r0, #0x1d]
 	lsls r0, r0, #0x1e
@@ -50576,8 +50576,8 @@ sub_805BD04: @ 0x0805BD04
 	.align 2, 0
 .L0805BD50: .4byte gPlaySt
 
-	thumb_func_start sub_805BD54
-sub_805BD54: @ 0x0805BD54
+	thumb_func_start func_fe6_0805BD54
+func_fe6_0805BD54: @ 0x0805BD54
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -50586,8 +50586,8 @@ sub_805BD54: @ 0x0805BD54
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805BD64
-sub_805BD64: @ 0x0805BD64
+	thumb_func_start func_fe6_0805BD64
+func_fe6_0805BD64: @ 0x0805BD64
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r2, r1, #0
@@ -50608,8 +50608,8 @@ sub_805BD64: @ 0x0805BD64
 	.align 2, 0
 .L0805BD88: .4byte gBmSt
 
-	thumb_func_start sub_805BD8C
-sub_805BD8C: @ 0x0805BD8C
+	thumb_func_start func_fe6_0805BD8C
+func_fe6_0805BD8C: @ 0x0805BD8C
 	push {lr}
 	ldr r0, .L0805BD98 @ =gMpi_FightBgm
 	bl m4aMPlayStop
@@ -50618,8 +50618,8 @@ sub_805BD8C: @ 0x0805BD8C
 	.align 2, 0
 .L0805BD98: .4byte gMpi_FightBgm
 
-	thumb_func_start sub_805BD9C
-sub_805BD9C: @ 0x0805BD9C
+	thumb_func_start func_fe6_0805BD9C
+func_fe6_0805BD9C: @ 0x0805BD9C
 	ldr r1, .L0805BDA4 @ =gUnk_Banim_0201F050
 	movs r0, #0
 	str r0, [r1]
@@ -50627,8 +50627,8 @@ sub_805BD9C: @ 0x0805BD9C
 	.align 2, 0
 .L0805BDA4: .4byte gUnk_Banim_0201F050
 
-	thumb_func_start sub_805BDA8
-sub_805BDA8: @ 0x0805BDA8
+	thumb_func_start func_fe6_0805BDA8
+func_fe6_0805BDA8: @ 0x0805BDA8
 	ldr r1, .L0805BDB0 @ =gUnk_Banim_0201F050
 	movs r0, #1
 	str r0, [r1]
@@ -50636,16 +50636,16 @@ sub_805BDA8: @ 0x0805BDA8
 	.align 2, 0
 .L0805BDB0: .4byte gUnk_Banim_0201F050
 
-	thumb_func_start sub_805BDB4
-sub_805BDB4: @ 0x0805BDB4
+	thumb_func_start func_fe6_0805BDB4
+func_fe6_0805BDB4: @ 0x0805BDB4
 	ldr r0, .L0805BDBC @ =gUnk_Banim_0201F050
 	ldr r0, [r0]
 	bx lr
 	.align 2, 0
 .L0805BDBC: .4byte gUnk_Banim_0201F050
 
-	thumb_func_start sub_805BDC0
-sub_805BDC0: @ 0x0805BDC0
+	thumb_func_start func_fe6_0805BDC0
+func_fe6_0805BDC0: @ 0x0805BDC0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -50732,8 +50732,8 @@ sub_805BDC0: @ 0x0805BDC0
 .L0805BE74: .4byte gSongTable
 .L0805BE78: .4byte 0x0000FFFF
 
-	thumb_func_start sub_805BE7C
-sub_805BE7C: @ 0x0805BE7C
+	thumb_func_start func_fe6_0805BE7C
+func_fe6_0805BE7C: @ 0x0805BE7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -50741,16 +50741,16 @@ sub_805BE7C: @ 0x0805BE7C
 	sub sp, #8
 	mov r8, r0
 	mov sb, r1
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r6, r0, #0
 	mov r0, r8
-	bl sub_804B6B0
+	bl func_fe6_0804B6B0
 	cmp r0, #1
 	bne .L0805BE9C
 	b .L0805C190
 .L0805BE9C:
 	mov r0, r8
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	adds r5, r0, #0
 	cmp r5, #0
 	bne .L0805BEB4
@@ -50767,13 +50767,13 @@ sub_805BE7C: @ 0x0805BE7C
 .L0805BEBA:
 	lsls r0, r4, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805C1A0
+	bl func_fe6_0805C1A0
 	lsls r0, r0, #0x10
 	lsrs r7, r0, #0x10
 	cmp r4, #0x14
 	bne .L0805BED6
 	mov r0, r8
-	bl sub_805C2B0
+	bl func_fe6_0805C2B0
 	cmp r0, #0
 	bne .L0805BED6
 	movs r7, #2
@@ -50794,13 +50794,13 @@ sub_805BE7C: @ 0x0805BE7C
 .L0805BEF2:
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805C2E0
+	bl func_fe6_0805C2E0
 	lsls r0, r0, #0x10
 	lsrs r2, r0, #0x10
 	ldr r4, .L0805BF34 @ =0x0000FFFF
 	mov r0, r8
 	str r2, [sp]
-	bl sub_805C76C
+	bl func_fe6_0805C76C
 	mov r1, r8
 	ldrh r1, [r1, #2]
 	adds r0, r1, r0
@@ -50896,9 +50896,9 @@ sub_805BE7C: @ 0x0805BE7C
 .L0805C01C: .4byte gUnk_08605F6C
 .L0805C020:
 	adds r0, r6, #0
-	bl sub_805C3B8
+	bl func_fe6_0805C3B8
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #1
@@ -50911,9 +50911,9 @@ sub_805BE7C: @ 0x0805BE7C
 	b .L0805C08E
 .L0805C040:
 	adds r0, r6, #0
-	bl sub_805C3B8
+	bl func_fe6_0805C3B8
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #1
@@ -50926,9 +50926,9 @@ sub_805BE7C: @ 0x0805BE7C
 	b .L0805C08E
 .L0805C060:
 	adds r0, r6, #0
-	bl sub_805C3B8
+	bl func_fe6_0805C3B8
 	adds r0, r6, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #1
@@ -50952,7 +50952,7 @@ sub_805BE7C: @ 0x0805BE7C
 	movs r4, #0xec
 .L0805C08E:
 	adds r0, r6, #0
-	bl sub_805C76C
+	bl func_fe6_0805C76C
 	ldrh r6, [r6, #2]
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
@@ -51095,13 +51095,13 @@ sub_805BE7C: @ 0x0805BE7C
 	mov r1, r8
 	adds r0, r4, #0
 	str r3, [sp, #4]
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	ldr r3, [sp, #4]
 	lsls r1, r3, #0x10
 	asrs r1, r1, #0x10
 	movs r2, #1
 	adds r0, r4, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L0805C190:
 	add sp, #8
 	pop {r3, r4}
@@ -51112,12 +51112,12 @@ sub_805BE7C: @ 0x0805BE7C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805C1A0
-sub_805C1A0: @ 0x0805C1A0
+	thumb_func_start func_fe6_0805C1A0
+func_fe6_0805C1A0: @ 0x0805C1A0
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	bne .L0805C1B2
 .L0805C1AE:
@@ -51210,16 +51210,16 @@ sub_805C1A0: @ 0x0805C1A0
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805C2B0
-sub_805C2B0: @ 0x0805C2B0
+	thumb_func_start func_fe6_0805C2B0
+func_fe6_0805C2B0: @ 0x0805C2B0
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_805C76C
+	bl func_fe6_0805C76C
 	movs r2, #2
 	ldrsh r1, [r4, r2]
 	adds r5, r0, r1
 	adds r0, r4, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805C2CE
 	cmp r5, #0x58
@@ -51239,8 +51239,8 @@ sub_805C2B0: @ 0x0805C2B0
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805C2E0
-sub_805C2E0: @ 0x0805C2E0
+	thumb_func_start func_fe6_0805C2E0
+func_fe6_0805C2E0: @ 0x0805C2E0
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	adds r2, r0, #0
@@ -51265,27 +51265,27 @@ sub_805C2E0: @ 0x0805C2E0
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805C308
-sub_805C308: @ 0x0805C308
+	thumb_func_start func_fe6_0805C308
+func_fe6_0805C308: @ 0x0805C308
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r4, .L0805C348 @ =0x0203CD46
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
 	adds r0, r0, r4
 	movs r1, #0
 	ldrsh r6, [r0, r1]
 	adds r0, r5, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	lsls r1, r6, #1
 	adds r6, r1, r0
 	adds r0, r6, #0
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	adds r4, r0, #0
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	adds r0, r6, #2
-	bl sub_804A5A8
+	bl func_fe6_0804A5A8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r4, r0
@@ -51306,14 +51306,14 @@ sub_805C308: @ 0x0805C308
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805C358
-sub_805C358: @ 0x0805C358
+	thumb_func_start func_fe6_0805C358
+func_fe6_0805C358: @ 0x0805C358
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0805C37C @ =0x0000FFFF
-	bl sub_805C3B8
+	bl func_fe6_0805C3B8
 	adds r0, r5, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #1
@@ -51347,25 +51347,25 @@ sub_805C358: @ 0x0805C358
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L0805C3B2:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805C3B8
-sub_805C3B8: @ 0x0805C3B8
+	thumb_func_start func_fe6_0805C3B8
+func_fe6_0805C3B8: @ 0x0805C3B8
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	adds r0, r4, #0
-	bl sub_805C308
+	bl func_fe6_0805C308
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	cmp r0, #1
@@ -51373,26 +51373,26 @@ sub_805C3B8: @ 0x0805C3B8
 	cmp r0, #0
 	blt .L0805C3F4
 	adds r0, r5, #0
-	bl sub_804B7B0
+	bl func_fe6_0804B7B0
 	cmp r0, #1
 	bne .L0805C3F4
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd8
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #2
 	ldrsh r1, [r4, r0]
 	movs r0, #0xd8
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 .L0805C3F4:
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805C3FC
-sub_805C3FC: @ 0x0805C3FC
+	thumb_func_start func_fe6_0805C3FC
+func_fe6_0805C3FC: @ 0x0805C3FC
 	ldr r2, .L0805C414 @ =gBattleHits
 	movs r1, #8
 	ldrb r2, [r2, #2]
@@ -51412,8 +51412,8 @@ sub_805C3FC: @ 0x0805C3FC
 .L0805C41A:
 	bx lr
 
-	thumb_func_start sub_805C41C
-sub_805C41C: @ 0x0805C41C
+	thumb_func_start func_fe6_0805C41C
+func_fe6_0805C41C: @ 0x0805C41C
 	push {lr}
 	cmp r0, #0
 	beq .L0805C518
@@ -51495,8 +51495,8 @@ sub_805C41C: @ 0x0805C41C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805C520
-sub_805C520: @ 0x0805C520
+	thumb_func_start func_fe6_0805C520
+func_fe6_0805C520: @ 0x0805C520
 	push {r4, r5, r6, lr}
 	ldr r0, .L0805C570 @ =0x0203CD7C
 	ldr r1, .L0805C574 @ =0x0203CD80
@@ -51525,17 +51525,17 @@ sub_805C520: @ 0x0805C520
 	beq .L0805C554
 	movs r5, #0x48
 .L0805C554:
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #1
 	beq .L0805C564
-	bl sub_8042578
+	bl func_fe6_08042578
 	cmp r0, #1
 	bne .L0805C588
 .L0805C564:
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x3a
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
 .L0805C570: .4byte 0x0203CD7C
@@ -51552,7 +51552,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x1c
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
 .L0805C59C: .4byte 0x0203CD14
@@ -51574,7 +51574,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x19
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C5C4:
 	movs r2, #0
@@ -51609,7 +51609,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x17
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C5FE:
 	movs r2, #0
@@ -51627,7 +51627,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x18
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C61E:
 	movs r2, #0
@@ -51640,7 +51640,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x15
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C636:
 	movs r2, #0
@@ -51665,7 +51665,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x16
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C666:
 	movs r2, #0
@@ -51688,7 +51688,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x40
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
 .L0805C694: .4byte gBattleSt
@@ -51698,7 +51698,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x41
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C6A8:
 	movs r2, #0
@@ -51719,13 +51719,13 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x14
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
 .L0805C6D0: .4byte gBattleSt
 .L0805C6D4:
 	movs r0, #0
-	bl sub_805C3FC
+	bl func_fe6_0805C3FC
 	cmp r0, #1
 	bne .L0805C6E8
 	ldr r0, .L0805C6E4 @ =gBattleUnitA
@@ -51734,14 +51734,14 @@ sub_805C520: @ 0x0805C520
 .L0805C6E4: .4byte gBattleUnitA
 .L0805C6E8:
 	movs r0, #1
-	bl sub_805C3FC
+	bl func_fe6_0805C3FC
 	cmp r0, #1
 	bne .L0805C704
 	ldr r0, .L0805C700 @ =gBattleUnitB
 .L0805C6F4:
 	adds r0, #0x4a
 	ldrh r0, [r0]
-	bl sub_805C41C
+	bl func_fe6_0805C41C
 	b .L0805C706
 	.align 2, 0
 .L0805C700: .4byte gBattleUnitB
@@ -51764,7 +51764,7 @@ sub_805C520: @ 0x0805C520
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r5, #0
-	bl sub_805BD64
+	bl func_fe6_0805BD64
 	b .L0805C72E
 .L0805C728:
 	ldr r1, .L0805C734 @ =gUnk_Banim_0201F04C
@@ -51777,10 +51777,10 @@ sub_805C520: @ 0x0805C520
 	.align 2, 0
 .L0805C734: .4byte gUnk_Banim_0201F04C
 
-	thumb_func_start sub_805C738
-sub_805C738: @ 0x0805C738
+	thumb_func_start func_fe6_0805C738
+func_fe6_0805C738: @ 0x0805C738
 	push {lr}
-	bl sub_8058F38
+	bl func_fe6_08058F38
 	cmp r0, #0
 	bne .L0805C756
 	ldr r1, .L0805C75C @ =gBmSt
@@ -51805,8 +51805,8 @@ sub_805C738: @ 0x0805C738
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805C76C
-sub_805C76C: @ 0x0805C76C
+	thumb_func_start func_fe6_0805C76C
+func_fe6_0805C76C: @ 0x0805C76C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -51839,15 +51839,15 @@ sub_805C76C: @ 0x0805C76C
 	movs r0, #6
 	ldrsh r5, [r6, r0]
 	ldr r0, [r6]
-	bl sub_805BAEC
+	bl func_fe6_0805BAEC
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x11
 	adds r5, r5, r0
 	ldr r0, [r6]
-	bl sub_805BAEC
+	bl func_fe6_0805BAEC
 	adds r4, r0, #0
 	ldr r0, [r6]
-	bl sub_805BB08
+	bl func_fe6_0805BB08
 	lsls r4, r4, #0x10
 	asrs r4, r4, #0x10
 	lsls r0, r0, #0x10
@@ -51883,39 +51883,39 @@ sub_805C76C: @ 0x0805C76C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start sub_805C804
-sub_805C804: @ 0x0805C804
+	thumb_func_start func_fe6_0805C804
+func_fe6_0805C804: @ 0x0805C804
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805C820
-sub_805C820: @ 0x0805C820
+	thumb_func_start func_fe6_0805C820
+func_fe6_0805C820: @ 0x0805C820
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r2, #0
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	adds r0, r4, #0
-	bl sub_805C76C
+	bl func_fe6_0805C76C
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #1
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805C840
-sub_805C840: @ 0x0805C840
+	thumb_func_start func_fe6_0805C840
+func_fe6_0805C840: @ 0x0805C840
 	ldr r0, .L0805C850 @ =gUnk_Banim_0201F054
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -51931,8 +51931,8 @@ sub_805C840: @ 0x0805C840
 .L0805C856:
 	bx lr
 
-	thumb_func_start sub_805C858
-sub_805C858: @ 0x0805C858
+	thumb_func_start func_fe6_0805C858
+func_fe6_0805C858: @ 0x0805C858
 	push {lr}
 	ldr r0, .L0805C868 @ =gUnk_Banim_0201F054
 	ldr r0, [r0]
@@ -51942,11 +51942,11 @@ sub_805C858: @ 0x0805C858
 	.align 2, 0
 .L0805C868: .4byte gUnk_Banim_0201F054
 
-	thumb_func_start sub_805C86C
-sub_805C86C: @ 0x0805C86C
+	thumb_func_start func_fe6_0805C86C
+func_fe6_0805C86C: @ 0x0805C86C
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl sub_8047300
+	bl func_fe6_08047300
 	ldr r4, .L0805C894 @ =gUnk_Banim_0201F054
 	ldr r0, .L0805C898 @ =gUnk_08605F88
 	movs r1, #3
@@ -51965,15 +51965,15 @@ sub_805C86C: @ 0x0805C86C
 .L0805C894: .4byte gUnk_Banim_0201F054
 .L0805C898: .4byte gUnk_08605F88
 
-	thumb_func_start sub_805C89C
-sub_805C89C: @ 0x0805C89C
+	thumb_func_start func_fe6_0805C89C
+func_fe6_0805C89C: @ 0x0805C89C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -51986,13 +51986,13 @@ sub_805C89C: @ 0x0805C89C
 	cmp r1, #1
 	bne .L0805C8F8
 	ldr r0, [r4, #0x5c]
-	bl sub_8046ED8
+	bl func_fe6_08046ED8
 	adds r0, r5, #0
-	bl sub_8046ED8
+	bl func_fe6_08046ED8
 	adds r0, r5, #0
-	bl sub_805CB6C
+	bl func_fe6_0805CB6C
 	adds r0, r5, #0
-	bl sub_805CC64
+	bl func_fe6_0805CC64
 	ldr r2, .L0805C8F4 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -52012,7 +52012,7 @@ sub_805C89C: @ 0x0805C89C
 	bne .L0805C928
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	ldr r0, .L0805C924 @ =0x0000013B
 	movs r1, #0x80
 	lsls r1, r1, #1
@@ -52020,7 +52020,7 @@ sub_805C89C: @ 0x0805C89C
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	movs r0, #1
 	movs r1, #0
 	movs r2, #8
@@ -52052,19 +52052,19 @@ sub_805C89C: @ 0x0805C89C
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xc
 	movs r2, #0
-	bl sub_805CFC0
+	bl func_fe6_0805CFC0
 	b .L0805CB56
 .L0805C95C:
 	cmp r1, #0x78
 	bne .L0805C968
 	ldr r0, [r4, #0x5c]
-	bl sub_805CD68
+	bl func_fe6_0805CD68
 	b .L0805CB56
 .L0805C968:
 	cmp r1, #0x80
 	bne .L0805C974
 	movs r0, #1
-	bl sub_804B8B0
+	bl func_fe6_0804B8B0
 	b .L0805CB56
 .L0805C974:
 	cmp r1, #0x7e
@@ -52075,7 +52075,7 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0x38
 	movs r2, #7
 	movs r3, #0
-	bl sub_804C8D4
+	bl func_fe6_0804C8D4
 	adds r2, r0, #0
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x40
@@ -52083,11 +52083,11 @@ sub_805C89C: @ 0x0805C89C
 	adds r1, r2, #0
 	movs r2, #0x38
 	movs r3, #0
-	bl sub_805D09C
+	bl func_fe6_0805D09C
 	ldr r0, [r4, #0x5c]
-	ldr r2, .L0805C9B8 @ =sub_804CD4C
+	ldr r2, .L0805C9B8 @ =func_fe6_0804CD4C
 	movs r1, #0x38
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	ldr r0, [r4, #0x5c]
 	mov r3, r8
 	str r3, [sp]
@@ -52095,17 +52095,17 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0
 	movs r2, #0x38
 	movs r3, #0x10
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	b .L0805CB56
 	.align 2, 0
-.L0805C9B8: .4byte sub_804CD4C
+.L0805C9B8: .4byte func_fe6_0804CD4C
 .L0805C9BC:
 	cmp r1, #0xf2
 	bne .L0805CA58
 	ldr r0, [r4, #0x5c]
-	bl sub_805CBB0
+	bl func_fe6_0805CBB0
 	ldr r0, [r4, #0x5c]
-	bl sub_805CCE8
+	bl func_fe6_0805CCE8
 	ldr r6, .L0805CA50 @ =gDispIo
 	movs r0, #0x21
 	rsbs r0, r0, #0
@@ -52123,7 +52123,7 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0x38
 	movs r2, #7
 	movs r3, #0x40
-	bl sub_804C8D4
+	bl func_fe6_0804C8D4
 	adds r2, r0, #0
 	ldr r0, [r4, #0x5c]
 	mov r3, r8
@@ -52131,11 +52131,11 @@ sub_805C89C: @ 0x0805C89C
 	adds r1, r2, #0
 	movs r2, #0x38
 	movs r3, #0x40
-	bl sub_805D09C
+	bl func_fe6_0805D09C
 	ldr r0, [r4, #0x5c]
-	ldr r2, .L0805CA54 @ =sub_804CD4C
+	ldr r2, .L0805CA54 @ =func_fe6_0804CD4C
 	movs r1, #0x38
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	adds r2, r6, #0
 	adds r2, #0x3c
 	movs r0, #0x3f
@@ -52159,7 +52159,7 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0
 	movs r2, #0x38
 	movs r3, #0
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r0, #0x9e
 	lsls r0, r0, #1
 	movs r1, #0x80
@@ -52169,14 +52169,14 @@ sub_805C89C: @ 0x0805C89C
 	b .L0805CB36
 	.align 2, 0
 .L0805CA50: .4byte gDispIo
-.L0805CA54: .4byte sub_804CD4C
+.L0805CA54: .4byte func_fe6_0804CD4C
 .L0805CA58:
 	movs r0, #0x9c
 	lsls r0, r0, #1
 	cmp r1, r0
 	bne .L0805CA88
 	movs r0, #0
-	bl sub_804B8E8
+	bl func_fe6_0804B8E8
 	ldr r0, .L0805CA84 @ =0x0000F3FF
 	ldrh r1, [r5, #8]
 	ands r0, r1
@@ -52188,7 +52188,7 @@ sub_805C89C: @ 0x0805C89C
 	adds r0, r5, #0
 	movs r1, #0xc
 	movs r2, #1
-	bl sub_805CFC0
+	bl func_fe6_0805CFC0
 	b .L0805CB56
 	.align 2, 0
 .L0805CA84: .4byte 0x0000F3FF
@@ -52198,10 +52198,10 @@ sub_805C89C: @ 0x0805C89C
 	cmp r1, r0
 	bne .L0805CAAA
 	adds r0, r5, #0
-	bl sub_805CD68
+	bl func_fe6_0805CD68
 	ldr r0, [r4, #0x5c]
 	movs r1, #0xa
-	bl sub_8046794
+	bl func_fe6_08046794
 	movs r0, #1
 	movs r1, #0
 	movs r2, #0
@@ -52230,11 +52230,11 @@ sub_805C89C: @ 0x0805C89C
 	lsls r0, r0, #1
 	cmp r1, r0
 	bne .L0805CAE4
-	bl sub_8047358
+	bl func_fe6_08047358
 	adds r0, r5, #0
 	movs r1, #0xa
 	movs r2, #0x46
-	bl sub_804685C
+	bl func_fe6_0804685C
 	b .L0805CB56
 .L0805CAE4:
 	movs r0, #0xb2
@@ -52243,10 +52243,10 @@ sub_805C89C: @ 0x0805C89C
 	bne .L0805CB48
 	adds r0, r5, #0
 	movs r1, #0x82
-	bl sub_805CDCC
+	bl func_fe6_0805CDCC
 	adds r0, r5, #0
 	movs r1, #0x82
-	bl sub_805CF38
+	bl func_fe6_0805CF38
 	movs r0, #0
 	str r0, [sp]
 	movs r0, #2
@@ -52255,7 +52255,7 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0x5a
 	movs r2, #0x28
 	movs r3, #0xe
-	bl sub_804CD88
+	bl func_fe6_0804CD88
 	movs r4, #0x80
 	lsls r4, r4, #1
 	movs r0, #1
@@ -52264,21 +52264,21 @@ sub_805C89C: @ 0x0805C89C
 	movs r1, #0x82
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl sub_804C8D4
-	ldr r2, .L0805CB40 @ =sub_804CD4C
+	bl func_fe6_0804C8D4
+	ldr r2, .L0805CB40 @ =func_fe6_0804CD4C
 	adds r0, r5, #0
 	movs r1, #0x82
-	bl sub_804CC68
+	bl func_fe6_0804CC68
 	ldr r0, .L0805CB44 @ =0x0000013D
 	movs r3, #2
 	ldrsh r2, [r5, r3]
 	adds r1, r4, #0
 .L0805CB36:
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805CB56
 	.align 2, 0
-.L0805CB40: .4byte sub_804CD4C
+.L0805CB40: .4byte func_fe6_0804CD4C
 .L0805CB44: .4byte 0x0000013D
 .L0805CB48:
 	movs r0, #0x94
@@ -52296,15 +52296,15 @@ sub_805C89C: @ 0x0805C89C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805CB64
-sub_805CB64: @ 0x0805CB64
+	thumb_func_start func_fe6_0805CB64
+func_fe6_0805CB64: @ 0x0805CB64
 	adds r0, #0x29
 	movs r1, #1
 	strb r1, [r0]
 	bx lr
 
-	thumb_func_start sub_805CB6C
-sub_805CB6C: @ 0x0805CB6C
+	thumb_func_start func_fe6_0805CB6C
+func_fe6_0805CB6C: @ 0x0805CB6C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805CB9C @ =gUnk_08605FA8
@@ -52323,7 +52323,7 @@ sub_805CB6C: @ 0x0805CB6C
 	str r1, [r0, #0x54]
 	ldr r1, .L0805CBAC @ =gUnk_08606078
 	str r1, [r0, #0x58]
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -52334,8 +52334,8 @@ sub_805CB6C: @ 0x0805CB6C
 .L0805CBA8: .4byte gUnk_0860601C
 .L0805CBAC: .4byte gUnk_08606078
 
-	thumb_func_start sub_805CBB0
-sub_805CBB0: @ 0x0805CBB0
+	thumb_func_start func_fe6_0805CBB0
+func_fe6_0805CBB0: @ 0x0805CBB0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805CBE0 @ =gUnk_08605FA8
@@ -52354,7 +52354,7 @@ sub_805CBB0: @ 0x0805CBB0
 	str r1, [r0, #0x54]
 	ldr r1, .L0805CBF0 @ =gUnk_08606078
 	str r1, [r0, #0x58]
-	bl sub_8047500
+	bl func_fe6_08047500
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -52365,8 +52365,8 @@ sub_805CBB0: @ 0x0805CBB0
 .L0805CBEC: .4byte gUnk_0860601C
 .L0805CBF0: .4byte gUnk_08606078
 
-	thumb_func_start sub_805CBF4
-sub_805CBF4: @ 0x0805CBF4
+	thumb_func_start func_fe6_0805CBF4
+func_fe6_0805CBF4: @ 0x0805CBF4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -52375,7 +52375,7 @@ sub_805CBF4: @ 0x0805CBF4
 	adds r1, r7, #0
 	adds r1, #0x44
 	ldr r2, [r7, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r5, r0, #0x10
 	cmp r5, #0
@@ -52390,25 +52390,25 @@ sub_805CBF4: @ 0x0805CBF4
 	ldr r0, [r0]
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	adds r4, r5, r4
 	ldr r0, [r4]
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, [r7, #0x5c]
 	adds r6, r5, r6
 	ldr r1, [r6]
 	add r5, r8
 	ldr r2, [r5]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0805CC58
 .L0805CC42:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0805CC58
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
 .L0805CC58:
@@ -52419,8 +52419,8 @@ sub_805CBF4: @ 0x0805CBF4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805CC64
-sub_805CC64: @ 0x0805CC64
+	thumb_func_start func_fe6_0805CC64
+func_fe6_0805CC64: @ 0x0805CC64
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805CC7C @ =gUnk_086060D4
@@ -52435,8 +52435,8 @@ sub_805CC64: @ 0x0805CC64
 	.align 2, 0
 .L0805CC7C: .4byte gUnk_086060D4
 
-	thumb_func_start sub_805CC80
-sub_805CC80: @ 0x0805CC80
+	thumb_func_start func_fe6_0805CC80
+func_fe6_0805CC80: @ 0x0805CC80
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -52479,7 +52479,7 @@ sub_805CC80: @ 0x0805CC80
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805CCE2
 .L0805CCD8:
 	cmp r0, #0x50
@@ -52491,8 +52491,8 @@ sub_805CC80: @ 0x0805CC80
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805CCE8
-sub_805CCE8: @ 0x0805CCE8
+	thumb_func_start func_fe6_0805CCE8
+func_fe6_0805CCE8: @ 0x0805CCE8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805CD00 @ =gUnk_086060EC
@@ -52507,8 +52507,8 @@ sub_805CCE8: @ 0x0805CCE8
 	.align 2, 0
 .L0805CD00: .4byte gUnk_086060EC
 
-	thumb_func_start sub_805CD04
-sub_805CD04: @ 0x0805CD04
+	thumb_func_start func_fe6_0805CD04
+func_fe6_0805CD04: @ 0x0805CD04
 	push {lr}
 	adds r2, r0, #0
 	ldrh r0, [r2, #0x2c]
@@ -52549,7 +52549,7 @@ sub_805CD04: @ 0x0805CD04
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 	b .L0805CD62
 .L0805CD58:
 	cmp r0, #0x6e
@@ -52561,8 +52561,8 @@ sub_805CD04: @ 0x0805CD04
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805CD68
-sub_805CD68: @ 0x0805CD68
+	thumb_func_start func_fe6_0805CD68
+func_fe6_0805CD68: @ 0x0805CD68
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -52576,15 +52576,15 @@ sub_805CD68: @ 0x0805CD68
 	adds r0, r4, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r5, #0x60]
 	ldr r0, .L0805CDAC @ =gUnk_0812D80C
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805CDB0 @ =gUnk_0812D374
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r4, r5}
 	pop {r0}
@@ -52595,8 +52595,8 @@ sub_805CD68: @ 0x0805CD68
 .L0805CDAC: .4byte gUnk_0812D80C
 .L0805CDB0: .4byte gUnk_0812D374
 
-	thumb_func_start sub_805CDB4
-sub_805CDB4: @ 0x0805CDB4
+	thumb_func_start func_fe6_0805CDB4
+func_fe6_0805CDB4: @ 0x0805CDB4
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x60]
@@ -52608,8 +52608,8 @@ sub_805CDB4: @ 0x0805CDB4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805CDCC
-sub_805CDCC: @ 0x0805CDCC
+	thumb_func_start func_fe6_0805CDCC
+func_fe6_0805CDCC: @ 0x0805CDCC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r5, r0, #0
@@ -52624,11 +52624,11 @@ sub_805CDCC: @ 0x0805CDCC
 	strh r4, [r0, #0x2e]
 	ldr r0, .L0805CEC0 @ =gUnk_08127778
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0805CEC4 @ =gUnk_081B4E9C
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	ldr r0, .L0805CEC8 @ =gUnk_081B4F9C
 	ldr r1, .L0805CECC @ =gBg1Tm
 	movs r2, #1
@@ -52637,10 +52637,10 @@ sub_805CDCC: @ 0x0805CDCC
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	movs r0, #2
 	bl EnableBgSync
-	bl sub_8047500
+	bl func_fe6_08047500
 	ldr r0, .L0805CED0 @ =gDispIo
 	mov ip, r0
 	mov r2, ip
@@ -52735,8 +52735,8 @@ sub_805CDCC: @ 0x0805CDCC
 .L0805CED8: .4byte 0x0000E0FF
 .L0805CEDC: .4byte 0x0000F3FF
 
-	thumb_func_start sub_805CEE0
-sub_805CEE0: @ 0x0805CEE0
+	thumb_func_start func_fe6_0805CEE0
+func_fe6_0805CEE0: @ 0x0805CEE0
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, [r4, #0x5c]
@@ -52752,8 +52752,8 @@ sub_805CEE0: @ 0x0805CEE0
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0805CF24
-	bl sub_80474D8
-	bl sub_80475D8
+	bl func_fe6_080474D8
+	bl func_fe6_080475D8
 	ldr r0, [r5, #0x1c]
 	ldr r1, .L0805CF30 @ =0xFFFFF7FF
 	ands r0, r1
@@ -52777,8 +52777,8 @@ sub_805CEE0: @ 0x0805CEE0
 .L0805CF30: .4byte 0xFFFFF7FF
 .L0805CF34: .4byte 0x0000F3FF
 
-	thumb_func_start sub_805CF38
-sub_805CF38: @ 0x0805CF38
+	thumb_func_start func_fe6_0805CF38
+func_fe6_0805CF38: @ 0x0805CF38
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -52795,8 +52795,8 @@ sub_805CF38: @ 0x0805CF38
 	.align 2, 0
 .L0805CF54: .4byte gUnk_0860613C
 
-	thumb_func_start sub_805CF58
-sub_805CF58: @ 0x0805CF58
+	thumb_func_start func_fe6_0805CF58
+func_fe6_0805CF58: @ 0x0805CF58
 	push {r4, lr}
 	sub sp, #0x48
 	adds r4, r0, #0
@@ -52845,13 +52845,13 @@ sub_805CF58: @ 0x0805CF58
 .L0805CFB4: .4byte 0xFFFFF7FF
 .L0805CFB8: .4byte 0x0000F3FF
 
-	thumb_func_start nullsub_24
-nullsub_24: @ 0x0805CFBC
+	thumb_func_start func_fe6_0805CFBC
+func_fe6_0805CFBC: @ 0x0805CFBC
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805CFC0
-sub_805CFC0: @ 0x0805CFC0
+	thumb_func_start func_fe6_0805CFC0
+func_fe6_0805CFC0: @ 0x0805CFC0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -52881,8 +52881,8 @@ sub_805CFC0: @ 0x0805CFC0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805CFF8
-sub_805CFF8: @ 0x0805CFF8
+	thumb_func_start func_fe6_0805CFF8
+func_fe6_0805CFF8: @ 0x0805CFF8
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -52899,7 +52899,7 @@ sub_805CFF8: @ 0x0805CFF8
 	bl Interpolate
 	adds r6, r0, #0
 	ldr r0, [r5, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805D050
 	ldr r0, .L0805D044 @ =gUnk_Banim_0200004C
@@ -52914,7 +52914,7 @@ sub_805CFF8: @ 0x0805CFF8
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r6, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	b .L0805D06E
 	.align 2, 0
 .L0805D044: .4byte gUnk_Banim_0200004C
@@ -52933,7 +52933,7 @@ sub_805CFF8: @ 0x0805CFF8
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r6, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 .L0805D06E:
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
@@ -52956,8 +52956,8 @@ sub_805CFF8: @ 0x0805CFF8
 .L0805D094: .4byte gPal+0x320
 .L0805D098: .4byte 0xFFFFFCE0
 
-	thumb_func_start sub_805D09C
-sub_805D09C: @ 0x0805D09C
+	thumb_func_start func_fe6_0805D09C
+func_fe6_0805D09C: @ 0x0805D09C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -52990,8 +52990,8 @@ sub_805D09C: @ 0x0805D09C
 .L0805D0D8: .4byte gUnk_Banim_02017744
 .L0805D0DC: .4byte gUnk_08606174
 
-	thumb_func_start sub_805D0E0
-sub_805D0E0: @ 0x0805D0E0
+	thumb_func_start func_fe6_0805D0E0
+func_fe6_0805D0E0: @ 0x0805D0E0
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -53028,8 +53028,8 @@ sub_805D0E0: @ 0x0805D0E0
 	.align 2, 0
 .L0805D124: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805D128
-sub_805D128: @ 0x0805D128
+	thumb_func_start func_fe6_0805D128
+func_fe6_0805D128: @ 0x0805D128
 	ldr r0, .L0805D138 @ =gUnk_Banim_0201F058
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -53045,8 +53045,8 @@ sub_805D128: @ 0x0805D128
 .L0805D13E:
 	bx lr
 
-	thumb_func_start sub_805D140
-sub_805D140: @ 0x0805D140
+	thumb_func_start func_fe6_0805D140
+func_fe6_0805D140: @ 0x0805D140
 	push {lr}
 	ldr r0, .L0805D150 @ =gUnk_Banim_0201F058
 	ldr r0, [r0]
@@ -53056,8 +53056,8 @@ sub_805D140: @ 0x0805D140
 	.align 2, 0
 .L0805D150: .4byte gUnk_Banim_0201F058
 
-	thumb_func_start sub_805D154
-sub_805D154: @ 0x0805D154
+	thumb_func_start func_fe6_0805D154
+func_fe6_0805D154: @ 0x0805D154
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -53470,8 +53470,8 @@ sub_805D154: @ 0x0805D154
 .L0805D4D8: .4byte gUnk_081CA04C
 .L0805D4DC: .4byte gUnk_Banim_0201F0B4
 
-	thumb_func_start sub_805D4E0
-sub_805D4E0: @ 0x0805D4E0
+	thumb_func_start func_fe6_0805D4E0
+func_fe6_0805D4E0: @ 0x0805D4E0
 	push {r4, r5, lr}
 	adds r4, r1, #0
 	lsls r5, r4, #3
@@ -53508,8 +53508,8 @@ sub_805D4E0: @ 0x0805D4E0
 .L0805D530: .4byte gUnk_081CA03C
 .L0805D534: .4byte gBg2Tm+0x6
 
-	thumb_func_start sub_805D538
-sub_805D538: @ 0x0805D538
+	thumb_func_start func_fe6_0805D538
+func_fe6_0805D538: @ 0x0805D538
 	push {r4, lr}
 	ldr r4, .L0805D564 @ =gUnk_Banim_020176D8
 	adds r0, r4, #0
@@ -53533,8 +53533,8 @@ sub_805D538: @ 0x0805D538
 .L0805D568: .4byte gUnk_Banim_0201F0AC
 .L0805D56C: .4byte gBg2Tm+0x1C4
 
-	thumb_func_start sub_805D570
-sub_805D570: @ 0x0805D570
+	thumb_func_start func_fe6_0805D570
+func_fe6_0805D570: @ 0x0805D570
 	push {r4, lr}
 	ldr r4, .L0805D5A4 @ =gUnk_Banim_020176E8
 	adds r0, r4, #0
@@ -53560,8 +53560,8 @@ sub_805D570: @ 0x0805D570
 .L0805D5A8: .4byte gUnk_Banim_0201F0B4
 .L0805D5AC: .4byte gBg2Tm+0x1DA
 
-	thumb_func_start sub_805D5B0
-sub_805D5B0: @ 0x0805D5B0
+	thumb_func_start func_fe6_0805D5B0
+func_fe6_0805D5B0: @ 0x0805D5B0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r5, .L0805D5E8 @ =gUnk_Banim_0201F058
@@ -53572,7 +53572,7 @@ sub_805D5B0: @ 0x0805D5B0
 	str r6, [r5]
 	str r4, [r6, #0x5c]
 	adds r0, r4, #0
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	str r0, [r6, #0x60]
 	movs r1, #0
 	movs r0, #0
@@ -53603,8 +53603,8 @@ sub_805D5B0: @ 0x0805D5B0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805D604
-sub_805D604: @ 0x0805D604
+	thumb_func_start func_fe6_0805D604
+func_fe6_0805D604: @ 0x0805D604
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -53708,11 +53708,11 @@ sub_805D604: @ 0x0805D604
 	orrs r0, r2
 	strh r0, [r7]
 .L0805D6F6:
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	bne .L0805D71E
 	adds r0, r7, #0
-	bl sub_804BF40
+	bl func_fe6_0804BF40
 	ldr r3, [r7, #0x14]
 	ldr r0, [r3, #0x4c]
 	ldr r2, .L0805D89C @ =0x0000F3FF
@@ -53780,7 +53780,7 @@ sub_805D604: @ 0x0805D604
 	orrs r0, r3
 	strb r0, [r4, #0x18]
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L0805D7D6
@@ -53850,23 +53850,23 @@ sub_805D604: @ 0x0805D604
 	movs r0, #2
 	movs r1, #1
 	bl SetBgScreenSize
-	bl sub_805E230
+	bl func_fe6_0805E230
 	ldr r1, .L0805D8AC @ =gUnk_Banim_0201F07C
 	str r0, [r1]
-	bl sub_805E370
+	bl func_fe6_0805E370
 	ldr r1, .L0805D8B0 @ =gUnk_Banim_0201F080
 	str r0, [r1]
-	bl sub_805E248
+	bl func_fe6_0805E248
 	movs r0, #2
-	bl sub_8043908
+	bl func_fe6_08043908
 	mov r3, sb
 	ldr r0, [r3, #0x5c]
-	bl sub_8046ED8
+	bl func_fe6_08046ED8
 	mov r1, sb
 	ldr r0, [r1, #0x60]
-	bl sub_8046ED8
-	bl sub_8047248
-	bl sub_8046B5C
+	bl func_fe6_08046ED8
+	bl func_fe6_08047248
+	bl func_fe6_08046B5C
 	movs r0, #0x21
 	rsbs r0, r0, #0
 	ldrb r2, [r4, #1]
@@ -53910,8 +53910,8 @@ sub_805D604: @ 0x0805D604
 .L0805D8AC: .4byte gUnk_Banim_0201F07C
 .L0805D8B0: .4byte gUnk_Banim_0201F080
 
-	thumb_func_start sub_805D8B4
-sub_805D8B4: @ 0x0805D8B4
+	thumb_func_start func_fe6_0805D8B4
+func_fe6_0805D8B4: @ 0x0805D8B4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -53941,7 +53941,7 @@ sub_805D8B4: @ 0x0805D8B4
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	ldr r1, .L0805D978 @ =0x06002000
 	movs r2, #0x80
 	lsls r2, r2, #3
@@ -53979,7 +53979,7 @@ sub_805D8B4: @ 0x0805D8B4
 	ldr r2, .L0805D994 @ =gUnk_085CCC40
 	movs r1, #0x30
 	movs r3, #0
-	bl sub_805E140
+	bl func_fe6_0805E140
 	movs r1, #0x85
 	lsls r1, r1, #5
 	str r1, [r0, #0x4c]
@@ -54006,7 +54006,7 @@ sub_805D8B4: @ 0x0805D8B4
 	strh r0, [r6, #0x2c]
 .L0805D99C:
 	adds r0, r7, #0
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805D9AA
 	mov r1, sb
@@ -54036,7 +54036,7 @@ sub_805D8B4: @ 0x0805D8B4
 	add r0, sp, #8
 	bl CpuFastSet
 	adds r0, r6, #0
-	bl sub_805D154
+	bl func_fe6_0805D154
 	adds r0, r6, #0
 	bl Proc_Break
 	add sp, #0xc
@@ -54052,11 +54052,11 @@ sub_805D8B4: @ 0x0805D8B4
 .L0805DA00: .4byte gBg2Tm
 .L0805DA04: .4byte 0x01000200
 
-	thumb_func_start sub_805DA08
-sub_805DA08: @ 0x0805DA08
+	thumb_func_start func_fe6_0805DA08
+func_fe6_0805DA08: @ 0x0805DA08
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L0805DA34 @ =sub_805E4D4
+	ldr r0, .L0805DA34 @ =func_fe6_0805E4D4
 	bl SetOnHBlankA
 	movs r0, #1
 	bl EnableBgSync
@@ -54071,10 +54071,10 @@ sub_805DA08: @ 0x0805DA08
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805DA34: .4byte sub_805E4D4
+.L0805DA34: .4byte func_fe6_0805E4D4
 
-	thumb_func_start sub_805DA38
-sub_805DA38: @ 0x0805DA38
+	thumb_func_start func_fe6_0805DA38
+func_fe6_0805DA38: @ 0x0805DA38
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -54108,8 +54108,8 @@ sub_805DA38: @ 0x0805DA38
 .L0805DA74: .4byte gPal
 .L0805DA78: .4byte gUnk_Banim_020165C0
 
-	thumb_func_start sub_805DA7C
-sub_805DA7C: @ 0x0805DA7C
+	thumb_func_start func_fe6_0805DA7C
+func_fe6_0805DA7C: @ 0x0805DA7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -54221,12 +54221,12 @@ sub_805DA7C: @ 0x0805DA7C
 	movs r1, #2
 	movs r2, #4
 	mov r3, sl
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	mov r3, sl
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
@@ -54255,15 +54255,15 @@ sub_805DA7C: @ 0x0805DA7C
 .L0805DB9C: .4byte gUnk_Banim_020165C0
 .L0805DBA0: .4byte gPal
 
-	thumb_func_start sub_805DBA4
-sub_805DBA4: @ 0x0805DBA4
+	thumb_func_start func_fe6_0805DBA4
+func_fe6_0805DBA4: @ 0x0805DBA4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0xa0
 	movs r1, #1
 	movs r2, #1
 	movs r3, #3
-	bl sub_8067A28
+	bl func_fe6_08067A28
 	adds r0, r4, #0
 	bl Proc_Break
 	ldr r1, .L0805DBD0 @ =gUnk_Banim_0201F05C
@@ -54281,8 +54281,8 @@ sub_805DBA4: @ 0x0805DBA4
 	.align 2, 0
 .L0805DBD0: .4byte gUnk_Banim_0201F05C
 
-	thumb_func_start sub_805DBD4
-sub_805DBD4: @ 0x0805DBD4
+	thumb_func_start func_fe6_0805DBD4
+func_fe6_0805DBD4: @ 0x0805DBD4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r0, #0x2a
@@ -54293,21 +54293,21 @@ sub_805DBD4: @ 0x0805DBD4
 	bl Proc_Break
 	b .L0805DC1E
 .L0805DBE8:
-	ldr r0, .L0805DC24 @ =sub_805E510
+	ldr r0, .L0805DC24 @ =func_fe6_0805E510
 	bl SetOnHBlankA
 	ldr r4, .L0805DC28 @ =gUnk_Banim_0201F07C
 	ldr r0, [r4]
 	bl Proc_End
-	bl sub_805E2CC
+	bl func_fe6_0805E2CC
 	str r0, [r4]
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x76
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	movs r0, #8
@@ -54319,11 +54319,11 @@ sub_805DBD4: @ 0x0805DBD4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805DC24: .4byte sub_805E510
+.L0805DC24: .4byte func_fe6_0805E510
 .L0805DC28: .4byte gUnk_Banim_0201F07C
 
-	thumb_func_start sub_805DC2C
-sub_805DC2C: @ 0x0805DC2C
+	thumb_func_start func_fe6_0805DC2C
+func_fe6_0805DC2C: @ 0x0805DC2C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -54360,13 +54360,13 @@ sub_805DC2C: @ 0x0805DC2C
 	ldr r0, [r0]
 	str r0, [r1]
 	adds r0, r5, #0
-	bl sub_805D538
+	bl func_fe6_0805D538
 	ldr r1, .L0805DCAC @ =gUnk_Banim_0201F0B4
 	ldr r0, .L0805DCB0 @ =gUnk_Banim_0201F0B6
 	ldrh r0, [r0]
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_805D570
+	bl func_fe6_0805D570
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	movs r0, #8
@@ -54385,8 +54385,8 @@ sub_805DC2C: @ 0x0805DC2C
 .L0805DCAC: .4byte gUnk_Banim_0201F0B4
 .L0805DCB0: .4byte gUnk_Banim_0201F0B6
 
-	thumb_func_start sub_805DCB4
-sub_805DCB4: @ 0x0805DCB4
+	thumb_func_start func_fe6_0805DCB4
+func_fe6_0805DCB4: @ 0x0805DCB4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -54428,8 +54428,8 @@ sub_805DCB4: @ 0x0805DCB4
 	.align 2, 0
 .L0805DD04: .4byte gUnk_Banim_0201F0D8
 
-	thumb_func_start sub_805DD08
-sub_805DD08: @ 0x0805DD08
+	thumb_func_start func_fe6_0805DD08
+func_fe6_0805DD08: @ 0x0805DD08
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r0, #0x2a
@@ -54441,21 +54441,21 @@ sub_805DD08: @ 0x0805DD08
 	movs r1, #0x3c
 	movs r2, #0
 	movs r3, #0
-	bl sub_8067B08
+	bl func_fe6_08067B08
 	ldr r1, .L0805DD4C @ =gUnk_Banim_0201F0B4
 	ldr r0, .L0805DD50 @ =gUnk_Banim_0201F0B6
 	ldrh r0, [r0]
 	strh r0, [r1]
 	adds r0, r5, #0
-	bl sub_805D570
+	bl func_fe6_0805D570
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x76
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	adds r0, r5, #0
 	bl Proc_Break
 	b .L0805DD6E
@@ -54466,7 +54466,7 @@ sub_805DD08: @ 0x0805DD08
 	ldr r4, .L0805DD74 @ =gUnk_Banim_0201F07C
 	ldr r0, [r4]
 	bl Proc_End
-	bl sub_805E230
+	bl func_fe6_0805E230
 	str r0, [r4]
 	movs r0, #0
 	strh r0, [r5, #0x2c]
@@ -54480,8 +54480,8 @@ sub_805DD08: @ 0x0805DD08
 	.align 2, 0
 .L0805DD74: .4byte gUnk_Banim_0201F07C
 
-	thumb_func_start sub_805DD78
-sub_805DD78: @ 0x0805DD78
+	thumb_func_start func_fe6_0805DD78
+func_fe6_0805DD78: @ 0x0805DD78
 	push {lr}
 	adds r1, r0, #0
 	adds r0, #0x2a
@@ -54507,8 +54507,8 @@ sub_805DD78: @ 0x0805DD78
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805DDA8
-sub_805DDA8: @ 0x0805DDA8
+	thumb_func_start func_fe6_0805DDA8
+func_fe6_0805DDA8: @ 0x0805DDA8
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -54544,15 +54544,15 @@ sub_805DDA8: @ 0x0805DDA8
 	movs r2, #0x2e
 	ldrsh r1, [r4, r2]
 	adds r0, r4, #0
-	bl sub_805D4E0
+	bl func_fe6_0805D4E0
 	movs r0, #0x76
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl sub_805BDC0
+	bl func_fe6_0805BDC0
 	ldr r1, .L0805DE54 @ =gUnk_081CA03C
 	movs r7, #0x2e
 	ldrsh r2, [r4, r7]
@@ -54571,7 +54571,7 @@ sub_805DDA8: @ 0x0805DDA8
 	adds r1, #6
 	adds r2, #1
 	adds r3, r5, #0
-	bl sub_8067B08
+	bl func_fe6_08067B08
 	movs r1, #0x2e
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
@@ -54619,8 +54619,8 @@ sub_805DDA8: @ 0x0805DDA8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805DE8C
-sub_805DE8C: @ 0x0805DE8C
+	thumb_func_start func_fe6_0805DE8C
+func_fe6_0805DE8C: @ 0x0805DE8C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -54632,8 +54632,8 @@ sub_805DE8C: @ 0x0805DE8C
 	ble .L0805DEB2
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	bl sub_8067AF0
-	ldr r0, .L0805DEB8 @ =sub_805E4D4
+	bl func_fe6_08067AF0
+	ldr r0, .L0805DEB8 @ =func_fe6_0805E4D4
 	bl SetOnHBlankA
 	adds r0, r4, #0
 	bl Proc_Break
@@ -54642,18 +54642,18 @@ sub_805DE8C: @ 0x0805DE8C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805DEB8: .4byte sub_805E4D4
+.L0805DEB8: .4byte func_fe6_0805E4D4
 
-	thumb_func_start sub_805DEBC
-sub_805DEBC: @ 0x0805DEBC
+	thumb_func_start func_fe6_0805DEBC
+func_fe6_0805DEBC: @ 0x0805DEBC
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805DEC8
-sub_805DEC8: @ 0x0805DEC8
+	thumb_func_start func_fe6_0805DEC8
+func_fe6_0805DEC8: @ 0x0805DEC8
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r7, r0, #0
@@ -54708,12 +54708,12 @@ sub_805DEC8: @ 0x0805DEC8
 	movs r1, #2
 	movs r2, #4
 	adds r3, r6, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	adds r3, r6, #0
-	bl sub_805B5C8
+	bl func_fe6_0805B5C8
 	bl EnablePalSync
 	movs r0, #7
 .L0805DF54:
@@ -54743,17 +54743,17 @@ sub_805DEC8: @ 0x0805DEC8
 .L0805DF88: .4byte gUnk_Banim_020165C0
 .L0805DF8C: .4byte gPal
 
-	thumb_func_start sub_805DF90
-sub_805DF90: @ 0x0805DF90
+	thumb_func_start func_fe6_0805DF90
+func_fe6_0805DF90: @ 0x0805DF90
 	push {r4, r5, r6, lr}
 	sub sp, #0x2c
 	adds r5, r0, #0
 	ldr r4, .L0805E09C @ =gUnk_Banim_0201F084
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	bne .L0805DFA6
 	adds r0, r4, #0
-	bl sub_804C2EC
+	bl func_fe6_0804C2EC
 .L0805DFA6:
 	movs r1, #0xc0
 	lsls r1, r1, #7
@@ -54799,7 +54799,7 @@ sub_805DF90: @ 0x0805DF90
 	ldr r0, .L0805E0AC @ =0x0203CCF6
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
-	bl sub_804C500
+	bl func_fe6_0804C500
 	cmp r0, #0
 	bne .L0805E020
 	movs r0, #2
@@ -54807,7 +54807,7 @@ sub_805DF90: @ 0x0805DF90
 	movs r2, #0
 	bl SetBgOffset
 	mov r0, sp
-	bl sub_804BF40
+	bl func_fe6_0804BF40
 .L0805E020:
 	ldr r2, [r5, #0x5c]
 	ldr r1, .L0805E0B0 @ =0x0000F3FF
@@ -54838,9 +54838,9 @@ sub_805DF90: @ 0x0805DF90
 	movs r0, #2
 	bl EnableBgSync
 	movs r0, #0
-	bl sub_8043908
+	bl func_fe6_08043908
 	movs r0, #0
-	bl sub_80589FC
+	bl func_fe6_080589FC
 	ldrh r0, [r0]
 	cmp r0, #0x53
 	bne .L0805E0C0
@@ -54912,8 +54912,8 @@ sub_805DF90: @ 0x0805DF90
 	.align 2, 0
 .L0805E100: .4byte gDispIo
 
-	thumb_func_start sub_805E104
-sub_805E104: @ 0x0805E104
+	thumb_func_start func_fe6_0805E104
+func_fe6_0805E104: @ 0x0805E104
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805E138 @ =gUnk_Banim_0201F07C
@@ -54923,11 +54923,11 @@ sub_805E104: @ 0x0805E104
 	ldr r0, [r0]
 	bl Proc_End
 	ldr r0, [r4, #0x5c]
-	bl sub_8046EF8
+	bl func_fe6_08046EF8
 	ldr r0, [r4, #0x60]
-	bl sub_8046EF8
-	bl sub_8047258
-	bl sub_8046B6C
+	bl func_fe6_08046EF8
+	bl func_fe6_08047258
+	bl func_fe6_08046B6C
 	adds r4, #0x29
 	movs r0, #1
 	strb r0, [r4]
@@ -54938,8 +54938,8 @@ sub_805E104: @ 0x0805E104
 .L0805E138: .4byte gUnk_Banim_0201F07C
 .L0805E13C: .4byte gUnk_Banim_0201F080
 
-	thumb_func_start sub_805E140
-sub_805E140: @ 0x0805E140
+	thumb_func_start func_fe6_0805E140
+func_fe6_0805E140: @ 0x0805E140
 	push {r4, r5, r6, lr}
 	mov r6, r8
 	push {r6}
@@ -54971,8 +54971,8 @@ sub_805E140: @ 0x0805E140
 	.align 2, 0
 .L0805E17C: .4byte gUnk_08606254
 
-	thumb_func_start sub_805E180
-sub_805E180: @ 0x0805E180
+	thumb_func_start func_fe6_0805E180
+func_fe6_0805E180: @ 0x0805E180
 	push {r4, r5, lr}
 	sub sp, #0x48
 	adds r3, r0, #0
@@ -55070,8 +55070,8 @@ sub_805E180: @ 0x0805E180
 	.align 2, 0
 .L0805E22C: .4byte 0x0FFFFFFC
 
-	thumb_func_start sub_805E230
-sub_805E230: @ 0x0805E230
+	thumb_func_start func_fe6_0805E230
+func_fe6_0805E230: @ 0x0805E230
 	push {lr}
 	ldr r0, .L0805E244 @ =gUnk_0860626C
 	movs r1, #3
@@ -55084,8 +55084,8 @@ sub_805E230: @ 0x0805E230
 	.align 2, 0
 .L0805E244: .4byte gUnk_0860626C
 
-	thumb_func_start sub_805E248
-sub_805E248: @ 0x0805E248
+	thumb_func_start func_fe6_0805E248
+func_fe6_0805E248: @ 0x0805E248
 	push {r4, r5, r6, lr}
 	ldr r0, .L0805E274 @ =gUnk_Banim_0201E3D8
 	ldr r0, [r0]
@@ -55146,21 +55146,21 @@ sub_805E248: @ 0x0805E248
 	bx r0
 	.align 2, 0
 
-	thumb_func_start nullsub_25
-nullsub_25: @ 0x0805E2BC
+	thumb_func_start func_fe6_0805E2BC
+func_fe6_0805E2BC: @ 0x0805E2BC
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805E2C0
-sub_805E2C0: @ 0x0805E2C0
+	thumb_func_start func_fe6_0805E2C0
+func_fe6_0805E2C0: @ 0x0805E2C0
 	push {lr}
-	bl sub_805E248
+	bl func_fe6_0805E248
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805E2CC
-sub_805E2CC: @ 0x0805E2CC
+	thumb_func_start func_fe6_0805E2CC
+func_fe6_0805E2CC: @ 0x0805E2CC
 	push {lr}
 	ldr r0, .L0805E2E0 @ =gUnk_0860628C
 	movs r1, #3
@@ -55173,13 +55173,13 @@ sub_805E2CC: @ 0x0805E2CC
 	.align 2, 0
 .L0805E2E0: .4byte gUnk_0860628C
 
-	thumb_func_start nullsub_26
-nullsub_26: @ 0x0805E2E4
+	thumb_func_start func_fe6_0805E2E4
+func_fe6_0805E2E4: @ 0x0805E2E4
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805E2E8
-sub_805E2E8: @ 0x0805E2E8
+	thumb_func_start func_fe6_0805E2E8
+func_fe6_0805E2E8: @ 0x0805E2E8
 	push {r4, r5, r6, lr}
 	ldr r0, .L0805E334 @ =gUnk_Banim_0201E3D8
 	ldr r0, [r0]
@@ -55251,8 +55251,8 @@ sub_805E2E8: @ 0x0805E2E8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805E370
-sub_805E370: @ 0x0805E370
+	thumb_func_start func_fe6_0805E370
+func_fe6_0805E370: @ 0x0805E370
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -55348,24 +55348,24 @@ sub_805E370: @ 0x0805E370
 .L0805E434: .4byte gUnk_Banim_0201E3E0
 .L0805E438: .4byte gUnk_086062EC
 
-	thumb_func_start sub_805E43C
-sub_805E43C: @ 0x0805E43C
+	thumb_func_start func_fe6_0805E43C
+func_fe6_0805E43C: @ 0x0805E43C
 	push {lr}
 	movs r0, #0
 	bl SetOnHBlankA
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805E448
-sub_805E448: @ 0x0805E448
+	thumb_func_start func_fe6_0805E448
+func_fe6_0805E448: @ 0x0805E448
 	push {lr}
 	bl Proc_Break
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805E454
-sub_805E454: @ 0x0805E454
+	thumb_func_start func_fe6_0805E454
+func_fe6_0805E454: @ 0x0805E454
 	ldr r1, .L0805E468 @ =gUnk_Banim_0201E14C
 	ldr r0, [r1]
 	cmp r0, #1
@@ -55423,8 +55423,8 @@ sub_805E454: @ 0x0805E454
 .L0805E4CC: .4byte gUnk_Banim_0201E154
 .L0805E4D0: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start sub_805E4D4
-sub_805E4D4: @ 0x0805E4D4
+	thumb_func_start func_fe6_0805E4D4
+func_fe6_0805E4D4: @ 0x0805E4D4
 	ldr r0, .L0805E500 @ =0x04000004
 	ldrh r1, [r0]
 	movs r0, #1
@@ -55453,8 +55453,8 @@ sub_805E4D4: @ 0x0805E4D4
 .L0805E508: .4byte gUnk_Banim_0201E154
 .L0805E50C: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start sub_805E510
-sub_805E510: @ 0x0805E510
+	thumb_func_start func_fe6_0805E510
+func_fe6_0805E510: @ 0x0805E510
 	push {r4, r5, r6, lr}
 	ldr r0, .L0805E54C @ =0x04000004
 	ldrh r1, [r0]
@@ -55492,8 +55492,8 @@ sub_805E510: @ 0x0805E510
 .L0805E558: .4byte gUnk_Banim_0201E154
 .L0805E55C: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start sub_805E560
-sub_805E560: @ 0x0805E560
+	thumb_func_start func_fe6_0805E560
+func_fe6_0805E560: @ 0x0805E560
 	ldr r0, .L0805E56C @ =gUnk_Banim_0201F0DC
 	ldr r0, [r0]
 	cmp r0, #1
@@ -55507,13 +55507,13 @@ sub_805E560: @ 0x0805E560
 .L0805E572:
 	bx lr
 
-	thumb_func_start nullsub_5
-nullsub_5: @ 0x0805E574
+	thumb_func_start func_fe6_0805E574
+func_fe6_0805E574: @ 0x0805E574
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805E578
-sub_805E578: @ 0x0805E578
+	thumb_func_start func_fe6_0805E578
+func_fe6_0805E578: @ 0x0805E578
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805E594 @ =gUnk_08606314
@@ -55530,8 +55530,8 @@ sub_805E578: @ 0x0805E578
 .L0805E594: .4byte gUnk_08606314
 .L0805E598: .4byte gUnk_Banim_0201F0DC
 
-	thumb_func_start sub_805E59C
-sub_805E59C: @ 0x0805E59C
+	thumb_func_start func_fe6_0805E59C
+func_fe6_0805E59C: @ 0x0805E59C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -55545,7 +55545,7 @@ sub_805E59C: @ 0x0805E59C
 	mov r8, r0
 	movs r7, #0
 	ldr r0, [r6, #0x5c]
-	bl sub_804B6C4
+	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805E5C8
 	ldr r0, .L0805E5C4 @ =0x0203CD7C
@@ -55683,7 +55683,7 @@ sub_805E59C: @ 0x0805E59C
 	mov r1, sb
 	mov r2, sl
 	mov r3, r8
-	bl sub_805EA38
+	bl func_fe6_0805EA38
 	ldr r0, .L0805E6D0 @ =0x0203CD80
 	ldr r0, [r0]
 	adds r0, #0x4a
@@ -55779,7 +55779,7 @@ sub_805E59C: @ 0x0805E59C
 	mov r1, sb
 	mov r2, sl
 	mov r3, r8
-	bl sub_805E7A0
+	bl func_fe6_0805E7A0
 	cmp r5, #0x2a
 	bne .L0805E780
 	ldr r1, .L0805E77C @ =gUnk_Banim_0201F0DC
@@ -55805,8 +55805,8 @@ sub_805E59C: @ 0x0805E59C
 	.align 2, 0
 .L0805E79C: .4byte gUnk_Banim_0201F0DC
 
-	thumb_func_start sub_805E7A0
-sub_805E7A0: @ 0x0805E7A0
+	thumb_func_start func_fe6_0805E7A0
+func_fe6_0805E7A0: @ 0x0805E7A0
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -55834,12 +55834,12 @@ sub_805E7A0: @ 0x0805E7A0
 	.align 2, 0
 .L0805E7D4: .4byte gUnk_0860632C
 
-	thumb_func_start sub_805E7D8
-sub_805E7D8: @ 0x0805E7D8
+	thumb_func_start func_fe6_0805E7D8
+func_fe6_0805E7D8: @ 0x0805E7D8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl sub_804B80C
+	bl func_fe6_0804B80C
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -55852,14 +55852,14 @@ sub_805E7D8: @ 0x0805E7D8
 	ldr r2, [r4, #0x44]
 	ldr r3, [r4, #0x4c]
 	movs r1, #0
-	bl sub_805E964
+	bl func_fe6_0805E964
 .L0805E7FE:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x1c
 	bne .L0805E80C
 	adds r0, r5, #0
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 .L0805E80C:
 	ldrh r3, [r4, #0x2c]
 	cmp r3, #0x22
@@ -55868,12 +55868,12 @@ sub_805E7D8: @ 0x0805E7D8
 	ldr r3, [r4, #0x4c]
 	adds r0, r5, #0
 	movs r1, #0
-	bl sub_805E890
+	bl func_fe6_0805E890
 	ldr r0, [r4, #0x5c]
 	ldr r2, [r4, #0x48]
 	ldr r3, [r4, #0x50]
 	movs r1, #1
-	bl sub_805E964
+	bl func_fe6_0805E964
 	movs r0, #0x9a
 	lsls r0, r0, #2
 	movs r1, #0x80
@@ -55882,14 +55882,14 @@ sub_805E7D8: @ 0x0805E7D8
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805E83E:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x33
 	bne .L0805E84C
 	adds r0, r5, #0
 	movs r1, #6
-	bl sub_8046794
+	bl func_fe6_08046794
 .L0805E84C:
 	ldrh r3, [r4, #0x2c]
 	cmp r3, #0x39
@@ -55898,7 +55898,7 @@ sub_805E7D8: @ 0x0805E7D8
 	ldr r3, [r4, #0x50]
 	adds r0, r5, #0
 	movs r1, #1
-	bl sub_805E890
+	bl func_fe6_0805E890
 	movs r0, #0x9a
 	lsls r0, r0, #2
 	movs r1, #0x80
@@ -55907,7 +55907,7 @@ sub_805E7D8: @ 0x0805E7D8
 	movs r3, #2
 	ldrsh r2, [r2, r3]
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805E872:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x43
@@ -55924,8 +55924,8 @@ sub_805E7D8: @ 0x0805E7D8
 	.align 2, 0
 .L0805E88C: .4byte gUnk_Banim_0201F0DC
 
-	thumb_func_start sub_805E890
-sub_805E890: @ 0x0805E890
+	thumb_func_start func_fe6_0805E890
+func_fe6_0805E890: @ 0x0805E890
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -55964,7 +55964,7 @@ sub_805E890: @ 0x0805E890
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl sub_8047AF4
+	bl func_fe6_08047AF4
 	ldr r0, .L0805E910 @ =gUnk_081CA070
 	cmp r6, #0
 	beq .L0805E8F2
@@ -55975,7 +55975,7 @@ sub_805E890: @ 0x0805E890
 .L0805E8F2:
 	movs r1, #0x80
 	lsls r1, r1, #6
-	bl sub_8047ACC
+	bl func_fe6_08047ACC
 	pop {r4, r5, r6, r7}
 	pop {r0}
 	bx r0
@@ -55988,15 +55988,15 @@ sub_805E890: @ 0x0805E890
 .L0805E914: .4byte gUnk_081CB404
 .L0805E918: .4byte gUnk_081CAA14
 
-	thumb_func_start sub_805E91C
-sub_805E91C: @ 0x0805E91C
+	thumb_func_start func_fe6_0805E91C
+func_fe6_0805E91C: @ 0x0805E91C
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x2c
 	adds r1, r4, #0
 	adds r1, #0x44
 	ldr r2, [r4, #0x48]
-	bl sub_8047BA4
+	bl func_fe6_08047BA4
 	lsls r0, r0, #0x10
 	asrs r2, r0, #0x10
 	cmp r2, #0
@@ -56009,14 +56009,14 @@ sub_805E91C: @ 0x0805E91C
 	ldr r1, [r1]
 	adds r2, r2, r3
 	ldr r2, [r2]
-	bl sub_804799C
+	bl func_fe6_0804799C
 	b .L0805E95C
 .L0805E94A:
 	movs r0, #1
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0805E95C
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805E95C:
@@ -56025,8 +56025,8 @@ sub_805E91C: @ 0x0805E91C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805E964
-sub_805E964: @ 0x0805E964
+	thumb_func_start func_fe6_0805E964
+func_fe6_0805E964: @ 0x0805E964
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -56066,7 +56066,7 @@ sub_805E964: @ 0x0805E964
 	adds r0, r7, #0
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	str r0, [r5, #0x60]
 	ldr r4, .L0805EA00 @ =gUnk_Banim_0201A77C
 	adds r0, r6, #0
@@ -56074,7 +56074,7 @@ sub_805E964: @ 0x0805E964
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	ldr r0, .L0805EA04 @ =gUnk_081CC428
 	mov r1, r8
 	cmp r1, #0
@@ -56087,7 +56087,7 @@ sub_805E964: @ 0x0805E964
 .L0805E9E0:
 	movs r1, #0x80
 	lsls r1, r1, #5
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -56103,8 +56103,8 @@ sub_805E964: @ 0x0805E964
 .L0805EA08: .4byte gUnk_081CD7AC
 .L0805EA0C: .4byte gUnk_081CCDE0
 
-	thumb_func_start sub_805EA10
-sub_805EA10: @ 0x0805EA10
+	thumb_func_start func_fe6_0805EA10
+func_fe6_0805EA10: @ 0x0805EA10
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -56125,8 +56125,8 @@ sub_805EA10: @ 0x0805EA10
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805EA38
-sub_805EA38: @ 0x0805EA38
+	thumb_func_start func_fe6_0805EA38
+func_fe6_0805EA38: @ 0x0805EA38
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -56154,8 +56154,8 @@ sub_805EA38: @ 0x0805EA38
 	.align 2, 0
 .L0805EA6C: .4byte gUnk_0860638C
 
-	thumb_func_start sub_805EA70
-sub_805EA70: @ 0x0805EA70
+	thumb_func_start func_fe6_0805EA70
+func_fe6_0805EA70: @ 0x0805EA70
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -56172,7 +56172,7 @@ sub_805EA70: @ 0x0805EA70
 	ldr r3, [r5, #0x4c]
 	ldr r4, [r5, #0x50]
 	str r4, [sp]
-	bl sub_805EB40
+	bl func_fe6_0805EB40
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -56180,7 +56180,7 @@ sub_805EA70: @ 0x0805EA70
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805EAA6:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x30
@@ -56189,7 +56189,7 @@ sub_805EA70: @ 0x0805EA70
 	ldr r2, [r5, #0x44]
 	ldr r3, [r5, #0x4c]
 	movs r1, #0
-	bl sub_805ED1C
+	bl func_fe6_0805ED1C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -56197,17 +56197,17 @@ sub_805EA70: @ 0x0805EA70
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805EACA:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x3c
 	bne .L0805EAE0
 	ldr r0, [r5, #0x5c]
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	ldr r0, [r5, #0x5c]
 	movs r1, #0xa
-	bl sub_805EE9C
+	bl func_fe6_0805EE9C
 .L0805EAE0:
 	ldrh r3, [r5, #0x2c]
 	cmp r3, #0x4f
@@ -56216,7 +56216,7 @@ sub_805EA70: @ 0x0805EA70
 	ldr r2, [r5, #0x48]
 	ldr r3, [r5, #0x50]
 	movs r1, #1
-	bl sub_805ED1C
+	bl func_fe6_0805ED1C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -56224,7 +56224,7 @@ sub_805EA70: @ 0x0805EA70
 	ldrsh r2, [r0, r3]
 	movs r0, #0xe2
 	movs r3, #1
-	bl sub_805C804
+	bl func_fe6_0805C804
 .L0805EB04:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x5b
@@ -56238,10 +56238,10 @@ sub_805EA70: @ 0x0805EA70
 	bne .L0805EB26
 	ldr r0, [r5, #0x5c]
 	movs r1, #4
-	bl sub_8046794
+	bl func_fe6_08046794
 	ldr r0, [r5, #0x5c]
 	movs r1, #0xa
-	bl sub_805EE9C
+	bl func_fe6_0805EE9C
 .L0805EB26:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x78
@@ -56256,8 +56256,8 @@ sub_805EA70: @ 0x0805EA70
 	.align 2, 0
 .L0805EB3C: .4byte gUnk_Banim_0201F0DC
 
-	thumb_func_start sub_805EB40
-sub_805EB40: @ 0x0805EB40
+	thumb_func_start func_fe6_0805EB40
+func_fe6_0805EB40: @ 0x0805EB40
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -56315,7 +56315,7 @@ sub_805EB40: @ 0x0805EB40
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r1, r0, #0
 	str r1, [r5, #0x60]
 	ldr r0, .L0805EBFC @ =0x00008840
@@ -56375,7 +56375,7 @@ sub_805EB40: @ 0x0805EB40
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r1, r0, #0
 	str r1, [r5, #0x64]
 	ldr r0, .L0805ECB0 @ =0x0000A880
@@ -56425,8 +56425,8 @@ sub_805EB40: @ 0x0805EB40
 .L0805ECBC: .4byte 0x06010800
 .L0805ECC0: .4byte 0xFFFFF800
 
-	thumb_func_start sub_805ECC4
-sub_805ECC4: @ 0x0805ECC4
+	thumb_func_start func_fe6_0805ECC4
+func_fe6_0805ECC4: @ 0x0805ECC4
 	push {r4, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -56469,8 +56469,8 @@ sub_805ECC4: @ 0x0805ECC4
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805ED1C
-sub_805ED1C: @ 0x0805ED1C
+	thumb_func_start func_fe6_0805ED1C
+func_fe6_0805ED1C: @ 0x0805ED1C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -56543,7 +56543,7 @@ sub_805ED1C: @ 0x0805ED1C
 	mov r0, r8
 	adds r1, r3, #0
 	adds r2, r3, #0
-	bl sub_80478DC
+	bl func_fe6_080478DC
 	adds r1, r0, #0
 	str r1, [r4, #0x60]
 	cmp r5, #0
@@ -56586,11 +56586,11 @@ sub_805ED1C: @ 0x0805ED1C
 	bl LZ77UnCompWram
 	adds r0, r4, #0
 	movs r1, #0x20
-	bl sub_8047AB0
+	bl func_fe6_08047AB0
 	movs r1, #0x80
 	lsls r1, r1, #5
 	adds r0, r6, #0
-	bl sub_8047A88
+	bl func_fe6_08047A88
 	add sp, #4
 	pop {r3, r4}
 	mov r8, r3
@@ -56601,8 +56601,8 @@ sub_805ED1C: @ 0x0805ED1C
 	.align 2, 0
 .L0805EE28: .4byte gUnk_Banim_0201A77C
 
-	thumb_func_start sub_805EE2C
-sub_805EE2C: @ 0x0805EE2C
+	thumb_func_start func_fe6_0805EE2C
+func_fe6_0805EE2C: @ 0x0805EE2C
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
@@ -56639,8 +56639,8 @@ sub_805EE2C: @ 0x0805EE2C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805EE74
-sub_805EE74: @ 0x0805EE74
+	thumb_func_start func_fe6_0805EE74
+func_fe6_0805EE74: @ 0x0805EE74
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -56661,8 +56661,8 @@ sub_805EE74: @ 0x0805EE74
 	bx r0
 	.align 2, 0
 
-	thumb_func_start sub_805EE9C
-sub_805EE9C: @ 0x0805EE9C
+	thumb_func_start func_fe6_0805EE9C
+func_fe6_0805EE9C: @ 0x0805EE9C
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	adds r6, r1, #0
@@ -56677,7 +56677,7 @@ sub_805EE9C: @ 0x0805EE9C
 	str r5, [r4, #0x5c]
 	movs r0, #0
 	movs r1, #0
-	bl sub_8045F48
+	bl func_fe6_08045F48
 	str r0, [r4, #0x60]
 	movs r0, #0
 	strh r0, [r4, #0x2c]
@@ -56689,8 +56689,8 @@ sub_805EE9C: @ 0x0805EE9C
 .L0805EECC: .4byte gUnk_Banim_02017744
 .L0805EED0: .4byte gUnk_086063DC
 
-	thumb_func_start sub_805EED4
-sub_805EED4: @ 0x0805EED4
+	thumb_func_start func_fe6_0805EED4
+func_fe6_0805EED4: @ 0x0805EED4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -56727,7 +56727,7 @@ sub_805EED4: @ 0x0805EED4
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r5]
 	ldrh r1, [r6]
 	adds r0, r3, r1
@@ -56740,8 +56740,8 @@ sub_805EED4: @ 0x0805EED4
 	rsbs r1, r1, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
-	bl sub_805894C
+	bl func_fe6_08044230
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0805EF58
 	ldrh r1, [r5]
@@ -56785,13 +56785,13 @@ sub_805EED4: @ 0x0805EED4
 	lsls r2, r3, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
 	strh r0, [r7, #0x2c]
@@ -56820,7 +56820,7 @@ sub_805EED4: @ 0x0805EED4
 	rsbs r1, r2, #0
 	lsls r1, r1, #0x10
 	asrs r1, r1, #0x10
-	bl sub_804392C
+	bl func_fe6_0804392C
 	ldrh r3, [r6]
 	rsbs r0, r3, #0
 	lsls r0, r0, #0x10
@@ -56829,8 +56829,8 @@ sub_805EED4: @ 0x0805EED4
 	rsbs r1, r6, #0
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_8044230
-	bl sub_805894C
+	bl func_fe6_08044230
+	bl func_fe6_0805894C
 	cmp r0, #0
 	beq .L0805F012
 	movs r0, #3
@@ -56855,13 +56855,13 @@ sub_805EED4: @ 0x0805EED4
 	movs r3, #0
 	ldrsh r2, [r0, r3]
 	movs r0, #0
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	lsls r1, r5, #0x10
 	asrs r1, r1, #0x10
 	lsls r2, r4, #0x10
 	asrs r2, r2, #0x10
 	movs r0, #1
-	bl sub_8047C88
+	bl func_fe6_08047C88
 	ldr r0, [r7, #0x60]
 	bl Proc_End
 	adds r0, r7, #0
@@ -56882,8 +56882,8 @@ sub_805EED4: @ 0x0805EED4
 .L0805F070: .4byte gUnk_Banim_02000024
 .L0805F074: .4byte gUnk_Banim_02017744
 
-	thumb_func_start sub_805F078
-sub_805F078: @ 0x0805F078
+	thumb_func_start func_fe6_0805F078
+func_fe6_0805F078: @ 0x0805F078
 	push {lr}
 	lsls r1, r0, #1
 	adds r1, r1, r0
@@ -56899,8 +56899,8 @@ sub_805F078: @ 0x0805F078
 .L0805F090: .4byte gUnk_08607504
 .L0805F094: .4byte 0x06008000
 
-	thumb_func_start sub_805F098
-sub_805F098: @ 0x0805F098
+	thumb_func_start func_fe6_0805F098
+func_fe6_0805F098: @ 0x0805F098
 	push {r4, lr}
 	sub sp, #8
 	lsls r1, r0, #1
@@ -56921,7 +56921,7 @@ sub_805F098: @ 0x0805F098
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl sub_805B1AC
+	bl func_fe6_0805B1AC
 	add sp, #8
 	pop {r4}
 	pop {r0}
@@ -56931,8 +56931,8 @@ sub_805F098: @ 0x0805F098
 .L0805F0D4: .4byte gUnk_Banim_0201977C
 .L0805F0D8: .4byte gBg3Tm
 
-	thumb_func_start sub_805F0DC
-sub_805F0DC: @ 0x0805F0DC
+	thumb_func_start func_fe6_0805F0DC
+func_fe6_0805F0DC: @ 0x0805F0DC
 	push {lr}
 	lsls r1, r0, #1
 	adds r1, r1, r0
@@ -56949,12 +56949,12 @@ sub_805F0DC: @ 0x0805F0DC
 .L0805F0F8: .4byte gUnk_08607504
 .L0805F0FC: .4byte gPal+0xC0
 
-	thumb_func_start sub_805F100
-sub_805F100: @ 0x0805F100
+	thumb_func_start func_fe6_0805F100
+func_fe6_0805F100: @ 0x0805F100
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	bl sub_805F078
+	bl func_fe6_0805F078
 	movs r5, #0
 	str r5, [sp]
 	ldr r1, .L0805F13C @ =0x0600FFE0
@@ -56962,9 +56962,9 @@ sub_805F100: @ 0x0805F100
 	mov r0, sp
 	bl CpuFastSet
 	adds r0, r4, #0
-	bl sub_805F098
+	bl func_fe6_0805F098
 	adds r0, r4, #0
-	bl sub_805F0DC
+	bl func_fe6_0805F0DC
 	ldr r0, .L0805F144 @ =gPal
 	strh r5, [r0]
 	movs r0, #8
@@ -56979,8 +56979,8 @@ sub_805F100: @ 0x0805F100
 .L0805F140: .4byte 0x01000008
 .L0805F144: .4byte gPal
 
-	thumb_func_start sub_805F148
-sub_805F148: @ 0x0805F148
+	thumb_func_start func_fe6_0805F148
+func_fe6_0805F148: @ 0x0805F148
 	ldr r0, .L0805F154 @ =gUnk_Banim_0201F0E4
 	ldr r0, [r0]
 	cmp r0, #1
@@ -56994,8 +56994,8 @@ sub_805F148: @ 0x0805F148
 .L0805F15A:
 	bx lr
 
-	thumb_func_start sub_805F15C
-sub_805F15C: @ 0x0805F15C
+	thumb_func_start func_fe6_0805F15C
+func_fe6_0805F15C: @ 0x0805F15C
 	push {r4, lr}
 	ldr r4, .L0805F174 @ =gUnk_Banim_0201F0E0
 	ldr r0, [r4]
@@ -57011,28 +57011,28 @@ sub_805F15C: @ 0x0805F15C
 	.align 2, 0
 .L0805F174: .4byte gUnk_Banim_0201F0E0
 
-	thumb_func_start sub_805F178
-sub_805F178: @ 0x0805F178
+	thumb_func_start func_fe6_0805F178
+func_fe6_0805F178: @ 0x0805F178
 	push {lr}
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5a
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F188
-sub_805F188: @ 0x0805F188
+	thumb_func_start func_fe6_0805F188
+func_fe6_0805F188: @ 0x0805F188
 	push {lr}
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5c
-	bl sub_805BCA8
+	bl func_fe6_0805BCA8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F198
-sub_805F198: @ 0x0805F198
+	thumb_func_start func_fe6_0805F198
+func_fe6_0805F198: @ 0x0805F198
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -57149,8 +57149,8 @@ sub_805F198: @ 0x0805F198
 	.align 2, 0
 .L0805F278: .4byte gUnk_Banim_0201977C
 
-	thumb_func_start sub_805F27C
-sub_805F27C: @ 0x0805F27C
+	thumb_func_start func_fe6_0805F27C
+func_fe6_0805F27C: @ 0x0805F27C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -57220,7 +57220,7 @@ sub_805F27C: @ 0x0805F27C
 	ldr r0, .L0805F394 @ =gBg1Tm
 	lsls r1, r6, #0x10
 	lsrs r1, r1, #0x10
-	bl sub_805F198
+	bl func_fe6_0805F198
 	ldr r5, .L0805F398 @ =gUnk_Banim_02017658
 	adds r0, r5, #0
 	adds r1, r6, #0
@@ -57373,8 +57373,8 @@ sub_805F27C: @ 0x0805F27C
 .L0805F490: .4byte gUnk_08607660
 .L0805F494: .4byte gDispIo
 
-	thumb_func_start sub_805F498
-sub_805F498: @ 0x0805F498
+	thumb_func_start func_fe6_0805F498
+func_fe6_0805F498: @ 0x0805F498
 	push {r4, r5, lr}
 	ldr r4, .L0805F554 @ =gUnk_Banim_0201F0E0
 	ldr r0, .L0805F558 @ =gUnk_08607668
@@ -57390,7 +57390,7 @@ sub_805F498: @ 0x0805F498
 	str r0, [r5, #0x44]
 	str r0, [r5, #0x50]
 	str r0, [r5, #0x4c]
-	bl sub_8058F38
+	bl func_fe6_08058F38
 	cmp r0, #0
 	bne .L0805F576
 	ldr r0, .L0805F560 @ =0x0203CD14
@@ -57464,7 +57464,7 @@ sub_805F498: @ 0x0805F498
 	ldr r1, .L0805F55C @ =gUnk_Banim_0201F0E4
 	movs r0, #1
 	str r0, [r1]
-	bl sub_805F15C
+	bl func_fe6_0805F15C
 	b .L0805F576
 	.align 2, 0
 .L0805F554: .4byte gUnk_Banim_0201F0E0
@@ -57482,8 +57482,8 @@ sub_805F498: @ 0x0805F498
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F57C
-sub_805F57C: @ 0x0805F57C
+	thumb_func_start func_fe6_0805F57C
+func_fe6_0805F57C: @ 0x0805F57C
 	push {lr}
 	adds r1, r0, #0
 	ldrh r0, [r1, #0x2c]
@@ -57499,16 +57499,16 @@ sub_805F57C: @ 0x0805F57C
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F598
-sub_805F598: @ 0x0805F598
+	thumb_func_start func_fe6_0805F598
+func_fe6_0805F598: @ 0x0805F598
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r2, [r4, #0x44]
 	cmp r2, #0
 	beq .L0805F5B4
 	movs r1, #0
-	bl sub_805F27C
-	bl sub_805F178
+	bl func_fe6_0805F27C
+	bl func_fe6_0805F178
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x60
@@ -57520,8 +57520,8 @@ sub_805F598: @ 0x0805F598
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F5C0
-sub_805F5C0: @ 0x0805F5C0
+	thumb_func_start func_fe6_0805F5C0
+func_fe6_0805F5C0: @ 0x0805F5C0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x44]
@@ -57541,7 +57541,7 @@ sub_805F5C0: @ 0x0805F5C0
 	ble .L0805F5F2
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F5F2:
@@ -57549,16 +57549,16 @@ sub_805F5C0: @ 0x0805F5C0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F5F8
-sub_805F5F8: @ 0x0805F5F8
+	thumb_func_start func_fe6_0805F5F8
+func_fe6_0805F5F8: @ 0x0805F5F8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r2, [r4, #0x4c]
 	cmp r2, #0
 	beq .L0805F614
 	movs r1, #0
-	bl sub_805F27C
-	bl sub_805F178
+	bl func_fe6_0805F27C
+	bl func_fe6_0805F178
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x60
@@ -57570,8 +57570,8 @@ sub_805F5F8: @ 0x0805F5F8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F620
-sub_805F620: @ 0x0805F620
+	thumb_func_start func_fe6_0805F620
+func_fe6_0805F620: @ 0x0805F620
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x4c]
@@ -57591,7 +57591,7 @@ sub_805F620: @ 0x0805F620
 	ble .L0805F652
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F652:
@@ -57599,16 +57599,16 @@ sub_805F620: @ 0x0805F620
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F658
-sub_805F658: @ 0x0805F658
+	thumb_func_start func_fe6_0805F658
+func_fe6_0805F658: @ 0x0805F658
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r2, [r4, #0x48]
 	cmp r2, #0
 	beq .L0805F674
 	movs r1, #1
-	bl sub_805F27C
-	bl sub_805F188
+	bl func_fe6_0805F27C
+	bl func_fe6_0805F188
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x6c
@@ -57620,8 +57620,8 @@ sub_805F658: @ 0x0805F658
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F680
-sub_805F680: @ 0x0805F680
+	thumb_func_start func_fe6_0805F680
+func_fe6_0805F680: @ 0x0805F680
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x48]
@@ -57641,7 +57641,7 @@ sub_805F680: @ 0x0805F680
 	ble .L0805F6B2
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F6B2:
@@ -57649,16 +57649,16 @@ sub_805F680: @ 0x0805F680
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F6B8
-sub_805F6B8: @ 0x0805F6B8
+	thumb_func_start func_fe6_0805F6B8
+func_fe6_0805F6B8: @ 0x0805F6B8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r2, [r4, #0x50]
 	cmp r2, #0
 	beq .L0805F6D4
 	movs r1, #1
-	bl sub_805F27C
-	bl sub_805F188
+	bl func_fe6_0805F27C
+	bl func_fe6_0805F188
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	movs r0, #0x6c
@@ -57670,8 +57670,8 @@ sub_805F6B8: @ 0x0805F6B8
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F6E0
-sub_805F6E0: @ 0x0805F6E0
+	thumb_func_start func_fe6_0805F6E0
+func_fe6_0805F6E0: @ 0x0805F6E0
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x50]
@@ -57693,7 +57693,7 @@ sub_805F6E0: @ 0x0805F6E0
 	strh r0, [r4, #0x2c]
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl sub_80474D8
+	bl func_fe6_080474D8
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F716:
@@ -57701,8 +57701,8 @@ sub_805F6E0: @ 0x0805F6E0
 	pop {r0}
 	bx r0
 
-	thumb_func_start sub_805F71C
-sub_805F71C: @ 0x0805F71C
+	thumb_func_start func_fe6_0805F71C
+func_fe6_0805F71C: @ 0x0805F71C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -57727,13 +57727,13 @@ sub_805F71C: @ 0x0805F71C
 	.align 2, 0
 .L0805F748: .4byte gUnk_Banim_0201F0E4
 
-	thumb_func_start nullsub_10
-nullsub_10: @ 0x0805F74C
+	thumb_func_start func_fe6_0805F74C
+func_fe6_0805F74C: @ 0x0805F74C
 	bx lr
 	.align 2, 0
 
-	thumb_func_start sub_805F750
-sub_805F750: @ 0x0805F750
+	thumb_func_start func_fe6_0805F750
+func_fe6_0805F750: @ 0x0805F750
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -57761,42 +57761,42 @@ sub_805F750: @ 0x0805F750
 .L0805F77C: .4byte gUnk_08662E4C
 .L0805F780: .4byte 0x0000FFFF
 
-	thumb_func_start sub_805F784
-sub_805F784: @ 0x0805F784
+	thumb_func_start func_fe6_0805F784
+func_fe6_0805F784: @ 0x0805F784
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldrb r0, [r0, #2]
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805F794
-sub_805F794: @ 0x0805F794
+	thumb_func_start func_fe6_0805F794
+func_fe6_0805F794: @ 0x0805F794
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldrh r0, [r0, #4]
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805F7A4
-sub_805F7A4: @ 0x0805F7A4
+	thumb_func_start func_fe6_0805F7A4
+func_fe6_0805F7A4: @ 0x0805F7A4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldr r0, [r0, #8]
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805F7B4
-sub_805F7B4: @ 0x0805F7B4
+	thumb_func_start func_fe6_0805F7B4
+func_fe6_0805F7B4: @ 0x0805F7B4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldrb r0, [r0, #0xc]
 	pop {r1}
 	bx r1
@@ -57806,17 +57806,17 @@ GetItemMaFacing: @ 0x0805F7C4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldrb r0, [r0, #0xd]
 	pop {r1}
 	bx r1
 
-	thumb_func_start sub_805F7D4
-sub_805F7D4: @ 0x0805F7D4
+	thumb_func_start func_fe6_0805F7D4
+func_fe6_0805F7D4: @ 0x0805F7D4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl sub_805F750
+	bl func_fe6_0805F750
 	ldrb r0, [r0, #0xe]
 	pop {r1}
 	bx r1

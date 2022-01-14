@@ -111,7 +111,7 @@ void BeginMapFlood(int x, int y, int move, int uid)
     MapFloodCoreRam();
 }
 
-void sub_8019528(int connect, int x, int y)
+void func_fe6_08019528(int connect, int x, int y)
 {
     // This is a C implementation of the ARM (asm) function MapFloodCoreStep
     // Probably used during development before switching to the a more optimized version.

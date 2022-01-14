@@ -67,8 +67,8 @@ static void TalkShiftClear_OnIdle(struct GenericProc* proc);
 static int GetTalkPauseCmdDuration(int cmd);
 static void PutTalkBubble(int xAnchor, int yAnchor, int width, int height);
 static void StartOpenTalkBubble(void);
-static void sub_800B3D4(ProcPtr proc);
-static void sub_800B3F8(ProcPtr proc);
+static void func_fe6_0800B3D4(ProcPtr proc);
+static void func_fe6_0800B3F8(ProcPtr proc);
 static void TalkOpenBubble_OnIdle(struct GenericProc* proc);
 static void InitTalkTextWin(int x, int y, int width, int height);
 static void TalkOpen_OnEnd(struct GenericProc* proc);
@@ -212,8 +212,8 @@ struct TalkChoiceEnt CONST_DATA gYesNoTalkChoice[] =
 
 struct TalkChoiceEnt CONST_DATA gBuySellTalkChoice[] =
 {
-    { 0x2C1, sub_8095FC4 }, // Buy (TODO: msgids)
-    { 0x2C2, sub_8095FF8 }, // Sell (TODO: msgids)
+    { 0x2C1, func_fe6_08095FC4 }, // Buy (TODO: msgids)
+    { 0x2C2, func_fe6_08095FF8 }, // Sell (TODO: msgids)
 };
 
 struct ProcScr CONST_DATA ProcScr_TalkChoice[] =
@@ -241,10 +241,10 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C3E7C[] =
 {
     PROC_MARK(PROC_MARK_5),
 
-    PROC_CALL(sub_800B3D4),
+    PROC_CALL(func_fe6_0800B3D4),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_800B3F8),
+    PROC_CALL(func_fe6_0800B3F8),
     PROC_SLEEP(1),
 
     PROC_END,
@@ -950,7 +950,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     if (sTalkSt->active_talk_face == TALK_FACE_NONE)
         SetActiveTalkFace(TALK_FACE_1);
 
-    if (sub_80425C4())
+    if (func_fe6_080425C4())
         SetFightEventFaceConfig();
     else
         faceDisp |= FACE_DISP_KIND(FACE_96x80);
@@ -1197,7 +1197,7 @@ static void TalkWaitForInput_OnIdle(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-void sub_800AD58(struct GenericProc* proc)
+void func_fe6_0800AD58(struct GenericProc* proc)
 {
 }
 
@@ -1314,7 +1314,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
             proc->choices[1].onSwitch();
     }
 
-    sub_80415CC(proc->x_disp + (proc->selectedChoice - 1) * 40 - 4, proc->y_disp);
+    func_fe6_080415CC(proc->x_disp + (proc->selectedChoice - 1) * 40 - 4, proc->y_disp);
 }
 
 static void TalkShiftClear_OnInit(struct GenericProc* proc)
@@ -1360,12 +1360,12 @@ static void TalkShiftClear_OnIdle(struct GenericProc* proc)
     }
 }
 
-static void sub_800B3D4(ProcPtr proc)
+static void func_fe6_0800B3D4(ProcPtr proc)
 {
-    sub_8094030(0x361, 0x1C, 0x44444444, proc);
+    func_fe6_08094030(0x361, 0x1C, 0x44444444, proc);
 }
 
-static void sub_800B3F8(ProcPtr proc)
+static void func_fe6_0800B3F8(ProcPtr proc)
 {
     sTalkSt->line_active--;
 
@@ -1444,7 +1444,7 @@ static void PutTalkBubble(int xAnchor, int yAnchor, int width, int height)
     else
         kind = 1;
 
-    if (sub_80425C4())
+    if (func_fe6_080425C4())
         kind += 2;
 
     y = yAnchor - height + 1;
@@ -1687,7 +1687,7 @@ static bool TalkHasCorrectBubble(void)
 
 int GetTalkFaceHPos(int talk_face)
 {
-    if (sub_80425C4())
+    if (func_fe6_080425C4())
         return 4;
 
     return gTalkFaceHPosLut[talk_face];
@@ -1816,8 +1816,8 @@ void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent)
     proc->unk52 = chr;
     proc->unk64 = palid;
 
-    sub_8069C34();
-    sub_806A218(y + 7, y + 41, 0x44C3, 0x7247);
+    func_fe6_08069C34();
+    func_fe6_0806A218(y + 7, y + 41, 0x44C3, 0x7247);
 }
 
 void EndPutTalkSpriteText(void)

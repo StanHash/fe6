@@ -306,7 +306,7 @@ void TryEnlistTalkUnitTarget(struct Unit* unit)
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
         return;
 
-    if (!sub_806AF4C(gSubjectUnit->pinfo->id, unit->pinfo->id))
+    if (!func_fe6_0806AF4C(gSubjectUnit->pinfo->id, unit->pinfo->id))
         return;
 
     EnlistTarget(unit->x, unit->y, unit->id, unit->pinfo->id);
@@ -356,7 +356,7 @@ void ListSupportTargets(struct Unit* unit)
     }
 }
 
-void sub_8021240(struct Unit* unit)
+void func_fe6_08021240(struct Unit* unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -364,7 +364,7 @@ void sub_8021240(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 1);
 }
 
-void sub_8021278(struct Unit* unit)
+void func_fe6_08021278(struct Unit* unit)
 {
     int item;
 
@@ -382,7 +382,7 @@ void sub_8021278(struct Unit* unit)
         MapFill(gMapRange, 0);
         MapIncInBoundedRange(x, y, GetItemMinRange(item), GetItemMaxRange(item));
 
-        ForEachUnitInRange(sub_8021240);
+        ForEachUnitInRange(func_fe6_08021240);
     }
 }
 
@@ -391,7 +391,7 @@ void TryEnlistDoorPositionTarget(int x, int y)
     if (gMapTerrain[y][x] != TERRAIN_DOOR)
         return;
 
-    if (!sub_806B37C(x, y))
+    if (!func_fe6_0806B37C(x, y))
         return;
 
     EnlistTarget(x, y, TERRAIN_DOOR, 0);
@@ -402,7 +402,7 @@ void TryEnlistBridgePositionTarget(int x, int y)
     if (gMapTerrain[y][x] != TERRAIN_DRAWBRIDGE)
         return;
 
-    if (!sub_806B37C(x, y))
+    if (!func_fe6_0806B37C(x, y))
         return;
 
     EnlistTarget(x, y, TERRAIN_DRAWBRIDGE, 0);
@@ -795,7 +795,7 @@ void ListSaintsStaffTargets(struct Unit* unit)
     }
 }
 
-void sub_8021B30(int arg_0)
+void func_fe6_08021B30(int arg_0)
 {
     int i, count = CountTargets();
 
@@ -806,8 +806,8 @@ void sub_8021B30(int arg_0)
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {
-            sub_8084AEC(other->pinfo->id, 0, arg_0);
-            sub_8084A10(other->pinfo->id);
+            func_fe6_08084AEC(other->pinfo->id, 0, arg_0);
+            func_fe6_08084A10(other->pinfo->id);
         }
     }
 }

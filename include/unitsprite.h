@@ -33,7 +33,7 @@ struct UnitSpriteInfo
     /* 04 */ u8 const* img;
 };
 
-void sub_8021B88(void);
+void func_fe6_08021B88(void);
 void ApplyUnitSpritePalettes(void);
 void ResetUnitSprites(void);
 void ResetUnitSpritesB(void);
@@ -45,14 +45,14 @@ int GetUnitSpritePalette(struct Unit* unit);
 void RefreshUnitSprites(void);
 void PutUnitSpritesOam(void);
 void PutUnitSpriteIconsOam(void);
-void sub_8022618(void);
+void func_fe6_08022618(void);
 void ResetUnitSpritHover(void);
 void UnitSpriteHoverUpdate(void);
 bool IsUnitSpriteHoverEnabledAt(int x, int y);
 void PutUnitSprite(int layer, int x, int y, struct Unit* unit);
 void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit);
 void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit);
-void sub_8022A2C(void);
+void func_fe6_08022A2C(void);
 void HideUnitSprite(struct Unit* unit);
 void ShowUnitSprite(struct Unit* unit);
 u8 GetUnitSpriteHiddenFlag(struct Unit* unit);

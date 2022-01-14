@@ -187,7 +187,7 @@ static void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     char const* str;
     int x;
 
-    sub_80417A8((u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRADEMENU_240, 24, 1);
+    func_fe6_080417A8((u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRADEMENU_240, 24, 1);
 
     StartSpriteRefresher(proc, 7, 0, -4, Sprite_085C6234, OAM2_PAL(OBJPAL_TRADEMENU_8) + OAM2_CHR(OBJCHR_TRADEMENU_240) + OAM2_LAYER(2));
 
@@ -216,13 +216,13 @@ static void TradeMenu_HighlightUpdater_Loop(struct TradeMenuProc* proc)
 
     if (proc->hoverColumn != TRADEMENU_UNIT_UNDEFINED)
     {
-        sub_8041728(
+        func_fe6_08041728(
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y,
             12);
     }
 
-    sub_804169C(
+    func_fe6_0804169C(
         sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         12);
@@ -271,7 +271,7 @@ static void TradeMenu_RefreshItemText(struct TradeMenuProc* proc)
 
             if (item)
             {
-                sub_8016694(&gTradeMenuText[col][row], item, IsItemDisplayUseable(proc->units[col], item),
+                func_fe6_08016694(&gTradeMenuText[col][row], item, IsItemDisplayUseable(proc->units[col], item),
                     gBg0Tm + TM_OFFSET(xLookup[col] + 1, yLookup[col] + row * 2 + 1));
             }
         }
@@ -391,8 +391,8 @@ static void TradeMenu_ApplyItemSwap(struct TradeMenuProc* proc)
 
 static void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
 {
-    sub_8041358(1,  8, 14, 12, 0);
-    sub_8041358(15, 8, 14, 12, 0);
+    func_fe6_08041358(1,  8, 14, 12, 0);
+    func_fe6_08041358(15, 8, 14, 12, 0);
 
     ResetTextFont();
 
@@ -418,7 +418,7 @@ static void TradeMenu_OnLoopUnselected(struct TradeMenuProc* proc)
 {
     TradeMenu_UpdateSelection(proc);
 
-    sub_80415CC(
+    func_fe6_080415CC(
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
@@ -465,11 +465,11 @@ static void TradeMenu_OnLoopSelected(struct TradeMenuProc* proc)
 {
     TradeMenu_UpdateSelection(proc);
 
-    sub_80415CC(
+    func_fe6_080415CC(
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
         8 * sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y);
 
-    sub_804163C(
+    func_fe6_0804163C(
         8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].x,
         8 * sItemDisplayTileLocation[proc->selectedColumn][proc->selectedRow].y);
 
@@ -539,9 +539,9 @@ static void TradeMenu_HelpBox_OnInit(struct GenericProc* proc)
     if (tradeMenu->extraCellEnabled)
         tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = FALSE;
 
-    sub_8070E70(NULL, -1);
+    func_fe6_08070E70(NULL, -1);
 
-    sub_80706FC(
+    func_fe6_080706FC(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         item);
@@ -558,7 +558,7 @@ static void TradeMenu_HelpBox_OnLoop(struct GenericProc* proc)
 
     if (changedSelection)
     {
-        sub_80706FC(
+        func_fe6_080706FC(
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
             item);
@@ -567,13 +567,13 @@ static void TradeMenu_HelpBox_OnLoop(struct GenericProc* proc)
     if (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R))
         Proc_Break(proc);
 
-    sub_80415CC(
+    func_fe6_080415CC(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
     if (tradeMenu->extraCellEnabled)
     {
-        sub_804163C(
+        func_fe6_0804163C(
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }
@@ -586,15 +586,15 @@ static void TradeMenu_HelpBox_OnEnd(struct GenericProc* proc)
     if (tradeMenu->extraCellEnabled)
         tradeMenu->hasItem[tradeMenu->extraColumn][tradeMenu->extraRow] = TRUE;
 
-    sub_807089C();
+    func_fe6_0807089C();
 
-    sub_80415CC(
+    func_fe6_080415CC(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y);
 
     if (tradeMenu->extraCellEnabled)
     {
-        sub_804163C(
+        func_fe6_0804163C(
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->selectedColumn][tradeMenu->selectedRow].y);
     }

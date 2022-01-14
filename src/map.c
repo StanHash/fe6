@@ -72,10 +72,10 @@ void InitMapForChapter(int chapter)
     RefreshTerrainMap();
 
     if (gPlaySt.chapter == CHAPTER_UNK_22)
-        sub_80187EC();
+        func_fe6_080187EC();
 }
 
-void sub_8018784(int chapter)
+void func_fe6_08018784(int chapter)
 {
     UnpackRawMap(gMapBuf, chapter);
 
@@ -89,7 +89,7 @@ void sub_8018784(int chapter)
     RefreshTerrainMap();
 }
 
-void sub_80187EC(void)
+void func_fe6_080187EC(void)
 {
     int ix, iy;
 
@@ -139,7 +139,7 @@ void sub_80187EC(void)
     }
 }
 
-void sub_80188F4(void)
+void func_fe6_080188F4(void)
 {
     UnpackRawMap(gMapBuf, gPlaySt.chapter);
 
@@ -147,7 +147,7 @@ void sub_80188F4(void)
     ApplyEnabledMapChanges();
     RefreshTerrainMap();
 
-    sub_80187EC();
+    func_fe6_080187EC();
 }
 
 void MapInit(u8* data, u8*** rowsOut, int width, int height)
@@ -312,7 +312,7 @@ void PutMapMetatile(u16* tm, int x_tm, int y_tm, int x, int y)
     out[TM_OFFSET(1, 1)] = tileref + *tiles++;
 }
 
-void nullsub_2(void)
+void func_fe6_08018CDC(void)
 {
 }
 
@@ -321,7 +321,7 @@ void PutLimitViewSquare(u16* tm, int x, int y, int x_tm, int y_tm)
     tm = tm + 2*TM_OFFSET(x_tm, y_tm);
 
     if (!tm)
-        nullsub_2();
+        func_fe6_08018CDC();
 
     if (gMapMovementSigned[y][x] >= 0)
     {
@@ -635,7 +635,7 @@ bool DoesTerrainHealStatus(int terrain)
     return TerrainHealsStatusTable[terrain];
 }
 
-void sub_80192E4(void)
+void func_fe6_080192E4(void)
 {
     u16 const* tile = sTilesetInfo;
 

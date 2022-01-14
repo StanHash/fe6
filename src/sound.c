@@ -70,7 +70,7 @@ bool IsBgmPlaying(void)
     return sSoundSt.songPlaying;
 }
 
-void sub_8002F9C(int volume)
+void func_fe6_08002F9C(int volume)
 {
     m4aMPlayVolumeControl(&gMpi_03006530, 0xFFFF, volume);
     m4aMPlayVolumeControl(&gMpi_03006600, 0xFFFF, volume);
@@ -97,7 +97,7 @@ void FadeBgmOut(int speed)
     sSoundSt.songPlaying = FALSE;
 }
 
-void sub_80030B4(int speed)
+void func_fe6_080030B4(int speed)
 {
     if (speed == 0)
         speed = 6;

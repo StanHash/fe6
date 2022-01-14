@@ -164,7 +164,7 @@ NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
 
 #endif
 
-void nullsub_12(void)
+void func_fe6_08013BEC(void)
 {
 }
 
@@ -312,9 +312,9 @@ void Copy2dChr(void const* src, u8* dst, int width, int height)
     }
 }
 
-static void sub_8013DE8(u8 const* src, u8* dst, int width);
+static void func_fe6_08013DE8(u8 const* src, u8* dst, int width);
 
-void sub_8013DAC(u8 const* src, u8* dst, int width, int height)
+void func_fe6_08013DAC(u8 const* src, u8* dst, int width, int height)
 {
     int i, lineSize;
 
@@ -325,16 +325,16 @@ void sub_8013DAC(u8 const* src, u8* dst, int width, int height)
 
     for (i = height; i != 0; --i)
     {
-        sub_8013DE8(src, dst, width);
+        func_fe6_08013DE8(src, dst, width);
 
         src += lineSize;
         dst += CHR_SIZE * width;
     }
 }
 
-static void sub_8013E10(u8 const* src, u32* dst, int width);
+static void func_fe6_08013E10(u8 const* src, u32* dst, int width);
 
-static void sub_8013DE8(u8 const* src, u8* dst, int width)
+static void func_fe6_08013DE8(u8 const* src, u8* dst, int width)
 {
     int i;
 
@@ -343,14 +343,14 @@ static void sub_8013DE8(u8 const* src, u8* dst, int width)
 
     for (i = width; i != 0; i--)
     {
-        sub_8013E10(src, (u32*) dst, width);
+        func_fe6_08013E10(src, (u32*) dst, width);
 
         src += 8;
         dst += CHR_SIZE;
     }
 }
 
-static void sub_8013E10(u8 const* src, u32* dst, int width)
+static void func_fe6_08013E10(u8 const* src, u32* dst, int width)
 {
     int i;
 
@@ -395,7 +395,7 @@ void PutIncrTileref(u16* tm, int tileref, int width, int height)
             tm[TM_OFFSET(ix, iy)] = tileref++;
 }
 
-void sub_8013E8C(u16* tm, u8 const* src, int tileref, int len)
+void func_fe6_08013E8C(u16* tm, u8 const* src, int tileref, int len)
 {
     int i;
 
@@ -415,23 +415,23 @@ struct Unk_08013EBC
     /* 4C */ u16 unk_4C;
 };
 
-void sub_8013EBC(struct Unk_08013EBC* unk, int value)
+void func_fe6_08013EBC(struct Unk_08013EBC* unk, int value)
 {
     unk->unk_4C = value;
 }
 
-void sub_8013EC4(struct Unk_08013EBC* unk)
+void func_fe6_08013EC4(struct Unk_08013EBC* unk)
 {
     unk->unk_4C++;
     unk->unk_4C &= 0x7FFF;
 }
 
-void sub_8013ED8(struct Unk_08013EBC* unk)
+void func_fe6_08013ED8(struct Unk_08013EBC* unk)
 {
     unk->unk_4C--;
 }
 
-void sub_8013EE4(short* array)
+void func_fe6_08013EE4(short* array)
 {
     int i;
 
@@ -442,7 +442,7 @@ void sub_8013EE4(short* array)
     }
 }
 
-void sub_8013F04(short* array, int xA, int yA, int xB, int yB)
+void func_fe6_08013F04(short* array, int xA, int yA, int xB, int yB)
 {
     int q16_slope, q16_x, i;
 
@@ -490,7 +490,7 @@ struct Unk
     short a, b;
 };
 
-struct Unk* sub_8013F7C(int arg_0)
+struct Unk* func_fe6_08013F7C(int arg_0)
 {
     #define BUF ((struct Unk*) gBuf)
 
@@ -587,14 +587,14 @@ void DarkenPals(int reduction)
     RegisterDataMove(buf, (u16*) PLTT, sizeof(gPal));
 }
 
-void nullsub_13(void)
+void func_fe6_0801412C(void)
 {
 }
 
-void sub_8014130(char const* arg_0)
+void func_fe6_08014130(char const* arg_0)
 {
     char unk[] = "@@LWFOVDBK@@";
-    sub_8014130(unk);
+    func_fe6_08014130(unk);
 }
 
 static void SpacialSeTest_OnInit(struct GenericProc* proc)
@@ -635,7 +635,7 @@ void StartSpacialSeTest(void)
     SpawnProc(ProcScr_SpacialSeTest, PROC_TREE_3);
 }
 
-void nullsub_14(void)
+void func_fe6_080141DC(void)
 {
 }
 
@@ -990,135 +990,135 @@ void StartSlowLockingFadeFromWhite(ProcPtr parent)
     StartLockingFadeFromWhite(0x04, parent);
 }
 
-void sub_8014778(ProcPtr parent)
+void func_fe6_08014778(ProcPtr parent)
 {
-    sub_80149E0(1, 0x04, parent, sub_8014AF8);
+    func_fe6_080149E0(1, 0x04, parent, func_fe6_08014AF8);
 }
 
-void sub_8014790(ProcPtr parent)
+void func_fe6_08014790(ProcPtr parent)
 {
-    sub_80149E0(1, 0x08, parent, sub_8014AF8);
+    func_fe6_080149E0(1, 0x08, parent, func_fe6_08014AF8);
 }
 
-void sub_80147A8(ProcPtr parent)
+void func_fe6_080147A8(ProcPtr parent)
 {
-    sub_80149E0(1, 0x10, parent, sub_8014AF8);
+    func_fe6_080149E0(1, 0x10, parent, func_fe6_08014AF8);
 }
 
-void sub_80147C0(ProcPtr parent)
+void func_fe6_080147C0(ProcPtr parent)
 {
-    sub_80149E0(1, 0x20, parent, sub_8014AF8);
+    func_fe6_080149E0(1, 0x20, parent, func_fe6_08014AF8);
 }
 
-void sub_80147D8(ProcPtr parent)
+void func_fe6_080147D8(ProcPtr parent)
 {
-    sub_80149E0(1, 0x40, parent, sub_8014AF8);
+    func_fe6_080149E0(1, 0x40, parent, func_fe6_08014AF8);
 }
 
-void sub_80147F0(ProcPtr parent)
+void func_fe6_080147F0(ProcPtr parent)
 {
-    sub_80149E0(0, 0x08, parent, NULL);
+    func_fe6_080149E0(0, 0x08, parent, NULL);
 }
 
-void sub_8014804(ProcPtr parent)
+void func_fe6_08014804(ProcPtr parent)
 {
-    sub_80149E0(0, 0x10, parent, NULL);
+    func_fe6_080149E0(0, 0x10, parent, NULL);
 }
 
-void sub_8014818(ProcPtr parent)
+void func_fe6_08014818(ProcPtr parent)
 {
-    sub_80149E0(0, 0x20, parent, NULL);
+    func_fe6_080149E0(0, 0x20, parent, NULL);
 }
 
-void sub_801482C(ProcPtr parent)
+void func_fe6_0801482C(ProcPtr parent)
 {
-    sub_80149E0(0, 0x40, parent, NULL);
+    func_fe6_080149E0(0, 0x40, parent, NULL);
 }
 
-void sub_8014840(ProcPtr parent)
+void func_fe6_08014840(ProcPtr parent)
 {
-    sub_80149E0(3, 0x04, parent, sub_8014AF8);
+    func_fe6_080149E0(3, 0x04, parent, func_fe6_08014AF8);
 }
 
-void sub_8014858(ProcPtr parent)
+void func_fe6_08014858(ProcPtr parent)
 {
-    sub_80149E0(3, 0x08, parent, sub_8014AF8);
+    func_fe6_080149E0(3, 0x08, parent, func_fe6_08014AF8);
 }
 
-void sub_8014870(ProcPtr parent)
+void func_fe6_08014870(ProcPtr parent)
 {
-    sub_80149E0(3, 0x10, parent, sub_8014AF8);
+    func_fe6_080149E0(3, 0x10, parent, func_fe6_08014AF8);
 }
 
-void sub_8014888(ProcPtr parent)
+void func_fe6_08014888(ProcPtr parent)
 {
-    sub_80149E0(3, 0x20, parent, sub_8014AF8);
+    func_fe6_080149E0(3, 0x20, parent, func_fe6_08014AF8);
 }
 
-void sub_80148A0(ProcPtr parent)
+void func_fe6_080148A0(ProcPtr parent)
 {
-    sub_80149E0(3, 0x40, parent, sub_8014AF8);
+    func_fe6_080149E0(3, 0x40, parent, func_fe6_08014AF8);
 }
 
-void sub_80148B8(ProcPtr parent)
+void func_fe6_080148B8(ProcPtr parent)
 {
-    sub_80149E0(2, 0x04, parent, NULL);
+    func_fe6_080149E0(2, 0x04, parent, NULL);
 }
 
-void sub_80148CC(ProcPtr parent)
+void func_fe6_080148CC(ProcPtr parent)
 {
-    sub_80149E0(2, 0x08, parent, NULL);
+    func_fe6_080149E0(2, 0x08, parent, NULL);
 }
 
-void sub_80148E0(ProcPtr parent)
+void func_fe6_080148E0(ProcPtr parent)
 {
-    sub_80149E0(2, 0x08, parent, NULL);
-    sub_8014AB8();
+    func_fe6_080149E0(2, 0x08, parent, NULL);
+    func_fe6_08014AB8();
 }
 
-void sub_80148F8(ProcPtr parent)
+void func_fe6_080148F8(ProcPtr parent)
 {
-    sub_80149E0(2, 0x10, parent, NULL);
+    func_fe6_080149E0(2, 0x10, parent, NULL);
 }
 
-void sub_801490C(ProcPtr parent)
+void func_fe6_0801490C(ProcPtr parent)
 {
-    sub_80149E0(2, 0x20, parent, NULL);
+    func_fe6_080149E0(2, 0x20, parent, NULL);
 }
 
-void sub_8014920(ProcPtr parent)
+void func_fe6_08014920(ProcPtr parent)
 {
-    sub_80149E0(2, 0x40, parent, NULL);
+    func_fe6_080149E0(2, 0x40, parent, NULL);
 }
 
-void sub_8014934(ProcPtr parent)
+void func_fe6_08014934(ProcPtr parent)
 {
-    sub_80149E0(6, 0x10, parent, NULL);
+    func_fe6_080149E0(6, 0x10, parent, NULL);
 }
 
-void sub_8014948(ProcPtr parent)
+void func_fe6_08014948(ProcPtr parent)
 {
-    sub_80149E0(7, 0x10, parent, NULL);
+    func_fe6_080149E0(7, 0x10, parent, NULL);
 }
 
-void sub_801495C(ProcPtr parent)
+void func_fe6_0801495C(ProcPtr parent)
 {
-    sub_80149E0(6, 0x08, parent, NULL);
+    func_fe6_080149E0(6, 0x08, parent, NULL);
 }
 
-void sub_8014970(ProcPtr parent)
+void func_fe6_08014970(ProcPtr parent)
 {
-    sub_80149E0(4, 0x04, parent, NULL);
+    func_fe6_080149E0(4, 0x04, parent, NULL);
 }
 
-void sub_8014984(ProcPtr parent)
+void func_fe6_08014984(ProcPtr parent)
 {
-    sub_80149E0(4, 0x08, parent, NULL);
+    func_fe6_080149E0(4, 0x08, parent, NULL);
 }
 
-void sub_8014998(ProcPtr parent)
+void func_fe6_08014998(ProcPtr parent)
 {
-    sub_80149E0(7, 0x08, parent, sub_8014B68);
+    func_fe6_080149E0(7, 0x08, parent, func_fe6_08014B68);
 }
 
 void WhileFadeExists(ProcPtr proc)
@@ -1127,9 +1127,9 @@ void WhileFadeExists(ProcPtr proc)
         Proc_Break(proc);
 }
 
-void sub_80149CC(ProcPtr parent, Func func)
+void func_fe6_080149CC(ProcPtr parent, Func func)
 {
-    sub_80149E0(3, 0x40, parent, func);
+    func_fe6_080149E0(3, 0x40, parent, func);
 }
 
 struct FadeUnkProc
@@ -1145,19 +1145,19 @@ struct FadeUnkProc
     /* 5C */ int unk_5C;
 };
 
-void sub_8014A38(struct FadeUnkProc* proc);
-i8 sub_8014A68(struct FadeUnkProc* proc);
-void sub_8014A44(struct FadeUnkProc* proc);
+void func_fe6_08014A38(struct FadeUnkProc* proc);
+i8 func_fe6_08014A68(struct FadeUnkProc* proc);
+void func_fe6_08014A44(struct FadeUnkProc* proc);
 
 struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
 {
     PROC_MARK(PROC_MARK_10),
 
-    PROC_CALL(sub_8014A38),
+    PROC_CALL(func_fe6_08014A38),
     PROC_SLEEP(0),
 
-    PROC_CALL(sub_8014A68),
-    PROC_REPEAT(sub_8014A44),
+    PROC_CALL(func_fe6_08014A68),
+    PROC_REPEAT(func_fe6_08014A44),
 
     PROC_END,
 };
@@ -1171,20 +1171,20 @@ struct LutItem_80149E0
 
 static struct LutItem_80149E0 const sLut_80149E0[] =
 {
-    { SpawnProc,        sub_800210C, +1 },
-    { SpawnProc,        sub_8001FD4, -1 },
-    { SpawnProcLocking, sub_800210C, +1 },
-    { SpawnProcLocking, sub_8001FD4, -1 },
-    { SpawnProc,        sub_800236C, -1 },
-    { SpawnProc,        sub_8002234, +1 },
-    { SpawnProcLocking, sub_800236C, -1 },
-    { SpawnProcLocking, sub_8002234, +1 },
+    { SpawnProc,        func_fe6_0800210C, +1 },
+    { SpawnProc,        func_fe6_08001FD4, -1 },
+    { SpawnProcLocking, func_fe6_0800210C, +1 },
+    { SpawnProcLocking, func_fe6_08001FD4, -1 },
+    { SpawnProc,        func_fe6_0800236C, -1 },
+    { SpawnProc,        func_fe6_08002234, +1 },
+    { SpawnProcLocking, func_fe6_0800236C, -1 },
+    { SpawnProcLocking, func_fe6_08002234, +1 },
 };
 
 #if !NONMATCHING
 NAKEDFUNC
 #endif
-void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc)
+void func_fe6_080149E0(int kind, int speed, ProcPtr parent, Func endFunc)
 {
 #if NONMATCHING
 
@@ -1242,21 +1242,21 @@ void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc)
 #endif // NONMATCHING
 }
 
-void sub_8014A28(void)
+void func_fe6_08014A28(void)
 {
     Proc_EndEach(ProcScr_FadeUnk);
 }
 
-void sub_8014A38(struct FadeUnkProc* proc)
+void func_fe6_08014A38(struct FadeUnkProc* proc)
 {
     proc->unk_58 = 0;
     proc->unk_5C = 0;
     proc->on_end = 0;
 }
 
-void sub_8014A44(struct FadeUnkProc* proc)
+void func_fe6_08014A44(struct FadeUnkProc* proc)
 {
-    if (!sub_8014A68(proc))
+    if (!func_fe6_08014A68(proc))
     {
         if (proc->on_end)
             proc->on_end();
@@ -1265,7 +1265,7 @@ void sub_8014A44(struct FadeUnkProc* proc)
     }
 }
 
-bool sub_8014A68(struct FadeUnkProc* proc)
+bool func_fe6_08014A68(struct FadeUnkProc* proc)
 {
     proc->unk_58 += proc->unk_54;
     proc->unk_5C += proc->unk_54;
@@ -1283,7 +1283,7 @@ bool sub_8014A68(struct FadeUnkProc* proc)
     if (proc->unk_5C >= 0x200)
         return FALSE;
 
-    sub_8000234_t();
+    func_fe6_08000234_t();
 
     gPal[0] = 0;
     EnablePalSync();
@@ -1291,19 +1291,19 @@ bool sub_8014A68(struct FadeUnkProc* proc)
     return TRUE;
 }
 
-void sub_8014AB8(void)
+void func_fe6_08014AB8(void)
 {
-    sub_8001F88(0x10, 0x10, 0);
-    sub_8014ADC();
+    func_fe6_08001F88(0x10, 0x10, 0);
+    func_fe6_08014ADC();
 }
 
-void sub_8014ACC(int a, int b)
+void func_fe6_08014ACC(int a, int b)
 {
-    sub_8001F88(a, b, 0);
-    sub_8014ADC();
+    func_fe6_08001F88(a, b, 0);
+    func_fe6_08014ADC();
 }
 
-void sub_8014ADC(void)
+void func_fe6_08014ADC(void)
 {
     struct FadeUnkProc* proc = Proc_Find(ProcScr_FadeUnk);
 
@@ -1311,7 +1311,7 @@ void sub_8014ADC(void)
         proc->on_end = NULL;
 }
 
-void sub_8014AF8(void)
+void func_fe6_08014AF8(void)
 {
     SetBlendDarken(0x10);
 
@@ -1324,7 +1324,7 @@ void sub_8014AF8(void)
     SetDispEnable(0, 0, 0, 0, 0);
 }
 
-void sub_8014B68(void)
+void func_fe6_08014B68(void)
 {
     SetBlendBrighten(0x10);
 
@@ -1462,19 +1462,19 @@ struct UnkProc_085C4E64
     /* 3A */ u16 reverseOrder;
 };
 
-void sub_8014DCC(struct UnkProc_085C4E64* proc);
+void func_fe6_08014DCC(struct UnkProc_085C4E64* proc);
 
 struct ProcScr CONST_DATA ProcScr_085C4E64[] =
 {
-    PROC_REPEAT(sub_8014DCC),
+    PROC_REPEAT(func_fe6_08014DCC),
 };
 
-void sub_8014D50(void)
+void func_fe6_08014D50(void)
 {
     Proc_EndEach(ProcScr_085C4E64);
 }
 
-struct UnkProc_085C4E64* sub_8014D60(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+struct UnkProc_085C4E64* func_fe6_08014D60(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
     struct UnkProc_085C4E64* proc;
 
@@ -1491,17 +1491,17 @@ struct UnkProc_085C4E64* sub_8014D60(u16 const* colors, int palOffset, int palSi
     return proc;
 }
 
-void sub_8014D9C(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014D9C(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
-    sub_8014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 0;
+    func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 0;
 }
 
-void sub_8014DB4(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014DB4(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
-    sub_8014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 1;
+    func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 1;
 }
 
-void sub_8014DCC(struct UnkProc_085C4E64* proc)
+void func_fe6_08014DCC(struct UnkProc_085C4E64* proc)
 {
     int colornum;
 
@@ -1525,7 +1525,7 @@ void sub_8014DCC(struct UnkProc_085C4E64* proc)
     proc->counter++;
 }
 
-void sub_8014E30(u16* tm, int x, int y, u16 tileref, int width, int height)
+void func_fe6_08014E30(u16* tm, int x, int y, u16 tileref, int width, int height)
 {
     int ix, iy;
 
@@ -1541,7 +1541,7 @@ void sub_8014E30(u16* tm, int x, int y, u16 tileref, int width, int height)
 
 #if NONMATCHING
 
-void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
+void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
 {
     int ix, iy;
 
@@ -1576,7 +1576,7 @@ void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 #else
 
 NAKEDFUNC
-void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
+void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
 {
     asm("\
         .syntax unified\n\
@@ -1706,7 +1706,7 @@ void sub_8014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 
 #if NONMATCHING
 
-void sub_8014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
 {
     int ix, iy;
 
@@ -1732,7 +1732,7 @@ void sub_8014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 #else
 
 NAKEDFUNC
-void sub_8014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
 {
     asm("\
         .syntax unified\n\
@@ -1832,7 +1832,7 @@ void sub_8014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 
 #if NONMATCHING
 
-void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
 {
     int ix, iy;
     int r9;
@@ -1867,7 +1867,7 @@ void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 #else
 
 NAKEDFUNC
-void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
 {
     asm("\
         .syntax unified\n\
@@ -1978,7 +1978,7 @@ void sub_801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 
 
 #if NONMATCHING
 
-void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
+void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 {
     u16 const* r2 = arg_3 + 1;
 
@@ -2007,7 +2007,7 @@ void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 #else
 
 NAKEDFUNC
-void sub_80150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
+void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 {
     asm("\
         .syntax unified\n\
@@ -2149,7 +2149,7 @@ void CallDelayedArg(void(*func)(int), int arg, int delay)
     proc->clock = delay;
 }
 
-void sub_80151E4(u8* out, int size)
+void func_fe6_080151E4(u8* out, int size)
 {
     while (size > 0)
     {
@@ -2158,7 +2158,7 @@ void sub_80151E4(u8* out, int size)
     }
 }
 
-void sub_80151F8(u8* out, int size, int value)
+void func_fe6_080151F8(u8* out, int size, int value)
 {
     while (size > 0)
     {
@@ -2167,7 +2167,7 @@ void sub_80151F8(u8* out, int size, int value)
     }
 }
 
-void sub_8015208(u16* out, int size, int value)
+void func_fe6_08015208(u16* out, int size, int value)
 {
     while (size > 0)
     {
@@ -2225,7 +2225,7 @@ static void PartialGameLock_OnLoop(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-void sub_8015260(u8 const* src, u8* dst, int size)
+void func_fe6_08015260(u8 const* src, u8* dst, int size)
 {
     if ((size & 0x1F) != 0)
         CpuCopy16(src, dst, size);
@@ -2233,20 +2233,20 @@ void sub_8015260(u8 const* src, u8* dst, int size)
         CpuFastCopy(src, dst, size);
 }
 
-void sub_8015298(u8 const* src, u8* dst, int width, int height)
+void func_fe6_08015298(u8 const* src, u8* dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
     for (i = 0; i < height; ++i)
     {
-        sub_8015260(src, dst, lineSize);
+        func_fe6_08015260(src, dst, lineSize);
 
         src += lineSize;
         dst += 0x20 * CHR_SIZE;
     }
 }
 
-void sub_80152C4(u16 const* src, u16* dst, int size, u16 tileref)
+void func_fe6_080152C4(u16 const* src, u16* dst, int size, u16 tileref)
 {
     while (size > 0)
     {
@@ -2278,19 +2278,19 @@ u16* GetTmOffsetById(int bgid, int x, int y)
     }
 }
 
-void sub_8015344(void)
+void func_fe6_08015344(void)
 {
     if (gDispIo.bg0_ct.colorMode == 0)
-        sub_8015208((u16*) (VRAM + GetBgChrOffset(0)), 0x10, 0);
+        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(0)), 0x10, 0);
 
     if (gDispIo.bg1_ct.colorMode == 0)
-        sub_8015208((u16*) (VRAM + GetBgChrOffset(1)), 0x10, 0);
+        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(1)), 0x10, 0);
 
     if (gDispIo.bg2_ct.colorMode == 0)
-        sub_8015208((u16*) (VRAM + GetBgChrOffset(2)), 0x10, 0);
+        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(2)), 0x10, 0);
 
     if (gDispIo.bg3_ct.colorMode == 0)
-        sub_8015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
+        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
 }
 
 int Screen2Pan(int x)
@@ -2328,17 +2328,17 @@ static void PlaySeFunc(int song)
     PlaySe(song);
 }
 
-void sub_801548C(short song)
+void func_fe6_0801548C(short song)
 {
     StartBgm(song, NULL);
 }
 
-void sub_801549C(short speed)
+void func_fe6_0801549C(short speed)
 {
     FadeBgmOut(speed);
 }
 
-void sub_80154AC(int palid)
+void func_fe6_080154AC(int palid)
 {
     int i;
 
@@ -2354,7 +2354,7 @@ void sub_80154AC(int palid)
     }
 }
 
-void sub_8015504(u8 const* src, u8* dst, int size)
+void func_fe6_08015504(u8 const* src, u8* dst, int size)
 {
     while (size != 0)
     {
@@ -2509,7 +2509,7 @@ void MatRotC(int* mat, short angle)
     mat[8] = 1 << 12;
 }
 
-void nullsub_15(void)
+void func_fe6_08015858(void)
 {
 }
 
@@ -2525,7 +2525,7 @@ void VecCrossVec(int const* lvec, int const* rvec, int* ovec)
     ovec[2] = (lvec[0] * rvec[1] - lvec[1] * rvec[0]) >> 12;
 }
 
-int sub_80158B8(int arg_0, int arg_1, int arg_2, int arg_3)
+int func_fe6_080158B8(int arg_0, int arg_1, int arg_2, int arg_3)
 {
     return arg_3 * arg_0 - arg_2 * arg_1;
 }

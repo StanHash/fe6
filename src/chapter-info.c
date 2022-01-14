@@ -18,7 +18,7 @@ u8 const* GetChapterMap(int chapter)
     if (chapter >= 0)
         return ChapterAssets[GetChapterInfo(chapter)->asset_map];
 
-    ReadSramFast(sub_80865EC(), gBuf, sub_8086608());
+    ReadSramFast(func_fe6_080865EC(), gBuf, func_fe6_08086608());
     return gBuf;
 }
 

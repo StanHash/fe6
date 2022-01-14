@@ -306,7 +306,7 @@ void AiCmd_ActionOnPid(u8* pc)
 
     if (rand <= sScr->unk_01)
     {
-        if (!sub_8033C04(AiIsUnitEnemy))
+        if (!func_fe6_08033C04(AiIsUnitEnemy))
         {
             if (AiUnitWithPidExists(sScr->unk_04) == TRUE)
             {
@@ -343,12 +343,12 @@ void AiCmd_Action(u8* pc)
     {
         if (sScr->unk_08 == NULL)
         {
-            if (!sub_8033C04(AiIsUnitEnemy))
+            if (!func_fe6_08033C04(AiIsUnitEnemy))
                 AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
         else
         {
-            if (!sub_8033C04(AiIsUnitEnemyOrInScrList))
+            if (!func_fe6_08033C04(AiIsUnitEnemyOrInScrList))
                 AiAttemptOffensiveAction(AiIsUnitEnemyAndNotInScrList);
         }
     }
@@ -373,7 +373,7 @@ void AiCmd_ActionInPlace(u8* pc)
     {
         gAiSt.flags |= AI_FLAG_1;
 
-        if (!sub_8033C04(AiIsUnitEnemy))
+        if (!func_fe6_08033C04(AiIsUnitEnemy))
             AiAttemptOffensiveAction(AiIsUnitEnemy);
     }
     else
@@ -390,7 +390,7 @@ void AiCmd_ActionOnJid(u8* pc)
 
     if (rand <= sScr->unk_01)
     {
-        if (!sub_8033C04(AiIsUnitEnemyAndScrJid))
+        if (!func_fe6_08033C04(AiIsUnitEnemyAndScrJid))
             AiAttemptOffensiveAction(AiIsUnitEnemyAndScrJid);
     }
     else
@@ -403,19 +403,19 @@ void AiCmd_ActionOnJid(u8* pc)
 
 void AiCmd_StaffAction(u8* pc)
 {
-    sub_8033C04(AiIsUnitEnemy);
+    func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
 void AiCmd_StaffAction2(u8* pc)
 {
-    sub_8033C04(AiIsUnitEnemy);
+    func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
 void AiCmd_StaffAction3(u8* pc)
 {
-    sub_8033C04(AiIsUnitEnemy);
+    func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
@@ -660,7 +660,7 @@ void AiCmd_Label(u8* pc)
 
 void AiDoBerserkAction(void)
 {
-    if (!sub_8033C04(AiIsUnitEnemy))
+    if (!func_fe6_08033C04(AiIsUnitEnemy))
         AiAttemptOffensiveAction(AiIsUnitNonActive);
 }
 
@@ -675,13 +675,13 @@ void AiDoBerserkMove(void)
 }
 
 // unreferenced
-bool sub_80318EC(void)
+bool func_fe6_080318EC(void)
 {
     return TRUE;
 }
 
 // unreferenced
-bool sub_80318F0(u8 const* arg)
+bool func_fe6_080318F0(u8 const* arg)
 {
     return AiGetJobRank(arg[0]), TRUE;
 }

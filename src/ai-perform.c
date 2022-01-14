@@ -163,7 +163,7 @@ void AiEndMuAndRefreshUnits(void)
     {
         RenderMapForFade();
 
-        sub_8017EDC(gAiDecision.x_move, gAiDecision.y_move);
+        func_fe6_08017EDC(gAiDecision.x_move, gAiDecision.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -172,14 +172,14 @@ void AiEndMuAndRefreshUnits(void)
     }
     else
     {
-        sub_8017EDC(gAiDecision.x_move, gAiDecision.y_move);
+        func_fe6_08017EDC(gAiDecision.x_move, gAiDecision.y_move);
 
         RenderMap();
         RefreshEntityMaps();
     }
 
-    if (gPlaySt.chapter == CHAPTER_UNK_19 && sub_806B404())
-        sub_806B414();
+    if (gPlaySt.chapter == CHAPTER_UNK_19 && func_fe6_0806B404())
+        func_fe6_0806B414();
 
     EndAllMus();
 
@@ -264,7 +264,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
     else
     {
         int const y2 = y-1;
-        sub_806B06C(x, y2);
+        func_fe6_0806B06C(x, y2);
 
         PlaySe(SONG_AB);
         StartPopup(Popup_085C85D0, 0x60, 0, proc);
@@ -312,7 +312,7 @@ bool AiTalkAction(struct AiPerformProc* proc)
 
     if (gAiDecision.target_id == 0)
     {
-        sub_806AF90(
+        func_fe6_0806AF90(
             GetUnit(gAiDecision.item_slot)->pinfo->id,
             GetUnit(gAiDecision.x_target)->pinfo->id);
     }
@@ -450,7 +450,7 @@ void AiPerform_WaitAction(struct AiPerformProc* proc)
 
 void AiPerform_0802F20C(struct AiPerformProc* proc)
 {
-    sub_8032A08();
+    func_fe6_08032A08();
     AiEndMuAndRefreshUnits();
 
     if (!gActiveUnit->pinfo || gActiveUnit->state & (US_HIDDEN | US_DEAD))
@@ -491,11 +491,11 @@ void AiPerform_0802F29C(struct AiPerformProc* proc)
 {
     u16 var_04[6];
 
-    if (sub_8032CB4() && sub_8032CE8(var_04))
+    if (func_fe6_08032CB4() && func_fe6_08032CE8(var_04))
     {
         u16 var_10, var_12, var_14;
 
-        sub_8032DF4(gAiDecision.x_move, gAiDecision.y_move, &var_10, &var_12, &var_14);
-        sub_8032F94(var_10, var_12, var_14, var_04);
+        func_fe6_08032DF4(gAiDecision.x_move, gAiDecision.y_move, &var_10, &var_12, &var_14);
+        func_fe6_08032F94(var_10, var_12, var_14, var_04);
     }
 }

@@ -22,8 +22,8 @@ TmFillRect_t: @ 0x0809FAA0
 .L0809FAA4:
 	.byte 0x3F, 0x82, 0xFD, 0xEA
 
-	thumb_func_start sub_8000234_t
-sub_8000234_t: @ 0x0809FAA8
+	thumb_func_start func_fe6_08000234_t
+func_fe6_08000234_t: @ 0x0809FAA8
 	bx pc
 	nop
 .L0809FAAC:
@@ -36,11 +36,11 @@ TmCopyRect_t: @ 0x0809FAB0
 .L0809FAB4:
 	.byte 0x49, 0x82, 0xFD, 0xEA
 
-	thumb_func_start sub_8000360_t
-sub_8000360_t: @ 0x0809FAB8
+	thumb_func_start func_fe6_08000360_t
+func_fe6_08000360_t: @ 0x0809FAB8
 	bx pc
 	nop
 
 	.arm
 
-	b sub_8000360
+	b func_fe6_08000360

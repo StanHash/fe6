@@ -71,7 +71,7 @@ bool DoAction(ProcPtr proc);
 
 void DropRescueOnDeath(ProcPtr parent, struct Unit* unit);
 void KillUnitOnCombatDeath(struct Unit* unit, struct Unit* opponent);
-void sub_802A6B4(struct Unit* unit);
-void sub_802A7F4(void);
+void func_fe6_0802A6B4(struct Unit* unit);
+void func_fe6_0802A7F4(void);
 
 extern struct ProcScr CONST_DATA ProcScr_CombatAction[];

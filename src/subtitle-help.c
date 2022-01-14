@@ -220,7 +220,7 @@ void StartSubtitleHelp(ProcPtr parent, char const* str)
 
         InitSubtitleHelpText(proc);
 
-        sub_80192E4();
+        func_fe6_080192E4();
 
         gBmSt.camera_max.y += 16;
     }

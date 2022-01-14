@@ -73,7 +73,7 @@ void BeginUnitDamageAnim(struct Unit* unit, int damage)
 
     BattleHitTerminate();
 
-    sub_8062598();
+    func_fe6_08062598();
 
     RenderMapForFogFadeIfUnitDied(unit);
 }
@@ -97,7 +97,7 @@ void BeginUnitCritDamageAnim(struct Unit* unit, int damage)
 
     BattleHitTerminate();
 
-    sub_8062614();
+    func_fe6_08062614();
 
     RenderMapForFogFadeIfUnitDied(unit);
 }
@@ -452,8 +452,8 @@ void FinishDamageDisplay(ProcPtr proc)
     {
         gActiveUnit = GetUnit(gAction.instigator);
 
-        if (sub_806B500())
-            sub_806B540();
+        if (func_fe6_0806B500())
+            func_fe6_0806B540();
     }
 }
 
@@ -499,7 +499,7 @@ PROC_LABEL(1),
 static void PoisonDamageDisplay_Init(struct GenericProc* proc)
 {
     ListPoisonDamageTargets(gPlaySt.faction);
-    sub_8021B30(4);
+    func_fe6_08021B30(4);
 
     if (CountTargets() == 0)
     {
@@ -662,7 +662,7 @@ static void TrapDamageDisplay_Display(struct GenericProc* proc)
             break;
 
         case TRAP_8:
-            sub_801D920(proc, target->x, target->y);
+            func_fe6_0801D920(proc, target->x, target->y);
             break;
 
         }

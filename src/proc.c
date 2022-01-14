@@ -776,7 +776,7 @@ void Proc_PrintSubtreeInfo(ProcPtr proc)
     }
 }
 
-void sub_80049BC(void)
+void func_fe6_080049BC(void)
 {
 }
 

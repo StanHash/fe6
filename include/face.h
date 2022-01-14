@@ -92,7 +92,7 @@ int GetFaceDispById(int slot);
 void FaceRefreshSprite(struct FaceProc* proc);
 void UnpackFaceGraphics(int fid, int chr, int pal);
 void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, i8 is_flipped);
-void sub_8008874(u16* tm, int tileref);
+void func_fe6_08008874(u16* tm, int tileref);
 void UnpackFaceChibiGraphics(int fid, int chr, int pal);
 void PutFaceChibi(int fid, u16* tm, int chr, int pal, i8 is_flipped);
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);

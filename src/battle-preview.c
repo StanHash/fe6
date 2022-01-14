@@ -363,7 +363,7 @@ static void BattlePreview_Init(struct BattlePreviewProc* proc)
 
 static void BattlePreview_OnEnd(void)
 {
-    sub_8041308(-1);
+    func_fe6_08041308(-1);
 }
 
 static void PutBattlePreviewTilemaps(struct BattlePreviewProc* proc)
@@ -690,7 +690,7 @@ int StartBattlePreviewHelpBox(ProcPtr parent)
         // right
         x = 20;
 
-    sub_8070E70(NULL, -1);
+    func_fe6_08070E70(NULL, -1);
 
     switch (proc->frameKind)
     {
@@ -708,7 +708,7 @@ int StartBattlePreviewHelpBox(ProcPtr parent)
     return 0;
 }
 
-static int sub_802E43C(int wt, bool isEffective)
+static int func_fe6_0802E43C(int wt, bool isEffective)
 {
     static u16 lut[] =
     {
@@ -731,14 +731,14 @@ static int sub_802E43C(int wt, bool isEffective)
     return lut[idx];
 }
 
-void sub_802E460(struct GenericProc* proc)
+void func_fe6_0802E460(struct GenericProc* proc)
 {
     struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
-    proc->unk4C = sub_802E43C(gBattleUnitA.advantage_bonus_hit, bp->isEffectiveA);
+    proc->unk4C = func_fe6_0802E43C(gBattleUnitA.advantage_bonus_hit, bp->isEffectiveA);
 }
 
-void sub_802E490(struct GenericProc* proc)
+void func_fe6_0802E490(struct GenericProc* proc)
 {
     struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
-    proc->unk4C = sub_802E43C(gBattleUnitB.advantage_bonus_hit, bp->isEffectiveB);
+    proc->unk4C = func_fe6_0802E43C(gBattleUnitB.advantage_bonus_hit, bp->isEffectiveB);
 }

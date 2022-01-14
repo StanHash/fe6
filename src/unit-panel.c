@@ -110,7 +110,7 @@ static struct UnitPanelProc* InitUnitPanel(struct UnitPanelProc* proc, struct Un
     proc->x = x;
     proc->y = y;
 
-    sub_8041358(x, y+2, width, 2 + lines*2, 0);
+    func_fe6_08041358(x, y+2, width, 2 + lines*2, 0);
     TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_1));
 
     if (width > 10)

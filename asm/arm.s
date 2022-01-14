@@ -12,8 +12,8 @@ ArmCodeStart:
 .L0800022C: .4byte gUnk_02021108
 .L08000230: .4byte gUnk_020210E8
 
-	arm_func_start sub_8000234
-sub_8000234: @ 0x08000234
+	arm_func_start func_fe6_08000234
+func_fe6_08000234: @ 0x08000234
 	push {r4, r5, r6, r7}
 	mov r7, #0x3e0
 .L0800023C:
@@ -103,8 +103,8 @@ ClearOam: @ 0x08000304
 	bpl .L08000310
 	bx lr
 
-	arm_func_start sub_8000360
-sub_8000360: @ 0x08000360
+	arm_func_start func_fe6_08000360
+func_fe6_08000360: @ 0x08000360
 	push {r4, r5, r6, r7}
 	sub r1, r1, #2
 	mov r2, #0
@@ -309,8 +309,8 @@ DrawGlyph: @ 0x08000564
 	pop {r4, r5, r6, r7, r8, sb, sl}
 	bx lr
 
-	arm_func_start sub_8000620
-sub_8000620: @ 0x08000620
+	arm_func_start func_fe6_08000620
+func_fe6_08000620: @ 0x08000620
 	push {r4, r5, r6, r7, r8, sb, sl}
 	mov sb, #7
 	mov sl, #0x10000

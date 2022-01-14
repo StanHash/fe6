@@ -5,8 +5,8 @@
 #include "proc.h"
 #include "menu.h"
 
-u8 sub_802B47C(struct MenuProc* menu, struct MenuEntProc* ent);
-void sub_802B784(void);
-void sub_802B7E4(void);
+u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent);
+void func_fe6_0802B784(void);
+void func_fe6_0802B7E4(void);
 
 extern struct ProcScr CONST_DATA ProcScr_PrepPhase[];

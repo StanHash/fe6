@@ -944,7 +944,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     }
     else
     {
-        sub_8035098(x, y, gActiveUnit);
+        func_fe6_08035098(x, y, gActiveUnit);
     }
 
     MapFlood_08019344(gActiveUnit);
@@ -1120,7 +1120,7 @@ bool AiLocationIsPillageTarget(u8 x, u8 y)
     return FALSE;
 }
 
-void sub_80308B0(void)
+void func_fe6_080308B0(void)
 {
     int i, j, item;
 
@@ -1154,15 +1154,15 @@ void sub_80308B0(void)
             if (GetItemAttributes(item) & ITEM_ATTR_MAGIC)
                 unit->ai_flags |= AI_UNIT_FLAG_0;
 
-            sub_8030968(unit, item);
-            sub_8030994(unit, item);
+            func_fe6_08030968(unit, item);
+            func_fe6_08030994(unit, item);
         }
 
-        sub_80309E0(unit);
+        func_fe6_080309E0(unit);
     }
 }
 
-void sub_8030968(struct Unit* unit, u16 item)
+void func_fe6_08030968(struct Unit* unit, u16 item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_STAFF)
     {
@@ -1177,7 +1177,7 @@ void sub_8030968(struct Unit* unit, u16 item)
     }
 }
 
-void sub_8030994(struct Unit* unit, u16 item)
+void func_fe6_08030994(struct Unit* unit, u16 item)
 {
     int flag = 0;
 
@@ -1202,7 +1202,7 @@ void sub_8030994(struct Unit* unit, u16 item)
     unit->ai_flags |= flag;
 }
 
-void sub_80309E0(struct Unit* unit)
+void func_fe6_080309E0(struct Unit* unit)
 {
     int ix, iy;
 
@@ -1238,7 +1238,7 @@ void UnitInitAiFromInfo(struct Unit* unit, struct UnitInfo const* info)
     unit->ai_config = (0xFFF8 & unit->ai_config) | info->ai[2] | (info->ai[3] << 8);
 }
 
-bool sub_8030AB4(struct Vec2* out)
+bool func_fe6_08030AB4(struct Vec2* out)
 {
     int ix, iy;
 
@@ -1276,7 +1276,7 @@ bool sub_8030AB4(struct Vec2* out)
     return FALSE;
 }
 
-int sub_8030B94(void)
+int func_fe6_08030B94(void)
 {
     int count = 0;
 
@@ -1302,7 +1302,7 @@ int sub_8030B94(void)
     return count;
 }
 
-int sub_8030BDC(void)
+int func_fe6_08030BDC(void)
 {
     int ix, iy;
 
@@ -1348,7 +1348,7 @@ bool AiUnitHasAnyStaff(struct Unit* unit)
     return FALSE;
 }
 
-void sub_8030CBC(struct Unit* unit)
+void func_fe6_08030CBC(struct Unit* unit)
 {
     if (gAiSt.flags & AI_FLAG_1)
     {

@@ -43,6 +43,6 @@ bool HasNextChapter(void);
 void RestartGameAndChapter(void);
 void RestartGameAndLoadSuspend(void);
 void ForceEnableSounds(void);
-void sub_8013A64(void);
+void func_fe6_08013A64(void);
 
 extern struct ProcScr CONST_DATA ProcScr_GameController[];

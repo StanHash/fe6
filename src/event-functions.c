@@ -23,7 +23,7 @@ bool EvtCheck_IsHard(void)
     return FALSE;
 }
 
-int sub_806BAB8(u8 arg_00)
+int func_fe6_0806BAB8(u8 arg_00)
 {
     struct Unk_08666C78 const* it = gUnk_08666C78;
 
@@ -38,13 +38,13 @@ int sub_806BAB8(u8 arg_00)
     return GetChapterInfo(gPlaySt.chapter)->hard_bonus_levels;
 }
 
-void sub_806BAF0(void)
+void func_fe6_0806BAF0(void)
 {
     if (gPlaySt.flags & PLAY_FLAG_HARD)
     {
         FOR_UNITS_FACTION(FACTION_RED, unit,
         {
-            int bonus_levels = sub_806BAB8(unit->pinfo->id);
+            int bonus_levels = func_fe6_0806BAB8(unit->pinfo->id);
 
             if (bonus_levels != 0)
                 UnitApplyBonusLevels(unit, bonus_levels);

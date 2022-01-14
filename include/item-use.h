@@ -33,7 +33,7 @@ void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 // StaffSelectOnSelect
 // WarpOnSelectTarget
 // UnlockOnSelectTarget
-// sub_8023CA4
+// func_fe6_08023CA4
 // RepairSelectOnChange
 // RepairSelectOnInit
 // RepairMenuEntOnChange
@@ -45,6 +45,6 @@ void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 // BarrierSelectOnChange
 // AttackStaffSelectOnInit
 // AttackStaffSelectOnChange
-// sub_8024020
-// sub_802402C
-// sub_802406C
+// func_fe6_08024020
+// func_fe6_0802402C
+// func_fe6_0802406C

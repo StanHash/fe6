@@ -67,7 +67,7 @@ struct ProcScr CONST_DATA ProcScr_PrepPhase[] =
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_ACTION_SELECT),
-    PROC_CALL(sub_807B6BC),
+    PROC_CALL(func_fe6_0807B6BC),
     PROC_SLEEP(0),
 
     PROC_CALL(PrepPhase_WatchRoy),
@@ -92,14 +92,14 @@ PROC_LABEL(L_PLAYERPHASE_IDLE),
     PROC_WHILE(IsSubtitleHelpActive),
 
     PROC_CALL(RefreshEntityMaps),
-    PROC_CALL(sub_8073310),
+    PROC_CALL(func_fe6_08073310),
 
     PROC_REPEAT(PrepPhase_MapIdle),
 
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_MOVE),
-    PROC_CALL(sub_8073324),
+    PROC_CALL(func_fe6_08073324),
 
     PROC_CALL(PlayerPhase_BeginSeeActionRange),
     PROC_REPEAT(PlayerPhase_MoveSelectLoop),
@@ -119,7 +119,7 @@ PROC_LABEL(L_PLAYERPHASE_6),
     PROC_GOTO(L_PLAYERPHASE_MOVE),
 
 PROC_LABEL(L_PLAYERPHASE_END),
-    PROC_CALL(sub_8073324),
+    PROC_CALL(func_fe6_08073324),
     PROC_CALL(PrepPhase_MapSwapSelectBegin),
 
     PROC_WHILE_EXISTS(ProcScr_CamMove),
@@ -225,7 +225,7 @@ static void PrepPhase_Init(struct GenericProc* proc)
 
     if (!(gPlaySt.flags & PLAY_FLAG_4))
     {
-        sub_807A07C();
+        func_fe6_0807A07C();
         InitPlayerDeployUnits();
 
         gPlaySt.flags |= PLAY_FLAG_4;
@@ -266,10 +266,10 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
         if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
             EndAllMus();
-            sub_8073324();
-            sub_806EAE4(0x28C);
+            func_fe6_08073324();
+            func_fe6_0806EAE4(0x28C);
 
-            sub_80702BC(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
+            func_fe6_080702BC(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
             Proc_Goto(proc, L_PLAYERPHASE_5);
 
             return;
@@ -284,12 +284,12 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
             case PLAYER_SELECT_NOUNIT:
             case PLAYER_SELECT_TURNENDED:
-                sub_8073324();
+                func_fe6_08073324();
 
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                sub_8041834(&MenuInfo_085C7624);
+                func_fe6_08041834(&MenuInfo_085C7624);
 
                 Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -321,13 +321,13 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
         if (gKeySt->pressed & KEY_BUTTON_SELECT)
         {
-            sub_8073324();
+            func_fe6_08073324();
             ResetTextFont();
 
             gPlaySt.x_cursor = gBmSt.cursor.x;
             gPlaySt.y_cursor = gBmSt.cursor.y;
 
-            sub_8041834(&MenuInfo_085C7624);
+            func_fe6_08041834(&MenuInfo_085C7624);
 
             Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -336,8 +336,8 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
         if (gKeySt->pressed & KEY_BUTTON_START)
         {
-            sub_8073324();
-            sub_8087BC4();
+            func_fe6_08073324();
+            func_fe6_08087BC4();
 
             Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -349,11 +349,11 @@ put_map_cursor:
     PutMapCursor(gBmSt.cursor_sprite.x, gBmSt.cursor_sprite.y, MAP_CURSOR_DEFAULT);
 }
 
-u8 sub_802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
+u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ProcPtr proc = Proc_Find(ProcScr_PrepPhase);
 
-    sub_807B6BC();
+    func_fe6_0807B6BC();
     Proc_Goto(proc, L_PREPPHASE_BEGINMAP);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
@@ -364,7 +364,7 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
     struct UnitInfo const* info;
     struct SpriteAnim* anim;
 
-    info = sub_806B638();
+    info = func_fe6_0806B638();
     info++;
 
     MapFill(gMapRange, 0);
@@ -460,12 +460,12 @@ static void PrepPhase_MapSwapSelectApply(struct GenericProc* proc)
 
     if (unitB == NULL)
     {
-        sub_801CF10(proc, unitA, gBmSt.cursor.x, gBmSt.cursor.y);
+        func_fe6_0801CF10(proc, unitA, gBmSt.cursor.x, gBmSt.cursor.y);
     }
     else
     {
-        sub_801CF10(proc, unitA, unitB->x, unitB->y);
-        sub_801CF10(proc, unitB, unitA->x, unitA->y);
+        func_fe6_0801CF10(proc, unitA, unitB->x, unitB->y);
+        func_fe6_0801CF10(proc, unitB, unitA->x, unitA->y);
     }
 
     PlaySe(SONG_61);
@@ -486,7 +486,7 @@ static void PrepPhase_MapSwapSelectFogFadeB(struct GenericProc* proc)
     }
 }
 
-void sub_802B784(void)
+void func_fe6_0802B784(void)
 {
     if (gPlaySt.flags & PLAY_FLAG_5 && !(gBmSt.flags & BM_FLAG_LINKARENA))
     {
@@ -502,9 +502,9 @@ void sub_802B784(void)
     }
 }
 
-void sub_802B7E4(void)
+void func_fe6_0802B7E4(void)
 {
-    sub_802B784();
+    func_fe6_0802B784();
 
     Proc_EndEach(ProcScr_PrepPhase);
 

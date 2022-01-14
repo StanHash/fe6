@@ -64,7 +64,7 @@ PROC_LABEL(L_PLAYERPHASE_BEGIN),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_IDLE),
-    PROC_CALL(sub_8073310),
+    PROC_CALL(func_fe6_08073310),
     PROC_CALL(ResetUnitSpritHover),
 
     PROC_REPEAT(PlayerPhase_IdleLoop),
@@ -72,11 +72,11 @@ PROC_LABEL(L_PLAYERPHASE_IDLE),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_MOVE),
-    PROC_CALL(sub_8073324),
+    PROC_CALL(func_fe6_08073324),
 
     PROC_WHILE(IsMapFadeActive),
 
-    PROC_CALL(sub_801809C),
+    PROC_CALL(func_fe6_0801809C),
     PROC_CALL(RefreshUnitSprites),
 
     PROC_CALL(PlayerPhase_BeginMoveSelect),
@@ -135,7 +135,7 @@ PROC_LABEL(L_PLAYERPHASE_8),
     PROC_GOTO(L_PLAYERPHASE_BEGIN),
 
 PROC_LABEL(L_PLAYERPHASE_SEE_RANGE),
-    PROC_CALL(sub_8073324),
+    PROC_CALL(func_fe6_08073324),
 
     PROC_WHILE(IsMapFadeActive),
 
@@ -198,7 +198,7 @@ struct ProcScr CONST_DATA ProcScr_LimitView[] =
 static void PlayerPhase_Suspend(ProcPtr proc)
 {
     gAction.suspendPoint = SUSPEND_POINT_PLAYER_PHASE;
-    sub_80857B0(SAVE_ID_SUSPEND0);
+    func_fe6_080857B0(SAVE_ID_SUSPEND0);
 }
 
 void HandlePlayerMapCursor(void)
@@ -236,10 +236,10 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
         if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
             EndAllMus();
-            sub_8073324();
-            sub_806EAE4(0x28C);
+            func_fe6_08073324();
+            func_fe6_0806EAE4(0x28C);
 
-            sub_80702BC(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
+            func_fe6_080702BC(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
             Proc_Goto(proc, L_PLAYERPHASE_5);
 
             return;
@@ -254,13 +254,13 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_NOUNIT:
             case PLAYER_SELECT_TURNENDED:
-                sub_8073324();
+                func_fe6_08073324();
 
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
-                sub_806B4E4();
+                func_fe6_080417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
+                func_fe6_0806B4E4();
 
                 Proc_Goto(proc, L_PLAYERPHASE_IDLE);
 
@@ -268,7 +268,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_CONTROL:
                 UnitBeginAction(unit);
-                sub_8084B84(gActiveUnit->pinfo->id);
+                func_fe6_08084B84(gActiveUnit->pinfo->id);
 
                 Proc_Break(proc);
 
@@ -295,19 +295,19 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 ShowUnitSprite(unit);
             }
 
-            sub_8073324();
+            func_fe6_08073324();
 
             gPlaySt.x_cursor = gBmSt.cursor.x;
             gPlaySt.y_cursor = gBmSt.cursor.y;
 
             if (gPlaySt.chapter == CHAPTER_TUTORIAL)
             {
-                sub_8041834(&MenuInfo_085C73C0);
+                func_fe6_08041834(&MenuInfo_085C73C0);
             }
             else
             {
-                sub_80417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
-                sub_806B4E4();
+                func_fe6_080417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
+                func_fe6_0806B4E4();
             }
 
             Proc_Goto(proc, L_PLAYERPHASE_IDLE);
@@ -325,8 +325,8 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 ShowUnitSprite(unit);
             }
 
-            sub_8073324();
-            sub_8087BC4();
+            func_fe6_08073324();
+            func_fe6_08087BC4();
 
             Proc_Goto(proc, L_PLAYERPHASE_IDLE);
 
@@ -349,7 +349,7 @@ void DisplayUnitActionRange(struct Unit* unit)
 
     if (!(gActiveUnit->state & US_HAS_MOVED))
     {
-        switch (sub_8018258(gActiveUnit))
+        switch (func_fe6_08018258(gActiveUnit))
         {
 
         case 0:
@@ -401,7 +401,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 
     SetAutoMuDefaultFacing();
 
-    sub_806B420();
+    func_fe6_0806B420();
 
     gBmSt.flags |= BM_FLAG_1;
 
@@ -445,7 +445,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 
     if (gKeySt->pressed & KEY_BUTTON_A)
     {
-        if (sub_806B4A4())
+        if (func_fe6_0806B4A4())
         {
             act = ACT_NOTHING;
             goto do_act;
@@ -454,7 +454,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
         {
             if (GetPlayerSelectKind(gActiveUnit) != PLAYER_SELECT_CONTROL && !(gActiveUnit->state & US_HAS_MOVED))
             {
-                if (sub_8018258(gActiveUnit) == (UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF))
+                if (func_fe6_08018258(gActiveUnit) == (UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF))
                     act = ACT_SWAP_RANGES;
                 else
                     act = ACT_CANCEL;
@@ -537,9 +537,9 @@ do_act:
             break;
 
         EndAllMus();
-        sub_806EAE4(0x28C);
+        func_fe6_0806EAE4(0x28C);
 
-        sub_80702BC(GetUnit(uid), proc);
+        func_fe6_080702BC(GetUnit(uid), proc);
         Proc_Goto(proc, L_PLAYERPHASE_6);
         return;
     }
@@ -649,7 +649,7 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
     if ((gAction.id != ACTION_WAIT) && gBmSt.unk_3C == 0)
     {
         gAction.suspendPoint = SUSPEND_POINT_DURING_ACTION;
-        sub_80857B0(SAVE_ID_SUSPEND0);
+        func_fe6_080857B0(SAVE_ID_SUSPEND0);
     }
 
     return camret;
@@ -689,9 +689,9 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
 
 bool PlayerPhase_0801B9B0(ProcPtr proc)
 {
-    if (sub_806B500())
+    if (func_fe6_0806B500())
     {
-        sub_806B540();
+        func_fe6_0806B540();
         return FALSE;
     }
 
@@ -709,7 +709,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
     {
         RenderMapForFade();
 
-        sub_8017EDC(gAction.x_move, gAction.y_move);
+        func_fe6_08017EDC(gAction.x_move, gAction.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -720,7 +720,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
     }
     else
     {
-        sub_8017EDC(gAction.x_move, gAction.y_move);
+        func_fe6_08017EDC(gAction.x_move, gAction.y_move);
 
         RefreshEntityMaps();
         RenderMap();
@@ -737,7 +737,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
         return;
     }
 
-    if (sub_806B404())
+    if (func_fe6_0806B404())
     {
         EndAllMus();
 
@@ -745,7 +745,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
         RenderMap();
         RefreshUnitSprites();
 
-        sub_806B414();
+        func_fe6_0806B414();
 
         Proc_Goto(proc, L_PLAYERPHASE_8);
         return;
@@ -754,10 +754,10 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
     EndAllMus();
 }
 
-static void sub_801BAB4(ProcPtr proc)
+static void func_fe6_0801BAB4(ProcPtr proc)
 {
     if (gAction.id != ACTION_TRAPPED)
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }
@@ -774,14 +774,14 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
 
     ResetTextFont();
 
-    if (sub_806B470() == TRUE)
+    if (func_fe6_0806B470() == TRUE)
     {
-        Proc_SetRepeatFunc(proc, sub_801BAB4);
+        Proc_SetRepeatFunc(proc, func_fe6_0801BAB4);
         return;
     }
 
     if (gAction.id != ACTION_TRAPPED)
-        sub_8042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }

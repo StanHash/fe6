@@ -649,7 +649,7 @@ void ArenaContinueBattle(void)
     gAction.extra = gBattleUnitB.unit.hp;
 
     gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
-    sub_80857B0(SAVE_ID_SUSPEND0);
+    func_fe6_080857B0(SAVE_ID_SUSPEND0);
 
     BattleUnwind();
 
@@ -659,7 +659,7 @@ void ArenaContinueBattle(void)
     UpdateUnitDuringBattle(gArenaSt.player, &gBattleUnitA);
 
     if (!something || gBattleUnitB.unit.hp == 0)
-        sub_8084D64();
+        func_fe6_08084D64();
 }
 
 bool ArenaIsUnitAllowed(struct Unit* unit)

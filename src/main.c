@@ -13,8 +13,8 @@
 #include "bm.h"
 #include "mu.h"
 
-void sub_80841FC(void);
-void sub_808439C(void);
+void func_fe6_080841FC(void);
+void func_fe6_0808439C(void);
 
 NAKEDFUNC void AgbMain(void)
 {
@@ -51,7 +51,7 @@ NAKEDFUNC void AgbMain(void)
     RefreshKeySt(gKeySt);
 
     InitRamFuncs();
-    sub_80841FC();
+    func_fe6_080841FC();
     InitProcs();
     InitSpriteAnims();
     InitMus();
@@ -60,7 +60,7 @@ NAKEDFUNC void AgbMain(void)
     RandInit(RandNextB());
 
     if (!LoadGlobalSaveInfo(NULL))
-        sub_808439C();
+        func_fe6_0808439C();
 
     m4aSoundInit();
     SetOnVBlank(OnVBlank);

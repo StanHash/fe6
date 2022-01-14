@@ -524,7 +524,7 @@ static void WarpSelect_Init(struct GenericProc* proc)
 
     EndLimitView();
 
-    sub_801C700(gActiveUnit, GetUnit(gAction.target));
+    func_fe6_0801C700(gActiveUnit, GetUnit(gAction.target));
 
     gBmSt.flags &= ~BM_FLAG_1;
 
@@ -683,7 +683,7 @@ int RepairSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target
     gAction.target = target->uid;
 
     StartEquipInfoWindow(
-        sub_8041834(&MenuInfo_085C7498),
+        func_fe6_08041834(&MenuInfo_085C7498),
         GetUnit(gAction.target),
         16, 11);
 
@@ -707,7 +707,7 @@ void DoUseRepairStaff(struct Unit* unit)
 
 int RepairSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_801D680(target->x, target->y);
+    func_fe6_0801D680(target->x, target->y);
     RefreshUnitRepairInventoryPanel(GetUnit(target->uid));
 }
 
@@ -743,7 +743,7 @@ int RepairMenuItemDraw(struct MenuProc* menu, struct MenuEntProc* ent)
     int item = GetUnit(gAction.target)->items[ent->id];
     int isRepairable = IsItemRepairable(item);
 
-    sub_8016720(&ent->text, item, isRepairable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+    func_fe6_08016720(&ent->text, item, isRepairable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
     EnableBgSync(BG0_SYNC_BIT);
 
     return 0;
@@ -803,7 +803,7 @@ int BarrierSelectOnInit(struct MapSelectProc* proc)
 
 int BarrierSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_801D680(target->x, target->y);
+    func_fe6_0801D680(target->x, target->y);
     RefreshUnitHpStatusPanel(GetUnit(target->uid));
 }
 
@@ -825,7 +825,7 @@ int AttackStaffSelectOnInit(struct MapSelectProc* proc)
 
 int AttackStaffSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_801D680(target->x, target->y);
+    func_fe6_0801D680(target->x, target->y);
     RefreshUnitResChangePanel(GetUnit(target->uid));
 }
 
@@ -840,21 +840,21 @@ void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
         DecodeMsg(0xC2F)); // TODO: msg ids
 }
 
-int sub_8024020(struct MapSelectProc* proc)
+int func_fe6_08024020(struct MapSelectProc* proc)
 {
     StartUnitStaffOffensePanel(proc);
 }
 
-int sub_802402C(struct MapSelectProc* proc, struct SelectTarget* target)
+int func_fe6_0802402C(struct MapSelectProc* proc, struct SelectTarget* target)
 {
-    sub_801D680(target->x, target->y);
+    func_fe6_0801D680(target->x, target->y);
 
     RefreshUnitStaffOffensePanel(
         GetUnit(target->uid),
         GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }
 
-void sub_802406C(struct MapSelectProc* proc)
+void func_fe6_0802406C(struct MapSelectProc* proc)
 {
     EndSubtitleHelp();
     ClearBg0Bg1();

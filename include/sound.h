@@ -18,10 +18,10 @@ extern struct MusicPlayerInfo gMpi_MainBgm;
 
 int GetCurrentBgmSong(void);
 bool IsBgmPlaying(void);
-void sub_8002F9C(int volume);
+void func_fe6_08002F9C(int volume);
 void SetBgmVolume(int volume);
 void FadeBgmOut(int speed);
-void sub_80030B4(int speed);
+void func_fe6_080030B4(int speed);
 void StartBgmCore(int songId, struct MusicPlayerInfo* mpi);
 void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo* mpi);
 void StartBgm(int songId, struct MusicPlayerInfo* mpi);

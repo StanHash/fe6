@@ -536,7 +536,7 @@ void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, i8 is_flipp
     PutFaceTm(tm, FaceTm_Unk_085C3C18, tileref, is_flipped);
 }
 
-void sub_8008874(u16* tm, int tileref)
+void func_fe6_08008874(u16* tm, int tileref)
 {
     TmApplyTsa_t(tm, Tsa_Unk_08101974, tileref);
 }

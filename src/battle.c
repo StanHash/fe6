@@ -130,10 +130,10 @@ void BattleGenerateRealInternal(struct Unit* instigator, struct Unit* target)
     if (gBattleUnitB.unit.id != 0)
     {
         BattleApplyExpGains();
-        sub_8084D64();
+        func_fe6_08084D64();
 
-        sub_808495C(instigator);
-        sub_808495C(target);
+        func_fe6_0808495C(instigator);
+        func_fe6_0808495C(target);
     }
 }
 
@@ -411,7 +411,7 @@ void SetBattleUnitWeaponBallista(struct BattleUnit* bu)
     bu->has_inventory_weapon = FALSE;
 }
 
-void sub_802478C(void)
+void func_fe6_0802478C(void)
 {
 }
 
@@ -1221,7 +1221,7 @@ void BattleApplyBallistaUpdates(void)
     }
 }
 
-void sub_8025780(void)
+void func_fe6_08025780(void)
 {
     struct Unk_0203932C
     {
@@ -1541,17 +1541,17 @@ void BeginBattleAnimations(void)
 
     RenderMap();
 
-    if (sub_8047CB8())
+    if (func_fe6_08047CB8())
     {
-        sub_804256C(0);
-        sub_8047CC8();
+        func_fe6_0804256C(0);
+        func_fe6_08047CC8();
     }
     else
     {
         EndAllMus();
         RenderMap();
 
-        sub_80627D0();
+        func_fe6_080627D0();
 
         gBattleSt.flags |= BATTLE_FLAG_MAPANIMS;
     }
@@ -1748,7 +1748,7 @@ void BattleGenerateArena(struct Unit* unit)
     BattleApplyWeaponTriangleEffect(&gBattleUnitA, &gBattleUnitB);
 
     gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
-    sub_80857B0(SAVE_ID_SUSPEND0);
+    func_fe6_080857B0(SAVE_ID_SUSPEND0);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonuses(&gBattleUnitB, 8); // TODO: terrain id constants
@@ -1761,7 +1761,7 @@ void BattleGenerateArena(struct Unit* unit)
     UpdateUnitDuringBattle(unit, &gBattleUnitA);
 
     if (!something || (gBattleUnitB.unit.hp == 0))
-        sub_8084D64();
+        func_fe6_08084D64();
 
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);
 }

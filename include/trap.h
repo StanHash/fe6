@@ -44,9 +44,9 @@ struct Trap* AddDamagingTrap(int x, int y, int kind, int extra, int turnCountdow
 void AddFireTrap(int x, int y, int turnCountdown, int turnInterval);
 void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval);
 void AddArrowTrap(int x, int turnCountdown, int turnInterval);
-void sub_8026BA4(int x, int y, int turnCountdown, int turnInterval);
-void sub_8026BC0(int x, int y);
-void sub_8026BD0(int x, int y, int extra);
+void func_fe6_08026BA4(int x, int y, int turnCountdown, int turnInterval);
+void func_fe6_08026BC0(int x, int y);
+void func_fe6_08026BD0(int x, int y, int extra);
 void InitMapTraps(void);
 void ApplyEnabledMapChanges(void);
 struct Trap* GetBallistaTrapAt(int x, int y);

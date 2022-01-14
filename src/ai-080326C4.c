@@ -30,22 +30,22 @@ struct Unk_085C98D0
     int x, y;
 };
 
-struct AiEscapePt const* sub_8032C2C(void);
+struct AiEscapePt const* func_fe6_08032C2C(void);
 
 static void AiFillDangerMap(void);
 
-void sub_8033D5C(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_8033ECC(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_8034094(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_8034178(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_80342C4(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_80344AC(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_803462C(int slot, bool(*is_enemy)(struct Unit* unit));
-void sub_80347A4(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_08033D5C(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_08033ECC(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_08034094(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_08034178(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_080342C4(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_080344AC(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_0803462C(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_080347A4(int slot, bool(*is_enemy)(struct Unit* unit));
 
-void sub_8034B58(int slot);
-void sub_8034BF0(int slot);
-void sub_8034CC0(int slot);
+void func_fe6_08034B58(int slot);
+void func_fe6_08034BF0(int slot);
+void func_fe6_08034CC0(int slot);
 
 u8 EWRAM_DATA gUnk_Pid_02039694 = 0;
 
@@ -207,7 +207,7 @@ bool AiTryGetNearestHealPoint(struct Vec2* out)
     return FALSE;
 }
 
-void sub_8032A08(void)
+void func_fe6_08032A08(void)
 {
     int i, count = 0;
 
@@ -298,7 +298,7 @@ bool AiTryMoveTowardsEscape(void)
     struct AiEscapePt const* escapePt;
 
     MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);
-    escapePt = sub_8032C2C();
+    escapePt = func_fe6_08032C2C();
 
     if (escapePt != NULL)
     {
@@ -321,7 +321,7 @@ bool AiTryMoveTowardsEscape(void)
     return FALSE;
 }
 
-struct AiEscapePt const* sub_8032C2C(void)
+struct AiEscapePt const* func_fe6_08032C2C(void)
 {
     int i;
 
@@ -369,7 +369,7 @@ struct AiEscapePt const* sub_8032C2C(void)
     return result;
 }
 
-bool sub_8032CB4(void)
+bool func_fe6_08032CB4(void)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return FALSE;
@@ -385,7 +385,7 @@ bool sub_8032CB4(void)
 
 #if NONMATCHING
 
-bool sub_8032CE8(u16* out)
+bool func_fe6_08032CE8(u16* out)
 {
     int i;
 
@@ -430,7 +430,7 @@ bool sub_8032CE8(u16* out)
         }
         else
         {
-            sub_8032FBC(item);
+            func_fe6_08032FBC(item);
             out[i] |= 8;
         }
 
@@ -441,7 +441,7 @@ bool sub_8032CE8(u16* out)
 #else // NONMATCHING
 
 NAKEDFUNC
-bool sub_8032CE8(u16* out)
+bool func_fe6_08032CE8(u16* out)
 {
     asm("\
         .syntax unified\n\
@@ -539,7 +539,7 @@ bool sub_8032CE8(u16* out)
     .L08032DA8: .4byte gActiveUnit\n\
     .L08032DAC:\n\
         adds r0, r5, #0\n\
-        bl sub_8032FBC\n\
+        bl func_fe6_08032FBC\n\
         movs r0, #8\n\
     .L08032DB4:\n\
         ldrh r1, [r6]\n\
@@ -584,26 +584,26 @@ bool sub_8032CE8(u16* out)
 
 struct Unk_0810DB34 const gUnk_0810DB34[] =
 {
-    { IID_HEALSTAFF, sub_8033D5C },
-    { IID_MENDSTAFF, sub_8033D5C },
-    { IID_RECOVERSTAFF, sub_8033D5C },
-    { IID_PHYSICSTAFF, sub_8033ECC },
-    { IID_FORTIFYSTAFF, sub_8034094 },
-    { IID_WARPSTAFF, sub_8034178 },
-    { IID_RESCUESTAFF, sub_8033ECC },
-    { IID_RESTORESTAFF, sub_80342C4 },
-    { IID_SILENCESTAFF, sub_80344AC },
-    { IID_SLEEPSTAFF, sub_803462C },
-    { IID_BERSERKSTAFF, sub_803462C },
-    { IID_BARRIERSTAFF, sub_80347A4 },
+    { IID_HEALSTAFF, func_fe6_08033D5C },
+    { IID_MENDSTAFF, func_fe6_08033D5C },
+    { IID_RECOVERSTAFF, func_fe6_08033D5C },
+    { IID_PHYSICSTAFF, func_fe6_08033ECC },
+    { IID_FORTIFYSTAFF, func_fe6_08034094 },
+    { IID_WARPSTAFF, func_fe6_08034178 },
+    { IID_RESCUESTAFF, func_fe6_08033ECC },
+    { IID_RESTORESTAFF, func_fe6_080342C4 },
+    { IID_SILENCESTAFF, func_fe6_080344AC },
+    { IID_SLEEPSTAFF, func_fe6_0803462C },
+    { IID_BERSERKSTAFF, func_fe6_0803462C },
+    { IID_BARRIERSTAFF, func_fe6_080347A4 },
     {},
 };
 
 struct Unk_0810DB9C const gUnk_0810DB9C[] =
 {
-    { IID_DOORKEY, sub_8034B58 },
-    { IID_LOCKPICK, sub_8034BF0 },
-    { IID_ANTITOXIN, sub_8034CC0 },
+    { IID_DOORKEY, func_fe6_08034B58 },
+    { IID_LOCKPICK, func_fe6_08034BF0 },
+    { IID_ANTITOXIN, func_fe6_08034CC0 },
     {},
 };
 

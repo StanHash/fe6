@@ -26,7 +26,7 @@ struct PalFadeSt
 };
 
 int Interpolate(int method, int lo, int hi, int x, int end);
-void nullsub_12(void);
+void func_fe6_08013BEC(void);
 bool StringEquals(char const* strA, char const* strB);
 void StringCopy(char* dst, char const* src);
 void Decompress_Unused_08013C74(u8 const* src, u8* dst);
@@ -34,20 +34,20 @@ void Decompress(u8 const* src, void* dst);
 int GetDataSize(u8 const* data);
 void Register2dChrMove(u8 const* img, u8* vram, int width, int height);
 void Copy2dChr(void const* src, u8* dst, int width, int height);
-void sub_8013DAC(u8 const* src, u8* dst, int width, int height);
+void func_fe6_08013DAC(u8 const* src, u8* dst, int width, int height);
 void PutIncrTileref(u16* tm, int tileref, int width, int height);
-void sub_8013E8C(u16* tm, u8 const* src, int tileref, int len);
-// sub_8013EBC
-// sub_8013EC4
-// sub_8013ED8
-// sub_8013EE4
-// sub_8013F04
-// sub_8013F7C
+void func_fe6_08013E8C(u16* tm, u8 const* src, int tileref, int len);
+// func_fe6_08013EBC
+// func_fe6_08013EC4
+// func_fe6_08013ED8
+// func_fe6_08013EE4
+// func_fe6_08013F04
+// func_fe6_08013F7C
 // DarkenPals
-// nullsub_13
-// sub_8014130
+// func_fe6_0801412C
+// func_fe6_08014130
 void StartSpacialSeTest(void);
-void nullsub_14(void);
+void func_fe6_080141DC(void);
 void StartPalFadeToBlack(int palid, int duration, ProcPtr parent);
 void StartPalFadeToWhite(int palid, int duration, ProcPtr parent);
 struct PalFadeSt* StartPalFade(u16 const* colors, int pal, int duration, ProcPtr parent);
@@ -78,76 +78,76 @@ void StartSlowLockingFadeFromBlack(ProcPtr parent);
 void StartFastLockingFadeFromBlack(ProcPtr parent);
 void StartSlowLockingFadeToWhite(ProcPtr parent);
 void StartSlowLockingFadeFromWhite(ProcPtr parent);
-// sub_8014778
-// sub_8014790
-// sub_80147A8
-// sub_80147C0
-// sub_80147D8
-// sub_80147F0
-// sub_8014804
-// sub_8014818
-// sub_801482C
-// sub_8014840
-// sub_8014858
-// sub_8014870
-// sub_8014888
-// sub_80148A0
-// sub_80148B8
-// sub_80148CC
-// sub_80148E0
-// sub_80148F8
-// sub_801490C
-// sub_8014920
-// sub_8014934
-// sub_8014948
-// sub_801495C
-// sub_8014970
-// sub_8014984
-// sub_8014998
+// func_fe6_08014778
+// func_fe6_08014790
+// func_fe6_080147A8
+// func_fe6_080147C0
+// func_fe6_080147D8
+// func_fe6_080147F0
+// func_fe6_08014804
+// func_fe6_08014818
+// func_fe6_0801482C
+// func_fe6_08014840
+// func_fe6_08014858
+// func_fe6_08014870
+// func_fe6_08014888
+// func_fe6_080148A0
+// func_fe6_080148B8
+// func_fe6_080148CC
+// func_fe6_080148E0
+// func_fe6_080148F8
+// func_fe6_0801490C
+// func_fe6_08014920
+// func_fe6_08014934
+// func_fe6_08014948
+// func_fe6_0801495C
+// func_fe6_08014970
+// func_fe6_08014984
+// func_fe6_08014998
 void WhileFadeExists(ProcPtr proc);
-// sub_80149CC
-void sub_80149E0(int kind, int speed, ProcPtr parent, Func endFunc);
-// sub_8014A28
-// sub_8014A38
-// sub_8014A44
-// sub_8014A68
-void sub_8014AB8(void);
-// sub_8014ACC
-void sub_8014ADC(void);
-void sub_8014AF8(void);
-void sub_8014B68(void);
+// func_fe6_080149CC
+void func_fe6_080149E0(int kind, int speed, ProcPtr parent, Func endFunc);
+// func_fe6_08014A28
+// func_fe6_08014A38
+// func_fe6_08014A44
+// func_fe6_08014A68
+void func_fe6_08014AB8(void);
+// func_fe6_08014ACC
+void func_fe6_08014ADC(void);
+void func_fe6_08014AF8(void);
+void func_fe6_08014B68(void);
 void StartTemporaryLock(ProcPtr proc, int arg_1);
 int NumberToString(int number, char* buf);
 struct Text* PutStringCentered(u16* tm, int color, int width, char const* str);
 struct Text* PutString(u16* tm, int color, char const* str);
-// sub_8014D50
-// sub_8014D60
-// sub_8014D9C
-// sub_8014DB4
-// sub_8014DCC
-// sub_8014E30
-// sub_8014E98
-// sub_8014F70
-// sub_801501C
-// sub_80150DC
+// func_fe6_08014D50
+// func_fe6_08014D60
+// func_fe6_08014D9C
+// func_fe6_08014DB4
+// func_fe6_08014DCC
+// func_fe6_08014E30
+// func_fe6_08014E98
+// func_fe6_08014F70
+// func_fe6_0801501C
+// func_fe6_080150DC
 void CallDelayed(void(*func)(void), int delay);
 void CallDelayedArg(void(*func)(int), int arg, int delay);
-// sub_80151E4
-// sub_80151F8
-// sub_8015208
+// func_fe6_080151E4
+// func_fe6_080151F8
+// func_fe6_08015208
 void StartPartialGameLock(ProcPtr proc);
-void sub_8015260(u8 const* src, u8* dst, int size);
-void sub_8015298(u8 const* src, u8* dst, int width, int height);
-void sub_80152C4(u16 const* src, u16* dst, int size, u16 tileref);
+void func_fe6_08015260(u8 const* src, u8* dst, int size);
+void func_fe6_08015298(u8 const* src, u8* dst, int width, int height);
+void func_fe6_080152C4(u16 const* src, u16* dst, int size, u16 tileref);
 u16* GetTmOffsetById(int bgid, int x, int y);
-void sub_8015344(void);
+void func_fe6_08015344(void);
 int Screen2Pan(int x);
 void PlaySeSpacial(int song, int x);
 void PlaySeDelayed(int song, int delay);
-void sub_801548C(short song);
-void sub_801549C(short speed);
-// sub_80154AC
-// sub_8015504
+void func_fe6_0801548C(short song);
+void func_fe6_0801549C(short speed);
+// func_fe6_080154AC
+// func_fe6_08015504
 void PutDrawTextCentered(struct Text* text, int x, int y, char const* str, int width);
 void VecMulMat(int const* vec, int const* mat, int* ovec);
 void MatMulMat(int const* lmat, int const* rmat, int* omat);
@@ -156,10 +156,10 @@ void MatCopy(int const* src, int* dst);
 void MatRotA(int* mat, short angle);
 void MatRotB(int* mat, short angle);
 void MatRotC(int* mat, short angle);
-void nullsub_15(void);
+void func_fe6_08015858(void);
 int VecDotVec(int const* lvec, int const* rvec);
 void VecCrossVec(int const* lvec, int const* rvec, int* ovec);
-int sub_80158B8(int arg_0, int arg_1, int arg_2, int arg_3);
+int func_fe6_080158B8(int arg_0, int arg_1, int arg_2, int arg_3);
 
 extern u16 CONST_DATA Pal_AllBlack[];
 extern u16 CONST_DATA Pal_AllWhite[];

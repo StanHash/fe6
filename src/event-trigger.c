@@ -12,7 +12,7 @@ struct EventInfo
     /* 08 */ int flag;
 };
 
-void sub_806A8AC(struct EventInfo const* info)
+void func_fe6_0806A8AC(struct EventInfo const* info)
 {
     if (info->script == NULL)
         return;

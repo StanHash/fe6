@@ -183,10 +183,10 @@ int GetItemLckBonus(int item);
 int CreateItem(int item);
 bool CanUnitUseWeapon(struct Unit* unit, int item);
 bool CanUnitUseStaff(struct Unit* unit, int item);
-void sub_8016694(struct Text* text, int item, bool is_usable, u16* tm);
-void sub_8016720(struct Text* text, int item, bool is_usable, u16* tm);
-void sub_80167E4(struct Text* text, int item, u16* tm);
-void sub_8016860(struct Text* text, int item, bool is_usable, u16* tm);
+void func_fe6_08016694(struct Text* text, int item, bool is_usable, u16* tm);
+void func_fe6_08016720(struct Text* text, int item, bool is_usable, u16* tm);
+void func_fe6_080167E4(struct Text* text, int item, u16* tm);
+void func_fe6_08016860(struct Text* text, int item, bool is_usable, u16* tm);
 u16 GetItemAfterUse(int item);
 u16 GetUnitEquippedWeapon(struct Unit* unit);
 int GetUnitEquippedWeaponSlot(struct Unit* unit);
@@ -210,7 +210,7 @@ int GetUnitItemUseReach(struct Unit* unit, int item_slot);
 int GetUnitStaffReach(struct Unit* unit);
 int GetTotalConvoyItemsValue(void);
 int GetTotalUnitItemsValue(void);
-int sub_8017104(void);
+int func_fe6_08017104(void);
 
 enum { ITEM_USES_SHIFT = 8 };
 

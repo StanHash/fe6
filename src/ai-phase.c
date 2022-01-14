@@ -52,8 +52,8 @@ static void AiPhase_Begin(ProcPtr proc)
     gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
     gAiSt.unk_84 = 0;
 
-    sub_8032A08();
-    sub_80308B0();
+    func_fe6_08032A08();
+    func_fe6_080308B0();
 
     SpawnProcLocking(ProcScr_AiOrder, proc);
 }
@@ -70,8 +70,8 @@ static void AiPhase_Berserk_Begin(ProcPtr proc)
 
     gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
 
-    sub_8032A08();
-    sub_80308B0();
+    func_fe6_08032A08();
+    func_fe6_080308B0();
 
     SpawnProcLocking(ProcScr_AiOrder_Berserk, proc);
 }

@@ -22,8 +22,8 @@ void ListRescueGiveTargets(struct Unit* unit);
 void TryEnlistTalkUnitTarget(struct Unit* unit);
 void ListTalkTargets(struct Unit* unit);
 void ListSupportTargets(struct Unit* unit);
-void sub_8021240(struct Unit* unit);
-void sub_8021278(struct Unit* unit);
+void func_fe6_08021240(struct Unit* unit);
+void func_fe6_08021278(struct Unit* unit);
 void TryEnlistDoorPositionTarget(int x, int y);
 void TryEnlistBridgePositionTarget(int x, int y);
 void ListOpenTerrainTargets(struct Unit* unit, int terrain);
@@ -54,6 +54,6 @@ void ListUnlockTargets(struct Unit* unit);
 void TryEnlistRepairUnitTarget(struct Unit* unit);
 void ListRepairTargets(struct Unit* unit);
 void ListSaintsStaffTargets(struct Unit* unit);
-void sub_8021B30(int arg_0);
+void func_fe6_08021B30(int arg_0);
 
 extern struct Unit* gSubjectUnit;

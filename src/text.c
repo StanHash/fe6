@@ -628,7 +628,7 @@ static int GetStringTextLenAscii(char const* str)
     return result;
 }
 
-void sub_80065BC(void)
+void func_fe6_080065BC(void)
 {
 }
 

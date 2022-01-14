@@ -347,7 +347,7 @@ static u16 CONST_DATA Sprite_32x32_Window[] =
 
 #define GetInfo(id) (UnitSpriteTable[(id) & ((1<<UNITSPRITE_ID_BITS)-1)])
 
-void sub_8021B88(void)
+void func_fe6_08021B88(void)
 {
     sSheetSyncRequest++;
 }
@@ -823,7 +823,7 @@ void PutUnitSpriteIconsOam(void)
     }
 }
 
-void sub_8022618(void)
+void func_fe6_08022618(void)
 {
     gBmSt.cursor_previous.x = -1;
 }
@@ -993,7 +993,7 @@ void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* un
     }
 }
 
-void sub_8022A2C(void)
+void func_fe6_08022A2C(void)
 {
     sMapSprites[0].next = NULL;
 }

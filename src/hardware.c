@@ -417,7 +417,7 @@ void SetBgOffset(u16 bgid, u16 xOffset, u16 yOffset)
     }
 }
 
-void sub_8001AE4(void)
+void func_fe6_08001AE4(void)
 {
     sUnk_03000014 = sUnk_03000015 = 0;
 
@@ -425,13 +425,13 @@ void sub_8001AE4(void)
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-void sub_8001B18(u8 a, u8 b)
+void func_fe6_08001B18(u8 a, u8 b)
 {
     sUnk_03000014 = a;
     sUnk_03000015 = b;
 }
 
-void sub_8001B4C(u16* a, u16* b)
+void func_fe6_08001B4C(u16* a, u16* b)
 {
     int i;
 
@@ -439,7 +439,7 @@ void sub_8001B4C(u16* a, u16* b)
         *a++ = *b++;
 }
 
-void sub_8001B8C(void* outTm, void const* inData, u8 base, u8 linebits)
+void func_fe6_08001B8C(void* outTm, void const* inData, u8 base, u8 linebits)
 {
     u8 const* it = (u8 const*) inData + 2;
     u8* out;
@@ -458,7 +458,7 @@ void sub_8001B8C(void* outTm, void const* inData, u8 base, u8 linebits)
     }
 }
 
-void sub_8001C68(u16* outTm, short const* inData, int unused)
+void func_fe6_08001C68(u16* outTm, short const* inData, int unused)
 {
     int xSize = (inData[0]) & 0xFF;
     int ySize = (inData[0] >> 8) & 0xFF;
@@ -481,7 +481,7 @@ void sub_8001C68(u16* outTm, short const* inData, int unused)
     }
 }
 
-void sub_8001D0C(void)
+void func_fe6_08001D0C(void)
 {
     int i;
 
@@ -489,7 +489,7 @@ void sub_8001D0C(void)
         gUnk_020210E8[i] = 0;
 }
 
-void sub_8001D44(u16 const* inPal, int bank, int count, int unk)
+void func_fe6_08001D44(u16 const* inPal, int bank, int count, int unk)
 {
     int iBank, iColor;
 
@@ -511,7 +511,7 @@ void sub_8001D44(u16 const* inPal, int bank, int count, int unk)
     }
 }
 
-void sub_8001E68(int a, int b, int c, int d)
+void func_fe6_08001E68(int a, int b, int c, int d)
 {
     int iBank;
     int iColor;
@@ -534,7 +534,7 @@ void sub_8001E68(int a, int b, int c, int d)
     }
 }
 
-void sub_8001F88(int a, int b, int c)
+void func_fe6_08001F88(int a, int b, int c)
 {
     int i;
 
@@ -542,7 +542,7 @@ void sub_8001F88(int a, int b, int c)
         gUnk_020210E8[i] = c;
 }
 
-void sub_8001FD4(i8 a)
+void func_fe6_08001FD4(i8 a)
 {
     int i, j;
 
@@ -559,7 +559,7 @@ void sub_8001FD4(i8 a)
     }
 }
 
-void sub_800210C(i8 a)
+void func_fe6_0800210C(i8 a)
 {
     int i, j;
 
@@ -576,7 +576,7 @@ void sub_800210C(i8 a)
     }
 }
 
-void sub_8002234(i8 a)
+void func_fe6_08002234(i8 a)
 {
     int i, j;
 
@@ -593,7 +593,7 @@ void sub_8002234(i8 a)
     }
 }
 
-void sub_800236C(i8 a)
+void func_fe6_0800236C(i8 a)
 {
     int i, j;
 
@@ -610,7 +610,7 @@ void sub_800236C(i8 a)
     }
 }
 
-void sub_80024A4(void)
+void func_fe6_080024A4(void)
 {
     int i, j;
     short red, green, blue;
@@ -738,7 +738,7 @@ void SoftResetIfKeyCombo(void)
         SoftReset(0xFF);
 }
 
-void sub_800285C(int unk)
+void func_fe6_0800285C(int unk)
 {
     u16 ie = REG_IE;
 

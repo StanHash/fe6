@@ -55,7 +55,7 @@ void AiDecide_Suspend(ProcPtr proc)
     else
         gAction.suspendPoint = SUSPEND_POINT_AI_PHASE;
 
-    sub_80857B0(SAVE_ID_SUSPEND0);
+    func_fe6_080857B0(SAVE_ID_SUSPEND0);
 }
 
 void AiDecide_NextUnit(ProcPtr proc)
@@ -80,7 +80,7 @@ next_unit:
         RenderMap();
         RefreshUnitSprites();
 
-        sub_8035064(gActiveUnit);
+        func_fe6_08035064(gActiveUnit);
 
         gAiSt.combat_wgt_table_id = (gActiveUnit->ai_config & 0xF8) >> 3;
 
