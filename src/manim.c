@@ -47,6 +47,10 @@ struct MAnimInfoWindowProc
     /* 30 */ ProcPtr main_proc;
 };
 
+extern void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id);
+extern void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int arg_2);
+extern void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, int color_2, int color_3);
+
 void func_fe6_08061838(ProcPtr proc)
 {
     switch (gMapAnimSt.unk_62)
@@ -725,10 +729,10 @@ void func_fe6_08062BD4(u16* tm, int* arg_1, int pal, int arg_3, int chr)
         *arg_1 = 0;
 }
 
-void func_fe6_08062C38(u16* tm, int arg_1, int arg_2, int arg_3, u16* arg_4)
+void func_fe6_08062C38(u16 * tm, int arg_1, int arg_2, int arg_3, u16 const * arg_4)
 {
     int unk, count = 0;
-    u16* it;
+    u16 const * it;
 
     for (it = arg_4; it[0]; it += 2)
         count -= 1 - it[0];
@@ -765,6 +769,102 @@ void func_fe6_08062D64(struct MAnimInfoWindowProc* proc)
 {
     SetOnHBlankA(NULL);
     ClearBg0Bg1();
+}
+
+void func_fe6_08062D80(struct MAnimInfoWindowProc* proc)
+{
+    int left_actor_id;
+
+    SetBgOffset(0, 0, 0);
+    SetBgOffset(1, 0, 0);
+
+    Decompress(
+        gUnk_082DC6DC,
+        (void*)(VRAM) + GetBgChrOffset(1) + 1 * 0x20); // TODO: put in macro?
+
+    func_fe6_08062BA0(gUnk_082E25D4);
+
+    switch (gMapAnimSt.main_actor_count)
+    {
+
+    case 1:
+        func_fe6_08063120(proc, 0, -5);
+        break;
+
+    case 2:
+        left_actor_id = 0;
+
+        if (gMapAnimSt.actor[0].unit->x > gMapAnimSt.actor[1].unit->x)
+            left_actor_id = 1;
+        else if (UNIT_FACTION(gMapAnimSt.actor[0].unit) > UNIT_FACTION(gMapAnimSt.actor[1].unit))
+            left_actor_id = 1;
+
+        func_fe6_08063120(proc, left_actor_id, -10);
+        func_fe6_08063120(proc, 1 - left_actor_id, 0);
+        break;
+
+    }
+
+    func_fe6_08069C34();
+
+    func_fe6_0806A0DC(
+        gMapAnimSt.actor[0].unk_11 * 8,
+        gMapAnimSt.actor[0].unk_11 * 8 + 0x20,
+        gPal[0x11],
+        gPal[0x21]);
+}
+
+void func_fe6_08062E94(struct MAnimInfoWindowProc * proc)
+{
+    int i;
+    u16 val;
+    bool updated = FALSE;
+
+    for (i = 0; i < gMapAnimSt.main_actor_count; ++i)
+    {
+        val = gMapAnimSt.actor[i].unk_0E;
+
+        if (val > (gMapAnimSt.actor[i].hp_cur << 4))
+            val = val - 16;
+
+        if (val < (gMapAnimSt.actor[i].hp_cur << 4))
+        {
+            val = val + 4;
+
+            if (val % 16 == 0)
+                PlaySe(0x75); // TODO: song ids
+        }
+
+        if (val != gMapAnimSt.actor[i].unk_0E)
+        {
+            gMapAnimSt.actor[i].unk_0E = val;
+            func_fe6_08062FE8(proc, i);
+            updated = TRUE;
+        }
+    }
+
+    if (!updated && gMapAnimSt.unk_5F)
+        gMapAnimSt.unk_5F = FALSE;
+}
+
+void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id)
+{
+    func_fe6_08062AB4(
+        gBg0Tm + TM_OFFSET(
+            gMapAnimSt.actor[actor_id].unk_10 + 2,
+            gMapAnimSt.actor[actor_id].unk_11 + 2),
+        gMapAnimSt.actor[actor_id].unk_0E / 16,
+        TILEREF(32, 5), 3, 0);
+
+    func_fe6_08062C38(
+        gBg0Tm + TM_OFFSET(
+            gMapAnimSt.actor[actor_id].unk_10 + 3,
+            gMapAnimSt.actor[actor_id].unk_11 + 2),
+        gMapAnimSt.actor[actor_id].hp_max,
+        gMapAnimSt.actor[actor_id].unk_0E / 16,
+        0, gUnk_08664EE4);
+
+    EnableBgSync(BG0_SYNC_BIT);
 }
 
 /*

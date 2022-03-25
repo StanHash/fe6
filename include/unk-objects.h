@@ -98,6 +98,8 @@ extern u16 const SpriteAnim_MuFogBump[];
 extern u8 const gManimMuSpriteLayerLut[];
 extern u8 const Img_Unk_082DC618[];
 extern u16 const Pal_Unk_082E278C[];
+extern u8 const gUnk_082DC6DC[];
+extern u8 const gUnk_082E25D4[];
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
@@ -151,6 +153,7 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_08664C8C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08664D5C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08664DA4[];
 extern struct ProcScr CONST_DATA ProcScr_MAnimInfoWindow[];
+extern u16 CONST_DATA gUnk_08664EE4[];
 
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];
