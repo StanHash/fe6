@@ -18,6 +18,7 @@ enum
     SONG_6C = 0x6C,
     SONG_6E = 0x6E,
     SONG_73 = 0x73,
+    SONG_74 = 0x74, // exp bar thingy
     SONG_77 = 0x77,
     SONG_7A = 0x7A,
     SONG_90 = 0x90,

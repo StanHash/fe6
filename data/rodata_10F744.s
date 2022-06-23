@@ -1961,7 +1961,19 @@ gUnk_082DC880: @ 082DC880
 
 	.global gUnk_082DC8A0
 gUnk_082DC8A0: @ 082DC8A0
-	.incbin "fe6-base.gba", 0x2DC8A0, (0x2DC944 - 0x2DC8A0) @ length: 00A4
+	.incbin "fe6-base.gba", 0x2DC8A0, (0x2DC8C0 - 0x2DC8A0) @ length: 0020
+
+	.global gUnk_082DC8C0
+gUnk_082DC8C0: @ 082DC8C0
+	.incbin "fe6-base.gba", 0x2DC8C0, (0x2DC8EC - 0x2DC8C0) @ length: 002C
+
+	.global gUnk_082DC8EC
+gUnk_082DC8EC: @ 082DC8EC
+	.incbin "fe6-base.gba", 0x2DC8EC, (0x2DC918 - 0x2DC8EC) @ length: 002C
+
+	.global gUnk_082DC918
+gUnk_082DC918: @ 082DC918
+	.incbin "fe6-base.gba", 0x2DC918, (0x2DC944 - 0x2DC918) @ length: 002C
 
 	.global gUnk_082DC944
 gUnk_082DC944: @ 082DC944

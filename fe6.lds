@@ -511,13 +511,14 @@ SECTIONS
         . = ALIGN(4); src/ai-data.o(.data);
         . = ALIGN(4); src/ai-battle.o(.data);
         . = ALIGN(4); src/ai-080326C4.o(.data);
-
         . = ALIGN(4); data/data-code-sio.o(.data);
         . = ALIGN(4); data/data-code-ui.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);
         . = ALIGN(4), data/data-game-info.o(.data);
-
         . = ALIGN(4); src/mu.o(.data);
+        . = ALIGN(4); data/data-code-mu.o(.data);
+        . = ALIGN(4); src/manim.o(.data);
+        . = ALIGN(4); data/data-code-manim.o(.data);
 
         . = ALIGN(4); data/data.o(.data);
 

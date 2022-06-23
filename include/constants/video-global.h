@@ -39,6 +39,9 @@ enum
     BGCHR_STEALSELECT_FACE = 0x200,
 
     BGCHR_BATTLEPREVIEW_FRAME = 0x200,
+
+    BGCHR_MANIM_1 = 1,
+    BGCHR_MANIM_200 = 0x200,
 };
 
 enum
@@ -73,6 +76,9 @@ enum
     BGPAL_STEALSELECT_FACE = 5,
 
     BGPAL_BATTLEPREVIEW_FRAME = 1, // .. 2
+
+    BGPAL_MANIM_1 = 1, // .. 2
+    BGPAL_MANIM_5 = 5,
 };
 
 enum

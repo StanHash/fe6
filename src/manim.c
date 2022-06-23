@@ -1,9 +1,12 @@
 #include "common.h"
 
 #include "hardware.h"
+#include "move.h"
+#include "armfunc.h"
 #include "sound.h"
 #include "text.h"
 #include "event.h"
+#include "msg.h"
 #include "util.h"
 #include "item.h"
 #include "unit.h"
@@ -17,6 +20,20 @@
 #include "constants/video-global.h"
 #include "constants/songs.h"
 #include "constants/terrains.h"
+
+extern u16 const gUnk_082DC840[]; // pal blue
+extern u16 const gUnk_082DC860[]; // pal red
+extern u16 const gUnk_082DC880[]; // pal green
+extern u16 const gUnk_082DC8A0[]; // pal purple
+extern u8 const gUnk_082DC8C0[]; // tsa
+extern u8 const gUnk_082DC8EC[]; // tsa
+extern u8 const gUnk_082DC918[]; // tsa
+extern u16 CONST_DATA gUnk_08664F58[]; // ?
+extern u8 const gUnk_08113584[]; // img exp bar a
+extern u8 const gUnk_08113884[]; // img exp bar b
+extern u8 const gUnk_08113B84[]; // img exp bar c
+extern u16 const gUnk_08113D50[]; // pal exp bar
+extern u8 const gUnk_082DC5B0[]; // tsa exp bar
 
 enum
 {
@@ -32,7 +49,7 @@ struct MAnimExpBarProc
     /* 29 */ u8 pad_29[0x64 - 0x29];
     /* 64 */ short exp_from;
     /* 66 */ short exp_to;
-    /* 68 */ short actor_num;
+    /* 68 */ short actor_id;
     /* 6A */ short unk_6A;
 };
 
@@ -40,16 +57,167 @@ struct MAnimInfoWindowProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2A */ u16 unk_2A;
+    /* 2A */ i16 unk_2A;
     /* 2C */ u16 unk_2C;
     /* 2E */ u8 unk_2E;
     /* 2F */ u8 unk_2F;
     /* 30 */ ProcPtr main_proc;
 };
 
-extern void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id);
-extern void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int arg_2);
-extern void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, int color_2, int color_3);
+void func_fe6_08062D64(struct MAnimInfoWindowProc * proc);
+void func_fe6_08062D80(struct MAnimInfoWindowProc * proc);
+void func_fe6_08062E94(struct MAnimInfoWindowProc * proc);
+void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id);
+void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int x_offset);
+void func_fe6_080632C4(struct MAnimInfoWindowProc * proc);
+void func_fe6_080633B0(struct MAnimInfoWindowProc * proc);
+void func_fe6_0806376C(struct MAnimExpBarProc * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664C0C[] =
+{
+    PROC_CALL(LockGame),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08061E14),
+    PROC_SLEEP(15),
+    PROC_START_CHILD_LOCKING((void*) 0x08665F04), // TODO
+    PROC_SLEEP(1),
+    PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664C4C[] =
+{
+    PROC_CALL(LockGame),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08061E14),
+    PROC_SLEEP(15),
+    PROC_START_CHILD_LOCKING((void*) 0x08665F54), // TODO
+    PROC_SLEEP(1),
+    PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664C8C[] =
+{
+    PROC_CALL(LockGame),
+    PROC_CALL(MA_MoveCamOntoTarget),
+    PROC_SLEEP(2),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_08068C84),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_0806210C),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(20),
+    PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664D5C[] =
+{
+    PROC_CALL(LockGame),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_08068ADC),
+    PROC_SLEEP(90),
+    PROC_CALL(func_fe6_08068C28),
+    PROC_SLEEP(20),
+    PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664DA4[] =
+{
+    PROC_CALL(LockGame),
+    PROC_CALL(func_fe6_0806199C),
+    PROC_SLEEP(1),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08061FD0),
+    PROC_WHILE(IsEventRunning),
+    PROC_SLEEP(5),
+    PROC_CALL(func_fe6_080620D8),
+    PROC_CALL(func_fe6_080622FC),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08061E14),
+    PROC_SLEEP(15),
+PROC_LABEL(0),
+    PROC_REPEAT(func_fe6_08061AC8),
+    PROC_CALL(func_fe6_08061B10),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08061B30),
+    PROC_SLEEP(1),
+    PROC_SLEEP(5),
+    PROC_GOTO(0),
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08664E4C[] =
+{
+    PROC_CALL(MA_DisplayDeathQuote),
+    PROC_WHILE(IsEventRunning),
+    PROC_CALL(MapAnimProc_DisplayDeathFade),
+    PROC_WHILE_EXISTS(ProcScr_MuDeathFade),
+    PROC_CALL(func_fe6_08062CF0),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08061838),
+    PROC_SLEEP(0),
+    PROC_CALL(MapAnimProc_DisplayExpBar),
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08061878),
+    PROC_SLEEP(8),
+    PROC_CALL(func_fe6_08061908),
+    PROC_SLEEP(0),
+    PROC_CALL(MA_MoveCameraOntoActor),
+    PROC_SLEEP(2),
+    PROC_CALL(UnlockGame),
+    PROC_CALL(func_fe6_080619B0),
+    PROC_END,
+};
+
+u16 CONST_DATA gUnk_08664EE4[] =
+{
+    4, 42,
+    9, 47,
+    9, 57,
+    9, 67,
+    9, 77,
+    5, 87,
+    0, 0,
+};
+
+int CONST_DATA gUnk_08664F00[] = { 5, 6 };
+
+u8 const * CONST_DATA gUnk_08664F08[][2] = // tsa lut
+{
+    { gUnk_082DC8C0, gUnk_082DC8C0 },
+    { gUnk_082DC8C0, gUnk_082DC8C0 },
+    { gUnk_082DC8EC, gUnk_082DC918 },
+};
+
+struct ProcScr CONST_DATA ProcScr_MAnimInfoWindow[] =
+{
+    PROC_ONEND(func_fe6_08062D64),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080632C4),
+    PROC_CALL(func_fe6_08062D80),
+    PROC_REPEAT(func_fe6_080633B0),
+    PROC_REPEAT(func_fe6_08062E94),
+    PROC_END,
+};
 
 void func_fe6_08061838(ProcPtr proc)
 {
@@ -196,28 +364,28 @@ void MA_MoveCamOntoTarget(ProcPtr proc)
 
 void MA_DisplayDeathQuote(ProcPtr proc)
 {
-    int actor_num = -1;
+    int actor_id = -1;
 
     switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
         if (gMapAnimSt.actor[1].hp_cur == 0)
-            actor_num = 1;
+            actor_id = 1;
 
         // fallthrough
 
     case 1:
         if (gMapAnimSt.actor[0].hp_cur == 0)
-            actor_num = 0;
+            actor_id = 0;
 
         break;
 
     }
 
-    if (actor_num != -1)
+    if (actor_id != -1)
     {
-        int pid = gMapAnimSt.actor[actor_num].unit->pinfo->id;
+        int pid = gMapAnimSt.actor[actor_id].unit->pinfo->id;
 
         if (ShouldDisplayDeathQuote(pid))
         {
@@ -230,60 +398,60 @@ void MA_DisplayDeathQuote(ProcPtr proc)
 
 void MapAnimProc_DisplayDeathFade(ProcPtr proc)
 {
-    int actor_num = -1;
+    int actor_id = -1;
 
     switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
         if (gMapAnimSt.actor[1].hp_cur == 0)
-            actor_num = 1;
+            actor_id = 1;
 
         // fallthrough
 
     case 1:
         if (gMapAnimSt.actor[0].hp_cur == 0)
-            actor_num = 0;
+            actor_id = 0;
 
         break;
 
     }
 
-    if (actor_num != -1)
+    if (actor_id != -1)
     {
-        StartMuDeathFade(gMapAnimSt.actor[actor_num].mu);
+        StartMuDeathFade(gMapAnimSt.actor[actor_id].mu);
     }
 }
 
 void MapAnimProc_DisplayExpBar(ProcPtr proc)
 {
     struct MAnimExpBarProc* exp_bar_proc;
-    int actor_num = -1;
+    int actor_id = -1;
 
     switch (gMapAnimSt.main_actor_count)
     {
 
     case 2:
         if (gMapAnimSt.actor[1].bu->exp_gain != 0)
-            actor_num = 1;
+            actor_id = 1;
 
         // fallthrough
 
     case 1:
         if (gMapAnimSt.actor[0].bu->exp_gain != 0)
-            actor_num = 0;
+            actor_id = 0;
 
         break;
 
     }
 
-    if (actor_num >= 0)
+    if (actor_id >= 0)
     {
         exp_bar_proc = SpawnProcLocking(ProcScr_MAnimExpBar, proc);
 
-        exp_bar_proc->exp_from = gMapAnimSt.actor[actor_num].bu->previous_exp;
-        exp_bar_proc->exp_to = gMapAnimSt.actor[actor_num].bu->previous_exp + gMapAnimSt.actor[actor_num].bu->exp_gain;
-        exp_bar_proc->actor_num = actor_num;
+        exp_bar_proc->exp_from = gMapAnimSt.actor[actor_id].bu->previous_exp;
+        exp_bar_proc->exp_to = gMapAnimSt.actor[actor_id].bu->previous_exp + gMapAnimSt.actor[actor_id].bu->exp_gain;
+        exp_bar_proc->actor_id = actor_id;
     }
 }
 
@@ -320,7 +488,7 @@ void func_fe6_08061E14(ProcPtr proc)
     else
     {
         int array[2];
-        int i, actor_num;
+        int i, actor_id;
 
         for (i = 0; i < gMapAnimSt.main_actor_count; ++i)
         {
@@ -335,12 +503,12 @@ void func_fe6_08061E14(ProcPtr proc)
         }
         else
         {
-            actor_num = array[0] > array[1] ? 0 : 1;
+            actor_id = array[0] > array[1] ? 0 : 1;
 
-            if (array[actor_num] >= 112)
-                y = array[1 - actor_num] - 40;
+            if (array[actor_id] >= 112)
+                y = array[1 - actor_id] - 40;
             else
-                y = array[actor_num] + 24;
+                y = array[actor_id] + 24;
         }
     }
 
@@ -367,19 +535,19 @@ void func_fe6_08061FD0(ProcPtr proc)
     DisableEventSkip();
 }
 
-void func_fe6_08062018(int actor_num)
+void func_fe6_08062018(int actor_id)
 {
-    switch (GetItemIid(gMapAnimSt.actor[actor_num].bu->weapon_before))
+    switch (GetItemIid(gMapAnimSt.actor[actor_id].bu->weapon_before))
     {
 
     case IID_FIRESTONE:
-        SetMuPal(gMapAnimSt.actor[actor_num].mu, OBJPAL_MANIM_SPECIALMU + actor_num);
-        SetMuSpecialSprite(gMapAnimSt.actor[actor_num].mu, JID_FIREDRAGON, Pal_ManimFireDragonMu);
+        SetMuPal(gMapAnimSt.actor[actor_id].mu, OBJPAL_MANIM_SPECIALMU + actor_id);
+        SetMuSpecialSprite(gMapAnimSt.actor[actor_id].mu, JID_FIREDRAGON, Pal_ManimFireDragonMu);
         break;
 
     case IID_DIVINESTONE:
-        SetMuPal(gMapAnimSt.actor[actor_num].mu, OBJPAL_MANIM_SPECIALMU + actor_num);
-        SetMuSpecialSprite(gMapAnimSt.actor[actor_num].mu, JID_DIVINEDRAGON, Pal_ManimDivineDragonMu);
+        SetMuPal(gMapAnimSt.actor[actor_id].mu, OBJPAL_MANIM_SPECIALMU + actor_id);
+        SetMuSpecialSprite(gMapAnimSt.actor[actor_id].mu, JID_DIVINEDRAGON, Pal_ManimDivineDragonMu);
         break;
 
     }
@@ -406,22 +574,22 @@ void func_fe6_0806210C(void)
     PlaySe(SONG_A0);
 }
 
-void MA_InitActor(int actor_num, struct BattleUnit* bu, struct Unit* unit)
+void MA_InitActor(int actor_id, struct BattleUnit* bu, struct Unit* unit)
 {
     if (bu == NULL)
         return;
 
-    gMapAnimSt.actor[actor_num].unit = unit;
-    gMapAnimSt.actor[actor_num].bu = bu;
-    gMapAnimSt.actor[actor_num].mu = StartMu(unit);
+    gMapAnimSt.actor[actor_id].unit = unit;
+    gMapAnimSt.actor[actor_id].bu = bu;
+    gMapAnimSt.actor[actor_id].mu = StartMu(unit);
 
-    FreezeSpriteAnim(gMapAnimSt.actor[actor_num].mu->sprite_anim);
+    FreezeSpriteAnim(gMapAnimSt.actor[actor_id].mu->sprite_anim);
 
     if (bu->terrain == TERRAIN_WALL_1B)
-        HideMu(gMapAnimSt.actor[actor_num].mu);
+        HideMu(gMapAnimSt.actor[actor_id].mu);
 }
 
-void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
+void MA_SetActorFacing(int actor_id, int opponent_actor_id, int manim_facing)
 {
     int mu_facing;
 
@@ -430,21 +598,21 @@ void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing)
 
     case MANIM_FACING_OPPONENT:
         mu_facing = func_fe6_080629FC(
-            gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y,
-            gMapAnimSt.actor[opponent_actor_num].unit->x, gMapAnimSt.actor[opponent_actor_num].unit->y);
+            gMapAnimSt.actor[actor_id].unit->x, gMapAnimSt.actor[actor_id].unit->y,
+            gMapAnimSt.actor[opponent_actor_id].unit->x, gMapAnimSt.actor[opponent_actor_id].unit->y);
 
-        SetMuFacing(gMapAnimSt.actor[actor_num].mu, mu_facing);
+        SetMuFacing(gMapAnimSt.actor[actor_id].mu, mu_facing);
         break;
 
     case MANIM_FACING_DEFAULT:
-        SetMuDefaultFacing(gMapAnimSt.actor[actor_num].mu);
+        SetMuDefaultFacing(gMapAnimSt.actor[actor_id].mu);
         break;
 
     case MANIM_FACING_UNKNOWN:
         mu_facing = func_fe6_080629FC(
-            gMapAnimSt.actor[actor_num].unit->x, gMapAnimSt.actor[actor_num].unit->y, 0, 0);
+            gMapAnimSt.actor[actor_id].unit->x, gMapAnimSt.actor[actor_id].unit->y, 0, 0);
 
-        SetMuFacing(gMapAnimSt.actor[actor_num].mu, mu_facing);
+        SetMuFacing(gMapAnimSt.actor[actor_id].mu, mu_facing);
         // break;
 
     }
@@ -765,7 +933,7 @@ void MA_StartBattleInfoBox(int arg0, int arg1, ProcPtr main_proc)
     proc->main_proc = main_proc;
 }
 
-void func_fe6_08062D64(struct MAnimInfoWindowProc* proc)
+void func_fe6_08062D64(struct MAnimInfoWindowProc * proc)
 {
     SetOnHBlankA(NULL);
     ClearBg0Bg1();
@@ -865,6 +1033,190 @@ void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id)
         0, gUnk_08664EE4);
 
     EnableBgSync(BG0_SYNC_BIT);
+}
+
+u16 const * func_fe6_080630C8(struct Unit * unit)
+{
+    switch (UNIT_FACTION(unit))
+    {
+
+    case FACTION_BLUE:
+        return gUnk_082DC840;
+
+    case FACTION_RED:
+        return gUnk_082DC860;
+
+    case FACTION_GREEN:
+        return gUnk_082DC880;
+
+    case FACTION_PURPLE:
+        return gUnk_082DC8A0;
+
+    default:
+        return NULL;
+
+    }
+}
+
+void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int x_offset)
+{
+    gMapAnimSt.actor[actor_id].unk_10 = proc->unk_2E + x_offset;
+    gMapAnimSt.actor[actor_id].unk_11 = proc->unk_2F;
+
+    ApplyPalette(
+        func_fe6_080630C8(gMapAnimSt.actor[actor_id].unit),
+        BGPAL_MANIM_1 + actor_id);
+
+    Decompress(
+        gUnk_08664F08[gMapAnimSt.main_actor_count][actor_id], gBuf);
+
+    TmApplyTsa_t(
+        gBg1Tm + TM_OFFSET(
+            gMapAnimSt.actor[actor_id].unk_10,
+            gMapAnimSt.actor[actor_id].unk_11),
+        gBuf, BGCHR_MANIM_1 | TILEREF(0, BGPAL_MANIM_1 + actor_id));
+
+    EnableBgSync(BG1_SYNC_BIT);
+
+    PutStringCentered(
+        gBg0Tm + TM_OFFSET(
+            gMapAnimSt.actor[actor_id].unk_10 + 1,
+            gMapAnimSt.actor[actor_id].unk_11),
+        TEXT_COLOR_SYSTEM_WHITE, 8,
+        DecodeMsg(gMapAnimSt.actor[actor_id].unit->pinfo->msg_name));
+
+    EnableBgSync(BG0_SYNC_BIT);
+
+    gMapAnimSt.actor[actor_id].unk_0E = gMapAnimSt.actor[actor_id].hp_cur << 4;
+
+    func_fe6_08062FE8(proc, actor_id);
+}
+
+void func_fe6_080632C4(struct MAnimInfoWindowProc * proc)
+{
+    proc->unk_2A = 0;
+
+    func_fe6_080633B0(proc);
+
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 1, 1, 1);
+}
+
+void func_fe6_080633B0(struct MAnimInfoWindowProc * proc)
+{
+    SetWin0Box(
+        0, (proc->unk_2F + 2) * 8 - proc->unk_2A,
+        240, (proc->unk_2F + 2) * 8 + proc->unk_2A);
+
+    proc->unk_2A += 2;
+
+    if (proc->unk_2A > 0x10)
+    {
+        SetWinEnable(0, 0, 0);
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_08063494(int x_tm, int y_tm, int amt)
+{
+    func_fe6_08062AB4(
+        gBg0Tm + TM_OFFSET(
+            x_tm + 2,
+            y_tm + 1),
+        amt, TILEREF(BGCHR_MANIM_200 + 0x1F, BGPAL_MANIM_5), 2, TILEREF(BGCHR_MANIM_200 + 0x29, BGPAL_MANIM_5));
+
+    func_fe6_08062C38(
+        gBg0Tm + TM_OFFSET(
+            x_tm + 3,
+            y_tm + 1),
+        99, amt, 0, gUnk_08664F58);
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+void func_fe6_08063504(struct MAnimExpBarProc * proc)
+{
+    SetBgOffset(0, 0, 0);
+    SetBgOffset(1, 0, 0);
+
+    RegisterDataMove(
+        gUnk_08113584,
+        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x00) * CHR_SIZE,
+        7 * CHR_SIZE);
+
+    RegisterDataMove(
+        gUnk_08113884,
+        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x07) * CHR_SIZE,
+        24 * CHR_SIZE);
+
+    RegisterDataMove(
+        gUnk_08113B84,
+        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x1F) * CHR_SIZE,
+        11 * CHR_SIZE);
+
+    ApplyPalette(gUnk_08113D50, BGPAL_MANIM_5);
+
+    TmApplyTsa_t(gBg0Tm + TM_OFFSET(6, 8), gUnk_082DC5B0, TILEREF(BGCHR_MANIM_200, BGPAL_MANIM_5));
+
+    func_fe6_08063494(6, 8, proc->exp_from);
+}
+
+void func_fe6_080635B8(struct MAnimExpBarProc * proc)
+{
+    PlaySe(SONG_74);
+}
+
+void sub_807C0F8(struct MAnimExpBarProc * proc)
+{
+    proc->exp_from++;
+
+    if (proc->exp_from >= 100)
+        proc->exp_from = 0;
+
+    func_fe6_08063494(6, 8, proc->exp_from);
+
+    if (proc->exp_from == proc->exp_to % 100)
+    {
+        Proc_Break(proc);
+        m4aSongNumStop(SONG_74);
+    }
+}
+
+void func_fe6_0806367C(struct MAnimExpBarProc * proc)
+{
+    proc->unk_6A = 0;
+
+    func_fe6_0806376C(proc);
+
+    SetWinEnable(1, 0, 0);
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(0, 0, 1, 1, 1);
+}
+
+void func_fe6_0806376C(struct MAnimExpBarProc * proc)
+{
+    SetWin0Box(
+        0, 76 - proc->unk_6A,
+        240, 76 + proc->unk_6A);
+
+    proc->unk_6A += 2;
+
+    if (proc->unk_6A > 12)
+    {
+        SetWinEnable(0, 0, 0);
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_08063848(struct MAnimExpBarProc * proc)
+{
+    if (proc->exp_to < 100)
+        return;
+
+    func_fe6_08067CF8(proc->actor_id, proc);
 }
 
 /*

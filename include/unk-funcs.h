@@ -1805,30 +1805,30 @@ u8 func_fe6_0805F7B4(int item);
 u8 GetItemMaFacing(int item);
 // func_fe6_0805F7D4
 
-// func_fe6_08061838
-// func_fe6_08061878
+void func_fe6_08061838(ProcPtr proc);
+void func_fe6_08061878(ProcPtr proc);
 bool func_fe6_080618D4(struct BattleUnit* bu);
-// func_fe6_08061908
+void func_fe6_08061908(ProcPtr proc);
 bool func_fe6_08061964(struct BattleUnit* bu);
-// func_fe6_0806199C
-// func_fe6_080619B0
+void func_fe6_0806199C(ProcPtr proc);
+void func_fe6_080619B0(ProcPtr proc);
 // func_fe6_080619E8
-// func_fe6_08061AC8
-// func_fe6_08061B10
-// func_fe6_08061B30
-// MA_MoveCameraOntoActor
-// MA_MoveCamOntoTarget
-// MA_DisplayDeathQuote
-// MapAnimProc_DisplayDeathFade
-// MapAnimProc_DisplayExpBar
-// func_fe6_08061E14
-// func_fe6_08061FD0
+void func_fe6_08061AC8(ProcPtr proc);
+void func_fe6_08061B10(ProcPtr proc);
+void func_fe6_08061B30(ProcPtr proc);
+void MA_MoveCameraOntoActor(ProcPtr proc);
+void MA_MoveCamOntoTarget(ProcPtr proc);
+void MA_DisplayDeathQuote(ProcPtr proc);
+void MapAnimProc_DisplayDeathFade(ProcPtr proc);
+void MapAnimProc_DisplayExpBar(ProcPtr proc);
+void func_fe6_08061E14(ProcPtr proc);
+void func_fe6_08061FD0(ProcPtr proc);
 // func_fe6_08062018
-// func_fe6_080620D8
-// func_fe6_0806210C
+void func_fe6_080620D8(ProcPtr proc);
+void func_fe6_0806210C(void);
 // MA_InitActor
 void MA_SetActorFacing(int actor_num, int opponent_actor_num, int manim_facing);
-// func_fe6_080622FC
+void func_fe6_080622FC(void);
 void MA_SortMuLayers(void);
 void func_fe6_08062598(void);
 void func_fe6_08062614(void);
@@ -1950,7 +1950,7 @@ void func_fe6_08064B7C(struct Unit* unit);
 // func_fe6_08067A28
 // func_fe6_08067AF0
 // func_fe6_08067B08
-// func_fe6_08067CF8
+void func_fe6_08067CF8(int actor_id, ProcPtr parent);
 // func_fe6_08067D2C
 // func_fe6_08067E50
 // func_fe6_08067E84
@@ -1982,15 +1982,15 @@ void func_fe6_08064B7C(struct Unit* unit);
 struct ProcScr const* func_fe6_08068A48(void);
 // func_fe6_08068A74
 // func_fe6_08068AA8
-// func_fe6_08068ADC
+void func_fe6_08068ADC(ProcPtr proc);
 // func_fe6_08068BA8
 // func_fe6_08068BE8
-// func_fe6_08068C28
-// func_fe6_08068C84
+void func_fe6_08068C28(ProcPtr proc);
+void func_fe6_08068C84(ProcPtr proc);
 // func_fe6_08068CB8
 // func_fe6_08068D9C
-// func_fe6_08068E80
-// func_fe6_08068F04
+void func_fe6_08068E80(ProcPtr proc);
+void func_fe6_08068F04(ProcPtr proc);
 // func_fe6_08068F88
 // func_fe6_08068FD8
 // func_fe6_08069028
@@ -2035,7 +2035,7 @@ void func_fe6_08069C34(void);
 // func_fe6_08069F58
 // func_fe6_08069FD8
 // func_fe6_0806A040
-// func_fe6_0806A0DC
+void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, int color_2, int color_3);
 void func_fe6_0806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // func_fe6_0806A270
 // func_fe6_0806A330

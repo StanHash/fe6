@@ -124,5 +124,5 @@ void SetMuSpecialSprite(struct MuProc* mu, int jid, u16 const* pal);
 void SetMuPal(struct MuProc* mu, int pal);
 
 extern struct ProcScr CONST_DATA ProcScr_Mu[];
-
+extern struct ProcScr CONST_DATA ProcScr_MuDeathFade[];
 extern struct MuInfo CONST_DATA MuInfoTable[];
