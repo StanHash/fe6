@@ -9,8 +9,8 @@
 
 struct Unk_08666C78
 {
-    /* 00 */ u8 unk_00;
-    /* 04 */ int unk_04;
+    /* 00 */ u8 pid;
+    /* 04 */ int bonus_levels;
 };
 
 extern struct Unk_08666C78 CONST_DATA gUnk_08666C78[];
@@ -23,14 +23,14 @@ bool EvtCheck_IsHard(void)
     return FALSE;
 }
 
-int func_fe6_0806BAB8(u8 arg_00)
+int func_fe6_0806BAB8(u8 pid)
 {
-    struct Unk_08666C78 const* it = gUnk_08666C78;
+    struct Unk_08666C78 const * it = gUnk_08666C78;
 
-    while (it->unk_00 != 0)
+    while (it->pid != 0)
     {
-        if (it->unk_00 == arg_00)
-            return it->unk_04;
+        if (it->pid == pid)
+            return it->bonus_levels;
 
         ++it;
     }
@@ -53,5 +53,16 @@ void func_fe6_0806BAF0(void)
 }
 
 /*
+
+bool func_fe6_0806BB34(void * unk)
+{
+    if (CheckFlag(10))
+        return FALSE;
+
+    if (!IsKleinInNonBlueTeam())
+        return FALSE;
+
+    return func_fe6_0806AC90(unk, 0x31, 0x2E);
+}
 
 */
