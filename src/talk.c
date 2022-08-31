@@ -51,7 +51,7 @@ static void TalkInterpretNewFace(ProcPtr proc);
 static int GetFaceIdByX(int x);
 static void SetTalkFaceLayer(int talk_face, int toBack);
 static void MoveTalkFace(int talkFaceFrom, int talkFaceTo);
-static i8 IsTalkFaceMoving(void);
+static bool IsTalkFaceMoving(void);
 static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap);
 static void TalkFaceMove_OnInit(struct GenericProc* proc);
 static void TalkFaceMove_OnIdle(struct GenericProc* proc);
@@ -1064,34 +1064,12 @@ static void MoveTalkFace(int talkFaceFrom, int talkFaceTo)
     sTalkSt->faces[talkFaceTo] = face;
 }
 
-static i8 IsTalkFaceMoving(void)
+static bool IsTalkFaceMoving(void)
 {
+    if (Proc_Find(ProcScr_TalkMoveFace) != NULL)
+        return TRUE;
 
-#if NONMATCHING
-
-    return Proc_Find(ProcScr_TalkMoveFace) ? TRUE : FALSE;
-
-#else
-    asm("\n\
-        .section .rodata\n\
-        .4byte ProcScr_TalkMoveFace\n\
-        .text\n\
-        ldr r1, .L0800A840\n\
-        add r0, r1, #0\n\
-        bl Proc_Find\n\
-        cmp r0, #0\n\
-        beq .L0800A844\n\
-        mov r0, #1\n\
-        b .L0800A848\n\
-        .align 2, 0\n\
-    .L0800A840: .4byte ProcScr_TalkMoveFace\n\
-    .L0800A844:\n\
-        mov r0, #0\n\
-        b .L0800A848\n\
-    .L0800A848:\n\
-    ");
-#endif
-
+    return FALSE;
 }
 
 static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap)

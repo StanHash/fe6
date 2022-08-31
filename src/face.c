@@ -23,7 +23,7 @@ struct TalkSpriteEnt
 
 static void UpdateFaceTalk(struct FaceProc* proc);
 static void Face_OnIdle(struct FaceProc* proc);
-static void PutFaceTm(u16* tm, u8 const* data, int tileref, i8 is_flipped);
+static void PutFaceTm(u16* tm, u8 const* data, int tileref, bool is_flipped);
 static void FaceChibiSpr_OnIdle(struct FaceProc* proc);
 static void EndFacePtr(struct GenericProc* proc);
 static void EndFaceIn8Frames(struct FaceProc* proc);
@@ -283,29 +283,7 @@ static void UpdateFaceTalk(struct FaceProc* proc)
     if (GetFaceDisp(proc) & (FACE_DISP_TALK_1 | FACE_DISP_TALK_2))
         sprnum += proc->talk_frame;
 
-#if NONMATCHING
-
     oam0 = GetFaceDisp(proc) & FACE_DISP_BLEND ? OAM0_BLEND : 0;
-
-#else
-    asm("\n\
-        ldr r0, [r7]\n\
-        bl GetFaceDisp\n\
-        mov r1, #0x80\n\
-        lsl r1, r1, #3\n\
-        and r0, r1\n\
-        cmp r0, #0\n\
-        beq .L080081DE\n\
-        mov r0, #0x80\n\
-        lsl r0, r0, #3\n\
-        b .L080081E0\n\
-    .L080081DE:\n\
-        mov r0, #0\n\
-    .L080081E0:\n\
-        str r0, [r7, #8]\n\
-    ");
-#endif
-
     oam0 += OAM0_Y(proc->y_disp + proc->y_offset_mouth);
 
     PutSpriteExt(proc->sprite_layer,
@@ -318,29 +296,7 @@ static void Face_OnIdle(struct FaceProc* proc)
 {
     int oam0;
 
-#if NONMATCHING
-
     oam0 = GetFaceDisp(proc) & FACE_DISP_BLEND ? OAM0_BLEND : 0;
-
-#else
-    asm("\n\
-        ldr r0, [r7]\n\
-        bl GetFaceDisp\n\
-        mov r1, #0x80\n\
-        lsl r1, r1, #3\n\
-        and r0, r1\n\
-        cmp r0, #0\n\
-        beq .L0800827E\n\
-        mov r0, #0x80\n\
-        lsl r0, r0, #3\n\
-        b .L08008280\n\
-    .L0800827E:\n\
-        mov r0, #0\n\
-    .L08008280:\n\
-        str r0, [r7, #4]\n\
-    ");
-#endif
-
     oam0 += OAM0_Y(proc->y_disp);
 
     PutSpriteExt(proc->sprite_layer, OAM1_X(proc->x_disp), oam0, proc->sprite, proc->oam2);
@@ -427,23 +383,23 @@ void EndFaceById(int slot)
     EndFace(gFaces[slot]);
 }
 
-int SetFaceDisp(struct FaceProc* proc, int disp)
+u32 SetFaceDisp(struct FaceProc* proc, u32 disp)
 {
     proc->disp = disp;
     return proc->disp;
 }
 
-int SetFaceDispById(int slot, int disp)
+u32 SetFaceDispById(int slot, u32 disp)
 {
     return SetFaceDisp(gFaces[slot], disp);
 }
 
-int GetFaceDisp(struct FaceProc* proc)
+u32 GetFaceDisp(struct FaceProc* proc)
 {
     return proc->disp;
 }
 
-int GetFaceDispById(int slot)
+u32 GetFaceDispById(int slot)
 {
     return GetFaceDisp(gFaces[slot]);
 }
@@ -488,7 +444,7 @@ void UnpackFaceGraphics(int fid, int chr, int pal)
     ApplyPalette(info->pal, pal);
 }
 
-void PutFaceTm(u16* tm, u8 const* data, int tileref, i8 is_flipped)
+void PutFaceTm(u16* tm, u8 const* data, int tileref, bool is_flipped)
 {
     int width = *data++;
     int height = *data++;
@@ -531,7 +487,7 @@ void PutFaceTm(u16* tm, u8 const* data, int tileref, i8 is_flipped)
     }
 }
 
-void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, i8 is_flipped)
+void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, bool is_flipped)
 {
     PutFaceTm(tm, FaceTm_Unk_085C3C18, tileref, is_flipped);
 }
@@ -557,7 +513,7 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal)
     }
 }
 
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, i8 is_flipped)
+void PutFaceChibi(int fid, u16* tm, int chr, int pal, bool is_flipped)
 {
     UnpackFaceChibiGraphics(fid, chr, pal);
 
@@ -599,7 +555,7 @@ static void FaceChibiSpr_OnIdle(struct FaceProc* proc)
         proc->sprite, proc->oam2);
 }
 
-void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, i8 is_flipped, ProcPtr parent)
+void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, bool is_flipped, ProcPtr parent)
 {
     struct FaceProc* proc;
 

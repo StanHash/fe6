@@ -672,21 +672,8 @@ void InitBgs(u16 const* config)
 
     int i;
 
-#if NONMATCHING
-
     if (config == NULL)
         config = defaultConfig;
-
-#else
-    asm("\n\
-        ldr r0, [r7]\n\
-        cmp r0, #0\n\
-        bne .L080026DE\n\
-        add r0, r7, #4\n\
-        str r0, [r7]\n\
-    .L080026DE:\n\
-    ");
-#endif
 
     *(u16*) &gDispIo.bg0_ct = 0;
     *(u16*) &gDispIo.bg1_ct = 0;
