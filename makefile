@@ -1,3 +1,18 @@
+.SUFFIXES:
+
+# ==================
+# = PROJECT CONFIG =
+# ==================
+
+BUILD_NAME := fe6
+
+SRC_DIR = src
+ASM_DIR = asm
+BUILD_DIR = build
+
+# ====================
+# = TOOL DEFINITIONS =
+# ====================
 
 ifeq ($(OS),Windows_NT)
   EXE := .exe
@@ -6,97 +21,132 @@ else
 endif
 
 TOOLCHAIN ?= $(DEVKITARM)
+AGBCC_HOME ?= tools/agbcc
 
-export PATH := $(TOOLCHAIN)/bin:$(PATH)
+ifneq (,$(TOOLCHAIN))
+  export PATH := $(TOOLCHAIN)/bin:$(PATH)
+endif
 
 PREFIX := arm-none-eabi-
 
-CPP := $(PREFIX)cpp$(EXE)
-AS := $(PREFIX)as$(EXE)
-LD := $(PREFIX)ld$(EXE)
-OBJCOPY := $(PREFIX)objcopy$(EXE)
+export OBJCOPY := $(PREFIX)objcopy
+export AS := $(PREFIX)as
+export CPP := $(PREFIX)cpp
+export LD := $(PREFIX)ld
+export STRIP := $(PREFIX)strip
 
-CC1     := tools/agbcc/bin/old_agbcc$(EXE)
-CC1_NEW := tools/agbcc/bin/agbcc$(EXE)
+CC1     := $(AGBCC_HOME)/bin/old_agbcc$(EXE)
+CC1_NEW := $(AGBCC_HOME)/bin/agbcc$(EXE)
 
-SHASUM := sha1sum
+SHASUM ?= sha1sum
 
-CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -O2
-CPPFLAGS := -I tools/agbcc/include -iquote include -iquote . -nostdinc -undef
-ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I asm/include
+# ================
+# = BUILD CONFIG =
+# ================
 
-ROM          := fe6.gba
-ELF          := $(ROM:.gba=.elf)
-MAP          := $(ROM:.gba=.map)
-LDSCRIPT     := fe6.lds
-SYM_FILES    := 
-CFILES       := $(wildcard src/*.c) $(wildcard src/lib/*.c)
-ASM_S_FILES  := $(wildcard asm/*.s) $(wildcard asm/lib/*.s)
-DATA_S_FILES := $(wildcard data/*.s)
-SFILES       := $(ASM_S_FILES) $(DATA_S_FILES)
-C_OBJECTS    := $(CFILES:.c=.o)
-ASM_OBJECTS  := $(SFILES:.s=.o)
-ALL_OBJECTS  := $(C_OBJECTS) $(ASM_OBJECTS)
-DEPS_DIR     := .dep
+CPPFLAGS := -I $(AGBCC_HOME)/include -iquote include -iquote . -nostdinc -undef
+CFLAGS := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -O2
+ASFLAGS := -mcpu=arm7tdmi -I asm/include
 
-# not yet supported by agbcc :/
-# src/main.o:            CC1FLAGS += -mtpcs-frame
+LDS := $(BUILD_NAME).lds
 
-src/irq.o:             CC1FLAGS += -O0
-src/random.o:          CC1FLAGS += -O0
-src/hardware.o:        CC1FLAGS += -O0
-src/move.o:            CC1FLAGS += -O0
-src/oam.o:             CC1FLAGS += -O0
-src/sound.o:           CC1FLAGS += -O0
-src/ramfunc.o:         CC1FLAGS += -O0
-src/proc.o:            CC1FLAGS += -O0
-src/icon.o:            CC1FLAGS += -O0
-src/debug-text.o:      CC1FLAGS += -O0
-src/text.o:            CC1FLAGS += -O0
-src/banim-sprite.o:    CC1FLAGS += -O0
-src/sprite.o:          CC1FLAGS += -O0
-src/face.o:            CC1FLAGS += -O0
-src/talk.o:            CC1FLAGS += -O0
-src/event.o:           CC1FLAGS += -O0
-src/sprite-anim.o:     CC1FLAGS += -O0
-src/game-controller.o: CC1FLAGS += -O0
-src/msg.o:             CC1FLAGS += -O0
+ROM := $(BUILD_NAME).gba
 
-src/mu.o:              CC1FLAGS += -O0
-src/manim.o:           CC1FLAGS += -O0
+ELF := $(ROM:%.gba=%.elf)
+MAP := $(ROM:%.gba=%.map)
 
-src/lib/agb-sram.o:    CC1FLAGS += -O1
+C_SRCS := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/lib/*.c)
+C_OBJS := $(C_SRCS:%.c=$(BUILD_DIR)/%.o)
+
+ASM_SRCS := $(wildcard $(ASM_DIR)/*.s) $(wildcard $(ASM_DIR)/lib/*.s)
+ASM_OBJS := $(ASM_SRCS:%.s=$(BUILD_DIR)/%.o)
+
+DATA_SRCS := $(wildcard data/*.s)
+DATA_OBJS := $(DATA_SRCS:%.s=$(BUILD_DIR)/%.o)
+
+ALL_OBJS := $(C_OBJS) $(ASM_OBJS) $(DATA_OBJS)
+ALL_DEPS := $(ALL_OBJS:%.o=%.d)
+
+SUBDIRS := $(sort $(dir $(ALL_OBJS)))
+$(shell mkdir -p $(SUBDIRS))
+
+# ===========
+# = RECIPES =
+# ===========
 
 compare: $(ROM)
 	$(SHASUM) -c fe6.sha1
 
+.PHONY: compare
+
 clean:
-	$(RM) $(ROM) $(ELF) $(MAP) $(ALL_OBJECTS) src/*.s graphics/*.h
-	$(RM) -rf $(DEPS_DIR)
+	@echo "RM $(ROM) $(ELF) $(MAP) $(BUILD_DIR)/"
+	@rm -f $(ROM) $(ELF) $(MAP) 
+	@rm -fr $(BUILD_DIR)/
 
-MAKEDEP = mkdir -p $(DEPS_DIR)/$(dir $*) && $(CPP) $(CPPFLAGS) $< -MM -MG -MT $*.o > $(DEPS_DIR)/$*.d
-
--include $(addprefix $(DEPS_DIR)/,$(CFILES:.c=.d))
-
-$(DEPS_DIR)/%.d: %.c
-	@$(MAKEDEP)
-
-$(ELF): $(ALL_OBJECTS) $(LDSCRIPT) $(SYM_FILES)
-	$(LD) -T $(LDSCRIPT) -Map $(MAP) $(ALL_OBJECTS) -Ltools/agbcc/lib -lgcc -lc -o $@
+.PHONY: clean
 
 %.gba: %.elf
-	$(OBJCOPY) --strip-debug -O binary --pad-to 0x8800000 --gap-fill=0xff $< $@
+	$(OBJCOPY) --strip-debug -O binary $< $@
 
-$(C_OBJECTS): %.o: %.c $(DEPS_DIR)/%.d
-	@$(MAKEDEP)
-	$(CPP) $(CPPFLAGS) $< | $(CC1) $(CC1FLAGS) -o $*.asm
-	@echo '.text' >> $*.asm
-	@echo '.align 2, 0' >> $*.asm
-	$(AS) $(ASFLAGS) $*.asm -o $@
+$(ELF): $(ALL_OBJS) $(LDS)
+	@echo "LD $(LDS) $(ALL_OBJS:$(BUILD_DIR)/%=%)"
+	@cd $(BUILD_DIR) && $(LD) -T ../$(LDS) -Map ../$(MAP) -L../tools/agbcc/lib $(ALL_OBJS:$(BUILD_DIR)/%=%) -lc -lgcc -o ../$@
 
-.SECONDEXPANSION:
-$(ASM_OBJECTS): %.o: %.s
-	$(AS) $(ASFLAGS) -g $< -o $@
+# C dependency file
+$(BUILD_DIR)/%.d: %.c
+	@$(CPP) $(CPPFLAGS) $< -o $@ -MM -MG -MT $@ -MT $(BUILD_DIR)/$*.o
 
-# Don't delete intermediate files
-.SECONDARY:
+# C object
+$(BUILD_DIR)/%.o: %.c
+	@echo "CC $<"
+	@$(CPP) $(CPPFLAGS) $< | $(CC1) $(CFLAGS) -o $(BUILD_DIR)/$*.s
+	@echo ".text\n\t.align\t2, 0\n" >> $(BUILD_DIR)/$*.s
+	@$(AS) $(ASFLAGS) $(BUILD_DIR)/$*.s -o $@
+	@$(STRIP) -N .gcc2_compiled. $@
+
+# ASM dependency file (dummy, generated with the object)
+$(BUILD_DIR)/%.d: $(BUILD_DIR)/%.o
+	@touch $@
+
+# ASM object
+$(BUILD_DIR)/%.o: %.s
+	@echo "AS $<"
+	@$(AS) $(ASFLAGS) $< -o $@ --MD $(BUILD_DIR)/$*.d
+
+ifneq (clean,$(MAKECMDGOALS))
+  -include $(ALL_DEPS)
+  .PRECIOUS: $(BUILD_DIR)/%.d
+endif
+
+# ======================
+# = CFLAGS overrides =
+# ======================
+
+# not yet supported by agbcc :/
+# %/main.o:            CFLAGS += -mtpcs-frame
+
+%/irq.o:             CFLAGS += -O0
+%/random.o:          CFLAGS += -O0
+%/hardware.o:        CFLAGS += -O0
+%/move.o:            CFLAGS += -O0
+%/oam.o:             CFLAGS += -O0
+%/sound.o:           CFLAGS += -O0
+%/ramfunc.o:         CFLAGS += -O0
+%/proc.o:            CFLAGS += -O0
+%/icon.o:            CFLAGS += -O0
+%/debug-text.o:      CFLAGS += -O0
+%/text.o:            CFLAGS += -O0
+%/banim-sprite.o:    CFLAGS += -O0
+%/sprite.o:          CFLAGS += -O0
+%/face.o:            CFLAGS += -O0
+%/talk.o:            CFLAGS += -O0
+%/event.o:           CFLAGS += -O0
+%/sprite-anim.o:     CFLAGS += -O0
+%/game-controller.o: CFLAGS += -O0
+%/msg.o:             CFLAGS += -O0
+
+%/mu.o:              CFLAGS += -O0
+%/manim.o:           CFLAGS += -O0
+
+%/agb-sram.o:        CFLAGS += -O1

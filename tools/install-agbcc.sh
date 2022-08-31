@@ -1,12 +1,13 @@
 #!/bin/bash
 
 here=$(dirname "$(readlink -f "$0")")/..
-tdir=$(mktemp -d)
+temp=$(mktemp -d)
 
-git clone https://github.com/pret/agbcc.git $tdir
+git clone https://github.com/StanHash/agbcc.git $temp
 
-cd $tdir
+cd $temp
+git checkout origin/fix-dwarf-debug-line
 ./build.sh
 ./install.sh $here
 
-rm -fr $tdir
+rm -fr $temp
