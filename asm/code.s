@@ -1705,7 +1705,7 @@ func_fe6_0806C670: @ 0x0806C670
 	bne .L0806C682
 	adds r0, #1
 	strb r0, [r1]
-	bl func_fe6_08041FD8
+	bl FreezeMenu
 .L0806C682:
 	pop {r0}
 	bx r0
@@ -1728,7 +1728,7 @@ func_fe6_0806C69C: @ 0x0806C69C
 	ldr r1, .L0806C6AC @ =0x030048A8
 	movs r0, #0
 	strb r0, [r1]
-	bl func_fe6_08041FF8
+	bl ResumeMenu
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -10173,8 +10173,8 @@ StartHelpBox_08070804: @ 0x08070804
 	.align 2, 0
 .L08070898: .4byte ProcScr_HelpBox
 
-	thumb_func_start func_fe6_0807089C
-func_fe6_0807089C: @ 0x0807089C
+	thumb_func_start CloseHelpBox
+CloseHelpBox: @ 0x0807089C
 	push {r4, lr}
 	ldr r0, .L080708BC @ =ProcScr_HelpBox
 	bl Proc_Find
@@ -10249,7 +10249,7 @@ func_fe6_0807090C: @ 0x0807090C
 	lsls r1, r1, #3
 	ldrb r2, [r2, #0x11]
 	adds r1, r2, r1
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r6, .L080709A8 @ =gKeySt
 	ldr r1, [r6]
 	movs r0, #0x40
@@ -10336,7 +10336,7 @@ func_fe6_0807090C: @ 0x0807090C
 func_fe6_080709D4: @ 0x080709D4
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_End
 	pop {r4}
@@ -10721,9 +10721,9 @@ func_fe6_08070C70: @ 0x08070C70
 	rsbs r1, r1, #0
 	movs r0, #0
 	bl func_fe6_08070E70
-	bl func_fe6_08041660
+	bl GetUiHandPrevX
 	adds r4, r0, #0
-	bl func_fe6_0804166C
+	bl GetUiHandPrevY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
@@ -12308,9 +12308,9 @@ func_fe6_080718A8: @ 0x080718A8
 	rsbs r1, r1, #0
 	movs r0, #0
 	bl func_fe6_08070E70
-	bl func_fe6_08041660
+	bl GetUiHandPrevX
 	adds r4, r0, #0
-	bl func_fe6_0804166C
+	bl GetUiHandPrevY
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
@@ -18345,7 +18345,7 @@ func_fe6_080748AC: @ 0x080748AC
 	ldrb r1, [r1]
 	lsls r1, r1, #4
 	adds r1, #0x28
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L080749D2
 	.align 2, 0
 .L080749A4: .4byte 0x000020B8
@@ -20393,7 +20393,7 @@ func_fe6_08075570: @ 0x08075570
 	ands r0, r1
 	cmp r0, #0
 	beq .L08075A20
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	mov r2, r8
 	strb r0, [r2]
@@ -28756,7 +28756,7 @@ func_fe6_08079A94: @ 0x08079A94
 	adds r1, #5
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L08079BAE
 	.align 2, 0
 .L08079B24: .4byte gBg0Tm
@@ -28819,7 +28819,7 @@ func_fe6_08079A94: @ 0x08079A94
 	adds r1, #9
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L08079BAE:
 	movs r0, #3
 	bl EnableBgSync
@@ -31031,7 +31031,7 @@ func_fe6_0807AD78: @ 0x0807AD78
 	ands r0, r1
 	cmp r0, #0
 	beq .L0807ADD0
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	mov r0, sb
 	strb r4, [r0]
 	b .L0807B0BC
@@ -32750,7 +32750,7 @@ func_fe6_0807B9CC: @ 0x0807B9CC
 	asrs r2, r7, #0x10
 	adds r1, r1, r2
 	adds r1, #0x28
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 .L0807BB5C:
 	movs r5, #0
 	ldr r0, [sp, #4]
@@ -33175,7 +33175,7 @@ func_fe6_0807BE88: @ 0x0807BE88
 	adds r1, #0x48
 .L0807BEC8:
 	movs r0, #0xc
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L0807BF5A
 .L0807BED0:
 	adds r1, r2, #0
@@ -33192,7 +33192,7 @@ func_fe6_0807BE88: @ 0x0807BE88
 	bne .L0807BEF2
 	movs r0, #0x6c
 	movs r1, #8
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L0807BF5A
 .L0807BEF2:
 	ldr r1, [r5, #0x14]
@@ -33210,7 +33210,7 @@ func_fe6_0807BE88: @ 0x0807BE88
 	asrs r1, r1, #0x18
 	lsls r1, r1, #4
 	adds r1, #0x28
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, [r5, #0x14]
 	adds r1, r0, #0
 	adds r1, #0x30
@@ -33909,7 +33909,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #5
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldr r0, [r5, #0x14]
 	adds r1, r0, #0
 	adds r1, #0x35
@@ -33921,7 +33921,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #5
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L0807C4DE
 .L0807C4B6:
 	ldrb r2, [r4]
@@ -33929,7 +33929,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #9
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldr r0, [r5, #0x14]
 	adds r1, r0, #0
 	adds r1, #0x35
@@ -33941,7 +33941,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #9
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L0807C4DE:
 	movs r0, #2
 	bl EnableBgSync
@@ -35460,7 +35460,7 @@ func_fe6_0807CFDC: @ 0x0807CFDC
 	ldrb r1, [r1]
 	lsls r1, r1, #4
 	adds r1, #0x48
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r1, [r4, #0x14]
 	adds r2, r1, #0
 	adds r2, #0x30
@@ -35476,7 +35476,7 @@ func_fe6_0807CFDC: @ 0x0807CFDC
 	ldrb r1, [r1]
 	lsls r1, r1, #4
 	adds r1, #0x48
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 .L0807D052:
 	ldrh r2, [r4, #0x2a]
 	movs r0, #0
@@ -35567,7 +35567,7 @@ func_fe6_0807D0A8: @ 0x0807D0A8
 	lsls r1, r0, #4
 	adds r1, #0x28
 	movs r0, #0x80
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 .L0807D0FC:
 	ldr r0, [r4, #0x14]
 	adds r0, #0x46
@@ -35589,7 +35589,7 @@ func_fe6_0807D0A8: @ 0x0807D0A8
 	lsls r2, r2, #5
 	subs r2, #0x48
 	subs r1, r1, r2
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r1, [r4, #0x14]
 	ldr r0, [r1, #0x60]
 	adds r1, #0x50
@@ -35699,7 +35699,7 @@ func_fe6_0807D1AC: @ 0x0807D1AC
 	lsls r1, r0, #4
 	adds r1, #0x48
 	movs r0, #0xa0
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L0807D2BA
 	.align 2, 0
 .L0807D204: .4byte gUnk_086792C4
@@ -35743,14 +35743,14 @@ func_fe6_0807D1AC: @ 0x0807D1AC
 	lsls r2, r2, #5
 	subs r2, #0x48
 	subs r1, r1, r2
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 	ldr r0, [r4, #0x14]
 	adds r0, #0x30
 	ldrb r0, [r0]
 	lsls r0, r0, #5
 	adds r0, #0x24
 	movs r1, #0x40
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L0807D28E
 	.align 2, 0
 .L0807D26C: .4byte gUnk_086792B6
@@ -35768,7 +35768,7 @@ func_fe6_0807D1AC: @ 0x0807D1AC
 	lsls r2, r2, #5
 	subs r2, #0x48
 	subs r1, r1, r2
-	bl func_fe6_080415CC
+	bl PutUiHand
 .L0807D28E:
 	ldr r0, [r4, #0x14]
 	adds r0, #0x46
@@ -38012,7 +38012,7 @@ func_fe6_0807E41C: @ 0x0807E41C
 	lsls r1, r1, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	movs r0, #0xf
 	bl EnableBgSync
 	adds r1, r5, #0
@@ -38131,7 +38131,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	ands r0, r1
 	cmp r0, #0
 	beq .L0807E5F4
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	b .L0807EB60
@@ -38181,7 +38181,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	subs r0, #1
 	strb r0, [r5]
@@ -38247,7 +38247,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r3, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	adds r0, #1
 	strb r0, [r5]
@@ -38302,7 +38302,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq .L0807E760
@@ -38348,7 +38348,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r4, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	adds r3, r6, #0
 	adds r3, #0x29
 	str r3, [sp, #8]
@@ -38385,7 +38385,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r1, [r4]
 	ldrb r3, [r5]
 	adds r0, r3, r7
@@ -38432,7 +38432,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r4, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	adds r2, r6, #0
 	adds r2, #0x29
 	str r2, [sp, #8]
@@ -38491,7 +38491,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	adds r0, #1
 	movs r1, #1
@@ -38611,7 +38611,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldr r0, [r6, #0x54]
 	bl UnitRemoveInvalidItems
 	ldr r0, [r6, #0x58]
@@ -38721,7 +38721,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r7]
 	strb r0, [r4]
 	adds r0, r6, #0
@@ -38740,7 +38740,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 .L0807EAB2:
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L0807EB1A
 .L0807EABC:
 	movs r0, #0x80
@@ -39052,7 +39052,7 @@ func_fe6_0807EB70: @ 0x0807EB70
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	ldr r4, [sp, #0x24]
 	ldrb r1, [r4]
 	mov r7, r8
@@ -39153,7 +39153,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	beq .L0807EE14
 	cmp r2, #1
 	beq .L0807EE10
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	bl .L0807FBD8
@@ -39324,7 +39324,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	adds r6, r4, #0
 	adds r4, r5, #0
@@ -39397,7 +39397,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r1, [r4]
 	subs r0, r7, #1
 	adds r6, r4, #0
@@ -39524,7 +39524,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	movs r5, #0
 	strb r0, [r6]
@@ -39568,7 +39568,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	mov r4, sb
 	strb r5, [r4]
 	bl .L0807FA9A
@@ -39608,7 +39608,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	mov r0, r8
 	adds r0, #0x31
 	ldrb r0, [r0]
@@ -39773,7 +39773,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	mov r1, r8
 	ldr r0, [r1, #0x54]
 	bl GetUnitItemCount
@@ -39987,7 +39987,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r6]
 	subs r0, #1
 	strb r0, [r6]
@@ -40023,7 +40023,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r1, r1, r2
 .L0807F5BA:
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L0807FA9A
 	.align 2, 0
 .L0807F5C4: .4byte 0x02015D28
@@ -40137,7 +40137,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	adds r0, #1
 	strb r0, [r4]
@@ -40169,7 +40169,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L0807F6EE:
 	ldr r0, .L0807F70C @ =gPlaySt
 	ldrb r0, [r0, #0x1d]
@@ -40233,7 +40233,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	mov r1, r8
 	adds r1, #0x45
 	movs r0, #0x38
@@ -40290,7 +40290,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	mov r1, r8
 	adds r1, #0x45
 	movs r0, #0xc8
@@ -40446,7 +40446,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	ldr r1, .L0807F964 @ =0x02015D28
 	ldrh r5, [r5]
 	lsrs r0, r5, #4
@@ -40539,7 +40539,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	mov r0, r8
 	adds r0, #0x32
 	ldrb r4, [r7]
@@ -40581,7 +40581,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	ldr r1, .L0807FA78 @ =0x02015D28
 	ldrh r4, [r4]
 	lsrs r0, r4, #4
@@ -40699,7 +40699,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	bne .L0807FB24
 	cmp r2, #1
 	beq .L0807FB1C
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 .L0807FB1C:
 	movs r0, #1
 	b .L0807FB50
@@ -40923,7 +40923,7 @@ func_fe6_0807FBE8: @ 0x0807FBE8
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	movs r0, #1
 	bl func_fe6_0807E06C
 	adds r0, r7, #0
@@ -41245,7 +41245,7 @@ func_fe6_0807FCFC: @ 0x0807FCFC
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L0807FF86:
 	add sp, #0xc
 	pop {r3, r4, r5}
@@ -41279,7 +41279,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	ands r0, r1
 	cmp r0, #0
 	beq .L0807FFD0
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	b .L08080274
@@ -41300,7 +41300,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r1, [r4]
 	adds r0, r5, #0
 	adds r0, #0x49
@@ -41342,7 +41342,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L080800F8
 	.align 2, 0
 .L08080048: .4byte gPlaySt
@@ -41359,7 +41359,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq .L08080088
@@ -41401,7 +41401,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L080800F8
 	.align 2, 0
 .L080800C0: .4byte gPlaySt
@@ -41656,7 +41656,7 @@ func_fe6_08080284: @ 0x08080284
 	beq .L080802E0
 	cmp r2, #1
 	beq .L080802DC
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	bl .L080813D2
@@ -41782,7 +41782,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	b .L080803EA
 .L080803CA:
 	adds r2, r6, #0
@@ -42085,7 +42085,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	ldr r0, .L080806A0 @ =gBg0Tm
 	movs r1, #0xe
 	movs r2, #0x13
@@ -42210,7 +42210,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	adds r0, r6, #0
 	adds r0, #0x31
 	ldrb r1, [r0]
@@ -42925,7 +42925,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r7]
 	subs r0, #1
 	b .L08080E2C
@@ -43054,7 +43054,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r7]
 	adds r0, #1
 .L08080E2C:
@@ -43072,7 +43072,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L080812FA
 	.align 2, 0
 .L08080E4C: .4byte gPlaySt
@@ -43099,7 +43099,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r1, r1, r2
 	movs r2, #0xc
 	str r3, [sp, #0x18]
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	adds r7, r4, #0
 	ldr r3, [sp, #0x18]
@@ -43154,7 +43154,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L08080F84
 	.align 2, 0
 .L08080EF0: .4byte gPlaySt
@@ -43176,7 +43176,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r4, [r7]
 	ldr r0, [r6, #0x54]
 	bl GetUnitItemCount
@@ -43230,7 +43230,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L08080F84:
 	adds r4, r5, #0
 	movs r0, #0x50
@@ -43273,7 +43273,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	adds r2, r6, #0
 	adds r2, #0x46
 	adds r0, r6, #0
@@ -43326,7 +43326,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	adds r2, r6, #0
 	adds r2, #0x46
 	adds r0, r6, #0
@@ -43523,7 +43523,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	adds r0, r6, #0
 	bl func_fe6_0807D358
 	mov r5, sb
@@ -43595,7 +43595,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	adds r0, r6, #0
 	adds r0, #0x32
 	ldrb r4, [r5]
@@ -43635,7 +43635,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	adds r0, r6, #0
 	bl func_fe6_0807D358
 	mov r5, sb
@@ -43728,7 +43728,7 @@ func_fe6_08080284: @ 0x08080284
 	bne .L0808136C
 	cmp r1, #1
 	beq .L08081362
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 .L08081362:
 	movs r0, #1
 	b .L08081390
@@ -43877,7 +43877,7 @@ func_fe6_080813E8: @ 0x080813E8
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 .L08081486:
 	ldr r0, .L080814F0 @ =gBg0Tm+0x1E
 	movs r1, #0xf
@@ -44373,7 +44373,7 @@ func_fe6_0808171C: @ 0x0808171C
 	lsls r1, r3, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	ldr r0, [r5, #0x54]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -44474,7 +44474,7 @@ func_fe6_08081970: @ 0x08081970
 	ands r0, r1
 	cmp r0, #0
 	beq .L080819AC
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	movs r0, #0
 	strb r0, [r4]
 	b .L08081DDC
@@ -44550,7 +44550,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r4]
 	mov r8, r4
 	cmp r0, #0
@@ -44627,7 +44627,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	mov r8, r5
 	adds r5, r6, #0
@@ -44687,7 +44687,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r3, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	b .L08081DB2
 	.align 2, 0
 .L08081B54: .4byte gKeySt
@@ -44754,7 +44754,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r4, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	adds r0, r7, #0
 	adds r0, #0x30
 	strb r5, [r0]
@@ -44909,7 +44909,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r0, [r5]
 	subs r0, #1
 	strb r0, [r5]
@@ -44922,7 +44922,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r5, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L08081D3E:
 	adds r0, r7, #0
 	bl func_fe6_0808165C
@@ -44980,7 +44980,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r1, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 .L08081DB2:
 	mov r3, sb
 	ldrb r0, [r3]
@@ -45092,14 +45092,14 @@ func_fe6_08081E58: @ 0x08081E58
 	lsls r0, r0, #5
 	adds r0, #0x9c
 	movs r1, #0x40
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, [r4, #0x14]
 	adds r0, #0x2e
 	ldrb r0, [r0]
 	lsls r1, r0, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 	b .L08081EC0
 	.align 2, 0
 .L08081EAC: .4byte gUnk_086792B6
@@ -45110,7 +45110,7 @@ func_fe6_08081E58: @ 0x08081E58
 	lsls r1, r0, #4
 	adds r1, #0x48
 	movs r0, #0x10
-	bl func_fe6_080415CC
+	bl PutUiHand
 .L08081EC0:
 	adds r1, r4, #0
 	adds r1, #0x52
@@ -46739,7 +46739,7 @@ func_fe6_08082AD8: @ 0x08082AD8
 	ands r0, r1
 	cmp r0, #0
 	beq .L08082AF4
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_Break
 .L08082AF4:
@@ -57145,7 +57145,7 @@ func_fe6_08087CD4: @ 0x08087CD4
 	cmp r1, #0
 	bne .L08087CFA
 .L08087CEC:
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	adds r1, r4, #0
 	adds r1, #0x3e
 	movs r0, #0
@@ -61658,7 +61658,7 @@ func_fe6_08089D30: @ 0x08089D30
 	lsls r0, r0, #3
 	adds r0, #0x34
 	movs r1, #0x88
-	bl func_fe6_080415CC
+	bl PutUiHand
 	mov r1, r8
 	ldr r0, [r1, #0x14]
 	adds r0, #0x2b
@@ -63354,7 +63354,7 @@ func_fe6_0808ABD4: @ 0x0808ABD4
 	movs r0, #1
 	movs r1, #0x26
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	mov r1, sb
 	movs r0, #0
 	ldrsb r0, [r1, r0]
@@ -63771,13 +63771,13 @@ func_fe6_0808B028: @ 0x0808B028
 	adds r1, #0x26
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_08041728
+	bl ClearUiEntryHover
 	ldrb r5, [r5]
 	lsls r1, r5, #1
 	adds r1, #0x26
 	movs r0, #1
 	movs r2, #0xa
-	bl func_fe6_0804169C
+	bl PutUiEntryHover
 	movs r0, #4
 	bl EnableBgSync
 	adds r0, r4, #0
@@ -64432,7 +64432,7 @@ func_fe6_0808B640: @ 0x0808B640
 	lsls r1, r0, #4
 	adds r1, #0x30
 	movs r0, #0xe
-	bl func_fe6_080415CC
+	bl PutUiHand
 	movs r4, #0
 	ldr r6, .L0808B6D8 @ =0x0203DC38
 	movs r5, #0x98
@@ -64461,7 +64461,7 @@ func_fe6_0808B640: @ 0x0808B640
 	lsls r0, r0, #5
 	adds r0, #0x94
 	movs r1, #0x86
-	bl func_fe6_080415CC
+	bl PutUiHand
 	movs r4, #0
 	ldr r6, .L0808B798 @ =0x0203DC38
 	movs r5, #0x18
@@ -66415,7 +66415,7 @@ func_fe6_0808C6A8: @ 0x0808C6A8
 	adds r4, #0x20
 	movs r0, #0x10
 	adds r1, r4, #0
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 	adds r0, r5, #0
 	bl func_fe6_0808CAF0
 	ldr r2, .L0808C758 @ =gUnk_0868AB3C
@@ -66428,7 +66428,7 @@ func_fe6_0808C6A8: @ 0x0808C6A8
 	ldrb r0, [r0, #8]
 	subs r0, #2
 	adds r1, r4, #0
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r1, [r6]
 	movs r3, #0x34
 	ldrsh r0, [r1, r3]
@@ -67642,7 +67642,7 @@ func_fe6_0808D0C0: @ 0x0808D0C0
 	movs r3, #0
 	bl TmFillRect_t
 	adds r0, r4, #0
-	bl func_fe6_080419CC
+	bl EndMenu
 	movs r0, #3
 	bl EnableBgSync
 	movs r0, #1
@@ -67935,12 +67935,12 @@ func_fe6_0808D308: @ 0x0808D308
 .L0808D340:
 	adds r0, r1, #0
 	adds r1, r2, #0
-	bl func_fe6_080415CC
+	bl PutUiHand
 	b .L0808D352
 .L0808D34A:
 	adds r0, r1, #0
 	adds r1, r2, #0
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 .L0808D352:
 	ldr r2, .L0808D364 @ =gUnk_0868AFA4
 	movs r3, #0x82
@@ -85940,7 +85940,7 @@ func_fe6_08096234: @ 0x08096234
 	subs r2, #0x48
 	subs r1, r0, r2
 	movs r0, #0x38
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r1, [r7]
 	adds r0, r1, #0
 	adds r1, #0x62
@@ -86014,7 +86014,7 @@ func_fe6_08096234: @ 0x08096234
 	ands r1, r2
 	adds r2, r1, #0
 	strb r2, [r0]
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 .L080963A4:
 	b .L080964D8
 	.align 2, 0
@@ -86504,7 +86504,7 @@ func_fe6_080966C4: @ 0x080966C4
 	subs r2, #0x48
 	subs r1, r0, r2
 	movs r0, #0x38
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r1, [r7]
 	adds r0, r1, #0
 	adds r1, #0x62
@@ -86578,7 +86578,7 @@ func_fe6_080966C4: @ 0x080966C4
 	ands r1, r2
 	adds r2, r1, #0
 	strb r2, [r0]
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 .L080967F6:
 	b .L0809693C
 	.align 2, 0

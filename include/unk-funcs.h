@@ -651,44 +651,16 @@ void func_fe6_0803C080(ProcPtr parent);
 // func_fe6_080412B0
 // func_fe6_080412DC
 void func_fe6_08041308(int arg_0);
-void func_fe6_08041358(int x, int y, int width, int height, int winKind);
-void func_fe6_080415CC(int x, int y);
-void func_fe6_0804163C(int x, int y);
-// func_fe6_08041660
-// func_fe6_0804166C
+void func_fe6_08041358(int x, int y, int width, int height, int window_kind);
+void PutUiHand(int x, int y);
+void PutFrozenUiHand(int x, int y);
+int GetUiHandPrevX(void);
+int GetUiHandPrevY(void);
 void ClearBg0Bg1(void);
-void func_fe6_0804169C(int x, int y, int width);
-void func_fe6_08041728(int x, int y, int width);
+void PutUiEntryHover(int x, int y, int width);
+void ClearUiEntryHover(int x, int y, int width);
 void func_fe6_080417A8(u8* vram, int x, int y);
 void LoadUiFrameGraphics(void);
-struct MenuProc* func_fe6_080417E8(struct MenuInfo const* info, int x, int left, int right);
-struct MenuProc* func_fe6_08041818(struct MenuInfo const* info, ProcPtr parent);
-// func_fe6_08041828
-struct MenuProc* func_fe6_08041834(struct MenuInfo const* info);
-struct MenuProc* StartMenuExt(struct MenuInfo const* info, struct MenuRect rect, ProcPtr parent);
-void func_fe6_080419CC(struct MenuProc* menu);
-void func_fe6_08041A38(void);
-// func_fe6_08041A50
-// func_fe6_08041A88
-// func_fe6_08041B7C
-// func_fe6_08041BD8
-// func_fe6_08041CCC
-// func_fe6_08041DA8
-// func_fe6_08041E24
-// func_fe6_08041E6C
-// func_fe6_08041E70
-// func_fe6_08041E74
-// func_fe6_08041E78
-// func_fe6_08041E94
-// func_fe6_08041EC4
-// func_fe6_08041F44
-// func_fe6_08041F54
-void MenuFrozenHelpBox(struct MenuProc* menu, int msg);
-// func_fe6_08041FD8
-// func_fe6_08041FF8
-struct MenuProc* func_fe6_08042018(struct MenuInfo const* info, int x, int left, int right);
-// func_fe6_08042070
-// func_fe6_080420B4
 
 void func_fe6_0804256C(int arg_0);
 // func_fe6_08042578
@@ -2458,11 +2430,11 @@ void func_fe6_080702BC(struct Unit* unit, ProcPtr parent);
 // HelpBox_OnLoop
 // HelpBox_OnClose
 // HelpBox_WaitClose
-// StartHelpBox
+void StartHelpBox(int x, int y, int msg);
 void StartItemHelpBox(int x, int y, int item);
 // StartHelpBoxExt
 // StartHelpBox_08070804
-void func_fe6_0807089C(void);
+void CloseHelpBox(void);
 // func_fe6_080708C0
 // func_fe6_080708E4
 // func_fe6_0807090C

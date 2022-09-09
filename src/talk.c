@@ -1292,7 +1292,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc* proc)
             proc->choices[1].onSwitch();
     }
 
-    func_fe6_080415CC(proc->x_disp + (proc->selectedChoice - 1) * 40 - 4, proc->y_disp);
+    PutUiHand(proc->x_disp + (proc->selectedChoice - 1) * 40 - 4, proc->y_disp);
 }
 
 static void TalkShiftClear_OnInit(struct GenericProc* proc)

@@ -289,7 +289,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                func_fe6_08041834(&MenuInfo_PrepMap);
+                StartMenu(&MenuInfo_PrepMap);
 
                 Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -327,7 +327,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             gPlaySt.x_cursor = gBmSt.cursor.x;
             gPlaySt.y_cursor = gBmSt.cursor.y;
 
-            func_fe6_08041834(&MenuInfo_PrepMap);
+            StartMenu(&MenuInfo_PrepMap);
 
             Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -356,7 +356,7 @@ u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_0807B6BC();
     Proc_Goto(proc, L_PREPPHASE_BEGINMAP);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)

@@ -3442,7 +3442,7 @@ func_fe6_08036ADC: @ 0x08036ADC
 	cmp r1, r0
 	ble .L08036AF4
 	ldr r0, [r2, #0x2c]
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 .L08036AF4:
 	pop {r0}
 	bx r0
@@ -5260,7 +5260,7 @@ func_fe6_08037878: @ 0x08037878
 	lsls r1, r1, #4
 	adds r1, #0x28
 	movs r0, #0x50
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, [r7, #0x38]
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -5278,7 +5278,7 @@ func_fe6_08037878: @ 0x08037878
 	lsls r1, r1, #4
 	adds r1, #0x28
 	movs r0, #0x50
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, .L080379C0 @ =gKeySt
 	ldr r1, [r0]
 	movs r0, #1
@@ -6004,7 +6004,7 @@ func_fe6_08037F04: @ 0x08037F04
 	ldr r1, [r4, #0x58]
 	lsls r1, r1, #3
 	adds r1, #0x20
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, .L08037FA8 @ =gKeySt
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -7310,7 +7310,7 @@ func_fe6_08038990: @ 0x08038990
 	lsls r0, r0, #3
 	adds r0, #0x50
 	movs r1, #0x60
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, .L08038A20 @ =gKeySt
 	ldr r0, [r0]
 	ldrh r1, [r0, #8]
@@ -10576,7 +10576,7 @@ func_fe6_0803A4F4: @ 0x0803A4F4
 	lsls r1, r1, #5
 	adds r1, #0x28
 	movs r0, #0x18
-	bl func_fe6_080415CC
+	bl PutUiHand
 	ldr r0, [r6, #0x48]
 	cmp r5, r0
 	beq .L0803A52E
@@ -16918,7 +16918,7 @@ func_fe6_0803D8AC: @ 0x0803D8AC
 	movs r0, #4
 	bl ApplyIconPalettes
 	ldr r0, .L0803D8F8 @ =gUnk_Sio_085CB384
-	bl func_fe6_08041834
+	bl StartMenu
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -19568,7 +19568,7 @@ func_fe6_0803EDEC: @ 0x0803EDEC
 	ldr r1, [r4, #0x5c]
 	cmp r1, #4
 	ble .L0803EE02
-	bl func_fe6_0807089C
+	bl CloseHelpBox
 	adds r0, r4, #0
 	bl Proc_Break
 	b .L0803EE56
@@ -22794,12 +22794,12 @@ func_fe6_080406D0: @ 0x080406D0
 	adds r1, r7, #0
 	adds r1, #0x30
 	movs r0, #0x20
-	bl func_fe6_0804163C
+	bl PutFrozenUiHand
 	movs r2, #0x2e
 	ldrsh r0, [r5, r2]
 	movs r2, #0x30
 	ldrsh r1, [r5, r2]
-	bl func_fe6_080415CC
+	bl PutUiHand
 	movs r0, #0xc0
 	movs r1, #0x10
 	bl func_fe6_0803F990

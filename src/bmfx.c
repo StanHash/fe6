@@ -760,7 +760,7 @@ static void func_fe6_0801C510(ProcPtr proc)
 static int DiscardItem_StartItemSelect(ProcPtr proc)
 {
     ApplyIconPalettes(BGPAL_ICONS);
-    func_fe6_08041818(&MenuInfo_085C74E0, proc);
+    StartLockingMenu(&MenuInfo_085C74E0, proc);
 
     return FALSE;
 }
@@ -828,14 +828,14 @@ int func_fe6_0801C670(struct MenuProc* menu, struct MenuEntProc* ent)
     UnitRemoveItem(gActiveUnit, ent->id);
     UnitAddItem(gActiveUnit, gBmSt.inventory_item_overflow);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 int func_fe6_0801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     AddSupplyItem(gBmSt.inventory_item_overflow);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 void SetFogVision(int vision)

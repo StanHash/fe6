@@ -498,7 +498,7 @@ fu8 StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.target = target->uid;
     SetStaffUseAction(NULL);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseRescueStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -637,7 +637,7 @@ fu8 WarpOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
 
     SpawnProc(ProcScr_SquareSelectWarp, PROC_TREE_3);
 
-    return MENU_ACT_SE_6A;
+    return MENU_ACTION_SE_6A;
 }
 
 void DoUseWarpStaff(struct Unit* unit)
@@ -660,7 +660,7 @@ fu8 UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target
 
     SetStaffUseAction(NULL);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseUnlockStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -683,13 +683,13 @@ int RepairSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target
     gAction.target = target->uid;
 
     StartEquipInfoWindow(
-        func_fe6_08041834(&MenuInfo_085C7498),
+        StartMenu(&MenuInfo_085C7498),
         GetUnit(gAction.target),
         16, 11);
 
     StartFace(0, GetUnitFid(GetUnit(gAction.target)), 184, 12, 2);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseRepairStaff(struct Unit* unit)
@@ -730,12 +730,12 @@ u8 RepairMenuItemIsAvailable(struct MenuEntInfo const* info, int id)
     int item = GetUnit(gAction.target)->items[id];
 
     if (!item)
-        return MENU_NOTSHOWN;
+        return MENU_ENTRY_HIDDEN;
 
     if (!IsItemRepairable(item))
-        return MENU_DISABLED;
+        return MENU_ENTRY_DISABLED;
 
-    return MENU_ENABLED;
+    return MENU_ENTRY_ENABLED;
 }
 
 int RepairMenuItemDraw(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -751,7 +751,7 @@ int RepairMenuItemDraw(struct MenuProc* menu, struct MenuEntProc* ent)
 
 u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    if (ent->availability == MENU_DISABLED)
+    if (ent->availability == MENU_ENTRY_DISABLED)
     {
         int msg, item = GetUnit(gAction.target)->items[ent->id];
 
@@ -765,13 +765,13 @@ u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuEntProc* ent)
         if (msg != 0)
             MenuFrozenHelpBox(menu, msg);
 
-        return MENU_ACT_SE_6B;
+        return MENU_ACTION_SE_6B;
     }
 
     gAction.extra = ent->id;
     SetStaffUseAction(gActiveUnit);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR | MENU_ACT_ENDFACE;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 void DoUseHealStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))

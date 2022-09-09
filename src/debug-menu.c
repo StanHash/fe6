@@ -131,13 +131,13 @@ void PutDebugTextFrame(int x, int y, int width, char const* str)
 
 int func_fe6_0801A674(struct MenuProc* menu)
 {
-    func_fe6_080419CC(menu);
+    EndMenu(menu);
     ClearBg0Bg1();
 
-    func_fe6_08041834(&MenuInfo_085C7474);
+    StartMenu(&MenuInfo_085C7474);
     DebugInitBg(2, 0);
 
-    return MENU_ACT_SKIPCURSOR;
+    return MENU_ACTION_SKIPCURSOR;
 }
 
 int func_fe6_0801A698(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -171,17 +171,17 @@ int func_fe6_0801A724(struct MenuProc* menu, struct MenuEntProc* ent)
     CleanupUnitsBeforeChapter();
     RestartGameAndChapter();
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801A748(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    func_fe6_080419CC(menu);
+    EndMenu(menu);
 
     EndFaceById(0);
     ClearBg0Bg1();
 
-    return MENU_ACT_SKIPCURSOR;
+    return MENU_ACTION_SKIPCURSOR;
 }
 
 int func_fe6_0801A760(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -358,15 +358,15 @@ int func_fe6_0801A9A8(struct MenuProc* menu, struct MenuEntProc* ent)
 
 int func_fe6_0801AA70(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801AA74(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     ClearBg0Bg1();
-    func_fe6_08041834(&MenuInfo_085C73E4);
+    StartMenu(&MenuInfo_085C73E4);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 int func_fe6_0801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -405,7 +405,7 @@ void func_fe6_0801AAE0(void)
     if (!IsSramWorking())
         PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ＳＲＡＭが装着されていません"
 
-    func_fe6_0806EA24(func_fe6_08041834(&MenuInfo_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
+    func_fe6_0806EA24(StartMenu(&MenuInfo_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
 
     PutBuildInfo(gBg2Tm + TM_OFFSET(0, 1));
     DebugPutStr(gBg2Tm + TM_OFFSET(0, 2), "DB INTERRUPT AVAILABLE");
@@ -486,43 +486,43 @@ int func_fe6_0801ACD8(struct MenuProc* menu, struct MenuEntProc* ent)
 
     RestartGameAndChapter();
 
-    return MENU_ACT_END;
+    return MENU_ACTION_END;
 }
 
 int func_fe6_0801AD14(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    func_fe6_08041834(&MenuInfo_085C7450);
+    StartMenu(&MenuInfo_085C7450);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801AD28(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    func_fe6_08041834(&MenuInfo_085C7408);
+    StartMenu(&MenuInfo_085C7408);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801AD3C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_08089234(PROC_TREE_3);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801AD4C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    return MENU_ACT_SKIPCURSOR;
+    return MENU_ACTION_SKIPCURSOR;
 }
 
 int func_fe6_0801AD50(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability != 0)
-        return MENU_ACT_SE_6B;
+        return MENU_ACTION_SE_6B;
 
     func_fe6_080857B0(SAVE_ID_SUSPEND1);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 bool func_fe6_0801AD6C(void)
@@ -533,7 +533,7 @@ bool func_fe6_0801AD6C(void)
 int func_fe6_0801AD84(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability != 0)
-        return MENU_ACT_SE_6B;
+        return MENU_ACTION_SE_6B;
 
     if (Proc_Find(ProcScr_BmMain) != NULL)
         EndMapMain();
@@ -541,7 +541,7 @@ int func_fe6_0801AD84(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_080858E4(SAVE_ID_SUSPEND1);
     RestartGameAndLoadSuspend();
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 bool func_fe6_0801ADB4(void)
@@ -552,12 +552,12 @@ bool func_fe6_0801ADB4(void)
 int func_fe6_0801ADCC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->availability != 0)
-        return MENU_ACT_SE_6B;
+        return MENU_ACTION_SE_6B;
 
     func_fe6_080858E4(SAVE_ID_SUSPEND0);
     RestartGameAndLoadSuspend();
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801ADEC(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -601,14 +601,14 @@ int func_fe6_0801AEBC(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     StartGame();
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 int func_fe6_0801AEC8(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_0800285C(0x300);
 
-    return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6A | MENU_ACT_CLEAR;
+    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801AED8(struct MenuProc* menu, struct MenuEntProc* ent)

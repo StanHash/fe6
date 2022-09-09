@@ -376,6 +376,7 @@ SECTIONS
         asm/code-ai.o(.text);
         asm/code-sio.o(.text);
         asm/code-ui.o(.text);
+        src/menu.o(.text);
         src/map-select.o(.text);
         asm/code-banim.o(.text);
         src/mu.o(.text);
@@ -517,6 +518,7 @@ SECTIONS
         . = ALIGN(4); src/ai-080326C4.o(.data);
         . = ALIGN(4); data/data-code-sio.o(.data);
         . = ALIGN(4); data/data-code-ui.o(.data);
+        . = ALIGN(4); src/menu.o(.data);
         . = ALIGN(4); src/map-select.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);
         . = ALIGN(4), data/data-game-info.o(.data);
