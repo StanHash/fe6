@@ -448,39 +448,39 @@ void DoItemStatBoostAction(ProcPtr proc)
     switch (GetItemIid(item))
     {
 
-    case IID_SKILLBOOSTER:
+    case IID_SECRETBOOK:
         msg = 0xC12; // TODO: msg ids
         break;
 
-    case IID_LUCKBOOSTER:
+    case IID_GODDESSICON:
         msg = 0xC14; // TODO: msg ids
         break;
 
-    case IID_HPBOOSTER:
+    case IID_SERAPHROBE:
         msg = 0xC19; // TODO: msg ids
         break;
 
-    case IID_DEFBOOSTER:
+    case IID_DRACOSHIELD:
         msg = 0xC15; // TODO: msg ids
         break;
 
-    case IID_SPEEDBOOSTER:
+    case IID_SPEEDWING:
         msg = 0xC13; // TODO: msg ids
         break;
 
-    case IID_RESBOOSTER:
+    case IID_TALISMAN:
         msg = 0xC16; // TODO: msg ids
         break;
 
-    case IID_MOVBOOSTER:
+    case IID_BOOTS:
         msg = 0xC17; // TODO: msg ids
         break;
 
-    case IID_CONBOOSTER:
+    case IID_BODYRING:
         msg = 0xC18; // TODO: msg ids
         break;
 
-    case IID_POWBOOSTER:
+    case IID_ENERGYRING:
         msg = UnitKnowsMagic(unit) ? 0xC11 : 0xC10; // TODO: msg ids
         break;
 
@@ -504,7 +504,7 @@ void DoItemAction(ProcPtr proc)
     case IID_MENDSTAFF:
     case IID_RECOVERSTAFF:
     case IID_PHYSICSTAFF:
-    case IID_TINASTAFF:
+    case IID_TINASSTAFF:
         DoItemHealStaffAction(proc);
         break;
 
@@ -538,7 +538,7 @@ void DoItemAction(ProcPtr proc)
         DoItemUnlockStaffAction(proc);
         break;
 
-    case IID_REPAIRSTAFF:
+    case IID_HAMMERNESTAFF:
         DoItemRepairStaffAction(proc);
         break;
 
@@ -576,25 +576,25 @@ void DoItemAction(ProcPtr proc)
 
     case IID_HEROCREST:
     case IID_KNIGHTCREST:
-    case IID_ORIONBOLT:
+    case IID_ORIONSBOLT:
     case IID_ELYSIANWHIP:
     case IID_GUIDINGRING:
         DoItemPromoteAction();
         break;
 
-    case IID_SKILLBOOSTER:
-    case IID_LUCKBOOSTER:
-    case IID_HPBOOSTER:
-    case IID_DEFBOOSTER:
-    case IID_POWBOOSTER:
-    case IID_SPEEDBOOSTER:
-    case IID_RESBOOSTER:
-    case IID_MOVBOOSTER:
-    case IID_CONBOOSTER:
+    case IID_SECRETBOOK:
+    case IID_GODDESSICON:
+    case IID_SERAPHROBE:
+    case IID_DRACOSHIELD:
+    case IID_ENERGYRING:
+    case IID_SPEEDWING:
+    case IID_TALISMAN:
+    case IID_BOOTS:
+    case IID_BODYRING:
         DoItemStatBoostAction(proc);
         break;
 
-    case IID_SAINTSTAFF:
+    case IID_SAINTSSTAFF:
         DoItemSaintStaffAction(proc);
         break;
 

@@ -259,7 +259,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                func_fe6_080417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
+                func_fe6_080417E8(&MenuInfo_Map, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
                 func_fe6_0806B4E4();
 
                 Proc_Goto(proc, L_PLAYERPHASE_IDLE);
@@ -302,11 +302,11 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             if (gPlaySt.chapter == CHAPTER_TUTORIAL)
             {
-                func_fe6_08041834(&MenuInfo_085C73C0);
+                func_fe6_08041834(&MenuInfo_TutorialInterruptMenu);
             }
             else
             {
-                func_fe6_080417E8(&MenuInfo_085C7648, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
+                func_fe6_080417E8(&MenuInfo_Map, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
                 func_fe6_0806B4E4();
             }
 
@@ -757,7 +757,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
 static void func_fe6_0801BAB4(ProcPtr proc)
 {
     if (gAction.id != ACTION_TRAPPED)
-        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+        func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }
@@ -781,7 +781,7 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
     }
 
     if (gAction.id != ACTION_TRAPPED)
-        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+        func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     Proc_Break(proc);
 }

@@ -189,7 +189,7 @@ void StringCopy(char* dst, char const* src)
     *dst = *src;
 }
 
-static void UnpackRaw(u8 const* src, void* dst)
+static void UnpackRaw(void const * src, void* dst)
 {
     int size = GetDataSize(src) - 4;
 
@@ -199,17 +199,17 @@ static void UnpackRaw(u8 const* src, void* dst)
         CpuFastCopy(src + 4, dst, size);
 }
 
-void Decompress_Unused_08013C74(u8 const* src, u8* dst)
+void Decompress_Unused_08013C74(void const * src, void * dst)
 {
     LZ77UnCompWram(src, gBuf);
     CpuFastCopy(gBuf, dst, GetDataSize(src));
 }
 
-void Decompress(u8 const* src, void* dst)
+void Decompress(void const* src, void* dst)
 {
-    typedef void(*DecompressFunc)(u8 const*, void*);
+    typedef void (* DecompressFunc)(void const *, void *);
 
-    static DecompressFunc CONST_DATA funcLut[] =
+    static DecompressFunc CONST_DATA func_lut[] =
     {
         UnpackRaw,      // 00, vram
         UnpackRaw,      // 00, wram
@@ -221,19 +221,19 @@ void Decompress(u8 const* src, void* dst)
         RLUnCompWram,   // 30, wram
     };
 
-    int isWram;
+    int is_wram;
 
     if ((((u32) dst) - VRAM) < VRAM_SIZE)
-        isWram = FALSE; // is vram
+        is_wram = FALSE; // is vram
     else
-        isWram = TRUE;
+        is_wram = TRUE;
 
-    funcLut[isWram + ((src[0] & 0xF0) >> 3)](src, dst);
+    func_lut[is_wram + ((((u8 const *) src)[0] & 0xF0) >> 3)](src, dst);
 }
 
-int GetDataSize(u8 const* data)
+int GetDataSize(void const * data)
 {
-    return *((u32 const*) (void const*) data) >> 8;
+    return *((u32 const *) data) >> 8;
 }
 
 struct Unk_08013CEC
@@ -760,10 +760,10 @@ void SetAllWhitePals(void)
 
 static void FadeToBlack_OnInit(struct GenericProc* proc)
 {
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.win1_enableBlend = 1;
-    gDispIo.win_ct.wobj_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.win1_enable_blend = 1;
+    gDispIo.win_ct.wobj_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     SetBlendDarken(0);
 
@@ -792,10 +792,10 @@ static void FadeToCommon_OnLoop(struct GenericProc* proc)
 
 static void FadeFromBlack_OnInit(struct GenericProc* proc)
 {
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.win1_enableBlend = 1;
-    gDispIo.win_ct.wobj_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.win1_enable_blend = 1;
+    gDispIo.win_ct.wobj_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     SetBlendDarken(0x10);
 
@@ -2280,16 +2280,16 @@ u16* GetTmOffsetById(int bgid, int x, int y)
 
 void func_fe6_08015344(void)
 {
-    if (gDispIo.bg0_ct.colorMode == 0)
+    if (gDispIo.bg0_ct.color_depth == BG_COLORDEPTH_4BPP)
         func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(0)), 0x10, 0);
 
-    if (gDispIo.bg1_ct.colorMode == 0)
+    if (gDispIo.bg1_ct.color_depth == BG_COLORDEPTH_4BPP)
         func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(1)), 0x10, 0);
 
-    if (gDispIo.bg2_ct.colorMode == 0)
+    if (gDispIo.bg2_ct.color_depth == BG_COLORDEPTH_4BPP)
         func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(2)), 0x10, 0);
 
-    if (gDispIo.bg3_ct.colorMode == 0)
+    if (gDispIo.bg3_ct.color_depth == BG_COLORDEPTH_4BPP)
         func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
 }
 

@@ -187,7 +187,7 @@ u8 func_fe6_0801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
     EndLimitView();
 
     CameraMoveWatchPosition(
-        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22),
+        func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22),
         gActiveUnit->x, gActiveUnit->y);
 
     return MENU_ACT_SKIPCURSOR | MENU_ACT_SE_6B | MENU_ACT_CLEAR;
@@ -210,7 +210,7 @@ static void BackToUnitMenu_CamWatch(ProcPtr proc)
 
 static void BackToUnitMenu_RestartMenu(ProcPtr proc)
 {
-    func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+    func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 }
 
 u8 func_fe6_0801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -236,7 +236,7 @@ u8 func_fe6_0801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ResetTextFont();
 
-    func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+    func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
     EndLimitView();
 
@@ -822,7 +822,7 @@ u8 func_fe6_0801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ResetTextFont();
 
-    proc = func_fe6_08041834(&MenuInfo_085C7594);
+    proc = func_fe6_08041834(&MenuInfo_UnitItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -873,7 +873,7 @@ u8 func_fe6_0801F7D0(struct MenuProc* menu, struct MenuEntProc* ent)
     rect.h = 0;
 
     func_fe6_0801F854(rect.x, rect.y);
-    func_fe6_08041844(&MenuInfo_085C754C, rect, menu);
+    StartMenuExt(&MenuInfo_UnitItemAction, rect, menu);
 
     return MENU_ACT_SE_6A;
 }
@@ -929,7 +929,7 @@ u8 func_fe6_0801F8F8(struct MenuProc* menu)
     func_fe6_0801F8E0(menu);
     func_fe6_0801F8A4(menu);
 
-    proc = func_fe6_08041834(&MenuInfo_085C7594);
+    proc = func_fe6_08041834(&MenuInfo_UnitItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -948,7 +948,7 @@ u8 func_fe6_0801F948(struct MenuProc* menu)
         ClearBg0Bg1();
         EndFaceById(0);
 
-        func_fe6_08042018(&MenuInfo_UnitMenu, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
+        func_fe6_08042018(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
         return MENU_ACT_SKIPCURSOR | MENU_ACT_END | MENU_ACT_SE_6B | MENU_ACT_CLEAR;
     }
@@ -961,7 +961,7 @@ u8 func_fe6_0801F948(struct MenuProc* menu)
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    proc = func_fe6_08041834(&MenuInfo_085C7594);
+    proc = func_fe6_08041834(&MenuInfo_UnitItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -1061,7 +1061,7 @@ u8 func_fe6_0801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
     rect.w = 5;
     rect.h = 0;
 
-    func_fe6_08041844(&MenuInfo_085C7528, rect, menu)->active_entry = 1;
+    StartMenuExt(&MenuInfo_UnitItemDiscardPrompt, rect, menu)->active_entry = 1;
 
     return MENU_ACT_SE_6A | MENU_ACT_DOOM;
 }
@@ -1582,17 +1582,17 @@ int func_fe6_08020678(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     if (ent->id >= ITEMSLOT_INV_COUNT)
     {
-        func_fe6_080706FC(ent->x*8, ent->y*8, gBmSt.inventory_item_overflow);
+        StartItemHelpBox(ent->x*8, ent->y*8, gBmSt.inventory_item_overflow);
         return 0;
     }
 
-    func_fe6_080706FC(ent->x*8, ent->y*8, gActiveUnit->items[ent->id]);
+    StartItemHelpBox(ent->x*8, ent->y*8, gActiveUnit->items[ent->id]);
 }
 
 int func_fe6_080206D0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     struct Unit* unit = GetUnit(gAction.target);
-    func_fe6_080706FC(ent->x*8, ent->y*8, unit->items[ent->id]);
+    StartItemHelpBox(ent->x*8, ent->y*8, unit->items[ent->id]);
 }
 
 int func_fe6_08020708(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -1616,7 +1616,7 @@ int func_fe6_08020708(struct MenuProc* menu, struct MenuEntProc* ent)
 
     }
 
-    func_fe6_080706FC(ent->x*8, ent->y*8, iid);
+    StartItemHelpBox(ent->x*8, ent->y*8, iid);
 }
 
 void func_fe6_08020764(struct MapSelectProc* proc)

@@ -268,12 +268,12 @@ static void SyncAnimImg(struct SpriteAnim* anim)
             OBJ_VRAM0 + ((anim->oam2 & 0x3FF) << 5) + chrOffset,
             WIDTHOF(itOam), HEIGHTOF(itOam));
 
-        if (!gDispIo.disp_ct.obj1dMap)
+        if (gDispIo.disp_ct.obj_mapping == OBJ_MAPPING_2D)
             // Adding (width * sizeof(Tile4bpp))
             chrOffset += WIDTHOF(itOam) << 5;
         else
             // Using the square of the width here?
-            // Maybe it's bugged, since I don't think the obj1dMap flag is ever set
+            // Maybe it's bugged, since I don't think the obj_mapping flag is ever set
             chrOffset += ((WIDTHOF(itOam) * WIDTHOF(itOam)) & 0x3FF) << 5;
 
         itOam += 3;

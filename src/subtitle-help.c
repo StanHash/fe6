@@ -119,7 +119,7 @@ static void SubtitleHelpDarkenerOnHBlank(void)
         if (bldy < 0)
             bldy = 0;
 
-        REG_BLDCNT = BLDCNT_DARKEN | BLDCNT_TARGETA(0, 0, 1, 1, 0) | BLDCNT_TARGETA_BD;
+        REG_BLDCNT = BLDCNT_EFFECT_DARKEN | BLDCNT_TARGETA(0, 0, 1, 1, 0) | BLDCNT_TARGETA_BD;
         REG_BLDY   = bldy;
     }
 }

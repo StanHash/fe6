@@ -541,7 +541,7 @@ static void TradeMenu_HelpBox_OnInit(struct GenericProc* proc)
 
     func_fe6_08070E70(NULL, -1);
 
-    func_fe6_080706FC(
+    StartItemHelpBox(
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
         8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
         item);
@@ -558,7 +558,7 @@ static void TradeMenu_HelpBox_OnLoop(struct GenericProc* proc)
 
     if (changedSelection)
     {
-        func_fe6_080706FC(
+        StartItemHelpBox(
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].x,
             8 * sItemDisplayTileLocation[tradeMenu->hoverColumn][tradeMenu->hoverRow].y,
             item);

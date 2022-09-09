@@ -666,7 +666,7 @@ struct MenuProc* func_fe6_080417E8(struct MenuInfo const* info, int x, int left,
 struct MenuProc* func_fe6_08041818(struct MenuInfo const* info, ProcPtr parent);
 // func_fe6_08041828
 struct MenuProc* func_fe6_08041834(struct MenuInfo const* info);
-struct MenuProc* func_fe6_08041844(struct MenuInfo const* info, struct MenuRect rect, ProcPtr parent);
+struct MenuProc* StartMenuExt(struct MenuInfo const* info, struct MenuRect rect, ProcPtr parent);
 void func_fe6_080419CC(struct MenuProc* menu);
 void func_fe6_08041A38(void);
 // func_fe6_08041A50
@@ -2080,11 +2080,11 @@ void func_fe6_0806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // func_fe6_0806AE7C
 bool func_fe6_0806AED8(void);
 void func_fe6_0806AF08(void);
-bool func_fe6_0806AF4C(int pidA, int pidB);
-void func_fe6_0806AF90(int pidA, int pidB);
-void func_fe6_0806AFD0(int pidA, int pidB, int supportLevel);
-int func_fe6_0806B028(i8 x, i8 y);
-void func_fe6_0806B06C(i8 x, i8 y);
+bool func_fe6_0806AF4C(fu8 pid_a, fu8 pid_b);
+void func_fe6_0806AF90(fu8 pid_a, fu8 pid_b);
+void func_fe6_0806AFD0(fu8 pid_a, fu8 pid_b, int support_level);
+int func_fe6_0806B028(fi8 x, fi8 y);
+void func_fe6_0806B06C(fi8 x, fi8 y);
 // func_fe6_0806B254
 // func_fe6_0806B268
 // func_fe6_0806B284
@@ -2471,15 +2471,15 @@ void func_fe6_080702BC(struct Unit* unit, ProcPtr parent);
 // func_fe6_080704DC
 // func_fe6_08070504
 // func_fe6_08070518
-// func_fe6_0807054C
-// func_fe6_0807061C
-// func_fe6_08070640
-// func_fe6_08070668
-// func_fe6_080706A0
-// func_fe6_080706C8
-void func_fe6_080706FC(int x, int y, int item);
-// func_fe6_08070738
-// func_fe6_08070804
+// UpdateHelpBoxDisplay
+// HelpBox_OnOpen
+// HelpBox_OnLoop
+// HelpBox_OnClose
+// HelpBox_WaitClose
+// StartHelpBox
+void StartItemHelpBox(int x, int y, int item);
+// StartHelpBoxExt
+// StartHelpBox_08070804
 void func_fe6_0807089C(void);
 // func_fe6_080708C0
 // func_fe6_080708E4
@@ -2487,12 +2487,12 @@ void func_fe6_0807089C(void);
 // func_fe6_080709D4
 void StartMovingHelpBox(struct HelpBoxInfo const* info, ProcPtr parent);
 void StartMovingHelpBoxExt(struct HelpBoxInfo const* info, ProcPtr parent, int x, int y);
-// func_fe6_08070A30
-// func_fe6_08070A70
-// func_fe6_08070AFC
-// func_fe6_08070B20
+// ApplyHelpBoxContentSize
+// ApplyHelpBoxPosition
+// SetHelpBoxInitPosition
+// ResetHelpBoxInitSize
 // func_fe6_08070B30
-// func_fe6_08070B70
+// HbPopulate_AutoItem
 // func_fe6_08070B8C
 // func_fe6_08070BBC
 // func_fe6_08070BEC

@@ -736,7 +736,7 @@ func_fe6_080417E8: @ 0x080417E8
 	adds r0, r4, #0
 	adds r1, r2, #0
 	movs r2, #0
-	bl func_fe6_08041844
+	bl StartMenuExt
 	pop {r4}
 	pop {r1}
 	bx r1
@@ -748,7 +748,7 @@ func_fe6_08041818: @ 0x08041818
 	push {lr}
 	adds r2, r1, #0
 	ldr r1, [r0]
-	bl func_fe6_08041844
+	bl StartMenuExt
 	pop {r1}
 	bx r1
 	.align 2, 0
@@ -757,7 +757,7 @@ func_fe6_08041818: @ 0x08041818
 func_fe6_08041828: @ 0x08041828
 	push {lr}
 	movs r2, #0
-	bl func_fe6_08041844
+	bl StartMenuExt
 	pop {r1}
 	bx r1
 
@@ -766,13 +766,13 @@ func_fe6_08041834: @ 0x08041834
 	push {lr}
 	ldr r1, [r0]
 	movs r2, #0
-	bl func_fe6_08041844
+	bl StartMenuExt
 	pop {r1}
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08041844
-func_fe6_08041844: @ 0x08041844
+	thumb_func_start StartMenuExt
+StartMenuExt: @ 0x08041844
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -1603,7 +1603,7 @@ func_fe6_08041E78: @ 0x08041E78
 	ldr r1, [r1, #0x30]
 	ldrh r2, [r1, #6]
 	adds r1, r3, #0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 	pop {r1}
 	bx r1
 
@@ -1755,7 +1755,7 @@ MenuFrozenHelpBox: @ 0x08041FA4
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 	pop {r4, r5}
 	pop {r1}
 	bx r1

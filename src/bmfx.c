@@ -1131,7 +1131,7 @@ static void PhaseIntroVMatchLo(void);
 
 static void PhaseIntroVMatchHi(void)
 {
-    REG_BLDCNT = BLDCNT_ALPHA
+    REG_BLDCNT = BLDCNT_EFFECT_ALPHA
         | BLDCNT_TARGETA(0, 1, 0, 0, 0)
         | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
@@ -1144,7 +1144,7 @@ static void PhaseIntroVMatchHi(void)
 
 static void PhaseIntroVMatchMid(void)
 {
-    REG_BLDCNT = BLDCNT_ALPHA
+    REG_BLDCNT = BLDCNT_EFFECT_ALPHA
         | BLDCNT_TARGETA(1, 0, 0, 0, 0)
         | BLDCNT_TARGETB(0, 1, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
@@ -1157,7 +1157,7 @@ static void PhaseIntroVMatchMid(void)
 
 static void PhaseIntroVMatchLo(void)
 {
-    REG_BLDCNT = BLDCNT_ALPHA
+    REG_BLDCNT = BLDCNT_EFFECT_ALPHA
         | BLDCNT_TARGETA(0, 1, 0, 0, 0)
         | BLDCNT_TARGETB(0, 0, 1, 1, 1) | BLDCNT_TARGETB_BD;
 
@@ -1394,8 +1394,8 @@ static void PhaseIntro_InitDisp(ProcPtr proc)
     SetWin0Layers(1, 0, 1, 1, 1);
     SetWOutLayers(1, 1, 1, 1, 1);
 
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     gBmSt.alt_blend_b_ca = 0;
     gBmSt.alt_blend_b_cb = 0x10;
@@ -1805,8 +1805,8 @@ static void ChapterIntro_Init(struct GenericProc* proc)
     SetWin0Layers(1, 1, 1, 1, 1);
     SetWOutLayers(0, 0, 1, 1, 1);
 
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     SetWin0Box(0, 0, 0, 0);
 

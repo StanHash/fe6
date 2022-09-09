@@ -259,7 +259,7 @@ int CreateItem(int item)
 
 bool CanUnitUseWeapon(struct Unit* unit, int item)
 {
-    int required_wexp, unitExp;
+    int required_wexp, unit_exp;
 
     if (!item)
         return FALSE;
@@ -291,14 +291,14 @@ bool CanUnitUseWeapon(struct Unit* unit, int item)
         return FALSE;
 
     required_wexp = GetItemRequiredExp(item);
-    unitExp = (unit->wexp[GetItemKind(item)]);
+    unit_exp = (unit->wexp[GetItemKind(item)]);
 
-    return (unitExp >= required_wexp) ? TRUE : FALSE;
+    return (unit_exp >= required_wexp) ? TRUE : FALSE;
 }
 
 bool CanUnitUseStaff(struct Unit* unit, int item)
 {
-    int required_wexp, unitExp;
+    int required_wexp, unit_exp;
 
     if (!item)
         return FALSE;
@@ -316,9 +316,9 @@ bool CanUnitUseStaff(struct Unit* unit, int item)
         return FALSE;
 
     required_wexp = GetItemRequiredExp(item);
-    unitExp = (unit->wexp[GetItemKind(item)]);
+    unit_exp = (unit->wexp[GetItemKind(item)]);
 
-    return (unitExp >= required_wexp) ? TRUE : FALSE;
+    return (unit_exp >= required_wexp) ? TRUE : FALSE;
 }
 
 void func_fe6_08016694(struct Text* text, int item, bool is_usable, u16* tm)
@@ -659,7 +659,7 @@ int GetUnitItemHealAmount(struct Unit* unit, int item)
         result = 10;
         break;
 
-    case IID_TINASTAFF:
+    case IID_TINASSTAFF:
         result = 15;
         break;
 

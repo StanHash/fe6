@@ -289,7 +289,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
-                func_fe6_08041834(&MenuInfo_085C7624);
+                func_fe6_08041834(&MenuInfo_PrepMap);
 
                 Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 
@@ -327,7 +327,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
             gPlaySt.x_cursor = gBmSt.cursor.x;
             gPlaySt.y_cursor = gBmSt.cursor.y;
 
-            func_fe6_08041834(&MenuInfo_085C7624);
+            func_fe6_08041834(&MenuInfo_PrepMap);
 
             Proc_Goto(proc, L_PLAYERPHASE_BEGIN);
 

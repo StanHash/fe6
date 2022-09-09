@@ -9757,8 +9757,8 @@ func_fe6_08070518: @ 0x08070518
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_0807054C
-func_fe6_0807054C: @ 0x0807054C
+	thumb_func_start UpdateHelpBoxDisplay
+UpdateHelpBoxDisplay: @ 0x0807054C
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r6, r0, #0
@@ -9859,8 +9859,8 @@ func_fe6_0807054C: @ 0x0807054C
 	.align 2, 0
 .L08070618: .4byte Sprite_32x16
 
-	thumb_func_start func_fe6_0807061C
-func_fe6_0807061C: @ 0x0807061C
+	thumb_func_start HelpBox_OnOpen
+HelpBox_OnOpen: @ 0x0807061C
 	push {lr}
 	adds r0, #0x52
 	ldrb r0, [r0]
@@ -9879,12 +9879,12 @@ func_fe6_0807061C: @ 0x0807061C
 	.align 2, 0
 .L0807063C: .4byte gPlaySt
 
-	thumb_func_start func_fe6_08070640
-func_fe6_08070640: @ 0x08070640
+	thumb_func_start HelpBox_OnLoop
+HelpBox_OnLoop: @ 0x08070640
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r1, #5
-	bl func_fe6_0807054C
+	bl UpdateHelpBoxDisplay
 	adds r2, r4, #0
 	adds r2, #0x48
 	adds r4, #0x4a
@@ -9902,8 +9902,8 @@ func_fe6_08070640: @ 0x08070640
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_08070668
-func_fe6_08070668: @ 0x08070668
+	thumb_func_start HelpBox_OnClose
+HelpBox_OnClose: @ 0x08070668
 	push {r4, lr}
 	adds r4, r0, #0
 	adds r0, #0x52
@@ -9919,12 +9919,12 @@ func_fe6_08070668: @ 0x08070668
 	bl m4aSongNumStart
 .L08070684:
 	adds r0, r4, #0
-	bl func_fe6_08070B20
+	bl ResetHelpBoxInitSize
 	ldr r0, [r4, #0x2c]
 	ldrb r1, [r0, #0x10]
 	ldrb r2, [r0, #0x11]
 	adds r0, r4, #0
-	bl func_fe6_08070AFC
+	bl SetHelpBoxInitPosition
 .L08070696:
 	pop {r4}
 	pop {r0}
@@ -9932,12 +9932,12 @@ func_fe6_08070668: @ 0x08070668
 	.align 2, 0
 .L0807069C: .4byte gPlaySt
 
-	thumb_func_start func_fe6_080706A0
-func_fe6_080706A0: @ 0x080706A0
+	thumb_func_start HelpBox_WaitClose
+HelpBox_WaitClose: @ 0x080706A0
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0
-	bl func_fe6_0807054C
+	bl UpdateHelpBoxDisplay
 	adds r1, r4, #0
 	adds r1, #0x48
 	ldrh r0, [r1]
@@ -9954,8 +9954,8 @@ func_fe6_080706A0: @ 0x080706A0
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_080706C8
-func_fe6_080706C8: @ 0x080706C8
+	thumb_func_start StartHelpBox
+StartHelpBox: @ 0x080706C8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L080706F4 @ =0x0203D3E0
@@ -9973,7 +9973,7 @@ func_fe6_080706C8: @ 0x080706C8
 	strh r3, [r1]
 	strh r3, [r1, #2]
 	movs r1, #0
-	bl func_fe6_08070738
+	bl StartHelpBoxExt
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -9981,8 +9981,8 @@ func_fe6_080706C8: @ 0x080706C8
 .L080706F4: .4byte 0x0203D3E0
 .L080706F8: .4byte 0x0203D400
 
-	thumb_func_start func_fe6_080706FC
-func_fe6_080706FC: @ 0x080706FC
+	thumb_func_start StartItemHelpBox
+StartItemHelpBox: @ 0x080706FC
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0807072C @ =0x0203D3E0
@@ -9995,28 +9995,28 @@ func_fe6_080706FC: @ 0x080706FC
 	strb r1, [r0, #0x11]
 	strh r2, [r0, #0x12]
 	str r3, [r0, #0x14]
-	ldr r1, .L08070730 @ =func_fe6_08070B70
+	ldr r1, .L08070730 @ =HbPopulate_AutoItem
 	str r1, [r0, #0x18]
 	ldr r1, .L08070734 @ =0x0203D400
 	strh r3, [r1]
 	strh r3, [r1, #2]
 	movs r1, #0
-	bl func_fe6_08070738
+	bl StartHelpBoxExt
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L0807072C: .4byte 0x0203D3E0
-.L08070730: .4byte func_fe6_08070B70
+.L08070730: .4byte HbPopulate_AutoItem
 .L08070734: .4byte 0x0203D400
 
-	thumb_func_start func_fe6_08070738
-func_fe6_08070738: @ 0x08070738
+	thumb_func_start StartHelpBoxExt
+StartHelpBoxExt: @ 0x08070738
 	push {r4, r5, r6, r7, lr}
 	sub sp, #8
 	adds r5, r0, #0
 	adds r7, r1, #0
-	ldr r6, .L08070770 @ =gUnk_08677720
+	ldr r6, .L08070770 @ =ProcScr_HelpBox
 	adds r0, r6, #0
 	bl Proc_Find
 	adds r4, r0, #0
@@ -10031,12 +10031,12 @@ func_fe6_08070738: @ 0x08070738
 	ldrb r1, [r5, #0x10]
 	ldrb r2, [r5, #0x11]
 	adds r0, r4, #0
-	bl func_fe6_08070AFC
+	bl SetHelpBoxInitPosition
 	adds r0, r4, #0
-	bl func_fe6_08070B20
+	bl ResetHelpBoxInitSize
 	b .L0807078C
 	.align 2, 0
-.L08070770: .4byte gUnk_08677720
+.L08070770: .4byte ProcScr_HelpBox
 .L08070774:
 	ldrh r0, [r4, #0x30]
 	strh r0, [r4, #0x38]
@@ -10086,11 +10086,11 @@ func_fe6_08070738: @ 0x08070738
 	ldr r1, [sp]
 	ldr r2, [sp, #4]
 	adds r0, r4, #0
-	bl func_fe6_08070A30
+	bl ApplyHelpBoxContentSize
 	ldrb r1, [r5, #0x10]
 	ldrb r2, [r5, #0x11]
 	adds r0, r4, #0
-	bl func_fe6_08070A70
+	bl ApplyHelpBoxPosition
 	bl func_fe6_08071514
 	ldrh r0, [r7]
 	ldrh r1, [r6]
@@ -10104,8 +10104,8 @@ func_fe6_08070738: @ 0x08070738
 	.align 2, 0
 .L08070800: .4byte 0x0203D3FC
 
-	thumb_func_start func_fe6_08070804
-func_fe6_08070804: @ 0x08070804
+	thumb_func_start StartHelpBox_08070804
+StartHelpBox_08070804: @ 0x08070804
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -10114,7 +10114,7 @@ func_fe6_08070804: @ 0x08070804
 	adds r5, r0, #0
 	adds r6, r1, #0
 	mov r8, r2
-	ldr r0, .L08070898 @ =gUnk_08677720
+	ldr r0, .L08070898 @ =ProcScr_HelpBox
 	movs r1, #3
 	bl SpawnProc
 	adds r7, r0, #0
@@ -10147,11 +10147,11 @@ func_fe6_08070804: @ 0x08070804
 	movs r0, #0
 	bl SetTextFontGlyphs
 	adds r0, r7, #0
-	bl func_fe6_08070B20
+	bl ResetHelpBoxInitSize
 	ldr r1, [sp]
 	ldr r2, [sp, #4]
 	adds r0, r7, #0
-	bl func_fe6_08070A30
+	bl ApplyHelpBoxContentSize
 	adds r5, #8
 	strh r5, [r7, #0x38]
 	adds r6, #8
@@ -10171,12 +10171,12 @@ func_fe6_08070804: @ 0x08070804
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08070898: .4byte gUnk_08677720
+.L08070898: .4byte ProcScr_HelpBox
 
 	thumb_func_start func_fe6_0807089C
 func_fe6_0807089C: @ 0x0807089C
 	push {r4, lr}
-	ldr r0, .L080708BC @ =gUnk_08677720
+	ldr r0, .L080708BC @ =ProcScr_HelpBox
 	bl Proc_Find
 	adds r4, r0, #0
 	cmp r4, #0
@@ -10190,12 +10190,12 @@ func_fe6_0807089C: @ 0x0807089C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080708BC: .4byte gUnk_08677720
+.L080708BC: .4byte ProcScr_HelpBox
 
 	thumb_func_start func_fe6_080708C0
 func_fe6_080708C0: @ 0x080708C0
 	push {r4, lr}
-	ldr r0, .L080708E0 @ =gUnk_08677720
+	ldr r0, .L080708E0 @ =ProcScr_HelpBox
 	bl Proc_Find
 	adds r4, r0, #0
 	cmp r4, #0
@@ -10208,7 +10208,7 @@ func_fe6_080708C0: @ 0x080708C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080708E0: .4byte gUnk_08677720
+.L080708E0: .4byte ProcScr_HelpBox
 
 	thumb_func_start func_fe6_080708E4
 func_fe6_080708E4: @ 0x080708E4
@@ -10226,7 +10226,7 @@ func_fe6_080708E4: @ 0x080708E4
 .L080708FC:
 	ldr r0, [r4, #0x2c]
 	movs r1, #0
-	bl func_fe6_08070738
+	bl StartHelpBoxExt
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -10380,8 +10380,8 @@ StartMovingHelpBoxExt: @ 0x08070A0C
 .L08070A28: .4byte gUnk_08677758
 .L08070A2C: .4byte 0x0203D400
 
-	thumb_func_start func_fe6_08070A30
-func_fe6_08070A30: @ 0x08070A30
+	thumb_func_start ApplyHelpBoxContentSize
+ApplyHelpBoxContentSize: @ 0x08070A30
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r4, r1, #0
@@ -10418,8 +10418,8 @@ func_fe6_08070A30: @ 0x08070A30
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_08070A70
-func_fe6_08070A70: @ 0x08070A70
+	thumb_func_start ApplyHelpBoxPosition
+ApplyHelpBoxPosition: @ 0x08070A70
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -10493,8 +10493,8 @@ func_fe6_08070A70: @ 0x08070A70
 	.align 2, 0
 .L08070AF8: .4byte 0x0203D400
 
-	thumb_func_start func_fe6_08070AFC
-func_fe6_08070AFC: @ 0x08070AFC
+	thumb_func_start SetHelpBoxInitPosition
+SetHelpBoxInitPosition: @ 0x08070AFC
 	push {r4, r5, lr}
 	ldr r4, .L08070B1C @ =0x0203D400
 	movs r5, #0
@@ -10513,8 +10513,8 @@ func_fe6_08070AFC: @ 0x08070AFC
 	.align 2, 0
 .L08070B1C: .4byte 0x0203D400
 
-	thumb_func_start func_fe6_08070B20
-func_fe6_08070B20: @ 0x08070B20
+	thumb_func_start ResetHelpBoxInitSize
+ResetHelpBoxInitSize: @ 0x08070B20
 	adds r2, r0, #0
 	adds r2, #0x40
 	movs r1, #0x20
@@ -10560,8 +10560,8 @@ func_fe6_08070B30: @ 0x08070B30
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08070B70
-func_fe6_08070B70: @ 0x08070B70
+	thumb_func_start HbPopulate_AutoItem
+HbPopulate_AutoItem: @ 0x08070B70
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x2c]
@@ -10727,7 +10727,7 @@ func_fe6_08070C70: @ 0x08070C70
 	adds r1, r0, #0
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 	ldr r0, .L08070CA4 @ =gUnk_08677788
 	adds r1, r6, #0
 	bl SpawnProcLocking
@@ -11850,7 +11850,7 @@ func_fe6_0807155C: @ 0x0807155C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	movs r1, #5
-	bl func_fe6_0807054C
+	bl UpdateHelpBoxDisplay
 	adds r2, r4, #0
 	adds r2, #0x48
 	adds r4, #0x4a
@@ -11897,7 +11897,7 @@ func_fe6_080715B4: @ 0x080715B4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r1, #0
-	bl func_fe6_0807054C
+	bl UpdateHelpBoxDisplay
 	adds r1, r4, #0
 	adds r1, #0x48
 	ldrh r0, [r1]
@@ -12631,7 +12631,7 @@ func_fe6_08071AF8: @ 0x08071AF8
 func_fe6_08071B20: @ 0x08071B20
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl func_fe6_08070B20
+	bl ResetHelpBoxInitSize
 	adds r5, r4, #0
 	adds r5, #0x4a
 	movs r1, #0
@@ -12903,9 +12903,9 @@ func_fe6_08071D04: @ 0x08071D04
 	adds r4, r0, #0
 	mov r1, r8
 	mov r2, sb
-	bl func_fe6_08070AFC
+	bl SetHelpBoxInitPosition
 	adds r0, r4, #0
-	bl func_fe6_08070B20
+	bl ResetHelpBoxInitSize
 	movs r1, #0
 	str r1, [r4, #0x2c]
 	adds r0, r4, #0
@@ -20730,7 +20730,7 @@ func_fe6_08075570: @ 0x08075570
 	adds r1, r1, r2
 	ldr r2, [r1]
 	movs r1, #0x28
-	bl func_fe6_080706C8
+	bl StartHelpBox
 .L08075CB2:
 	ldr r0, .L08075D2C @ =gKeySt
 	ldr r1, [r0]
@@ -20781,7 +20781,7 @@ func_fe6_08075570: @ 0x08075570
 	adds r1, r1, r2
 	ldr r2, [r1]
 	movs r1, #0x28
-	bl func_fe6_080706C8
+	bl StartHelpBox
 .L08075D18:
 	add sp, #0x18
 	pop {r3, r4, r5}
@@ -35183,7 +35183,7 @@ func_fe6_0807CDF4: @ 0x0807CDF4
 	adds r0, r5, r0
 	ldr r2, [r0]
 	movs r0, #0xc
-	bl func_fe6_080706C8
+	bl StartHelpBox
 	b .L0807CE68
 	.align 2, 0
 .L0807CE4C: .4byte 0x020155E4
@@ -35197,7 +35197,7 @@ func_fe6_0807CDF4: @ 0x0807CDF4
 	adds r0, r5, r0
 	ldr r2, [r0]
 	movs r0, #0xc
-	bl func_fe6_080706C8
+	bl StartHelpBox
 .L0807CE68:
 	mov r1, r8
 	adds r1, #0x3d
@@ -38788,7 +38788,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	adds r2, #0x1c
 	adds r2, r2, r3
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 .L0807EB1A:
 	ldr r0, [sp, #8]
 	ldrb r0, [r0]
@@ -38824,7 +38824,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	adds r2, #0x1c
 	adds r2, r2, r4
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 .L0807EB60:
 	add sp, #0xc
 	pop {r3, r4, r5}
@@ -39677,7 +39677,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	adds r2, #0x1c
 	adds r2, r2, r3
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L0807FA9A
 .L0807F2FE:
 	ldr r2, .L0807F318 @ =gKeySt
@@ -39879,7 +39879,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	lsls r2, r2, #2
 	adds r2, r2, r4
 	ldrh r2, [r2, #2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L0807FA9A
 	.align 2, 0
 .L0807F49C: .4byte 0x0201636A
@@ -40690,7 +40690,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	adds r2, #0x1c
 	adds r2, r2, r3
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L0807FB52
 .L0807FB0C:
 	ldr r0, .L0807FB20 @ =0x0201636A
@@ -40725,7 +40725,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	lsls r2, r2, #2
 	adds r2, r2, r4
 	ldrh r2, [r2, #2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	movs r0, #2
 .L0807FB50:
 	strb r0, [r6]
@@ -41590,7 +41590,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r0, r0, r2
 	ldr r2, [r0]
 	movs r0, #0xa0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 .L08080250:
 	ldrb r6, [r6]
 	cmp r6, #2
@@ -41608,7 +41608,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r0, r0, r2
 	ldr r2, [r0]
 	movs r0, #0xa0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 .L08080274:
 	pop {r3}
 	mov r8, r3
@@ -42736,7 +42736,7 @@ func_fe6_08080284: @ 0x08080284
 	adds r2, #0x1c
 	adds r2, r2, r3
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	adds r7, r4, #0
 .L08080BBA:
 	movs r5, #0x50
@@ -42796,7 +42796,7 @@ func_fe6_08080284: @ 0x08080284
 	lsls r2, r2, #2
 	add r2, ip
 	ldrh r2, [r2, #2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L080812FA
 	.align 2, 0
 .L08080C2C: .4byte 0x0201636A
@@ -43719,7 +43719,7 @@ func_fe6_08080284: @ 0x08080284
 	adds r2, #0x1c
 	adds r2, r2, r3
 	ldrh r2, [r2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L08081392
 .L08081352:
 	ldr r0, .L08081368 @ =0x0201636A
@@ -43750,7 +43750,7 @@ func_fe6_08080284: @ 0x08080284
 	lsls r2, r5, #2
 	adds r2, r2, r3
 	ldrh r2, [r2, #2]
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	movs r0, #2
 .L08081390:
 	strb r0, [r4]
@@ -44521,7 +44521,7 @@ func_fe6_08081970: @ 0x08081970
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x10
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L08081DB2
 	.align 2, 0
 .L08081A00: .4byte gKeySt
@@ -45002,7 +45002,7 @@ func_fe6_08081970: @ 0x08081970
 	adds r0, r0, r2
 	ldrh r2, [r0]
 	movs r0, #0x10
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 .L08081DDC:
 	add sp, #4
 	pop {r3, r4, r5}
@@ -46753,7 +46753,7 @@ func_fe6_08082AD8: @ 0x08082AD8
 func_fe6_08082B00: @ 0x08082B00
 	push {r4, lr}
 	adds r4, r3, #0
-	bl func_fe6_080706C8
+	bl StartHelpBox
 	ldr r0, .L08082B18 @ =gUnk_0867973C
 	adds r1, r4, #0
 	bl SpawnProcLocking
@@ -57181,7 +57181,7 @@ func_fe6_08087CD4: @ 0x08087CD4
 	ldr r2, .L08087D40 @ =0x000006C3
 	movs r0, #0x30
 	movs r1, #0x30
-	bl func_fe6_08070804
+	bl StartHelpBox_08070804
 	movs r0, #1
 	strb r0, [r4]
 .L08087D38:
@@ -85978,7 +85978,7 @@ func_fe6_08096234: @ 0x08096234
 	adds r3, r0, r2
 	ldrh r2, [r3]
 	movs r0, #0x38
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 .L0809635A:
 	bl func_fe6_0809773C
 	bl func_fe6_08097DA8
@@ -86072,7 +86072,7 @@ func_fe6_08096234: @ 0x08096234
 	adds r3, r0, r2
 	ldrh r2, [r3]
 	movs r0, #0x38
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L080964D8
 	.align 2, 0
 .L08096418: .4byte gKeySt
@@ -86543,7 +86543,7 @@ func_fe6_080966C4: @ 0x080966C4
 	adds r3, r0, r2
 	ldrh r2, [r3]
 	movs r0, #0x38
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 .L080967B0:
 	bl func_fe6_08097DA8
 	lsls r1, r0, #0x18
@@ -86637,7 +86637,7 @@ func_fe6_080966C4: @ 0x080966C4
 	adds r3, r0, r2
 	ldrh r2, [r3]
 	movs r0, #0x38
-	bl func_fe6_080706FC
+	bl StartItemHelpBox
 	b .L0809693C
 	.align 2, 0
 .L0809686C: .4byte gKeySt

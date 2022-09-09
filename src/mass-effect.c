@@ -208,8 +208,8 @@ static void StatusHealEffect_BlendedSprite_Init(struct GenericProc* proc)
 
     SetWinEnable(0, 0, 1);
 
-    gDispIo.win_ct.wout_enableBlend = 0;
-    gDispIo.win_ct.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enable_blend = 0;
+    gDispIo.win_ct.wobj_enable_blend = 1;
 
     SetWOutLayers(0, 0, 0, 1, 1);
     SetWObjLayers(1, 0, 0, 1, 1);
@@ -362,8 +362,8 @@ static void StatusHealEffect_Finish(struct GenericProc* proc)
 
     SetBlendNone();
 
-    gDispIo.win_ct.wout_enableBlend = 1;
-    gDispIo.win_ct.wobj_enableBlend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
+    gDispIo.win_ct.wobj_enable_blend = 1;
 }
 
 struct ProcScr CONST_DATA ProcScr_StatusHealEffect[] =

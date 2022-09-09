@@ -380,10 +380,10 @@ void SampleFreqSet(u32 freq)
 
     m4aSoundVSyncOn();
 
-    while (*(vu8 *)REG_ADDR_VCOUNT == 159)
+    while (*(vu8 *)&REG_VCOUNT == 159)
         ;
 
-    while (*(vu8 *)REG_ADDR_VCOUNT != 159)
+    while (*(vu8 *)&REG_VCOUNT != 159)
         ;
 
     REG_TM0CNT_H = TIMER_ENABLE | TIMER_1CLK;
@@ -922,32 +922,32 @@ void CgbSound(void)
         switch (ch)
         {
         case 1:
-            nrx0ptr = (vu8 *)(REG_ADDR_NR10);
-            nrx1ptr = (vu8 *)(REG_ADDR_NR11);
-            nrx2ptr = (vu8 *)(REG_ADDR_NR12);
-            nrx3ptr = (vu8 *)(REG_ADDR_NR13);
-            nrx4ptr = (vu8 *)(REG_ADDR_NR14);
+            nrx0ptr = (vu8 *)(&REG_NR10);
+            nrx1ptr = (vu8 *)(&REG_NR11);
+            nrx2ptr = (vu8 *)(&REG_NR12);
+            nrx3ptr = (vu8 *)(&REG_NR13);
+            nrx4ptr = (vu8 *)(&REG_NR14);
             break;
         case 2:
-            nrx0ptr = (vu8 *)(REG_ADDR_NR10+1);
-            nrx1ptr = (vu8 *)(REG_ADDR_NR21);
-            nrx2ptr = (vu8 *)(REG_ADDR_NR22);
-            nrx3ptr = (vu8 *)(REG_ADDR_NR23);
-            nrx4ptr = (vu8 *)(REG_ADDR_NR24);
+            nrx0ptr = (vu8 *)(&REG_NR10+1);
+            nrx1ptr = (vu8 *)(&REG_NR21);
+            nrx2ptr = (vu8 *)(&REG_NR22);
+            nrx3ptr = (vu8 *)(&REG_NR23);
+            nrx4ptr = (vu8 *)(&REG_NR24);
             break;
         case 3:
-            nrx0ptr = (vu8 *)(REG_ADDR_NR30);
-            nrx1ptr = (vu8 *)(REG_ADDR_NR31);
-            nrx2ptr = (vu8 *)(REG_ADDR_NR32);
-            nrx3ptr = (vu8 *)(REG_ADDR_NR33);
-            nrx4ptr = (vu8 *)(REG_ADDR_NR34);
+            nrx0ptr = (vu8 *)(&REG_NR30);
+            nrx1ptr = (vu8 *)(&REG_NR31);
+            nrx2ptr = (vu8 *)(&REG_NR32);
+            nrx3ptr = (vu8 *)(&REG_NR33);
+            nrx4ptr = (vu8 *)(&REG_NR34);
             break;
         default:
-            nrx0ptr = (vu8 *)(REG_ADDR_NR30+1);
-            nrx1ptr = (vu8 *)(REG_ADDR_NR41);
-            nrx2ptr = (vu8 *)(REG_ADDR_NR42);
-            nrx3ptr = (vu8 *)(REG_ADDR_NR43);
-            nrx4ptr = (vu8 *)(REG_ADDR_NR44);
+            nrx0ptr = (vu8 *)(&REG_NR30+1);
+            nrx1ptr = (vu8 *)(&REG_NR41);
+            nrx2ptr = (vu8 *)(&REG_NR42);
+            nrx3ptr = (vu8 *)(&REG_NR43);
+            nrx4ptr = (vu8 *)(&REG_NR44);
             break;
         }
 

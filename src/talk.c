@@ -1608,8 +1608,8 @@ static void TalkOpen_InitBlend(struct GenericProc* proc)
 
     SetBlendBackdropB(1);
 
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     SetBlendAlpha(0, 0x10);
 }

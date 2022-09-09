@@ -29,8 +29,8 @@ gUnk_08666598: @ 08666598
 gUnk_08666C78: @ 08666C78
 	.incbin "fe6-base.gba", 0x666C78, (0x666CF8 - 0x666C78) @ length: 0080
 
-	.global gUnk_08666CF8
-gUnk_08666CF8: @ 08666CF8
+	.global gSupportTalkInfo
+gSupportTalkInfo: @ 08666CF8
 	.incbin "fe6-base.gba", 0x666CF8, (0x6676E0 - 0x666CF8) @ length: 09E8
 
 	.global gUnk_086676E0
@@ -217,8 +217,8 @@ gUnk_086775D4: @ 086775D4
 gUnk_08677680: @ 08677680
 	.incbin "fe6-base.gba", 0x677680, (0x677720 - 0x677680) @ length: 00A0
 
-	.global gUnk_08677720
-gUnk_08677720: @ 08677720
+	.global ProcScr_HelpBox
+ProcScr_HelpBox: @ 08677720
 	.incbin "fe6-base.gba", 0x677720, (0x677758 - 0x677720) @ length: 0038
 
 	.global gUnk_08677758

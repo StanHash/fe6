@@ -19531,7 +19531,7 @@ func_fe6_0803ED9C: @ 0x0803ED9C
 	ldr r2, .L0803EDE4 @ =0x000006E5
 	movs r0, #0x40
 	movs r1, #0x38
-	bl func_fe6_08070804
+	bl StartHelpBox_08070804
 	movs r4, #0
 	ldr r6, .L0803EDE8 @ =0x0203C98E
 .L0803EDB6:

@@ -4,13 +4,13 @@
 
 enum
 {
-    // TODO: IRQ constants
+    // TODO: INT constants
 
-    IRQ_VBLANK = 0,
-    IRQ_HBLANK = 1,
-    IRQ_VCOUNT = 2,
+    INT_VBLANK = 0,
+    INT_HBLANK = 1,
+    INT_VCOUNT = 2,
 
-    IRQ_COUNT = 14,
+    INT_COUNT = 14,
 };
 
 typedef void(*IrqFunc)(void);

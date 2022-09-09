@@ -81,7 +81,7 @@ bool CanUnitUseItem(struct Unit* unit, int item)
     case IID_HEALSTAFF:
     case IID_MENDSTAFF:
     case IID_RECOVERSTAFF:
-    case IID_TINASTAFF:
+    case IID_TINASSTAFF:
         return HasSelectTarget(unit, ListAdjacentHealTargets);
 
     case IID_PHYSICSTAFF:
@@ -111,26 +111,26 @@ bool CanUnitUseItem(struct Unit* unit, int item)
     case IID_WARPSTAFF:
         return HasSelectTarget(unit, ListWarpTargets);
 
-    case IID_REPAIRSTAFF:
+    case IID_HAMMERNESTAFF:
         return HasSelectTarget(unit, ListRepairTargets);
 
     case IID_UNLOCKSTAFF:
         return HasSelectTarget(unit, ListUnlockTargets);
 
-    case IID_SKILLBOOSTER:
-    case IID_LUCKBOOSTER:
-    case IID_HPBOOSTER:
-    case IID_DEFBOOSTER:
-    case IID_POWBOOSTER:
-    case IID_SPEEDBOOSTER:
-    case IID_RESBOOSTER:
-    case IID_MOVBOOSTER:
-    case IID_CONBOOSTER:
+    case IID_SECRETBOOK:
+    case IID_GODDESSICON:
+    case IID_SERAPHROBE:
+    case IID_DRACOSHIELD:
+    case IID_ENERGYRING:
+    case IID_SPEEDWING:
+    case IID_TALISMAN:
+    case IID_BOOTS:
+    case IID_BODYRING:
         return CanUnitUseStatGainItem(unit, item);
 
     case IID_HEROCREST:
     case IID_KNIGHTCREST:
-    case IID_ORIONBOLT:
+    case IID_ORIONSBOLT:
     case IID_ELYSIANWHIP:
     case IID_GUIDINGRING:
         return CanUnitUsePromotionItem(unit, item);
@@ -164,7 +164,7 @@ bool CanUnitUseItem(struct Unit* unit, int item)
     case IID_LOCKPICK:
         return CanUnitUseLockpickItem(unit);
 
-    case IID_SAINTSTAFF:
+    case IID_SAINTSSTAFF:
         return HasSelectTarget(unit, ListSaintsStaffTargets);
 
     default:
@@ -180,15 +180,15 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
 
     case IID_BINDINGBLADE:
     case IID_TORCHSTAFF:
-    case IID_SKILLBOOSTER:
-    case IID_LUCKBOOSTER:
-    case IID_HPBOOSTER:
-    case IID_DEFBOOSTER:
-    case IID_POWBOOSTER:
-    case IID_SPEEDBOOSTER:
-    case IID_RESBOOSTER:
-    case IID_MOVBOOSTER:
-    case IID_CONBOOSTER:
+    case IID_SECRETBOOK:
+    case IID_GODDESSICON:
+    case IID_SERAPHROBE:
+    case IID_DRACOSHIELD:
+    case IID_ENERGYRING:
+    case IID_SPEEDWING:
+    case IID_TALISMAN:
+    case IID_BOOTS:
+    case IID_BODYRING:
     case IID_VULNERARY:
     case IID_ELIXIR:
     case IID_PUREWATER:
@@ -211,7 +211,7 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
 
     case IID_HEROCREST:
     case IID_KNIGHTCREST:
-    case IID_ORIONBOLT:
+    case IID_ORIONSBOLT:
     case IID_ELYSIANWHIP:
     case IID_GUIDINGRING:
     {
@@ -246,7 +246,7 @@ void DoUseUnitItem(struct Unit* unit, int item)
     case IID_HEALSTAFF:
     case IID_MENDSTAFF:
     case IID_RECOVERSTAFF:
-    case IID_TINASTAFF:
+    case IID_TINASSTAFF:
         DoUseHealStaff(unit, ListAdjacentHealTargets);
         break;
 
@@ -286,13 +286,13 @@ void DoUseUnitItem(struct Unit* unit, int item)
         DoUseWarpStaff(unit);
         break;
 
-    case IID_REPAIRSTAFF:
+    case IID_HAMMERNESTAFF:
         DoUseRepairStaff(unit);
         break;
 
     case IID_FORTIFYSTAFF:
     case IID_TORCHSTAFF:
-    case IID_SAINTSTAFF:
+    case IID_SAINTSSTAFF:
         SetStaffUseAction(unit);
         break;
 
@@ -401,7 +401,7 @@ bool CanUnitUsePromotionItem(struct Unit* unit, int item)
         jlist = JList_KnightCrestPromotes;
         break;
 
-    case IID_ORIONBOLT:
+    case IID_ORIONSBOLT:
         jlist = JList_OrionBoltPromotes;
         break;
 

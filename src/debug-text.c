@@ -39,7 +39,7 @@ void DebugInitBg(int bg, int vramOffset)
         vramOffset = BGCHR_DEBUGTEXT_DEFAULT * CHR_SIZE;
 
     SetBgChrOffset(bg, 0);
-    SetBgScreenSize(bg, 0);
+    SetBgScreenSize(bg, BG_SIZE_256x256);
 
     RegisterVramMove(Img_DebugFont, vramOffset, 0x40 * CHR_SIZE);
 

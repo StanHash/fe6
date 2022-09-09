@@ -982,10 +982,10 @@ static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc)
 
 static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc)
 {
-    gDispIo.win_ct.win0_enableBlend = 1;
-    gDispIo.win_ct.win1_enableBlend = 1;
-    gDispIo.win_ct.wobj_enableBlend = 1;
-    gDispIo.win_ct.wout_enableBlend = 1;
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.win1_enable_blend = 1;
+    gDispIo.win_ct.wobj_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 1;
 
     SetBlendDarken(0);
 

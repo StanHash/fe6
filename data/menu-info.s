@@ -7,8 +7,8 @@
 
 	.incbin "fe6-base.gba", 0x5C6448, (0x5C73C0 - 0x5C6448)
 
-	.global MenuInfo_085C73C0
-MenuInfo_085C73C0: @ 085C73C0
+	.global MenuInfo_TutorialInterruptMenu
+MenuInfo_TutorialInterruptMenu: @ 085C73C0
 	.incbin "fe6-base.gba", 0x5C73C0, (0x5C73E4 - 0x5C73C0) @ length: 0024
 
 	.global MenuInfo_085C73E4
@@ -47,20 +47,20 @@ MenuInfo_085C74E0: @ 085C74E0
 MenuInfo_085C7504: @ 085C7504
 	.incbin "fe6-base.gba", 0x5C7504, (0x5C7528 - 0x5C7504) @ length: 0024
 
-	.global MenuInfo_085C7528
-MenuInfo_085C7528: @ 085C7528
+	.global MenuInfo_UnitItemDiscardPrompt
+MenuInfo_UnitItemDiscardPrompt: @ 085C7528
 	.incbin "fe6-base.gba", 0x5C7528, (0x5C754C - 0x5C7528) @ length: 0024
 
-	.global MenuInfo_085C754C
-MenuInfo_085C754C: @ 085C754C
+	.global MenuInfo_UnitItemAction
+MenuInfo_UnitItemAction: @ 085C754C
 	.incbin "fe6-base.gba", 0x5C754C, (0x5C7570 - 0x5C754C) @ length: 0024
 
 	.global MenuInfo_085C7570
 MenuInfo_085C7570: @ 085C7570
 	.incbin "fe6-base.gba", 0x5C7570, (0x5C7594 - 0x5C7570) @ length: 0024
 
-	.global MenuInfo_085C7594
-MenuInfo_085C7594: @ 085C7594
+	.global MenuInfo_UnitItem
+MenuInfo_UnitItem: @ 085C7594
 	.incbin "fe6-base.gba", 0x5C7594, (0x5C75B8 - 0x5C7594) @ length: 0024
 
 	.global MenuInfo_085C75B8
@@ -71,16 +71,16 @@ MenuInfo_085C75B8: @ 085C75B8
 MenuInfo_085C75DC: @ 085C75DC
 	.incbin "fe6-base.gba", 0x5C75DC, (0x5C7600 - 0x5C75DC) @ length: 0024
 
-	.global MenuInfo_UnitMenu
-MenuInfo_UnitMenu: @ 085C7600
+	.global MenuInfo_UnitAction
+MenuInfo_UnitAction: @ 085C7600
 	.incbin "fe6-base.gba", 0x5C7600, (0x5C7624 - 0x5C7600) @ length: 0024
 
-	.global MenuInfo_085C7624
-MenuInfo_085C7624: @ 085C7624
+	.global MenuInfo_PrepMap
+MenuInfo_PrepMap: @ 085C7624
 	.incbin "fe6-base.gba", 0x5C7624, (0x5C7648 - 0x5C7624) @ length: 0024
 
-	.global MenuInfo_085C7648
-MenuInfo_085C7648: @ 085C7648
+	.global MenuInfo_Map
+MenuInfo_Map: @ 085C7648
 	.incbin "fe6-base.gba", 0x5C7648, (0x5C766C - 0x5C7648) @ length: 0024
 
 	.global MapSelectInfo_AttackStaff

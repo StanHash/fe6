@@ -119,7 +119,7 @@ void ApplyPaletteExt(void const* data, int startOffset, int size)
 
 void SyncDispIo(void)
 {
-    #define SET_REG(type, reg, src) *((type*) REG_ADDR_##reg) = *((type*) &(src))
+    #define SET_REG(type, reg, src) *((type*) &REG_##reg) = *((type*) &(src))
 
     SET_REG(u16, DISPCNT,  gDispIo.disp_ct);
     SET_REG(u16, DISPSTAT, gDispIo.disp_stat);
@@ -180,7 +180,7 @@ struct BgCnt* GetBgCt(u16 bgid)
 int GetBgChrOffset(int bg)
 {
     struct BgCnt* bgCt = GetBgCt(bg);
-    return bgCt->charBaseBlock * 0x4000;
+    return bgCt->chr_block * 0x4000;
 }
 
 int GetBgChrId(int bg, int offset)
@@ -193,13 +193,13 @@ int GetBgChrId(int bg, int offset)
 int GetBgTilemapOffset(int bg)
 {
     struct BgCnt* bgCt = GetBgCt(bg);
-    return bgCt->screenBaseBlock * 0x800;
+    return bgCt->tm_block * 0x800;
 }
 
 void SetBgChrOffset(int bg, int offset)
 {
     struct BgCnt* bgCt = GetBgCt(bg);
-    bgCt->charBaseBlock = offset >> 14;
+    bgCt->chr_block = offset >> 14;
 }
 
 void SetBgTilemapOffset(int bg, int offset)
@@ -209,20 +209,20 @@ void SetBgTilemapOffset(int bg, int offset)
     if ((offset & 0x7FF) != 0)  // must be aligned
         return;
 
-    bgCt->screenBaseBlock = offset >> 11;
+    bgCt->tm_block = offset >> 11;
     gBgMapVramTable[bg] = (void*) (VRAM | offset);
 }
 
 void SetBgScreenSize(int bg, int size)
 {
     struct BgCnt* bgCt = GetBgCt(bg);
-    bgCt->screenSize = size;
+    bgCt->size = size;
 }
 
 void SetBgBpp(int bg, int bpp)
 {
     struct BgCnt* bgCt = GetBgCt(bg);
-    bgCt->colorMode = (bpp == 8) ? 1 : 0;
+    bgCt->color_depth = (bpp == 8) ? BG_COLORDEPTH_8BPP : BG_COLORDEPTH_4BPP;
 }
 
 void SyncBgsAndPal(void)
@@ -251,7 +251,7 @@ void SyncBgsAndPal(void)
 void TmFill(u16* dest, int tileref)
 {
     tileref = tileref + (tileref << 16);
-    CpuFastFill(tileref, dest, sizeof(u16) * 0x400);
+    CpuFastFill(tileref, dest, sizeof gBg0Tm);
 }
 
 void SetBlankChr(int chr)
@@ -263,14 +263,14 @@ void SetOnVBlank(IrqFunc func)
 {
     if (func != NULL)
     {
-        gDispIo.disp_stat.vblankIrqEnable = TRUE;
+        gDispIo.disp_stat.vblank_int_enable = TRUE;
 
-        SetIrqFunc(IRQ_VBLANK, func);
+        SetIrqFunc(INT_VBLANK, func);
         REG_IE |= INTR_FLAG_VBLANK;
     }
     else
     {
-        gDispIo.disp_stat.vblankIrqEnable = FALSE;
+        gDispIo.disp_stat.vblank_int_enable = FALSE;
         REG_IE &= ~INTR_FLAG_VBLANK;
     }
 }
@@ -279,17 +279,17 @@ void SetOnVMatch(IrqFunc func)
 {
     if (func != NULL)
     {
-        gDispIo.disp_stat.vcountIrqEnable = TRUE;
+        gDispIo.disp_stat.vcount_int_enable = TRUE;
 
-        SetIrqFunc(IRQ_VCOUNT, func);
+        SetIrqFunc(INT_VCOUNT, func);
         REG_IE |= INTR_FLAG_VCOUNT;
     }
     else
     {
-        gDispIo.disp_stat.vcountIrqEnable = FALSE;
+        gDispIo.disp_stat.vcount_int_enable = FALSE;
         REG_IE &= ~INTR_FLAG_VCOUNT;
 
-        gDispIo.disp_stat.vcountCompare = 0;
+        gDispIo.disp_stat.vcount_compare = 0;
     }
 }
 
@@ -306,7 +306,7 @@ void SetNextVCount(int vcount)
 
 void SetVCount(int vcount)
 {
-    gDispIo.disp_stat.vcountCompare = vcount;
+    gDispIo.disp_stat.vcount_compare = vcount;
 }
 
 void SetMainFunc(Func func)
@@ -661,26 +661,26 @@ void func_fe6_080024A4(void)
 
 void InitBgs(u16 const* config)
 {
-    u16 defaultConfig[] =
+    u16 default_config[] =
     {
-        // tile offset  map offset  screen size
-        0x0000,         0x6000,     0,          // BG 0
-        0x0000,         0x6800,     0,          // BG 1
-        0x0000,         0x7000,     0,          // BG 2
-        0x8000,         0x7800,     0,          // BG 3
+        // tile offset  map offset  size id
+        0x0000,         0x6000,     BG_SIZE_256x256, // BG 0
+        0x0000,         0x6800,     BG_SIZE_256x256, // BG 1
+        0x0000,         0x7000,     BG_SIZE_256x256, // BG 2
+        0x8000,         0x7800,     BG_SIZE_256x256, // BG 3
     };
 
     int i;
 
     if (config == NULL)
-        config = defaultConfig;
+        config = default_config;
 
     *(u16*) &gDispIo.bg0_ct = 0;
     *(u16*) &gDispIo.bg1_ct = 0;
     *(u16*) &gDispIo.bg2_ct = 0;
     *(u16*) &gDispIo.bg3_ct = 0;
 
-    gDispIo.disp_ct.forcedBlank = 0;
+    gDispIo.disp_ct.forced_blank = FALSE;
     gDispIo.disp_ct.mode = 0;
 
     SetDispEnable(1, 1, 1, 1, 1);
@@ -732,10 +732,10 @@ void func_fe6_0800285C(int unk)
     REG_KEYCNT = unk - 0x4000;
     REG_IE &= ~(INTR_FLAG_SERIAL | INTR_FLAG_GAMEPAK);
     REG_IE |= INTR_FLAG_KEYPAD;
-    REG_DISPCNT |= DISPCNT_FORCED_BLANK;
+    REG_DISPCNT |= DISPCNT_FORCE_BLANK;
 
     SoundBiasReset();
-    asm("swi 3");  // enter sleep mode
+    asm("swi 3"); // enter sleep mode
     SoundBiasSet();
 
     REG_IE = ie;
@@ -766,7 +766,7 @@ void RefreshOnHBlank(void)
     case 0:
         // no funcs
 
-        gDispIo.disp_stat.hblankIrqEnable = 0;
+        gDispIo.disp_stat.hblank_int_enable = 0;
         REG_IE &= ~INTR_FLAG_HBLANK;
 
         break;
@@ -774,9 +774,9 @@ void RefreshOnHBlank(void)
     case 1:
         // only func A
 
-        gDispIo.disp_stat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblank_int_enable = 1;
 
-        SetIrqFunc(IRQ_HBLANK, gOnHBlankA);
+        SetIrqFunc(INT_HBLANK, gOnHBlankA);
         REG_IE |= INTR_FLAG_HBLANK;
 
         break;
@@ -784,9 +784,9 @@ void RefreshOnHBlank(void)
     case 2:
         // only func B
 
-        gDispIo.disp_stat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblank_int_enable = 1;
 
-        SetIrqFunc(IRQ_HBLANK, gOnHBlankB);
+        SetIrqFunc(INT_HBLANK, gOnHBlankB);
         REG_IE |= INTR_FLAG_HBLANK;
 
         break;
@@ -794,9 +794,9 @@ void RefreshOnHBlank(void)
     case 3:
         // both funcs
 
-        gDispIo.disp_stat.hblankIrqEnable = 1;
+        gDispIo.disp_stat.hblank_int_enable = 1;
 
-        SetIrqFunc(IRQ_HBLANK, OnHBlankBoth);
+        SetIrqFunc(INT_HBLANK, OnHBlankBoth);
         REG_IE |= INTR_FLAG_HBLANK;
 
         break;

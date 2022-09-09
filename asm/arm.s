@@ -532,6 +532,6 @@ MapFloodCore: @ 0x08000874
 	bx lr
 
 	.global ArmCodeEnd
-	.type   ArmCodeEnd, function
+	.type   ArmCodeEnd, object
 
 ArmCodeEnd:
