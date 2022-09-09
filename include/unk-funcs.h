@@ -5,7 +5,6 @@
 
 #include "proc.h"
 #include "menu.h"
-#include "map-select.h"
 
 /// map-menu.c
 // func_fe6_0801EA40
@@ -163,7 +162,7 @@ void func_fe6_0801F854(int x, int y);
 
 void AiRefreshDangerMap(void);
 bool AiCheckDangerAt(int x, int y, u8 threshold);
-bool AiTryGetNearestHealPoint(struct Vec2* out);
+bool AiTryGetNearestHealPoint(struct Vec2i* out);
 void func_fe6_08032A08(void);
 bool AiUpdateGetUnitIsHealing(struct Unit* unit);
 bool AiTryHealSelf(void);
@@ -690,24 +689,7 @@ void MenuFrozenHelpBox(struct MenuProc* menu, int msg);
 struct MenuProc* func_fe6_08042018(struct MenuInfo const* info, int x, int left, int right);
 // func_fe6_08042070
 // func_fe6_080420B4
-void BeginTargetList(int x, int y);
-void EnlistTarget(int x, int y, int uid, int extra);
-// func_fe6_08042138
-// func_fe6_08042180
-// func_fe6_08042194
-ProcPtr StartMapSelect(struct MapSelectInfo const* info);
-ProcPtr StartMapSelectExt(struct MapSelectInfo const* info, int(*onSelect)(struct MapSelectProc* proc, struct SelectTarget* target));
-void EndMapSelect(struct MapSelectProc* proc);
-// func_fe6_08042310
-// func_fe6_08042388
-// func_fe6_080423E0
-// func_fe6_08042400
-// func_fe6_08042420
-// func_fe6_08042480
-// func_fe6_08042524
-// func_fe6_08042534
-int CountTargets(void);
-struct SelectTarget* GetTarget(int id);
+
 void func_fe6_0804256C(int arg_0);
 // func_fe6_08042578
 // func_fe6_08042584

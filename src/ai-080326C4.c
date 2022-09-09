@@ -128,7 +128,7 @@ bool AiCheckDangerAt(int x, int y, u8 threshold)
     return TRUE;
 }
 
-bool AiTryGetNearestHealPoint(struct Vec2* out)
+bool AiTryGetNearestHealPoint(struct Vec2i* out)
 {
     static u8 CONST_DATA fortTerrains[] = { TERRAIN_FORT, 0 };
 
@@ -274,7 +274,7 @@ bool AiTryHealSelf(void)
         {
             if (!(gAiSt.flags & AI_FLAG_1))
             {
-                struct Vec2 position;
+                struct Vec2i position;
 
                 if (AiFindSafestReachableLocation(gActiveUnit, &position) == TRUE)
                 {

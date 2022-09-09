@@ -26,7 +26,7 @@ static void RenderMapLine(u16 yOffset);
 
 extern u16 gMapBuf[]; // ??
 
-struct Vec2 EWRAM_DATA gMapSize = {};
+struct Vec2i EWRAM_DATA gMapSize = {};
 
 u8** EWRAM_DATA gMapUnit     = NULL;
 u8** EWRAM_DATA gMapTerrain  = NULL;

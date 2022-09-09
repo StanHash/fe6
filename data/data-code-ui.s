@@ -48,11 +48,3 @@ gUnk_085CB484: @ 085CB484
 	.global gUnk_085CB494
 gUnk_085CB494: @ 085CB494
 	.incbin "fe6-base.gba", 0x5CB494, (0x5CB4A0 - 0x5CB494) @ length: 000C
-
-	.global gUnk_085CB4A0
-gUnk_085CB4A0: @ 085CB4A0
-	.incbin "fe6-base.gba", 0x5CB4A0, (0x5CB4D0 - 0x5CB4A0) @ length: 0030
-
-	.global gUnk_085CB4D0
-gUnk_085CB4D0: @ 085CB4D0
-	.incbin "fe6-base.gba", 0x5CB4D0, (0x5CB504 - 0x5CB4D0) @ length: 0034

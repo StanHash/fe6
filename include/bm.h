@@ -78,14 +78,14 @@ struct BmSt
     /* 05 */ // pad
     /* 06 */ u16 main_loop_end_scanline;
     /* 08 */ int pad_08;
-    /* 0C */ struct Vec2 camera;
-    /* 10 */ struct Vec2 camera_previous;
-    /* 14 */ struct Vec2 cursor;
-    /* 18 */ struct Vec2 cursor_previous;
-    /* 1C */ struct Vec2 cursor_sprite_target;
-    /* 20 */ struct Vec2 cursor_sprite;
-    /* 24 */ struct Vec2 map_render_anchor;
-    /* 28 */ struct Vec2 camera_max;
+    /* 0C */ struct Vec2i camera;
+    /* 10 */ struct Vec2i camera_previous;
+    /* 14 */ struct Vec2i cursor;
+    /* 18 */ struct Vec2i cursor_previous;
+    /* 1C */ struct Vec2i cursor_sprite_target;
+    /* 20 */ struct Vec2i cursor_sprite;
+    /* 24 */ struct Vec2i map_render_anchor;
+    /* 28 */ struct Vec2i camera_max;
     /* 2C */ u16 inventory_item_overflow;
     /* 2E */ u16 convoy_item_overflow;
     /* 30 */ bool unk_30;

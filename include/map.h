@@ -23,7 +23,7 @@ int GetTerrainHealAmount(int terrain);
 bool DoesTerrainHealStatus(int terrain);
 void func_fe6_080192E4(void);
 
-extern struct Vec2 gMapSize;
+extern struct Vec2i gMapSize;
 
 extern u8** gMapUnit;
 extern u8** gMapTerrain;

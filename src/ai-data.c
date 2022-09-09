@@ -976,7 +976,7 @@ u32 const AiItemConfigTable[] =
 // = ??? ??? ??? =
 // ===============
 
-struct Vec2 const gUnk_0810DADC[] =
+struct Vec2i const gUnk_0810DADC[] =
 {
     {  3,  1 },
     {  3,  5 },
@@ -986,7 +986,7 @@ struct Vec2 const gUnk_0810DADC[] =
     { -1, -1 },
 };
 
-struct Vec2 const gUnk_0810DAF0[] =
+struct Vec2i const gUnk_0810DAF0[] =
 {
     {  9,  9 },
     { 13, 15 },
@@ -995,13 +995,13 @@ struct Vec2 const gUnk_0810DAF0[] =
     { -1, -1 },
 };
 
-struct Vec2 const* CONST_DATA gUnk_085C8870[] =
+struct Vec2i const* CONST_DATA gUnk_085C8870[] =
 {
     gUnk_0810DADC,
     gUnk_0810DAF0,
 };
 
-struct Vec2 const* const* CONST_DATA gUnk_085C8878 = gUnk_085C8870;
+struct Vec2i const* const* CONST_DATA gUnk_085C8878 = gUnk_085C8870;
 
 char CONST_DATA gUnk_085C887C[] = "CALL TEST\n";
 char CONST_DATA gUnk_085C8887   = 3;

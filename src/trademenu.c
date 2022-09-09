@@ -74,7 +74,7 @@ struct TradeMenuProc
     /* 4C */ short timer;
 };
 
-struct Vec2 CONST_DATA sItemDisplayTileLocation[2][ITEMSLOT_INV_COUNT] =
+struct Vec2i CONST_DATA sItemDisplayTileLocation[2][ITEMSLOT_INV_COUNT] =
 {
     [TRADEMENU_UNIT_LEFT] =
     {

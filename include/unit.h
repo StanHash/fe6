@@ -327,7 +327,7 @@ bool CanActiveUnitStillMove(void);
 extern struct Unit* gActiveUnit;
 
 extern u8 EWRAM_DATA gActiveUnitId;
-extern struct Vec2 EWRAM_DATA gActiveUnitMoveOrigin;
+extern struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin;
 
 extern struct Unit EWRAM_DATA gUnitArrayBlue[UNIT_AMOUNT_BLUE];
 extern struct Unit EWRAM_DATA gUnitArrayRed[UNIT_AMOUNT_RED];

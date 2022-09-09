@@ -1505,7 +1505,7 @@ static int EvtCmd_MovePidNextTo(struct EventProc* proc)
 
 void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
 {
-    struct Vec2 vec;
+    struct Vec2i vec;
 
     if (x == 0xFF)
         x = -1;
@@ -1541,7 +1541,7 @@ void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
 
 bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
 {
-    struct Vec2 vec;
+    struct Vec2i vec;
 
     int terrainChanged = FALSE;
 

@@ -36,7 +36,7 @@ typedef i8 bool;
 
 typedef void(*Func)(void);
 
-struct Vec2
+struct Vec2i
 {
     i16 x, y;
 };
@@ -58,3 +58,7 @@ struct UnitSprite;
 struct SupportInfo;
 
 struct HelpBoxInfo;
+
+struct SelectTarget;
+struct MapSelectInfo;
+struct MapSelectProc;

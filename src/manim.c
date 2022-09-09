@@ -21,6 +21,8 @@
 #include "constants/songs.h"
 #include "constants/terrains.h"
 
+struct MapAnimSt EWRAM_DATA gMapAnimSt = { { 0 } };
+
 extern u16 const gUnk_082DC840[]; // pal blue
 extern u16 const gUnk_082DC860[]; // pal red
 extern u16 const gUnk_082DC880[]; // pal green

@@ -14,7 +14,7 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 
-static struct Vec2 CONST_DATA sRange3OffsetLut[] =
+static struct Vec2i CONST_DATA sRange3OffsetLut[] =
 {
                                         {  0, -3 },
                             { -1, -2 }, {  0, -2 }, { +1, -2 },
@@ -73,7 +73,7 @@ bool AiCompare(u8 const* left, u8 cond, u32 right)
     return FALSE;
 }
 
-bool AiFindTargetInReachByPid(int pid, struct Vec2* out)
+bool AiFindTargetInReachByPid(int pid, struct Vec2i* out)
 {
     int i;
 
@@ -128,7 +128,7 @@ target_not_found:
     return FALSE;
 }
 
-bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
+bool AiFindTargetInReachByJid(int jid, struct Vec2i* out)
 {
     int i;
 
@@ -171,7 +171,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2* out)
     return FALSE;
 }
 
-bool AiFindTargetInReachByFunc(bool(*func)(struct Unit* unit), struct Vec2* out)
+bool AiFindTargetInReachByFunc(bool(*func)(struct Unit* unit), struct Vec2i* out)
 {
     short ix, iy;
 
@@ -306,7 +306,7 @@ bool AiIsInByteList(u8 const* list, u8 item)
     return FALSE;
 }
 
-bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2* out)
+bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2i* out)
 {
     int ix, iy;
 
@@ -361,9 +361,9 @@ u8 AiGetPositionRange(int x, int y)
     return gMapRange[y][x];
 }
 
-bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, struct Vec2* out)
+bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, struct Vec2i* out)
 {
-    struct Vec2 tmp;
+    struct Vec2i tmp;
     int ix, iy;
 
     u8 bestDistance = UINT8_MAX;
@@ -408,9 +408,9 @@ bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, stru
     return FALSE;
 }
 
-bool AiFindClosestUnlockPosition(int flags, struct Vec2* out)
+bool AiFindClosestUnlockPosition(int flags, struct Vec2i* out)
 {
-    struct Vec2 tmp;
+    struct Vec2i tmp;
     int ix, iy;
 
     u8 bestDistance = UINT8_MAX;
@@ -597,7 +597,7 @@ int AiCountNearbyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2 const* it = sRange3OffsetLut;
+    struct Vec2i const* it = sRange3OffsetLut;
 
     it--;
 
@@ -624,7 +624,7 @@ int AiCountNearbyEnemyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2 const* it = sRange3OffsetLut;
+    struct Vec2i const* it = sRange3OffsetLut;
 
     it--;
 
@@ -654,7 +654,7 @@ int AiCountNearbyAlliedUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2 const* it = sRange3OffsetLut;
+    struct Vec2i const* it = sRange3OffsetLut;
 
     it--;
 
@@ -739,7 +739,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item)
     }
 }
 
-bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2* out)
+bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2i* out)
 {
     u8(*func)(int x, int y) = funcArg;
 
@@ -823,7 +823,7 @@ i8 AiGetUnitStealItemSlot(struct Unit* unit)
     return slot;
 }
 
-bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
+bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2i* out)
 {
     int ix, iy;
 
@@ -865,7 +865,7 @@ bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2* out)
     return FALSE;
 }
 
-bool AiFindPillageLocation(struct Vec2* out, u8* outItemSlot)
+bool AiFindPillageLocation(struct Vec2i* out, u8* outItemSlot)
 {
     u8 const* terrains;
 
@@ -986,7 +986,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     }
 }
 
-bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2* out)
+bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2i* out)
 {
     short ix, iy;
     u8 bestRange;
@@ -1238,7 +1238,7 @@ void UnitInitAiFromInfo(struct Unit* unit, struct UnitInfo const* info)
     unit->ai_config = (0xFFF8 & unit->ai_config) | info->ai[2] | (info->ai[3] << 8);
 }
 
-bool func_fe6_08030AB4(struct Vec2* out)
+bool func_fe6_08030AB4(struct Vec2i* out)
 {
     int ix, iy;
 

@@ -493,7 +493,7 @@ static void SetItemUseAction(struct Unit* unit)
     gAction.id = ACTION_USEITEM;
 }
 
-int StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     gAction.target = target->uid;
     SetStaffUseAction(NULL);
@@ -629,7 +629,7 @@ static void WarpSelect_End(struct GenericProc* proc)
     EndSpriteAnim(proc->ptr);
 }
 
-int WarpOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 WarpOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     EndMapSelect(proc);
 
@@ -653,7 +653,7 @@ void DoUseWarpStaff(struct Unit* unit)
     PlaySe(SONG_6A);
 }
 
-int UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     gAction.x_target = target->x;
     gAction.y_target = target->y;

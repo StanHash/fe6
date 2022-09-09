@@ -394,7 +394,7 @@ static void WeatherVBlank_Snow(void)
 {
     if (GetOamSplice() != 0)
     {
-        struct Vec2 origins[3];
+        struct Vec2i origins[3];
         int i;
 
         struct WeatherParticle* it = gWeatherEffect.particles + ((GetGameTime() % 2) * 0x20);

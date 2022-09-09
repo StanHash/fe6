@@ -27,7 +27,7 @@ extern struct JInfo CONST_DATA JobInfoTable[];
 extern struct Unit* CONST_DATA gUnitLut[0x100];
 
 u8 EWRAM_DATA gActiveUnitId = 0;
-struct Vec2 EWRAM_DATA gActiveUnitMoveOrigin = {};
+struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin = {};
 
 struct Unit EWRAM_DATA gUnitArrayBlue[UNIT_AMOUNT_BLUE]     = {};
 struct Unit EWRAM_DATA gUnitArrayRed[UNIT_AMOUNT_RED]       = {};

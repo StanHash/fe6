@@ -13,6 +13,7 @@
 
 #include "gba/gba.h"
 
+#include "attributes.h"
 #include "types.h"
 
 #include "unk-types.h"

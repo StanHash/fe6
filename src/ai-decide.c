@@ -180,7 +180,7 @@ void AiDecideHealOrEscape(void)
 
     if (AiUpdateGetUnitIsHealing(gActiveUnit) == TRUE)
     {
-        struct Vec2 position;
+        struct Vec2i position;
 
         if (AiTryHealSelf() == TRUE)
             return;

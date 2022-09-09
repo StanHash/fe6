@@ -742,7 +742,7 @@ void UpdateMuStepSounds(struct MuProc* mu)
 
     u16 const* soundScript;
     int pc;
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (jinfo->attributes & UNIT_ATTR_MOUNTED)
     {
@@ -938,7 +938,7 @@ struct MuConfig* GetNewMuConfig(void)
     return NULL;
 }
 
-bool GetMuDisplayPosition(struct MuProc* mu, struct Vec2* out)
+bool GetMuDisplayPosition(struct MuProc* mu, struct Vec2i* out)
 {
     short x, y;
 
@@ -968,7 +968,7 @@ bool GetMuDisplayPosition(struct MuProc* mu, struct Vec2* out)
 
 void PutMu(struct MuProc* mu)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (mu->hidden_b)
         return;

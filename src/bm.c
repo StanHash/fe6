@@ -41,9 +41,9 @@ struct CamMoveProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Vec2 to;
-    /* 30 */ struct Vec2 from;
-    /* 34 */ struct Vec2 watchedCoord;
+    /* 2C */ struct Vec2i to;
+    /* 30 */ struct Vec2i from;
+    /* 34 */ struct Vec2i watchedCoord;
     /* 38 */ short calibration;
     /* 3A */ short distance;
     /* 3C */ int frame;
@@ -54,8 +54,8 @@ struct UnkMapCursorProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Vec2 to;
-    /* 30 */ struct Vec2 from;
+    /* 2C */ struct Vec2i to;
+    /* 30 */ struct Vec2i from;
     /* 34 */ int clock;
     /* 38 */ int duration;
 };
@@ -310,7 +310,7 @@ struct ProcScr CONST_DATA ProcScr_UnkMapCursor[] =
 struct BmSt EWRAM_DATA gBmSt = {};
 struct PlaySt EWRAM_DATA gPlaySt = {};
 
-static struct Vec2 EWRAM_DATA sLastCoordMapCursorDrawn = {};
+static struct Vec2i EWRAM_DATA sLastCoordMapCursorDrawn = {};
 static u32 EWRAM_DATA sLastTimeMapCursorDrawn = 0;
 
 static i8 EWRAM_DATA sCameraAnimTable[0x100] = {};
@@ -503,7 +503,7 @@ void HandleMapCursorInput(u16 keys)
 {
     int dir = (keys >> 4) & (KEY_DPAD_ANY >> 4);
 
-    struct Vec2 newCursor =
+    struct Vec2i newCursor =
     {
         .x = gBmSt.cursor.x + sDirKeysToOffsetLut[dir][0],
         .y = gBmSt.cursor.y + sDirKeysToOffsetLut[dir][1],

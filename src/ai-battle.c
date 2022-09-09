@@ -315,7 +315,7 @@ bool AiAttemptStealActionWithinMovement(void)
 {
     int ix, iy;
 
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     u8 item_slot = 0;
     u8 rank = UINT8_MAX;
@@ -325,7 +325,7 @@ bool AiAttemptStealActionWithinMovement(void)
     {
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
-            struct Vec2 posTmp;
+            struct Vec2i posTmp;
             struct Unit* unit;
             i8 slotTmp;
             u8 rankTmp;
@@ -725,7 +725,7 @@ int AiGetTerrainCombatPositionScoreComponent(int x, int y)
 
 int AiGetFriendZoneCombatPositionScoreComponent(int x, int y)
 {
-    static struct Vec2 CONST_DATA range3offsets[] =
+    static struct Vec2i CONST_DATA range3offsets[] =
     {
                                             {  0, -3 },
                                 { -1, -2 }, {  0, -2 }, { +1, -2 },
@@ -738,7 +738,7 @@ int AiGetFriendZoneCombatPositionScoreComponent(int x, int y)
         { 9999, 9999 },
     };
 
-    struct Vec2 const* it;
+    struct Vec2i const* it;
 
     int result = 0;
 

@@ -433,7 +433,7 @@ void AiCmd_MoveTowards(u8* pc)
 
 void AiCmd_MoveTowardsPid(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (AiFindTargetInReachByPid(sScr->unk_04, &pos) == TRUE)
     {
@@ -472,7 +472,7 @@ void AiCmd_Nop_080314B8(u8* pc)
 
 void AiCmd_MoveTowardsJid(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (AiFindTargetInReachByJid(sScr->unk_04, &pos) == TRUE)
     {
@@ -499,7 +499,7 @@ void AiCmd_Pillage(u8* pc)
     }
     else
     {
-        struct Vec2 pos;
+        struct Vec2i pos;
         u8 item_slot;
 
         if (AiFindPillageLocation(&pos, &item_slot) == TRUE)
@@ -532,7 +532,7 @@ void AiCmd_Pillage(u8* pc)
 
 void AiCmd_MoveToSafety(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (AiFindSafestReachableLocation(gActiveUnit, &pos) == TRUE)
     {
@@ -544,7 +544,7 @@ void AiCmd_MoveToSafety(u8* pc)
 
 void AiCmd_MoveToEnemy(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (sScr->unk_08 == NULL)
     {
@@ -566,7 +566,7 @@ void AiCmd_MoveToEnemy(u8* pc)
 
 void AiCmd_MoveToEnemy2(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (sScr->unk_08 == NULL)
     {
@@ -616,7 +616,7 @@ void AiCmd_Nop_08031788(u8* pc)
 
 void AiCmd_MoveTowardsTerrain(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
@@ -635,7 +635,7 @@ void AiCmd_MoveTowardsTerrain(u8* pc)
 
 void AiCmd_MoveTowardsListedTerrain(u8* pc)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
@@ -666,7 +666,7 @@ void AiDoBerserkAction(void)
 
 void AiDoBerserkMove(void)
 {
-    struct Vec2 pos;
+    struct Vec2i pos;
 
     if (AiFindTargetInReachByFunc(AiIsUnitNonActive, &pos) == TRUE)
     {
