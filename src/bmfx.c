@@ -19,7 +19,7 @@
 #include "unit.h"
 #include "map.h"
 #include "mapwork.h"
-#include "menu.h"
+#include "map-menu.h"
 #include "faction.h"
 #include "unitsprite.h"
 #include "battle.h"
@@ -28,7 +28,9 @@
 #include "supply.h"
 #include "chapter-info.h"
 #include "subtitle-help.h"
+#include "menu-info.h"
 #include "ui.h"
+#include "menu.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -761,7 +763,7 @@ static void func_fe6_0801C510(ProcPtr proc)
 static int DiscardItem_StartItemSelect(ProcPtr proc)
 {
     ApplyIconPalettes(BGPAL_ICONS);
-    StartLockingMenu(&MenuInfo_085C74E0, proc);
+    StartLockingMenu(&MenuInfo_DiscardItem, proc);
 
     return FALSE;
 }
@@ -807,12 +809,12 @@ void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
     }
 }
 
-int func_fe6_0801C620(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 DiscardItemMenu_InventoryEntry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    return func_fe6_0801F708(menu, ent);
+    return UnitItemMenu_Entry_Display(menu, ent);
 }
 
-int func_fe6_0801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 DiscardItemMenu_ExtraEntry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item = gBmSt.inventory_item_overflow;
 
@@ -822,7 +824,7 @@ int func_fe6_0801C62C(struct MenuProc* menu, struct MenuEntProc* ent)
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-int func_fe6_0801C670(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 DiscardItemMenu_InventoryEntry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     AddSupplyItem(gActiveUnit->items[ent->id]);
 
@@ -832,7 +834,7 @@ int func_fe6_0801C670(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
-int func_fe6_0801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 DiscardItemMenu_ExtraEntry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     AddSupplyItem(gBmSt.inventory_item_overflow);
 
@@ -1431,9 +1433,9 @@ static void PhaseIntro_WaitForEnd(ProcPtr proc)
     }
 }
 
-void func_fe6_0801D680(int x, int y)
+void MakeActiveMuWatchPosition(int x, int y)
 {
-    int cmd = MOVE_CMD_FACE_BASE + func_fe6_080629FC(gActiveUnit->x, gActiveUnit->y, x, y);
+    int cmd = MOVE_CMD_FACE_BASE + GetFacingFromTo(gActiveUnit->x, gActiveUnit->y, x, y);
 
     gWorkingMoveScr[0] = cmd;
     gWorkingMoveScr[1] = MOVE_CMD_HALT;

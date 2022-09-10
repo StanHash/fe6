@@ -16,6 +16,7 @@
 
 #include "constants/items.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 static void ApplyStatusChange(ProcPtr proc);
 
@@ -449,39 +450,39 @@ void DoItemStatBoostAction(ProcPtr proc)
     {
 
     case IID_SECRETBOOK:
-        msg = 0xC12; // TODO: msg ids
+        msg = MSG_C12;
         break;
 
     case IID_GODDESSICON:
-        msg = 0xC14; // TODO: msg ids
+        msg = MSG_C14;
         break;
 
     case IID_SERAPHROBE:
-        msg = 0xC19; // TODO: msg ids
+        msg = MSG_C19;
         break;
 
     case IID_DRACOSHIELD:
-        msg = 0xC15; // TODO: msg ids
+        msg = MSG_C15;
         break;
 
     case IID_SPEEDWING:
-        msg = 0xC13; // TODO: msg ids
+        msg = MSG_C13;
         break;
 
     case IID_TALISMAN:
-        msg = 0xC16; // TODO: msg ids
+        msg = MSG_C16;
         break;
 
     case IID_BOOTS:
-        msg = 0xC17; // TODO: msg ids
+        msg = MSG_C17;
         break;
 
     case IID_BODYRING:
-        msg = 0xC18; // TODO: msg ids
+        msg = MSG_C18;
         break;
 
     case IID_ENERGYRING:
-        msg = UnitKnowsMagic(unit) ? 0xC11 : 0xC10; // TODO: msg ids
+        msg = UnitKnowsMagic(unit) ? MSG_C11 : MSG_C10;
         break;
 
     }

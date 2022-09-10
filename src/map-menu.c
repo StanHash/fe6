@@ -1,5 +1,4 @@
-
-#include "common.h"
+#include "map-menu.h"
 
 #include "armfunc.h"
 #include "hardware.h"
@@ -25,6 +24,7 @@
 #include "unit-panel.h"
 #include "subtitle-help.h"
 #include "battle-preview.h"
+#include "menu-info.h"
 #include "ui.h"
 #include "menu.h"
 
@@ -33,19 +33,20 @@
 #include "constants/pids.h"
 #include "constants/items.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 #include "event-script.h"
 
-static void func_fe6_0801EAF8(ProcPtr proc);
+static void CheckTutorialInterruptPromptResult(ProcPtr proc);
 
-EventScr CONST_DATA EventScr_085C5DE8[] =
+EventScr CONST_DATA EventScr_TutorialInterruptQuitConfirm[] =
 {
     EvtNoSkipNoTextSkip
 
-    EvtTalk(0x30A) // TODO: msgids
-    EvtFunc(func_fe6_0801EAF8)
+    EvtTalk(MSG_30A)
+    EvtFunc(CheckTutorialInterruptPromptResult)
 
-    EvtTalkMore(0x30B) // TODO: msgids
+    EvtTalkMore(MSG_30B)
 
     EvtNextChapter(0)
     EvtSleep(1)
@@ -93,14 +94,14 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C5E58[] =
     PROC_END,
 };
 
-u8 func_fe6_0801EA40(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801EA40(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     SpawnProc(ProcScr_Unk_0868B010, PROC_TREE_3);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801EA54(struct MenuEntInfo const* info, int id)
+fu8 MapMenu_Suspend_Available(struct MenuEntInfo const * info, int id)
 {
     if (gPlaySt.flags & PLAY_FLAG_3)
         return MENU_ENTRY_DISABLED;
@@ -108,7 +109,7 @@ int func_fe6_0801EA54(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801EA6C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MapMenu_Suspend_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
@@ -121,13 +122,13 @@ u8 func_fe6_0801EA6C(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EA90(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MapMenu_End_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     Proc_EndEach(ProcScr_PlayerPhase);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EAA4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MapMenu_Unit_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     Proc_Goto(Proc_Find(ProcScr_PlayerPhase), L_PLAYERPHASE_10);
     func_fe6_08076238();
@@ -135,48 +136,48 @@ u8 func_fe6_0801EAA4(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EAC0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MapMenu_Options_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     SpawnProc(ProcScr_Unk_0868AE04, PROC_TREE_3);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EAD4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MapMenu_Status_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_080741C8(NULL);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EAE4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801EAE4(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_08089234(PROC_TREE_3);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EAF4(struct MenuProc* menu, struct MenuEntProc* ent)
+u8 TutorialInterruptMenu_Continue_Select(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-static void func_fe6_0801EAF8(ProcPtr proc)
+static void CheckTutorialInterruptPromptResult(ProcPtr proc)
 {
     if (GetTalkChoiceResult() != 1)
         EventGotoLabel(proc, 99);
 }
 
-u8 func_fe6_0801EB14(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 TutorialInterruptMenu_Quit_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    StartEvent(EventScr_085C5DE8);
+    StartEvent(EventScr_TutorialInterruptQuitConfirm);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EB28(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Wait_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gAction.id = ACTION_WAIT;
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 MapSelectActionReturnToUnitActionMenuWithCamera(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     EndMapSelect(proc);
 
@@ -214,7 +215,7 @@ static void BackToUnitMenu_RestartMenu(ProcPtr proc)
     StartCenteredMenu(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 }
 
-u8 func_fe6_0801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 MapSelectActionReturnToUnitActionMenu(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     EndMapSelect(proc);
 
@@ -230,7 +231,7 @@ u8 func_fe6_0801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MenuActionReturnToUnitActionMenu(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
@@ -244,12 +245,12 @@ u8 func_fe6_0801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
-int func_fe6_0801EC90(void)
+fu8 RescueMapSelect_Help(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     return 0;
 }
 
-int func_fe6_0801EC94(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Rescue_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -265,15 +266,15 @@ int func_fe6_0801EC94(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801ECCC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Rescue_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ListRescueTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C786C);
+    StartMapSelect(&MapSelectInfo_Rescue);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-u8 func_fe6_0801ECEC(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.target = target->uid;
     gAction.id = ACTION_RESCUE;
@@ -281,7 +282,7 @@ u8 func_fe6_0801ECEC(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801ED00(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Drop_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -297,15 +298,15 @@ int func_fe6_0801ED00(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801ED38(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Drop_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ListRescueDropTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C784C);
+    StartMapSelect(&MapSelectInfo_DropRescue);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801ED58(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 DropRescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_DROP;
 
@@ -316,7 +317,7 @@ u8 func_fe6_0801ED58(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801ED7C(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Take_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -335,15 +336,15 @@ int func_fe6_0801ED7C(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801EDC4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Take_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ListRescueTakeTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C782C);
+    StartMapSelect(&MapSelectInfo_TakeRescue);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-int func_fe6_0801EDE4(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Give_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -362,23 +363,23 @@ int func_fe6_0801EDE4(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801EE2C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Give_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ListRescueGiveTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C780C);
+    StartMapSelect(&MapSelectInfo_GiveRescue);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-void func_fe6_0801EE4C(struct Unit* from, struct Unit* to)
+void func_fe6_0801EE4C(struct Unit * from, struct Unit * to)
 {
-    struct Unit* rescue = GetUnit(from->rescue);
+    struct Unit * rescue = GetUnit(from->rescue);
 
     EndSubtitleHelp();
     StartRescueTransferAnimParentless(rescue, func_fe6_0801C160(to->x, to->y, from->x, from->y));
 }
 
-u8 func_fe6_0801EE80(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TakeRescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_TAKE;
     gAction.target = target->uid;
@@ -391,7 +392,7 @@ u8 func_fe6_0801EE80(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801EED0(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 GiveRescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_GIVE;
     gAction.target = target->uid;
@@ -404,7 +405,7 @@ u8 func_fe6_0801EED0(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801EF20(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Attack_Available(struct MenuEntInfo const * info, int id)
 {
     int i, item;
 
@@ -450,11 +451,11 @@ int func_fe6_0801EF20(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_0801F004(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Attack_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC3B); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C3B);
         return MENU_ACTION_SE_6B;
     }
 
@@ -464,24 +465,24 @@ u8 func_fe6_0801F004(struct MenuProc* menu, struct MenuEntProc* ent)
     if (gBmSt.unk_30 == TRUE && gBmSt.unk_31 == TRUE)
     {
         StartSubtitleHelp(
-            StartAdjustedMenu(&MenuInfo_085C7504, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 20),
-            DecodeMsg(0xC27)); // TODO: msg ids
+            StartAdjustedMenu(&MenuInfo_UnitAttackMethodPrompt, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 20),
+            DecodeMsg(MSG_C27));
 
         return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
     }
 
     if (gBmSt.unk_30)
-        return func_fe6_0801F0F0(menu, ent);
+        return UnitActionMenu_AttackRegular_Select(menu, ent);
 
     if (gBmSt.unk_31)
-        return func_fe6_0801F0AC(menu, ent);
+        return UnitActionMenu_AttackBallista_Select(menu, ent);
 
     return 0;
 }
 
-u8 func_fe6_0801F0AC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_AttackBallista_Select(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    ProcPtr proc = StartMenu(&MenuInfo_085C75B8);
+    ProcPtr proc = StartMenu(&MenuInfo_UnitAttackBallista);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -489,9 +490,9 @@ u8 func_fe6_0801F0AC(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801F0F0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_AttackRegular_Select(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    ProcPtr proc = StartMenu(&MenuInfo_085C75DC);
+    ProcPtr proc = StartMenu(&MenuInfo_UnitAttackItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -501,7 +502,7 @@ u8 func_fe6_0801F0F0(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 func_fe6_0801F138(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Attack_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int reach;
 
@@ -524,13 +525,13 @@ u8 func_fe6_0801F138(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-u8 func_fe6_0801F1D0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Attack_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     EndLimitView();
     return 0;
 }
 
-int func_fe6_0801F1DC(struct MenuEntInfo const* info, int id)
+fu8 UnitAttackItemMenu_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[id];
 
@@ -548,7 +549,7 @@ int func_fe6_0801F1DC(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801F228(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitAttackItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     UnitEquipItemSlot(gActiveUnit, ent->id);
     gAction.item_slot = ITEMSLOT_INV0;
@@ -556,14 +557,14 @@ u8 func_fe6_0801F228(struct MenuProc* menu, struct MenuEntProc* ent)
     ClearUi();
 
     ListAttackTargetsForWeapon(gActiveUnit, gActiveUnit->items[0]);
-    StartMapSelect(&MapSelectInfo_085C77EC);
+    StartMapSelect(&MapSelectInfo_Attack);
 
     func_fe6_0806B4C8();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_ENDFACE;
 }
 
-u8 func_fe6_0801F26C(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 UnitAttackItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item = gActiveUnit->items[ent->id];
     bool is_usable = CanUnitUseWeapon(gActiveUnit, item);
@@ -573,7 +574,7 @@ u8 func_fe6_0801F26C(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-u8 func_fe6_0801F2BC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitAttackItemMenu_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int reach;
 
@@ -590,7 +591,7 @@ u8 func_fe6_0801F2BC(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-u8 func_fe6_0801F310(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitAttackItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (!(menu->flags & MENU_FLAG_ENDING))
         EndLimitView();
@@ -598,7 +599,7 @@ u8 func_fe6_0801F310(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-u8 func_fe6_0801F328(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 AttackMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_COMBAT;
     gAction.target = target->uid;
@@ -622,21 +623,21 @@ static void func_fe6_0801F35C(ProcPtr proc)
 
 static void func_fe6_0801F378(ProcPtr proc)
 {
-    func_fe6_0801F004(NULL, NULL);
+    UnitActionMenu_Attack_Select(NULL, NULL);
 }
 
-u8 func_fe6_0801F388(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 AttackMapSelect_Cancel(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     SpawnProc(ProcScr_Unk_085C5E58, PROC_TREE_3);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
-u8 func_fe6_0801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 AttackMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     struct Unit* unit = GetUnit(target->uid);
 
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
 
     if (target->uid == 0)
     {
@@ -657,7 +658,7 @@ u8 func_fe6_0801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
     return 0;
 }
 
-u8 func_fe6_0801F420(struct MapSelectProc* proc)
+u32 AttackMapSelect_End(struct MapSelectProc * proc)
 {
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
@@ -668,7 +669,7 @@ u8 func_fe6_0801F420(struct MapSelectProc* proc)
     return 0;
 }
 
-int func_fe6_0801F444(struct MenuEntInfo const* info, int id)
+fu8 AnyMenu_Trade_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -684,17 +685,17 @@ int func_fe6_0801F444(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801F484(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Trade_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ClearUi();
 
     ListTradeTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C77CC);
+    StartMapSelect(&MapSelectInfo_Trade);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-u8 func_fe6_0801F4A8(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TradeMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_TRADED_NOCHANGES;
     StartTradeMenu(gActiveUnit, GetUnit(target->uid), 0);
@@ -702,7 +703,7 @@ u8 func_fe6_0801F4A8(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801F4D8(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Seize_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -714,13 +715,13 @@ int func_fe6_0801F4D8(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_0801F524(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Seize_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gAction.id = ACTION_0F;
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801F534(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Visit_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -737,11 +738,11 @@ int func_fe6_0801F534(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801F5A0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Visit_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC30); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C30);
         return MENU_ACTION_SE_6B;
     }
 
@@ -749,7 +750,7 @@ u8 func_fe6_0801F5A0(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801F5C8(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Play_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -765,7 +766,7 @@ int func_fe6_0801F5C8(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-int func_fe6_0801F608(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Dance_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -781,18 +782,18 @@ int func_fe6_0801F608(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801F648(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Refresh_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
         return MENU_ACTION_SE_6B;
 
     ListRefreshTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C76EC);
+    StartMapSelect(&MapSelectInfo_Refresh);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-u8 func_fe6_0801F674(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RefreshMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_REFRESH;
     gAction.target = target->uid;
@@ -800,7 +801,7 @@ u8 func_fe6_0801F674(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801F688(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Item_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -811,7 +812,7 @@ int func_fe6_0801F688(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Item_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ProcPtr proc;
 
@@ -831,14 +832,14 @@ u8 func_fe6_0801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801F708(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 UnitItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item = gActiveUnit->items[ent->id];
     bool is_usable;
 
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
     {
-        func_fe6_0801F26C(menu, ent);
+        UnitAttackItemMenu_Entry_Display(menu, ent);
         return 0;
     }
 
@@ -848,7 +849,7 @@ int func_fe6_0801F708(struct MenuProc* menu, struct MenuEntProc* ent)
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-int func_fe6_0801F780(struct MenuEntInfo const* info, int id)
+fu8 UnitItemMenu_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[id];
 
@@ -856,13 +857,13 @@ int func_fe6_0801F780(struct MenuEntInfo const* info, int id)
         return MENU_ENTRY_HIDDEN;
 
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
-        func_fe6_0801F1DC(info, id); // BUG?
+        UnitAttackItemMenu_Entry_Available(info, id); // BUG?
 
     return CanUnitUseItem(gActiveUnit, item)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_DISABLED;
 }
 
-u8 func_fe6_0801F7D0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     struct MenuRect rect;
 
@@ -879,12 +880,12 @@ u8 func_fe6_0801F7D0(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_SE_6A;
 }
 
-int func_fe6_0801F840(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 SingleItemMenu_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     UpdateEquipInfoWindow(ent->id);
 }
 
-int func_fe6_0801F850(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 SingleItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
 }
 
@@ -896,12 +897,12 @@ void func_fe6_0801F854(int x, int y)
     TmCopyRect_t(gBg1Tm + TM_OFFSET(11, 1), gUnk_Tm_02003738, 9, 19);
 }
 
-void func_fe6_0801F898(struct MenuProc* menu)
+void UnitItemActionMenu_End(struct MenuProc * menu)
 {
     SetTextFont(NULL);
 }
 
-u8 func_fe6_0801F8A4(struct MenuProc* menu)
+fu8 MenuActionReturnToUnitItemMenu(struct MenuProc * menu)
 {
     SetTextFont(NULL);
 
@@ -913,7 +914,7 @@ u8 func_fe6_0801F8A4(struct MenuProc* menu)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
-u8 func_fe6_0801F8E0(struct MenuProc* menu)
+fu8 func_fe6_0801F8E0(struct MenuProc * menu)
 {
     SetTextFont(NULL);
     ResetTextFont();
@@ -923,12 +924,12 @@ u8 func_fe6_0801F8E0(struct MenuProc* menu)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
-u8 func_fe6_0801F8F8(struct MenuProc* menu)
+fu8 func_fe6_0801F8F8(struct MenuProc * menu)
 {
     ProcPtr proc;
 
     func_fe6_0801F8E0(menu);
-    func_fe6_0801F8A4(menu);
+    MenuActionReturnToUnitItemMenu(menu);
 
     proc = StartMenu(&MenuInfo_UnitItem);
 
@@ -938,7 +939,7 @@ u8 func_fe6_0801F8F8(struct MenuProc* menu)
     return MENU_ACTION_NOCURSOR;
 }
 
-u8 func_fe6_0801F948(struct MenuProc* menu)
+fu8 func_fe6_0801F948(struct MenuProc * menu)
 {
     ProcPtr proc;
 
@@ -970,7 +971,7 @@ u8 func_fe6_0801F948(struct MenuProc* menu)
     return MENU_ACTION_NOCURSOR;
 }
 
-int func_fe6_0801FA14(struct MenuEntInfo const* info, int id)
+fu8 UnitItemActionMenu_Use_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[gAction.item_slot];
 
@@ -987,7 +988,7 @@ int func_fe6_0801FA14(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_DISABLED;
 }
 
-int func_fe6_0801FA84(struct MenuEntInfo const* info, int id)
+fu8 UnitItemActionMenu_Equip_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[gAction.item_slot];
 
@@ -998,7 +999,7 @@ int func_fe6_0801FA84(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_DISABLED;
 }
 
-int func_fe6_0801FACC(struct MenuEntInfo const* info, int id)
+fu8 UnitItemActionMenu_Discard_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[gAction.item_slot];
 
@@ -1008,7 +1009,7 @@ int func_fe6_0801FACC(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801FB00(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemActionMenu_Use_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
@@ -1022,11 +1023,11 @@ u8 func_fe6_0801FB00(struct MenuProc* menu, struct MenuEntProc* ent)
     return func_fe6_0801F8E0(menu);
 }
 
-u8 func_fe6_0801FB68(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemActionMenu_Equip_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC31); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C31);
         return MENU_ACTION_SE_6B;
     }
 
@@ -1035,25 +1036,25 @@ u8 func_fe6_0801FB68(struct MenuProc* menu, struct MenuEntProc* ent)
     return func_fe6_0801F8F8(menu);
 }
 
-u8 func_fe6_0801FBA8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemActionMenu_Trade_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gBmSt.unk_3F = gAction.item_slot;
 
     func_fe6_0801F8E0(menu);
     EndFaceById(0);
 
-    func_fe6_0801F484(menu, ent);
+    UnitActionMenu_Trade_Select(menu, ent);
 
     return MENU_ACTION_NOCURSOR;
 }
 
-u8 func_fe6_0801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemActionMenu_Discard_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     struct MenuRect rect;
 
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC33); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C33);
         return MENU_ACTION_SE_6B;
     }
 
@@ -1067,7 +1068,7 @@ u8 func_fe6_0801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_SE_6A | MENU_ACTION_DOOM;
 }
 
-u8 func_fe6_0801FC50(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitItemDiscardPromptMenu_Yes_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     UnitRemoveItem(gActiveUnit, gAction.item_slot);
 
@@ -1075,7 +1076,7 @@ u8 func_fe6_0801FC50(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR;
 }
 
-int func_fe6_0801FC78(struct MenuEntInfo const* info, int id)
+fu8 UnitAttackBallista_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1086,7 +1087,7 @@ int func_fe6_0801FC78(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_DISABLED;
 }
 
-int func_fe6_0801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 UnitAttackBallista_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     bool is_usable = (ent->availability == MENU_ENTRY_ENABLED) ? TRUE : FALSE;
     int item = GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y);
@@ -1094,19 +1095,19 @@ int func_fe6_0801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_08016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
-u8 func_fe6_0801FD04(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitAttackBallista_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ClearUi();
 
     gAction.item_slot = ITEMSLOT_BALLISTA;
 
     func_fe6_08021278(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C77EC);
+    StartMapSelect(&MapSelectInfo_Attack);
 
     return MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_ENDFACE;
 }
 
-int func_fe6_0801FD30(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitAttackBallista_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item;
 
@@ -1124,7 +1125,7 @@ int func_fe6_0801FD30(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-int func_fe6_0801FDB8(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Staff_Available(struct MenuEntInfo const * info, int id)
 {
     int i, item;
 
@@ -1145,20 +1146,20 @@ int func_fe6_0801FDB8(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_0801FE30(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Staff_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ProcPtr proc;
 
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC34); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C34);
         return MENU_ACTION_SE_6B;
     }
 
     ClearIcons();
     ApplyIconPalettes(BGPAL_ICONS);
 
-    proc = StartMenu(&MenuInfo_085C7570);
+    proc = StartMenu(&MenuInfo_UnitStaffItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
@@ -1166,7 +1167,7 @@ u8 func_fe6_0801FE30(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801FE94(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Staff_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int reach = GetUnitItemUseReach(gActiveUnit, -1);
 
@@ -1179,13 +1180,13 @@ int func_fe6_0801FE94(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-int func_fe6_0801FEDC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Staff_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     EndLimitView();
     return 0;
 }
 
-int func_fe6_0801FEE8(struct MenuEntInfo const* info, int id)
+fu8 UnitStaffItemMenu_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     int item = gActiveUnit->items[id];
 
@@ -1198,7 +1199,7 @@ int func_fe6_0801FEE8(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0801FF20(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitStaffItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     UnitEquipItemSlot(gActiveUnit, ent->id);
     gAction.item_slot = ITEMSLOT_INV0;
@@ -1210,12 +1211,12 @@ u8 func_fe6_0801FF20(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-int func_fe6_0801FF60(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 UnitStaffItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    return func_fe6_0801F708(menu, ent);
+    return UnitItemMenu_Entry_Display(menu, ent);
 }
 
-int func_fe6_0801FF6C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitStaffItemMenu_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int reach = GetUnitItemUseReach(gActiveUnit, ent->id);
 
@@ -1230,7 +1231,7 @@ int func_fe6_0801FF6C(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-int func_fe6_0801FFC0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitStaffItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (!(menu->flags & MENU_FLAG_ENDING))
         EndLimitView();
@@ -1238,7 +1239,7 @@ int func_fe6_0801FFC0(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-int func_fe6_0801FFD8(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Talk_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1254,21 +1255,21 @@ int func_fe6_0801FFD8(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0802001C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Talk_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC35); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C35);
         return MENU_ACTION_SE_6B;
     }
 
     ListTalkTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C778C);
+    StartMapSelect(&MapSelectInfo_Talk);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-u8 func_fe6_08020050(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TalkMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_TALK;
     gAction.target = target->uid;
@@ -1276,7 +1277,7 @@ u8 func_fe6_08020050(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020064(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Support_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1297,21 +1298,21 @@ int func_fe6_08020064(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_080200B4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Support_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC35); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C35);
         return MENU_ACTION_SE_6B;
     }
 
     ListSupportTargets(gActiveUnit);
-    StartMapSelect(&MapSelectInfo_085C776C);
+    StartMapSelect(&MapSelectInfo_Support);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-u8 func_fe6_080200E8(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 SupportMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.id = ACTION_SUPPORT;
     gAction.target = target->uid;
@@ -1319,7 +1320,7 @@ u8 func_fe6_080200E8(struct MapSelectProc* proc, struct SelectTarget* target)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_080200FC(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Door_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1333,7 +1334,7 @@ int func_fe6_080200FC(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_HIDDEN : MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_0802013C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Door_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gAction.id = ACTION_DOOR;
     gAction.instigator = gActiveUnit->id;
@@ -1342,7 +1343,7 @@ u8 func_fe6_0802013C(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020164(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Chest_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1354,7 +1355,7 @@ int func_fe6_08020164(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_080201A0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Chest_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gAction.id = ACTION_CHEST;
     gAction.item_slot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST);
@@ -1362,7 +1363,7 @@ u8 func_fe6_080201A0(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_080201C4(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Supply_Available(struct MenuEntInfo const * info, int id)
 {
     struct Unit* merlinus;
 
@@ -1392,7 +1393,7 @@ int func_fe6_080201C4(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_08020268(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Supply_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     gAction.id = ACTION_TRADED_NOCHANGES;
 
@@ -1401,7 +1402,7 @@ u8 func_fe6_08020268(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020288(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Armory_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1410,13 +1411,13 @@ int func_fe6_08020288(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_080202C4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Armory_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_080202E4(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Vendor_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1425,13 +1426,13 @@ int func_fe6_080202E4(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_08020320(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Vendor_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020340(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Secret_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1440,13 +1441,13 @@ int func_fe6_08020340(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
-u8 func_fe6_0802037C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Secret_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0802039C(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Arena_Available(struct MenuEntInfo const * info, int id)
 {
     if (gActiveUnit->state & US_HAS_MOVED)
         return MENU_ENTRY_HIDDEN;
@@ -1458,14 +1459,14 @@ int func_fe6_0802039C(struct MenuEntInfo const* info, int id)
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_DISABLED;
 }
 
-u8 func_fe6_080203EC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Arena_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
         if (gActiveUnit->status == UNIT_STATUS_SILENCED)
-            MenuFrozenHelpBox(menu, 0xC36); // TODO: msg ids
+            MenuFrozenHelpBox(menu, MSG_C36);
         else
-            MenuFrozenHelpBox(menu, 0xC37); // TODO: msg ids
+            MenuFrozenHelpBox(menu, MSG_C37);
 
         return MENU_ACTION_SE_6B;
     }
@@ -1474,7 +1475,7 @@ u8 func_fe6_080203EC(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020438(struct MenuEntInfo const* info, int id)
+fu8 UnitActionMenu_Steal_Available(struct MenuEntInfo const * info, int id)
 {
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL))
         return MENU_ENTRY_HIDDEN;
@@ -1493,11 +1494,11 @@ int func_fe6_08020438(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-u8 func_fe6_08020488(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_Steal_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC44); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C44);
         return MENU_ACTION_SE_6B;
     }
 
@@ -1509,19 +1510,19 @@ u8 func_fe6_08020488(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-void func_fe6_080204C0(struct MapSelectProc* proc)
+void StealMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitInventoryPanel(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC20)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C20));
 }
 
-int func_fe6_080204E0(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 StealMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitStealInventoryPanel(GetUnit(target->uid));
 }
 
-int func_fe6_08020504(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 StealMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     int x;
 
@@ -1530,7 +1531,7 @@ int func_fe6_08020504(struct MapSelectProc* proc, struct SelectTarget* target)
     ClearIcons();
     ApplyIconPalettes(BGPAL_ICONS);
 
-    StartMenu(&MenuInfo_085C74BC);
+    StartMenu(&MenuInfo_StealItem);
 
     EndMapSelect(proc);
 
@@ -1546,7 +1547,7 @@ int func_fe6_08020504(struct MapSelectProc* proc, struct SelectTarget* target)
     return 0;
 }
 
-int func_fe6_080205A8(struct MenuEntInfo const* info, int id)
+fu8 StealItemMenu_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     if (GetUnit(gAction.target)->items[id] == 0)
         return MENU_ENTRY_HIDDEN;
@@ -1557,7 +1558,7 @@ int func_fe6_080205A8(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-int func_fe6_080205EC(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 StealItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item = GetUnit(gAction.target)->items[ent->id];
     bool is_usable = IsItemStealable(item);
@@ -1565,11 +1566,11 @@ int func_fe6_080205EC(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_08016694(&ent->text, item, is_usable, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
-u8 func_fe6_08020640(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 StealItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC38); // TODO: msg ids
+        MenuFrozenHelpBox(menu, MSG_C38);
         return MENU_ACTION_SE_6B;
     }
 
@@ -1579,7 +1580,7 @@ u8 func_fe6_08020640(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_08020678(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MenuHelpBoxActiveUnitInventory(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->id >= ITEMSLOT_INV_COUNT)
     {
@@ -1590,13 +1591,13 @@ int func_fe6_08020678(struct MenuProc* menu, struct MenuEntProc* ent)
     StartItemHelpBox(ent->x*8, ent->y*8, gActiveUnit->items[ent->id]);
 }
 
-int func_fe6_080206D0(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MenuHelpBoxTargetUnitInventory(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    struct Unit* unit = GetUnit(gAction.target);
+    struct Unit * unit = GetUnit(gAction.target);
     StartItemHelpBox(ent->x*8, ent->y*8, unit->items[ent->id]);
 }
 
-int func_fe6_08020708(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 MenuHelpBoxActiveUnitBallista(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int iid = gMapTerrain[gActiveUnit->y][gActiveUnit->x];
 
@@ -1620,105 +1621,105 @@ int func_fe6_08020708(struct MenuProc* menu, struct MenuEntProc* ent)
     StartItemHelpBox(ent->x*8, ent->y*8, iid);
 }
 
-void func_fe6_08020764(struct MapSelectProc* proc)
+void HealMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitHpPanel(proc);
 }
 
-int func_fe6_08020770(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 HealMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
-void func_fe6_08020794(struct MapSelectProc* proc)
+void RescueMapSelect_Init(struct MapSelectProc * proc)
 {
     RefreshUnitTakeRescuePanels(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC1B)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C1B));
 }
 
-int func_fe6_080207B4(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RescueMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitRescuePanels(GetUnit(target->uid));
 }
 
-void func_fe6_080207D8(struct MapSelectProc* proc)
+void DropRescueMapSelect_Init(struct MapSelectProc * proc)
 {
-    StartSubtitleHelp(proc, DecodeMsg(0xC1C)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C1C));
 }
 
-int func_fe6_080207F4(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 func_fe6_080207F4(struct MapSelectProc * proc, struct SelectTarget * target)
 {
 }
 
-void func_fe6_080207F8(struct MapSelectProc* proc)
+void GiveRescueMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitGiveRescuePanels(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC1E)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C1E));
 }
 
-int func_fe6_08020818(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 GiveRescueMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitGivePanels(GetUnit(target->uid));
 }
 
-void func_fe6_0802083C(struct MapSelectProc* proc)
+void TakeRescueMapSelect_Init(struct MapSelectProc * proc)
 {
     RefreshUnitTakeRescuePanels(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC1D)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C1D));
 }
 
-int func_fe6_0802085C(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TakeRescueMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitTakePanels(GetUnit(target->uid));
 }
 
-void func_fe6_08020880(struct MapSelectProc* proc)
+void TradeMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitInventoryPanel(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC1F)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C1F));
 }
 
-int func_fe6_080208A0(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TradeMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitInventoryPanel(GetUnit(target->uid));
 }
 
-void func_fe6_080208C4(struct MapSelectProc* proc)
+void TalkMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitHpPanel(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC22)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C22));
 }
 
-int func_fe6_080208E4(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 TalkMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
-void func_fe6_08020908(struct MapSelectProc* proc)
+void RefreshMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitHpPanel(proc);
-    StartSubtitleHelp(proc, DecodeMsg(0xC23)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C23));
 }
 
-int func_fe6_08020928(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RefreshMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitHpPanel(GetUnit(target->uid));
 }
 
-void func_fe6_0802094C(struct MapSelectProc* proc)
+void WarpUnitMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitHpPanel(proc);
 }
 
-int func_fe6_08020958(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 WarpUnitMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitHpPanel(GetUnit(target->uid));
 }

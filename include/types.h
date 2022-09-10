@@ -65,3 +65,4 @@ struct MapSelectProc;
 
 struct MenuProc;
 struct MenuEntProc;
+struct MenuEntInfo;

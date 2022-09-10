@@ -600,7 +600,7 @@ void MA_SetActorFacing(int actor_id, int opponent_actor_id, int manim_facing)
     {
 
     case MANIM_FACING_OPPONENT:
-        mu_facing = func_fe6_080629FC(
+        mu_facing = GetFacingFromTo(
             gMapAnimSt.actor[actor_id].unit->x, gMapAnimSt.actor[actor_id].unit->y,
             gMapAnimSt.actor[opponent_actor_id].unit->x, gMapAnimSt.actor[opponent_actor_id].unit->y);
 
@@ -612,7 +612,7 @@ void MA_SetActorFacing(int actor_id, int opponent_actor_id, int manim_facing)
         break;
 
     case MANIM_FACING_UNKNOWN:
-        mu_facing = func_fe6_080629FC(
+        mu_facing = GetFacingFromTo(
             gMapAnimSt.actor[actor_id].unit->x, gMapAnimSt.actor[actor_id].unit->y, 0, 0);
 
         SetMuFacing(gMapAnimSt.actor[actor_id].mu, mu_facing);
@@ -824,7 +824,7 @@ void func_fe6_08062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct 
     SetBlendNone();
 }
 
-int func_fe6_080629FC(int x_from, int y_from, int x_to, int y_to)
+int GetFacingFromTo(int x_from, int y_from, int x_to, int y_to)
 {
     if (ABS(x_to - x_from) * 2 < ABS(y_to - y_from))
     {

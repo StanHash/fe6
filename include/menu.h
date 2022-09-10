@@ -54,14 +54,11 @@ struct MenuEntInfo
     /* 08 */ u8 text_color;
 
     /* 0C */ fu8 (* available)(struct MenuEntInfo const * info, int id);
-
-    /* 10 */ int (* on_draw)(struct MenuProc * menu, struct MenuEntProc * ent);
-
-    /* 14 */ fu8 (* on_select)(struct MenuProc *, struct MenuEntProc * ent);
-    /* 18 */ fu8 (* on_idle)(struct MenuProc *, struct MenuEntProc * ent);
-
-    /* 1C */ int (* on_switch_in)(struct MenuProc * menu, struct MenuEntProc * ent);
-    /* 20 */ int (* on_switch_out)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 10 */ u32 (* display)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 14 */ fu8 (* on_select)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 18 */ fu8 (* on_idle)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 1C */ fu8 (* on_switch_in)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 20 */ fu8 (* on_switch_out)(struct MenuProc * menu, struct MenuEntProc * ent);
 };
 
 struct MenuInfo
@@ -70,12 +67,12 @@ struct MenuInfo
     /* 04 */ u8 window_kind;
     /* 08 */ struct MenuEntInfo const * entries;
 
-    /* 0C */ void (* on_init)(struct MenuProc * menu);
-    /* 10 */ void (* on_end)(struct MenuProc * menu);
+    /* 0C */ fu8 (* on_init)(struct MenuProc * menu);
+    /* 10 */ fu8 (* on_end)(struct MenuProc * menu);
     /* 14 */ void (* unk_14)(struct MenuProc * menu);
-    /* 18 */ fu8 (* on_b_press)(struct MenuProc *, struct MenuEntProc * ent);
+    /* 18 */ fu8 (* on_b_press)(struct MenuProc * menu, struct MenuEntProc * ent);
     /* 1C */ fu8 (* on_r_press)(struct MenuProc * menu);
-    /* 20 */ void (* on_help_box)(struct MenuProc * menu, struct MenuEntProc * ent);
+    /* 20 */ fu8 (* on_help_box)(struct MenuProc * menu, struct MenuEntProc * ent);
 };
 
 struct MenuProc
@@ -111,8 +108,8 @@ void EndMenus(void);
 fu8 MenuEntryEnabled(struct MenuEntInfo const * info, int id);
 fu8 MenuEntryDisabled(struct MenuEntInfo const * info, int id);
 fu8 MenuActionClose(struct MenuProc * proc, struct MenuEntProc * ent);
-fu8 func_fe6_08041E78(struct MenuProc * proc, struct MenuEntProc * ent);
-fu8 MenuHelpBox(struct MenuProc * proc);
+fu8 MenuHelpBoxRegular(struct MenuProc * proc, struct MenuEntProc * ent);
+fu8 MenuActionHelpBox(struct MenuProc * proc);
 fu8 MenuFrozenHelpBox(struct MenuProc * proc, int msg);
 void FreezeMenu(void);
 void ResumeMenu(void);

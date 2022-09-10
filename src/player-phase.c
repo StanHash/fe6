@@ -18,6 +18,7 @@
 #include "action.h"
 #include "movepath.h"
 #include "prep-phase.h"
+#include "menu-info.h"
 #include "mu.h"
 
 #include "constants/video-global.h"

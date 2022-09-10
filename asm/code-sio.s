@@ -19709,7 +19709,7 @@ func_fe6_0803EECC: @ 0x0803EECC
 	ldrsb r2, [r5, r2]
 	movs r3, #0xf
 	ldrsb r3, [r5, r3]
-	bl func_fe6_080629FC
+	bl GetFacingFromTo
 	ldr r1, .L0803EF48 @ =gWorkingMoveScr
 	strb r0, [r1]
 	movs r0, #4

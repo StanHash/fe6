@@ -42,8 +42,8 @@ struct MapSelectInfo
     /* 00 */ void (* on_init)(struct MapSelectProc * proc);
     /* 04 */ void (* on_end)(struct MapSelectProc * proc);
     /* 08 */ void (* on_init_b)(struct MapSelectProc * proc);
-    /* 0C */ void (* on_switch_in)(struct MapSelectProc * proc, struct SelectTarget * target);
-    /* 10 */ void (* on_switch_out)(struct MapSelectProc * proc, struct SelectTarget * target);
+    /* 0C */ fu8 (* on_switch_in)(struct MapSelectProc * proc, struct SelectTarget * target);
+    /* 10 */ fu8 (* on_switch_out)(struct MapSelectProc * proc, struct SelectTarget * target);
     /* 14 */ fu8 (* on_a_press)(struct MapSelectProc * proc, struct SelectTarget * target);
     /* 18 */ fu8 (* on_b_press)(struct MapSelectProc * proc, struct SelectTarget * target);
     /* 1C */ fu8 (* on_r_press)(struct MapSelectProc * proc, struct SelectTarget * target);

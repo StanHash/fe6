@@ -5,7 +5,7 @@
 #include "proc.h"
 #include "menu.h"
 
-u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent);
+fu8 PrepMapMenuConfirm(struct MenuProc * menu, struct MenuEntProc * ent);
 void func_fe6_0802B784(void);
 void func_fe6_0802B7E4(void);
 

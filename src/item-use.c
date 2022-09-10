@@ -19,11 +19,13 @@
 #include "map-select.h"
 #include "unit-panel.h"
 #include "subtitle-help.h"
+#include "menu-info.h"
 #include "ui.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 // TODO: map-menu.h
 extern struct ProcScr CONST_DATA ProcScr_BackToUnitMenu[];
@@ -195,20 +197,20 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
     case IID_PUREWATER:
     case IID_TORCH:
     case IID_ANTITOXIN:
-        return 0xC3C; // TODO: msg ids
+        return MSG_C3C;
 
     case IID_CHESTKEY:
-        return 0xC40; // TODO: msg ids
+        return MSG_C40;
 
     case IID_DOORKEY:
     case IID_BRIDGEKEY:
-        return 0xC3F; // TODO: msg ids
+        return MSG_C3F;
 
     case IID_LOCKPICK:
         if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL)
-            return 0xC43; // TODO: msg ids
+            return MSG_C43;
 
-        return 0xC41; // TODO: msg ids
+        return MSG_C41;
 
     case IID_HEROCREST:
     case IID_KNIGHTCREST:
@@ -225,13 +227,13 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
         gActiveUnit->level = level;
 
         if (boolval)
-            return 0xC3E; // TODO: msg ids
+            return MSG_C3E;
 
-        return 0xC3D; // TODO: msg ids
+        return MSG_C3D;
     }
 
     default:
-        return 0xC3D; // TODO: msg ids
+        return MSG_C3D;
 
     }
 }
@@ -494,7 +496,7 @@ static void SetItemUseAction(struct Unit* unit)
     gAction.id = ACTION_USEITEM;
 }
 
-fu8 StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 StaffMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.target = target->uid;
     SetStaffUseAction(NULL);
@@ -509,15 +511,15 @@ void DoUseRescueStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
     MapFill(gMapMovement, -1);
 
     StartSubtitleHelp(
-        StartMapSelectExt(&MapSelectInfo_085C772C, StaffSelectOnSelect),
-        DecodeMsg(0xC2A)); // TODO: msg ids
+        StartMapSelectExt(&MapSelectInfo_WarpUnit, StaffMapSelect_Select),
+        DecodeMsg(MSG_C2A));
 }
 
 static void WarpSelect_Init(struct GenericProc* proc)
 {
     struct SpriteAnim* anim;
 
-    StartSubtitleHelp(proc, DecodeMsg(0xC24)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C24));
 
     CameraMoveWatchPosition(proc,
         GetUnit(gAction.target)->x,
@@ -630,7 +632,7 @@ static void WarpSelect_End(struct GenericProc* proc)
     EndSpriteAnim(proc->ptr);
 }
 
-fu8 WarpOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 WarpMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     EndMapSelect(proc);
 
@@ -648,13 +650,13 @@ void DoUseWarpStaff(struct Unit* unit)
     MapFill(gMapMovement, -1);
 
     StartSubtitleHelp(
-        StartMapSelectExt(&MapSelectInfo_085C772C, WarpOnSelectTarget),
-        DecodeMsg(0xC29)); // TODO: msg ids
+        StartMapSelectExt(&MapSelectInfo_WarpUnit, WarpMapSelect_Select),
+        DecodeMsg(MSG_C29));
 
     PlaySe(SONG_6A);
 }
 
-fu8 UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 UnlockMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     gAction.x_target = target->x;
     gAction.y_target = target->y;
@@ -671,20 +673,20 @@ void DoUseUnlockStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
     MapFill(gMapMovement, -1);
 
     StartSubtitleHelp(
-        StartMapSelectExt(&MapSelectInfo_085C770C, UnlockOnSelectTarget),
-        DecodeMsg(0xC2E)); // TODO: msg ids
+        StartMapSelectExt(&MapSelectInfo_Unlock, UnlockMapSelect_Select),
+        DecodeMsg(MSG_C2E));
 
     PlaySe(SONG_6A);
 }
 
-int RepairSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RepairMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     ResetTextFont();
 
     gAction.target = target->uid;
 
     StartEquipInfoWindow(
-        StartMenu(&MenuInfo_085C7498),
+        StartMenu(&MenuInfo_RepairItem),
         GetUnit(gAction.target),
         16, 11);
 
@@ -701,32 +703,32 @@ void DoUseRepairStaff(struct Unit* unit)
 
     StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Repair),
-        DecodeMsg(0xC2C)); // TODO: msg ids
+        DecodeMsg(MSG_C2C));
 
     PlaySe(SONG_6A);
 }
 
-int RepairSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RepairMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitRepairInventoryPanel(GetUnit(target->uid));
 }
 
-void RepairSelectOnInit(struct MapSelectProc* proc)
+void RepairMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitInventoryPanel(proc);
 }
 
-int RepairMenuEntOnChange(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 RepairItemMenu_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     UpdateEquipInfoWindow(ent->id);
 }
 
-int RepairMenuEntOnChangeOut(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 RepairItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent)
 {
 }
 
-u8 RepairMenuItemIsAvailable(struct MenuEntInfo const* info, int id)
+fu8 RepairItemMenu_Entry_Available(struct MenuEntInfo const * info, int id)
 {
     int item = GetUnit(gAction.target)->items[id];
 
@@ -739,7 +741,7 @@ u8 RepairMenuItemIsAvailable(struct MenuEntInfo const* info, int id)
     return MENU_ENTRY_ENABLED;
 }
 
-int RepairMenuItemDraw(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 RepairItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int item = GetUnit(gAction.target)->items[ent->id];
     int isRepairable = IsItemRepairable(item);
@@ -750,18 +752,18 @@ int RepairMenuItemDraw(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 RepairItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
         int msg, item = GetUnit(gAction.target)->items[ent->id];
 
         if (GetItemAttributes(item) & (ITEM_ATTR_UNBREAKABLE | ITEM_ATTR_UNREPAIRABLE | ITEM_ATTR_LOCK_DRAGON))
-            msg = 0xC45; // TODO: msg ids
+            msg = MSG_C45;
         else if (!(GetItemAttributes(item) & (ITEM_ATTR_WEAPON | ITEM_ATTR_STAFF)))
-            msg = 0xC3A; // TODO: msg ids
+            msg = MSG_C3A;
         else if (GetItemUses(item) == GetItemMaxUses(item))
-            msg = 0xC39; // TODO: msg ids
+            msg = MSG_C39;
 
         if (msg != 0)
             MenuFrozenHelpBox(menu, msg);
@@ -783,7 +785,7 @@ void DoUseHealStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 
     StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Heal),
-        DecodeMsg(0xC28)); // TODO: msg ids
+        DecodeMsg(MSG_C28));
 }
 
 void DoUseRestoreStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -794,17 +796,17 @@ void DoUseRestoreStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit)
 
     StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Restore),
-        DecodeMsg(0xC2B)); // TODO: msg ids
+        DecodeMsg(MSG_C2B));
 }
 
-int BarrierSelectOnInit(struct MapSelectProc* proc)
+int RestoreMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitHpStatusPanel(proc);
 }
 
-int BarrierSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 RestoreMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitHpStatusPanel(GetUnit(target->uid));
 }
 
@@ -816,17 +818,17 @@ void DoUseBarrierStaff(struct Unit* unit)
 
     StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_Barrier),
-        DecodeMsg(0xC2D)); // TODO: msg ids
+        DecodeMsg(MSG_C2D));
 }
 
-int AttackStaffSelectOnInit(struct MapSelectProc* proc)
+int BarrierMapSelect_Init(struct MapSelectProc * proc)
 {
     StartUnitResChangePanel(proc);
 }
 
-int AttackStaffSelectOnChange(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 BarrierMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
     RefreshUnitResChangePanel(GetUnit(target->uid));
 }
 
@@ -838,24 +840,24 @@ void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
 
     StartSubtitleHelp(
         StartMapSelect(&MapSelectInfo_AttackStaff),
-        DecodeMsg(0xC2F)); // TODO: msg ids
+        DecodeMsg(MSG_C2F));
 }
 
-int func_fe6_08024020(struct MapSelectProc* proc)
+int AttackStaffMapSelect_Init(struct MapSelectProc * proc, struct SelectTarget * target)
 {
     StartUnitStaffOffensePanel(proc);
 }
 
-int func_fe6_0802402C(struct MapSelectProc* proc, struct SelectTarget* target)
+fu8 AttackStaffMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    func_fe6_0801D680(target->x, target->y);
+    MakeActiveMuWatchPosition(target->x, target->y);
 
     RefreshUnitStaffOffensePanel(
         GetUnit(target->uid),
         GetOffensiveStaffAccuracy(gActiveUnit, GetUnit(target->uid)));
 }
 
-void func_fe6_0802406C(struct MapSelectProc* proc)
+void SubtitleMapSelect_End(struct MapSelectProc * proc)
 {
     EndSubtitleHelp();
     ClearUi();

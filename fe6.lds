@@ -445,7 +445,7 @@ SECTIONS
         . = ALIGN(4); src/support.o(.rodata);
         . = ALIGN(4); src/battle.o(.rodata);
         . = ALIGN(4); src/trademenu.o(.rodata);
-        . = ALIGN(4); data/menu-info.o(.rodata);
+        . = ALIGN(4); src/menu-info.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/chapter.o(.rodata);
         . = ALIGN(4); src/arena.o(.rodata);
@@ -498,7 +498,7 @@ SECTIONS
         . = ALIGN(4); src/trademenu.o(.data);
         . = ALIGN(4); src/trap.o(.data);
         . = ALIGN(4); src/item-action.o(.data);
-        . = ALIGN(4); data/menu-info.o(.data);
+        . = ALIGN(4); src/menu-info.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/chapter.o(.data);
         . = ALIGN(4); src/arena.o(.data);

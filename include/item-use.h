@@ -30,21 +30,21 @@ void DoUseRestoreStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit)
 void DoUseBarrierStaff(struct Unit* unit);
 void DoUseAttackStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit));
 
-// StaffSelectOnSelect
-// WarpOnSelectTarget
-// UnlockOnSelectTarget
-// func_fe6_08023CA4
-// RepairSelectOnChange
-// RepairSelectOnInit
-// RepairMenuEntOnChange
-// RepairMenuEntOnChangeOut
-// RepairMenuItemIsAvailable
-// RepairMenuItemDraw
-// RepairMenuItemSelect
-// BarrierSelectOnInit
-// BarrierSelectOnChange
-// AttackStaffSelectOnInit
-// AttackStaffSelectOnChange
-// func_fe6_08024020
-// func_fe6_0802402C
-// func_fe6_0802406C
+fu8 StaffMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target);
+fu8 WarpMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target);
+fu8 UnlockMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target);
+fu8 RepairMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target);
+fu8 RepairMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target);
+void RepairMapSelect_Init(struct MapSelectProc * proc);
+fu8 RepairItemMenu_Entry_SwitchIn(struct MenuProc * menu, struct MenuEntProc * ent);
+fu8 RepairItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * ent);
+fu8 RepairItemMenu_Entry_Available(struct MenuEntInfo const * info, int id);
+u32 RepairItemMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent);
+fu8 RepairItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc * ent);
+int RestoreMapSelect_Init(struct MapSelectProc * proc);
+fu8 RestoreMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target);
+int BarrierMapSelect_Init(struct MapSelectProc * proc);
+fu8 BarrierMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target);
+int AttackStaffMapSelect_Init(struct MapSelectProc * proc, struct SelectTarget * target);
+fu8 AttackStaffMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target);
+void SubtitleMapSelect_End(struct MapSelectProc * proc);

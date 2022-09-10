@@ -1,5 +1,4 @@
-
-#include "common.h"
+#include "debug-menu.h"
 
 #include "random.h"
 #include "hardware.h"
@@ -14,6 +13,7 @@
 #include "bmio.h"
 #include "chapter.h"
 #include "chapter-info.h"
+#include "menu-info.h"
 #include "ui.h"
 #include "menu.h"
 
@@ -36,47 +36,6 @@ enum
 
 // in main.c
 extern void PutBuildInfo(u16* tm);
-
-// func_fe6_0801A5AC
-// PutDebugTextFrame
-// func_fe6_0801A674
-// func_fe6_0801A698
-// func_fe6_0801A724
-// func_fe6_0801A748
-// func_fe6_0801A760
-// func_fe6_0801A7D4
-// func_fe6_0801A81C
-// func_fe6_0801A820
-// func_fe6_0801A89C
-// func_fe6_0801A940
-// func_fe6_0801A944
-// func_fe6_0801A9A8
-// func_fe6_0801AA70
-// func_fe6_0801AA74
-// func_fe6_0801AA8C
-// func_fe6_0801AABC
-// func_fe6_0801AAE0
-// func_fe6_0801AB64
-// func_fe6_0801ABE8
-// func_fe6_0801AC2C
-// func_fe6_0801ACD8
-// func_fe6_0801AD14
-// func_fe6_0801AD28
-// func_fe6_0801AD3C
-// func_fe6_0801AD4C
-// func_fe6_0801AD50
-// func_fe6_0801AD6C
-// func_fe6_0801AD84
-// func_fe6_0801ADB4
-// func_fe6_0801ADCC
-// func_fe6_0801ADEC
-// func_fe6_0801AE60
-// func_fe6_0801AEB8
-// func_fe6_0801AEBC
-// func_fe6_0801AEC8
-// func_fe6_0801AED8
-// func_fe6_0801AF78
-// func_fe6_0801B018
 
 static void DebugTextFrame_DoPut(struct GenericProc* proc);
 
@@ -120,9 +79,9 @@ static void DebugTextFrame_DoPut(struct GenericProc* proc)
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
 }
 
-void PutDebugTextFrame(int x, int y, int width, char const* str)
+void PutDebugTextFrame(int x, int y, int width, char const * str)
 {
-    struct GenericProc* proc = SpawnProc(ProcScr_DebugTextFrame, PROC_TREE_3);
+    struct GenericProc * proc = SpawnProc(ProcScr_DebugTextFrame, PROC_TREE_3);
 
     proc->x = x;
     proc->y = y;
@@ -130,18 +89,18 @@ void PutDebugTextFrame(int x, int y, int width, char const* str)
     proc->unk52 = width;
 }
 
-int func_fe6_0801A674(struct MenuProc* menu)
+fu8 func_fe6_0801A674(struct MenuProc * menu)
 {
     EndMenu(menu);
     ClearUi();
 
-    StartMenu(&MenuInfo_085C7474);
+    StartMenu(&MenuInfo_Debug_085C7474);
     DebugInitBg(2, 0);
 
     return MENU_ACTION_NOCURSOR;
 }
 
-int func_fe6_0801A698(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A698(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (gKeySt->repeated & KEY_DPAD_RIGHT)
         ent->id++;
@@ -164,7 +123,7 @@ int func_fe6_0801A698(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 }
 
-int func_fe6_0801A724(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A724(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     EndMapMain();
 
@@ -175,7 +134,7 @@ int func_fe6_0801A724(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801A748(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A748(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     EndMenu(menu);
 
@@ -185,7 +144,7 @@ int func_fe6_0801A748(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR;
 }
 
-int func_fe6_0801A760(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     char const* offon[] =
     {
@@ -203,7 +162,7 @@ int func_fe6_0801A760(struct MenuProc* menu, struct MenuEntProc* ent)
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
-int func_fe6_0801A7D4(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A7D4(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
@@ -216,12 +175,12 @@ int func_fe6_0801A7D4(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 }
 
-int func_fe6_0801A81C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A81C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     return 0;
 }
 
-int func_fe6_0801A820(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 func_fe6_0801A820(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     char const* weatherNames[] =
     {
@@ -244,7 +203,7 @@ int func_fe6_0801A820(struct MenuProc* menu, struct MenuEntProc* ent)
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
-int func_fe6_0801A89C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A89C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
@@ -288,12 +247,12 @@ int func_fe6_0801A89C(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 }
 
-int func_fe6_0801A940(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A940(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     return 0;
 }
 
-int func_fe6_0801A944(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 func_fe6_0801A944(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ClearText(&ent->text);
 
@@ -305,7 +264,7 @@ int func_fe6_0801A944(struct MenuProc* menu, struct MenuEntProc* ent)
 }
 
 
-int func_fe6_0801A9A8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     struct GlobalSaveInfo saveInfo;
     int clearCount, i;
@@ -357,20 +316,20 @@ int func_fe6_0801A9A8(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_0801A944(menu, ent);
 }
 
-int func_fe6_0801AA70(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AA70(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801AA74(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AA74(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ClearUi();
-    StartMenu(&MenuInfo_085C73E4);
+    StartMenu(&MenuInfo_Debug_085C73E4);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-int func_fe6_0801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     // required for a match
     u32 unused[4];
@@ -385,10 +344,10 @@ int func_fe6_0801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
     CleanupUnitsBeforeChapter();
     func_fe6_08085110(func_fe6_08084F94());
 
-    SoftReset(0xFF);
+    SoftReset(GBA_RESET_ALL);
 }
 
-int func_fe6_0801AABC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AABC(struct MenuProc * menu)
 {
     DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(1)->debug_name);
     EnableBgSync(BG0_SYNC_BIT);
@@ -406,13 +365,13 @@ void func_fe6_0801AAE0(void)
     if (!IsSramWorking())
         PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ＳＲＡＭが装着されていません"
 
-    func_fe6_0806EA24(StartMenu(&MenuInfo_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
+    func_fe6_0806EA24(StartMenu(&MenuInfo_Debug_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
 
     PutBuildInfo(gBg2Tm + TM_OFFSET(0, 1));
     DebugPutStr(gBg2Tm + TM_OFFSET(0, 2), "DB INTERRUPT AVAILABLE");
 }
 
-int func_fe6_0801AB64(struct MenuProc* menu)
+fu8 func_fe6_0801AB64(struct MenuProc * menu)
 {
     struct SaveBlockInfo blockInfo;
 
@@ -436,7 +395,7 @@ int func_fe6_0801AB64(struct MenuProc* menu)
     }
 }
 
-int func_fe6_0801ABE8(struct MenuProc* menu)
+fu8 func_fe6_0801ABE8(struct MenuProc * menu)
 {
     EndFaceById(0);
     EndFaceById(1);
@@ -447,7 +406,7 @@ int func_fe6_0801ABE8(struct MenuProc* menu)
     EnablePalSync();
 }
 
-int func_fe6_0801AC2C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AC2C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     int x = menu->rect.x + 2;
     int y = menu->rect.y + 8;
@@ -473,7 +432,7 @@ int func_fe6_0801AC2C(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 }
 
-int func_fe6_0801ACD8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     RandInit(GetGameTime());
 
@@ -490,33 +449,33 @@ int func_fe6_0801ACD8(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_END;
 }
 
-int func_fe6_0801AD14(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD14(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    StartMenu(&MenuInfo_085C7450);
+    StartMenu(&MenuInfo_Debug_085C7450);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801AD28(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD28(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    StartMenu(&MenuInfo_085C7408);
+    StartMenu(&MenuInfo_DebugCpControl);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801AD3C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD3C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_08089234(PROC_TREE_3);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801AD4C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD4C(struct MenuEntInfo const * info, int id)
 {
     return MENU_ACTION_NOCURSOR;
 }
 
-int func_fe6_0801AD50(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
@@ -526,12 +485,12 @@ int func_fe6_0801AD50(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-bool func_fe6_0801AD6C(void)
+fu8 func_fe6_0801AD6C(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND1) ? TRUE : FALSE;
+    return !func_fe6_080859E0(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
-int func_fe6_0801AD84(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
@@ -545,12 +504,12 @@ int func_fe6_0801AD84(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-bool func_fe6_0801ADB4(void)
+fu8 func_fe6_0801ADB4(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND0) ? TRUE : FALSE;
+    return !func_fe6_080859E0(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
-int func_fe6_0801ADCC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
@@ -561,7 +520,7 @@ int func_fe6_0801ADCC(struct MenuProc* menu, struct MenuEntProc* ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801ADEC(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 func_fe6_0801ADEC(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     char const* offon[] =
     {
@@ -577,7 +536,7 @@ int func_fe6_0801ADEC(struct MenuProc* menu, struct MenuEntProc* ent)
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 }
 
-int func_fe6_0801AE60(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AE60(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (IsMapFadeActive())
         return 0;
@@ -593,32 +552,32 @@ int func_fe6_0801AE60(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 }
 
-int func_fe6_0801AEB8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AEB8(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     return 0;
 }
 
-int func_fe6_0801AEBC(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AEBC(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     StartGame();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-int func_fe6_0801AEC8(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AEC8(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     func_fe6_0800285C(0x300);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-int func_fe6_0801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
+u32 DebugCpControlMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    char const* strings[] =
+    char const * strings[] =
     {
-        "\x82\x62\x82\x6F", // "ＣＰ"
-        "\x90\x6C\x8A\xD4", // "人間"
-        "\x95\x73\x8E\x51\x89\xC1", // "不参加"
+        JTEXT("ＣＰ"),
+        JTEXT("人間"),
+        JTEXT("不参加"),
     };
 
     int state;
@@ -630,7 +589,7 @@ int func_fe6_0801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, ent->id != 0 ? "\x97\xCE\x8C\x52" : "\x90\xD4\x8C\x52"); // "緑軍", "赤軍"
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, ent->id != 0 ? JTEXT("緑軍") : JTEXT("赤軍"));
     Text_InsertDrawString(&ent->text, 32, TEXT_COLOR_SYSTEM_BLUE, strings[state]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -638,7 +597,7 @@ int func_fe6_0801AED8(struct MenuProc* menu, struct MenuEntProc* ent)
     return 0;
 }
 
-int func_fe6_0801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 DebugCpControlMenu_Entry_Idle(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
@@ -666,13 +625,13 @@ int func_fe6_0801AF78(struct MenuProc* menu, struct MenuEntProc* ent)
         else
             gPlaySt.debug_control_red = state;
 
-        func_fe6_0801AED8(menu, ent);
+        DebugCpControlMenu_Entry_Display(menu, ent);
     }
 
     return 0;
 }
 
-int func_fe6_0801B018(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801B018(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     RestartGameAndChapter();
     Proc_Goto(Proc_Find(ProcScr_GameController), L_GAMECTRL_SRAMRESET);

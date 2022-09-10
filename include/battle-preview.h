@@ -4,10 +4,10 @@
 
 #include "proc.h"
 
-void StartBattlePreview(void);
+void StartBattlePreview(struct MapSelectProc * proc);
 void UpdateBattlePreviewContents(void);
 void CloseBattlePreview(void);
-int StartBattlePreviewHelpBox(ProcPtr parent);
+fu8 StartBattlePreviewHelpBox(struct MapSelectProc * proc, struct SelectTarget * target);
 
 void func_fe6_0802E460(struct GenericProc* proc);
 void func_fe6_0802E490(struct GenericProc* proc);

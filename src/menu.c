@@ -195,9 +195,9 @@ void Menu_Draw(struct MenuProc* proc)
     {
         struct MenuEntProc * ent_proc = proc->entries[i];
 
-        if (ent_proc->info->on_draw != NULL)
+        if (ent_proc->info->display != NULL)
         {
-            ent_proc->info->on_draw(proc, ent_proc);
+            ent_proc->info->display(proc, ent_proc);
             continue;
         }
 
@@ -400,7 +400,7 @@ fu8 MenuActionClose(struct MenuProc * proc, struct MenuEntProc * ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
-fu8 func_fe6_08041E78(struct MenuProc * proc, struct MenuEntProc * ent)
+fu8 MenuHelpBoxRegular(struct MenuProc * proc, struct MenuEntProc * ent)
 {
     StartHelpBox(ent->x * 8, ent->y * 8, ent->info->msg_help);
 
@@ -440,7 +440,7 @@ void Menu_HelpBoxMain(struct MenuProc * proc)
     }
 }
 
-fu8 MenuHelpBox(struct MenuProc * proc)
+fu8 MenuActionHelpBox(struct MenuProc * proc)
 {
     Proc_GotoScript(proc, ProcScr_MenuHelpBox);
 

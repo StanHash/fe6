@@ -617,7 +617,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-void StartBattlePreview(void)
+void StartBattlePreview(struct MapSelectProc * mapselect_proc)
 {
     struct BattlePreviewProc* proc;
 
@@ -675,7 +675,7 @@ void CloseBattlePreview(void)
     Proc_Goto(proc, 1);
 }
 
-int StartBattlePreviewHelpBox(ProcPtr parent)
+fu8 StartBattlePreviewHelpBox(struct MapSelectProc * mapselect_proc, struct SelectTarget * target)
 {
     int x;
 
@@ -697,11 +697,11 @@ int StartBattlePreviewHelpBox(ProcPtr parent)
     {
 
     case BATTLEPREVIEW_FRAME_SHORT:
-        StartMovingHelpBoxExt(&HelpInfo_BpShort_Hp, parent, x, 0);
+        StartMovingHelpBoxExt(&HelpInfo_BpShort_Hp, mapselect_proc, x, 0);
         break;
 
     case BATTLEPREVIEW_FRAME_LARGE:
-        StartMovingHelpBoxExt(&HelpInfo_BpLarge_Hp, parent, x, 0);
+        StartMovingHelpBoxExt(&HelpInfo_BpLarge_Hp, mapselect_proc, x, 0);
         break;
 
     }

@@ -443,7 +443,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc* proc)
         mu = StartMu(&gBattleUnitB.unit);
 
         gWorkingMoveScr[0] = MOVE_CMD_MOVE_BASE
-            + func_fe6_080629FC(gBattleUnitA.unit.x, gBattleUnitA.unit.y, gBattleUnitB.unit.x, gBattleUnitB.unit.y);
+            + GetFacingFromTo(gBattleUnitA.unit.x, gBattleUnitA.unit.y, gBattleUnitB.unit.x, gBattleUnitB.unit.y);
         gWorkingMoveScr[1] = MOVE_CMD_HALT;
 
         SetMuMoveScript(mu, gWorkingMoveScr);

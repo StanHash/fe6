@@ -22,6 +22,7 @@
 #include "constants/chapters.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 struct AiPerformProc
 {
@@ -245,7 +246,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
     static struct PopupInfo CONST_DATA Popup_085C85D0[] =
     {
         POPUP_SONG(SONG_5C),
-        POPUP_MSG(0x6E6), // TODO: msg ids
+        POPUP_MSG(MSG_6E6),
         POPUP_END,
     };
 

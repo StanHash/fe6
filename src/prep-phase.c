@@ -18,11 +18,13 @@
 #include "unit-rearrange.h"
 #include "chapter-info.h"
 #include "subtitle-help.h"
+#include "menu-info.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
 #include "constants/pids.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 enum
 {
@@ -349,7 +351,7 @@ put_map_cursor:
     PutMapCursor(gBmSt.cursor_sprite.x, gBmSt.cursor_sprite.y, MAP_CURSOR_DEFAULT);
 }
 
-u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 PrepMapMenuConfirm(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ProcPtr proc = Proc_Find(ProcScr_PrepPhase);
 
@@ -388,7 +390,7 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)
     proc->unk3C = gBmSt.cursor.x;
     proc->unk40 = gBmSt.cursor.y;
 
-    StartSubtitleHelp(proc, DecodeMsg(0xC25)); // TODO: msg ids
+    StartSubtitleHelp(proc, DecodeMsg(MSG_C25));
     CameraMoveWatchPosition(proc, gActiveUnit->x, gActiveUnit->y);
     PlaySe(SONG_69);
 }

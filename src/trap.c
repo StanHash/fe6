@@ -19,6 +19,7 @@
 #include "constants/items.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 enum { TRAP_MAX_COUNT = 0x20 };
 
@@ -768,7 +769,7 @@ disarm:
     trap->kind = TRAP_STEP_DISARMED;
 
     PlaySe(SONG_B1);
-    func_fe6_0801DA54(proc, -1, DecodeMsg(0xC1A)); // TODO: msg ids
+    func_fe6_0801DA54(proc, -1, DecodeMsg(MSG_C1A));
 
     return FALSE;
 }
