@@ -4,7 +4,6 @@
 #include "types.h"
 
 #include "proc.h"
-#include "menu.h"
 
 /// map-menu.c
 // func_fe6_0801EA40
@@ -647,20 +646,6 @@ void func_fe6_0803C080(ProcPtr parent);
 // func_fe6_0804119C
 // func_fe6_08041200
 // func_fe6_08041210
-// func_fe6_08041284
-// func_fe6_080412B0
-// func_fe6_080412DC
-void func_fe6_08041308(int arg_0);
-void func_fe6_08041358(int x, int y, int width, int height, int window_kind);
-void PutUiHand(int x, int y);
-void PutFrozenUiHand(int x, int y);
-int GetUiHandPrevX(void);
-int GetUiHandPrevY(void);
-void ClearBg0Bg1(void);
-void PutUiEntryHover(int x, int y, int width);
-void ClearUiEntryHover(int x, int y, int width);
-void func_fe6_080417A8(u8* vram, int x, int y);
-void LoadUiFrameGraphics(void);
 
 void func_fe6_0804256C(int arg_0);
 // func_fe6_08042578

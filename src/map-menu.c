@@ -25,6 +25,7 @@
 #include "unit-panel.h"
 #include "subtitle-help.h"
 #include "battle-preview.h"
+#include "ui.h"
 #include "menu.h"
 
 #include "constants/video-global.h"
@@ -96,7 +97,7 @@ u8 func_fe6_0801EA40(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     SpawnProc(ProcScr_Unk_0868B010, PROC_TREE_3);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801EA54(struct MenuEntInfo const* info, int id)
@@ -117,13 +118,13 @@ u8 func_fe6_0801EA6C(struct MenuProc* menu, struct MenuEntProc* ent)
 
     func_fe6_0809874C();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EA90(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     Proc_EndEach(ProcScr_PlayerPhase);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EAA4(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -131,30 +132,30 @@ u8 func_fe6_0801EAA4(struct MenuProc* menu, struct MenuEntProc* ent)
     Proc_Goto(Proc_Find(ProcScr_PlayerPhase), L_PLAYERPHASE_10);
     func_fe6_08076238();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EAC0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     SpawnProc(ProcScr_Unk_0868AE04, PROC_TREE_3);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EAD4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_080741C8(NULL);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EAE4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_08089234(PROC_TREE_3);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EAF4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 static void func_fe6_0801EAF8(ProcPtr proc)
@@ -166,13 +167,13 @@ static void func_fe6_0801EAF8(ProcPtr proc)
 u8 func_fe6_0801EB14(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     StartEvent(EventScr_085C5DE8);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EB28(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_WAIT;
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -190,7 +191,7 @@ u8 func_fe6_0801EB38(struct MapSelectProc* proc, struct SelectTarget* target)
         StartCenteredMenu(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22),
         gActiveUnit->x, gActiveUnit->y);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
 }
 
 static void BackToUnitMenu_CamWatch(ProcPtr proc)
@@ -226,7 +227,7 @@ u8 func_fe6_0801EC1C(struct MapSelectProc* proc, struct SelectTarget* target)
 
     SpawnProc(ProcScr_BackToUnitMenu, PROC_TREE_3);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -240,7 +241,7 @@ u8 func_fe6_0801EC50(struct MenuProc* menu, struct MenuEntProc* ent)
 
     EndLimitView();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 int func_fe6_0801EC90(void)
@@ -269,7 +270,7 @@ u8 func_fe6_0801ECCC(struct MenuProc* menu, struct MenuEntProc* ent)
     ListRescueTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C786C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 u8 func_fe6_0801ECEC(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -277,7 +278,7 @@ u8 func_fe6_0801ECEC(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.target = target->uid;
     gAction.id = ACTION_RESCUE;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801ED00(struct MenuEntInfo const* info, int id)
@@ -301,7 +302,7 @@ u8 func_fe6_0801ED38(struct MenuProc* menu, struct MenuEntProc* ent)
     ListRescueDropTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C784C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801ED58(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -312,7 +313,7 @@ u8 func_fe6_0801ED58(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.x_target = target->x;
     gAction.y_target = target->y;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801ED7C(struct MenuEntInfo const* info, int id)
@@ -339,7 +340,7 @@ u8 func_fe6_0801EDC4(struct MenuProc* menu, struct MenuEntProc* ent)
     ListRescueTakeTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C782C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 int func_fe6_0801EDE4(struct MenuEntInfo const* info, int id)
@@ -366,7 +367,7 @@ u8 func_fe6_0801EE2C(struct MenuProc* menu, struct MenuEntProc* ent)
     ListRescueGiveTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C780C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 void func_fe6_0801EE4C(struct Unit* from, struct Unit* to)
@@ -387,7 +388,7 @@ u8 func_fe6_0801EE80(struct MapSelectProc* proc, struct SelectTarget* target)
     func_fe6_0801EE4C(GetUnit(gAction.target), GetUnit(gAction.instigator));
     UnitGiveRescue(GetUnit(gAction.target), GetUnit(gAction.instigator));
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801EED0(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -400,7 +401,7 @@ u8 func_fe6_0801EED0(struct MapSelectProc* proc, struct SelectTarget* target)
     func_fe6_0801EE4C(GetUnit(gAction.instigator), GetUnit(gAction.target));
     UnitGiveRescue(GetUnit(gAction.instigator), GetUnit(gAction.target));
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801EF20(struct MenuEntInfo const* info, int id)
@@ -466,7 +467,7 @@ u8 func_fe6_0801F004(struct MenuProc* menu, struct MenuEntProc* ent)
             StartAdjustedMenu(&MenuInfo_085C7504, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 20),
             DecodeMsg(0xC27)); // TODO: msg ids
 
-        return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+        return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
     }
 
     if (gBmSt.unk_30)
@@ -485,7 +486,7 @@ u8 func_fe6_0801F0AC(struct MenuProc* menu, struct MenuEntProc* ent)
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801F0F0(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -497,7 +498,7 @@ u8 func_fe6_0801F0F0(struct MenuProc* menu, struct MenuEntProc* ent)
 
     func_fe6_0806B4AC();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 u8 func_fe6_0801F138(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -552,14 +553,14 @@ u8 func_fe6_0801F228(struct MenuProc* menu, struct MenuEntProc* ent)
     UnitEquipItemSlot(gActiveUnit, ent->id);
     gAction.item_slot = ITEMSLOT_INV0;
 
-    ClearBg0Bg1();
+    ClearUi();
 
     ListAttackTargetsForWeapon(gActiveUnit, gActiveUnit->items[0]);
     StartMapSelect(&MapSelectInfo_085C77EC);
 
     func_fe6_0806B4C8();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_ENDFACE;
 }
 
 u8 func_fe6_0801F26C(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -611,7 +612,7 @@ u8 func_fe6_0801F328(struct MapSelectProc* proc, struct SelectTarget* target)
 
     Proc_EndEach(ProcScr_BattlePreview);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 static void func_fe6_0801F35C(ProcPtr proc)
@@ -628,7 +629,7 @@ u8 func_fe6_0801F388(struct MapSelectProc* proc, struct SelectTarget* target)
 {
     SpawnProc(ProcScr_Unk_085C5E58, PROC_TREE_3);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
 u8 func_fe6_0801F39C(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -685,12 +686,12 @@ int func_fe6_0801F444(struct MenuEntInfo const* info, int id)
 
 u8 func_fe6_0801F484(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    ClearBg0Bg1();
+    ClearUi();
 
     ListTradeTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C77CC);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 u8 func_fe6_0801F4A8(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -698,7 +699,7 @@ u8 func_fe6_0801F4A8(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_TRADED_NOCHANGES;
     StartTradeMenu(gActiveUnit, GetUnit(target->uid), 0);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801F4D8(struct MenuEntInfo const* info, int id)
@@ -716,7 +717,7 @@ int func_fe6_0801F4D8(struct MenuEntInfo const* info, int id)
 u8 func_fe6_0801F524(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     gAction.id = ACTION_0F;
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801F534(struct MenuEntInfo const* info, int id)
@@ -745,7 +746,7 @@ u8 func_fe6_0801F5A0(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 
     gAction.id = ACTION_0E;
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801F5C8(struct MenuEntInfo const* info, int id)
@@ -788,7 +789,7 @@ u8 func_fe6_0801F648(struct MenuProc* menu, struct MenuEntProc* ent)
     ListRefreshTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C76EC);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 u8 func_fe6_0801F674(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -796,7 +797,7 @@ u8 func_fe6_0801F674(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_REFRESH;
     gAction.target = target->uid;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801F688(struct MenuEntInfo const* info, int id)
@@ -827,7 +828,7 @@ u8 func_fe6_0801F6A8(struct MenuProc* menu, struct MenuEntProc* ent)
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801F708(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -909,7 +910,7 @@ u8 func_fe6_0801F8A4(struct MenuProc* menu)
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
 u8 func_fe6_0801F8E0(struct MenuProc* menu)
@@ -919,7 +920,7 @@ u8 func_fe6_0801F8E0(struct MenuProc* menu)
 
     EndMenus();
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 u8 func_fe6_0801F8F8(struct MenuProc* menu)
@@ -934,7 +935,7 @@ u8 func_fe6_0801F8F8(struct MenuProc* menu)
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    return MENU_ACTION_SKIPCURSOR;
+    return MENU_ACTION_NOCURSOR;
 }
 
 u8 func_fe6_0801F948(struct MenuProc* menu)
@@ -945,12 +946,12 @@ u8 func_fe6_0801F948(struct MenuProc* menu)
 
     if (GetUnitItemCount(gActiveUnit) == 0)
     {
-        ClearBg0Bg1();
+        ClearUi();
         EndFaceById(0);
 
         StartCenteredMenu(&MenuInfo_UnitAction, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 22);
 
-        return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
+        return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
     }
 
     TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
@@ -966,7 +967,7 @@ u8 func_fe6_0801F948(struct MenuProc* menu)
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    return MENU_ACTION_SKIPCURSOR;
+    return MENU_ACTION_NOCURSOR;
 }
 
 int func_fe6_0801FA14(struct MenuEntInfo const* info, int id)
@@ -1043,7 +1044,7 @@ u8 func_fe6_0801FBA8(struct MenuProc* menu, struct MenuEntProc* ent)
 
     func_fe6_0801F484(menu, ent);
 
-    return MENU_ACTION_SKIPCURSOR;
+    return MENU_ACTION_NOCURSOR;
 }
 
 u8 func_fe6_0801FBDC(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -1071,7 +1072,7 @@ u8 func_fe6_0801FC50(struct MenuProc* menu, struct MenuEntProc* ent)
     UnitRemoveItem(gActiveUnit, gAction.item_slot);
 
     func_fe6_0801F948(menu);
-    return MENU_ACTION_SKIPCURSOR;
+    return MENU_ACTION_NOCURSOR;
 }
 
 int func_fe6_0801FC78(struct MenuEntInfo const* info, int id)
@@ -1095,7 +1096,7 @@ int func_fe6_0801FCB4(struct MenuProc* menu, struct MenuEntProc* ent)
 
 u8 func_fe6_0801FD04(struct MenuProc* menu, struct MenuEntProc* ent)
 {
-    ClearBg0Bg1();
+    ClearUi();
 
     gAction.item_slot = ITEMSLOT_BALLISTA;
 
@@ -1162,7 +1163,7 @@ u8 func_fe6_0801FE30(struct MenuProc* menu, struct MenuEntProc* ent)
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0801FE94(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -1202,11 +1203,11 @@ u8 func_fe6_0801FF20(struct MenuProc* menu, struct MenuEntProc* ent)
     UnitEquipItemSlot(gActiveUnit, ent->id);
     gAction.item_slot = ITEMSLOT_INV0;
 
-    ClearBg0Bg1();
+    ClearUi();
 
     DoUseUnitItem(gActiveUnit, gActiveUnit->items[gAction.item_slot]);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 int func_fe6_0801FF60(struct MenuProc* menu, struct MenuEntProc* ent)
@@ -1264,7 +1265,7 @@ u8 func_fe6_0802001C(struct MenuProc* menu, struct MenuEntProc* ent)
     ListTalkTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C778C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 u8 func_fe6_08020050(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1272,7 +1273,7 @@ u8 func_fe6_08020050(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_TALK;
     gAction.target = target->uid;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020064(struct MenuEntInfo const* info, int id)
@@ -1307,7 +1308,7 @@ u8 func_fe6_080200B4(struct MenuProc* menu, struct MenuEntProc* ent)
     ListSupportTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_085C776C);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 u8 func_fe6_080200E8(struct MapSelectProc* proc, struct SelectTarget* target)
@@ -1315,7 +1316,7 @@ u8 func_fe6_080200E8(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.id = ACTION_SUPPORT;
     gAction.target = target->uid;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_080200FC(struct MenuEntInfo const* info, int id)
@@ -1338,7 +1339,7 @@ u8 func_fe6_0802013C(struct MenuProc* menu, struct MenuEntProc* ent)
     gAction.instigator = gActiveUnit->id;
     gAction.item_slot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020164(struct MenuEntInfo const* info, int id)
@@ -1358,7 +1359,7 @@ u8 func_fe6_080201A0(struct MenuProc* menu, struct MenuEntProc* ent)
     gAction.id = ACTION_CHEST;
     gAction.item_slot = GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_080201C4(struct MenuEntInfo const* info, int id)
@@ -1397,7 +1398,7 @@ u8 func_fe6_08020268(struct MenuProc* menu, struct MenuEntProc* ent)
 
     func_fe6_080815E4(gActiveUnit, NULL);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020288(struct MenuEntInfo const* info, int id)
@@ -1412,7 +1413,7 @@ int func_fe6_08020288(struct MenuEntInfo const* info, int id)
 u8 func_fe6_080202C4(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_080202E4(struct MenuEntInfo const* info, int id)
@@ -1427,7 +1428,7 @@ int func_fe6_080202E4(struct MenuEntInfo const* info, int id)
 u8 func_fe6_08020320(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020340(struct MenuEntInfo const* info, int id)
@@ -1442,7 +1443,7 @@ int func_fe6_08020340(struct MenuEntInfo const* info, int id)
 u8 func_fe6_0802037C(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_0802039C(struct MenuEntInfo const* info, int id)
@@ -1470,7 +1471,7 @@ u8 func_fe6_080203EC(struct MenuProc* menu, struct MenuEntProc* ent)
     }
 
     func_fe6_08097E84();
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020438(struct MenuEntInfo const* info, int id)
@@ -1500,12 +1501,12 @@ u8 func_fe6_08020488(struct MenuProc* menu, struct MenuEntProc* ent)
         return MENU_ACTION_SE_6B;
     }
 
-    ClearBg0Bg1();
+    ClearUi();
 
     ListStealTargets(gActiveUnit);
     StartMapSelect(&MapSelectInfo_Steal);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
 void func_fe6_080204C0(struct MapSelectProc* proc)
@@ -1533,7 +1534,7 @@ int func_fe6_08020504(struct MapSelectProc* proc, struct SelectTarget* target)
 
     EndMapSelect(proc);
 
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_1));
+    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
 
     x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->pinfo->msg_name))) / 2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(3, 3), TEXT_COLOR_SYSTEM_WHITE, x, 7,
@@ -1575,7 +1576,7 @@ u8 func_fe6_08020640(struct MenuProc* menu, struct MenuEntProc* ent)
     gAction.item_slot = ent->id;
     gAction.id = ACTION_STEAL;
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 int func_fe6_08020678(struct MenuProc* menu, struct MenuEntProc* ent)

@@ -5848,7 +5848,7 @@ func_fe6_0806E520: @ 0x0806E520
 	adds r1, r2, #0
 	orrs r0, r1
 	strh r0, [r3, #0x3c]
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r0, .L0806E658 @ =gBg0Tm
 	movs r1, #0
 	bl TmFill
@@ -9001,7 +9001,7 @@ func_fe6_0806FEE8: @ 0x0806FEE8
 	movs r0, #4
 	bl ApplyIconPalettes
 	movs r0, #6
-	bl func_fe6_080412DC
+	bl ApplyUiStatBarPal
 	movs r0, #1
 	movs r1, #0x13
 	bl ApplyIconPalette
@@ -15649,7 +15649,7 @@ func_fe6_08073324: @ 0x08073324
 	strb r2, [r0]
 	adds r0, #1
 	strb r2, [r0]
-	bl ClearBg0Bg1
+	bl ClearUi
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -16723,7 +16723,7 @@ func_fe6_08073C50: @ 0x08073C50
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl ClearBg0Bg1
+	bl ClearUi
 	ldr r0, .L08073D34 @ =gBg2Tm
 	adds r1, r4, #0
 	bl TmFill
@@ -16736,7 +16736,7 @@ func_fe6_08073C50: @ 0x08073C50
 	movs r2, #0x40
 	bl ApplyPaletteExt
 	movs r0, #0x14
-	bl func_fe6_08041284
+	bl ApplyUiWindowFramePal
 	movs r0, #1
 	movs r1, #6
 	bl ApplyIconPalette
@@ -19169,7 +19169,7 @@ func_fe6_08074EF0: @ 0x08074EF0
 	bl InitIcons
 	movs r0, #4
 	bl ApplyIconPalettes
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r0, .L080750F4 @ =gUnk_083215B8
 	ldr r1, .L080750F8 @ =0x06014800
 	bl Decompress
@@ -28736,7 +28736,7 @@ func_fe6_08079A94: @ 0x08079A94
 	str r0, [sp]
 	movs r1, #4
 	movs r2, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, .L08079B2C @ =0x0200E864
 	movs r1, #0xa2
 	lsls r1, r1, #1
@@ -28801,7 +28801,7 @@ func_fe6_08079A94: @ 0x08079A94
 	str r0, [sp]
 	movs r1, #8
 	movs r2, #0xd
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, .L08079BC4 @ =0x0200E864
 	adds r5, r6, #0
 	adds r5, #0x35
@@ -28857,7 +28857,7 @@ func_fe6_08079BC8: @ 0x08079BC8
 	movs r1, #8
 	movs r2, #0xd
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #3
 	bl EnableBgSync
 	adds r0, r5, #0
@@ -29072,7 +29072,7 @@ func_fe6_08079D84: @ 0x08079D84
 	movs r1, #8
 	movs r2, #0xd
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldrb r4, [r4]
 	lsls r0, r4, #2
 	adds r0, r0, r5
@@ -29654,7 +29654,7 @@ func_fe6_0807A268: @ 0x0807A268
 	bl InitIcons
 	movs r0, #4
 	bl ApplyIconPalettes
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	movs r0, #0
 	movs r1, #0xe
 	bl func_fe6_08070E70
@@ -30280,7 +30280,7 @@ func_fe6_0807A67C: @ 0x0807A67C
 	movs r1, #4
 	movs r2, #0x11
 	movs r3, #0x10
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r1, .L0807A848 @ =0x0000FF80
 	ldrh r2, [r5]
 	subs r2, #0x28
@@ -33909,7 +33909,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #5
 	movs r0, #1
 	movs r2, #0xa
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldr r0, [r5, #0x14]
 	adds r1, r0, #0
 	adds r1, #0x35
@@ -33929,7 +33929,7 @@ func_fe6_0807C364: @ 0x0807C364
 	adds r1, #9
 	movs r0, #1
 	movs r2, #0xa
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldr r0, [r5, #0x14]
 	adds r1, r0, #0
 	adds r1, #0x35
@@ -36106,7 +36106,7 @@ func_fe6_0807D4A8: @ 0x0807D4A8
 	ldr r1, [sp, #4]
 	movs r2, #0xe
 	movs r3, #8
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, [sp, #8]
 	bl GetItemKind
 	cmp r0, #9
@@ -37649,7 +37649,7 @@ func_fe6_0807E0D4: @ 0x0807E0D4
 	bl InitIcons
 	movs r0, #4
 	bl ApplyIconPalettes
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r4, .L0807E2C8 @ =0x02015688
 	adds r0, r4, #0
 	movs r1, #6
@@ -37806,7 +37806,7 @@ func_fe6_0807E0D4: @ 0x0807E0D4
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r4, .L0807E414 @ =0x02015688
 	adds r0, r4, #0
 	bl ClearText
@@ -37921,7 +37921,7 @@ func_fe6_0807E41C: @ 0x0807E41C
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r4, .L0807E4B8 @ =0x02015690
 	adds r0, r4, #0
 	bl ClearText
@@ -38181,7 +38181,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	subs r0, #1
 	strb r0, [r5]
@@ -38247,7 +38247,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r3, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	adds r0, #1
 	strb r0, [r5]
@@ -38302,7 +38302,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq .L0807E760
@@ -38385,7 +38385,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r1, [r4]
 	ldrb r3, [r5]
 	adds r0, r3, r7
@@ -38491,7 +38491,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	adds r0, #1
 	movs r1, #1
@@ -38611,7 +38611,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldr r0, [r6, #0x54]
 	bl UnitRemoveInvalidItems
 	ldr r0, [r6, #0x58]
@@ -38721,7 +38721,7 @@ func_fe6_0807E5A8: @ 0x0807E5A8
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r7]
 	strb r0, [r4]
 	adds r0, r6, #0
@@ -38852,7 +38852,7 @@ func_fe6_0807EB70: @ 0x0807EB70
 	movs r1, #4
 	movs r2, #0xf
 	movs r3, #0x10
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, .L0807ED78 @ =0x02016368
 	strh r4, [r0]
 	movs r4, #1
@@ -39324,7 +39324,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	adds r6, r4, #0
 	adds r4, r5, #0
@@ -39397,7 +39397,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r1, [r4]
 	subs r0, r7, #1
 	adds r6, r4, #0
@@ -39524,7 +39524,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	movs r5, #0
 	strb r0, [r6]
@@ -39608,7 +39608,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	mov r0, r8
 	adds r0, #0x31
 	ldrb r0, [r0]
@@ -39773,7 +39773,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	mov r1, r8
 	ldr r0, [r1, #0x54]
 	bl GetUnitItemCount
@@ -39987,7 +39987,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r6]
 	subs r0, #1
 	strb r0, [r6]
@@ -40137,7 +40137,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	adds r0, #1
 	strb r0, [r4]
@@ -40233,7 +40233,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	mov r1, r8
 	adds r1, #0x45
 	movs r0, #0x38
@@ -40290,7 +40290,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	mov r1, r8
 	adds r1, #0x45
 	movs r0, #0xc8
@@ -40539,7 +40539,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	mov r0, r8
 	adds r0, #0x32
 	ldrb r4, [r7]
@@ -40874,7 +40874,7 @@ func_fe6_0807FBE8: @ 0x0807FBE8
 	movs r1, #4
 	movs r2, #0xf
 	movs r3, #0x10
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, .L0807FCF4 @ =0x02015638
 	ldr r2, [r7, #0x54]
 	adds r4, r7, #0
@@ -41237,7 +41237,7 @@ func_fe6_0807FCFC: @ 0x0807FCFC
 	movs r0, #0x12
 	movs r1, #8
 	movs r2, #0xa
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	adds r0, r6, #0
 	adds r0, #0x31
 	ldrb r0, [r0]
@@ -41300,7 +41300,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r1, [r4]
 	adds r0, r5, #0
 	adds r0, #0x49
@@ -41359,7 +41359,7 @@ func_fe6_0807FF98: @ 0x0807FF98
 	adds r1, #9
 	movs r0, #0x13
 	movs r2, #7
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	cmp r0, #0
 	beq .L08080088
@@ -41782,7 +41782,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	b .L080803EA
 .L080803CA:
 	adds r2, r6, #0
@@ -41838,7 +41838,7 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	bl func_fe6_0807D338
 	ldr r0, [r6, #0x54]
 	ldr r0, [r0]
@@ -42210,7 +42210,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	adds r0, r6, #0
 	adds r0, #0x31
 	ldrb r1, [r0]
@@ -42629,7 +42629,7 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #4
 	movs r2, #0xc
 	movs r3, #7
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r4, .L08080B24 @ =0x020155E8
 	ldr r5, .L08080B28 @ =gBg0Tm+0x148
 	ldr r0, .L08080B2C @ =gUnk_083272CC
@@ -42925,7 +42925,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r7]
 	subs r0, #1
 	b .L08080E2C
@@ -43054,7 +43054,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r7]
 	adds r0, #1
 .L08080E2C:
@@ -43099,7 +43099,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r1, r1, r2
 	movs r2, #0xc
 	str r3, [sp, #0x18]
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	adds r7, r4, #0
 	ldr r3, [sp, #0x18]
@@ -43176,7 +43176,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r4, [r7]
 	ldr r0, [r6, #0x54]
 	bl GetUnitItemCount
@@ -43273,7 +43273,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	adds r2, r6, #0
 	adds r2, #0x46
 	adds r0, r6, #0
@@ -43326,7 +43326,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	adds r2, r6, #0
 	adds r2, #0x46
 	adds r0, r6, #0
@@ -43595,7 +43595,7 @@ func_fe6_08080284: @ 0x08080284
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	adds r0, r6, #0
 	adds r0, #0x32
 	ldrb r4, [r5]
@@ -43877,7 +43877,7 @@ func_fe6_080813E8: @ 0x080813E8
 	subs r2, #9
 	subs r1, r1, r2
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 .L08081486:
 	ldr r0, .L080814F0 @ =gBg0Tm+0x1E
 	movs r1, #0xf
@@ -44131,7 +44131,7 @@ func_fe6_0808166C: @ 0x0808166C
 	movs r1, #4
 	movs r2, #0xc
 	movs r3, #7
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r4, .L080816D8 @ =gBg0Tm+0x166
 	ldr r0, .L080816DC @ =gUnk_083272F0
 	str r0, [sp]
@@ -44335,13 +44335,13 @@ func_fe6_0808171C: @ 0x0808171C
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	str r4, [sp]
 	movs r0, #0x10
 	movs r1, #0xb
 	movs r2, #0xe
 	movs r3, #8
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	adds r0, r5, #0
 	bl func_fe6_0808165C
 	str r4, [sp]
@@ -44349,7 +44349,7 @@ func_fe6_0808171C: @ 0x0808171C
 	movs r1, #8
 	movs r2, #0xe
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, [r5, #0x54]
 	bl GetUnitFid
 	adds r1, r0, #0
@@ -44550,7 +44550,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r4]
 	mov r8, r4
 	cmp r0, #0
@@ -44627,7 +44627,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	mov r8, r5
 	adds r5, r6, #0
@@ -44754,7 +44754,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r4, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	adds r0, r7, #0
 	adds r0, #0x30
 	strb r5, [r0]
@@ -44909,7 +44909,7 @@ func_fe6_08081970: @ 0x08081970
 	lsls r1, r2, #1
 	adds r1, #9
 	movs r2, #0xc
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r0, [r5]
 	subs r0, #1
 	strb r0, [r5]
@@ -48404,7 +48404,7 @@ func_fe6_080837C8: @ 0x080837C8
 	ldrb r1, [r4, #0x18]
 	orrs r0, r1
 	strb r0, [r4, #0x18]
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl EnablePalSync
 	ldr r0, .L080838E0 @ =gBg0Tm
 	movs r1, #0
@@ -48449,7 +48449,7 @@ func_fe6_080837C8: @ 0x080837C8
 	movs r1, #6
 	movs r2, #0x1a
 	movs r3, #7
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #0xf
 	bl EnableBgSync
 	ldr r5, .L080838F0 @ =0x020168F8
@@ -49398,7 +49398,7 @@ func_fe6_08083FF0: @ 0x08083FF0
 	ldrb r1, [r4, #0x18]
 	orrs r0, r1
 	strb r0, [r4, #0x18]
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl EnablePalSync
 	ldr r0, .L08084114 @ =gBg0Tm
 	movs r1, #0
@@ -49444,7 +49444,7 @@ func_fe6_08083FF0: @ 0x08083FF0
 	movs r1, #2
 	movs r2, #0x1e
 	movs r3, #0x10
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #0xf
 	bl EnableBgSync
 	ldr r5, .L08084128 @ =0x020168F8
@@ -63142,7 +63142,7 @@ func_fe6_0808ABD4: @ 0x0808ABD4
 	bl ResetTextFont
 	bl ResetText
 	bl ApplySystemObjectsGraphics
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl InitSystemTextFont
 	ldr r0, .L0808AD70 @ =gDispIo
 	mov ip, r0
@@ -63339,7 +63339,7 @@ func_fe6_0808ABD4: @ 0x0808ABD4
 	movs r0, #0
 	movs r1, #5
 	movs r2, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r4, .L0808AED4 @ =gBg1Tm
 	ldr r1, .L0808AED8 @ =gBg2Tm
 	adds r0, r4, #0
@@ -63771,7 +63771,7 @@ func_fe6_0808B028: @ 0x0808B028
 	adds r1, #0x26
 	movs r0, #1
 	movs r2, #0xa
-	bl ClearUiEntryHover
+	bl RemoveUiEntryHover
 	ldrb r5, [r5]
 	lsls r1, r5, #1
 	adds r1, #0x26
@@ -66508,7 +66508,7 @@ func_fe6_0808C75C: @ 0x0808C75C
 	adds r0, #0x36
 	movs r1, #0
 	strb r1, [r0]
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r7, .L0808C96C @ =gDispIo
 	movs r4, #1
 	ldrb r0, [r7, #1]
@@ -66730,7 +66730,7 @@ func_fe6_0808C9AC: @ 0x0808C9AC
 	beq .L0808C9C0
 	movs r0, #1
 	rsbs r0, r0, #0
-	bl func_fe6_08041308
+	bl UnpackUiWindowFrameGraphics2
 .L0808C9C0:
 	movs r0, #0
 	pop {r1}
@@ -67982,7 +67982,7 @@ func_fe6_0808D374: @ 0x0808D374
 	strb r0, [r1]
 .L0808D396:
 	bl ResetText
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r2, .L0808D550 @ =gDispIo
 	movs r0, #1
 	ldrb r1, [r2, #1]
@@ -68044,8 +68044,8 @@ func_fe6_0808D374: @ 0x0808D374
 	adds r0, r4, #0
 	bl Decompress
 	ldr r0, .L0808D570 @ =0x06003000
-	bl func_fe6_080412B0
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameImg
+	bl UnpackUiWindowFrameGraphics
 	ldr r1, .L0808D574 @ =gUnk_0833C1D8
 	movs r4, #0x8c
 	lsls r4, r4, #5
@@ -71293,7 +71293,7 @@ func_fe6_0808EDE0: @ 0x0808EDE0
 	mov r5, r8
 	push {r5, r6, r7}
 	bl ResetText
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl ResetTextFont
 	bl func_fe6_0808E79C
 	ldr r7, .L0808EFE8 @ =gDispIo
@@ -72831,7 +72831,7 @@ func_fe6_0808FA14: @ 0x0808FA14
 	ldr r1, .L0808FCA0 @ =0x02016A2D
 	strb r0, [r1]
 	bl ResetText
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl ResetTextFont
 	bl func_fe6_0808E79C
 	ldr r7, .L0808FCA4 @ =gDispIo
@@ -73296,7 +73296,7 @@ func_fe6_0808FDE8: @ 0x0808FDE8
 func_fe6_0808FE3C: @ 0x0808FE3C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	adds r4, #0x64
 	movs r3, #0
 	movs r0, #0
@@ -87118,7 +87118,7 @@ func_fe6_08096B38: @ 0x08096B38
 	movs r1, #8
 	movs r2, #0x14
 	movs r3, #0xc
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #2
 	bl EnableBgSync
 	ldr r0, [r7]
@@ -87557,7 +87557,7 @@ func_fe6_08096F70: @ 0x08096F70
 	orrs r1, r3
 	adds r2, r1, #0
 	strh r2, [r0]
-	ldr r0, .L08097008 @ =gUnk_0810FF78
+	ldr r0, .L08097008 @ =Pal_UiWindowFrame_ThemeBlue
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -87577,7 +87577,7 @@ func_fe6_08096F70: @ 0x08096F70
 .L08096FFC: .4byte 0x06014C00
 .L08097000: .4byte gUnk_08691190
 .L08097004: .4byte 0x00004260
-.L08097008: .4byte gUnk_0810FF78
+.L08097008: .4byte Pal_UiWindowFrame_ThemeBlue
 .L0809700C: .4byte gBg0Tm+0x1B8
 .L08097010: .4byte gBg0Tm+0x1B6
 
@@ -88455,7 +88455,7 @@ func_fe6_08097638: @ 0x08097638
 	movs r0, #0xf
 	bl EnableBgSync
 	bl ResetText
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	bl InitIcons
 	movs r0, #4
 	bl ApplyIconPalettes
@@ -90434,7 +90434,7 @@ func_fe6_08098624: @ 0x08098624
 	movs r1, #9
 	movs r2, #0x10
 	movs r3, #6
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #0
 	bl SetTextFont
 	bl InitSystemTextFont

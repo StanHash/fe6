@@ -16,6 +16,7 @@
 #include "battle.h"
 #include "item-action.h"
 #include "ai-decide.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/chapters.h"
@@ -267,7 +268,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
         func_fe6_0806B06C(x, y2);
 
         PlaySe(SONG_AB);
-        StartPopup(Popup_085C85D0, 0x60, 0, proc);
+        StartPopup(Popup_085C85D0, 0x60, UI_WINDOW_REGULAR, proc);
     }
 
     return TRUE;

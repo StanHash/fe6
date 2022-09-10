@@ -356,7 +356,7 @@ u8 func_fe6_0802B47C(struct MenuProc* menu, struct MenuEntProc* ent)
     func_fe6_0807B6BC();
     Proc_Goto(proc, L_PREPPHASE_BEGINMAP);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 static void PrepPhase_MapSwapSelectBegin(struct GenericProc* proc)

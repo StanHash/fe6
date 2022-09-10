@@ -125,26 +125,26 @@ struct PlaySt
     /* 1B */ u8 unk_1B;
 
     /* 1C */ // option bits
-    u32 unk_1C_1:1;
-    u32 unk_1C_2:1;
-    u32 unk_1C_3:2;
-    u32 config_no_auto_cursor:1;
-    u32 config_talk_speed:2;
-    u32 config_walk_speed:1;
-    u32 config_bgm_disable:1;
-    u32 config_se_disable:1;
-    u32 config_window_color:2;
-    u32 unk_1D_5:1;
-    u32 unk_1D_6:1;
-    u32 config_no_auto_end_turn:1;
-    u32 config_no_subtitle_help:1;
-    u32 config_battle_anim:2;
-    u32 config_battle_preview_kind:2;
-    u32 unk_1E_5:1;
-    u32 unk_1E_6:1;
-    u32 debug_control_red:2;
-    u32 debug_control_green:2;
-    u32 unk_1F_3:6;
+    /* bit  0 */ u32 unk_1C_1 : 1;
+    /* bit  1 */ u32 unk_1C_2 : 1;
+    /* bit  2 */ u32 unk_1C_3 : 2;
+    /* bit  4 */ u32 config_no_auto_cursor : 1;
+    /* bit  5 */ u32 config_talk_speed : 2;
+    /* bit  7 */ u32 config_walk_speed : 1;
+    /* bit  8 */ u32 config_bgm_disable : 1;
+    /* bit  9 */ u32 config_se_disable : 1;
+    /* bit 10 */ u32 config_window_theme : 2;
+    /* bit 12 */ u32 unk_1D_5 : 1;
+    /* bit 13 */ u32 unk_1D_6 : 1;
+    /* bit 14 */ u32 config_no_auto_end_turn : 1;
+    /* bit 15 */ u32 config_no_subtitle_help : 1;
+    /* bit 16 */ u32 config_battle_anim : 2;
+    /* bit 18 */ u32 config_battle_preview_kind : 2;
+    /* bit 20 */ u32 unk_1E_5 : 1;
+    /* bit 21 */ u32 unk_1E_6 : 1;
+    /* bit 22 */ u32 debug_control_red : 2;
+    /* bit 24 */ u32 debug_control_green : 2;
+    /* bit 26 */ u32 unk_1F_3 : 6;
 };
 
 void OnVBlank(void);

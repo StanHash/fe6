@@ -19,6 +19,7 @@
 #include "map-select.h"
 #include "unit-panel.h"
 #include "subtitle-help.h"
+#include "ui.h"
 
 #include "constants/items.h"
 #include "constants/terrains.h"
@@ -237,7 +238,7 @@ int GetUnitItemCantUseMsg(struct Unit* unit, int item)
 
 void DoUseUnitItem(struct Unit* unit, int item)
 {
-    ClearBg0Bg1();
+    ClearUi();
     EndFaceById(0);
 
     switch (GetItemIid(item))
@@ -498,7 +499,7 @@ fu8 StaffSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target)
     gAction.target = target->uid;
     SetStaffUseAction(NULL);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseRescueStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -660,7 +661,7 @@ fu8 UnlockOnSelectTarget(struct MapSelectProc* proc, struct SelectTarget* target
 
     SetStaffUseAction(NULL);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseUnlockStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -689,7 +690,7 @@ int RepairSelectOnSelect(struct MapSelectProc* proc, struct SelectTarget* target
 
     StartFace(0, GetUnitFid(GetUnit(gAction.target)), 184, 12, 2);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 void DoUseRepairStaff(struct Unit* unit)
@@ -771,7 +772,7 @@ u8 RepairMenuItemSelect(struct MenuProc* menu, struct MenuEntProc* ent)
     gAction.extra = ent->id;
     SetStaffUseAction(gActiveUnit);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 void DoUseHealStaff(struct Unit* unit, void(*list_targets)(struct Unit* unit))
@@ -857,5 +858,5 @@ int func_fe6_0802402C(struct MapSelectProc* proc, struct SelectTarget* target)
 void func_fe6_0802406C(struct MapSelectProc* proc)
 {
     EndSubtitleHelp();
-    ClearBg0Bg1();
+    ClearUi();
 }

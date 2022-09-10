@@ -13112,7 +13112,7 @@ func_fe6_0803B9F0: @ 0x0803B9F0
 func_fe6_0803BA64: @ 0x0803BA64
 	push {r4, lr}
 	adds r4, r0, #0
-	bl LoadUiFrameGraphics
+	bl UnpackUiWindowFrameGraphics
 	ldr r0, .L0803BAC8 @ =0x0203C758
 	ldr r1, .L0803BACC @ =0x06001800
 	movs r2, #0xc0
@@ -13714,14 +13714,14 @@ func_fe6_0803BF28: @ 0x0803BF28
 	push {r4, lr}
 	sub sp, #0xc
 	movs r0, #6
-	bl func_fe6_080412DC
+	bl ApplyUiStatBarPal
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0xd
 	movs r1, #0xb
 	movs r2, #0x10
 	movs r3, #6
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	ldr r0, .L0803BF7C @ =0x0203C758
 	bl SetTextFont
 	bl InitSystemTextFont
@@ -14160,7 +14160,7 @@ func_fe6_0803C2B0: @ 0x0803C2B0
 	push {lr}
 	ldr r0, .L0803C2C0 @ =gUnk_Sio_085CA6F4
 	bl Proc_EndEach
-	bl ClearBg0Bg1
+	bl ClearUi
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -17236,7 +17236,7 @@ func_fe6_0803DB6C: @ 0x0803DB6C
 	ldrb r0, [r0]
 	bl GetUnit
 	adds r4, r0, #0
-	bl ClearBg0Bg1
+	bl ClearUi
 	ldrb r0, [r6, #6]
 	cmp r0, #0
 	bne .L0803DBF8

@@ -275,7 +275,7 @@ gUnk_Sio_0810F672: @ 0810F672
 
 	.global gUnk_Sio_0810F6A4
 gUnk_Sio_0810F6A4: @ 0810F6A4
-	.incbin "fe6-base.gba", 0x10F6A4, (0x10F734 - 0x10F6A4) @ length: 0090
+	.incbin "fe6-base.gba", 0x10F6A4, (0x10F6D4 - 0x10F6A4) @ length: 0030
 
 	.data
 

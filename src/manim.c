@@ -13,6 +13,7 @@
 #include "unitsprite.h"
 #include "battle.h"
 #include "faction.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/items.h"
@@ -297,7 +298,7 @@ void func_fe6_080619B0(ProcPtr proc)
     ResetTextFont();
     func_fe6_08062CF0();
     InitBmBgLayers();
-    LoadUiFrameGraphics();
+    UnpackUiWindowFrameGraphics();
     ApplySystemObjectsGraphics();
 
     if (IsEventRunning())
@@ -938,7 +939,7 @@ void MA_StartBattleInfoBox(int arg0, int arg1, ProcPtr main_proc)
 void func_fe6_08062D64(struct MAnimInfoWindowProc * proc)
 {
     SetOnHBlankA(NULL);
-    ClearBg0Bg1();
+    ClearUi();
 }
 
 void func_fe6_08062D80(struct MAnimInfoWindowProc* proc)

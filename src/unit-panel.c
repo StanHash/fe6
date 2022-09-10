@@ -12,6 +12,7 @@
 #include "unit.h"
 #include "unitsprite.h"
 #include "faction.h"
+#include "ui.h"
 
 #include "constants/video-global.h"
 
@@ -103,25 +104,25 @@ static struct UnitPanelProc* InitUnitPanel(struct UnitPanelProc* proc, struct Un
     if (proc == NULL)
     {
         proc = Proc_Find(ProcScr_UnitPanel);
-        ClearBg0Bg1();
+        ClearUi();
     }
 
     proc->unit = unit;
     proc->x = x;
     proc->y = y;
 
-    func_fe6_08041358(x, y+2, width, 2 + lines*2, 0);
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_1));
+    PutUiWindowFrame(x, y+2, width, 2 + lines*2, UI_WINDOW_REGULAR);
+    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
 
     if (width > 10)
     {
         int ix;
 
         for (ix = x+10; ix < x+width-1; ++ix)
-            gBg1Tm[TM_OFFSET(ix, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0B, BGPAL_1);
+            gBg1Tm[TM_OFFSET(ix, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0B, BGPAL_WINDOW_FRAME);
 
-        gBg1Tm[TM_OFFSET(x+9,       y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x26, BGPAL_1);
-        gBg1Tm[TM_OFFSET(x+width-1, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0C, BGPAL_1);
+        gBg1Tm[TM_OFFSET(x+9,       y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x26, BGPAL_WINDOW_FRAME);
+        gBg1Tm[TM_OFFSET(x+width-1, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0C, BGPAL_WINDOW_FRAME);
     }
 
     ClearText(&proc->name);
@@ -458,7 +459,7 @@ void RefreshUnitRescuePanels(struct Unit* unit)
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    ClearBg0Bg1();
+    ClearUi();
 
     InitUnitPanel(sRescueUnitPanels[0], gActiveUnit, x, y, WIDTH, 1);
 
@@ -484,7 +485,7 @@ void RefreshUnitTakePanels(struct Unit* unit)
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    ClearBg0Bg1();
+    ClearUi();
 
     rescue = GetUnit(unit->rescue);
 
@@ -523,7 +524,7 @@ void RefreshUnitGivePanels(struct Unit* unit)
 
     struct Unit* rescue = GetUnit(gActiveUnit->rescue);
 
-    ClearBg0Bg1();
+    ClearUi();
 
     InitUnitPanel(sRescueUnitPanels[0], rescue, x, y, WIDTH, 1);
 

@@ -905,7 +905,7 @@ func_fe6_08063EF0: @ 0x08063EF0
 	movs r1, #0
 	movs r2, #0x1d
 	movs r3, #0x13
-	bl func_fe6_08041358
+	bl PutUiWindowFrame
 	movs r0, #0
 	str r0, [r7, #4]
 .L08063FD2:

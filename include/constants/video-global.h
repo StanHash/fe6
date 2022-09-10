@@ -47,7 +47,7 @@ enum
 enum
 {
     BGPAL_TEXT_DEFAULT    = 0,
-    BGPAL_1               = 1,
+    BGPAL_WINDOW_FRAME    = 1,
     BGPAL_TALK            = 2,
     BGPAL_TALK_BUBBLE     = 3,
     BGPAL_ICONS           = 4, // .. 5
@@ -76,6 +76,8 @@ enum
     BGPAL_STEALSELECT_FACE = 5,
 
     BGPAL_BATTLEPREVIEW_FRAME = 1, // .. 2
+
+    BGPAL_UI_STATBAR = 6,
 
     BGPAL_MANIM_1 = 1, // .. 2
     BGPAL_MANIM_5 = 5,

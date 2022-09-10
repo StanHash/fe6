@@ -62,3 +62,6 @@ struct HelpBoxInfo;
 struct SelectTarget;
 struct MapSelectInfo;
 struct MapSelectProc;
+
+struct MenuProc;
+struct MenuEntProc;

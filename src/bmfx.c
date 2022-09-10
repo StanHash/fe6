@@ -28,6 +28,7 @@
 #include "supply.h"
 #include "chapter-info.h"
 #include "subtitle-help.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -340,7 +341,7 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C5BA0[] =
     PROC_CALL(func_fe6_0801DA1C),
     PROC_REPEAT(func_fe6_0801DA24),
 
-    PROC_CALL(ClearBg0Bg1),
+    PROC_CALL(ClearUi),
 
     PROC_END,
 };
@@ -828,14 +829,14 @@ int func_fe6_0801C670(struct MenuProc* menu, struct MenuEntProc* ent)
     UnitRemoveItem(gActiveUnit, ent->id);
     UnitAddItem(gActiveUnit, gBmSt.inventory_item_overflow);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 int func_fe6_0801C6B0(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     AddSupplyItem(gBmSt.inventory_item_overflow);
 
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR | MENU_ACTION_ENDFACE;
 }
 
 void SetFogVision(int vision)
@@ -949,7 +950,7 @@ void UpdateEquipInfoWindow(int item_slot)
     ClearText(proc->text + 1);
     ClearText(proc->text + 2);
 
-    func_fe6_08041358(proc->x, proc->y, 14, 8, 0);
+    PutUiWindowFrame(proc->x, proc->y, 14, 8, UI_WINDOW_REGULAR);
 
     switch (item_slot)
     {
@@ -1418,7 +1419,7 @@ static void PhaseIntro_WaitForEnd(ProcPtr proc)
 
     if (Proc_Find(ProcScr_PhaseIntroText) == NULL && Proc_Find(ProcScr_PhaseIntroSquares) == NULL && Proc_Find(ProcScr_PhaseIntroBlendBox) == NULL)
     {
-        ClearBg0Bg1();
+        ClearUi();
 
         SetOnVMatch(NULL);
 
@@ -1661,7 +1662,7 @@ void func_fe6_0801DA54(ProcPtr parent, int icon, char const* str)
 
     x = (DISPLAY_WIDTH - len) / 16;
 
-    func_fe6_08041358(x, 8, len / 8, 4, 0);
+    PutUiWindowFrame(x, 8, len / 8, 4, UI_WINDOW_REGULAR);
 
     if (icon >= 0)
     {
@@ -2123,7 +2124,7 @@ static void ChapterIntro_LoopFadeOut(struct GenericProc* proc)
 
 static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
 {
-    ClearBg0Bg1();
+    ClearUi();
 
     func_fe6_08001D0C();
 
@@ -2228,7 +2229,7 @@ static void GameOverScreen_Init(struct GenericProc* proc)
     Decompress(Img_ChapterIntroFog, (u8*) VRAM + CHR_SIZE*BGCHR_GAMEOVER_100);
     ApplyPalette(Pal_GameOverText, BGPAL_GAMEOVER_TEXT);
 
-    ClearBg0Bg1();
+    ClearUi();
 
     TmApplyTsa_t(gBg0Tm + TM_OFFSET(7, 9), Tsa_Unk_0830D97C, TILEREF(BGCHR_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT));
 

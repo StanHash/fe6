@@ -11,6 +11,7 @@
 #include "item.h"
 #include "unit.h"
 #include "action.h"
+#include "ui.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"
@@ -161,7 +162,7 @@ PROC_LABEL(L_TRADEMENU_SELECTED),
 
 PROC_LABEL(L_TRADEMENU_END),
     PROC_CALL(TradeMenu_ClearDisplay),
-    PROC_CALL(ClearBg0Bg1),
+    PROC_CALL(ClearUi),
 
     PROC_CALL(UnlockGame),
 
@@ -187,7 +188,7 @@ static void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc* proc)
     char const* str;
     int x;
 
-    func_fe6_080417A8((u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRADEMENU_240, 24, 1);
+    UnpackUiUnitNameFrameGraphics((u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRADEMENU_240, 0x10 + OBJPAL_TRADEMENU_8, 1);
 
     StartSpriteRefresher(proc, 7, 0, -4, Sprite_085C6234, OAM2_PAL(OBJPAL_TRADEMENU_8) + OAM2_CHR(OBJCHR_TRADEMENU_240) + OAM2_LAYER(2));
 
@@ -216,7 +217,7 @@ static void TradeMenu_HighlightUpdater_Loop(struct TradeMenuProc* proc)
 
     if (proc->hoverColumn != TRADEMENU_UNIT_UNDEFINED)
     {
-        ClearUiEntryHover(
+        RemoveUiEntryHover(
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].x,
             sItemDisplayTileLocation[proc->hoverColumn][proc->hoverRow].y,
             12);
@@ -391,8 +392,8 @@ static void TradeMenu_ApplyItemSwap(struct TradeMenuProc* proc)
 
 static void TradeMenu_InitItemDisplay(struct TradeMenuProc* proc)
 {
-    func_fe6_08041358(1,  8, 14, 12, 0);
-    func_fe6_08041358(15, 8, 14, 12, 0);
+    PutUiWindowFrame(1,  8, 14, 12, UI_WINDOW_REGULAR);
+    PutUiWindowFrame(15, 8, 14, 12, UI_WINDOW_REGULAR);
 
     ResetTextFont();
 

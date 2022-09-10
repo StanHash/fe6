@@ -5,6 +5,7 @@
 #include "face.h"
 #include "bm.h"
 #include "chapter.h"
+#include "ui.h"
 
 #include "constants/songs.h"
 
@@ -101,9 +102,9 @@ void MapSelect_Main(struct MapSelectProc * proc)
         PlaySe(SONG_6B);
     }
 
-    if (actions & MAPSELECT_ACTION_CLEARBGS)
+    if (actions & MAPSELECT_ACTION_CLEAR)
     {
-        ClearBg0Bg1();
+        ClearUi();
     }
 
     if (actions & MAPSELECT_ACTION_ENDFACE)
@@ -111,7 +112,7 @@ void MapSelect_Main(struct MapSelectProc * proc)
         EndFaceById(0);
     }
 
-    if (!(actions & MAPSELECT_ACTION_ENDFAST))
+    if (!(actions & MAPSELECT_ACTION_NOCURSOR))
     {
         GetMapSelectActivePosition(proc, &x, &y);
 

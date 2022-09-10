@@ -226,7 +226,8 @@ SECTIONS
         . = ALIGN(4); src/ai-decide.o(ewram_data);
         . = ALIGN(4); src/ai-080326C4.o(ewram_data);
 
-        . = 0x0203C9DC - __ewram_overlay_end;
+        . = 0x0203C9D4 - __ewram_overlay_end;
+        . = ALIGN(4); src/ui.o(ewram_data);
         . = ALIGN(4); src/map-select.o(ewram_data);
         . = ALIGN(4); . = . + 0x100; /* TODO */
         . = ALIGN(4); src/manim.o(ewram_data);
@@ -375,7 +376,7 @@ SECTIONS
         src/ai-080326C4.o(.text);
         asm/code-ai.o(.text);
         asm/code-sio.o(.text);
-        asm/code-ui.o(.text);
+        src/ui.o(.text);
         src/menu.o(.text);
         src/map-select.o(.text);
         asm/code-banim.o(.text);
@@ -461,7 +462,7 @@ SECTIONS
 
         . = ALIGN(4); src/code-sio.o(.rodata);
         . = ALIGN(4); data/data-code-sio.o(.rodata);
-        . = ALIGN(4); src/code-ui.o(.rodata);
+        . = ALIGN(4); src/ui.o(.rodata);
         . = ALIGN(4); data/rodata_10F744.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
@@ -517,7 +518,7 @@ SECTIONS
         . = ALIGN(4); src/ai-battle.o(.data);
         . = ALIGN(4); src/ai-080326C4.o(.data);
         . = ALIGN(4); data/data-code-sio.o(.data);
-        . = ALIGN(4); data/data-code-ui.o(.data);
+        . = ALIGN(4); src/ui.o(.data);
         . = ALIGN(4); src/menu.o(.data);
         . = ALIGN(4); src/map-select.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);

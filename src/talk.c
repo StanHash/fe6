@@ -19,6 +19,7 @@
 #include "bm.h"
 #include "unit.h"
 #include "chapter.h"
+#include "ui.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"

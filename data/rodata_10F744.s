@@ -1,18 +1,60 @@
 
 	.section .rodata
 
+	.global Img_UiWindowFrame_ThemeBlue
+Img_UiWindowFrame_ThemeBlue: @ 0810F744
 	.incbin "fe6-base.gba", 0x10F744, (0x10FF78 - 0x10F744)
 
-	.global gUnk_0810FF78
-gUnk_0810FF78: @ 0810FF78
-	.incbin "fe6-base.gba", 0x10FF78, (0x111970 - 0x10FF78) @ length: 19F8
+	.global Pal_UiWindowFrame_ThemeBlue
+Pal_UiWindowFrame_ThemeBlue: @ 0810FF78
+	.incbin "fe6-base.gba", 0x10FF78, (0x10FF98 - 0x10FF78)
 
-	.global gUnk_08111970
-gUnk_08111970: @ 08111970
+	.global Pal_UiStatBar_ThemeBlue
+Pal_UiStatBar_ThemeBlue: @ 0810FF98
+	.incbin "fe6-base.gba", 0x10FF98, (0x10FFB8 - 0x10FF98)
+
+	.global Img_UiWindowFrame_ThemeRed
+Img_UiWindowFrame_ThemeRed: @ 0810FFB8
+	.incbin "fe6-base.gba", 0x10FFB8, (0x110838 - 0x10FFB8)
+
+	.global Pal_UiWindowFrame_ThemeRed
+Pal_UiWindowFrame_ThemeRed: @ 08110838
+	.incbin "fe6-base.gba", 0x110838, (0x110858 - 0x110838)
+
+	.global Pal_UiStatBar_ThemeRed
+Pal_UiStatBar_ThemeRed: @ 08110858
+	.incbin "fe6-base.gba", 0x110858, (0x110878 - 0x110858)
+
+	.global Img_UiWindowFrame_ThemeGray
+Img_UiWindowFrame_ThemeGray: @ 08110878
+	.incbin "fe6-base.gba", 0x110878, (0x111110 - 0x110878)
+
+	.global Pal_UiWindowFrame_ThemeGray
+Pal_UiWindowFrame_ThemeGray: @ 08111110
+	.incbin "fe6-base.gba", 0x111110, (0x111130 - 0x111110)
+
+	.global Pal_UiStatBar_ThemeGray
+Pal_UiStatBar_ThemeGray: @ 08111130
+	.incbin "fe6-base.gba", 0x111130, (0x111150 - 0x111130)
+
+	.global Img_UiWindowFrame_ThemeGreen
+Img_UiWindowFrame_ThemeGreen: @ 08111150
+	.incbin "fe6-base.gba", 0x111150, (0x111930 - 0x111150)
+
+	.global Pal_UiWindowFrame_ThemeGreen
+Pal_UiWindowFrame_ThemeGreen: @ 08111930
+	.incbin "fe6-base.gba", 0x111930, (0x111950 - 0x111930)
+
+	.global Pal_UiStatBar_ThemeGreen
+Pal_UiStatBar_ThemeGreen: @ 08111950
+	.incbin "fe6-base.gba", 0x111950, (0x111970 - 0x111950)
+
+	.global Img_UiUnitNameFrame
+Img_UiUnitNameFrame: @ 08111970
 	.incbin "fe6-base.gba", 0x111970, (0x111BC4 - 0x111970) @ length: 0254
 
-	.global gUnk_08111BC4
-gUnk_08111BC4: @ 08111BC4
+	.global Pal_UiUnitNameFrame
+Pal_UiUnitNameFrame: @ 08111BC4
 	.incbin "fe6-base.gba", 0x111BC4, (0x111C44 - 0x111BC4) @ length: 0080
 
 	.global gUnk_08111C44

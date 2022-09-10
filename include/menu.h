@@ -16,14 +16,14 @@ enum
 
 enum
 {
-    MENU_ACTION_SKIPCURSOR = (1 << 0),
-    MENU_ACTION_END        = (1 << 1),
-    MENU_ACTION_SE_6A      = (1 << 2), // TODO: name song
-    MENU_ACTION_SE_6B      = (1 << 3), // TODO: name song
-    MENU_ACTION_CLEAR      = (1 << 4),
-    MENU_ACTION_ENDFACE    = (1 << 5),
-    MENU_ACTION_UNUSED6    = (1 << 6),
-    MENU_ACTION_DOOM       = (1 << 7),
+    MENU_ACTION_NOCURSOR = (1 << 0),
+    MENU_ACTION_END      = (1 << 1),
+    MENU_ACTION_SE_6A    = (1 << 2), // TODO: name song
+    MENU_ACTION_SE_6B    = (1 << 3), // TODO: name song
+    MENU_ACTION_CLEAR    = (1 << 4),
+    MENU_ACTION_ENDFACE  = (1 << 5),
+    MENU_ACTION_UNUSED6  = (1 << 6),
+    MENU_ACTION_DOOM     = (1 << 7),
 };
 
 enum

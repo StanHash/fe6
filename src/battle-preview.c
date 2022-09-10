@@ -15,6 +15,7 @@
 #include "battle.h"
 #include "bm.h"
 #include "faction.h"
+#include "ui.h"
 #include "help-box.h"
 
 #include "constants/video-global.h"
@@ -253,7 +254,7 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc* proc)
 
 static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
 {
-    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_1));
+    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOW_FRAME));
     TmFillRect_t(gUnk_Tm_02003238, 10, 19, 0);
 
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unitNameTextA, &gBattleUnitA.unit);
@@ -363,7 +364,7 @@ static void BattlePreview_Init(struct BattlePreviewProc* proc)
 
 static void BattlePreview_OnEnd(void)
 {
-    func_fe6_08041308(-1);
+    UnpackUiWindowFrameGraphics2(-1);
 }
 
 static void PutBattlePreviewTilemaps(struct BattlePreviewProc* proc)
@@ -596,7 +597,7 @@ struct ProcScr CONST_DATA ProcScr_BattlePreview[] =
 
     PROC_ONEND(BattlePreview_OnEnd),
 
-    PROC_CALL(ClearBg0Bg1),
+    PROC_CALL(ClearUi),
     PROC_SLEEP(0),
 
     PROC_CALL(BattlePreview_Init),
@@ -665,7 +666,7 @@ void CloseBattlePreview(void)
 
     if (!proc->ready)
     {
-        ClearBg0Bg1();
+        ClearUi();
 
         Proc_End(proc);
         return;

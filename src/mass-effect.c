@@ -15,6 +15,7 @@
 #include "action.h"
 #include "target-list.h"
 #include "unitsprite.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/items.h"
@@ -176,7 +177,7 @@ static void StatusHealEffect_OverlayBg_Init(void)
 {
     int i;
 
-    ClearBg0Bg1();
+    ClearUi();
 
     Decompress(Img_StatusHealEffect, (void*) VRAM + BGCHR_STATUSHEAL*CHR_SIZE);
     ApplyPalette(Pal_StatusHealEffect, BGPAL_STATUSHEAL);
@@ -356,7 +357,7 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_PalAnim[] =
 
 static void StatusHealEffect_Finish(struct GenericProc* proc)
 {
-    ClearBg0Bg1();
+    ClearUi();
 
     SetWinEnable(0, 0, 0);
 

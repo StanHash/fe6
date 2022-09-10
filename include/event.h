@@ -52,8 +52,8 @@ enum
 void SetPopupUnit(struct Unit* unit);
 void SetPopupItem(u16 item);
 void SetPopupNumber(int number);
-ProcPtr StartPopup(struct PopupInfo const* info, int duration, int winKind, ProcPtr parent);
-ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int winKind, int iconChr, int iconPal, ProcPtr parent);
+ProcPtr StartPopup(struct PopupInfo const* info, int duration, int window_kind, ProcPtr parent);
+ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int window_kind, int iconChr, int iconPal, ProcPtr parent);
 void EndPopup(void);
 void DisableEventSkip(void);
 ProcPtr StartEvent(u32 const* script);

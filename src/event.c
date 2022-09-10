@@ -33,6 +33,7 @@
 #include "ai-decide.h"
 #include "ai-perform.h"
 #include "ai-utility.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/video-global.h"
@@ -51,7 +52,7 @@ struct PopupProc
     /* 34 */ i8 xParam;
     /* 35 */ i8 yParam;
 
-    /* 36 */ u8 winKind;
+    /* 36 */ u8 window_kind;
 
     /* 37 */ u8 frameX;
     /* 38 */ u8 frameY;
@@ -561,7 +562,7 @@ static void Popup_Prepare(struct PopupProc* proc)
         BGCHR_0_TEXT_POPUP, BGPAL_TEXT_DEFAULT);
 
     ClearIcons();
-    LoadUiFrameGraphics();
+    UnpackUiWindowFrameGraphics();
 
     SetBlendNone();
     SetWinEnable(0, 0, 0);
@@ -620,7 +621,7 @@ static void Popup_Display(struct PopupProc* proc)
     else
         y = proc->yParam;
 
-    func_fe6_08041358(x, y, width + 2, 4, proc->winKind);
+    PutUiWindowFrame(x, y, width + 2, 4, proc->window_kind);
 
     proc->frameX = x;
     proc->frameY = y;
@@ -697,12 +698,12 @@ void SetPopupNumber(int number)
     sPopupNumber = number;
 }
 
-ProcPtr StartPopup(struct PopupInfo const* info, int duration, int winKind, ProcPtr parent)
+ProcPtr StartPopup(struct PopupInfo const* info, int duration, int window_kind, ProcPtr parent)
 {
-    return StartPopupExt(info, duration, winKind, 0x240, 4, parent);
+    return StartPopupExt(info, duration, window_kind, 0x240, 4, parent);
 }
 
-ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int winKind, int iconChr, int iconPal, ProcPtr parent)
+ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int window_kind, int iconChr, int iconPal, ProcPtr parent)
 {
     struct PopupProc* proc;
 
@@ -713,7 +714,7 @@ ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int winKind, i
 
     proc->clock = duration;
     proc->info = info;
-    proc->winKind = winKind;
+    proc->window_kind = window_kind;
     proc->iconChr = iconChr;
     proc->iconPalid = iconPal + 0x10;
 
@@ -883,7 +884,7 @@ static void Event_ResetText(struct EventProc* proc)
     SetTextFont(NULL);
     InitSystemTextFont();
 
-    LoadUiFrameGraphics();
+    UnpackUiWindowFrameGraphics();
 }
 
 static void Event_RestartFromQueued(struct EventProc* proc)
@@ -3486,19 +3487,19 @@ ProcPtr StartTalkSupportEvent(int msgid)
 void StartWeaponBrokePopup(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    StartPopup(Popup_085C46FC, 0x60, 0, parent);
+    StartPopup(Popup_085C46FC, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartPopup_08012070(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    StartPopup(Popup_085C473C, 0x60, 0, parent);
+    StartPopup(Popup_085C473C, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartWeaponLevelGainedPopup(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
-    StartPopup(Popup_085C477C, 0x60, 0, parent);
+    StartPopup(Popup_085C477C, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartPopup_080120D0(int amount, ProcPtr parent)
@@ -3506,9 +3507,9 @@ void StartPopup_080120D0(int amount, ProcPtr parent)
     SetPopupNumber(amount);
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        StartPopup(Popup_085C47A4, 0x60, 0, parent);
+        StartPopup(Popup_085C47A4, 0x60, UI_WINDOW_REGULAR, parent);
     else
-        StartPopup(Popup_085C47DC, 0x60, 0, parent);
+        StartPopup(Popup_085C47DC, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartPopup_08012120(u16 item, ProcPtr parent)
@@ -3516,9 +3517,9 @@ void StartPopup_08012120(u16 item, ProcPtr parent)
     SetPopupItem(item);
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        StartPopup(Popup_085C4814, 0x60, 0, parent);
+        StartPopup(Popup_085C4814, 0x60, UI_WINDOW_REGULAR, parent);
     else
-        StartPopup(Popup_085C4854, 0x60, 0, parent);
+        StartPopup(Popup_085C4854, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartPopup_08012178(u16 item, ProcPtr parent)
@@ -3526,14 +3527,14 @@ void StartPopup_08012178(u16 item, ProcPtr parent)
     SetPopupItem(item);
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        StartPopup(Popup_085C4894, 0x60, 0, parent);
+        StartPopup(Popup_085C4894, 0x60, UI_WINDOW_REGULAR, parent);
     else
-        StartPopup(Popup_085C48D4, 0x60, 0, parent);
+        StartPopup(Popup_085C48D4, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartSupportLevelGaindPopup(ProcPtr parent)
 {
-    StartPopup(Popup_085C4914, 0x60, 0, parent);
+    StartPopup(Popup_085C4914, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 static void GiveItem_DoPopup(struct GenericProc* proc);

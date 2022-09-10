@@ -25,6 +25,7 @@
 #include "chapter-info.h"
 #include "mass-effect.h"
 #include "ai-phase.h"
+#include "ui.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"
@@ -492,7 +493,7 @@ void ApplySystemObjectsGraphics(void)
 void ApplySystemGraphics(void)
 {
     ResetText();
-    LoadUiFrameGraphics();
+    UnpackUiWindowFrameGraphics();
     InitFaces();
     InitIcons();
     ApplyIconPalettes(BGPAL_ICONS);

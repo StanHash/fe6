@@ -1,10 +1,10 @@
-#include "common.h"
 #include "menu.h"
 
 #include "hardware.h"
 #include "sound.h"
 #include "text.h"
 #include "face.h"
+#include "ui.h"
 
 #include "constants/songs.h"
 
@@ -189,7 +189,7 @@ void Menu_Draw(struct MenuProc* proc)
     if (proc->flags & MENU_FLAG_HIDDEN)
         return;
 
-    func_fe6_08041358(proc->rect.x, proc->rect.y, proc->rect.w, proc->rect.h, proc->info->window_kind);
+    PutUiWindowFrame(proc->rect.x, proc->rect.y, proc->rect.w, proc->rect.h, proc->info->window_kind);
 
     for (i = 0; i < proc->entry_count; i++)
     {
@@ -236,7 +236,7 @@ void PutMenuEntryHover(struct MenuProc * proc, int entry_id, bool shown)
         break;
 
     case FALSE:
-        ClearUiEntryHover(x, y, w);
+        RemoveUiEntryHover(x, y, w);
         break;
 
     }
@@ -274,7 +274,7 @@ void Menu_Main(struct MenuProc * proc)
         PlaySe(SONG_6B);
 
     if (actions & MENU_ACTION_CLEAR)
-        ClearBg0Bg1();
+        ClearUi();
 
     if (actions & MENU_ACTION_ENDFACE)
         EndFaceById(0);
@@ -282,16 +282,13 @@ void Menu_Main(struct MenuProc * proc)
     if (actions & MENU_ACTION_DOOM)
         proc->flags |= MENU_FLAG_DOOMED;
 
-    if (actions & MENU_ACTION_SKIPCURSOR)
-        return;
+    if (!(actions & MENU_ACTION_NOCURSOR) && !(proc->flags & MENU_FLAG_NOCURSOR))
+    {
+        GetMenuCursorPosition(proc, &x, &y);
+        ApplyMenuCursorScroll(proc, &x, &y);
 
-    if (proc->flags & MENU_FLAG_NOCURSOR)
-        return;
-
-    GetMenuCursorPosition(proc, &x, &y);
-    ApplyMenuCursorScroll(proc, &x, &y);
-
-    PutUiHand(x, y);
+        PutUiHand(x, y);
+    }
 }
 
 void HandleMenuSwitching(struct MenuProc * proc)
@@ -400,7 +397,7 @@ fu8 MenuEntryDisabled(struct MenuEntInfo const * info, int id)
 
 fu8 MenuActionClose(struct MenuProc * proc, struct MenuEntProc * ent)
 {
-    return MENU_ACTION_SKIPCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_END | MENU_ACTION_SE_6B;
+    return MENU_ACTION_NOCURSOR | MENU_ACTION_CLEAR | MENU_ACTION_END | MENU_ACTION_SE_6B;
 }
 
 fu8 func_fe6_08041E78(struct MenuProc * proc, struct MenuEntProc * ent)

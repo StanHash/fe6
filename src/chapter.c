@@ -13,6 +13,7 @@
 #include "arena.h"
 #include "action.h"
 #include "chapter-info.h"
+#include "ui.h"
 #include "mu.h"
 
 #include "constants/chapters.h"
@@ -66,7 +67,7 @@ void InitPlayConfig(int is_hard)
     gPlaySt.config_walk_speed = 0;
     gPlaySt.config_bgm_disable = FALSE;
     gPlaySt.config_se_disable = FALSE;
-    gPlaySt.config_window_color = 0;
+    gPlaySt.config_window_theme = UI_WINDOW_THEME_BLUE;
     gPlaySt.config_no_auto_end_turn = FALSE;
     gPlaySt.config_no_subtitle_help = FALSE;
     gPlaySt.config_battle_preview_kind = 0;
@@ -222,7 +223,7 @@ void func_fe6_08029240(void)
 
     ApplySystemGraphics();
     ApplyUnitSpritePalettes();
-    ClearBg0Bg1();
+    ClearUi();
     SetWinEnable(0, 0, 0);
     SetBlendNone();
 
