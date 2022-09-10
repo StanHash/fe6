@@ -252,10 +252,10 @@ fu8 RescueMapSelect_Help(struct MapSelectProc * proc, struct SelectTarget * targ
 
 fu8 UnitActionMenu_Rescue_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    if (gActiveUnit->state & US_RESCUING)
+    if (gActiveUnit->flags & UNIT_FLAG_RESCUING)
         return MENU_ENTRY_HIDDEN;
 
     ListRescueTargets(gActiveUnit);
@@ -284,10 +284,10 @@ fu8 RescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * ta
 
 fu8 UnitActionMenu_Drop_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    if (!(gActiveUnit->state & US_RESCUING))
+    if (!(gActiveUnit->flags & UNIT_FLAG_RESCUING))
         return MENU_ENTRY_HIDDEN;
 
     ListRescueDropTargets(gActiveUnit);
@@ -319,13 +319,13 @@ fu8 DropRescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget 
 
 fu8 UnitActionMenu_Take_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gBmSt.partial_actions_taken & PARTIAL_ACTION_RESCUE_TRANSFER)
         return MENU_ENTRY_HIDDEN;
 
-    if (gActiveUnit->state & US_RESCUING)
+    if (gActiveUnit->flags & UNIT_FLAG_RESCUING)
         return MENU_ENTRY_HIDDEN;
 
     ListRescueTakeTargets(gActiveUnit);
@@ -346,13 +346,13 @@ fu8 UnitActionMenu_Take_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 UnitActionMenu_Give_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gBmSt.partial_actions_taken & PARTIAL_ACTION_RESCUE_TRANSFER)
         return MENU_ENTRY_HIDDEN;
 
-    if (!(gActiveUnit->state & US_RESCUING))
+    if (!(gActiveUnit->flags & UNIT_FLAG_RESCUING))
         return MENU_ENTRY_HIDDEN;
 
     ListRescueGiveTargets(gActiveUnit);
@@ -409,7 +409,7 @@ fu8 UnitActionMenu_Attack_Available(struct MenuEntInfo const * info, int id)
 {
     int i, item;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     gBmSt.unk_30 = FALSE;
@@ -671,7 +671,7 @@ u32 AttackMapSelect_End(struct MapSelectProc * proc)
 
 fu8 AnyMenu_Trade_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gBmSt.partial_actions_taken & PARTIAL_ACTION_TRADED)
@@ -705,7 +705,7 @@ fu8 TradeMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * tar
 
 fu8 UnitActionMenu_Seize_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13))
@@ -723,7 +723,7 @@ fu8 UnitActionMenu_Seize_Select(struct MenuProc * menu, struct MenuEntProc * ent
 
 fu8 UnitActionMenu_Visit_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_VILLAGE && gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_HOUSE)
@@ -752,7 +752,7 @@ fu8 UnitActionMenu_Visit_Select(struct MenuProc * menu, struct MenuEntProc * ent
 
 fu8 UnitActionMenu_Play_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_PLAY))
@@ -768,7 +768,7 @@ fu8 UnitActionMenu_Play_Available(struct MenuEntInfo const * info, int id)
 
 fu8 UnitActionMenu_Dance_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_DANCE))
@@ -803,7 +803,7 @@ fu8 RefreshMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * t
 
 fu8 UnitActionMenu_Item_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gActiveUnit->items[0] == 0)
@@ -1078,7 +1078,7 @@ fu8 UnitItemDiscardPromptMenu_Yes_Select(struct MenuProc * menu, struct MenuEntP
 
 fu8 UnitAttackBallista_Entry_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if ((GetBallistaItemAt(gActiveUnit->x, gActiveUnit->y) & 0xFF00) != 0)
@@ -1129,7 +1129,7 @@ fu8 UnitActionMenu_Staff_Available(struct MenuEntInfo const * info, int id)
 {
     int i, item;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     for (i = 0; i < ITEMSLOT_INV_COUNT && (item = gActiveUnit->items[i]) != 0; ++i)
@@ -1241,7 +1241,7 @@ fu8 UnitStaffItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc
 
 fu8 UnitActionMenu_Talk_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     ListTalkTargets(gActiveUnit);
@@ -1279,7 +1279,7 @@ fu8 TalkMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * targ
 
 fu8 UnitActionMenu_Support_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     ListSupportTargets(gActiveUnit);
@@ -1322,7 +1322,7 @@ fu8 SupportMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * t
 
 fu8 UnitActionMenu_Door_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_DOOR) < 0)
@@ -1345,7 +1345,7 @@ fu8 UnitActionMenu_Door_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 UnitActionMenu_Chest_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (GetUnitKeyItemSlotForTerrain(gActiveUnit, TERRAIN_CHEST) < 0)
@@ -1367,7 +1367,7 @@ fu8 UnitActionMenu_Supply_Available(struct MenuEntInfo const * info, int id)
 {
     struct Unit* merlinus;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gBmSt.partial_actions_taken & PARTIAL_ACTION_SUPPLY)
@@ -1384,7 +1384,7 @@ fu8 UnitActionMenu_Supply_Available(struct MenuEntInfo const * info, int id)
     if (merlinus == NULL)
         return MENU_ENTRY_HIDDEN;
 
-    if (merlinus->state & US_HIDDEN)
+    if (merlinus->flags & UNIT_FLAG_HIDDEN)
         return MENU_ENTRY_HIDDEN;
 
     if (RECT_DISTANCE(gActiveUnit->x, gActiveUnit->y, merlinus->x, merlinus->y) == 1)
@@ -1404,7 +1404,7 @@ fu8 UnitActionMenu_Supply_Select(struct MenuProc * menu, struct MenuEntProc * en
 
 fu8 UnitActionMenu_Armory_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_13
@@ -1419,7 +1419,7 @@ fu8 UnitActionMenu_Armory_Select(struct MenuProc * menu, struct MenuEntProc * en
 
 fu8 UnitActionMenu_Vendor_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_14
@@ -1434,7 +1434,7 @@ fu8 UnitActionMenu_Vendor_Select(struct MenuProc * menu, struct MenuEntProc * en
 
 fu8 UnitActionMenu_Secret_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_15
@@ -1449,7 +1449,7 @@ fu8 UnitActionMenu_Secret_Select(struct MenuProc * menu, struct MenuEntProc * en
 
 fu8 UnitActionMenu_Arena_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_ARENA_08)
@@ -1480,7 +1480,7 @@ fu8 UnitActionMenu_Steal_Available(struct MenuEntInfo const * info, int id)
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL))
         return MENU_ENTRY_HIDDEN;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
     ListStealTargets(gActiveUnit);

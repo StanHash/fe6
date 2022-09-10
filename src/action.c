@@ -122,7 +122,7 @@ bool DoAction(ProcPtr proc)
 
     case ACTION_WAIT:
     case ACTION_TRAPPED:
-        gActiveUnit->state |= US_HAS_MOVED;
+        gActiveUnit->flags |= UNIT_FLAG_HAD_ACTION;
         return TRUE;
 
     case ACTION_RESCUE:
@@ -268,7 +268,7 @@ static bool func_fe6_0802A35C(ProcPtr proc)
 
 static bool DoRefreshAction(ProcPtr proc)
 {
-    GetUnit(gAction.target)->state &= ~(US_TURN_ENDED | US_HAS_MOVED | US_HAS_MOVED_AI);
+    GetUnit(gAction.target)->flags &= ~(UNIT_FLAG_TURN_ENDED | UNIT_FLAG_HAD_ACTION | UNIT_FLAG_AI_PROCESSED);
 
     BattleInitItemEffect(GetUnit(gAction.instigator), -1);
     BattleInitItemEffectTarget(GetUnit(gAction.target));
@@ -368,7 +368,7 @@ static void DeathDropSpriteAnim_End(struct DeathDropAnimProc* proc)
 
 void DropRescueOnDeath(ProcPtr parent, struct Unit* unit)
 {
-    if (GetUnitCurrentHp(unit) == 0 && (unit->state & US_RESCUING))
+    if (GetUnitCurrentHp(unit) == 0 && (unit->flags & UNIT_FLAG_RESCUING))
     {
         struct DeathDropAnimProc* proc = SpawnProcLocking(ProcScr_DeathDropAnim, parent);
 
@@ -390,7 +390,7 @@ void DropRescueOnDeath(ProcPtr parent, struct Unit* unit)
         proc->clock = 0;
         proc->clockEnd = 11;
 
-        proc->unit->state &= ~US_TURN_ENDED;
+        proc->unit->flags &= ~UNIT_FLAG_TURN_ENDED;
 
         UseUnitSprite(GetUnitMapSprite(proc->unit));
         ForceSyncUnitSpriteSheet();

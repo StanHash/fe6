@@ -413,7 +413,7 @@ void AddMapChangeTrap(int id)
 void UnitHideIfUnderRoof(struct Unit* unit)
 {
     if (gMapTerrain[unit->y][unit->x] == TERRAIN_ROOF)
-        unit->state |= (US_HIDDEN | US_UNDER_A_ROOF);
+        unit->flags |= (UNIT_FLAG_HIDDEN | UNIT_FLAG_UNDER_ROOF);
 }
 
 void UpdateRoofedUnits(void)
@@ -430,13 +430,13 @@ void UpdateRoofedUnits(void)
         if (!unit->pinfo)
             continue;
 
-        if (!(unit->state & US_UNDER_A_ROOF))
+        if (!(unit->flags & UNIT_FLAG_UNDER_ROOF))
             continue;
 
         if (gMapTerrain[unit->y][unit->x] != TERRAIN_ROOF)
         {
-            unit->state &= ~(US_UNDER_A_ROOF | US_HIDDEN);
-            unit->state |= US_BIT8;
+            unit->flags &= ~(UNIT_FLAG_UNDER_ROOF | UNIT_FLAG_HIDDEN);
+            unit->flags |= UNIT_FLAG_SEEN;
         }
     }
 

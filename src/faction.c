@@ -19,7 +19,7 @@ int CountFactionMoveableUnits(int faction)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_TURN_ENDED | US_DEAD | US_NOT_DEPLOYED | US_RESCUED | US_UNDER_A_ROOF))
+        if (unit->flags & (UNIT_FLAG_TURN_ENDED | UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_RESCUED | UNIT_FLAG_UNDER_ROOF))
             continue;
 
         if (unit->status == UNIT_STATUS_SLEEP || unit->status == UNIT_STATUS_BERSERK)
@@ -45,7 +45,7 @@ int CountFactionUnitsWithoutState(int faction, int prohibited_state)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & prohibited_state)
+        if (unit->flags & prohibited_state)
             continue;
 
         count++;

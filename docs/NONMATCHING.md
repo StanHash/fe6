@@ -19,7 +19,7 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `util.c`     | `func_fe6_08014F70` | `O2` | ^ + lazy
 | `util.c`     | `func_fe6_0801501C` | `O2` | ^
 | `util.c`     | `func_fe6_080150DC` | `O2` | ^
-| `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block reguarding constant loads for unit->state changes
+| `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block regarding constant loads for unit->flags changes
 | `ai-080326C4.c` | `func_fe6_08032CE8` | `O2` | perc needs to be loaded into r4, I have no way of doing that.
 
 ## List of fake-matching functions in fe6

@@ -385,7 +385,7 @@ void DoItemPromoteAction(void)
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitB);
 
-    GetUnit(gAction.instigator)->state |= US_HAS_MOVED;
+    GetUnit(gAction.instigator)->flags |= UNIT_FLAG_HAD_ACTION;
 
     UnitUpdateUsedItem(GetUnit(gAction.instigator), gAction.item_slot);
 

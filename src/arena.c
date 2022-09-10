@@ -389,7 +389,7 @@ static void ArenaGenOpponentUnit(void)
 
     info.pid = PID_ARENA_OPPONENT;
     info.jid = gArenaSt.opponent_jid;
-    info.factionId = 0;
+    info.faction_id = 0;
     info.level = gArenaSt.opponent_level;
     info.autolevel = TRUE;
     info.items[0] = 0;

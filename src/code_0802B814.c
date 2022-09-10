@@ -16,7 +16,7 @@ bool func_fe6_0802B814(void)
 {
     int ix, iy;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return FALSE;
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)
@@ -41,7 +41,7 @@ bool func_fe6_0802B8A0(void)
 {
     int ix, iy;
 
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return FALSE;
 
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13))

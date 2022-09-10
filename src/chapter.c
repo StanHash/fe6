@@ -307,12 +307,12 @@ void CleanupUnitsBeforeChapter(void)
             unit->torch = 0;
             unit->barrier = 0;
 
-            unit->state &= US_DEAD | US_SOLOANIM_1 | US_SOLOANIM_2;
+            unit->flags &= UNIT_FLAG_DEAD | UNIT_FLAG_SOLOANIM_1 | UNIT_FLAG_SOLOANIM_2;
 
             if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_SUPPLY)
-                unit->state &= ~US_DEAD;
+                unit->flags &= ~UNIT_FLAG_DEAD;
 
-            unit->state |= US_HIDDEN | US_NOT_DEPLOYED;
+            unit->flags |= UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED;
 
             unit->rescue = 0;
         })
@@ -330,12 +330,12 @@ void CleanupUnitsBeforeChapter(void)
             unit->torch = 0;
             unit->barrier = 0;
 
-            unit->state &= US_DEAD | US_NOT_DEPLOYED | US_SOLOANIM_1 | US_SOLOANIM_2;
+            unit->flags &= UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_SOLOANIM_1 | UNIT_FLAG_SOLOANIM_2;
 
             if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_SUPPLY)
-                unit->state &= ~US_DEAD;
+                unit->flags &= ~UNIT_FLAG_DEAD;
 
-            unit->state |= US_HIDDEN;
+            unit->flags |= UNIT_FLAG_HIDDEN;
 
             unit->rescue = 0;
         })

@@ -129,7 +129,7 @@ inline int GetUnitSkill(struct Unit* unit)
 {
     int weapon = GetUnitEquippedWeapon(unit);
 
-    if (unit->state & US_RESCUING)
+    if (unit->flags & UNIT_FLAG_RESCUING)
         return unit->skl / 2 + GetItemSklBonus(weapon);
 
     return unit->skl + GetItemSklBonus(weapon);
@@ -139,7 +139,7 @@ inline int GetUnitSpeed(struct Unit* unit)
 {
     int weapon = GetUnitEquippedWeapon(unit);
 
-    if (unit->state & US_RESCUING)
+    if (unit->flags & UNIT_FLAG_RESCUING)
         return unit->spd / 2 + GetItemSpdBonus(weapon);
 
     return unit->spd + GetItemSpdBonus(weapon);
@@ -375,7 +375,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
 {
     struct Unit* unit;
 
-    switch (info->factionId)
+    switch (info->faction_id)
     {
 
     case FACTION_ID_BLUE:
@@ -414,7 +414,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
             UnitAutolevel(unit);
             UnitAutolevelWeaponExp(unit, info);
 
-            SetUnitLeaderPid(unit, info->pidLead);
+            SetUnitLeaderPid(unit, info->pid_lead);
         }
     }
 
@@ -632,8 +632,8 @@ bool CanUnitCarry(struct Unit* unit, struct Unit* other)
 
 void UnitRescue(struct Unit* unit, struct Unit* other)
 {
-    unit->state |= US_RESCUING;
-    other->state |= US_RESCUED + US_HIDDEN;
+    unit->flags |= UNIT_FLAG_RESCUING;
+    other->flags |= UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN;
 
     unit->rescue = other->id;
     other->rescue = unit->id;
@@ -646,11 +646,11 @@ void UnitDropRescue(struct Unit* unit, int x, int y)
 {
     struct Unit* rescue = GetUnit(unit->rescue);
 
-    unit->state = unit->state &~ (US_RESCUING + US_RESCUED);
-    rescue->state = rescue->state &~ (US_RESCUING + US_RESCUED + US_HIDDEN);
+    unit->flags = unit->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED);
+    rescue->flags = rescue->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN);
 
     if (UNIT_FACTION(rescue) == gPlaySt.faction)
-        rescue->state |= US_TURN_ENDED;
+        rescue->flags |= UNIT_FLAG_TURN_ENDED;
 
     unit->rescue = 0;
     rescue->rescue = 0;
@@ -685,7 +685,7 @@ void KillUnit(struct Unit* unit)
 {
     if (UNIT_FACTION(unit) == FACTION_BLUE)
     {
-        unit->state |= US_DEAD + US_HIDDEN;
+        unit->flags |= UNIT_FLAG_DEAD + UNIT_FLAG_HIDDEN;
         ClearUnitSupports(unit);
     }
     else
@@ -721,7 +721,7 @@ inline bool CanUnitCrossTerrain(struct Unit* unit, int terrain)
 
 void UnitSyncMovement(struct Unit* unit)
 {
-    if (unit->state & US_RESCUING)
+    if (unit->flags & UNIT_FLAG_RESCUING)
     {
         struct Unit* rescue = GetUnit(unit->rescue);
 
@@ -796,7 +796,7 @@ void UnitBeginAction(struct Unit* unit)
 
     func_fe6_08025780();
 
-    gActiveUnit->state |= US_HIDDEN;
+    gActiveUnit->flags |= UNIT_FLAG_HIDDEN;
     gMapUnit[unit->y][unit->x] = 0;
 }
 
@@ -814,7 +814,7 @@ void UnitBeginReMoveAction(struct Unit* unit)
 
     func_fe6_08025780();
 
-    gActiveUnit->state |= US_HIDDEN;
+    gActiveUnit->flags |= UNIT_FLAG_HIDDEN;
     gMapUnit[unit->y][unit->x] = 0;
 }
 
@@ -823,12 +823,12 @@ void func_fe6_08017EDC(int x, int y)
     gActiveUnit->x = x;
     gActiveUnit->y = y;
 
-    gActiveUnit->state |= US_TURN_ENDED;
+    gActiveUnit->flags |= UNIT_FLAG_TURN_ENDED;
 
     PidStatsAddSquaresMoved(gActiveUnit->pinfo->id, gAction.move_count);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
-        gActiveUnit->state = gActiveUnit->state &~ US_HIDDEN;
+        gActiveUnit->flags = gActiveUnit->flags &~ UNIT_FLAG_HIDDEN;
 
     UnitSyncMovement(gActiveUnit);
 }
@@ -847,7 +847,7 @@ void ClearActiveFactionTurnEndedState(void)
         if (!unit->pinfo)
             continue;
 
-        unit->state &= ~(US_TURN_ENDED + US_HAS_MOVED + US_HAS_MOVED_AI);
+        unit->flags &= ~(UNIT_FLAG_TURN_ENDED + UNIT_FLAG_HAD_ACTION + UNIT_FLAG_AI_PROCESSED);
     }
 }
 
@@ -869,7 +869,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_UNAVAILABLE | US_RESCUED))
+        if (unit->flags & (UNIT_FLAG_UNAVAILABLE | UNIT_FLAG_RESCUED))
             continue;
 
         if (unit->barrier != 0)
@@ -914,7 +914,7 @@ void func_fe6_0801809C(void)
         if (!unit->pinfo)
             continue;
 
-        unit->state &= ~US_BIT8;
+        unit->flags &= ~UNIT_FLAG_SEEN;
     }
 }
 
@@ -957,9 +957,9 @@ bool UnitKnowsMagic(struct Unit* unit)
 
 void func_fe6_080181B0(struct Unit* unit, int x, int y)
 {
-    if (!(unit->state & US_UNDER_A_ROOF))
+    if (!(unit->flags & UNIT_FLAG_UNDER_ROOF))
     {
-        unit->state = unit->state &~ (US_HIDDEN | US_NOT_DEPLOYED);
+        unit->flags = unit->flags &~ (UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
 
         unit->x = x;
         unit->y = y;

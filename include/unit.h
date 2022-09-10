@@ -55,23 +55,24 @@ enum
 
 enum
 {
-    US_HIDDEN       = (1 << 0),
-    US_TURN_ENDED   = (1 << 1),
-    US_DEAD         = (1 << 2),
-    US_NOT_DEPLOYED = (1 << 3),
-    US_RESCUING     = (1 << 4),
-    US_RESCUED      = (1 << 5),
-    US_HAS_MOVED    = (1 << 6), // Bad name?
-    US_UNDER_A_ROOF = (1 << 7),
-    US_BIT8         = (1 << 8), // has been seen?
-    US_BIT9         = (1 << 9), // hidden by fog?
-    US_HAS_MOVED_AI = (1 << 10),
+    UNIT_FLAG_HIDDEN       = 1 << 0,
+    UNIT_FLAG_TURN_ENDED   = 1 << 1,
+    UNIT_FLAG_DEAD         = 1 << 2,
+    UNIT_FLAG_NOT_DEPLOYED = 1 << 3,
+    UNIT_FLAG_RESCUING     = 1 << 4,
+    UNIT_FLAG_RESCUED      = 1 << 5,
+    UNIT_FLAG_HAD_ACTION   = 1 << 6,
+    UNIT_FLAG_UNDER_ROOF   = 1 << 7,
+    UNIT_FLAG_SEEN         = 1 << 8,
+    UNIT_FLAG_CONCEALED    = 1 << 9,
+    UNIT_FLAG_AI_PROCESSED = 1 << 10,
 
-    US_SOLOANIM_1   = (1 << 14),
-    US_SOLOANIM_2   = (1 << 15),
+    UNIT_FLAG_SOLOANIM_1   = 1 << 14,
+    UNIT_FLAG_SOLOANIM_2   = 1 << 15,
 
     // Helpers
-    US_UNAVAILABLE = (US_DEAD | US_NOT_DEPLOYED),
+
+    UNIT_FLAG_UNAVAILABLE = UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED,
 };
 
 enum
@@ -207,7 +208,7 @@ struct Unit
     /* 09 */ u8 exp;
     /* 0A */ u8 ai_flags;
     /* 0B */ i8 id;
-    /* 0C */ u16 state;
+    /* 0C */ u16 flags;
     /* 0E */ i8 x;
     /* 0F */ i8 y;
     /* 10 */ i8 max_hp;
@@ -245,11 +246,11 @@ struct UnitInfo
 {
     /* 00 */ u8 pid;
     /* 01 */ u8 jid;
-    /* 02 */ u8 pidLead;
+    /* 02 */ u8 pid_lead;
     /* 03 */ u8 autolevel : 1;
-    /* 03 */ u8 factionId : 2;
+    /* 03 */ u8 faction_id : 2;
     /* 03 */ u8 level : 5;
-    /* 04 */ u8 xLoad, yLoad;
+    /* 04 */ u8 x_load, y_load;
     /* 06 */ u8 x_move, y_move;
     /* 08 */ u8 items[4];
     /* 0C */ u8 ai[4];
@@ -353,23 +354,23 @@ extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 #define UNIT_CON(unit) (UNIT_CON_BASE(unit) + (unit)->bonus_con)
 #define UNIT_MOV(unit) ((unit)->bonus_mov + UNIT_MOV_BASE(unit))
 
-#define FOR_UNITS(begin, end, varName, body) \
+#define FOR_UNITS(begin, end, var_name, body) \
 { \
     int _uid; \
-    struct Unit* varName; \
+    struct Unit* var_name; \
     for (_uid = (begin); _uid < (end); ++_uid) \
     { \
-        varName = GetUnit(_uid); \
-        if (!varName) \
+        var_name = GetUnit(_uid); \
+        if (!var_name) \
             continue; \
-        if (!varName->pinfo) \
+        if (!var_name->pinfo) \
             continue; \
         body \
     } \
 }
 
-#define FOR_UNITS_FACTION(faction, varName, body) \
-    FOR_UNITS((faction) + 1, (faction) + 0x40, varName, body)
+#define FOR_UNITS_FACTION(faction, var_name, body) \
+    FOR_UNITS((faction) + 1, (faction) + 0x40, var_name, body)
 
-#define FOR_UNITS_ALL(varName, body) \
-    FOR_UNITS(1, 0xC0, varName, body)
+#define FOR_UNITS_ALL(var_name, body) \
+    FOR_UNITS(1, 0xC0, var_name, body)

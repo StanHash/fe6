@@ -165,7 +165,7 @@ void TryEnlistTradeUnitTarget(struct Unit* unit)
 
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 
-    if (unit->state & US_RESCUING)
+    if (unit->flags & UNIT_FLAG_RESCUING)
     {
         int rescue = unit->rescue;
 
@@ -184,7 +184,7 @@ void ListTradeTargets(struct Unit* unit)
     MapFill(gMapRange, 0);
     ListAdjacentTargetUnits(x, y, TryEnlistTradeUnitTarget);
 
-    if (gSubjectUnit->state & US_RESCUING)
+    if (gSubjectUnit->flags & UNIT_FLAG_RESCUING)
     {
         int count = CountTargets();
 
@@ -206,7 +206,7 @@ void TryEnlistRescueUnitTarget(struct Unit* unit)
     if (unit->status == UNIT_STATUS_BERSERK)
         return;
 
-    if (unit->state & (US_RESCUING | US_RESCUED))
+    if (unit->flags & (UNIT_FLAG_RESCUING | UNIT_FLAG_RESCUED))
         return;
 
     if (!CanUnitCarry(gSubjectUnit, unit))
@@ -253,7 +253,7 @@ void TryEnlistRescueTakeUnitTarget(struct Unit* unit)
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
 
-    if (!(unit->state & US_RESCUING))
+    if (!(unit->flags & UNIT_FLAG_RESCUING))
         return;
 
     if (!CanUnitCarry(gSubjectUnit, GetUnit(unit->rescue)))
@@ -278,7 +278,7 @@ void TryEnlistRescueGiveUnitTarget(struct Unit* unit)
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
 
-    if (unit->state & US_RESCUING)
+    if (unit->flags & UNIT_FLAG_RESCUING)
         return;
 
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
@@ -346,7 +346,7 @@ void ListSupportTargets(struct Unit* unit)
         if (!CanUnitSupportNow(gSubjectUnit, i))
             continue;
 
-        if (other->state & (US_UNAVAILABLE | US_RESCUED))
+        if (other->flags & (UNIT_FLAG_UNAVAILABLE | UNIT_FLAG_RESCUED))
             continue;
 
         if (other->status == UNIT_STATUS_BERSERK || other->status == UNIT_STATUS_SLEEP)
@@ -449,7 +449,7 @@ void ListTerrainHealingTargets(int faction)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_UNAVAILABLE | US_RESCUED))
+        if (unit->flags & (UNIT_FLAG_UNAVAILABLE | UNIT_FLAG_RESCUED))
             continue;
 
         terrain = gMapTerrain[unit->y][unit->x];
@@ -483,7 +483,7 @@ void ListPoisonDamageTargets(int faction)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_UNAVAILABLE | US_RESCUED))
+        if (unit->flags & (UNIT_FLAG_UNAVAILABLE | UNIT_FLAG_RESCUED))
             continue;
 
         if (unit->status != UNIT_STATUS_POISON)
@@ -498,7 +498,7 @@ void TryEnlistRefreshUnitTarget(struct Unit* unit)
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
 
-    if (!(unit->state & US_TURN_ENDED))
+    if (!(unit->flags & UNIT_FLAG_TURN_ENDED))
         return;
 
     EnlistTarget(unit->x, unit->y, unit->id, 0);
@@ -548,7 +548,7 @@ void TryEnlistHealUnitTarget(struct Unit* unit)
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
 
-    if (unit->state & US_RESCUED)
+    if (unit->flags & UNIT_FLAG_RESCUED)
         return;
 
     if (GetUnitCurrentHp(unit) == GetUnitMaxHp(unit))
@@ -588,7 +588,7 @@ void TryEnlistRestoreUnitTarget(struct Unit* unit)
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
 
-    if (unit->state & US_RESCUED)
+    if (unit->flags & UNIT_FLAG_RESCUED)
         return;
 
     if (unit->status == UNIT_STATUS_NONE)
@@ -613,7 +613,7 @@ void TryEnlistBarrierUnitTarget(struct Unit* unit)
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
 
-    if (unit->state & US_RESCUED)
+    if (unit->flags & UNIT_FLAG_RESCUED)
         return;
 
     if (unit->barrier >= 7) // TODO: barrier max amount constant
@@ -782,7 +782,7 @@ void ListSaintsStaffTargets(struct Unit* unit)
         if (!other->pinfo)
             continue;
 
-        if (other->state & US_UNAVAILABLE)
+        if (other->flags & UNIT_FLAG_UNAVAILABLE)
             continue;
 
         if (GetUnitCurrentHp(other) != GetUnitMaxHp(other) || other->status != UNIT_STATUS_NONE)

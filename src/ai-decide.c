@@ -70,7 +70,7 @@ next_unit:
         gActiveUnitId = *gAiSt.unit_it;
         gActiveUnit = GetUnit(gActiveUnitId);
 
-        if ((gActiveUnit->state & (US_TURN_ENDED | US_DEAD)) || !gActiveUnit->pinfo)
+        if ((gActiveUnit->flags & (UNIT_FLAG_TURN_ENDED | UNIT_FLAG_DEAD)) || !gActiveUnit->pinfo)
         {
             gAiSt.unit_it++;
             goto next_unit;
@@ -90,7 +90,7 @@ next_unit:
         AiClearDecision();
         AiDecideFunc();
 
-        gActiveUnit->state |= US_HAS_MOVED_AI;
+        gActiveUnit->flags |= UNIT_FLAG_AI_PROCESSED;
 
         if (!gAiDecision.action_performed ||
             (gActiveUnit->x == gAiDecision.x_move && gActiveUnit->y == gAiDecision.y_move && gAiDecision.action_id == AI_ACTION_NONE))

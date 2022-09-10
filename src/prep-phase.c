@@ -299,7 +299,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
             case PLAYER_SELECT_CONTROL:
                 UnitBeginAction(unit);
-                gActiveUnit->state &= ~US_HIDDEN;
+                gActiveUnit->flags &= ~UNIT_FLAG_HIDDEN;
 
                 Proc_Goto(proc, L_PLAYERPHASE_END);
 
@@ -307,7 +307,7 @@ static void PrepPhase_MapIdle(struct GenericProc* proc)
 
             case PLAYER_SELECT_NOCONTROL:
                 UnitBeginAction(unit);
-                gActiveUnit->state &= ~US_HIDDEN;
+                gActiveUnit->flags &= ~UNIT_FLAG_HIDDEN;
 
                 Proc_Goto(proc, L_PLAYERPHASE_MOVE);
 
@@ -496,7 +496,7 @@ void func_fe6_0802B784(void)
 
         FOR_UNITS(1, 0x40, unit,
         {
-            if (!(unit->state & US_UNAVAILABLE))
+            if (!(unit->flags & UNIT_FLAG_UNAVAILABLE))
                 UnitRearrangeAdd(unit);
         })
 

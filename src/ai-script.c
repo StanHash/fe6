@@ -310,7 +310,7 @@ void AiCmd_ActionOnPid(u8* pc)
         {
             if (AiUnitWithPidExists(sScr->unk_04) == TRUE)
             {
-                if (GetUnitByPid(sScr->unk_04)->state & US_RESCUED)
+                if (GetUnitByPid(sScr->unk_04)->flags & UNIT_FLAG_RESCUED)
                 {
                     gAiSt.cmd_result[0] = 3;
                     sScrEnded = FALSE;
@@ -443,7 +443,7 @@ void AiCmd_MoveTowardsPid(u8* pc)
         {
             struct Unit* unit = GetUnitByPid(sScr->unk_04);
 
-            if (unit->state & US_RESCUED)
+            if (unit->flags & UNIT_FLAG_RESCUED)
             {
                 gAiSt.cmd_result[0] = 3;
             }

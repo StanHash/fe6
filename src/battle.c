@@ -1171,7 +1171,7 @@ void UpdateUnitFromBattle(struct Unit* unit, struct BattleUnit* bu)
     unit->level = bu->unit.level;
     unit->exp   = bu->unit.exp;
     unit->hp = bu->unit.hp;
-    unit->state = bu->unit.state;
+    unit->flags = bu->unit.flags;
 
     if (bu->output_status >= 0)
         SetUnitStatus(unit, bu->output_status);
@@ -1561,10 +1561,10 @@ int GetUnitSoloBattleAnimType(struct Unit* unit)
 {
     // TODO: battle anim type constants
 
-    if (unit->state & US_SOLOANIM_1)
+    if (unit->flags & UNIT_FLAG_SOLOANIM_1)
         return 0;
 
-    if (unit->state & US_SOLOANIM_2)
+    if (unit->flags & UNIT_FLAG_SOLOANIM_2)
         return 3;
 
     return 1;

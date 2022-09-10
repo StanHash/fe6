@@ -98,10 +98,10 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2i* out)
         if (unit->pinfo->id != pid)
             continue;
 
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             goto target_dead;
 
-        if (unit->state & US_RESCUED)
+        if (unit->flags & UNIT_FLAG_RESCUED)
             gAiSt.cmd_result[0] = 3;
 
         out->x = unit->x;
@@ -111,7 +111,7 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2i* out)
     if (out->x >= 0)
         return TRUE;
 
-    if (GetUnitByPid(pid)->state & (US_DEAD | US_NOT_DEPLOYED))
+    if (GetUnitByPid(pid)->flags & (UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED))
     {
         gAiSt.cmd_result[0] = 1;
         return FALSE;
@@ -148,7 +148,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i* out)
         if (unit->pinfo == NULL)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
             continue;
 
         if (gMapRange[unit->y][unit->x] > MAP_MOVEMENT_MAX)
@@ -1071,10 +1071,10 @@ bool AiUnitWithPidExists(u16 pid)
         if (unit->pinfo->id != pid)
             continue;
 
-        if (unit->state & US_RESCUED)
+        if (unit->flags & UNIT_FLAG_RESCUED)
             return TRUE;
 
-        if (unit->state & (US_HIDDEN | US_DEAD))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
             return FALSE;
 
         return TRUE;
@@ -1138,7 +1138,7 @@ void func_fe6_080308B0(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_DEAD))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
             continue;
 
         mov = UNIT_MOV(unit);
@@ -1292,7 +1292,7 @@ int func_fe6_08030B94(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_DEAD))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
             continue;
 
         if (unit->ai_flags & AI_FLAG_0)

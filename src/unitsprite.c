@@ -530,7 +530,7 @@ void ForceSyncUnitSpriteSheet(void)
 
 int GetUnitDisplayedSpritePalette(struct Unit* unit)
 {
-    if (unit->state & US_TURN_ENDED)
+    if (unit->flags & UNIT_FLAG_TURN_ENDED)
         return OBJPAL_UNITSPRITE_GRAY;
 
     return GetUnitSpritePalette(unit);
@@ -582,7 +582,7 @@ void RefreshUnitSprites(void)
 
         unit->map_sprite = NULL;
 
-        if (unit->state & (US_HIDDEN | US_BIT9))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_CONCEALED))
             continue;
 
         if (gMapUnit[unit->y][unit->x] == 0)
@@ -597,7 +597,7 @@ void RefreshUnitSprites(void)
 
         map_sprite->config = GetInfo(GetUnitMapSprite(unit)).size;
 
-        if (unit->state & US_BIT8)
+        if (unit->flags & UNIT_FLAG_SEEN)
             map_sprite->config += 3;
 
         unit->map_sprite = map_sprite;
@@ -735,7 +735,7 @@ void PutUnitSpriteIconsOam(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & US_HIDDEN)
+        if (unit->flags & UNIT_FLAG_HIDDEN)
             continue;
 
         if (GetUnitSpriteHiddenFlag(unit) != 0)
@@ -806,7 +806,7 @@ void PutUnitSpriteIconsOam(void)
 
         // Display rescue icon
 
-        if ((unit->state & US_RESCUING) && displayRescueIcon)
+        if ((unit->flags & UNIT_FLAG_RESCUING) && displayRescueIcon)
         {
             x = unit->x*16 - gBmSt.camera.x;
             y = unit->y*16 - gBmSt.camera.y;
@@ -839,7 +839,7 @@ void UnitSpriteHoverUpdate(void)
 
     if (unit)
     {
-        if (!(unit->state & US_TURN_ENDED)
+        if (!(unit->flags & UNIT_FLAG_TURN_ENDED)
             && UNIT_FACTION(unit) == FACTION_BLUE
             && unit->status != UNIT_STATUS_BERSERK
             && unit->status != UNIT_STATUS_SLEEP)
@@ -891,7 +891,7 @@ bool IsUnitSpriteHoverEnabledAt(int x, int y)
     if (!unit)
         return FALSE;
 
-    if (unit->state & US_TURN_ENDED)
+    if (unit->flags & UNIT_FLAG_TURN_ENDED)
         return FALSE;
 
     if (UNIT_FACTION(unit) != FACTION_BLUE)

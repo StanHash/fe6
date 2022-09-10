@@ -201,7 +201,7 @@ void DoTurnSupportExp(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & US_UNAVAILABLE)
+        if (unit->flags & UNIT_FLAG_UNAVAILABLE)
             continue;
 
         if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)
@@ -216,7 +216,7 @@ void DoTurnSupportExp(void)
             if (!other)
                 continue;
 
-            if (other->state & US_UNAVAILABLE)
+            if (other->flags & UNIT_FLAG_UNAVAILABLE)
                 continue;
 
             if (UNIT_FACTION(other) != FACTION_BLUE)
@@ -232,7 +232,7 @@ void DoTurnSupportExp(void)
                 goto add_support_points;
 
             case 1:
-                if ((unit->state & US_RESCUED) || (other->state & US_RESCUED))
+                if ((unit->flags & UNIT_FLAG_RESCUED) || (other->flags & UNIT_FLAG_RESCUED))
                     break;
 
             add_support_points:
@@ -307,7 +307,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
                 continue;
         }
 
-        if (other->state & (US_UNAVAILABLE | US_RESCUED))
+        if (other->flags & (UNIT_FLAG_UNAVAILABLE | UNIT_FLAG_RESCUED))
             continue;
 
         levelA = GetUnitSupportLevel(other, GetUnitSupportNumByPid(other, unit->pinfo->id));

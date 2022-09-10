@@ -532,7 +532,7 @@ void RefreshEntityMaps(void)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & US_HIDDEN)
+        if (unit->flags & UNIT_FLAG_HIDDEN)
             continue;
 
         // Put unit on unit map
@@ -559,26 +559,26 @@ void RefreshEntityMaps(void)
             if (!unit->pinfo)
                 continue;
 
-            if (unit->state & US_HIDDEN)
+            if (unit->flags & UNIT_FLAG_HIDDEN)
                 continue;
 
             if (gPlaySt.vision != 0 && !gMapFog[unit->y][unit->x])
             {
-                // If in fog, set unit bit on the hidden map, and set the "hidden in fog" state
+                // If in fog, set unit bit on the hidden map, and set the "hidden in fog" flag
 
                 gMapHidden[unit->y][unit->x] = 1;
-                unit->state |= US_BIT9;
+                unit->flags |= UNIT_FLAG_CONCEALED;
             }
             else
             {
-                // If not in fog, put unit on the map, and update state accordingly
+                // If not in fog, put unit on the map, and update flags accordingly
 
                 gMapUnit[unit->y][unit->x] = i;
 
-                if (unit->state & US_BIT9)
+                if (unit->flags & UNIT_FLAG_CONCEALED)
                 {
-                    unit->state &= ~US_BIT9;
-                    unit->state |= US_BIT8;
+                    unit->flags &= ~UNIT_FLAG_CONCEALED;
+                    unit->flags |= UNIT_FLAG_SEEN;
                 }
             }
         }
@@ -589,7 +589,7 @@ void RefreshEntityMaps(void)
 
         // This does mostly the same as the "No red phase" loop, except:
         // - It always puts the units on the unit map
-        // - It never sets the "spotted" unit state bit (even if unit is seen)
+        // - It never sets the "spotted" unit flag (even if unit is seen)
 
         for (i = FACTION_RED + 1; i < FACTION_PURPLE + 6; ++i)
         {
@@ -601,17 +601,17 @@ void RefreshEntityMaps(void)
             if (!unit->pinfo)
                 continue;
 
-            if (unit->state & US_HIDDEN)
+            if (unit->flags & UNIT_FLAG_HIDDEN)
                 continue;
 
             if (gPlaySt.vision)
             {
-                // Update unit state according to fog level
+                // Update unit flags according to fog level
 
                 if (!gMapFog[unit->y][unit->x])
-                    unit->state |= US_BIT9;
+                    unit->flags |= UNIT_FLAG_CONCEALED;
                 else
-                    unit->state &= ~US_BIT9;
+                    unit->flags &= ~UNIT_FLAG_CONCEALED;
             }
 
             // Put on unit map

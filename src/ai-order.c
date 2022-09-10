@@ -63,7 +63,7 @@ void AiOrder_Berserk_Init(ProcPtr proc)
         if (unit->status != UNIT_STATUS_BERSERK)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_TURN_ENDED | US_DEAD | US_RESCUED | US_HAS_MOVED_AI))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_TURN_ENDED | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED | UNIT_FLAG_AI_PROCESSED))
             continue;
 
         gAiSt.units[count++] = faction+i+1;
@@ -179,7 +179,7 @@ int BuildAiUnitList(void)
         if (unit->status == UNIT_STATUS_BERSERK)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_TURN_ENDED | US_DEAD | US_RESCUED | US_HAS_MOVED_AI))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_TURN_ENDED | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED | UNIT_FLAG_AI_PROCESSED))
             continue;
 
         gAiSt.units[count] = faction+i+1;

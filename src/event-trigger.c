@@ -383,7 +383,7 @@ bool func_fe6_0806ACEC(int x1, int y1, int x2, int y2)
 {
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         if (unit->x >= x1 && unit->x <= x2 && unit->y >= y1 && unit->y <= y2)
@@ -464,7 +464,7 @@ bool func_fe6_0806AE7C(int x1, int y1, int x2, int y2)
 {
     FOR_UNITS_FACTION(FACTION_RED, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         if (unit->x >= x1 && unit->x <= x2 && unit->y >= y1 && unit->y <= y2)

@@ -455,7 +455,7 @@ void AiPerform_0802F20C(struct AiPerformProc* proc)
     func_fe6_08032A08();
     AiEndMuAndRefreshUnits();
 
-    if (!gActiveUnit->pinfo || gActiveUnit->state & (US_HIDDEN | US_DEAD))
+    if (!gActiveUnit->pinfo || gActiveUnit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
         Proc_Goto(proc, 1);
 }
 

@@ -79,7 +79,7 @@ static void AiFillDangerMap(void)
         if (unit->pinfo == NULL)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_DEAD | US_NOT_DEPLOYED))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED))
             continue;
 
         if (AreUnitIdsAllied(gActiveUnitId, unit->id))
@@ -371,7 +371,7 @@ struct AiEscapePt const* func_fe6_08032C2C(void)
 
 bool func_fe6_08032CB4(void)
 {
-    if (gActiveUnit->state & US_HAS_MOVED)
+    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return FALSE;
 
     if (gAiDecision.action_id == AI_ACTION_COMBAT)

@@ -74,7 +74,7 @@ bool AiAttemptOffensiveAction(bool(*is_enemy)(struct Unit* unit))
 
         FOR_UNITS(1, 0xC0, unit,
         {
-            if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
+            if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
                 continue;
 
             if (!is_enemy(unit))
@@ -142,7 +142,7 @@ bool AiAttemptCombatWithinMovement(bool(*is_enemy)(struct Unit* unit))
 
         FOR_UNITS(1, 0xC0, unit,
         {
-            if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
+            if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
                 continue;
 
             if (!is_enemy(unit))
@@ -268,7 +268,7 @@ bool AiAttemptBallistaCombat(bool(*is_enemy)(struct Unit* unit), struct AiCombat
 
         FOR_UNITS_ALL(unit,
         {
-            if (unit->state & (US_HIDDEN | US_DEAD | US_RESCUED))
+            if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
                 continue;
 
             if (!is_enemy(unit))

@@ -703,7 +703,7 @@ static void GetAiInitialCursorPosition(int* xOut, int* yOut)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & (US_HIDDEN | US_BIT9))
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_CONCEALED))
             continue;
 
         *xOut = unit->x;

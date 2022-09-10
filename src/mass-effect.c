@@ -109,7 +109,7 @@ static void KillAllRedUnits_Init(struct GenericProc* proc)
 
     FOR_UNITS_FACTION(FACTION_RED, unit,
     {
-        if (unit->state & (US_DEAD | US_NOT_DEPLOYED))
+        if (unit->flags & (UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED))
             continue;
 
         EnlistTarget(unit->x, unit->y, unit->id, 0);

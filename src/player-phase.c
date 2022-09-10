@@ -348,7 +348,7 @@ void DisplayUnitActionRange(struct Unit* unit)
 
     MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
 
-    if (!(gActiveUnit->state & US_HAS_MOVED))
+    if (!(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
     {
         switch (func_fe6_08018258(gActiveUnit))
         {
@@ -453,7 +453,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
         }
         else
         {
-            if (GetPlayerSelectKind(gActiveUnit) != PLAYER_SELECT_CONTROL && !(gActiveUnit->state & US_HAS_MOVED))
+            if (GetPlayerSelectKind(gActiveUnit) != PLAYER_SELECT_CONTROL && !(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
             {
                 if (func_fe6_08018258(gActiveUnit) == (UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF))
                     act = ACT_SWAP_RANGES;
@@ -477,7 +477,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 
     if (gKeySt->pressed & KEY_BUTTON_B)
     {
-        if (gActiveUnit->state & US_HAS_MOVED)
+        if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
             act = ACT_FAIL;
         else
             act = ACT_CANCEL;
@@ -509,7 +509,7 @@ do_act:
     case ACT_CANCEL:
         EndAllMus();
 
-        gActiveUnit->state &= ~US_HIDDEN;
+        gActiveUnit->flags &= ~UNIT_FLAG_HIDDEN;
 
         if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
         {
@@ -584,13 +584,13 @@ static void PlayerPhase_CancelAction(ProcPtr proc)
 
     UnitSyncMovement(gActiveUnit);
 
-    gActiveUnit->state &= ~US_HIDDEN;
+    gActiveUnit->flags &= ~UNIT_FLAG_HIDDEN;
 
     RefreshEntityMaps();
     RenderMap();
     RefreshUnitSprites();
 
-    if (!(gActiveUnit->state & US_HAS_MOVED))
+    if (!(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
         UnitBeginAction(gActiveUnit);
     else
         UnitBeginReMoveAction(gActiveUnit);
@@ -661,7 +661,7 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_RE_MOVE))
         return FALSE;
 
-    if (gActiveUnit->state & (US_HAS_MOVED | US_DEAD))
+    if (gActiveUnit->flags & (UNIT_FLAG_HAD_ACTION | UNIT_FLAG_DEAD))
         return FALSE;
 
     if (gAction.id == ACTION_COMBAT || gAction.id == ACTION_STAFF)
@@ -677,8 +677,8 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
 
     UnitBeginReMoveAction(gActiveUnit);
 
-    gActiveUnit->state |= US_HAS_MOVED;
-    gActiveUnit->state &= ~US_TURN_ENDED;
+    gActiveUnit->flags |= UNIT_FLAG_HAD_ACTION;
+    gActiveUnit->flags &= ~UNIT_FLAG_TURN_ENDED;
 
     if (gPlaySt.vision != 0)
         Proc_Goto(proc, L_PLAYERPHASE_MAPFADE_MOVE);
@@ -770,7 +770,7 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
 
     UnitSyncMovement(gActiveUnit);
 
-    if (!(gActiveUnit->state & US_HAS_MOVED) && gAction.id == ACTION_NONE && gBmSt.partial_actions_taken == 0)
+    if (!(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION) && gAction.id == ACTION_NONE && gBmSt.partial_actions_taken == 0)
         gAction.move_count = gMapMovement[gAction.y_move][gAction.x_move];
 
     ResetTextFont();
@@ -808,7 +808,7 @@ int GetPlayerSelectKind(struct Unit* unit)
     if (UNIT_FACTION(unit) != faction)
         return PLAYER_SELECT_NOCONTROL;
 
-    if (unit->state & US_TURN_ENDED)
+    if (unit->flags & UNIT_FLAG_TURN_ENDED)
         return PLAYER_SELECT_TURNENDED;
 
     if (unit->status != UNIT_STATUS_SLEEP && unit->status != UNIT_STATUS_BERSERK)
@@ -841,12 +841,12 @@ static void PlayerPhase_WaitForMove(ProcPtr proc)
 void PlayerPhase_0801BC84(ProcPtr proc)
 {
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = gActiveUnit->id;
-    gActiveUnit->state &= ~US_HIDDEN;
+    gActiveUnit->flags &= ~UNIT_FLAG_HIDDEN;
 
     InitBmDisplay();
 
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0;
-    gActiveUnit->state |= US_HIDDEN;
+    gActiveUnit->flags |= UNIT_FLAG_HIDDEN;
 
     switch (GetPlayerSelectKind(gActiveUnit))
     {
@@ -995,7 +995,7 @@ static bool TrySetCursorOn(int uid)
     if (!unit->pinfo)
         return FALSE;
 
-    if (unit->state & (US_HIDDEN | US_TURN_ENDED | US_DEAD))
+    if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_TURN_ENDED | UNIT_FLAG_DEAD))
         return FALSE;
 
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)

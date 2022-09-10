@@ -357,7 +357,7 @@ static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
     if (UnitInfoRequiresNoMovement(info))
         return;
 
-    if (info->factionId == FACTION_ID_BLUE)
+    if (info->faction_id == FACTION_ID_BLUE)
         unit = GetUnitByPid(info->pid);
     else
         unit = NULL;
@@ -365,7 +365,7 @@ static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
     if (!unit)
         unit = CreateUnit(info);
 
-    if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->factionId == FACTION_ID_RED)
+    if ((gPlaySt.flags & PLAY_FLAG_HARD) && info->faction_id == FACTION_ID_RED)
         UnitApplyBonusLevels(unit, GetChapterInfo(gPlaySt.chapter)->hard_bonus_levels);
 
     MoveUnitFromInfo(info, unit, parent);
@@ -383,12 +383,12 @@ static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, Pro
     if (!unit)
         return;
 
-    if (parent && !(unit->state & US_UNDER_A_ROOF))
+    if (parent && !(unit->flags & UNIT_FLAG_UNDER_ROOF))
     {
-        TryMoveUnit(unit, info->xLoad, info->yLoad, FALSE);
+        TryMoveUnit(unit, info->x_load, info->y_load, FALSE);
         RefreshUnitSprites();
 
-        if (info->xLoad != info->x_move || info->yLoad != info->y_move)
+        if (info->x_load != info->x_move || info->y_load != info->y_move)
             TryMoveUnitDisplayed(parent, unit, info->x_move, info->y_move);
     }
     else
@@ -1532,10 +1532,10 @@ void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
 
     UnitSyncMovement(unit);
 
-    if (unit->state & US_UNDER_A_ROOF)
+    if (unit->flags & UNIT_FLAG_UNDER_ROOF)
         return;
 
-    unit->state &= ~(US_HIDDEN | US_NOT_DEPLOYED);
+    unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
 
     RefreshEntityMaps();
 }
@@ -1589,7 +1589,7 @@ static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const*
     gproc->ptr = mu;
 
     HideUnitSprite(unit);
-    unit->state |= US_HIDDEN;
+    unit->flags |= UNIT_FLAG_HIDDEN;
 
     x = unit->x;
     y = unit->y;
@@ -1630,7 +1630,7 @@ static void WaitForMu_OnLoop(struct GenericProc* proc)
     UnitSyncMovement(unit);
 
     ShowUnitSprite(unit);
-    unit->state &= ~US_HIDDEN;
+    unit->flags &= ~UNIT_FLAG_HIDDEN;
 
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -1680,7 +1680,7 @@ int GetNextAvailableBlueUnitId(int start)
         if (!unit->pinfo)
             continue;
 
-        if (unit->state & US_UNAVAILABLE)
+        if (unit->flags & UNIT_FLAG_UNAVAILABLE)
             continue;
 
         return i;
@@ -1691,9 +1691,9 @@ int GetNextAvailableBlueUnitId(int start)
 
 bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
 {
-    if (info->xLoad == info->x_move)
-        if (info->yLoad == info->y_move)
-            if (gMapUnit[info->yLoad][info->xLoad] != 0)
+    if (info->x_load == info->x_move)
+        if (info->y_load == info->y_move)
+            if (gMapUnit[info->y_load][info->x_load] != 0)
                 return TRUE;
 
     return FALSE;
@@ -1727,7 +1727,7 @@ static void EventUnitLoadWait(struct EventProc* proc)
 
         if (!UnitInfoRequiresNoMovement(info))
         {
-            if (!CanDisplayUnitMovement(proc, info->xLoad, info->yLoad))
+            if (!CanDisplayUnitMovement(proc, info->x_load, info->y_load))
                 break;
 
             LoadUnitWrapper(info, proc);
@@ -1751,7 +1751,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         blueCount++;
@@ -1764,21 +1764,21 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
     {
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {
-            if (unit->state & US_DEAD)
+            if (unit->flags & UNIT_FLAG_DEAD)
                 continue;
 
-            unit->state |= US_HIDDEN;
+            unit->flags |= UNIT_FLAG_HIDDEN;
         })
     }
     else
     {
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {
-            if (unit->state & US_DEAD)
+            if (unit->flags & UNIT_FLAG_DEAD)
                 continue;
 
-            unit->state |= US_HIDDEN;
-            unit->state &= ~US_NOT_DEPLOYED;
+            unit->flags |= UNIT_FLAG_HIDDEN;
+            unit->flags &= ~UNIT_FLAG_NOT_DEPLOYED;
         })
     }
 
@@ -1801,13 +1801,13 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
-        if (!(unit->state & US_HIDDEN))
+        if (!(unit->flags & UNIT_FLAG_HIDDEN))
             continue;
 
-        unit->state |= US_NOT_DEPLOYED;
+        unit->flags |= UNIT_FLAG_NOT_DEPLOYED;
     })
 
     RefreshEntityMaps();
@@ -1950,7 +1950,7 @@ static int EvtCmd_GotoIfnAlive(struct EventProc* proc)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         if (unit->pinfo->id == pid)
@@ -1969,7 +1969,7 @@ static int EvtCmd_GotoIfnInTeam(struct EventProc* proc)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_UNAVAILABLE)
+        if (unit->flags & UNIT_FLAG_UNAVAILABLE)
             continue;
 
         if (unit->pinfo->id == pid)
@@ -2230,7 +2230,7 @@ static int EvtCmd_SetFaction(struct EventProc* proc)
 
     FOR_UNITS_ALL(unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         id = unit->pinfo->id; // unused
@@ -2430,7 +2430,7 @@ static int EvtCmd_SetAiPid(struct EventProc* proc)
 
     FOR_UNITS_ALL(unit,
     {
-        if (unit->state & (US_DEAD | US_HIDDEN))
+        if (unit->flags & (UNIT_FLAG_DEAD | UNIT_FLAG_HIDDEN))
             continue;
 
         if (unit->pinfo->id != pid)
@@ -2456,7 +2456,7 @@ static int EvtCmd_SetAiPosition(struct EventProc* proc)
 
     FOR_UNITS(0x41, 0xC0, unit,
     {
-        if (unit->state & (US_DEAD | US_HIDDEN))
+        if (unit->flags & (UNIT_FLAG_DEAD | UNIT_FLAG_HIDDEN))
             continue;
 
         if (unit->x != x)
@@ -3635,7 +3635,7 @@ void InitPlayerDeployUnits(void)
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
         if (info->pid == 0)
@@ -3644,7 +3644,7 @@ void InitPlayerDeployUnits(void)
             continue;
         }
 
-        if (unit->state & US_NOT_DEPLOYED)
+        if (unit->flags & UNIT_FLAG_NOT_DEPLOYED)
             continue;
 
         unit->x = info->x_move;
@@ -3660,18 +3660,18 @@ void InitPlayerDeployUnitPositions(void)
 {
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
-        if (unit->state & US_DEAD)
+        if (unit->flags & UNIT_FLAG_DEAD)
             continue;
 
-        if (unit->state & US_NOT_DEPLOYED)
+        if (unit->flags & UNIT_FLAG_NOT_DEPLOYED)
         {
             unit->x = -1;
-            unit->state |= US_HIDDEN;
+            unit->flags |= UNIT_FLAG_HIDDEN;
 
             continue;
         }
 
-        unit->state &= ~US_HIDDEN;
+        unit->flags &= ~UNIT_FLAG_HIDDEN;
 
         if (unit->x == -1)
             MoveUnitToFirstAvailableDeployPosition(unit);
@@ -3690,7 +3690,7 @@ static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
 
         FOR_UNITS_FACTION(FACTION_BLUE, unit,
         {
-            if (unit->state & US_UNAVAILABLE)
+            if (unit->flags & UNIT_FLAG_UNAVAILABLE)
                 continue;
 
             if (unit->x == info->x_move && unit->y == info->y_move)

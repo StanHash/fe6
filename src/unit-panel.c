@@ -55,7 +55,7 @@ static void UnitPanel_OnLoop(struct UnitPanelProc* proc)
     int x = 8*proc->x + proc->xUnitSprite;
     int y = 8*(proc->y+1);
 
-    if (proc->unit->state & US_RESCUED)
+    if (proc->unit->flags & UNIT_FLAG_RESCUED)
     {
         if (GetGameTime() % 32 >= 20)
             return;
