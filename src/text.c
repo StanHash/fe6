@@ -410,7 +410,7 @@ void Text_DrawNumber(struct Text* text, int number)
 {
     if (number == 0)
     {
-        Text_DrawCharacter(text, TEXT("\x82\x4F")); // "０"
+        Text_DrawCharacter(text, JTEXT("０"));
         return;
     }
 
@@ -430,7 +430,7 @@ void Text_DrawNumberOrBlank(struct Text* text, int number)
     if (number == 0xFF || number == -1)
     {
         Text_Skip(text, -8);
-        Text_DrawString(text, TEXT("\x81\x5B\x81\x5B")); // "ーー"
+        Text_DrawString(text, JTEXT("ーー"));
 
         return;
     }

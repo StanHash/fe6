@@ -1,7 +1,0 @@
-char const String_ItemLevel_None[] = TEXT("\x81\x5B"); // "ー"
-char const String_ItemLevel_E[]    = TEXT("\x82\x64"); // "Ｅ"
-char const String_ItemLevel_D[]    = TEXT("\x82\x63"); // "Ｄ"
-char const String_ItemLevel_C[]    = TEXT("\x82\x62"); // "Ｃ"
-char const String_ItemLevel_B[]    = TEXT("\x82\x61"); // "Ｂ"
-char const String_ItemLevel_A[]    = TEXT("\x82\x60"); // "Ａ"
-char const String_ItemLevel_S[]    = TEXT("\x82\x72"); // "Ｓ"

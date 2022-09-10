@@ -481,22 +481,20 @@ bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
     }
 }
 
-#include "data/strings/item-ranges.h"
-
 char const* GetItemRangeString(int item)
 {
     char const* strings[] =
     {
-        String_ItemRange_1ToMag,
-        String_ItemRange_1,
-        String_ItemRange_1To2,
-        String_ItemRange_1To3,
-        String_ItemRange_2,
-        String_ItemRange_2To3,
-        String_ItemRange_3To10,
-        String_ItemRange_3To15,
-        String_ItemRange_All,
-        String_ItemRange_None,
+        JTEXT("１～魔力"), // 1 - mag
+        JTEXT("　　　１"), // 1
+        JTEXT("　１～２"), // 1 - 2
+        JTEXT("　１～３"), // 1 - 3
+        JTEXT("　　　２"), // 2
+        JTEXT("　２～３"), // 2 - 3
+        JTEXT("３～１０"), // 3 - 10
+        JTEXT("３～１５"), // 3 - 15
+        JTEXT("　　全体"), // all
+        JTEXT("　　ーー"), // none
     };
 
     switch (GetItemEncodedRange(item))
@@ -558,19 +556,17 @@ int GetWeaponLevelFromExp(int wexp)
     return WPN_LEVEL_S;
 }
 
-#include "data/strings/item-levels.h"
-
 char const* GetWeaponLevelStringFromExp(int wexp)
 {
     char const* strings[] =
     {
-        [WPN_LEVEL_0] = String_ItemLevel_None,
-        [WPN_LEVEL_E] = String_ItemLevel_E,
-        [WPN_LEVEL_D] = String_ItemLevel_D,
-        [WPN_LEVEL_C] = String_ItemLevel_C,
-        [WPN_LEVEL_B] = String_ItemLevel_B,
-        [WPN_LEVEL_A] = String_ItemLevel_A,
-        [WPN_LEVEL_S] = String_ItemLevel_S,
+        [WPN_LEVEL_0] = JTEXT("ー"),
+        [WPN_LEVEL_E] = JTEXT("Ｅ"),
+        [WPN_LEVEL_D] = JTEXT("Ｄ"),
+        [WPN_LEVEL_C] = JTEXT("Ｃ"),
+        [WPN_LEVEL_B] = JTEXT("Ｂ"),
+        [WPN_LEVEL_A] = JTEXT("Ａ"),
+        [WPN_LEVEL_S] = JTEXT("Ｓ"),
     };
 
     return strings[GetWeaponLevelFromExp(wexp)];
@@ -592,23 +588,21 @@ int GetWeaponLevelSpecialCharFromExp(int wexp)
     return specials[GetWeaponLevelFromExp(wexp)];
 }
 
-#include "data/strings/item-kinds.h"
-
 char const* GetItemKindString(int kind)
 {
     char const* strings[] =
     {
-        [ITEM_KIND_SWORD]  = String_ItemKind_Sword,
-        [ITEM_KIND_LANCE]  = String_ItemKind_Lance,
-        [ITEM_KIND_AXE]    = String_ItemKind_Axe,
-        [ITEM_KIND_BOW]    = String_ItemKind_Bow,
-        [ITEM_KIND_STAFF]  = String_ItemKind_Staff,
-        [ITEM_KIND_ANIMA]  = String_ItemKind_Anima,
-        [ITEM_KIND_LIGHT]  = String_ItemKind_Light,
-        [ITEM_KIND_ELDER]  = String_ItemKind_Elder,
-        [ITEM_KIND_UNK8]   = String_ItemKind_Unk8,
-        [ITEM_KIND_UNK9]   = String_ItemKind_Unk9,
-        [ITEM_KIND_DRAGON] = String_ItemKind_Dragon,
+        [ITEM_KIND_SWORD]  = TEXT("剣", "Sword"),
+        [ITEM_KIND_LANCE]  = TEXT("槍", "Lance"),
+        [ITEM_KIND_AXE]    = TEXT("斧", "Axe"),
+        [ITEM_KIND_BOW]    = TEXT("弓", "Bow"),
+        [ITEM_KIND_STAFF]  = TEXT("杖", "Staff"),
+        [ITEM_KIND_ANIMA]  = TEXT("理", "Anima"),
+        [ITEM_KIND_LIGHT]  = TEXT("光", "Light"),
+        [ITEM_KIND_ELDER]  = TEXT("闇", "Dark"),
+        [ITEM_KIND_UNK8]   = JTEXT("道"),
+        [ITEM_KIND_UNK9]   = JTEXT("ア"),
+        [ITEM_KIND_DRAGON] = TEXT("竜", "Dragon"),
     };
 
     return strings[kind];

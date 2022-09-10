@@ -28,7 +28,7 @@ enum
     DEBUG_WEATHER_SNOW,
     DEBUG_WEATHER_SNOWSTORM,
     DEBUG_WEATHER_RAIN,
-    DEBUG_WEATHER_5,
+    DEBUG_WEATHER_NIGHT,
     DEBUG_WEATHER_FLAMES,
 
     DEBUG_WEATHER_COUNT,
@@ -189,15 +189,15 @@ int func_fe6_0801A760(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* offon[] =
     {
-        TEXT("\x82\x6E\x82\x65\x82\x65"), // "ＯＦＦ"
-        TEXT("\x81\x40\x82\x6E\x82\x6D"), // "　ＯＮ"
+        JTEXT("ＯＦＦ"),
+        JTEXT("　ＯＮ"),
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x83\x66\x83\x75\x8F\xEE\x95\xF1")); // "デブ情報"
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, JTEXT("デブ情報"));
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[proc->unk66]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -225,20 +225,20 @@ int func_fe6_0801A820(struct MenuProc* menu, struct MenuEntProc* ent)
 {
     char const* weatherNames[] =
     {
-        [DEBUG_WEATHER_NONE]      = TEXT("\x90\xB0\x82\xEA"), // "晴れ"
-        [DEBUG_WEATHER_SANDSTORM] = TEXT("\x8D\xBB\x97\x92"), // "砂嵐"
-        [DEBUG_WEATHER_SNOW]      = TEXT("\x90\xE1"), // "雪"
-        [DEBUG_WEATHER_SNOWSTORM] = TEXT("\x90\x81\x90\xE1"), // "吹雪"
-        [DEBUG_WEATHER_RAIN]      = TEXT("\x89\x4A"), // "雨"
-        [DEBUG_WEATHER_5]         = TEXT("\x96\xE9"), // "夜"
-        [DEBUG_WEATHER_FLAMES]    = TEXT("\x97\x6E\x8A\xE2"), // "溶岩"
+        [DEBUG_WEATHER_NONE]      = TEXT("晴れ", "None"),
+        [DEBUG_WEATHER_SANDSTORM] = TEXT("砂嵐", "Sandstorm"),
+        [DEBUG_WEATHER_SNOW]      = TEXT("雪", "Snow"),
+        [DEBUG_WEATHER_SNOWSTORM] = TEXT("吹雪", "Snowstorm"),
+        [DEBUG_WEATHER_RAIN]      = TEXT("雨", "Rain"),
+        [DEBUG_WEATHER_NIGHT]     = TEXT("夜", "Night"),
+        [DEBUG_WEATHER_FLAMES]    = TEXT("溶岩", "Flames"),
     };
 
     struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, TEXT("\x93\x56\x8B\x43")); // "天気"
+    Text_InsertDrawString(&ent->text, 8,  TEXT_COLOR_SYSTEM_WHITE, TEXT("天気", "Weather"));
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, weatherNames[proc->unk58 % DEBUG_WEATHER_COUNT]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
@@ -276,8 +276,8 @@ int func_fe6_0801A89C(struct MenuProc* menu, struct MenuEntProc* ent)
             SetWeather(WEATHER_RAIN);
             break;
 
-        case DEBUG_WEATHER_5:
-            SetWeather(WEATHER_3);
+        case DEBUG_WEATHER_NIGHT:
+            SetWeather(WEATHER_NIGHT);
             break;
 
         case DEBUG_WEATHER_FLAMES:

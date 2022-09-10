@@ -367,14 +367,14 @@ char const* GetAffinityName(int affinity)
 {
     char const* lut[] =
     {
-        TEXT("\x81\x5B"), // "ー"
-        TEXT("\x89\x8A"), // "炎"
-        TEXT("\x97\x8B"), // "雷"
-        TEXT("\x95\x97"), // "風"
-        TEXT("\x95\x58"), // "氷"
-        TEXT("\x88\xC5"), // "闇"
-        TEXT("\x8C\xF5"), // "光"
-        TEXT("\x97\x9D"), // "理"
+        JTEXT("ー"),
+        JTEXT("炎"),
+        JTEXT("雷"),
+        JTEXT("風"),
+        JTEXT("氷"),
+        JTEXT("闇"),
+        JTEXT("光"),
+        JTEXT("理"),
     };
 
     return lut[affinity];

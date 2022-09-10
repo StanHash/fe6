@@ -241,15 +241,13 @@ void SetUnitStatus(struct Unit* unit, int status)
     }
 }
 
-#include "data/strings/statuses.h"
-
 static char const* CONST_DATA sStatusNameStringLut[] =
 {
-    [UNIT_STATUS_BERSERK]  = String_StatusName_Berserk,
-    [UNIT_STATUS_SILENCED] = String_StatusName_Silenced,
-    [UNIT_STATUS_SLEEP]    = String_StatusName_Sleep,
-    [UNIT_STATUS_POISON]   = String_StatusName_Poison,
-    [UNIT_STATUS_NONE]     = String_StatusName_None,
+    [UNIT_STATUS_BERSERK]  = TEXT("バサーク", "Berserk"),
+    [UNIT_STATUS_SILENCED] = TEXT("サイレス", "Silence"),
+    [UNIT_STATUS_SLEEP]    = TEXT("スリープ", "Sleep"),
+    [UNIT_STATUS_POISON]   = TEXT("ポイズン", "Poison"),
+    [UNIT_STATUS_NONE]     = JTEXT("ーーー"),
 };
 
 inline char const* GetUnitStatusName(struct Unit* unit)

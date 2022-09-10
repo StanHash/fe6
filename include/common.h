@@ -27,4 +27,5 @@
 #define RECT_DISTANCE(xa, ya, xb, yb) (ABS((xa) - (xb)) + ABS((ya) - (yb)))
 
 // For translate-able strings.
-#define TEXT(str) (str)
+#define JTEXT(orig) (orig)
+#define TEXT(orig, english) (orig)

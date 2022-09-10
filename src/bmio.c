@@ -882,7 +882,7 @@ void WeatherInit(void)
         WeatherInit_Rain();
         break;
 
-    case WEATHER_3:
+    case WEATHER_NIGHT:
         WeatherInit_Blue();
         break;
 
@@ -918,7 +918,7 @@ void WeatherVBlank(void)
         WeatherVBlank_Rain();
         break;
 
-    case WEATHER_3:
+    case WEATHER_NIGHT:
         WeatherVBlank_Blue();
         break;
 

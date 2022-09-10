@@ -106,14 +106,14 @@ static void InitBattlePreviewIconPalBuf(void)
 
 static void InitBattlePreviewLabels(void)
 {
-    static char const* gUnk_085C8388[BATTLEPREVIEW_LABEL_COUNT] =
+    static char const* label_strings[BATTLEPREVIEW_LABEL_COUNT] =
     {
-        [BATTLEPREVIEW_LABEL_DAMAGE]  = TEXT("\x88\xD0\x97\xCD"), // "威力"
-        [BATTLEPREVIEW_LABEL_HIT]     = TEXT("\x96\xBD\x92\x86"), // "命中"
-        [BATTLEPREVIEW_LABEL_CRIT]    = TEXT("\x95\x4B\x8E\x45"), // "必殺"
-        [BATTLEPREVIEW_LABEL_ATTACK]  = TEXT("\x8D\x55\x8C\x82"), // "攻撃"
-        [BATTLEPREVIEW_LABEL_DEFENSE] = TEXT("\x8E\xE7\x94\xF5"), // "守備"
-        [BATTLEPREVIEW_LABEL_SPEED]   = TEXT("\x8D\x55\x91\xAC"), // "攻速"
+        [BATTLEPREVIEW_LABEL_DAMAGE]  = TEXT("威力", "Mt"),
+        [BATTLEPREVIEW_LABEL_HIT]     = TEXT("命中", "Hit"),
+        [BATTLEPREVIEW_LABEL_CRIT]    = TEXT("必殺", "Crit"),
+        [BATTLEPREVIEW_LABEL_ATTACK]  = TEXT("攻撃", "Atk"),
+        [BATTLEPREVIEW_LABEL_DEFENSE] = TEXT("守備", "Def"),
+        [BATTLEPREVIEW_LABEL_SPEED]   = TEXT("攻速", "AS"),
     };
 
     int i;
@@ -123,8 +123,8 @@ static void InitBattlePreviewLabels(void)
         InitText(gBattlePreviewLabels+i, 4);
 
         Text_InsertDrawString(gBattlePreviewLabels+i,
-            GetStringTextCenteredPos(4*8, gUnk_085C8388[i]),
-            TEXT_COLOR_SYSTEM_GOLD, gUnk_085C8388[i]);
+            GetStringTextCenteredPos(4*8, label_strings[i]),
+            TEXT_COLOR_SYSTEM_GOLD, label_strings[i]);
     }
 }
 

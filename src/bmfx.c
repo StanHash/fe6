@@ -1026,11 +1026,11 @@ void UpdateEquipInfoWindow(int item_slot)
         else
             color = TEXT_COLOR_SYSTEM_GRAY;
 
-        Text_InsertDrawString(proc->text + 0, 0x20,   TEXT_COLOR_SYSTEM_WHITE, TEXT("\x91\xAE\x90\xAB")); // "属性"
-        Text_InsertDrawString(proc->text + 1, 0x00+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x8D\x55\x8C\x82")); // "攻撃"
-        Text_InsertDrawString(proc->text + 2, 0x00+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x96\xBD\x92\x86")); // "命中"
-        Text_InsertDrawString(proc->text + 1, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x95\x4B\x8E\x45")); // "必殺"
-        Text_InsertDrawString(proc->text + 2, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("\x89\xF1\x94\xF0")); // "回避"
+        Text_InsertDrawString(proc->text + 0, 0x20,   TEXT_COLOR_SYSTEM_WHITE, TEXT("属性", "Attr"));
+        Text_InsertDrawString(proc->text + 1, 0x00+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("攻撃", "Atk"));
+        Text_InsertDrawString(proc->text + 2, 0x00+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("命中", "Hit"));
+        Text_InsertDrawString(proc->text + 1, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("必殺", "Crit"));
+        Text_InsertDrawString(proc->text + 2, 0x30+2, TEXT_COLOR_SYSTEM_WHITE, TEXT("回避", "Avo"));
 
         Text_InsertDrawNumberOrBlank(proc->text + 1, 0x20+4, color, gBattleUnitA.battle_attack);
         Text_InsertDrawNumberOrBlank(proc->text + 2, 0x20+4, color, gBattleUnitA.battle_hit);

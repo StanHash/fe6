@@ -1361,8 +1361,8 @@ static void TemporaryLock_OnLoop(struct GenericProc* proc)
     proc->unk58--;
 }
 
-static char CONST_DATA sStrZero[] = TEXT("\x82\x4F"); // "０"
-static char CONST_DATA sStrDash[] = TEXT("\x81\x5B"); // "ー"
+static char CONST_DATA sStrZero[] = JTEXT("０");
+static char CONST_DATA sStrDash[] = JTEXT("ー");
 
 int NumberToString(int number, char* buf)
 {
