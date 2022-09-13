@@ -15,6 +15,7 @@
 #include "faction.h"
 #include "ui.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/items.h"
 #include "constants/jids.h"
@@ -83,7 +84,7 @@ struct ProcScr CONST_DATA ProcScr_Unk_08664C0C[] =
     PROC_SLEEP(2),
     PROC_CALL(func_fe6_08061E14),
     PROC_SLEEP(15),
-    PROC_START_CHILD_LOCKING((void*) 0x08665F04), // TODO
+    PROC_START_CHILD_LOCKING((void *) 0x08665F04), // TODO
     PROC_SLEEP(1),
     PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
 };
@@ -95,7 +96,7 @@ struct ProcScr CONST_DATA ProcScr_Unk_08664C4C[] =
     PROC_SLEEP(2),
     PROC_CALL(func_fe6_08061E14),
     PROC_SLEEP(15),
-    PROC_START_CHILD_LOCKING((void*) 0x08665F54), // TODO
+    PROC_START_CHILD_LOCKING((void *) 0x08665F54), // TODO
     PROC_SLEEP(1),
     PROC_GOTO_SCR(ProcScr_Unk_08664E4C),
 };
@@ -240,7 +241,7 @@ void func_fe6_08061838(ProcPtr proc)
 
 void func_fe6_08061878(ProcPtr proc)
 {
-    struct BattleUnit* bu = NULL;
+    struct BattleUnit * bu = NULL;
 
     if (func_fe6_080618D4(&gBattleUnitA))
         bu = &gBattleUnitA;
@@ -254,7 +255,7 @@ void func_fe6_08061878(ProcPtr proc)
     }
 }
 
-bool func_fe6_080618D4(struct BattleUnit* bu)
+bool func_fe6_080618D4(struct BattleUnit * bu)
 {
     if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
         return DidBattleUnitBreakWeapon(bu);
@@ -264,7 +265,7 @@ bool func_fe6_080618D4(struct BattleUnit* bu)
 
 void func_fe6_08061908(ProcPtr proc)
 {
-    struct BattleUnit* bu = NULL;
+    struct BattleUnit * bu = NULL;
 
     if (func_fe6_08061964(&gBattleUnitA))
         bu = &gBattleUnitA;
@@ -278,7 +279,7 @@ void func_fe6_08061908(ProcPtr proc)
     }
 }
 
-bool func_fe6_08061964(struct BattleUnit* bu)
+bool func_fe6_08061964(struct BattleUnit * bu)
 {
     if (UNIT_FACTION(&bu->unit) == FACTION_BLUE)
         if (HasBattleUnitGainedWeaponLevel(bu))
@@ -390,10 +391,10 @@ void MA_DisplayDeathQuote(ProcPtr proc)
     {
         int pid = gMapAnimSt.actor[actor_id].unit->pinfo->id;
 
-        if (ShouldDisplayDeathQuote(pid))
+        if (CheckBattleDefeatTalk(pid))
         {
             func_fe6_08062CF0();
-            func_fe6_0806B808(pid);
+            StartBattleDefeatTalk(pid);
             DisableEventSkip();
         }
     }
@@ -428,7 +429,7 @@ void MapAnimProc_DisplayDeathFade(ProcPtr proc)
 
 void MapAnimProc_DisplayExpBar(ProcPtr proc)
 {
-    struct MAnimExpBarProc* exp_bar_proc;
+    struct MAnimExpBarProc * exp_bar_proc;
     int actor_id = -1;
 
     switch (gMapAnimSt.main_actor_count)
@@ -524,7 +525,7 @@ void func_fe6_08061FD0(ProcPtr proc)
     {
 
     case 2:
-        func_fe6_0806B754(
+        StartBattleTalk(
             gMapAnimSt.actor[0].unit->pinfo->id,
             gMapAnimSt.actor[1].unit->pinfo->id);
 
@@ -577,7 +578,7 @@ void func_fe6_0806210C(void)
     PlaySe(SONG_A0);
 }
 
-void MA_InitActor(int actor_id, struct BattleUnit* bu, struct Unit* unit)
+void MA_InitActor(int actor_id, struct BattleUnit * bu, struct Unit * unit)
 {
     if (bu == NULL)
         return;
@@ -785,14 +786,14 @@ void func_fe6_080627D0(void)
     SpawnProc(ProcScr_Unk_08664DA4, PROC_TREE_3);
 }
 
-void func_fe6_0806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+void func_fe6_0806283C(struct BattleUnit * bu_a, struct BattleUnit * bu_b, struct BattleHit * battle_hits)
 {
     gMapAnimSt.main_actor_count = func_fe6_0805F784(bu_a->weapon_before);
     gMapAnimSt.hit_it = battle_hits;
     gMapAnimSt.special_proc_scr = func_fe6_0805F7A4(bu_a->weapon_before);
 }
 
-void func_fe6_08062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits)
+void func_fe6_08062890(struct BattleUnit * bu_a, struct BattleUnit * bu_b, struct BattleHit * battle_hits)
 {
     int i;
 
@@ -844,10 +845,10 @@ int GetFacingFromTo(int x_from, int y_from, int x_to, int y_to)
 
 void func_fe6_08062A80(int chr)
 {
-    Decompress(Img_Unk_082DC618, (u8*) VRAM + GetBgChrOffset(0) + ((chr & 0x3FF) << 5));
+    Decompress(Img_Unk_082DC618, (u8 *) VRAM + GetBgChrOffset(0) + ((chr & 0x3FF) << 5));
 }
 
-void func_fe6_08062AB4(u16* tm, int num, int tileref, int len, u16 blank_tileref)
+void func_fe6_08062AB4(u16 * tm, int num, int tileref, int len, u16 blank_tileref)
 {
     char buf[8];
     int i, j;
@@ -877,14 +878,14 @@ void func_fe6_08062AB4(u16* tm, int num, int tileref, int len, u16 blank_tileref
     }
 }
 
-void func_fe6_08062BA0(u8 const* src)
+void func_fe6_08062BA0(u8 const * src)
 {
     func_fe6_08062A80(0x20);
-    Decompress(src, (void*) (VRAM + CHR_SIZE * 42)); // TODO: CHR constant
+    Decompress(src, (void *) (VRAM + CHR_SIZE * 42)); // TODO: CHR constant
     ApplyPalette(Pal_Unk_082E278C, 5);
 }
 
-void func_fe6_08062BD4(u16* tm, int* arg_1, int pal, int arg_3, int chr)
+void func_fe6_08062BD4(u16 * tm, int* arg_1, int pal, int arg_3, int chr)
 {
     int tmp;
 
@@ -929,7 +930,7 @@ void func_fe6_08062CF0(void)
 
 void MA_StartBattleInfoBox(int arg0, int arg1, ProcPtr main_proc)
 {
-    struct MAnimInfoWindowProc* proc = SpawnProc(ProcScr_MAnimInfoWindow, PROC_TREE_3);
+    struct MAnimInfoWindowProc * proc = SpawnProc(ProcScr_MAnimInfoWindow, PROC_TREE_3);
 
     proc->unk_2E = arg0;
     proc->unk_2F = arg1;
@@ -942,7 +943,7 @@ void func_fe6_08062D64(struct MAnimInfoWindowProc * proc)
     ClearUi();
 }
 
-void func_fe6_08062D80(struct MAnimInfoWindowProc* proc)
+void func_fe6_08062D80(struct MAnimInfoWindowProc * proc)
 {
     int left_actor_id;
 
@@ -951,7 +952,7 @@ void func_fe6_08062D80(struct MAnimInfoWindowProc* proc)
 
     Decompress(
         gUnk_082DC6DC,
-        (void*)(VRAM) + GetBgChrOffset(1) + 1 * 0x20); // TODO: put in macro?
+        (void *)(VRAM) + GetBgChrOffset(1) + 1 * 0x20); // TODO: put in macro?
 
     func_fe6_08062BA0(gUnk_082E25D4);
 
@@ -1146,17 +1147,17 @@ void func_fe6_08063504(struct MAnimExpBarProc * proc)
 
     RegisterDataMove(
         gUnk_08113584,
-        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x00) * CHR_SIZE,
+        (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x00) * CHR_SIZE,
         7 * CHR_SIZE);
 
     RegisterDataMove(
         gUnk_08113884,
-        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x07) * CHR_SIZE,
+        (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x07) * CHR_SIZE,
         24 * CHR_SIZE);
 
     RegisterDataMove(
         gUnk_08113B84,
-        (void*)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x1F) * CHR_SIZE,
+        (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x1F) * CHR_SIZE,
         11 * CHR_SIZE);
 
     ApplyPalette(gUnk_08113D50, BGPAL_MANIM_5);

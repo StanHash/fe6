@@ -8,7 +8,7 @@ struct HelpBoxProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct HelpBoxInfo const* info;
+    /* 2C */ struct HelpBoxInfo const * info;
 
     /* 30 */ short xBox;
     /* 32 */ short yBox;
@@ -37,14 +37,14 @@ struct HelpBoxProc
 
 struct HelpBoxInfo
 {
-    /* 00 */ struct HelpBoxInfo const* adjUp;
-    /* 04 */ struct HelpBoxInfo const* adjDown;
-    /* 08 */ struct HelpBoxInfo const* adjLeft;
-    /* 0C */ struct HelpBoxInfo const* adjRight;
+    /* 00 */ struct HelpBoxInfo const * adjUp;
+    /* 04 */ struct HelpBoxInfo const * adjDown;
+    /* 08 */ struct HelpBoxInfo const * adjLeft;
+    /* 0C */ struct HelpBoxInfo const * adjRight;
     /* 10 */ u8 x, y;
     /* 12 */ u16 msg;
-    /* 14 */ void(*redirect)(struct HelpBoxProc* proc);
-    /* 18 */ void(*populate)(struct HelpBoxProc* proc);
+    /* 14 */ void (* redirect)(struct HelpBoxProc * proc);
+    /* 18 */ void (* populate)(struct HelpBoxProc * proc);
 };
 
 extern struct HelpBoxInfo const HelpInfo_BpShort_Hp;

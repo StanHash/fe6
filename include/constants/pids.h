@@ -21,6 +21,8 @@ enum
 
     PID_MERLINUS = 0x42,
 
+    PID_66 = 0x66,
+
     PID_CITIZEN_A4 = 0xA4,
 
     PID_CITIZEN_CD = 0xCD,

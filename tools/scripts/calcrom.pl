@@ -59,7 +59,7 @@ my $base_cmd = "nm $elffname | awk '{print \$3}' | grep '^[^_].\\{4\\}' | uniq";
 
 # This looks for Unk(nown)_, unk(nown)_, or sub_, followed by just numbers. Note that
 # it matches even if stuff precedes the unknown, like sUnk(nown)/gUnk(nown).
-my $undoc_cmd = "grep '[Uu]nk(nown)?_[0-9a-fA-F]*\\|sub_[0-9a-fA-F]*'";
+my $undoc_cmd = "grep '[Uu]nk\\(nown\\|\\)_[0-9a-fA-F]*\\|\\(sub\\|func_fe6\\)_[0-9a-fA-F]*'";
 
 # This looks for every symbol with an address at the end of it. Some things are
 # given a name based on their type / location, but still have an unknown purpose.

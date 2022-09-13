@@ -7041,7 +7041,7 @@ func_fe6_08067040: @ 0x08067040
 	movs r2, #0x14
 	ldrsb r2, [r1, r2]
 	adds r1, r2, #0
-	bl func_fe6_0806B398
+	bl StartAvailableDoorTileEvent
 	pop {r4, r7}
 	pop {r0}
 	bx r0

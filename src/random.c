@@ -54,14 +54,14 @@ void RandInit(int seed)
         NextRN();
 }
 
-void RandSetSt(u16 const* st)
+void RandSetSt(u16 const * st)
 {
     sRandStA[0] = *st++;
     sRandStA[1] = *st++;
     sRandStA[2] = *st;
 }
 
-void RandGetSt(u16* st)
+void RandGetSt(u16 * st)
 {
     *st++ = sRandStA[0];
     *st++ = sRandStA[1];

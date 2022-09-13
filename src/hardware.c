@@ -13,8 +13,8 @@ enum
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-static struct BgCnt* GetBgCt(u16 bgid);
-static void RefreshKeyStFromKeys(struct KeySt* keySt, short keys);
+static struct BgCnt * GetBgCt(u16 bgid);
+static void RefreshKeyStFromKeys(struct KeySt * keySt, short keys);
 static void OnHBlankBoth(void);
 static void RefreshOnHBlank(void);
 
@@ -38,14 +38,14 @@ u16 EWRAM_DATA gBg1Tm[0x400] = {};
 u16 EWRAM_DATA gBg2Tm[0x400] = {};
 u16 EWRAM_DATA gBg3Tm[0x400] = {};
 
-void* EWRAM_DATA gBgMapVramTable[4] = {};
+void * EWRAM_DATA gBgMapVramTable[4] = {};
 
 static Func EWRAM_DATA MainFunc = NULL;
 
 int EWRAM_DATA pad_02023B1C = 0;
 
 static struct KeySt EWRAM_DATA gKeyStObj = {};
-struct KeySt* CONST_DATA gKeySt = &gKeyStObj;
+struct KeySt * CONST_DATA gKeySt = &gKeyStObj;
 
 extern struct DispIo gDispIo; // COMMON
 
@@ -73,7 +73,7 @@ void IncGameTime(void)
     }
 }
 
-i8 FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds)
+i8 FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds)
 {
     *seconds = (time / FRAMES_PER_SECOND) % 60;
     *minutes = (time / FRAMES_PER_MINUTE) % 60;
@@ -107,7 +107,7 @@ inline void DisablePalSync(void)
     sPalSyncFlag = FALSE;
 }
 
-void ApplyPaletteExt(void const* data, int startOffset, int size)
+void ApplyPaletteExt(void const * data, int startOffset, int size)
 {
     if (size & 0x1F) // size is not a multiple of 32
         CpuCopy16(data, gPal + (startOffset >> 1), size);
@@ -164,7 +164,7 @@ void SyncDispIo(void)
     #undef SET_REG
 }
 
-struct BgCnt* GetBgCt(u16 bgid)
+struct BgCnt * GetBgCt(u16 bgid)
 {
     switch (bgid)
     {
@@ -179,7 +179,7 @@ struct BgCnt* GetBgCt(u16 bgid)
 
 int GetBgChrOffset(int bg)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
     return bgCt->chr_block * 0x4000;
 }
 
@@ -192,36 +192,36 @@ int GetBgChrId(int bg, int offset)
 
 int GetBgTilemapOffset(int bg)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
     return bgCt->tm_block * 0x800;
 }
 
 void SetBgChrOffset(int bg, int offset)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
     bgCt->chr_block = offset >> 14;
 }
 
 void SetBgTilemapOffset(int bg, int offset)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
 
     if ((offset & 0x7FF) != 0)  // must be aligned
         return;
 
     bgCt->tm_block = offset >> 11;
-    gBgMapVramTable[bg] = (void*) (VRAM | offset);
+    gBgMapVramTable[bg] = (void *) (VRAM | offset);
 }
 
 void SetBgScreenSize(int bg, int size)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
     bgCt->size = size;
 }
 
 void SetBgBpp(int bg, int bpp)
 {
-    struct BgCnt* bgCt = GetBgCt(bg);
+    struct BgCnt * bgCt = GetBgCt(bg);
     bgCt->color_depth = (bpp == 8) ? BG_COLORDEPTH_8BPP : BG_COLORDEPTH_4BPP;
 }
 
@@ -243,12 +243,12 @@ void SyncBgsAndPal(void)
 
     if (sPalSyncFlag == TRUE)
     {
-        CpuFastCopy(gPal, (void*) PLTT, sizeof gPal);
+        CpuFastCopy(gPal, (void *) PLTT, sizeof gPal);
         sPalSyncFlag = FALSE;
     }
 }
 
-void TmFill(u16* dest, int tileref)
+void TmFill(u16 * dest, int tileref)
 {
     tileref = tileref + (tileref << 16);
     CpuFastFill(tileref, dest, sizeof gBg0Tm);
@@ -320,7 +320,7 @@ void RunMainFunc(void)
         MainFunc();
 }
 
-void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
+void RefreshKeyStFromKeys(struct KeySt * keySt, short keys)
 {
     keySt->previous = keySt->held;
     keySt->held = keys;
@@ -364,19 +364,19 @@ void RefreshKeyStFromKeys(struct KeySt* keySt, short keys)
         keySt->time_since_start_select++;
 }
 
-void RefreshKeySt(struct KeySt* keySt)
+void RefreshKeySt(struct KeySt * keySt)
 {
     RefreshKeyStFromKeys(keySt, (~REG_KEYINPUT) & KEY_ANY);
 }
 
-void ClearKeySt(struct KeySt* keySt)
+void ClearKeySt(struct KeySt * keySt)
 {
     keySt->pressed = 0;
     keySt->repeated = 0;
     keySt->held = 0;
 }
 
-void InitKeySt(struct KeySt* keySt)
+void InitKeySt(struct KeySt * keySt)
 {
     keySt->repeat_delay = 12;
     keySt->repeat_interval = 4;
@@ -431,7 +431,7 @@ void func_fe6_08001B18(u8 a, u8 b)
     sUnk_03000015 = b;
 }
 
-void func_fe6_08001B4C(u16* a, u16* b)
+void func_fe6_08001B4C(u16 * a, u16 * b)
 {
     int i;
 
@@ -439,26 +439,26 @@ void func_fe6_08001B4C(u16* a, u16* b)
         *a++ = *b++;
 }
 
-void func_fe6_08001B8C(void* outTm, void const* inData, u8 base, u8 linebits)
+void func_fe6_08001B8C(void * tm, void const * inData, u8 base, u8 linebits)
 {
-    u8 const* it = (u8 const*) inData + 2;
-    u8* out;
+    u8 const * it = (u8 const *) inData + 2;
+    u8 * out;
 
-    u8 xSize = (*(u32 const*) inData);
-    u8 ySize = (*(u32 const*) inData) >> 8;
+    u8 xSize = (*(u32 const *) inData);
+    u8 ySize = (*(u32 const *) inData) >> 8;
 
     i8 ix, iy;
 
     for (iy = ySize; iy >= 0; iy--)
     {
-        out = (u8*) outTm + (iy << linebits);
+        out = (u8 *) tm + (iy << linebits);
 
         for (ix = xSize; ix >= 0; ix--)
             *out++ = *it++ + base;
     }
 }
 
-void func_fe6_08001C68(u16* outTm, short const* inData, int unused)
+void func_fe6_08001C68(u16 * tm, short const * inData, int unused)
 {
     int xSize = (inData[0]) & 0xFF;
     int ySize = (inData[0] >> 8) & 0xFF;
@@ -471,7 +471,7 @@ void func_fe6_08001C68(u16* outTm, short const* inData, int unused)
 
     for (iy = 0; iy < ySize; ++iy)
     {
-        u16* out = outTm + (iy << 5);
+        u16 * out = tm + (iy << 5);
 
         for (ix = 0; ix < xSize; ++ix)
         {
@@ -489,7 +489,7 @@ void func_fe6_08001D0C(void)
         gUnk_020210E8[i] = 0;
 }
 
-void func_fe6_08001D44(u16 const* inPal, int bank, int count, int unk)
+void func_fe6_08001D44(u16 const * inPal, int bank, int count, int unk)
 {
     int iBank, iColor;
 
@@ -502,9 +502,9 @@ void func_fe6_08001D44(u16 const* inPal, int bank, int count, int unk)
 
         for (iColor = 0; iColor < 0x10; ++iColor)
         {
-            gUnk_02021108[color++] = RGB_GET_RED(*inPal)   + add;
-            gUnk_02021108[color++] = RGB_GET_GREEN(*inPal) + add;
-            gUnk_02021108[color++] = RGB_GET_BLUE(*inPal)  + add;
+            gUnk_02021108[color++] = RGB_GET_RED (* inPal)   + add;
+            gUnk_02021108[color++] = RGB_GET_GREEN (* inPal) + add;
+            gUnk_02021108[color++] = RGB_GET_BLUE (* inPal)  + add;
 
             inPal++;
         }
@@ -517,7 +517,7 @@ void func_fe6_08001E68(int a, int b, int c, int d)
     int iColor;
     int destOffset = a * 16;
 
-    u16 const* src = gPal + destOffset;
+    u16 const * src = gPal + destOffset;
 
     for (iBank = 0; iBank < b; ++iBank)
     {
@@ -525,9 +525,9 @@ void func_fe6_08001E68(int a, int b, int c, int d)
 
         for (iColor = 0; iColor < 16; ++iColor)
         {
-            gUnk_02021108[destOffset++] = RGB_GET_RED(*src) + c;
-            gUnk_02021108[destOffset++] = RGB_GET_GREEN(*src) + c;
-            gUnk_02021108[destOffset++] = RGB_GET_BLUE(*src) + c;
+            gUnk_02021108[destOffset++] = RGB_GET_RED (* src) + c;
+            gUnk_02021108[destOffset++] = RGB_GET_GREEN (* src) + c;
+            gUnk_02021108[destOffset++] = RGB_GET_BLUE (* src) + c;
 
             src++;
         }
@@ -659,7 +659,7 @@ void func_fe6_080024A4(void)
     EnablePalSync();
 }
 
-void InitBgs(u16 const* config)
+void InitBgs(u16 const * config)
 {
     u16 default_config[] =
     {
@@ -675,10 +675,10 @@ void InitBgs(u16 const* config)
     if (config == NULL)
         config = default_config;
 
-    *(u16*) &gDispIo.bg0_ct = 0;
-    *(u16*) &gDispIo.bg1_ct = 0;
-    *(u16*) &gDispIo.bg2_ct = 0;
-    *(u16*) &gDispIo.bg3_ct = 0;
+    *(u16 *) &gDispIo.bg0_ct = 0;
+    *(u16 *) &gDispIo.bg1_ct = 0;
+    *(u16 *) &gDispIo.bg2_ct = 0;
+    *(u16 *) &gDispIo.bg3_ct = 0;
 
     gDispIo.disp_ct.forced_blank = FALSE;
     gDispIo.disp_ct.mode = 0;
@@ -706,9 +706,9 @@ void InitBgs(u16 const* config)
     EnablePalSync();
 }
 
-u16* GetBgTilemap(int bg)
+u16 * GetBgTilemap(int bg)
 {
-    static u16* lut[] =
+    static u16 * lut[] =
     {
         gBg0Tm,
         gBg1Tm,

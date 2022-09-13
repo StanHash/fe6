@@ -3,7 +3,7 @@
 #include "common.h"
 #include "proc.h"
 
-void StartSubtitleHelp(ProcPtr parent, char const* str);
+void StartSubtitleHelp(ProcPtr parent, char const * str);
 void EndSubtitleHelp(void);
 bool IsSubtitleHelpActive(void);
 

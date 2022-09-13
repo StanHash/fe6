@@ -7,7 +7,7 @@
 #include "bm.h"
 #include "ai-decide.h"
 
-static u32* CONST_DATA sUnitScores = (u32*) gBuf;
+static u32 * CONST_DATA sUnitScores = (u32 *) gBuf;
 
 static void AiOrder_Main(ProcPtr proc);
 
@@ -34,7 +34,7 @@ static void AiOrder_End(ProcPtr proc);
 
 void AiOrder_Main(ProcPtr proc)
 {
-    typedef void(*OrderFunc)(ProcPtr proc);
+    typedef void (* OrderFunc)(ProcPtr proc);
 
     static OrderFunc CONST_DATA funcs[] =
     {
@@ -55,7 +55,7 @@ void AiOrder_Berserk_Init(ProcPtr proc)
 
     for (i = 0; i < factionUnitCountLut[faction >> 6]; ++i)
     {
-        struct Unit* unit = GetUnit(faction+i+1);
+        struct Unit * unit = GetUnit(faction+i+1);
 
         if (!unit->pinfo)
             continue;
@@ -95,7 +95,7 @@ void AiOrder_Init(ProcPtr proc)
     }
 }
 
-int GetUnitBattleAiScore(struct Unit* unit)
+int GetUnitBattleAiScore(struct Unit * unit)
 {
     int i, item;
 
@@ -132,7 +132,7 @@ int GetUnitBattleAiScore(struct Unit* unit)
     return 87;
 }
 
-int GetUnitAiScore(struct Unit* unit)
+int GetUnitAiScore(struct Unit * unit)
 {
     int score = UNIT_MOV(unit);
 
@@ -141,7 +141,7 @@ int GetUnitAiScore(struct Unit* unit)
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_REFRESHER)
         return score - 149;
 
-    if (!(unit->ai_flags & AI_UNIT_FLAG_0))
+    if (!(unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING))
     {
         score += lead << 8;
 
@@ -162,13 +162,13 @@ int BuildAiUnitList(void)
     int i, count = 0;
 
     u8 faction = gPlaySt.faction;
-    u32* prioIt = sUnitScores;
+    u32 * prioIt = sUnitScores;
 
     int factionUnitCountLut[3] = { UNIT_AMOUNT_BLUE, UNIT_AMOUNT_GREEN, UNIT_AMOUNT_RED };
 
     for (i = 0; i < factionUnitCountLut[faction >> 6]; ++i)
     {
-        struct Unit* unit = GetUnit(faction+i+1);
+        struct Unit * unit = GetUnit(faction+i+1);
 
         if (!unit->pinfo)
             continue;

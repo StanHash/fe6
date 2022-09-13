@@ -19,7 +19,7 @@
 
 extern struct ItemInfo CONST_DATA ItemInfoTable[];
 
-inline struct ItemInfo const* GetItemInfo(int iid)
+inline struct ItemInfo const * GetItemInfo(int iid)
 {
     return ItemInfoTable + iid;
 }
@@ -29,7 +29,7 @@ inline int GetItemIid(int item)
     return ITEM_IID(item);
 }
 
-inline char const* GetItemName(int item)
+inline char const * GetItemName(int item)
 {
     return DecodeMsg(GetItemInfo(ITEM_IID(item))->msg_name);
 }
@@ -118,12 +118,12 @@ inline int GetItemRequiredExp(int item)
     return GetItemInfo(ITEM_IID(item))->required_wexp;
 }
 
-inline u8 const* GetItemEffectiveness(int item)
+inline u8 const * GetItemEffectiveness(int item)
 {
     return GetItemInfo(ITEM_IID(item))->effectiveness;
 }
 
-inline struct ItemBonuses const* GetItemBonuses(int item)
+inline struct ItemBonuses const * GetItemBonuses(int item)
 {
     return GetItemInfo(ITEM_IID(item))->bonuses;
 }
@@ -158,7 +158,7 @@ inline int GetItemMaxValue(int item)
 
 int GetItemHpBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -171,7 +171,7 @@ int GetItemHpBonus(int item)
 
 int GetItemPowBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -184,7 +184,7 @@ int GetItemPowBonus(int item)
 
 int GetItemSklBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -197,7 +197,7 @@ int GetItemSklBonus(int item)
 
 int GetItemSpdBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -210,7 +210,7 @@ int GetItemSpdBonus(int item)
 
 int GetItemDefBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -223,7 +223,7 @@ int GetItemDefBonus(int item)
 
 int GetItemResBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -236,7 +236,7 @@ int GetItemResBonus(int item)
 
 int GetItemLckBonus(int item)
 {
-    struct ItemBonuses const* bonuses;
+    struct ItemBonuses const * bonuses;
 
     if (!item)
         return 0;
@@ -257,7 +257,7 @@ int CreateItem(int item)
     return (uses << ITEM_USES_SHIFT) + GetItemIid(item);
 }
 
-bool CanUnitUseWeapon(struct Unit* unit, int item)
+bool CanUnitUseWeapon(struct Unit * unit, int item)
 {
     int required_wexp, unit_exp;
 
@@ -296,7 +296,7 @@ bool CanUnitUseWeapon(struct Unit* unit, int item)
     return (unit_exp >= required_wexp) ? TRUE : FALSE;
 }
 
-bool CanUnitUseStaff(struct Unit* unit, int item)
+bool CanUnitUseStaff(struct Unit * unit, int item)
 {
     int required_wexp, unit_exp;
 
@@ -321,7 +321,7 @@ bool CanUnitUseStaff(struct Unit* unit, int item)
     return (unit_exp >= required_wexp) ? TRUE : FALSE;
 }
 
-void func_fe6_08016694(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016694(struct Text * text, int item, bool is_usable, u16 * tm)
 {
     Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -333,7 +333,7 @@ void func_fe6_08016694(struct Text* text, int item, bool is_usable, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void func_fe6_08016720(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016720(struct Text * text, int item, bool is_usable, u16 * tm)
 {
     Text_SetParams(text, 0, (is_usable ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY));
     Text_DrawString(text, GetItemName(item));
@@ -347,7 +347,7 @@ void func_fe6_08016720(struct Text* text, int item, bool is_usable, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void func_fe6_080167E4(struct Text* text, int item, u16* tm)
+void func_fe6_080167E4(struct Text * text, int item, u16 * tm)
 {
     Text_SetCursor(text, 0);
     Text_DrawString(text, GetItemName(item));
@@ -359,7 +359,7 @@ void func_fe6_080167E4(struct Text* text, int item, u16* tm)
     PutIcon(tm, GetItemIcon(item), TILEREF(0, BGPAL_ICONS));
 }
 
-void func_fe6_08016860(struct Text* text, int item, bool is_usable, u16* tm)
+void func_fe6_08016860(struct Text * text, int item, bool is_usable, u16 * tm)
 {
     int color;
 
@@ -395,7 +395,7 @@ u16 GetItemAfterUse(int item)
     return item; // return used item
 }
 
-u16 GetUnitEquippedWeapon(struct Unit* unit)
+u16 GetUnitEquippedWeapon(struct Unit * unit)
 {
     int i;
 
@@ -408,7 +408,7 @@ u16 GetUnitEquippedWeapon(struct Unit* unit)
     return 0;
 }
 
-int GetUnitEquippedWeaponSlot(struct Unit* unit)
+int GetUnitEquippedWeaponSlot(struct Unit * unit)
 {
     int i;
 
@@ -432,7 +432,7 @@ bool CanItemReachDistance(int item, int distance)
     return FALSE;
 }
 
-void UnitEquipItemSlot(struct Unit* unit, int item_slot)
+void UnitEquipItemSlot(struct Unit * unit, int item_slot)
 {
     int item, i;
 
@@ -444,10 +444,10 @@ void UnitEquipItemSlot(struct Unit* unit, int item_slot)
     unit->items[0] = item;
 }
 
-bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
+bool IsItemEffectiveAgainst(u16 item, struct Unit * unit)
 {
     int jid = unit->jinfo->id;
-    u8 const* list = GetItemEffectiveness(item);
+    u8 const * list = GetItemEffectiveness(item);
 
     if (!list)
         return FALSE;
@@ -481,9 +481,9 @@ bool IsItemEffectiveAgainst(u16 item, struct Unit* unit)
     }
 }
 
-char const* GetItemRangeString(int item)
+char const * GetItemRangeString(int item)
 {
-    char const* strings[] =
+    char const * strings[] =
     {
         JTEXT("１～魔力"), // 1 - mag
         JTEXT("　　　１"), // 1
@@ -556,9 +556,9 @@ int GetWeaponLevelFromExp(int wexp)
     return WPN_LEVEL_S;
 }
 
-char const* GetWeaponLevelStringFromExp(int wexp)
+char const * GetWeaponLevelStringFromExp(int wexp)
 {
-    char const* strings[] =
+    char const * strings[] =
     {
         [WPN_LEVEL_0] = JTEXT("ー"),
         [WPN_LEVEL_E] = JTEXT("Ｅ"),
@@ -588,9 +588,9 @@ int GetWeaponLevelSpecialCharFromExp(int wexp)
     return specials[GetWeaponLevelFromExp(wexp)];
 }
 
-char const* GetItemKindString(int kind)
+char const * GetItemKindString(int kind)
 {
-    char const* strings[] =
+    char const * strings[] =
     {
         [ITEM_KIND_SWORD]  = TEXT("剣", "Sword"),
         [ITEM_KIND_LANCE]  = TEXT("槍", "Lance"),
@@ -608,7 +608,7 @@ char const* GetItemKindString(int kind)
     return strings[kind];
 }
 
-bool IsItemDisplayUseable(struct Unit* unit, int item)
+bool IsItemDisplayUseable(struct Unit * unit, int item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
         return CanUnitUseWeapon(unit, item);
@@ -631,7 +631,7 @@ bool IsItemDisplayUseable(struct Unit* unit, int item)
     return TRUE;
 }
 
-bool Unused_08016C50(struct Unit* unit, int item)
+bool Unused_08016C50(struct Unit * unit, int item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
         return CanUnitUseWeapon(unit, item);
@@ -639,7 +639,7 @@ bool Unused_08016C50(struct Unit* unit, int item)
     return CanUnitUseItem(unit, item);
 }
 
-int GetUnitItemHealAmount(struct Unit* unit, int item)
+int GetUnitItemHealAmount(struct Unit * unit, int item)
 {
     int result = 0;
 
@@ -683,7 +683,7 @@ int GetUnitItemHealAmount(struct Unit* unit, int item)
     return result;
 }
 
-int FindUnitItemSlot(struct Unit* unit, int iid)
+int FindUnitItemSlot(struct Unit * unit, int iid)
 {
     int i;
 
@@ -753,7 +753,7 @@ int GetItemReach(int item)
     }
 }
 
-int GetUnitWeaponReach(struct Unit* unit, int item_slot)
+int GetUnitWeaponReach(struct Unit * unit, int item_slot)
 {
     int i, item, result = 0;
 
@@ -769,7 +769,7 @@ int GetUnitWeaponReach(struct Unit* unit, int item_slot)
     return result;
 }
 
-int GetUnitItemUseReach(struct Unit* unit, int item_slot)
+int GetUnitItemUseReach(struct Unit * unit, int item_slot)
 {
     int i, tmp, range = 0;
 
@@ -820,7 +820,7 @@ int GetUnitItemUseReach(struct Unit* unit, int item_slot)
     }
 }
 
-int GetUnitStaffReach(struct Unit* unit)
+int GetUnitStaffReach(struct Unit * unit)
 {
     int i, tmp, range = 0;
 
@@ -860,11 +860,11 @@ int GetTotalConvoyItemsValue(void)
 {
     int i, result = 0;
 
-    u16 const* supply = GetSupplyItems();
+    u16 const * supply = GetSupplyItems();
 
     for (i = 0; (i < SUPPLY_ITEM_COUNT) && (*supply); ++i)
     {
-        result += GetItemValue(*supply);
+        result += GetItemValue (* supply);
         supply++;
     }
 

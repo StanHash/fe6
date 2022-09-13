@@ -26,6 +26,7 @@
 #include "mass-effect.h"
 #include "ai-phase.h"
 #include "ui.h"
+#include "eventinfo.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"
@@ -69,10 +70,10 @@ static void BmMain_ResumePlayerPhase(ProcPtr proc);
 static int BmMain_UpdateTraps(ProcPtr proc);
 static void BmMain_SuspendBeforePhase(ProcPtr proc);
 
-static void CamMove_OnInit(struct CamMoveProc* proc);
-static void CamMove_OnLoop(struct CamMoveProc* proc);
+static void CamMove_OnInit(struct CamMoveProc * proc);
+static void CamMove_OnLoop(struct CamMoveProc * proc);
 
-static void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc);
+static void UnkMapCursor_OnLoop(struct UnkMapCursorProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_BmMain[] =
 {
@@ -224,7 +225,7 @@ static u16 CONST_DATA Sprite_MapCursorStretched[] =
     OAM0_Y(+10) | OAM0_SHAPE_8x8, OAM1_X(+12) | OAM1_SIZE_8x8 | OAM1_HFLIP | OAM1_VFLIP, 0,
 };
 
-static u16 const* CONST_DATA sMapCursorSpriteLut[] =
+static u16 const * CONST_DATA sMapCursorSpriteLut[] =
 {
     Sprite_MapCursorA,
     Sprite_MapCursorA,
@@ -277,14 +278,14 @@ u16 CONST_DATA Sprite_SysDownArrowC[] =
     1, OAM0_SHAPE_8x16 | OAM0_Y(+1), OAM1_SIZE_8x16, OAM2_CHR(0x4F),
 };
 
-u16 const* CONST_DATA gSysUpArrowSpriteLut[] =
+u16 const * CONST_DATA gSysUpArrowSpriteLut[] =
 {
     Sprite_SysUpArrowA,
     Sprite_SysUpArrowB,
     Sprite_SysUpArrowC,
 };
 
-u16 const* CONST_DATA gSysDownArrowSpriteLut[] =
+u16 const * CONST_DATA gSysDownArrowSpriteLut[] =
 {
     Sprite_SysDownArrowA,
     Sprite_SysDownArrowB,
@@ -412,9 +413,9 @@ int BmMain_ChangePhase(ProcPtr proc)
 
     HandleChangePhase();
 
-    if (func_fe6_0806AED8() == TRUE)
+    if (CheckAvailableTurnEvent() == TRUE)
     {
-        func_fe6_0806AF08();
+        StartAvailableTurnEvents();
         return FALSE;
     }
 
@@ -721,7 +722,7 @@ u16 GetCameraCenteredY(int y)
 void PutMapCursor(int x, int y, int kind)
 {
     int oam2 = 0;
-    u16 const* sprite = NULL;
+    u16 const * sprite = NULL;
 
     int frame = (GetGameTime() / 2) % ARRAY_COUNT(sMapCursorSpriteLut);
 
@@ -801,7 +802,7 @@ void PutSysAButton(int x, int y, int palid)
         OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + (frame ? 0x50 : 0x10)) + OAM2_PAL(palid));
 }
 
-static void CamMove_OnInit(struct CamMoveProc* proc)
+static void CamMove_OnInit(struct CamMoveProc * proc)
 {
     i8 speed = 1;
 
@@ -845,7 +846,7 @@ static void CamMove_OnInit(struct CamMoveProc* proc)
     proc->distance = proc->calibration;
 }
 
-static void CamMove_OnLoop(struct CamMoveProc* proc)
+static void CamMove_OnLoop(struct CamMoveProc * proc)
 {
     if (proc->frame == 0)
     {
@@ -865,7 +866,7 @@ static void CamMove_OnLoop(struct CamMoveProc* proc)
 
 bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
 {
-    struct CamMoveProc* cam;
+    struct CamMoveProc * cam;
 
     int x_target = GetCameraAdjustedX(x*16);
     int y_target = GetCameraAdjustedY(y*16);
@@ -903,7 +904,7 @@ bool IsCameraNotWatchingPosition(int x, int y)
 
 bool CameraMove_08016290(ProcPtr proc)
 {
-    struct CamMoveProc* cam;
+    struct CamMoveProc * cam;
 
     if ((gBmSt.camera.y <= gBmSt.camera_max.y) || Proc_Find(ProcScr_CamMove) != NULL)
         return FALSE;
@@ -922,7 +923,7 @@ bool CameraMove_08016290(ProcPtr proc)
     return TRUE;
 }
 
-static void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc)
+static void UnkMapCursor_OnLoop(struct UnkMapCursorProc * proc)
 {
     // BUG: should this be proc->from.xy + ...?
 
@@ -939,7 +940,7 @@ static void UnkMapCursor_OnLoop(struct UnkMapCursorProc* proc)
 
 void Unused_08016344(int x, int y, int duration)
 {
-    struct UnkMapCursorProc* proc = SpawnProc(ProcScr_UnkMapCursor, PROC_TREE_3);
+    struct UnkMapCursorProc * proc = SpawnProc(ProcScr_UnkMapCursor, PROC_TREE_3);
 
     proc->to.x = gBmSt.cursor.x*16;
     proc->to.y = gBmSt.cursor.y*16;

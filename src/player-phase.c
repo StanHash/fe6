@@ -20,6 +20,7 @@
 #include "prep-phase.h"
 #include "menu-info.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/video-global.h"
 #include "constants/chapters.h"
@@ -151,7 +152,7 @@ PROC_LABEL(L_PLAYERPHASE_END),
     PROC_END,
 };
 
-u8 const* CONST_DATA gOpenLimitViewImgLut[] =
+u8 const * CONST_DATA gOpenLimitViewImgLut[] =
 {
     NULL,
     NULL,
@@ -163,8 +164,8 @@ u8 const* CONST_DATA gOpenLimitViewImgLut[] =
     Img_LimitViewSquares + 5 * 4*CHR_SIZE,
 };
 
-static void OpenLimitView_Init(struct GenericProc* proc);
-static void OpenLimitView_Loop(struct GenericProc* proc);
+static void OpenLimitView_Init(struct GenericProc * proc);
+static void OpenLimitView_Loop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_OpenLimitView[] =
 {
@@ -177,9 +178,9 @@ struct ProcScr CONST_DATA ProcScr_OpenLimitView[] =
     PROC_END,
 };
 
-static void LimitView_Init(struct GenericProc* proc);
-static void LimitView_Loop(struct GenericProc* proc);
-static void LimitView_Deinit(struct GenericProc* proc);
+static void LimitView_Init(struct GenericProc * proc);
+static void LimitView_Loop(struct GenericProc * proc);
+static void LimitView_Deinit(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_LimitView[] =
 {
@@ -248,7 +249,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
         if (gKeySt->pressed & KEY_BUTTON_A)
         {
-            struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+            struct Unit * unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
             switch (GetPlayerSelectKind(unit))
             {
@@ -261,7 +262,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 gPlaySt.y_cursor = gBmSt.cursor.y;
 
                 StartAdjustedMenu(&MenuInfo_Map, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
-                func_fe6_0806B4E4();
+                StartAvailableMapMenuEvent();
 
                 Proc_Goto(proc, L_PLAYERPHASE_IDLE);
 
@@ -288,7 +289,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
         if (gKeySt->pressed & KEY_BUTTON_SELECT)
         {
-            struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+            struct Unit * unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
             if (unit)
             {
@@ -308,7 +309,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             else
             {
                 StartAdjustedMenu(&MenuInfo_Map, gBmSt.cursor_sprite_target.x - gBmSt.camera.x, 1, 23);
-                func_fe6_0806B4E4();
+                StartAvailableMapMenuEvent();
             }
 
             Proc_Goto(proc, L_PLAYERPHASE_IDLE);
@@ -318,7 +319,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
         if ((gKeySt->pressed & KEY_BUTTON_START) && !(gKeySt->held & KEY_BUTTON_SELECT))
         {
-            struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+            struct Unit * unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
             if (unit)
             {
@@ -342,7 +343,7 @@ put_cursor:
         IsUnitSpriteHoverEnabledAt(gBmSt.cursor.x, gBmSt.cursor.y) ? MAP_CURSOR_STRETCHED : MAP_CURSOR_DEFAULT);
 }
 
-void DisplayUnitActionRange(struct Unit* unit)
+void DisplayUnitActionRange(struct Unit * unit)
 {
     int flags = LIMITVIEW_BLUE;
 
@@ -402,7 +403,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 
     SetAutoMuDefaultFacing();
 
-    func_fe6_0806B420();
+    StartAvailableMoveSelectEvent();
 
     gBmSt.flags |= BM_FLAG_1;
 
@@ -436,7 +437,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
         ACT_CANCEL,
         ACT_INFOSCREEN,
         ACT_RESET_CURSOR,
-        ACT_NOTHING,
+        ACT_EVENT,
         ACT_SWAP_RANGES,
     };
 
@@ -446,9 +447,9 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
 
     if (gKeySt->pressed & KEY_BUTTON_A)
     {
-        if (func_fe6_0806B4A4())
+        if (CheckAvailableMoveSelectConfirmEvent())
         {
-            act = ACT_NOTHING;
+            act = ACT_EVENT;
             goto do_act;
         }
         else
@@ -553,7 +554,8 @@ do_act:
 
         break;
 
-    case ACT_NOTHING:
+    case ACT_EVENT:
+        // StartAvailableMoveSelectConfirmEvent();
         break;
 
     case ACT_SWAP_RANGES:
@@ -690,9 +692,9 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
 
 bool PlayerPhase_0801B9B0(ProcPtr proc)
 {
-    if (func_fe6_0806B500())
+    if (CheckAvailableMoveEvent())
     {
-        func_fe6_0806B540();
+        StartAvailableMoveEvent();
         return FALSE;
     }
 
@@ -738,7 +740,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
         return;
     }
 
-    if (func_fe6_0806B404())
+    if (CheckAvailableVictoryEvent())
     {
         EndAllMus();
 
@@ -746,7 +748,7 @@ static void PlayerPhase_FinishAction(ProcPtr proc)
         RenderMap();
         RefreshUnitSprites();
 
-        func_fe6_0806B414();
+        StartAvailableVictoryEvent();
 
         Proc_Goto(proc, L_PLAYERPHASE_8);
         return;
@@ -775,7 +777,7 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
 
     ResetTextFont();
 
-    if (func_fe6_0806B470() == TRUE)
+    if (StartAvailableActionSelectEvent() == TRUE)
     {
         Proc_SetRepeatFunc(proc, func_fe6_0801BAB4);
         return;
@@ -787,7 +789,7 @@ static void PlayerPhase_BeginActionSelect(ProcPtr proc)
     Proc_Break(proc);
 }
 
-int GetPlayerSelectKind(struct Unit* unit)
+int GetPlayerSelectKind(struct Unit * unit)
 {
     int faction = gPlaySt.faction;
 
@@ -868,9 +870,9 @@ static void PlayerPhase_0801BD08(ProcPtr proc)
     SetBlendNone();
 }
 
-static void OpenLimitView_Init(struct GenericProc* proc)
+static void OpenLimitView_Init(struct GenericProc * proc)
 {
-    RegisterDataMove(Img_LimitViewSquares + 5 * 4*CHR_SIZE, (u8*) VRAM + CHR_SIZE * (BGCHR_LIMITVIEW + 4), CHR_SIZE * 4);
+    RegisterVramMove(Img_LimitViewSquares + 5 * 4 * CHR_SIZE, CHR_SIZE * (BGCHR_LIMITVIEW + 4), CHR_SIZE * 4);
 
     if (!(gBmSt.flags & BM_FLAG_0))
     {
@@ -878,14 +880,14 @@ static void OpenLimitView_Init(struct GenericProc* proc)
     }
     else
     {
-        RegisterDataMove(Img_LimitViewSquares + 5 * 4*CHR_SIZE, (u8*) VRAM + CHR_SIZE * BGCHR_LIMITVIEW, CHR_SIZE * 4);
+        RegisterVramMove(Img_LimitViewSquares + 5 * 4 * CHR_SIZE, CHR_SIZE * BGCHR_LIMITVIEW, CHR_SIZE * 4);
         Proc_End(proc);
     }
 }
 
-static void OpenLimitView_Loop(struct GenericProc* proc)
+static void OpenLimitView_Loop(struct GenericProc * proc)
 {
-    RegisterDataMove(gOpenLimitViewImgLut[proc->unk4C], (u8*) VRAM + CHR_SIZE * BGCHR_LIMITVIEW, 4*CHR_SIZE);
+    RegisterVramMove(gOpenLimitViewImgLut[proc->unk4C], CHR_SIZE * BGCHR_LIMITVIEW, 4 * CHR_SIZE);
 
     proc->unk4C++;
 
@@ -893,7 +895,7 @@ static void OpenLimitView_Loop(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void LimitView_Init(struct GenericProc* proc)
+static void LimitView_Init(struct GenericProc * proc)
 {
     int ix, iy;
 
@@ -935,7 +937,7 @@ static void LimitView_Init(struct GenericProc* proc)
     InitBmBgLayers();
 }
 
-void LimitView_Loop(struct GenericProc* proc)
+void LimitView_Loop(struct GenericProc * proc)
 {
     int frame = (GetGameTime() / 2) & 0x1F;
 
@@ -949,7 +951,7 @@ void LimitView_Loop(struct GenericProc* proc)
         ApplyPaletteExt(Pal_LimitViewGreen + frame, 0x20*(BGPAL_LIMITVIEW+1) + 2, 0x20);
 }
 
-void LimitView_Deinit(struct GenericProc* proc)
+void LimitView_Deinit(struct GenericProc * proc)
 {
     if (proc->unk4A & LIMITVIEW_BLUE)
     {
@@ -966,7 +968,7 @@ void LimitView_Deinit(struct GenericProc* proc)
 
 void StartLimitView(int flags)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     if ((proc = Proc_Find(ProcScr_LimitView)))
     {
@@ -987,7 +989,7 @@ void EndLimitView(void)
 
 static bool TrySetCursorOn(int uid)
 {
-    struct Unit* unit = GetUnit(uid);
+    struct Unit * unit = GetUnit(uid);
 
     if (!unit)
         return FALSE;

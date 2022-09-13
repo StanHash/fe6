@@ -18,8 +18,8 @@ enum
 struct PalFadeSt
 {
     /* 00 */ u16 fromColors[0x10];
-    /* 20 */ u16 const* toColors;
-    /* 24 */ u16* pal;
+    /* 20 */ u16 const * toColors;
+    /* 24 */ u16 * pal;
     /* 28 */ u16 clock;
     /* 2A */ u16 clockEnd;
     /* 2C */ u16 clockStop;
@@ -27,16 +27,16 @@ struct PalFadeSt
 
 int Interpolate(int method, int lo, int hi, int x, int end);
 void func_fe6_08013BEC(void);
-bool StringEquals(char const* strA, char const* strB);
+bool StringEquals(char const * strA, char const * strB);
 void StringCopy(char * dst, char const * src);
 void Decompress_Unused_08013C74(void const * src, void * dst);
 void Decompress(void const * src, void * dst);
 int GetDataSize(void const * data);
-void Register2dChrMove(u8 const* img, u8* vram, int width, int height);
-void Copy2dChr(void const* src, u8* dst, int width, int height);
-void func_fe6_08013DAC(u8 const* src, u8* dst, int width, int height);
-void PutIncrTileref(u16* tm, int tileref, int width, int height);
-void func_fe6_08013E8C(u16* tm, u8 const* src, int tileref, int len);
+void Register2dChrMove(u8 const * img, u8 * vram, int width, int height);
+void Copy2dChr(void const * src, u8 * dst, int width, int height);
+void func_fe6_08013DAC(u8 const * src, u8 * dst, int width, int height);
+void PutIncrTileref(u16 * tm, int tileref, int width, int height);
+void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len);
 // func_fe6_08013EBC
 // func_fe6_08013EC4
 // func_fe6_08013ED8
@@ -50,9 +50,9 @@ void StartSpacialSeTest(void);
 void func_fe6_080141DC(void);
 void StartPalFadeToBlack(int palid, int duration, ProcPtr parent);
 void StartPalFadeToWhite(int palid, int duration, ProcPtr parent);
-struct PalFadeSt* StartPalFade(u16 const* colors, int pal, int duration, ProcPtr parent);
+struct PalFadeSt * StartPalFade(u16 const * colors, int pal, int duration, ProcPtr parent);
 void EndPalFade(void);
-void SetPalFadeStop(struct PalFadeSt* st, int val);
+void SetPalFadeStop(struct PalFadeSt * st, int val);
 void SetBlackPal(int palid);
 void SetWhitePal(int palid);
 void SetAllBlackPals(void);
@@ -117,9 +117,9 @@ void func_fe6_08014ADC(void);
 void func_fe6_08014AF8(void);
 void func_fe6_08014B68(void);
 void StartTemporaryLock(ProcPtr proc, int arg_1);
-int NumberToString(int number, char* buf);
-struct Text* PutStringCentered(u16* tm, int color, int width, char const* str);
-struct Text* PutString(u16* tm, int color, char const* str);
+int NumberToString(int number, char * buf);
+struct Text * PutStringCentered(u16 * tm, int color, int width, char const * str);
+struct Text * PutString(u16 * tm, int color, char const * str);
 // func_fe6_08014D50
 // func_fe6_08014D60
 // func_fe6_08014D9C
@@ -130,16 +130,16 @@ struct Text* PutString(u16* tm, int color, char const* str);
 // func_fe6_08014F70
 // func_fe6_0801501C
 // func_fe6_080150DC
-void CallDelayed(void(*func)(void), int delay);
-void CallDelayedArg(void(*func)(int), int arg, int delay);
+void CallDelayed(void (* func)(void), int delay);
+void CallDelayedArg(void (* func)(int), int arg, int delay);
 // func_fe6_080151E4
 // func_fe6_080151F8
 // func_fe6_08015208
 void StartPartialGameLock(ProcPtr proc);
-void func_fe6_08015260(u8 const* src, u8* dst, int size);
-void func_fe6_08015298(u8 const* src, u8* dst, int width, int height);
-void func_fe6_080152C4(u16 const* src, u16* dst, int size, u16 tileref);
-u16* GetTmOffsetById(int bgid, int x, int y);
+void func_fe6_08015260(u8 const * src, u8 * dst, int size);
+void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height);
+void func_fe6_080152C4(u16 const * src, u16 * dst, int size, u16 tileref);
+u16 * GetTmOffsetById(int bgid, int x, int y);
 void func_fe6_08015344(void);
 int Screen2Pan(int x);
 void PlaySeSpacial(int song, int x);
@@ -148,17 +148,17 @@ void func_fe6_0801548C(short song);
 void func_fe6_0801549C(short speed);
 // func_fe6_080154AC
 // func_fe6_08015504
-void PutDrawTextCentered(struct Text* text, int x, int y, char const* str, int width);
-void VecMulMat(int const* vec, int const* mat, int* ovec);
-void MatMulMat(int const* lmat, int const* rmat, int* omat);
+void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width);
+void VecMulMat(int const * vec, int const * mat, int* ovec);
+void MatMulMat(int const * lmat, int const * rmat, int* omat);
 void MatIdent(int* mat);
-void MatCopy(int const* src, int* dst);
+void MatCopy(int const * src, int* dst);
 void MatRotA(int* mat, short angle);
 void MatRotB(int* mat, short angle);
 void MatRotC(int* mat, short angle);
 void func_fe6_08015858(void);
-int VecDotVec(int const* lvec, int const* rvec);
-void VecCrossVec(int const* lvec, int const* rvec, int* ovec);
+int VecDotVec(int const * lvec, int const * rvec);
+void VecCrossVec(int const * lvec, int const * rvec, int* ovec);
 int func_fe6_080158B8(int arg_0, int arg_1, int arg_2, int arg_3);
 
 extern u16 CONST_DATA Pal_AllBlack[];

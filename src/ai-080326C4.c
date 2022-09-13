@@ -16,13 +16,13 @@
 struct Unk_0810DB34
 {
     u16 iid;
-    void(*func)(int slot, bool(*is_enemy)(struct Unit* unit));
+    void (* func)(int slot, bool (* is_enemy)(struct Unit * unit));
 };
 
 struct Unk_0810DB9C
 {
     u16 iid;
-    void(*func)(int slot);
+    void (* func)(int slot);
 };
 
 struct Unk_085C98D0
@@ -30,18 +30,18 @@ struct Unk_085C98D0
     int x, y;
 };
 
-struct AiEscapePt const* func_fe6_08032C2C(void);
+struct AiEscapePt const * func_fe6_08032C2C(void);
 
 static void AiFillDangerMap(void);
 
-void func_fe6_08033D5C(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_08033ECC(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_08034094(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_08034178(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_080342C4(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_080344AC(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_0803462C(int slot, bool(*is_enemy)(struct Unit* unit));
-void func_fe6_080347A4(int slot, bool(*is_enemy)(struct Unit* unit));
+void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit));
+void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit));
 
 void func_fe6_08034B58(int slot);
 void func_fe6_08034BF0(int slot);
@@ -71,7 +71,7 @@ static void AiFillDangerMap(void)
     {
         u16 itemTmp;
 
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (unit == NULL)
             continue;
@@ -128,11 +128,11 @@ bool AiCheckDangerAt(int x, int y, u8 threshold)
     return TRUE;
 }
 
-bool AiTryGetNearestHealPoint(struct Vec2i* out)
+bool AiTryGetNearestHealPoint(struct Vec2i * out)
 {
     static u8 CONST_DATA fortTerrains[] = { TERRAIN_FORT, 0 };
 
-    struct Unit* unit;
+    struct Unit * unit;
 
     int ix, iy;
 
@@ -217,7 +217,7 @@ void func_fe6_08032A08(void)
 
     for (i = 0; i < factionUnitCountLut[faction >> 6]; ++i)
     {
-        struct Unit* unit = GetUnit(faction+i+1);
+        struct Unit * unit = GetUnit(faction+i+1);
 
         if (!unit)
             continue;
@@ -229,11 +229,11 @@ void func_fe6_08032A08(void)
     }
 }
 
-bool AiUpdateGetUnitIsHealing(struct Unit* unit)
+bool AiUpdateGetUnitIsHealing(struct Unit * unit)
 {
     u16 hpPercentage = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
 
-    if (unit->ai_flags & AI_UNIT_FLAG_0)
+    if (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
     {
         if (gUnk_085C8820[unit->ai_config & 7].exit_threshold > hpPercentage)
         {
@@ -241,7 +241,7 @@ bool AiUpdateGetUnitIsHealing(struct Unit* unit)
         }
         else
         {
-            unit->ai_flags &= ~AI_UNIT_FLAG_0;
+            unit->ai_flags &= ~AI_UNIT_FLAG_SEEK_HEALING;
             return FALSE;
         }
     }
@@ -249,7 +249,7 @@ bool AiUpdateGetUnitIsHealing(struct Unit* unit)
     {
         if (gUnk_085C8820[unit->ai_config & 7].enter_threshold > hpPercentage)
         {
-            unit->ai_flags |= AI_UNIT_FLAG_0;
+            unit->ai_flags |= AI_UNIT_FLAG_SEEK_HEALING;
             return TRUE;
         }
         else
@@ -295,7 +295,7 @@ bool AiTryHealSelf(void)
 
 bool AiTryMoveTowardsEscape(void)
 {
-    struct AiEscapePt const* escapePt;
+    struct AiEscapePt const * escapePt;
 
     MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);
     escapePt = func_fe6_08032C2C();
@@ -321,12 +321,12 @@ bool AiTryMoveTowardsEscape(void)
     return FALSE;
 }
 
-struct AiEscapePt const* func_fe6_08032C2C(void)
+struct AiEscapePt const * func_fe6_08032C2C(void)
 {
     int i;
 
-    struct AiEscapePt const* list = NULL;
-    struct AiEscapePt const* result = NULL;
+    struct AiEscapePt const * list = NULL;
+    struct AiEscapePt const * result = NULL;
 
     int chapter = gPlaySt.chapter;
 
@@ -385,7 +385,7 @@ bool func_fe6_08032CB4(void)
 
 #if NONMATCHING
 
-bool func_fe6_08032CE8(u16* out)
+bool func_fe6_08032CE8(u16 * out)
 {
     int i;
 
@@ -441,7 +441,7 @@ bool func_fe6_08032CE8(u16* out)
 #else // NONMATCHING
 
 NAKEDFUNC
-bool func_fe6_08032CE8(u16* out)
+bool func_fe6_08032CE8(u16 * out)
 {
     asm("\
         .syntax unified\n\

@@ -18,8 +18,8 @@
 enum { MAP_POOL_SIZE = 0x7B8 };
 enum { TILESET_METATILES = 0x400 };
 
-static void MapInit(u8* data, u8*** rowsOut, int width, int height);
-static void UnpackRawMap(void* buf, int chapter);
+static void MapInit(u8 * data, u8 *** rowsOut, int width, int height);
+static void UnpackRawMap(void * buf, int chapter);
 static void InitMetatilesMap(void);
 static void RenderMapColumn(u16 xOffset);
 static void RenderMapLine(u16 yOffset);
@@ -28,15 +28,15 @@ extern u16 gMapBuf[]; // ??
 
 struct Vec2i EWRAM_DATA gMapSize = {};
 
-u8** EWRAM_DATA gMapUnit     = NULL;
-u8** EWRAM_DATA gMapTerrain  = NULL;
-u8** EWRAM_DATA gMapMovement = NULL;
-u8** EWRAM_DATA gMapRange    = NULL;
-u8** EWRAM_DATA gMapFog      = NULL;
-u8** EWRAM_DATA gMapHidden   = NULL;
-u8** EWRAM_DATA gMapOther    = NULL;
+u8 ** EWRAM_DATA gMapUnit     = NULL;
+u8 ** EWRAM_DATA gMapTerrain  = NULL;
+u8 ** EWRAM_DATA gMapMovement = NULL;
+u8 ** EWRAM_DATA gMapRange    = NULL;
+u8 ** EWRAM_DATA gMapFog      = NULL;
+u8 ** EWRAM_DATA gMapHidden   = NULL;
+u8 ** EWRAM_DATA gMapOther    = NULL;
 
-static u8** sInitializingMap;
+static u8 ** sInitializingMap;
 
 static u8 EWRAM_DATA sMapUnitData[MAP_POOL_SIZE] = {};
 static u8 EWRAM_DATA sMapTerrainData[MAP_POOL_SIZE] = {};
@@ -48,8 +48,8 @@ static u8 EWRAM_DATA sMapOtherData[MAP_POOL_SIZE] = {};
 static u16 EWRAM_DATA sTilesetInfo[TILESET_METATILES*4 + (TILESET_METATILES+1)/2] = {};
 static u16 EWRAM_DATA sMapMetatiles[MAP_POOL_SIZE] = {};
 
-u8* CONST_DATA gMetatilesTerrainLut = (u8*) &sTilesetInfo[TILESET_METATILES*4];
-u16** CONST_DATA gMapMetatiles = (u16**) sMapMetatiles;
+u8 * CONST_DATA gMetatilesTerrainLut = (u8 *) &sTilesetInfo[TILESET_METATILES*4];
+u16 ** CONST_DATA gMapMetatiles = (u16 **) sMapMetatiles;
 
 void InitMapForChapter(int chapter)
 {
@@ -150,18 +150,18 @@ void func_fe6_080188F4(void)
     func_fe6_080187EC();
 }
 
-void MapInit(u8* data, u8*** rowsOut, int width, int height)
+void MapInit(u8 * data, u8 *** rowsOut, int width, int height)
 {
-    u8* it;
+    u8 * it;
     int i;
 
-    sInitializingMap = (u8**) data;
+    sInitializingMap = (u8 **) data;
 
     width += 2; // two squares on each edge (shared)
     height += 4; // two squares on each edge
 
-    // it = start of square area (the first height * sizeof(u8*) bytes are reserved for row pointers)
-    it = data + height * sizeof(u8*);
+    // it = start of square area (the first height * sizeof(u8 *) bytes are reserved for row pointers)
+    it = data + height * sizeof(u8 *);
 
     // Setting up the row pointers
     for (i = 0; i < height; ++i)
@@ -174,7 +174,7 @@ void MapInit(u8* data, u8*** rowsOut, int width, int height)
     *rowsOut = sInitializingMap + 2;
 }
 
-void MapFill(u8** map, int value)
+void MapFill(u8 ** map, int value)
 {
     int size = (gMapSize.y + 4) * (gMapSize.x + 2);
 
@@ -189,11 +189,11 @@ void MapFill(u8** map, int value)
     SetWorkingMap(map);
 }
 
-void MapSetEdges(u8** map, u8 value)
+void MapSetEdges(u8 ** map, u8 value)
 {
     int ix, iy;
 
-    u8** theMap = map;
+    u8 ** theMap = map;
 
     // Set tile values for horizontal edges
     for (iy = 0; iy < gMapSize.y; ++iy)
@@ -210,14 +210,14 @@ void MapSetEdges(u8** map, u8 value)
     }
 }
 
-void UnpackRawMap(void* buf, int chapter)
+void UnpackRawMap(void * buf, int chapter)
 {
     // Decompress map data
     Decompress(GetChapterMap(chapter), buf);
 
     // Setting map size
-    gMapSize.x = ((u8*) buf)[0];
-    gMapSize.y = ((u8*) buf)[1];
+    gMapSize.x = ((u8 *) buf)[0];
+    gMapSize.y = ((u8 *) buf)[1];
 
     // Decompress tileset info
     Decompress(ChapterAssets[GetChapterInfo(chapter)->asset_tileset], sTilesetInfo);
@@ -232,13 +232,13 @@ void ApplyChapterMapGraphics(int chapter)
     // Decompress tileset graphics (part 1)
     Decompress(
         ChapterAssets[GetChapterInfo(chapter)->asset_img_a],
-        (void*) BG_VRAM + CHR_SIZE * BGCHR_TILESET_A);
+        (void *) BG_VRAM + CHR_SIZE * BGCHR_TILESET_A);
 
     // Decompress tileset graphics (part 2, if it exists)
     if (ChapterAssets[GetChapterInfo(chapter)->asset_img_b])
         Decompress(
             ChapterAssets[GetChapterInfo(chapter)->asset_img_b],
-            (void*) BG_VRAM + CHR_SIZE * BGCHR_TILESET_B);
+            (void *) BG_VRAM + CHR_SIZE * BGCHR_TILESET_B);
 
     // Apply tileset palette
     ApplyPalettes(ChapterAssets[GetChapterInfo(chapter)->asset_pal], BGPAL_TILESET, 10);
@@ -253,9 +253,9 @@ void InitMetatilesMap(void)
 {
     int ix, iy;
 
-    u16** rows;
-    u16* tiles;
-    u16* it;
+    u16 ** rows;
+    u16 * tiles;
+    u16 * it;
 
     rows  = gMapMetatiles;
     tiles = gMapBuf;
@@ -266,7 +266,7 @@ void InitMetatilesMap(void)
     tiles++;
 
     // Tile buffer starts after the rows
-    it = (u16*) (gMapMetatiles + gMapSize.y);
+    it = (u16 *) (gMapMetatiles + gMapSize.y);
 
     for (iy = 0; iy < gMapSize.y; ++iy)
     {
@@ -299,10 +299,10 @@ void RefreshTerrainMap(void)
             gMapTerrain[iy][ix] = gMetatilesTerrainLut[gMapMetatiles[iy][ix] >> 2];
 }
 
-void PutMapMetatile(u16* tm, int x_tm, int y_tm, int x, int y)
+void PutMapMetatile(u16 * tm, int x_tm, int y_tm, int x, int y)
 {
-    u16* out = tm + y_tm * 0x40 + x_tm * 2;
-    u16* tiles = sTilesetInfo + gMapMetatiles[y][x];
+    u16 * out = tm + y_tm * 0x40 + x_tm * 2;
+    u16 * tiles = sTilesetInfo + gMapMetatiles[y][x];
 
     u16 tileref = TILEREF(0, gMapFog[y][x] ? BGPAL_TILESET : BGPAL_TILESET + 5);
 
@@ -316,7 +316,7 @@ void func_fe6_08018CDC(void)
 {
 }
 
-void PutLimitViewSquare(u16* tm, int x, int y, int x_tm, int y_tm)
+void PutLimitViewSquare(u16 * tm, int x, int y, int x_tm, int y_tm)
 {
     tm = tm + 2*TM_OFFSET(x_tm, y_tm);
 
@@ -511,7 +511,7 @@ void RenderMapLine(u16 yOffset)
 
 void RefreshEntityMaps(void)
 {
-    struct Unit* unit;
+    struct Unit * unit;
     int i;
 
     MapFill(gMapUnit, 0);
@@ -620,7 +620,7 @@ void RefreshEntityMaps(void)
     }
 }
 
-char const* GetTerrainName(int terrain)
+char const * GetTerrainName(int terrain)
 {
     return TerrainNameStringTable[terrain];
 }
@@ -637,7 +637,7 @@ bool DoesTerrainHealStatus(int terrain)
 
 void func_fe6_080192E4(void)
 {
-    u16 const* tile = sTilesetInfo;
+    u16 const * tile = sTilesetInfo;
 
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));

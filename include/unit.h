@@ -144,7 +144,7 @@ struct PInfo
 
     /* 28 */ u32 attributes;
 
-    /* 2C */ struct SupportInfo const* support_info;
+    /* 2C */ struct SupportInfo const * support_info;
 };
 
 struct JInfo
@@ -190,20 +190,20 @@ struct JInfo
 
     /* 28 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
 
-    /* 30 */ void const* banim_info;
+    /* 30 */ void const * banim_info;
 
-    /* 34 */ i8 const* mov_table;
-    /* 38 */ i8 const* avo_terrain_table;
-    /* 3C */ i8 const* def_terrain_table;
-    /* 40 */ i8 const* res_terrain_table;
+    /* 34 */ i8 const * mov_table;
+    /* 38 */ i8 const * avo_terrain_table;
+    /* 3C */ i8 const * def_terrain_table;
+    /* 40 */ i8 const * res_terrain_table;
 
-    /* 44 */ void const* unk_44;
+    /* 44 */ void const * unk_44;
 };
 
 struct Unit
 {
-    /* 00 */ struct PInfo const* pinfo;
-    /* 04 */ struct JInfo const* jinfo;
+    /* 00 */ struct PInfo const * pinfo;
+    /* 04 */ struct JInfo const * jinfo;
     /* 08 */ i8 level;
     /* 09 */ u8 exp;
     /* 0A */ u8 ai_flags;
@@ -231,7 +231,7 @@ struct Unit
     /* 2F */ u8 barrier : 4;
     /* 30 */ u8 supports[UNIT_SUPPORT_COUNT];
     /* 3A */ // pad?
-    /* 3C */ struct UnitSprite* map_sprite;
+    /* 3C */ struct UnitSprite * map_sprite;
     /* 40 */ u16 ai_config;
     /* 42 */ u8 ai_a;
     /* 43 */ u8 ai_a_pc;
@@ -257,75 +257,75 @@ struct UnitInfo
 };
 
 void InitUnits(void);
-void ClearUnit(struct Unit* unit);
-void CopyUnit(struct Unit* src, struct Unit* dst);
-struct Unit* GetFreeUnit(int faction);
-int GetUnitCurrentHp(struct Unit* unit);
-int GetUnitMaxHp(struct Unit* unit);
-int GetUnitPower(struct Unit* unit);
-int GetUnitSkill(struct Unit* unit);
-int GetUnitSpeed(struct Unit* unit);
-int GetUnitDefense(struct Unit* unit);
-int GetUnitResistance(struct Unit* unit);
-int GetUnitLuck(struct Unit* unit);
-int GetUnitFid(struct Unit* unit);
-int GetUnitChibiId(struct Unit* unit);
-int GetUnitLeaderPid(struct Unit* unit);
-void SetUnitLeaderPid(struct Unit* unit, int pid);
-void SetUnitHp(struct Unit* unit, int hp);
-void AddUnitHp(struct Unit* unit, int amount);
-int GetUnitVision(struct Unit* unit);
-char const* GetUnitRescueName(struct Unit* unit);
-char const* GetUnitStatusName(struct Unit* unit);
-void SetUnitStatus(struct Unit* unit, int status);
-struct Unit* GetUnit(int uid);
-struct JInfo const* GetJobInfo(int jid);
-struct PInfo const* GetPersonInfo(int pid);
-int GetUnitMapSprite(struct Unit* unit);
-bool UnitAddItem(struct Unit* unit, int item);
-void UnitRemoveItem(struct Unit* unit, int slot);
-void UnitRemoveInvalidItems(struct Unit* unit);
-int GetUnitItemCount(struct Unit* unit);
-bool UnitHasItem(struct Unit* unit, int item);
-int BatchCreateUnits(struct UnitInfo const* info);
-struct Unit* CreateUnit(struct UnitInfo const* info);
-void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info);
-void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo);
-void func_fe6_08017764(struct Unit* unit);
-void UnitInitSupports(struct Unit* unit);
-void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info);
-void UnitAutolevelCore(struct Unit* unit, u8 jid, int levelCount);
-void UnitApplyBonusLevels(struct Unit* unit, int levelCount);
-void UnitAutolevel(struct Unit* unit);
-void UnitAutolevelPlayer(struct Unit* unit);
-void UnitCheckStatOverflow(struct Unit* unit);
-struct Unit* GetUnitByPid(int pid);
-bool CanUnitCarry(struct Unit* unit, struct Unit* other);
-void UnitRescue(struct Unit* unit, struct Unit* other);
-void UnitDropRescue(struct Unit* unit, int x, int y);
-bool UnitGiveRescue(struct Unit* unit, struct Unit* other);
-void KillUnit(struct Unit* unit);
-void UnitChangeFaction(struct Unit* unit, int faction);
-bool CanUnitCrossTerrain(struct Unit* unit, int terrain);
-void UnitSyncMovement(struct Unit* unit);
-void UnitGetDropPositionOnDeath(struct Unit* unit, int* xOut, int* yOut);
-void UnitBeginAction(struct Unit* unit);
-void UnitBeginReMoveAction(struct Unit* unit);
+void ClearUnit(struct Unit * unit);
+void CopyUnit(struct Unit * src, struct Unit * dst);
+struct Unit * GetFreeUnit(int faction);
+int GetUnitCurrentHp(struct Unit * unit);
+int GetUnitMaxHp(struct Unit * unit);
+int GetUnitPower(struct Unit * unit);
+int GetUnitSkill(struct Unit * unit);
+int GetUnitSpeed(struct Unit * unit);
+int GetUnitDefense(struct Unit * unit);
+int GetUnitResistance(struct Unit * unit);
+int GetUnitLuck(struct Unit * unit);
+int GetUnitFid(struct Unit * unit);
+int GetUnitChibiId(struct Unit * unit);
+int GetUnitLeaderPid(struct Unit * unit);
+void SetUnitLeaderPid(struct Unit * unit, int pid);
+void SetUnitHp(struct Unit * unit, int hp);
+void AddUnitHp(struct Unit * unit, int amount);
+int GetUnitVision(struct Unit * unit);
+char const * GetUnitRescueName(struct Unit * unit);
+char const * GetUnitStatusName(struct Unit * unit);
+void SetUnitStatus(struct Unit * unit, int status);
+struct Unit * GetUnit(int uid);
+struct JInfo const * GetJobInfo(int jid);
+struct PInfo const * GetPersonInfo(int pid);
+int GetUnitMapSprite(struct Unit * unit);
+bool UnitAddItem(struct Unit * unit, int item);
+void UnitRemoveItem(struct Unit * unit, int slot);
+void UnitRemoveInvalidItems(struct Unit * unit);
+int GetUnitItemCount(struct Unit * unit);
+bool UnitHasItem(struct Unit * unit, int item);
+int BatchCreateUnits(struct UnitInfo const * info);
+struct Unit * CreateUnit(struct UnitInfo const * info);
+void UnitInitFromInfo(struct Unit * unit, struct UnitInfo const * info);
+void UnitInitStats(struct Unit * unit, struct PInfo const * pinfo);
+void func_fe6_08017764(struct Unit * unit);
+void UnitInitSupports(struct Unit * unit);
+void UnitAutolevelWeaponExp(struct Unit * unit, struct UnitInfo const * info);
+void UnitAutolevelCore(struct Unit * unit, u8 jid, int levelCount);
+void UnitApplyBonusLevels(struct Unit * unit, int levelCount);
+void UnitAutolevel(struct Unit * unit);
+void UnitAutolevelPlayer(struct Unit * unit);
+void UnitCheckStatOverflow(struct Unit * unit);
+struct Unit * GetUnitByPid(int pid);
+bool CanUnitCarry(struct Unit * unit, struct Unit * other);
+void UnitRescue(struct Unit * unit, struct Unit * other);
+void UnitDropRescue(struct Unit * unit, int x, int y);
+bool UnitGiveRescue(struct Unit * unit, struct Unit * other);
+void KillUnit(struct Unit * unit);
+void UnitChangeFaction(struct Unit * unit, int faction);
+bool CanUnitCrossTerrain(struct Unit * unit, int terrain);
+void UnitSyncMovement(struct Unit * unit);
+void UnitGetDropPositionOnDeath(struct Unit * unit, int* xOut, int* yOut);
+void UnitBeginAction(struct Unit * unit);
+void UnitBeginReMoveAction(struct Unit * unit);
 void func_fe6_08017EDC(int x, int y);
 void ClearActiveFactionTurnEndedState(void);
 void TickActiveFactionTurnAndListStatusHeals(void);
 void func_fe6_0801809C(void);
-void UnitUpdateUsedItem(struct Unit* unit, int item_slot);
-int GetUnitAid(struct Unit* unit);
-int GetUnitMagRange(struct Unit* unit);
-bool UnitKnowsMagic(struct Unit* unit);
-void func_fe6_080181B0(struct Unit* unit, int x, int y);
-int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain);
+void UnitUpdateUsedItem(struct Unit * unit, int item_slot);
+int GetUnitAid(struct Unit * unit);
+int GetUnitMagRange(struct Unit * unit);
+bool UnitKnowsMagic(struct Unit * unit);
+void func_fe6_080181B0(struct Unit * unit, int x, int y);
+int GetUnitKeyItemSlotForTerrain(struct Unit * unit, int terrain);
 int GetAidIconFromAttributes(int attributes);
-int func_fe6_08018258(struct Unit* unit);
+int func_fe6_08018258(struct Unit * unit);
 bool CanActiveUnitStillMove(void);
 
-extern struct Unit* gActiveUnit;
+extern struct Unit * gActiveUnit;
 
 extern u8 EWRAM_DATA gActiveUnitId;
 extern struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin;
@@ -357,7 +357,7 @@ extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 #define FOR_UNITS(begin, end, var_name, body) \
 { \
     int _uid; \
-    struct Unit* var_name; \
+    struct Unit * var_name; \
     for (_uid = (begin); _uid < (end); ++_uid) \
     { \
         var_name = GetUnit(_uid); \

@@ -27,7 +27,7 @@ static struct Vec2i CONST_DATA sRange3OffsetLut[] =
     { 9999, 9999 },
 };
 
-bool AiCompare(u8 const* left, u8 cond, u32 right)
+bool AiCompare(u8 const * left, u8 cond, u32 right)
 {
     switch (cond)
     {
@@ -73,7 +73,7 @@ bool AiCompare(u8 const* left, u8 cond, u32 right)
     return FALSE;
 }
 
-bool AiFindTargetInReachByPid(int pid, struct Vec2i* out)
+bool AiFindTargetInReachByPid(int pid, struct Vec2i * out)
 {
     int i;
 
@@ -84,7 +84,7 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2i* out)
 
     for (i = 1; i < 0xC0; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (unit == NULL)
             continue;
@@ -128,7 +128,7 @@ target_not_found:
     return FALSE;
 }
 
-bool AiFindTargetInReachByJid(int jid, struct Vec2i* out)
+bool AiFindTargetInReachByJid(int jid, struct Vec2i * out)
 {
     int i;
 
@@ -140,7 +140,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i* out)
 
     for (i = 1; i < 0xC0; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (unit == NULL)
             continue;
@@ -171,7 +171,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i* out)
     return FALSE;
 }
 
-bool AiFindTargetInReachByFunc(bool(*func)(struct Unit* unit), struct Vec2i* out)
+bool AiFindTargetInReachByFunc(bool (* func)(struct Unit * unit), struct Vec2i * out)
 {
     short ix, iy;
 
@@ -260,7 +260,7 @@ void AiRandomMove(void)
         AiSetDecision(x, y, AI_ACTION_NONE, 0, 0, 0, 0);
 }
 
-bool AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
+bool AiReachesByBirdsEyeDistance(struct Unit * unit, struct Unit * other, u16 item)
 {
     int maxDistance = RECT_DISTANCE(unit->x, unit->y, other->x, other->y);
 
@@ -270,7 +270,7 @@ bool AiReachesByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item
     return FALSE;
 }
 
-bool AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 item)
+bool AiCouldReachByBirdsEyeDistance(struct Unit * unit, struct Unit * other, u16 item)
 {
     int maxDistance = RECT_DISTANCE(unit->x, unit->y, other->x, other->y);
 
@@ -280,7 +280,7 @@ bool AiCouldReachByBirdsEyeDistance(struct Unit* unit, struct Unit* other, u16 i
     return FALSE;
 }
 
-bool AiIsInShortList(u16 const* list, u16 item)
+bool AiIsInShortList(u16 const * list, u16 item)
 {
     while (*list)
     {
@@ -293,7 +293,7 @@ bool AiIsInShortList(u16 const* list, u16 item)
     return FALSE;
 }
 
-bool AiIsInByteList(u8 const* list, u8 item)
+bool AiIsInByteList(u8 const * list, u8 item)
 {
     while (*list)
     {
@@ -306,7 +306,7 @@ bool AiIsInByteList(u8 const* list, u8 item)
     return FALSE;
 }
 
-bool AiFindClosestTerrainPosition(u8 const* terrainList, int flags, struct Vec2i* out)
+bool AiFindClosestTerrainPosition(u8 const * terrainList, int flags, struct Vec2i * out)
 {
     int ix, iy;
 
@@ -361,7 +361,7 @@ u8 AiGetPositionRange(int x, int y)
     return gMapRange[y][x];
 }
 
-bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, struct Vec2i* out)
+bool AiFindClosestTerrainAdjacentPosition(u8 const * terrainList, int flags, struct Vec2i * out)
 {
     struct Vec2i tmp;
     int ix, iy;
@@ -408,7 +408,7 @@ bool AiFindClosestTerrainAdjacentPosition(u8 const* terrainList, int flags, stru
     return FALSE;
 }
 
-bool AiFindClosestUnlockPosition(int flags, struct Vec2i* out)
+bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
 {
     struct Vec2i tmp;
     int ix, iy;
@@ -597,7 +597,7 @@ int AiCountNearbyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2i const* it = sRange3OffsetLut;
+    struct Vec2i const * it = sRange3OffsetLut;
 
     it--;
 
@@ -624,7 +624,7 @@ int AiCountNearbyEnemyUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2i const* it = sRange3OffsetLut;
+    struct Vec2i const * it = sRange3OffsetLut;
 
     it--;
 
@@ -654,7 +654,7 @@ int AiCountNearbyAlliedUnits(short x, short y)
 {
     int count = 0;
 
-    struct Vec2i const* it = sRange3OffsetLut;
+    struct Vec2i const * it = sRange3OffsetLut;
 
     it--;
 
@@ -680,7 +680,7 @@ int AiCountNearbyAlliedUnits(short x, short y)
     return count;
 }
 
-void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit* unit, u16 item)
+void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit * unit, u16 item)
 {
     int ix, iy;
 
@@ -699,7 +699,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit* unit, u16 item)
     }
 }
 
-void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit)
+void AiMakeMoveRangeUnitPowerMaps(struct Unit * unit)
 {
     int ix, iy;
 
@@ -720,7 +720,7 @@ void AiMakeMoveRangeUnitPowerMaps(struct Unit* unit)
     }
 }
 
-void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item)
+void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit * unit, u16 item)
 {
     int ix, iy;
 
@@ -739,9 +739,9 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit* unit, u16 item)
     }
 }
 
-bool AiFindBestAdjacentPositionByFunc(int x, int y, u8(*funcArg)(int x, int y), struct Vec2i* out)
+bool AiFindBestAdjacentPositionByFunc(int x, int y, u8 (* funcArg)(int x, int y), struct Vec2i * out)
 {
-    u8(*func)(int x, int y) = funcArg;
+    u8 (* func)(int x, int y) = funcArg;
 
     u8 best = UINT8_MAX;
 
@@ -780,7 +780,7 @@ int AiGetItemStealRank(u16 item)
 {
     int result = 0;
 
-    u16 const* it = gUnk_085C8834;
+    u16 const * it = gUnk_085C8834;
 
     while (*it != UINT16_MAX)
     {
@@ -794,7 +794,7 @@ int AiGetItemStealRank(u16 item)
     return -1;
 }
 
-i8 AiGetUnitStealItemSlot(struct Unit* unit)
+i8 AiGetUnitStealItemSlot(struct Unit * unit)
 {
     u16 item;
     int i;
@@ -823,7 +823,7 @@ i8 AiGetUnitStealItemSlot(struct Unit* unit)
     return slot;
 }
 
-bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2i* out)
+bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * out)
 {
     int ix, iy;
 
@@ -865,9 +865,9 @@ bool AiFindSafestReachableLocation(struct Unit* unit, struct Vec2i* out)
     return FALSE;
 }
 
-bool AiFindPillageLocation(struct Vec2i* out, u8* outItemSlot)
+bool AiFindPillageLocation(struct Vec2i * out, u8 * outItemSlot)
 {
-    u8 const* terrains;
+    u8 const * terrains;
 
     SetWorkingMovTable(gActiveUnit->jinfo->mov_table);
     SetWorkingMap(gMapRange);
@@ -889,7 +889,7 @@ bool AiFindPillageLocation(struct Vec2i* out, u8* outItemSlot)
     return FALSE;
 }
 
-bool AiGetChestUnlockItemSlot(u8* out)
+bool AiGetChestUnlockItemSlot(u8 * out)
 {
     int i;
 
@@ -986,7 +986,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     }
 }
 
-bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct Vec2i* out)
+bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct Vec2i * out)
 {
     short ix, iy;
     u8 bestRange;
@@ -1033,11 +1033,11 @@ bool AiGetUnitClosestValidPosition(struct Unit* unit, short x, short y, struct V
 u8 AiGetJobRank(u8 jid)
 {
     u8 num = 0;
-    u8 const* const* it = gAiJobRankLists;
+    u8 const * const * it = gAiJobRankLists;
 
     while (*it != NULL)
     {
-        u8 const* itJob = *it;
+        u8 const * itJob = *it;
 
         while (*itJob != 0)
         {
@@ -1060,7 +1060,7 @@ bool AiUnitWithPidExists(u16 pid)
 
     for (i = 1; i < 0xC0; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -1130,7 +1130,7 @@ void func_fe6_080308B0(void)
     {
         u8 mov;
 
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -1152,7 +1152,7 @@ void func_fe6_080308B0(void)
                 continue;
 
             if (GetItemAttributes(item) & ITEM_ATTR_MAGIC)
-                unit->ai_flags |= AI_UNIT_FLAG_0;
+                unit->ai_flags |= AI_UNIT_FLAG_SEEK_HEALING;
 
             func_fe6_08030968(unit, item);
             func_fe6_08030994(unit, item);
@@ -1162,7 +1162,7 @@ void func_fe6_080308B0(void)
     }
 }
 
-void func_fe6_08030968(struct Unit* unit, u16 item)
+void func_fe6_08030968(struct Unit * unit, u16 item)
 {
     if (GetItemAttributes(item) & ITEM_ATTR_STAFF)
     {
@@ -1177,7 +1177,7 @@ void func_fe6_08030968(struct Unit* unit, u16 item)
     }
 }
 
-void func_fe6_08030994(struct Unit* unit, u16 item)
+void func_fe6_08030994(struct Unit * unit, u16 item)
 {
     int flag = 0;
 
@@ -1202,7 +1202,7 @@ void func_fe6_08030994(struct Unit* unit, u16 item)
     unit->ai_flags |= flag;
 }
 
-void func_fe6_080309E0(struct Unit* unit)
+void func_fe6_080309E0(struct Unit * unit)
 {
     int ix, iy;
 
@@ -1231,14 +1231,14 @@ void func_fe6_080309E0(struct Unit* unit)
     unit->unk_46 = count;
 }
 
-void UnitInitAiFromInfo(struct Unit* unit, struct UnitInfo const* info)
+void UnitInitAiFromInfo(struct Unit * unit, struct UnitInfo const * info)
 {
     unit->ai_a = info->ai[0];
     unit->ai_b = info->ai[1];
     unit->ai_config = (0xFFF8 & unit->ai_config) | info->ai[2] | (info->ai[3] << 8);
 }
 
-bool func_fe6_08030AB4(struct Vec2i* out)
+bool func_fe6_08030AB4(struct Vec2i * out)
 {
     int ix, iy;
 
@@ -1284,7 +1284,7 @@ int func_fe6_08030B94(void)
 
     for (i = alliance + 1; i < alliance + 0x80; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -1295,7 +1295,7 @@ int func_fe6_08030B94(void)
         if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
             continue;
 
-        if (unit->ai_flags & AI_FLAG_0)
+        if (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
             count++;
     }
 
@@ -1321,7 +1321,7 @@ int func_fe6_08030BDC(void)
             if (!AreUnitIdsAllied(gActiveUnitId, gMapUnit[iy][ix]))
                 continue;
 
-            if (GetUnit(gMapUnit[iy][ix])->ai_flags & AI_FLAG_0)
+            if (GetUnit(gMapUnit[iy][ix])->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
                 count++;
         }
     }
@@ -1329,7 +1329,7 @@ int func_fe6_08030BDC(void)
     return count;
 }
 
-bool AiUnitHasAnyStaff(struct Unit* unit)
+bool AiUnitHasAnyStaff(struct Unit * unit)
 {
     int i;
 
@@ -1348,7 +1348,7 @@ bool AiUnitHasAnyStaff(struct Unit* unit)
     return FALSE;
 }
 
-void func_fe6_08030CBC(struct Unit* unit)
+void func_fe6_08030CBC(struct Unit * unit)
 {
     if (gAiSt.flags & AI_FLAG_1)
     {

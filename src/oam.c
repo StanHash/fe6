@@ -5,8 +5,8 @@
 
 struct OamSection
 {
-    u16* buf;
-    void* oam;
+    u16 * buf;
+    void * oam;
     u16 offset;
     u16 count;
 };
@@ -17,12 +17,12 @@ static struct OamSection sOamLo;
 void InitOam(int loSz)
 {
     sOamLo.buf = gOam;
-    sOamLo.oam = (void*) OAM;
+    sOamLo.oam = (void *) OAM;
     sOamLo.offset = 0;
     sOamLo.count = loSz;
 
     sOamHi.buf = gOam + loSz*4;
-    sOamHi.oam = (void*) OAM + loSz*8;
+    sOamHi.oam = (void *) OAM + loSz*8;
     sOamHi.offset = loSz*8;
     sOamHi.count = 0x80 - loSz;
 }
@@ -39,7 +39,7 @@ void SyncHiOam(void)
 
     gOamHiPutIt = sOamHi.buf;
 
-    gOamAffinePutIt = (struct OamView*) gOam;
+    gOamAffinePutIt = (struct OamView *) gOam;
     gOamAffinePutId = 0;
 }
 
@@ -62,7 +62,7 @@ void SetObjAffine(int id, short pa, short pb, short pc, short pd)
     gOam[id*0x10 + 15] = pd;
 }
 
-void PutUnkSprite(struct UnkSprite* sprites, int xBase, int yBase)
+void PutUnkSprite(struct UnkSprite * sprites, int xBase, int yBase)
 {
     int x, y;
 
@@ -77,8 +77,8 @@ void PutUnkSprite(struct UnkSprite* sprites, int xBase, int yBase)
         x = OAM1_X(sprites->x + xBase);
         y = OAM0_Y(sprites->y + yBase);
 
-        *(u32*) ((u32*) gOamHiPutIt)++ = sprites->oam01 | (x << 16) | (y);
-        *(u16*) ((u32*) gOamHiPutIt)++ = sprites->oam2;
+        *(u32 *) ((u32 *) gOamHiPutIt)++ = sprites->oam01 | (x << 16) | (y);
+        *(u16 *) ((u32 *) gOamHiPutIt)++ = sprites->oam2;
 
         sprites++;
     }

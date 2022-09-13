@@ -27,7 +27,7 @@ static int CONST_DATA sMaxExpLut[] =
     [SUPPORT_LEVEL_A]    = SUPPORT_EXP_A
 };
 
-int GetUnitSupportCount(struct Unit* unit)
+int GetUnitSupportCount(struct Unit * unit)
 {
     if (!unit->pinfo->support_info)
         return 0;
@@ -35,7 +35,7 @@ int GetUnitSupportCount(struct Unit* unit)
     return unit->pinfo->support_info->count;
 }
 
-u8 GetUnitSupportPid(struct Unit* unit, int num)
+u8 GetUnitSupportPid(struct Unit * unit, int num)
 {
     if (!unit->pinfo->support_info)
         return 0;
@@ -43,7 +43,7 @@ u8 GetUnitSupportPid(struct Unit* unit, int num)
     return unit->pinfo->support_info->pids[num];
 }
 
-struct Unit* GetUnitSupportUnit(struct Unit* unit, int num)
+struct Unit * GetUnitSupportUnit(struct Unit * unit, int num)
 {
     u8 pid = GetUnitSupportPid(unit, num);
 
@@ -66,7 +66,7 @@ struct Unit* GetUnitSupportUnit(struct Unit* unit, int num)
     return NULL;
 }
 
-int GetUnitSupportLevel(struct Unit* unit, int num)
+int GetUnitSupportLevel(struct Unit * unit, int num)
 {
     int exp = unit->supports[num];
 
@@ -82,7 +82,7 @@ int GetUnitSupportLevel(struct Unit* unit, int num)
     return SUPPORT_LEVEL_NONE;
 }
 
-int GetUnitTotalSupportLevel(struct Unit* unit)
+int GetUnitTotalSupportLevel(struct Unit * unit)
 {
     int i, count, result;
 
@@ -94,7 +94,7 @@ int GetUnitTotalSupportLevel(struct Unit* unit)
     return result;
 }
 
-void UnitGainSupportExp(struct Unit* unit, int num)
+void UnitGainSupportExp(struct Unit * unit, int num)
 {
     if (unit->pinfo->support_info)
     {
@@ -110,13 +110,13 @@ void UnitGainSupportExp(struct Unit* unit, int num)
     }
 }
 
-void UnitGainSupportLevel(struct Unit* unit, int num)
+void UnitGainSupportLevel(struct Unit * unit, int num)
 {
     unit->supports[num]++;
     gPlaySt.support_gain++;
 }
 
-bool CanUnitSupportNow(struct Unit* unit, int num)
+bool CanUnitSupportNow(struct Unit * unit, int num)
 {
     int exp, maxExp;
 
@@ -141,7 +141,7 @@ bool CanUnitSupportNow(struct Unit* unit, int num)
     return (exp == maxExp) ? TRUE : FALSE;
 }
 
-int GetUnitInitialSupportExp(struct Unit* unit, int num)
+int GetUnitInitialSupportExp(struct Unit * unit, int num)
 {
     if (!unit->pinfo->support_info)
         return -1;
@@ -149,7 +149,7 @@ int GetUnitInitialSupportExp(struct Unit* unit, int num)
     return unit->pinfo->support_info->exp_base[num];
 }
 
-int GetUnitSupportNumByPid(struct Unit* unit, u8 pid)
+int GetUnitSupportNumByPid(struct Unit * unit, u8 pid)
 {
     int i, count = GetUnitSupportCount(unit);
 
@@ -162,13 +162,13 @@ int GetUnitSupportNumByPid(struct Unit* unit, u8 pid)
     return -1;
 }
 
-void ClearUnitSupports(struct Unit* unit)
+void ClearUnitSupports(struct Unit * unit)
 {
     int i, count = GetUnitSupportCount(unit);
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other = GetUnitSupportUnit(unit, i);
+        struct Unit * other = GetUnitSupportUnit(unit, i);
 
         if (!other)
             continue;
@@ -193,7 +193,7 @@ void DoTurnSupportExp(void)
 
     for (i = 1; i < 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -211,7 +211,7 @@ void DoTurnSupportExp(void)
 
         for (j = 0; j < jend; ++j)
         {
-            struct Unit* other = GetUnitSupportUnit(unit, j);
+            struct Unit * other = GetUnitSupportUnit(unit, j);
 
             if (!other)
                 continue;
@@ -246,9 +246,9 @@ void DoTurnSupportExp(void)
     }
 }
 
-static struct SupportBonuses const* GetAffinityBonuses(int affinity)
+static struct SupportBonuses const * GetAffinityBonuses(int affinity)
 {
-    struct SupportBonuses const* it;
+    struct SupportBonuses const * it;
 
     for (it = AffinityBonuses; it->affinity; ++it)
     {
@@ -259,9 +259,9 @@ static struct SupportBonuses const* GetAffinityBonuses(int affinity)
     // return NULL; // BUG?
 }
 
-static void ApplyAffinityBonuses(struct SupportBonuses* bonuses, int affinity, int level)
+static void ApplyAffinityBonuses(struct SupportBonuses * bonuses, int affinity, int level)
 {
-    struct SupportBonuses const* added = GetAffinityBonuses(affinity);
+    struct SupportBonuses const * added = GetAffinityBonuses(affinity);
 
     bonuses->bonus_attack  += level * added->bonus_attack;
     bonuses->bonus_defense += level * added->bonus_defense;
@@ -271,7 +271,7 @@ static void ApplyAffinityBonuses(struct SupportBonuses* bonuses, int affinity, i
     bonuses->bonus_dodge   += level * added->bonus_dodge;
 }
 
-static void InitBonuses(struct SupportBonuses* bonuses)
+static void InitBonuses(struct SupportBonuses * bonuses)
 {
     bonuses->bonus_attack  = 0;
     bonuses->bonus_defense = 0;
@@ -281,7 +281,7 @@ static void InitBonuses(struct SupportBonuses* bonuses)
     bonuses->bonus_dodge   = 0;
 }
 
-int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
+int GetUnitSupportBonuses(struct Unit * unit, struct SupportBonuses * bonuses)
 {
     int i, count;
     int result = 0;
@@ -292,7 +292,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other;
+        struct Unit * other;
         int levelA, levelB;
 
         result = result >> 1;
@@ -330,7 +330,7 @@ int GetUnitSupportBonuses(struct Unit* unit, struct SupportBonuses* bonuses)
     return result;
 }
 
-int GetUnitAffinityIcon(struct Unit* unit)
+int GetUnitAffinityIcon(struct Unit * unit)
 {
     int affinity = unit->pinfo->affinity;
 
@@ -363,9 +363,9 @@ int GetSupportLevelSpecialChar(int level)
     return chars[level];
 }
 
-char const* GetAffinityName(int affinity)
+char const * GetAffinityName(int affinity)
 {
-    char const* lut[] =
+    char const * lut[] =
     {
         JTEXT("ー"),
         JTEXT("炎"),

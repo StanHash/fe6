@@ -19,7 +19,7 @@ func_fe6_0806BB34: @ 0x0806BB34
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BB60
@@ -47,7 +47,7 @@ func_fe6_0806BB68: @ 0x0806BB68
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BB94
@@ -75,7 +75,7 @@ func_fe6_0806BB9C: @ 0x0806BB9C
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BBC8
@@ -98,7 +98,7 @@ func_fe6_0806BBD0: @ 0x0806BBD0
 	movs r1, #0
 	movs r2, #0x2d
 	movs r3, #0x18
-	bl func_fe6_0806ACEC
+	bl CheckAnyBlueUnitArea
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BBF2
@@ -146,14 +146,14 @@ func_fe6_0806BC20: @ 0x0806BC20
 	adds r0, r4, #0
 	movs r1, #1
 	movs r2, #0x1d
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BC52
 	adds r0, r4, #0
 	movs r1, #0x1d
 	movs r2, #1
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0806BC52
@@ -406,7 +406,7 @@ func_fe6_0806BE00: @ 0x0806BE00
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BE2A
@@ -432,7 +432,7 @@ func_fe6_0806BE30: @ 0x0806BE30
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BE5A
@@ -458,7 +458,7 @@ func_fe6_0806BE60: @ 0x0806BE60
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BE8A
@@ -480,7 +480,7 @@ func_fe6_0806BE90: @ 0x0806BE90
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BEB0
@@ -508,7 +508,7 @@ func_fe6_0806BEB8: @ 0x0806BEB8
 	adds r0, r4, #0
 	movs r1, #0x31
 	movs r2, #0x2e
-	bl func_fe6_0806AC90
+	bl EventInfoCheckTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L0806BEE4
@@ -1686,7 +1686,7 @@ func_fe6_0806C64C: @ 0x0806C64C
 	movs r0, #0
 	strb r0, [r1]
 	movs r0, #0x16
-	bl ClearEid
+	bl ClearFlag
 	bl func_fe6_0802BA08
 	ldr r1, .L0806C66C @ =0x0203D358
 	str r0, [r1]
@@ -2572,7 +2572,7 @@ func_fe6_0806CC94: @ 0x0806CC94
 .L0806CCB0: .4byte gAction
 .L0806CCB4:
 	movs r0, #0x16
-	bl SetEid
+	bl SetFlag
 	movs r0, #1
 .L0806CCBC:
 	pop {r1}
@@ -2597,7 +2597,7 @@ func_fe6_0806CCC4: @ 0x0806CCC4
 	cmp r0, #0
 	beq .L0806CCE4
 	movs r0, #0x12
-	bl SetEid
+	bl SetFlag
 .L0806CCE4:
 	pop {r0}
 	bx r0
@@ -2937,7 +2937,7 @@ func_fe6_0806CEF0: @ 0x0806CEF0
 	cmp r0, #0
 	beq .L0806CF22
 	movs r0, #6
-	bl SetEid
+	bl SetFlag
 .L0806CF22:
 	movs r0, #4
 	bl CheckFlag
@@ -2945,7 +2945,7 @@ func_fe6_0806CEF0: @ 0x0806CEF0
 	cmp r0, #0
 	beq .L0806CF34
 	movs r0, #5
-	bl SetEid
+	bl SetFlag
 .L0806CF34:
 	movs r0, #0
 .L0806CF36:
@@ -2976,7 +2976,7 @@ func_fe6_0806CF3C: @ 0x0806CF3C
 	cmp r0, #0
 	beq .L0806CF6E
 	movs r0, #0xa
-	bl SetEid
+	bl SetFlag
 .L0806CF6E:
 	movs r0, #8
 	bl CheckFlag
@@ -2984,7 +2984,7 @@ func_fe6_0806CF3C: @ 0x0806CF3C
 	cmp r0, #0
 	beq .L0806CF80
 	movs r0, #9
-	bl SetEid
+	bl SetFlag
 .L0806CF80:
 	movs r0, #0
 .L0806CF82:
@@ -3274,7 +3274,7 @@ func_fe6_0806D194: @ 0x0806D194
 .L0806D198:
 	adds r0, r4, #0
 	adds r0, #0xd
-	bl ClearEid
+	bl ClearFlag
 	adds r4, #1
 	cmp r4, #4
 	ble .L0806D198
@@ -3295,7 +3295,7 @@ func_fe6_0806D1AC: @ 0x0806D1AC
 	cmp r0, #0
 	bne .L0806D1C8
 	adds r0, r4, #0
-	bl SetEid
+	bl SetFlag
 	b .L0806D1CE
 .L0806D1C8:
 	adds r5, #1
@@ -3399,7 +3399,7 @@ func_fe6_0806D1FC: @ 0x0806D1FC
 	lsrs r2, r0, #0x18
 	cmp r2, #1
 	beq .L0806D2AC
-	ldr r0, .L0806D2BC @ =gUnk_08666598
+	ldr r0, .L0806D2BC @ =gBattleDefeatTalkList
 	ldrb r1, [r0]
 	adds r5, r0, #0
 	cmp r1, #0
@@ -3427,7 +3427,7 @@ func_fe6_0806D1FC: @ 0x0806D1FC
 	.align 2, 0
 .L0806D2B4: .4byte 0x0203D361
 .L0806D2B8: .4byte 0x0203D362
-.L0806D2BC: .4byte gUnk_08666598
+.L0806D2BC: .4byte gBattleDefeatTalkList
 .L0806D2C0:
 	ldr r0, .L0806D2EC @ =0x0203D362
 	ldrb r0, [r0]
@@ -3557,7 +3557,7 @@ func_fe6_0806D3B4: @ 0x0806D3B4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0806D3D8
-	ldr r0, .L0806D3D4 @ =0x03004898
+	ldr r0, .L0806D3D4 @ =gChapterFlagBits
 	ldrb r4, [r0, #3]
 	adds r4, #4
 	movs r0, #0x80
@@ -3567,7 +3567,7 @@ func_fe6_0806D3B4: @ 0x0806D3B4
 	movs r0, #1
 	b .L0806D3DA
 	.align 2, 0
-.L0806D3D4: .4byte 0x03004898
+.L0806D3D4: .4byte gChapterFlagBits
 .L0806D3D8:
 	movs r0, #0
 .L0806D3DA:
@@ -3578,7 +3578,7 @@ func_fe6_0806D3B4: @ 0x0806D3B4
 	thumb_func_start func_fe6_0806D3E0
 func_fe6_0806D3E0: @ 0x0806D3E0
 	push {r4, lr}
-	ldr r4, .L0806D404 @ =0x03004898
+	ldr r4, .L0806D404 @ =gChapterFlagBits
 	ldrb r0, [r4, #2]
 	adds r0, #1
 	strb r0, [r4, #2]
@@ -3594,14 +3594,14 @@ func_fe6_0806D3E0: @ 0x0806D3E0
 	beq .L0806D414
 	b .L0806D40E
 	.align 2, 0
-.L0806D404: .4byte 0x03004898
+.L0806D404: .4byte gChapterFlagBits
 .L0806D408:
 	ldrb r4, [r4, #2]
 	cmp r4, #5
 	beq .L0806D414
 .L0806D40E:
 	movs r0, #6
-	bl ClearEid
+	bl ClearFlag
 .L0806D414:
 	pop {r4}
 	pop {r0}
@@ -3916,7 +3916,7 @@ func_fe6_0806D6B4: @ 0x0806D6B4
 	lsls r0, r0, #2
 	adds r0, r0, r4
 	ldr r0, [r0]
-	bl SetEid
+	bl SetFlag
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -4013,7 +4013,7 @@ func_fe6_0806D77C: @ 0x0806D77C
 	cmp r0, #0
 	bne .L0806D7B6
 	ldr r0, [r4]
-	bl SetEid
+	bl SetFlag
 	adds r5, #1
 	cmp r5, #3
 	beq .L0806D7C0
@@ -5466,7 +5466,7 @@ func_fe6_0806E278: @ 0x0806E278
 	bne .L0806E29C
 .L0806E296:
 	movs r0, #0x7b
-	bl SetEid
+	bl SetFlag
 .L0806E29C:
 	pop {r0}
 	bx r0
@@ -50152,9 +50152,9 @@ func_fe6_0808460C: @ 0x0808460C
 func_fe6_08084628: @ 0x08084628
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl GetChapterEidData
+	bl GetChapterFlagBits
 	adds r5, r0, #0
-	bl func_fe6_0806BA9C
+	bl GetChapterFlagBitsSize
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -50168,9 +50168,9 @@ func_fe6_08084628: @ 0x08084628
 func_fe6_08084648: @ 0x08084648
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl GetGlobalEidData
+	bl GetPermanentFlagBits
 	adds r5, r0, #0
-	bl func_fe6_0806BA90
+	bl GetPermanentFlagBitsSize
 	adds r2, r0, #0
 	adds r0, r5, #0
 	adds r1, r4, #0
@@ -50185,9 +50185,9 @@ func_fe6_08084668: @ 0x08084668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r4, .L0808468C @ =ReadSramFast
-	bl GetChapterEidData
+	bl GetChapterFlagBits
 	adds r5, r0, #0
-	bl func_fe6_0806BA9C
+	bl GetChapterFlagBitsSize
 	adds r2, r0, #0
 	ldr r3, [r4]
 	adds r0, r6, #0
@@ -50204,9 +50204,9 @@ func_fe6_08084690: @ 0x08084690
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r4, .L080846B4 @ =ReadSramFast
-	bl GetGlobalEidData
+	bl GetPermanentFlagBits
 	adds r5, r0, #0
-	bl func_fe6_0806BA90
+	bl GetPermanentFlagBitsSize
 	adds r2, r0, #0
 	ldr r3, [r4]
 	adds r0, r6, #0
@@ -51544,7 +51544,7 @@ func_fe6_0808505C: @ 0x0808505C
 	bl InitPlayConfig
 	bl InitUnits
 	bl ClearSupplyItems
-	bl func_fe6_0806BA34
+	bl ResetPermanentFlags
 	movs r0, #3
 	bl func_fe6_08085788
 	bl func_fe6_08084E18
@@ -53507,9 +53507,9 @@ func_fe6_08085FB4: @ 0x08085FB4
 	subs r5, #1
 	cmp r5, #0
 	bge .L08086004
-	bl GetGlobalEidData
+	bl GetPermanentFlagBits
 	adds r4, r0, #0
-	bl func_fe6_0806BA90
+	bl GetPermanentFlagBitsSize
 	adds r1, r0, #0
 	lsrs r0, r1, #0x1f
 	adds r1, r1, r0
@@ -53519,9 +53519,9 @@ func_fe6_08085FB4: @ 0x08085FB4
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
-	bl GetChapterEidData
+	bl GetChapterFlagBits
 	adds r4, r0, #0
-	bl func_fe6_0806BA9C
+	bl GetChapterFlagBitsSize
 	adds r1, r0, #0
 	lsrs r0, r1, #0x1f
 	adds r1, r1, r0
@@ -54408,10 +54408,10 @@ func_fe6_080866EC: @ 0x080866EC
 	bl GetTrap
 	ldr r1, [r4]
 	str r0, [r1, #0x34]
-	bl GetGlobalEidData
+	bl GetPermanentFlagBits
 	ldr r1, [r4]
 	str r0, [r1, #0x38]
-	bl GetChapterEidData
+	bl GetChapterFlagBits
 	ldr r1, [r4]
 	str r0, [r1, #0x3c]
 	pop {r4, r5, r6}

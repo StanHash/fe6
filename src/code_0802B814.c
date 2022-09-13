@@ -9,6 +9,7 @@
 #include "target-list.h"
 #include "faction.h"
 #include "action.h"
+#include "eventinfo.h"
 
 #include "constants/terrains.h"
 
@@ -29,7 +30,7 @@ bool func_fe6_0802B814(void)
             if (gMapTerrain[iy][ix] != TERRAIN_VILLAGE && gMapTerrain[iy][ix] != TERRAIN_HOUSE)
                 continue;
 
-            if (func_fe6_0806B028(ix, iy) == 0x0E)
+            if (GetAvailableTileEventCommand(ix, iy) == 0x0E)
                 return TRUE;
         }
     }
@@ -54,7 +55,7 @@ bool func_fe6_0802B8A0(void)
             if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (func_fe6_0806B028(ix, iy) == 0x0F)
+            if (GetAvailableTileEventCommand(ix, iy) == 0x0F)
                 return TRUE;
         }
     }
@@ -117,7 +118,7 @@ int func_fe6_0802BA08(void)
     return func_fe6_0802B99C();
 }
 
-void func_fe6_0802BA44(struct Unit* unit)
+void func_fe6_0802BA44(struct Unit * unit)
 {
     int ix, iy;
 

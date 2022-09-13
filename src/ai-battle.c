@@ -24,9 +24,9 @@ static int AiGetDamageTakenScoreComponent(void);
 static int AiGetDangerScoreComponent(void);
 static int AiGetLowHpScoreComponent(void);
 
-static struct AiCombatScoreCoefficients const* sCombatScoreCoefficients;
+static struct AiCombatScoreCoefficients const * sCombatScoreCoefficients;
 
-bool AiAttemptOffensiveAction(bool(*is_enemy)(struct Unit* unit))
+bool AiAttemptOffensiveAction(bool (* is_enemy)(struct Unit * unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
@@ -116,7 +116,7 @@ bool AiAttemptOffensiveAction(bool(*is_enemy)(struct Unit* unit))
     }
 }
 
-bool AiAttemptCombatWithinMovement(bool(*is_enemy)(struct Unit* unit))
+bool AiAttemptCombatWithinMovement(bool (* is_enemy)(struct Unit * unit))
 {
     struct AiCombatSimulationSt tmpResult;
     struct AiCombatSimulationSt finResult;
@@ -184,7 +184,7 @@ bool AiAttemptCombatWithinMovement(bool(*is_enemy)(struct Unit* unit))
     }
 }
 
-void AiFillReversedAttackRangeMap(struct Unit* unit, u16 item)
+void AiFillReversedAttackRangeMap(struct Unit * unit, u16 item)
 {
     // reverse as in "this is the range this unit can be attacked *from*"
 
@@ -192,7 +192,7 @@ void AiFillReversedAttackRangeMap(struct Unit* unit, u16 item)
     MapIncInBoundedRange(unit->x, unit->y, GetItemMinRange(item), GetItemMaxRange(item));
 }
 
-void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item)
+void AiFloodMovementAndRange(struct Unit * unit, u16 move, u16 item)
 {
     int ix, iy;
 
@@ -215,7 +215,7 @@ void AiFloodMovementAndRange(struct Unit* unit, u16 move, u16 item)
     }
 }
 
-bool AiAttemptBallistaCombat(bool(*is_enemy)(struct Unit* unit), struct AiCombatSimulationSt* st)
+bool AiAttemptBallistaCombat(bool (* is_enemy)(struct Unit * unit), struct AiCombatSimulationSt * st)
 {
     struct AiCombatSimulationSt tmpResult;
 
@@ -326,7 +326,7 @@ bool AiAttemptStealActionWithinMovement(void)
         for (ix = gMapSize.x-1; ix >= 0; --ix)
         {
             struct Vec2i posTmp;
-            struct Unit* unit;
+            struct Unit * unit;
             i8 slotTmp;
             u8 rankTmp;
 
@@ -373,7 +373,7 @@ bool AiAttemptStealActionWithinMovement(void)
     return FALSE;
 }
 
-bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
+bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt * st)
 {
     int ix, iy;
 
@@ -411,7 +411,7 @@ bool AiSimulateBestBattleAgainstTarget(struct AiCombatSimulationSt* st)
     return AiSimulateBattleAgainstTargetAtPosition(st);
 }
 
-bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, u16 item)
+bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt * st, u16 item)
 {
     int ix, iy;
 
@@ -452,7 +452,7 @@ bool AiSimulateBestBallistaBattleAgainstTarget(struct AiCombatSimulationSt* st, 
     return AiSimulateBattleAgainstTargetAtPosition(st);
 }
 
-u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st)
+u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt * st)
 {
     int score;
 
@@ -467,10 +467,10 @@ u32 AiGetCombatPositionScore(int x, int y, struct AiCombatSimulationSt* st)
     return score;
 }
 
-bool AiIsBadFight(struct AiCombatSimulationSt* st)
+bool AiIsBadFight(struct AiCombatSimulationSt * st)
 {
     u16 item = gActiveUnit->items[st->item_slot];
-    struct Unit* unit = GetUnit(st->target_id);
+    struct Unit * unit = GetUnit(st->target_id);
 
     if (GetItemIid(item) == IID_ECLIPSE)
     {
@@ -484,7 +484,7 @@ bool AiIsBadFight(struct AiCombatSimulationSt* st)
     return FALSE;
 }
 
-bool AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt* st)
+bool AiSimulateBattleAgainstTargetAtPosition(struct AiCombatSimulationSt * st)
 {
     if (st->item_slot != UINT16_MAX)
     {
@@ -571,7 +571,7 @@ int AiGetFriendZoneCombatScoreComponent(void)
         { INT8_MAX },
     };
 
-    struct RangeScore const* it;
+    struct RangeScore const * it;
 
     int score = 0;
 
@@ -671,7 +671,7 @@ int AiGetLowHpScoreComponent(void)
     return score;
 }
 
-void AiComputeCombatScore(struct AiCombatSimulationSt* st)
+void AiComputeCombatScore(struct AiCombatSimulationSt * st)
 {
     int score;
     int backup;
@@ -700,7 +700,7 @@ void AiComputeCombatScore(struct AiCombatSimulationSt* st)
     st->score = score;
 }
 
-int AiGetInRangeCombatPositionScoreComponent(int x, int y, struct Unit* unit)
+int AiGetInRangeCombatPositionScoreComponent(int x, int y, struct Unit * unit)
 {
     int dist = RECT_DISTANCE(unit->x, unit->y, x, y);
     int item = GetUnitEquippedWeapon(unit);
@@ -738,7 +738,7 @@ int AiGetFriendZoneCombatPositionScoreComponent(int x, int y)
         { 9999, 9999 },
     };
 
-    struct Vec2i const* it;
+    struct Vec2i const * it;
 
     int result = 0;
 

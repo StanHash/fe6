@@ -50,18 +50,9 @@ enum
     MOVE_SCRIPT_MAX_LENGTH = 0x40,
 };
 
-enum
-{
-    LOCATION_COMMAND_0F = 0x0F,
-    LOCATION_COMMAND_VISIT = 0x0E,
-    LOCATION_COMMAND_13 = 0x13,
-    LOCATION_COMMAND_14 = 0x14,
-    LOCATION_COMMAND_15 = 0x15,
-};
-
 struct ChapterInfo
 {
-    /* 00 */ char const* debug_name;
+    /* 00 */ char const * debug_name;
 
     /* 04 */ u8 asset_img_a;
     /* 05 */ u8 asset_img_b;
@@ -109,7 +100,7 @@ struct MapChangeInfo
     /* 00 */ i8 id;
     /* 01 */ u8 x, y, width, height;
     /* 05 */ // pad
-    /* 08 */ u16 const* metatiles;
+    /* 08 */ u16 const * metatiles;
 };
 
 struct BattleHit;
@@ -117,9 +108,9 @@ struct BattleUnit;
 
 struct MapAnimActor
 {
-    /* 00 */ struct Unit* unit;
-    /* 04 */ struct BattleUnit* bu;
-    /* 08 */ struct MuProc* mu;
+    /* 00 */ struct Unit * unit;
+    /* 04 */ struct BattleUnit * bu;
+    /* 08 */ struct MuProc * mu;
     /* 0C */ u8 hp_max;
     /* 0D */ u8 hp_cur;
     /* 0E */ u16 unk_0E;
@@ -132,8 +123,8 @@ struct MapAnimActor
 struct MapAnimSt
 {
     /* 00 */ struct MapAnimActor actor[4];
-    /* 50 */ struct BattleHit* hit_it;
-    /* 54 */ struct ProcScr const* special_proc_scr;
+    /* 50 */ struct BattleHit * hit_it;
+    /* 54 */ struct ProcScr const * special_proc_scr;
     /* 58 */ u8 attacker_actor;
     /* 59 */ u8 defender_actor;
     /* 5A */ u16 hit_attributes;
@@ -148,18 +139,21 @@ struct MapAnimSt
 
 struct ChapterEventInfo
 {
-    /* 00 */ void const * trigger_script_00;
-    /* 04 */ void const * trigger_script_04;
-    /* 08 */ void const * trigger_script_08;
-    /* 0C */ void const * trigger_script_0C;
+    /* 00 */ void const * event_list_turn;
+    /* 04 */ void const * event_list_talk;
+    /* 08 */ void const * event_list_tile;
+    /* 0C */ void const * event_list_move;
+    /* 10 */ void const * units_red;
+    /* 14 */ void const * units_blue;
+    /* 18 */ void const * script_18;
 };
 
 struct TrialLoadInfo
 {
-    /* 00 */ struct ChapterInfo const* chapter_info;
-    /* 04 */ struct MapChangeInfo const* map_change_info;
-    /* 08 */ struct ChapterEventInfo const* event_info;
-    /* 0C */ char const* msg_0C;
+    /* 00 */ struct ChapterInfo const * chapter_info;
+    /* 04 */ struct MapChangeInfo const * map_change_info;
+    /* 08 */ struct ChapterEventInfo const * event_info;
+    /* 0C */ char const * msg_0C;
     /* 10 */ // ...
 };
 

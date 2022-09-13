@@ -62,7 +62,7 @@ u16 CONST_DATA gUnk_085C7E0C[5][5] =
 };
 
 static struct MovePath EWRAM_DATA sMovePathObj = {};
-struct MovePath* CONST_DATA gMovePath = &sMovePathObj;
+struct MovePath * CONST_DATA gMovePath = &sMovePathObj;
 
 static void SetMovePathLastCursorPosition(u16 x, u16 y)
 {

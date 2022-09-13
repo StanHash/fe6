@@ -18,6 +18,7 @@
 #include "ai-decide.h"
 #include "ui.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/chapters.h"
 #include "constants/terrains.h"
@@ -28,24 +29,24 @@ struct AiPerformProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ bool(*func)(struct AiPerformProc* proc);
+    /* 2C */ bool (* func)(struct AiPerformProc * proc);
     /* 30 */ u8 unk_30;
     /* 31 */ u8 isUnitVisible;
 };
 
-static void AiStartCombatAction(struct AiPerformProc* proc);
-static void AiStartEscapeAction(struct AiPerformProc* proc);
-static void AiStartStealAction(struct AiPerformProc* proc);
-static bool AiPillageAction(struct AiPerformProc* proc);
-static bool AiStaffAction(struct AiPerformProc* proc);
-static bool AiUseItemAction(struct AiPerformProc* proc);
-static bool AiRefreshAction(struct AiPerformProc* proc);
-static bool AiTalkAction(struct AiPerformProc* proc);
-static bool AiDummyAction(struct AiPerformProc* proc);
-static bool AiEscapeAction(struct AiPerformProc* proc);
-static bool AiWaitAndClearScreenAction(struct AiPerformProc* proc);
+static void AiStartCombatAction(struct AiPerformProc * proc);
+static void AiStartEscapeAction(struct AiPerformProc * proc);
+static void AiStartStealAction(struct AiPerformProc * proc);
+static bool AiPillageAction(struct AiPerformProc * proc);
+static bool AiStaffAction(struct AiPerformProc * proc);
+static bool AiUseItemAction(struct AiPerformProc * proc);
+static bool AiRefreshAction(struct AiPerformProc * proc);
+static bool AiTalkAction(struct AiPerformProc * proc);
+static bool AiDummyAction(struct AiPerformProc * proc);
+static bool AiEscapeAction(struct AiPerformProc * proc);
+static bool AiWaitAndClearScreenAction(struct AiPerformProc * proc);
 
-static void AiActionCursor_Idle(struct GenericProc* proc);
+static void AiActionCursor_Idle(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_AiActionCursor[] =
 {
@@ -57,13 +58,13 @@ struct ProcScr CONST_DATA ProcScr_AiActionCursor[] =
     PROC_END,
 };
 
-static void AiPerform_WatchUnit(struct AiPerformProc* proc);
-static void AiPerform_StartMovement(struct AiPerformProc* proc);
-static void AiPerform_WatchTarget(struct AiPerformProc* proc);
-static void AiPerform_StartAction(struct AiPerformProc* proc);
-static void AiPerform_WaitAction(struct AiPerformProc* proc);
-static void AiPerform_0802F20C(struct AiPerformProc* proc);
-static void AiPerform_0802F29C(struct AiPerformProc* proc);
+static void AiPerform_WatchUnit(struct AiPerformProc * proc);
+static void AiPerform_StartMovement(struct AiPerformProc * proc);
+static void AiPerform_WatchTarget(struct AiPerformProc * proc);
+static void AiPerform_StartAction(struct AiPerformProc * proc);
+static void AiPerform_WaitAction(struct AiPerformProc * proc);
+static void AiPerform_0802F20C(struct AiPerformProc * proc);
+static void AiPerform_0802F29C(struct AiPerformProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_AiPerform[] =
 {
@@ -90,7 +91,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-void AiActionCursor_Idle(struct GenericProc* proc)
+void AiActionCursor_Idle(struct GenericProc * proc)
 {
     PutMapCursor(proc->x, proc->y, proc->unk58);
 
@@ -102,7 +103,7 @@ void AiActionCursor_Idle(struct GenericProc* proc)
 
 void AiStartActionCursor(int x, int y, int kind, ProcPtr parent)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProcLocking(ProcScr_AiActionCursor, parent);
 
@@ -112,7 +113,7 @@ void AiStartActionCursor(int x, int y, int kind, ProcPtr parent)
     proc->unk64 = 0;
 }
 
-void AiPerform_WatchUnit(struct AiPerformProc* proc)
+void AiPerform_WatchUnit(struct AiPerformProc * proc)
 {
     proc->isUnitVisible = TRUE;
 
@@ -138,7 +139,7 @@ void AiPerform_WatchUnit(struct AiPerformProc* proc)
     }
 }
 
-void AiPerform_StartMovement(struct AiPerformProc* proc)
+void AiPerform_StartMovement(struct AiPerformProc * proc)
 {
     UnitBeginAction(gActiveUnit);
 
@@ -180,8 +181,8 @@ void AiEndMuAndRefreshUnits(void)
         RefreshEntityMaps();
     }
 
-    if (gPlaySt.chapter == CHAPTER_UNK_19 && func_fe6_0806B404())
-        func_fe6_0806B414();
+    if (gPlaySt.chapter == CHAPTER_UNK_19 && CheckAvailableVictoryEvent())
+        StartAvailableVictoryEvent();
 
     EndAllMus();
 
@@ -191,7 +192,7 @@ void AiEndMuAndRefreshUnits(void)
     RefreshUnitSprites();
 }
 
-void AiStartCombatAction(struct AiPerformProc* proc)
+void AiStartCombatAction(struct AiPerformProc * proc)
 {
     gAction.id = ACTION_COMBAT;
     gAction.target = gAiDecision.target_id;
@@ -215,7 +216,7 @@ void AiStartCombatAction(struct AiPerformProc* proc)
     SpawnProcLocking(ProcScr_CombatAction, proc);
 }
 
-void AiStartEscapeAction(struct AiPerformProc* proc)
+void AiStartEscapeAction(struct AiPerformProc * proc)
 {
     u8 scripts[4][3] =
     {
@@ -229,9 +230,9 @@ void AiStartEscapeAction(struct AiPerformProc* proc)
         SetAutoMuMoveScript(scripts[gAiDecision.x_target]);
 }
 
-void AiStartStealAction(struct AiPerformProc* proc)
+void AiStartStealAction(struct AiPerformProc * proc)
 {
-    struct Unit* target = GetUnit(gAiDecision.target_id);
+    struct Unit * target = GetUnit(gAiDecision.target_id);
 
     u16 item = target->items[gAiDecision.item_slot];
 
@@ -241,7 +242,7 @@ void AiStartStealAction(struct AiPerformProc* proc)
     StartPopup_08012178(item, proc);
 }
 
-bool AiPillageAction(struct AiPerformProc* proc)
+bool AiPillageAction(struct AiPerformProc * proc)
 {
     static struct PopupInfo CONST_DATA Popup_085C85D0[] =
     {
@@ -266,7 +267,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
     else
     {
         int const y2 = y-1;
-        func_fe6_0806B06C(x, y2);
+        StartAvailableTileEvent(x, y2);
 
         PlaySe(SONG_AB);
         StartPopup(Popup_085C85D0, 0x60, UI_WINDOW_REGULAR, proc);
@@ -275,7 +276,7 @@ bool AiPillageAction(struct AiPerformProc* proc)
     return TRUE;
 }
 
-bool AiStaffAction(struct AiPerformProc* proc)
+bool AiStaffAction(struct AiPerformProc * proc)
 {
     gActiveUnit->x = gAiDecision.x_move;
     gActiveUnit->y = gAiDecision.y_move;
@@ -289,7 +290,7 @@ bool AiStaffAction(struct AiPerformProc* proc)
     return TRUE;
 }
 
-bool AiUseItemAction(struct AiPerformProc* proc)
+bool AiUseItemAction(struct AiPerformProc * proc)
 {
     gActiveUnit->x = gAiDecision.x_move;
     gActiveUnit->y = gAiDecision.y_move;
@@ -302,19 +303,19 @@ bool AiUseItemAction(struct AiPerformProc* proc)
     return TRUE;
 }
 
-bool AiRefreshAction(struct AiPerformProc* proc)
+bool AiRefreshAction(struct AiPerformProc * proc)
 {
     return TRUE;
 }
 
-bool AiTalkAction(struct AiPerformProc* proc)
+bool AiTalkAction(struct AiPerformProc * proc)
 {
     gActiveUnit->x = gAiDecision.x_move;
     gActiveUnit->y = gAiDecision.y_move;
 
     if (gAiDecision.target_id == 0)
     {
-        func_fe6_0806AF90(
+        StartAvailableTalkEvent(
             GetUnit(gAiDecision.item_slot)->pinfo->id,
             GetUnit(gAiDecision.x_target)->pinfo->id);
     }
@@ -322,9 +323,9 @@ bool AiTalkAction(struct AiPerformProc* proc)
     return TRUE;
 }
 
-void AiPerform_WatchTarget(struct AiPerformProc* proc)
+void AiPerform_WatchTarget(struct AiPerformProc * proc)
 {
-    struct Unit* target;
+    struct Unit * target;
 
     int x = 0;
     int y = 0;
@@ -393,7 +394,7 @@ void AiPerform_WatchTarget(struct AiPerformProc* proc)
     AiStartActionCursor(x*16, y*16, MAP_CURSOR_RED_MOVING, proc);
 }
 
-void AiPerform_StartAction(struct AiPerformProc* proc)
+void AiPerform_StartAction(struct AiPerformProc * proc)
 {
     proc->unk_30 = 0;
 
@@ -442,7 +443,7 @@ void AiPerform_StartAction(struct AiPerformProc* proc)
     }
 }
 
-void AiPerform_WaitAction(struct AiPerformProc* proc)
+void AiPerform_WaitAction(struct AiPerformProc * proc)
 {
     proc->unk_30++;
 
@@ -450,7 +451,7 @@ void AiPerform_WaitAction(struct AiPerformProc* proc)
         Proc_Break(proc);
 }
 
-void AiPerform_0802F20C(struct AiPerformProc* proc)
+void AiPerform_0802F20C(struct AiPerformProc * proc)
 {
     func_fe6_08032A08();
     AiEndMuAndRefreshUnits();
@@ -459,12 +460,12 @@ void AiPerform_0802F20C(struct AiPerformProc* proc)
         Proc_Goto(proc, 1);
 }
 
-bool AiDummyAction(struct AiPerformProc* proc)
+bool AiDummyAction(struct AiPerformProc * proc)
 {
     return TRUE;
 }
 
-bool AiEscapeAction(struct AiPerformProc* proc)
+bool AiEscapeAction(struct AiPerformProc * proc)
 {
     if (!MuExistsActive())
     {
@@ -475,7 +476,7 @@ bool AiEscapeAction(struct AiPerformProc* proc)
     return FALSE;
 }
 
-bool AiWaitAndClearScreenAction(struct AiPerformProc* proc)
+bool AiWaitAndClearScreenAction(struct AiPerformProc * proc)
 {
     if (proc->unk_30 > 4)
     {
@@ -489,7 +490,7 @@ bool AiWaitAndClearScreenAction(struct AiPerformProc* proc)
     return FALSE;
 }
 
-void AiPerform_0802F29C(struct AiPerformProc* proc)
+void AiPerform_0802F29C(struct AiPerformProc * proc)
 {
     u16 var_04[6];
 

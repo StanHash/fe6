@@ -15,8 +15,8 @@ enum
 
 struct ArenaSt
 {
-    /* 00 */ struct Unit* player;
-    /* 04 */ struct Unit* opponent;
+    /* 00 */ struct Unit * player;
+    /* 04 */ struct Unit * opponent;
     /* 08 */ short matchup_gold_value;
     /* 0A */ u8 result;
     /* 0B */ u8 unk_0B;
@@ -35,12 +35,12 @@ struct ArenaSt
     /* 1C */ u16 opponent_weapon;
 };
 
-void ArenaBegin(struct Unit* unit);
-void ArenaResume(struct Unit* unit);
+void ArenaBegin(struct Unit * unit);
+void ArenaResume(struct Unit * unit);
 int ArenaGetMatchupGoldValue(void);
 int ArenaGetResult(void);
 void ArenaSetResult(int result);
 void ArenaContinueBattle(void);
-bool ArenaIsUnitAllowed(struct Unit* unit);
+bool ArenaIsUnitAllowed(struct Unit * unit);
 
 extern struct ArenaSt gArenaSt;

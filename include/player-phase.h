@@ -38,8 +38,8 @@ enum
 };
 
 void HandlePlayerMapCursor(void);
-void DisplayUnitActionRange(struct Unit* unit);
-int GetPlayerSelectKind(struct Unit* unit);
+void DisplayUnitActionRange(struct Unit * unit);
+int GetPlayerSelectKind(struct Unit * unit);
 void StartLimitView(int flags);
 void EndLimitView(void);
 void TrySwitchViewedUnit(int x, int y);

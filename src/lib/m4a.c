@@ -1179,7 +1179,7 @@ void CgbSound(void)
             {
                 *nrx3ptr = (*nrx3ptr & 0x08) | channels->fr;
             }
-            channels->n4 = (channels->n4 & 0xC0) + (*((u8*)(&channels->fr) + 1));
+            channels->n4 = (channels->n4 & 0xC0) + (*((u8 *)(&channels->fr) + 1));
             *nrx4ptr = (i8)(channels->n4 & mask);
         }
 
@@ -1453,40 +1453,40 @@ void ply_memacc(struct MusicPlayerInfo *mplayInfo, struct MusicPlayerTrack *trac
         *addr -= mplayInfo->memAccArea[data];
         return;
     case 6:
-        MEMACC_COND_JUMP(*addr == data)
+        MEMACC_COND_JUMP (* addr == data)
         return;
     case 7:
-        MEMACC_COND_JUMP(*addr != data)
+        MEMACC_COND_JUMP (* addr != data)
         return;
     case 8:
-        MEMACC_COND_JUMP(*addr > data)
+        MEMACC_COND_JUMP (* addr > data)
         return;
     case 9:
-        MEMACC_COND_JUMP(*addr >= data)
+        MEMACC_COND_JUMP (* addr >= data)
         return;
     case 10:
-        MEMACC_COND_JUMP(*addr <= data)
+        MEMACC_COND_JUMP (* addr <= data)
         return;
     case 11:
-        MEMACC_COND_JUMP(*addr < data)
+        MEMACC_COND_JUMP (* addr < data)
         return;
     case 12:
-        MEMACC_COND_JUMP(*addr == mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr == mplayInfo->memAccArea[data])
         return;
     case 13:
-        MEMACC_COND_JUMP(*addr != mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr != mplayInfo->memAccArea[data])
         return;
     case 14:
-        MEMACC_COND_JUMP(*addr > mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr > mplayInfo->memAccArea[data])
         return;
     case 15:
-        MEMACC_COND_JUMP(*addr >= mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr >= mplayInfo->memAccArea[data])
         return;
     case 16:
-        MEMACC_COND_JUMP(*addr <= mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr <= mplayInfo->memAccArea[data])
         return;
     case 17:
-        MEMACC_COND_JUMP(*addr < mplayInfo->memAccArea[data])
+        MEMACC_COND_JUMP (* addr < mplayInfo->memAccArea[data])
         return;
     default:
         return;

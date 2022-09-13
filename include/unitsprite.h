@@ -19,7 +19,7 @@ enum
 
 struct UnitSprite
 {
-    /* 00 */ struct UnitSprite* next;
+    /* 00 */ struct UnitSprite * next;
     /* 04 */ short x, y;
     /* 08 */ u16 oam2;
     /* 0A */ u8 unk_0A;
@@ -30,7 +30,7 @@ struct UnitSpriteInfo
 {
     /* 00 */ u16 unk_00;
     /* 02 */ u16 size;
-    /* 04 */ u8 const* img;
+    /* 04 */ u8 const * img;
 };
 
 void func_fe6_08021B88(void);
@@ -40,8 +40,8 @@ void ResetUnitSpritesB(void);
 int UseUnitSprite(unsigned id);
 void SyncUnitSpriteSheet(void);
 void ForceSyncUnitSpriteSheet(void);
-int GetUnitDisplayedSpritePalette(struct Unit* unit);
-int GetUnitSpritePalette(struct Unit* unit);
+int GetUnitDisplayedSpritePalette(struct Unit * unit);
+int GetUnitSpritePalette(struct Unit * unit);
 void RefreshUnitSprites(void);
 void PutUnitSpritesOam(void);
 void PutUnitSpriteIconsOam(void);
@@ -49,10 +49,10 @@ void func_fe6_08022618(void);
 void ResetUnitSpritHover(void);
 void UnitSpriteHoverUpdate(void);
 bool IsUnitSpriteHoverEnabledAt(int x, int y);
-void PutUnitSprite(int layer, int x, int y, struct Unit* unit);
-void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit);
-void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit);
+void PutUnitSprite(int layer, int x, int y, struct Unit * unit);
+void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit * unit);
+void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit * unit);
 void func_fe6_08022A2C(void);
-void HideUnitSprite(struct Unit* unit);
-void ShowUnitSprite(struct Unit* unit);
-u8 GetUnitSpriteHiddenFlag(struct Unit* unit);
+void HideUnitSprite(struct Unit * unit);
+void ShowUnitSprite(struct Unit * unit);
+u8 GetUnitSpriteHiddenFlag(struct Unit * unit);

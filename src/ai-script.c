@@ -16,42 +16,42 @@ enum ScriptKind
     AI_SCRIPT_B,
 };
 
-typedef void(*AiScrCmd)(u8* pc);
+typedef void (* AiScrCmd)(u8 * pc);
 
-static void AiDoExecScript(u8* pc);
+static void AiDoExecScript(u8 * pc);
 
-static void AiCmd_Conditional(u8* pc);
-static void AiCmd_CallFunc(u8* pc);
-static void AiCmd_SetAi(u8* pc);
-static void AiCmd_Goto(u8* pc);
-static void AiCmd_ActionOnPid(u8* pc);
-static void AiCmd_Action(u8* pc);
-static void AiCmd_Nop(u8* pc);
-static void AiCmd_ActionInPlace(u8* pc);
-static void AiCmd_ActionOnJid(u8* pc);
-static void AiCmd_StaffAction(u8* pc);
-static void AiCmd_StaffAction2(u8* pc);
-static void AiCmd_StaffAction3(u8* pc);
-static void AiCmd_MoveTowards(u8* pc);
-static void AiCmd_MoveTowardsPid(u8* pc);
-static void AiCmd_Nop_080314B8(u8* pc);
-static void AiCmd_MoveTowardsJid(u8* pc);
-static void AiCmd_Pillage(u8* pc);
-static void AiCmd_MoveToSafety(u8* pc);
-static void AiCmd_MoveToEnemy(u8* pc);
-static void AiCmd_MoveToEnemy2(u8* pc);
-static void AiCmd_Nop_08031740(u8* pc);
-static void AiCmd_Nop_08031748(u8* pc);
-static void AiCmd_MoveRandom(u8* pc);
-static void AiCmd_Escape(u8* pc);
-static void AiCmd_Nop_08031788(u8* pc);
-static void AiCmd_MoveTowardsTerrain(u8* pc);
-static void AiCmd_MoveTowardsListedTerrain(u8* pc);
-static void AiCmd_Label(u8* pc);
+static void AiCmd_Conditional(u8 * pc);
+static void AiCmd_CallFunc(u8 * pc);
+static void AiCmd_SetAi(u8 * pc);
+static void AiCmd_Goto(u8 * pc);
+static void AiCmd_ActionOnPid(u8 * pc);
+static void AiCmd_Action(u8 * pc);
+static void AiCmd_Nop(u8 * pc);
+static void AiCmd_ActionInPlace(u8 * pc);
+static void AiCmd_ActionOnJid(u8 * pc);
+static void AiCmd_StaffAction(u8 * pc);
+static void AiCmd_StaffAction2(u8 * pc);
+static void AiCmd_StaffAction3(u8 * pc);
+static void AiCmd_MoveTowards(u8 * pc);
+static void AiCmd_MoveTowardsPid(u8 * pc);
+static void AiCmd_Nop_080314B8(u8 * pc);
+static void AiCmd_MoveTowardsJid(u8 * pc);
+static void AiCmd_Pillage(u8 * pc);
+static void AiCmd_MoveToSafety(u8 * pc);
+static void AiCmd_MoveToEnemy(u8 * pc);
+static void AiCmd_MoveToEnemy2(u8 * pc);
+static void AiCmd_Nop_08031740(u8 * pc);
+static void AiCmd_Nop_08031748(u8 * pc);
+static void AiCmd_MoveRandom(u8 * pc);
+static void AiCmd_Escape(u8 * pc);
+static void AiCmd_Nop_08031788(u8 * pc);
+static void AiCmd_MoveTowardsTerrain(u8 * pc);
+static void AiCmd_MoveTowardsListedTerrain(u8 * pc);
+static void AiCmd_Label(u8 * pc);
 
 static bool sScrEnded;
 static enum ScriptKind sScrKind;
-static struct AiScr const* sScr;
+static struct AiScr const * sScr;
 static AiScrFunc sScrFunc;
 
 bool AiTryExecScriptA(void)
@@ -104,7 +104,7 @@ bool AiExecFallbackScriptB(void)
     return sScrEnded;
 }
 
-void AiDoExecScript(u8* pc)
+void AiDoExecScript(u8 * pc)
 {
     AiScrCmd funcLut[] =
     {
@@ -152,14 +152,14 @@ void AiDoExecScript(u8* pc)
     funcLut[sScr->cmd](pc);
 }
 
-void AiCmd_Conditional(u8* pc)
+void AiCmd_Conditional(u8 * pc)
 {
     u8 target = sScr->unk_03;
     u8 i = 0;
 
     if (AiCompare(sScr->unk_08, sScr->unk_01, sScr->unk_04) == TRUE)
     {
-        struct AiScr const* scr;
+        struct AiScr const * scr;
 
         if (sScrKind == AI_SCRIPT_A)
         {
@@ -190,7 +190,7 @@ void AiCmd_Conditional(u8* pc)
     sScrEnded = FALSE;
 }
 
-void AiCmd_CallFunc(u8* pc)
+void AiCmd_CallFunc(u8 * pc)
 {
     sScrFunc = sScr->unk_08;
 
@@ -198,7 +198,7 @@ void AiCmd_CallFunc(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_SetAi(u8* pc)
+void AiCmd_SetAi(u8 * pc)
 {
     u8 ai_a = sScr->unk_01;
     u8 ai_b = sScr->unk_02;
@@ -221,9 +221,9 @@ void AiCmd_SetAi(u8* pc)
     gAiSt.decide_state = 0;
 }
 
-void AiCmd_Goto(u8* pc)
+void AiCmd_Goto(u8 * pc)
 {
-    struct AiScr const* scr;
+    struct AiScr const * scr;
 
     u8 target = sScr->unk_03;
     u8 i = 0;
@@ -252,7 +252,7 @@ void AiCmd_Goto(u8* pc)
     sScrEnded = FALSE;
 }
 
-bool AiIsUnitEnemy(struct Unit* unit)
+bool AiIsUnitEnemy(struct Unit * unit)
 {
     if (AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return FALSE;
@@ -260,7 +260,7 @@ bool AiIsUnitEnemy(struct Unit* unit)
     return TRUE;
 }
 
-bool AiIsUnitNonActive(struct Unit* unit)
+bool AiIsUnitNonActive(struct Unit * unit)
 {
     if (unit == gActiveUnit)
         return FALSE;
@@ -268,7 +268,7 @@ bool AiIsUnitNonActive(struct Unit* unit)
     return TRUE;
 }
 
-bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
+bool AiIsUnitEnemyAndNotInScrList(struct Unit * unit)
 {
     if (AiIsInShortList(sScr->unk_08, unit->pinfo->id) != TRUE && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -276,7 +276,7 @@ bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit)
     return FALSE;
 }
 
-bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
+bool AiIsUnitEnemyOrInScrList(struct Unit * unit)
 {
     if (AiIsInShortList(sScr->unk_08, unit->pinfo->id) == TRUE || !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -284,7 +284,7 @@ bool AiIsUnitEnemyOrInScrList(struct Unit* unit)
     return FALSE;
 }
 
-bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
+bool AiIsUnitEnemyAndScrPid(struct Unit * unit)
 {
     if (unit->pinfo->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -292,7 +292,7 @@ bool AiIsUnitEnemyAndScrPid(struct Unit* unit)
     return FALSE;
 }
 
-bool AiIsUnitEnemyAndScrJid(struct Unit* unit)
+bool AiIsUnitEnemyAndScrJid(struct Unit * unit)
 {
     if (unit->jinfo->id == ((u8) sScr->unk_04) && !AreUnitIdsAllied(gActiveUnit->id, unit->id))
         return TRUE;
@@ -300,7 +300,7 @@ bool AiIsUnitEnemyAndScrJid(struct Unit* unit)
     return FALSE;
 }
 
-void AiCmd_ActionOnPid(u8* pc)
+void AiCmd_ActionOnPid(u8 * pc)
 {
     u8 rand = RandNext(100);
 
@@ -335,7 +335,7 @@ void AiCmd_ActionOnPid(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Action(u8* pc)
+void AiCmd_Action(u8 * pc)
 {
     u8 rand = RandNext(100);
 
@@ -360,12 +360,12 @@ void AiCmd_Action(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Nop(u8* pc)
+void AiCmd_Nop(u8 * pc)
 {
     (*pc)++;
 }
 
-void AiCmd_ActionInPlace(u8* pc)
+void AiCmd_ActionInPlace(u8 * pc)
 {
     u8 rand = RandNext(100);
 
@@ -384,7 +384,7 @@ void AiCmd_ActionInPlace(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_ActionOnJid(u8* pc)
+void AiCmd_ActionOnJid(u8 * pc)
 {
     u8 rand = RandNext(100);
 
@@ -401,25 +401,25 @@ void AiCmd_ActionOnJid(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_StaffAction(u8* pc)
+void AiCmd_StaffAction(u8 * pc)
 {
     func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
-void AiCmd_StaffAction2(u8* pc)
+void AiCmd_StaffAction2(u8 * pc)
 {
     func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
-void AiCmd_StaffAction3(u8* pc)
+void AiCmd_StaffAction3(u8 * pc)
 {
     func_fe6_08033C04(AiIsUnitEnemy);
     (*pc)++;
 }
 
-void AiCmd_MoveTowards(u8* pc)
+void AiCmd_MoveTowards(u8 * pc)
 {
     AiTryMoveTowards(
         sScr->unk_01, sScr->unk_03,
@@ -431,7 +431,7 @@ void AiCmd_MoveTowards(u8* pc)
                 (*pc)++;
 }
 
-void AiCmd_MoveTowardsPid(u8* pc)
+void AiCmd_MoveTowardsPid(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -441,7 +441,7 @@ void AiCmd_MoveTowardsPid(u8* pc)
 
         if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.x_move, gAiDecision.y_move, 1) == TRUE)
         {
-            struct Unit* unit = GetUnitByPid(sScr->unk_04);
+            struct Unit * unit = GetUnitByPid(sScr->unk_04);
 
             if (unit->flags & UNIT_FLAG_RESCUED)
             {
@@ -465,12 +465,12 @@ void AiCmd_MoveTowardsPid(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Nop_080314B8(u8* pc)
+void AiCmd_Nop_080314B8(u8 * pc)
 {
     (*pc)++;
 }
 
-void AiCmd_MoveTowardsJid(u8* pc)
+void AiCmd_MoveTowardsJid(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -482,7 +482,7 @@ void AiCmd_MoveTowardsJid(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Pillage(u8* pc)
+void AiCmd_Pillage(u8 * pc)
 {
     if (AiTryDoSpecialItems() == TRUE)
     {
@@ -530,7 +530,7 @@ void AiCmd_Pillage(u8* pc)
     }
 }
 
-void AiCmd_MoveToSafety(u8* pc)
+void AiCmd_MoveToSafety(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -542,7 +542,7 @@ void AiCmd_MoveToSafety(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_MoveToEnemy(u8* pc)
+void AiCmd_MoveToEnemy(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -564,7 +564,7 @@ void AiCmd_MoveToEnemy(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_MoveToEnemy2(u8* pc)
+void AiCmd_MoveToEnemy2(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -586,35 +586,35 @@ void AiCmd_MoveToEnemy2(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Nop_08031740(u8* pc)
+void AiCmd_Nop_08031740(u8 * pc)
 {
     (*pc)++;
 }
 
-void AiCmd_Nop_08031748(u8* pc)
+void AiCmd_Nop_08031748(u8 * pc)
 {
     (*pc)++;
 }
 
-void AiCmd_MoveRandom(u8* pc)
+void AiCmd_MoveRandom(u8 * pc)
 {
     AiRandomMove();
     (*pc)++;
 }
 
-void AiCmd_Escape(u8* pc)
+void AiCmd_Escape(u8 * pc)
 {
     gActiveUnit->ai_flags |= AI_UNIT_FLAG_3;
     AiTryMoveTowardsEscape();
     (*pc)++;
 }
 
-void AiCmd_Nop_08031788(u8* pc)
+void AiCmd_Nop_08031788(u8 * pc)
 {
     (*pc)++;
 }
 
-void AiCmd_MoveTowardsTerrain(u8* pc)
+void AiCmd_MoveTowardsTerrain(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -633,7 +633,7 @@ void AiCmd_MoveTowardsTerrain(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_MoveTowardsListedTerrain(u8* pc)
+void AiCmd_MoveTowardsListedTerrain(u8 * pc)
 {
     struct Vec2i pos;
 
@@ -652,7 +652,7 @@ void AiCmd_MoveTowardsListedTerrain(u8* pc)
     (*pc)++;
 }
 
-void AiCmd_Label(u8* pc)
+void AiCmd_Label(u8 * pc)
 {
     (*pc)++;
     sScrEnded = FALSE;
@@ -681,7 +681,7 @@ bool func_fe6_080318EC(void)
 }
 
 // unreferenced
-bool func_fe6_080318F0(u8 const* arg)
+bool func_fe6_080318F0(u8 const * arg)
 {
     return AiGetJobRank(arg[0]), TRUE;
 }

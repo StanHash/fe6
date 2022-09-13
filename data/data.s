@@ -1,44 +1,35 @@
-
 	.data
 
-	.global gUnk_08666114
-gUnk_08666114: @ 08666114
-	.incbin "fe6-base.gba", 0x666114, (0x666184 - 0x666114) @ length: 0070
-
-	.global gUnk_08666184
-gUnk_08666184: @ 08666184
-	.incbin "fe6-base.gba", 0x666184, (0x66618C - 0x666184) @ length: 0008
-
-	.global gUnk_0866618C
-gUnk_0866618C: @ 0866618C
+	.global gBattleTalkList
+gBattleTalkList: @ 0866618C
 	.incbin "fe6-base.gba", 0x66618C, (0x6663CC - 0x66618C) @ length: 0240
 
-	.global gUnk_086663CC
-gUnk_086663CC: @ 086663CC
+	.global gBattleTalkExtList
+gBattleTalkExtList: @ 086663CC
 	.incbin "fe6-base.gba", 0x6663CC, (0x666528 - 0x6663CC) @ length: 015C
 
-	.global gUnk_08666528
-gUnk_08666528: @ 08666528
+	.global gTriangleAttackTalkList
+gTriangleAttackTalkList: @ 08666528
 	.incbin "fe6-base.gba", 0x666528, (0x666598 - 0x666528) @ length: 0070
 
-	.global gUnk_08666598
-gUnk_08666598: @ 08666598
+	.global gBattleDefeatTalkList
+gBattleDefeatTalkList: @ 08666598
 	.incbin "fe6-base.gba", 0x666598, (0x666C78 - 0x666598) @ length: 06E0
 
-	.global gUnk_08666C78
-gUnk_08666C78: @ 08666C78
+	.global gHardModeBonusLevelsOverrideList
+gHardModeBonusLevelsOverrideList: @ 08666C78
 	.incbin "fe6-base.gba", 0x666C78, (0x666CF8 - 0x666C78) @ length: 0080
 
-	.global gSupportTalkInfo
-gSupportTalkInfo: @ 08666CF8
+	.global gSupportTalkList
+gSupportTalkList: @ 08666CF8
 	.incbin "fe6-base.gba", 0x666CF8, (0x6676E0 - 0x666CF8) @ length: 09E8
 
-	.global gUnk_086676E0
-gUnk_086676E0: @ 086676E0
+	.global EventListScr_Tutorial_ActionSelect
+EventListScr_Tutorial_ActionSelect: @ 086676E0
 	.incbin "fe6-base.gba", 0x6676E0, (0x66AAF8 - 0x6676E0) @ length: 3418
 
-	.global gUnk_0866AAF8
-gUnk_0866AAF8: @ 0866AAF8
+	.global EventScr_0866AAF8
+EventScr_0866AAF8: @ 0866AAF8
 	.incbin "fe6-base.gba", 0x66AAF8, (0x66ACCC - 0x66AAF8) @ length: 01D4
 
 	.global gUnk_0866ACCC

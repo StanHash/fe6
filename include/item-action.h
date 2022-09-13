@@ -19,6 +19,6 @@ void DoItemTorchAction(ProcPtr proc);
 void DoItemAntitoxinAction(ProcPtr proc);
 void DoItemKeyAction(void);
 void DoItemPromoteAction(void);
-void func_fe6_08027DB4(struct Unit* unit, int item);
+void func_fe6_08027DB4(struct Unit * unit, int item);
 void DoItemStatBoostAction(ProcPtr proc);
 void DoItemAction(ProcPtr proc);

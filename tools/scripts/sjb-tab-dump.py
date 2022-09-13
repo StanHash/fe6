@@ -50,7 +50,7 @@ def main(args):
 				names.append(namebytes)
 
 			out.write(b'\n')
-			out.write('char const* CONST_DATA gUnk_{:08X}[] =\n'.format(offset + 0x08000000).encode("sjis"))
+			out.write('char const * CONST_DATA gUnk_{:08X}[] =\n'.format(offset + 0x08000000).encode("sjis"))
 			out.write(b'{\n')
 
 			for name in names:

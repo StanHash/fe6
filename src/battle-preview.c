@@ -106,7 +106,7 @@ static void InitBattlePreviewIconPalBuf(void)
 
 static void InitBattlePreviewLabels(void)
 {
-    static char const* label_strings[BATTLEPREVIEW_LABEL_COUNT] =
+    static char const * label_strings[BATTLEPREVIEW_LABEL_COUNT] =
     {
         [BATTLEPREVIEW_LABEL_DAMAGE]  = TEXT("威力", "Mt"),
         [BATTLEPREVIEW_LABEL_HIT]     = TEXT("命中", "Hit"),
@@ -128,25 +128,25 @@ static void InitBattlePreviewLabels(void)
     }
 }
 
-static void PutBattlePreviewUnitName(u16* tm, struct Text* text, struct Unit* unit)
+static void PutBattlePreviewUnitName(u16 * tm, struct Text * text, struct Unit * unit)
 {
-    char const* str = DecodeMsg(unit->pinfo->msg_name);
+    char const * str = DecodeMsg(unit->pinfo->msg_name);
     int pos = GetStringTextCenteredPos(6*8, str);
 
     ClearText(text);
     PutDrawText(text, tm, TEXT_COLOR_SYSTEM_WHITE, pos, 0, str);
 }
 
-static void PutBattlePreviewItemName(u16* tm, struct Text* text, int item)
+static void PutBattlePreviewItemName(u16 * tm, struct Text * text, int item)
 {
-    char const* str = GetItemName(item);
+    char const * str = GetItemName(item);
     int pos = GetStringTextCenteredPos(7*8, str);
 
     ClearText(text);
     PutDrawText(text, tm, TEXT_COLOR_SYSTEM_WHITE, pos, 0, str);
 }
 
-static void BattlePreviewHitCountUpdate(struct BattleUnit* bu, u8* hitCounter, int* usesCounter)
+static void BattlePreviewHitCountUpdate(struct BattleUnit * bu, u8 * hitCounter, int* usesCounter)
 {
     if (*usesCounter > 0)
     {
@@ -161,13 +161,13 @@ static void BattlePreviewHitCountUpdate(struct BattleUnit* bu, u8* hitCounter, i
     }
 }
 
-static void InitBattlePreviewBattleStats(struct BattlePreviewProc* proc)
+static void InitBattlePreviewBattleStats(struct BattlePreviewProc * proc)
 {
     int usesA = GetItemUses(gBattleUnitA.weapon_before);
     int usesB = GetItemUses(gBattleUnitB.weapon_before);
 
-    struct BattleUnit* buFirst;
-    struct BattleUnit* buSecond;
+    struct BattleUnit * buFirst;
+    struct BattleUnit * buSecond;
 
     bool followUp = BattleGetFollowUpOrder(&buFirst, &buSecond);
 
@@ -200,7 +200,7 @@ static void InitBattlePreviewBattleStats(struct BattlePreviewProc* proc)
     }
 }
 
-static void DrawBattlePreviewContentsShort(struct BattlePreviewProc* proc)
+static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
 {
     int damage;
 
@@ -252,7 +252,7 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc* proc)
     PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
-static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
+static void DrawBattlePreviewContentsLong(struct BattlePreviewProc * proc)
 {
     TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOW_FRAME));
     TmFillRect_t(gUnk_Tm_02003238, 10, 19, 0);
@@ -295,7 +295,7 @@ static void DrawBattlePreviewContentsLong(struct BattlePreviewProc* proc)
     PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
-static void DrawBattlePreviewContents(struct BattlePreviewProc* proc)
+static void DrawBattlePreviewContents(struct BattlePreviewProc * proc)
 {
     proc->unk_2C = 0;
     proc->needContentUpdate = FALSE;
@@ -316,7 +316,7 @@ static void DrawBattlePreviewContents(struct BattlePreviewProc* proc)
     }
 }
 
-static u16 const* GetFactionBattlePreviewFramePalette(int faction)
+static u16 const * GetFactionBattlePreviewFramePalette(int faction)
 {
     switch (faction)
     {
@@ -339,9 +339,9 @@ static void InitBattlePreviewFramePalettes(void)
         ApplyPalette(GetFactionBattlePreviewFramePalette(FACTION_PURPLE), BGPAL_BATTLEPREVIEW_FRAME+1);
 }
 
-static void BattlePreview_Init(struct BattlePreviewProc* proc)
+static void BattlePreview_Init(struct BattlePreviewProc * proc)
 {
-    Decompress(Img_BattlePreviewFrame, (void*) VRAM + BGCHR_BATTLEPREVIEW_FRAME*CHR_SIZE);
+    Decompress(Img_BattlePreviewFrame, (void *) VRAM + BGCHR_BATTLEPREVIEW_FRAME*CHR_SIZE);
 
     Decompress(Img_BattlePreviewMultipliers, gBuf);
     Copy2dChr(gBuf, OBJ_VRAM0 + OBJCHR_BATTLEPREVIEW_MULTIPLIERS*CHR_SIZE, 4, 2);
@@ -367,7 +367,7 @@ static void BattlePreview_OnEnd(void)
     UnpackUiWindowFrameGraphics2(-1);
 }
 
-static void PutBattlePreviewTilemaps(struct BattlePreviewProc* proc)
+static void PutBattlePreviewTilemaps(struct BattlePreviewProc * proc)
 {
     int height = proc->frameKind == BATTLEPREVIEW_FRAME_SHORT ? 16 : 20;
 
@@ -387,7 +387,7 @@ static void PutBattlePreviewTilemaps(struct BattlePreviewProc* proc)
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
 }
 
-static void PutBattlePreviewWtArrows(struct BattlePreviewProc* proc)
+static void PutBattlePreviewWtArrows(struct BattlePreviewProc * proc)
 {
     enum { WT_ARROW_NONE, WT_ARROW_UP, WT_ARROW_DOWN };
 
@@ -419,7 +419,7 @@ static void PutBattlePreviewWtArrows(struct BattlePreviewProc* proc)
     }
 }
 
-static void PutBattlePreviewMultipliers(struct BattlePreviewProc* proc)
+static void PutBattlePreviewMultipliers(struct BattlePreviewProc * proc)
 {
     int angle = (proc->unk_2C*4) & 0xFF;
 
@@ -446,7 +446,7 @@ static void PutBattlePreviewMultipliers(struct BattlePreviewProc* proc)
     }
 }
 
-static void UpdateBattlePreviewEffectivenessPalettes(struct BattlePreviewProc* proc)
+static void UpdateBattlePreviewEffectivenessPalettes(struct BattlePreviewProc * proc)
 {
     static u8 palAnimLut[] =
     {
@@ -473,7 +473,7 @@ static void UpdateBattlePreviewEffectivenessPalettes(struct BattlePreviewProc* p
     ApplyPalette(gBattlePreviewIconPalBuf[palAnim], BGPAL_ICONS+0);
 }
 
-static void BattlePreview_LoopDisplay(struct BattlePreviewProc* proc)
+static void BattlePreview_LoopDisplay(struct BattlePreviewProc * proc)
 {
     proc->unk_2C++;
 
@@ -500,7 +500,7 @@ static void BattlePreview_LoopDisplay(struct BattlePreviewProc* proc)
     }
 }
 
-static void BattlePreview_OnNewBattle(struct BattlePreviewProc* proc)
+static void BattlePreview_OnNewBattle(struct BattlePreviewProc * proc)
 {
     DrawBattlePreviewContents(proc);
 
@@ -519,7 +519,7 @@ static void BattlePreview_OnNewBattle(struct BattlePreviewProc* proc)
     InitBattlePreviewFramePalettes();
 }
 
-static void BattlePreview_LoopSlideIn(struct BattlePreviewProc* proc)
+static void BattlePreview_LoopSlideIn(struct BattlePreviewProc * proc)
 {
     static i8 offsetLut[] = { 6, 8, 9, 10 };
     int offset;
@@ -555,7 +555,7 @@ static void BattlePreview_LoopSlideIn(struct BattlePreviewProc* proc)
     }
 }
 
-static void BattlePreview_LoopSlideOut(struct BattlePreviewProc* proc)
+static void BattlePreview_LoopSlideOut(struct BattlePreviewProc * proc)
 {
     static i8 offsetLut[] = { 9, 8, 6, 0 };
     int offset;
@@ -619,7 +619,7 @@ PROC_LABEL(1),
 
 void StartBattlePreview(struct MapSelectProc * mapselect_proc)
 {
-    struct BattlePreviewProc* proc;
+    struct BattlePreviewProc * proc;
 
     if (gPlaySt.config_battle_preview_kind == 2)
     {
@@ -648,7 +648,7 @@ void StartBattlePreview(struct MapSelectProc * mapselect_proc)
 
 void UpdateBattlePreviewContents(void)
 {
-    struct BattlePreviewProc* proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return;
@@ -659,7 +659,7 @@ void UpdateBattlePreviewContents(void)
 
 void CloseBattlePreview(void)
 {
-    struct BattlePreviewProc* proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return;
@@ -679,7 +679,7 @@ fu8 StartBattlePreviewHelpBox(struct MapSelectProc * mapselect_proc, struct Sele
 {
     int x;
 
-    struct BattlePreviewProc* proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return 0;
@@ -732,14 +732,14 @@ static int func_fe6_0802E43C(int wt, bool isEffective)
     return lut[idx];
 }
 
-void func_fe6_0802E460(struct GenericProc* proc)
+void func_fe6_0802E460(struct GenericProc * proc)
 {
-    struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * bp = Proc_Find(ProcScr_BattlePreview);
     proc->unk4C = func_fe6_0802E43C(gBattleUnitA.advantage_bonus_hit, bp->isEffectiveA);
 }
 
-void func_fe6_0802E490(struct GenericProc* proc)
+void func_fe6_0802E490(struct GenericProc * proc)
 {
-    struct BattlePreviewProc* bp = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * bp = Proc_Find(ProcScr_BattlePreview);
     proc->unk4C = func_fe6_0802E43C(gBattleUnitB.advantage_bonus_hit, bp->isEffectiveB);
 }

@@ -15,7 +15,7 @@ struct SpriteProc
 
     /* 50 */ i16 layer;
     /* 52 */ u16 tileref;
-    /* 54 */ u16 const* object;
+    /* 54 */ u16 const * object;
 };
 
 extern u16 CONST_DATA Sprite_8x8[];
@@ -39,10 +39,10 @@ extern u16 CONST_DATA Sprite_16x16_VFlipped[];
 
 void PutSpriteAffine(int id, short pa, short pb, short pc, short pd);
 void ClearSprites(void);
-void PutSprite(int layer, int x, int y, u16 const* object, int oam2);
-void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const* object, int oam2);
+void PutSprite(int layer, int x, int y, u16 const * object, int oam2);
+void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const * object, int oam2);
 void PushSpriteLayerObjects(int layer);
 void PutSpriteLayerOam(int layer);
 
-struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const* object, int tileref);
-void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y);
+struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const * object, int tileref);
+void MoveSpriteRefresher(struct SpriteProc * proc, int x, int y);

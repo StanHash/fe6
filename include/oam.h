@@ -18,12 +18,12 @@ int GetOamSplice(void);
 void SyncHiOam(void);
 void SyncLoOam(void);
 void SetObjAffine(int id, short pa, short pb, short pc, short pd);
-void PutUnkSprite(struct UnkSprite* sprites, int xBase, int yBase);
+void PutUnkSprite(struct UnkSprite * sprites, int xBase, int yBase);
 
 extern u16 gOam[0x200];
-extern u16* gOamHiPutIt;
-extern u16* gOamLoPutIt;
-extern struct OamView* gOamAffinePutIt;
+extern u16 * gOamHiPutIt;
+extern u16 * gOamLoPutIt;
+extern struct OamView * gOamAffinePutIt;
 extern u16 gOamAffinePutId;
 
 #define OAM0_Y(ay)          ((ay) & 0x00FF)

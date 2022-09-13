@@ -35,8 +35,8 @@ enum
 
 struct TalkSt
 {
-    /* 00 */ char const* str;
-    /* 04 */ char const* str_back;
+    /* 00 */ char const * str;
+    /* 04 */ char const * str_back;
     /* 08 */ u8 print_color;
     /* 09 */ u8 line_active;
     /* 0A */ u8 lines;
@@ -53,7 +53,7 @@ struct TalkSt
     /* 15 */ u8 put_lines;
     /* 16 */ u8 unk_16;
     /* 17 */ u8 unk_17;
-    /* 18 */ struct FaceProc* faces[TALK_FACE_COUNT];
+    /* 18 */ struct FaceProc * faces[TALK_FACE_COUNT];
     /* 38 */ u16 flags;
     /* 3A */ // pad
     /* 3C */ int number;
@@ -64,10 +64,10 @@ struct TalkSt
 void InitTalk(int chr, int lines, bool unpack_bubble);
 void InitSpriteTalk(int chr, int lines, int palid);
 void SetInitTalkTextFont(void);
-ProcPtr StartTalkExt(int x, int y, char const* str, ProcPtr parent);
+ProcPtr StartTalkExt(int x, int y, char const * str, ProcPtr parent);
 ProcPtr StartTalkMsg(int x, int y, int msg);
 ProcPtr StartTalkMsgExt(int x, int y, int msg, ProcPtr parent);
-ProcPtr StartTalk(int x, int y, char const* str);
+ProcPtr StartTalk(int x, int y, char const * str);
 void EndTalk(void);
 void SetTalkLines(int lines);
 void SetTalkFlag(int flag);
@@ -89,8 +89,8 @@ i8 IsTalkActive(void);
 i8 FaceExists(void);
 int GetTalkChoiceResult(void);
 void SetTalkNumber(int number);
-void SetTalkUnkStr(char const* str);
-void PrintStringToTexts(struct Text** texts, char const* str, int x, int y);
+void SetTalkUnkStr(char const * str);
+void PrintStringToTexts(struct Text ** texts, char const * str, int x, int y);
 void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent);
 void EndPutTalkSpriteText(void);
 i8 IsTalkDebugActive(void);

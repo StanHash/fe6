@@ -13,7 +13,7 @@ enum
 
 enum
 {
-    AI_UNIT_FLAG_0 = (1 << 0),
+    AI_UNIT_FLAG_SEEK_HEALING = (1 << 0),
     AI_UNIT_FLAG_1 = (1 << 1),
     AI_UNIT_FLAG_2 = (1 << 2),
     AI_UNIT_FLAG_3 = (1 << 3),
@@ -62,7 +62,7 @@ enum
 struct AiSt
 {
     /* 00 */ u8 units[116]; // TODO: constant for max number of units?
-    /* 74 */ u8* unit_it;
+    /* 74 */ u8 * unit_it;
     /* 78 */ u8 order_state;
     /* 79 */ u8 decide_state;
     /* 7A */ u8 danger_map_filled;

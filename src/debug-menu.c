@@ -35,9 +35,9 @@ enum
 };
 
 // in main.c
-extern void PutBuildInfo(u16* tm);
+extern void PutBuildInfo(u16 * tm);
 
-static void DebugTextFrame_DoPut(struct GenericProc* proc);
+static void DebugTextFrame_DoPut(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_DebugMonitor[] =
 {
@@ -54,13 +54,13 @@ struct ProcScr CONST_DATA ProcScr_DebugTextFrame[] =
 
 void func_fe6_0801A5AC(void)
 {
-    struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+    struct Unit * unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
     if (unit)
         UnitApplyBonusLevels(unit, 20);
 }
 
-static void DebugTextFrame_DoPut(struct GenericProc* proc)
+static void DebugTextFrame_DoPut(struct GenericProc * proc)
 {
     struct Text text;
 
@@ -68,7 +68,7 @@ static void DebugTextFrame_DoPut(struct GenericProc* proc)
     int y = proc->y;
 
     int width = proc->unk52;
-    char const* str = proc->ptr;
+    char const * str = proc->ptr;
 
     InitText(&text, width);
     Text_DrawString(&text, str);
@@ -85,7 +85,7 @@ void PutDebugTextFrame(int x, int y, int width, char const * str)
 
     proc->x = x;
     proc->y = y;
-    proc->ptr = (void*) str;
+    proc->ptr = (void *) str;
     proc->unk52 = width;
 }
 
@@ -146,13 +146,13 @@ fu8 func_fe6_0801A748(struct MenuProc * menu, struct MenuEntProc * ent)
 
 u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    char const* offon[] =
+    char const * offon[] =
     {
         JTEXT("ＯＦＦ"),
         JTEXT("　ＯＮ"),
     };
 
-    struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
@@ -164,7 +164,7 @@ u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801A7D4(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
 
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
@@ -182,7 +182,7 @@ fu8 func_fe6_0801A81C(struct MenuProc * menu, struct MenuEntProc * ent)
 
 u32 func_fe6_0801A820(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    char const* weatherNames[] =
+    char const * weatherNames[] =
     {
         [DEBUG_WEATHER_NONE]      = TEXT("晴れ", "None"),
         [DEBUG_WEATHER_SANDSTORM] = TEXT("砂嵐", "Sandstorm"),
@@ -193,7 +193,7 @@ u32 func_fe6_0801A820(struct MenuProc * menu, struct MenuEntProc * ent)
         [DEBUG_WEATHER_FLAMES]    = TEXT("溶岩", "Flames"),
     };
 
-    struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
@@ -207,7 +207,7 @@ fu8 func_fe6_0801A89C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
-        struct GenericProc* proc = Proc_Find(ProcScr_DebugMonitor);
+        struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
 
         proc->unk58++;
         func_fe6_0801A820(menu, ent);
@@ -329,7 +329,7 @@ fu8 func_fe6_0801AA74(struct MenuProc * menu, struct MenuEntProc * ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A;
 }
 
-fu8 func_fe6_0801AA8C(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     // required for a match
     u32 unused[4];
@@ -365,7 +365,7 @@ void func_fe6_0801AAE0(void)
     if (!IsSramWorking())
         PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ＳＲＡＭが装着されていません"
 
-    func_fe6_0806EA24(StartMenu(&MenuInfo_Debug_085C742C), (u8*) BG_VRAM + CHR_SIZE * 0x580, -1);
+    func_fe6_0806EA24(StartMenu(&MenuInfo_Debug_085C742C), (u8 *) BG_VRAM + CHR_SIZE * 0x580, -1);
 
     PutBuildInfo(gBg2Tm + TM_OFFSET(0, 1));
     DebugPutStr(gBg2Tm + TM_OFFSET(0, 2), "DB INTERRUPT AVAILABLE");
@@ -522,7 +522,7 @@ fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
 
 u32 func_fe6_0801ADEC(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    char const* offon[] =
+    char const * offon[] =
     {
         "\x82\x6E\x82\x65\x82\x65", // "ＯＦＦ"
         "\x82\x6E\x82\x6D", // "ＯＮ"

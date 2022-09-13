@@ -17,13 +17,14 @@
 #include "unitsprite.h"
 #include "ui.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/items.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"
 
-void ApplyHazardHealing(ProcPtr proc, struct Unit* unit, int hp, int status)
+void ApplyHazardHealing(ProcPtr proc, struct Unit * unit, int hp, int status)
 {
     if (status >= 0)
         SetUnitStatus(unit, status);
@@ -36,13 +37,13 @@ void ApplyHazardHealing(ProcPtr proc, struct Unit* unit, int hp, int status)
     DropRescueOnDeath(proc, unit);
 }
 
-static void RenderMapForFogFadeIfUnitDied(struct Unit* unit)
+static void RenderMapForFogFadeIfUnitDied(struct Unit * unit)
 {
     if (GetUnitCurrentHp(unit) == 0 && gPlaySt.vision != 0)
         RenderMapForFade();
 }
 
-void BeginUnitHealAnim(struct Unit* unit, int hp)
+void BeginUnitHealAnim(struct Unit * unit, int hp)
 {
     BattleInitItemEffect(unit, -1);
 
@@ -58,7 +59,7 @@ void BeginUnitHealAnim(struct Unit* unit, int hp)
     BeginBattleAnimations();
 }
 
-void BeginUnitDamageAnim(struct Unit* unit, int damage)
+void BeginUnitDamageAnim(struct Unit * unit, int damage)
 {
     BattleInitItemEffect(unit, -1);
 
@@ -79,7 +80,7 @@ void BeginUnitDamageAnim(struct Unit* unit, int damage)
     RenderMapForFogFadeIfUnitDied(unit);
 }
 
-void BeginUnitCritDamageAnim(struct Unit* unit, int damage)
+void BeginUnitCritDamageAnim(struct Unit * unit, int damage)
 {
     BattleInitItemEffect(unit, -1);
 
@@ -103,7 +104,7 @@ void BeginUnitCritDamageAnim(struct Unit* unit, int damage)
     RenderMapForFogFadeIfUnitDied(unit);
 }
 
-static void KillAllRedUnits_Init(struct GenericProc* proc)
+static void KillAllRedUnits_Init(struct GenericProc * proc)
 {
     BeginTargetList(0, 0);
 
@@ -118,9 +119,9 @@ static void KillAllRedUnits_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void KillAllRedUnits_Loop(struct GenericProc* proc)
+static void KillAllRedUnits_Loop(struct GenericProc * proc)
 {
-    struct Unit* unit;
+    struct Unit * unit;
     int x, y;
 
     if (proc->unk4C == CountTargets())
@@ -144,7 +145,7 @@ static void KillAllRedUnits_Loop(struct GenericProc* proc)
     }
     else
     {
-        struct MuProc* mu;
+        struct MuProc * mu;
 
         mu = StartMu(unit);
         StartMuDeathFade(mu);
@@ -179,7 +180,7 @@ static void StatusHealEffect_OverlayBg_Init(void)
 
     ClearUi();
 
-    Decompress(Img_StatusHealEffect, (void*) VRAM + BGCHR_STATUSHEAL*CHR_SIZE);
+    Decompress(Img_StatusHealEffect, (void *) VRAM + BGCHR_STATUSHEAL*CHR_SIZE);
     ApplyPalette(Pal_StatusHealEffect, BGPAL_STATUSHEAL);
     TmApplyTsa_t(gBg0Tm, Tsa_StatusHealEffect, TILEREF(BGCHR_STATUSHEAL, BGPAL_STATUSHEAL));
 
@@ -203,7 +204,7 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_OverlayBg[] =
     PROC_END,
 };
 
-static void StatusHealEffect_BlendedSprite_Init(struct GenericProc* proc)
+static void StatusHealEffect_BlendedSprite_Init(struct GenericProc * proc)
 {
     HideUnitSprite(gActiveUnit);
 
@@ -221,7 +222,7 @@ static void StatusHealEffect_BlendedSprite_Init(struct GenericProc* proc)
     proc->unk4C = 0x40;
 }
 
-static void StatusHealEffect_BlendedSprite_Loop(struct GenericProc* proc)
+static void StatusHealEffect_BlendedSprite_Loop(struct GenericProc * proc)
 {
     PutBlendWindowUnitSprite(4,
         gActiveUnit->x*16 - gBmSt.camera.x,
@@ -234,7 +235,7 @@ static void StatusHealEffect_BlendedSprite_Loop(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void StatusHealEffect_BlendedSprite_Finish(struct GenericProc* proc)
+static void StatusHealEffect_BlendedSprite_Finish(struct GenericProc * proc)
 {
     ShowUnitSprite(gActiveUnit);
 }
@@ -249,21 +250,21 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendedSprite[] =
     PROC_END,
 };
 
-static void StatusHealEffect_BlendSpriteAnim_InitIn(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_InitIn(struct GenericProc * proc)
 {
     proc->unk4C = 15;
     proc->x = 0;
     proc->unk34 = 1;
 }
 
-static void StatusHealEffect_BlendSpriteAnim_InitOut(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_InitOut(struct GenericProc * proc)
 {
     proc->unk4C = 15;
     proc->x = 0x10;
     proc->unk34 = -1;
 }
 
-static void StatusHealEffect_BlendSpriteAnim_Loop(struct GenericProc* proc)
+static void StatusHealEffect_BlendSpriteAnim_Loop(struct GenericProc * proc)
 {
     proc->x += proc->unk34;
 
@@ -288,9 +289,9 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_BlendAnim[] =
     PROC_END,
 };
 
-static void StatusHealEffect_PalSpriteAnim_Init(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_Init(struct GenericProc * proc)
 {
-    u16 const* pal = NULL;
+    u16 const * pal = NULL;
 
     switch (UNIT_FACTION(gActiveUnit))
     {
@@ -314,7 +315,7 @@ static void StatusHealEffect_PalSpriteAnim_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct GenericProc* proc, int intensity)
+static void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct GenericProc * proc, int intensity)
 {
     if (intensity > 31)
         intensity = 31;
@@ -326,7 +327,7 @@ static void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct GenericPro
     EnablePalSync();
 }
 
-static void StatusHealEffect_PalSpriteAnim_LoopIn(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_LoopIn(struct GenericProc * proc)
 {
     StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk4C);
 
@@ -336,7 +337,7 @@ static void StatusHealEffect_PalSpriteAnim_LoopIn(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void StatusHealEffect_PalSpriteAnim_LoopOut(struct GenericProc* proc)
+static void StatusHealEffect_PalSpriteAnim_LoopOut(struct GenericProc * proc)
 {
     StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(proc, proc->unk4C);
 
@@ -355,7 +356,7 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect_PalAnim[] =
     PROC_END,
 };
 
-static void StatusHealEffect_Finish(struct GenericProc* proc)
+static void StatusHealEffect_Finish(struct GenericProc * proc)
 {
     ClearUi();
 
@@ -380,7 +381,7 @@ struct ProcScr CONST_DATA ProcScr_StatusHealEffect[] =
     PROC_END,
 };
 
-void StartStatusHealEffect(struct Unit* unit, ProcPtr parent)
+void StartStatusHealEffect(struct Unit * unit, ProcPtr parent)
 {
     gActiveUnit = unit;
 
@@ -389,7 +390,7 @@ void StartStatusHealEffect(struct Unit* unit, ProcPtr parent)
     PlaySe(SONG_AA);
 }
 
-static void TerrainHealDisplay_Init(struct GenericProc* proc)
+static void TerrainHealDisplay_Init(struct GenericProc * proc)
 {
     ListTerrainHealingTargets(gPlaySt.faction);
 
@@ -402,10 +403,10 @@ static void TerrainHealDisplay_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void MassEffectDisplay_Check(struct GenericProc* proc)
+static void MassEffectDisplay_Check(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     gAction.instigator = target->uid;
 
@@ -419,16 +420,16 @@ static void MassEffectDisplay_Check(struct GenericProc* proc)
         Proc_Goto(proc, 1);
 }
 
-static void MassEffectDisplay_Watch(struct GenericProc* proc)
+static void MassEffectDisplay_Watch(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
     CameraMoveWatchPosition(proc, target->x, target->y);
 }
 
-static void TerrainHealDisplay_Display(struct GenericProc* proc)
+static void TerrainHealDisplay_Display(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     if (target->extra < 0)
     {
@@ -453,15 +454,15 @@ void FinishDamageDisplay(ProcPtr proc)
     {
         gActiveUnit = GetUnit(gAction.instigator);
 
-        if (func_fe6_0806B500())
-            func_fe6_0806B540();
+        if (CheckAvailableMoveEvent())
+            StartAvailableMoveEvent();
     }
 }
 
-static void TerrainHealDisplay_Next(struct GenericProc* proc)
+static void TerrainHealDisplay_Next(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     if (target->extra < 0)
     {
@@ -497,7 +498,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-static void PoisonDamageDisplay_Init(struct GenericProc* proc)
+static void PoisonDamageDisplay_Init(struct GenericProc * proc)
 {
     ListPoisonDamageTargets(gPlaySt.faction);
     func_fe6_08021B30(4);
@@ -511,19 +512,19 @@ static void PoisonDamageDisplay_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void PoisonDamageDisplay_Display(struct GenericProc* proc)
+static void PoisonDamageDisplay_Display(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     HideUnitSprite(unit);
     BeginUnitDamageAnim(unit, target->extra);
 }
 
-static void PoisonDamageDisplay_Next(struct GenericProc* proc)
+static void PoisonDamageDisplay_Next(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     ApplyHazardHealing(proc, unit, -target->extra, -1);
 
@@ -553,7 +554,7 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-static void StatusDecayDisplay_Init(struct GenericProc* proc)
+static void StatusDecayDisplay_Init(struct GenericProc * proc)
 {
     if (CountTargets() == 0)
     {
@@ -564,15 +565,15 @@ static void StatusDecayDisplay_Init(struct GenericProc* proc)
     proc->unk4C = 0;
 }
 
-static void StatusDecayDisplay_Display(struct GenericProc* proc)
+static void StatusDecayDisplay_Display(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
 
     SetUnitStatus(GetUnit(gAction.instigator), UNIT_STATUS_NONE);
     StartStatusHealEffect(GetUnit(target->uid), proc);
 }
 
-static void StatusDecayDisplay_Next(struct GenericProc* proc)
+static void StatusDecayDisplay_Next(struct GenericProc * proc)
 {
     SetUnitStatus(GetUnit(gAction.instigator), UNIT_STATUS_NONE);
 
@@ -599,15 +600,15 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-static void TrapDamageDisplay_Init(struct GenericProc* proc)
+static void TrapDamageDisplay_Init(struct GenericProc * proc)
 {
     proc->unk4C = 0;
 }
 
-static void TrapDamageDisplay_Check(struct GenericProc* proc)
+static void TrapDamageDisplay_Check(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     gAction.instigator = target->uid;
 
@@ -621,17 +622,17 @@ static void TrapDamageDisplay_Check(struct GenericProc* proc)
         Proc_Goto(proc, 1);
 }
 
-static void TrapDamageDisplay_Watch(struct GenericProc* proc)
+static void TrapDamageDisplay_Watch(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
 
     if (target->uid != 0 || target->extra != 8)
         CameraMoveWatchPosition(proc, target->x, target->y);
 }
 
-static void TrapDamageDisplay_Display(struct GenericProc* proc)
+static void TrapDamageDisplay_Display(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
 
     if (target->uid == 0)
     {
@@ -685,10 +686,10 @@ static void TrapDamageDisplay_Display(struct GenericProc* proc)
         BeginUnitCritDamageAnim(GetUnit(gAction.instigator), target->extra);
 }
 
-static void TrapDamageDisplay_Next(struct GenericProc* proc)
+static void TrapDamageDisplay_Next(struct GenericProc * proc)
 {
-    struct SelectTarget* target = GetTarget(proc->unk4C);
-    struct Unit* unit = GetUnit(target->uid);
+    struct SelectTarget * target = GetTarget(proc->unk4C);
+    struct Unit * unit = GetUnit(target->uid);
 
     if (target->extra < 6)
         ApplyHazardHealing(proc, unit, -target->extra, UNIT_STATUS_POISON);

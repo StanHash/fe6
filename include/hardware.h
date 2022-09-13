@@ -158,13 +158,13 @@ enum
 unsigned GetGameTime(void);
 void SetGameTime(unsigned time);
 void IncGameTime(void);
-bool FormatTime(unsigned time, u16* hours, u16* minutes, u16* seconds);
+bool FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds);
 void EnableBgSync(int bits);
 void EnableBgSyncById(int bgid);
 void DisableBgSync(int bits);
 void EnablePalSync(void);
 void DisablePalSync(void);
-void ApplyPaletteExt(void const* data, int startOffset, int size);
+void ApplyPaletteExt(void const * data, int startOffset, int size);
 void SyncDispIo(void);
 int GetBgChrOffset(int bg);
 int GetBgChrId(int bg, int offset);
@@ -174,7 +174,7 @@ void SetBgTilemapOffset(int bg, int offset);
 void SetBgScreenSize(int bg, int size);
 void SetBgBpp(int bg, int bpp);
 void SyncBgsAndPal(void);
-void TmFill(u16* dest, int tileref);
+void TmFill(u16 * dest, int tileref);
 void SetBlankChr(int chr);
 void SetOnVBlank(Func func);
 void SetOnVMatch(Func func);
@@ -182,17 +182,17 @@ void SetNextVCount(int vcount);
 void SetVCount(int vcount);
 void SetMainFunc(Func func);
 void RunMainFunc(void);
-void RefreshKeySt(struct KeySt* keySt);
-void ClearKeySt(struct KeySt* keySt);
-void InitKeySt(struct KeySt* keySt);
+void RefreshKeySt(struct KeySt * keySt);
+void ClearKeySt(struct KeySt * keySt);
+void InitKeySt(struct KeySt * keySt);
 void SetBgOffset(u16 bgid, u16 xOffset, u16 yOffset);
 void func_fe6_08001AE4(void);
 void func_fe6_08001B18(u8 a, u8 b);
-void func_fe6_08001B4C(u16* a, u16* b);
-void func_fe6_08001B8C(void* outTm, void const* inData, u8 base, u8 linebits);
-void func_fe6_08001C68(u16* outTm, short const* inData, int unused);
+void func_fe6_08001B4C(u16 * a, u16 * b);
+void func_fe6_08001B8C(void * tm, void const * inData, u8 base, u8 linebits);
+void func_fe6_08001C68(u16 * tm, short const * inData, int unused);
 void func_fe6_08001D0C(void);
-void func_fe6_08001D44(u16 const* inPal, int bank, int count, int unk);
+void func_fe6_08001D44(u16 const * inPal, int bank, int count, int unk);
 void func_fe6_08001E68(int a, int b, int c, int d);
 void func_fe6_08001F88(int a, int b, int c);
 void func_fe6_08001FD4(i8 a);
@@ -200,8 +200,8 @@ void func_fe6_0800210C(i8 a);
 void func_fe6_08002234(i8 a);
 void func_fe6_0800236C(i8 a);
 void func_fe6_080024A4(void);
-void InitBgs(u16 const* config);
-u16* GetBgTilemap(int bg);
+void InitBgs(u16 const * config);
+u16 * GetBgTilemap(int bg);
 void SoftResetIfKeyCombo(void);
 void func_fe6_0800285C(int unk);
 void SetOnHBlankA(Func func);
@@ -216,7 +216,7 @@ extern u16 EWRAM_DATA gBg1Tm[0x400];
 extern u16 EWRAM_DATA gBg2Tm[0x400];
 extern u16 EWRAM_DATA gBg3Tm[0x400];
 
-extern struct KeySt* CONST_DATA gKeySt;
+extern struct KeySt * CONST_DATA gKeySt;
 
 extern struct DispIo gDispIo;
 
@@ -313,12 +313,12 @@ extern short const gSinLut[];
     SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
 #define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
-    *((u16*) &gDispIo.blend_ct) &= ~BLDCNT_TARGETA(1, 1, 1, 1, 1); \
-    *((u16*) &gDispIo.blend_ct) |= BLDCNT_TARGETA((bg0), (bg1), (bg2), (bg3), (obj))
+    *((u16 *) &gDispIo.blend_ct) &= ~BLDCNT_TARGETA(1, 1, 1, 1, 1); \
+    *((u16 *) &gDispIo.blend_ct) |= BLDCNT_TARGETA((bg0), (bg1), (bg2), (bg3), (obj))
 
 #define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
-    *((u16*) &gDispIo.blend_ct) &= ~BLDCNT_TARGETB(1, 1, 1, 1, 1); \
-    *((u16*) &gDispIo.blend_ct) |= BLDCNT_TARGETB((bg0), (bg1), (bg2), (bg3), (obj))
+    *((u16 *) &gDispIo.blend_ct) &= ~BLDCNT_TARGETB(1, 1, 1, 1, 1); \
+    *((u16 *) &gDispIo.blend_ct) |= BLDCNT_TARGETB((bg0), (bg1), (bg2), (bg3), (obj))
 
 #define SetBlendBackdropA(enable) \
     gDispIo.blend_ct.target1_bd_on = (enable)

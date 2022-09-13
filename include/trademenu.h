@@ -4,4 +4,4 @@
 
 #include "proc.h"
 
-ProcPtr StartTradeMenu(struct Unit* unitA, struct Unit* unitB, int unused);
+ProcPtr StartTradeMenu(struct Unit * unitA, struct Unit * unitB, int unused);

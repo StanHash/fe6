@@ -3,14 +3,14 @@
 #include "gba/gba.h"
 #include "types.h"
 
-typedef void* ProcPtr;
-typedef void(*ProcFunc)(ProcPtr proc);
+typedef void * ProcPtr;
+typedef void (* ProcFunc)(ProcPtr proc);
 
 struct ProcScr
 {
     short cmd;
     short imm;
-    void const* ptr;
+    void const * ptr;
 };
 
 enum
@@ -71,12 +71,12 @@ enum
 #define PROC_19                           { PROC_CMD_19, 0, 0 }
 
 #define PROC_HEADER                                                                           \
-    struct ProcScr const* proc_script; /* pointer to proc script */                           \
-    struct ProcScr const* proc_script_pc; /* pointer to currently executing script command */ \
+    struct ProcScr const * proc_script; /* pointer to proc script */                           \
+    struct ProcScr const * proc_script_pc; /* pointer to currently executing script command */ \
     ProcFunc proc_end_func; /* callback to run upon delegint the process */                   \
     ProcFunc proc_repeat_func; /* callback to run once each frame. */                         \
                           /* disables script execution when not null */                       \
-    char const* proc_name;                                                                    \
+    char const * proc_name;                                                                    \
     ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */           \
                          /* this member is an integer which is the root index. */             \
     ProcPtr proc_child; /* pointer to most recently added child */                            \
@@ -109,7 +109,7 @@ struct GenericProc
 
     /* 52 */ u16 unk52;
 
-    /* 54 */ void* ptr;
+    /* 54 */ void * ptr;
     /* 58 */ int unk58;
     /* 5C */ int unk5C;
     /* 60 */ int unk60;
@@ -144,26 +144,26 @@ enum
 extern ProcPtr gProcTreeRootArray[8];
 
 void InitProcs(void);
-ProcPtr SpawnProc(struct ProcScr const* scr, ProcPtr parent);
-ProcPtr SpawnProcLocking(struct ProcScr const* scr, ProcPtr parent);
+ProcPtr SpawnProc(struct ProcScr const * scr, ProcPtr parent);
+ProcPtr SpawnProcLocking(struct ProcScr const * scr, ProcPtr parent);
 void Proc_End(ProcPtr proc);
 void Proc_Run(ProcPtr proc);
 void Proc_Break(ProcPtr proc);
-ProcPtr Proc_Find(struct ProcScr const* script);
-ProcPtr Proc_FindActive(struct ProcScr const* script);
+ProcPtr Proc_Find(struct ProcScr const * script);
+ProcPtr Proc_FindActive(struct ProcScr const * script);
 ProcPtr Proc_FindMarked(int mark);
 void Proc_Goto(ProcPtr proc, int label);
-void Proc_GotoScript(ProcPtr proc, struct ProcScr const* script);
+void Proc_GotoScript(ProcPtr proc, struct ProcScr const * script);
 void Proc_Mark(ProcPtr proc, int mark);
 void Proc_SetEndFunc(ProcPtr proc, ProcFunc func);
 void Proc_ForAll(ProcFunc func);
-void Proc_ForEach(struct ProcScr const* script, ProcFunc func);
+void Proc_ForEach(struct ProcScr const * script, ProcFunc func);
 void Proc_ForEachMarked(int mark, ProcFunc func);
 void Proc_LockEachMarked(int mark);
 void Proc_ReleaseEachMarked(int mark);
 void Proc_EndEachMarked(int mark);
-void Proc_EndEach(struct ProcScr const* script);
-void Proc_BreakEach(struct ProcScr const* script);
+void Proc_EndEach(struct ProcScr const * script);
+void Proc_BreakEach(struct ProcScr const * script);
 void Proc_ForSubtree(ProcPtr proc, ProcFunc func);
 void Proc_PrintSubtreeInfo(ProcPtr proc);
 void Proc_SetRepeatFunc(ProcPtr proc, ProcFunc func);

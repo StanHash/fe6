@@ -15,9 +15,9 @@ extern u16 gUnk_Tm_02003738[];
 
 extern struct MapAnimSt EWRAM_DATA gMapAnimSt;
 
-extern struct Glyph const* CONST_DATA TextGlyphs_Special[];
-extern struct Glyph const* CONST_DATA TextGlyphs_System[];
-extern struct Glyph const* CONST_DATA TextGlyphs_Talk[];
+extern struct Glyph const * CONST_DATA TextGlyphs_Special[];
+extern struct Glyph const * CONST_DATA TextGlyphs_System[];
+extern struct Glyph const * CONST_DATA TextGlyphs_Talk[];
 extern u16 CONST_DATA Pal_SystemText[];
 extern u16 CONST_DATA Pal_TalkText[];
 extern u16 CONST_DATA Pal_GreenTextColors[];
@@ -135,7 +135,7 @@ extern u16 CONST_DATA gUnk_08664EE4[];
 
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];
-extern char const* CONST_DATA TerrainNameStringTable[];
+extern char const * CONST_DATA TerrainNameStringTable[];
 
 extern u8 CONST_DATA JList_BowEffectiveness[];
 extern u8 CONST_DATA JList_HeroCrestPromotes[];
@@ -147,9 +147,9 @@ extern u8 CONST_DATA JList_GuidingRingPromotes[];
 extern i8 CONST_DATA MoveTable_Unk_0860C912[];
 
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
-extern struct TrialLoadInfo* CONST_DATA gTrialLoadInfo;
+extern struct TrialLoadInfo * CONST_DATA gTrialLoadInfo;
 
-extern void const* CONST_DATA ChapterAssets[];
+extern void const * CONST_DATA ChapterAssets[];
 
 extern int CONST_DATA gUnk_08664F00[];
 

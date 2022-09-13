@@ -6,7 +6,7 @@
 
 struct Glyph
 {
-    struct Glyph const* next;
+    struct Glyph const * next;
 
     u8 sjis_byte_1;
     u8 width;
@@ -26,10 +26,10 @@ struct Text
 
 struct Font
 {
-    /* 00 */ u8* draw_dest;
-    /* 04 */ struct Glyph const* const* glyphs;
-    /* 08 */ void(*draw_glyph)(struct Text* text, struct Glyph const* glyph);
-    /* 0C */ u8*(*get_draw_dest)(struct Text* text);
+    /* 00 */ u8 * draw_dest;
+    /* 04 */ struct Glyph const * const * glyphs;
+    /* 08 */ void (* draw_glyph)(struct Text * text, struct Glyph const * glyph);
+    /* 0C */ u8 * (* get_draw_dest)(struct Text * text);
     /* 10 */ u16 tileref;
     /* 12 */ u16 chr_counter;
     /* 14 */ u16 palid;
@@ -38,7 +38,7 @@ struct Font
 
 struct TextInitInfo
 {
-    /* 00 */ struct Text* text;
+    /* 00 */ struct Text * text;
     /* 04 */ u8 width;
 };
 
@@ -130,60 +130,60 @@ enum
 
 int GetLang(void);
 void ResetText(void);
-void InitTextFont(struct Font* font, void* draw_dest, int chr, int palid);
+void InitTextFont(struct Font * font, void * draw_dest, int chr, int palid);
 void SetTextFontGlyphs(int glyphSet);
 void ResetTextFont(void);
-void SetTextFont(struct Font* font);
-void InitText(struct Text* text, int width);
-void InitTextDb(struct Text* text, int width);
-void InitTextList(struct TextInitInfo const* info);
-void ClearText(struct Text* text);
-void ClearTextPart(struct Text* text, int tileOff, int tileWidth);
-int Text_GetChrOffset(struct Text* text);
-int Text_GetCursor(struct Text* text);
-void Text_SetCursor(struct Text* text, int x);
-void Text_Skip(struct Text* text, int x);
-void Text_SetColor(struct Text* text, int color);
-int Text_GetColor(struct Text* text);
-void Text_SetParams(struct Text* text, int x, int color);
-void PutText(struct Text* text, u16* tm);
-void PutBlankText(struct Text* text, u16* tm);
-int GetStringTextLen(char const* str);
-char const* GetCharTextLen(char const* str, int* outWidth);
-int GetStringTextCenteredPos(int areaLength, char const* str);
-void GetStringTextBox(char const* str, int* outWidth, int* outHeight);
-char const* GetStringLineEnd(char const* str);
-void Text_DrawString(struct Text* text, char const* str);
-void Text_DrawNumber(struct Text* text, int number);
-void Text_DrawNumberOrBlank(struct Text* text, int number);
-char const* Text_DrawCharacter(struct Text* text, char const* str);
+void SetTextFont(struct Font * font);
+void InitText(struct Text * text, int width);
+void InitTextDb(struct Text * text, int width);
+void InitTextList(struct TextInitInfo const * info);
+void ClearText(struct Text * text);
+void ClearTextPart(struct Text * text, int tile_off, int tile_width);
+int Text_GetChrOffset(struct Text * text);
+int Text_GetCursor(struct Text * text);
+void Text_SetCursor(struct Text * text, int x);
+void Text_Skip(struct Text * text, int x);
+void Text_SetColor(struct Text * text, int color);
+int Text_GetColor(struct Text * text);
+void Text_SetParams(struct Text * text, int x, int color);
+void PutText(struct Text * text, u16 * tm);
+void PutBlankText(struct Text * text, u16 * tm);
+int GetStringTextLen(char const * str);
+char const * GetCharTextLen(char const * str, int * out_width);
+int GetStringTextCenteredPos(int areaLength, char const * str);
+void GetStringTextBox(char const * str, int * out_width, int * out_height);
+char const * GetStringLineEnd(char const * str);
+void Text_DrawString(struct Text * text, char const * str);
+void Text_DrawNumber(struct Text * text, int number);
+void Text_DrawNumberOrBlank(struct Text * text, int number);
+char const * Text_DrawCharacter(struct Text * text, char const * str);
 void InitSystemTextFont(void);
 void InitTalkTextFont(void);
 void SetTextDrawNoClear(void);
-void PutDrawText(struct Text* text, u16* tm, int color, int x, int tile_width, char const* str);
-void Text_InsertDrawString(struct Text* text, int x, int color, char const* str);
-void Text_InsertDrawNumberOrBlank(struct Text* text, int x, int color, int number);
-void InitSpriteTextFont(struct Font* font, u8* draw_dest, int palid);
-void InitSpriteText(struct Text* text);
-void SpriteText_DrawBackground(struct Text* text);
-void SpriteText_DrawBackgroundExt(struct Text* text, u32 line);
-char const* StartTextPrint(struct Text* text, char const* str, int interval, int charPerTick);
-i8 IsTextPrinting(struct Text* text);
+void PutDrawText(struct Text * text, u16 * tm, int color, int x, int tile_width, char const * str);
+void Text_InsertDrawString(struct Text * text, int x, int color, const char * str);
+void Text_InsertDrawNumberOrBlank(struct Text * text, int x, int color, int number);
+void InitSpriteTextFont(struct Font * font, u8 * draw_dest, int palid);
+void InitSpriteText(struct Text * text);
+void SpriteText_DrawBackground(struct Text * text);
+void SpriteText_DrawBackgroundExt(struct Text * text, u32 line);
+char const * StartTextPrint(struct Text * text, char const * str, int interval, int char_per_tick);
+bool IsTextPrinting(struct Text * text);
 void EndTextPrinting(void);
 void StartGreenText(ProcPtr parent);
 void EndGreenText(void);
-void PutSpecialChar(u16* tm, int color, int id);
-void PutNumberExt(u16* tm, int color, int number, int idZero);
-void PutNumber(u16* tm, int color, int number);
-void PutNumberOrBlank(u16* tm, int color, int number);
-void PutNumberTwoChr(u16* tm, int color, int number);
-void PutNumberSmall(u16* tm, int color, int number);
-void PutNumberBonus(int number, u16* tm);
-void PutNumber2DigitExt(u16* tm, int color, int number, int idZero);
-void PutNumber2Digit(u16* tm, int color, int number);
-void PutNumber2DigitSmall(u16* tm, int color, int number);
-void PutTime(u16* tm, int color, int time, i8 alwaysDisplayPunctuation);
-void PutTwoSpecialChar(u16* tm, int color, int idA, int idB);
+void PutSpecialChar(u16 * tm, int color, int id);
+void PutNumberExt(u16 * tm, int color, int number, int id_zero);
+void PutNumber(u16 * tm, int color, int number);
+void PutNumberOrBlank(u16 * tm, int color, int number);
+void PutNumberTwoChr(u16 * tm, int color, int number);
+void PutNumberSmall(u16 * tm, int color, int number);
+void PutNumberBonus(int number, u16 * tm);
+void PutNumber2DigitExt(u16 * tm, int color, int number, int id_zero);
+void PutNumber2Digit(u16 * tm, int color, int number);
+void PutNumber2DigitSmall(u16 * tm, int color, int number);
+void PutTime(u16 * tm, int color, int time, bool always_display_punctuation);
+void PutTwoSpecialChar(u16 * tm, int color, int id_a, int id_b);
 
 extern struct Font EWRAM_DATA gDefaultFont;
-extern struct Font* EWRAM_DATA gActiveFont;
+extern struct Font * EWRAM_DATA gActiveFont;

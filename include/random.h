@@ -4,8 +4,8 @@
 
 void RandInit(int seed);
 
-void RandSetSt(u16 const* st);
-void RandGetSt(u16* st);
+void RandSetSt(u16 const * st);
+void RandGetSt(u16 * st);
 
 int RandNext_100(void);
 int RandNext(int max);

@@ -9,6 +9,7 @@
 #include "chapter.h"
 #include "chapter-info.h"
 #include "ui.h"
+#include "eventinfo.h"
 
 #include "constants/chapters.h"
 
@@ -23,23 +24,23 @@ struct GameController
     /* 2E */ short clock;
 };
 
-static bool GC_StartClassDemo(struct GameController* proc);
-static void GC_CheckSramResetKeyCombo(struct GameController* proc);
-static void GC_InitSramResetScreen(struct GameController* proc);
-static void GC_InitFastStartCheck(struct GameController* proc);
-static void GC_FastStartCheck(struct GameController* proc);
-static void GC_PostIntro(struct GameController* proc);
-static void GC_PostDemo(struct GameController* proc);
-static void GC_PostMainMenu(struct GameController* proc);
-static void GC_InitTutorial(struct GameController* proc);
-static void GC_InitTrialMap(struct GameController* proc);
-static void GC_ClearSuspend(struct GameController* proc);
-static void GC_PostChapter(struct GameController* proc);
-static void GC_CheckForGameEnded(struct GameController* proc);
-static void GC_PostLoadSuspend(struct GameController* proc);
-static void GC_InitNextChapter(struct GameController* proc);
-static void GC_InitDemo(struct GameController* proc);
-static void GC_DarkenScreen(struct GameController* proc);
+static bool GC_StartClassDemo(struct GameController * proc);
+static void GC_CheckSramResetKeyCombo(struct GameController * proc);
+static void GC_InitSramResetScreen(struct GameController * proc);
+static void GC_InitFastStartCheck(struct GameController * proc);
+static void GC_FastStartCheck(struct GameController * proc);
+static void GC_PostIntro(struct GameController * proc);
+static void GC_PostDemo(struct GameController * proc);
+static void GC_PostMainMenu(struct GameController * proc);
+static void GC_InitTutorial(struct GameController * proc);
+static void GC_InitTrialMap(struct GameController * proc);
+static void GC_ClearSuspend(struct GameController * proc);
+static void GC_PostChapter(struct GameController * proc);
+static void GC_CheckForGameEnded(struct GameController * proc);
+static void GC_PostLoadSuspend(struct GameController * proc);
+static void GC_InitNextChapter(struct GameController * proc);
+static void GC_InitDemo(struct GameController * proc);
+static void GC_DarkenScreen(struct GameController * proc);
 
 struct ProcScr CONST_DATA ProcScr_Unused_GameController_085C4A1C[] =
 {
@@ -244,7 +245,7 @@ static int GetFurthestSaveChapter(void)
     return chapter;
 }
 
-static bool GC_StartClassDemo(struct GameController* proc)
+static bool GC_StartClassDemo(struct GameController * proc)
 {
     int classSet, chapter;
 
@@ -268,13 +269,13 @@ static bool GC_StartClassDemo(struct GameController* proc)
     return FALSE;
 }
 
-static void GC_CheckSramResetKeyCombo(struct GameController* proc)
+static void GC_CheckSramResetKeyCombo(struct GameController * proc)
 {
     if (gKeySt->held == (KEY_BUTTON_SELECT | KEY_DPAD_RIGHT | KEY_BUTTON_L))
         Proc_Goto(proc, L_GAMECTRL_SRAMRESET);
 }
 
-static void GC_InitSramResetScreen(struct GameController* proc)
+static void GC_InitSramResetScreen(struct GameController * proc)
 {
     InitBgs(NULL);
     ApplySystemGraphics();
@@ -284,12 +285,12 @@ static void GC_InitSramResetScreen(struct GameController* proc)
     func_fe6_0806EA24(PROC_TREE_3, NULL, -1);
 }
 
-static void GC_InitFastStartCheck(struct GameController* proc)
+static void GC_InitFastStartCheck(struct GameController * proc)
 {
     proc->clock = 20;
 }
 
-static void GC_FastStartCheck(struct GameController* proc)
+static void GC_FastStartCheck(struct GameController * proc)
 {
     if (!(gKeySt->held & KEY_BUTTON_START))
     {
@@ -305,7 +306,7 @@ static void GC_FastStartCheck(struct GameController* proc)
 
 static void EndIfNotGameController(ProcPtr proc)
 {
-    if (((struct GenericProc*) proc)->proc_mark == PROC_MARK_GAMECTRL)
+    if (((struct GenericProc *) proc)->proc_mark == PROC_MARK_GAMECTRL)
         return;
 
     Proc_End(proc);
@@ -321,7 +322,7 @@ void CleanupGame(ProcPtr proc)
     SetMainFunc(OnMain);
 }
 
-static void GC_PostIntro(struct GameController* proc)
+static void GC_PostIntro(struct GameController * proc)
 {
     switch (proc->nextAction)
     {
@@ -353,7 +354,7 @@ static void GC_PostIntro(struct GameController* proc)
     }
 }
 
-static void GC_PostDemo(struct GameController* proc)
+static void GC_PostDemo(struct GameController * proc)
 {
     switch (proc->nextAction)
     {
@@ -369,7 +370,7 @@ static void GC_PostDemo(struct GameController* proc)
     }
 }
 
-static void GC_PostMainMenu(struct GameController* proc)
+static void GC_PostMainMenu(struct GameController * proc)
 {
     switch (proc->nextAction)
     {
@@ -403,33 +404,33 @@ static void GC_PostMainMenu(struct GameController* proc)
     }
 }
 
-static void GC_InitTutorial(struct GameController* proc)
+static void GC_InitTutorial(struct GameController * proc)
 {
     InitPlayConfig(FALSE);
 
     gPlaySt.flags |= PLAY_FLAG_3;
 
-    func_fe6_0806BA34();
-    func_fe6_0806B970();
+    ResetPermanentFlags();
+    ResetChapterFlags();
 
     InitUnits();
 
     gPlaySt.chapter = CHAPTER_TUTORIAL;
 }
 
-static void GC_InitTrialMap(struct GameController* proc)
+static void GC_InitTrialMap(struct GameController * proc)
 {
     LoadTrialMapBonusUnits();
     func_fe6_08084818();
     CleanupUnitsBeforeChapter();
 }
 
-static void GC_ClearSuspend(struct GameController* proc)
+static void GC_ClearSuspend(struct GameController * proc)
 {
     func_fe6_08085788(SAVE_ID_SUSPEND0);
 }
 
-static void GC_PostChapter(struct GameController* proc)
+static void GC_PostChapter(struct GameController * proc)
 {
     switch (proc->nextAction)
     {
@@ -448,7 +449,7 @@ static void GC_PostChapter(struct GameController* proc)
     }
 }
 
-static void GC_CheckForGameEnded(struct GameController* proc)
+static void GC_CheckForGameEnded(struct GameController * proc)
 {
     if (!(gPlaySt.flags & PLAY_FLAG_5))
         return;
@@ -456,7 +457,7 @@ static void GC_CheckForGameEnded(struct GameController* proc)
     Proc_Goto(proc, L_GAMECTRL_ENDING);
 }
 
-static void GC_PostLoadSuspend(struct GameController* proc)
+static void GC_PostLoadSuspend(struct GameController * proc)
 {
     if (gPlaySt.flags & PLAY_FLAG_5)
         Proc_Goto(proc, L_GAMECTRL_POSTTRIAL);
@@ -464,7 +465,7 @@ static void GC_PostLoadSuspend(struct GameController* proc)
         Proc_Goto(proc, L_GAMECTRL_POSTCHAPTER);
 }
 
-static void GC_InitNextChapter(struct GameController* proc)
+static void GC_InitNextChapter(struct GameController * proc)
 {
     func_fe6_08084908(&gPlaySt);
     gPlaySt.chapter = proc->nextChapter;
@@ -472,12 +473,12 @@ static void GC_InitNextChapter(struct GameController* proc)
     CleanupUnitsBeforeChapter();
 }
 
-static void GC_InitDemo(struct GameController* proc)
+static void GC_InitDemo(struct GameController * proc)
 {
     proc->demoCnt++;
 }
 
-static void GC_DarkenScreen(struct GameController* proc)
+static void GC_DarkenScreen(struct GameController * proc)
 {
     SetBlendDarken(0x10);
 
@@ -487,7 +488,7 @@ static void GC_DarkenScreen(struct GameController* proc)
 
 void StartGame(void)
 {
-    struct GameController* proc;
+    struct GameController * proc;
 
     SetMainFunc(OnMain);
     SetOnVBlank(OnVBlank);
@@ -500,32 +501,32 @@ void StartGame(void)
     proc->demoCnt = 0;
 }
 
-static struct GameController* GetGameController(void)
+static struct GameController * GetGameController(void)
 {
     return Proc_Find(ProcScr_GameController);
 }
 
 void SetNextGameAction(int action)
 {
-    struct GameController* proc = GetGameController();
+    struct GameController * proc = GetGameController();
     proc->nextAction = action;
 }
 
 void SetNextChapter(int chapter)
 {
-    struct GameController* proc = GetGameController();
+    struct GameController * proc = GetGameController();
     proc->nextChapter = chapter;
 }
 
 bool HasNextChapter(void)
 {
-    struct GameController* proc = GetGameController();
+    struct GameController * proc = GetGameController();
     return proc->nextChapter == 0 ? FALSE : TRUE;
 }
 
 void RestartGameAndChapter(void)
 {
-    struct GameController* proc;
+    struct GameController * proc;
 
     Proc_EndEach(ProcScr_GameController);
     proc = SpawnProc(ProcScr_GameController, PROC_TREE_3);
@@ -535,7 +536,7 @@ void RestartGameAndChapter(void)
 
 void RestartGameAndLoadSuspend(void)
 {
-    struct GameController* proc;
+    struct GameController * proc;
 
     Proc_EndEach(ProcScr_GameController);
     proc = SpawnProc(ProcScr_GameController, PROC_TREE_3);

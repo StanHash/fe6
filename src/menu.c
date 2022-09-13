@@ -182,7 +182,7 @@ void Menu_Init(struct MenuProc * proc)
         proc->entries[proc->active_entry]->info->on_switch_in(proc, proc->entries[proc->active_entry]);
 }
 
-void Menu_Draw(struct MenuProc* proc)
+void Menu_Draw(struct MenuProc * proc)
 {
     int i;
 

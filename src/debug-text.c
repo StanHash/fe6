@@ -55,7 +55,7 @@ void DebugInitBg(int bg, int vramOffset)
     sDebugTextSt.chr = GetBgChrId(bg, vramOffset);
 }
 
-void DebugPutStr(u16* tm, char const* str)
+void DebugPutStr(u16 * tm, char const * str)
 {
     while (*str)
     {
@@ -70,7 +70,7 @@ void DebugPutStr(u16* tm, char const* str)
     EnableBgSyncById(sDebugTextSt.bg);
 }
 
-void DebugPutFmt(u16* tm, char const* fmt, ...)
+void DebugPutFmt(u16 * tm, char const * fmt, ...)
 {
     char buffer[0x100];
     va_list args;
@@ -96,7 +96,7 @@ void DebugScreenInit(void)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-void DebugPrintFmt(char const* fmt, ...)
+void DebugPrintFmt(char const * fmt, ...)
 {
     char buffer[0x100];
     va_list args;
@@ -110,7 +110,7 @@ void DebugPrintFmt(char const* fmt, ...)
 
 static void ClearNumberStr(void)
 {
-    u32* ptr = (u32*) gNumberStr;
+    u32 * ptr = (u32 *) gNumberStr;
 
     *ptr++ = 0x20202020; // '    '
     *ptr   = 0x20202020; // '    '
@@ -180,7 +180,7 @@ void DebugPrintNumberHex(int number, int length)
     DebugPrintStr(gNumberStr + 8 - length);
 }
 
-void DebugPrintStr(char const* str)
+void DebugPrintStr(char const * str)
 {
     while (*str)
     {
@@ -210,7 +210,7 @@ void DebugPrintStr(char const* str)
 
 void DebugPutScreen(void)
 {
-    u16* tm;
+    u16 * tm;
     u16 chr;
     int ih, iv;
 
@@ -283,7 +283,7 @@ void DebugInitObj(int offset, int palid)
     EnablePalSync();
 }
 
-void DebugPutObjStr(int x, int y, char const* str)
+void DebugPutObjStr(int x, int y, char const * str)
 {
     while (*str)
     {

@@ -168,7 +168,7 @@ void func_fe6_08013BEC(void)
 {
 }
 
-bool StringEquals(char const* strA, char const* strB)
+bool StringEquals(char const * strA, char const * strB)
 {
     while (*strA | *strB)
     {
@@ -179,7 +179,7 @@ bool StringEquals(char const* strA, char const* strB)
     return TRUE;
 }
 
-void StringCopy(char* dst, char const* src)
+void StringCopy(char * dst, char const * src)
 {
     while (*src)
     {
@@ -189,7 +189,7 @@ void StringCopy(char* dst, char const* src)
     *dst = *src;
 }
 
-static void UnpackRaw(void const * src, void* dst)
+static void UnpackRaw(void const * src, void * dst)
 {
     int size = GetDataSize(src) - 4;
 
@@ -205,7 +205,7 @@ void Decompress_Unused_08013C74(void const * src, void * dst)
     CpuFastCopy(gBuf, dst, GetDataSize(src));
 }
 
-void Decompress(void const* src, void* dst)
+void Decompress(void const * src, void * dst)
 {
     typedef void (* DecompressFunc)(void const *, void *);
 
@@ -238,13 +238,13 @@ int GetDataSize(void const * data)
 
 struct Unk_08013CEC
 {
-    u8* dst;
+    u8 * dst;
     int unk_04;
 };
 
-struct Unk* Unused_08013CEC(struct Unk_08013CEC* unk, int arg_1, int arg_2)
+struct Unk * Unused_08013CEC(struct Unk_08013CEC * unk, int arg_1, int arg_2)
 {
-    unk->dst = (u8*) arg_2;
+    unk->dst = (u8 *) arg_2;
 
     arg_1 = (arg_1 & 0xFFE0) >> 5;
     arg_2 = (arg_2 & 0xFFE0) >> 5;
@@ -252,7 +252,7 @@ struct Unk* Unused_08013CEC(struct Unk_08013CEC* unk, int arg_1, int arg_2)
     unk->unk_04 = arg_2 - arg_1;
 }
 
-int Unused_08013D04(struct Unk_08013CEC* unk, u8 const* src)
+int Unused_08013D04(struct Unk_08013CEC * unk, u8 const * src)
 {
     int size, old;
 
@@ -268,7 +268,7 @@ int Unused_08013D04(struct Unk_08013CEC* unk, u8 const* src)
     return old;
 }
 
-int Unused_08013D34(struct Unk_08013CEC* unk, int arg_1)
+int Unused_08013D34(struct Unk_08013CEC * unk, int arg_1)
 {
     int old;
 
@@ -280,7 +280,7 @@ int Unused_08013D34(struct Unk_08013CEC* unk, int arg_1)
     return old;
 }
 
-void Register2dChrMove(u8 const* src, u8* dst, int width, int height)
+void Register2dChrMove(u8 const * src, u8 * dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
@@ -296,7 +296,7 @@ void Register2dChrMove(u8 const* src, u8* dst, int width, int height)
     }
 }
 
-void Copy2dChr(void const* src, u8* dst, int width, int height)
+void Copy2dChr(void const * src, u8 * dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
@@ -312,9 +312,9 @@ void Copy2dChr(void const* src, u8* dst, int width, int height)
     }
 }
 
-static void func_fe6_08013DE8(u8 const* src, u8* dst, int width);
+static void func_fe6_08013DE8(u8 const * src, u8 * dst, int width);
 
-void func_fe6_08013DAC(u8 const* src, u8* dst, int width, int height)
+void func_fe6_08013DAC(u8 const * src, u8 * dst, int width, int height)
 {
     int i, lineSize;
 
@@ -332,9 +332,9 @@ void func_fe6_08013DAC(u8 const* src, u8* dst, int width, int height)
     }
 }
 
-static void func_fe6_08013E10(u8 const* src, u32* dst, int width);
+static void func_fe6_08013E10(u8 const * src, u32 * dst, int width);
 
-static void func_fe6_08013DE8(u8 const* src, u8* dst, int width)
+static void func_fe6_08013DE8(u8 const * src, u8 * dst, int width)
 {
     int i;
 
@@ -343,14 +343,14 @@ static void func_fe6_08013DE8(u8 const* src, u8* dst, int width)
 
     for (i = width; i != 0; i--)
     {
-        func_fe6_08013E10(src, (u32*) dst, width);
+        func_fe6_08013E10(src, (u32 *) dst, width);
 
         src += 8;
         dst += CHR_SIZE;
     }
 }
 
-static void func_fe6_08013E10(u8 const* src, u32* dst, int width)
+static void func_fe6_08013E10(u8 const * src, u32 * dst, int width)
 {
     int i;
 
@@ -386,7 +386,7 @@ static void func_fe6_08013E10(u8 const* src, u32* dst, int width)
     }
 }
 
-void PutIncrTileref(u16* tm, int tileref, int width, int height)
+void PutIncrTileref(u16 * tm, int tileref, int width, int height)
 {
     int ix, iy;
 
@@ -395,7 +395,7 @@ void PutIncrTileref(u16* tm, int tileref, int width, int height)
             tm[TM_OFFSET(ix, iy)] = tileref++;
 }
 
-void func_fe6_08013E8C(u16* tm, u8 const* src, int tileref, int len)
+void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len)
 {
     int i;
 
@@ -415,23 +415,23 @@ struct Unk_08013EBC
     /* 4C */ u16 unk_4C;
 };
 
-void func_fe6_08013EBC(struct Unk_08013EBC* unk, int value)
+void func_fe6_08013EBC(struct Unk_08013EBC * unk, int value)
 {
     unk->unk_4C = value;
 }
 
-void func_fe6_08013EC4(struct Unk_08013EBC* unk)
+void func_fe6_08013EC4(struct Unk_08013EBC * unk)
 {
     unk->unk_4C++;
     unk->unk_4C &= 0x7FFF;
 }
 
-void func_fe6_08013ED8(struct Unk_08013EBC* unk)
+void func_fe6_08013ED8(struct Unk_08013EBC * unk)
 {
     unk->unk_4C--;
 }
 
-void func_fe6_08013EE4(short* array)
+void func_fe6_08013EE4(i16 * array)
 {
     int i;
 
@@ -442,7 +442,7 @@ void func_fe6_08013EE4(short* array)
     }
 }
 
-void func_fe6_08013F04(short* array, int xA, int yA, int xB, int yB)
+void func_fe6_08013F04(i16 * array, int xA, int yA, int xB, int yB)
 {
     int q16_slope, q16_x, i;
 
@@ -490,9 +490,9 @@ struct Unk
     short a, b;
 };
 
-struct Unk* func_fe6_08013F7C(int arg_0)
+struct Unk * func_fe6_08013F7C(int arg_0)
 {
-    #define BUF ((struct Unk*) gBuf)
+    #define BUF ((struct Unk *) gBuf)
 
     int r2;
     int sb;
@@ -557,7 +557,7 @@ struct Unk* func_fe6_08013F7C(int arg_0)
 
 void DarkenPals(int reduction)
 {
-    u16* buf = (u16*) gBuf;
+    u16 * buf = (u16 *) gBuf;
 
     int i;
 
@@ -584,26 +584,26 @@ void DarkenPals(int reduction)
     }
 
     DisablePalSync();
-    RegisterDataMove(buf, (u16*) PLTT, sizeof(gPal));
+    RegisterDataMove(buf, (u16 *) PLTT, sizeof(gPal));
 }
 
 void func_fe6_0801412C(void)
 {
 }
 
-void func_fe6_08014130(char const* arg_0)
+void func_fe6_08014130(char const * arg_0)
 {
     char unk[] = "@@LWFOVDBK@@";
     func_fe6_08014130(unk);
 }
 
-static void SpacialSeTest_OnInit(struct GenericProc* proc)
+static void SpacialSeTest_OnInit(struct GenericProc * proc)
 {
     proc->unk64 = 0;
     proc->unk66 = 90;
 }
 
-static void SpacialSeTest_OnLoop(struct GenericProc* proc)
+static void SpacialSeTest_OnLoop(struct GenericProc * proc)
 {
     int location = 0;
 
@@ -654,10 +654,10 @@ static struct PalFadeSt EWRAM_DATA sPalFadeSt[0x20] = {};
 struct PalFadeProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct PalFadeSt* st;
+    /* 2C */ struct PalFadeSt * st;
 };
 
-static void PalFade_OnLoop(struct PalFadeProc* proc);
+static void PalFade_OnLoop(struct PalFadeProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PalFade[] =
 {
@@ -667,11 +667,11 @@ struct ProcScr CONST_DATA ProcScr_PalFade[] =
     PROC_END,
 };
 
-struct PalFadeSt* StartPalFade(u16 const* colors, int pal, int duration, ProcPtr parent)
+struct PalFadeSt * StartPalFade(u16 const * colors, int pal, int duration, ProcPtr parent)
 {
-    struct PalFadeSt* st = sPalFadeSt + pal;
+    struct PalFadeSt * st = sPalFadeSt + pal;
 
-    struct PalFadeProc* proc = SpawnProc(ProcScr_PalFade, parent);
+    struct PalFadeProc * proc = SpawnProc(ProcScr_PalFade, parent);
 
     CpuCopy16(gPal + pal * 0x10, st->fromColors, sizeof(st->fromColors));
 
@@ -691,19 +691,19 @@ void EndPalFade(void)
     Proc_EndEach(ProcScr_PalFade);
 }
 
-void SetPalFadeStop(struct PalFadeSt* st, int val)
+void SetPalFadeStop(struct PalFadeSt * st, int val)
 {
     st->clockStop = val;
 }
 
-static void PalFade_OnLoop(struct PalFadeProc* proc)
+static void PalFade_OnLoop(struct PalFadeProc * proc)
 {
     int i;
 
-    u16 const* fromColors = proc->st->fromColors;
-    u16 const* toColors = proc->st->toColors;
+    u16 const * fromColors = proc->st->fromColors;
+    u16 const * toColors = proc->st->toColors;
 
-    u16* pal = proc->st->pal;
+    u16 * pal = proc->st->pal;
 
     if (proc->st->clock == proc->st->clockStop || proc->st->clock > proc->st->clockEnd)
     {
@@ -758,7 +758,7 @@ void SetAllWhitePals(void)
         SetBlackPal(i);
 }
 
-static void FadeToBlack_OnInit(struct GenericProc* proc)
+static void FadeToBlack_OnInit(struct GenericProc * proc)
 {
     gDispIo.win_ct.win0_enable_blend = 1;
     gDispIo.win_ct.win1_enable_blend = 1;
@@ -774,7 +774,7 @@ static void FadeToBlack_OnInit(struct GenericProc* proc)
     proc->unk66 = 0;
 }
 
-static void FadeToCommon_OnLoop(struct GenericProc* proc)
+static void FadeToCommon_OnLoop(struct GenericProc * proc)
 {
     if (gDispIo.blend_y == 0x10)
     {
@@ -790,7 +790,7 @@ static void FadeToCommon_OnLoop(struct GenericProc* proc)
     gDispIo.blend_y = proc->unk66 >> 4;
 }
 
-static void FadeFromBlack_OnInit(struct GenericProc* proc)
+static void FadeFromBlack_OnInit(struct GenericProc * proc)
 {
     gDispIo.win_ct.win0_enable_blend = 1;
     gDispIo.win_ct.win1_enable_blend = 1;
@@ -807,7 +807,7 @@ static void FadeFromBlack_OnInit(struct GenericProc* proc)
     proc->unk66 = 0x100;
 }
 
-static void FadeFromCommon_OnLoop(struct GenericProc* proc)
+static void FadeFromCommon_OnLoop(struct GenericProc * proc)
 {
     if (gDispIo.blend_y == 0)
     {
@@ -823,13 +823,13 @@ static void FadeFromCommon_OnLoop(struct GenericProc* proc)
     gDispIo.blend_y = proc->unk66 >> 4;
 }
 
-static void FadeToWhite_OnInit(struct GenericProc* proc)
+static void FadeToWhite_OnInit(struct GenericProc * proc)
 {
     FadeToBlack_OnInit(proc);
     SetBlendBrighten(0);
 }
 
-static void FadeFromWhite_OnInit(struct GenericProc* proc)
+static void FadeFromWhite_OnInit(struct GenericProc * proc)
 {
     FadeFromBlack_OnInit(proc);
     SetBlendBrighten(0x10);
@@ -886,37 +886,37 @@ bool FadeExists(void)
 
 void StartFadeToBlack(int q4_speed)
 {
-    struct GenericProc* proc = SpawnProc(ProcScr_FadeToBlack, PROC_TREE_3);
+    struct GenericProc * proc = SpawnProc(ProcScr_FadeToBlack, PROC_TREE_3);
     proc->unk64 = q4_speed;
 }
 
 void StartFadeFromBlack(int q4_speed)
 {
-    struct GenericProc* proc = SpawnProc(ProcScr_FadeFromBlack, PROC_TREE_3);
+    struct GenericProc * proc = SpawnProc(ProcScr_FadeFromBlack, PROC_TREE_3);
     proc->unk64 = q4_speed;
 }
 
 void StartLockingFadeToBlack(int q4_speed, ProcPtr parent)
 {
-    struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeToBlack, parent);
+    struct GenericProc * proc = SpawnProcLocking(ProcScr_FadeToBlack, parent);
     proc->unk64 = q4_speed;
 }
 
 void StartLockingFadeFromBlack(int q4_speed, ProcPtr parent)
 {
-    struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeFromBlack, parent);
+    struct GenericProc * proc = SpawnProcLocking(ProcScr_FadeFromBlack, parent);
     proc->unk64 = q4_speed;
 }
 
 void StartLockingFadeToWhite(int q4_speed, ProcPtr parent)
 {
-    struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeToWhite, parent);
+    struct GenericProc * proc = SpawnProcLocking(ProcScr_FadeToWhite, parent);
     proc->unk64 = q4_speed;
 }
 
 void StartLockingFadeFromWhite(int q4_speed, ProcPtr parent)
 {
-    struct GenericProc* proc = SpawnProcLocking(ProcScr_FadeFromWhite, parent);
+    struct GenericProc * proc = SpawnProcLocking(ProcScr_FadeFromWhite, parent);
     proc->unk64 = q4_speed;
 }
 
@@ -1145,9 +1145,9 @@ struct FadeUnkProc
     /* 5C */ int unk_5C;
 };
 
-void func_fe6_08014A38(struct FadeUnkProc* proc);
-i8 func_fe6_08014A68(struct FadeUnkProc* proc);
-void func_fe6_08014A44(struct FadeUnkProc* proc);
+void func_fe6_08014A38(struct FadeUnkProc * proc);
+i8 func_fe6_08014A68(struct FadeUnkProc * proc);
+void func_fe6_08014A44(struct FadeUnkProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
 {
@@ -1164,8 +1164,8 @@ struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
 
 struct LutItem_80149E0
 {
-    ProcPtr(*spawnProc)(struct ProcScr const*, ProcPtr);
-    void(*unk_04)(i8);
+    ProcPtr (* spawnProc)(struct ProcScr const *, ProcPtr);
+    void (* unk_04)(i8);
     int unit;
 };
 
@@ -1188,7 +1188,7 @@ void func_fe6_080149E0(int kind, int speed, ProcPtr parent, Func endFunc)
 {
 #if NONMATCHING
 
-    struct FadeUnkProc* proc = sLut_80149E0[kind].spawnProc(ProcScr_FadeUnk, parent);
+    struct FadeUnkProc * proc = sLut_80149E0[kind].spawnProc(ProcScr_FadeUnk, parent);
 
     proc->unk_54 = speed;
     proc->on_end = endFunc;
@@ -1247,14 +1247,14 @@ void func_fe6_08014A28(void)
     Proc_EndEach(ProcScr_FadeUnk);
 }
 
-void func_fe6_08014A38(struct FadeUnkProc* proc)
+void func_fe6_08014A38(struct FadeUnkProc * proc)
 {
     proc->unk_58 = 0;
     proc->unk_5C = 0;
     proc->on_end = 0;
 }
 
-void func_fe6_08014A44(struct FadeUnkProc* proc)
+void func_fe6_08014A44(struct FadeUnkProc * proc)
 {
     if (!func_fe6_08014A68(proc))
     {
@@ -1265,7 +1265,7 @@ void func_fe6_08014A44(struct FadeUnkProc* proc)
     }
 }
 
-bool func_fe6_08014A68(struct FadeUnkProc* proc)
+bool func_fe6_08014A68(struct FadeUnkProc * proc)
 {
     proc->unk_58 += proc->unk_54;
     proc->unk_5C += proc->unk_54;
@@ -1305,7 +1305,7 @@ void func_fe6_08014ACC(int a, int b)
 
 void func_fe6_08014ADC(void)
 {
-    struct FadeUnkProc* proc = Proc_Find(ProcScr_FadeUnk);
+    struct FadeUnkProc * proc = Proc_Find(ProcScr_FadeUnk);
 
     if (proc)
         proc->on_end = NULL;
@@ -1332,7 +1332,7 @@ void func_fe6_08014B68(void)
     SetBlendBackdropA(1);
 }
 
-static void TemporaryLock_OnLoop(struct GenericProc* proc);
+static void TemporaryLock_OnLoop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_TemporaryLock[] =
 {
@@ -1344,13 +1344,13 @@ struct ProcScr CONST_DATA ProcScr_TemporaryLock[] =
 
 void StartTemporaryLock(ProcPtr proc, int duration)
 {
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
     gproc = SpawnProcLocking(ProcScr_TemporaryLock, proc);
     gproc->unk58 = duration;
 }
 
-static void TemporaryLock_OnLoop(struct GenericProc* proc)
+static void TemporaryLock_OnLoop(struct GenericProc * proc)
 {
     if (proc->unk58 == 0)
     {
@@ -1364,7 +1364,7 @@ static void TemporaryLock_OnLoop(struct GenericProc* proc)
 static char CONST_DATA sStrZero[] = JTEXT("０");
 static char CONST_DATA sStrDash[] = JTEXT("ー");
 
-int NumberToString(int number, char* buf)
+int NumberToString(int number, char * buf)
 {
     int numOff, numStart;
 
@@ -1418,9 +1418,9 @@ int NumberToString(int number, char* buf)
 
 static struct Text sText_03000420;
 
-struct Text* PutStringCentered(u16* tm, int color, int width, char const* str)
+struct Text * PutStringCentered(u16 * tm, int color, int width, char const * str)
 {
-    struct Text* const text = &sText_03000420;
+    struct Text * const text = &sText_03000420;
 
     InitText(text, width);
 
@@ -1435,9 +1435,9 @@ struct Text* PutStringCentered(u16* tm, int color, int width, char const* str)
     return text;
 }
 
-struct Text* PutString(u16* tm, int color, char const* str)
+struct Text * PutString(u16 * tm, int color, char const * str)
 {
-    struct Text* const text = &sText_03000420;
+    struct Text * const text = &sText_03000420;
 
     InitText(text, (GetStringTextLen(str)+7) / 8);
 
@@ -1453,7 +1453,7 @@ struct UnkProc_085C4E64
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ u16 const* colors;
+    /* 2C */ u16 const * colors;
     /* 30 */ u16 palOffset;
     /* 32 */ u16 colorCount;
     /* 34 */ u16 clockEnd;
@@ -1462,7 +1462,7 @@ struct UnkProc_085C4E64
     /* 3A */ u16 reverseOrder;
 };
 
-void func_fe6_08014DCC(struct UnkProc_085C4E64* proc);
+void func_fe6_08014DCC(struct UnkProc_085C4E64 * proc);
 
 struct ProcScr CONST_DATA ProcScr_085C4E64[] =
 {
@@ -1474,9 +1474,9 @@ void func_fe6_08014D50(void)
     Proc_EndEach(ProcScr_085C4E64);
 }
 
-struct UnkProc_085C4E64* func_fe6_08014D60(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+struct UnkProc_085C4E64 * func_fe6_08014D60(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
-    struct UnkProc_085C4E64* proc;
+    struct UnkProc_085C4E64 * proc;
 
     proc = SpawnProc(ProcScr_085C4E64, parent);
 
@@ -1491,17 +1491,17 @@ struct UnkProc_085C4E64* func_fe6_08014D60(u16 const* colors, int palOffset, int
     return proc;
 }
 
-void func_fe6_08014D9C(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014D9C(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
     func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 0;
 }
 
-void func_fe6_08014DB4(u16 const* colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014DB4(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
 {
     func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 1;
 }
 
-void func_fe6_08014DCC(struct UnkProc_085C4E64* proc)
+void func_fe6_08014DCC(struct UnkProc_085C4E64 * proc)
 {
     int colornum;
 
@@ -1525,7 +1525,7 @@ void func_fe6_08014DCC(struct UnkProc_085C4E64* proc)
     proc->counter++;
 }
 
-void func_fe6_08014E30(u16* tm, int x, int y, u16 tileref, int width, int height)
+void func_fe6_08014E30(u16 * tm, int x, int y, u16 tileref, int width, int height)
 {
     int ix, iy;
 
@@ -1541,7 +1541,7 @@ void func_fe6_08014E30(u16* tm, int x, int y, u16 tileref, int width, int height
 
 #if NONMATCHING
 
-void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
+void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
 {
     int ix, iy;
 
@@ -1576,7 +1576,7 @@ void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height
 #else
 
 NAKEDFUNC
-void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, bool hflip)
+void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
 {
     asm("\
         .syntax unified\n\
@@ -1706,7 +1706,7 @@ void func_fe6_08014E98(u16* tm, int x, int y, u16 tileref, int width, int height
 
 #if NONMATCHING
 
-void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     int ix, iy;
 
@@ -1732,7 +1732,7 @@ void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height
 #else
 
 NAKEDFUNC
-void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     asm("\
         .syntax unified\n\
@@ -1832,12 +1832,12 @@ void func_fe6_08014F70(u16* tm, int x, int y, u16 tileref, int width, int height
 
 #if NONMATCHING
 
-void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     int ix, iy;
     int r9;
 
-    u16 const* srcb;
+    u16 const * srcb;
 
     int a, b;
 
@@ -1867,7 +1867,7 @@ void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height
 #else
 
 NAKEDFUNC
-void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height, u16 const* src, int arg_7)
+void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     asm("\
         .syntax unified\n\
@@ -1978,9 +1978,9 @@ void func_fe6_0801501C(u16* tm, int x, int y, u16 tileref, int width, int height
 
 #if NONMATCHING
 
-void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
+void func_fe6_080150DC(u16 * tm, int x, int y, u16 const * arg_3, u16 arg_4)
 {
-    u16 const* r2 = arg_3 + 1;
+    u16 const * r2 = arg_3 + 1;
 
     int r9 = ((*(int*) arg_3) & 0x00FF);
     int r3 = ((*(int*) arg_3) & 0xFF00) >> 8;
@@ -1989,7 +1989,7 @@ void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 
     for (i = r3; i >= 0; --i)
     {
-        u16* r1;
+        u16 * r1;
 
         if (!(y+i >= 0 && y+i < 0x20))
             continue;
@@ -2007,7 +2007,7 @@ void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
 #else
 
 NAKEDFUNC
-void func_fe6_080150DC(u16* tm, int x, int y, u16 const* arg_3, u16 arg_4)
+void func_fe6_080150DC(u16 * tm, int x, int y, u16 const * arg_3, u16 arg_4)
 {
     asm("\
         .syntax unified\n\
@@ -2089,31 +2089,31 @@ struct CallDelayedProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ void(*func)();
+    /* 2C */ void (* func)();
     /* 30 */ int arg;
     /* 34 */ int clock;
 };
 
-static void CallDelayed_OnLoop(struct CallDelayedProc* proc)
+static void CallDelayed_OnLoop(struct CallDelayedProc * proc)
 {
     proc->clock--;
 
     if (proc->clock == -1)
     {
-        void(*func)(void) = (void(*)(void)) proc->func;
+        void (* func)(void) = (void(*)(void)) proc->func;
 
         func();
         Proc_Break(proc);
     }
 }
 
-static void CallDelayedArg_OnLoop(struct CallDelayedProc* proc)
+static void CallDelayedArg_OnLoop(struct CallDelayedProc * proc)
 {
     proc->clock--;
 
     if (proc->clock == -1)
     {
-        void(*func)(int) = (void(*)(int)) proc->func;
+        void (* func)(int) = (void(*)(int)) proc->func;
 
         func(proc->arg);
         Proc_Break(proc);
@@ -2132,24 +2132,24 @@ struct ProcScr CONST_DATA ProcScr_CallDelayedArg[] =
     PROC_END,
 };
 
-void CallDelayed(void(*func)(void), int delay)
+void CallDelayed(void (* func)(void), int delay)
 {
-    struct CallDelayedProc* proc = SpawnProc(ProcScr_CallDelayed, PROC_TREE_3);
+    struct CallDelayedProc * proc = SpawnProc(ProcScr_CallDelayed, PROC_TREE_3);
 
     proc->func = func;
     proc->clock = delay;
 }
 
-void CallDelayedArg(void(*func)(int), int arg, int delay)
+void CallDelayedArg(void (* func)(int), int arg, int delay)
 {
-    struct CallDelayedProc* proc = SpawnProc(ProcScr_CallDelayedArg, PROC_TREE_3);
+    struct CallDelayedProc * proc = SpawnProc(ProcScr_CallDelayedArg, PROC_TREE_3);
 
     proc->func = func;
     proc->arg = arg;
     proc->clock = delay;
 }
 
-void func_fe6_080151E4(u8* out, int size)
+void func_fe6_080151E4(u8 * out, int size)
 {
     while (size > 0)
     {
@@ -2158,7 +2158,7 @@ void func_fe6_080151E4(u8* out, int size)
     }
 }
 
-void func_fe6_080151F8(u8* out, int size, int value)
+void func_fe6_080151F8(u8 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -2167,7 +2167,7 @@ void func_fe6_080151F8(u8* out, int size, int value)
     }
 }
 
-void func_fe6_08015208(u16* out, int size, int value)
+void func_fe6_08015208(u16 * out, int size, int value)
 {
     while (size > 0)
     {
@@ -2203,7 +2203,7 @@ u16 CONST_DATA Pal_085C4F2C[] = { RGB_16TIMES(30, 31, 1)  };
 
 #undef RGB_16TIMES
 
-static void PartialGameLock_OnLoop(struct GenericProc* proc);
+static void PartialGameLock_OnLoop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PartialGameLock[] =
 {
@@ -2213,19 +2213,19 @@ struct ProcScr CONST_DATA ProcScr_PartialGameLock[] =
 
 void StartPartialGameLock(ProcPtr proc)
 {
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
     gproc = SpawnProcLocking(ProcScr_PartialGameLock, proc);
     gproc->unk64 = GetGameLock();
 }
 
-static void PartialGameLock_OnLoop(struct GenericProc* proc)
+static void PartialGameLock_OnLoop(struct GenericProc * proc)
 {
     if (GetGameLock() == proc->unk64)
         Proc_Break(proc);
 }
 
-void func_fe6_08015260(u8 const* src, u8* dst, int size)
+void func_fe6_08015260(u8 const * src, u8 * dst, int size)
 {
     if ((size & 0x1F) != 0)
         CpuCopy16(src, dst, size);
@@ -2233,7 +2233,7 @@ void func_fe6_08015260(u8 const* src, u8* dst, int size)
         CpuFastCopy(src, dst, size);
 }
 
-void func_fe6_08015298(u8 const* src, u8* dst, int width, int height)
+void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height)
 {
     int i, lineSize = width * CHR_SIZE;
 
@@ -2246,7 +2246,7 @@ void func_fe6_08015298(u8 const* src, u8* dst, int width, int height)
     }
 }
 
-void func_fe6_080152C4(u16 const* src, u16* dst, int size, u16 tileref)
+void func_fe6_080152C4(u16 const * src, u16 * dst, int size, u16 tileref)
 {
     while (size > 0)
     {
@@ -2255,7 +2255,7 @@ void func_fe6_080152C4(u16 const* src, u16* dst, int size, u16 tileref)
     }
 }
 
-u16* GetTmOffsetById(int bgid, int x, int y)
+u16 * GetTmOffsetById(int bgid, int x, int y)
 {
     switch (bgid)
     {
@@ -2281,16 +2281,16 @@ u16* GetTmOffsetById(int bgid, int x, int y)
 void func_fe6_08015344(void)
 {
     if (gDispIo.bg0_ct.color_depth == BG_COLORDEPTH_4BPP)
-        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(0)), 0x10, 0);
+        func_fe6_08015208((u16 *) (VRAM + GetBgChrOffset(0)), 0x10, 0);
 
     if (gDispIo.bg1_ct.color_depth == BG_COLORDEPTH_4BPP)
-        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(1)), 0x10, 0);
+        func_fe6_08015208((u16 *) (VRAM + GetBgChrOffset(1)), 0x10, 0);
 
     if (gDispIo.bg2_ct.color_depth == BG_COLORDEPTH_4BPP)
-        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(2)), 0x10, 0);
+        func_fe6_08015208((u16 *) (VRAM + GetBgChrOffset(2)), 0x10, 0);
 
     if (gDispIo.bg3_ct.color_depth == BG_COLORDEPTH_4BPP)
-        func_fe6_08015208((u16*) (VRAM + GetBgChrOffset(3)), 0x10, 0);
+        func_fe6_08015208((u16 *) (VRAM + GetBgChrOffset(3)), 0x10, 0);
 }
 
 int Screen2Pan(int x)
@@ -2306,7 +2306,7 @@ int Screen2Pan(int x)
 
 void PlaySeSpacial(int song, int x)
 {
-    struct MusicPlayerInfo* mpi;
+    struct MusicPlayerInfo * mpi;
 
     PlaySe(song);
 
@@ -2342,7 +2342,7 @@ void func_fe6_080154AC(int palid)
 {
     int i;
 
-    u16* pal = gPal + palid * 0x10;
+    u16 * pal = gPal + palid * 0x10;
 
     for (i = 0; i < 0x10; ++i)
     {
@@ -2354,7 +2354,7 @@ void func_fe6_080154AC(int palid)
     }
 }
 
-void func_fe6_08015504(u8 const* src, u8* dst, int size)
+void func_fe6_08015504(u8 const * src, u8 * dst, int size)
 {
     while (size != 0)
     {
@@ -2367,7 +2367,7 @@ void func_fe6_08015504(u8 const* src, u8* dst, int size)
     }
 }
 
-void PutDrawTextCentered(struct Text* text, int x, int y, char const* str, int width)
+void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width)
 {
     int off;
 
@@ -2380,14 +2380,14 @@ void PutDrawTextCentered(struct Text* text, int x, int y, char const* str, int w
     PutText(text, gBg0Tm + TM_OFFSET(x, y));
 }
 
-void VecMulMat(int const* vec, int const* mat, int* ovec)
+void VecMulMat(int const * vec, int const * mat, int* ovec)
 {
     ovec[0] = ((vec[0] * mat[0]) + (vec[1] * mat[3]) + (vec[2] * mat[6])) >> 12;
     ovec[1] = ((vec[0] * mat[1]) + (vec[1] * mat[4]) + (vec[2] * mat[7])) >> 12;
     ovec[2] = ((vec[0] * mat[2]) + (vec[1] * mat[5]) + (vec[2] * mat[8])) >> 12;
 }
 
-void MatMulMat(int const* lmat, int const* rmat, int* omat)
+void MatMulMat(int const * lmat, int const * rmat, int* omat)
 {
     int tmpmat[12];
     int* mat;
@@ -2436,7 +2436,7 @@ void MatIdent(int* mat)
     mat[11] = 0;
 }
 
-void MatCopy(int const* src, int* dst)
+void MatCopy(int const * src, int* dst)
 {
     dst[0] = src[0];
     dst[1] = src[1];
@@ -2513,12 +2513,12 @@ void func_fe6_08015858(void)
 {
 }
 
-int VecDotVec(int const* lvec, int const* rvec)
+int VecDotVec(int const * lvec, int const * rvec)
 {
     return ((lvec[0] * rvec[0]) + (lvec[1] * rvec[1]) + (lvec[2] * rvec[2])) >> 12;
 }
 
-void VecCrossVec(int const* lvec, int const* rvec, int* ovec)
+void VecCrossVec(int const * lvec, int const * rvec, int* ovec)
 {
     ovec[0] = (lvec[1] * rvec[2] - lvec[2] * rvec[1]) >> 12;
     ovec[1] = (lvec[2] * rvec[0] - lvec[0] * rvec[2]) >> 12;

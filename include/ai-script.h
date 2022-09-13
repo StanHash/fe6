@@ -45,23 +45,23 @@ struct AiScr
     /* 02 */ u8 unk_02;
     /* 03 */ u8 unk_03;
     /* 04 */ u32 unk_04;
-    /* 08 */ void const* unk_08;
-    /* 0C */ void const* unk_0C;
+    /* 08 */ void const * unk_08;
+    /* 0C */ void const * unk_0C;
 };
 
-typedef bool(*AiScrFunc)(void const* arg);
+typedef bool (* AiScrFunc)(void const * arg);
 
 bool AiTryExecScriptA(void);
 bool AiExecFallbackScriptA(void);
 bool AiTryExecScriptB(void);
 bool AiExecFallbackScriptB(void);
 
-bool AiIsUnitEnemy(struct Unit* unit);
-bool AiIsUnitNonActive(struct Unit* unit);
-bool AiIsUnitEnemyAndNotInScrList(struct Unit* unit);
-bool AiIsUnitEnemyOrInScrList(struct Unit* unit);
-bool AiIsUnitEnemyAndScrPid(struct Unit* unit);
-bool AiIsUnitEnemyAndScrJid(struct Unit* unit);
+bool AiIsUnitEnemy(struct Unit * unit);
+bool AiIsUnitNonActive(struct Unit * unit);
+bool AiIsUnitEnemyAndNotInScrList(struct Unit * unit);
+bool AiIsUnitEnemyOrInScrList(struct Unit * unit);
+bool AiIsUnitEnemyAndScrPid(struct Unit * unit);
+bool AiIsUnitEnemyAndScrJid(struct Unit * unit);
 
 void AiDoBerserkAction(void);
 void AiDoBerserkMove(void);

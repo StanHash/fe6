@@ -46,8 +46,8 @@ struct RescueTransferAnimProc
     /* 00 */ PROC_HEADER;
 
     /* 2C */ int facing;
-    /* 30 */ struct Unit* unit;
-    /* 34 */ struct MuProc* mu;
+    /* 30 */ struct Unit * unit;
+    /* 34 */ struct MuProc * mu;
     /* 38 */ u8 movescr[4];
     /* 3C */ bool unk_3C;
 };
@@ -56,7 +56,7 @@ struct EquipInfoWindowProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Unit* unit;
+    /* 2C */ struct Unit * unit;
     /* 30 */ u8 x;
     /* 31 */ u8 y;
     /* 32 */ u8 iconPalid;
@@ -68,7 +68,7 @@ struct UnkProc2
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Unit* unit;
+    /* 2C */ struct Unit * unit;
     /* 30 */ short unk_30;
     /* 32 */ short unk_32;
     /* 34 */ short unk_34;
@@ -89,7 +89,7 @@ struct ShowMapChangeProc
     /* 34 */ int sndx;
 };
 
-static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc* proc);
+static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_RescueTransferAnim[] =
 {
@@ -111,9 +111,9 @@ struct ProcScr CONST_DATA ProcScr_RescueTransferAnimParentless[] =
     PROC_END,
 };
 
-static void MapFade_Init(struct GenericProc* proc);
-static void MapFade_Loop(struct GenericProc* proc);
-static void MapFade_End(struct GenericProc* proc);
+static void MapFade_Init(struct GenericProc * proc);
+static void MapFade_Loop(struct GenericProc * proc);
+static void MapFade_End(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_MapFade[] =
 {
@@ -170,7 +170,7 @@ PROC_LABEL(99),
     PROC_END,
 };
 
-static void EquipInfoWindow_Loop(struct EquipInfoWindowProc* proc);
+static void EquipInfoWindow_Loop(struct EquipInfoWindowProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_EquipInfoWindow[] =
 {
@@ -181,9 +181,9 @@ struct ProcScr CONST_DATA ProcScr_EquipInfoWindow[] =
     PROC_END,
 };
 
-static void func_fe6_0801CD60(struct UnkProc2* proc);
-static void func_fe6_0801CDE4(struct UnkProc2* proc);
-static void func_fe6_0801CEE0(struct UnkProc2* proc);
+static void func_fe6_0801CD60(struct UnkProc2 * proc);
+static void func_fe6_0801CDE4(struct UnkProc2 * proc);
+static void func_fe6_0801CEE0(struct UnkProc2 * proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_085C59F8[] =
 {
@@ -197,11 +197,11 @@ struct ProcScr CONST_DATA ProcScr_Unk_085C59F8[] =
     PROC_END,
 };
 
-static void PhaseIntroText_Init(struct GenericProc* proc);
-static void PhaseIntroText_PutText(struct GenericProc* proc);
-static void PhaseIntroText_InLoop(struct GenericProc* proc);
-static void PhaseIntroText_OutLoop(struct GenericProc* proc);
-static void PhaseIntroText_Clear(struct GenericProc* proc);
+static void PhaseIntroText_Init(struct GenericProc * proc);
+static void PhaseIntroText_PutText(struct GenericProc * proc);
+static void PhaseIntroText_InLoop(struct GenericProc * proc);
+static void PhaseIntroText_OutLoop(struct GenericProc * proc);
+static void PhaseIntroText_Clear(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PhaseIntroText[] =
 {
@@ -220,9 +220,9 @@ struct ProcScr CONST_DATA ProcScr_PhaseIntroText[] =
     PROC_END,
 };
 
-static void PhaseIntroSquares_Init(struct GenericProc* proc);
-static void PhaseIntroSquares_InLoop(struct GenericProc* proc);
-static void PhaseIntroSquares_OutLoop(struct GenericProc* proc);
+static void PhaseIntroSquares_Init(struct GenericProc * proc);
+static void PhaseIntroSquares_InLoop(struct GenericProc * proc);
+static void PhaseIntroSquares_OutLoop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PhaseIntroSquares[] =
 {
@@ -233,9 +233,9 @@ struct ProcScr CONST_DATA ProcScr_PhaseIntroSquares[] =
     PROC_END,
 };
 
-static void PhaseIntroBlendBox_Init(struct GenericProc* proc);
-static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc);
-static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc);
+static void PhaseIntroBlendBox_Init(struct GenericProc * proc);
+static void PhaseIntroBlendBox_InLoop(struct GenericProc * proc);
+static void PhaseIntroBlendBox_OutLoop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PhaseIntroBlendBox[] =
 {
@@ -269,7 +269,7 @@ struct ProcScr CONST_DATA ProcScr_PhaseIntro[] =
     PROC_END,
 };
 
-static void GasTrapSpriteAnim_Init(struct GenericProc* proc);
+static void GasTrapSpriteAnim_Init(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_GasTrapAnim[] =
 {
@@ -281,7 +281,7 @@ struct ProcScr CONST_DATA ProcScr_GasTrapAnim[] =
     PROC_END,
 };
 
-static void FireTrapSpriteAnim_Init(struct GenericProc* proc);
+static void FireTrapSpriteAnim_Init(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_FireTrapAnim[] =
 {
@@ -293,7 +293,7 @@ struct ProcScr CONST_DATA ProcScr_FireTrapAnim[] =
     PROC_END,
 };
 
-static void ArrowTrapSpriteAnim_Init(struct GenericProc* proc);
+static void ArrowTrapSpriteAnim_Init(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_ArrowTrapAnim[] =
 {
@@ -307,8 +307,8 @@ struct ProcScr CONST_DATA ProcScr_ArrowTrapAnim[] =
     PROC_END,
 };
 
-static void func_fe6_0801D8B8(struct ShowMapChangeProc* proc);
-static void func_fe6_0801D8E4(struct ShowMapChangeProc* proc);
+static void func_fe6_0801D8B8(struct ShowMapChangeProc * proc);
+static void func_fe6_0801D8E4(struct ShowMapChangeProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
 {
@@ -323,7 +323,7 @@ struct ProcScr CONST_DATA ProcScr_MapChange_085C5B50[] =
     PROC_END,
 };
 
-static void PikeTrapSpriteAnim_Init(struct GenericProc* proc);
+static void PikeTrapSpriteAnim_Init(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
 {
@@ -335,8 +335,8 @@ struct ProcScr CONST_DATA ProcScr_PikeTrapAnim[] =
     PROC_END,
 };
 
-static void func_fe6_0801DA1C(struct GenericProc* proc);
-static void func_fe6_0801DA24(struct GenericProc* proc);
+static void func_fe6_0801DA1C(struct GenericProc * proc);
+static void func_fe6_0801DA24(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_085C5BA0[] =
 {
@@ -356,8 +356,8 @@ struct ProcScr CONST_DATA ProcScr_ChapterIntro_Bg3Scroll[] =
     PROC_END,
 };
 
-static void ChapterIntro_KeyListen_Init(struct GenericProc* proc);
-static void ChapterIntro_KeyListen_Loop(struct GenericProc* proc);
+static void ChapterIntro_KeyListen_Init(struct GenericProc * proc);
+static void ChapterIntro_KeyListen_Loop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_ChapterIntro_KeyListen[] =
 {
@@ -367,32 +367,32 @@ struct ProcScr CONST_DATA ProcScr_ChapterIntro_KeyListen[] =
     PROC_END,
 };
 
-static void ChapterIntro_Init(struct GenericProc* proc);
-static void ChapterIntro_BeginFadeIn(struct GenericProc* proc);
-static void ChapterIntro_LoopFadeIn(struct GenericProc* proc);
-static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc);
-static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc);
-static void ChapterIntro_BeginHOpenText(struct GenericProc* proc);
-static void ChapterIntro_LoopHOpenText(struct GenericProc* proc);
-static void ChapterIntro_BeginVOpenText(struct GenericProc* proc);
-static void ChapterIntro_LoopVOpenText(struct GenericProc* proc);
-static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc);
-static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc);
-static void ChapterIntro_Begin_0801E220(struct GenericProc* proc);
-static void ChapterIntro_Loop_0801E244(struct GenericProc* proc);
-static void ChapterIntro_0801E2B0(struct GenericProc* proc);
-static void ChapterIntro_InitMapDisplay(struct GenericProc* proc);
-static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc);
-static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc);
-static void ChapterIntro_BeginCloseText(struct GenericProc* proc);
-static void ChapterIntro_LoopCloseText(struct GenericProc* proc);
-static void ChapterIntro_BeginFastCloseText(struct GenericProc* proc);
-static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc);
-static void ChapterIntro_BeginFadeOut(struct GenericProc* proc);
-static void ChapterIntro_LoopFadeOut(struct GenericProc* proc);
-static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc);
-static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc);
-static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc* proc);
+static void ChapterIntro_Init(struct GenericProc * proc);
+static void ChapterIntro_BeginFadeIn(struct GenericProc * proc);
+static void ChapterIntro_LoopFadeIn(struct GenericProc * proc);
+static void ChapterIntro_BeginMotifFadeIn(struct GenericProc * proc);
+static void ChapterIntro_LoopMotifFadeIn(struct GenericProc * proc);
+static void ChapterIntro_BeginHOpenText(struct GenericProc * proc);
+static void ChapterIntro_LoopHOpenText(struct GenericProc * proc);
+static void ChapterIntro_BeginVOpenText(struct GenericProc * proc);
+static void ChapterIntro_LoopVOpenText(struct GenericProc * proc);
+static void ChapterIntro_Begin_0801E1A0(struct GenericProc * proc);
+static void ChapterIntro_Loop_0801E1F8(struct GenericProc * proc);
+static void ChapterIntro_Begin_0801E220(struct GenericProc * proc);
+static void ChapterIntro_Loop_0801E244(struct GenericProc * proc);
+static void ChapterIntro_0801E2B0(struct GenericProc * proc);
+static void ChapterIntro_InitMapDisplay(struct GenericProc * proc);
+static void ChapterIntro_BeginFadeToMap(struct GenericProc * proc);
+static void ChapterIntro_LoopFadeToMap(struct GenericProc * proc);
+static void ChapterIntro_BeginCloseText(struct GenericProc * proc);
+static void ChapterIntro_LoopCloseText(struct GenericProc * proc);
+static void ChapterIntro_BeginFastCloseText(struct GenericProc * proc);
+static void ChapterIntro_LoopFastCloseText(struct GenericProc * proc);
+static void ChapterIntro_BeginFadeOut(struct GenericProc * proc);
+static void ChapterIntro_LoopFadeOut(struct GenericProc * proc);
+static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc);
+static void ChapterIntro_LoopFastFadeToMap(struct GenericProc * proc);
+static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_ChapterIntro[] =
 {
@@ -482,8 +482,8 @@ PROC_LABEL(99),
     PROC_END,
 };
 
-static void GameOverScreen_RandomScroll_Init(struct GenericProc* proc);
-static void GameOverScreen_RandomScroll_Loop(struct GenericProc* proc);
+static void GameOverScreen_RandomScroll_Init(struct GenericProc * proc);
+static void GameOverScreen_RandomScroll_Loop(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_GameOverScreen_RandomScroll[] =
 {
@@ -493,13 +493,13 @@ struct ProcScr CONST_DATA ProcScr_GameOverScreen_RandomScroll[] =
     PROC_END,
 };
 
-static void GameOverScreen_Init(struct GenericProc* proc);
-static void GameOverScreen_LoopFadeIn(struct GenericProc* proc);
-static void GameOverScreen_BeginIdle(struct GenericProc* proc);
-static void GameOverScreen_LoopIdle(struct GenericProc* proc);
-static void GameOverScreen_BeginFadeOut(struct GenericProc* proc);
-static void GameOverScreen_LoopFadeOut(struct GenericProc* proc);
-static void GameOverScreen_End(struct GenericProc* proc);
+static void GameOverScreen_Init(struct GenericProc * proc);
+static void GameOverScreen_LoopFadeIn(struct GenericProc * proc);
+static void GameOverScreen_BeginIdle(struct GenericProc * proc);
+static void GameOverScreen_LoopIdle(struct GenericProc * proc);
+static void GameOverScreen_BeginFadeOut(struct GenericProc * proc);
+static void GameOverScreen_LoopFadeOut(struct GenericProc * proc);
+static void GameOverScreen_End(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_GameOverScreen[] =
 {
@@ -545,7 +545,7 @@ int func_fe6_0801C160(int xa, int ya, int xb, int yb)
     return FACING_LEFT;
 }
 
-static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
+static struct MuProc * StartMuForRescueTransfterAnim(struct Unit * unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_MOUNTED))
         return StartMu(unit);
@@ -556,7 +556,7 @@ static struct MuProc* StartMuForRescueTransfterAnim(struct Unit* unit)
         return StartMuExt(unit->x, unit->y, JID_DISMOUNTED, 12);
 }
 
-static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc* proc)
+static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc * proc)
 {
     if (MuExistsActive())
         return;
@@ -572,9 +572,9 @@ static void RescueTransferSpriteAnim_Loop(struct RescueTransferAnimProc* proc)
     }
 }
 
-void StartRescueTransferAnim(struct Unit* unit, int facing, bool arg_2, ProcPtr parent)
+void StartRescueTransferAnim(struct Unit * unit, int facing, bool arg_2, ProcPtr parent)
 {
-    struct RescueTransferAnimProc* proc;
+    struct RescueTransferAnimProc * proc;
 
     proc = SpawnProcLocking(ProcScr_RescueTransferAnim, parent);
 
@@ -591,9 +591,9 @@ void StartRescueTransferAnim(struct Unit* unit, int facing, bool arg_2, ProcPtr 
     SetMuMoveScript(proc->mu, proc->movescr);
 }
 
-void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
+void StartRescueTransferAnimParentless(struct Unit * unit, int facing)
 {
-    struct RescueTransferAnimProc* proc;
+    struct RescueTransferAnimProc * proc;
 
     proc = SpawnProc(ProcScr_RescueTransferAnimParentless, PROC_TREE_3);
 
@@ -610,7 +610,7 @@ void StartRescueTransferAnimParentless(struct Unit* unit, int facing)
     SetMuMoveScript(proc->mu, proc->movescr);
 }
 
-static void MapFade_Init(struct GenericProc* proc)
+static void MapFade_Init(struct GenericProc * proc)
 {
     proc->unk4C = 0x10;
 
@@ -620,7 +620,7 @@ static void MapFade_Init(struct GenericProc* proc)
     SetBlendTargetB(0, 0, 0, 1, 1);
 }
 
-static void MapFade_Loop(struct GenericProc* proc)
+static void MapFade_Loop(struct GenericProc * proc)
 {
     SetBlendAlpha(proc->unk4C, 0x10 - proc->unk4C);
 
@@ -639,7 +639,7 @@ static void MapFade_Loop(struct GenericProc* proc)
     }
 }
 
-static void MapFade_End(struct GenericProc* proc)
+static void MapFade_End(struct GenericProc * proc)
 {
     func_fe6_0801809C();
 
@@ -649,7 +649,7 @@ static void MapFade_End(struct GenericProc* proc)
 
 void StartMapFade(bool locksGame)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProc(ProcScr_MapFade, PROC_TREE_3);
     proc->unk4E = locksGame;
@@ -665,7 +665,7 @@ bool IsMapFadeActive(void)
 
 static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
 {
-    struct Unit* unit;
+    struct Unit * unit;
 
     if (gPlaySt.turn == 1)
     {
@@ -695,7 +695,7 @@ static void GetAiInitialCursorPosition(int* xOut, int* yOut)
 
     for (i = gPlaySt.faction + 1; i < gPlaySt.faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -748,7 +748,7 @@ static void InitPhaseCursor_Init(ProcPtr proc)
 
 static void func_fe6_0801C510(ProcPtr proc)
 {
-    struct Unit* unit = GetUnit(func_fe6_0806EACC());
+    struct Unit * unit = GetUnit(func_fe6_0806EACC());
 
     if (unit != NULL)
     {
@@ -793,7 +793,7 @@ static int DiscardItem_0801C59C(ProcPtr proc)
     return AddSupplyItem(gBmSt.convoy_item_overflow);
 }
 
-void HandleGiveUnitItem(struct Unit* unit, int item, ProcPtr parent)
+void HandleGiveUnitItem(struct Unit * unit, int item, ProcPtr parent)
 {
     gActiveUnit = unit;
 
@@ -857,7 +857,7 @@ void SetFogVision(int vision)
     StartMapFade(TRUE);
 }
 
-void func_fe6_0801C700(struct Unit* actor, struct Unit* target)
+void func_fe6_0801C700(struct Unit * actor, struct Unit * target)
 {
     int ix, iy;
 
@@ -883,7 +883,7 @@ void func_fe6_0801C700(struct Unit* actor, struct Unit* target)
     gMapMovementSigned[actor->y][actor->x] = -1;
 }
 
-static void EquipInfoWindow_Loop(struct EquipInfoWindowProc* proc)
+static void EquipInfoWindow_Loop(struct EquipInfoWindowProc * proc)
 {
     if (proc->compareWeaponSlot < 0)
         return;
@@ -913,9 +913,9 @@ static void EquipInfoWindow_Loop(struct EquipInfoWindowProc* proc)
         PutSysArrow(99 + 8*proc->x, 8*(proc->y+5), TRUE);
 }
 
-void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y)
+void StartEquipInfoWindow(ProcPtr parent, struct Unit * unit, int x, int y)
 {
-    struct EquipInfoWindowProc* proc;
+    struct EquipInfoWindowProc * proc;
 
     if (Proc_Find(ProcScr_EquipInfoWindow) != NULL)
         return;
@@ -944,7 +944,7 @@ void StartEquipInfoWindow(ProcPtr parent, struct Unit* unit, int x, int y)
 
 void UpdateEquipInfoWindow(int item_slot)
 {
-    struct EquipInfoWindowProc* proc = Proc_Find(ProcScr_EquipInfoWindow);
+    struct EquipInfoWindowProc * proc = Proc_Find(ProcScr_EquipInfoWindow);
 
     int item;
 
@@ -980,7 +980,7 @@ void UpdateEquipInfoWindow(int item_slot)
     {
         // print use description
 
-        char const* str = DecodeMsg(GetItemUseDescMsg(item));
+        char const * str = DecodeMsg(GetItemUseDescMsg(item));
         int line = 0;
 
         while (TRUE)
@@ -1059,7 +1059,7 @@ void EndEquipInfoWindow(void)
     Proc_EndEach(ProcScr_EquipInfoWindow);
 }
 
-static void func_fe6_0801CD60(struct UnkProc2* proc)
+static void func_fe6_0801CD60(struct UnkProc2 * proc)
 {
     int xd, yd, dist;
 
@@ -1077,7 +1077,7 @@ static void func_fe6_0801CD60(struct UnkProc2* proc)
     proc->unk_3C = 0;
 }
 
-static void func_fe6_0801CDE4(struct UnkProc2* proc)
+static void func_fe6_0801CDE4(struct UnkProc2 * proc)
 {
     int var = Interpolate(INTERPOLATE_LINEAR, 0, 1 << 16, proc->unk_3C, proc->unk_3E);
 
@@ -1105,7 +1105,7 @@ static void func_fe6_0801CDE4(struct UnkProc2* proc)
         Proc_Break(proc);
 }
 
-static void func_fe6_0801CEE0(struct UnkProc2* proc)
+static void func_fe6_0801CEE0(struct UnkProc2 * proc)
 {
     proc->unit->x = proc->unk_34 / 16;
     proc->unit->y = proc->unk_36 / 16;
@@ -1114,9 +1114,9 @@ static void func_fe6_0801CEE0(struct UnkProc2* proc)
     RefreshUnitSprites();
 }
 
-void func_fe6_0801CF10(ProcPtr parent, struct Unit* unit, int x, int y)
+void func_fe6_0801CF10(ProcPtr parent, struct Unit * unit, int x, int y)
 {
-    struct UnkProc2* proc;
+    struct UnkProc2 * proc;
 
     proc = SpawnProcLocking(ProcScr_Unk_085C59F8, parent);
 
@@ -1171,9 +1171,9 @@ static void PhaseIntroVMatchLo(void)
     SetOnVMatch(PhaseIntroVMatchHi);
 }
 
-static void PhaseIntroText_PutText(struct GenericProc* proc)
+static void PhaseIntroText_PutText(struct GenericProc * proc)
 {
-    u16* tm = gBg0Tm + TM_OFFSET(0, 9);
+    u16 * tm = gBg0Tm + TM_OFFSET(0, 9);
     int i;
 
     for (i = 0; i < 0x60; ++i)
@@ -1182,7 +1182,7 @@ static void PhaseIntroText_PutText(struct GenericProc* proc)
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-static void PhaseIntroText_Init(struct GenericProc* proc)
+static void PhaseIntroText_Init(struct GenericProc * proc)
 {
     if (GetCurrentBgmSong() != GetActiveMapSong())
         FadeBgmOut(4);
@@ -1192,7 +1192,7 @@ static void PhaseIntroText_Init(struct GenericProc* proc)
     proc->unk4C = 15;
 }
 
-static void PhaseIntroText_InLoop(struct GenericProc* proc)
+static void PhaseIntroText_InLoop(struct GenericProc * proc)
 {
     SetBgOffset(0, Interpolate(INTERPOLATE_CUBIC, -28, -64, proc->unk4C, 0x10), 0);
 
@@ -1208,7 +1208,7 @@ static void PhaseIntroText_InLoop(struct GenericProc* proc)
     }
 }
 
-static void PhaseIntroText_OutLoop(struct GenericProc* proc)
+static void PhaseIntroText_OutLoop(struct GenericProc * proc)
 {
     SetBgOffset(0, Interpolate(INTERPOLATE_RCUBIC, +36, -28, proc->unk4C, 0x10), 0);
 
@@ -1224,18 +1224,18 @@ static void PhaseIntroText_OutLoop(struct GenericProc* proc)
     }
 }
 
-static void PhaseIntroText_Clear(struct GenericProc* proc)
+static void PhaseIntroText_Clear(struct GenericProc * proc)
 {
     TmFill(gBg0Tm, 0);
     EnableBgSync(BG0_SYNC_BIT);
 }
 
-static void PhaseIntroSquares_Init(struct GenericProc* proc)
+static void PhaseIntroSquares_Init(struct GenericProc * proc)
 {
     proc->unk4C = 4;
 }
 
-static void PhaseIntroSquares_InLoop(struct GenericProc* proc)
+static void PhaseIntroSquares_InLoop(struct GenericProc * proc)
 {
     int ix, iy;
 
@@ -1271,7 +1271,7 @@ static void PhaseIntroSquares_InLoop(struct GenericProc* proc)
     }
 }
 
-static void PhaseIntroSquares_OutLoop(struct GenericProc* proc)
+static void PhaseIntroSquares_OutLoop(struct GenericProc * proc)
 {
     int ix, iy;
 
@@ -1307,12 +1307,12 @@ static void PhaseIntroSquares_OutLoop(struct GenericProc* proc)
     }
 }
 
-static void PhaseIntroBlendBox_Init(struct GenericProc* proc)
+static void PhaseIntroBlendBox_Init(struct GenericProc * proc)
 {
     proc->unk4C = 4;
 }
 
-static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc)
+static void PhaseIntroBlendBox_InLoop(struct GenericProc * proc)
 {
     int yoff, blend;
 
@@ -1331,7 +1331,7 @@ static void PhaseIntroBlendBox_InLoop(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void PhaseIntroBlendBox_OutLoop(struct GenericProc* proc)
+static void PhaseIntroBlendBox_OutLoop(struct GenericProc * proc)
 {
     int yoff, blend;
 
@@ -1358,7 +1358,7 @@ static void PhaseIntro_EndIfNoUnits(ProcPtr proc)
 
 static void PhaseIntro_InitGraphics(ProcPtr proc)
 {
-    Decompress(Img_PhaseChangeSquares, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_SQUARES);
+    Decompress(Img_PhaseChangeSquares, (u8 *) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_SQUARES);
 
     SetBgOffset(0, 0, 0);
     SetBgOffset(1, 0, 0);
@@ -1368,19 +1368,19 @@ static void PhaseIntro_InitGraphics(ProcPtr proc)
     {
 
     case FACTION_BLUE:
-        Decompress(Img_PhaseChangePlayer, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        Decompress(Img_PhaseChangePlayer, (u8 *) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
         ApplyPalette(Pal_PhaseChangePlayer, BGPAL_PHASE_CHANGE);
 
         break;
 
     case FACTION_RED:
-        Decompress(Img_PhaseChangeEnemy, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        Decompress(Img_PhaseChangeEnemy, (u8 *) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
         ApplyPalette(Pal_PhaseChangeEnemy, BGPAL_PHASE_CHANGE);
 
         break;
 
     case FACTION_GREEN:
-        Decompress(Img_PhaseChangeOther, (u8*) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
+        Decompress(Img_PhaseChangeOther, (u8 *) VRAM + CHR_SIZE*BGCHR_PHASE_CHANGE_NAME);
         ApplyPalette(Pal_PhaseChangeOther, BGPAL_PHASE_CHANGE);
 
         break;
@@ -1443,12 +1443,12 @@ void MakeActiveMuWatchPosition(int x, int y)
     SetAutoMuMoveScript(gWorkingMoveScr);
 }
 
-static void GasTrapSpriteAnim_Init(struct GenericProc* proc)
+static void GasTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, y, oam2;
 
-    u8 const* img = NULL;
-    u16 const* anim = NULL;
+    u8 const * img = NULL;
+    u16 const * anim = NULL;
     int animNum = 0;
 
     switch (proc->unk4A)
@@ -1478,7 +1478,7 @@ static void GasTrapSpriteAnim_Init(struct GenericProc* proc)
 
     }
 
-    Decompress(img, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    Decompress(img, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
     ApplyPalette(Pal_GasTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
@@ -1491,7 +1491,7 @@ static void GasTrapSpriteAnim_Init(struct GenericProc* proc)
 
 void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProcLocking(ProcScr_GasTrapAnim, parent);
 
@@ -1500,11 +1500,11 @@ void StartGasTrapAnim(ProcPtr parent, int x, int y, int facing)
     proc->unk4A = facing;
 }
 
-static void FireTrapSpriteAnim_Init(struct GenericProc* proc)
+static void FireTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, y, oam2;
 
-    Decompress(Img_FireTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    Decompress(Img_FireTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
     ApplyPalette(Pal_FireTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
@@ -1517,7 +1517,7 @@ static void FireTrapSpriteAnim_Init(struct GenericProc* proc)
 
 void StartFireTrapAnim(ProcPtr parent, int x, int y)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProcLocking(ProcScr_FireTrapAnim, parent);
 
@@ -1525,11 +1525,11 @@ void StartFireTrapAnim(ProcPtr parent, int x, int y)
     proc->y = y;
 }
 
-static void ArrowTrapSpriteAnim_Init(struct GenericProc* proc)
+static void ArrowTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, oam2;
 
-    Decompress(Img_ArrowTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    Decompress(Img_ArrowTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
     ApplyPalette(Pal_ArrowTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
@@ -1543,15 +1543,15 @@ static void ArrowTrapSpriteAnim_Init(struct GenericProc* proc)
 
 void StartArrowTrapAnim(ProcPtr parent, int x)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProcLocking(ProcScr_ArrowTrapAnim, parent);
     proc->x = x;
 }
 
-static void func_fe6_0801D8B8(struct ShowMapChangeProc* proc)
+static void func_fe6_0801D8B8(struct ShowMapChangeProc * proc)
 {
-    struct MapChangeInfo const* info = GetMapChange(proc->mcId);
+    struct MapChangeInfo const * info = GetMapChange(proc->mcId);
 
     int x = info->x + info->width/2;
     int y = info->y + info->height/2;
@@ -1561,7 +1561,7 @@ static void func_fe6_0801D8B8(struct ShowMapChangeProc* proc)
     proc->sndx = x;
 }
 
-static void func_fe6_0801D8E4(struct ShowMapChangeProc* proc)
+static void func_fe6_0801D8E4(struct ShowMapChangeProc * proc)
 {
     int x, song;
 
@@ -1582,8 +1582,8 @@ static void func_fe6_0801D8E4(struct ShowMapChangeProc* proc)
 
 void func_fe6_0801D920(ProcPtr parent, int unused, int trapid)
 {
-    struct ShowMapChangeProc* proc;
-    struct Trap* trap;
+    struct ShowMapChangeProc * proc;
+    struct Trap * trap;
 
     proc = SpawnProcLocking(ProcScr_MapChange_085C5B50, parent);
 
@@ -1598,11 +1598,11 @@ void func_fe6_0801D920(ProcPtr parent, int unused, int trapid)
     proc->altSong = trap->extra;
 }
 
-static void PikeTrapSpriteAnim_Init(struct GenericProc* proc)
+static void PikeTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, y, oam2;
 
-    Decompress(Img_PikeTrap, (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
+    Decompress(Img_PikeTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
     ApplyPalette(Pal_PikeTrap, 0x10 + OBJPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
@@ -1615,7 +1615,7 @@ static void PikeTrapSpriteAnim_Init(struct GenericProc* proc)
 
 void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     proc = SpawnProcLocking(ProcScr_PikeTrapAnim, parent);
 
@@ -1640,12 +1640,12 @@ void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)
     }
 }
 
-static void func_fe6_0801DA1C(struct GenericProc* proc)
+static void func_fe6_0801DA1C(struct GenericProc * proc)
 {
     proc->unk4C = 120; // 2 seconds
 }
 
-static void func_fe6_0801DA24(struct GenericProc* proc)
+static void func_fe6_0801DA24(struct GenericProc * proc)
 {
     proc->unk4C--;
 
@@ -1653,7 +1653,7 @@ static void func_fe6_0801DA24(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-void func_fe6_0801DA54(ProcPtr parent, int icon, char const* str)
+void func_fe6_0801DA54(ProcPtr parent, int icon, char const * str)
 {
     int x, len = GetStringTextLen(str);
 
@@ -1688,22 +1688,22 @@ static void ChapterIntro_Bg3Scroll_Loop(ProcPtr proc)
     SetBgOffset(3, offset, offset);
 }
 
-static void ChapterIntro_KeyListen_Init(struct GenericProc* proc)
+static void ChapterIntro_KeyListen_Init(struct GenericProc * proc)
 {
-    struct GenericProc* parent = proc->proc_parent;
+    struct GenericProc * parent = proc->proc_parent;
 
     parent->unk50 = 0;
     proc->unk50 = 0;
 }
 
-static void ChapterIntro_KeyListen_Loop(struct GenericProc* proc)
+static void ChapterIntro_KeyListen_Loop(struct GenericProc * proc)
 {
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_BUTTON_START))
         proc->unk50 = 1;
 
     if (proc->unk50 != 0)
     {
-        struct GenericProc* parent = proc->proc_parent;
+        struct GenericProc * parent = proc->proc_parent;
 
         if (parent->unk50)
         {
@@ -1787,7 +1787,7 @@ void PutScreenFogEffectOverlayed(void)
     }
 }
 
-static void ChapterIntro_Init(struct GenericProc* proc)
+static void ChapterIntro_Init(struct GenericProc * proc)
 {
     InitBmBgLayers();
 
@@ -1830,10 +1830,10 @@ static void ChapterIntro_Init(struct GenericProc* proc)
 
     EnablePalSync();
 
-    Decompress(Img_ChapterIntroFog, (u8*) VRAM + CHR_SIZE*BGCHR_CHAPTERINTRO_FOG);
+    Decompress(Img_ChapterIntroFog, (u8 *) VRAM + CHR_SIZE*BGCHR_CHAPTERINTRO_FOG);
     ApplyPalette(Pal_ChapterIntroFog, BGPAL_CHAPTERINTRO_FOG);
 
-    Decompress(Img_ChapterIntroMotif, (u8*) VRAM + CHR_SIZE*(BGCHR_CHAPTERINTRO_MOTIF+1));
+    Decompress(Img_ChapterIntroMotif, (u8 *) VRAM + CHR_SIZE*(BGCHR_CHAPTERINTRO_MOTIF+1));
     ApplyPalette(Pal_ChapterIntroMotif, BGPAL_CHAPTERINTRO_MOTIF);
 
     SetBlankChr(BGCHR_CHAPTERINTRO_MOTIF);
@@ -1846,7 +1846,7 @@ static void ChapterIntro_Init(struct GenericProc* proc)
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT + BG2_SYNC_BIT + BG3_SYNC_BIT);
 }
 
-static void ChapterIntro_BeginFadeIn(struct GenericProc* proc)
+static void ChapterIntro_BeginFadeIn(struct GenericProc * proc)
 {
     SetDispEnable(0, 0, 0, 1, 1);
     SetBlendTargetA(0, 0, 0, 1, 1);
@@ -1856,7 +1856,7 @@ static void ChapterIntro_BeginFadeIn(struct GenericProc* proc)
     FadeBgmOut(2);
 }
 
-static void ChapterIntro_LoopFadeIn(struct GenericProc* proc)
+static void ChapterIntro_LoopFadeIn(struct GenericProc * proc)
 {
     SetBlendDarken(proc->unk4C);
 
@@ -1869,7 +1869,7 @@ static void ChapterIntro_LoopFadeIn(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc)
+static void ChapterIntro_BeginMotifFadeIn(struct GenericProc * proc)
 {
     SetDispEnable(0, 0, 1, 1, 1);
 
@@ -1881,7 +1881,7 @@ static void ChapterIntro_BeginMotifFadeIn(struct GenericProc* proc)
     PlaySe(SONG_90);
 }
 
-static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc)
+static void ChapterIntro_LoopMotifFadeIn(struct GenericProc * proc)
 {
     SetBlendAlpha(0x10 - proc->unk4C, 0x10);
 
@@ -1894,7 +1894,7 @@ static void ChapterIntro_LoopMotifFadeIn(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_BeginHOpenText(struct GenericProc* proc)
+static void ChapterIntro_BeginHOpenText(struct GenericProc * proc)
 {
     proc->unk4C = 0;
 
@@ -1902,7 +1902,7 @@ static void ChapterIntro_BeginHOpenText(struct GenericProc* proc)
     PlaySe(SONG_91);
 }
 
-static void ChapterIntro_LoopHOpenText(struct GenericProc* proc)
+static void ChapterIntro_LoopHOpenText(struct GenericProc * proc)
 {
     int val = Interpolate(INTERPOLATE_RSQUARE, 0, DISPLAY_WIDTH/2, proc->unk4C, 0x10);
     SetWin0Box(DISPLAY_WIDTH/2 - val, 78, DISPLAY_WIDTH/2 + val, 81);
@@ -1913,12 +1913,12 @@ static void ChapterIntro_LoopHOpenText(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void ChapterIntro_BeginVOpenText(struct GenericProc* proc)
+static void ChapterIntro_BeginVOpenText(struct GenericProc * proc)
 {
     proc->unk4C = 1;
 }
 
-static void ChapterIntro_LoopVOpenText(struct GenericProc* proc)
+static void ChapterIntro_LoopVOpenText(struct GenericProc * proc)
 {
     int val = Interpolate(INTERPOLATE_LINEAR, 0, 0x10, proc->unk4C, 3);
     SetWin0Box(0, DISPLAY_HEIGHT/2 - val, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + val);
@@ -1929,7 +1929,7 @@ static void ChapterIntro_LoopVOpenText(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc)
+static void ChapterIntro_Begin_0801E1A0(struct GenericProc * proc)
 {
     proc->unk4C = 0x20;
 
@@ -1939,7 +1939,7 @@ static void ChapterIntro_Begin_0801E1A0(struct GenericProc* proc)
     SetBlendTargetB(0, 0, 0, 1, 1);
 }
 
-static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc)
+static void ChapterIntro_Loop_0801E1F8(struct GenericProc * proc)
 {
     func_fe6_08000234_t();
     EnablePalSync();
@@ -1950,7 +1950,7 @@ static void ChapterIntro_Loop_0801E1F8(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void ChapterIntro_Begin_0801E220(struct GenericProc* proc)
+static void ChapterIntro_Begin_0801E220(struct GenericProc * proc)
 {
     proc->unk4C = 13;
 
@@ -1958,7 +1958,7 @@ static void ChapterIntro_Begin_0801E220(struct GenericProc* proc)
     func_fe6_08001D44(gPal + 0x10*BGPAL_CHAPTERINTRO_FOG, BGPAL_CHAPTERINTRO_FOG, 2, -1);
 }
 
-static void ChapterIntro_Loop_0801E244(struct GenericProc* proc)
+static void ChapterIntro_Loop_0801E244(struct GenericProc * proc)
 {
     if ((GetGameTime() % 4) == 0)
     {
@@ -1981,12 +1981,12 @@ static void ChapterIntro_Loop_0801E244(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_0801E2B0(struct GenericProc* proc)
+static void ChapterIntro_0801E2B0(struct GenericProc * proc)
 {
     gBmSt.camera.y = 40*16;
 }
 
-static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
+static void ChapterIntro_InitMapDisplay(struct GenericProc * proc)
 {
     int val;
 
@@ -2020,7 +2020,7 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc* proc)
     RenderMap();
 }
 
-static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc)
+static void ChapterIntro_BeginFadeToMap(struct GenericProc * proc)
 {
     func_fe6_08001D0C();
 
@@ -2038,7 +2038,7 @@ static void ChapterIntro_BeginFadeToMap(struct GenericProc* proc)
         ApplyFlamesWeatherGradient();
 }
 
-static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
+static void ChapterIntro_LoopFadeToMap(struct GenericProc * proc)
 {
     if ((GetGameTime() % 2) == 0)
     {
@@ -2067,12 +2067,12 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_BeginCloseText(struct GenericProc* proc)
+static void ChapterIntro_BeginCloseText(struct GenericProc * proc)
 {
     proc->unk4C = 0x10;
 }
 
-static void ChapterIntro_LoopCloseText(struct GenericProc* proc)
+static void ChapterIntro_LoopCloseText(struct GenericProc * proc)
 {
     SetWin0Box(0, DISPLAY_HEIGHT/2 - proc->unk4C, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + proc->unk4C);
 
@@ -2082,12 +2082,12 @@ static void ChapterIntro_LoopCloseText(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void ChapterIntro_BeginFastCloseText(struct GenericProc* proc)
+static void ChapterIntro_BeginFastCloseText(struct GenericProc * proc)
 {
     proc->unk4C = 8;
 }
 
-static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc)
+static void ChapterIntro_LoopFastCloseText(struct GenericProc * proc)
 {
     SetWin0Box(0, DISPLAY_HEIGHT/2 - proc->unk4C, DISPLAY_WIDTH, DISPLAY_HEIGHT/2 + proc->unk4C);
 
@@ -2097,7 +2097,7 @@ static void ChapterIntro_LoopFastCloseText(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void ChapterIntro_BeginFadeOut(struct GenericProc* proc)
+static void ChapterIntro_BeginFadeOut(struct GenericProc * proc)
 {
     func_fe6_08001D0C();
     func_fe6_08001D44(gPal, 0, 6, -2);
@@ -2107,7 +2107,7 @@ static void ChapterIntro_BeginFadeOut(struct GenericProc* proc)
     func_fe6_080030B4(1);
 }
 
-static void ChapterIntro_LoopFadeOut(struct GenericProc* proc)
+static void ChapterIntro_LoopFadeOut(struct GenericProc * proc)
 {
     func_fe6_08000234_t();
     EnablePalSync();
@@ -2124,7 +2124,7 @@ static void ChapterIntro_LoopFadeOut(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
+static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
 {
     ClearUi();
 
@@ -2143,7 +2143,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc* proc)
     StartBgm(GetChapterInfo(gPlaySt.chapter)->song_opening_bgm, NULL);
 }
 
-static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
+static void ChapterIntro_LoopFastFadeToMap(struct GenericProc * proc)
 {
     func_fe6_08000234_t();
 
@@ -2162,12 +2162,12 @@ static void ChapterIntro_LoopFastFadeToMap(struct GenericProc* proc)
     }
 }
 
-static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc* proc)
+static void ChapterIntro_SetSkipTarget(short arg, struct GenericProc * proc)
 {
     proc->unk50 = arg;
 }
 
-static void GameOverScreen_RandomScroll_Init(struct GenericProc* proc)
+static void GameOverScreen_RandomScroll_Init(struct GenericProc * proc)
 {
     proc->unk34 = +46;
     proc->unk38 = -90;
@@ -2180,7 +2180,7 @@ static void GameOverScreen_RandomScroll_Init(struct GenericProc* proc)
     proc->unk6A = 8536;
 }
 
-static void GameOverScreen_RandomScroll_Loop(struct GenericProc* proc)
+static void GameOverScreen_RandomScroll_Loop(struct GenericProc * proc)
 {
     proc->unk64 += proc->unk34;
     proc->unk66 += proc->unk38;
@@ -2210,7 +2210,7 @@ static void GameOverScreenHBlank(void)
     REG_BLDCB = val;
 }
 
-static void GameOverScreen_Init(struct GenericProc* proc)
+static void GameOverScreen_Init(struct GenericProc * proc)
 {
     int i;
 
@@ -2226,9 +2226,9 @@ static void GameOverScreen_Init(struct GenericProc* proc)
     SetBgChrOffset(2, 0);
     SetBgChrOffset(3, 0);
 
-    Decompress(Img_GameOverText, (u8*) VRAM + CHR_SIZE*BGCHR_GAMEOVER_TEXT);
+    Decompress(Img_GameOverText, (u8 *) VRAM + CHR_SIZE*BGCHR_GAMEOVER_TEXT);
     ApplyPalette(Pal_Unk_0830D95C, BGPAL_GAMEOVER_4);
-    Decompress(Img_ChapterIntroFog, (u8*) VRAM + CHR_SIZE*BGCHR_GAMEOVER_100);
+    Decompress(Img_ChapterIntroFog, (u8 *) VRAM + CHR_SIZE*BGCHR_GAMEOVER_100);
     ApplyPalette(Pal_GameOverText, BGPAL_GAMEOVER_TEXT);
 
     ClearUi();
@@ -2259,7 +2259,7 @@ static void GameOverScreen_Init(struct GenericProc* proc)
     EnablePalSync();
 }
 
-static void GameOverScreen_LoopFadeIn(struct GenericProc* proc)
+static void GameOverScreen_LoopFadeIn(struct GenericProc * proc)
 {
     if ((GetGameTime() % 8) == 0)
     {
@@ -2273,12 +2273,12 @@ static void GameOverScreen_LoopFadeIn(struct GenericProc* proc)
     }
 }
 
-static void GameOverScreen_BeginIdle(struct GenericProc* proc)
+static void GameOverScreen_BeginIdle(struct GenericProc * proc)
 {
     proc->unk4E = 1500;
 }
 
-static void GameOverScreen_LoopIdle(struct GenericProc* proc)
+static void GameOverScreen_LoopIdle(struct GenericProc * proc)
 {
     proc->unk4E--;
 
@@ -2289,7 +2289,7 @@ static void GameOverScreen_LoopIdle(struct GenericProc* proc)
         Proc_Goto(proc, 99);
 }
 
-static void GameOverScreen_BeginFadeOut(struct GenericProc* proc)
+static void GameOverScreen_BeginFadeOut(struct GenericProc * proc)
 {
     func_fe6_08001D0C();
     func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, -1);
@@ -2298,7 +2298,7 @@ static void GameOverScreen_BeginFadeOut(struct GenericProc* proc)
     FadeBgmOut(4);
 }
 
-static void GameOverScreen_LoopFadeOut(struct GenericProc* proc)
+static void GameOverScreen_LoopFadeOut(struct GenericProc * proc)
 {
     func_fe6_08000234_t();
     EnablePalSync();
@@ -2309,7 +2309,7 @@ static void GameOverScreen_LoopFadeOut(struct GenericProc* proc)
         Proc_Break(proc);
 }
 
-static void GameOverScreen_End(struct GenericProc* proc)
+static void GameOverScreen_End(struct GenericProc * proc)
 {
     SetOnHBlankA(NULL);
     SetOnHBlankB(NULL);

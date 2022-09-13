@@ -7,13 +7,13 @@
 #include "faction.h"
 #include "chapter-info.h"
 
-struct Unk_08666C78
+struct HardModeBonusLevelsOverrideEnt
 {
     /* 00 */ u8 pid;
     /* 04 */ int bonus_levels;
 };
 
-extern struct Unk_08666C78 CONST_DATA gUnk_08666C78[];
+extern struct HardModeBonusLevelsOverrideEnt CONST_DATA gHardModeBonusLevelsOverrideList[];
 
 bool EvtCheck_IsHard(void)
 {
@@ -23,9 +23,9 @@ bool EvtCheck_IsHard(void)
     return FALSE;
 }
 
-int func_fe6_0806BAB8(u8 pid)
+int GetHardModeBonusLevelsByPid(u8 pid)
 {
-    struct Unk_08666C78 const * it = gUnk_08666C78;
+    struct HardModeBonusLevelsOverrideEnt const * it = gHardModeBonusLevelsOverrideList;
 
     while (it->pid != 0)
     {
@@ -38,13 +38,13 @@ int func_fe6_0806BAB8(u8 pid)
     return GetChapterInfo(gPlaySt.chapter)->hard_bonus_levels;
 }
 
-void func_fe6_0806BAF0(void)
+void ApplyAllHardModeBonusLevels(void)
 {
     if (gPlaySt.flags & PLAY_FLAG_HARD)
     {
         FOR_UNITS_FACTION(FACTION_RED, unit,
         {
-            int bonus_levels = func_fe6_0806BAB8(unit->pinfo->id);
+            int bonus_levels = GetHardModeBonusLevelsByPid(unit->pinfo->id);
 
             if (bonus_levels != 0)
                 UnitApplyBonusLevels(unit, bonus_levels);
@@ -62,7 +62,7 @@ bool func_fe6_0806BB34(void * unk)
     if (!IsKleinInNonBlueTeam())
         return FALSE;
 
-    return func_fe6_0806AC90(unk, 0x31, 0x2E);
+    return EventInfoCheckTalk(unk, 0x31, 0x2E);
 }
 
 */

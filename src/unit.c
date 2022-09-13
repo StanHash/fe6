@@ -24,7 +24,7 @@
 extern struct PInfo CONST_DATA PersonInfoTable[];
 extern struct JInfo CONST_DATA JobInfoTable[];
 
-extern struct Unit* CONST_DATA gUnitLut[0x100];
+extern struct Unit * CONST_DATA gUnitLut[0x100];
 
 u8 EWRAM_DATA gActiveUnitId = 0;
 struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin = {};
@@ -34,12 +34,12 @@ struct Unit EWRAM_DATA gUnitArrayRed[UNIT_AMOUNT_RED]       = {};
 struct Unit EWRAM_DATA gUnitArrayGreen[UNIT_AMOUNT_GREEN]   = {};
 struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE] = {};
 
-inline struct Unit* GetUnit(int uid)
+inline struct Unit * GetUnit(int uid)
 {
     return gUnitLut[uid & 0xFF];
 }
 
-inline struct JInfo const* GetJobInfo(int jid)
+inline struct JInfo const * GetJobInfo(int jid)
 {
     if (jid < 1)
         return NULL;
@@ -47,7 +47,7 @@ inline struct JInfo const* GetJobInfo(int jid)
     return JobInfoTable + (jid - 1);
 }
 
-inline struct PInfo const* GetPersonInfo(int pid)
+inline struct PInfo const * GetPersonInfo(int pid)
 {
     if (pid < 1)
         return NULL;
@@ -61,7 +61,7 @@ void InitUnits(void)
 
     for (i = 0; i < 0x100; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -71,7 +71,7 @@ void InitUnits(void)
     }
 }
 
-void ClearUnit(struct Unit* unit)
+void ClearUnit(struct Unit * unit)
 {
     u8 id = unit->id;
 
@@ -80,7 +80,7 @@ void ClearUnit(struct Unit* unit)
     unit->id = id;
 }
 
-void CopyUnit(struct Unit* src, struct Unit* dst)
+void CopyUnit(struct Unit * src, struct Unit * dst)
 {
     u8 id = dst->id;
 
@@ -89,7 +89,7 @@ void CopyUnit(struct Unit* src, struct Unit* dst)
     dst->id = id;
 }
 
-struct Unit* GetFreeUnit(int faction)
+struct Unit * GetFreeUnit(int faction)
 {
     int i;
 
@@ -98,7 +98,7 @@ struct Unit* GetFreeUnit(int faction)
 
     for (i = first; i < last; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (unit->pinfo == NULL)
             return unit;
@@ -107,12 +107,12 @@ struct Unit* GetFreeUnit(int faction)
     return NULL;
 }
 
-inline int GetUnitMaxHp(struct Unit* unit)
+inline int GetUnitMaxHp(struct Unit * unit)
 {
     return unit->max_hp + GetItemHpBonus(GetUnitEquippedWeapon(unit));
 }
 
-inline int GetUnitCurrentHp(struct Unit* unit)
+inline int GetUnitCurrentHp(struct Unit * unit)
 {
     if (unit->hp > GetUnitMaxHp(unit))
         unit->hp = GetUnitMaxHp(unit);
@@ -120,12 +120,12 @@ inline int GetUnitCurrentHp(struct Unit* unit)
     return unit->hp;
 }
 
-inline int GetUnitPower(struct Unit* unit)
+inline int GetUnitPower(struct Unit * unit)
 {
     return unit->pow + GetItemPowBonus(GetUnitEquippedWeapon(unit));
 }
 
-inline int GetUnitSkill(struct Unit* unit)
+inline int GetUnitSkill(struct Unit * unit)
 {
     int weapon = GetUnitEquippedWeapon(unit);
 
@@ -135,7 +135,7 @@ inline int GetUnitSkill(struct Unit* unit)
     return unit->skl + GetItemSklBonus(weapon);
 }
 
-inline int GetUnitSpeed(struct Unit* unit)
+inline int GetUnitSpeed(struct Unit * unit)
 {
     int weapon = GetUnitEquippedWeapon(unit);
 
@@ -145,22 +145,22 @@ inline int GetUnitSpeed(struct Unit* unit)
     return unit->spd + GetItemSpdBonus(weapon);
 }
 
-inline int GetUnitDefense(struct Unit* unit)
+inline int GetUnitDefense(struct Unit * unit)
 {
     return unit->def + GetItemDefBonus(GetUnitEquippedWeapon(unit));
 }
 
-inline int GetUnitResistance(struct Unit* unit)
+inline int GetUnitResistance(struct Unit * unit)
 {
     return unit->res + GetItemResBonus(GetUnitEquippedWeapon(unit)) + unit->barrier;
 }
 
-inline int GetUnitLuck(struct Unit* unit)
+inline int GetUnitLuck(struct Unit * unit)
 {
     return unit->lck + GetItemLckBonus(GetUnitEquippedWeapon(unit));
 }
 
-inline int GetUnitFid(struct Unit* unit)
+inline int GetUnitFid(struct Unit * unit)
 {
     if (unit->pinfo->fid != FID_NONE)
         return unit->pinfo->fid;
@@ -173,7 +173,7 @@ inline int GetUnitFid(struct Unit* unit)
 #endif
 }
 
-inline int GetUnitChibiId(struct Unit* unit)
+inline int GetUnitChibiId(struct Unit * unit)
 {
     if (unit->pinfo->chibi_id != 0)
         return FID_FACTION_CHIBI + unit->pinfo->chibi_id;
@@ -181,7 +181,7 @@ inline int GetUnitChibiId(struct Unit* unit)
     return GetUnitFid(unit);
 }
 
-inline int GetUnitLeaderPid(struct Unit* unit)
+inline int GetUnitLeaderPid(struct Unit * unit)
 {
     if (UNIT_FACTION(unit) == FACTION_BLUE)
         return 0;
@@ -189,12 +189,12 @@ inline int GetUnitLeaderPid(struct Unit* unit)
     return unit->supports[UNIT_SUPPORT_COUNT-1];
 }
 
-inline void SetUnitLeaderPid(struct Unit* unit, int pid)
+inline void SetUnitLeaderPid(struct Unit * unit, int pid)
 {
     unit->supports[UNIT_SUPPORT_COUNT-1] = pid;
 }
 
-inline void SetUnitHp(struct Unit* unit, int hp)
+inline void SetUnitHp(struct Unit * unit, int hp)
 {
     unit->hp = hp;
 
@@ -202,7 +202,7 @@ inline void SetUnitHp(struct Unit* unit, int hp)
         unit->hp = GetUnitMaxHp(unit);
 }
 
-inline void AddUnitHp(struct Unit* unit, int amount)
+inline void AddUnitHp(struct Unit * unit, int amount)
 {
     int hp = unit->hp;
 
@@ -217,7 +217,7 @@ inline void AddUnitHp(struct Unit* unit, int amount)
     unit->hp = hp;
 }
 
-int GetUnitVision(struct Unit* unit)
+int GetUnitVision(struct Unit * unit)
 {
     int result = gPlaySt.vision;
 
@@ -227,7 +227,7 @@ int GetUnitVision(struct Unit* unit)
     return result + unit->torch;
 }
 
-void SetUnitStatus(struct Unit* unit, int status)
+void SetUnitStatus(struct Unit * unit, int status)
 {
     if (status == UNIT_STATUS_NONE)
     {
@@ -241,7 +241,7 @@ void SetUnitStatus(struct Unit* unit, int status)
     }
 }
 
-static char const* CONST_DATA sStatusNameStringLut[] =
+static char const * CONST_DATA sStatusNameStringLut[] =
 {
     [UNIT_STATUS_BERSERK]  = TEXT("バサーク", "Berserk"),
     [UNIT_STATUS_SILENCED] = TEXT("サイレス", "Silence"),
@@ -250,12 +250,12 @@ static char const* CONST_DATA sStatusNameStringLut[] =
     [UNIT_STATUS_NONE]     = JTEXT("ーーー"),
 };
 
-inline char const* GetUnitStatusName(struct Unit* unit)
+inline char const * GetUnitStatusName(struct Unit * unit)
 {
     return sStatusNameStringLut[unit->status];
 }
 
-int GetUnitMapSprite(struct Unit* unit)
+int GetUnitMapSprite(struct Unit * unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BALLISTA))
         return unit->jinfo->map_sprite;
@@ -278,7 +278,7 @@ int GetUnitMapSprite(struct Unit* unit)
     }
 }
 
-bool UnitAddItem(struct Unit* unit, int item)
+bool UnitAddItem(struct Unit * unit, int item)
 {
     int i;
 
@@ -294,16 +294,16 @@ bool UnitAddItem(struct Unit* unit, int item)
     return FALSE;
 }
 
-inline void UnitRemoveItem(struct Unit* unit, int slot)
+inline void UnitRemoveItem(struct Unit * unit, int slot)
 {
     unit->items[slot] = 0;
     UnitRemoveInvalidItems(unit);
 }
 
-void UnitRemoveInvalidItems(struct Unit* unit)
+void UnitRemoveInvalidItems(struct Unit * unit)
 {
     u16 items[ITEMSLOT_INV_COUNT + 1], i;
-    u16* it = items;
+    u16 * it = items;
 
     // Build item buffer by iterating through unit's items and skipping blanks
 
@@ -328,7 +328,7 @@ void UnitRemoveInvalidItems(struct Unit* unit)
     }
 }
 
-int GetUnitItemCount(struct Unit* unit)
+int GetUnitItemCount(struct Unit * unit)
 {
     int i;
 
@@ -341,7 +341,7 @@ int GetUnitItemCount(struct Unit* unit)
     return 0;
 }
 
-bool UnitHasItem(struct Unit* unit, int item)
+bool UnitHasItem(struct Unit * unit, int item)
 {
     int i;
 
@@ -356,7 +356,7 @@ bool UnitHasItem(struct Unit* unit, int item)
     return FALSE;
 }
 
-int BatchCreateUnits(struct UnitInfo const* info)
+int BatchCreateUnits(struct UnitInfo const * info)
 {
     int count = 0;
 
@@ -371,9 +371,9 @@ int BatchCreateUnits(struct UnitInfo const* info)
     return count;
 }
 
-struct Unit* CreateUnit(struct UnitInfo const* info)
+struct Unit * CreateUnit(struct UnitInfo const * info)
 {
-    struct Unit* unit;
+    struct Unit * unit;
 
     switch (info->faction_id)
     {
@@ -428,7 +428,7 @@ struct Unit* CreateUnit(struct UnitInfo const* info)
     return unit;
 }
 
-void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info)
+void UnitInitFromInfo(struct Unit * unit, struct UnitInfo const * info)
 {
     int i;
 
@@ -450,7 +450,7 @@ void UnitInitFromInfo(struct Unit* unit, struct UnitInfo const* info)
     UnitInitAiFromInfo(unit, info);
 }
 
-void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo)
+void UnitInitStats(struct Unit * unit, struct PInfo const * pinfo)
 {
     int i;
 
@@ -478,13 +478,13 @@ void UnitInitStats(struct Unit* unit, struct PInfo const* pinfo)
         unit->exp = 0xFF;
 }
 
-void func_fe6_08017764(struct Unit* unit)
+void func_fe6_08017764(struct Unit * unit)
 {
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BIT23)
         unit->pinfo = GetPersonInfo(unit->pinfo->id - 1);
 }
 
-void UnitInitSupports(struct Unit* unit)
+void UnitInitSupports(struct Unit * unit)
 {
     int i, count = GetUnitSupportCount(unit);
 
@@ -492,7 +492,7 @@ void UnitInitSupports(struct Unit* unit)
         unit->supports[i] = GetUnitInitialSupportExp(unit, i);
 }
 
-void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info)
+void UnitAutolevelWeaponExp(struct Unit * unit, struct UnitInfo const * info)
 {
     int i;
 
@@ -523,7 +523,7 @@ void UnitAutolevelWeaponExp(struct Unit* unit, struct UnitInfo const* info)
     }
 }
 
-void UnitAutolevelCore(struct Unit* unit, u8 jid, int levelCount)
+void UnitAutolevelCore(struct Unit * unit, u8 jid, int levelCount)
 {
     // BUG: jid is unused here
 
@@ -539,7 +539,7 @@ void UnitAutolevelCore(struct Unit* unit, u8 jid, int levelCount)
     }
 }
 
-void UnitApplyBonusLevels(struct Unit* unit, int levelCount)
+void UnitApplyBonusLevels(struct Unit * unit, int levelCount)
 {
     UnitAutolevelCore(unit, unit->jinfo->id, levelCount);
     UnitCheckStatOverflow(unit);
@@ -547,7 +547,7 @@ void UnitApplyBonusLevels(struct Unit* unit, int levelCount)
     unit->hp = GetUnitMaxHp(unit);
 }
 
-void UnitAutolevel(struct Unit* unit)
+void UnitAutolevel(struct Unit * unit)
 {
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_PROMOTED)
         UnitAutolevelCore(unit, unit->jinfo->jid_promote, UNIT_LEVEL_MAX - 1);
@@ -555,7 +555,7 @@ void UnitAutolevel(struct Unit* unit)
     UnitAutolevelCore(unit, unit->jinfo->id, unit->level - 1);
 }
 
-void UnitAutolevelPlayer(struct Unit* unit)
+void UnitAutolevelPlayer(struct Unit * unit)
 {
     int i, levelCount = unit->level - unit->pinfo->base_level;
 
@@ -571,7 +571,7 @@ void UnitAutolevelPlayer(struct Unit* unit)
     }
 }
 
-void UnitCheckStatOverflow(struct Unit* unit)
+void UnitCheckStatOverflow(struct Unit * unit)
 {
     if (unit->max_hp > UNIT_HP_CAP(unit))
         unit->max_hp = UNIT_HP_CAP(unit);
@@ -601,13 +601,13 @@ void UnitCheckStatOverflow(struct Unit* unit)
         unit->bonus_mov = (UNIT_MOV_CAP(unit) - UNIT_MOV_BASE(unit));
 }
 
-struct Unit* GetUnitByPid(int pid)
+struct Unit * GetUnitByPid(int pid)
 {
     int i;
 
     for (i = 1; i < 0x100; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -622,7 +622,7 @@ struct Unit* GetUnitByPid(int pid)
     return NULL;
 }
 
-bool CanUnitCarry(struct Unit* unit, struct Unit* other)
+bool CanUnitCarry(struct Unit * unit, struct Unit * other)
 {
     int aid = GetUnitAid(unit);
     int con = UNIT_CON(other);
@@ -630,7 +630,7 @@ bool CanUnitCarry(struct Unit* unit, struct Unit* other)
     return (aid >= con) ? TRUE : FALSE;
 }
 
-void UnitRescue(struct Unit* unit, struct Unit* other)
+void UnitRescue(struct Unit * unit, struct Unit * other)
 {
     unit->flags |= UNIT_FLAG_RESCUING;
     other->flags |= UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN;
@@ -642,9 +642,9 @@ void UnitRescue(struct Unit* unit, struct Unit* other)
     other->y = unit->y;
 }
 
-void UnitDropRescue(struct Unit* unit, int x, int y)
+void UnitDropRescue(struct Unit * unit, int x, int y)
 {
-    struct Unit* rescue = GetUnit(unit->rescue);
+    struct Unit * rescue = GetUnit(unit->rescue);
 
     unit->flags = unit->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED);
     rescue->flags = rescue->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN);
@@ -659,9 +659,9 @@ void UnitDropRescue(struct Unit* unit, int x, int y)
     rescue->y = y;
 }
 
-bool UnitGiveRescue(struct Unit* unit, struct Unit* other)
+bool UnitGiveRescue(struct Unit * unit, struct Unit * other)
 {
-    struct Unit* rescue = GetUnit(unit->rescue);
+    struct Unit * rescue = GetUnit(unit->rescue);
 
     bool couldGive = CanUnitCarry(other, rescue);
 
@@ -673,7 +673,7 @@ bool UnitGiveRescue(struct Unit* unit, struct Unit* other)
 #endif
 }
 
-inline char const* GetUnitRescueName(struct Unit* unit)
+inline char const * GetUnitRescueName(struct Unit * unit)
 {
     if (unit->rescue == 0)
         return sStatusNameStringLut[UNIT_STATUS_NONE];
@@ -681,7 +681,7 @@ inline char const* GetUnitRescueName(struct Unit* unit)
     return DecodeMsg(GetUnit(unit->rescue)->pinfo->msg_name);
 }
 
-void KillUnit(struct Unit* unit)
+void KillUnit(struct Unit * unit)
 {
     if (UNIT_FACTION(unit) == FACTION_BLUE)
     {
@@ -695,9 +695,9 @@ void KillUnit(struct Unit* unit)
     }
 }
 
-void UnitChangeFaction(struct Unit* unit, int faction)
+void UnitChangeFaction(struct Unit * unit, int faction)
 {
-    struct Unit* newUnit = GetFreeUnit(faction);
+    struct Unit * newUnit = GetFreeUnit(faction);
 
     if (gActiveUnit == unit)
         gActiveUnit = newUnit;
@@ -714,27 +714,27 @@ void UnitChangeFaction(struct Unit* unit, int faction)
         GetUnit(newUnit->rescue)->rescue = newUnit->id;
 }
 
-inline bool CanUnitCrossTerrain(struct Unit* unit, int terrain)
+inline bool CanUnitCrossTerrain(struct Unit * unit, int terrain)
 {
     return (unit->jinfo->mov_table[terrain] > 0) ? TRUE : FALSE;
 }
 
-void UnitSyncMovement(struct Unit* unit)
+void UnitSyncMovement(struct Unit * unit)
 {
     if (unit->flags & UNIT_FLAG_RESCUING)
     {
-        struct Unit* rescue = GetUnit(unit->rescue);
+        struct Unit * rescue = GetUnit(unit->rescue);
 
         rescue->x = unit->x;
         rescue->y = unit->y;
     }
 }
 
-void UnitGetDropPositionOnDeath(struct Unit* unit, int* xOut, int* yOut)
+void UnitGetDropPositionOnDeath(struct Unit * unit, int* xOut, int* yOut)
 {
     int iy, ix, minDistance = 9999;
 
-    struct Unit* rescue = GetUnit(unit->rescue);
+    struct Unit * rescue = GetUnit(unit->rescue);
 
     // Fill the movement map
     MapFlood_08019424(unit->x, unit->y, MoveTable_Unk_0860C912);
@@ -779,7 +779,7 @@ void UnitGetDropPositionOnDeath(struct Unit* unit, int* xOut, int* yOut)
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0;
 }
 
-void UnitBeginAction(struct Unit* unit)
+void UnitBeginAction(struct Unit * unit)
 {
     gActiveUnit = unit;
     gActiveUnitId = unit->id;
@@ -800,7 +800,7 @@ void UnitBeginAction(struct Unit* unit)
     gMapUnit[unit->y][unit->x] = 0;
 }
 
-void UnitBeginReMoveAction(struct Unit* unit)
+void UnitBeginReMoveAction(struct Unit * unit)
 {
     gActiveUnit = unit;
     gActiveUnitId = unit->id;
@@ -839,7 +839,7 @@ void ClearActiveFactionTurnEndedState(void)
 
     for (i = gPlaySt.faction + 1; i < gPlaySt.faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -861,7 +861,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
 
     for (i = gPlaySt.faction + 1; i < gPlaySt.faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -906,7 +906,7 @@ void func_fe6_0801809C(void)
 
     for (i = 1; i < 0xC0; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -918,7 +918,7 @@ void func_fe6_0801809C(void)
     }
 }
 
-void UnitUpdateUsedItem(struct Unit* unit, int item_slot)
+void UnitUpdateUsedItem(struct Unit * unit, int item_slot)
 {
     if (unit->items[item_slot] != 0)
     {
@@ -927,7 +927,7 @@ void UnitUpdateUsedItem(struct Unit* unit, int item_slot)
     }
 }
 
-int GetUnitAid(struct Unit* unit)
+int GetUnitAid(struct Unit * unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_MOUNTED))
         return UNIT_CON(unit) - 1;
@@ -938,12 +938,12 @@ int GetUnitAid(struct Unit* unit)
     return 25 - UNIT_CON(unit);
 }
 
-int GetUnitMagRange(struct Unit* unit)
+int GetUnitMagRange(struct Unit * unit)
 {
     return 5 + GetUnitPower(unit) / 2;
 }
 
-bool UnitKnowsMagic(struct Unit* unit)
+bool UnitKnowsMagic(struct Unit * unit)
 {
     u8 combinedWeaponExp = 0; 
 
@@ -955,7 +955,7 @@ bool UnitKnowsMagic(struct Unit* unit)
     return combinedWeaponExp ? TRUE : FALSE;
 }
 
-void func_fe6_080181B0(struct Unit* unit, int x, int y)
+void func_fe6_080181B0(struct Unit * unit, int x, int y)
 {
     if (!(unit->flags & UNIT_FLAG_UNDER_ROOF))
     {
@@ -966,7 +966,7 @@ void func_fe6_080181B0(struct Unit* unit, int x, int y)
     }
 }
 
-int GetUnitKeyItemSlotForTerrain(struct Unit* unit, int terrain)
+int GetUnitKeyItemSlotForTerrain(struct Unit * unit, int terrain)
 {
     int item = 0;
 
@@ -1012,7 +1012,7 @@ int GetAidIconFromAttributes(int attributes)
     return ICON_NONE;
 }
 
-int func_fe6_08018258(struct Unit* unit)
+int func_fe6_08018258(struct Unit * unit)
 {
     int i, item, result = 0;
 
@@ -1066,7 +1066,7 @@ bool CanActiveUnitStillMove(void)
     return FALSE;
 }
 
-struct Unit* CONST_DATA gUnitLut[0x100] =
+struct Unit * CONST_DATA gUnitLut[0x100] =
 {
     [FACTION_BLUE + 0x01] = gUnitArrayBlue + 0,
     [FACTION_BLUE + 0x02] = gUnitArrayBlue + 1,

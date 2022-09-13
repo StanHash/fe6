@@ -6,9 +6,9 @@
 
 struct FaceInfo
 {
-    /* 00 */ u8 const* img;
-    /* 04 */ u8 const* img_chibi;
-    /* 08 */ u16 const* pal;
+    /* 00 */ u8 const * img;
+    /* 04 */ u8 const * img_chibi;
+    /* 08 */ u16 const * pal;
     /* 0C */ u8 x_mouth, y_mouth;
     /* 0E */ u8 unk_0E;
 };
@@ -35,7 +35,7 @@ struct FaceProc
     /* 37 */ i8 talk_frame_clock;
     /* 38 */ u16 oam2;
     /* 3A */ // pad
-    /* 3C */ u16 const* sprite;
+    /* 3C */ u16 const * sprite;
     /* 40 */ u8 fid;
 };
 
@@ -72,32 +72,32 @@ enum
 
 enum { FACE_SLOT_COUNT = 4 };
 
-extern struct FaceProc* gFaces[FACE_SLOT_COUNT]; // COMMON
+extern struct FaceProc * gFaces[FACE_SLOT_COUNT]; // COMMON
 
 extern struct ProcScr CONST_DATA ProcScr_Face[];
 
-struct FaceInfo const* GetFaceInfo(int fid);
+struct FaceInfo const * GetFaceInfo(int fid);
 int GetFace_Unk(int fid);
 void InitFaces(void);
-void SetFaceConfig(struct FaceVramEnt const* config);
+void SetFaceConfig(struct FaceVramEnt const * config);
 int GetFreeFaceSlot(void);
-struct FaceProc* StartFaceAuto(int fid, int x, int y, int disp);
-struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp);
-void EndFace(struct FaceProc* proc);
+struct FaceProc * StartFaceAuto(int fid, int x, int y, int disp);
+struct FaceProc * StartFace(int slot, int fid, int x, int y, int disp);
+void EndFace(struct FaceProc * proc);
 void EndFaceById(int slot);
-u32 SetFaceDisp(struct FaceProc* proc, u32 disp);
+u32 SetFaceDisp(struct FaceProc * proc, u32 disp);
 u32 SetFaceDispById(int slot, u32 disp);
-u32 GetFaceDisp(struct FaceProc* proc);
+u32 GetFaceDisp(struct FaceProc * proc);
 u32 GetFaceDispById(int slot);
-void FaceRefreshSprite(struct FaceProc* proc);
+void FaceRefreshSprite(struct FaceProc * proc);
 void UnpackFaceGraphics(int fid, int chr, int pal);
-void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, bool is_flipped);
-void func_fe6_08008874(u16* tm, int tileref);
+void PutFullFaceTm(u16 * tm, int unused_1, int unused_2, int tileref, bool is_flipped);
+void func_fe6_08008874(u16 * tm, int tileref);
 void UnpackFaceChibiGraphics(int fid, int chr, int pal);
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, bool is_flipped);
+void PutFaceChibi(int fid, u16 * tm, int chr, int pal, bool is_flipped);
 void UnpackFaceChibiSprGraphics(int fid, int chr, int pal);
 void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, bool is_flipped, ProcPtr parent);
 void EndFaceChibiSpr(void);
-void PutFace80x72(u16* tm, int fid, int chr, int pal);
-void StartFaceFadeIn(struct FaceProc* proc);
-void StartFaceFadeOut(struct FaceProc* proc);
+void PutFace80x72(u16 * tm, int fid, int chr, int pal);
+void StartFaceFadeIn(struct FaceProc * proc);
+void StartFaceFadeOut(struct FaceProc * proc);

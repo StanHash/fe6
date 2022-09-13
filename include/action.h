@@ -9,19 +9,19 @@ enum
     ACTION_COMBAT = 0x02,
     ACTION_STAFF = 0x03,
     ACTION_REFRESH = 0x04,
-
+    // 05?
     ACTION_STEAL = 0x06,
     ACTION_RESCUE = 0x07,
     ACTION_DROP = 0x08,
     ACTION_TAKE = 0x09,
     ACTION_GIVE = 0x0A,
-
+    // 0B?
     ACTION_TALK = 0x0C,
     ACTION_SUPPORT = 0x0D,
-    ACTION_0E = 0x0E, // ACTION_VISIT?
-    ACTION_0F = 0x0F, // ACTION_SEIZE?
+    ACTION_VISIT = 0x0E,
+    ACTION_SEIZE = 0x0F,
     ACTION_DOOR = 0x10,
-
+    // 11?
     ACTION_CHEST = 0x12,
     // ACTION_SHOPPED,
     // ACTION_ARENA,
@@ -69,9 +69,9 @@ void SaveActionRand(void);
 void RestoreActionRand(void);
 bool DoAction(ProcPtr proc);
 
-void DropRescueOnDeath(ProcPtr parent, struct Unit* unit);
-void KillUnitOnCombatDeath(struct Unit* unit, struct Unit* opponent);
-void func_fe6_0802A6B4(struct Unit* unit);
+void DropRescueOnDeath(ProcPtr parent, struct Unit * unit);
+void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent);
+void func_fe6_0802A6B4(struct Unit * unit);
 void func_fe6_0802A7F4(void);
 
 extern struct ProcScr CONST_DATA ProcScr_CombatAction[];

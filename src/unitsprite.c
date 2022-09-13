@@ -36,7 +36,7 @@ static int ApplyUnitSpriteImage16x16(int slot, unsigned id);
 static int ApplyUnitSpriteImage16x32(int slot, unsigned id);
 static int ApplyUnitSpriteImage32x32(int slot, unsigned id);
 
-static struct UnitSprite* AddUnitSprite(int y);
+static struct UnitSprite * AddUnitSprite(int y);
 
 extern struct UnitSpriteInfo CONST_DATA UnitSpriteTable[];
 
@@ -48,13 +48,13 @@ static int EWRAM_DATA sSmallAllocCounter = 0;
 static int EWRAM_DATA sLargeAllocCounter = 0;
 
 static struct UnitSprite EWRAM_DATA sMapSprites[UNITSPRITE_SIMULATANEOUS_MAX] = {};
-static struct UnitSprite* EWRAM_DATA sNextFreeMapSprite = NULL;
+static struct UnitSprite * EWRAM_DATA sNextFreeMapSprite = NULL;
 
 static int EWRAM_DATA sSheetSyncRequest = 0;
 
 static int EWRAM_DATA sHoverCounter = 0;
 
-static u8* CONST_DATA sImgBuf = gBuf;
+static u8 * CONST_DATA sImgBuf = gBuf;
 
 static u16 CONST_DATA sSlotToChrLut[] =
 {
@@ -143,7 +143,7 @@ static u16 CONST_DATA Sprite_SleepIconG[] =
     1, OAM0_SHAPE_16x16 + OAM0_Y(-6), OAM1_SIZE_16x16 + OAM1_X(-3), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
 };
 
-static u16 const* CONST_DATA sSleepIconSprites[] =
+static u16 const * CONST_DATA sSleepIconSprites[] =
 {
     Sprite_SleepIconA,
     Sprite_SleepIconB,
@@ -199,7 +199,7 @@ static u16 CONST_DATA Sprite_BerserkIconI[] =
     1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+2), OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
 };
 
-static u16 const* CONST_DATA sBerserkIconSprites[] =
+static u16 const * CONST_DATA sBerserkIconSprites[] =
 {
     Sprite_BerserkIconA,
     Sprite_BerserkIconB,
@@ -229,7 +229,7 @@ static u16 CONST_DATA Sprite_SilenceIconC[] =
     1, OAM0_SHAPE_16x16 + OAM0_Y(-2), OAM1_SIZE_16x16, OAM2_CHR(0x48) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
 };
 
-static u16 const* CONST_DATA sSilenceIconSprites[] =
+static u16 const * CONST_DATA sSilenceIconSprites[] =
 {
     Sprite_SilenceIconA,
     Sprite_SilenceIconB,
@@ -299,7 +299,7 @@ static u16 CONST_DATA Sprite_PoisonIconH[] =
     1, OAM0_SHAPE_8x16 + OAM0_Y(-7), OAM1_SIZE_8x16 + OAM1_X(4) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
 };
 
-static u16 const* CONST_DATA sPoisonIconSprites[] =
+static u16 const * CONST_DATA sPoisonIconSprites[] =
 {
     Sprite_PoisonIconA,
     Sprite_PoisonIconB,
@@ -483,16 +483,16 @@ void SyncUnitSpriteSheet(void)
     int frame = GetGameTime() % UNITSPRITE_FRAME_END;
 
     if (frame == UNITSPRITE_FRAME_A)
-        CpuFastCopy(sSheetBuf[0], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[0]));
+        CpuFastCopy(sSheetBuf[0], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[0]));
 
     if (frame == UNITSPRITE_FRAME_B)
-        CpuFastCopy(sSheetBuf[1], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
+        CpuFastCopy(sSheetBuf[1], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
 
     if (frame == UNITSPRITE_FRAME_C)
-        CpuFastCopy(sSheetBuf[2], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[2]));
+        CpuFastCopy(sSheetBuf[2], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[2]));
 
     if (frame == UNITSPRITE_FRAME_D)
-        CpuFastCopy(sSheetBuf[1], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
+        CpuFastCopy(sSheetBuf[1], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
 }
 
 void ForceSyncUnitSpriteSheet(void)
@@ -505,30 +505,30 @@ void ForceSyncUnitSpriteSheet(void)
 
     if (frame >= UNITSPRITE_FRAME_D)
     {
-        RegisterDataMove(sSheetBuf[1], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
+        RegisterDataMove(sSheetBuf[1], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_C)
     {
-        RegisterDataMove(sSheetBuf[2], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[2]));
+        RegisterDataMove(sSheetBuf[2], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[2]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_B)
     {
-        RegisterDataMove(sSheetBuf[1], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
+        RegisterDataMove(sSheetBuf[1], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[1]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_A)
     {
-        RegisterDataMove(sSheetBuf[0], (u8*) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[0]));
+        RegisterDataMove(sSheetBuf[0], (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_MAPSPRITES, sizeof(sSheetBuf[0]));
         return;
     }
 }
 
-int GetUnitDisplayedSpritePalette(struct Unit* unit)
+int GetUnitDisplayedSpritePalette(struct Unit * unit)
 {
     if (unit->flags & UNIT_FLAG_TURN_ENDED)
         return OBJPAL_UNITSPRITE_GRAY;
@@ -536,7 +536,7 @@ int GetUnitDisplayedSpritePalette(struct Unit* unit)
     return GetUnitSpritePalette(unit);
 }
 
-int GetUnitSpritePalette(struct Unit* unit)
+int GetUnitSpritePalette(struct Unit * unit)
 {
     switch (UNIT_FACTION(unit))
     {
@@ -558,9 +558,9 @@ int GetUnitSpritePalette(struct Unit* unit)
 
 void RefreshUnitSprites(void)
 {
-    struct UnitSprite* map_sprite;
+    struct UnitSprite * map_sprite;
 
-    struct Trap* trap;
+    struct Trap * trap;
     int i;
 
     sNextFreeMapSprite = &sMapSprites[0];
@@ -572,7 +572,7 @@ void RefreshUnitSprites(void)
 
     for (i = 1; i < FACTION_PURPLE + 6; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -641,9 +641,9 @@ void RefreshUnitSprites(void)
         ForceSyncUnitSpriteSheet();
 }
 
-static struct UnitSprite* AddUnitSprite(int y)
+static struct UnitSprite * AddUnitSprite(int y)
 {
-    struct UnitSprite* it = sMapSprites;
+    struct UnitSprite * it = sMapSprites;
 
     while (TRUE)
     {
@@ -661,7 +661,7 @@ static struct UnitSprite* AddUnitSprite(int y)
 
 void PutUnitSpritesOam(void)
 {
-    struct UnitSprite* it = sMapSprites->next;
+    struct UnitSprite * it = sMapSprites->next;
 
     PutUnitSpriteIconsOam();
 
@@ -727,7 +727,7 @@ void PutUnitSpriteIconsOam(void)
 
     for (i = 1; i < FACTION_PURPLE; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -835,7 +835,7 @@ void ResetUnitSpritHover(void)
 
 void UnitSpriteHoverUpdate(void)
 {
-    struct Unit* unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+    struct Unit * unit = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
     if (unit)
     {
@@ -886,7 +886,7 @@ not_hover:
 
 bool IsUnitSpriteHoverEnabledAt(int x, int y)
 {
-    struct Unit* unit = GetUnit(gMapUnit[y][x]);
+    struct Unit * unit = GetUnit(gMapUnit[y][x]);
 
     if (!unit)
         return FALSE;
@@ -903,7 +903,7 @@ bool IsUnitSpriteHoverEnabledAt(int x, int y)
     return FALSE;
 }
 
-void PutUnitSprite(int layer, int x, int y, struct Unit* unit)
+void PutUnitSprite(int layer, int x, int y, struct Unit * unit)
 {
     unsigned id = GetUnitMapSprite(unit);
     int chr = UseUnitSprite(id);
@@ -932,7 +932,7 @@ void PutUnitSprite(int layer, int x, int y, struct Unit* unit)
     }
 }
 
-void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit)
+void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit * unit)
 {
     unsigned id = GetUnitMapSprite(unit);
     int chr = UseUnitSprite(id);
@@ -961,7 +961,7 @@ void PutUnitSpriteExt(int layer, int x, int y, int oam2, struct Unit* unit)
     }
 }
 
-void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit* unit)
+void PutBlendWindowUnitSprite(int layer, int x, int y, int oam2, struct Unit * unit)
 {
     unsigned id = GetUnitMapSprite(unit);
     int chr = UseUnitSprite(id);
@@ -998,7 +998,7 @@ void func_fe6_08022A2C(void)
     sMapSprites[0].next = NULL;
 }
 
-void HideUnitSprite(struct Unit* unit)
+void HideUnitSprite(struct Unit * unit)
 {
     if (!unit)
         RefreshUnitSprites();
@@ -1009,7 +1009,7 @@ void HideUnitSprite(struct Unit* unit)
     unit->map_sprite->config |= 0x80;
 }
 
-void ShowUnitSprite(struct Unit* unit)
+void ShowUnitSprite(struct Unit * unit)
 {
     if (!unit->map_sprite)
         return;
@@ -1017,7 +1017,7 @@ void ShowUnitSprite(struct Unit* unit)
     unit->map_sprite->config &= ~0x80;
 }
 
-u8 GetUnitSpriteHiddenFlag(struct Unit* unit)
+u8 GetUnitSpriteHiddenFlag(struct Unit * unit)
 {
     if (!unit->map_sprite)
         return 0x80;

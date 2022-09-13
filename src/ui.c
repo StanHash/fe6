@@ -101,10 +101,10 @@ void UnpackUiWindowFrameGraphics2(int window_theme)
         window_theme = gPlaySt.config_window_theme;
 
     len = GetDataSize(gUiWindowFrameImgLut[window_theme]);
-    buf = gBuf + ARRAY_COUNT(gBuf) - (len / sizeof(*gBuf));
+    buf = gBuf + ARRAY_COUNT(gBuf) - (len / sizeof (* gBuf));
 
     Decompress(gUiWindowFrameImgLut[window_theme], buf);
-    RegisterDataMove(buf, (void *) VRAM + CHR_SIZE * BGCHR_WINDOW_FRAME, len);
+    RegisterVramMove(buf, CHR_SIZE * BGCHR_WINDOW_FRAME, len);
 
     ApplyUiWindowFramePal(-1);
 }

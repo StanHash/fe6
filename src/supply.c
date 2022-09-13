@@ -7,7 +7,7 @@
 
 static u16 EWRAM_DATA sSupplyItems[SUPPLY_ITEM_COUNT] = {};
 
-u16* GetSupplyItems(void)
+u16 * GetSupplyItems(void)
 {
     return sSupplyItems;
 }
@@ -21,10 +21,10 @@ void SquashSupplyItems(void)
 {
     u16 i;
 
-    u16* buf = (u16*) gBuf;
+    u16 * buf = (u16 *) gBuf;
 
-    u16* ot = buf;
-    u16* it = GetSupplyItems();
+    u16 * ot = buf;
+    u16 * it = GetSupplyItems();
 
     for (i = 0; i < SUPPLY_ITEM_COUNT; ++it, ++i)
     {

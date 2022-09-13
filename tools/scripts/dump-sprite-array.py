@@ -139,7 +139,7 @@ def main(args):
             print("};")
             print("")
 
-        print("u16 const* CONST_DATA gUnk_{:08X}[] =".format(offset + 0x8000000))
+        print("u16 const * CONST_DATA gUnk_{:08X}[] =".format(offset + 0x8000000))
         print("{")
 
         for name in names:

@@ -44,7 +44,7 @@ static u8 const JList_AiJobRankArmors[] = { JID_ARMOR, JID_GENERAL, 0 };
 static u8 const JList_AiJobRankCavaliers[] = { JID_CAVALIER, JID_CAVALIER_F, JID_PALADIN, JID_PALADIN_F, 0 };
 static u8 const JList_AiJobRankArchers[] = { JID_ARCHER, JID_ARCHER_F, JID_SNIPER, JID_SNIPER_F, 0 };
 
-u8 const* CONST_DATA gAiJobRankLists[] =
+u8 const * CONST_DATA gAiJobRankLists[] =
 {
     JList_AiJobRankRoy,
     JList_AiJobRankSupport,
@@ -781,7 +781,7 @@ struct AiEscapePt const AiEscapePts_None[] =
     { -1 },
 };
 
-struct AiEscapePt const* CONST_DATA gUnk_085C86B8[CHAPTER_COUNT] =
+struct AiEscapePt const * CONST_DATA gUnk_085C86B8[CHAPTER_COUNT] =
 {
     AiEscapePts_None,
     AiEscapePts_1,
@@ -830,7 +830,7 @@ struct AiEscapePt const* CONST_DATA gUnk_085C86B8[CHAPTER_COUNT] =
     AiEscapePts_None,
 };
 
-struct AiEscapePt const* CONST_DATA gUnk_085C876C[CHAPTER_COUNT] =
+struct AiEscapePt const * CONST_DATA gUnk_085C876C[CHAPTER_COUNT] =
 {
     AiEscapePts_None,
     AiEscapePts_1,
@@ -995,13 +995,13 @@ struct Vec2i const gUnk_0810DAF0[] =
     { -1, -1 },
 };
 
-struct Vec2i const* CONST_DATA gUnk_085C8870[] =
+struct Vec2i const * CONST_DATA gUnk_085C8870[] =
 {
     gUnk_0810DADC,
     gUnk_0810DAF0,
 };
 
-struct Vec2i const* const* CONST_DATA gUnk_085C8878 = gUnk_085C8870;
+struct Vec2i const * const * CONST_DATA gUnk_085C8878 = gUnk_085C8870;
 
 char CONST_DATA gUnk_085C887C[] = "CALL TEST\n";
 char CONST_DATA gUnk_085C8887   = 3;
@@ -1545,7 +1545,7 @@ AI_LABEL(1),
     AI_GOTO_START,
 };
 
-static struct AiScr const* CONST_DATA sAiScriptLutB[] =
+static struct AiScr const * CONST_DATA sAiScriptLutB[] =
 {
     AiScr_AiB_MoveToEnemy,
     AiScr_AiB_MoveToEnemy_IgnoreClarine,
@@ -1574,7 +1574,7 @@ static struct AiScr const* CONST_DATA sAiScriptLutB[] =
     AiScr_Unk_085C8C08,
 };
 
-static struct AiScr const* CONST_DATA sAiScriptLutA[] =
+static struct AiScr const * CONST_DATA sAiScriptLutA[] =
 {
     AiScr_AiA_Action,
     AiScr_AiA_Action80,
@@ -1594,14 +1594,14 @@ static struct AiScr const* CONST_DATA sAiScriptLutA[] =
     AiScr_Unk_085C96B8,
 };
 
-struct AiScr const* const* CONST_DATA gAiScriptLutB[] =
+struct AiScr const * const * CONST_DATA gAiScriptLutB[] =
 {
     sAiScriptLutB,
     sAiScriptLutB,
     sAiScriptLutB,
 };
 
-struct AiScr const* const* CONST_DATA gAiScriptLutA[] =
+struct AiScr const * const * CONST_DATA gAiScriptLutA[] =
 {
     sAiScriptLutA,
     sAiScriptLutA,

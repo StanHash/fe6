@@ -55,18 +55,18 @@ enum
     BAS_INS_KIND_FRAME   = 6,
 };
 
-static int BasRunScript(struct BaSprite* BaSprite);
-static void BasInsert(struct BaSprite* BaSprite);
-static void PutBas(struct BaSprite* BaSprite);
+static int BasRunScript(struct BaSprite * BaSprite);
+static void BasInsert(struct BaSprite * BaSprite);
+static void PutBas(struct BaSprite * BaSprite);
 
-typedef void(*BasFunc)(struct BaSprite* bas);
+typedef void (* BasFunc)(struct BaSprite * bas);
 
 static struct BaSprite EWRAM_DATA sBasPool[BAS_MAX_COUNT] = {};
-static struct BaSprite* EWRAM_DATA sFirstBas = NULL;
+static struct BaSprite * EWRAM_DATA sFirstBas = NULL;
 
 void BasUpdateAll(void)
 {
-    struct BaSprite* bas;
+    struct BaSprite * bas;
     int boolNeedsSort = FALSE;
 
     if (!sFirstBas)
@@ -109,7 +109,7 @@ void BasUpdateAll(void)
 
 void BasInit(void)
 {
-    struct BaSprite* it;
+    struct BaSprite * it;
 
     for (it = sBasPool; it < sBasPool + BAS_MAX_COUNT; ++it)
     {
@@ -121,9 +121,9 @@ void BasInit(void)
     sFirstBas = NULL;
 }
 
-struct BaSprite* BasCreate2(void const* script)
+struct BaSprite * BasCreate2(void const * script)
 {
-    struct BaSprite* bas;
+    struct BaSprite * bas;
 
     // Find bas slot for new bas
     for (bas = sBasPool; bas < sBasPool + BAS_MAX_COUNT; ++bas)
@@ -159,9 +159,9 @@ struct BaSprite* BasCreate2(void const* script)
     return bas;
 }
 
-struct BaSprite* BasCreate(void const* script, u16 displayPriority)
+struct BaSprite * BasCreate(void const * script, u16 displayPriority)
 {
-    struct BaSprite* bas;
+    struct BaSprite * bas;
 
     // Find bas slot for new bas
     for (bas = sBasPool; bas < sBasPool + BAS_MAX_COUNT; ++bas)
@@ -199,7 +199,7 @@ struct BaSprite* BasCreate(void const* script, u16 displayPriority)
 
 void BasSort(void)
 {
-    struct BaSprite* bas;
+    struct BaSprite * bas;
 
     for (bas = sBasPool; bas < sBasPool + BAS_MAX_COUNT; ++bas)
     {
@@ -221,9 +221,9 @@ void BasSort(void)
     }
 }
 
-void BasRemove(struct BaSprite* bas)
+void BasRemove(struct BaSprite * bas)
 {
-    struct BaSprite* n;
+    struct BaSprite * n;
 
     if (bas->prev == NULL)
     {
@@ -246,12 +246,12 @@ void BasRemove(struct BaSprite* bas)
     bas->next = NULL;
 }
 
-void BasPutOam(struct BaSprite* bas)
+void BasPutOam(struct BaSprite * bas)
 {
     PutBas(bas);
 }
 
-int BasRunScript(struct BaSprite* bas)
+int BasRunScript(struct BaSprite * bas)
 {
     u32 ins;
 
@@ -271,7 +271,7 @@ int BasRunScript(struct BaSprite* bas)
                 break;
 
             case 1: // set new frame data
-                bas->scrCur = bas->script = (u32 const*) (ins &~ 0xF0000000);
+                bas->scrCur = bas->script = (u32 const *) (ins &~ 0xF0000000);
                 bas->timer = 1;
 
                 break;
@@ -349,10 +349,10 @@ int BasRunScript(struct BaSprite* bas)
                 bas->timer = ins & 0xFFFF;
                 bas->unk13 = (ins >> 16) & 0xFF;
 
-                bas->imgSheet = (void const*) *bas->scrCur++;
+                bas->imgSheet = (void const *) *bas->scrCur++;
 
                 // weird but ok
-                bas->sprData = (void const*) *bas->scrCur++;
+                bas->sprData = (void const *) *bas->scrCur++;
                 bas->sprData += (int) bas->sprDataPool;
 
                 bas->flags2 = (bas->flags2 & 0xFFF) | 0x2000;
@@ -364,17 +364,17 @@ int BasRunScript(struct BaSprite* bas)
     }
     else
     {
-        bas->sprData = (u8 const*) (ins &~ 0xF0000003);
+        bas->sprData = (u8 const *) (ins &~ 0xF0000003);
         bas->timer   = ((ins >> 26) & 0x1C) + (ins & 3);
     }
 
     return boolNeedsResort;
 }
 
-void BasInsert(struct BaSprite* bas)
+void BasInsert(struct BaSprite * bas)
 {
-    struct BaSprite* bas2 = bas;
-    struct BaSprite* it = sFirstBas;
+    struct BaSprite * bas2 = bas;
+    struct BaSprite * it = sFirstBas;
 
     if (!sFirstBas)
     {
@@ -389,7 +389,7 @@ void BasInsert(struct BaSprite* bas)
 
         if (bas2->priority > it->priority)
         {
-            struct BaSprite* prev = it->prev;
+            struct BaSprite * prev = it->prev;
 
             bas2->prev = it->prev;
             bas2->next = it;
@@ -417,10 +417,10 @@ void BasInsert(struct BaSprite* bas)
     }
 }
 
-void PutBas(struct BaSprite* bas)
+void PutBas(struct BaSprite * bas)
 {
-    struct BaSpriteData const* it;
-    struct BaSpriteData const* sprData;
+    struct BaSpriteData const * it;
+    struct BaSpriteData const * sprData;
 
     int x, y;
     int i;
@@ -496,8 +496,8 @@ void PutBas(struct BaSprite* bas)
 
         i = i + bas->oam01;
 
-        *(u32*) ((u32*) gOamHiPutIt)++ = (it->header + i) | (x << 16) | (y);
-        *(u16*) ((u32*) gOamHiPutIt)++ = (it->as.object.oam2 & 0xF3FF) + bas->oam2;
+        *(u32 *) ((u32 *) gOamHiPutIt)++ = (it->header + i) | (x << 16) | (y);
+        *(u16 *) ((u32 *) gOamHiPutIt)++ = (it->as.object.oam2 & 0xF3FF) + bas->oam2;
 
         it++;
     }

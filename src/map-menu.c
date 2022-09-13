@@ -27,6 +27,7 @@
 #include "menu-info.h"
 #include "ui.h"
 #include "menu.h"
+#include "eventinfo.h"
 
 #include "constants/video-global.h"
 #include "constants/terrains.h"
@@ -154,7 +155,7 @@ fu8 func_fe6_0801EAE4(struct MenuProc * menu, struct MenuEntProc * ent)
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-u8 TutorialInterruptMenu_Continue_Select(struct MenuProc* menu, struct MenuEntProc* ent)
+u8 TutorialInterruptMenu_Continue_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
@@ -480,7 +481,7 @@ fu8 UnitActionMenu_Attack_Select(struct MenuProc * menu, struct MenuEntProc * en
     return 0;
 }
 
-fu8 UnitActionMenu_AttackBallista_Select(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_AttackBallista_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ProcPtr proc = StartMenu(&MenuInfo_UnitAttackBallista);
 
@@ -490,14 +491,14 @@ fu8 UnitActionMenu_AttackBallista_Select(struct MenuProc* menu, struct MenuEntPr
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
-fu8 UnitActionMenu_AttackRegular_Select(struct MenuProc* menu, struct MenuEntProc* ent)
+fu8 UnitActionMenu_AttackRegular_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     ProcPtr proc = StartMenu(&MenuInfo_UnitAttackItem);
 
     StartFace(0, GetUnitFid(gActiveUnit), 176, 12, FACE_DISP_KIND(FACE_96x80));
     StartEquipInfoWindow(proc, gActiveUnit, 15, 11);
 
-    func_fe6_0806B4AC();
+    StartAvailableAttackMenuEvent();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
@@ -559,7 +560,7 @@ fu8 UnitAttackItemMenu_Entry_Select(struct MenuProc * menu, struct MenuEntProc *
     ListAttackTargetsForWeapon(gActiveUnit, gActiveUnit->items[0]);
     StartMapSelect(&MapSelectInfo_Attack);
 
-    func_fe6_0806B4C8();
+    StartAvailableAttackMenuItemEvent();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_ENDFACE;
 }
@@ -635,7 +636,7 @@ fu8 AttackMapSelect_Cancel(struct MapSelectProc * proc, struct SelectTarget * ta
 
 fu8 AttackMapSelect_SwitchIn(struct MapSelectProc * proc, struct SelectTarget * target)
 {
-    struct Unit* unit = GetUnit(target->uid);
+    struct Unit * unit = GetUnit(target->uid);
 
     MakeActiveMuWatchPosition(target->x, target->y);
 
@@ -711,13 +712,13 @@ fu8 UnitActionMenu_Seize_Available(struct MenuEntInfo const * info, int id)
     if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13))
         return MENU_ENTRY_HIDDEN;
 
-    return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_0F
+    return GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) == TILE_COMMAND_SEIZE
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
 fu8 UnitActionMenu_Seize_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    gAction.id = ACTION_0F;
+    gAction.id = ACTION_SEIZE;
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
@@ -729,7 +730,7 @@ fu8 UnitActionMenu_Visit_Available(struct MenuEntInfo const * info, int id)
     if (gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_VILLAGE && gMapTerrain[gActiveUnit->y][gActiveUnit->x] != TERRAIN_HOUSE)
         return MENU_ENTRY_HIDDEN;
 
-    if (func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) != LOCATION_COMMAND_VISIT)
+    if (GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) != TILE_COMMAND_VISIT)
         return MENU_ENTRY_HIDDEN;
 
     if (gActiveUnit->status == UNIT_STATUS_SILENCED)
@@ -746,7 +747,7 @@ fu8 UnitActionMenu_Visit_Select(struct MenuProc * menu, struct MenuEntProc * ent
         return MENU_ACTION_SE_6B;
     }
 
-    gAction.id = ACTION_0E;
+    gAction.id = ACTION_VISIT;
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
@@ -891,7 +892,7 @@ fu8 SingleItemMenu_Entry_SwitchOut(struct MenuProc * menu, struct MenuEntProc * 
 
 void func_fe6_0801F854(int x, int y)
 {
-    InitTextFont(&gFont_Unk_02002770, (u8*) VRAM + CHR_SIZE*0x200, 0x200, 0);
+    InitTextFont(&gFont_Unk_02002770, (u8 *) VRAM + CHR_SIZE*0x200, 0x200, 0);
 
     TmCopyRect_t(gBg0Tm + TM_OFFSET(11, 1), gUnk_Tm_02003238, 9, 19);
     TmCopyRect_t(gBg1Tm + TM_OFFSET(11, 1), gUnk_Tm_02003738, 9, 19);
@@ -1365,7 +1366,7 @@ fu8 UnitActionMenu_Chest_Select(struct MenuProc * menu, struct MenuEntProc * ent
 
 fu8 UnitActionMenu_Supply_Available(struct MenuEntInfo const * info, int id)
 {
-    struct Unit* merlinus;
+    struct Unit * merlinus;
 
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
@@ -1407,13 +1408,13 @@ fu8 UnitActionMenu_Armory_Available(struct MenuEntInfo const * info, int id)
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_13
+    return GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) == TILE_COMMAND_ARMORY
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
 fu8 UnitActionMenu_Armory_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
+    StartAvailableTileEvent(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
@@ -1422,13 +1423,13 @@ fu8 UnitActionMenu_Vendor_Available(struct MenuEntInfo const * info, int id)
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_14
+    return GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) == TILE_COMMAND_VENDOR
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
 fu8 UnitActionMenu_Vendor_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
+    StartAvailableTileEvent(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
@@ -1437,13 +1438,13 @@ fu8 UnitActionMenu_Secret_Available(struct MenuEntInfo const * info, int id)
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    return func_fe6_0806B028(gActiveUnit->x, gActiveUnit->y) == LOCATION_COMMAND_15
+    return GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) == TILE_COMMAND_SECRET
         ? MENU_ENTRY_ENABLED : MENU_ENTRY_HIDDEN;
 }
 
 fu8 UnitActionMenu_Secret_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    func_fe6_0806B06C(gActiveUnit->x, gActiveUnit->y);
+    StartAvailableTileEvent(gActiveUnit->x, gActiveUnit->y);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 

@@ -12,13 +12,13 @@
 #include "constants/pids.h"
 #include "constants/items.h"
 
-static void ArenaBeginInternal(struct Unit* unit);
-static int ArenaGetUnitWeaponKind(struct Unit* unit);
-static int ArenaGetJobWeaponKind(struct JInfo const* jinfo);
+static void ArenaBeginInternal(struct Unit * unit);
+static int ArenaGetUnitWeaponKind(struct Unit * unit);
+static int ArenaGetJobWeaponKind(struct JInfo const * jinfo);
 static int ArenaGenOpposingJid(int weapon_kind);
 static bool ArenaIsMagicWeaponKind(int weapon_kind);
 static int ArenaGetOpposingLevel(int level);
-static int ArenaGetPowerRanking(struct Unit* unit, bool opponent_is_magic);
+static int ArenaGetPowerRanking(struct Unit * unit, bool opponent_is_magic);
 static void ArenaGenOpponentUnit(void);
 static void ArenaGenBaseWeapons(void);
 static u16 ArenaGetUpgradedWeapon(u16 item);
@@ -164,7 +164,7 @@ u8 CONST_DATA JList_UnusedArena[] =
     0 // end
 };
 
-static void ArenaBeginInternal(struct Unit* unit)
+static void ArenaBeginInternal(struct Unit * unit)
 {
     int i;
 
@@ -204,20 +204,20 @@ static void ArenaBeginInternal(struct Unit* unit)
     ArenaSetResult(ARENA_RESULT_0);
 }
 
-void ArenaBegin(struct Unit* unit)
+void ArenaBegin(struct Unit * unit)
 {
     RandGetSt(gAction.arena_begin_rand_st);
     ArenaBeginInternal(unit);
 }
 
-void ArenaResume(struct Unit* unit)
+void ArenaResume(struct Unit * unit)
 {
     RandSetSt(gAction.arena_begin_rand_st);
     ArenaBeginInternal(unit);
     RandSetSt(gAction.action_rand_st);
 }
 
-static int ArenaGetUnitWeaponKind(struct Unit* unit)
+static int ArenaGetUnitWeaponKind(struct Unit * unit)
 {
     int i;
 
@@ -239,7 +239,7 @@ static int ArenaGetUnitWeaponKind(struct Unit* unit)
     return kind;
 }
 
-static int ArenaGetJobWeaponKind(struct JInfo const* jinfo)
+static int ArenaGetJobWeaponKind(struct JInfo const * jinfo)
 {
     int i;
 
@@ -267,7 +267,7 @@ static int ArenaGenOpposingJid(int weapon_kind)
     int jobnum, i;
 
     int jobcount = 0;
-    u8 const* joblist = NULL;
+    u8 const * joblist = NULL;
 
     switch (weapon_kind)
     {
@@ -357,7 +357,7 @@ static int ArenaGetOpposingLevel(int level)
     return result;
 }
 
-static int ArenaGetPowerRanking(struct Unit* unit, bool opponent_is_magic)
+static int ArenaGetPowerRanking(struct Unit * unit, bool opponent_is_magic)
 {
     int result = unit->max_hp;
 
@@ -385,7 +385,7 @@ static void ArenaGenOpponentUnit(void)
 
     int level, i;
 
-    struct Unit* unit = &gArenaOpponent;
+    struct Unit * unit = &gArenaOpponent;
 
     info.pid = PID_ARENA_OPPONENT;
     info.jid = gArenaSt.opponent_jid;
@@ -465,7 +465,7 @@ static u16 ArenaGetUpgradedWeapon(u16 item)
         -1, // end
     };
 
-    u8 const* it;
+    u8 const * it;
 
     for (it = arenaWeaponUpgrades; *it != (u8) -1; ++it)
     {
@@ -473,7 +473,7 @@ static u16 ArenaGetUpgradedWeapon(u16 item)
             continue;
 
         if (*++it != 0)
-            return CreateItem(*it);
+            return CreateItem (* it);
 
         return item;
     }
@@ -662,7 +662,7 @@ void ArenaContinueBattle(void)
         func_fe6_08084D64();
 }
 
-bool ArenaIsUnitAllowed(struct Unit* unit)
+bool ArenaIsUnitAllowed(struct Unit * unit)
 {
     if (unit->status == UNIT_STATUS_SILENCED)
         return FALSE;

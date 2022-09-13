@@ -11,7 +11,7 @@ int CountFactionMoveableUnits(int faction)
 
     for (i = faction + 1; i < faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -37,7 +37,7 @@ int CountFactionUnitsWithoutState(int faction, int prohibited_state)
 
     for (i = faction + 1; i < faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;

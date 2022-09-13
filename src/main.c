@@ -36,8 +36,8 @@ NAKEDFUNC void AgbMain(void)
     ");
 
     // clear RAM
-    DmaFill32(3, 0, (void*) IWRAM_START, 0x7F80);
-    CpuFastFill(0, (void*) EWRAM_START, 0x40000);
+    DmaFill32(3, 0, (void *) IWRAM_START, 0x7F80);
+    CpuFastFill(0, (void *) EWRAM_START, 0x40000);
 
     REG_WAITCNT = 0x45B4;
 
@@ -77,7 +77,7 @@ NAKEDFUNC void AgbMain(void)
 static char const sDbgLineA[] = "2002/03/02(SAT) 11:15:03";
 static char const sDbgLineB[] = "NARIHIRO";
 
-NAKEDFUNC void PutBuildInfo(u16* tm)
+NAKEDFUNC void PutBuildInfo(u16 * tm)
 {
     asm("\n\
         .syntax unified\n\

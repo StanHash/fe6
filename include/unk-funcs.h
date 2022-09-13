@@ -18,17 +18,17 @@
 
 void AiRefreshDangerMap(void);
 bool AiCheckDangerAt(int x, int y, u8 threshold);
-bool AiTryGetNearestHealPoint(struct Vec2i* out);
+bool AiTryGetNearestHealPoint(struct Vec2i * out);
 void func_fe6_08032A08(void);
-bool AiUpdateGetUnitIsHealing(struct Unit* unit);
+bool AiUpdateGetUnitIsHealing(struct Unit * unit);
 bool AiTryHealSelf(void);
 bool AiTryMoveTowardsEscape(void);
 // func_fe6_08032C2C
 bool func_fe6_08032CB4(void);
-bool func_fe6_08032CE8(u16* out);
-void func_fe6_08032DF4(u16 arg_0, u16 arg_1, u16* arg_2, u16* arg_3, u16* arg_4);
+bool func_fe6_08032CE8(u16 * out);
+void func_fe6_08032DF4(u16 arg_0, u16 arg_1, u16 * arg_2, u16 * arg_3, u16 * arg_4);
 // func_fe6_08032F48
-void func_fe6_08032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16* arg_3);
+void func_fe6_08032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16 * arg_3);
 void func_fe6_08032FBC(u16 item);
 // func_fe6_08032FF4
 // func_fe6_08033038
@@ -38,25 +38,25 @@ void AiTryActionAfterMove(void);
 // func_fe6_080331EC
 // func_fe6_08033250
 // func_fe6_08033380
-bool func_fe6_080333B0(void const* arg);
+bool func_fe6_080333B0(void const * arg);
 // func_fe6_080334F4
-bool func_fe6_080336B0(void const* arg);
-bool func_fe6_080336CC(void const* arg);
+bool func_fe6_080336B0(void const * arg);
+bool func_fe6_080336CC(void const * arg);
 // func_fe6_080336FC
 // func_fe6_0803372C
-bool func_fe6_080337B4(void const* arg);
+bool func_fe6_080337B4(void const * arg);
 // func_fe6_08033824
-bool AiFunc_DecideTalk(void const* arg);
-bool func_fe6_08033898(void const* arg);
+bool AiFunc_DecideTalk(void const * arg);
+bool func_fe6_08033898(void const * arg);
 // func_fe6_0803395C
-bool func_fe6_08033998(void const* arg);
+bool func_fe6_08033998(void const * arg);
 // func_fe6_080339F8
 // func_fe6_08033A30
-bool func_fe6_08033AA4(void const* arg);
-bool func_fe6_08033B04(void const* arg);
-bool func_fe6_08033B50(void const* arg);
+bool func_fe6_08033AA4(void const * arg);
+bool func_fe6_08033B04(void const * arg);
+bool func_fe6_08033B50(void const * arg);
 // func_fe6_08033B9C
-bool func_fe6_08033C04(bool(*is_enemy)(struct Unit* unit));
+bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit));
 // func_fe6_08033C8C
 // func_fe6_08033D5C
 // func_fe6_08033ECC
@@ -87,8 +87,8 @@ bool AiTryDoSpecialItems(void);
 // func_fe6_08034FC4
 // func_fe6_08034FF8
 // func_fe6_08035028
-void func_fe6_08035064(struct Unit* unit);
-void func_fe6_08035098(int x, int y, struct Unit* unit);
+void func_fe6_08035064(struct Unit * unit);
+void func_fe6_08035098(int x, int y, struct Unit * unit);
 // func_fe6_080350C8
 // func_fe6_080351E4
 // func_fe6_080351F4
@@ -1596,16 +1596,16 @@ void func_fe6_08047CC8(void);
 // func_fe6_0805F750
 u8 func_fe6_0805F784(int item);
 // func_fe6_0805F794
-struct ProcScr const* func_fe6_0805F7A4(int item);
+struct ProcScr const * func_fe6_0805F7A4(int item);
 u8 func_fe6_0805F7B4(int item);
 u8 GetItemMaFacing(int item);
 // func_fe6_0805F7D4
 
 void func_fe6_08061838(ProcPtr proc);
 void func_fe6_08061878(ProcPtr proc);
-bool func_fe6_080618D4(struct BattleUnit* bu);
+bool func_fe6_080618D4(struct BattleUnit * bu);
 void func_fe6_08061908(ProcPtr proc);
-bool func_fe6_08061964(struct BattleUnit* bu);
+bool func_fe6_08061964(struct BattleUnit * bu);
 void func_fe6_0806199C(ProcPtr proc);
 void func_fe6_080619B0(ProcPtr proc);
 // func_fe6_080619E8
@@ -1631,8 +1631,8 @@ void func_fe6_08062614(void);
 void func_fe6_08062690(void);
 // func_fe6_08062734
 void func_fe6_080627D0(void);
-void func_fe6_0806283C(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits);
-void func_fe6_08062890(struct BattleUnit* bu_a, struct BattleUnit* bu_b, struct BattleHit* battle_hits);
+void func_fe6_0806283C(struct BattleUnit * bu_a, struct BattleUnit * bu_b, struct BattleHit * battle_hits);
+void func_fe6_08062890(struct BattleUnit * bu_a, struct BattleUnit * bu_b, struct BattleHit * battle_hits);
 int GetFacingFromTo(int xa, int ya, int xb, int yb);
 // func_fe6_08062A80
 // func_fe6_08062AB4
@@ -1668,7 +1668,7 @@ void MA_StartBattleInfoBox(int x, int y, ProcPtr proc);
 // func_fe6_08064A10
 // func_fe6_08064A8C
 // func_fe6_08064B20
-void func_fe6_08064B7C(struct Unit* unit);
+void func_fe6_08064B7C(struct Unit * unit);
 // func_fe6_08064BEC
 // func_fe6_08064C50
 // func_fe6_08064CC0
@@ -1775,7 +1775,7 @@ void func_fe6_08067CF8(int actor_id, ProcPtr parent);
 // func_fe6_08068938
 // func_fe6_080689F0
 // func_fe6_08068A1C
-struct ProcScr const* func_fe6_08068A48(void);
+struct ProcScr const * func_fe6_08068A48(void);
 // func_fe6_08068A74
 // func_fe6_08068AA8
 void func_fe6_08068ADC(ProcPtr proc);
@@ -1846,104 +1846,9 @@ void func_fe6_0806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
 // func_fe6_0806A770
 // func_fe6_0806A7AC
 // func_fe6_0806A87C
-// func_fe6_0806A8AC
-// func_fe6_0806A8CC
-// func_fe6_0806A920
-// func_fe6_0806A950
-// func_fe6_0806A954
-// func_fe6_0806A97C
-// func_fe6_0806A9DC
-// func_fe6_0806AA0C
-// func_fe6_0806AA40
-// func_fe6_0806AA8C
-// func_fe6_0806AAA0
-// func_fe6_0806AAEC
-// func_fe6_0806AB30
-// func_fe6_0806AB74
-// func_fe6_0806ABD0
-// func_fe6_0806AC34
-// func_fe6_0806AC64
-// func_fe6_0806AC90
-// func_fe6_0806ACB8
-// func_fe6_0806ACEC
-// func_fe6_0806AD48
-// func_fe6_0806AD74
-// func_fe6_0806ADC4
-// func_fe6_0806ADDC
-// func_fe6_0806AE04
-// func_fe6_0806AE2C
-// func_fe6_0806AE54
-// func_fe6_0806AE7C
-bool func_fe6_0806AED8(void);
-void func_fe6_0806AF08(void);
-bool func_fe6_0806AF4C(fu8 pid_a, fu8 pid_b);
-void func_fe6_0806AF90(fu8 pid_a, fu8 pid_b);
-void func_fe6_0806AFD0(fu8 pid_a, fu8 pid_b, int support_level);
-int func_fe6_0806B028(fi8 x, fi8 y);
-void func_fe6_0806B06C(fi8 x, fi8 y);
-// func_fe6_0806B254
-// func_fe6_0806B268
-// func_fe6_0806B284
-// func_fe6_0806B2AC
-// func_fe6_0806B310
-bool IsThereClosedChestAt(i8 x, i8 y);
-void func_fe6_0806B354(i8 x, i8 y);
-bool func_fe6_0806B37C(i8 x, i8 y);
-void func_fe6_0806B398(i8 x, i8 y);
-// func_fe6_0806B3C0
-// func_fe6_0806B3DC
-bool func_fe6_0806B404(void);
-void func_fe6_0806B414(void);
-void func_fe6_0806B420(void);
-// func_fe6_0806B43C
-bool func_fe6_0806B470(void);
-bool func_fe6_0806B4A4(void);
-// func_fe6_0806B4A8
-void func_fe6_0806B4AC(void);
-void func_fe6_0806B4C8(void);
-void func_fe6_0806B4E4(void);
-bool func_fe6_0806B500(void);
-void func_fe6_0806B540(void);
-// func_fe6_0806B580
-// func_fe6_0806B5B0
-void func_fe6_0806B604(void);
-struct UnitInfo const* func_fe6_0806B638(void);
-// func_fe6_0806B650
-// func_fe6_0806B6B0
-// func_fe6_0806B6F8
-void func_fe6_0806B754(u8 pid_a, u8 pid_b);
-bool ShouldDisplayDeathQuote(u8 pid);
-void func_fe6_0806B808(u8 pid);
-// func_fe6_0806B898
-// func_fe6_0806B89C
-// func_fe6_0806B8A0
-// func_fe6_0806B8A4
-// func_fe6_0806B8A8
-// func_fe6_0806B8AC
-// func_fe6_0806B8B0
-// func_fe6_0806B8B4
-// func_fe6_0806B8B8
-// func_fe6_0806B8BC
-// func_fe6_0806B8C0
-// func_fe6_0806B8C4
-// func_fe6_0806B8C8
-// CheckChapterEid
-// func_fe6_0806B938
-void func_fe6_0806B970(void);
-// func_fe6_0806B984
-// CheckGlobalEid
-// func_fe6_0806B9F8
-void func_fe6_0806BA34(void);
-void SetEid(int flag);
-bool CheckFlag(int flagId);
-void ClearEid(int flag);
-// GetGlobalEidData
-// func_fe6_0806BA90
-// GetChapterEidData
-// func_fe6_0806BA9C
 // EvtCheck_IsHard
-// func_fe6_0806BAB8
-// func_fe6_0806BAF0
+// GetHardModeBonusLevelsByPid
+void ApplyAllHardModeBonusLevels(void);
 // func_fe6_0806BB34
 // func_fe6_0806BB68
 // func_fe6_0806BB9C
@@ -2040,10 +1945,10 @@ void ClearEid(int flag);
 // func_fe6_0806C670
 // func_fe6_0806C68C
 // func_fe6_0806C69C
-// func_fe6_0806C6B0
-// func_fe6_0806C718
-// func_fe6_0806C734
-// func_fe6_0806C750
+void func_fe6_0806C6B0(void);
+void func_fe6_0806C718(void);
+void func_fe6_0806C734(void);
+void func_fe6_0806C750(void);
 // func_fe6_0806C76C
 // func_fe6_0806C7BC
 // func_fe6_0806C7E0
@@ -2083,7 +1988,7 @@ void ClearEid(int flag);
 // func_fe6_0806CCC4
 // func_fe6_0806CCE8
 // func_fe6_0806CD34
-// func_fe6_0806CD78
+bool func_fe6_0806CD78(void);
 // func_fe6_0806CDAC
 // func_fe6_0806CDC0
 // func_fe6_0806CE18
@@ -2212,7 +2117,7 @@ void StartGameEndingScene(ProcPtr parent);
 // func_fe6_0806E998
 // func_fe6_0806E9E0
 // func_fe6_0806E9E8
-void func_fe6_0806EA24(ProcPtr parent, u8* vram, int pal);
+void func_fe6_0806EA24(ProcPtr parent, u8 * vram, int pal);
 void func_fe6_0806EABC(void);
 int func_fe6_0806EACC(void);
 // func_fe6_0806EAD8
@@ -2257,7 +2162,7 @@ void func_fe6_0806EAE4(int arg_0);
 // func_fe6_08070264
 // func_fe6_08070278
 // func_fe6_080702B0
-void func_fe6_080702BC(struct Unit* unit, ProcPtr parent);
+void func_fe6_080702BC(struct Unit * unit, ProcPtr parent);
 // func_fe6_0807030C
 // func_fe6_0807036C
 // func_fe6_08070398
@@ -2281,8 +2186,8 @@ void CloseHelpBox(void);
 // func_fe6_080708E4
 // func_fe6_0807090C
 // func_fe6_080709D4
-void StartMovingHelpBox(struct HelpBoxInfo const* info, ProcPtr parent);
-void StartMovingHelpBoxExt(struct HelpBoxInfo const* info, ProcPtr parent, int x, int y);
+void StartMovingHelpBox(struct HelpBoxInfo const * info, ProcPtr parent);
+void StartMovingHelpBoxExt(struct HelpBoxInfo const * info, ProcPtr parent, int x, int y);
 // ApplyHelpBoxContentSize
 // ApplyHelpBoxPosition
 // SetHelpBoxInitPosition
@@ -2300,11 +2205,11 @@ void func_fe6_08070CB4(int flags, int palid);
 void func_fe6_08070D08(int chr, int chapter);
 // func_fe6_08070D48
 void func_fe6_08070D78(int chr);
-void func_fe6_08070DA8(u16* tm, int palid);
+void func_fe6_08070DA8(u16 * tm, int palid);
 // func_fe6_08070DC8
-void func_fe6_08070DE8(u16* tm, int palid);
-int func_fe6_08070E0C(struct PlaySt const* playSt);
-void func_fe6_08070E70(void* vram, int palid);
+void func_fe6_08070DE8(u16 * tm, int palid);
+int func_fe6_08070E0C(struct PlaySt const * playSt);
+void func_fe6_08070E70(void * vram, int palid);
 // func_fe6_08070EEC
 // func_fe6_08070F64
 // func_fe6_08071120
@@ -2592,8 +2497,8 @@ void func_fe6_0807B6BC(void);
 // func_fe6_080813E8
 // func_fe6_08081540
 // func_fe6_080815BC
-void func_fe6_080815E4(struct Unit* unit, ProcPtr parent);
-void func_fe6_08081620(struct Unit* unit, ProcPtr parent);
+void func_fe6_080815E4(struct Unit * unit, ProcPtr parent);
+void func_fe6_08081620(struct Unit * unit, ProcPtr parent);
 // func_fe6_0808165C
 // func_fe6_0808166C
 // func_fe6_0808171C
@@ -2679,13 +2584,13 @@ void func_fe6_08081620(struct Unit* unit, ProcPtr parent);
 bool IsSramWorking(void);
 // func_fe6_08084280
 // ComputeChecksum16
-bool LoadGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
-void SaveGlobalSaveInfo(struct GlobalSaveInfo* saveInfo);
+bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
+void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 // func_fe6_08084388
 // func_fe6_0808439C
 // func_fe6_08084414
 // func_fe6_08084428
-bool func_fe6_08084438(struct SaveBlockInfo* blockInfo, int id);
+bool func_fe6_08084438(struct SaveBlockInfo * blockInfo, int id);
 // func_fe6_080844D4
 // func_fe6_08084560
 // func_fe6_0808460C
@@ -2709,8 +2614,8 @@ void func_fe6_08084818(void);
 // func_fe6_080848BC
 // func_fe6_080848C8
 // func_fe6_080848DC
-void func_fe6_08084908(struct PlaySt* playSt);
-void func_fe6_0808495C(struct Unit* unit);
+void func_fe6_08084908(struct PlaySt * playSt);
+void func_fe6_0808495C(struct Unit * unit);
 // func_fe6_080849BC
 void func_fe6_08084A10(u8 pid);
 void func_fe6_08084AEC(u8 pid, int arg_1, int arg_2);
@@ -2727,7 +2632,7 @@ void func_fe6_08084D64(void);
 // func_fe6_08084DC8
 // func_fe6_08084E18
 int GetGlobalCompletedPlaythroughCount(void);
-void RegisterCompletedPlaythrough(struct GlobalSaveInfo* saveInfo, int id);
+void RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
 void func_fe6_08084EA4(void);
 // func_fe6_08084F48
 // func_fe6_08084F4C
@@ -2739,7 +2644,7 @@ void func_fe6_0808505C(int saveId, int isHard);
 void func_fe6_08085110(int arg_0);
 // func_fe6_080851B4
 i8 func_fe6_0808525C(int saveId);
-void func_fe6_08085270(int saveId, struct PlaySt* out);
+void func_fe6_08085270(int saveId, struct PlaySt * out);
 // func_fe6_08085290
 // func_fe6_080852C4
 // func_fe6_080855C4
@@ -2775,7 +2680,7 @@ bool func_fe6_080859E0(int saveId);
 // func_fe6_08086530
 // func_fe6_08086558
 // func_fe6_08086590
-u8 const* func_fe6_080865EC(void);
+u8 const * func_fe6_080865EC(void);
 int func_fe6_08086608(void);
 // func_fe6_08086624
 // func_fe6_08086640
@@ -3270,9 +3175,9 @@ void func_fe6_080947F0(u8 arg_0, ProcPtr parent);
 // func_fe6_08095D5C
 // func_fe6_08095D88
 // func_fe6_08095DF0
-// func_fe6_08095E10
-// func_fe6_08095E30
-// func_fe6_08095E50
+void func_fe6_08095E10(struct Unit * unit, u16 const * iid_list);
+void func_fe6_08095E30(struct Unit * unit, u16 const * iid_list);
+void func_fe6_08095E50(struct Unit * unit, u16 const * iid_list);
 // func_fe6_08095E70
 // func_fe6_08095E90
 // func_fe6_08095F5C

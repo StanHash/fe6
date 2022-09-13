@@ -2,4 +2,4 @@
 
 #include "common.h"
 
-char* DecodeMsg(int id);
+char * DecodeMsg(int id);

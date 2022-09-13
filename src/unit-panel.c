@@ -22,7 +22,7 @@ struct UnitPanelProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct Unit* unit;
+    /* 2C */ struct Unit * unit;
 
     /* 30 */ struct Text name;
     /* 38 */ struct Text lines[LINES_MAX];
@@ -33,7 +33,7 @@ struct UnitPanelProc
     /* 63 */ u8 xNameText;
 };
 
-static void UnitPanel_OnLoop(struct UnitPanelProc* proc);
+static void UnitPanel_OnLoop(struct UnitPanelProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_UnitPanel[] =
 {
@@ -41,9 +41,9 @@ struct ProcScr CONST_DATA ProcScr_UnitPanel[] =
     PROC_END,
 };
 
-static struct UnitPanelProc* EWRAM_DATA sRescueUnitPanels[2] = {};
+static struct UnitPanelProc * EWRAM_DATA sRescueUnitPanels[2] = {};
 
-static void UnitPanel_OnLoop(struct UnitPanelProc* proc)
+static void UnitPanel_OnLoop(struct UnitPanelProc * proc)
 {
     u16 factionPalLut[] =
     {
@@ -70,9 +70,9 @@ static void UnitPanel_OnLoop(struct UnitPanelProc* proc)
     }
 }
 
-static struct UnitPanelProc* StartUnitPanel(ProcPtr parent)
+static struct UnitPanelProc * StartUnitPanel(ProcPtr parent)
 {
-    struct UnitPanelProc* proc = SpawnProc(ProcScr_UnitPanel, parent);
+    struct UnitPanelProc * proc = SpawnProc(ProcScr_UnitPanel, parent);
 
     InitTextDb(&proc->name, 6);
 
@@ -82,7 +82,7 @@ static struct UnitPanelProc* StartUnitPanel(ProcPtr parent)
     return proc;
 }
 
-static void InitUnitPanelSpriteTextPositions(struct UnitPanelProc* proc)
+static void InitUnitPanelSpriteTextPositions(struct UnitPanelProc * proc)
 {
     if (GetStringTextLen(DecodeMsg(proc->unit->pinfo->msg_name)) < 40)
     {
@@ -99,7 +99,7 @@ static void InitUnitPanelSpriteTextPositions(struct UnitPanelProc* proc)
     proc->xNameText -= 16;
 }
 
-static struct UnitPanelProc* InitUnitPanel(struct UnitPanelProc* proc, struct Unit* unit, int x, int y, int width, int lines)
+static struct UnitPanelProc * InitUnitPanel(struct UnitPanelProc * proc, struct Unit * unit, int x, int y, int width, int lines)
 {
     if (proc == NULL)
     {
@@ -139,7 +139,7 @@ static struct UnitPanelProc* InitUnitPanel(struct UnitPanelProc* proc, struct Un
     return proc;
 }
 
-static int GetUnitPanelXForUnit(struct Unit* unit, int width)
+static int GetUnitPanelXForUnit(struct Unit * unit, int width)
 {
     if (unit->x*16 - gBmSt.camera.x < DISPLAY_WIDTH/2)
         return 30 - width;
@@ -147,7 +147,7 @@ static int GetUnitPanelXForUnit(struct Unit* unit, int width)
     return 0;
 }
 
-static void DrawUnitHpText(struct Text* text, struct Unit* unit)
+static void DrawUnitHpText(struct Text * text, struct Unit * unit)
 {
     ClearText(text);
 
@@ -158,7 +158,7 @@ static void DrawUnitHpText(struct Text* text, struct Unit* unit)
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(unit));
 }
 
-static void DrawUnitConText(struct Text* text, struct Unit* unit)
+static void DrawUnitConText(struct Text * text, struct Unit * unit)
 {
     ClearText(text);
 
@@ -166,7 +166,7 @@ static void DrawUnitConText(struct Text* text, struct Unit* unit)
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, UNIT_CON(unit));
 }
 
-static void DrawUnitAidText(struct Text* text, struct Unit* unit)
+static void DrawUnitAidText(struct Text * text, struct Unit * unit)
 {
     ClearText(text);
 
@@ -174,14 +174,14 @@ static void DrawUnitAidText(struct Text* text, struct Unit* unit)
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitAid(unit));
 }
 
-static void PutUnitAidIconForTextAt(struct Unit* unit, int x, int y)
+static void PutUnitAidIconForTextAt(struct Unit * unit, int x, int y)
 {
     PutIcon(gBg0Tm + TM_OFFSET(x+4, y),
         GetAidIconFromAttributes(UNIT_ATTRIBUTES(unit)),
         TILEREF(0, BGPAL_ICONS+1));
 }
 
-static void DrawUnitStatusText(struct Text* text, struct Unit* unit)
+static void DrawUnitStatusText(struct Text * text, struct Unit * unit)
 {
     ClearText(text);
 
@@ -189,7 +189,7 @@ static void DrawUnitStatusText(struct Text* text, struct Unit* unit)
     Text_InsertDrawString(text, 32, TEXT_COLOR_SYSTEM_BLUE, GetUnitStatusName(unit));
 }
 
-static void DrawUnitResChangeText(struct Text* text, struct Unit* unit, int bonus)
+static void DrawUnitResChangeText(struct Text * text, struct Unit * unit, int bonus)
 {
     ClearText(text);
 
@@ -200,7 +200,7 @@ static void DrawUnitResChangeText(struct Text* text, struct Unit* unit, int bonu
     Text_InsertDrawNumberOrBlank(text, 32, TEXT_COLOR_SYSTEM_BLUE, GetUnitResistance(unit));
 }
 
-static void DrawUnitResUnkText(struct Text* text, struct Unit* unit, int unused)
+static void DrawUnitResUnkText(struct Text * text, struct Unit * unit, int unused)
 {
     ClearText(text);
 
@@ -208,7 +208,7 @@ static void DrawUnitResUnkText(struct Text* text, struct Unit* unit, int unused)
     Text_InsertDrawNumberOrBlank(text, 56, TEXT_COLOR_SYSTEM_BLUE, GetUnitResistance(unit));
 }
 
-static void DrawAccuracyText(struct Text* text, int accuracy)
+static void DrawAccuracyText(struct Text * text, int accuracy)
 {
     ClearText(text);
 
@@ -220,19 +220,19 @@ void StartUnitInventoryPanel(ProcPtr parent)
 {
     int i;
 
-    struct UnitPanelProc* proc = StartUnitPanel(parent);
+    struct UnitPanelProc * proc = StartUnitPanel(parent);
 
     for (i = 0; i < LINES_MAX; ++i)
         InitTextDb(proc->lines + i, 7);
 }
 
-void RefreshUnitInventoryPanel(struct Unit* unit)
+void RefreshUnitInventoryPanel(struct Unit * unit)
 {
     enum { YPOSITION = 0 };
     enum { WIDTH = 13 };
 
     int i, itemCount, xPosition;
-    struct UnitPanelProc* proc;
+    struct UnitPanelProc * proc;
 
     itemCount = GetUnitItemCount(unit);
 
@@ -268,13 +268,13 @@ void RefreshUnitInventoryPanel(struct Unit* unit)
     }
 }
 
-void RefreshUnitStealInventoryPanel(struct Unit* unit)
+void RefreshUnitStealInventoryPanel(struct Unit * unit)
 {
     enum { YPOSITION = 0 };
     enum { WIDTH = 13 };
 
     int i, itemCount, xPosition;
-    struct UnitPanelProc* proc;
+    struct UnitPanelProc * proc;
 
     itemCount = GetUnitItemCount(unit);
 
@@ -301,13 +301,13 @@ void RefreshUnitStealInventoryPanel(struct Unit* unit)
     }
 }
 
-void RefreshUnitRepairInventoryPanel(struct Unit* unit)
+void RefreshUnitRepairInventoryPanel(struct Unit * unit)
 {
     enum { YPOSITION = 0 };
     enum { WIDTH = 16 };
 
     int i, color, itemCount, xPosition;
-    struct UnitPanelProc* proc;
+    struct UnitPanelProc * proc;
 
     itemCount = GetUnitItemCount(unit);
 
@@ -344,19 +344,19 @@ void RefreshUnitRepairInventoryPanel(struct Unit* unit)
 
 void StartUnitHpPanel(ProcPtr parent)
 {
-    struct UnitPanelProc* proc = StartUnitPanel(parent);
+    struct UnitPanelProc * proc = StartUnitPanel(parent);
 
     InitTextDb(proc->lines+0, 8);
 }
 
-void RefreshUnitHpPanel(struct Unit* unit)
+void RefreshUnitHpPanel(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    struct UnitPanelProc* proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 1);
+    struct UnitPanelProc * proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 1);
 
     DrawUnitHpText(proc->lines+0, unit);
     PutText(proc->lines+0, gBg0Tm + TM_OFFSET(x+1, y+3));
@@ -364,20 +364,20 @@ void RefreshUnitHpPanel(struct Unit* unit)
 
 void StartUnitHpStatusPanel(ProcPtr parent)
 {
-    struct UnitPanelProc* proc = StartUnitPanel(parent);
+    struct UnitPanelProc * proc = StartUnitPanel(parent);
 
     InitTextDb(proc->lines+0, 8);
     InitTextDb(proc->lines+1, 8);
 }
 
-void RefreshUnitHpStatusPanel(struct Unit* unit)
+void RefreshUnitHpStatusPanel(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    struct UnitPanelProc* proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 2);
+    struct UnitPanelProc * proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 2);
 
     DrawUnitHpText(proc->lines+0, unit);
     PutText(proc->lines+0, gBg0Tm + TM_OFFSET(x+1, y+3));
@@ -388,19 +388,19 @@ void RefreshUnitHpStatusPanel(struct Unit* unit)
 
 void StartUnitResChangePanel(ProcPtr parent)
 {
-    struct UnitPanelProc* proc = StartUnitPanel(parent);
+    struct UnitPanelProc * proc = StartUnitPanel(parent);
 
     InitTextDb(proc->lines+0, 8);
 }
 
-void RefreshUnitResChangePanel(struct Unit* unit)
+void RefreshUnitResChangePanel(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    struct UnitPanelProc* proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 1);
+    struct UnitPanelProc * proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 1);
 
     // TODO: named constant for barrier duration?
     DrawUnitResChangeText(proc->lines+0, unit, 7 - unit->barrier);
@@ -409,20 +409,20 @@ void RefreshUnitResChangePanel(struct Unit* unit)
 
 void StartUnitStaffOffensePanel(ProcPtr parent)
 {
-    struct UnitPanelProc* proc = StartUnitPanel(parent);
+    struct UnitPanelProc * proc = StartUnitPanel(parent);
 
     InitTextDb(proc->lines+0, 8);
     InitTextDb(proc->lines+1, 8);
 }
 
-void RefreshUnitStaffOffensePanel(struct Unit* unit, int hit)
+void RefreshUnitStaffOffensePanel(struct Unit * unit, int hit)
 {
     enum { WIDTH = 10 };
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    struct UnitPanelProc* proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 2);
+    struct UnitPanelProc * proc = InitUnitPanel(NULL, unit, x, y, WIDTH, 2);
 
     // TODO: named constant for barrier duration?
     DrawUnitResUnkText(proc->lines+0, unit, 7 - unit->barrier);
@@ -452,7 +452,7 @@ void RefreshUnitTakeRescuePanels(ProcPtr parent)
         Sprite_16x16_VFlipped, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS+6));
 }
 
-void RefreshUnitRescuePanels(struct Unit* unit)
+void RefreshUnitRescuePanels(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
@@ -476,11 +476,11 @@ void RefreshUnitRescuePanels(struct Unit* unit)
     MoveSpriteRefresher(NULL, (x+4)*8, (y+4)*8+7);
 }
 
-void RefreshUnitTakePanels(struct Unit* unit)
+void RefreshUnitTakePanels(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
-    struct Unit* rescue;
+    struct Unit * rescue;
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
@@ -515,14 +515,14 @@ void StartUnitGiveRescuePanels(ProcPtr parent)
         Sprite_16x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS+6));
 }
 
-void RefreshUnitGivePanels(struct Unit* unit)
+void RefreshUnitGivePanels(struct Unit * unit)
 {
     enum { WIDTH = 10 };
 
     int y = 0;
     int x = GetUnitPanelXForUnit(unit, WIDTH);
 
-    struct Unit* rescue = GetUnit(gActiveUnit->rescue);
+    struct Unit * rescue = GetUnit(gActiveUnit->rescue);
 
     ClearUi();
 

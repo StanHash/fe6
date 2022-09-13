@@ -11,12 +11,13 @@
 #include "map-select.h"
 #include "support.h"
 #include "trap.h"
+#include "eventinfo.h"
 
 #include "constants/terrains.h"
 
-struct Unit* EWRAM_DATA gSubjectUnit = NULL;
+struct Unit * EWRAM_DATA gSubjectUnit = NULL;
 
-void ForEachUnitInMovement(void(*func)(struct Unit* unit))
+void ForEachUnitInMovement(void (* func)(struct Unit * unit))
 {
     int ix, iy;
 
@@ -35,7 +36,7 @@ void ForEachUnitInMovement(void(*func)(struct Unit* unit))
     }
 }
 
-void ForEachUnitInRange(void(*func)(struct Unit* unit))
+void ForEachUnitInRange(void (* func)(struct Unit * unit))
 {
     int ix, iy;
 
@@ -54,7 +55,7 @@ void ForEachUnitInRange(void(*func)(struct Unit* unit))
     }
 }
 
-void ForEachPositionInRange(void(*func)(int x, int y))
+void ForEachPositionInRange(void (* func)(int x, int y))
 {
     int ix, iy;
 
@@ -70,7 +71,7 @@ void ForEachPositionInRange(void(*func)(int x, int y))
     }
 }
 
-static void ListAdjacentTargetUnits(int x, int y, void(*tryEnlistTarget)(struct Unit* unit))
+static void ListAdjacentTargetUnits(int x, int y, void (* tryEnlistTarget)(struct Unit * unit))
 {
     BeginTargetList(x, y);
 
@@ -80,7 +81,7 @@ static void ListAdjacentTargetUnits(int x, int y, void(*tryEnlistTarget)(struct 
     ForEachUnitInRange(tryEnlistTarget);
 }
 
-static void ListAdjacentTargetPositions(int x, int y, void(*tryEnlistTarget)(int x, int y))
+static void ListAdjacentTargetPositions(int x, int y, void (* tryEnlistTarget)(int x, int y))
 {
     BeginTargetList(x, y);
 
@@ -90,7 +91,7 @@ static void ListAdjacentTargetPositions(int x, int y, void(*tryEnlistTarget)(int
     ForEachPositionInRange(tryEnlistTarget);
 }
 
-static void ListTargetPositionsWithinTwoSquares(int x, int y, void(*tryEnlistTarget)(int x, int y))
+static void ListTargetPositionsWithinTwoSquares(int x, int y, void (* tryEnlistTarget)(int x, int y))
 {
     BeginTargetList(x, y);
 
@@ -100,7 +101,7 @@ static void ListTargetPositionsWithinTwoSquares(int x, int y, void(*tryEnlistTar
     ForEachPositionInRange(tryEnlistTarget);
 }
 
-static void ListTargetUnitsWithinSubjectMagRange(void(*tryEnlistTarget)(struct Unit* unit))
+static void ListTargetUnitsWithinSubjectMagRange(void (* tryEnlistTarget)(struct Unit * unit))
 {
     int x = gSubjectUnit->x;
     int y = gSubjectUnit->y;
@@ -115,7 +116,7 @@ static void ListTargetUnitsWithinSubjectMagRange(void(*tryEnlistTarget)(struct U
 
 void EnlistAttackObstacleTargets(void)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
     {
@@ -130,13 +131,13 @@ void EnlistAttackObstacleTargets(void)
     }
 }
 
-void TryEnlistAttackUnitTarget(struct Unit* unit)
+void TryEnlistAttackUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListAttackTargetsForWeapon(struct Unit* unit, int item)
+void ListAttackTargetsForWeapon(struct Unit * unit, int item)
 {
     int x = unit->x;
     int y = unit->y;
@@ -152,7 +153,7 @@ void ListAttackTargetsForWeapon(struct Unit* unit, int item)
     EnlistAttackObstacleTargets();
 }
 
-void TryEnlistTradeUnitTarget(struct Unit* unit)
+void TryEnlistTradeUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
@@ -174,7 +175,7 @@ void TryEnlistTradeUnitTarget(struct Unit* unit)
     }
 }
 
-void ListTradeTargets(struct Unit* unit)
+void ListTradeTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -198,7 +199,7 @@ void ListTradeTargets(struct Unit* unit)
     }
 }
 
-void TryEnlistRescueUnitTarget(struct Unit* unit)
+void TryEnlistRescueUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -215,7 +216,7 @@ void TryEnlistRescueUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRescueTargets(struct Unit* unit)
+void ListRescueTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -237,7 +238,7 @@ void TryEnlistRescueDropPositionTarget(int x, int y)
     EnlistTarget(x, y, 0, 0);
 }
 
-void ListRescueDropTargets(struct Unit* unit)
+void ListRescueDropTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -248,7 +249,7 @@ void ListRescueDropTargets(struct Unit* unit)
     ListAdjacentTargetPositions(x, y, TryEnlistRescueDropPositionTarget);
 }
 
-void TryEnlistRescueTakeUnitTarget(struct Unit* unit)
+void TryEnlistRescueTakeUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
@@ -262,7 +263,7 @@ void TryEnlistRescueTakeUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRescueTakeTargets(struct Unit* unit)
+void ListRescueTakeTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -273,7 +274,7 @@ void ListRescueTakeTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRescueTakeUnitTarget);
 }
 
-void TryEnlistRescueGiveUnitTarget(struct Unit* unit)
+void TryEnlistRescueGiveUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
@@ -290,7 +291,7 @@ void TryEnlistRescueGiveUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRescueGiveTargets(struct Unit* unit)
+void ListRescueGiveTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -301,18 +302,18 @@ void ListRescueGiveTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRescueGiveUnitTarget);
 }
 
-void TryEnlistTalkUnitTarget(struct Unit* unit)
+void TryEnlistTalkUnitTarget(struct Unit * unit)
 {
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
         return;
 
-    if (!func_fe6_0806AF4C(gSubjectUnit->pinfo->id, unit->pinfo->id))
+    if (!CheckAvailableTalkEvent(gSubjectUnit->pinfo->id, unit->pinfo->id))
         return;
 
     EnlistTarget(unit->x, unit->y, unit->id, unit->pinfo->id);
 }
 
-void ListTalkTargets(struct Unit* unit)
+void ListTalkTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -323,7 +324,7 @@ void ListTalkTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistTalkUnitTarget);
 }
 
-void ListSupportTargets(struct Unit* unit)
+void ListSupportTargets(struct Unit * unit)
 {
     int i, count;
 
@@ -335,7 +336,7 @@ void ListSupportTargets(struct Unit* unit)
 
     for (i = 0; i < count; ++i)
     {
-        struct Unit* other = GetUnitSupportUnit(gSubjectUnit, i);
+        struct Unit * other = GetUnitSupportUnit(gSubjectUnit, i);
 
         if (!other)
             continue;
@@ -356,7 +357,7 @@ void ListSupportTargets(struct Unit* unit)
     }
 }
 
-void func_fe6_08021240(struct Unit* unit)
+void func_fe6_08021240(struct Unit * unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -364,7 +365,7 @@ void func_fe6_08021240(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 1);
 }
 
-void func_fe6_08021278(struct Unit* unit)
+void func_fe6_08021278(struct Unit * unit)
 {
     int item;
 
@@ -391,7 +392,7 @@ void TryEnlistDoorPositionTarget(int x, int y)
     if (gMapTerrain[y][x] != TERRAIN_DOOR)
         return;
 
-    if (!func_fe6_0806B37C(x, y))
+    if (!CheckAvailableDoorTileEvent(x, y))
         return;
 
     EnlistTarget(x, y, TERRAIN_DOOR, 0);
@@ -402,13 +403,13 @@ void TryEnlistBridgePositionTarget(int x, int y)
     if (gMapTerrain[y][x] != TERRAIN_DRAWBRIDGE)
         return;
 
-    if (!func_fe6_0806B37C(x, y))
+    if (!CheckAvailableDoorTileEvent(x, y))
         return;
 
     EnlistTarget(x, y, TERRAIN_DRAWBRIDGE, 0);
 }
 
-void ListOpenTerrainTargets(struct Unit* unit, int terrain)
+void ListOpenTerrainTargets(struct Unit * unit, int terrain)
 {
     int x = unit->x;
     int y = unit->y;
@@ -439,7 +440,7 @@ void ListTerrainHealingTargets(int faction)
 
     for (i = faction + 1; i < faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         int terrain;
 
@@ -473,7 +474,7 @@ void ListPoisonDamageTargets(int faction)
 
     for (i = faction + 1; i < faction + 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         int terrain;
 
@@ -493,7 +494,7 @@ void ListPoisonDamageTargets(int faction)
     }
 }
 
-void TryEnlistRefreshUnitTarget(struct Unit* unit)
+void TryEnlistRefreshUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsSameFaction(gSubjectUnit->id, unit->id))
         return;
@@ -504,7 +505,7 @@ void TryEnlistRefreshUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRefreshTargets(struct Unit* unit)
+void ListRefreshTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -515,7 +516,7 @@ void ListRefreshTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRefreshUnitTarget);
 }
 
-void TryEnlistStealUnitTarget(struct Unit* unit)
+void TryEnlistStealUnitTarget(struct Unit * unit)
 {
     int i;
 
@@ -532,7 +533,7 @@ void TryEnlistStealUnitTarget(struct Unit* unit)
     }
 }
 
-void ListStealTargets(struct Unit* unit)
+void ListStealTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -543,7 +544,7 @@ void ListStealTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistStealUnitTarget);
 }
 
-void TryEnlistHealUnitTarget(struct Unit* unit)
+void TryEnlistHealUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -557,7 +558,7 @@ void TryEnlistHealUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListAdjacentHealTargets(struct Unit* unit)
+void ListAdjacentHealTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -568,7 +569,7 @@ void ListAdjacentHealTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistHealUnitTarget);
 }
 
-void ListRangedHealTargets(struct Unit* unit)
+void ListRangedHealTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -583,7 +584,7 @@ void ListRangedHealTargets(struct Unit* unit)
     ForEachUnitInRange(TryEnlistHealUnitTarget);
 }
 
-void TryEnlistRestoreUnitTarget(struct Unit* unit)
+void TryEnlistRestoreUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -597,7 +598,7 @@ void TryEnlistRestoreUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRestoreTargets(struct Unit* unit)
+void ListRestoreTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -608,7 +609,7 @@ void ListRestoreTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRestoreUnitTarget);
 }
 
-void TryEnlistBarrierUnitTarget(struct Unit* unit)
+void TryEnlistBarrierUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -622,7 +623,7 @@ void TryEnlistBarrierUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListBarrierTargets(struct Unit* unit)
+void ListBarrierTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -633,7 +634,7 @@ void ListBarrierTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistBarrierUnitTarget);
 }
 
-void TryEnlistRescueStaffUnitTarget(struct Unit* unit)
+void TryEnlistRescueStaffUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -641,7 +642,7 @@ void TryEnlistRescueStaffUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListRescueStaffTargets(struct Unit* unit)
+void ListRescueStaffTargets(struct Unit * unit)
 {
     gSubjectUnit = unit;
 
@@ -649,7 +650,7 @@ void ListRescueStaffTargets(struct Unit* unit)
     ListTargetUnitsWithinSubjectMagRange(TryEnlistRescueStaffUnitTarget);
 }
 
-void TryEnlistSilenceUnitTarget(struct Unit* unit)
+void TryEnlistSilenceUnitTarget(struct Unit * unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -660,7 +661,7 @@ void TryEnlistSilenceUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void TryEnlistSleepUnitTarget(struct Unit* unit)
+void TryEnlistSleepUnitTarget(struct Unit * unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -671,7 +672,7 @@ void TryEnlistSleepUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void TryEnlistBerserkUnitTarget(struct Unit* unit)
+void TryEnlistBerserkUnitTarget(struct Unit * unit)
 {
     if (AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -682,7 +683,7 @@ void TryEnlistBerserkUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListSilenceTargets(struct Unit* unit)
+void ListSilenceTargets(struct Unit * unit)
 {
     gSubjectUnit = unit;
 
@@ -690,7 +691,7 @@ void ListSilenceTargets(struct Unit* unit)
     ListTargetUnitsWithinSubjectMagRange(TryEnlistSilenceUnitTarget);
 }
 
-void ListSleepTargets(struct Unit* unit)
+void ListSleepTargets(struct Unit * unit)
 {
     gSubjectUnit = unit;
 
@@ -698,7 +699,7 @@ void ListSleepTargets(struct Unit* unit)
     ListTargetUnitsWithinSubjectMagRange(TryEnlistSleepUnitTarget);
 }
 
-void ListBerserkTargets(struct Unit* unit)
+void ListBerserkTargets(struct Unit * unit)
 {
     gSubjectUnit = unit;
 
@@ -706,7 +707,7 @@ void ListBerserkTargets(struct Unit* unit)
     ListTargetUnitsWithinSubjectMagRange(TryEnlistBerserkUnitTarget);
 }
 
-void TryEnlistWarpUnitTarget(struct Unit* unit)
+void TryEnlistWarpUnitTarget(struct Unit * unit)
 {
     if (!AreUnitIdsAllied(gSubjectUnit->id, unit->id))
         return;
@@ -714,7 +715,7 @@ void TryEnlistWarpUnitTarget(struct Unit* unit)
     EnlistTarget(unit->x, unit->y, unit->id, 0);
 }
 
-void ListWarpTargets(struct Unit* unit)
+void ListWarpTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -725,7 +726,7 @@ void ListWarpTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistWarpUnitTarget);
 }
 
-void ListUnlockTargets(struct Unit* unit)
+void ListUnlockTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -736,7 +737,7 @@ void ListUnlockTargets(struct Unit* unit)
     ListTargetPositionsWithinTwoSquares(x, y, TryEnlistDoorPositionTarget);
 }
 
-void TryEnlistRepairUnitTarget(struct Unit* unit)
+void TryEnlistRepairUnitTarget(struct Unit * unit)
 {
     int i;
 
@@ -753,7 +754,7 @@ void TryEnlistRepairUnitTarget(struct Unit* unit)
     }
 }
 
-void ListRepairTargets(struct Unit* unit)
+void ListRepairTargets(struct Unit * unit)
 {
     int x = unit->x;
     int y = unit->y;
@@ -764,7 +765,7 @@ void ListRepairTargets(struct Unit* unit)
     ListAdjacentTargetUnits(x, y, TryEnlistRepairUnitTarget);
 }
 
-void ListSaintsStaffTargets(struct Unit* unit)
+void ListSaintsStaffTargets(struct Unit * unit)
 {
     int i, alliance;
 
@@ -774,7 +775,7 @@ void ListSaintsStaffTargets(struct Unit* unit)
 
     for (i = alliance + 1; i < alliance + 0x80; ++i)
     {
-        struct Unit* other = GetUnit(i);
+        struct Unit * other = GetUnit(i);
 
         if (!other)
             continue;
@@ -801,8 +802,8 @@ void func_fe6_08021B30(int arg_0)
 
     for (i = 0; i < count; ++i)
     {
-        struct SelectTarget* target = GetTarget(i);
-        struct Unit* other = GetUnit(target->uid);
+        struct SelectTarget * target = GetTarget(i);
+        struct Unit * other = GetUnit(target->uid);
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {

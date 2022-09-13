@@ -18,7 +18,10 @@ def main(args):
     with open(elf_name, 'rb') as f:
         syms = { addr: name for addr, name in symbols.from_elf(f) }
 
-    print(f"void* CONST_DATA gUnk_{offset + 0x08000000:08X}[] =")
+    addr = offset + 0x08000000
+    name = syms[addr] if addr in syms else f'gUnk_{offset + 0x08000000:08X}'
+
+    print(f"void * CONST_DATA {name}[] =")
     print("{")
 
     with open(rom_name, 'rb') as f:

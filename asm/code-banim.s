@@ -322,7 +322,7 @@ func_fe6_08042784: @ 0x08042784
 	ldrb r0, [r1, #1]
 	ldrb r1, [r1]
 .L080427FA:
-	bl func_fe6_0806B6F8
+	bl CheckBattleTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	str r0, [r4, #0x54]
@@ -422,7 +422,7 @@ func_fe6_0804286C: @ 0x0804286C
 	ldr r1, .L080428E0 @ =0x0203CD84
 	ldrb r0, [r1]
 	ldrb r1, [r1, #1]
-	bl func_fe6_0806B754
+	bl StartBattleTalk
 	b .L080428EE
 	.align 2, 0
 .L080428D0: .4byte gBg0Tm
@@ -434,7 +434,7 @@ func_fe6_0804286C: @ 0x0804286C
 	ldr r1, .L08042900 @ =0x0203CD84
 	ldrb r0, [r1, #1]
 	ldrb r1, [r1]
-	bl func_fe6_0806B754
+	bl StartBattleTalk
 .L080428EE:
 	movs r0, #0
 	str r0, [r4, #0x54]
@@ -4428,12 +4428,12 @@ func_fe6_08044870: @ 0x08044870
 	ldr r4, .L080448E4 @ =0x0203CD84
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
-	bl func_fe6_0806B6F8
+	bl CheckBattleTalk
 	lsls r0, r0, #0x18
 	asrs r5, r0, #0x18
 	ldrb r0, [r4, #1]
 	ldrb r1, [r4]
-	bl func_fe6_0806B6F8
+	bl CheckBattleTalk
 	lsls r0, r0, #0x18
 	asrs r1, r0, #0x18
 .L080448D8:
@@ -4773,7 +4773,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
-	bl ShouldDisplayDeathQuote
+	bl CheckBattleDefeatTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 .L08044BAE:
@@ -4825,7 +4825,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	bl func_fe6_0804B6C4
 	add r0, r8
 	ldrb r0, [r0]
-	bl ShouldDisplayDeathQuote
+	bl CheckBattleDefeatTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 .L08044C1A:
@@ -5367,7 +5367,7 @@ func_fe6_08044F90: @ 0x08044F90
 	bl func_fe6_0804B6C4
 	adds r0, r0, r4
 	ldrb r0, [r0]
-	bl ShouldDisplayDeathQuote
+	bl CheckBattleDefeatTalk
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 .L08045088:
@@ -6201,7 +6201,7 @@ func_fe6_080456C4: @ 0x080456C4
 	bl func_fe6_0804B6C4
 	adds r0, r0, r5
 	ldrb r0, [r0]
-	bl func_fe6_0806B808
+	bl StartBattleDefeatTalk
 	adds r0, r4, #0
 	bl Proc_Break
 .L08045734:

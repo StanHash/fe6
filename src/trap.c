@@ -97,14 +97,14 @@ void InitTraps(void)
         sTraps[i].kind = TRAP_NONE;
 }
 
-inline struct Trap* GetTrap(int id)
+inline struct Trap * GetTrap(int id)
 {
     return sTraps + id;
 }
 
-struct Trap* GetTrapAt(int x, int y)
+struct Trap * GetTrapAt(int x, int y)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
     {
@@ -115,9 +115,9 @@ struct Trap* GetTrapAt(int x, int y)
     return NULL;
 }
 
-struct Trap* AddTrap(int x, int y, int kind, int extra)
+struct Trap * AddTrap(int x, int y, int kind, int extra)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     // Find first free trap
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
@@ -132,9 +132,9 @@ struct Trap* AddTrap(int x, int y, int kind, int extra)
     return trap;
 }
 
-struct Trap* AddDamagingTrap(int x, int y, int kind, int extra, int turnCountdown, int turnInterval, int damage)
+struct Trap * AddDamagingTrap(int x, int y, int kind, int extra, int turnCountdown, int turnInterval, int damage)
 {
-    struct Trap* trap = AddTrap(x, y, kind, extra);
+    struct Trap * trap = AddTrap(x, y, kind, extra);
 
     trap->data[TRAPDATA_TRAP_INITCNT] = turnCountdown;
     trap->data[TRAPDATA_TRAP_INTERVAL] = turnInterval;
@@ -211,7 +211,7 @@ void InitMapTraps(void)
 
 void ApplyEnabledMapChanges(void)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
     {
@@ -231,9 +231,9 @@ void ApplyEnabledMapChanges(void)
     }
 }
 
-struct Trap* GetBallistaTrapAt(int x, int y)
+struct Trap * GetBallistaTrapAt(int x, int y)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     switch (gMapTerrain[y][x])
     {
@@ -263,7 +263,7 @@ int GetBallistaItemAt(int x, int y)
     // NOTE: this functions doesn't use the standard item functions to build items
     // if item repr is changed by a hacker, this *will* break
 
-    struct Trap* trap;
+    struct Trap * trap;
 
     switch (gMapTerrain[y][x])
     {
@@ -327,7 +327,7 @@ int GetDummyBallistaItemAt(int x, int y)
 
 int GetObstacleHpAt(int x, int y)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     int terrain = gMapTerrain[y][x];
 
@@ -345,9 +345,9 @@ int GetObstacleHpAt(int x, int y)
     return trap->extra;
 }
 
-const struct MapChangeInfo* GetMapChange(int id)
+const struct MapChangeInfo * GetMapChange(int id)
 {
-    struct MapChangeInfo const* info = GetChapterMapChanges(gPlaySt.chapter);
+    struct MapChangeInfo const * info = GetChapterMapChanges(gPlaySt.chapter);
 
     if (info == NULL)
         return NULL;
@@ -367,7 +367,7 @@ int GetMapChangeIdAt(int x, int y)
 {
     int result = -1;
 
-    struct MapChangeInfo const* info = GetChapterMapChanges(gPlaySt.chapter);
+    struct MapChangeInfo const * info = GetChapterMapChanges(gPlaySt.chapter);
 
     if (info == NULL)
         return result;
@@ -390,8 +390,8 @@ void ApplyMapChange(int id)
 {
     int ix, iy;
 
-    struct MapChangeInfo const* info = GetMapChange(id);
-    u16 const* it = info->metatiles;
+    struct MapChangeInfo const * info = GetMapChange(id);
+    u16 const * it = info->metatiles;
 
     for (iy = 0; iy < info->height; ++iy)
     {
@@ -410,7 +410,7 @@ void AddMapChangeTrap(int id)
     AddTrap(0, 0, TRAP_MAPCHANGE, id);
 }
 
-void UnitHideIfUnderRoof(struct Unit* unit)
+void UnitHideIfUnderRoof(struct Unit * unit)
 {
     if (gMapTerrain[unit->y][unit->x] == TERRAIN_ROOF)
         unit->flags |= (UNIT_FLAG_HIDDEN | UNIT_FLAG_UNDER_ROOF);
@@ -422,7 +422,7 @@ void UpdateRoofedUnits(void)
 
     for (i = 1; i < 0xC0; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -509,7 +509,7 @@ void EnlistGasTrapTargets(int x, int y, int damage, int facing)
 
 void ListDamagingTrapTargets(void)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     BeginTargetList(0, 0);
 
@@ -539,7 +539,7 @@ void ListDamagingTrapTargets(void)
 
 void ListDamagingTrapTargetsForDisplay(void)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     int specialType = 0;
 
@@ -603,7 +603,7 @@ void ListDamagingTrapTargetsForDisplay(void)
 
 static void UpdateTraps_CountDownTraps(ProcPtr proc)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
     {
@@ -623,7 +623,7 @@ static void UpdateTraps_CountDownTraps(ProcPtr proc)
 
 static void UpdateTraps_ResetCountedDownTraps(ProcPtr proc)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     for (trap = GetTrap(0); trap->kind != TRAP_NONE; ++trap)
     {
@@ -660,7 +660,7 @@ static void UpdateTraps_08027264(ProcPtr proc)
 
 static void StepPikeTrap_StartAnim(ProcPtr proc)
 {
-    struct Trap* trap = GetTrapAt(gActiveUnit->x, gActiveUnit->y);
+    struct Trap * trap = GetTrapAt(gActiveUnit->x, gActiveUnit->y);
     StartPikeTrapAnim(proc, gActiveUnit->x, gActiveUnit->y, trap->extra);
 }
 
@@ -718,7 +718,7 @@ static void StepTrap_End(ProcPtr proc)
 
 bool DoHandleStepTraps(ProcPtr proc)
 {
-    struct Trap* trap;
+    struct Trap * trap;
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
         return TRUE;

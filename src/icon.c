@@ -1,4 +1,3 @@
-
 #include "icon.h"
 
 #include "hardware.h"
@@ -11,8 +10,8 @@ enum { MAX_ICON_DISPLAY_COUNT = 0x20 };
 
 struct IconSt
 {
-    /* 00 */ u8 refCount;
-    /* 01 */ u8 dispId;
+    /* 00 */ u8 ref_count;
+    /* 01 */ u8 disp_id;
 };
 
 extern u8 const Img_Icons[];
@@ -78,25 +77,25 @@ static int GetNewIconSlot(int icon)
 
 static int GetIconChr(int icon)
 {
-    if (sIconStTable[icon].dispId != 0)
+    if (sIconStTable[icon].disp_id != 0)
     {
-        if (sIconStTable[icon].refCount < UINT8_MAX)
-            sIconStTable[icon].refCount++;
+        if (sIconStTable[icon].ref_count < UINT8_MAX)
+            sIconStTable[icon].ref_count++;
 
-        return IconSlot2Chr(sIconStTable[icon].dispId);
+        return IconSlot2Chr(sIconStTable[icon].disp_id);
     }
 
-    sIconStTable[icon].refCount++;
-    sIconStTable[icon].dispId = GetNewIconSlot(icon) + 1;
+    sIconStTable[icon].ref_count++;
+    sIconStTable[icon].disp_id = GetNewIconSlot(icon) + 1;
 
     RegisterVramMove(
         Img_Icons + (icon * CHR_SIZE * 4),
-        VRAM + CHR_SIZE * IconSlot2Chr(sIconStTable[icon].dispId), CHR_SIZE * 4);
+        VRAM + CHR_SIZE * IconSlot2Chr(sIconStTable[icon].disp_id), CHR_SIZE * 4);
 
-    return IconSlot2Chr(sIconStTable[icon].dispId);
+    return IconSlot2Chr(sIconStTable[icon].disp_id);
 }
 
-void PutIcon(u16* tm, int icon, int tileref)
+void PutIcon(u16 * tm, int icon, int tileref)
 {
     if (icon < 0)
     {
@@ -118,14 +117,14 @@ void PutIcon(u16* tm, int icon, int tileref)
 
 void ClearIcon(int icon)
 {
-    sIconDisplayList[sIconStTable[icon].dispId - 1] = 0;
-    sIconStTable[icon].dispId = 0;
+    sIconDisplayList[sIconStTable[icon].disp_id - 1] = 0;
+    sIconStTable[icon].disp_id = 0;
 }
 
 void PutIconObjImg(int icon, int chr)
 {
-    u8 const* src;
-    u8* dst;
+    u8 const * src;
+    u8 * dst;
 
     dst = OBJ_VRAM0;
     dst += CHR_SIZE * (chr & 0x3FF);

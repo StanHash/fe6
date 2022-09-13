@@ -13,7 +13,7 @@ enum
     INT_COUNT = 14,
 };
 
-typedef void(*IrqFunc)(void);
+typedef void (* IrqFunc)(void);
 
 void IrqMain(void);
 

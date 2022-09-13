@@ -9,8 +9,8 @@ struct MoveStats
 
 struct MoveEntry
 {
-    /* 00 */ void const* src;
-    /* 04 */ void* dest;
+    /* 00 */ void const * src;
+    /* 04 */ void * dest;
     /* 08 */ u16 size;
     /* 0A */ u16 mode;
 };
@@ -45,9 +45,9 @@ static void ClearMoveList(void)
     gMoveList[0].src = 0;
 }
 
-void RegisterDataMove(void const* src, void* dst, int size)
+void RegisterDataMove(void const * src, void * dst, int size)
 {
-    struct MoveEntry* entry = gMoveList + gMoveStats.count;
+    struct MoveEntry * entry = gMoveList + gMoveStats.count;
 
     entry->src = src;
     entry->dest = dst;
@@ -60,11 +60,11 @@ void RegisterDataMove(void const* src, void* dst, int size)
     gMoveStats.count++;
 }
 
-void RegisterDataFill(u32 value, void* dst, int size)
+void RegisterDataFill(u32 value, void * dst, int size)
 {
-    struct MoveEntry* entry = gMoveList + gMoveStats.count;
+    struct MoveEntry * entry = gMoveList + gMoveStats.count;
 
-    entry->src = (void const*) value;
+    entry->src = (void const *) value;
     entry->dest = dst;
     entry->size = size;
     entry->mode = MOVE_MODE_FILL_FAST;
@@ -75,7 +75,7 @@ void RegisterDataFill(u32 value, void* dst, int size)
 
 void ApplyDataMoves(void)
 {
-    struct MoveEntry* it = gMoveList;
+    struct MoveEntry * it = gMoveList;
     int i;
 
     for (i = 0; i < gMoveStats.count; ++i)

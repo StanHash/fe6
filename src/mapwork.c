@@ -13,16 +13,16 @@
 
 #include "constants/terrains.h"
 
-static void RevertAndCvtToMoveScr(u8* begin, u8* end);
+static void RevertAndCvtToMoveScr(u8 * begin, u8 * end);
 
 u8 EWRAM_DATA gWorkingMoveScr[MOVE_SCRIPT_MAX_LENGTH] = {};
 
-inline void SetWorkingMap(u8** map)
+inline void SetWorkingMap(u8 ** map)
 {
     gWorkingMap = map;
 }
 
-void MapFlood_08019344(struct Unit* unit)
+void MapFlood_08019344(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -30,7 +30,7 @@ void MapFlood_08019344(struct Unit* unit)
     BeginMapFlood(unit->x, unit->y, UNIT_MOV(unit), unit->id);
 }
 
-void MapFlood_08019384(struct Unit* unit, i8 move)
+void MapFlood_08019384(struct Unit * unit, i8 move)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -38,7 +38,7 @@ void MapFlood_08019384(struct Unit* unit, i8 move)
     BeginMapFlood(unit->x, unit->y, move, unit->id);
 }
 
-void MapFlood_080193C0(struct Unit* unit)
+void MapFlood_080193C0(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -46,7 +46,7 @@ void MapFlood_080193C0(struct Unit* unit)
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_080193F4(int x, int y, i8 const* mov_table)
+void MapFlood_080193F4(int x, int y, i8 const * mov_table)
 {
     SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapRange);
@@ -54,7 +54,7 @@ void MapFlood_080193F4(int x, int y, i8 const* mov_table)
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_08019424(int x, int y, i8 const* mov_table)
+void MapFlood_08019424(int x, int y, i8 const * mov_table)
 {
     SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapMovement);
@@ -62,14 +62,14 @@ void MapFlood_08019424(int x, int y, i8 const* mov_table)
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_08019454(struct Unit* unit, int x, int y, int move)
+void MapFlood_08019454(struct Unit * unit, int x, int y, int move)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
 
     BeginMapFlood(x, y, move, unit->id);
 }
 
-void SetWorkingMovTable(i8 const* mov_table)
+void SetWorkingMovTable(i8 const * mov_table)
 {
     int i;
 
@@ -144,9 +144,9 @@ void func_fe6_08019528(int connect, int x, int y)
     gWorkingMap[y][x] = squareMove;
 }
 
-void BuildBestMoveScript(int x, int y, u8* output)
+void BuildBestMoveScript(int x, int y, u8 * output)
 {
-    u8* outputStart = output;
+    u8 * outputStart = output;
 
     short bestCost;
     short bestDirectionCount;
@@ -167,7 +167,7 @@ void BuildBestMoveScript(int x, int y, u8* output)
 
     // As we build the list *in reverse*, the directions are also "reversed" as we traverse the path.
 
-    while (((i8**) gWorkingMap)[y][x] != 0)
+    while (((i8 **) gWorkingMap)[y][x] != 0)
     {
         // Build neighbor cost list
 
@@ -261,11 +261,11 @@ void BuildBestMoveScript(int x, int y, u8* output)
     RevertAndCvtToMoveScr(outputStart, output);
 }
 
-static void RevertAndCvtToMoveScr(u8* begin, u8* end)
+static void RevertAndCvtToMoveScr(u8 * begin, u8 * end)
 {
     u8 buf[MOVE_SCRIPT_MAX_LENGTH];
 
-    u8* it = buf;
+    u8 * it = buf;
 
     while (end > begin)
         *it++ = MOVE_CMD_MOVE_BASE + *--end;
@@ -280,7 +280,7 @@ static void RevertAndCvtToMoveScr(u8* begin, u8* end)
 
 void ApplyWorkingMovScriptToAction(int x, int y)
 {
-    u8* it = gWorkingMoveScr;
+    u8 * it = gWorkingMoveScr;
 
     for (;;)
     {
@@ -456,7 +456,7 @@ inline void MapIncInBoundedRange(short x, short y, short min_range, short max_ra
     MapAddInRange(x, y, min_range - 1, -1);
 }
 
-void BuildUnitCompleteAttackRange(struct Unit* unit)
+void BuildUnitCompleteAttackRange(struct Unit * unit)
 {
     int ix, iy;
     int item;
@@ -580,7 +580,7 @@ void BuildUnitCompleteAttackRange(struct Unit* unit)
     SetWorkingMap(gMapMovement);
 }
 
-void BuildUnitStandingRangeForReach(struct Unit* unit, int reach)
+void BuildUnitStandingRangeForReach(struct Unit * unit, int reach)
 {
     int x = unit->x;
     int y = unit->y;
@@ -637,7 +637,7 @@ void BuildUnitStandingRangeForReach(struct Unit* unit, int reach)
     }
 }
 
-void BuildUnitCompleteStaffRange(struct Unit* unit)
+void BuildUnitCompleteStaffRange(struct Unit * unit)
 {
     int ix, iy;
 
@@ -690,7 +690,7 @@ void BuildUnitCompleteStaffRange(struct Unit* unit)
     #undef FOR_EACH_IN_MOVEMENT_RANGE
 }
 
-inline i8 const* GetWorkingMovTable(void)
+inline i8 const * GetWorkingMovTable(void)
 {
     return gWorkingMovTable;
 }

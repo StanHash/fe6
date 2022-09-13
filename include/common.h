@@ -1,6 +1,9 @@
 #pragma once
 
 #if defined(MODERN) && MODERN
+#  ifndef MODERN
+#    define MODERN
+#  endif
 #  ifdef NONMATCHING
 #    undef NONMATCHING
 #  endif // NONMATCHING
@@ -10,6 +13,9 @@
 #  define NONMATCHING 1
 #  define BUGFIX 1
 #endif // MODERN
+
+#include <stdint.h>
+#include <stddef.h>
 
 #include "gba/gba.h"
 
@@ -29,3 +35,9 @@
 // For translate-able strings.
 #define JTEXT(orig) (orig)
 #define TEXT(orig, english) (orig)
+
+#if defined(MODERN) && MODERN
+#  define STATIC_ASSERT(expr) _Static_assert(expr)
+#else
+#  define STATIC_ASSERT(expr)
+#endif

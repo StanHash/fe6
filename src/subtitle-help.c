@@ -15,7 +15,7 @@ struct SubtitleHelpProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ char const* string;
+    /* 2C */ char const * string;
     /* 30 */ struct Font font;
     /* 48 */ struct Text text[2];
     /* 58 */ short textOffset;
@@ -24,7 +24,7 @@ struct SubtitleHelpProc
     /* 5E */ short textCount;
 };
 
-static void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y)
+static void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
 {
     static u16 lut[] =
     {
@@ -44,13 +44,13 @@ static void PutSubtitleHelpText(struct SubtitleHelpProc* proc, int y)
     }
 }
 
-static void InitSubtitleHelpText(struct SubtitleHelpProc* proc)
+static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
 {
     enum { TEXT_WIDTH = DISPLAY_WIDTH-16 };
 
     int line;
 
-    char const* it = proc->string;
+    char const * it = proc->string;
 
     InitSpriteTextFont(&proc->font, OBJ_VRAM0 + OBJCHR_SUBTITLEHELP_TEXT*CHR_SIZE, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
@@ -105,8 +105,8 @@ static void SubtitleHelpDarkenerOnHBlank(void)
 
     if (vcount < 140 || vcount > 160)
     {
-        REG_BLDCNT   = *(u16*)(&gDispIo.blend_ct);
-        REG_BLDALPHA = *(u16*)(&gDispIo.blend_coef_a);
+        REG_BLDCNT   = *(u16 *)(&gDispIo.blend_ct);
+        REG_BLDALPHA = *(u16 *)(&gDispIo.blend_coef_a);
         REG_BLDY     = gDispIo.blend_y;
     }
     else
@@ -158,7 +158,7 @@ struct ProcScr CONST_DATA ProcScr_SubtitleHelpDarkener[] =
     PROC_END,
 };
 
-static void SubtitleHelp_Init(struct SubtitleHelpProc* proc)
+static void SubtitleHelp_Init(struct SubtitleHelpProc * proc)
 {
     proc->textOffset = 31;
     proc->textShowCnt = 6;
@@ -166,7 +166,7 @@ static void SubtitleHelp_Init(struct SubtitleHelpProc* proc)
     SpawnProc(ProcScr_SubtitleHelpDarkener, PROC_TREE_3);
 }
 
-static void SubtitleHelp_OnEnd(struct SubtitleHelpProc* proc)
+static void SubtitleHelp_OnEnd(struct SubtitleHelpProc * proc)
 {
     gBmSt.camera_max.y -= 16;
     CameraMove_08016290(NULL);
@@ -174,7 +174,7 @@ static void SubtitleHelp_OnEnd(struct SubtitleHelpProc* proc)
     Proc_BreakEach(ProcScr_SubtitleHelpDarkener);
 }
 
-static void SubtitleHelp_Loop(struct SubtitleHelpProc* proc)
+static void SubtitleHelp_Loop(struct SubtitleHelpProc * proc)
 {
     static u8 lut[] =
     {
@@ -209,11 +209,11 @@ struct ProcScr CONST_DATA ProcScr_SubtitleHelp[] =
     PROC_BLOCK,
 };
 
-void StartSubtitleHelp(ProcPtr parent, char const* str)
+void StartSubtitleHelp(ProcPtr parent, char const * str)
 {
     if (gPlaySt.config_no_subtitle_help != TRUE)
     {
-        struct SubtitleHelpProc* proc;
+        struct SubtitleHelpProc * proc;
 
         proc = SpawnProc(ProcScr_SubtitleHelp, parent);
         proc->string = str;

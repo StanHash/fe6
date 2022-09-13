@@ -35,6 +35,7 @@
 #include "ai-utility.h"
 #include "ui.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/video-global.h"
 #include "constants/video-wm.h"
@@ -46,7 +47,7 @@ struct PopupProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ struct PopupInfo const* info;
+    /* 2C */ struct PopupInfo const * info;
     /* 30 */ int clock;
 
     /* 34 */ i8 xParam;
@@ -91,11 +92,11 @@ struct EventProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ u32 const* scriptStart;
-    /* 30 */ u32 const* script;
-    /* 34 */ void(*onSkip)(void);
-    /* 38 */ void(*on_idle)(struct EventProc* proc);
-    /* 3C */ struct UnitInfo const* unitInfo;
+    /* 2C */ u32 const * scriptStart;
+    /* 30 */ u32 const * script;
+    /* 34 */ void (* onSkip)(void);
+    /* 38 */ void (* on_idle)(struct EventProc * proc);
+    /* 3C */ struct UnitInfo const * unitInfo;
     /* 40 */ int msgParam;
     /* 44 */ i8 background;
     /* 45 */ bool noMap;
@@ -113,15 +114,15 @@ struct EventProc
 
 struct EventCmdInfo
 {
-    int(*func)(struct EventProc* proc);
+    int (* func)(struct EventProc * proc);
     int size;
 };
 
 struct BackgroundEnt
 {
-    u8 const* img;
-    u8 const* tsa;
-    u16 const* pal;
+    u8 const * img;
+    u8 const * tsa;
+    u16 const * pal;
 };
 
 enum
@@ -132,160 +133,160 @@ enum
     EVENT_CMDRET_REPEAT,
 };
 
-static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent);
-static void FakeLoadUnit(struct UnitInfo const* info, struct Unit* unit);
+static void LoadUnitWrapper(struct UnitInfo const * info, ProcPtr parent);
+static void FakeLoadUnit(struct UnitInfo const * info, struct Unit * unit);
 
-static int PreparePopup(struct PopupProc* proc);
-static void PutPopup(struct PopupInfo const* info, struct Text text);
+static int PreparePopup(struct PopupProc * proc);
+static void PutPopup(struct PopupInfo const * info, struct Text text);
 
-static void Popup_OnInit(struct PopupProc* proc);
-static void Popup_Prepare(struct PopupProc* proc);
-static void Popup_FadeBgmOut(struct PopupProc* proc);
-static void Popup_PlaySe(struct PopupProc* proc);
-static void Popup_FadeBgmIn(struct PopupProc* proc);
-static void Popup_Display(struct PopupProc* proc);
-static void Popup_WaitForEnd(struct PopupProc* proc);
-static void Popup_Clear(struct PopupProc* proc);
+static void Popup_OnInit(struct PopupProc * proc);
+static void Popup_Prepare(struct PopupProc * proc);
+static void Popup_FadeBgmOut(struct PopupProc * proc);
+static void Popup_PlaySe(struct PopupProc * proc);
+static void Popup_FadeBgmIn(struct PopupProc * proc);
+static void Popup_Display(struct PopupProc * proc);
+static void Popup_WaitForEnd(struct PopupProc * proc);
+static void Popup_Clear(struct PopupProc * proc);
 
-static void PopupIconSprite_OnIdle(struct GenericProc* proc);
+static void PopupIconSprite_OnIdle(struct GenericProc * proc);
 
-static void Event_FadeOutOfBackgroundTalk(struct EventProc* proc);
-static void Event_FadeOutOfSkip(struct EventProc* proc);
-static void FadeFromBg_FadeToBlack(struct GenericProc* proc);
-static void FadeFromBg_FadeFromBlack(struct GenericProc* proc);
-static void FadeFromBg_ClearScreen(struct GenericProc* proc);
-static void FadeFromSkip_Start(struct GenericProc* proc);
-static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent);
-static void Event_OnInit(struct EventProc* proc);
-static void Event_OnEnd(struct EventProc* proc);
-static void Event_ResetText(struct EventProc* proc);
-static void Event_RestartFromQueued(struct EventProc* proc);
-static void Event_MaybeEndMapMain(struct EventProc* proc);
-static void Event_ClearTextOnSkip(struct EventProc* proc);
-static bool Event_SkipAllowed(struct EventProc* proc);
-static void Event_DarkenThenFunc(void(*func)(struct EventProc* proc), struct EventProc* eproc);
-static void Event_MainLoop(struct EventProc* proc);
-static void Event_WaitForFaceEnd(struct EventProc* proc);
-static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr);
-static void WaitForMu_0800F094(struct GenericProc* proc);
-static void WaitForMu_OnLoop(struct GenericProc* proc);
-static void FlashCursor_OnInit(struct GenericProc* proc);
-static void FlashCursor_OnLoop(struct GenericProc* proc);
-static void EventCursor_OnLoop(struct GenericProc* proc);
-static void DoChangeWeather(struct GenericProc* proc);
-static void EventClearTalkDisplayed(struct EventProc* proc);
-static void Event_SetExitMap(struct EventProc* proc);
-static void Event_SetEnterMap(struct EventProc* proc);
+static void Event_FadeOutOfBackgroundTalk(struct EventProc * proc);
+static void Event_FadeOutOfSkip(struct EventProc * proc);
+static void FadeFromBg_FadeToBlack(struct GenericProc * proc);
+static void FadeFromBg_FadeFromBlack(struct GenericProc * proc);
+static void FadeFromBg_ClearScreen(struct GenericProc * proc);
+static void FadeFromSkip_Start(struct GenericProc * proc);
+static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent);
+static void Event_OnInit(struct EventProc * proc);
+static void Event_OnEnd(struct EventProc * proc);
+static void Event_ResetText(struct EventProc * proc);
+static void Event_RestartFromQueued(struct EventProc * proc);
+static void Event_MaybeEndMapMain(struct EventProc * proc);
+static void Event_ClearTextOnSkip(struct EventProc * proc);
+static bool Event_SkipAllowed(struct EventProc * proc);
+static void Event_DarkenThenFunc(void (* func)(struct EventProc * proc), struct EventProc * eproc);
+static void Event_MainLoop(struct EventProc * proc);
+static void Event_WaitForFaceEnd(struct EventProc * proc);
+static bool DisplayMovement(struct EventProc * proc, struct Unit * unit, u8 const * movescr);
+static void WaitForMu_0800F094(struct GenericProc * proc);
+static void WaitForMu_OnLoop(struct GenericProc * proc);
+static void FlashCursor_OnInit(struct GenericProc * proc);
+static void FlashCursor_OnLoop(struct GenericProc * proc);
+static void EventCursor_OnLoop(struct GenericProc * proc);
+static void DoChangeWeather(struct GenericProc * proc);
+static void EventClearTalkDisplayed(struct EventProc * proc);
+static void Event_SetExitMap(struct EventProc * proc);
+static void Event_SetEnterMap(struct EventProc * proc);
 
-static int EvtCmd_Sleep(struct EventProc* proc);
-static int EvtCmd_Background(struct EventProc* proc);
-static int EvtCmd_BackgroundMore(struct EventProc* proc);
-static int EvtCmd_ClearTalk(struct EventProc* proc);
-static int EvtCmd_ClearSkip(struct EventProc* proc);
-static int EvtCmd_Talk(struct EventProc* proc);
-static int EvtCmd_TalkMore(struct EventProc* proc);
-static int EvtCmd_TalkAuto(struct EventProc* proc);
-static int EvtCmd_TalkContinue(struct EventProc* proc);
-static int EvtCmd_CameraPosition(struct EventProc* proc);
-static int EvtCmd_CameraPid(struct EventProc* proc);
-static int EvtCmd_MovePosition(struct EventProc* proc);
-static int EvtCmd_MovePid(struct EventProc* proc);
-static int EvtCmd_MovePidScript(struct EventProc* proc);
-static int EvtCmd_MovePositionScript(struct EventProc* proc);
-static int EvtCmd_MovePidNextTo(struct EventProc* proc);
-static int EvtCmd_LoadUnits(struct EventProc* proc);
-static int EvtCmd_LoadUnitsParty(struct EventProc* proc);
-static int EvtCmd_WaitForMovement(struct EventProc* proc);
-static int EvtCmd_UnitCameraOn(struct EventProc* proc);
-static int EvtCmd_UnitCameraOff(struct EventProc* proc);
-static int EvtCmd_Func(struct EventProc* proc);
-static int EvtCmd_FuncUntil(struct EventProc* proc);
-static int EvtCmd_FuncWhile(struct EventProc* proc);
-static int EvtCmd_Stop(struct EventProc* proc);
-static int EvtCmd_Label(struct EventProc* proc);
-static int EvtCmd_Goto(struct EventProc* proc);
-static int EvtCmd_GotoIfnAlive(struct EventProc* proc);
-static int EvtCmd_GotoIfnInTeam(struct EventProc* proc);
-static int EvtCmd_GotoIfyFunc(struct EventProc* proc);
-static int EvtCmd_GotoIfnFunc(struct EventProc* proc);
-static int EvtCmd_GotoIfySkip(struct EventProc* proc);
-static int EvtCmd_GotoIfyFlag(struct EventProc* proc);
-static int EvtCmd_GotoIfnFlag(struct EventProc* proc);
-static int EvtCmd_GotoIfyActive(struct EventProc* proc);
-static int EvtCmd_Jump(struct EventProc* proc);
-static int EvtCmd_GiveItem(struct EventProc* proc);
-static int EvtCmd_GiveItemTo(struct EventProc* proc);
-static int EvtCmd_MapChange(struct EventProc* proc);
-static int EvtCmd_MapChangePosition(struct EventProc* proc);
-static int EvtCmd_SetFaction(struct EventProc* proc);
-static int EvtCmd_FlashCursorPosition(struct EventProc* proc);
-static int EvtCmd_FlashCursorPid(struct EventProc* proc);
-static int EvtCmd_PutCursor(struct EventProc* proc);
-static int EvtCmd_ClearCursors(struct EventProc* proc);
-static int EvtCmd_RemovePid(struct EventProc* proc);
-static int EvtCmd_RemovePidDisplayed(struct EventProc* proc);
-static int EvtCmd_SetAiPid(struct EventProc* proc);
-static int EvtCmd_SetAiPosition(struct EventProc* proc);
-static int EvtCmd_SetFlag(struct EventProc* proc);
-static int EvtCmd_ClearFlag(struct EventProc* proc);
-static int EvtCmd_PlayBgm(struct EventProc* proc);
-static int EvtCmd_OverrideBgm(struct EventProc* proc);
-static int EvtCmd_RestoreBgm(struct EventProc* proc);
-static int EvtCmd_FadeBgmOut(struct EventProc* proc);
-static int EvtCmd_LowerBgmVolume(struct EventProc* proc);
-static int EvtCmd_RestoreBgmVolume(struct EventProc* proc);
-static int EvtCmd_PlaySe(struct EventProc* proc);
-static int EvtCmd_NextChapter(struct EventProc* proc);
-static int EvtCmd_EndGame(struct EventProc* proc);
-static int EvtCmd_SetMap(struct EventProc* proc);
-static int EvtCmd_NoSkip(struct EventProc* proc);
-static int EvtCmd_NoSkipNoTextSkip(struct EventProc* proc);
-static int EvtCmd_YesSkip(struct EventProc* proc);
-static int EvtCmd_FadeToBlack(struct EventProc* proc);
-static int EvtCmd_FadeFromBlack(struct EventProc* proc);
-static int EvtCmd_FadeToWhite(struct EventProc* proc);
-static int EvtCmd_FadeFromWhite(struct EventProc* proc);
-static int EvtCmd_ExitMap(struct EventProc* proc);
-static int EvtCmd_EnterMap(struct EventProc* proc);
-static int EvtCmd_GiveMoney(struct EventProc* proc);
-static int EvtCmd_FightScript(struct EventProc* proc);
-static int EvtCmd_DisableAutoClear(struct EventProc* proc);
-static int EvtCmd_FuncOnSkip(struct EventProc* proc);
-static int EvtCmd_SetWeather(struct EventProc* proc);
-static int EvtCmd_WmStart(struct EventProc* proc);
-static int EvtCmd_WmEnd(struct EventProc* proc);
-static int EvtCmd_WmZoomTo(struct EventProc* proc);
-static int EvtCmd_WmZoomBack(struct EventProc* proc);
-static int EvtCmd_WmPutFace(struct EventProc* proc);
-static int EvtCmd_WmRemoveFace(struct EventProc* proc);
-static int EvtCmd_WmMoveFace(struct EventProc* proc);
-static int EvtCmd_WmNop54(struct EventProc* proc);
-static int EvtCmd_WmNop55(struct EventProc* proc);
-static int EvtCmd_WmTalk(struct EventProc* proc);
-static int EvtCmd_WmTalkBoxBottom(struct EventProc* proc);
-static int EvtCmd_WmTalkBoxTop(struct EventProc* proc);
-static int EvtCmd_WmTalkBoxRemove(struct EventProc* proc);
-static int EvtCmd_WmArrow(struct EventProc* proc);
-static int EvtCmd_WmPutHighlight(struct EventProc* proc);
-static int EvtCmd_WmRemoveHighlight(struct EventProc* proc);
-static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc);
-static int EvtCmd_WmPutDot(struct EventProc* proc);
-static int EvtCmd_WmRemoveDot(struct EventProc* proc);
-static int EvtCmd_WmPutFlag(struct EventProc* proc);
-static int EvtCmd_WmRemoveFlag(struct EventProc* proc);
-static int EvtCmd_WmPutMapText(struct EventProc* proc);
-static int EvtCmd_WmRemoveMapText(struct EventProc* proc);
-static int EvtCmd_End(struct EventProc* proc);
-static int EvtCmd_Kill(struct EventProc* proc);
+static int EvtCmd_Sleep(struct EventProc * proc);
+static int EvtCmd_Background(struct EventProc * proc);
+static int EvtCmd_BackgroundMore(struct EventProc * proc);
+static int EvtCmd_ClearTalk(struct EventProc * proc);
+static int EvtCmd_ClearSkip(struct EventProc * proc);
+static int EvtCmd_Talk(struct EventProc * proc);
+static int EvtCmd_TalkMore(struct EventProc * proc);
+static int EvtCmd_TalkAuto(struct EventProc * proc);
+static int EvtCmd_TalkContinue(struct EventProc * proc);
+static int EvtCmd_CameraPosition(struct EventProc * proc);
+static int EvtCmd_CameraPid(struct EventProc * proc);
+static int EvtCmd_MovePosition(struct EventProc * proc);
+static int EvtCmd_MovePid(struct EventProc * proc);
+static int EvtCmd_MovePidScript(struct EventProc * proc);
+static int EvtCmd_MovePositionScript(struct EventProc * proc);
+static int EvtCmd_MovePidNextTo(struct EventProc * proc);
+static int EvtCmd_LoadUnits(struct EventProc * proc);
+static int EvtCmd_LoadUnitsParty(struct EventProc * proc);
+static int EvtCmd_WaitForMovement(struct EventProc * proc);
+static int EvtCmd_UnitCameraOn(struct EventProc * proc);
+static int EvtCmd_UnitCameraOff(struct EventProc * proc);
+static int EvtCmd_Func(struct EventProc * proc);
+static int EvtCmd_FuncUntil(struct EventProc * proc);
+static int EvtCmd_FuncWhile(struct EventProc * proc);
+static int EvtCmd_Stop(struct EventProc * proc);
+static int EvtCmd_Label(struct EventProc * proc);
+static int EvtCmd_Goto(struct EventProc * proc);
+static int EvtCmd_GotoIfnAlive(struct EventProc * proc);
+static int EvtCmd_GotoIfnInTeam(struct EventProc * proc);
+static int EvtCmd_GotoIfyFunc(struct EventProc * proc);
+static int EvtCmd_GotoIfnFunc(struct EventProc * proc);
+static int EvtCmd_GotoIfySkip(struct EventProc * proc);
+static int EvtCmd_GotoIfyFlag(struct EventProc * proc);
+static int EvtCmd_GotoIfnFlag(struct EventProc * proc);
+static int EvtCmd_GotoIfyActive(struct EventProc * proc);
+static int EvtCmd_Jump(struct EventProc * proc);
+static int EvtCmd_GiveItem(struct EventProc * proc);
+static int EvtCmd_GiveItemTo(struct EventProc * proc);
+static int EvtCmd_MapChange(struct EventProc * proc);
+static int EvtCmd_MapChangePosition(struct EventProc * proc);
+static int EvtCmd_SetFaction(struct EventProc * proc);
+static int EvtCmd_FlashCursorPosition(struct EventProc * proc);
+static int EvtCmd_FlashCursorPid(struct EventProc * proc);
+static int EvtCmd_PutCursor(struct EventProc * proc);
+static int EvtCmd_ClearCursors(struct EventProc * proc);
+static int EvtCmd_RemovePid(struct EventProc * proc);
+static int EvtCmd_RemovePidDisplayed(struct EventProc * proc);
+static int EvtCmd_SetAiPid(struct EventProc * proc);
+static int EvtCmd_SetAiPosition(struct EventProc * proc);
+static int EvtCmd_SetFlag(struct EventProc * proc);
+static int EvtCmd_ClearFlag(struct EventProc * proc);
+static int EvtCmd_PlayBgm(struct EventProc * proc);
+static int EvtCmd_OverrideBgm(struct EventProc * proc);
+static int EvtCmd_RestoreBgm(struct EventProc * proc);
+static int EvtCmd_FadeBgmOut(struct EventProc * proc);
+static int EvtCmd_LowerBgmVolume(struct EventProc * proc);
+static int EvtCmd_RestoreBgmVolume(struct EventProc * proc);
+static int EvtCmd_PlaySe(struct EventProc * proc);
+static int EvtCmd_NextChapter(struct EventProc * proc);
+static int EvtCmd_EndGame(struct EventProc * proc);
+static int EvtCmd_SetMap(struct EventProc * proc);
+static int EvtCmd_NoSkip(struct EventProc * proc);
+static int EvtCmd_NoSkipNoTextSkip(struct EventProc * proc);
+static int EvtCmd_YesSkip(struct EventProc * proc);
+static int EvtCmd_FadeToBlack(struct EventProc * proc);
+static int EvtCmd_FadeFromBlack(struct EventProc * proc);
+static int EvtCmd_FadeToWhite(struct EventProc * proc);
+static int EvtCmd_FadeFromWhite(struct EventProc * proc);
+static int EvtCmd_ExitMap(struct EventProc * proc);
+static int EvtCmd_EnterMap(struct EventProc * proc);
+static int EvtCmd_GiveMoney(struct EventProc * proc);
+static int EvtCmd_FightScript(struct EventProc * proc);
+static int EvtCmd_DisableAutoClear(struct EventProc * proc);
+static int EvtCmd_FuncOnSkip(struct EventProc * proc);
+static int EvtCmd_SetWeather(struct EventProc * proc);
+static int EvtCmd_WmStart(struct EventProc * proc);
+static int EvtCmd_WmEnd(struct EventProc * proc);
+static int EvtCmd_WmZoomTo(struct EventProc * proc);
+static int EvtCmd_WmZoomBack(struct EventProc * proc);
+static int EvtCmd_WmPutFace(struct EventProc * proc);
+static int EvtCmd_WmRemoveFace(struct EventProc * proc);
+static int EvtCmd_WmMoveFace(struct EventProc * proc);
+static int EvtCmd_WmNop54(struct EventProc * proc);
+static int EvtCmd_WmNop55(struct EventProc * proc);
+static int EvtCmd_WmTalk(struct EventProc * proc);
+static int EvtCmd_WmTalkBoxBottom(struct EventProc * proc);
+static int EvtCmd_WmTalkBoxTop(struct EventProc * proc);
+static int EvtCmd_WmTalkBoxRemove(struct EventProc * proc);
+static int EvtCmd_WmArrow(struct EventProc * proc);
+static int EvtCmd_WmPutHighlight(struct EventProc * proc);
+static int EvtCmd_WmRemoveHighlight(struct EventProc * proc);
+static int EvtCmd_WmRemoveBothHighlights(struct EventProc * proc);
+static int EvtCmd_WmPutDot(struct EventProc * proc);
+static int EvtCmd_WmRemoveDot(struct EventProc * proc);
+static int EvtCmd_WmPutFlag(struct EventProc * proc);
+static int EvtCmd_WmRemoveFlag(struct EventProc * proc);
+static int EvtCmd_WmPutMapText(struct EventProc * proc);
+static int EvtCmd_WmRemoveMapText(struct EventProc * proc);
+static int EvtCmd_End(struct EventProc * proc);
+static int EvtCmd_Kill(struct EventProc * proc);
 
 static int sUnk_085C3FD8 = 0;
 static int sUnk_030000F0;
 
-static struct Unit* sPopupUnit;
+static struct Unit * sPopupUnit;
 static u16 sPopupItem;
 static int sPopupNumber;
 
-extern u32 const* gEventScriptQueue[]; // COMMON
+extern u32 const * gEventScriptQueue[]; // COMMON
 extern u8 gEventScriptQueueIt; // COMMON
 
 struct ProcScr CONST_DATA ProcScr_Popup[];
@@ -348,11 +349,11 @@ void func_fe6_0800CCD4(void)
     sUnk_085C3FD8++;
 }
 
-static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, ProcPtr parent);
+static void MoveUnitFromInfo(struct UnitInfo const * info, struct Unit * unit, ProcPtr parent);
 
-static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
+static void LoadUnitWrapper(struct UnitInfo const * info, ProcPtr parent)
 {
-    struct Unit* unit;
+    struct Unit * unit;
 
     if (UnitInfoRequiresNoMovement(info))
         return;
@@ -372,13 +373,13 @@ static void LoadUnitWrapper(struct UnitInfo const* info, ProcPtr parent)
     RefreshEntityMaps();
 }
 
-static void FakeLoadUnit(struct UnitInfo const* info, struct Unit* unit)
+static void FakeLoadUnit(struct UnitInfo const * info, struct Unit * unit)
 {
     MoveUnitFromInfo(info, unit, NULL);
     RefreshEntityMaps();
 }
 
-static void MoveUnitFromInfo(struct UnitInfo const* info, struct Unit* unit, ProcPtr parent)
+static void MoveUnitFromInfo(struct UnitInfo const * info, struct Unit * unit, ProcPtr parent)
 {
     if (!unit)
         return;
@@ -419,12 +420,12 @@ int func_fe6_0800CE90(void)
     return gUnk_085C3FDC[sUnk_030000F0++];
 }
 
-static int PreparePopup(struct PopupProc* proc)
+static int PreparePopup(struct PopupProc * proc)
 {
     int result = 0;
 
     char buf[0x10];
-    struct PopupInfo const* it;
+    struct PopupInfo const * it;
 
     for (it = proc->info; it->cmd; ++it)
     {
@@ -463,7 +464,7 @@ static int PreparePopup(struct PopupProc* proc)
             break;
 
         case POPUP_CMD_STR:
-            result += GetStringTextLen((char const*) it->arg);
+            result += GetStringTextLen((char const *) it->arg);
             break;
 
         case POPUP_CMD_UNIT_NAME:
@@ -487,7 +488,7 @@ static int PreparePopup(struct PopupProc* proc)
     return result;
 }
 
-static void PutPopup(struct PopupInfo const* info, struct Text text)
+static void PutPopup(struct PopupInfo const * info, struct Text text)
 {
     char buf[0x10];
 
@@ -518,7 +519,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
             break;
 
         case POPUP_CMD_STR:
-            Text_DrawString(&text, (char const*) info->arg);
+            Text_DrawString(&text, (char const *) info->arg);
             break;
 
         case POPUP_CMD_UNIT_NAME:
@@ -542,7 +543,7 @@ static void PutPopup(struct PopupInfo const* info, struct Text text)
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
 }
 
-static void Popup_OnInit(struct PopupProc* proc)
+static void Popup_OnInit(struct PopupProc * proc)
 {
     proc->xParam = 0xFF;
     proc->yParam = 0xFF;
@@ -555,10 +556,10 @@ static void Popup_OnInit(struct PopupProc* proc)
     proc->songPlayed = 0;
 }
 
-static void Popup_Prepare(struct PopupProc* proc)
+static void Popup_Prepare(struct PopupProc * proc)
 {
     InitTextFont(NULL,
-        (u8*) VRAM + GetBgChrOffset(0) + BGCHR_0_TEXT_POPUP * CHR_SIZE,
+        (u8 *) VRAM + GetBgChrOffset(0) + BGCHR_0_TEXT_POPUP * CHR_SIZE,
         BGCHR_0_TEXT_POPUP, BGPAL_TEXT_DEFAULT);
 
     ClearIcons();
@@ -570,32 +571,32 @@ static void Popup_Prepare(struct PopupProc* proc)
     proc->widthPx = PreparePopup(proc);
 }
 
-static void Popup_FadeBgmOut(struct PopupProc* proc)
+static void Popup_FadeBgmOut(struct PopupProc * proc)
 {
     if (proc->songPlayed != 0)
         StartBgmVolumeChange(0x100, 0x80, 16, proc);
 }
 
-static void Popup_PlaySe(struct PopupProc* proc)
+static void Popup_PlaySe(struct PopupProc * proc)
 {
     if (proc->songPlayed != 0)
         PlaySe(proc->songPlayed);
 }
 
-static void Popup_FadeBgmIn(struct PopupProc* proc)
+static void Popup_FadeBgmIn(struct PopupProc * proc)
 {
     if (proc->songPlayed != 0)
         StartBgmVolumeChange(0x80, 0x100, 16, proc);
 }
 
-static void PopupIconSprite_OnIdle(struct GenericProc* proc)
+static void PopupIconSprite_OnIdle(struct GenericProc * proc)
 {
     PutOamHiRam(proc->x, proc->y, Sprite_16x16, (u16) proc->unk4A);
 }
 
-static void Popup_Display(struct PopupProc* proc)
+static void Popup_Display(struct PopupProc * proc)
 {
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
     struct Text text;
 
@@ -656,7 +657,7 @@ static void Popup_Display(struct PopupProc* proc)
     }
 }
 
-static void Popup_WaitForEnd(struct PopupProc* proc)
+static void Popup_WaitForEnd(struct PopupProc * proc)
 {
     if (proc->clock < 0)
     {
@@ -675,7 +676,7 @@ static void Popup_WaitForEnd(struct PopupProc* proc)
     }
 }
 
-static void Popup_Clear(struct PopupProc* proc)
+static void Popup_Clear(struct PopupProc * proc)
 {
     TmFillRect_t(gBg0Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
     TmFillRect_t(gBg1Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
@@ -683,7 +684,7 @@ static void Popup_Clear(struct PopupProc* proc)
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
 }
 
-void SetPopupUnit(struct Unit* unit)
+void SetPopupUnit(struct Unit * unit)
 {
     sPopupUnit = unit;
 }
@@ -698,14 +699,14 @@ void SetPopupNumber(int number)
     sPopupNumber = number;
 }
 
-ProcPtr StartPopup(struct PopupInfo const* info, int duration, int window_kind, ProcPtr parent)
+ProcPtr StartPopup(struct PopupInfo const * info, int duration, int window_kind, ProcPtr parent)
 {
     return StartPopupExt(info, duration, window_kind, 0x240, 4, parent);
 }
 
-ProcPtr StartPopupExt(struct PopupInfo const* info, int duration, int window_kind, int iconChr, int iconPal, ProcPtr parent)
+ProcPtr StartPopupExt(struct PopupInfo const * info, int duration, int window_kind, int iconChr, int iconPal, ProcPtr parent)
 {
-    struct PopupProc* proc;
+    struct PopupProc * proc;
 
     if (parent)
         proc = SpawnProcLocking(ProcScr_Popup, parent);
@@ -738,33 +739,33 @@ static void EventDisableSkip(ProcPtr proc)
     EvtCmd_NoSkip(proc);
 }
 
-static void Event_FadeOutOfBackgroundTalk(struct EventProc* proc)
+static void Event_FadeOutOfBackgroundTalk(struct EventProc * proc)
 {
     SpawnProcLocking(ProcScr_SceneReturnFromBackgroundTalk, proc);
 }
 
-static void Event_FadeOutOfSkip(struct EventProc* proc)
+static void Event_FadeOutOfSkip(struct EventProc * proc)
 {
     SpawnProcLocking(ProcScr_SceneEndFade, proc);
 }
 
-static void FadeFromBg_FadeToBlack(struct GenericProc* proc)
+static void FadeFromBg_FadeToBlack(struct GenericProc * proc)
 {
-    if (((struct EventProc*) proc->proc_parent)->flags & EVENT_FLAG_SKIPPED)
+    if (((struct EventProc *) proc->proc_parent)->flags & EVENT_FLAG_SKIPPED)
         return;
 
     StartMidLockingFadeToBlack(proc);
 }
 
-static void FadeFromBg_FadeFromBlack(struct GenericProc* proc)
+static void FadeFromBg_FadeFromBlack(struct GenericProc * proc)
 {
-    struct EventProc* evproc = proc->proc_parent;
+    struct EventProc * evproc = proc->proc_parent;
 
     if (!(evproc->flags & EVENT_FLAG_SKIPPED))
         StartMidLockingFadeFromBlack(proc);
 }
 
-static void FadeFromBg_ClearScreen(struct GenericProc* proc)
+static void FadeFromBg_ClearScreen(struct GenericProc * proc)
 {
     InitBmDisplay();
     UnlockBmDisplay();
@@ -779,9 +780,9 @@ static void FadeFromBg_ClearScreen(struct GenericProc* proc)
     ClearTalk();
 }
 
-static void FadeFromSkip_Start(struct GenericProc* proc)
+static void FadeFromSkip_Start(struct GenericProc * proc)
 {
-    struct EventProc* evproc = proc->proc_parent;
+    struct EventProc * evproc = proc->proc_parent;
 
     InitBmDisplay();
 
@@ -796,19 +797,19 @@ static void FadeFromSkip_Start(struct GenericProc* proc)
     StartMidLockingFadeFromBlack(proc);
 }
 
-ProcPtr StartEvent(u32 const* script)
+ProcPtr StartEvent(u32 const * script)
 {
     return StartEventInternal(script, PROC_TREE_3);
 }
 
-ProcPtr StartEventLocking(u32 const* script, ProcPtr parent)
+ProcPtr StartEventLocking(u32 const * script, ProcPtr parent)
 {
     return StartEventInternal(script, parent);
 }
 
-static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent)
+static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent)
 {
-    struct EventProc* proc = Proc_Find(ProcScr_Event);
+    struct EventProc * proc = Proc_Find(ProcScr_Event);
 
     if (proc)
     {
@@ -865,18 +866,18 @@ static ProcPtr StartEventInternal(u32 const* script, ProcPtr parent)
     return proc;
 }
 
-static void Event_OnInit(struct EventProc* proc)
+static void Event_OnInit(struct EventProc * proc)
 {
     LockGame();
     proc->on_idle = NULL;
 }
 
-static void Event_OnEnd(struct EventProc* proc)
+static void Event_OnEnd(struct EventProc * proc)
 {
     UnlockGame();
 }
 
-static void Event_ResetText(struct EventProc* proc)
+static void Event_ResetText(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_NOAUTOCLEAR)
         return;
@@ -887,7 +888,7 @@ static void Event_ResetText(struct EventProc* proc)
     UnpackUiWindowFrameGraphics();
 }
 
-static void Event_RestartFromQueued(struct EventProc* proc)
+static void Event_RestartFromQueued(struct EventProc * proc)
 {
     proc->flags &= ~EVENT_FLAG_SKIPPED;
 
@@ -904,13 +905,13 @@ static void Event_RestartFromQueued(struct EventProc* proc)
     }
 }
 
-static void Event_MaybeEndMapMain(struct EventProc* proc)
+static void Event_MaybeEndMapMain(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_ENDMAPMAIN)
         EndMapMain();
 }
 
-static void Event_ClearTextOnSkip(struct EventProc* proc)
+static void Event_ClearTextOnSkip(struct EventProc * proc)
 {
     func_fe6_08014AF8();
     Proc_EndEach(ProcScr_TalkOpen);
@@ -919,7 +920,7 @@ static void Event_ClearTextOnSkip(struct EventProc* proc)
         SetMuMaxWalkSpeed();
 }
 
-static bool Event_SkipAllowed(struct EventProc* proc)
+static bool Event_SkipAllowed(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return FALSE;
@@ -939,8 +940,8 @@ struct DarkenFuncProc
 
     /* 29 */ u8 pad29[0x4C - 0x29];
 
-    /* 4C */ struct EventProc* eventProc;
-    /* 50 */ void(*func)(struct EventProc* proc);
+    /* 4C */ struct EventProc * eventProc;
+    /* 50 */ void (* func)(struct EventProc * proc);
 
     /* 54 */ u8 pad54[0x64 - 0x54];
 
@@ -948,29 +949,29 @@ struct DarkenFuncProc
     /* 66 */ short q4_darken;
 };
 
-static void DarkenThenFunc_OnInit(struct DarkenFuncProc* proc);
-static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc);
-static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc);
-static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc);
+static void DarkenThenFunc_OnInit(struct DarkenFuncProc * proc);
+static void DarkenThenFunc_OnLoop(struct DarkenFuncProc * proc);
+static void DarkenThenFunc_StartDarken(struct DarkenFuncProc * proc);
+static void DarkenThenFunc_StepDarken(struct DarkenFuncProc * proc);
 
-static void Event_DarkenThenFunc(void(*func)(struct EventProc* proc), struct EventProc* eproc)
+static void Event_DarkenThenFunc(void (* func)(struct EventProc * proc), struct EventProc * eproc)
 {
-    struct DarkenFuncProc* proc = SpawnProcLocking(ProcScr_DarkenThenFunc, eproc);
+    struct DarkenFuncProc * proc = SpawnProcLocking(ProcScr_DarkenThenFunc, eproc);
 
     proc->func = func;
     proc->eventProc = eproc;
 }
 
-static void DarkenThenFunc_OnInit(struct DarkenFuncProc* proc)
+static void DarkenThenFunc_OnInit(struct DarkenFuncProc * proc)
 {
     DarkenThenFunc_StartDarken(proc);
 
     proc->q4_darkenStep = 0x20;
 }
 
-static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc)
+static void DarkenThenFunc_OnLoop(struct DarkenFuncProc * proc)
 {
-    void(*func)(struct EventProc* proc) = proc->func;
+    void (* func)(struct EventProc * proc) = proc->func;
 
     DarkenThenFunc_StepDarken(proc);
 
@@ -981,7 +982,7 @@ static void DarkenThenFunc_OnLoop(struct DarkenFuncProc* proc)
     }
 }
 
-static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc)
+static void DarkenThenFunc_StartDarken(struct DarkenFuncProc * proc)
 {
     gDispIo.win_ct.win0_enable_blend = 1;
     gDispIo.win_ct.win1_enable_blend = 1;
@@ -997,7 +998,7 @@ static void DarkenThenFunc_StartDarken(struct DarkenFuncProc* proc)
     proc->q4_darken = 0;
 }
 
-static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc)
+static void DarkenThenFunc_StepDarken(struct DarkenFuncProc * proc)
 {
     if (gDispIo.blend_y == 0x10)
     {
@@ -1013,7 +1014,7 @@ static void DarkenThenFunc_StepDarken(struct DarkenFuncProc* proc)
     gDispIo.blend_y = proc->q4_darken >> 4;
 }
 
-static void Event_MainLoop(struct EventProc* proc)
+static void Event_MainLoop(struct EventProc * proc)
 {
     if (Proc_Find(ProcScr_SubtitleHelpDarkener) != NULL)
         return;
@@ -1080,7 +1081,7 @@ static void Event_MainLoop(struct EventProc* proc)
     }
 }
 
-static void Event_WaitForFaceEnd(struct EventProc* proc)
+static void Event_WaitForFaceEnd(struct EventProc * proc)
 {
     if (!(proc->flags & EVENT_FLAG_NOAUTOCLEAR) && FaceExists())
         return;
@@ -1088,7 +1089,7 @@ static void Event_WaitForFaceEnd(struct EventProc* proc)
     Proc_Break(proc);
 }
 
-static int EvtCmd_Sleep(struct EventProc* proc)
+static int EvtCmd_Sleep(struct EventProc * proc)
 {
     // script[0]: duration
 
@@ -1105,7 +1106,7 @@ static int EvtCmd_Sleep(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_Background(struct EventProc* proc)
+static int EvtCmd_Background(struct EventProc * proc)
 {
     // script[0]: background
 
@@ -1124,7 +1125,7 @@ static int EvtCmd_Background(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_BackgroundMore(struct EventProc* proc)
+static int EvtCmd_BackgroundMore(struct EventProc * proc)
 {
     // script[0]: background
 
@@ -1143,7 +1144,7 @@ static int EvtCmd_BackgroundMore(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_ClearTalk(struct EventProc* proc)
+static int EvtCmd_ClearTalk(struct EventProc * proc)
 {
     if (proc->background == -1)
     {
@@ -1159,7 +1160,7 @@ static int EvtCmd_ClearTalk(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_ClearSkip(struct EventProc* proc)
+static int EvtCmd_ClearSkip(struct EventProc * proc)
 {
     if (!(proc->flags & EVENT_FLAG_SKIPPED))
         return EVENT_CMDRET_CONTINUE;
@@ -1179,7 +1180,7 @@ void DisplayBackground(int background)
     SetBgOffset(2, 0, 0);
     SetBgOffset(3, 0, 0);
 
-    Decompress(gBackgroundTable[background].img, (u8*) VRAM + GetBgChrOffset(3));
+    Decompress(gBackgroundTable[background].img, (u8 *) VRAM + GetBgChrOffset(3));
     TmApplyTsa_t(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
     ApplyPalettes(gBackgroundTable[background].pal, 8, 4);
 
@@ -1194,7 +1195,7 @@ void DisplayBackgroundNoClear(int background)
     SetBgOffset(2, 0, 0);
     SetBgOffset(3, 0, 0);
 
-    Decompress(gBackgroundTable[background].img, (u8*) VRAM + GetBgChrOffset(3));
+    Decompress(gBackgroundTable[background].img, (u8 *) VRAM + GetBgChrOffset(3));
     TmApplyTsa_t(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
     ApplyPalettes(gBackgroundTable[background].pal, 8, 4);
 
@@ -1202,9 +1203,9 @@ void DisplayBackgroundNoClear(int background)
     gPal[0] = 0;
 }
 
-static void EventTalkWait(struct EventProc* proc);
+static void EventTalkWait(struct EventProc * proc);
 
-static int EvtCmd_Talk(struct EventProc* proc)
+static int EvtCmd_Talk(struct EventProc * proc)
 {
     // script[0]: msgid
 
@@ -1224,7 +1225,7 @@ static int EvtCmd_Talk(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_TalkMore(struct EventProc* proc)
+static int EvtCmd_TalkMore(struct EventProc * proc)
 {
     // script[0]: msgid
 
@@ -1244,7 +1245,7 @@ static int EvtCmd_TalkMore(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_TalkAuto(struct EventProc* proc)
+static int EvtCmd_TalkAuto(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_YIELD;
@@ -1260,7 +1261,7 @@ static int EvtCmd_TalkAuto(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_TalkContinue(struct EventProc* proc)
+static int EvtCmd_TalkContinue(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -1274,7 +1275,7 @@ static int EvtCmd_TalkContinue(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventTalkWait(struct EventProc* proc)
+static void EventTalkWait(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -1288,7 +1289,7 @@ static void EventTalkWait(struct EventProc* proc)
         proc->on_idle = NULL;
 }
 
-static int EvtCmd_CameraPosition(struct EventProc* proc)
+static int EvtCmd_CameraPosition(struct EventProc * proc)
 {
     // script[0]: coords (u16, u16)
 
@@ -1317,11 +1318,11 @@ static int EvtCmd_CameraPosition(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_CameraPid(struct EventProc* proc)
+static int EvtCmd_CameraPid(struct EventProc * proc)
 {
     // script[0]: pid of unit
 
-    struct Unit* unit = GetUnitByPid(proc->script[0]);
+    struct Unit * unit = GetUnitByPid(proc->script[0]);
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
@@ -1341,7 +1342,7 @@ static int EvtCmd_CameraPid(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
+static bool CanDisplayUnitMovement(struct EventProc * proc, int x, int y)
 {
     if (proc->flags & EVENT_FLAG_UNITCAM)
     {
@@ -1355,12 +1356,12 @@ static bool CanDisplayUnitMovement(struct EventProc* proc, int x, int y)
     return TRUE;
 }
 
-static int EvtCmd_MovePosition(struct EventProc* proc)
+static int EvtCmd_MovePosition(struct EventProc * proc)
 {
     // script[0]: coords (u16, u16) of unit to move
     // script[1]: coords (u16, u16) to move to
 
-    struct Unit* unit;
+    struct Unit * unit;
 
     int xUnit = EVTCMD_GET_X(proc->script[0]);
     int yUnit = EVTCMD_GET_Y(proc->script[0]);
@@ -1386,12 +1387,12 @@ static int EvtCmd_MovePosition(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_MovePid(struct EventProc* proc)
+static int EvtCmd_MovePid(struct EventProc * proc)
 {
     // script[0]: pid of unit to move
     // script[1]: coords (u16, u16) to move to
 
-    struct Unit* unit = GetUnitByPid(proc->script[0]);
+    struct Unit * unit = GetUnitByPid(proc->script[0]);
 
     int x_target = EVTCMD_GET_X(proc->script[1]);
     int y_target = EVTCMD_GET_Y(proc->script[1]);
@@ -1412,16 +1413,16 @@ static int EvtCmd_MovePid(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_MovePidScript(struct EventProc* proc)
+static int EvtCmd_MovePidScript(struct EventProc * proc)
 {
     // script[0]: pid of unit to move
     // script[1]: pointer to move script
 
-    struct Unit* unit = GetUnitByPid(proc->script[0]);
+    struct Unit * unit = GetUnitByPid(proc->script[0]);
 
     int x, y;
 
-    u8 const* movescr = (u8 const*) proc->script[1];
+    u8 const * movescr = (u8 const *) proc->script[1];
 
     if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
     {
@@ -1444,17 +1445,17 @@ static int EvtCmd_MovePidScript(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_MovePositionScript(struct EventProc* proc)
+static int EvtCmd_MovePositionScript(struct EventProc * proc)
 {
     // script[0]: coords (u16, u16) of unit to move
     // script[1]: pointer to move script
 
-    struct Unit* unit;
+    struct Unit * unit;
 
     int x = EVTCMD_GET_X(proc->script[0]);
     int y = EVTCMD_GET_Y(proc->script[0]);
 
-    u8 const* movescr = (u8 const*) proc->script[1];
+    u8 const * movescr = (u8 const *) proc->script[1];
 
     unit = GetUnit(gMapUnit[y][x]);
 
@@ -1476,12 +1477,12 @@ static int EvtCmd_MovePositionScript(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_MovePidNextTo(struct EventProc* proc)
+static int EvtCmd_MovePidNextTo(struct EventProc * proc)
 {
     // script[0]: pid of unit to move
     // script[1]: pid of unit to go next to
 
-    struct Unit* unit = GetUnitByPid(proc->script[1]);
+    struct Unit * unit = GetUnitByPid(proc->script[1]);
 
     int x = unit->x;
     int y = unit->y;
@@ -1504,7 +1505,7 @@ static int EvtCmd_MovePidNextTo(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
+void TryMoveUnit(struct Unit * unit, int x, int y, i8 moveClosest)
 {
     struct Vec2i vec;
 
@@ -1540,7 +1541,7 @@ void TryMoveUnit(struct Unit* unit, int x, int y, i8 moveClosest)
     RefreshEntityMaps();
 }
 
-bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
+bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit * unit, int x, int y)
 {
     struct Vec2i vec;
 
@@ -1574,11 +1575,11 @@ bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit* unit, int x, int y)
     return DisplayMovement(proc, unit, gWorkingMoveScr);
 }
 
-static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const* movescr)
+static bool DisplayMovement(struct EventProc * proc, struct Unit * unit, u8 const * movescr)
 {
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
-    struct MuProc* mu = StartMu(unit);
+    struct MuProc * mu = StartMu(unit);
 
     int x, y;
 
@@ -1608,14 +1609,14 @@ static bool DisplayMovement(struct EventProc* proc, struct Unit* unit, u8 const*
     return TRUE;
 }
 
-static void WaitForMu_0800F094(struct GenericProc* proc)
+static void WaitForMu_0800F094(struct GenericProc * proc)
 {
 }
 
-static void WaitForMu_OnLoop(struct GenericProc* proc)
+static void WaitForMu_OnLoop(struct GenericProc * proc)
 {
-    struct MuProc* mu = proc->ptr;
-    struct Unit* unit;
+    struct MuProc * mu = proc->ptr;
+    struct Unit * unit;
 
     if (IsMuActive(mu))
         return;
@@ -1638,29 +1639,29 @@ static void WaitForMu_OnLoop(struct GenericProc* proc)
     Proc_Break(proc);
 }
 
-static void EventUnitLoadWait(struct EventProc* proc);
+static void EventUnitLoadWait(struct EventProc * proc);
 
-static int EvtCmd_LoadUnits(struct EventProc* proc)
+static int EvtCmd_LoadUnits(struct EventProc * proc)
 {
     // script[0]: address of unit info list
 
     MapFill(gMapOther, 0);
 
-    proc->unitInfo = (struct UnitInfo const*) proc->script[0];
+    proc->unitInfo = (struct UnitInfo const *) proc->script[0];
     proc->on_idle = EventUnitLoadWait;
 
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventLoadUnitsAsParty(struct EventProc* proc);
+static void EventLoadUnitsAsParty(struct EventProc * proc);
 
-static int EvtCmd_LoadUnitsParty(struct EventProc* proc)
+static int EvtCmd_LoadUnitsParty(struct EventProc * proc)
 {
     // script[0]: address of unit info list
 
     MapFill(gMapOther, 0);
 
-    proc->unitInfo = (struct UnitInfo const*) proc->script[0];
+    proc->unitInfo = (struct UnitInfo const *) proc->script[0];
     EventLoadUnitsAsParty(proc);
 
     return EVENT_CMDRET_YIELD;
@@ -1672,7 +1673,7 @@ int GetNextAvailableBlueUnitId(int start)
 
     for (i = start; i < 0x40; ++i)
     {
-        struct Unit* unit = GetUnit(i);
+        struct Unit * unit = GetUnit(i);
 
         if (!unit)
             continue;
@@ -1689,7 +1690,7 @@ int GetNextAvailableBlueUnitId(int start)
     return 0;
 }
 
-bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
+bool UnitInfoRequiresNoMovement(struct UnitInfo const * info)
 {
     if (info->x_load == info->x_move)
         if (info->y_load == info->y_move)
@@ -1699,11 +1700,11 @@ bool UnitInfoRequiresNoMovement(struct UnitInfo const* info)
     return FALSE;
 }
 
-static void EventMovementWait(struct EventProc* proc);
+static void EventMovementWait(struct EventProc * proc);
 
-static void EventUnitLoadWait(struct EventProc* proc)
+static void EventUnitLoadWait(struct EventProc * proc)
 {
-    struct UnitInfo const* info = proc->unitInfo;
+    struct UnitInfo const * info = proc->unitInfo;
 
     while (TRUE)
     {
@@ -1740,12 +1741,12 @@ static void EventUnitLoadWait(struct EventProc* proc)
     ForceSyncUnitSpriteSheet();
 }
 
-static void EventLoadUnitsAsParty(struct EventProc* proc)
+static void EventLoadUnitsAsParty(struct EventProc * proc)
 {
-    struct UnitInfo const* info = proc->unitInfo;
+    struct UnitInfo const * info = proc->unitInfo;
 
     int id;
-    struct Unit* unit;
+    struct Unit * unit;
 
     int blueCount = 0;
 
@@ -1814,7 +1815,7 @@ static void EventLoadUnitsAsParty(struct EventProc* proc)
     RefreshUnitSprites();
 }
 
-static void EventMovementWait(struct EventProc* proc)
+static void EventMovementWait(struct EventProc * proc)
 {
     if (MuExistsActive())
         return;
@@ -1823,7 +1824,7 @@ static void EventMovementWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static int EvtCmd_WaitForMovement(struct EventProc* proc)
+static int EvtCmd_WaitForMovement(struct EventProc * proc)
 {
     if (MuExistsActive())
         return EVENT_CMDRET_REPEAT;
@@ -1832,26 +1833,26 @@ static int EvtCmd_WaitForMovement(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_UnitCameraOn(struct EventProc* proc)
+static int EvtCmd_UnitCameraOn(struct EventProc * proc)
 {
     proc->flags |= EVENT_FLAG_UNITCAM;
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_UnitCameraOff(struct EventProc* proc)
+static int EvtCmd_UnitCameraOff(struct EventProc * proc)
 {
     proc->flags &= ~EVENT_FLAG_UNITCAM;
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_Func(struct EventProc* proc)
+static int EvtCmd_Func(struct EventProc * proc)
 {
     // script[0]: address of function
 
-    typedef void(*FuncType)(struct EventProc* proc);
+    typedef void (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const* script = proc->script;
+    u32 const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     func(proc);
@@ -1862,16 +1863,16 @@ static int EvtCmd_Func(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_FuncUntil(struct EventProc* proc)
+static int EvtCmd_FuncUntil(struct EventProc * proc)
 {
     // script[0]: address of function
 
     i8 result;
 
-    typedef i8(*FuncType)(struct EventProc* proc);
+    typedef i8 (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const* script = proc->script;
+    u32 const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     result = func(proc);
@@ -1885,16 +1886,16 @@ static int EvtCmd_FuncUntil(struct EventProc* proc)
         return EVENT_CMDRET_REPEAT;
 }
 
-static int EvtCmd_FuncWhile(struct EventProc* proc)
+static int EvtCmd_FuncWhile(struct EventProc * proc)
 {
     // script[0]: address of function
 
     i8 result;
 
-    typedef i8(*FuncType)(struct EventProc* proc);
+    typedef i8 (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const* script = proc->script;
+    u32 const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     result = func(proc);
@@ -1908,25 +1909,25 @@ static int EvtCmd_FuncWhile(struct EventProc* proc)
         return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_Stop(struct EventProc* proc)
+static int EvtCmd_Stop(struct EventProc * proc)
 {
     return EVENT_CMDRET_REPEAT;
 }
 
-static int EvtCmd_Label(struct EventProc* proc)
+static int EvtCmd_Label(struct EventProc * proc)
 {
     return EVENT_CMDRET_CONTINUE;
 }
 
 int EventGotoLabel(ProcPtr proc, int label)
 {
-    u32 const* it;
+    u32 const * it;
 
-    for (it = ((struct EventProc*) proc)->scriptStart; it[0] != EVT_CMD_END; it += sEventCmdInfoTable[it[0]].size)
+    for (it = ((struct EventProc *) proc)->scriptStart; it[0] != EVT_CMD_END; it += sEventCmdInfoTable[it[0]].size)
     {
         if (it[0] == EVT_CMD_LABEL && it[1] == label)
         {
-            ((struct EventProc*) proc)->script = it + sEventCmdInfoTable[EVT_CMD_LABEL].size;
+            ((struct EventProc *) proc)->script = it + sEventCmdInfoTable[EVT_CMD_LABEL].size;
             return EVENT_CMDRET_JUMPED;
         }
     }
@@ -1934,14 +1935,14 @@ int EventGotoLabel(ProcPtr proc, int label)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_Goto(struct EventProc* proc)
+static int EvtCmd_Goto(struct EventProc * proc)
 {
     // script[0]: label to go to
 
     return EventGotoLabel(proc, proc->script[0]);
 }
 
-static int EvtCmd_GotoIfnAlive(struct EventProc* proc)
+static int EvtCmd_GotoIfnAlive(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: pid of character
@@ -1960,7 +1961,7 @@ static int EvtCmd_GotoIfnAlive(struct EventProc* proc)
     return EventGotoLabel(proc, proc->script[0]);
 }
 
-static int EvtCmd_GotoIfnInTeam(struct EventProc* proc)
+static int EvtCmd_GotoIfnInTeam(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: pid of character
@@ -1979,12 +1980,12 @@ static int EvtCmd_GotoIfnInTeam(struct EventProc* proc)
     return EventGotoLabel(proc, proc->script[0]);
 }
 
-static int EvtCmd_GotoIfyFunc(struct EventProc* proc)
+static int EvtCmd_GotoIfyFunc(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef i8(*FuncType)(void);
+    typedef i8 (* FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];
@@ -1995,12 +1996,12 @@ static int EvtCmd_GotoIfyFunc(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_GotoIfnFunc(struct EventProc* proc)
+static int EvtCmd_GotoIfnFunc(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef i8(*FuncType)(void);
+    typedef i8 (* FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];
@@ -2011,7 +2012,7 @@ static int EvtCmd_GotoIfnFunc(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_GotoIfySkip(struct EventProc* proc)
+static int EvtCmd_GotoIfySkip(struct EventProc * proc)
 {
     if (proc->flags & (EVENT_FLAG_SKIPPED | EVENT_FLAG_TEXTSKIPPED))
         return EventGotoLabel(proc, proc->script[0]);
@@ -2019,12 +2020,12 @@ static int EvtCmd_GotoIfySkip(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_GotoIfyFlag(struct EventProc* proc)
+static int EvtCmd_GotoIfyFlag(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const* it = proc->scriptStart;
+    u32 const * it = proc->scriptStart;
 
     int label = proc->script[0];
 
@@ -2045,12 +2046,12 @@ static int EvtCmd_GotoIfyFlag(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_GotoIfnFlag(struct EventProc* proc)
+static int EvtCmd_GotoIfnFlag(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const* it = proc->scriptStart;
+    u32 const * it = proc->scriptStart;
 
     int label = proc->script[0];
 
@@ -2071,12 +2072,12 @@ static int EvtCmd_GotoIfnFlag(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_GotoIfyActive(struct EventProc* proc)
+static int EvtCmd_GotoIfyActive(struct EventProc * proc)
 {
     // script[0]: label to go to
     // script[1]: pid
 
-    u32 const* it = proc->scriptStart;
+    u32 const * it = proc->scriptStart;
 
     int label = proc->script[0];
 
@@ -2097,11 +2098,11 @@ static int EvtCmd_GotoIfyActive(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_Jump(struct EventProc* proc)
+static int EvtCmd_Jump(struct EventProc * proc)
 {
     // script[0]: address of new script
 
-    u32 const* newScript = (u32 const*) proc->script[0];
+    u32 const * newScript = (u32 const *) proc->script[0];
 
     proc->script = newScript;
     proc->scriptStart = newScript;
@@ -2109,9 +2110,9 @@ static int EvtCmd_Jump(struct EventProc* proc)
     return EVENT_CMDRET_JUMPED;
 }
 
-static int EventGiveItem(struct Unit* unit, u16 iid, struct EventProc* proc);
+static int EventGiveItem(struct Unit * unit, u16 iid, struct EventProc * proc);
 
-static int EvtCmd_GiveItem(struct EventProc* proc)
+static int EvtCmd_GiveItem(struct EventProc * proc)
 {
     // script[0]: iid
 
@@ -2119,7 +2120,7 @@ static int EvtCmd_GiveItem(struct EventProc* proc)
     return EventGiveItem(gActiveUnit, iid, proc);
 }
 
-static int EvtCmd_GiveItemTo(struct EventProc* proc)
+static int EvtCmd_GiveItemTo(struct EventProc * proc)
 {
     // script[0]: pid
     // script[1]: iid
@@ -2133,7 +2134,7 @@ static int EvtCmd_GiveItemTo(struct EventProc* proc)
     return EventGiveItem(GetUnitByPid(pid), iid, proc);
 }
 
-static int EventGiveItem(struct Unit* unit, u16 iid, struct EventProc* proc)
+static int EventGiveItem(struct Unit * unit, u16 iid, struct EventProc * proc)
 {
     if (iid == 0)
         iid = proc->iidParam;
@@ -2143,7 +2144,7 @@ static int EventGiveItem(struct Unit* unit, u16 iid, struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_MapChange(struct EventProc* proc)
+static int EvtCmd_MapChange(struct EventProc * proc)
 {
     // script[0]: map change id
 
@@ -2179,7 +2180,7 @@ static int EvtCmd_MapChange(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_MapChangePosition(struct EventProc* proc)
+static int EvtCmd_MapChangePosition(struct EventProc * proc)
 {
     // script[0]: (x) | ((y) << 8)
 
@@ -2220,7 +2221,7 @@ static int EvtCmd_MapChangePosition(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_SetFaction(struct EventProc* proc)
+static int EvtCmd_SetFaction(struct EventProc * proc)
 {
     // script[0]: pid
     // script[1]: faction
@@ -2244,13 +2245,13 @@ static int EvtCmd_SetFaction(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventFlashCursorWait(struct EventProc* proc);
+static void EventFlashCursorWait(struct EventProc * proc);
 
-static int EvtCmd_FlashCursorPosition(struct EventProc* proc)
+static int EvtCmd_FlashCursorPosition(struct EventProc * proc)
 {
     // script[0]: position
 
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
     short x, y;
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
@@ -2269,13 +2270,13 @@ static int EvtCmd_FlashCursorPosition(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FlashCursorPid(struct EventProc* proc)
+static int EvtCmd_FlashCursorPid(struct EventProc * proc)
 {
     // script[0]: pid
 
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
-    struct Unit* unit = GetUnitByPid(proc->script[0]);
+    struct Unit * unit = GetUnitByPid(proc->script[0]);
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2290,7 +2291,7 @@ static int EvtCmd_FlashCursorPid(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventFlashCursorWait(struct EventProc* proc)
+static void EventFlashCursorWait(struct EventProc * proc)
 {
     if (Proc_Find(ProcScr_FlashCursor) != NULL)
         return;
@@ -2298,12 +2299,12 @@ static void EventFlashCursorWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static void FlashCursor_OnInit(struct GenericProc* proc)
+static void FlashCursor_OnInit(struct GenericProc * proc)
 {
     proc->unk58 = 60;
 }
 
-static void FlashCursor_OnLoop(struct GenericProc* proc)
+static void FlashCursor_OnLoop(struct GenericProc * proc)
 {
     if (--proc->unk58 <= 0)
         Proc_Break(proc);
@@ -2311,11 +2312,11 @@ static void FlashCursor_OnLoop(struct GenericProc* proc)
     PutMapCursor(proc->unk64 << 4, proc->unk66 << 4, MAP_CURSOR_DEFAULT);
 }
 
-static int EvtCmd_PutCursor(struct EventProc* proc)
+static int EvtCmd_PutCursor(struct EventProc * proc)
 {
     // script[0]: position
 
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
     short x, y;
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
@@ -2332,22 +2333,22 @@ static int EvtCmd_PutCursor(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventCursor_OnLoop(struct GenericProc* proc)
+static void EventCursor_OnLoop(struct GenericProc * proc)
 {
     PutMapCursor(proc->unk64 << 4, proc->unk66 << 4, MAP_CURSOR_DEFAULT);
 }
 
-static int EvtCmd_ClearCursors(struct EventProc* proc)
+static int EvtCmd_ClearCursors(struct EventProc * proc)
 {
     Proc_EndEach(ProcScr_EventCursor);
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_RemovePid(struct EventProc* proc)
+static int EvtCmd_RemovePid(struct EventProc * proc)
 {
     // script[0]: pid
 
-    struct Unit* unit = GetUnitByPid(proc->script[0]);
+    struct Unit * unit = GetUnitByPid(proc->script[0]);
 
     ClearUnit(unit);
 
@@ -2357,14 +2358,14 @@ static int EvtCmd_RemovePid(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventRemoveDisplayedWait(struct EventProc* proc);
+static void EventRemoveDisplayedWait(struct EventProc * proc);
 
-static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
+static int EvtCmd_RemovePidDisplayed(struct EventProc * proc)
 {
     // script[0]: pid
 
-    struct MuProc* mu;
-    struct Unit* unit;
+    struct MuProc * mu;
+    struct Unit * unit;
 
     proc->pidParam = proc->script[0];
     unit = GetUnitByPid(proc->pidParam);
@@ -2382,12 +2383,12 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventRemoveDisplayedWait(struct EventProc* proc)
+static void EventRemoveDisplayedWait(struct EventProc * proc)
 {
     // this is only called after the locking death fade proc ended
     // so we can cleanup immediately
 
-    struct Unit* unit = GetUnitByPid(proc->pidParam);
+    struct Unit * unit = GetUnitByPid(proc->pidParam);
 
     EndAllMus();
 
@@ -2399,7 +2400,7 @@ static void EventRemoveDisplayedWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static void SetUnitAi(struct Unit* unit, u8 ai_a, u8 ai_b, u8 unused)
+static void SetUnitAi(struct Unit * unit, u8 ai_a, u8 ai_b, u8 unused)
 {
     if (ai_a != 0x10)
     {
@@ -2417,7 +2418,7 @@ static void SetUnitAi(struct Unit* unit, u8 ai_a, u8 ai_b, u8 unused)
     }
 }
 
-static int EvtCmd_SetAiPid(struct EventProc* proc)
+static int EvtCmd_SetAiPid(struct EventProc * proc)
 {
     // script[0]: pid
     // script[1]: (ai_a) | (ai_b << 8) | (ai_c << 16)
@@ -2442,7 +2443,7 @@ static int EvtCmd_SetAiPid(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_SetAiPosition(struct EventProc* proc)
+static int EvtCmd_SetAiPosition(struct EventProc * proc)
 {
     // script[0]: position
     // script[1]: (ai_a) | (ai_b << 8) | (ai_c << 16)
@@ -2471,23 +2472,23 @@ static int EvtCmd_SetAiPosition(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_SetFlag(struct EventProc* proc)
+static int EvtCmd_SetFlag(struct EventProc * proc)
 {
     // script[0]: flag
 
-    SetEid(proc->script[0]);
+    SetFlag(proc->script[0]);
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_ClearFlag(struct EventProc* proc)
+static int EvtCmd_ClearFlag(struct EventProc * proc)
 {
     // script[0]: flag
 
-    ClearEid(proc->script[0]);
+    ClearFlag(proc->script[0]);
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_PlayBgm(struct EventProc* proc)
+static int EvtCmd_PlayBgm(struct EventProc * proc)
 {
     // script[0]: song id
 
@@ -2499,7 +2500,7 @@ static int EvtCmd_PlayBgm(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_OverrideBgm(struct EventProc* proc)
+static int EvtCmd_OverrideBgm(struct EventProc * proc)
 {
     // script[0]: song id
 
@@ -2512,14 +2513,14 @@ static int EvtCmd_OverrideBgm(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_RestoreBgm(struct EventProc* proc)
+static int EvtCmd_RestoreBgm(struct EventProc * proc)
 {
     RestoreBgm();
 
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FadeBgmOut(struct EventProc* proc)
+static int EvtCmd_FadeBgmOut(struct EventProc * proc)
 {
     // script[0]: speed
 
@@ -2531,7 +2532,7 @@ static int EvtCmd_FadeBgmOut(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_LowerBgmVolume(struct EventProc* proc)
+static int EvtCmd_LowerBgmVolume(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2541,7 +2542,7 @@ static int EvtCmd_LowerBgmVolume(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_RestoreBgmVolume(struct EventProc* proc)
+static int EvtCmd_RestoreBgmVolume(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -2555,7 +2556,7 @@ static int EvtCmd_RestoreBgmVolume(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_PlaySe(struct EventProc* proc)
+static int EvtCmd_PlaySe(struct EventProc * proc)
 {
     // script[0]: song id
 
@@ -2569,11 +2570,11 @@ static int EvtCmd_PlaySe(struct EventProc* proc)
 
 int EventEndBattleMap(ProcPtr proc)
 {
-    ((struct EventProc*) proc)->flags |= EVENT_FLAG_ENDMAPMAIN;
+    ((struct EventProc *) proc)->flags |= EVENT_FLAG_ENDMAPMAIN;
     return 0;
 }
 
-static int EvtCmd_NextChapter(struct EventProc* proc)
+static int EvtCmd_NextChapter(struct EventProc * proc)
 {
     EndAllMus();
 
@@ -2595,7 +2596,7 @@ static int EvtCmd_NextChapter(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_EndGame(struct EventProc* proc)
+static int EvtCmd_EndGame(struct EventProc * proc)
 {
     SetNextGameAction(GAME_ACTION_2);
     EventEndBattleMap(proc);
@@ -2603,7 +2604,7 @@ static int EvtCmd_EndGame(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_SetMap(struct EventProc* proc)
+static int EvtCmd_SetMap(struct EventProc * proc)
 {
     // script[0]: chapter
     // script[1]: camera x
@@ -2624,9 +2625,9 @@ static int EvtCmd_SetMap(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static void EventFadeFromSkipWait(struct EventProc* proc);
+static void EventFadeFromSkipWait(struct EventProc * proc);
 
-static int EvtCmd_NoSkip(struct EventProc* proc)
+static int EvtCmd_NoSkip(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -2644,7 +2645,7 @@ static int EvtCmd_NoSkip(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventFadeFromSkipWait(struct EventProc* proc)
+static void EventFadeFromSkipWait(struct EventProc * proc)
 {
     proc->noMap = FALSE;
     StartFastLockingFadeFromBlack(proc);
@@ -2652,7 +2653,7 @@ static void EventFadeFromSkipWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static int EvtCmd_NoSkipNoTextSkip(struct EventProc* proc)
+static int EvtCmd_NoSkipNoTextSkip(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -2667,7 +2668,7 @@ static int EvtCmd_NoSkipNoTextSkip(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_YesSkip(struct EventProc* proc)
+static int EvtCmd_YesSkip(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2677,7 +2678,7 @@ static int EvtCmd_YesSkip(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FadeToBlack(struct EventProc* proc)
+static int EvtCmd_FadeToBlack(struct EventProc * proc)
 {
     // script[0]: duration?
 
@@ -2689,7 +2690,7 @@ static int EvtCmd_FadeToBlack(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FadeFromBlack(struct EventProc* proc)
+static int EvtCmd_FadeFromBlack(struct EventProc * proc)
 {
     // script[0]: duration?
 
@@ -2701,7 +2702,7 @@ static int EvtCmd_FadeFromBlack(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FadeToWhite(struct EventProc* proc)
+static int EvtCmd_FadeToWhite(struct EventProc * proc)
 {
     // script[0]: duration?
 
@@ -2713,7 +2714,7 @@ static int EvtCmd_FadeToWhite(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_FadeFromWhite(struct EventProc* proc)
+static int EvtCmd_FadeFromWhite(struct EventProc * proc)
 {
     // script[0]: duration?
 
@@ -2725,19 +2726,19 @@ static int EvtCmd_FadeFromWhite(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_ExitMap(struct EventProc* proc)
+static int EvtCmd_ExitMap(struct EventProc * proc)
 {
     Event_SetExitMap(proc);
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_EnterMap(struct EventProc* proc)
+static int EvtCmd_EnterMap(struct EventProc * proc)
 {
     Event_SetEnterMap(proc);
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_GiveMoney(struct EventProc* proc)
+static int EvtCmd_GiveMoney(struct EventProc * proc)
 {
     int money, given;
 
@@ -2758,19 +2759,19 @@ static int EvtCmd_GiveMoney(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventScriptedBattleWait(struct EventProc* proc);
+static void EventScriptedBattleWait(struct EventProc * proc);
 
-static int EvtCmd_FightScript(struct EventProc* proc)
+static int EvtCmd_FightScript(struct EventProc * proc)
 {
     // script[0]: instigator pid
     // script[1]: target pid
     // script[2]: battle script address
     // script[3]: is ballista bool?
 
-    struct Unit* unitA;
-    struct Unit* unitB;
+    struct Unit * unitA;
+    struct Unit * unitB;
 
-    struct BattleHit const* battlescr;
+    struct BattleHit const * battlescr;
 
     int isBallista;
 
@@ -2780,7 +2781,7 @@ static int EvtCmd_FightScript(struct EventProc* proc)
     unitA = GetUnitByPid(proc->script[0]);
     unitB = GetUnitByPid(proc->script[1]);
 
-    battlescr = (struct BattleHit const*) proc->script[2];
+    battlescr = (struct BattleHit const *) proc->script[2];
     isBallista = proc->script[3];
 
     UnitBeginAction(unitA);
@@ -2831,15 +2832,15 @@ static int EvtCmd_FightScript(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventScriptedBattleWaitB(struct EventProc* proc);
+static void EventScriptedBattleWaitB(struct EventProc * proc);
 
-static void EventScriptedBattleWait(struct EventProc* proc)
+static void EventScriptedBattleWait(struct EventProc * proc)
 {
     if (proc->cmdShort == GetGameLock())
         proc->on_idle = EventScriptedBattleWaitB;
 }
 
-static void EventScriptedBattleWaitB(struct EventProc* proc)
+static void EventScriptedBattleWaitB(struct EventProc * proc)
 {
     proc->on_idle = NULL;
 
@@ -2847,13 +2848,13 @@ static void EventScriptedBattleWaitB(struct EventProc* proc)
     AiEndMuAndRefreshUnits();
 }
 
-static int EvtCmd_DisableAutoClear(struct EventProc* proc)
+static int EvtCmd_DisableAutoClear(struct EventProc * proc)
 {
     proc->flags |= EVENT_FLAG_NOAUTOCLEAR;
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_FuncOnSkip(struct EventProc* proc)
+static int EvtCmd_FuncOnSkip(struct EventProc * proc)
 {
     // script[0]: function address
 
@@ -2861,11 +2862,11 @@ static int EvtCmd_FuncOnSkip(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_SetWeather(struct EventProc* proc)
+static int EvtCmd_SetWeather(struct EventProc * proc)
 {
     // script[0]: weather id
 
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
     gproc = SpawnProcLocking(ProcScr_WeatherChangeFade, proc);
     gproc->unk64 = proc->script[0];
@@ -2873,12 +2874,12 @@ static int EvtCmd_SetWeather(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void DoChangeWeather(struct GenericProc* proc)
+static void DoChangeWeather(struct GenericProc * proc)
 {
     SetWeather(proc->unk64);
 }
 
-static int EvtCmd_WmStart(struct EventProc* proc)
+static int EvtCmd_WmStart(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2896,7 +2897,7 @@ static int EvtCmd_WmStart(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmEnd(struct EventProc* proc)
+static int EvtCmd_WmEnd(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_YIELD;
@@ -2907,9 +2908,9 @@ static int EvtCmd_WmEnd(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventWmZoomWait(struct EventProc* proc);
+static void EventWmZoomWait(struct EventProc * proc);
 
-static int EvtCmd_WmZoomTo(struct EventProc* proc)
+static int EvtCmd_WmZoomTo(struct EventProc * proc)
 {
     // script[0]: coords relative to center of screen
 
@@ -2927,7 +2928,7 @@ static int EvtCmd_WmZoomTo(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmZoomBack(struct EventProc* proc)
+static int EvtCmd_WmZoomBack(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -2940,7 +2941,7 @@ static int EvtCmd_WmZoomBack(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventWmZoomWait(struct EventProc* proc)
+static void EventWmZoomWait(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
@@ -2969,23 +2970,23 @@ struct WmEventFaceProc
     /* 36 */ short blendVal;
 };
 
-static void WmPutFace_OnInit(struct WmEventFaceProc* proc);
-static void WmPutFace_OnLoop(struct WmEventFaceProc* proc);
+static void WmPutFace_OnInit(struct WmEventFaceProc * proc);
+static void WmPutFace_OnLoop(struct WmEventFaceProc * proc);
 
-static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc);
-static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc);
-static void WmRemoveFace_OnEnd(struct WmEventFaceProc* proc);
+static void WmRemoveFace_OnInit(struct WmEventFaceProc * proc);
+static void WmRemoveFace_OnLoop(struct WmEventFaceProc * proc);
+static void WmRemoveFace_OnEnd(struct WmEventFaceProc * proc);
 
-static void WmMoveFace_OnInit(struct WmEventFaceProc* proc);
-static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc);
+static void WmMoveFace_OnInit(struct WmEventFaceProc * proc);
+static void WmMoveFace_OnLoop(struct WmEventFaceProc * proc);
 
-static int EvtCmd_WmPutFace(struct EventProc* proc)
+static int EvtCmd_WmPutFace(struct EventProc * proc)
 {
     // script[0]: face slot
     // script[1]: position
     // script[2]: fid
 
-    struct WmEventFaceProc* faceproc;
+    struct WmEventFaceProc * faceproc;
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3003,10 +3004,10 @@ static int EvtCmd_WmPutFace(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
+static void WmPutFace_OnInit(struct WmEventFaceProc * proc)
 {
     int disp;
-    struct FaceProc* face;
+    struct FaceProc * face;
 
     if (proc->x > DISPLAY_WIDTH/2)
         proc->xOffStart = -0x20;
@@ -3026,7 +3027,7 @@ static void WmPutFace_OnInit(struct WmEventFaceProc* proc)
     SetBlendTargetB(0, 0, 1, 0, 0); SetBlendBackdropB(1);
 }
 
-static void WmPutFace_OnLoop(struct WmEventFaceProc* proc)
+static void WmPutFace_OnLoop(struct WmEventFaceProc * proc)
 {
     int x_offset = Interpolate(INTERPOLATE_RSQUARE, proc->xOffStart, 0, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
@@ -3043,12 +3044,12 @@ static void WmPutFace_OnLoop(struct WmEventFaceProc* proc)
     }
 }
 
-static int EvtCmd_WmRemoveFace(struct EventProc* proc)
+static int EvtCmd_WmRemoveFace(struct EventProc * proc)
 {
     // script[0]: face slot
 
     int faceSlot;
-    struct WmEventFaceProc* faceproc;
+    struct WmEventFaceProc * faceproc;
 
     faceSlot = proc->script[0];
 
@@ -3067,10 +3068,10 @@ static int EvtCmd_WmRemoveFace(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
+static void WmRemoveFace_OnInit(struct WmEventFaceProc * proc)
 {
     int disp;
-    struct FaceProc* face;
+    struct FaceProc * face;
 
     face = gFaces[proc->faceSlot];
 
@@ -3092,7 +3093,7 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc* proc)
     SetBlendTargetB(0, 0, 1, 0, 0); SetBlendBackdropB(1);
 }
 
-static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc)
+static void WmRemoveFace_OnLoop(struct WmEventFaceProc * proc)
 {
     int x_offset = Interpolate(INTERPOLATE_SQUARE, 0, proc->xOffStart, proc->blendVal++, 0x10);
     gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
@@ -3103,17 +3104,17 @@ static void WmRemoveFace_OnLoop(struct WmEventFaceProc* proc)
         Proc_Break(proc);
 }
 
-static void WmRemoveFace_OnEnd(struct WmEventFaceProc* proc)
+static void WmRemoveFace_OnEnd(struct WmEventFaceProc * proc)
 {
     EndFaceById(proc->faceSlot);
 }
 
-static int EvtCmd_WmMoveFace(struct EventProc* proc)
+static int EvtCmd_WmMoveFace(struct EventProc * proc)
 {
     // script[0]: face slot
     // script[1]: target coords (note: y unused)
 
-    struct WmEventFaceProc* faceproc;
+    struct WmEventFaceProc * faceproc;
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3127,14 +3128,14 @@ static int EvtCmd_WmMoveFace(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static void WmMoveFace_OnInit(struct WmEventFaceProc* proc)
+static void WmMoveFace_OnInit(struct WmEventFaceProc * proc)
 {
     proc->xOffStart = 0;
     proc->blendVal = proc->x - gFaces[proc->faceSlot]->x_disp;
     proc->x = gFaces[proc->faceSlot]->x_disp;
 }
 
-static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc)
+static void WmMoveFace_OnLoop(struct WmEventFaceProc * proc)
 {
     int x_offset = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blendVal, proc->xOffStart++, 0x20);
     gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
@@ -3143,7 +3144,7 @@ static void WmMoveFace_OnLoop(struct WmEventFaceProc* proc)
         Proc_Break(proc);
 }
 
-static int EvtCmd_WmNop54(struct EventProc* proc)
+static int EvtCmd_WmNop54(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3151,7 +3152,7 @@ static int EvtCmd_WmNop54(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmNop55(struct EventProc* proc)
+static int EvtCmd_WmNop55(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3159,7 +3160,7 @@ static int EvtCmd_WmNop55(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmTalk(struct EventProc* proc)
+static int EvtCmd_WmTalk(struct EventProc * proc)
 {
     // script[0]: msgid
 
@@ -3182,7 +3183,7 @@ static int EvtCmd_WmTalk(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmTalkBoxBottom(struct EventProc* proc)
+static int EvtCmd_WmTalkBoxBottom(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3197,7 +3198,7 @@ static int EvtCmd_WmTalkBoxBottom(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmTalkBoxTop(struct EventProc* proc)
+static int EvtCmd_WmTalkBoxTop(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3212,7 +3213,7 @@ static int EvtCmd_WmTalkBoxTop(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmTalkBoxRemove(struct EventProc* proc)
+static int EvtCmd_WmTalkBoxRemove(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3222,7 +3223,7 @@ static int EvtCmd_WmTalkBoxRemove(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_WmArrow(struct EventProc* proc)
+static int EvtCmd_WmArrow(struct EventProc * proc)
 {
     int x = EVTCMD_GET_X(proc->script[0]);
     int y = EVTCMD_GET_Y(proc->script[0]);
@@ -3235,7 +3236,7 @@ static int EvtCmd_WmArrow(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmPutHighlight(struct EventProc* proc)
+static int EvtCmd_WmPutHighlight(struct EventProc * proc)
 {
     int id = EVTCMD_GET_X(proc->script[0]);
     int var_08 = EVTCMD_GET_Y(proc->script[0]);
@@ -3248,9 +3249,9 @@ static int EvtCmd_WmPutHighlight(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static void EventWmRemoveHighlightWait(struct EventProc* proc);
+static void EventWmRemoveHighlightWait(struct EventProc * proc);
 
-static int EvtCmd_WmRemoveHighlight(struct EventProc* proc)
+static int EvtCmd_WmRemoveHighlight(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3265,7 +3266,7 @@ static int EvtCmd_WmRemoveHighlight(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventWmRemoveHighlightWait(struct EventProc* proc)
+static void EventWmRemoveHighlightWait(struct EventProc * proc)
 {
     if (WMHighlightExists(proc->cmdByte))
         return;
@@ -3273,9 +3274,9 @@ static void EventWmRemoveHighlightWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static void EventWmRemoveHighlightsWait(struct EventProc* proc);
+static void EventWmRemoveHighlightsWait(struct EventProc * proc);
 
-static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc)
+static int EvtCmd_WmRemoveBothHighlights(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
@@ -3288,7 +3289,7 @@ static int EvtCmd_WmRemoveBothHighlights(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static void EventWmRemoveHighlightsWait(struct EventProc* proc)
+static void EventWmRemoveHighlightsWait(struct EventProc * proc)
 {
     if (func_fe6_080939D0())
         return;
@@ -3296,7 +3297,7 @@ static void EventWmRemoveHighlightsWait(struct EventProc* proc)
     proc->on_idle = NULL;
 }
 
-static int EvtCmd_WmPutDot(struct EventProc* proc)
+static int EvtCmd_WmPutDot(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3313,7 +3314,7 @@ static int EvtCmd_WmPutDot(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmRemoveDot(struct EventProc* proc)
+static int EvtCmd_WmRemoveDot(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3325,7 +3326,7 @@ static int EvtCmd_WmRemoveDot(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmPutFlag(struct EventProc* proc)
+static int EvtCmd_WmPutFlag(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3342,7 +3343,7 @@ static int EvtCmd_WmPutFlag(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmRemoveFlag(struct EventProc* proc)
+static int EvtCmd_WmRemoveFlag(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3354,7 +3355,7 @@ static int EvtCmd_WmRemoveFlag(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmPutMapText(struct EventProc* proc)
+static int EvtCmd_WmPutMapText(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3374,7 +3375,7 @@ static int EvtCmd_WmPutMapText(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_WmRemoveMapText(struct EventProc* proc)
+static int EvtCmd_WmRemoveMapText(struct EventProc * proc)
 {
     int id = proc->script[0];
 
@@ -3386,7 +3387,7 @@ static int EvtCmd_WmRemoveMapText(struct EventProc* proc)
     return EVENT_CMDRET_CONTINUE;
 }
 
-static int EvtCmd_End(struct EventProc* proc)
+static int EvtCmd_End(struct EventProc * proc)
 {
     Proc_Break(proc);
 
@@ -3404,12 +3405,12 @@ static int EvtCmd_End(struct EventProc* proc)
     return EVENT_CMDRET_YIELD;
 }
 
-static int EvtCmd_Kill(struct EventProc* proc)
+static int EvtCmd_Kill(struct EventProc * proc)
 {
     return EvtCmd_End(proc);
 }
 
-static void EventClearTalkDisplayed(struct EventProc* proc)
+static void EventClearTalkDisplayed(struct EventProc * proc)
 {
     if (proc->noMap)
     {
@@ -3470,7 +3471,7 @@ void SetFightEventFaceConfig(void)
 
 ProcPtr StartTalkEvent(int msgid)
 {
-    struct EventProc* proc = StartEvent(EventScr_AutoTalk);
+    struct EventProc * proc = StartEvent(EventScr_AutoTalk);
     proc->msgParam = msgid;
 
     return proc;
@@ -3478,7 +3479,7 @@ ProcPtr StartTalkEvent(int msgid)
 
 ProcPtr StartTalkSupportEvent(int msgid)
 {
-    struct EventProc* proc = StartEvent(EventScr_085C46DC);
+    struct EventProc * proc = StartEvent(EventScr_085C46DC);
     proc->msgParam = msgid;
 
     return proc;
@@ -3537,12 +3538,12 @@ void StartSupportLevelGaindPopup(ProcPtr parent)
     StartPopup(Popup_085C4914, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
-static void GiveItem_DoPopup(struct GenericProc* proc);
-static void GiveItem_DoGiveItem(struct GenericProc* proc);
+static void GiveItem_DoPopup(struct GenericProc * proc);
+static void GiveItem_DoGiveItem(struct GenericProc * proc);
 
-void StartGiveItem(struct Unit* unit, u16 iid, ProcPtr parent)
+void StartGiveItem(struct Unit * unit, u16 iid, ProcPtr parent)
 {
-    struct GenericProc* proc;
+    struct GenericProc * proc;
 
     u32 intParent = (u32) parent;
 
@@ -3555,58 +3556,58 @@ void StartGiveItem(struct Unit* unit, u16 iid, ProcPtr parent)
     proc->ptr = unit;
 }
 
-static void GiveItem_DoPopup(struct GenericProc* proc)
+static void GiveItem_DoPopup(struct GenericProc * proc)
 {
     StartPopup_08012120(proc->unk58, proc);
 }
 
-static void GiveItem_DoGiveItem(struct GenericProc* proc)
+static void GiveItem_DoGiveItem(struct GenericProc * proc)
 {
     HandleGiveUnitItem(proc->ptr, CreateItem(proc->unk58), proc);
 }
 
 void StartGiveItemEvent(u16 iid)
 {
-    struct EventProc* proc = StartEvent(EventScr_Item);
+    struct EventProc * proc = StartEvent(EventScr_Item);
     proc->iidParam = iid;
 }
 
 void StartGiveItemToEvent(u16 pid, u16 iid)
 {
-    struct EventProc* proc = StartEvent(EventScr_ItemTo);
+    struct EventProc * proc = StartEvent(EventScr_ItemTo);
     proc->pidParam = pid;
     proc->iidParam = iid;
 }
 
 void StartGiveMoneyEvent(int amount)
 {
-    struct EventProc* proc = StartEvent(EventScr_Money);
+    struct EventProc * proc = StartEvent(EventScr_Money);
     proc->moneyParam = amount;
 }
 
 void StartMapChangeEvent(u8 id)
 {
-    struct EventProc* proc = StartEvent(EventScr_MapChange);
+    struct EventProc * proc = StartEvent(EventScr_MapChange);
     proc->mapChangeParam = id;
 }
 
 void StartChestItemEvent(u16 iid, u8 id)
 {
-    struct EventProc* proc = StartEvent(EventScr_ItemChest);
+    struct EventProc * proc = StartEvent(EventScr_ItemChest);
     proc->iidParam = iid;
     proc->mapChangeParam = id;
 }
 
 void StartChestMoneyEvent(int amount, u8 id)
 {
-    struct EventProc* proc = StartEvent(EventScr_MoneyChest);
+    struct EventProc * proc = StartEvent(EventScr_MoneyChest);
     proc->moneyParam = amount;
     proc->mapChangeParam = id;
 }
 
 void SetEventTalkSkipped(void)
 {
-    struct EventProc* proc = Proc_Find(ProcScr_Event);
+    struct EventProc * proc = Proc_Find(ProcScr_Event);
 
     if (proc == NULL)
         return;
@@ -3616,7 +3617,7 @@ void SetEventTalkSkipped(void)
 
 int GetPlayerDeployCount(void)
 {
-    struct UnitInfo const* info = func_fe6_0806B638();
+    struct UnitInfo const * info = GetDeployUnitInfoList();
 
     int count = 0;
 
@@ -3631,7 +3632,7 @@ int GetPlayerDeployCount(void)
 
 void InitPlayerDeployUnits(void)
 {
-    struct UnitInfo const* info = func_fe6_0806B638();
+    struct UnitInfo const * info = GetDeployUnitInfoList();
 
     FOR_UNITS_FACTION(FACTION_BLUE, unit,
     {
@@ -3654,7 +3655,7 @@ void InitPlayerDeployUnits(void)
     })
 }
 
-static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit);
+static void MoveUnitToFirstAvailableDeployPosition(struct Unit * unit);
 
 void InitPlayerDeployUnitPositions(void)
 {
@@ -3678,11 +3679,11 @@ void InitPlayerDeployUnitPositions(void)
     })
 }
 
-static void MoveUnitToFirstAvailableDeployPosition(struct Unit* unit)
+static void MoveUnitToFirstAvailableDeployPosition(struct Unit * unit)
 {
     bool spotOccupied;
 
-    struct UnitInfo const* info = func_fe6_0806B638();
+    struct UnitInfo const * info = GetDeployUnitInfoList();
 
     while (info->pid != 0)
     {
@@ -3716,12 +3717,12 @@ void func_fe6_080126FC(int a, int b)
 {
 }
 
-static void Event_SetExitMap(struct EventProc* proc)
+static void Event_SetExitMap(struct EventProc * proc)
 {
     proc->noMap = TRUE;
 }
 
-static void Event_SetEnterMap(struct EventProc* proc)
+static void Event_SetEnterMap(struct EventProc * proc)
 {
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return;

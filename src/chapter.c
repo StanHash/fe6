@@ -15,6 +15,7 @@
 #include "chapter-info.h"
 #include "ui.h"
 #include "mu.h"
+#include "eventinfo.h"
 
 #include "constants/chapters.h"
 
@@ -86,7 +87,7 @@ void ResetBmSt(void)
     gBmSt.lock = lock;
 }
 
-void StartChapter(struct GenericProc* parent)
+void StartChapter(struct GenericProc * parent)
 {
     InitBgs(NULL);
 
@@ -97,7 +98,7 @@ void StartChapter(struct GenericProc* parent)
 
     ApplySystemGraphics();
     ApplyUnitSpritePalettes();
-    func_fe6_0806B970();
+    ResetChapterFlags();
     ResetUnitSprites();
     InitTraps();
 
@@ -114,7 +115,7 @@ void StartChapter(struct GenericProc* parent)
     gPlaySt.unk_04 = GetGameTime();
     gPlaySt.support_gain = 0;
 
-    func_fe6_0806B604();
+    CreateInitialRedUnits();
 
     StartMapMain(parent);
 
@@ -157,7 +158,7 @@ void func_fe6_08029084(void)
     SetDispEnable(1, 1, 1, 0, 0);
 }
 
-void ResumeChapterFromSuspend(struct GenericProc* parent)
+void ResumeChapterFromSuspend(struct GenericProc * parent)
 {
     ProcPtr mapmain;
 
@@ -256,9 +257,9 @@ void InitBmDisplay(void)
     InitSystemTextFont();
 }
 
-ProcPtr StartMapMain(struct GenericProc* parent)
+ProcPtr StartMapMain(struct GenericProc * parent)
 {
-    struct GenericProc* proc = SpawnProc(ProcScr_BmMain, PROC_TREE_2);
+    struct GenericProc * proc = SpawnProc(ProcScr_BmMain, PROC_TREE_2);
     proc->ptr = parent;
 
     parent->proc_lock_cnt++;
@@ -271,8 +272,8 @@ ProcPtr StartMapMain(struct GenericProc* parent)
 
 void EndMapMain(void)
 {
-    struct GenericProc* mapmain;
-    struct GenericProc* parent;
+    struct GenericProc * mapmain;
+    struct GenericProc * parent;
 
     Proc_EndEachMarked(PROC_MARK_1);
 

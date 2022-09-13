@@ -8,15 +8,15 @@
 
 struct SpriteEntry
 {
-    /* 00 */ struct SpriteEntry* next;
+    /* 00 */ struct SpriteEntry * next;
     /* 04 */ i16 oam1;
     /* 06 */ i16 oam0;
     /* 08 */ u16 oam2;
     /* 0A */ // pad
-    /* 0C */ u16 const* object;
+    /* 0C */ u16 const * object;
 };
 
-static void SpriteRefresher_OnIdle(struct SpriteProc* proc);
+static void SpriteRefresher_OnIdle(struct SpriteProc * proc);
 
 u16 CONST_DATA Sprite_8x8[] =
 {
@@ -114,7 +114,7 @@ static struct ProcScr CONST_DATA ProcSrc_SpriteRefresher[] =
     PROC_END,
 };
 
-extern struct SpriteEntry* gSpriteAllocIt;
+extern struct SpriteEntry * gSpriteAllocIt;
 
 static struct SpriteEntry EWRAM_DATA sSpritePool[0x80] = {};
 static struct SpriteEntry EWRAM_DATA sSpriteLayers[0x10] = {};
@@ -143,7 +143,7 @@ void ClearSprites(void)
     gSpriteAllocIt = sSpritePool;
 }
 
-void PutSprite(int layer, int x, int y, u16 const* object, int oam2)
+void PutSprite(int layer, int x, int y, u16 const * object, int oam2)
 {
     gSpriteAllocIt->next = sSpriteLayers[layer].next;
     gSpriteAllocIt->oam1 = OAM1_X(x);
@@ -155,7 +155,7 @@ void PutSprite(int layer, int x, int y, u16 const* object, int oam2)
     gSpriteAllocIt++;
 }
 
-void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const* object, int oam2)
+void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const * object, int oam2)
 {
     gSpriteAllocIt->next = sSpriteLayers[layer].next;
     gSpriteAllocIt->oam1 = xOam1;
@@ -169,7 +169,7 @@ void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const* object, int oam2)
 
 void PutSpriteLayerOam(int layer)
 {
-    struct SpriteEntry* it = sSpriteLayers + layer;
+    struct SpriteEntry * it = sSpriteLayers + layer;
 
     while (it)
     {
@@ -184,14 +184,14 @@ void PutSpriteLayerOam(int layer)
     }
 }
 
-void SpriteRefresher_OnIdle(struct SpriteProc* proc)
+void SpriteRefresher_OnIdle(struct SpriteProc * proc)
 {
     PutSprite(proc->layer, proc->x, proc->y, proc->object, proc->tileref);
 }
 
-struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const* object, int tileref)
+struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const * object, int tileref)
 {
-    struct SpriteProc* proc;
+    struct SpriteProc * proc;
 
     if (parent)
         proc = SpawnProc(ProcSrc_SpriteRefresher, parent);
@@ -207,7 +207,7 @@ struct SpriteProc* StartSpriteRefresher(ProcPtr parent, int layer, int x, int y,
     return proc;
 }
 
-void MoveSpriteRefresher(struct SpriteProc* proc, int x, int y)
+void MoveSpriteRefresher(struct SpriteProc * proc, int x, int y)
 {
     if (proc == NULL)
         proc = Proc_Find(ProcSrc_SpriteRefresher);

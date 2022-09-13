@@ -288,6 +288,8 @@ SECTIONS
         . = 0x0044B0; gActiveUnit = .;
         . = 0x0044C0; gMapFloodSt = .;
         . = 0x004570; AiDecideFunc = .;
+        . = 0x004890; gPermanentFlagBits = .;
+        . = 0x004898; gChapterFlagBits = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
@@ -383,8 +385,7 @@ SECTIONS
         src/mu.o(.text);
         src/manim.o(.text);
         asm/code-manim.o(.text);
-        src/event-trigger.o(.text);
-        asm/code-event-trigger.o(.text);
+        src/eventinfo.o(.text);
         src/event-functions.o(.text);
 
         asm/code.o(.text);
@@ -527,7 +528,7 @@ SECTIONS
         . = ALIGN(4); data/data-code-mu.o(.data);
         . = ALIGN(4); src/manim.o(.data);
         . = ALIGN(4); data/data-code-manim.o(.data);
-
+        . = ALIGN(4); src/eventinfo.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

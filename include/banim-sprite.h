@@ -22,19 +22,19 @@ struct BaSprite
 
     /* 1C */ u32 oam01;
 
-    /* 20 */ u32 const* scrCur;
-    /* 24 */ u32 const* script;
+    /* 20 */ u32 const * scrCur;
+    /* 24 */ u32 const * script;
 
-    /* 28 */ void const* imgSheet;
-    /* 2C */ void const* unk2C;
-    /* 30 */ void const* sprDataPool; // aka "OAM data"
+    /* 28 */ void const * imgSheet;
+    /* 2C */ void const * unk2C;
+    /* 30 */ void const * sprDataPool; // aka "OAM data"
 
-    /* 34 */ struct BaSprite* prev;
-    /* 38 */ struct BaSprite* next;
+    /* 34 */ struct BaSprite * prev;
+    /* 38 */ struct BaSprite * next;
 
-    /* 3C */ void const* sprData;
-    /* 40 */ void const* unk40;
-    /* 44 */ void const* unk_44;
+    /* 3C */ void const * sprData;
+    /* 40 */ void const * unk40;
+    /* 44 */ void const * unk_44;
 };
 
 enum
@@ -57,11 +57,11 @@ enum
 
 void BasUpdateAll(void);
 void BasInit(void);
-struct BaSprite* BasCreate2(void const* script);
-struct BaSprite* BasCreate(void const* script, u16 displayPriority);
+struct BaSprite * BasCreate2(void const * script);
+struct BaSprite * BasCreate(void const * script, u16 displayPriority);
 void BasSort(void);
-void BasRemove(struct BaSprite* BaSprite);
-void BasPutOam(struct BaSprite* BaSprite);
+void BasRemove(struct BaSprite * BaSprite);
+void BasPutOam(struct BaSprite * BaSprite);
 
 #define BAS_IS_DISABLED(BaSprite) ((BaSprite)->flags == 0)
 

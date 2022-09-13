@@ -13,6 +13,7 @@
 #include "target-list.h"
 #include "battle.h"
 #include "action.h"
+#include "eventinfo.h"
 
 #include "constants/items.h"
 #include "constants/songs.h"
@@ -67,7 +68,7 @@ void DoItemBarrierStaffAction(ProcPtr proc)
     BeginBattleAnimations();
 }
 
-static void GetRescueStaffTargetPosition(struct Unit* unit, struct Unit* target, int* xOut, int* yOut)
+static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * target, int* xOut, int* yOut)
 {
     int foundDist, dist;
     int ix, iy;
@@ -279,7 +280,7 @@ void DoItemSaintStaffAction(ProcPtr proc)
 
     for (count = CountTargets(), i = 0; i < count; ++i)
     {
-        struct Unit* unit = GetUnit(GetTarget(i)->uid);
+        struct Unit * unit = GetUnit(GetTarget(i)->uid);
 
         SetUnitHp(unit, GetUnitMaxHp(unit));
         SetUnitStatus(unit, UNIT_STATUS_NONE);
@@ -357,12 +358,12 @@ void DoItemKeyAction(void)
     x = GetUnit(gAction.instigator)->x;
     y = GetUnit(gAction.instigator)->y;
 
-    func_fe6_0806B398(x-1, y);
-    func_fe6_0806B398(x+1, y);
-    func_fe6_0806B398(x, y-1);
-    func_fe6_0806B398(x, y+1);
+    StartAvailableDoorTileEvent(x-1, y);
+    StartAvailableDoorTileEvent(x+1, y);
+    StartAvailableDoorTileEvent(x, y-1);
+    StartAvailableDoorTileEvent(x, y+1);
 
-    func_fe6_0806B354(x, y);
+    StartAvailableChestTileEvent(x, y);
 
     PlaySe(SONG_B1);
 }
@@ -398,7 +399,7 @@ void DoItemPromoteAction(void)
     BeginBattleAnimations();
 }
 
-void func_fe6_08027DB4(struct Unit* unit, int item)
+void func_fe6_08027DB4(struct Unit * unit, int item)
 {
     gBattleUnitA.weapon_before = gBattleUnitB.weapon_before = item;
     gBattleUnitA.weapon = gBattleUnitB.weapon = item;
@@ -427,10 +428,10 @@ void DoItemStatBoostAction(ProcPtr proc)
 {
     int msg = 0;
 
-    struct Unit* unit = GetUnit(gAction.instigator);
+    struct Unit * unit = GetUnit(gAction.instigator);
     int item = GetUnit(gAction.instigator)->items[gAction.item_slot];
 
-    struct ItemBonuses const* bonuses = GetItemBonuses(item);
+    struct ItemBonuses const * bonuses = GetItemBonuses(item);
 
     unit->max_hp += bonuses->hp;
     unit->pow += bonuses->pow;

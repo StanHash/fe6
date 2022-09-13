@@ -18,16 +18,16 @@
 struct TalkSpriteEnt
 {
     short chr;
-    u16 const* sprite;
+    u16 const * sprite;
 };
 
-static void UpdateFaceTalk(struct FaceProc* proc);
-static void Face_OnIdle(struct FaceProc* proc);
-static void PutFaceTm(u16* tm, u8 const* data, int tileref, bool is_flipped);
-static void FaceChibiSpr_OnIdle(struct FaceProc* proc);
-static void EndFacePtr(struct GenericProc* proc);
-static void EndFaceIn8Frames(struct FaceProc* proc);
-static u8 const* GetFactionFaceImg(int fid);
+static void UpdateFaceTalk(struct FaceProc * proc);
+static void Face_OnIdle(struct FaceProc * proc);
+static void PutFaceTm(u16 * tm, u8 const * data, int tileref, bool is_flipped);
+static void FaceChibiSpr_OnIdle(struct FaceProc * proc);
+static void EndFacePtr(struct GenericProc * proc);
+static void EndFaceIn8Frames(struct FaceProc * proc);
+static u8 const * GetFactionFaceImg(int fid);
 static void ApplyFactionFacePal(int fid, int pal);
 
 struct FaceVramEnt CONST_DATA sDefaultFaceConfig[FACE_SLOT_COUNT] =
@@ -217,7 +217,7 @@ struct ProcScr CONST_DATA ProcScr_FaceEndIn8Frames[] =
 
 static struct FaceVramEnt EWRAM_DATA sFaceConfig[4] = {};
 
-struct FaceInfo const* GetFaceInfo(int fid)
+struct FaceInfo const * GetFaceInfo(int fid)
 {
     return FaceInfoTable + fid;
 }
@@ -237,7 +237,7 @@ void InitFaces(void)
     SetFaceConfig(NULL);
 }
 
-void SetFaceConfig(struct FaceVramEnt const* config)
+void SetFaceConfig(struct FaceVramEnt const * config)
 {
     int i;
 
@@ -264,7 +264,7 @@ int GetFreeFaceSlot(void)
     return -1;
 }
 
-static void UpdateFaceTalk(struct FaceProc* proc)
+static void UpdateFaceTalk(struct FaceProc * proc)
 {
     int sprnum;
     int oam0;
@@ -292,7 +292,7 @@ static void UpdateFaceTalk(struct FaceProc* proc)
         proc->oam2 + sTalkFrameSpriteTable[sprnum].chr);
 }
 
-static void Face_OnIdle(struct FaceProc* proc)
+static void Face_OnIdle(struct FaceProc * proc)
 {
     int oam0;
 
@@ -303,7 +303,7 @@ static void Face_OnIdle(struct FaceProc* proc)
     UpdateFaceTalk(proc);
 }
 
-struct FaceProc* StartFaceAuto(int fid, int x, int y, int disp)
+struct FaceProc * StartFaceAuto(int fid, int x, int y, int disp)
 {
     int slot = GetFreeFaceSlot();
 
@@ -313,20 +313,20 @@ struct FaceProc* StartFaceAuto(int fid, int x, int y, int disp)
     return StartFace(slot, fid, x, y, disp);
 }
 
-struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp)
+struct FaceProc * StartFace(int slot, int fid, int x, int y, int disp)
 {
     int xMouthRel;
     int oam2Layer;
 
-    struct FaceInfo const* info;
-    struct FaceProc* proc;
+    struct FaceInfo const * info;
+    struct FaceProc * proc;
 
     if (gFaces[slot] != NULL)
         return NULL;
 
     info = GetFaceInfo(fid);
 
-    Decompress(info->img, (u8*) VRAM + 0x10000 + sFaceConfig[slot].chr_off);
+    Decompress(info->img, (u8 *) VRAM + 0x10000 + sFaceConfig[slot].chr_off);
     ApplyPalette(info->pal, 0x10 + sFaceConfig[slot].palid);
 
     proc = SpawnProc(ProcScr_Face, PROC_TREE_5);
@@ -372,7 +372,7 @@ struct FaceProc* StartFace(int slot, int fid, int x, int y, int disp)
     return proc;
 }
 
-void EndFace(struct FaceProc* proc)
+void EndFace(struct FaceProc * proc)
 {
     gFaces[proc->slot] = NULL;
     Proc_End(proc);
@@ -383,7 +383,7 @@ void EndFaceById(int slot)
     EndFace(gFaces[slot]);
 }
 
-u32 SetFaceDisp(struct FaceProc* proc, u32 disp)
+u32 SetFaceDisp(struct FaceProc * proc, u32 disp)
 {
     proc->disp = disp;
     return proc->disp;
@@ -394,7 +394,7 @@ u32 SetFaceDispById(int slot, u32 disp)
     return SetFaceDisp(gFaces[slot], disp);
 }
 
-u32 GetFaceDisp(struct FaceProc* proc)
+u32 GetFaceDisp(struct FaceProc * proc)
 {
     return proc->disp;
 }
@@ -404,7 +404,7 @@ u32 GetFaceDispById(int slot)
     return GetFaceDisp(gFaces[slot]);
 }
 
-void FaceRefreshSprite(struct FaceProc* proc)
+void FaceRefreshSprite(struct FaceProc * proc)
 {
     switch (proc->disp & FACE_DISP_KIND_MASK)
     {
@@ -438,18 +438,18 @@ void FaceRefreshSprite(struct FaceProc* proc)
 
 void UnpackFaceGraphics(int fid, int chr, int pal)
 {
-    struct FaceInfo const* info = GetFaceInfo(fid);
+    struct FaceInfo const * info = GetFaceInfo(fid);
 
-    Decompress(info->img, (u8*) VRAM + chr * CHR_SIZE);
+    Decompress(info->img, (u8 *) VRAM + chr * CHR_SIZE);
     ApplyPalette(info->pal, pal);
 }
 
-void PutFaceTm(u16* tm, u8 const* data, int tileref, bool is_flipped)
+void PutFaceTm(u16 * tm, u8 const * data, int tileref, bool is_flipped)
 {
     int width = *data++;
     int height = *data++;
 
-    u8 const* it = data;
+    u8 const * it = data;
 
     int ix, iy;
 
@@ -487,12 +487,12 @@ void PutFaceTm(u16* tm, u8 const* data, int tileref, bool is_flipped)
     }
 }
 
-void PutFullFaceTm(u16* tm, int unused_1, int unused_2, int tileref, bool is_flipped)
+void PutFullFaceTm(u16 * tm, int unused_1, int unused_2, int tileref, bool is_flipped)
 {
     PutFaceTm(tm, FaceTm_Unk_085C3C18, tileref, is_flipped);
 }
 
-void func_fe6_08008874(u16* tm, int tileref)
+void func_fe6_08008874(u16 * tm, int tileref)
 {
     TmApplyTsa_t(tm, Tsa_Unk_08101974, tileref);
 }
@@ -506,14 +506,14 @@ void UnpackFaceChibiGraphics(int fid, int chr, int pal)
     }
     else
     {
-        struct FaceInfo const* info = GetFaceInfo(fid);
+        struct FaceInfo const * info = GetFaceInfo(fid);
 
         RegisterVramMove(info->img_chibi, VRAM + chr * CHR_SIZE, 0x10 * CHR_SIZE);
         ApplyPalette(info->pal, pal);
     }
 }
 
-void PutFaceChibi(int fid, u16* tm, int chr, int pal, bool is_flipped)
+void PutFaceChibi(int fid, u16 * tm, int chr, int pal, bool is_flipped)
 {
     UnpackFaceChibiGraphics(fid, chr, pal);
 
@@ -536,7 +536,7 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
     }
     else
     {
-        struct FaceInfo const* info = GetFaceInfo(fid);
+        struct FaceInfo const * info = GetFaceInfo(fid);
 
         RegisterVramMove(info->img_chibi + CHR_SIZE * 0,  (chr + 0x00) * CHR_SIZE, 4 * CHR_SIZE);
         RegisterVramMove(info->img_chibi + CHR_SIZE * 4,  (chr + 0x20) * CHR_SIZE, 4 * CHR_SIZE);
@@ -547,7 +547,7 @@ void UnpackFaceChibiSprGraphics(int fid, int chr, int pal)
     }
 }
 
-static void FaceChibiSpr_OnIdle(struct FaceProc* proc)
+static void FaceChibiSpr_OnIdle(struct FaceProc * proc)
 {
     PutSprite(5,
         proc->x_disp - gDispIo.bg_off[0].x,
@@ -557,7 +557,7 @@ static void FaceChibiSpr_OnIdle(struct FaceProc* proc)
 
 void StartFaceChibiStr(int x, int y, int fid, int chr, int pal, bool is_flipped, ProcPtr parent)
 {
-    struct FaceProc* proc;
+    struct FaceProc * proc;
 
     UnpackFaceChibiSprGraphics(fid, chr, pal);
 
@@ -578,16 +578,16 @@ void EndFaceChibiSpr(void)
     Proc_EndEach(ProcScr_FaceChibiSpr);
 }
 
-void PutFace80x72(u16* tm, int fid, int chr, int pal)
+void PutFace80x72(u16 * tm, int fid, int chr, int pal)
 {
-    struct FaceInfo const* info;
+    struct FaceInfo const * info;
 
     if (fid == 0)
         return;
 
     info = GetFaceInfo(fid);
 
-    Decompress(info->img, (u8*) VRAM + chr * CHR_SIZE);
+    Decompress(info->img, (u8 *) VRAM + chr * CHR_SIZE);
     ApplyPalette(info->pal, pal);
 
     if (info->x_mouth != 0 && info->y_mouth != 0)
@@ -610,38 +610,38 @@ void PutFace80x72(u16* tm, int fid, int chr, int pal)
     }
 }
 
-static void EndFacePtr(struct GenericProc* proc)
+static void EndFacePtr(struct GenericProc * proc)
 {
     EndFace(proc->ptr);
 }
 
-void EndFaceIn8Frames(struct FaceProc* proc)
+void EndFaceIn8Frames(struct FaceProc * proc)
 {
-    struct GenericProc* gproc;
+    struct GenericProc * gproc;
 
     gproc = SpawnProc(ProcScr_FaceEndIn8Frames, PROC_TREE_3);
     gproc->ptr = proc;
 }
 
-void StartFaceFadeIn(struct FaceProc* proc)
+void StartFaceFadeIn(struct FaceProc * proc)
 {
-    struct FaceInfo const* info = GetFaceInfo(proc->fid);
+    struct FaceInfo const * info = GetFaceInfo(proc->fid);
 
     SetBlackPal(0x10 + sFaceConfig[proc->slot].palid);
     StartPalFade(info->pal, 0x10 + sFaceConfig[proc->slot].palid, 12, proc);
 }
 
-void StartFaceFadeOut(struct FaceProc* proc)
+void StartFaceFadeOut(struct FaceProc * proc)
 {
-    struct FaceInfo const* info = GetFaceInfo(proc->fid);
+    struct FaceInfo const * info = GetFaceInfo(proc->fid);
 
     StartPalFadeToBlack(0x10 + sFaceConfig[proc->slot].palid, 12, proc);
     EndFaceIn8Frames(proc);
 }
 
-static u8 const* GetFactionFaceImg(int fid)
+static u8 const * GetFactionFaceImg(int fid)
 {
-    u8 const* imgLut[] =
+    u8 const * imgLut[] =
     {
         Img_FactionMiniCard + 0xC00,
         Img_FactionMiniCard,
@@ -659,7 +659,7 @@ static u8 const* GetFactionFaceImg(int fid)
 
 static void ApplyFactionFacePal(int fid, int pal)
 {
-    u16 const* palLut[] =
+    u16 const * palLut[] =
     {
         Pal_FactionMiniCard,
         Pal_FactionMiniCard + 0x10,
