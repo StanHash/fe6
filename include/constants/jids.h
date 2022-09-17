@@ -79,5 +79,7 @@ enum
     JID_DISMOUNTED,
     JID_DISMOUNTED_F,
 
+    MAX_JIDS,
+
     JID_OBSTACLE = JID_ROY,
 };

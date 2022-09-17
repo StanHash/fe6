@@ -45,7 +45,7 @@ bool func_fe6_0802B8A0(void)
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return FALSE;
 
-    if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13))
+    if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_LORD))
         return FALSE;
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)

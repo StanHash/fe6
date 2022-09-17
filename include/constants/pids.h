@@ -30,4 +30,6 @@ enum
     PID_ARENA_OPPONENT = 0xE1,
 
     PID_WALL = 0xE2,
+
+    MAX_PIDS,
 };

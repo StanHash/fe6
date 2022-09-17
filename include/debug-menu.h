@@ -1,6 +1,7 @@
 #pragma once
 
 #include "common.h"
+#include "proc.h"
 #include "menu.h"
 
 void func_fe6_0801A5AC(void);
@@ -43,3 +44,5 @@ fu8 func_fe6_0801AEC8(struct MenuProc * menu, struct MenuEntProc * ent);
 u32 DebugCpControlMenu_Entry_Display(struct MenuProc * menu, struct MenuEntProc * ent);
 fu8 DebugCpControlMenu_Entry_Idle(struct MenuProc * menu, struct MenuEntProc * ent);
 fu8 func_fe6_0801B018(struct MenuProc * menu, struct MenuEntProc * ent);
+
+extern struct ProcScr CONST_DATA ProcScr_DebugMonitor[];

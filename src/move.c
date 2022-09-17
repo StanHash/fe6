@@ -1,4 +1,3 @@
-
 #include "move.h"
 
 struct MoveStats

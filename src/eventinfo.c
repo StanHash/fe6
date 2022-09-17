@@ -14,7 +14,7 @@
 #include "support.h"
 #include "trap.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/chapters.h"
 #include "constants/pids.h"
 #include "constants/songs.h"

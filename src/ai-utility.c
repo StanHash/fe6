@@ -11,7 +11,7 @@
 #include "ai-data.h"
 #include "ai-battle.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/terrains.h"
 
 static struct Vec2i CONST_DATA sRange3OffsetLut[] =

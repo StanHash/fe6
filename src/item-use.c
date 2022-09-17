@@ -23,7 +23,7 @@
 #include "ui.h"
 #include "eventinfo.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
 #include "constants/msg.h"

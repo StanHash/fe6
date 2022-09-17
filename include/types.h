@@ -29,6 +29,8 @@ typedef i16 volatile vi16;
 typedef i32 volatile vi32;
 typedef i64 volatile vi64;
 
+enum { FALSE, TRUE };
+
 #if !defined(__cplusplus) && !defined(bool)
 
 typedef i8 bool;

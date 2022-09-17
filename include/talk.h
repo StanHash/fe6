@@ -23,8 +23,8 @@ enum
 
 enum
 {
-    TALK_FLAG_0 = (1 << 0),
-    TALK_FLAG_1 = (1 << 1),
+    TALK_FLAG_INSTANTSHIFT = (1 << 0),
+    TALK_FLAG_NOBUBBLE = (1 << 1),
     TALK_FLAG_NOSKIP = (1 << 2),
     TALK_FLAG_NOFAST = (1 << 3),
     TALK_FLAG_4 = (1 << 4),

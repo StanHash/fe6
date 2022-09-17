@@ -14,7 +14,7 @@
 #include "supply.h"
 
 #include "constants/video-global.h"
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/icons.h"
 
 extern struct ItemInfo CONST_DATA ItemInfoTable[];
@@ -269,10 +269,10 @@ bool CanUnitUseWeapon(struct Unit * unit, int item)
 
     if (GetItemAttributes(item) & ITEM_ATTR_LOCK_ANY)
     {
-        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_1) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_1))
+        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_ROY) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_ROY))
             return FALSE;
 
-        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_2) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_2))
+        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_MYRM) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_MYRM))
             return FALSE;
 
         if (GetItemAttributes(item) & ITEM_ATTR_LOCK_DRAGON)
@@ -283,7 +283,7 @@ bool CanUnitUseWeapon(struct Unit * unit, int item)
             return TRUE;
         }
 
-        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_3) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_3))
+        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_ZEPHIEL) && !(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LOCK_ZEPHIEL))
             return FALSE;
     }
 

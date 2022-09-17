@@ -148,7 +148,7 @@ int GetUnitAiScore(struct Unit * unit)
         if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_STEAL)
             return score + 60;
 
-        if ((unit->pinfo->id == lead) || (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_13))
+        if ((unit->pinfo->id == lead) || (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_LORD))
             return score + 87;
 
         score = score + GetUnitBattleAiScore(unit);

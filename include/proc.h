@@ -1,7 +1,7 @@
 #pragma once
 
-#include "gba/gba.h"
 #include "types.h"
+#include "attributes.h"
 
 typedef void * ProcPtr;
 typedef void (* ProcFunc)(ProcPtr proc);

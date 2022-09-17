@@ -7355,7 +7355,7 @@ func_fe6_0806F170: @ 0x0806F170
 	lsls r2, r2, #7
 	bl PutIcon
 	adds r0, r4, #0
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrh r0, [r0]
 	bl DecodeMsg
 	mov r1, r8
@@ -22638,7 +22638,7 @@ func_fe6_08076448: @ 0x08076448
 	bl GetUnitSupportPid
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrh r0, [r0]
 	bl DecodeMsg
 	adds r2, r0, #0
@@ -22670,7 +22670,7 @@ func_fe6_08076448: @ 0x08076448
 	bl GetUnitSupportPid
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrh r0, [r0]
 	bl DecodeMsg
 	adds r3, r0, #0
@@ -50591,7 +50591,7 @@ func_fe6_0808495C: @ 0x0808495C
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L080849A6
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L080849A6
@@ -50633,7 +50633,7 @@ func_fe6_080849BC: @ 0x080849BC
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L080849F8
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L080849F8
@@ -50680,7 +50680,7 @@ func_fe6_08084A10: @ 0x08084A10
 	cmp r4, #0x45
 	bhi .L08084AD0
 	adds r0, r4, #0
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084AD0
@@ -50779,7 +50779,7 @@ func_fe6_08084AEC: @ 0x08084AEC
 	lsrs r6, r1, #0x18
 	cmp r0, #0x45
 	bhi .L08084B70
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084B70
@@ -50850,7 +50850,7 @@ func_fe6_08084B84: @ 0x08084B84
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L08084BAE
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084BAE
@@ -50879,7 +50879,7 @@ func_fe6_08084BB8: @ 0x08084BB8
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L08084BE2
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084BE2
@@ -50908,7 +50908,7 @@ func_fe6_08084BEC: @ 0x08084BEC
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L08084C26
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084C26
@@ -50946,7 +50946,7 @@ PidStatsAddSquaresMoved: @ 0x08084C30
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L08084C72
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084C72
@@ -50990,7 +50990,7 @@ PidStatsAddExpGained: @ 0x08084C84
 	adds r4, r0, #0
 	cmp r0, #0x45
 	bhi .L08084CCE
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084CCE
@@ -51398,7 +51398,7 @@ func_fe6_08084F4C: @ 0x08084F4C
 	cmp r4, #0x45
 	bhi .L08084F70
 	adds r0, r4, #0
-	bl GetPersonInfo
+	bl GetPInfo
 	ldrb r0, [r0, #9]
 	cmp r0, #0
 	beq .L08084F70
@@ -52199,13 +52199,13 @@ func_fe6_080855C4: @ 0x080855C4
 	ldrb r0, [r0]
 	lsls r0, r0, #0x19
 	lsrs r0, r0, #0x19
-	bl GetPersonInfo
+	bl GetPInfo
 	str r0, [r4]
 	mov r0, sp
 	ldrh r0, [r0]
 	lsls r0, r0, #0x12
 	lsrs r0, r0, #0x19
-	bl GetJobInfo
+	bl GetJInfo
 	str r0, [r4, #4]
 	ldr r0, [sp]
 	lsls r0, r0, #0xd
@@ -53081,11 +53081,11 @@ func_fe6_08085CE0: @ 0x08085CE0
 	bl _call_via_r3
 	mov r0, sp
 	ldrb r0, [r0]
-	bl GetPersonInfo
+	bl GetPInfo
 	str r0, [r4]
 	mov r0, sp
 	ldrb r0, [r0, #1]
-	bl GetJobInfo
+	bl GetJInfo
 	str r0, [r4, #4]
 	add r0, sp, #0x28
 	ldrb r0, [r0]
@@ -83453,7 +83453,7 @@ func_fe6_08094F14: @ 0x08094F14
 	ldrb r0, [r7]
 	add r0, r8
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	adds r0, #0x28
 	adds r0, r0, r4
 	ldrb r0, [r0]
@@ -83991,7 +83991,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r1, [r0]
 	adds r0, r1, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	adds r0, #0x28
 	adds r0, r0, r6
 	ldrb r0, [r0]
@@ -84198,7 +84198,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r2, [r2]
 	adds r0, r2, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0xb]
 	ldr r3, [sp, #0x24]
 	strb r0, [r3]
@@ -84206,7 +84206,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r6, [r6]
 	adds r0, r6, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0xc]
 	mov r1, sb
 	strb r0, [r1]
@@ -84214,7 +84214,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r2, [r2]
 	adds r0, r2, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0xd]
 	ldr r3, [sp, #0x28]
 	strb r0, [r3]
@@ -84222,7 +84222,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r6, [r6]
 	adds r0, r6, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0xe]
 	ldr r1, [sp, #0x2c]
 	strb r0, [r1]
@@ -84230,7 +84230,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r2, [r2]
 	adds r0, r2, r4
 	ldrb r0, [r0]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0xf]
 	ldr r3, [sp, #0x30]
 	strb r0, [r3]
@@ -84238,7 +84238,7 @@ func_fe6_08095334: @ 0x08095334
 	ldrb r6, [r6]
 	adds r4, r6, r4
 	ldrb r0, [r4]
-	bl GetJobInfo
+	bl GetJInfo
 	ldrb r0, [r0, #0x10]
 	ldr r1, [sp, #0x34]
 	strb r0, [r1]

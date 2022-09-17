@@ -370,7 +370,7 @@ void SetMuFacing(struct MuProc * mu, int facing)
 
 void SetMuDefaultFacing(struct MuProc * mu)
 {
-    if (GetJobInfo(mu->jid)->attributes & UNIT_ATTR_MOUNTED)
+    if (GetJInfo(mu->jid)->attributes & UNIT_ATTR_MOUNTED)
         SetMuFacing(mu, 1);
     else
         SetMuFacing(mu, 2);
@@ -738,7 +738,7 @@ void Mu_OnStateMovement(struct MuProc * mu)
 
 void UpdateMuStepSounds(struct MuProc * mu)
 {
-    struct JInfo const * jinfo = GetJobInfo(mu->jid);
+    struct JInfo const * jinfo = GetJInfo(mu->jid);
 
     u16 const * soundScript;
     int pc;
@@ -1014,7 +1014,7 @@ u16 GetMuQ4MovementSpeed(struct MuProc * mu)
 
     if (gPlaySt.config_walk_speed == 0)
     {
-        return sMuWalkSpeedLut[GetJobInfo(mu->jid)->walk_speed] << 4;
+        return sMuWalkSpeedLut[GetJInfo(mu->jid)->walk_speed] << 4;
     }
     else
     {

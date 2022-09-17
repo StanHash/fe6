@@ -12,7 +12,7 @@
 #include "ai-utility.h"
 #include "ai-data.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/terrains.h"
 
 static int AiGetDamageDealtCombatScoreComponent(void);

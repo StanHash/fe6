@@ -10,7 +10,7 @@
 
 #include "constants/jids.h"
 #include "constants/pids.h"
-#include "constants/items.h"
+#include "constants/iids.h"
 
 static void ArenaBeginInternal(struct Unit * unit);
 static int ArenaGetUnitWeaponKind(struct Unit * unit);
@@ -175,7 +175,7 @@ static void ArenaBeginInternal(struct Unit * unit)
     gArenaSt.player_weapon_kind = ArenaGetUnitWeaponKind(unit);
 
     gArenaSt.opponent_jid = ArenaGenOpposingJid(gArenaSt.player_weapon_kind);
-    gArenaSt.opponent_weapon_kind = ArenaGetJobWeaponKind(GetJobInfo(gArenaSt.opponent_jid));
+    gArenaSt.opponent_weapon_kind = ArenaGetJobWeaponKind(GetJInfo(gArenaSt.opponent_jid));
 
     gArenaSt.player_is_magic = ArenaIsMagicWeaponKind(gArenaSt.player_weapon_kind);
     gArenaSt.opponent_is_magic = ArenaIsMagicWeaponKind(gArenaSt.opponent_weapon_kind);
@@ -299,7 +299,7 @@ static int ArenaGenOpposingJid(int weapon_kind)
 
     for (i = 0; joblist[i] != 0; ++i)
     {
-        if ((GetJobInfo(joblist[i])->attributes & UNIT_ATTR_PROMOTED) != promoteflag)
+        if ((GetJInfo(joblist[i])->attributes & UNIT_ATTR_PROMOTED) != promoteflag)
             continue; // skip jobs that aren't of the same tier as player
 
         ++jobcount;
@@ -314,7 +314,7 @@ static int ArenaGenOpposingJid(int weapon_kind)
 
     for (i = 0, jobcount = 0; TRUE; ++i)
     {
-        if ((GetJobInfo(joblist[i])->attributes & UNIT_ATTR_PROMOTED) != promoteflag)
+        if ((GetJInfo(joblist[i])->attributes & UNIT_ATTR_PROMOTED) != promoteflag)
             continue; // skip jobs that aren't of the same tier as player
 
         if (jobcount == jobnum)

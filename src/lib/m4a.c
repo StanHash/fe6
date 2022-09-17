@@ -1,9 +1,10 @@
-
 #include "gba/m4a_internal.h"
+
+#include "common.h"
 
 extern const u8 gCgb3Vol[];
 
-#define BSS_CODE __attribute__((section(".bss.code")))
+#define BSS_CODE SECTION(".bss.code")
 
 BSS_CODE ALIGNED(4) char SoundMainRAM_Buffer[0x400] = {0};
 

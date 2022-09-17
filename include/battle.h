@@ -35,10 +35,12 @@ enum
 
 enum
 {
+    #define BATTLE_HIT_INFO_ACTOR(n) ((n) << 3)
+
     BATTLE_HIT_INFO_BEGIN        = (1 << 0),
     BATTLE_HIT_INFO_FINISHES     = (1 << 1),
     BATTLE_HIT_INFO_KILLS_TARGET = (1 << 2),
-    BATTLE_HIT_INFO_RETALIATION  = (1 << 3),
+    BATTLE_HIT_INFO_ACTORB       = (1 << 3),
     BATTLE_HIT_INFO_END          = (1 << 7),
 };
 

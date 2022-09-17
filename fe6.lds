@@ -288,6 +288,7 @@ SECTIONS
         . = 0x0044B0; gActiveUnit = .;
         . = 0x0044C0; gMapFloodSt = .;
         . = 0x004570; AiDecideFunc = .;
+        . = 0x004600; gManimDebugStObj = .;
         . = 0x004890; gPermanentFlagBits = .;
         . = 0x004898; gChapterFlagBits = .;
         . = 0x0052B0; gSoundInfo = .;

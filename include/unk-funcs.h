@@ -1656,13 +1656,13 @@ void MA_StartBattleInfoBox(int x, int y, ProcPtr proc);
 // func_fe6_0806367C
 // func_fe6_0806376C
 // func_fe6_08063848
-// func_fe6_0806387C
+// StartDebugManim
 // func_fe6_08063894
 // func_fe6_08063CF4
 // func_fe6_08063EF0
 // func_fe6_080640D0
 // func_fe6_080645F8
-// func_fe6_080646E4
+bool func_fe6_080646E4(void);
 // func_fe6_0806495C
 // func_fe6_08064994
 // func_fe6_08064A10

@@ -597,7 +597,7 @@ static void Talk_OnIdle(ProcPtr proc)
 
 static bool TalkPrepNextChar(ProcPtr proc)
 {
-    if (!TalkHasCorrectBubble() && sTalkSt->active_talk_face != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_1))
+    if (!TalkHasCorrectBubble() && sTalkSt->active_talk_face != TALK_FACE_NONE && !CheckTalkFlag(TALK_FLAG_NOBUBBLE))
     {
         sTalkSt->active_width = 2 + Div(7 + GetStrTalkLen(sTalkSt->str, FALSE), 8);
         ClearTalkBubble();
@@ -731,7 +731,7 @@ static int TalkInterpret(ProcPtr proc)
         return 2;
 
     case 0x02:
-        if (!CheckTalkFlag(TALK_FLAG_0))
+        if (!CheckTalkFlag(TALK_FLAG_INSTANTSHIFT))
             SpawnProcLocking(ProcScr_TalkShiftClearAll, proc);
         else
             ClearTalkText();
@@ -2090,8 +2090,8 @@ static void TalkDebug_OnIdle(struct GenericProc * proc)
         InitTalk(0x80, 2, TRUE);
         StartTalkMsg(1, 1, proc->x);
 
-        SetTalkFlag(TALK_FLAG_0);
-        SetTalkFlag(TALK_FLAG_1);
+        SetTalkFlag(TALK_FLAG_INSTANTSHIFT);
+        SetTalkFlag(TALK_FLAG_NOBUBBLE);
         SetTalkFlag(TALK_FLAG_NOSKIP);
 
         SetTalkPrintDelay(-1);

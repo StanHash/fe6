@@ -19,7 +19,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 
 #include "constants/video-global.h"
 #include "constants/songs.h"

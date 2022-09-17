@@ -10,7 +10,7 @@
 #include "ai-utility.h"
 #include "ai-data.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/terrains.h"
 
 struct Unk_0810DB34
@@ -142,7 +142,7 @@ bool AiTryGetNearestHealPoint(struct Vec2i * out)
     if (gActiveUnit->ai_config & 0x2000) // TODO: AI CONFIG CONSTANTS
         return FALSE;
 
-    if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13)
+    if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_LORD)
         return FALSE;
 
     MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);

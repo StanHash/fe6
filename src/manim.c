@@ -2,6 +2,7 @@
 
 #include "hardware.h"
 #include "move.h"
+#include "oam.h"
 #include "armfunc.h"
 #include "sound.h"
 #include "text.h"
@@ -10,20 +11,25 @@
 #include "util.h"
 #include "item.h"
 #include "unit.h"
+#include "debug-menu.h"
+#include "faction.h"
 #include "unitsprite.h"
 #include "battle.h"
-#include "faction.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
+#include "constants/pids.h"
 #include "constants/jids.h"
 #include "constants/video-global.h"
 #include "constants/songs.h"
 #include "constants/terrains.h"
 
 struct MapAnimSt EWRAM_DATA gMapAnimSt = { { 0 } };
+
+// GARBAGE START
+// TODO: organize
 
 extern u16 const gUnk_082DC840[]; // pal blue
 extern u16 const gUnk_082DC860[]; // pal red
@@ -32,12 +38,103 @@ extern u16 const gUnk_082DC8A0[]; // pal purple
 extern u8 const gUnk_082DC8C0[]; // tsa
 extern u8 const gUnk_082DC8EC[]; // tsa
 extern u8 const gUnk_082DC918[]; // tsa
-extern u16 CONST_DATA gUnk_08664F58[]; // ?
 extern u8 const gUnk_08113584[]; // img exp bar a
 extern u8 const gUnk_08113884[]; // img exp bar b
 extern u8 const gUnk_08113B84[]; // img exp bar c
 extern u16 const gUnk_08113D50[]; // pal exp bar
 extern u8 const gUnk_082DC5B0[]; // tsa exp bar
+
+enum { MAX_MANIM_DEBUG_HITS = 5 };
+
+enum
+{
+    MANIM_DEBUG_PARAM_PID,
+    MANIM_DEBUG_PARAM_X,
+    MANIM_DEBUG_PARAM_Y,
+    MANIM_DEBUG_PARAM_JID,
+    MANIM_DEBUG_PARAM_IID,
+    MANIM_DEBUG_PARAM_HITS,
+    MAX_MANIM_DEBUG_PARAM = MANIM_DEBUG_PARAM_HITS + MAX_MANIM_DEBUG_HITS,
+};
+
+enum
+{
+    MANIM_DEBUG_HIT_KIND_NONE,
+    MANIM_DEBUG_HIT_KIND_REGULAR,
+    MANIM_DEBUG_HIT_KIND_REGULAR_DEVIL,
+    MANIM_DEBUG_HIT_KIND_REGULAR_HPSTEAL,
+    MANIM_DEBUG_HIT_KIND_REGULAR_POISON,
+    MANIM_DEBUG_HIT_KIND_CRIT,
+    MANIM_DEBUG_HIT_KIND_CRIT_DEVIL,
+    MANIM_DEBUG_HIT_KIND_CRIT_HPSTEAL,
+    MANIM_DEBUG_HIT_KIND_CRIT_POISON,
+    MANIM_DEBUG_HIT_KIND_MISS,
+
+    MAX_MANIM_DEBUG_HIT_KIND,
+};
+
+struct ManimDebugStEnt
+{
+    /* 00 */ short data[MAX_MANIM_DEBUG_PARAM];
+    /* 14 */ struct Text text[MAX_MANIM_DEBUG_PARAM];
+};
+
+struct ManimDebugSt
+{
+    /* 00 */ u8 unk_00[8]; // unused?
+    /* 08 */ struct ManimDebugStEnt ent[2];
+};
+
+struct ManimDebugParamInfo
+{
+    /* 00 */ u8 text_width;
+    /* 01 */ i8 param_up;
+    /* 02 */ i8 param_down;
+    /* 03 */ i8 param_left;
+    /* 04 */ i8 param_right;
+    /* 05 */ u8 min;
+    /* 06 */ u8 max;
+};
+
+struct ManimEffectProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 unk_40;
+    /* 42 */ u16 unk_42;
+    /* 44 */ u16 unk_44;
+    /* 44 */ u8 pad_46[0x48 - 0x46];
+    /* 48 */ short unk_48;
+    /* 4A */ short unk_4A;
+    /* 4C */ short unk_4C;
+    /* 4E */ /* pad */
+    /* 50 */ void const * img;
+    /* 54 */ void const * pal;
+    /* 58 */ u16 unk_58;
+    /* 5A */ u8 pad_5A[0x64 - 0x5A];
+    /* 64 */ short unk_64;
+};
+
+extern u8 const gUnk_082DB1C0[]; // img
+extern u16 const gUnk_082DB2B0[]; // sprite anim
+extern u8 const gUnk_082DB418[]; // img
+extern u16 const gUnk_082DB55C[]; // sprite anim
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_0866510C[];
+
+#define UNIT_SCREEN_TILE_X(unit) (((unit)->x - (gBmSt.camera.x >> 4)) << 1)
+#define UNIT_SCREEN_TILE_Y(unit) (((unit)->y - (gBmSt.camera.y >> 4)) << 1)
+
+enum { OBJCHR_MANIM_180 = 0x180 };
+
+void func_fe6_08063CF4(struct GenericProc * proc);
+void func_fe6_08063EF0(struct GenericProc * proc);
+void func_fe6_080640D0(struct GenericProc * proc);
+void func_fe6_0806495C(struct GenericProc * proc);
+
+void func_fe6_08064B20(struct ManimEffectProc * proc);
 
 enum
 {
@@ -61,21 +158,28 @@ struct MAnimInfoWindowProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2A */ i16 unk_2A;
+    /* 2A */ i16 open_transition_value;
     /* 2C */ u16 unk_2C;
-    /* 2E */ u8 unk_2E;
-    /* 2F */ u8 unk_2F;
+    /* 2E */ u8 x_tile;
+    /* 2F */ u8 y_tile;
     /* 30 */ ProcPtr main_proc;
 };
 
-void func_fe6_08062D64(struct MAnimInfoWindowProc * proc);
+void func_fe6_08062D64(ProcPtr proc);
 void func_fe6_08062D80(struct MAnimInfoWindowProc * proc);
 void func_fe6_08062E94(struct MAnimInfoWindowProc * proc);
 void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id);
 void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int x_offset);
 void func_fe6_080632C4(struct MAnimInfoWindowProc * proc);
 void func_fe6_080633B0(struct MAnimInfoWindowProc * proc);
+void func_fe6_08063504(struct MAnimExpBarProc * proc);
+void func_fe6_080635B8(struct MAnimExpBarProc * proc);
+void func_fe6_080635E0(struct MAnimExpBarProc * proc);
+void func_fe6_0806367C(struct MAnimExpBarProc * proc);
 void func_fe6_0806376C(struct MAnimExpBarProc * proc);
+void func_fe6_08063848(struct MAnimExpBarProc * proc);
+
+// GARBAGE END
 
 struct ProcScr CONST_DATA ProcScr_Unk_08664C0C[] =
 {
@@ -223,6 +327,57 @@ struct ProcScr CONST_DATA ProcScr_MAnimInfoWindow[] =
     PROC_END,
 };
 
+u16 CONST_DATA gUnk_08664F58[] =
+{
+    6, BGCHR_MANIM_200 + 7,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    9, BGCHR_MANIM_200 + 14,
+    6, BGCHR_MANIM_200 + 24,
+    0, // end
+};
+
+struct ProcScr CONST_DATA ProcScr_MAnimExpBar[] =
+{
+    PROC_ONEND(func_fe6_08062D64),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08063504),
+    PROC_CALL(func_fe6_0806367C),
+    PROC_REPEAT(func_fe6_0806376C),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_080635B8),
+    PROC_SLEEP(2),
+    PROC_REPEAT(func_fe6_080635E0),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_08062D64),
+    PROC_SLEEP(8),
+    PROC_CALL(func_fe6_08063848),
+    PROC_SLEEP(1),
+    PROC_END,
+};
+
+char const * CONST_DATA gManimDebugHitKindNameLut[] =
+{
+    (char const *) 0x0830771C, // JTEXT("ーーー"),
+    (char const *) 0x08307714, // JTEXT("攻撃"),
+    (char const *) 0x0830770C, // JTEXT("攻撃デ"),
+    (char const *) 0x08307704, // JTEXT("攻撃リ"),
+    (char const *) 0x083076FC, // JTEXT("攻撃毒"),
+    (char const *) 0x083076F4, // JTEXT("必殺"),
+    (char const *) 0x083076EC, // JTEXT("必殺デ"),
+    (char const *) 0x083076E4, // JTEXT("必殺リ"),
+    (char const *) 0x083076DC, // JTEXT("必殺毒"),
+    (char const *) 0x083076D4, // JTEXT("空ぶり"),
+};
+
 void func_fe6_08061838(ProcPtr proc)
 {
     switch (gMapAnimSt.unk_62)
@@ -308,7 +463,7 @@ void func_fe6_080619B0(ProcPtr proc)
 
 void func_fe6_080619E8(void)
 {
-    gMapAnimSt.attacker_actor = !!(gMapAnimSt.hit_it->info & BATTLE_HIT_INFO_RETALIATION);
+    gMapAnimSt.attacker_actor = !!(gMapAnimSt.hit_it->info & BATTLE_HIT_INFO_ACTORB);
     gMapAnimSt.defender_actor = 1 - gMapAnimSt.attacker_actor;
 
     gMapAnimSt.hit_attributes = gMapAnimSt.hit_it->attributes;
@@ -885,7 +1040,7 @@ void func_fe6_08062BA0(u8 const * src)
     ApplyPalette(Pal_Unk_082E278C, 5);
 }
 
-void func_fe6_08062BD4(u16 * tm, int* arg_1, int pal, int arg_3, int chr)
+void func_fe6_08062BD4(u16 * tm, int * arg_1, int pal, int arg_3, int chr)
 {
     int tmp;
 
@@ -906,7 +1061,7 @@ void func_fe6_08062C38(u16 * tm, int arg_1, int arg_2, int arg_3, u16 const * ar
     int unk, count = 0;
     u16 const * it;
 
-    for (it = arg_4; it[0]; it += 2)
+    for (it = arg_4; it[0] != 0; it += 2)
         count -= 1 - it[0];
 
     count += 1;
@@ -919,7 +1074,7 @@ void func_fe6_08062C38(u16 * tm, int arg_1, int arg_2, int arg_3, u16 const * ar
     if (unk == 0 && arg_2 > 0)
         unk++;
 
-    for (it = arg_4; it[0]; ++tm, it += 2)
+    for (it = arg_4; it[0] != 0; tm++, it += 2)
         func_fe6_08062BD4(tm, &unk, gUnk_08664F00[arg_3], it[0], it[1]);
 }
 
@@ -932,12 +1087,12 @@ void MA_StartBattleInfoBox(int arg0, int arg1, ProcPtr main_proc)
 {
     struct MAnimInfoWindowProc * proc = SpawnProc(ProcScr_MAnimInfoWindow, PROC_TREE_3);
 
-    proc->unk_2E = arg0;
-    proc->unk_2F = arg1;
+    proc->x_tile = arg0;
+    proc->y_tile = arg1;
     proc->main_proc = main_proc;
 }
 
-void func_fe6_08062D64(struct MAnimInfoWindowProc * proc)
+void func_fe6_08062D64(ProcPtr proc)
 {
     SetOnHBlankA(NULL);
     ClearUi();
@@ -952,7 +1107,7 @@ void func_fe6_08062D80(struct MAnimInfoWindowProc * proc)
 
     Decompress(
         gUnk_082DC6DC,
-        (void *)(VRAM) + GetBgChrOffset(1) + 1 * 0x20); // TODO: put in macro?
+        ((void *) VRAM) + GetBgChrOffset(1) + BGCHR_MANIM_1 * CHR_SIZE);
 
     func_fe6_08062BA0(gUnk_082E25D4);
 
@@ -982,8 +1137,8 @@ void func_fe6_08062D80(struct MAnimInfoWindowProc * proc)
     func_fe6_0806A0DC(
         gMapAnimSt.actor[0].unk_11 * 8,
         gMapAnimSt.actor[0].unk_11 * 8 + 0x20,
-        gPal[0x11],
-        gPal[0x21]);
+        PAL_COLOR(BGPAL_MANIM_1 + 0, 1),
+        PAL_COLOR(BGPAL_MANIM_1 + 1, 1));
 }
 
 void func_fe6_08062E94(struct MAnimInfoWindowProc * proc)
@@ -1004,7 +1159,7 @@ void func_fe6_08062E94(struct MAnimInfoWindowProc * proc)
             val = val + 4;
 
             if (val % 16 == 0)
-                PlaySe(0x75); // TODO: song ids
+                PlaySe(SONG_75);
         }
 
         if (val != gMapAnimSt.actor[i].unk_0E)
@@ -1026,7 +1181,7 @@ void func_fe6_08062FE8(struct MAnimInfoWindowProc * proc, int actor_id)
             gMapAnimSt.actor[actor_id].unk_10 + 2,
             gMapAnimSt.actor[actor_id].unk_11 + 2),
         gMapAnimSt.actor[actor_id].unk_0E / 16,
-        TILEREF(32, 5), 3, 0);
+        TILEREF(BGCHR_MANIM_1 + 31, BGPAL_MANIM_5), 3, 0);
 
     func_fe6_08062C38(
         gBg0Tm + TM_OFFSET(
@@ -1064,8 +1219,8 @@ u16 const * func_fe6_080630C8(struct Unit * unit)
 
 void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int x_offset)
 {
-    gMapAnimSt.actor[actor_id].unk_10 = proc->unk_2E + x_offset;
-    gMapAnimSt.actor[actor_id].unk_11 = proc->unk_2F;
+    gMapAnimSt.actor[actor_id].unk_10 = proc->x_tile + x_offset;
+    gMapAnimSt.actor[actor_id].unk_11 = proc->y_tile;
 
     ApplyPalette(
         func_fe6_080630C8(gMapAnimSt.actor[actor_id].unit),
@@ -1098,7 +1253,7 @@ void func_fe6_08063120(struct MAnimInfoWindowProc * proc, int actor_id, int x_of
 
 void func_fe6_080632C4(struct MAnimInfoWindowProc * proc)
 {
-    proc->unk_2A = 0;
+    proc->open_transition_value = 0;
 
     func_fe6_080633B0(proc);
 
@@ -1111,12 +1266,12 @@ void func_fe6_080632C4(struct MAnimInfoWindowProc * proc)
 void func_fe6_080633B0(struct MAnimInfoWindowProc * proc)
 {
     SetWin0Box(
-        0, (proc->unk_2F + 2) * 8 - proc->unk_2A,
-        240, (proc->unk_2F + 2) * 8 + proc->unk_2A);
+        0, (proc->y_tile + 2) * 8 - proc->open_transition_value,
+        240, (proc->y_tile + 2) * 8 + proc->open_transition_value);
 
-    proc->unk_2A += 2;
+    proc->open_transition_value += 2;
 
-    if (proc->unk_2A > 0x10)
+    if (proc->open_transition_value > 0x10)
     {
         SetWinEnable(0, 0, 0);
         Proc_Break(proc);
@@ -1172,7 +1327,7 @@ void func_fe6_080635B8(struct MAnimExpBarProc * proc)
     PlaySe(SONG_74);
 }
 
-void sub_807C0F8(struct MAnimExpBarProc * proc)
+void func_fe6_080635E0(struct MAnimExpBarProc * proc)
 {
     proc->exp_from++;
 
@@ -1223,6 +1378,581 @@ void func_fe6_08063848(struct MAnimExpBarProc * proc)
     func_fe6_08067CF8(proc->actor_id, proc);
 }
 
+struct ManimDebugParamInfo CONST_DATA gManimDebugParamInfoTable[] =
+{
+    [MANIM_DEBUG_PARAM_PID] =
+    {
+        .text_width = 9,
+        .param_up = MANIM_DEBUG_PARAM_HITS + 4,
+        .param_down = MANIM_DEBUG_PARAM_X,
+        .param_left = MANIM_DEBUG_PARAM_PID,
+        .param_right = MANIM_DEBUG_PARAM_PID,
+        .min = 1, .max = MAX_PIDS,
+    },
+
+    [MANIM_DEBUG_PARAM_X] =
+    {
+        .text_width = 2,
+        .param_up = MANIM_DEBUG_PARAM_PID,
+        .param_down = MANIM_DEBUG_PARAM_JID,
+        .param_left = MANIM_DEBUG_PARAM_Y,
+        .param_right = MANIM_DEBUG_PARAM_Y,
+        .min = 0, .max = 32,
+    },
+
+    [MANIM_DEBUG_PARAM_Y] =
+    {
+        .text_width = 2,
+        .param_up = MANIM_DEBUG_PARAM_PID,
+        .param_down = MANIM_DEBUG_PARAM_JID,
+        .param_left = MANIM_DEBUG_PARAM_X,
+        .param_right = MANIM_DEBUG_PARAM_X,
+        .min = 0, .max = 32,
+    },
+
+    [MANIM_DEBUG_PARAM_JID] =
+    {
+        .text_width = 11,
+        .param_up = MANIM_DEBUG_PARAM_X,
+        .param_down = MANIM_DEBUG_PARAM_IID,
+        .param_left = MANIM_DEBUG_PARAM_JID,
+        .param_right = MANIM_DEBUG_PARAM_JID,
+        .min = 1, .max = MAX_JIDS,
+    },
+
+    [MANIM_DEBUG_PARAM_IID] =
+    {
+        .text_width = 10,
+        .param_up = MANIM_DEBUG_PARAM_JID,
+        .param_down = MANIM_DEBUG_PARAM_HITS + 0,
+        .param_left = MANIM_DEBUG_PARAM_IID,
+        .param_right = MANIM_DEBUG_PARAM_IID,
+        .min = 1, .max = MAX_IIDS,
+    },
+
+    [MANIM_DEBUG_PARAM_HITS + 0] =
+    {
+        .text_width = 9,
+        .param_up = MANIM_DEBUG_PARAM_IID,
+        .param_down = MANIM_DEBUG_PARAM_HITS + 1,
+        .param_left = MANIM_DEBUG_PARAM_HITS + 0,
+        .param_right = MANIM_DEBUG_PARAM_HITS + 0,
+        .min = 0, .max = MAX_MANIM_DEBUG_HIT_KIND,
+    },
+
+    [MANIM_DEBUG_PARAM_HITS + 1] =
+    {
+        .text_width = 5,
+        .param_up = MANIM_DEBUG_PARAM_HITS + 0,
+        .param_down = MANIM_DEBUG_PARAM_HITS + 2,
+        .param_left = MANIM_DEBUG_PARAM_HITS + 1,
+        .param_right = MANIM_DEBUG_PARAM_HITS + 1,
+        .min = 0, .max = MAX_MANIM_DEBUG_HIT_KIND,
+    },
+
+    [MANIM_DEBUG_PARAM_HITS + 2] =
+    {
+        .text_width = 5,
+        .param_up = MANIM_DEBUG_PARAM_HITS + 1,
+        .param_down = MANIM_DEBUG_PARAM_HITS + 3,
+        .param_left = MANIM_DEBUG_PARAM_HITS + 2,
+        .param_right = MANIM_DEBUG_PARAM_HITS + 2,
+        .min = 0, .max = MAX_MANIM_DEBUG_HIT_KIND,
+    },
+
+    [MANIM_DEBUG_PARAM_HITS + 3] =
+    {
+        .text_width = 5,
+        .param_up = MANIM_DEBUG_PARAM_HITS + 2,
+        .param_down = MANIM_DEBUG_PARAM_HITS + 4,
+        .param_left = MANIM_DEBUG_PARAM_HITS + 3,
+        .param_right = MANIM_DEBUG_PARAM_HITS + 3,
+        .min = 0, .max = MAX_MANIM_DEBUG_HIT_KIND,
+    },
+
+    [MANIM_DEBUG_PARAM_HITS + 4] =
+    {
+        .text_width = 5,
+        .param_up = MANIM_DEBUG_PARAM_HITS + 3,
+        .param_down = MANIM_DEBUG_PARAM_PID,
+        .param_left = MANIM_DEBUG_PARAM_HITS + 4,
+        .param_right = MANIM_DEBUG_PARAM_HITS + 4,
+        .min = 0, .max = MAX_MANIM_DEBUG_HIT_KIND,
+    },
+};
+
+char const * CONST_DATA gManimDebugParamLabelLut[] =
+{
+    (char const *) 0x08307750, // JTEXT("ＰＩＤ"),
+    (char const *) 0x08307748, // JTEXT("ＸＹ"),
+    (char const *) 0x08307740, // JTEXT("兵種"),
+    (char const *) 0x08307738, // JTEXT("武器"),
+    (char const *) 0x08307734, // JTEXT("１"),
+    (char const *) 0x08307730, // JTEXT("２"),
+    (char const *) 0x0830772C, // JTEXT("３"),
+    (char const *) 0x08307728, // JTEXT("４"),
+    (char const *) 0x08307724, // JTEXT("５"),
+    NULL, // end
+};
+
+extern struct ManimDebugSt gManimDebugStObj; // COMMON
+struct ManimDebugSt * CONST_DATA gManimDebugSt = &gManimDebugStObj;
+
+struct ProcScr CONST_DATA ProcScr_ManimDebug[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(LockGame),
+    PROC_CALL(func_fe6_08073324),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08063CF4),
+PROC_LABEL(0),
+    PROC_CALL(func_fe6_08063EF0),
+    PROC_REPEAT(func_fe6_080640D0),
+    PROC_CALL(func_fe6_0806495C),
+    PROC_WHILE_EXISTS(ProcScr_Unk_08664DA4),
+    PROC_GOTO(0),
+    PROC_END,
+};
+
+void StartDebugManim(void)
+{
+    SpawnProc(ProcScr_ManimDebug, PROC_TREE_3);
+}
+
+void func_fe6_08063894(int num, int param, int text_color)
+{
+    #define PARAM_DATA(param) (gManimDebugSt->ent[num].data[(param)])
+    #define PARAM_TEXT(param) (&gManimDebugSt->ent[num].text[(param)])
+
+    struct PInfo const * pinfo = GetPInfo(PARAM_DATA(MANIM_DEBUG_PARAM_PID));
+    struct JInfo const * jinfo = GetJInfo(PARAM_DATA(MANIM_DEBUG_PARAM_JID));
+
+    int pid = PARAM_DATA(MANIM_DEBUG_PARAM_PID);
+    int jid = PARAM_DATA(MANIM_DEBUG_PARAM_JID);
+    int iid = PARAM_DATA(MANIM_DEBUG_PARAM_IID);
+
+    switch (param)
+    {
+        case MANIM_DEBUG_PARAM_PID:
+            ClearText(PARAM_TEXT(MANIM_DEBUG_PARAM_PID));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(MANIM_DEBUG_PARAM_PID), 16, text_color, pid);
+            PutDrawText(PARAM_TEXT(MANIM_DEBUG_PARAM_PID), gBg0Tm + TM_OFFSET(num * 12 + 6, 0), text_color, 24, 0, DecodeMsg(pinfo->msg_name));
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+
+        case MANIM_DEBUG_PARAM_X:
+            ClearText(PARAM_TEXT(MANIM_DEBUG_PARAM_X));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(MANIM_DEBUG_PARAM_X), 8, text_color, PARAM_DATA(MANIM_DEBUG_PARAM_X));
+            PutText(PARAM_TEXT(MANIM_DEBUG_PARAM_X), gBg0Tm + TM_OFFSET(num * 12 + 7, 2));
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+
+        case MANIM_DEBUG_PARAM_Y:
+            ClearText(PARAM_TEXT(MANIM_DEBUG_PARAM_Y));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(MANIM_DEBUG_PARAM_Y), 8, text_color, PARAM_DATA(MANIM_DEBUG_PARAM_Y));
+            PutText(PARAM_TEXT(MANIM_DEBUG_PARAM_Y), gBg0Tm + TM_OFFSET(num * 12 + 10, 2));
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+
+        case MANIM_DEBUG_PARAM_JID:
+            ClearText(PARAM_TEXT(MANIM_DEBUG_PARAM_JID));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(MANIM_DEBUG_PARAM_JID), 16, text_color, jid);
+            PutDrawText(PARAM_TEXT(MANIM_DEBUG_PARAM_JID), gBg0Tm + TM_OFFSET(num * 12 + 6, 4), text_color, 24, 0, DecodeMsg(jinfo->msg_name));
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+
+        case MANIM_DEBUG_PARAM_IID:
+            ClearText(PARAM_TEXT(MANIM_DEBUG_PARAM_IID));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(MANIM_DEBUG_PARAM_IID), 16, text_color, iid);
+            PutDrawText(PARAM_TEXT(MANIM_DEBUG_PARAM_IID), gBg0Tm + TM_OFFSET(num * 12 + 6, 6), text_color, 24, 0, GetItemName(PARAM_DATA(MANIM_DEBUG_PARAM_IID)));
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+
+        case MANIM_DEBUG_PARAM_HITS ... MAX_MANIM_DEBUG_PARAM - 1:
+            ClearText(PARAM_TEXT(param));
+            Text_InsertDrawNumberOrBlank(PARAM_TEXT(param), 8, text_color, PARAM_DATA(param));
+            PutDrawText(PARAM_TEXT(param), gBg0Tm + TM_OFFSET(num * 12 + 7, 8 + (param - MANIM_DEBUG_PARAM_HITS) * 2), text_color, 16, 0, gManimDebugHitKindNameLut[PARAM_DATA(param)]);
+            EnableBgSync(BG0_SYNC_BIT);
+            break;
+    }
+
+    #undef PARAM_TEXT
+    #undef PARAM_DATA
+}
+
+void func_fe6_08063CF4(struct GenericProc * proc)
+{
+    Proc_EndEach(ProcScr_DebugMonitor);
+
+    proc->unk64 = 0;
+    proc->unk66 = 0;
+
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_JID] = JID_ROY;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_PID] = PID_ROY;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_IID] = IID_IRONSWORD;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_X] = 4;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_Y] = 8;
+
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_JID] = JID_MERCENARY;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_PID] = PID_LILINA;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_IID] = IID_BINDINGBLADE;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_X] = 5;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_Y] = 8;
+
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_HITS + 0] = MANIM_DEBUG_HIT_KIND_REGULAR;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_HITS + 1] = MANIM_DEBUG_HIT_KIND_CRIT;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_HITS + 2] = MANIM_DEBUG_HIT_KIND_NONE;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_HITS + 3] = MANIM_DEBUG_HIT_KIND_NONE;
+    gManimDebugSt->ent[0].data[MANIM_DEBUG_PARAM_HITS + 4] = MANIM_DEBUG_HIT_KIND_NONE;
+
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_HITS + 0] = MANIM_DEBUG_HIT_KIND_REGULAR;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_HITS + 1] = MANIM_DEBUG_HIT_KIND_NONE;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_HITS + 2] = MANIM_DEBUG_HIT_KIND_NONE;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_HITS + 3] = MANIM_DEBUG_HIT_KIND_NONE;
+    gManimDebugSt->ent[1].data[MANIM_DEBUG_PARAM_HITS + 4] = MANIM_DEBUG_HIT_KIND_NONE;
+}
+
+void func_fe6_08063EF0(struct GenericProc * proc)
+{
+    int i, j;
+
+    EndAllMus();
+    ResetText();
+
+    SetBlendConfig(BLEND_EFFECT_BRIGHTEN, 8, 8, 0);
+    SetBlendTargetA(0, 1, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 1, 1);
+    SetWinEnable(0, 0, 0);
+
+    PutUiWindowFrame(0, 0, 29, 19, UI_WINDOW_FILL);
+
+    for (i = 0; gManimDebugParamLabelLut[i] != NULL; i++)
+    {
+        PutString(gBg0Tm + TM_OFFSET(1, i * 2), 0, gManimDebugParamLabelLut[i]);
+    }
+
+    for (i = 0; i < MAX_MANIM_DEBUG_PARAM; i++)
+    {
+        for (j = 0; j < 2; ++j)
+        {
+            InitTextDb(&gManimDebugSt->ent[j].text[i], gManimDebugParamInfoTable[i].text_width);
+
+            if (j == proc->unk64 && i == proc->unk66)
+                func_fe6_08063894(j, i, TEXT_COLOR_SYSTEM_WHITE);
+            else
+                func_fe6_08063894(j, i, TEXT_COLOR_SYSTEM_GRAY);
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+void func_fe6_080640D0(struct GenericProc * proc)
+{
+    int actor_prev = proc->unk64;
+    int param_prev = proc->unk66;
+    int step;
+
+    if (gKeySt->pressed & KEY_BUTTON_START)
+    {
+        if (!func_fe6_080646E4())
+            return;
+
+        Proc_Break(proc);
+    }
+
+    if (gKeySt->held & KEY_BUTTON_R)
+        step = 10;
+    else
+        step = 1;
+
+    if (gKeySt->repeated & KEY_BUTTON_A)
+    {
+        gManimDebugSt->ent[proc->unk64].data[proc->unk66] += step;
+
+        if (gManimDebugSt->ent[proc->unk64].data[proc->unk66] >= gManimDebugParamInfoTable[proc->unk66].max)
+        {
+            if (step == 1)
+                gManimDebugSt->ent[proc->unk64].data[proc->unk66] = gManimDebugParamInfoTable[proc->unk66].min;
+            else
+                gManimDebugSt->ent[proc->unk64].data[proc->unk66] = gManimDebugParamInfoTable[proc->unk66].max - 1;
+        }
+    }
+
+    if (gKeySt->repeated & KEY_BUTTON_B)
+    {
+        gManimDebugSt->ent[proc->unk64].data[proc->unk66] -= step;
+
+        if (gManimDebugSt->ent[proc->unk64].data[proc->unk66] < gManimDebugParamInfoTable[proc->unk66].min)
+        {
+            if (step == 1)
+                gManimDebugSt->ent[proc->unk64].data[proc->unk66] = gManimDebugParamInfoTable[proc->unk66].max - 1;
+            else
+                gManimDebugSt->ent[proc->unk64].data[proc->unk66] = gManimDebugParamInfoTable[proc->unk66].min;
+        }
+    }
+
+    if (gKeySt->repeated & KEY_DPAD_LEFT)
+    {
+        if (proc->unk66 != MANIM_DEBUG_PARAM_Y)
+            proc->unk64 = 1 - proc->unk64;
+
+        proc->unk66 = gManimDebugParamInfoTable[proc->unk66].param_left;
+    }
+
+    if (gKeySt->repeated & KEY_DPAD_RIGHT)
+    {
+        if (proc->unk66 != MANIM_DEBUG_PARAM_X)
+            proc->unk64 = 1 - proc->unk64;
+
+        proc->unk66 = gManimDebugParamInfoTable[proc->unk66].param_right;
+    }
+
+    if (gKeySt->repeated & KEY_DPAD_UP)
+        proc->unk66 = gManimDebugParamInfoTable[proc->unk66].param_up;
+
+    if (gKeySt->repeated & KEY_DPAD_DOWN)
+        proc->unk66 = gManimDebugParamInfoTable[proc->unk66].param_down;
+
+    if (gKeySt->repeated & KEY_DPAD_ANY)
+        func_fe6_08063894(actor_prev, param_prev, TEXT_COLOR_SYSTEM_GRAY);
+
+    if (gKeySt->repeated & (KEY_DPAD_ANY | KEY_BUTTON_A | KEY_BUTTON_B))
+        func_fe6_08063894(proc->unk64, proc->unk66, TEXT_COLOR_SYSTEM_WHITE);
+}
+
+void func_fe6_080645F8(struct BattleUnit * bu, int num)
+{
+    bu->previous_hp = 30;
+    bu->unit.max_hp = 60;
+
+    bu->unit.pinfo = GetPInfo(gManimDebugSt->ent[num].data[MANIM_DEBUG_PARAM_PID]);
+    bu->unit.jinfo = GetJInfo(gManimDebugSt->ent[num].data[MANIM_DEBUG_PARAM_JID]);
+
+    bu->unit.x = gManimDebugSt->ent[num].data[MANIM_DEBUG_PARAM_X];
+    bu->unit.y = gManimDebugSt->ent[num].data[MANIM_DEBUG_PARAM_Y];
+
+    bu->weapon_before = gManimDebugSt->ent[num].data[MANIM_DEBUG_PARAM_IID];
+    bu->exp_gain = 0;
+}
+
+bool func_fe6_080646E4(void)
+{
+    // There's some gross variable reuse going on here
+
+    int hitnum, actnum, i;
+    struct BattleHit * hit;
+    int var_10;
+
+    hit = gBattleHits;
+
+    func_fe6_080645F8(&gBattleUnitA, 0);
+    func_fe6_080645F8(&gBattleUnitB, 1);
+
+    ClearBattleHits();
+
+    var_10 = 0;
+
+    for (hitnum = 0; hitnum < MAX_MANIM_DEBUG_HITS; ++hitnum)
+    {
+        for (actnum = 0; actnum < 2; ++actnum)
+        {
+            if (gManimDebugSt->ent[actnum].data[MANIM_DEBUG_PARAM_HITS + hitnum] != 0)
+            {
+                var_10 = 1;
+                break;
+            }
+        }
+
+        if (var_10 != 0)
+            break;
+    }
+
+    if (hitnum == MAX_MANIM_DEBUG_HITS && actnum == 2)
+        return FALSE;
+
+    for (i = hitnum * 2 + actnum; i < 10; i++)
+    {
+        hitnum = i / 2;
+        actnum = i & 1;
+
+        hit->info = BATTLE_HIT_INFO_ACTOR(actnum);
+
+        var_10 = gManimDebugSt->ent[actnum].data[5 + hitnum];
+
+        switch (var_10)
+        {
+            case MANIM_DEBUG_HIT_KIND_CRIT ... MANIM_DEBUG_HIT_KIND_MISS - 1:
+                hit->attributes |= BATTLE_HIT_ATTR_CRIT;
+                hit->damage = 20;
+                break;
+
+            case MANIM_DEBUG_HIT_KIND_REGULAR ... MANIM_DEBUG_HIT_KIND_CRIT - 1:
+                hit->damage = 10;
+                break;
+
+            case MANIM_DEBUG_HIT_KIND_MISS:
+                hit->attributes |= BATTLE_HIT_ATTR_MISS;
+                break;
+        }
+
+        switch (var_10)
+        {
+            case MANIM_DEBUG_HIT_KIND_REGULAR_DEVIL:
+            case MANIM_DEBUG_HIT_KIND_CRIT_DEVIL:
+                hit->attributes |= BATTLE_HIT_ATTR_DEVIL;
+                break;
+                break;
+
+            case MANIM_DEBUG_HIT_KIND_REGULAR_HPSTEAL:
+            case MANIM_DEBUG_HIT_KIND_CRIT_HPSTEAL:
+                hit->attributes |= BATTLE_HIT_ATTR_HPSTEAL;
+                break;
+                break;
+
+            case MANIM_DEBUG_HIT_KIND_REGULAR_POISON:
+            case MANIM_DEBUG_HIT_KIND_CRIT_POISON:
+                hit->attributes |= BATTLE_HIT_ATTR_POISON;
+                break;
+                break;
+        }
+
+        switch (var_10)
+        {
+            case MANIM_DEBUG_HIT_KIND_NONE:
+                continue;
+
+            default:
+                hit++;
+        }
+    }
+
+    hit->info |= BATTLE_HIT_INFO_END;
+    return TRUE;
+}
+
+void func_fe6_0806495C(struct GenericProc * proc)
+{
+    TmFill(gBg0Tm, 0);
+    TmFill(gBg1Tm, 0);
+    EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
+    func_fe6_080627D0();
+}
+
+void func_fe6_08064994(struct Unit * unit)
+{
+    Decompress(gUnk_082DB1C0, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_180);
+
+    StartSpriteAnimProc(gUnk_082DB2B0,
+        UNIT_SCREEN_TILE_X(unit) * 8 + 8,
+        UNIT_SCREEN_TILE_Y(unit) * 8 + 16,
+        OAM2_CHR(OBJCHR_MANIM_180), 0, 2);
+}
+
+void func_fe6_08064A10(struct Unit * unit)
+{
+    Decompress(gUnk_082DB418, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_180);
+
+    StartSpriteAnimProc(gUnk_082DB55C,
+        UNIT_SCREEN_TILE_X(unit) * 8 + 8,
+        UNIT_SCREEN_TILE_Y(unit) * 8 + 16,
+        OAM2_CHR(OBJCHR_MANIM_180), 0, 2);
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866510C[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08064B20),
+    PROC_WHILE(SpriteAnimProcExists),
+    PROC_END,
+};
+
+void func_fe6_08064A8C(struct Unit * unit, int arg_04)
+{
+    struct ManimEffectProc * proc;
+
+    proc = SpawnProc(ProcScr_Unk_0866510C, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->x = UNIT_SCREEN_TILE_X(unit) * 8 + 8;
+    proc->y = UNIT_SCREEN_TILE_Y(unit) * 8 - 8;
+    proc->unk_48 = arg_04 ^ 1;
+}
+
 /*
+
+	thumb_func_start func_fe6_08064A8C
+func_fe6_08064A8C: @ 0x08064A8C
+	push {r4, r7, lr}
+	sub sp, #0xc
+	mov r7, sp
+	str r0, [r7]
+	str r1, [r7, #4]
+	ldr r1, .L08064B18 @ =ProcScr_Unk_0866510C
+	adds r0, r1, #0
+	movs r1, #3
+	bl SpawnProc
+	str r0, [r7, #8]
+	ldr r0, [r7, #8]
+	ldr r1, [r7]
+	str r1, [r0, #0x2c]
+	ldr r0, [r7, #8]
+	ldr r2, [r7]
+	movs r1, #0xe
+	ldrsb r1, [r2, r1]
+	ldr r2, .L08064B1C @ =gBmSt
+	movs r4, #0xc
+	ldrsh r3, [r2, r4]
+	asrs r2, r3, #4
+	adds r4, r2, #0
+	lsls r3, r4, #0x10
+	asrs r2, r3, #0x10
+	subs r1, r1, r2
+	lsls r2, r1, #1
+	adds r1, r2, #0
+	lsls r2, r1, #3
+	adds r1, r2, #0
+	adds r1, #8
+	str r1, [r0, #0x30]
+	ldr r0, [r7, #8]
+	ldr r2, [r7]
+	movs r1, #0xf
+	ldrsb r1, [r2, r1]
+	ldr r2, .L08064B1C @ =gBmSt
+	movs r4, #0xe
+	ldrsh r3, [r2, r4]
+	asrs r2, r3, #4
+	adds r4, r2, #0
+	lsls r3, r4, #0x10
+	asrs r2, r3, #0x10
+	subs r1, r1, r2
+	lsls r2, r1, #1
+	adds r1, r2, #0
+	lsls r2, r1, #3
+	adds r1, r2, #0
+	subs r1, #8
+	str r1, [r0, #0x34]
+	ldr r0, [r7, #8]
+	ldr r2, [r7, #4]
+	adds r1, r2, #0
+	movs r2, #1
+	eors r1, r2
+	adds r2, r0, #0
+	adds r0, #0x48
+	ldrh r2, [r0]
+	movs r3, #0
+	ands r2, r3
+	adds r3, r2, #0
+	adds r2, r3, #0
+	orrs r2, r1
+	adds r1, r2, #0
+	strh r1, [r0]
+	add sp, #0xc
+	pop {r4, r7}
+	pop {r0}
+	bx r0
+	.align 2, 0
+.L08064B18: .4byte ProcScr_Unk_0866510C
+.L08064B1C: .4byte gBmSt
 
 */

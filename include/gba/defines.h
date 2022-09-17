@@ -3,20 +3,6 @@
 
 #include <stddef.h>
 
-#define TRUE  1
-#define FALSE 0
-
-#define IWRAM_DATA __attribute__((section("iwram_data")))
-#define EWRAM_DATA __attribute__((section("ewram_data")))
-
-#define EWRAM_OVERLAY(id) __attribute__((section("ewram_overlay_" # id)))
-
-#define CONST_DATA __attribute__((section(".data")))
-
-#define ALIGNED(n) __attribute__((aligned(n)))
-
-#define NAKEDFUNC __attribute__((naked))
-
 #define SOUND_INFO_PTR (*(struct SoundInfo **)0x3007FF0)
 #define INTR_CHECK     (*(u16 *)0x3007FF8)
 #define INTR_VECTOR    (*(void **)0x3007FFC)

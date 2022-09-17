@@ -3,7 +3,7 @@
 
 #include "ai-script.h"
 
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/jids.h"
 #include "constants/pids.h"
 #include "constants/chapters.h"

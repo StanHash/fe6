@@ -129,4 +129,6 @@ enum
     IID_RUNESWORD = 0x7D,
     IID_SPEAR = 0x7E,
     IID_TOMAHAWK = 0x7F,
+
+    MAX_IIDS,
 };

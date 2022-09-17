@@ -25,32 +25,27 @@ enum
     UNIT_ATTR_DANCE = (1 << 4),
     UNIT_ATTR_PLAY = (1 << 5),
     UNIT_ATTR_CRITBONUS = (1 << 6),
-
     UNIT_ATTR_BALLISTA = (1 << 7),
     UNIT_ATTR_PROMOTED = (1 << 8),
     UNIT_ATTR_SUPPLY = (1 << 9),
     UNIT_ATTR_MOUNT_ICON = (1 << 10),
     UNIT_ATTR_WYVERN_ICON = (1 << 11),
     UNIT_ATTR_PEGASUS_ICON = (1 << 12),
-
-    UNIT_ATTR_13 = (1 << 13),
-
+    UNIT_ATTR_LORD = (1 << 13),
     UNIT_ATTR_FEMALE = (1 << 14),
     UNIT_ATTR_BOSS = (1 << 15),
-    UNIT_ATTR_LOCK_1 = (1 << 16),
-    UNIT_ATTR_LOCK_2 = (1 << 17),
+    UNIT_ATTR_LOCK_ROY = (1 << 16),
+    UNIT_ATTR_LOCK_MYRM = (1 << 17),
     UNIT_ATTR_LOCK_DRAGON = (1 << 18),
-    UNIT_ATTR_LOCK_3 = (1 << 19),
-
-    UNIT_ATTR_TATTACK_A = (1 << 21),
-    UNIT_ATTR_TATTACK_B = (1 << 22),
-
-    UNIT_ATTR_BIT23 = (1 << 23),
-    UNIT_ATTR_BIT24 = (1 << 24),
+    UNIT_ATTR_LOCK_ZEPHIEL = (1 << 19),
+    UNIT_ATTR_TRIANGLE_ATTACK_PEGASI = (1 << 21),
+    UNIT_ATTR_TRIANGLE_ATTACK_ARMORS = (1 << 22),
+    UNIT_ATTR_ALT_PINFO = (1 << 23),
+    UNIT_ATTR_MAJOR_BOSS = (1 << 24),
 
     // Helpers
     UNIT_ATTR_REFRESHER = UNIT_ATTR_DANCE + UNIT_ATTR_PLAY,
-    UNIT_ATTR_TATTACK_ANY = UNIT_ATTR_TATTACK_A + UNIT_ATTR_TATTACK_B,
+    UNIT_ATTR_TRIANGLE_ATTACK_ANY = UNIT_ATTR_TRIANGLE_ATTACK_PEGASI + UNIT_ATTR_TRIANGLE_ATTACK_ARMORS,
 };
 
 enum
@@ -279,8 +274,8 @@ char const * GetUnitRescueName(struct Unit * unit);
 char const * GetUnitStatusName(struct Unit * unit);
 void SetUnitStatus(struct Unit * unit, int status);
 struct Unit * GetUnit(int uid);
-struct JInfo const * GetJobInfo(int jid);
-struct PInfo const * GetPersonInfo(int pid);
+struct JInfo const * GetJInfo(int jid);
+struct PInfo const * GetPInfo(int pid);
 int GetUnitMapSprite(struct Unit * unit);
 bool UnitAddItem(struct Unit * unit, int item);
 void UnitRemoveItem(struct Unit * unit, int slot);

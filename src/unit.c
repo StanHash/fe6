@@ -16,7 +16,7 @@
 #include "ai-utility.h"
 
 #include "constants/terrains.h"
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/map-sprites.h"
 #include "constants/icons.h"
 #include "constants/faces.h"
@@ -39,7 +39,7 @@ inline struct Unit * GetUnit(int uid)
     return gUnitLut[uid & 0xFF];
 }
 
-inline struct JInfo const * GetJobInfo(int jid)
+inline struct JInfo const * GetJInfo(int jid)
 {
     if (jid < 1)
         return NULL;
@@ -47,7 +47,7 @@ inline struct JInfo const * GetJobInfo(int jid)
     return JobInfoTable + (jid - 1);
 }
 
-inline struct PInfo const * GetPersonInfo(int pid)
+inline struct PInfo const * GetPInfo(int pid)
 {
     if (pid < 1)
         return NULL;
@@ -432,12 +432,12 @@ void UnitInitFromInfo(struct Unit * unit, struct UnitInfo const * info)
 {
     int i;
 
-    unit->pinfo = GetPersonInfo(info->pid);
+    unit->pinfo = GetPInfo(info->pid);
 
     if (info->jid != 0)
-        unit->jinfo = GetJobInfo(info->jid);
+        unit->jinfo = GetJInfo(info->jid);
     else
-        unit->jinfo = GetJobInfo(unit->pinfo->jid_default);
+        unit->jinfo = GetJInfo(unit->pinfo->jid_default);
 
     unit->level = info->level;
 
@@ -480,8 +480,8 @@ void UnitInitStats(struct Unit * unit, struct PInfo const * pinfo)
 
 void func_fe6_08017764(struct Unit * unit)
 {
-    if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BIT23)
-        unit->pinfo = GetPersonInfo(unit->pinfo->id - 1);
+    if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_ALT_PINFO)
+        unit->pinfo = GetPInfo(unit->pinfo->id - 1);
 }
 
 void UnitInitSupports(struct Unit * unit)

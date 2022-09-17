@@ -342,7 +342,7 @@ int GetUnitAffinityIcon(struct Unit * unit)
 
 int GetAffinityIconByPid(int pid)
 {
-    int affinity = GetPersonInfo(pid)->affinity;
+    int affinity = GetPInfo(pid)->affinity;
 
     if (!affinity)
         return -1;

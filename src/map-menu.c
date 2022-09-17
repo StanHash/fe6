@@ -32,7 +32,7 @@
 #include "constants/video-global.h"
 #include "constants/terrains.h"
 #include "constants/pids.h"
-#include "constants/items.h"
+#include "constants/iids.h"
 #include "constants/songs.h"
 #include "constants/msg.h"
 
@@ -709,7 +709,7 @@ fu8 UnitActionMenu_Seize_Available(struct MenuEntInfo const * info, int id)
     if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
         return MENU_ENTRY_HIDDEN;
 
-    if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_13))
+    if (!(UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_LORD))
         return MENU_ENTRY_HIDDEN;
 
     return GetAvailableTileEventCommand(gActiveUnit->x, gActiveUnit->y) == TILE_COMMAND_SEIZE

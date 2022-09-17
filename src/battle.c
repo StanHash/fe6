@@ -688,7 +688,7 @@ bool BattleCheckTriangleAttack(struct BattleUnit * attacker, struct BattleUnit *
 
     int i, count = 0;
 
-    int triangleAttackAttr = UNIT_ATTRIBUTES(&attacker->unit) & UNIT_ATTR_TATTACK_ANY;
+    int triangleAttackAttr = UNIT_ATTRIBUTES(&attacker->unit) & UNIT_ATTR_TRIANGLE_ATTACK_ANY;
 
     int x = defender->unit.x;
     int y = defender->unit.y;
@@ -767,7 +767,7 @@ void BattleGenerateHitAttributes(struct BattleUnit * attacker)
 
 void BattleGenerateHitTriangleAttack(struct BattleUnit * attacker, struct BattleUnit * defender)
 {
-    if (!(UNIT_ATTRIBUTES(&attacker->unit) & UNIT_ATTR_TATTACK_ANY))
+    if (!(UNIT_ATTRIBUTES(&attacker->unit) & UNIT_ATTR_TRIANGLE_ATTACK_ANY))
         return;
 
     if (gBattleSt.range != 1)
@@ -845,7 +845,7 @@ void BattleGenerateHitEffects(struct BattleUnit * attacker, struct BattleUnit * 
 
     gBattleHitIt->damage = gBattleSt.damage;
 
-    if (!(gBattleHitIt->attributes & BATTLE_HIT_ATTR_MISS) || attacker->weapon_attributes & (ITEM_ATTR_MAGIC | ITEM_ATTR_7))
+    if (!(gBattleHitIt->attributes & BATTLE_HIT_ATTR_MISS) || attacker->weapon_attributes & (ITEM_ATTR_MAGIC | ITEM_ATTR_UNCOUNTERABLE))
     {
         attacker->weapon = GetItemAfterUse(attacker->weapon);
 
@@ -857,7 +857,7 @@ void BattleGenerateHitEffects(struct BattleUnit * attacker, struct BattleUnit * 
 bool BattleGenerateHit(struct BattleUnit * attacker, struct BattleUnit * defender)
 {
     if (attacker == &gBattleUnitB)
-        gBattleHitIt->info |= BATTLE_HIT_INFO_RETALIATION;
+        gBattleHitIt->info |= BATTLE_HIT_INFO_ACTORB;
 
     BattleUpdateBattleStats(attacker, defender);
 
@@ -1025,7 +1025,7 @@ void UnitPromote(struct Unit * unit)
 
     // promote!
 
-    unit->jinfo = GetJobInfo(unit->jinfo->jid_promote);
+    unit->jinfo = GetJInfo(unit->jinfo->jid_promote);
 
     // add to stats the base of the new jinfo
 
@@ -1266,7 +1266,7 @@ int GetUnitPowerLevel(struct Unit * unit)
     int result = unit->level * unit->jinfo->power_level;
 
     if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_PROMOTED)
-        result += 20 * GetJobInfo(unit->jinfo->jid_promote)->power_level;
+        result += 20 * GetJInfo(unit->jinfo->jid_promote)->power_level;
 
     return result;
 }
@@ -1308,7 +1308,7 @@ int GetBattleUnitExpGain(struct BattleUnit * bu, struct BattleUnit * other)
 {
     int result;
 
-    if (!CanBattleUnitGainExp(bu) || bu->unit.hp == 0 || UNIT_ATTRIBUTES(&other->unit) & UNIT_ATTR_BIT24)
+    if (!CanBattleUnitGainExp(bu) || bu->unit.hp == 0 || UNIT_ATTRIBUTES(&other->unit) & UNIT_ATTR_MAJOR_BOSS)
         return 0;
 
     if (!bu->dealt_damage)
@@ -1454,7 +1454,7 @@ void BattleInitTargetCanCounter(void)
 {
     // Target cannot counter if either units are using "uncounterable" weapons
 
-    if ((gBattleUnitA.weapon_attributes | gBattleUnitB.weapon_attributes) & ITEM_ATTR_7)
+    if ((gBattleUnitA.weapon_attributes | gBattleUnitB.weapon_attributes) & ITEM_ATTR_UNCOUNTERABLE)
     {
         gBattleUnitB.weapon = 0;
         gBattleUnitB.has_inventory_weapon = FALSE;
@@ -1478,8 +1478,8 @@ void InitObstacleBattleUnit(void)
 
     gBattleUnitB.unit.id = 0;
 
-    gBattleUnitB.unit.pinfo = GetPersonInfo(PID_WALL);
-    gBattleUnitB.unit.jinfo = GetJobInfo(JID_OBSTACLE);
+    gBattleUnitB.unit.pinfo = GetPInfo(PID_WALL);
+    gBattleUnitB.unit.jinfo = GetJInfo(JID_OBSTACLE);
 
     gBattleUnitB.unit.max_hp = GetChapterInfo(gPlaySt.chapter)->wall_hp;
     gBattleUnitB.unit.hp = gAction.extra;
