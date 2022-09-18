@@ -120,14 +120,14 @@ void StartTemporaryLock(ProcPtr proc, int arg_1);
 int NumberToString(int number, char * buf);
 struct Text * PutStringCentered(u16 * tm, int color, int width, char const * str);
 struct Text * PutString(u16 * tm, int color, char const * str);
-// func_fe6_08014D50
+void func_fe6_08014D50(void);
 // func_fe6_08014D60
-// func_fe6_08014D9C
-// func_fe6_08014DB4
+void func_fe6_08014D9C(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent);
+void func_fe6_08014DB4(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent);
 // func_fe6_08014DCC
-// func_fe6_08014E30
+void func_fe6_08014E30(u16 * tm, int x, int y, u16 tileref, int width, int height);
 // func_fe6_08014E98
-// func_fe6_08014F70
+void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7);
 // func_fe6_0801501C
 // func_fe6_080150DC
 void CallDelayed(void (* func)(void), int delay);

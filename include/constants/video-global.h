@@ -41,6 +41,7 @@ enum
     BGCHR_BATTLEPREVIEW_FRAME = 0x200,
 
     BGCHR_MANIM_1 = 1,
+    BGCHR_MANIM_140 = 0x140,
     BGCHR_MANIM_200 = 0x200,
 };
 
@@ -80,6 +81,7 @@ enum
     BGPAL_UI_STATBAR = 6,
 
     BGPAL_MANIM_1 = 1, // .. 2
+    BGPAL_MANIM_4 = 4,
     BGPAL_MANIM_5 = 5,
 };
 
@@ -96,6 +98,9 @@ enum
     OBJCHR_DEBUGTEXT_DEFAULT = 0x180,
 
     OBJCHR_MU_180 = 0x180,
+
+    OBJCHR_MANIM_180 = 0x180,
+    OBJCHR_MANIM_1C0 = 0x1C0,
 
     OBJCHR_TRAPFX = 0x240,
 
@@ -140,6 +145,8 @@ enum
 
     OBJPAL_TRADEMENU_8 = 8,
 
+    OBJPAL_MANIM_3 = 3,
+    OBJPAL_MANIM_4 = 4,
     OBJPAL_MANIM_SPECIALMU = 8, // .. 9
 
     OBJPAL_7 = 7,

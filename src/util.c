@@ -1474,31 +1474,31 @@ void func_fe6_08014D50(void)
     Proc_EndEach(ProcScr_085C4E64);
 }
 
-struct UnkProc_085C4E64 * func_fe6_08014D60(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+struct UnkProc_085C4E64 * func_fe6_08014D60(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
 {
     struct UnkProc_085C4E64 * proc;
 
     proc = SpawnProc(ProcScr_085C4E64, parent);
 
     proc->colors = colors;
-    proc->palOffset = palOffset;
-    proc->colorCount = palSize / 2;
-    proc->clock = arg_3;
-    proc->clockEnd = arg_3;
+    proc->palOffset = pal_offset;
+    proc->colorCount = pal_size / 2;
+    proc->clock = interval;
+    proc->clockEnd = interval;
     proc->counter = 0;
     proc->reverseOrder = 0;
 
     return proc;
 }
 
-void func_fe6_08014D9C(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014D9C(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
 {
-    func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 0;
+    func_fe6_08014D60(colors, pal_offset, pal_size, interval, parent)->reverseOrder = FALSE;
 }
 
-void func_fe6_08014DB4(u16 const * colors, int palOffset, int palSize, int arg_3, ProcPtr parent)
+void func_fe6_08014DB4(u16 const * colors, int pal_offset, int pal_size, int interval, ProcPtr parent)
 {
-    func_fe6_08014D60(colors, palOffset, palSize, arg_3, parent)->reverseOrder = 1;
+    func_fe6_08014D60(colors, pal_offset, pal_size, interval, parent)->reverseOrder = TRUE;
 }
 
 void func_fe6_08014DCC(struct UnkProc_085C4E64 * proc)
@@ -1539,11 +1539,11 @@ void func_fe6_08014E30(u16 * tm, int x, int y, u16 tileref, int width, int heigh
     }
 }
 
-#if NONMATCHING
-
 void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
 {
     int ix, iy;
+
+    u16 const * src_1 = src;
 
     if (hflip)
     {
@@ -1553,7 +1553,7 @@ void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int heigh
             {
                 if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
                 {
-                    tm[TM_OFFSET(x+ix, y+iy)] = (src[TM_OFFSET(width-1-ix, iy)] + tileref) ^ TILE_HFLIP;
+                    *(tm + (x + ix) + ((y + iy) * 0x20)) = (*(src_1 + (width - 1 - ix) + (iy * 0x20)) + tileref) ^ TILE_HFLIP;
                 }
             }
         }
@@ -1566,524 +1566,88 @@ void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int heigh
             {
                 if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
                 {
-                    tm[TM_OFFSET(x+ix, y+iy)] = src[TM_OFFSET(ix, iy)] + tileref;
+                    *(tm + (x + ix) + ((y + iy) * 0x20)) = *(src_1 + ix + (iy * 0x20)) + tileref;
                 }
             }
         }
     }
 }
 
-#else
-
-NAKEDFUNC
-void func_fe6_08014E98(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, bool hflip)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, sb\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        str r0, [sp]\n\
-        adds r7, r1, #0\n\
-        mov sl, r2\n\
-        ldr r0, [sp, #0x28]\n\
-        mov ip, r0\n\
-        ldr r0, [sp, #0x34]\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov sb, r3\n\
-        ldr r1, [sp, #0x30]\n\
-        str r1, [sp, #4]\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq .L08014F18\n\
-        movs r5, #0\n\
-        ldr r2, [sp, #0x2c]\n\
-        cmp r5, r2\n\
-        bge .L08014F60\n\
-    .L08014EC8:\n\
-        movs r2, #0\n\
-        adds r6, r5, #1\n\
-        cmp r2, ip\n\
-        bge .L08014F0E\n\
-        lsls r3, r5, #6\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #3\n\
-        mov r8, r0\n\
-    .L08014ED8:\n\
-        adds r0, r7, r2\n\
-        adds r4, r2, #1\n\
-        cmp r0, #0x1f\n\
-        bhi .L08014F08\n\
-        mov r2, sl\n\
-        adds r1, r2, r5\n\
-        cmp r1, #0x1f\n\
-        bhi .L08014F08\n\
-        lsls r1, r1, #6\n\
-        lsls r0, r0, #1\n\
-        ldr r2, [sp]\n\
-        adds r0, r0, r2\n\
-        adds r1, r1, r0\n\
-        mov r2, ip\n\
-        subs r0, r2, r4\n\
-        lsls r0, r0, #1\n\
-        ldr r2, [sp, #4]\n\
-        adds r0, r0, r2\n\
-        adds r0, r3, r0\n\
-        ldrh r0, [r0]\n\
-        add r0, sb\n\
-        mov r2, r8\n\
-        eors r0, r2\n\
-        strh r0, [r1]\n\
-    .L08014F08:\n\
-        adds r2, r4, #0\n\
-        cmp r2, ip\n\
-        blt .L08014ED8\n\
-    .L08014F0E:\n\
-        adds r5, r6, #0\n\
-        ldr r0, [sp, #0x2c]\n\
-        cmp r5, r0\n\
-        blt .L08014EC8\n\
-        b .L08014F60\n\
-    .L08014F18:\n\
-        movs r5, #0\n\
-        ldr r1, [sp, #0x2c]\n\
-        cmp r5, r1\n\
-        bge .L08014F60\n\
-        lsls r2, r7, #1\n\
-        mov r8, r2\n\
-    .L08014F24:\n\
-        movs r2, #0\n\
-        adds r6, r5, #1\n\
-        cmp r2, ip\n\
-        bge .L08014F58\n\
-        lsls r0, r5, #6\n\
-        ldr r1, [sp, #4]\n\
-        adds r4, r1, r0\n\
-        ldr r3, [sp]\n\
-        add r3, r8\n\
-    .L08014F36:\n\
-        adds r0, r7, r2\n\
-        cmp r0, #0x1f\n\
-        bhi .L08014F4E\n\
-        mov r1, sl\n\
-        adds r0, r1, r5\n\
-        cmp r0, #0x1f\n\
-        bhi .L08014F4E\n\
-        lsls r0, r0, #6\n\
-        adds r0, r0, r3\n\
-        ldrh r1, [r4]\n\
-        add r1, sb\n\
-        strh r1, [r0]\n\
-    .L08014F4E:\n\
-        adds r4, #2\n\
-        adds r3, #2\n\
-        adds r2, #1\n\
-        cmp r2, ip\n\
-        blt .L08014F36\n\
-    .L08014F58:\n\
-        adds r5, r6, #0\n\
-        ldr r2, [sp, #0x2c]\n\
-        cmp r5, r2\n\
-        blt .L08014F24\n\
-    .L08014F60:\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov sb, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-#if NONMATCHING
-
 void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
 {
     int ix, iy;
+
+    u16 const * src_1 = src;
 
     int r4 = Div(0x20, width);
+    int r6 = Div(arg_7, r4);
+    int r0 = DivRem(arg_7, r4);
 
-    src = src + TM_OFFSET(width * DivRem(arg_7, r4), height * Div(arg_7, r4));
+    src_1 = src_1 + (width * r0) + (r6 * height) * 32;
 
     for (iy = 0; iy < height; ++iy)
     {
         for (ix = 0; ix < width; ++ix)
         {
-            if ((x+ix) < 0 || (x+ix) >= 0x20)
-                continue;
-
-            if ((y+iy) < 0 || (y+iy) >= 0x20)
-                continue;
-
-            tm[TM_OFFSET(x+ix, y+iy)] = src[TM_OFFSET(ix, iy)] + tileref;
+            if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+            {
+                *(tm + (x + ix) + ((y + iy) * 32)) = *(src_1 + ix + (iy * 32)) + tileref;
+            }
         }
     }
 }
 
-#else
-
-NAKEDFUNC
-void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, sb\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #8\n\
-        str r0, [sp]\n\
-        mov sb, r1\n\
-        str r2, [sp, #4]\n\
-        ldr r7, [sp, #0x28]\n\
-        ldr r5, [sp, #0x34]\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        mov sl, r3\n\
-        ldr r0, [sp, #0x30]\n\
-        mov r8, r0\n\
-        movs r0, #0x20\n\
-        adds r1, r7, #0\n\
-        bl Div\n\
-        adds r4, r0, #0\n\
-        adds r0, r5, #0\n\
-        adds r1, r4, #0\n\
-        bl Div\n\
-        adds r6, r0, #0\n\
-        adds r0, r5, #0\n\
-        adds r1, r4, #0\n\
-        bl DivRem\n\
-        adds r1, r7, #0\n\
-        muls r1, r0, r1\n\
-        lsls r1, r1, #1\n\
-        add r1, r8\n\
-        ldr r2, [sp, #0x2c]\n\
-        adds r0, r6, #0\n\
-        muls r0, r2, r0\n\
-        lsls r0, r0, #6\n\
-        adds r1, r1, r0\n\
-        mov r8, r1\n\
-        movs r5, #0\n\
-        cmp r5, r2\n\
-        bge .L0801500A\n\
-        mov r0, sb\n\
-        lsls r0, r0, #1\n\
-        mov ip, r0\n\
-    .L08014FCC:\n\
-        movs r4, #0\n\
-        adds r6, r5, #1\n\
-        cmp r4, r7\n\
-        bge .L08015002\n\
-        lsls r0, r5, #6\n\
-        mov r1, r8\n\
-        adds r3, r1, r0\n\
-        ldr r2, [sp]\n\
-        add r2, ip\n\
-    .L08014FDE:\n\
-        mov r1, sb\n\
-        adds r0, r1, r4\n\
-        cmp r0, #0x1f\n\
-        bhi .L08014FF8\n\
-        ldr r1, [sp, #4]\n\
-        adds r0, r1, r5\n\
-        cmp r0, #0x1f\n\
-        bhi .L08014FF8\n\
-        lsls r0, r0, #6\n\
-        adds r0, r0, r2\n\
-        ldrh r1, [r3]\n\
-        add r1, sl\n\
-        strh r1, [r0]\n\
-    .L08014FF8:\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, r7\n\
-        blt .L08014FDE\n\
-    .L08015002:\n\
-        adds r5, r6, #0\n\
-        ldr r2, [sp, #0x2c]\n\
-        cmp r5, r2\n\
-        blt .L08014FCC\n\
-    .L0801500A:\n\
-        add sp, #8\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov sb, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, \n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-#if NONMATCHING
-
-void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
+void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 const * src, int arg_7)
 {
     int ix, iy;
-    int r9;
+    int r0, r5;
 
-    u16 const * srcb;
+    u16 const * src_1 = (u16 const *) src;
 
-    int a, b;
+    u16 r9 = *src + 1;
 
-    r9 = src[0] + 1;
-    srcb = src + 1;
+    src_1 = src_1 + 1;
 
-    a = Div(r9, width);
-    b = Div(arg_7, a);
+    r5 = Div(r9, width);
+    r0 = Div(arg_7, r5);
 
-    srcb = srcb + width * (arg_7 - a * b) + ((b * height) << 5);
+    src_1 = src_1 + width * (arg_7 - r5 * r0) + ((r0 * height) * 0x20);
 
     for (iy = 0; iy < height; ++iy)
     {
         for (ix = 0; ix < width; ++ix)
         {
-            if (!(x+ix >= 0 && x+ix < 0x20))
-                continue;
-
-            if (!(y+iy >= 0 && y+iy < 0x20))
-                continue;
-
-            tm[TM_OFFSET(x, y) + TM_OFFSET(ix, iy)] = srcb[r9 * ((height - 1 - iy)) + ix] + tileref;
+            if ((x+ix >= 0 && x+ix < 0x20) && (y+iy >= 0 && y+iy < 0x20))
+            {
+                *(tm + (x + ix) + ((y + iy) * 32)) = *(src_1 + ix + (r9 * (height - iy - 1))) + tileref;
+            }
         }
     }
 }
 
-#else
-
-NAKEDFUNC
-void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7)
+void func_fe6_080150DC(u16 * tm, int x, int y, u32 const * arg_3, u16 tileref)
 {
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, sb\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        sub sp, #0x14\n\
-        str r0, [sp]\n\
-        mov sl, r1\n\
-        str r2, [sp, #4]\n\
-        ldr r0, [sp, #0x34]\n\
-        mov r8, r0\n\
-        ldr r4, [sp, #0x40]\n\
-        lsls r3, r3, #0x10\n\
-        lsrs r3, r3, #0x10\n\
-        str r3, [sp, #8]\n\
-        ldr r1, [sp, #0x3c]\n\
-        ldrb r2, [r1]\n\
-        adds r2, #1\n\
-        mov sb, r2\n\
-        adds r1, #2\n\
-        str r1, [sp, #0xc]\n\
-        mov r0, sb\n\
-        mov r1, r8\n\
-        bl Div\n\
-        adds r5, r0, #0\n\
-        adds r0, r4, #0\n\
-        adds r1, r5, #0\n\
-        bl Div\n\
-        adds r1, r5, #0\n\
-        muls r1, r0, r1\n\
-        subs r4, r4, r1\n\
-        mov r1, r8\n\
-        muls r1, r4, r1\n\
-        lsls r1, r1, #1\n\
-        ldr r6, [sp, #0xc]\n\
-        adds r1, r6, r1\n\
-        ldr r7, [sp, #0x38]\n\
-        muls r0, r7, r0\n\
-        lsls r0, r0, #6\n\
-        adds r1, r1, r0\n\
-        str r1, [sp, #0xc]\n\
-        movs r5, #0\n\
-        cmp r5, r7\n\
-        bge .L080150CC\n\
-        mov r0, sl\n\
-        lsls r0, r0, #1\n\
-        mov ip, r0\n\
-    .L0801507E:\n\
-        movs r4, #0\n\
-        adds r1, r5, #1\n\
-        str r1, [sp, #0x10]\n\
-        cmp r4, r8\n\
-        bge .L080150C4\n\
-        ldr r2, [sp, #0x38]\n\
-        subs r0, r2, r5\n\
-        subs r0, #1\n\
-        mov r6, sb\n\
-        muls r6, r0, r6\n\
-        adds r0, r6, #0\n\
-        lsls r0, r0, #1\n\
-        ldr r7, [sp, #0xc]\n\
-        adds r3, r7, r0\n\
-        ldr r2, [sp]\n\
-        add r2, ip\n\
-    .L0801509E:\n\
-        mov r1, sl\n\
-        adds r0, r1, r4\n\
-        cmp r0, #0x1f\n\
-        bhi .L080150BA\n\
-        ldr r6, [sp, #4]\n\
-        adds r0, r6, r5\n\
-        cmp r0, #0x1f\n\
-        bhi .L080150BA\n\
-        lsls r0, r0, #6\n\
-        adds r0, r0, r2\n\
-        ldrh r7, [r3]\n\
-        ldr r6, [sp, #8]\n\
-        adds r1, r7, r6\n\
-        strh r1, [r0]\n\
-    .L080150BA:\n\
-        adds r3, #2\n\
-        adds r2, #2\n\
-        adds r4, #1\n\
-        cmp r4, r8\n\
-        blt .L0801509E\n\
-    .L080150C4:\n\
-        ldr r5, [sp, #0x10]\n\
-        ldr r7, [sp, #0x38]\n\
-        cmp r5, r7\n\
-        blt .L0801507E\n\
-    .L080150CC:\n\
-        add sp, #0x14\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov sb, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .syntax divided\n\
-    ");
-}
+    i16 iy, ix;
 
-#endif // NONMATCHING
+    u16 const * r2 = ((u16 const *) arg_3) + 1;
 
-#if NONMATCHING
+    i16 r9 = 0xFF & (((u32 const *) arg_3)[0] >> 0);
+    i16 r3 = 0xFF & (((u32 const *) arg_3)[0] >> 8);
 
-void func_fe6_080150DC(u16 * tm, int x, int y, u16 const * arg_3, u16 arg_4)
-{
-    u16 const * r2 = arg_3 + 1;
-
-    int r9 = ((*(int*) arg_3) & 0x00FF);
-    int r3 = ((*(int*) arg_3) & 0xFF00) >> 8;
-
-    short i, j;
-
-    for (i = r3; i >= 0; --i)
+    for (iy = r3; iy >= 0; --iy)
     {
-        u16 * r1;
-
-        if (!(y+i >= 0 && y+i < 0x20))
-            continue;
-
-        r1 = tm + TM_OFFSET(x, y+i);
-
-        for (j = r9; j >= 0; --j, r2++, r1++)
+        if ((y + iy >= 0 && y + iy < 0x20))
         {
-            if (x+j >= 0 && x+j < 0x20)
-                *r1 = *r2 + arg_4;
+            u16 * r1 = x + (y + iy) * 32 + tm;
+
+            for (ix = r9; ix >= 0; --ix, r2++, r1++)
+            {
+                if (x+ix >= 0 && x+ix < 0x20)
+                    *(r1) = *r2 + tileref;
+            }
         }
     }
 }
-
-#else
-
-NAKEDFUNC
-void func_fe6_080150DC(u16 * tm, int x, int y, u16 const * arg_3, u16 arg_4)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sb\n\
-        mov r6, r8\n\
-        push {r6, r7}\n\
-        mov r8, r0\n\
-        adds r5, r1, #0\n\
-        mov ip, r2\n\
-        ldr r0, [sp, #0x1c] @ arg_4\n\
-        lsls r0, r0, #0x10\n\
-        lsrs r6, r0, #0x10\n\
-        adds r2, r3, #2\n\
-        movs r1, #0xff\n\
-        ldr r0, [r3]\n\
-        ldrb r3, [r3]\n\
-        mov sb, r3\n\
-        lsrs r3, r0, #8\n\
-        ands r3, r1\n\
-        lsls r1, r3, #0x10\n\
-        asrs r0, r1, #0x10\n\
-        cmp r0, #0\n\
-        blt .L0801514A\n\
-    .L08015106:\n\
-        asrs r0, r1, #0x10\n\
-        add r0, ip\n\
-        lsls r4, r3, #0x10\n\
-        cmp r0, #0x1f\n\
-        bhi .L0801513E\n\
-        lsls r0, r0, #5\n\
-        adds r0, r5, r0\n\
-        lsls r0, r0, #1\n\
-        mov r3, r8\n\
-        adds r1, r3, r0\n\
-        mov r7, sb\n\
-        lsls r3, r7, #0x10\n\
-        asrs r0, r3, #0x10\n\
-        cmp r0, #0\n\
-        blt .L0801513E\n\
-    .L08015124:\n\
-        asrs r3, r3, #0x10\n\
-        adds r0, r5, r3\n\
-        cmp r0, #0x1f\n\
-        bhi .L08015132\n\
-        ldrh r7, [r2]\n\
-        adds r0, r7, r6\n\
-        strh r0, [r1]\n\
-    .L08015132:\n\
-        subs r0, r3, #1\n\
-        adds r2, #2\n\
-        adds r1, #2\n\
-        lsls r3, r0, #0x10\n\
-        cmp r3, #0\n\
-        bge .L08015124\n\
-    .L0801513E:\n\
-        ldr r1, .L08015158 @ =0xFFFF0000\n\
-        adds r0, r4, r1\n\
-        lsrs r3, r0, #0x10\n\
-        lsls r1, r3, #0x10\n\
-        cmp r1, #0\n\
-        bge .L08015106\n\
-    .L0801514A:\n\
-        pop {r3, r4}\n\
-        mov r8, r3\n\
-        mov sb, r4\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    .L08015158: .4byte 0xFFFF0000\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 struct CallDelayedProc
 {

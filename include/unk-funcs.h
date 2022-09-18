@@ -1676,7 +1676,7 @@ void func_fe6_08064B7C(struct Unit * unit);
 // func_fe6_08064F28
 // func_fe6_08064F4C
 // func_fe6_08064FD0
-// func_fe6_080650A4
+void func_fe6_080650A4(int x, int y, int square_size, int freeze_duration, int fadeout_duration, ProcPtr parent);
 // func_fe6_080650F8
 // func_fe6_0806511C
 // func_fe6_08065140
@@ -1734,7 +1734,7 @@ void func_fe6_08064B7C(struct Unit * unit);
 // func_fe6_080670B8
 // func_fe6_080671F4
 // func_fe6_080672B0
-// func_fe6_08067324
+void func_fe6_08067324(void);
 // func_fe6_08067498
 // func_fe6_08067514
 // func_fe6_0806752C
@@ -1767,7 +1767,7 @@ void func_fe6_08067CF8(int actor_id, ProcPtr parent);
 // func_fe6_080685F0
 // func_fe6_08068608
 // func_fe6_08068628
-// func_fe6_080686D8
+void func_fe6_080686D8(void);
 // func_fe6_08068704
 // func_fe6_0806875C
 // func_fe6_080687BC

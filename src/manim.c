@@ -43,6 +43,23 @@ extern u8 const gUnk_08113884[]; // img exp bar b
 extern u8 const gUnk_08113B84[]; // img exp bar c
 extern u16 const gUnk_08113D50[]; // pal exp bar
 extern u8 const gUnk_082DC5B0[]; // tsa exp bar
+extern u8 const gUnk_082DCAE4[]; // img
+extern u16 const gUnk_082DCD70[]; // pal
+extern u16 const gUnk_082A9228[]; // sprite anim
+extern u8 const gUnk_082DB1C0[]; // img
+extern u16 const gUnk_082DB2B0[]; // sprite anim
+extern u8 const gUnk_082DB418[]; // img
+extern u16 const gUnk_082DB55C[]; // sprite anim
+extern u8 const gUnk_082DCEF4[]; // img
+extern u16 const gUnk_082DD248[]; // pal
+extern u16 const gUnk_082A9190[]; // sprite anim
+extern u8 const gUnk_082DE994[]; // img
+extern u16 const gUnk_082DEFBC[]; // pal/colors
+extern u8 const gUnk_082DEFFC[]; // img
+extern u16 const gUnk_082DE354[]; // tm
+extern u8 const gUnk_082DD268[]; // img
+extern u16 const gUnk_082DD4C8[]; // pal
+extern u16 const gUnk_082DD4E8[]; // tm
 
 enum { MAX_MANIM_DEBUG_HITS = 5 };
 
@@ -117,17 +134,13 @@ struct ManimEffectProc
     /* 64 */ short unk_64;
 };
 
-extern u8 const gUnk_082DB1C0[]; // img
-extern u16 const gUnk_082DB2B0[]; // sprite anim
-extern u8 const gUnk_082DB418[]; // img
-extern u16 const gUnk_082DB55C[]; // sprite anim
-
 extern struct ProcScr CONST_DATA ProcScr_Unk_0866510C[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0866512C[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0866514C[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08665194[];
 
 #define UNIT_SCREEN_TILE_X(unit) (((unit)->x - (gBmSt.camera.x >> 4)) << 1)
 #define UNIT_SCREEN_TILE_Y(unit) (((unit)->y - (gBmSt.camera.y >> 4)) << 1)
-
-enum { OBJCHR_MANIM_180 = 0x180 };
 
 void func_fe6_08063CF4(struct GenericProc * proc);
 void func_fe6_08063EF0(struct GenericProc * proc);
@@ -135,6 +148,12 @@ void func_fe6_080640D0(struct GenericProc * proc);
 void func_fe6_0806495C(struct GenericProc * proc);
 
 void func_fe6_08064B20(struct ManimEffectProc * proc);
+void func_fe6_08064BEC(struct ManimEffectProc * proc);
+void func_fe6_08064CC0(struct ManimEffectProc * proc);
+void func_fe6_08064DF8(struct ManimEffectProc * proc);
+void func_fe6_08064F4C(struct ManimEffectProc * proc);
+void func_fe6_08064FD0(struct ManimEffectProc * proc);
+void func_fe6_08065AF8(ProcPtr proc);
 
 enum
 {
@@ -1879,80 +1898,582 @@ void func_fe6_08064A8C(struct Unit * unit, int arg_04)
     proc->unk_48 = arg_04 ^ 1;
 }
 
-/*
+void func_fe6_08064B20(struct ManimEffectProc * proc)
+{
+    Decompress(gUnk_082DCAE4, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_180);
+    ApplyPalette(gUnk_082DCD70, 0x10 + OBJPAL_MANIM_3);
 
-	thumb_func_start func_fe6_08064A8C
-func_fe6_08064A8C: @ 0x08064A8C
-	push {r4, r7, lr}
-	sub sp, #0xc
-	mov r7, sp
-	str r0, [r7]
-	str r1, [r7, #4]
-	ldr r1, .L08064B18 @ =ProcScr_Unk_0866510C
-	adds r0, r1, #0
-	movs r1, #3
-	bl SpawnProc
-	str r0, [r7, #8]
-	ldr r0, [r7, #8]
-	ldr r1, [r7]
-	str r1, [r0, #0x2c]
-	ldr r0, [r7, #8]
-	ldr r2, [r7]
-	movs r1, #0xe
-	ldrsb r1, [r2, r1]
-	ldr r2, .L08064B1C @ =gBmSt
-	movs r4, #0xc
-	ldrsh r3, [r2, r4]
-	asrs r2, r3, #4
-	adds r4, r2, #0
-	lsls r3, r4, #0x10
-	asrs r2, r3, #0x10
-	subs r1, r1, r2
-	lsls r2, r1, #1
-	adds r1, r2, #0
-	lsls r2, r1, #3
-	adds r1, r2, #0
-	adds r1, #8
-	str r1, [r0, #0x30]
-	ldr r0, [r7, #8]
-	ldr r2, [r7]
-	movs r1, #0xf
-	ldrsb r1, [r2, r1]
-	ldr r2, .L08064B1C @ =gBmSt
-	movs r4, #0xe
-	ldrsh r3, [r2, r4]
-	asrs r2, r3, #4
-	adds r4, r2, #0
-	lsls r3, r4, #0x10
-	asrs r2, r3, #0x10
-	subs r1, r1, r2
-	lsls r2, r1, #1
-	adds r1, r2, #0
-	lsls r2, r1, #3
-	adds r1, r2, #0
-	subs r1, #8
-	str r1, [r0, #0x34]
-	ldr r0, [r7, #8]
-	ldr r2, [r7, #4]
-	adds r1, r2, #0
-	movs r2, #1
-	eors r1, r2
-	adds r2, r0, #0
-	adds r0, #0x48
-	ldrh r2, [r0]
-	movs r3, #0
-	ands r2, r3
-	adds r3, r2, #0
-	adds r2, r3, #0
-	orrs r2, r1
-	adds r1, r2, #0
-	strh r1, [r0]
-	add sp, #0xc
-	pop {r4, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08064B18: .4byte ProcScr_Unk_0866510C
-.L08064B1C: .4byte gBmSt
+    StartSpriteAnimProc(gUnk_082A9228,
+        proc->x, proc->y + 16,
+        OAM2_CHR(OBJCHR_MANIM_180) | OAM2_PAL(OBJPAL_MANIM_3), proc->unk_48, 2);
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866512C[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08064BEC),
+    PROC_WHILE(SpriteAnimProcExists),
+    PROC_END,
+};
+
+void func_fe6_08064B7C(struct Unit * unit)
+{
+    struct ManimEffectProc * proc;
+
+    proc = SpawnProc(ProcScr_Unk_0866512C, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
+    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+}
+
+void func_fe6_08064BEC(struct ManimEffectProc * proc)
+{
+    PlaySeSpacial(SONG_B7, proc->x);
+
+    Decompress(gUnk_082DCEF4, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_1C0);
+    ApplyPalette(gUnk_082DD248, 0x10 + OBJPAL_MANIM_4);
+
+    StartSpriteAnimProc(gUnk_082A9190,
+        proc->x - 8, proc->y + 8,
+        OAM2_CHR(OBJCHR_MANIM_1C0) | OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866514C[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08064CC0),
+    PROC_REPEAT(func_fe6_08064DF8),
+    PROC_START_CHILD_LOCKING(ProcScr_Unk_08665194),
+    PROC_SLEEP(60),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+void func_fe6_08064C50(struct Unit * unit)
+{
+    struct ManimEffectProc * proc;
+
+    proc = SpawnProc(ProcScr_Unk_0866514C, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
+    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+}
+
+void func_fe6_08064CC0(struct ManimEffectProc * proc)
+{
+    func_fe6_08067324();
+
+    SetBgOffset(2, 0, 0);
+
+    Decompress(gUnk_082DE994, ((void *) VRAM) + GetBgChrOffset(2) + BGCHR_MANIM_140 * CHR_SIZE);
+
+    SetBlendAlpha(16, 16);
+    SetBlendTargetA(0, 0, 1, 0, 0); SetBlendBackdropA(0);
+    SetBlendTargetB(0, 0, 0, 1, 1); SetBlendBackdropB(1);
+
+    proc->unk_40 = 0;
+    proc->unk_42 = 0;
+
+    func_fe6_08014D9C(gUnk_082DEFBC, 0x20 * BGPAL_MANIM_4, 0x20, 2, proc);
+}
+
+i16 CONST_DATA gUnk_08665184[] =
+{
+    +1, -1,
+    -2, +2,
+    +2, +1,
+    -2, -2,
+};
+
+void func_fe6_08064DF8(struct ManimEffectProc * proc)
+{
+    if (proc->unk_42 > 2)
+    {
+        func_fe6_08014D50();
+        func_fe6_08014DB4(gUnk_082DEFBC, 0x20 * BGPAL_MANIM_4, 0x20, 4, proc);
+
+        Decompress(gUnk_082DEFFC, ((void *) VRAM) + GetBgChrOffset(2) + BGCHR_MANIM_140 * CHR_SIZE);
+
+        func_fe6_080650A4(proc->x / 8 - 4, proc->y / 8 - 4, 8, 60, 0, proc);
+
+        Proc_Break(proc);
+        PlaySeSpacial(SONG_8C, proc->x);
+    }
+    else
+    {
+        int x_offset = gUnk_08665184[proc->unk_42 * 2 + 0];
+        int y_offset = gUnk_08665184[proc->unk_42 * 2 + 1];
+
+        func_fe6_080650A4(proc->x / 8 + x_offset - 3, proc->y / 8 + y_offset - 3, 6, 10, 8, proc);
+
+        PlaySeSpacial(SONG_89, proc->x);
+
+        proc->unk_42++;
+    }
+}
+
+void func_fe6_08064F28(struct ManimEffectProc * proc)
+{
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665194[] =
+{
+    PROC_CALL(func_fe6_08064F4C),
+    PROC_REPEAT(func_fe6_08064FD0),
+    PROC_END,
+};
+
+void func_fe6_08064F4C(struct ManimEffectProc * proc)
+{
+    func_fe6_08014D50();
+
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+
+    proc->unk_64 = 64;
+
+    func_fe6_08064FD0(proc);
+}
+
+void func_fe6_08064FD0(struct ManimEffectProc * proc)
+{
+    SetBlendBrighten(proc->unk_64-- >> 2);
+
+    if (proc->unk_64 == 0)
+    {
+        SetBlendNone();
+        Proc_Break(proc);
+    }
+}
+
+struct ManimSomethingProc_080650A4
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ int x, y;
+    /* 34 */ u8 pad_34[0x10];
+    /* 44 */ short freeze_duration;
+    /* 48 */ u8 pad_46[0x54 - 0x48];
+    /* 54 */ int square_size;
+    /* 58 */ int fadeout_duration;
+    /* 5C */ u8 pad_5C[0x64 - 0x5C];
+    /* 64 */ short counter;
+};
+
+void func_fe6_080650F8(struct ManimSomethingProc_080650A4 * proc);
+void func_fe6_0806511C(struct ManimSomethingProc_080650A4 * proc);
+void func_fe6_08065140(struct ManimSomethingProc_080650A4 * proc);
+void func_fe6_080651E0(struct ManimSomethingProc_080650A4 * proc);
+void func_fe6_08065298(struct ManimSomethingProc_080650A4 * proc);
+void func_fe6_080652E0(struct ManimSomethingProc_080650A4 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086651AC[] =
+{
+    PROC_ONEND(func_fe6_080650F8),
+    PROC_CALL(func_fe6_0806511C),
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08065140),
+    PROC_REPEAT(func_fe6_080651E0),
+    PROC_REPEAT(func_fe6_08065298),
+    PROC_REPEAT(func_fe6_080652E0),
+    PROC_END,
+};
+
+void func_fe6_080650A4(int x, int y, int square_size, int freeze_duration, int fadeout_duration, ProcPtr parent)
+{
+    struct ManimSomethingProc_080650A4 * proc;
+
+    proc = SpawnProcLocking(ProcScr_Unk_086651AC, parent);
+
+    proc->x = x;
+    proc->y = y;
+    proc->square_size = square_size;
+    proc->fadeout_duration = fadeout_duration;
+    proc->freeze_duration = freeze_duration;
+}
+
+void func_fe6_080650F8(struct ManimSomethingProc_080650A4 * proc)
+{
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+void func_fe6_0806511C(struct ManimSomethingProc_080650A4 * proc)
+{
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+void func_fe6_08065140(struct ManimSomethingProc_080650A4 * proc)
+{
+    func_fe6_08014E30(gBg2Tm, proc->x, proc->y, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), proc->square_size, proc->square_size);
+    EnableBgSync(BG2_SYNC_BIT);
+    SetBlendAlpha(0, 0x10);
+    proc->counter = 0;
+}
+
+void func_fe6_080651E0(struct ManimSomethingProc_080650A4 * proc)
+{
+    proc->counter += 2;
+    SetBlendAlpha(proc->counter, 0x10);
+
+    if (proc->counter >= 8)
+    {
+        proc->counter = 0;
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_08065298(struct ManimSomethingProc_080650A4 * proc)
+{
+    if (--proc->freeze_duration == -1)
+        Proc_Break(proc);
+}
+
+void func_fe6_080652E0(struct ManimSomethingProc_080650A4 * proc)
+{
+    int coef;
+
+    if (proc->fadeout_duration == 0)
+    {
+        Proc_Break(proc);
+        return;
+    }
+
+    coef = Interpolate(INTERPOLATE_LINEAR, 8, 0, proc->counter++, proc->fadeout_duration);
+    SetBlendAlpha(coef, 0x10);
+
+    if (proc->counter >= proc->fadeout_duration)
+    {
+        proc->counter = 0;
+
+        TmFill(gBg2Tm, 0);
+        EnableBgSync(BG2_SYNC_BIT);
+
+        Proc_Break(proc);
+    }
+}
+
+struct ManimSomethingProc_080653BC
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_34[0x40 - 0x38];
+    /* 40 */ u16 counter;
+    /* 42 */ u8 pad_42[0x50 - 0x42];
+    /* 50 */ void const * img;
+    /* 54 */ void const * pal;
+};
+
+void func_fe6_0806543C(struct ManimSomethingProc_080653BC * proc);
+void func_fe6_08065540(struct ManimSomethingProc_080653BC * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086651EC[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_0806543C),
+    PROC_REPEAT(func_fe6_08065540),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+void func_fe6_080653BC(struct Unit * unit, void const * arg_04, void const * arg_08)
+{
+    struct ManimSomethingProc_080653BC * proc;
+
+    proc = SpawnProc(ProcScr_Unk_086651EC, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
+    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->img = arg_04;
+    proc->pal = arg_08;
+}
+
+void func_fe6_0806543C(struct ManimSomethingProc_080653BC * proc)
+{
+    PlaySeSpacial(SONG_B6, proc->x);
+
+    gDispIo.bg0_ct.priority = 0;
+    gDispIo.bg1_ct.priority = 1;
+    gDispIo.bg2_ct.priority = 1;
+    gDispIo.bg3_ct.priority = 2;
+
+    SetBgOffset(2, 0, 0);
+
+    Decompress(proc->img, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+    ApplyPalette(proc->pal, BGPAL_MANIM_4);
+
+    func_fe6_08067324();
+
+    SetBlendAlpha(0x10, 0x10);
+
+    proc->counter = 0;
+}
+
+void func_fe6_08065540(struct ManimSomethingProc_080653BC * proc)
+{
+    static u8 SHOULD_BE_CONST lut[] =
+    {
+         0,  1,  2,  3,
+         4,  5,  6,  7,
+         8,  9, 10, 11,
+        12, 13, 14, 15,
+        16, 17, 18, 19,
+
+        UINT8_MAX, // end
+    };
+
+    func_fe6_08014F70(gBg2Tm, proc->x / 8 - 3, proc->y / 8 - 3, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 6, 6, gUnk_082DE354, lut[proc->counter / 2]);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    proc->counter++;
+
+    if (lut[proc->counter / 2] == UINT8_MAX)
+    {
+        Proc_Break(proc);
+    }
+}
+
+struct ManimSomethingProc_08065608
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 pad_29[0x30 - 0x29];
+    /* 30 */ int x, y;
+};
+
+void func_fe6_08065674(struct ManimSomethingProc_08065608 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665234[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065674),
+    PROC_SLEEP(100),
+    PROC_END,
+};
+
+void func_fe6_08065608(struct Unit * unit)
+{
+    struct ManimSomethingProc_08065608 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665234, PROC_TREE_3);
+
+    proc->x = UNIT_SCREEN_TILE_X(unit) * 8 + 8;
+    proc->y = UNIT_SCREEN_TILE_Y(unit) * 8 + 8;
+}
+
+void func_fe6_08065674(struct ManimSomethingProc_08065608 * proc)
+{
+    PlaySeSpacial(SONG_10F, proc->x);
+}
+
+struct ManimSomethingProc_08065694
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ u8 pad_30[0x40 - 0x30];
+    /* 40 */ u16 ca;
+    /* 42 */ u16 cb;
+    /* 44 */ u8 pad_44[0x50 - 0x44];
+    /* 50 */ void const * img;
+    /* 54 */ void const * pal;
+    /* 58 */ u16 song;
+};
+
+void func_fe6_080656F0(struct ManimSomethingProc_08065694 * proc);
+void func_fe6_08065830(struct ManimSomethingProc_08065694 * proc);
+void func_fe6_08065994(struct ManimSomethingProc_08065694 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665254[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080656F0),
+    PROC_REPEAT(func_fe6_08065830),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08065994),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+void func_fe6_08065694(struct Unit * unit, void const * img, void const * pal, fu16 song)
+{
+    struct ManimSomethingProc_08065694 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665254, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->img = img;
+    proc->pal = pal;
+    proc->song = song;
+}
+
+void func_fe6_080656F0(struct ManimSomethingProc_08065694 * proc)
+{
+    gDispIo.bg0_ct.priority = 0;
+    gDispIo.bg1_ct.priority = 1;
+    gDispIo.bg2_ct.priority = 1;
+    gDispIo.bg3_ct.priority = 2;
+
+    SetBgOffset(2, 0, 0);
+
+    Decompress(proc->img, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+
+    func_fe6_08014E30(gBg2Tm, UNIT_SCREEN_TILE_X(proc->unit) - 2, UNIT_SCREEN_TILE_Y(proc->unit) - 2, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 6, 6);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    func_fe6_08014DB4(proc->pal, BGPAL_MANIM_4 * 0x20, 0x20, 4, proc);
+
+    proc->ca = 0;
+    proc->cb = 0x10;
+
+    PlaySeSpacial(proc->song, (UNIT_SCREEN_TILE_X(proc->unit) + 1) * 8);
+}
+
+void func_fe6_08065830(struct ManimSomethingProc_08065694 * proc)
+{
+    proc->ca++;
+
+    if (proc->ca == 0x10)
+    {
+        Proc_Break(proc);
+    }
+
+    proc->cb = 0x16 - proc->ca;
+
+    if (proc->cb > 0x10)
+        proc->cb = 0x10;
+
+    SetBlendAlpha(proc->ca, proc->cb);
+
+    SetBlendTargetA(0, 0, 1, 0, 0); SetBlendBackdropA(0);
+    SetBlendTargetB(0, 0, 0, 1, 1); SetBlendBackdropB(1);
+}
+
+void func_fe6_08065994(struct ManimSomethingProc_08065694 * proc)
+{
+    proc->ca--;
+
+    if (proc->ca == 0)
+    {
+        Proc_Break(proc);
+    }
+
+    proc->cb = 0x16 - proc->ca;
+
+    if (proc->cb > 0x10)
+        proc->cb = 0x10;
+
+    SetBlendAlpha(proc->ca, proc->cb);
+
+    SetBlendTargetA(0, 0, 1, 0, 0); SetBlendBackdropA(0);
+    SetBlendTargetB(0, 0, 0, 1, 1); SetBlendBackdropB(1);
+}
+
+void func_fe6_08065AF8(ProcPtr proc)
+{
+    func_fe6_08014D50();
+
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    SetBlendNone();
+    SetWinEnable(0, 0, 0);
+}
+
+void func_fe6_08065B90(ProcPtr proc)
+{
+    SetOnHBlankA(NULL);
+
+    func_fe6_08014D50();
+
+    TmFill(gBg2Tm, 0);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    SetBlendNone();
+    SetWinEnable(0, 0, 0);
+}
+
+struct ManimSomethingProc_08065C30
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 counter;
+};
+
+void func_fe6_08065C9C(struct ManimSomethingProc_08065C30 * proc);
+void func_fe6_08065CF4(struct ManimSomethingProc_08065C30 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866528C[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065C9C),
+    PROC_REPEAT(func_fe6_08065CF4),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+void func_fe6_08065C30(struct Unit * unit, int arg_04, int arg_08)
+{
+    struct ManimSomethingProc_08065C30 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_0866528C, PROC_TREE_3);
+
+    proc->unit = unit;
+    proc->x = UNIT_SCREEN_TILE_X(proc->unit);
+    proc->y = UNIT_SCREEN_TILE_Y(proc->unit);
+}
+
+void func_fe6_08065C9C(struct ManimSomethingProc_08065C30 * proc)
+{
+    SetBgOffset(2, 0, 0);
+
+    Decompress(gUnk_082DD268, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+    ApplyPalette(gUnk_082DD4C8, BGPAL_MANIM_4);
+
+    func_fe6_080686D8();
+
+    proc->counter = 0;
+}
+
+void func_fe6_08065CF4(struct ManimSomethingProc_08065C30 * proc)
+{
+    static u8 SHOULD_BE_CONST lut[] =
+    {
+        0, 1, 2, 3,
+        3, 3, 3, 3,
+        3, 3, 3, 3,
+        3, 3, 3, 4,
+        5, 6, 7, 8,
+        9,
+        UINT8_MAX, // end
+    };
+
+    func_fe6_08014F70(gBg2Tm, proc->x - 1, proc->y - 3, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 4, 6, gUnk_082DD4E8, lut[proc->counter / 2]);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    proc->counter++;
+
+    if (lut[proc->counter / 2] == UINT8_MAX)
+    {
+        Proc_Break(proc);
+    }
+
+    func_fe6_08067324();
+
+    SetBlendAlpha(12, 12);
+}
+
+/*
 
 */

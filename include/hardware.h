@@ -82,19 +82,19 @@ struct WinCnt
 
 struct BlendCnt
 {
-    u16 target1_bg0_on : 1;
-    u16 target1_bg1_on : 1;
-    u16 target1_bg2_on : 1;
-    u16 target1_bg3_on : 1;
-    u16 target1_obj_on : 1;
-    u16 target1_bd_on : 1;
+    u16 target1_enable_bg0 : 1;
+    u16 target1_enable_bg1 : 1;
+    u16 target1_enable_bg2 : 1;
+    u16 target1_enable_bg3 : 1;
+    u16 target1_enable_obj : 1;
+    u16 target1_enable_bd : 1;
     u16 effect : 2;
-    u16 target2_bg0_on : 1;
-    u16 target2_bg1_on : 1;
-    u16 target2_bg2_on : 1;
-    u16 target2_bg3_on : 1;
-    u16 target2_obj_on : 1;
-    u16 target2_bd_on : 1;
+    u16 target2_enable_bg0 : 1;
+    u16 target2_enable_bg1 : 1;
+    u16 target2_enable_bg2 : 1;
+    u16 target2_enable_bg3 : 1;
+    u16 target2_enable_obj : 1;
+    u16 target2_enable_bd : 1;
 };
 
 struct DispIo
@@ -321,7 +321,7 @@ extern short const gSinLut[];
     *((u16 *) &gDispIo.blend_ct) |= BLDCNT_TARGETB((bg0), (bg1), (bg2), (bg3), (obj))
 
 #define SetBlendBackdropA(enable) \
-    gDispIo.blend_ct.target1_bd_on = (enable)
+    gDispIo.blend_ct.target1_enable_bd = (enable)
 
 #define SetBlendBackdropB(enable) \
-    gDispIo.blend_ct.target2_bd_on = (enable)
+    gDispIo.blend_ct.target2_enable_bd = (enable)
