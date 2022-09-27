@@ -4940,7 +4940,7 @@ func_fe6_08068524: @ 0x08068524
 	mov r7, sp
 	str r0, [r7]
 	ldr r0, .L08068544 @ =gPal+0xC0
-	ldr r1, .L08068548 @ =0x03004750
+	ldr r1, .L08068548 @ =gUnk_03004750
 	movs r2, #0x50
 	bl CpuFastSet
 	movs r0, #0
@@ -4952,7 +4952,7 @@ func_fe6_08068524: @ 0x08068524
 	b .L08068570
 	.align 2, 0
 .L08068544: .4byte gPal+0xC0
-.L08068548: .4byte 0x03004750
+.L08068548: .4byte gUnk_03004750
 .L0806854C:
 	ldr r0, .L0806856C @ =Pal_AllBlack
 	ldr r2, [r7, #4]
@@ -5022,7 +5022,7 @@ func_fe6_080685B0: @ 0x080685B0
 	ldr r0, [r7, #4]
 	adds r1, r0, #0
 	lsls r0, r1, #5
-	ldr r1, .L080685E4 @ =0x03004750
+	ldr r1, .L080685E4 @ =gUnk_03004750
 	adds r0, r0, r1
 	ldr r2, [r7, #4]
 	adds r1, r2, #6
@@ -5034,7 +5034,7 @@ func_fe6_080685B0: @ 0x080685B0
 	str r1, [r7, #4]
 	b .L080685BC
 	.align 2, 0
-.L080685E4: .4byte 0x03004750
+.L080685E4: .4byte gUnk_03004750
 .L080685E8:
 	add sp, #8
 	pop {r7}
@@ -5286,7 +5286,7 @@ func_fe6_080687BC: @ 0x080687BC
 	ble .L080687D4
 	b .L08068820
 .L080687D4:
-	ldr r0, .L0806881C @ =0x030046D0
+	ldr r0, .L0806881C @ =gUnk_030046D0
 	ldr r1, [r7, #4]
 	adds r2, r1, #0
 	lsls r1, r2, #3
@@ -5300,7 +5300,7 @@ func_fe6_080687BC: @ 0x080687BC
 	orrs r1, r3
 	adds r2, r1, #0
 	strh r2, [r0]
-	ldr r0, .L0806881C @ =0x030046D0
+	ldr r0, .L0806881C @ =gUnk_030046D0
 	ldr r1, [r7, #4]
 	adds r2, r1, #0
 	lsls r1, r2, #3
@@ -5323,7 +5323,7 @@ func_fe6_080687BC: @ 0x080687BC
 	str r1, [r7, #4]
 	b .L080687CC
 	.align 2, 0
-.L0806881C: .4byte 0x030046D0
+.L0806881C: .4byte gUnk_030046D0
 .L08068820:
 	ldr r0, [r7]
 	ldrh r1, [r0, #0x36]
@@ -5415,7 +5415,7 @@ func_fe6_08068858: @ 0x08068858
 	ldrsh r1, [r2, r3]
 	ldr r3, [r7]
 	ldrh r2, [r3, #0x36]
-	ldr r3, .L080688FC @ =0x030046D0
+	ldr r3, .L080688FC @ =gUnk_030046D0
 	ldr r4, [r7, #4]
 	adds r5, r4, #0
 	lsls r4, r5, #3
@@ -5425,7 +5425,7 @@ func_fe6_08068858: @ 0x08068858
 	asrs r2, r3, #4
 	ldr r4, [r7]
 	ldrh r3, [r4, #0x38]
-	ldr r4, .L080688FC @ =0x030046D0
+	ldr r4, .L080688FC @ =gUnk_030046D0
 	ldr r5, [r7, #4]
 	adds r6, r5, #0
 	lsls r5, r6, #3
@@ -5439,7 +5439,7 @@ func_fe6_08068858: @ 0x08068858
 	str r1, [r7, #4]
 	b .L080688B4
 	.align 2, 0
-.L080688FC: .4byte 0x030046D0
+.L080688FC: .4byte gUnk_030046D0
 .L08068900:
 	ldr r1, [r7]
 	ldr r0, [r7]

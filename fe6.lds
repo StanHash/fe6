@@ -250,7 +250,29 @@ SECTIONS
         . = ALIGN(4); src/ai-script.o(.bss);
         . = ALIGN(4); src/ai-battle.o(.bss);
 
+        . = 0x0013B8; gUnk_030013B8 = .;
+        . = 0x0013BC; gUnk_030013BC = .;
+        . = 0x0013C0; gUnk_030013C0 = .;
+        . = 0x0013C4; gUnk_030013C4 = .;
+        . = 0x0013C8; gUnk_030013C8 = .;
+        . = 0x0013CA; gUnk_030013CA = .;
+        . = 0x0013D0; gUnk_030013D0 = .;
+        . = 0x0013D8; gUnk_030013D8 = .;
+        . = 0x0013E0; gUnk_030013E0 = .;
+        . = 0x0013E4; gUnk_030013E4 = .;
+        . = 0x0013E8; gUnk_030013E8 = .;
+        . = 0x0013F0; gUnk_030013F0 = .;
+        . = 0x001404; gUnk_03001404 = .;
+        . = 0x001408; gUnk_03001408 = .;
+        . = 0x00140C; gUnk_0300140C = .;
+        . = 0x001410; gUnk_03001410 = .;
+        . = 0x001418; gUnk_03001418 = .;
+        . = 0x001428; gUnk_03001428 = .;
+        . = 0x001438; gUnk_03001438 = .;
+
         . = 0x001440; src/mu.o(.bss);
+
+        . = 0x001570; gUnk_03001570 = .;
 
         . = 0x002158; src/lib/agb-sram.o(.bss);
         . = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
@@ -261,6 +283,13 @@ SECTIONS
         /* COMMON */
         . = 0x0026A0; gOamLoPutIt = .;
         . = 0x0026B0; gDispIo = .;
+        . = 0x0026E4; gUnk_Banim_030026E4 = .;
+        . = 0x0026F4; gUnk_030026F4 = .;
+        . = 0x0026F5; gUnk_030026F5 = .;
+        . = 0x0026F8; gUnk_030026F8 = .;
+        . = 0x0026FA; gUnk_030026FA = .;
+        . = 0x0026FE; gUnk_030026FE = .;
+        . = 0x002708; gUnk_03002708 = .;
         . = 0x002720; gIrqFuncs = .;
         . = 0x002758; MapFloodCoreRamFunc = .;
         . = 0x00275C; gOamAffinePutId = .;
@@ -287,10 +316,28 @@ SECTIONS
         . = 0x0042B0; gMapFloodSquareBufA = .;
         . = 0x0044B0; gActiveUnit = .;
         . = 0x0044C0; gMapFloodSt = .;
+        . = 0x0044D0; gUnk_030044D0 = .;
+        . = 0x0044D4; gUnk_030044D4 = .;
+        . = 0x0044E0; gUnk_030044E0 = .;
+        . = 0x0044E6; gUnk_030044E6 = .;
+        . = 0x004568; gUnk_03004568 = .;
+        . = 0x00456C; gUnk_0300456C = .;
         . = 0x004570; AiDecideFunc = .;
+        . = 0x004580; gUnk_03004580 = .;
         . = 0x004600; gManimDebugStObj = .;
+        . = 0x0046D0; gUnk_030046D0 = .;
+        . = 0x004750; gUnk_03004750 = .;
         . = 0x004890; gPermanentFlagBits = .;
         . = 0x004898; gChapterFlagBits = .;
+        . = 0x0048A4; gUnk_030048A4 = .;
+        . = 0x0048A8; gUnk_030048A8 = .;
+        . = 0x0048B8; gUnk_030048B8 = .;
+        . = 0x0048C0; gUnk_030048C0 = .;
+        . = 0x0048D4; gUnk_030048D4 = .;
+        . = 0x0048E0; gUnk_030048E0 = .;
+        . = 0x005280; gUnk_03005280 = .;
+        . = 0x005284; gUnk_03005284 = .;
+        . = 0x005290; gUnk_03005290 = .;
         . = 0x0052B0; gSoundInfo = .;
         . = 0x006260; gMpi_03006260 = .;
         . = 0x0062A0; gMpi_030062A0 = .;
