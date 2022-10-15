@@ -1822,9 +1822,9 @@ void func_fe6_08068F04(ProcPtr proc);
 // func_fe6_08069C04
 // func_fe6_08069C1C
 void func_fe6_08069C34(void);
-// func_fe6_08069C74
-// func_fe6_08069DA4
-// func_fe6_08069DD8
+void func_fe6_08069C74(void);
+void func_fe6_08069DA4(int x, int y, int arg_08);
+void func_fe6_08069DD8(void);
 // func_fe6_08069DE8
 // func_fe6_08069E50
 // func_fe6_08069ED4

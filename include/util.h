@@ -128,13 +128,13 @@ void func_fe6_08014DB4(u16 const * colors, int pal_offset, int pal_size, int int
 void func_fe6_08014E30(u16 * tm, int x, int y, u16 tileref, int width, int height);
 // func_fe6_08014E98
 void func_fe6_08014F70(u16 * tm, int x, int y, u16 tileref, int width, int height, u16 const * src, int arg_7);
-// func_fe6_0801501C
+void func_fe6_0801501C(u16 * tm, int x, int y, u16 tileref, int width, int height, u8 const * src, int arg_7);
 // func_fe6_080150DC
 void CallDelayed(void (* func)(void), int delay);
 void CallDelayedArg(void (* func)(int), int arg, int delay);
 // func_fe6_080151E4
 // func_fe6_080151F8
-// func_fe6_08015208
+void func_fe6_08015208(u16 * out, int size, int value);
 void StartPartialGameLock(ProcPtr proc);
 void func_fe6_08015260(u8 const * src, u8 * dst, int size);
 void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height);

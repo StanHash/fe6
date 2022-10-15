@@ -1,0 +1,5 @@
+- flatten dir structure (include/gba -> include, src/lib -> src, asm/lib -> src)
+- name remaining ewram symbols
+- decompile the rest of the game
+  - priorities: code_manim > other code (event, statscreen, prepscreen and save might be good to do next) > code_banim > code_sio
+- dump data (lmao)
