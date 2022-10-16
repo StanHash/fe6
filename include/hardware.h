@@ -228,6 +228,8 @@ extern short const gSinLut[];
 
 #define TM_OFFSET(x, y) (((y) << 5) + (x))
 
+#define TILE_CHR_SAFE(chr) ((chr) & 0x3FF)
+#define TILE_PAL_SAFE(pal) (((pal) & 0xF) << 12)
 #define TILEREF(chr, pal) ((chr) + ((pal) << 12))
 #define TILE_HFLIP 0x0400
 #define TILE_VFLIP 0x0800

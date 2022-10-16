@@ -655,8 +655,8 @@ gUnk_08336D48: @ 08336D48
 gUnk_08336D54: @ 08336D54
 	.incbin "fe6-base.gba", 0x336D54, (0x336D5C - 0x336D54) @ length: 0008
 
-	.global gUnk_08336D5C
-gUnk_08336D5C: @ 08336D5C
+	.global Img_MuralBackground
+Img_MuralBackground: @ 08336D5C
 	.incbin "fe6-base.gba", 0x336D5C, (0x33B958 - 0x336D5C) @ length: 4BFC
 
 	.global gUnk_0833B958
@@ -679,8 +679,8 @@ gUnk_0833BE84: @ 0833BE84
 gUnk_0833BF08: @ 0833BF08
 	.incbin "fe6-base.gba", 0x33BF08, (0x33BFDC - 0x33BF08) @ length: 00D4
 
-	.global gUnk_0833BFDC
-gUnk_0833BFDC: @ 0833BFDC
+	.global Pal_MuralBackground
+Pal_MuralBackground: @ 0833BFDC
 	.incbin "fe6-base.gba", 0x33BFDC, (0x33C01C - 0x33BFDC) @ length: 0040
 
 	.global gUnk_0833C01C

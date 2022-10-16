@@ -2115,13 +2115,13 @@ void StartGameEndingScene(ProcPtr parent);
 // func_fe6_0806E8AC
 // func_fe6_0806E8C8
 // func_fe6_0806E998
-// func_fe6_0806E9E0
-// func_fe6_0806E9E8
-void func_fe6_0806EA24(ProcPtr parent, u8 * vram, int pal);
-void func_fe6_0806EABC(void);
+// BackgroundSlide_Init
+// BackgroundSlide_Loop
+ProcPtr StartMuralBackground(ProcPtr parent, void * vram, int pal);
+void EndMuralBackground(void);
 int func_fe6_0806EACC(void);
 // func_fe6_0806EAD8
-void func_fe6_0806EAE4(int arg_0);
+void func_fe6_0806EAE4(int flags);
 // func_fe6_0806EAF0
 // func_fe6_0806EB00
 // func_fe6_0806EB48

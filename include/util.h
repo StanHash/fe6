@@ -34,7 +34,7 @@ void Decompress(void const * src, void * dst);
 int GetDataSize(void const * data);
 void Register2dChrMove(u8 const * img, u8 * vram, int width, int height);
 void Copy2dChr(void const * src, u8 * dst, int width, int height);
-void func_fe6_08013DAC(u8 const * src, u8 * dst, int width, int height);
+void Bitmap2Chr(u8 const * src, void * dst, int width, int height);
 void PutIncrTileref(u16 * tm, int tileref, int width, int height);
 void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len);
 // func_fe6_08013EBC

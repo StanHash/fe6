@@ -365,7 +365,7 @@ void func_fe6_0801AAE0(void)
     if (!IsSramWorking())
         PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ＳＲＡＭが装着されていません"
 
-    func_fe6_0806EA24(StartMenu(&MenuInfo_Debug_085C742C), (u8 *) BG_VRAM + CHR_SIZE * 0x580, -1);
+    StartMuralBackground(StartMenu(&MenuInfo_Debug_085C742C), (u8 *) BG_VRAM + CHR_SIZE * 0x580, -1);
 
     PutBuildInfo(gBg2Tm + TM_OFFSET(0, 1));
     DebugPutStr(gBg2Tm + TM_OFFSET(0, 2), "DB INTERRUPT AVAILABLE");

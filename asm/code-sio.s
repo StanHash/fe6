@@ -21167,7 +21167,7 @@ func_fe6_0803FA14: @ 0x0803FA14
 	lsls r1, r1, #2
 	movs r2, #0x40
 	bl ApplyPaletteExt
-	ldr r4, .L0803FA9C @ =gUnk_08336D5C
+	ldr r4, .L0803FA9C @ =Img_MuralBackground
 	movs r0, #3
 	bl GetBgChrOffset
 	adds r1, r0, #0
@@ -21176,7 +21176,7 @@ func_fe6_0803FA14: @ 0x0803FA14
 	adds r1, r1, r2
 	adds r0, r4, #0
 	bl Decompress
-	ldr r0, .L0803FAA0 @ =gUnk_08109C80
+	ldr r0, .L0803FAA0 @ =Pal_LinkArenaMuralBackground
 	movs r1, #0xe0
 	lsls r1, r1, #1
 	movs r2, #0x40
@@ -21189,8 +21189,8 @@ func_fe6_0803FA14: @ 0x0803FA14
 .L0803FA90: .4byte gUnk_Sio_0810F442
 .L0803FA94: .4byte gDispIo
 .L0803FA98: .4byte gUnk_08109A80
-.L0803FA9C: .4byte gUnk_08336D5C
-.L0803FAA0: .4byte gUnk_08109C80
+.L0803FA9C: .4byte Img_MuralBackground
+.L0803FAA0: .4byte Pal_LinkArenaMuralBackground
 
 	thumb_func_start func_fe6_0803FAA4
 func_fe6_0803FAA4: @ 0x0803FAA4
@@ -21198,7 +21198,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 	adds r6, r0, #0
 	adds r5, r1, #0
 	ldr r4, .L0803FAF8 @ =gBg3Tm
-	ldr r0, .L0803FAFC @ =ProcScr_Unk_086773D8
+	ldr r0, .L0803FAFC @ =ProcScr_BackgroundSlide
 	bl Proc_EndEach
 	movs r2, #0
 	movs r0, #0x14
@@ -21219,7 +21219,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 .L0803FAD0:
 	movs r2, #0
 	lsls r1, r5, #5
-	ldr r5, .L0803FAFC @ =ProcScr_Unk_086773D8
+	ldr r5, .L0803FAFC @ =ProcScr_BackgroundSlide
 	cmp r2, r1
 	bge .L0803FAEA
 	ldr r0, .L0803FB04 @ =0xFFFFF000
@@ -21240,7 +21240,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 	bx r0
 	.align 2, 0
 .L0803FAF8: .4byte gBg3Tm
-.L0803FAFC: .4byte ProcScr_Unk_086773D8
+.L0803FAFC: .4byte ProcScr_BackgroundSlide
 .L0803FB00: .4byte 0xFFFFE000
 .L0803FB04: .4byte 0xFFFFF000
 
@@ -21256,7 +21256,7 @@ func_fe6_0803FB08: @ 0x0803FB08
 	movs r2, #0x28
 	bl memcpy
 	ldr r4, .L0803FB68 @ =gBg3Tm
-	ldr r0, .L0803FB6C @ =ProcScr_Unk_086773D8
+	ldr r0, .L0803FB6C @ =ProcScr_BackgroundSlide
 	bl Proc_EndEach
 	movs r2, #0
 	movs r6, #0xf
@@ -21282,7 +21282,7 @@ func_fe6_0803FB08: @ 0x0803FB08
 	adds r2, #1
 	cmp r2, r5
 	ble .L0803FB2A
-	ldr r0, .L0803FB6C @ =ProcScr_Unk_086773D8
+	ldr r0, .L0803FB6C @ =ProcScr_BackgroundSlide
 	mov r1, r8
 	bl SpawnProc
 	add sp, #0x28
@@ -21294,18 +21294,18 @@ func_fe6_0803FB08: @ 0x0803FB08
 	.align 2, 0
 .L0803FB64: .4byte gUnk_Sio_0810F45A
 .L0803FB68: .4byte gBg3Tm
-.L0803FB6C: .4byte ProcScr_Unk_086773D8
+.L0803FB6C: .4byte ProcScr_BackgroundSlide
 .L0803FB70: .4byte 0x0000027F
 
 	thumb_func_start func_fe6_0803FB74
 func_fe6_0803FB74: @ 0x0803FB74
 	push {lr}
-	ldr r0, .L0803FB80 @ =ProcScr_Unk_086773D8
+	ldr r0, .L0803FB80 @ =ProcScr_BackgroundSlide
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0803FB80: .4byte ProcScr_Unk_086773D8
+.L0803FB80: .4byte ProcScr_BackgroundSlide
 
 	thumb_func_start func_fe6_0803FB84
 func_fe6_0803FB84: @ 0x0803FB84

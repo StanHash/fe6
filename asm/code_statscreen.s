@@ -2,434 +2,13 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_0806E83C
-func_fe6_0806E83C: @ 0x0806E83C
-	push {r4, r5, lr}
-	adds r3, r1, r2
-	adds r3, r0, r3
-	movs r4, #4
-	strb r4, [r3]
-	lsls r4, r1, #1
-	adds r3, r4, r2
-	adds r3, r0, r3
-	movs r5, #0xe
-	strb r5, [r3]
-	adds r4, r4, r1
-	adds r4, r4, r2
-	adds r0, r0, r4
-	movs r1, #3
-	strb r1, [r0]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	thumb_func_start func_fe6_0806E860
-func_fe6_0806E860: @ 0x0806E860
-	push {r4, r5, lr}
-	adds r4, r0, r2
-	movs r3, #4
-	strb r3, [r4]
-	adds r3, r1, r2
-	adds r3, r0, r3
-	movs r5, #0xe
-	strb r5, [r3]
-	lsls r4, r1, #1
-	adds r3, r4, r2
-	adds r3, r0, r3
-	strb r5, [r3]
-	adds r4, r4, r1
-	adds r4, r4, r2
-	adds r4, r0, r4
-	strb r5, [r4]
-	lsls r1, r1, #2
-	adds r1, r1, r2
-	adds r0, r0, r1
-	movs r1, #3
-	strb r1, [r0]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-
-	thumb_func_start func_fe6_0806E890
-func_fe6_0806E890: @ 0x0806E890
-	push {r4, lr}
-	adds r3, r1, r2
-	adds r3, r0, r3
-	movs r4, #1
-	strb r4, [r3]
-	lsls r1, r1, #1
-	adds r1, r1, r2
-	adds r0, r0, r1
-	movs r1, #5
-	strb r1, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-
-	thumb_func_start func_fe6_0806E8AC
-func_fe6_0806E8AC: @ 0x0806E8AC
-	push {r4, lr}
-	adds r3, r1, r2
-	adds r3, r0, r3
-	movs r4, #0xd
-	strb r4, [r3]
-	lsls r1, r1, #1
-	adds r1, r1, r2
-	adds r0, r0, r1
-	movs r1, #0xc
-	strb r1, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-
-	thumb_func_start func_fe6_0806E8C8
-func_fe6_0806E8C8: @ 0x0806E8C8
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #8
-	str r0, [sp, #4]
-	mov sb, r1
-	adds r6, r2, #0
-	adds r5, r3, #0
-	ldr r0, [sp, #0x28]
-	mov sl, r0
-	ldr r1, .L0806E990 @ =gBuf
-	mov r8, r1
-	movs r0, #0
-	str r0, [sp]
-	lsls r2, r6, #4
-	ldr r0, .L0806E994 @ =0x001FFFFF
-	ands r2, r0
-	movs r0, #0x80
-	lsls r0, r0, #0x11
-	orrs r2, r0
-	mov r0, sp
-	bl CpuFastSet
-	lsls r4, r6, #3
-	mov r0, r8
-	adds r1, r4, #0
-	mov r2, sb
-	bl func_fe6_0806E83C
-	mov r0, sb
-	adds r2, r0, r5
-	adds r2, #3
-	mov r0, r8
-	adds r1, r4, #0
-	bl func_fe6_0806E83C
-	movs r4, #0
-	adds r5, #2
-	cmp r4, r5
-	bge .L0806E930
-	mov r7, sb
-	adds r7, #1
-.L0806E920:
-	adds r2, r4, r7
-	mov r0, r8
-	lsls r1, r6, #3
-	bl func_fe6_0806E860
-	adds r4, #1
-	cmp r4, r5
-	blt .L0806E920
-.L0806E930:
-	movs r4, #0
-	ldr r1, [sp, #4]
-	lsls r7, r1, #5
-	cmp r4, sl
-	bge .L0806E94E
-	mov r5, sb
-	adds r5, #2
-.L0806E93E:
-	adds r2, r4, r5
-	mov r0, r8
-	lsls r1, r6, #3
-	bl func_fe6_0806E890
-	adds r4, #1
-	cmp r4, sl
-	blt .L0806E93E
-.L0806E94E:
-	ldr r0, [sp, #0x2c]
-	cmp r0, #0
-	ble .L0806E970
-	mov r0, sb
-	adds r0, #2
-	mov r1, sl
-	adds r5, r1, r0
-	ldr r4, [sp, #0x2c]
-.L0806E95E:
-	mov r0, r8
-	lsls r1, r6, #3
-	adds r2, r5, #0
-	bl func_fe6_0806E8AC
-	adds r5, #1
-	subs r4, #1
-	cmp r4, #0
-	bne .L0806E95E
-.L0806E970:
-	movs r0, #0xc0
-	lsls r0, r0, #0x13
-	adds r1, r7, r0
-	mov r0, r8
-	adds r2, r6, #0
-	movs r3, #1
-	bl func_fe6_08013DAC
-	add sp, #8
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806E990: .4byte gBuf
-.L0806E994: .4byte 0x001FFFFF
-
-	thumb_func_start func_fe6_0806E998
-func_fe6_0806E998: @ 0x0806E998
-	push {r4, r5, r6, lr}
-	mov r6, r8
-	push {r6}
-	sub sp, #8
-	adds r5, r0, #0
-	adds r6, r1, #0
-	mov r8, r2
-	adds r4, r3, #0
-	ldr r3, [sp, #0x1c]
-	ldr r0, [sp, #0x20]
-	ldr r1, [sp, #0x24]
-	str r0, [sp]
-	str r1, [sp, #4]
-	adds r0, r5, #0
-	movs r1, #2
-	adds r2, r6, #0
-	bl func_fe6_0806E8C8
-	ldr r0, .L0806E9DC @ =0x000003FF
-	ands r0, r5
-	adds r4, r4, r0
-	mov r0, r8
-	adds r1, r4, #0
-	adds r2, r6, #0
-	movs r3, #1
-	bl PutIncrTileref
-	add sp, #8
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806E9DC: .4byte 0x000003FF
-
-	thumb_func_start func_fe6_0806E9E0
-func_fe6_0806E9E0: @ 0x0806E9E0
-	adds r0, #0x4c
-	movs r1, #0
-	strh r1, [r0]
-	bx lr
-
-	thumb_func_start func_fe6_0806E9E8
-func_fe6_0806E9E8: @ 0x0806E9E8
-	push {r4, lr}
-	adds r4, r0, #0
-	adds r4, #0x4c
-	ldrh r0, [r4]
-	adds r0, #1
-	strh r0, [r4]
-	movs r0, #0
-	ldrsh r1, [r4, r0]
-	cmp r1, #0
-	bge .L0806E9FE
-	adds r1, #3
-.L0806E9FE:
-	lsls r1, r1, #0xe
-	lsrs r1, r1, #0x10
-	movs r0, #3
-	movs r2, #0
-	bl SetBgOffset
-	movs r1, #0
-	ldrsh r0, [r4, r1]
-	cmp r0, #0
-	bge .L0806EA14
-	adds r0, #3
-.L0806EA14:
-	asrs r1, r0, #2
-	ldr r0, .L0806EA20 @ =0x0400001C
-	strh r1, [r0]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806EA20: .4byte 0x0400001C
-
-	thumb_func_start func_fe6_0806EA24
-func_fe6_0806EA24: @ 0x0806EA24
-	push {r4, r5, r6, r7, lr}
-	adds r7, r0, #0
-	adds r4, r1, #0
-	adds r5, r2, #0
-	ldr r6, .L0806EA5C @ =gBg3Tm
-	cmp r4, #0
-	bne .L0806EA3E
-	movs r0, #3
-	bl GetBgChrOffset
-	movs r1, #0xc0
-	lsls r1, r1, #0x13
-	adds r4, r0, r1
-.L0806EA3E:
-	cmp r5, #0
-	bge .L0806EA44
-	movs r5, #0xe
-.L0806EA44:
-	ldr r1, .L0806EA60 @ =gBmSt
-	movs r0, #0x40
-	ldrb r1, [r1, #4]
-	ands r0, r1
-	cmp r0, #0
-	beq .L0806EA68
-	ldr r0, .L0806EA64 @ =gUnk_08109C80
-	lsls r1, r5, #5
-	movs r2, #0x40
-	bl ApplyPaletteExt
-	b .L0806EA72
-	.align 2, 0
-.L0806EA5C: .4byte gBg3Tm
-.L0806EA60: .4byte gBmSt
-.L0806EA64: .4byte gUnk_08109C80
-.L0806EA68:
-	ldr r0, .L0806EAAC @ =gUnk_0833BFDC
-	lsls r1, r5, #5
-	movs r2, #0x40
-	bl ApplyPaletteExt
-.L0806EA72:
-	ldr r0, .L0806EAB0 @ =gUnk_08336D5C
-	adds r1, r4, #0
-	bl Decompress
-	movs r0, #3
-	bl GetBgChrOffset
-	subs r0, r4, r0
-	lsls r0, r0, #0xf
-	lsrs r0, r0, #0x14
-	movs r1, #0xf
-	ands r1, r5
-	lsls r1, r1, #0xc
-	adds r1, r0, r1
-	movs r2, #0
-	ldr r3, .L0806EAB4 @ =0x0000027F
-.L0806EA92:
-	adds r0, r2, r1
-	strh r0, [r6]
-	adds r6, #2
-	adds r2, #1
-	cmp r2, r3
-	ble .L0806EA92
-	ldr r0, .L0806EAB8 @ =ProcScr_Unk_086773D8
-	adds r1, r7, #0
-	bl SpawnProc
-	pop {r4, r5, r6, r7}
-	pop {r1}
-	bx r1
-	.align 2, 0
-.L0806EAAC: .4byte gUnk_0833BFDC
-.L0806EAB0: .4byte gUnk_08336D5C
-.L0806EAB4: .4byte 0x0000027F
-.L0806EAB8: .4byte ProcScr_Unk_086773D8
-
-	thumb_func_start func_fe6_0806EABC
-func_fe6_0806EABC: @ 0x0806EABC
-	push {lr}
-	ldr r0, .L0806EAC8 @ =ProcScr_Unk_086773D8
-	bl Proc_EndEach
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806EAC8: .4byte ProcScr_Unk_086773D8
-
-	thumb_func_start func_fe6_0806EACC
-func_fe6_0806EACC: @ 0x0806EACC
-	ldr r0, .L0806EAD4 @ =0x0203D3DC
-	ldrb r0, [r0, #1]
-	bx lr
-	.align 2, 0
-.L0806EAD4: .4byte 0x0203D3DC
-
-	thumb_func_start func_fe6_0806EAD8
-func_fe6_0806EAD8: @ 0x0806EAD8
-	ldr r1, .L0806EAE0 @ =0x0203D3DC
-	strb r0, [r1, #1]
-	bx lr
-	.align 2, 0
-.L0806EAE0: .4byte 0x0203D3DC
-
-	thumb_func_start func_fe6_0806EAE4
-func_fe6_0806EAE4: @ 0x0806EAE4
-	ldr r1, .L0806EAEC @ =0x0203D3DC
-	strh r0, [r1, #2]
-	bx lr
-	.align 2, 0
-.L0806EAEC: .4byte 0x0203D3DC
-
-	thumb_func_start func_fe6_0806EAF0
-func_fe6_0806EAF0: @ 0x0806EAF0
-	push {lr}
-	ldr r0, .L0806EAFC @ =gUnk_086773F0
-	bl InitTextList
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806EAFC: .4byte gUnk_086773F0
-
-	thumb_func_start func_fe6_0806EB00
-func_fe6_0806EB00: @ 0x0806EB00
-	push {r4, r5, r6, lr}
-	sub sp, #8
-	adds r6, r0, #0
-	b .L0806EB3A
-.L0806EB08:
-	ldr r0, [r6, #0xc]
-	cmp r0, #0
-	beq .L0806EB30
-	bl GetLang
-	ldr r1, [r6, #0xc]
-	lsls r0, r0, #2
-	adds r0, r0, r1
-	ldr r5, [r6]
-	ldr r1, [r6, #4]
-	ldrb r2, [r6, #8]
-	ldrb r3, [r6, #9]
-	movs r4, #0
-	str r4, [sp]
-	ldr r0, [r0]
-	str r0, [sp, #4]
-	adds r0, r5, #0
-	bl PutDrawText
-	b .L0806EB38
-.L0806EB30:
-	ldr r0, [r6]
-	ldr r1, [r6, #4]
-	bl PutText
-.L0806EB38:
-	adds r6, #0x10
-.L0806EB3A:
-	ldr r0, [r6]
-	cmp r0, #0
-	bne .L0806EB08
-	add sp, #8
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-
 	thumb_func_start func_fe6_0806EB48
 func_fe6_0806EB48: @ 0x0806EB48
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #8
-	ldr r7, .L0806EC48 @ =0x02003108
+	ldr r7, .L0806EC48 @ =gStatScreenSt
 	ldr r0, [r7, #0xc]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -536,7 +115,7 @@ func_fe6_0806EB48: @ 0x0806EB48
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806EC48: .4byte 0x02003108
+.L0806EC48: .4byte gStatScreenSt
 .L0806EC4C: .4byte gBg0Tm
 .L0806EC50: .4byte 0x00000342
 .L0806EC54: .4byte 0x000003C2
@@ -660,7 +239,7 @@ func_fe6_0806ED34: @ 0x0806ED34
 	bl TmApplyTsa_t
 	ldr r0, .L0806ED8C @ =gUnk_083193EC
 	bl func_fe6_0806EB00
-	ldr r4, .L0806ED90 @ =0x02003108
+	ldr r4, .L0806ED90 @ =gStatScreenSt
 	ldr r0, [r4, #0xc]
 	bl UnitKnowsMagic
 	lsls r0, r0, #0x18
@@ -683,7 +262,7 @@ func_fe6_0806ED34: @ 0x0806ED34
 .L0806ED84: .4byte gBuf
 .L0806ED88: .4byte 0x02003738
 .L0806ED8C: .4byte gUnk_083193EC
-.L0806ED90: .4byte 0x02003108
+.L0806ED90: .4byte gStatScreenSt
 .L0806ED94: .4byte 0x0200327A
 .L0806ED98: .4byte gUnk_083195AC
 .L0806ED9C:
@@ -697,7 +276,7 @@ func_fe6_0806ED34: @ 0x0806ED34
 	movs r3, #4
 	bl PutDrawText
 .L0806EDB0:
-	ldr r6, .L0806EFD8 @ =0x02003108
+	ldr r6, .L0806EFD8 @ =gStatScreenSt
 	ldr r0, [r6, #0xc]
 	bl GetUnitPower
 	ldr r1, [r6, #0xc]
@@ -950,7 +529,7 @@ func_fe6_0806ED34: @ 0x0806ED34
 	.align 2, 0
 .L0806EFD0: .4byte 0x0200327A
 .L0806EFD4: .4byte gUnk_083195B4
-.L0806EFD8: .4byte 0x02003108
+.L0806EFD8: .4byte gStatScreenSt
 .L0806EFDC: .4byte 0x02003392
 
 	thumb_func_start func_fe6_0806EFE0
@@ -978,7 +557,7 @@ func_fe6_0806EFE0: @ 0x0806EFE0
 	ldr r0, .L0806F148 @ =gUnk_083194AC
 	bl func_fe6_0806EB00
 	movs r4, #0
-	ldr r1, .L0806F14C @ =0x02003108
+	ldr r1, .L0806F14C @ =gStatScreenSt
 	ldr r0, [r1, #0xc]
 	ldrh r5, [r0, #0x1c]
 	cmp r5, #0
@@ -1016,7 +595,7 @@ func_fe6_0806EFE0: @ 0x0806EFE0
 	cmp r5, #0
 	bne .L0806F02C
 .L0806F064:
-	ldr r7, .L0806F14C @ =0x02003108
+	ldr r7, .L0806F14C @ =gStatScreenSt
 	ldr r0, [r7, #0xc]
 	bl GetUnitEquippedWeaponSlot
 	adds r4, r0, #0
@@ -1118,7 +697,7 @@ func_fe6_0806EFE0: @ 0x0806EFE0
 .L0806F140: .4byte 0x02003EFA
 .L0806F144: .4byte 0x00007060
 .L0806F148: .4byte gUnk_083194AC
-.L0806F14C: .4byte 0x02003108
+.L0806F14C: .4byte gStatScreenSt
 .L0806F150: .4byte 0x0200323A
 .L0806F154: .4byte 0x02003258
 .L0806F158: .4byte 0x02003C3A
@@ -1138,7 +717,7 @@ func_fe6_0806F170: @ 0x0806F170
 	sub sp, #0x14
 	movs r0, #6
 	str r0, [sp, #8]
-	ldr r4, .L0806F258 @ =0x02003108
+	ldr r4, .L0806F258 @ =gStatScreenSt
 	ldr r0, [r4, #0xc]
 	bl GetUnitTotalSupportLevel
 	movs r1, #0
@@ -1158,18 +737,18 @@ func_fe6_0806F170: @ 0x0806F170
 	bge .L0806F248
 	movs r1, #0x80
 	lsls r1, r1, #1
-	ldr r0, .L0806F258 @ =0x02003108
+	ldr r0, .L0806F258 @ =gStatScreenSt
 	adds r1, r0, r1
 	str r1, [sp, #0x10]
 .L0806F1B0:
-	ldr r1, .L0806F258 @ =0x02003108
+	ldr r1, .L0806F258 @ =gStatScreenSt
 	ldr r0, [r1, #0xc]
 	mov r1, sb
 	bl GetUnitSupportLevel
 	adds r7, r0, #0
 	cmp r7, #0
 	beq .L0806F240
-	ldr r1, .L0806F258 @ =0x02003108
+	ldr r1, .L0806F258 @ =gStatScreenSt
 	ldr r0, [r1, #0xc]
 	mov r1, sb
 	bl GetUnitSupportPid
@@ -1242,7 +821,7 @@ func_fe6_0806F170: @ 0x0806F170
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F258: .4byte 0x02003108
+.L0806F258: .4byte gStatScreenSt
 .L0806F25C: .4byte 0x02003240
 
 	thumb_func_start func_fe6_0806F260
@@ -1257,7 +836,7 @@ func_fe6_0806F260: @ 0x0806F260
 	adds r6, r1, #0
 	mov sl, r2
 	adds r1, r3, #0
-	ldr r0, .L0806F314 @ =0x02003108
+	ldr r0, .L0806F314 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	adds r0, #0x26
 	adds r0, r0, r1
@@ -1334,7 +913,7 @@ func_fe6_0806F260: @ 0x0806F260
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F314: .4byte 0x02003108
+.L0806F314: .4byte gStatScreenSt
 .L0806F318: .4byte 0x02003238
 .L0806F31C: .4byte 0x00000401
 .L0806F320: .4byte 0x02003C38
@@ -1351,7 +930,7 @@ func_fe6_0806F324: @ 0x0806F324
 	lsls r2, r2, #5
 	adds r1, r4, #0
 	bl TmApplyTsa_t
-	ldr r0, .L0806F390 @ =0x02003108
+	ldr r0, .L0806F390 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	bl UnitKnowsMagic
 	lsls r0, r0, #0x18
@@ -1384,7 +963,7 @@ func_fe6_0806F324: @ 0x0806F324
 .L0806F384: .4byte gUnk_08307E50
 .L0806F388: .4byte gBuf
 .L0806F38C: .4byte 0x02003738
-.L0806F390: .4byte 0x02003108
+.L0806F390: .4byte gStatScreenSt
 .L0806F394: .4byte gUnk_0831955C
 .L0806F398:
 	ldr r0, .L0806F3D8 @ =gUnk_0831950C
@@ -1465,7 +1044,7 @@ func_fe6_0806F430: @ 0x0806F430
 	movs r5, #0xc0
 	ands r5, r0
 	adds r4, r0, #0
-	ldr r7, .L0806F46C @ =0x0203D3DC
+	ldr r7, .L0806F46C @ =gStatScreenInfo
 .L0806F442:
 	adds r4, r4, r6
 	movs r0, #0x3f
@@ -1488,7 +1067,7 @@ func_fe6_0806F430: @ 0x0806F430
 	pop {r1}
 	bx r1
 	.align 2, 0
-.L0806F46C: .4byte 0x0203D3DC
+.L0806F46C: .4byte gStatScreenInfo
 
 	thumb_func_start func_fe6_0806F470
 func_fe6_0806F470: @ 0x0806F470
@@ -1622,12 +1201,12 @@ func_fe6_0806F470: @ 0x0806F470
 
 	thumb_func_start func_fe6_0806F588
 func_fe6_0806F588: @ 0x0806F588
-	ldr r1, .L0806F590 @ =0x02003108
+	ldr r1, .L0806F590 @ =gStatScreenSt
 	movs r0, #0
 	strb r0, [r1, #8]
 	bx lr
 	.align 2, 0
-.L0806F590: .4byte 0x02003108
+.L0806F590: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F594
 func_fe6_0806F594: @ 0x0806F594
@@ -1663,7 +1242,7 @@ func_fe6_0806F594: @ 0x0806F594
 	strh r2, [r0]
 	adds r0, #8
 	strh r5, [r0]
-	ldr r0, .L0806F5F4 @ =0x02003108
+	ldr r0, .L0806F5F4 @ =gStatScreenSt
 	strh r5, [r0, #2]
 	str r4, [r0, #0x14]
 	movs r1, #1
@@ -1677,13 +1256,13 @@ func_fe6_0806F594: @ 0x0806F594
 	.align 2, 0
 .L0806F5EC: .4byte gUnk_08677520
 .L0806F5F0: .4byte gPlaySt
-.L0806F5F4: .4byte 0x02003108
+.L0806F5F4: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F5F8
 func_fe6_0806F5F8: @ 0x0806F5F8
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
-	ldr r1, .L0806F66C @ =0x02003108
+	ldr r1, .L0806F66C @ =gStatScreenSt
 	movs r6, #0
 	movs r4, #1
 	movs r0, #1
@@ -1739,7 +1318,7 @@ func_fe6_0806F5F8: @ 0x0806F5F8
 	rsbs r0, r0, #0
 	b .L0806F680
 	.align 2, 0
-.L0806F66C: .4byte 0x02003108
+.L0806F66C: .4byte gStatScreenSt
 .L0806F670: .4byte gDispIo
 .L0806F674: .4byte 0x0000FFE0
 .L0806F678: .4byte 0x0000E0FF
@@ -1781,7 +1360,7 @@ func_fe6_0806F688: @ 0x0806F688
 	adds r0, r3, #0
 	adds r0, #0x46
 	strb r2, [r0]
-	ldr r4, .L0806F704 @ =0x02003108
+	ldr r4, .L0806F704 @ =gStatScreenSt
 	ldr r0, [r4, #0x10]
 	movs r1, #6
 	ldrsh r2, [r4, r1]
@@ -1813,7 +1392,7 @@ func_fe6_0806F688: @ 0x0806F688
 	bx r0
 	.align 2, 0
 .L0806F700: .4byte gDispIo
-.L0806F704: .4byte 0x02003108
+.L0806F704: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F708
 func_fe6_0806F708: @ 0x0806F708
@@ -1906,7 +1485,7 @@ func_fe6_0806F780: @ 0x0806F780
 	strb r2, [r0]
 	adds r0, #1
 	strb r3, [r0]
-	ldr r4, .L0806F7F8 @ =0x02003108
+	ldr r4, .L0806F7F8 @ =gStatScreenSt
 	ldr r0, [r4, #0x10]
 	movs r1, #6
 	ldrsh r2, [r4, r1]
@@ -1938,7 +1517,7 @@ func_fe6_0806F780: @ 0x0806F780
 	bx r0
 	.align 2, 0
 .L0806F7F4: .4byte gDispIo
-.L0806F7F8: .4byte 0x02003108
+.L0806F7F8: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F7FC
 func_fe6_0806F7FC: @ 0x0806F7FC
@@ -1948,7 +1527,7 @@ func_fe6_0806F7FC: @ 0x0806F7FC
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	bl GetUnit
-	ldr r1, .L0806F820 @ =0x02003108
+	ldr r1, .L0806F820 @ =gStatScreenSt
 	str r0, [r1, #0xc]
 	movs r0, #0
 	bl func_fe6_0806FFDC
@@ -1958,12 +1537,12 @@ func_fe6_0806F7FC: @ 0x0806F7FC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F820: .4byte 0x02003108
+.L0806F820: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F824
 func_fe6_0806F824: @ 0x0806F824
 	push {r4, r5, lr}
-	ldr r4, .L0806F8A8 @ =0x02003108
+	ldr r4, .L0806F8A8 @ =gStatScreenSt
 	ldr r0, [r4, #0x10]
 	cmp r0, #0
 	beq .L0806F836
@@ -2028,7 +1607,7 @@ func_fe6_0806F824: @ 0x0806F824
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F8A8: .4byte 0x02003108
+.L0806F8A8: .4byte gStatScreenSt
 .L0806F8AC: .4byte gDispIo
 .L0806F8B0: .4byte 0x0000FFE0
 .L0806F8B4: .4byte 0x0000E0FF
@@ -2067,7 +1646,7 @@ func_fe6_0806F8F0: @ 0x0806F8F0
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r0, .L0806F948 @ =0x02003108
+	ldr r0, .L0806F948 @ =gStatScreenSt
 	movs r2, #4
 	ldrsh r1, [r0, r2]
 	adds r1, #0x69
@@ -2104,7 +1683,7 @@ func_fe6_0806F8F0: @ 0x0806F8F0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F948: .4byte 0x02003108
+.L0806F948: .4byte gStatScreenSt
 .L0806F94C: .4byte gUnk_08677578
 .L0806F950: .4byte gUnk_0867758C
 .L0806F954: .4byte gUnk_083087C8
@@ -2165,7 +1744,7 @@ func_fe6_0806F95C: @ 0x0806F95C
 	adds r2, r5, #0
 	adds r3, r4, #0
 	bl SetObjAffine
-	ldr r0, .L0806F9F0 @ =0x02003108
+	ldr r0, .L0806F9F0 @ =gStatScreenSt
 	ldrb r0, [r0]
 	movs r1, #0x36
 	add sb, r1
@@ -2181,7 +1760,7 @@ func_fe6_0806F95C: @ 0x0806F95C
 	bx r0
 	.align 2, 0
 .L0806F9EC: .4byte gSinLut
-.L0806F9F0: .4byte 0x02003108
+.L0806F9F0: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806F9F4
 func_fe6_0806F9F4: @ 0x0806F9F4
@@ -2191,7 +1770,7 @@ func_fe6_0806F9F4: @ 0x0806F9F4
 	adds r5, #0x36
 	ldrb r0, [r5]
 	bl func_fe6_0806F8F0
-	ldr r1, .L0806FA18 @ =0x02003108
+	ldr r1, .L0806FA18 @ =gStatScreenSt
 	ldrh r0, [r1, #2]
 	cmp r0, #0
 	beq .L0806FA1C
@@ -2201,7 +1780,7 @@ func_fe6_0806F9F4: @ 0x0806F9F4
 	bl Proc_Break
 	b .L0806FA20
 	.align 2, 0
-.L0806FA18: .4byte 0x02003108
+.L0806FA18: .4byte gStatScreenSt
 .L0806FA1C:
 	ldrb r0, [r1]
 	strb r0, [r5]
@@ -2373,7 +1952,7 @@ func_fe6_0806FAF0: @ 0x0806FAF0
 	adds r2, r6, #0
 	adds r3, r5, #0
 	bl SetObjAffine
-	ldr r4, .L0806FBBC @ =0x02003108
+	ldr r4, .L0806FBBC @ =gStatScreenSt
 	ldrb r0, [r4]
 	bl func_fe6_0806F8F0
 	ldrh r0, [r7, #0x38]
@@ -2400,7 +1979,7 @@ func_fe6_0806FAF0: @ 0x0806FAF0
 	bx r0
 	.align 2, 0
 .L0806FBB8: .4byte gSinLut
-.L0806FBBC: .4byte 0x02003108
+.L0806FBBC: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806FBC0
 func_fe6_0806FBC0: @ 0x0806FBC0
@@ -2420,7 +1999,7 @@ func_fe6_0806FBC0: @ 0x0806FBC0
 	thumb_func_start func_fe6_0806FBD8
 func_fe6_0806FBD8: @ 0x0806FBD8
 	adds r1, r0, #0
-	ldr r2, .L0806FC08 @ =0x02003108
+	ldr r2, .L0806FC08 @ =gStatScreenSt
 	movs r0, #0x20
 	ldrh r3, [r2, #2]
 	ands r0, r3
@@ -2445,7 +2024,7 @@ func_fe6_0806FBD8: @ 0x0806FBD8
 	strh r0, [r2, #2]
 	bx lr
 	.align 2, 0
-.L0806FC08: .4byte 0x02003108
+.L0806FC08: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806FC0C
 func_fe6_0806FC0C: @ 0x0806FC0C
@@ -2501,7 +2080,7 @@ func_fe6_0806FC0C: @ 0x0806FC0C
 	subs r0, r1, #1
 	strh r0, [r7, #0x2c]
 .L0806FC6E:
-	ldr r6, .L0806FCE8 @ =0x02003108
+	ldr r6, .L0806FCE8 @ =gStatScreenSt
 	movs r0, #4
 	ldrsh r5, [r6, r0]
 	movs r1, #0x2a
@@ -2558,7 +2137,7 @@ func_fe6_0806FC0C: @ 0x0806FC0C
 	bx r0
 	.align 2, 0
 .L0806FCE4: .4byte 0x00004E40
-.L0806FCE8: .4byte 0x02003108
+.L0806FCE8: .4byte gStatScreenSt
 .L0806FCEC: .4byte Sprite_8x16
 .L0806FCF0: .4byte Sprite_8x16_HFlipped
 
@@ -2566,7 +2145,7 @@ func_fe6_0806FC0C: @ 0x0806FC0C
 func_fe6_0806FCF4: @ 0x0806FCF4
 	push {r4, r5, r6, lr}
 	sub sp, #4
-	ldr r4, .L0806FD54 @ =0x02003108
+	ldr r4, .L0806FD54 @ =gStatScreenSt
 	movs r0, #4
 	ldrsh r1, [r4, r0]
 	adds r1, #0xe3
@@ -2610,7 +2189,7 @@ func_fe6_0806FCF4: @ 0x0806FCF4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806FD54: .4byte 0x02003108
+.L0806FD54: .4byte gStatScreenSt
 .L0806FD58: .4byte Sprite_8x8
 .L0806FD5C: .4byte 0x00004EA4
 .L0806FD60: .4byte 0x00004E45
@@ -2620,7 +2199,7 @@ func_fe6_0806FCF4: @ 0x0806FCF4
 func_fe6_0806FD68: @ 0x0806FD68
 	push {r4, lr}
 	sub sp, #4
-	ldr r4, .L0806FDA4 @ =0x02003108
+	ldr r4, .L0806FDA4 @ =gStatScreenSt
 	movs r0, #4
 	ldrsh r1, [r4, r0]
 	movs r0, #6
@@ -2647,7 +2226,7 @@ func_fe6_0806FD68: @ 0x0806FD68
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806FDA4: .4byte 0x02003108
+.L0806FDA4: .4byte gStatScreenSt
 .L0806FDA8: .4byte gUnk_086775D4
 .L0806FDAC: .4byte Sprite_32x16
 .L0806FDB0: .4byte 0x00004E90
@@ -2669,7 +2248,7 @@ func_fe6_0806FDB4: @ 0x0806FDB4
 	add r0, sp, #4
 	movs r2, #6
 	bl memcpy
-	ldr r4, .L0806FE74 @ =0x02003108
+	ldr r4, .L0806FE74 @ =gStatScreenSt
 	movs r0, #8
 	ldrsb r0, [r4, r0]
 	cmp r0, #0
@@ -2713,7 +2292,7 @@ func_fe6_0806FDB4: @ 0x0806FDB4
 	movs r2, #0x4e
 	bl PutSprite
 .L0806FE30:
-	ldr r0, .L0806FE74 @ =0x02003108
+	ldr r0, .L0806FE74 @ =gStatScreenSt
 	ldr r1, [r0, #0xc]
 	movs r0, #0x20
 	ldrh r2, [r1, #0xc]
@@ -2747,7 +2326,7 @@ func_fe6_0806FDB4: @ 0x0806FDB4
 	bx r0
 	.align 2, 0
 .L0806FE70: .4byte gUnk_083195C8
-.L0806FE74: .4byte 0x02003108
+.L0806FE74: .4byte gStatScreenSt
 .L0806FE78: .4byte Sprite_8x8
 .L0806FE7C: .4byte 0x00000803
 
@@ -2828,7 +2407,7 @@ func_fe6_0806FEE8: @ 0x0806FEE8
 	movs r2, #1
 	rsbs r2, r2, #0
 	movs r0, #0
-	bl func_fe6_0806EA24
+	bl StartMuralBackground
 	ldr r0, .L0806FFAC @ =gUnk_083080D0
 	ldr r1, .L0806FFB0 @ =0x06014800
 	bl Decompress
@@ -2867,7 +2446,7 @@ func_fe6_0806FEE8: @ 0x0806FEE8
 	ldr r0, .L0806FFD0 @ =gUnk_08308920
 	ldr r1, .L0806FFD4 @ =0x06004E00
 	bl Decompress
-	ldr r1, .L0806FFD8 @ =0x02003108
+	ldr r1, .L0806FFD8 @ =gStatScreenSt
 	movs r0, #0
 	str r0, [r1, #0x10]
 	adds r0, r5, #0
@@ -2891,12 +2470,12 @@ func_fe6_0806FEE8: @ 0x0806FEE8
 .L0806FFCC: .4byte gPal+0x20
 .L0806FFD0: .4byte gUnk_08308920
 .L0806FFD4: .4byte 0x06004E00
-.L0806FFD8: .4byte 0x02003108
+.L0806FFD8: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0806FFDC
 func_fe6_0806FFDC: @ 0x0806FFDC
 	push {r4, r5, lr}
-	ldr r2, .L08070000 @ =0x02003108
+	ldr r2, .L08070000 @ =gStatScreenSt
 	ldr r1, [r2, #0xc]
 	movs r0, #0xc0
 	ldrb r1, [r1, #0xb]
@@ -2914,7 +2493,7 @@ func_fe6_0806FFDC: @ 0x0806FFDC
 	strb r0, [r2, #1]
 	b .L08070016
 	.align 2, 0
-.L08070000: .4byte 0x02003108
+.L08070000: .4byte gStatScreenSt
 .L08070004: .4byte gBmSt
 .L08070008:
 	movs r0, #2
@@ -2929,7 +2508,7 @@ func_fe6_0806FFDC: @ 0x0806FFDC
 	bl InitIcons
 	bl func_fe6_0806EAF0
 	ldr r5, .L08070088 @ =gBg2Tm+0x42
-	ldr r4, .L0807008C @ =0x02003108
+	ldr r4, .L0807008C @ =gStatScreenSt
 	ldr r0, [r4, #0xc]
 	bl GetUnitFid
 	adds r1, r0, #0
@@ -2970,7 +2549,7 @@ func_fe6_0806FFDC: @ 0x0806FFDC
 	bx r0
 	.align 2, 0
 .L08070088: .4byte gBg2Tm+0x42
-.L0807008C: .4byte 0x02003108
+.L0807008C: .4byte gStatScreenSt
 .L08070090: .4byte 0x02003238
 .L08070094: .4byte gBg0Tm+0x98
 .L08070098: .4byte 0x02003738
@@ -3055,7 +2634,7 @@ func_fe6_080700A4: @ 0x080700A4
 	ands r0, r1
 	cmp r0, #0
 	beq .L08070160
-	ldr r4, .L0807015C @ =0x02003108
+	ldr r4, .L0807015C @ =gStatScreenSt
 	ldrb r1, [r4, #1]
 	ldrb r2, [r4]
 	adds r0, r2, r1
@@ -3066,14 +2645,14 @@ func_fe6_080700A4: @ 0x080700A4
 	movs r0, #0x20
 	b .L0807017E
 	.align 2, 0
-.L0807015C: .4byte 0x02003108
+.L0807015C: .4byte gStatScreenSt
 .L08070160:
 	movs r6, #0x10
 	adds r0, r6, #0
 	ands r0, r1
 	cmp r0, #0
 	beq .L0807018C
-	ldr r4, .L08070188 @ =0x02003108
+	ldr r4, .L08070188 @ =gStatScreenSt
 	ldrb r1, [r4, #1]
 	ldrb r3, [r4]
 	adds r0, r3, r1
@@ -3087,13 +2666,13 @@ func_fe6_080700A4: @ 0x080700A4
 	bl func_fe6_0806F594
 	b .L08070220
 	.align 2, 0
-.L08070188: .4byte 0x02003108
+.L08070188: .4byte gStatScreenSt
 .L0807018C:
 	movs r0, #0x40
 	ands r0, r1
 	cmp r0, #0
 	beq .L080701AC
-	ldr r0, .L080701A8 @ =0x02003108
+	ldr r0, .L080701A8 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	movs r4, #1
 	rsbs r4, r4, #0
@@ -3103,13 +2682,13 @@ func_fe6_080700A4: @ 0x080700A4
 	adds r1, r4, #0
 	b .L080701F4
 	.align 2, 0
-.L080701A8: .4byte 0x02003108
+.L080701A8: .4byte gStatScreenSt
 .L080701AC:
 	movs r0, #0x80
 	ands r0, r1
 	cmp r0, #0
 	beq .L080701C8
-	ldr r0, .L080701C4 @ =0x02003108
+	ldr r0, .L080701C4 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	movs r1, #1
 	bl func_fe6_0806F430
@@ -3117,13 +2696,13 @@ func_fe6_080700A4: @ 0x080700A4
 	movs r1, #1
 	b .L080701F4
 	.align 2, 0
-.L080701C4: .4byte 0x02003108
+.L080701C4: .4byte gStatScreenSt
 .L080701C8:
 	movs r0, #1
 	ands r0, r1
 	cmp r0, #0
 	beq .L08070200
-	ldr r4, .L080701FC @ =0x02003108
+	ldr r4, .L080701FC @ =gStatScreenSt
 	ldr r2, [r4, #0xc]
 	ldrb r0, [r2, #0x19]
 	cmp r0, #0
@@ -3146,7 +2725,7 @@ func_fe6_080700A4: @ 0x080700A4
 	bl func_fe6_0806F8B8
 	b .L08070220
 	.align 2, 0
-.L080701FC: .4byte 0x02003108
+.L080701FC: .4byte gStatScreenSt
 .L08070200:
 	ldr r1, [r3]
 	movs r0, #0x80
@@ -3158,7 +2737,7 @@ func_fe6_080700A4: @ 0x080700A4
 	adds r0, r5, #0
 	movs r1, #0
 	bl Proc_Goto
-	ldr r0, .L08070228 @ =0x02003108
+	ldr r0, .L08070228 @ =gStatScreenSt
 	ldrb r0, [r0]
 	adds r1, r5, #0
 	bl func_fe6_0807030C
@@ -3167,7 +2746,7 @@ func_fe6_080700A4: @ 0x080700A4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08070228: .4byte 0x02003108
+.L08070228: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0807022C
 func_fe6_0807022C: @ 0x0807022C
@@ -3176,13 +2755,13 @@ func_fe6_0807022C: @ 0x0807022C
 	movs r1, #0xfc
 	ldrb r0, [r3, #0x14]
 	ands r1, r0
-	ldr r2, .L0807025C @ =0x02003108
+	ldr r2, .L0807025C @ =gStatScreenSt
 	movs r0, #3
 	ldrb r4, [r2]
 	ands r0, r4
 	orrs r1, r0
 	strb r1, [r3, #0x14]
-	ldr r1, .L08070260 @ =0x0203D3DC
+	ldr r1, .L08070260 @ =gStatScreenInfo
 	ldr r0, [r2, #0xc]
 	ldrb r0, [r0, #0xb]
 	strb r0, [r1, #1]
@@ -3193,24 +2772,24 @@ func_fe6_0807022C: @ 0x0807022C
 	bx r0
 	.align 2, 0
 .L08070258: .4byte gPlaySt
-.L0807025C: .4byte 0x02003108
-.L08070260: .4byte 0x0203D3DC
+.L0807025C: .4byte gStatScreenSt
+.L08070260: .4byte gStatScreenInfo
 
 	thumb_func_start func_fe6_08070264
 func_fe6_08070264: @ 0x08070264
 	push {lr}
 	bl func_fe6_08070CA8
-	ldr r1, .L08070274 @ =0x02003108
+	ldr r1, .L08070274 @ =gStatScreenSt
 	str r0, [r1, #0x14]
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08070274: .4byte 0x02003108
+.L08070274: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_08070278
 func_fe6_08070278: @ 0x08070278
 	push {r4, lr}
-	ldr r0, .L080702AC @ =0x02003108
+	ldr r0, .L080702AC @ =gStatScreenSt
 	movs r1, #6
 	ldrsh r4, [r0, r1]
 	rsbs r4, r4, #0
@@ -3232,12 +2811,12 @@ func_fe6_08070278: @ 0x08070278
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080702AC: .4byte 0x02003108
+.L080702AC: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_080702B0
 func_fe6_080702B0: @ 0x080702B0
 	push {lr}
-	bl func_fe6_0806EABC
+	bl EndMuralBackground
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3246,7 +2825,7 @@ func_fe6_080702B0: @ 0x080702B0
 StartStatScreen: @ 0x080702BC
 	push {r4, r5, r6, r7, lr}
 	adds r6, r1, #0
-	ldr r2, .L08070300 @ =0x02003108
+	ldr r2, .L08070300 @ =gStatScreenSt
 	movs r5, #0
 	movs r3, #0
 	strh r3, [r2, #4]
@@ -3277,7 +2856,7 @@ StartStatScreen: @ 0x080702BC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08070300: .4byte 0x02003108
+.L08070300: .4byte gStatScreenSt
 .L08070304: .4byte gPlaySt
 .L08070308: .4byte gUnk_08677680
 
@@ -3290,7 +2869,7 @@ func_fe6_0807030C: @ 0x0807030C
 	rsbs r1, r1, #0
 	movs r0, #0
 	bl func_fe6_08070E70
-	ldr r1, .L08070334 @ =0x02003108
+	ldr r1, .L08070334 @ =gStatScreenSt
 	ldr r0, [r1, #0x14]
 	cmp r0, #0
 	bne .L08070354
@@ -3302,7 +2881,7 @@ func_fe6_0807030C: @ 0x0807030C
 	beq .L0807033E
 	b .L08070354
 	.align 2, 0
-.L08070334: .4byte 0x02003108
+.L08070334: .4byte gStatScreenSt
 .L08070338:
 	cmp r4, #2
 	beq .L08070350
@@ -3322,7 +2901,7 @@ func_fe6_0807030C: @ 0x0807030C
 .L08070352:
 	str r0, [r1, #0x14]
 .L08070354:
-	ldr r0, .L08070368 @ =0x02003108
+	ldr r0, .L08070368 @ =gStatScreenSt
 	ldr r0, [r0, #0x14]
 	adds r1, r5, #0
 	bl StartMovingHelpBox
@@ -3331,13 +2910,13 @@ func_fe6_0807030C: @ 0x0807030C
 	bx r0
 	.align 2, 0
 .L08070364: .4byte gUnk_08677BA4
-.L08070368: .4byte 0x02003108
+.L08070368: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_0807036C
 func_fe6_0807036C: @ 0x0807036C
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L08070394 @ =0x02003108
+	ldr r0, .L08070394 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	ldr r1, [r4, #0x2c]
 	ldrh r1, [r1, #0x12]
@@ -3355,12 +2934,12 @@ func_fe6_0807036C: @ 0x0807036C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08070394: .4byte 0x02003108
+.L08070394: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_08070398
 func_fe6_08070398: @ 0x08070398
 	adds r2, r0, #0
-	ldr r0, .L080703B4 @ =0x02003108
+	ldr r0, .L080703B4 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	adds r0, #0x2e
 	ldrb r0, [r0]
@@ -3374,7 +2953,7 @@ func_fe6_08070398: @ 0x08070398
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L080703B4: .4byte 0x02003108
+.L080703B4: .4byte gStatScreenSt
 .L080703B8: .4byte .L080703BC
 .L080703BC: @ jump table
 	.4byte .L080703D0 @ case 0
@@ -3424,7 +3003,7 @@ func_fe6_08070398: @ 0x08070398
 func_fe6_08070410: @ 0x08070410
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L0807042C @ =0x02003108
+	ldr r0, .L0807042C @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	bl UnitKnowsMagic
 	lsls r0, r0, #0x18
@@ -3435,7 +3014,7 @@ func_fe6_08070410: @ 0x08070410
 	ldr r0, .L08070430 @ =0x0000059D
 	b .L0807043A
 	.align 2, 0
-.L0807042C: .4byte 0x02003108
+.L0807042C: .4byte gStatScreenSt
 .L08070430: .4byte 0x0000059D
 .L08070434:
 	adds r1, r4, #0
@@ -3453,7 +3032,7 @@ func_fe6_08070410: @ 0x08070410
 func_fe6_08070448: @ 0x08070448
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	ldr r5, .L08070488 @ =0x02003108
+	ldr r5, .L08070488 @ =gStatScreenSt
 	ldr r0, [r5, #0xc]
 	ldrh r0, [r0, #0x1c]
 	cmp r0, #0
@@ -3484,7 +3063,7 @@ func_fe6_08070448: @ 0x08070448
 	bl func_fe6_08070B8C
 	b .L08070496
 	.align 2, 0
-.L08070488: .4byte 0x02003108
+.L08070488: .4byte gStatScreenSt
 .L0807048C:
 	cmp r0, #0x80
 	bne .L08070496
@@ -3506,7 +3085,7 @@ func_fe6_0807049C: @ 0x0807049C
 	bl memcpy
 	ldr r0, [r5, #0x2c]
 	ldrh r4, [r0, #0x12]
-	ldr r0, .L080704D8 @ =0x02003108
+	ldr r0, .L080704D8 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	bl UnitKnowsMagic
 	lsls r0, r0, #0x18
@@ -3526,12 +3105,12 @@ func_fe6_0807049C: @ 0x0807049C
 	bx r0
 	.align 2, 0
 .L080704D4: .4byte gUnk_083195E6
-.L080704D8: .4byte 0x02003108
+.L080704D8: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_080704DC
 func_fe6_080704DC: @ 0x080704DC
 	adds r1, r0, #0
-	ldr r0, .L080704F4 @ =0x02003108
+	ldr r0, .L080704F4 @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	ldr r0, [r0]
 	ldrh r2, [r0, #2]
@@ -3542,7 +3121,7 @@ func_fe6_080704DC: @ 0x080704DC
 	strh r2, [r0]
 	b .L080704FE
 	.align 2, 0
-.L080704F4: .4byte 0x02003108
+.L080704F4: .4byte gStatScreenSt
 .L080704F8:
 	adds r1, #0x4c
 	ldr r0, .L08070500 @ =0x0000066D
@@ -3554,7 +3133,7 @@ func_fe6_080704DC: @ 0x080704DC
 
 	thumb_func_start func_fe6_08070504
 func_fe6_08070504: @ 0x08070504
-	ldr r1, .L08070514 @ =0x02003108
+	ldr r1, .L08070514 @ =gStatScreenSt
 	ldr r1, [r1, #0xc]
 	ldr r1, [r1, #4]
 	ldrh r1, [r1, #2]
@@ -3562,13 +3141,13 @@ func_fe6_08070504: @ 0x08070504
 	strh r1, [r0]
 	bx lr
 	.align 2, 0
-.L08070514: .4byte 0x02003108
+.L08070514: .4byte gStatScreenSt
 
 	thumb_func_start func_fe6_08070518
 func_fe6_08070518: @ 0x08070518
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L0807053C @ =0x02003108
+	ldr r0, .L0807053C @ =gStatScreenSt
 	ldr r0, [r0, #0xc]
 	bl GetUnitTotalSupportLevel
 	cmp r0, #0
@@ -3582,7 +3161,7 @@ func_fe6_08070518: @ 0x08070518
 	bl func_fe6_08070BBC
 	b .L08070546
 	.align 2, 0
-.L0807053C: .4byte 0x02003108
+.L0807053C: .4byte gStatScreenSt
 .L08070540:
 	adds r0, r4, #0
 	bl func_fe6_08070B8C

@@ -102,8 +102,8 @@ gUnk_08109C40: @ 08109C40
 gUnk_08109C60: @ 08109C60
 	.incbin "fe6-base.gba", 0x109C60, (0x109C80 - 0x109C60) @ length: 0020
 
-	.global gUnk_08109C80
-gUnk_08109C80: @ 08109C80
+	.global Pal_LinkArenaMuralBackground
+Pal_LinkArenaMuralBackground: @ 08109C80
 	.incbin "fe6-base.gba", 0x109C80, (0x109CC0 - 0x109C80) @ length: 0040
 
 	.global gUnk_08109CC0

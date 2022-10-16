@@ -211,7 +211,7 @@ PROC_LABEL(L_GAMECTRL_SRAMRESET),
     PROC_CALL(StartMidFadeToBlack),
     PROC_REPEAT(WhileFadeExists),
 
-    PROC_CALL(func_fe6_0806EABC),
+    PROC_CALL(EndMuralBackground),
 
     PROC_GOTO(L_GAMECTRL_OPENINGSEQ),
 
@@ -280,7 +280,7 @@ static void GC_InitSramResetScreen(struct GameController * proc)
 
     gPlaySt.config_talk_speed = 1;
 
-    func_fe6_0806EA24(PROC_TREE_3, NULL, -1);
+    StartMuralBackground(PROC_TREE_3, NULL, -1);
 }
 
 static void GC_InitFastStartCheck(struct GameController * proc)

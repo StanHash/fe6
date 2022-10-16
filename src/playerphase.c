@@ -237,7 +237,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
         {
             EndAllMus();
             func_fe6_08073324();
-            func_fe6_0806EAE4(0x28C);
+            func_fe6_0806EAE4(0x28C); // TODO: stat screen flags
 
             StartStatScreen(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
             Proc_Goto(proc, L_PLAYERPHASE_5);
@@ -537,7 +537,7 @@ do_act:
             break;
 
         EndAllMus();
-        func_fe6_0806EAE4(0x28C);
+        func_fe6_0806EAE4(0x28C); // TODO: stat screen flags
 
         StartStatScreen(GetUnit(uid), proc);
         Proc_Goto(proc, L_PLAYERPHASE_6);

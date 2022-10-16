@@ -83,6 +83,8 @@ enum
     BGPAL_MANIM_1 = 1, // .. 2
     BGPAL_MANIM_4 = 4,
     BGPAL_MANIM_5 = 5,
+
+    BGPAL_MURALBACKGROUND = 14, // .. 15
 };
 
 enum

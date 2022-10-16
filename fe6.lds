@@ -22,7 +22,7 @@ SECTIONS
         . = 0x002AD8; gWeatherGradient = .; /* bmio */
         . = 0x002FD8; gBattlePreviewLabels = .; /* battlepreview */
         . = 0x003008; gBattlePreviewIconPalBuf = .; /* battlepreview */
-        . = 0x003108; /* pad */
+        . = 0x003108; gStatScreenSt = .; /* statscreen */
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
 
@@ -232,6 +232,9 @@ SECTIONS
         . = ALIGN(4); . = . + 0x100; /* TODO */
         . = ALIGN(4); src/manim.o(ewram_data);
 
+        . = 0x0203D3DC - __ewram_overlay_end;
+        . = ALIGN(4); src/statscreen.o(ewram_data);
+
         . = 0x02040000 - __ewram_overlay_end; /* end */
     }
 
@@ -436,6 +439,7 @@ SECTIONS
         src/eventinfo.o(.text);
         src/eventfunctions.o(.text);
         asm/code_eventfunctions.o(.text);
+        src/statscreen.o(.text);
         asm/code_statscreen.o(.text);
         asm/code_helpbox.o(.text);
         asm/code_mapui.o(.text);
@@ -582,6 +586,8 @@ SECTIONS
         . = ALIGN(4); src/manim.o(.data);
         . = ALIGN(4); data/data-code-manim.o(.data);
         . = ALIGN(4); src/eventinfo.o(.data);
+        . = ALIGN(4); data/data_66618C.o(.data);
+        . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

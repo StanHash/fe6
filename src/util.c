@@ -282,59 +282,59 @@ int Unused_08013D34(struct Unk_08013CEC * unk, int arg_1)
 
 void Register2dChrMove(u8 const * src, u8 * dst, int width, int height)
 {
-    int i, lineSize = width * CHR_SIZE;
+    int i, line_size = width * CHR_SIZE;
 
     if (height <= 0)
         return;
 
     for (i = height; i != 0; --i)
     {
-        RegisterDataMove(src, dst, lineSize);
+        RegisterDataMove(src, dst, line_size);
 
-        src += lineSize;
+        src += line_size;
         dst += CHR_SIZE * 0x20;
     }
 }
 
 void Copy2dChr(void const * src, u8 * dst, int width, int height)
 {
-    int i, lineSize = width * CHR_SIZE;
+    int i, line_size = width * CHR_SIZE;
 
     if (height <= 0)
         return;
 
     for (i = height; i != 0; --i)
     {
-        CpuFastCopy(src, dst, lineSize);
+        CpuFastCopy(src, dst, line_size);
 
-        src += lineSize;
+        src += line_size;
         dst += CHR_SIZE * 0x20;
     }
 }
 
-static void func_fe6_08013DE8(u8 const * src, u8 * dst, int width);
+static void func_fe6_08013DE8(u8 const * src, void * dst, int width);
 
-void func_fe6_08013DAC(u8 const * src, u8 * dst, int width, int height)
+void Bitmap2Chr(u8 const * src, void * dst, int width, int height)
 {
-    int i, lineSize;
+    int i, line_size;
 
     if (height <= 0)
         return;
 
-    lineSize = 8 * 8 * width;
+    line_size = 8 * 8 * width;
 
     for (i = height; i != 0; --i)
     {
         func_fe6_08013DE8(src, dst, width);
 
-        src += lineSize;
+        src += line_size;
         dst += CHR_SIZE * width;
     }
 }
 
 static void func_fe6_08013E10(u8 const * src, u32 * dst, int width);
 
-static void func_fe6_08013DE8(u8 const * src, u8 * dst, int width)
+static void func_fe6_08013DE8(u8 const * src, void * dst, int width)
 {
     int i;
 
@@ -343,7 +343,7 @@ static void func_fe6_08013DE8(u8 const * src, u8 * dst, int width)
 
     for (i = width; i != 0; i--)
     {
-        func_fe6_08013E10(src, (u32 *) dst, width);
+        func_fe6_08013E10(src, dst, width);
 
         src += 8;
         dst += CHR_SIZE;
@@ -382,7 +382,7 @@ static void func_fe6_08013E10(u8 const * src, u32 * dst, int width)
         value |= src[0];
 
         *dst++ = value;
-        src += width*8;
+        src += width * 8;
     }
 }
 
@@ -1799,13 +1799,13 @@ void func_fe6_08015260(u8 const * src, u8 * dst, int size)
 
 void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height)
 {
-    int i, lineSize = width * CHR_SIZE;
+    int i, line_size = width * CHR_SIZE;
 
     for (i = 0; i < height; ++i)
     {
-        func_fe6_08015260(src, dst, lineSize);
+        func_fe6_08015260(src, dst, line_size);
 
-        src += lineSize;
+        src += line_size;
         dst += 0x20 * CHR_SIZE;
     }
 }

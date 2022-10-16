@@ -269,7 +269,7 @@ static void PrepPhase_MapIdle(struct GenericProc * proc)
         {
             EndAllMus();
             func_fe6_08073324();
-            func_fe6_0806EAE4(0x28C);
+            func_fe6_0806EAE4(0x28C); // TODO: stat screen flags
 
             StartStatScreen(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
             Proc_Goto(proc, L_PLAYERPHASE_5);

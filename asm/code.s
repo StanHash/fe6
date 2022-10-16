@@ -1327,7 +1327,7 @@ func_fe6_080740D0: @ 0x080740D0
 	push {lr}
 	ldr r0, .L080740E0 @ =gUnk_08678320
 	bl Proc_EndEach
-	bl func_fe6_0806EABC
+	bl EndMuralBackground
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -3624,7 +3624,7 @@ func_fe6_08074EF0: @ 0x08074EF0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xa
-	bl func_fe6_0806EA24
+	bl StartMuralBackground
 	mov r2, r8
 	str r0, [r2, #0x48]
 .L0807531E:
@@ -14146,7 +14146,7 @@ func_fe6_0807A59C: @ 0x0807A59C
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xa
-	bl func_fe6_0806EA24
+	bl StartMuralBackground
 	b .L0807A5EE
 .L0807A5C6:
 	ldr r4, .L0807A65C @ =gUnk_0831B0A8
@@ -32606,7 +32606,7 @@ func_fe6_080837C8: @ 0x080837C8
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xa
-	bl func_fe6_0806EA24
+	bl StartMuralBackground
 	str r0, [r6, #0x44]
 	add sp, #4
 	pop {r4, r5, r6}
@@ -33606,7 +33606,7 @@ func_fe6_08083FF0: @ 0x08083FF0
 	movs r0, #0
 	movs r1, #0
 	movs r2, #0xa
-	bl func_fe6_0806EA24
+	bl StartMuralBackground
 	str r0, [r6, #0x44]
 	add sp, #4
 	pop {r4, r5, r6}
@@ -41483,7 +41483,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	movs r1, #0x40
 	movs r2, #0x40
 	bl ApplyPaletteExt
-	ldr r4, .L08087F24 @ =gUnk_08336D5C
+	ldr r4, .L08087F24 @ =Img_MuralBackground
 	movs r0, #0
 	bl GetBgChrOffset
 	adds r1, r0, #0
@@ -41541,7 +41541,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	b .L08087F54
 	.align 2, 0
 .L08087F20: .4byte gUnk_083278AC
-.L08087F24: .4byte gUnk_08336D5C
+.L08087F24: .4byte Img_MuralBackground
 .L08087F28: .4byte gBg0Tm
 .L08087F2C: .4byte gUnk_083278EC
 .L08087F30: .4byte gUnk_0832BDE8
@@ -50153,10 +50153,10 @@ func_fe6_0808C390: @ 0x0808C390
 	bge .L0808C3B0
 	movs r6, #0xe
 .L0808C3B0:
-	ldr r0, .L0808C414 @ =gUnk_08336D5C
+	ldr r0, .L0808C414 @ =Img_MuralBackground
 	adds r1, r5, #0
 	bl Decompress
-	ldr r0, .L0808C418 @ =gUnk_0833BFDC
+	ldr r0, .L0808C418 @ =Pal_MuralBackground
 	lsls r1, r6, #5
 	movs r2, #0x40
 	bl ApplyPaletteExt
@@ -50179,7 +50179,7 @@ func_fe6_0808C390: @ 0x0808C390
 	cmp r2, r3
 	ble .L0808C3DA
 	ldr r4, .L0808C420 @ =gBg3Tm+0xC0
-	ldr r3, .L0808C424 @ =ProcScr_Unk_086773D8
+	ldr r3, .L0808C424 @ =ProcScr_BackgroundSlide
 	movs r5, #0x80
 	lsls r5, r5, #5
 	adds r1, r5, #0
@@ -50201,11 +50201,11 @@ func_fe6_0808C390: @ 0x0808C390
 	bx r0
 	.align 2, 0
 .L0808C410: .4byte gBg3Tm
-.L0808C414: .4byte gUnk_08336D5C
-.L0808C418: .4byte gUnk_0833BFDC
+.L0808C414: .4byte Img_MuralBackground
+.L0808C418: .4byte Pal_MuralBackground
 .L0808C41C: .4byte 0x0000027F
 .L0808C420: .4byte gBg3Tm+0xC0
-.L0808C424: .4byte ProcScr_Unk_086773D8
+.L0808C424: .4byte ProcScr_BackgroundSlide
 
 	thumb_func_start func_fe6_0808C428
 func_fe6_0808C428: @ 0x0808C428
@@ -51731,7 +51731,7 @@ func_fe6_0808CE4C: @ 0x0808CE4C
 func_fe6_0808D07C: @ 0x0808D07C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_0806EABC
+	bl EndMuralBackground
 	ldr r0, .L0808D0A0 @ =gUnk_0868ADC4
 	bl Proc_EndEach
 	ldr r0, .L0808D0A4 @ =gUnk_0868ADA4
@@ -52166,7 +52166,7 @@ func_fe6_0808D374: @ 0x0808D374
 	ldr r0, .L0808D564 @ =gUnk_0833C09C
 	ldr r1, .L0808D568 @ =0x06011000
 	bl Decompress
-	ldr r4, .L0808D56C @ =gUnk_08336D5C
+	ldr r4, .L0808D56C @ =Img_MuralBackground
 	movs r0, #3
 	bl GetBgChrOffset
 	adds r1, r0, #0
@@ -52305,7 +52305,7 @@ func_fe6_0808D374: @ 0x0808D374
 .L0808D560: .4byte gUnk_0833C01C
 .L0808D564: .4byte gUnk_0833C09C
 .L0808D568: .4byte 0x06011000
-.L0808D56C: .4byte gUnk_08336D5C
+.L0808D56C: .4byte Img_MuralBackground
 .L0808D570: .4byte 0x06003000
 .L0808D574: .4byte gUnk_0833C1D8
 .L0808D578: .4byte gUnk_0833C234
@@ -58949,7 +58949,7 @@ func_fe6_08090A40: @ 0x08090A40
 	adds r0, r5, #0
 	movs r1, #0
 	bl TmFill
-	ldr r0, .L08090B6C @ =gUnk_0833BFDC
+	ldr r0, .L08090B6C @ =Pal_MuralBackground
 	movs r1, #0x80
 	movs r2, #0x20
 	bl ApplyPaletteExt
@@ -58960,7 +58960,7 @@ func_fe6_08090A40: @ 0x08090A40
 	ldr r0, .L08090B74 @ =gUnk_083449F8
 	ldr r1, .L08090B78 @ =0x06001000
 	bl Decompress
-	ldr r4, .L08090B7C @ =gUnk_08336D5C
+	ldr r4, .L08090B7C @ =Img_MuralBackground
 	movs r0, #3
 	bl GetBgChrOffset
 	adds r1, r0, #0
@@ -59026,11 +59026,11 @@ func_fe6_08090A40: @ 0x08090A40
 .L08090B60: .4byte 0x0000E0FF
 .L08090B64: .4byte gBg0Tm
 .L08090B68: .4byte gBg3Tm
-.L08090B6C: .4byte gUnk_0833BFDC
+.L08090B6C: .4byte Pal_MuralBackground
 .L08090B70: .4byte gUnk_08344CB0
 .L08090B74: .4byte gUnk_083449F8
 .L08090B78: .4byte 0x06001000
-.L08090B7C: .4byte gUnk_08336D5C
+.L08090B7C: .4byte Img_MuralBackground
 
 	thumb_func_start func_fe6_08090B80
 func_fe6_08090B80: @ 0x08090B80
@@ -71605,7 +71605,7 @@ func_fe6_08096B38: @ 0x08096B38
 	ldr r1, .L08096F54 @ =gDispIo+0x3C
 	ldrh r2, [r1]
 	strh r2, [r0]
-	ldr r4, .L08096F60 @ =gUnk_08336D5C
+	ldr r4, .L08096F60 @ =Img_MuralBackground
 	movs r0, #3
 	bl GetBgChrOffset
 	movs r2, #0xc0
@@ -71634,7 +71634,7 @@ func_fe6_08096B38: @ 0x08096B38
 .L08096F54: .4byte gDispIo+0x3C
 .L08096F58: .4byte 0x0000FFE0
 .L08096F5C: .4byte 0x0000E0FF
-.L08096F60: .4byte gUnk_08336D5C
+.L08096F60: .4byte Img_MuralBackground
 .L08096F64: .4byte gBg3Tm
 .L08096F68: .4byte gUnk_083278EC
 .L08096F6C: .4byte gUnk_083278AC
