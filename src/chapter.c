@@ -2,7 +2,7 @@
 #include "chapter.h"
 
 #include "hardware.h"
-#include "game-controller.h"
+#include "gamecontroller.h"
 #include "bm.h"
 #include "map.h"
 #include "faction.h"
@@ -12,7 +12,7 @@
 #include "bmio.h"
 #include "arena.h"
 #include "action.h"
-#include "chapter-info.h"
+#include "chapterinfo.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"

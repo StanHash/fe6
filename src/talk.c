@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "talk.h"
 
 #include <string.h>
@@ -9,7 +7,7 @@
 #include "oam.h"
 #include "sound.h"
 #include "proc.h"
-#include "debug-text.h"
+#include "debugtext.h"
 #include "text.h"
 #include "sprite.h"
 #include "face.h"
@@ -21,7 +19,7 @@
 #include "chapter.h"
 #include "ui.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 
 struct TalkChoiceEnt

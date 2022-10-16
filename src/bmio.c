@@ -11,9 +11,9 @@
 #include "bm.h"
 #include "map.h"
 #include "unitsprite.h"
-#include "chapter-info.h"
+#include "chapterinfo.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 
 struct TsImgAnim
 {

@@ -13,7 +13,7 @@
 #include "action.h"
 #include "ui.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 
 extern struct Text gTradeMenuText[2][ITEMSLOT_INV_COUNT];

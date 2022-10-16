@@ -46,7 +46,7 @@ SHASUM ?= sha1sum
 
 CPPFLAGS := -I $(AGBCC_HOME)/include -iquote include -iquote . -nostdinc -undef
 CFLAGS := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -O2
-ASFLAGS := -mcpu=arm7tdmi -I asm/include
+ASFLAGS := -mcpu=arm7tdmi -I asm/include -I include
 
 LDS := $(BUILD_NAME).lds
 
@@ -55,10 +55,10 @@ ROM := $(BUILD_NAME).gba
 ELF := $(ROM:%.gba=%.elf)
 MAP := $(ROM:%.gba=%.map)
 
-C_SRCS := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/lib/*.c)
+C_SRCS := $(wildcard $(SRC_DIR)/*.c)
 C_OBJS := $(C_SRCS:%.c=$(BUILD_DIR)/%.o)
 
-ASM_SRCS := $(wildcard $(ASM_DIR)/*.s) $(wildcard $(ASM_DIR)/lib/*.s)
+ASM_SRCS := $(wildcard $(SRC_DIR)/*.s) $(wildcard $(ASM_DIR)/*.s) $(wildcard $(ASM_DIR)/lib/*.s)
 ASM_OBJS := $(ASM_SRCS:%.s=$(BUILD_DIR)/%.o)
 
 DATA_SRCS := $(wildcard data/*.s)
@@ -126,27 +126,27 @@ endif
 # not yet supported by agbcc :/
 # %/main.o:            CFLAGS += -mtpcs-frame
 
-%/irq.o:             CFLAGS += -O0
-%/random.o:          CFLAGS += -O0
-%/hardware.o:        CFLAGS += -O0
-%/move.o:            CFLAGS += -O0
-%/oam.o:             CFLAGS += -O0
-%/sound.o:           CFLAGS += -O0
-%/ramfunc.o:         CFLAGS += -O0
-%/proc.o:            CFLAGS += -O0
-%/icon.o:            CFLAGS += -O0
-%/debug-text.o:      CFLAGS += -O0
-%/text.o:            CFLAGS += -O0
-%/banim-sprite.o:    CFLAGS += -O0
-%/sprite.o:          CFLAGS += -O0
-%/face.o:            CFLAGS += -O0
-%/talk.o:            CFLAGS += -O0
-%/event.o:           CFLAGS += -O0
-%/sprite-anim.o:     CFLAGS += -O0
-%/game-controller.o: CFLAGS += -O0
-%/msg.o:             CFLAGS += -O0
+%/irq.o:            CFLAGS += -O0
+%/random.o:         CFLAGS += -O0
+%/hardware.o:       CFLAGS += -O0
+%/move.o:           CFLAGS += -O0
+%/oam.o:            CFLAGS += -O0
+%/sound.o:          CFLAGS += -O0
+%/ramfunc.o:        CFLAGS += -O0
+%/proc.o:           CFLAGS += -O0
+%/icon.o:           CFLAGS += -O0
+%/debugtext.o:      CFLAGS += -O0
+%/text.o:           CFLAGS += -O0
+%/banim_sprite.o:   CFLAGS += -O0
+%/sprite.o:         CFLAGS += -O0
+%/face.o:           CFLAGS += -O0
+%/talk.o:           CFLAGS += -O0
+%/event.o:          CFLAGS += -O0
+%/spriteanim.o:     CFLAGS += -O0
+%/gamecontroller.o: CFLAGS += -O0
+%/msg.o:            CFLAGS += -O0
 
-%/mu.o:              CFLAGS += -O0
-%/manim.o:           CFLAGS += -O0
+%/mu.o:             CFLAGS += -O0
+%/manim.o:          CFLAGS += -O0
 
-%/agb-sram.o:        CFLAGS += -O1
+%/gbasram.o:        CFLAGS += -O1

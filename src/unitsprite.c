@@ -1,6 +1,4 @@
-
 #include "unitsprite.h"
-#include "common.h"
 
 #include "hardware.h"
 #include "move.h"
@@ -15,7 +13,7 @@
 #include "trap.h"
 #include "mu.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/map-sprites.h"
 #include "constants/terrains.h"
 

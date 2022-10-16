@@ -3,7 +3,7 @@
 #include "common.h"
 
 #include "proc.h"
-#include "sprite-anim.h"
+#include "spriteanim.h"
 
 enum
 {

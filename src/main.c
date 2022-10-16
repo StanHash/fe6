@@ -1,17 +1,16 @@
-
-#include "gba/gba.h"
-
-#include "m4a.h"
+#include "common.h"
 
 #include "irq.h"
 #include "random.h"
 #include "hardware.h"
 #include "ramfunc.h"
 #include "proc.h"
-#include "sprite-anim.h"
-#include "game-controller.h"
+#include "spriteanim.h"
+#include "gamecontroller.h"
 #include "bm.h"
 #include "mu.h"
+
+#include "m4a.h"
 
 void func_fe6_080841FC(void);
 void func_fe6_0808439C(void);

@@ -8191,7 +8191,7 @@ func_fe6_0803912C: @ 0x0803912C
 	ands r0, r1
 	cmp r0, #0
 	beq .L08039162
-	ldr r2, .L0803916C @ =gMPlayTable
+	ldr r2, .L0803916C @ =gMusicPlayerTable
 	ldr r1, .L08039170 @ =gSongTable
 	ldr r0, .L08039174 @ =0x0000040C
 	adds r1, r1, r0
@@ -8211,7 +8211,7 @@ func_fe6_0803912C: @ 0x0803912C
 	bx r0
 	.align 2, 0
 .L08039168: .4byte gKeySt
-.L0803916C: .4byte gMPlayTable
+.L0803916C: .4byte gMusicPlayerTable
 .L08039170: .4byte gSongTable
 .L08039174: .4byte 0x0000040C
 
@@ -23478,13 +23478,13 @@ func_fe6_08040C00: @ 0x08040C00
 	thumb_func_start func_fe6_08040C7C
 func_fe6_08040C7C: @ 0x08040C7C
 	push {lr}
-	ldr r1, .L08040C8C @ =gMpi_MainBgm
+	ldr r1, .L08040C8C @ =gMusicPlayer_MainBgm
 	movs r0, #0x22
 	bl StartBgm
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08040C8C: .4byte gMpi_MainBgm
+.L08040C8C: .4byte gMusicPlayer_MainBgm
 
 	thumb_func_start func_fe6_08040C90
 func_fe6_08040C90: @ 0x08040C90

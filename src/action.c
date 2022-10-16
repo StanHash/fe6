@@ -11,7 +11,7 @@
 #include "support.h"
 #include "battle.h"
 #include "unitsprite.h"
-#include "item-action.h"
+#include "itemaction.h"
 #include "mu.h"
 #include "eventinfo.h"
 
@@ -473,10 +473,10 @@ static void CombatAction_DoHandleDeaths(struct GenericProc * proc)
 
 void func_fe6_0802A7F4(void)
 {
-    int songId = GetActiveMapSong();
+    int song = GetActiveMapSong();
 
-    if (GetCurrentBgmSong() != songId)
-        StartBgmExt(songId, 6, NULL);
+    if (GetCurrentBgmSong() != song)
+        StartBgmExt(song, 6, NULL);
 }
 
 static void CombatAction_0802A814(struct GenericProc * proc)

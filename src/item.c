@@ -1,6 +1,4 @@
-
 #include "item.h"
-#include "common.h"
 
 #include "hardware.h"
 #include "icon.h"
@@ -10,10 +8,10 @@
 #include "unit.h"
 #include "faction.h"
 #include "gold.h"
-#include "item-use.h"
+#include "itemuse.h"
 #include "supply.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/iids.h"
 #include "constants/icons.h"
 

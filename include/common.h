@@ -22,9 +22,9 @@
 #include "attributes.h"
 #include "types.h"
 
-#include "unk-types.h"
-#include "unk-funcs.h"
-#include "unk-objects.h"
+#include "unknown_types.h"
+#include "unknown_funcs.h"
+#include "unknown_objects.h"
 
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 

@@ -1,4 +1,3 @@
-
 #include "common.h"
 
 #include "hardware.h"
@@ -6,7 +5,7 @@
 #include "unit.h"
 #include "map.h"
 #include "mapwork.h"
-#include "target-list.h"
+#include "targetlist.h"
 #include "faction.h"
 #include "action.h"
 #include "eventinfo.h"

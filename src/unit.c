@@ -13,7 +13,7 @@
 #include "battle.h"
 #include "trap.h"
 #include "action.h"
-#include "ai-utility.h"
+#include "ai_utility.h"
 
 #include "constants/terrains.h"
 #include "constants/iids.h"

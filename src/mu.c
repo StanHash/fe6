@@ -3,7 +3,7 @@
 
 #include "oam.h"
 #include "sound.h"
-#include "sprite-anim.h"
+#include "spriteanim.h"
 #include "util.h"
 #include "unit.h"
 #include "map.h"
@@ -12,7 +12,7 @@
 #include "chapter.h"
 #include "battle.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/jids.h"
 #include "constants/songs.h"
 

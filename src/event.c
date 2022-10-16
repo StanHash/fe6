@@ -1,7 +1,7 @@
 
 #include "common.h"
 #include "event.h"
-#include "event-script.h"
+#include "eventscript.h"
 
 #include "armfunc.h"
 #include "hardware.h"
@@ -12,7 +12,7 @@
 #include "icon.h"
 #include "sprite.h"
 #include "talk.h"
-#include "game-controller.h"
+#include "gamecontroller.h"
 #include "msg.h"
 #include "util.h"
 #include "bm.h"
@@ -28,18 +28,18 @@
 #include "trap.h"
 #include "bmio.h"
 #include "chapter.h"
-#include "chapter-info.h"
-#include "subtitle-help.h"
-#include "ai-decide.h"
-#include "ai-perform.h"
-#include "ai-utility.h"
+#include "chapterinfo.h"
+#include "subtitlehelp.h"
+#include "ai_decide.h"
+#include "ai_perform.h"
+#include "ai_utility.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
 
-#include "constants/video-global.h"
-#include "constants/video-wm.h"
-#include "constants/video-banim.h"
+#include "constants/videoalloc_global.h"
+#include "constants/videoalloc_wm.h"
+#include "constants/videoalloc_banim.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
 
@@ -3737,17 +3737,17 @@ void ResetWeather(void)
 
 void func_fe6_08012780(void)
 {
-    m4aMPlayFadeOut(&gMpi_MainBgm, 3);
+    m4aMPlayFadeOut(&gMusicPlayer_MainBgm, 3);
 }
 
 void func_fe6_08012798(void)
 {
-    m4aMPlayFadeOutTemporarily(&gMpi_FightBgm, 3);
+    m4aMPlayFadeOutTemporarily(&gMusicPlayer_FightBgm, 3);
 }
 
 void func_fe6_080127B0(void)
 {
-    m4aMPlayFadeIn(&gMpi_FightBgm, 2);
+    m4aMPlayFadeIn(&gMusicPlayer_FightBgm, 2);
 }
 
 struct ProcScr CONST_DATA ProcScr_Popup[] =

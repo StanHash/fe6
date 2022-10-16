@@ -11,7 +11,7 @@
 #include "util.h"
 #include "item.h"
 #include "unit.h"
-#include "debug-menu.h"
+#include "debugmenu.h"
 #include "faction.h"
 #include "unitsprite.h"
 #include "battle.h"
@@ -22,7 +22,7 @@
 #include "constants/iids.h"
 #include "constants/pids.h"
 #include "constants/jids.h"
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 #include "constants/terrains.h"
 

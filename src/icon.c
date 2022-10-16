@@ -3,7 +3,7 @@
 #include "hardware.h"
 #include "move.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 
 enum { MAX_ICON_COUNT = 160 };
 enum { MAX_ICON_DISPLAY_COUNT = 0x20 };

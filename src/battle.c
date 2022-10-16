@@ -14,7 +14,7 @@
 #include "trap.h"
 #include "arena.h"
 #include "action.h"
-#include "chapter-info.h"
+#include "chapterinfo.h"
 #include "mu.h"
 
 #include "constants/pids.h"

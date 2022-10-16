@@ -7,10 +7,10 @@
 
 struct SoundSt
 {
-    /* 00 */ u16 unused00;
-    /* 02 */ u16 overwrittenSongId;
-    /* 04 */ u16 songId;
-    /* 06 */ i8 songPlaying;
+    /* 00 */ u16 unused_00;
+    /* 02 */ u16 overwritten_song;
+    /* 04 */ u16 song;
+    /* 06 */ i8 is_song_playing;
 };
 
 struct MusicProc
@@ -18,28 +18,28 @@ struct MusicProc
     /* 00 */ PROC_HEADER;
 
     /* 29 */ u8 pad29[0x4A - 0x29];
-    /* 4A */ short songId;
+    /* 4A */ short song;
     /* 4C */ short clock;
-    /* 4E */ short fiTimeEnd;
+    /* 4E */ short fi_time_end;
 
     /* 50 */ u8 pad50[0x54 - 0x50];
-    /* 54 */ struct MusicPlayerInfo * mpi;
+    /* 54 */ struct MusicPlayer * music_player;
 
     /* 58 */ u8 pad60[0x64 - 0x58];
-    /* 64 */ short vcInitVolume;
-    /* 66 */ short vcEndVolume;
-    /* 68 */ short vcClock;
-    /* 6A */ short vcTimeEnd;
+    /* 64 */ short vc_init_volume;
+    /* 66 */ short vc_end_volume;
+    /* 68 */ short vc_clock;
+    /* 6A */ short vc_time_end;
 };
 
 static void MusicFi_OnLoop(struct MusicProc * proc);
 static void MusicVc_OnLoop(struct MusicProc * proc);
 static void DelaySong_OnLoop(struct MusicProc * proc);
 
-static void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo * mpi);
-static void PlaySongCore(int songId, struct MusicPlayerInfo * mpi);
+static void PlaySongDelayed(int song, int delay, struct MusicPlayer * music_player);
+static void PlaySongCore(int song, struct MusicPlayer * music_player);
 
-static struct SoundSt EWRAM_DATA sSoundSt = {};
+static struct SoundSt EWRAM_DATA sSoundSt = { 0 };
 
 struct ProcScr CONST_DATA ProcScr_MusicFadeIn[] =
 {
@@ -62,28 +62,28 @@ struct ProcScr CONST_DATA ProcScr_DelaySong[] =
 
 int GetCurrentBgmSong(void)
 {
-    return sSoundSt.songId;
+    return sSoundSt.song;
 }
 
 bool IsBgmPlaying(void)
 {
-    return sSoundSt.songPlaying;
+    return sSoundSt.is_song_playing;
 }
 
 void func_fe6_08002F9C(int volume)
 {
-    m4aMPlayVolumeControl(&gMpi_03006530, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_03006600, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_03006570, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_03006260, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_030062A0, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_030064B0, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_03006530, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_03006600, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_03006570, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_03006260, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_030062A0, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_030064B0, 0xFFFF, volume);
 }
 
 void SetBgmVolume(int volume)
 {
-    m4aMPlayVolumeControl(&gMpi_FightBgm, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_MainBgm, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_FightBgm, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_MainBgm, 0xFFFF, volume);
 }
 
 void FadeBgmOut(int speed)
@@ -91,10 +91,10 @@ void FadeBgmOut(int speed)
     if (speed < 0)
         speed = 6;
 
-    m4aMPlayFadeOut(&gMpi_FightBgm, speed);
-    m4aMPlayFadeOut(&gMpi_MainBgm, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_FightBgm, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_MainBgm, speed);
 
-    sSoundSt.songPlaying = FALSE;
+    sSoundSt.is_song_playing = FALSE;
 }
 
 void func_fe6_080030B4(int speed)
@@ -102,107 +102,107 @@ void func_fe6_080030B4(int speed)
     if (speed == 0)
         speed = 6;
 
-    m4aMPlayFadeOut(&gMpi_03006530, speed);
-    m4aMPlayFadeOut(&gMpi_03006600, speed);
-    m4aMPlayFadeOut(&gMpi_03006570, speed);
-    m4aMPlayFadeOut(&gMpi_03006260, speed);
-    m4aMPlayFadeOut(&gMpi_030062A0, speed);
-    m4aMPlayFadeOut(&gMpi_030064B0, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_03006530, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_03006600, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_03006570, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_03006260, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_030062A0, speed);
+    m4aMPlayFadeOut(&gMusicPlayer_030064B0, speed);
 }
 
-void StartBgmCore(int songId, struct MusicPlayerInfo * mpi)
+void StartBgmCore(int song, struct MusicPlayer * music_player)
 {
-    sSoundSt.songPlaying = TRUE;
-    sSoundSt.songId = songId;
+    sSoundSt.is_song_playing = TRUE;
+    sSoundSt.song = song;
 
-    PlaySongCore(songId, mpi);
+    PlaySongCore(song, music_player);
 
-    m4aMPlayImmInit(&gMpi_FightBgm);
-    m4aMPlayImmInit(&gMpi_MainBgm);
+    m4aMPlayImmInit(&gMusicPlayer_FightBgm);
+    m4aMPlayImmInit(&gMusicPlayer_MainBgm);
 }
 
-void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo * mpi)
+void StartOrChangeBgm(int song, int speed, struct MusicPlayer * music_player)
 {
-    if (sSoundSt.songPlaying && GetCurrentBgmSong() == songId)
+    if (sSoundSt.is_song_playing && GetCurrentBgmSong() == song)
         return;
 
     if (gPlaySt.config_bgm_disable)
         return;
 
-    if (sSoundSt.songPlaying)
+    if (sSoundSt.is_song_playing)
     {
         FadeBgmOut(speed);
-        PlaySongDelayed(songId, speed * 16, mpi);
+        PlaySongDelayed(song, speed * 16, music_player);
     }
     else
     {
-        StartBgmCore(songId, mpi);
+        StartBgmCore(song, music_player);
     }
 }
 
-void StartBgm(int songId, struct MusicPlayerInfo * mpi)
+void StartBgm(int song, struct MusicPlayer * music_player)
 {
-    StartOrChangeBgm(songId, 3, mpi);
+    StartOrChangeBgm(song, 3, music_player);
 }
 
-void StartBgmExt(int songId, int speed, struct MusicPlayerInfo * mpi)
+void StartBgmExt(int song, int speed, struct MusicPlayer * music_player)
 {
-    StartOrChangeBgm(songId, speed, mpi);
+    StartOrChangeBgm(song, speed, music_player);
 }
 
 void MusicFi_OnLoop(struct MusicProc * proc)
 {
-    int volume = Interpolate(INTERPOLATE_LINEAR, 0, 0x100, proc->clock, proc->fiTimeEnd);
+    int volume = Interpolate(INTERPOLATE_LINEAR, 0, 0x100, proc->clock, proc->fi_time_end);
 
-    m4aMPlayVolumeControl(&gMpi_FightBgm, 0xFFFF, volume);
-    m4aMPlayVolumeControl(&gMpi_MainBgm, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_FightBgm, 0xFFFF, volume);
+    m4aMPlayVolumeControl(&gMusicPlayer_MainBgm, 0xFFFF, volume);
 
     proc->clock++;
 
-    if (proc->clock >= proc->fiTimeEnd)
+    if (proc->clock >= proc->fi_time_end)
         Proc_Break(proc);
 }
 
-void StartBgmFadeIn(int songId, int duration, struct MusicPlayerInfo * mpi)
+void StartBgmFadeIn(int song, int duration, struct MusicPlayer * music_player)
 {
     struct MusicProc * proc;
 
     if (gPlaySt.config_bgm_disable)
         return;
 
-    sSoundSt.songPlaying = TRUE;
-    sSoundSt.songId = songId;
+    sSoundSt.is_song_playing = TRUE;
+    sSoundSt.song = song;
 
     proc = SpawnProc(ProcScr_MusicFadeIn, PROC_TREE_3);
 
-    m4aMPlayStop(&gMpi_FightBgm);
-    m4aMPlayStop(&gMpi_MainBgm);
+    m4aMPlayStop(&gMusicPlayer_FightBgm);
+    m4aMPlayStop(&gMusicPlayer_MainBgm);
 
-    PlaySongCore(songId, mpi);
+    PlaySongCore(song, music_player);
 
-    m4aMPlayImmInit(&gMpi_FightBgm);
-    m4aMPlayImmInit(&gMpi_MainBgm);
+    m4aMPlayImmInit(&gMusicPlayer_FightBgm);
+    m4aMPlayImmInit(&gMusicPlayer_MainBgm);
 
-    m4aMPlayVolumeControl(&gMpi_FightBgm, 0xFFFF, 0);
-    m4aMPlayVolumeControl(&gMpi_MainBgm, 0xFFFF, 0);
+    m4aMPlayVolumeControl(&gMusicPlayer_FightBgm, 0xFFFF, 0);
+    m4aMPlayVolumeControl(&gMusicPlayer_MainBgm, 0xFFFF, 0);
 
     proc->clock = 0;
-    proc->fiTimeEnd = duration * 16;
+    proc->fi_time_end = duration * 16;
 }
 
-void OverrideBgm(int songId)
+void OverrideBgm(int song)
 {
     if (gPlaySt.config_bgm_disable)
         return;
 
-    sSoundSt.overwrittenSongId = sSoundSt.songId;
+    sSoundSt.overwritten_song = sSoundSt.song;
 
-    m4aMPlayFadeOutTemporarily(&gMpi_MainBgm, 3);
+    m4aMPlayFadeOutTemporarily(&gMusicPlayer_MainBgm, 3);
 
-    sSoundSt.songPlaying = FALSE;
+    sSoundSt.is_song_playing = FALSE;
 
-    if (songId != 0)
-        PlaySongDelayed(songId, 32, &gMpi_FightBgm);
+    if (song != 0)
+        PlaySongDelayed(song, 32, &gMusicPlayer_FightBgm);
 }
 
 void RestoreBgm(void)
@@ -210,16 +210,16 @@ void RestoreBgm(void)
     if (gPlaySt.config_bgm_disable)
         return;
 
-    if (sSoundSt.overwrittenSongId == 0)
+    if (sSoundSt.overwritten_song == 0)
         return;
 
-    m4aMPlayFadeOut(&gMpi_FightBgm, 3);
-    m4aMPlayFadeIn(&gMpi_MainBgm, 6);
+    m4aMPlayFadeOut(&gMusicPlayer_FightBgm, 3);
+    m4aMPlayFadeIn(&gMusicPlayer_MainBgm, 6);
 
-    sSoundSt.songPlaying = TRUE;
+    sSoundSt.is_song_playing = TRUE;
 
-    sSoundSt.songId = sSoundSt.overwrittenSongId;
-    sSoundSt.overwrittenSongId = 0;
+    sSoundSt.song = sSoundSt.overwritten_song;
+    sSoundSt.overwritten_song = 0;
 }
 
 void MakeBgmOverridePersist(void)
@@ -227,32 +227,32 @@ void MakeBgmOverridePersist(void)
     if (gPlaySt.config_bgm_disable)
         return;
 
-    sSoundSt.songId = sSoundSt.overwrittenSongId;
-    sSoundSt.overwrittenSongId = 0;
+    sSoundSt.song = sSoundSt.overwritten_song;
+    sSoundSt.overwritten_song = 0;
 }
 
 void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent)
 {
     struct MusicProc * proc = SpawnProcLocking(ProcScr_MusicVolChange, parent);
 
-    proc->vcInitVolume = volumeInit;
-    proc->vcEndVolume = volumeEnd;
-    proc->vcClock = 0;
-    proc->vcTimeEnd = duration;
+    proc->vc_init_volume = volumeInit;
+    proc->vc_end_volume = volumeEnd;
+    proc->vc_clock = 0;
+    proc->vc_time_end = duration;
 }
 
 void MusicVc_OnLoop(struct MusicProc * proc)
 {
-    int volume = Interpolate(INTERPOLATE_LINEAR, proc->vcInitVolume, proc->vcEndVolume, proc->vcClock++, proc->vcTimeEnd);
+    int volume = Interpolate(INTERPOLATE_LINEAR, proc->vc_init_volume, proc->vc_end_volume, proc->vc_clock++, proc->vc_time_end);
 
     SetBgmVolume(volume);
 
-    if (proc->vcClock >= proc->vcTimeEnd)
+    if (proc->vc_clock >= proc->vc_time_end)
     {
-        if (proc->vcEndVolume == 0)
+        if (proc->vc_end_volume == 0)
         {
             m4aSongNumStop(GetCurrentBgmSong());
-            sSoundSt.songPlaying = FALSE;
+            sSoundSt.is_song_playing = FALSE;
         }
 
         Proc_Break(proc);
@@ -266,14 +266,14 @@ void DelaySong_OnLoop(struct MusicProc * proc)
     if (proc->clock >= 0)
         return;
 
-    sSoundSt.songPlaying = TRUE;
-    sSoundSt.songId = proc->songId;
+    sSoundSt.is_song_playing = TRUE;
+    sSoundSt.song = proc->song;
 
-    PlaySongCore(proc->songId, proc->mpi);
+    PlaySongCore(proc->song, proc->music_player);
     Proc_End(proc);
 }
 
-static void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo * mpi)
+static void PlaySongDelayed(int song, int delay, struct MusicPlayer * music_player)
 {
     struct MusicProc * proc;
 
@@ -283,14 +283,14 @@ static void PlaySongDelayed(int songId, int delay, struct MusicPlayerInfo * mpi)
     proc = SpawnProc(ProcScr_DelaySong, PROC_TREE_3);
 
     proc->clock = delay;
-    proc->songId = songId;
-    proc->mpi = mpi;
+    proc->song = song;
+    proc->music_player = music_player;
 }
 
-static void PlaySongCore(int songId, struct MusicPlayerInfo * mpi)
+static void PlaySongCore(int song, struct MusicPlayer * music_player)
 {
-    if (mpi)
-        MPlayStart(mpi, gSongTable[songId].header);
+    if (music_player)
+        m4aMPlayStart(music_player, gSongTable[song].song);
     else
-        m4aSongNumStart(songId);
+        m4aSongNumStart(song);
 }

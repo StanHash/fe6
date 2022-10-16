@@ -7,14 +7,14 @@
 
 #include "m4a.h"
 
-extern struct MusicPlayerInfo gMpi_03006530;
-extern struct MusicPlayerInfo gMpi_03006600;
-extern struct MusicPlayerInfo gMpi_03006570;
-extern struct MusicPlayerInfo gMpi_03006260;
-extern struct MusicPlayerInfo gMpi_030062A0;
-extern struct MusicPlayerInfo gMpi_030064B0;
-extern struct MusicPlayerInfo gMpi_FightBgm;
-extern struct MusicPlayerInfo gMpi_MainBgm;
+extern struct MusicPlayer gMusicPlayer_03006530;
+extern struct MusicPlayer gMusicPlayer_03006600;
+extern struct MusicPlayer gMusicPlayer_03006570;
+extern struct MusicPlayer gMusicPlayer_03006260;
+extern struct MusicPlayer gMusicPlayer_030062A0;
+extern struct MusicPlayer gMusicPlayer_030064B0;
+extern struct MusicPlayer gMusicPlayer_FightBgm;
+extern struct MusicPlayer gMusicPlayer_MainBgm;
 
 int GetCurrentBgmSong(void);
 bool IsBgmPlaying(void);
@@ -22,12 +22,12 @@ void func_fe6_08002F9C(int volume);
 void SetBgmVolume(int volume);
 void FadeBgmOut(int speed);
 void func_fe6_080030B4(int speed);
-void StartBgmCore(int songId, struct MusicPlayerInfo * mpi);
-void StartOrChangeBgm(int songId, int speed, struct MusicPlayerInfo * mpi);
-void StartBgm(int songId, struct MusicPlayerInfo * mpi);
-void StartBgmExt(int songId, int speed, struct MusicPlayerInfo * mpi);
-void StartBgmFadeIn(int songId, int b, struct MusicPlayerInfo * mpi);
-void OverrideBgm(int songId);
+void StartBgmCore(int song, struct MusicPlayer * music_player);
+void StartOrChangeBgm(int song, int speed, struct MusicPlayer * music_player);
+void StartBgm(int song, struct MusicPlayer * music_player);
+void StartBgmExt(int song, int speed, struct MusicPlayer * music_player);
+void StartBgmFadeIn(int song, int b, struct MusicPlayer * music_player);
+void OverrideBgm(int song);
 void RestoreBgm(void);
 void MakeBgmOverridePersist(void);
 void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);

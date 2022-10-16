@@ -9,9 +9,9 @@
 #include "mapwork.h"
 #include "faction.h"
 #include "trap.h"
-#include "chapter-info.h"
+#include "chapterinfo.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
 #include "constants/terrains.h"
 

@@ -15,10 +15,21 @@ typedef int64_t  i64;
 typedef float  f32;
 typedef double f64;
 
+#if defined(MODERN) && MODERN
+
+typedef i32 fi8;
+typedef i32 fi16;
+typedef u32 fu8;
+typedef u32 fu16;
+
+#else
+
 typedef i8  fi8;
 typedef i16 fi16;
 typedef u8  fu8;
 typedef u16 fu16;
+
+#endif
 
 typedef u8  volatile vu8;
 typedef u16 volatile vu16;
@@ -29,13 +40,18 @@ typedef i16 volatile vi16;
 typedef i32 volatile vi32;
 typedef i64 volatile vi64;
 
+typedef intptr_t  iptr;
+typedef uintptr_t uptr;
+
 enum { FALSE, TRUE };
 
 #if !defined(__cplusplus) && !defined(bool)
 
-typedef i8 bool;
+typedef fi8 bool;
 
 #endif
+
+// TODO: move types below
 
 typedef void (* Func)(void);
 

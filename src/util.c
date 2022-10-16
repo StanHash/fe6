@@ -9,7 +9,7 @@
 #include "text.h"
 #include "bm.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 
 #if NONMATCHING
@@ -1870,14 +1870,14 @@ int Screen2Pan(int x)
 
 void PlaySeSpacial(int song, int x)
 {
-    struct MusicPlayerInfo * mpi;
+    struct MusicPlayer * music_player;
 
     PlaySe(song);
 
-    mpi = gMPlayTable[gSongTable[song].ms].info;
+    music_player = gMusicPlayerTable[gSongTable[song].ms].music_player;
 
-    m4aMPlayImmInit(mpi);
-    m4aMPlayPanpotControl(mpi, 0xFFFF, Screen2Pan(x));
+    m4aMPlayImmInit(music_player);
+    m4aMPlayPanpotControl(music_player, 0xFFFF, Screen2Pan(x));
 }
 
 static void PlaySeFunc(int song);

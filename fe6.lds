@@ -1,6 +1,6 @@
 OUTPUT_ARCH(arm)
 
-gMPlayTable             = 0x0839946C;
+gMusicPlayerTable       = 0x0839946C;
 gSongTable              = 0x083994D8;
 
 gNumMusicPlayers = 9;
@@ -16,12 +16,12 @@ SECTIONS
     {
         . = 0x001000; gMapBuf = .; /* map */
         . = 0x001F70; gChapterIntroMotifTmBuf = .; /* bmfx */
-        . = 0x002770; gFont_Unk_02002770 = .; /* map-menu */
+        . = 0x002770; gFont_Unk_02002770 = .; /* mapmenu */
         . = 0x002788; gTradeMenuText = .; /* trademenu */
         . = 0x0027D8, gWeatherEffect = .; /* bmio */
         . = 0x002AD8; gWeatherGradient = .; /* bmio */
-        . = 0x002FD8; gBattlePreviewLabels = .; /* battle-preview */
-        . = 0x003008; gBattlePreviewIconPalBuf = .; /* battle-preview */
+        . = 0x002FD8; gBattlePreviewLabels = .; /* battlepreview */
+        . = 0x003008; gBattlePreviewIconPalBuf = .; /* battlepreview */
         . = 0x003108; /* pad */
         . = 0x003238; gUnk_Tm_02003238 = .;
         . = 0x003738; gUnk_Tm_02003738 = .;
@@ -201,9 +201,9 @@ SECTIONS
         . = ALIGN(4); src/sound.o(ewram_data);
         . = ALIGN(4); src/proc.o(ewram_data);
         . = ALIGN(4); src/icon.o(ewram_data);
-        . = ALIGN(4); src/debug-text.o(ewram_data);
+        . = ALIGN(4); src/debugtext.o(ewram_data);
         . = ALIGN(4); src/text.o(ewram_data);
-        . = ALIGN(4); src/banim-sprite.o(ewram_data);
+        . = ALIGN(4); src/banim_sprite.o(ewram_data);
         . = ALIGN(4); src/sprite.o(ewram_data);
         . = ALIGN(4); src/face.o(ewram_data);
         . = ALIGN(4); src/msg.o(ewram_data);
@@ -212,23 +212,23 @@ SECTIONS
         . = ALIGN(4); src/unit.o(ewram_data);
         . = ALIGN(4); src/map.o(ewram_data);
         . = ALIGN(4); src/mapwork.o(ewram_data);
-        . = ALIGN(4); src/target-list.o(ewram_data);
+        . = ALIGN(4); src/targetlist.o(ewram_data);
         . = ALIGN(4); src/unitsprite.o(ewram_data);
         . = ALIGN(4); src/battle.o(ewram_data);
         . = ALIGN(4); src/trap.o(ewram_data);
         . = ALIGN(4); src/supply.o(ewram_data);
-        . = ALIGN(4); src/unit-rearrange.o(ewram_data);
+        . = ALIGN(4); src/unitrearrange.o(ewram_data);
         . = ALIGN(4); src/arena.o(ewram_data);
         . = ALIGN(4); src/action.o(ewram_data);
         . = ALIGN(4); src/movepath.o(ewram_data);
-        . = ALIGN(4); src/unit-panel.o(ewram_data);
-        . = ALIGN(4); src/ai-phase.o(ewram_data);
-        . = ALIGN(4); src/ai-decide.o(ewram_data);
-        . = ALIGN(4); src/ai-080326C4.o(ewram_data);
+        . = ALIGN(4); src/unitpanel.o(ewram_data);
+        . = ALIGN(4); src/ai_phase.o(ewram_data);
+        . = ALIGN(4); src/ai_decide.o(ewram_data);
+        . = ALIGN(4); src/ai_080326C4.o(ewram_data);
 
         . = 0x0203C9D4 - __ewram_overlay_end;
         . = ALIGN(4); src/ui.o(ewram_data);
-        . = ALIGN(4); src/map-select.o(ewram_data);
+        . = ALIGN(4); src/mapselect.o(ewram_data);
         . = ALIGN(4); . = . + 0x100; /* TODO */
         . = ALIGN(4); src/manim.o(ewram_data);
 
@@ -244,11 +244,11 @@ SECTIONS
         . = ALIGN(4); src/oam.o(.bss);
         . = ALIGN(4); src/talk.o(.bss);
         . = ALIGN(4); src/event.o(.bss);
-        . = ALIGN(4); src/sprite-anim.o(.bss);
+        . = ALIGN(4); src/spriteanim.o(.bss);
         . = ALIGN(4); src/util.o(.bss);
         . = ALIGN(4); src/map.o(.bss);
-        . = ALIGN(4); src/ai-script.o(.bss);
-        . = ALIGN(4); src/ai-battle.o(.bss);
+        . = ALIGN(4); src/ai_script.o(.bss);
+        . = ALIGN(4); src/ai_battle.o(.bss);
 
         . = 0x0013B8; gUnk_030013B8 = .;
         . = 0x0013BC; gUnk_030013BC = .;
@@ -274,11 +274,11 @@ SECTIONS
 
         . = 0x001570; gUnk_03001570 = .;
 
-        . = 0x002158; src/lib/agb-sram.o(.bss);
+        . = 0x002158; src/gbasram.o(.bss);
         . = ALIGN(4); *libgcc.a:dp-bit.o(.bss);
         . = ALIGN(4); *libgcc.a:fp-bit.o(.bss);
 
-        . = ALIGN(4); src/lib/m4a.o(.bss.code);
+        . = ALIGN(4); *(.iwram.SoundMainRam);
 
         /* COMMON */
         . = 0x0026A0; gOamLoPutIt = .;
@@ -338,18 +338,18 @@ SECTIONS
         . = 0x005280; gUnk_03005280 = .;
         . = 0x005284; gUnk_03005284 = .;
         . = 0x005290; gUnk_03005290 = .;
-        . = 0x0052B0; gSoundInfo = .;
-        . = 0x006260; gMpi_03006260 = .;
-        . = 0x0062A0; gMpi_030062A0 = .;
-        . = 0x0062E0; gMpi_FightBgm = .;
-        . = 0x006320; gMPlayJumpTable = .;
-        . = 0x0063B0; gCgbChans = .;
-        . = 0x0064B0; gMpi_030064B0 = .;
-        . = 0x0064F0; gMpi_MainBgm = .;
-        . = 0x006530; gMpi_03006530 = .;
-        . = 0x006570; gMpi_03006570 = .;
-        . = 0x0065B0; gMPlayMemAccArea = .;
-        . = 0x006600; gMpi_03006600 = .;
+        . = 0x0052B0; *(.iwram.gSoundInfo);
+        . = 0x006260; gMusicPlayer_03006260 = .;
+        . = 0x0062A0; gMusicPlayer_030062A0 = .;
+        . = 0x0062E0; gMusicPlayer_FightBgm = .;
+        . = 0x006320; *(.iwram.gMPlayJumpTable);
+        . = 0x0063B0; *(.iwram.gCgbChans);
+        . = 0x0064B0; gMusicPlayer_030064B0 = .;
+        . = 0x0064F0; gMusicPlayer_MainBgm = .;
+        . = 0x006530; gMusicPlayer_03006530 = .;
+        . = 0x006570; gMusicPlayer_03006570 = .;
+        . = 0x0065B0; *(.iwram.gMPlayMemAccArea);
+        . = 0x006600; gMusicPlayer_03006600 = .;
         . = 0x006640; ReadSramFast = .;
         . = 0x006644; VerifySramFast = .;
 
@@ -372,15 +372,15 @@ SECTIONS
         src/ramfunc.o(.text);
         src/proc.o(.text);
         src/icon.o(.text);
-        src/debug-text.o(.text);
+        src/debugtext.o(.text);
         src/text.o(.text);
-        src/banim-sprite.o(.text);
+        src/banim_sprite.o(.text);
         src/sprite.o(.text);
         src/face.o(.text);
         src/talk.o(.text);
         src/event.o(.text);
-        src/sprite-anim.o(.text);
-        src/game-controller.o(.text);
+        src/spriteanim.o(.text);
+        src/gamecontroller.o(.text);
         src/msg.o(.text);
         src/util.o(.text);
         src/bm.o(.text);
@@ -388,60 +388,60 @@ SECTIONS
         src/unit.o(.text);
         src/map.o(.text);
         src/mapwork.o(.text);
-        src/debug-menu.o(.text);
-        src/player-phase.o(.text);
+        src/debugmenu.o(.text);
+        src/playerphase.o(.text);
         src/bmfx.o(.text);
-        src/map-menu.o(.text);
+        src/mapmenu.o(.text);
         src/faction.o(.text);
         src/gold.o(.text);
-        src/target-list.o(.text);
+        src/targetlist.o(.text);
         src/unitsprite.o(.text);
         src/support.o(.text);
-        src/item-use.o(.text);
+        src/itemuse.o(.text);
         src/battle.o(.text);
         src/trademenu.o(.text);
         src/trap.o(.text);
-        src/item-action.o(.text);
+        src/itemaction.o(.text);
         src/bmio.o(.text);
         src/chapter.o(.text);
         src/supply.o(.text);
-        src/unit-rearrange.o(.text);
+        src/unitrearrange.o(.text);
         src/arena.o(.text);
         src/action.o(.text);
         src/movepath.o(.text);
-        src/prep-phase.o(.text);
+        src/prepphase.o(.text);
         src/code_0802B814.o(.text);
-        src/chapter-info.o(.text);
-        src/unit-panel.o(.text);
-        src/subtitle-help.o(.text);
-        src/mass-effect.o(.text);
-        src/battle-preview.o(.text);
-        src/ai-phase.o(.text);
-        src/ai-order.o(.text);
-        src/ai-decide.o(.text);
-        src/ai-perform.o(.text);
-        src/ai-utility.o(.text);
-        src/ai-script.o(.text);
-        src/ai-battle.o(.text);
-        src/ai-080326C4.o(.text);
+        src/chapterinfo.o(.text);
+        src/unitpanel.o(.text);
+        src/subtitlehelp.o(.text);
+        src/masseffect.o(.text);
+        src/battlepreview.o(.text);
+        src/ai_phase.o(.text);
+        src/ai_order.o(.text);
+        src/ai_decide.o(.text);
+        src/ai_perform.o(.text);
+        src/ai_utility.o(.text);
+        src/ai_script.o(.text);
+        src/ai_battle.o(.text);
+        src/ai_080326C4.o(.text);
         asm/code-ai.o(.text);
         asm/code-sio.o(.text);
         src/ui.o(.text);
         src/menu.o(.text);
-        src/map-select.o(.text);
+        src/mapselect.o(.text);
         asm/code-banim.o(.text);
         src/mu.o(.text);
         src/manim.o(.text);
         asm/code-manim.o(.text);
         src/eventinfo.o(.text);
-        src/event-functions.o(.text);
+        src/eventfunctions.o(.text);
 
         asm/code.o(.text);
 
-        asm/lib/m4a.o(.text);
-        src/lib/m4a.o(.text);
-        asm/lib/agb-syscall.o(.text);
-        src/lib/agb-sram.o(.text);
+        src/m4a_1.o(.text);
+        src/m4a.o(.text);
+        asm/gbasyscall.o(.text);
+        src/gbasram.o(.text);
         *libgcc.a:_ashldi3.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         *libgcc.a:_divsi3.o(.text);
@@ -474,49 +474,49 @@ SECTIONS
         . = ALIGN(4); data/rodata_icon.o(.rodata);
         . = ALIGN(4); src/proc.o(.rodata);
         . = ALIGN(4); src/icon.o(.rodata);
-        . = ALIGN(4); src/debug-text.o(.rodata);
+        . = ALIGN(4); src/debugtext.o(.rodata);
         . = ALIGN(4); src/text.o(.rodata);
-        . = ALIGN(4); src/banim-sprite.o(.rodata);
+        . = ALIGN(4); src/banim_sprite.o(.rodata);
         . = ALIGN(4); src/sprite.o(.rodata);
         . = ALIGN(4); src/face.o(.rodata);
         . = ALIGN(4); src/talk.o(.rodata);
         . = ALIGN(4); src/event.o(.rodata);
-        . = ALIGN(4); src/sprite-anim.o(.rodata);
-        . = ALIGN(4); src/game-controller.o(.rodata);
+        . = ALIGN(4); src/spriteanim.o(.rodata);
+        . = ALIGN(4); src/gamecontroller.o(.rodata);
         . = ALIGN(4); src/msg.o(.rodata);
         . = ALIGN(4); src/util.o(.rodata);
         . = ALIGN(4); data/rodata_1004A4.o(.rodata);
         . = ALIGN(4); src/item.o(.rodata);
         . = ALIGN(4); src/unit.o(.rodata);
-        . = ALIGN(4); src/debug-menu.o(.rodata);
+        . = ALIGN(4); src/debugmenu.o(.rodata);
         . = ALIGN(4); src/bmfx.o(.rodata);
         . = ALIGN(4); src/unitsprite.o(.rodata);
         . = ALIGN(4); src/support.o(.rodata);
         . = ALIGN(4); src/battle.o(.rodata);
         . = ALIGN(4); src/trademenu.o(.rodata);
-        . = ALIGN(4); src/menu-info.o(.rodata);
+        . = ALIGN(4); src/menuinfo.o(.rodata);
         . = ALIGN(4); src/bmio.o(.rodata);
         . = ALIGN(4); src/chapter.o(.rodata);
         . = ALIGN(4); src/arena.o(.rodata);
-        . = ALIGN(4); src/unit-panel.o(.rodata);
-        . = ALIGN(4); src/battle-preview.o(.rodata);
+        . = ALIGN(4); src/unitpanel.o(.rodata);
+        . = ALIGN(4); src/battlepreview.o(.rodata);
         . = ALIGN(4); data/rodata_105DD0.o(.rodata);
-        . = ALIGN(4); src/ai-order.o(.rodata);
-        . = ALIGN(4); src/ai-perform.o(.rodata);
-        . = ALIGN(4); src/ai-utility.o(.rodata);
-        . = ALIGN(4); src/ai-script.o(.rodata);
-        . = ALIGN(4); src/ai-data.o(.rodata);
-        . = ALIGN(4); src/ai-battle.o(.rodata);
-        . = ALIGN(4); src/ai-080326C4.o(.rodata);
+        . = ALIGN(4); src/ai_order.o(.rodata);
+        . = ALIGN(4); src/ai_perform.o(.rodata);
+        . = ALIGN(4); src/ai_utility.o(.rodata);
+        . = ALIGN(4); src/ai_script.o(.rodata);
+        . = ALIGN(4); src/ai_data.o(.rodata);
+        . = ALIGN(4); src/ai_battle.o(.rodata);
+        . = ALIGN(4); src/ai_080326C4.o(.rodata);
 
-        . = ALIGN(4); src/code-sio.o(.rodata);
+        . = ALIGN(4); src/code_sio.o(.rodata);
         . = ALIGN(4); data/data-code-sio.o(.rodata);
         . = ALIGN(4); src/ui.o(.rodata);
         . = ALIGN(4); data/rodata_10F744.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
-        . = ALIGN(4); src/lib/m4a-tables.o(.rodata);
+        . = ALIGN(4); src/m4a.o(.rodata);
         . = ALIGN(4); data/rodata_lib.o(.rodata);
 
         /* .data */
@@ -530,46 +530,46 @@ SECTIONS
         . = ALIGN(4); src/face.o(.data);
         . = ALIGN(4); src/talk.o(.data);
         . = ALIGN(4); src/event.o(.data);
-        . = ALIGN(4); src/sprite-anim.o(.data);
-        . = ALIGN(4); src/game-controller.o(.data);
+        . = ALIGN(4); src/spriteanim.o(.data);
+        . = ALIGN(4); src/gamecontroller.o(.data);
         . = ALIGN(4); src/util.o(.data);
         . = ALIGN(4); src/bm.o(.data);
         . = ALIGN(4); src/unit.o(.data);
         . = ALIGN(4); src/map.o(.data);
-        . = ALIGN(4); src/debug-menu.o(.data);
-        . = ALIGN(4); src/player-phase.o(.data);
+        . = ALIGN(4); src/debugmenu.o(.data);
+        . = ALIGN(4); src/playerphase.o(.data);
         . = ALIGN(4); src/bmfx.o(.data);
-        . = ALIGN(4); src/map-menu.o(.data);
+        . = ALIGN(4); src/mapmenu.o(.data);
         . = ALIGN(4); src/unitsprite.o(.data);
         . = ALIGN(4); src/support.o(.data);
-        . = ALIGN(4); src/item-use.o(.data);
+        . = ALIGN(4); src/itemuse.o(.data);
         . = ALIGN(4); src/battle.o(.data);
         . = ALIGN(4); src/trademenu.o(.data);
         . = ALIGN(4); src/trap.o(.data);
-        . = ALIGN(4); src/item-action.o(.data);
-        . = ALIGN(4); src/menu-info.o(.data);
+        . = ALIGN(4); src/itemaction.o(.data);
+        . = ALIGN(4); src/menuinfo.o(.data);
         . = ALIGN(4); src/bmio.o(.data);
         . = ALIGN(4); src/chapter.o(.data);
         . = ALIGN(4); src/arena.o(.data);
         . = ALIGN(4); src/action.o(.data);
         . = ALIGN(4); src/movepath.o(.data);
-        . = ALIGN(4); src/prep-phase.o(.data);
-        . = ALIGN(4); src/unit-panel.o(.data);
-        . = ALIGN(4); src/subtitle-help.o(.data);
-        . = ALIGN(4); src/mass-effect.o(.data);
-        . = ALIGN(4); src/battle-preview.o(.data);
-        . = ALIGN(4); src/ai-phase.o(.data);
-        . = ALIGN(4); src/ai-order.o(.data);
-        . = ALIGN(4); src/ai-decide.o(.data);
-        . = ALIGN(4); src/ai-perform.o(.data);
-        . = ALIGN(4); src/ai-utility.o(.data);
-        . = ALIGN(4); src/ai-data.o(.data);
-        . = ALIGN(4); src/ai-battle.o(.data);
-        . = ALIGN(4); src/ai-080326C4.o(.data);
+        . = ALIGN(4); src/prepphase.o(.data);
+        . = ALIGN(4); src/unitpanel.o(.data);
+        . = ALIGN(4); src/subtitlehelp.o(.data);
+        . = ALIGN(4); src/masseffect.o(.data);
+        . = ALIGN(4); src/battlepreview.o(.data);
+        . = ALIGN(4); src/ai_phase.o(.data);
+        . = ALIGN(4); src/ai_order.o(.data);
+        . = ALIGN(4); src/ai_decide.o(.data);
+        . = ALIGN(4); src/ai_perform.o(.data);
+        . = ALIGN(4); src/ai_utility.o(.data);
+        . = ALIGN(4); src/ai_data.o(.data);
+        . = ALIGN(4); src/ai_battle.o(.data);
+        . = ALIGN(4); src/ai_080326C4.o(.data);
         . = ALIGN(4); data/data-code-sio.o(.data);
         . = ALIGN(4); src/ui.o(.data);
         . = ALIGN(4); src/menu.o(.data);
-        . = ALIGN(4); src/map-select.o(.data);
+        . = ALIGN(4); src/mapselect.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);
         . = ALIGN(4), data/data-game-info.o(.data);
         . = ALIGN(4); src/mu.o(.data);

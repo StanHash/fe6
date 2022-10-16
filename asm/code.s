@@ -3010,49 +3010,49 @@ func_fe6_0806CF88: @ 0x0806CF88
 	thumb_func_start func_fe6_0806CFA0
 func_fe6_0806CFA0: @ 0x0806CFA0
 	push {lr}
-	ldr r0, .L0806CFB0 @ =gMpi_MainBgm
+	ldr r0, .L0806CFB0 @ =gMusicPlayer_MainBgm
 	ldr r1, .L0806CFB4 @ =0x0857B774
-	bl MPlayStart
+	bl m4aMPlayStart
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806CFB0: .4byte gMpi_MainBgm
+.L0806CFB0: .4byte gMusicPlayer_MainBgm
 .L0806CFB4: .4byte 0x0857B774
 
 	thumb_func_start func_fe6_0806CFB8
 func_fe6_0806CFB8: @ 0x0806CFB8
 	push {lr}
-	ldr r0, .L0806CFC8 @ =gMpi_MainBgm
+	ldr r0, .L0806CFC8 @ =gMusicPlayer_MainBgm
 	ldr r1, .L0806CFCC @ =0x0857C95C
-	bl MPlayStart
+	bl m4aMPlayStart
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806CFC8: .4byte gMpi_MainBgm
+.L0806CFC8: .4byte gMusicPlayer_MainBgm
 .L0806CFCC: .4byte 0x0857C95C
 
 	thumb_func_start func_fe6_0806CFD0
 func_fe6_0806CFD0: @ 0x0806CFD0
 	push {lr}
-	ldr r0, .L0806CFE0 @ =gMpi_MainBgm
+	ldr r0, .L0806CFE0 @ =gMusicPlayer_MainBgm
 	ldr r1, .L0806CFE4 @ =0x0857C1E4
-	bl MPlayStart
+	bl m4aMPlayStart
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806CFE0: .4byte gMpi_MainBgm
+.L0806CFE0: .4byte gMusicPlayer_MainBgm
 .L0806CFE4: .4byte 0x0857C1E4
 
 	thumb_func_start func_fe6_0806CFE8
 func_fe6_0806CFE8: @ 0x0806CFE8
 	push {lr}
-	ldr r0, .L0806CFF8 @ =gMpi_MainBgm
+	ldr r0, .L0806CFF8 @ =gMusicPlayer_MainBgm
 	ldr r1, .L0806CFFC @ =0x0857A61C
-	bl MPlayStart
+	bl m4aMPlayStart
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806CFF8: .4byte gMpi_MainBgm
+.L0806CFF8: .4byte gMusicPlayer_MainBgm
 .L0806CFFC: .4byte 0x0857A61C
 
 	thumb_func_start func_fe6_0806D000
@@ -89436,7 +89436,7 @@ func_fe6_08097E2C: @ 0x08097E2C
 	sub sp, #8
 	mov r7, sp
 	str r0, [r7]
-	ldr r0, .L08097E6C @ =gMPlayTable
+	ldr r0, .L08097E6C @ =gMusicPlayerTable
 	ldr r2, .L08097E70 @ =gSongTable
 	adds r1, r2, #0
 	movs r1, #0xe6
@@ -89465,7 +89465,7 @@ func_fe6_08097E2C: @ 0x08097E2C
 	movs r0, #0
 	b .L08097E7A
 	.align 2, 0
-.L08097E6C: .4byte gMPlayTable
+.L08097E6C: .4byte gMusicPlayerTable
 .L08097E70: .4byte gSongTable
 .L08097E74:
 	.byte 0x01, 0xE0

@@ -2,7 +2,7 @@
 
 #include "sound.h"
 #include "event.h"
-#include "event-script.h"
+#include "eventscript.h"
 #include "bm.h"
 #include "item.h"
 #include "unit.h"
@@ -10,7 +10,7 @@
 #include "unitsprite.h"
 #include "battle.h"
 #include "faction.h"
-#include "chapter-info.h"
+#include "chapterinfo.h"
 #include "support.h"
 #include "trap.h"
 

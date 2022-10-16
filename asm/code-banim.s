@@ -50611,12 +50611,12 @@ func_fe6_0805BD64: @ 0x0805BD64
 	thumb_func_start func_fe6_0805BD8C
 func_fe6_0805BD8C: @ 0x0805BD8C
 	push {lr}
-	ldr r0, .L0805BD98 @ =gMpi_FightBgm
+	ldr r0, .L0805BD98 @ =gMusicPlayer_FightBgm
 	bl m4aMPlayStop
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805BD98: .4byte gMpi_FightBgm
+.L0805BD98: .4byte gMusicPlayer_FightBgm
 
 	thumb_func_start func_fe6_0805BD9C
 func_fe6_0805BD9C: @ 0x0805BD9C
@@ -50679,7 +50679,7 @@ func_fe6_0805BDC0: @ 0x0805BDC0
 	movs r1, #0x78
 	subs r5, r1, r0
 .L0805BE04:
-	ldr r2, .L0805BE2C @ =gMPlayTable
+	ldr r2, .L0805BE2C @ =gMusicPlayerTable
 	ldr r0, .L0805BE30 @ =gSongTable
 	lsls r1, r4, #3
 	adds r1, r1, r0
@@ -50698,11 +50698,11 @@ func_fe6_0805BDC0: @ 0x0805BDC0
 	bl m4aMPlayPanpotControl
 	b .L0805BE68
 	.align 2, 0
-.L0805BE2C: .4byte gMPlayTable
+.L0805BE2C: .4byte gMusicPlayerTable
 .L0805BE30: .4byte gSongTable
 .L0805BE34: .4byte 0x0000FFFF
 .L0805BE38:
-	ldr r2, .L0805BE70 @ =gMPlayTable
+	ldr r2, .L0805BE70 @ =gMusicPlayerTable
 	ldr r0, .L0805BE74 @ =gSongTable
 	lsls r1, r4, #3
 	adds r1, r1, r0
@@ -50728,7 +50728,7 @@ func_fe6_0805BDC0: @ 0x0805BDC0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805BE70: .4byte gMPlayTable
+.L0805BE70: .4byte gMusicPlayerTable
 .L0805BE74: .4byte gSongTable
 .L0805BE78: .4byte 0x0000FFFF
 

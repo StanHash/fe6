@@ -6,7 +6,7 @@
 #include "ramfunc.h"
 #include "proc.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 
 struct SpecialCharSt
 {

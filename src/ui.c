@@ -7,7 +7,7 @@
 #include "util.h"
 #include "bm.h"
 
-#include "constants/video-global.h"
+#include "constants/videoalloc_global.h"
 
 #define FRAME_TILE(chr) TILEREF((chr), BGPAL_WINDOW_FRAME)
 
