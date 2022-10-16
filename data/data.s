@@ -160,20 +160,20 @@ gUnk_0867731C: @ 0867731C
 gUnk_08677327: @ 08677327
 	.incbin "fe6-base.gba", 0x677327, (0x677348 - 0x677327) @ length: 0021
 
-	.global gUnk_08677348
-gUnk_08677348: @ 08677348
+	.global ProcScr_Unk_08677348
+ProcScr_Unk_08677348: @ 08677348
 	.incbin "fe6-base.gba", 0x677348, (0x677360 - 0x677348) @ length: 0018
 
 	.global gUnk_08677360
 gUnk_08677360: @ 08677360
 	.incbin "fe6-base.gba", 0x677360, (0x677378 - 0x677360) @ length: 0018
 
-	.global gUnk_08677378
-gUnk_08677378: @ 08677378
+	.global ProcScr_Unk_08677378
+ProcScr_Unk_08677378: @ 08677378
 	.incbin "fe6-base.gba", 0x677378, (0x6773D8 - 0x677378) @ length: 0060
 
-	.global gUnk_086773D8
-gUnk_086773D8: @ 086773D8
+	.global ProcScr_Unk_086773D8
+ProcScr_Unk_086773D8: @ 086773D8
 	.incbin "fe6-base.gba", 0x6773D8, (0x6773F0 - 0x6773D8) @ length: 0018
 
 	.global gUnk_086773F0
@@ -212,8 +212,8 @@ gUnk_08677680: @ 08677680
 ProcScr_HelpBox: @ 08677720
 	.incbin "fe6-base.gba", 0x677720, (0x677758 - 0x677720) @ length: 0038
 
-	.global gUnk_08677758
-gUnk_08677758: @ 08677758
+	.global ProcScr_HelpBoxMoveControl
+ProcScr_HelpBoxMoveControl: @ 08677758
 	.incbin "fe6-base.gba", 0x677758, (0x677788 - 0x677758) @ length: 0030
 
 	.global gUnk_08677788

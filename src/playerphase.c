@@ -239,7 +239,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             func_fe6_08073324();
             func_fe6_0806EAE4(0x28C);
 
-            func_fe6_080702BC(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
+            StartStatScreen(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
             Proc_Goto(proc, L_PLAYERPHASE_5);
 
             return;
@@ -539,7 +539,7 @@ do_act:
         EndAllMus();
         func_fe6_0806EAE4(0x28C);
 
-        func_fe6_080702BC(GetUnit(uid), proc);
+        StartStatScreen(GetUnit(uid), proc);
         Proc_Goto(proc, L_PLAYERPHASE_6);
         return;
     }

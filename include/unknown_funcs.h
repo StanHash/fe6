@@ -2162,7 +2162,7 @@ void func_fe6_0806EAE4(int arg_0);
 // func_fe6_08070264
 // func_fe6_08070278
 // func_fe6_080702B0
-void func_fe6_080702BC(struct Unit * unit, ProcPtr parent);
+void StartStatScreen(struct Unit * unit, ProcPtr parent);
 // func_fe6_0807030C
 // func_fe6_0807036C
 // func_fe6_08070398
@@ -2182,10 +2182,10 @@ void StartItemHelpBox(int x, int y, int item);
 // StartHelpBoxExt
 // StartHelpBox_08070804
 void CloseHelpBox(void);
-// func_fe6_080708C0
-// func_fe6_080708E4
-// func_fe6_0807090C
-// func_fe6_080709D4
+// KillHelpBox
+// HelpBoxMoveControl_OnInitBox
+// HelpBoxMoveControl_OnIdle
+// HelpBoxMoveControl_OnEnd
 void StartMovingHelpBox(struct HelpBoxInfo const * info, ProcPtr parent);
 void StartMovingHelpBoxExt(struct HelpBoxInfo const * info, ProcPtr parent, int x, int y);
 // ApplyHelpBoxContentSize

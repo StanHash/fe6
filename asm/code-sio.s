@@ -19103,7 +19103,7 @@ func_fe6_0803EA54: @ 0x0803EA54
 	ldr r0, .L0803EA70 @ =gActiveUnit
 	ldr r0, [r0]
 	adds r1, r4, #0
-	bl func_fe6_080702BC
+	bl StartStatScreen
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -21198,7 +21198,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 	adds r6, r0, #0
 	adds r5, r1, #0
 	ldr r4, .L0803FAF8 @ =gBg3Tm
-	ldr r0, .L0803FAFC @ =gUnk_086773D8
+	ldr r0, .L0803FAFC @ =ProcScr_Unk_086773D8
 	bl Proc_EndEach
 	movs r2, #0
 	movs r0, #0x14
@@ -21219,7 +21219,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 .L0803FAD0:
 	movs r2, #0
 	lsls r1, r5, #5
-	ldr r5, .L0803FAFC @ =gUnk_086773D8
+	ldr r5, .L0803FAFC @ =ProcScr_Unk_086773D8
 	cmp r2, r1
 	bge .L0803FAEA
 	ldr r0, .L0803FB04 @ =0xFFFFF000
@@ -21240,7 +21240,7 @@ func_fe6_0803FAA4: @ 0x0803FAA4
 	bx r0
 	.align 2, 0
 .L0803FAF8: .4byte gBg3Tm
-.L0803FAFC: .4byte gUnk_086773D8
+.L0803FAFC: .4byte ProcScr_Unk_086773D8
 .L0803FB00: .4byte 0xFFFFE000
 .L0803FB04: .4byte 0xFFFFF000
 
@@ -21256,7 +21256,7 @@ func_fe6_0803FB08: @ 0x0803FB08
 	movs r2, #0x28
 	bl memcpy
 	ldr r4, .L0803FB68 @ =gBg3Tm
-	ldr r0, .L0803FB6C @ =gUnk_086773D8
+	ldr r0, .L0803FB6C @ =ProcScr_Unk_086773D8
 	bl Proc_EndEach
 	movs r2, #0
 	movs r6, #0xf
@@ -21282,7 +21282,7 @@ func_fe6_0803FB08: @ 0x0803FB08
 	adds r2, #1
 	cmp r2, r5
 	ble .L0803FB2A
-	ldr r0, .L0803FB6C @ =gUnk_086773D8
+	ldr r0, .L0803FB6C @ =ProcScr_Unk_086773D8
 	mov r1, r8
 	bl SpawnProc
 	add sp, #0x28
@@ -21294,18 +21294,18 @@ func_fe6_0803FB08: @ 0x0803FB08
 	.align 2, 0
 .L0803FB64: .4byte gUnk_Sio_0810F45A
 .L0803FB68: .4byte gBg3Tm
-.L0803FB6C: .4byte gUnk_086773D8
+.L0803FB6C: .4byte ProcScr_Unk_086773D8
 .L0803FB70: .4byte 0x0000027F
 
 	thumb_func_start func_fe6_0803FB74
 func_fe6_0803FB74: @ 0x0803FB74
 	push {lr}
-	ldr r0, .L0803FB80 @ =gUnk_086773D8
+	ldr r0, .L0803FB80 @ =ProcScr_Unk_086773D8
 	bl Proc_EndEach
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0803FB80: .4byte gUnk_086773D8
+.L0803FB80: .4byte ProcScr_Unk_086773D8
 
 	thumb_func_start func_fe6_0803FB84
 func_fe6_0803FB84: @ 0x0803FB84
