@@ -13496,7 +13496,7 @@ func_fe6_0803BD20: @ 0x0803BD20
 	subs r1, r1, r5
 	str r1, [sp, #8]
 	movs r1, #0xe
-	bl func_fe6_0806E998
+	bl PutDrawUiGauge
 	movs r0, #1
 	bl EnableBgSync
 .L0803BD76:
@@ -13549,7 +13549,7 @@ func_fe6_0803BD90: @ 0x0803BD90
 	subs r1, r1, r5
 	str r1, [sp, #8]
 	movs r1, #0xe
-	bl func_fe6_0806E998
+	bl PutDrawUiGauge
 	movs r0, #1
 	bl EnableBgSync
 .L0803BDE6:
@@ -13739,7 +13739,7 @@ func_fe6_0803BF28: @ 0x0803BF28
 	str r4, [sp, #4]
 	str r1, [sp, #8]
 	movs r1, #0xd
-	bl func_fe6_0806E998
+	bl PutDrawUiGauge
 	movs r0, #1
 	bl EnableBgSync
 	add sp, #0xc
