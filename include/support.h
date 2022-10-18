@@ -4,6 +4,8 @@
 
 #include "unit.h"
 
+enum { MAX_SIMULTANEOUS_SUPPORT_COUNT_PER_UNIT = 5 };
+
 enum
 {
     SUPPORT_LEVEL_NONE,

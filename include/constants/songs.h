@@ -18,6 +18,7 @@ enum
     SONG_6B = 0x6B,
     SONG_6C = 0x6C,
     SONG_6E = 0x6E,
+    SONG_6F = 0x6F, // stat screen page slide
     SONG_73 = 0x73,
     SONG_74 = 0x74, // exp bar thingy
     SONG_75 = 0x75,
@@ -50,6 +51,7 @@ enum
     SONG_BD = 0xBD,
     SONG_BE = 0xBE,
     SONG_BF = 0xBF,
+    SONG_C8 = 0xC8, // stat screen unit slide
     SONG_D6 = 0xD6,
     SONG_10F = 0x10F,
 };

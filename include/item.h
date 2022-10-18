@@ -215,3 +215,5 @@ enum { ITEM_USES_SHIFT = 8 };
 
 #define ITEM_IID(item) ((item) & ((1 << ITEM_USES_SHIFT) - 1))
 #define ITEM_USES(item) ((item) >> ITEM_USES_SHIFT)
+
+#define ITEM_KIND_DARK ITEM_KIND_ELDER

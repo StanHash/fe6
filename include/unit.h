@@ -273,7 +273,7 @@ int GetUnitVision(struct Unit * unit);
 char const * GetUnitRescueName(struct Unit * unit);
 char const * GetUnitStatusName(struct Unit * unit);
 void SetUnitStatus(struct Unit * unit, int status);
-struct Unit * GetUnit(int uid);
+struct Unit * GetUnit(int unit_id);
 struct JInfo const * GetJInfo(int jid);
 struct PInfo const * GetPInfo(int pid);
 int GetUnitMapSprite(struct Unit * unit);

@@ -524,6 +524,8 @@ SECTIONS
         . = ALIGN(4); src/ui.o(.rodata);
         . = ALIGN(4); data/rodata_10F744.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
+        . = ALIGN(4); data/rodata_307544.o(.rodata);
+        . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);

@@ -220,7 +220,7 @@ extern struct KeySt * CONST_DATA gKeySt;
 
 extern struct DispIo gDispIo;
 
-extern short const gSinLut[];
+extern short SHOULD_BE_CONST gSinLut[];
 
 #define RGB_GET_RED(color) ((color) & 0x1F)
 #define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)

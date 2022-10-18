@@ -34,9 +34,9 @@ struct Unit EWRAM_DATA gUnitArrayRed[UNIT_AMOUNT_RED]       = {};
 struct Unit EWRAM_DATA gUnitArrayGreen[UNIT_AMOUNT_GREEN]   = {};
 struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE] = {};
 
-inline struct Unit * GetUnit(int uid)
+inline struct Unit * GetUnit(int unit_id)
 {
-    return gUnitLut[uid & 0xFF];
+    return gUnitLut[unit_id & 0xFF];
 }
 
 inline struct JInfo const * GetJInfo(int jid)
