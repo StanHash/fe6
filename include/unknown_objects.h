@@ -12,6 +12,7 @@
 extern struct Font gFont_Unk_02002770;
 extern u16 gUnk_Tm_02003238[];
 extern u16 gUnk_Tm_02003738[];
+extern u16 gUnk_Tm_02003C38[];
 
 extern struct MapAnimSt EWRAM_DATA gMapAnimSt;
 

@@ -23,8 +23,9 @@ SECTIONS
         . = 0x002FD8; gBattlePreviewLabels = .; /* battlepreview */
         . = 0x003008; gBattlePreviewIconPalBuf = .; /* battlepreview */
         . = 0x003108; gStatScreenSt = .; /* statscreen */
-        . = 0x003238; gUnk_Tm_02003238 = .;
-        . = 0x003738; gUnk_Tm_02003738 = .;
+        . = 0x003238; gUnk_Tm_02003238 = .; /* statscreen? */
+        . = 0x003738; gUnk_Tm_02003738 = .; /* statscreen? */
+        . = 0x003C38; gUnk_Tm_02003C38 = .; /* statscreen? */
 
         . = 0x004138; gMuImgBuf = .; /* mu */
         . = 0x00C938; /* end */

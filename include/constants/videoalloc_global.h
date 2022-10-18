@@ -43,6 +43,8 @@ enum
     BGCHR_MANIM_1 = 1,
     BGCHR_MANIM_140 = 0x140,
     BGCHR_MANIM_200 = 0x200,
+
+    BGCHR_STATSCREEN_60 = 0x60,
 };
 
 enum
@@ -85,6 +87,9 @@ enum
     BGPAL_MANIM_5 = 5,
 
     BGPAL_MURALBACKGROUND = 14, // .. 15
+
+    BGPAL_STATSCREEN_6 = 6,
+    BGPAL_STATSCREEN_7 = 7,
 };
 
 enum

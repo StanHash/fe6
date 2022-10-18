@@ -2109,12 +2109,12 @@ void StartGameEndingScene(ProcPtr parent);
 // func_fe6_0806E7D8
 // func_fe6_0806E7F4
 // func_fe6_0806E810
-// func_fe6_0806E83C
-// func_fe6_0806E860
-// func_fe6_0806E890
-// func_fe6_0806E8AC
-// func_fe6_0806E8C8
-// func_fe6_0806E998
+// DrawUiGaugeBitmapEdgeColumn
+// DrawUiGaugeBitmapBaseColumn
+// DrawUiGaugeBitmapFilledColumn
+// DrawUiGaugeBitmapBonusColumn
+// DrawUiGauge
+// PutDrawUiGauge
 // BackgroundSlide_Init
 // BackgroundSlide_Loop
 ProcPtr StartMuralBackground(ProcPtr parent, void * vram, int pal);
@@ -2125,7 +2125,7 @@ void func_fe6_0806EAE4(int flags);
 // func_fe6_0806EAF0
 // func_fe6_0806EB00
 // func_fe6_0806EB48
-// func_fe6_0806EC6C
+// PutStatScreenStatWithBar
 // func_fe6_0806ED34
 // func_fe6_0806EFE0
 // func_fe6_0806F170

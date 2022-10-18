@@ -1,11 +1,17 @@
 #include "common.h"
 
+#include "armfunc.h"
 #include "hardware.h"
 #include "proc.h"
+#include "icon.h"
 #include "text.h"
+#include "msg.h"
 #include "util.h"
+#include "item.h"
 #include "unit.h"
 #include "bm.h"
+#include "battle.h"
+#include "support.h"
 #include "mu.h"
 #include "helpbox.h"
 
@@ -14,6 +20,17 @@
 extern u16 const Pal_LinkArenaMuralBackground[];
 extern u16 const Pal_MuralBackground[];
 extern u8 const Img_MuralBackground[];
+
+extern struct StatScreenTextInfo const gUnk_083193EC[]; // statscreen page A text
+extern struct StatScreenTextInfo const gUnk_083194AC[]; // statscreen page B text
+
+extern char const gUnk_083195AC[]; // magic label string literal
+extern char const gUnk_083195B4[]; // strength label string literal
+
+extern u8 const gUnk_08307D58[]; // tsa (compressed): statscreen page A frame
+extern u8 const gUnk_08307DD4[]; // tsa (compressed): statscreen page B frame
+extern u8 const gUnk_08308070[]; // tsa (compressed): statscreen page B battle stat box
+extern u8 const gUnk_083080AC[]; // tsa: statscreen page B equipped weapon background
 
 extern struct ProcScr CONST_DATA ProcScr_BackgroundSlide[];
 
@@ -100,35 +117,35 @@ struct MuralBackgroundProc
 struct StatScreenInfo EWRAM_DATA gStatScreenInfo = { 0 };
 extern struct StatScreenSt gStatScreenSt; // TODO: ewram overlay
 
-void func_fe6_0806E83C(u8 * bitmap, int pixels_per_line, int n)
+void DrawUiGaugeBitmapEdgeColumn(u8 * bitmap, int pixels_per_line, int column)
 {
-    bitmap[1 * pixels_per_line + n] = 4;
-    bitmap[2 * pixels_per_line + n] = 14;
-    bitmap[3 * pixels_per_line + n] = 3;
+    bitmap[1 * pixels_per_line + column] = 4;
+    bitmap[2 * pixels_per_line + column] = 14;
+    bitmap[3 * pixels_per_line + column] = 3;
 }
 
-void func_fe6_0806E860(u8 * bitmap, int pixels_per_line, int n)
+void DrawUiGaugeBitmapBaseColumn(u8 * bitmap, int pixels_per_line, int column)
 {
-    bitmap[0 * pixels_per_line + n] = 4;
-    bitmap[1 * pixels_per_line + n] = 14;
-    bitmap[2 * pixels_per_line + n] = 14;
-    bitmap[3 * pixels_per_line + n] = 14;
-    bitmap[4 * pixels_per_line + n] = 3;
+    bitmap[0 * pixels_per_line + column] = 4;
+    bitmap[1 * pixels_per_line + column] = 14;
+    bitmap[2 * pixels_per_line + column] = 14;
+    bitmap[3 * pixels_per_line + column] = 14;
+    bitmap[4 * pixels_per_line + column] = 3;
 }
 
-void func_fe6_0806E890(u8 * bitmap, int pixels_per_line, int n)
+void DrawUiGaugeBitmapFilledColumn(u8 * bitmap, int pixels_per_line, int column)
 {
-    bitmap[1 * pixels_per_line + n] = 1;
-    bitmap[2 * pixels_per_line + n] = 5;
+    bitmap[1 * pixels_per_line + column] = 1;
+    bitmap[2 * pixels_per_line + column] = 5;
 }
 
-void func_fe6_0806E8AC(u8 * bitmap, int pixels_per_line, int n)
+void DrawUiGaugeBitmapBonusColumn(u8 * bitmap, int pixels_per_line, int column)
 {
-    bitmap[1 * pixels_per_line + n] = 13;
-    bitmap[2 * pixels_per_line + n] = 12;
+    bitmap[1 * pixels_per_line + column] = 13;
+    bitmap[2 * pixels_per_line + column] = 12;
 }
 
-void func_fe6_0806E8C8(int chr, int dot_x, int chr_count, int dot_width, int dot_plain, int dot_bonus)
+void DrawUiGauge(int chr, int dot_x, int chr_count, int dot_width, int dot_plain, int dot_bonus)
 {
     int i;
 
@@ -136,33 +153,33 @@ void func_fe6_0806E8C8(int chr, int dot_x, int chr_count, int dot_width, int dot
 
     CpuFastFill(0, bitmap, chr_count * 8 * 8);
 
-    func_fe6_0806E83C(bitmap, chr_count * 8, dot_x);
-    func_fe6_0806E83C(bitmap, chr_count * 8, dot_x + dot_width + 3);
+    DrawUiGaugeBitmapEdgeColumn(bitmap, chr_count * 8, dot_x);
+    DrawUiGaugeBitmapEdgeColumn(bitmap, chr_count * 8, dot_x + dot_width + 3);
 
     for (i = 0; i < dot_width + 2; i++)
     {
-        func_fe6_0806E860(bitmap, chr_count * 8, i + 1 + dot_x);
+        DrawUiGaugeBitmapBaseColumn(bitmap, chr_count * 8, i + 1 + dot_x);
     }
 
     for (i = 0; i < dot_plain; i++)
     {
-        func_fe6_0806E890(bitmap, chr_count * 8, i + 2 + dot_x);
+        DrawUiGaugeBitmapFilledColumn(bitmap, chr_count * 8, i + 2 + dot_x);
     }
 
     for (i = 0; i < dot_bonus; i++)
     {
-        func_fe6_0806E8AC(bitmap, chr_count * 8, dot_plain + i + 2 + dot_x);
+        DrawUiGaugeBitmapBonusColumn(bitmap, chr_count * 8, dot_plain + i + 2 + dot_x);
     }
 
-    Bitmap2Chr(bitmap, ((void *) VRAM) + chr * CHR_SIZE, chr_count, 1);
+    ApplyBitmap(bitmap, ((void *) VRAM) + chr * CHR_SIZE, chr_count, 1);
 }
 
-void func_fe6_0806E998(int chr, int width, u16 * tm, int tileref, int dot_width, int dot_plain, int dot_bonus)
+void PutDrawUiGauge(int chr, int width, u16 * tm, int tileref, int dot_width, int dot_plain, int dot_bonus)
 {
-    func_fe6_0806E8C8(chr, 2, width, dot_width, dot_plain, dot_bonus);
+    DrawUiGauge(chr, 2, width, dot_width, dot_plain, dot_bonus);
 
     tileref += chr & 0x3FF; // TODO: macro?
-    PutIncrTileref(tm, tileref, width, 1);
+    PutAppliedBitmap(tm, tileref, width, 1);
 }
 
 void BackgroundSlide_Init(struct MuralBackgroundProc * proc)
@@ -292,6 +309,235 @@ void func_fe6_0806EB00(struct StatScreenTextInfo const * list)
         }
 
         list++;
+    }
+}
+
+void func_fe6_0806EB48(void)
+{
+    char const * pname_str = DecodeMsg(gStatScreenSt.unit->pinfo->msg_name);
+    int pname_text_x = GetStringTextCenteredPos(8 * 7, pname_str);
+
+    TmFill(gBg0Tm, 0);
+
+    BattleGenerateDisplayStats(gStatScreenSt.unit, GetUnitEquippedWeaponSlot(gStatScreenSt.unit));
+
+    // displaying 
+
+    PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_PNAME,
+        gBg0Tm + TM_OFFSET(4, 10), TEXT_COLOR_SYSTEM_WHITE, pname_text_x, 0, pname_str);
+
+    PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_JNAME,
+        gBg0Tm + TM_OFFSET(1, 13), TEXT_COLOR_SYSTEM_WHITE, 0, 0, DecodeMsg(gStatScreenSt.unit->jinfo->msg_name));
+
+    // displaying level, exp, hp
+
+    PutTwoSpecialChar(gBg0Tm + TM_OFFSET(1, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
+    PutSpecialChar(gBg0Tm + TM_OFFSET(5, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_K);
+
+    PutTwoSpecialChar(gBg0Tm + TM_OFFSET(1, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
+    PutSpecialChar(gBg0Tm + TM_OFFSET(5, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_SLASH);
+
+    PutNumberOrBlank(gBg0Tm + TM_OFFSET(4, 15), TEXT_COLOR_SYSTEM_BLUE, gStatScreenSt.unit->level);
+    PutNumberOrBlank(gBg0Tm + TM_OFFSET(7, 15), TEXT_COLOR_SYSTEM_BLUE, gStatScreenSt.unit->exp);
+
+    PutNumberOrBlank(gBg0Tm + TM_OFFSET(4, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(gStatScreenSt.unit));
+    PutNumberOrBlank(gBg0Tm + TM_OFFSET(7, 17), TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(gStatScreenSt.unit));
+}
+
+void PutStatScreenStatWithBar(int num, int x, int y, int base, int total, int max)
+{
+    int bonus = total - base;
+
+    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(x, y),
+        (base == max) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE, base);
+
+    PutNumberBonus(bonus, gUnk_Tm_02003238 + TM_OFFSET(x + 1, y));
+
+    if (total > 30)
+    {
+        total = 30;
+        bonus = total - base;
+    }
+
+    PutDrawUiGauge(0x401 + num*6, 6,
+        gUnk_Tm_02003C38 + TM_OFFSET(x - 2, y + 1),
+        TILEREF(0, BGPAL_STATSCREEN_6), max * 41 / 30, base * 41 / 30, bonus * 41 / 30);
+}
+
+void func_fe6_0806ED34(void)
+{
+    Decompress(gUnk_08307D58, gBuf);
+    TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
+
+    func_fe6_0806EB00(gUnk_083193EC);
+
+    // Displaying strength/magic labels
+
+    if (UnitKnowsMagic(gStatScreenSt.unit))
+    {
+        // magic
+        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_3,
+            gUnk_Tm_02003238 + TM_OFFSET(1, 1),
+            TEXT_COLOR_SYSTEM_GOLD, 0, 0,
+            gUnk_083195AC); // TODO: string literal
+    }
+    else
+    {
+        // strength
+        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_3,
+            gUnk_Tm_02003238 + TM_OFFSET(1, 1),
+            TEXT_COLOR_SYSTEM_GOLD, 4, 0,
+            gUnk_083195B4); // TODO: string literal
+    }
+
+    // displaying strength/magic stat value
+    PutStatScreenStatWithBar(0, 5, 1,
+        gStatScreenSt.unit->pow,
+        GetUnitPower(gStatScreenSt.unit),
+        UNIT_POW_CAP(gStatScreenSt.unit));
+
+    // displaying skill stat value
+    PutStatScreenStatWithBar(1, 5, 3,
+        gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING
+            ? gStatScreenSt.unit->skl / 2 : gStatScreenSt.unit->skl,
+        GetUnitSkill(gStatScreenSt.unit),
+        gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING
+            ? UNIT_SKL_CAP(gStatScreenSt.unit) / 2 : UNIT_SKL_CAP(gStatScreenSt.unit));
+
+    // displaying speed stat value
+    PutStatScreenStatWithBar(2, 5, 5,
+        gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING
+            ? gStatScreenSt.unit->spd/2 : gStatScreenSt.unit->spd,
+        GetUnitSpeed(gStatScreenSt.unit),
+        gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING
+            ? UNIT_SPD_CAP(gStatScreenSt.unit) / 2 : UNIT_SPD_CAP(gStatScreenSt.unit));
+
+    // displaying luck stat value
+    PutStatScreenStatWithBar(3, 5, 7,
+        gStatScreenSt.unit->lck,
+        GetUnitLuck(gStatScreenSt.unit),
+        UNIT_LCK_CAP(gStatScreenSt.unit));
+
+    // displaying defense stat value
+    PutStatScreenStatWithBar(4, 5, 9,
+        gStatScreenSt.unit->def,
+        GetUnitDefense(gStatScreenSt.unit),
+        UNIT_DEF_CAP(gStatScreenSt.unit));
+
+    // displaying resistance stat value
+    PutStatScreenStatWithBar(5, 5, 11,
+        gStatScreenSt.unit->res,
+        GetUnitResistance(gStatScreenSt.unit),
+        UNIT_RES_CAP(gStatScreenSt.unit));
+
+    // displaying movement stat value
+    PutStatScreenStatWithBar(6, 13, 1,
+        UNIT_MOV_BASE(gStatScreenSt.unit),
+        UNIT_MOV(gStatScreenSt.unit),
+        UNIT_MOV_CAP(gStatScreenSt.unit));
+
+    // displaying constitution stat value
+    PutStatScreenStatWithBar(7, 13, 3,
+        UNIT_CON_BASE(gStatScreenSt.unit),
+        UNIT_CON(gStatScreenSt.unit),
+        UNIT_CON_CAP(gStatScreenSt.unit));
+
+    // displaying unit aid
+    PutNumber(gUnk_Tm_02003238 + TM_OFFSET(13, 5), TEXT_COLOR_SYSTEM_BLUE,
+        GetUnitAid(gStatScreenSt.unit));
+
+    // displaying unit aid icon
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(14, 5),
+        GetAidIconFromAttributes(UNIT_ATTRIBUTES(gStatScreenSt.unit)),
+        TILEREF(0, BGPAL_ICONS + 1));
+
+    // displaying unit rescue name
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_12,
+        24, TEXT_COLOR_SYSTEM_BLUE,
+        GetUnitRescueName(gStatScreenSt.unit));
+
+    // display status name
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_14,
+        24, TEXT_COLOR_SYSTEM_BLUE,
+        GetUnitStatusName(gStatScreenSt.unit));
+
+    // display status turns
+
+    if (gStatScreenSt.unit->status != UNIT_STATUS_NONE)
+    {
+        PutNumberSmall(gUnk_Tm_02003238 + TM_OFFSET(16, 11),
+            TEXT_COLOR_SYSTEM_WHITE,
+            gStatScreenSt.unit->status_duration);
+    }
+
+    // display affininity icon and name
+
+    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(12, 9),
+        GetUnitAffinityIcon(gStatScreenSt.unit),
+        TILEREF(0, BGPAL_ICONS + 1));
+
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_13,
+        40, TEXT_COLOR_SYSTEM_BLUE, GetAffinityName(gStatScreenSt.unit->pinfo->affinity));
+}
+
+void func_fe6_0806EFE0(void)
+{
+    int i, item;
+
+    Decompress(gUnk_08307DD4, gBuf);
+    TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
+
+    Decompress(gUnk_08308070, gBuf);
+    TmApplyTsa_t(gUnk_Tm_02003C38 + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_60, BGPAL_STATSCREEN_7));
+
+    func_fe6_0806EB00(gUnk_083194AC);
+
+    for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = gStatScreenSt.unit->items[i]); i++)
+    {
+        func_fe6_08016860(gStatScreenSt.text + STATSCREEN_TEXT_15 + i,
+            item, IsItemDisplayUseable(gStatScreenSt.unit, item),
+            gUnk_Tm_02003238 + TM_OFFSET(1, 1 + i * 2));
+    }
+
+    i = GetUnitEquippedWeaponSlot(gStatScreenSt.unit);
+    item = 0;
+
+    if (i >= 0)
+    {
+        PutSpecialChar(
+            gUnk_Tm_02003238 + TM_OFFSET(16, 1 + i * 2),
+            0, TEXT_SPECIAL_K);
+
+        TmApplyTsa_t(
+            gUnk_Tm_02003C38 + TM_OFFSET(1, 2 + i * 2),
+            gUnk_083080AC, TILEREF(BGCHR_STATSCREEN_60, BGPAL_STATSCREEN_7));
+
+        item = gStatScreenSt.unit->items[i];
+    }
+
+    PutNumberOrBlank(
+        gUnk_Tm_02003238 + TM_OFFSET(8,  13),
+        TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_attack);
+
+    PutNumberOrBlank(
+        gUnk_Tm_02003238 + TM_OFFSET(8,  15),
+        TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_hit);
+
+    PutNumberOrBlank(
+        gUnk_Tm_02003238 + TM_OFFSET(15, 13),
+        TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_crit);
+
+    PutNumberOrBlank(
+        gUnk_Tm_02003238 + TM_OFFSET(15, 15),
+        TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_avoid);
+
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_20,
+        16, TEXT_COLOR_SYSTEM_BLUE, GetItemRangeString(item));
+
+    for (i = 0; i < 8; ++i)
+    {
+        gUnk_Tm_02003238[TM_OFFSET(2 + i, 11)] = TILEREF(0x278 + i, BGPAL_ICONS + 1);
+        gUnk_Tm_02003238[TM_OFFSET(2 + i, 12)] = TILEREF(0x270 + i, BGPAL_ICONS + 1);
     }
 }
 

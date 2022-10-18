@@ -111,7 +111,7 @@ enum
     TEXT_SPECIAL_D,
     TEXT_SPECIAL_E,
     TEXT_SPECIAL_G,
-    TEXT_SPECIAL_K,
+    TEXT_SPECIAL_K, // NOTE: this is an E? used as statscreen exp label and equip marker
     TEXT_SPECIAL_COLON,
     TEXT_SPECIAL_DOT,
     TEXT_SPECIAL_HP_A,

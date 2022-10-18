@@ -606,7 +606,7 @@ void PutFace80x72(u16 * tm, int fid, int chr, int pal)
     }
     else
     {
-        PutIncrTileref(tm, (pal << 12) + (chr & 0x3FF), 10, 9);
+        PutAppliedBitmap(tm, (pal << 12) + (chr & 0x3FF), 10, 9);
     }
 }
 

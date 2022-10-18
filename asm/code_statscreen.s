@@ -2,711 +2,6 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_0806EB48
-func_fe6_0806EB48: @ 0x0806EB48
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #8
-	ldr r7, .L0806EC48 @ =gStatScreenSt
-	ldr r0, [r7, #0xc]
-	ldr r0, [r0]
-	ldrh r0, [r0]
-	bl DecodeMsg
-	adds r6, r0, #0
-	movs r0, #0x38
-	adds r1, r6, #0
-	bl GetStringTextCenteredPos
-	mov r8, r0
-	ldr r5, .L0806EC4C @ =gBg0Tm
-	adds r0, r5, #0
-	movs r1, #0
-	bl TmFill
-	ldr r4, [r7, #0xc]
-	adds r0, r4, #0
-	bl GetUnitEquippedWeaponSlot
-	adds r1, r0, #0
-	lsls r1, r1, #0x18
-	asrs r1, r1, #0x18
-	adds r0, r4, #0
-	bl BattleGenerateDisplayStats
-	adds r0, r7, #0
-	adds r0, #0x18
-	movs r2, #0xa2
-	lsls r2, r2, #2
-	adds r1, r5, r2
-	movs r4, #0
-	str r4, [sp]
-	str r6, [sp, #4]
-	movs r2, #0
-	mov r3, r8
-	bl PutDrawText
-	ldr r0, [r7, #0xc]
-	ldr r0, [r0, #4]
-	ldrh r0, [r0]
-	bl DecodeMsg
-	adds r2, r7, #0
-	adds r2, #0x20
-	ldr r3, .L0806EC50 @ =0x00000342
-	adds r1, r5, r3
-	str r4, [sp]
-	str r0, [sp, #4]
-	adds r0, r2, #0
-	movs r2, #0
-	movs r3, #0
-	bl PutDrawText
-	ldr r1, .L0806EC54 @ =0x000003C2
-	adds r0, r5, r1
-	movs r1, #3
-	movs r2, #0x24
-	movs r3, #0x25
-	bl PutTwoSpecialChar
-	ldr r2, .L0806EC58 @ =0x000003CA
-	adds r0, r5, r2
-	movs r1, #3
-	movs r2, #0x1f
-	bl PutSpecialChar
-	ldr r3, .L0806EC5C @ =0x00000442
-	adds r0, r5, r3
-	movs r1, #3
-	movs r2, #0x22
-	movs r3, #0x23
-	bl PutTwoSpecialChar
-	ldr r1, .L0806EC60 @ =0x0000044A
-	adds r0, r5, r1
-	movs r1, #3
-	movs r2, #0x16
-	bl PutSpecialChar
-	movs r2, #0xf2
-	lsls r2, r2, #2
-	adds r0, r5, r2
-	ldr r1, [r7, #0xc]
-	movs r2, #8
-	ldrsb r2, [r1, r2]
-	movs r1, #2
-	bl PutNumberOrBlank
-	ldr r3, .L0806EC64 @ =0x000003CE
-	adds r0, r5, r3
-	ldr r1, [r7, #0xc]
-	ldrb r2, [r1, #9]
-	movs r1, #2
-	bl PutNumberOrBlank
-	movs r0, #0x89
-	lsls r0, r0, #3
-	adds r4, r5, r0
-	ldr r0, [r7, #0xc]
-	bl GetUnitCurrentHp
-	adds r2, r0, #0
-	adds r0, r4, #0
-	movs r1, #2
-	bl PutNumberOrBlank
-	ldr r1, .L0806EC68 @ =0x0000044E
-	adds r5, r5, r1
-	ldr r0, [r7, #0xc]
-	bl GetUnitMaxHp
-	adds r2, r0, #0
-	adds r0, r5, #0
-	movs r1, #2
-	bl PutNumberOrBlank
-	add sp, #8
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806EC48: .4byte gStatScreenSt
-.L0806EC4C: .4byte gBg0Tm
-.L0806EC50: .4byte 0x00000342
-.L0806EC54: .4byte 0x000003C2
-.L0806EC58: .4byte 0x000003CA
-.L0806EC5C: .4byte 0x00000442
-.L0806EC60: .4byte 0x0000044A
-.L0806EC64: .4byte 0x000003CE
-.L0806EC68: .4byte 0x0000044E
-
-	thumb_func_start func_fe6_0806EC6C
-func_fe6_0806EC6C: @ 0x0806EC6C
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0x10
-	mov sl, r0
-	mov r8, r1
-	str r2, [sp, #0xc]
-	adds r7, r3, #0
-	ldr r5, [sp, #0x30]
-	subs r0, r5, r7
-	mov sb, r0
-	lsls r6, r2, #5
-	adds r0, r6, r1
-	lsls r0, r0, #1
-	ldr r4, .L0806ED28 @ =0x02003238
-	adds r0, r0, r4
-	movs r1, #2
-	ldr r2, [sp, #0x34]
-	cmp r7, r2
-	bne .L0806EC9A
-	movs r1, #4
-.L0806EC9A:
-	adds r2, r7, #0
-	bl PutNumberOrBlank
-	adds r1, r6, #1
-	add r1, r8
-	lsls r1, r1, #1
-	adds r1, r1, r4
-	mov r0, sb
-	bl PutNumberBonus
-	cmp r5, #0x1e
-	ble .L0806ECB8
-	movs r5, #0x1e
-	subs r5, r5, r7
-	mov sb, r5
-.L0806ECB8:
-	mov r0, sl
-	lsls r5, r0, #1
-	add r5, sl
-	lsls r5, r5, #1
-	ldr r1, .L0806ED2C @ =0x00000401
-	adds r5, r5, r1
-	ldr r4, [sp, #0xc]
-	adds r4, #1
-	lsls r4, r4, #5
-	subs r4, #2
-	add r4, r8
-	lsls r4, r4, #1
-	ldr r0, .L0806ED30 @ =0x02003C38
-	adds r4, r4, r0
-	movs r6, #0xc0
-	lsls r6, r6, #7
-	ldr r2, [sp, #0x34]
-	lsls r0, r2, #2
-	adds r0, r0, r2
-	lsls r0, r0, #3
-	adds r0, r0, r2
-	movs r1, #0x1e
-	bl __divsi3
-	str r0, [sp]
-	lsls r0, r7, #2
-	adds r0, r0, r7
-	lsls r0, r0, #3
-	adds r0, r0, r7
-	movs r1, #0x1e
-	bl __divsi3
-	str r0, [sp, #4]
-	mov r1, sb
-	lsls r0, r1, #2
-	add r0, sb
-	lsls r0, r0, #3
-	add r0, sb
-	movs r1, #0x1e
-	bl __divsi3
-	str r0, [sp, #8]
-	adds r0, r5, #0
-	movs r1, #6
-	adds r2, r4, #0
-	adds r3, r6, #0
-	bl func_fe6_0806E998
-	add sp, #0x10
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806ED28: .4byte 0x02003238
-.L0806ED2C: .4byte 0x00000401
-.L0806ED30: .4byte 0x02003C38
-
-	thumb_func_start func_fe6_0806ED34
-func_fe6_0806ED34: @ 0x0806ED34
-	push {r4, r5, r6, r7, lr}
-	mov r7, r8
-	push {r7}
-	sub sp, #8
-	ldr r0, .L0806ED80 @ =gUnk_08307D58
-	ldr r4, .L0806ED84 @ =gBuf
-	adds r1, r4, #0
-	bl Decompress
-	ldr r0, .L0806ED88 @ =0x02003738
-	movs r2, #0x80
-	lsls r2, r2, #5
-	adds r1, r4, #0
-	bl TmApplyTsa_t
-	ldr r0, .L0806ED8C @ =gUnk_083193EC
-	bl func_fe6_0806EB00
-	ldr r4, .L0806ED90 @ =gStatScreenSt
-	ldr r0, [r4, #0xc]
-	bl UnitKnowsMagic
-	lsls r0, r0, #0x18
-	asrs r2, r0, #0x18
-	cmp r2, #0
-	beq .L0806ED9C
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldr r1, .L0806ED94 @ =0x0200327A
-	movs r2, #0
-	str r2, [sp]
-	ldr r2, .L0806ED98 @ =gUnk_083195AC
-	str r2, [sp, #4]
-	movs r2, #3
-	movs r3, #0
-	bl PutDrawText
-	b .L0806EDB0
-	.align 2, 0
-.L0806ED80: .4byte gUnk_08307D58
-.L0806ED84: .4byte gBuf
-.L0806ED88: .4byte 0x02003738
-.L0806ED8C: .4byte gUnk_083193EC
-.L0806ED90: .4byte gStatScreenSt
-.L0806ED94: .4byte 0x0200327A
-.L0806ED98: .4byte gUnk_083195AC
-.L0806ED9C:
-	adds r0, r4, #0
-	adds r0, #0x30
-	ldr r1, .L0806EFD0 @ =0x0200327A
-	str r2, [sp]
-	ldr r2, .L0806EFD4 @ =gUnk_083195B4
-	str r2, [sp, #4]
-	movs r2, #3
-	movs r3, #4
-	bl PutDrawText
-.L0806EDB0:
-	ldr r6, .L0806EFD8 @ =gStatScreenSt
-	ldr r0, [r6, #0xc]
-	bl GetUnitPower
-	ldr r1, [r6, #0xc]
-	movs r3, #0x12
-	ldrsb r3, [r1, r3]
-	str r0, [sp]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #0x14]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #0
-	movs r1, #5
-	movs r2, #1
-	bl func_fe6_0806EC6C
-	ldr r0, [r6, #0xc]
-	bl GetUnitSkill
-	adds r4, r0, #0
-	ldr r2, [r6, #0xc]
-	ldrb r1, [r2, #0x13]
-	movs r5, #0x10
-	adds r0, r5, #0
-	ldrh r3, [r2, #0xc]
-	ands r0, r3
-	cmp r0, #0
-	beq .L0806EDF6
-	lsls r0, r1, #0x18
-	asrs r1, r0, #0x18
-	lsrs r0, r0, #0x1f
-	adds r1, r1, r0
-	lsrs r1, r1, #1
-.L0806EDF6:
-	lsls r0, r1, #0x18
-	asrs r3, r0, #0x18
-	str r4, [sp]
-	ldr r0, [r2, #4]
-	ldrb r1, [r0, #0x15]
-	adds r0, r5, #0
-	ldrh r2, [r2, #0xc]
-	ands r0, r2
-	cmp r0, #0
-	beq .L0806EE14
-	lsls r0, r1, #0x18
-	asrs r1, r0, #0x18
-	lsrs r0, r0, #0x1f
-	adds r1, r1, r0
-	lsrs r1, r1, #1
-.L0806EE14:
-	lsls r0, r1, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #1
-	movs r1, #5
-	movs r2, #3
-	bl func_fe6_0806EC6C
-	ldr r0, [r6, #0xc]
-	bl GetUnitSpeed
-	adds r4, r0, #0
-	ldr r2, [r6, #0xc]
-	ldrb r1, [r2, #0x14]
-	adds r0, r5, #0
-	ldrh r3, [r2, #0xc]
-	ands r0, r3
-	cmp r0, #0
-	beq .L0806EE44
-	lsls r0, r1, #0x18
-	asrs r1, r0, #0x18
-	lsrs r0, r0, #0x1f
-	adds r1, r1, r0
-	lsrs r1, r1, #1
-.L0806EE44:
-	lsls r0, r1, #0x18
-	asrs r3, r0, #0x18
-	str r4, [sp]
-	ldr r0, [r2, #4]
-	ldrb r1, [r0, #0x16]
-	adds r0, r5, #0
-	ldrh r2, [r2, #0xc]
-	ands r0, r2
-	cmp r0, #0
-	beq .L0806EE62
-	lsls r0, r1, #0x18
-	asrs r1, r0, #0x18
-	lsrs r0, r0, #0x1f
-	adds r1, r1, r0
-	lsrs r1, r1, #1
-.L0806EE62:
-	lsls r0, r1, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #2
-	movs r1, #5
-	movs r2, #5
-	bl func_fe6_0806EC6C
-	ldr r0, [r6, #0xc]
-	bl GetUnitLuck
-	ldr r1, [r6, #0xc]
-	movs r3, #0x17
-	ldrsb r3, [r1, r3]
-	str r0, [sp]
-	movs r0, #0x1e
-	str r0, [sp, #4]
-	movs r0, #3
-	movs r1, #5
-	movs r2, #7
-	bl func_fe6_0806EC6C
-	ldr r0, [r6, #0xc]
-	bl GetUnitDefense
-	ldr r1, [r6, #0xc]
-	movs r3, #0x15
-	ldrsb r3, [r1, r3]
-	str r0, [sp]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #0x17]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #4
-	movs r1, #5
-	movs r2, #9
-	bl func_fe6_0806EC6C
-	ldr r0, [r6, #0xc]
-	bl GetUnitResistance
-	ldr r1, [r6, #0xc]
-	movs r3, #0x16
-	ldrsb r3, [r1, r3]
-	str r0, [sp]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #0x18]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #5
-	movs r1, #5
-	movs r2, #0xb
-	bl func_fe6_0806EC6C
-	ldr r1, [r6, #0xc]
-	ldr r0, [r1, #4]
-	movs r3, #0x12
-	ldrsb r3, [r0, r3]
-	movs r0, #0x1a
-	ldrsb r0, [r1, r0]
-	adds r0, r0, r3
-	str r0, [sp]
-	movs r5, #0xf
-	str r5, [sp, #4]
-	movs r0, #6
-	movs r1, #0xd
-	movs r2, #1
-	bl func_fe6_0806EC6C
-	ldr r1, [r6, #0xc]
-	ldr r0, [r1, #4]
-	movs r3, #0x11
-	ldrsb r3, [r0, r3]
-	ldr r0, [r1]
-	ldrb r0, [r0, #0x13]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	adds r3, r3, r0
-	movs r0, #0x18
-	ldrsb r0, [r1, r0]
-	adds r0, r3, r0
-	str r0, [sp]
-	ldr r0, [r1, #4]
-	ldrb r0, [r0, #0x19]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [sp, #4]
-	movs r0, #7
-	movs r1, #0xd
-	movs r2, #3
-	bl func_fe6_0806EC6C
-	ldr r7, .L0806EFDC @ =0x02003392
-	ldr r0, [r6, #0xc]
-	bl GetUnitAid
-	adds r2, r0, #0
-	adds r0, r7, #0
-	movs r1, #2
-	bl PutNumber
-	adds r4, r7, #2
-	ldr r0, [r6, #0xc]
-	ldr r1, [r0]
-	ldr r2, [r0, #4]
-	ldr r0, [r1, #0x28]
-	ldr r1, [r2, #0x24]
-	orrs r0, r1
-	bl GetAidIconFromAttributes
-	adds r1, r0, #0
-	movs r0, #0xa0
-	lsls r0, r0, #7
-	mov r8, r0
-	adds r0, r4, #0
-	mov r2, r8
-	bl PutIcon
-	adds r4, r6, #0
-	adds r4, #0x78
-	ldr r0, [r6, #0xc]
-	bl GetUnitRescueName
-	adds r3, r0, #0
-	adds r0, r4, #0
-	movs r1, #0x18
-	movs r2, #2
-	bl Text_InsertDrawString
-	adds r4, #0x10
-	ldr r0, [r6, #0xc]
-	bl GetUnitStatusName
-	adds r3, r0, #0
-	adds r0, r4, #0
-	movs r1, #0x18
-	movs r2, #2
-	bl Text_InsertDrawString
-	ldr r0, [r6, #0xc]
-	adds r0, #0x2e
-	ldrb r2, [r0]
-	ands r5, r2
-	cmp r5, #0
-	beq .L0806EF96
-	movs r1, #0xc3
-	lsls r1, r1, #1
-	adds r0, r7, r1
-	lsrs r2, r2, #4
-	movs r1, #0
-	bl PutNumberSmall
-.L0806EF96:
-	adds r4, r7, #0
-	adds r4, #0xfe
-	ldr r0, [r6, #0xc]
-	bl GetUnitAffinityIcon
-	adds r1, r0, #0
-	adds r0, r4, #0
-	mov r2, r8
-	bl PutIcon
-	adds r4, r6, #0
-	adds r4, #0x80
-	ldr r0, [r6, #0xc]
-	ldr r0, [r0]
-	ldrb r0, [r0, #9]
-	bl GetAffinityName
-	adds r3, r0, #0
-	adds r0, r4, #0
-	movs r1, #0x28
-	movs r2, #2
-	bl Text_InsertDrawString
-	add sp, #8
-	pop {r3}
-	mov r8, r3
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806EFD0: .4byte 0x0200327A
-.L0806EFD4: .4byte gUnk_083195B4
-.L0806EFD8: .4byte gStatScreenSt
-.L0806EFDC: .4byte 0x02003392
-
-	thumb_func_start func_fe6_0806EFE0
-func_fe6_0806EFE0: @ 0x0806EFE0
-	push {r4, r5, r6, r7, lr}
-	mov r7, sb
-	mov r6, r8
-	push {r6, r7}
-	ldr r0, .L0806F130 @ =gUnk_08307DD4
-	ldr r4, .L0806F134 @ =gBuf
-	adds r1, r4, #0
-	bl Decompress
-	ldr r0, .L0806F138 @ =0x02003738
-	movs r2, #0x80
-	lsls r2, r2, #5
-	adds r1, r4, #0
-	bl TmApplyTsa_t
-	ldr r0, .L0806F13C @ =gUnk_08308070
-	adds r1, r4, #0
-	bl Decompress
-	ldr r0, .L0806F140 @ =0x02003EFA
-	ldr r2, .L0806F144 @ =0x00007060
-	adds r1, r4, #0
-	bl TmApplyTsa_t
-	ldr r0, .L0806F148 @ =gUnk_083194AC
-	bl func_fe6_0806EB00
-	movs r4, #0
-	ldr r1, .L0806F14C @ =gStatScreenSt
-	ldr r0, [r1, #0xc]
-	ldrh r5, [r0, #0x1c]
-	cmp r5, #0
-	beq .L0806F064
-	mov sb, r1
-	mov r8, r4
-	movs r7, #0x40
-	mov r6, sb
-	adds r6, #0x90
-.L0806F02C:
-	mov r1, sb
-	ldr r0, [r1, #0xc]
-	adds r1, r5, #0
-	bl IsItemDisplayUseable
-	adds r2, r0, #0
-	lsls r2, r2, #0x18
-	asrs r2, r2, #0x18
-	ldr r3, .L0806F150 @ =0x0200323A
-	adds r3, r7, r3
-	adds r0, r6, #0
-	adds r1, r5, #0
-	bl func_fe6_08016860
-	movs r3, #2
-	add r8, r3
-	adds r7, #0x80
-	adds r6, #8
-	adds r4, #1
-	cmp r4, #4
-	bgt .L0806F064
-	mov r1, sb
-	ldr r0, [r1, #0xc]
-	adds r0, #0x1c
-	add r0, r8
-	ldrh r5, [r0]
-	cmp r5, #0
-	bne .L0806F02C
-.L0806F064:
-	ldr r7, .L0806F14C @ =gStatScreenSt
-	ldr r0, [r7, #0xc]
-	bl GetUnitEquippedWeaponSlot
-	adds r4, r0, #0
-	movs r5, #0
-	cmp r4, #0
-	blt .L0806F09E
-	lsls r4, r4, #1
-	adds r0, r4, #1
-	lsls r0, r0, #6
-	ldr r1, .L0806F154 @ =0x02003258
-	adds r0, r0, r1
-	movs r1, #0
-	movs r2, #0x1f
-	bl PutSpecialChar
-	adds r0, r4, #2
-	lsls r0, r0, #6
-	ldr r1, .L0806F158 @ =0x02003C3A
-	adds r0, r0, r1
-	ldr r1, .L0806F15C @ =gUnk_083080AC
-	ldr r2, .L0806F144 @ =0x00007060
-	bl TmApplyTsa_t
-	ldr r0, [r7, #0xc]
-	adds r0, #0x1c
-	adds r0, r0, r4
-	ldrh r5, [r0]
-.L0806F09E:
-	ldr r6, .L0806F160 @ =0x02003588
-	ldr r4, .L0806F164 @ =gBattleUnitA
-	adds r0, r4, #0
-	adds r0, #0x58
-	movs r3, #0
-	ldrsh r2, [r0, r3]
-	adds r0, r6, #0
-	movs r1, #2
-	bl PutNumberOrBlank
-	adds r0, r6, #0
-	adds r0, #0x80
-	adds r1, r4, #0
-	adds r1, #0x5e
-	movs r3, #0
-	ldrsh r2, [r1, r3]
-	movs r1, #2
-	bl PutNumberOrBlank
-	adds r0, r6, #0
-	adds r0, #0xe
-	adds r1, r4, #0
-	adds r1, #0x64
-	movs r3, #0
-	ldrsh r2, [r1, r3]
-	movs r1, #2
-	bl PutNumberOrBlank
-	adds r0, r6, #0
-	adds r0, #0x8e
-	adds r1, r4, #0
-	adds r1, #0x60
-	movs r3, #0
-	ldrsh r2, [r1, r3]
-	movs r1, #2
-	bl PutNumberOrBlank
-	adds r4, r7, #0
-	adds r4, #0xb8
-	adds r0, r5, #0
-	bl GetItemRangeString
-	adds r3, r0, #0
-	adds r0, r4, #0
-	movs r1, #0x10
-	movs r2, #2
-	bl Text_InsertDrawString
-	movs r4, #0
-	ldr r0, .L0806F168 @ =0x00005278
-	adds r5, r0, #0
-	adds r2, r6, #0
-	subs r2, #0x8c
-	ldr r1, .L0806F16C @ =0x00005270
-	adds r3, r1, #0
-	adds r1, r6, #0
-	subs r1, #0x4c
-.L0806F110:
-	adds r0, r4, r5
-	strh r0, [r2]
-	adds r0, r4, r3
-	strh r0, [r1]
-	adds r2, #2
-	adds r1, #2
-	adds r4, #1
-	cmp r4, #7
-	ble .L0806F110
-	pop {r3, r4}
-	mov r8, r3
-	mov sb, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0806F130: .4byte gUnk_08307DD4
-.L0806F134: .4byte gBuf
-.L0806F138: .4byte 0x02003738
-.L0806F13C: .4byte gUnk_08308070
-.L0806F140: .4byte 0x02003EFA
-.L0806F144: .4byte 0x00007060
-.L0806F148: .4byte gUnk_083194AC
-.L0806F14C: .4byte gStatScreenSt
-.L0806F150: .4byte 0x0200323A
-.L0806F154: .4byte 0x02003258
-.L0806F158: .4byte 0x02003C3A
-.L0806F15C: .4byte gUnk_083080AC
-.L0806F160: .4byte 0x02003588
-.L0806F164: .4byte gBattleUnitA
-.L0806F168: .4byte 0x00005278
-.L0806F16C: .4byte 0x00005270
-
 	thumb_func_start func_fe6_0806F170
 func_fe6_0806F170: @ 0x0806F170
 	push {r4, r5, r6, r7, lr}
@@ -844,7 +139,7 @@ func_fe6_0806F260: @ 0x0806F260
 	lsls r4, r2, #5
 	adds r0, r4, r6
 	lsls r0, r0, #1
-	ldr r2, .L0806F318 @ =0x02003238
+	ldr r2, .L0806F318 @ =gUnk_Tm_02003238
 	mov r8, r2
 	add r0, r8
 	adds r1, #0x70
@@ -882,7 +177,7 @@ func_fe6_0806F260: @ 0x0806F260
 	adds r4, #3
 	adds r4, r4, r6
 	lsls r4, r4, #1
-	ldr r0, .L0806F320 @ =0x02003C38
+	ldr r0, .L0806F320 @ =gUnk_Tm_02003C38
 	adds r4, r4, r0
 	movs r6, #0xc0
 	lsls r6, r6, #7
@@ -903,7 +198,7 @@ func_fe6_0806F260: @ 0x0806F260
 	movs r1, #5
 	adds r2, r4, #0
 	adds r3, r6, #0
-	bl func_fe6_0806E998
+	bl PutDrawUiGauge
 	add sp, #0xc
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -914,9 +209,9 @@ func_fe6_0806F260: @ 0x0806F260
 	bx r0
 	.align 2, 0
 .L0806F314: .4byte gStatScreenSt
-.L0806F318: .4byte 0x02003238
+.L0806F318: .4byte gUnk_Tm_02003238
 .L0806F31C: .4byte 0x00000401
-.L0806F320: .4byte 0x02003C38
+.L0806F320: .4byte gUnk_Tm_02003C38
 
 	thumb_func_start func_fe6_0806F324
 func_fe6_0806F324: @ 0x0806F324
@@ -925,7 +220,7 @@ func_fe6_0806F324: @ 0x0806F324
 	ldr r4, .L0806F388 @ =gBuf
 	adds r1, r4, #0
 	bl Decompress
-	ldr r0, .L0806F38C @ =0x02003738
+	ldr r0, .L0806F38C @ =gUnk_Tm_02003738
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r1, r4, #0
@@ -962,7 +257,7 @@ func_fe6_0806F324: @ 0x0806F324
 	.align 2, 0
 .L0806F384: .4byte gUnk_08307E50
 .L0806F388: .4byte gBuf
-.L0806F38C: .4byte 0x02003738
+.L0806F38C: .4byte gUnk_Tm_02003738
 .L0806F390: .4byte gStatScreenSt
 .L0806F394: .4byte gUnk_0831955C
 .L0806F398:
@@ -1010,12 +305,12 @@ func_fe6_0806F3DC: @ 0x0806F3DC
 	movs r5, #0
 	str r5, [sp, #0x10]
 	add r0, sp, #0x10
-	ldr r1, .L0806F420 @ =0x02003238
+	ldr r1, .L0806F420 @ =gUnk_Tm_02003238
 	ldr r2, .L0806F424 @ =0x01000140
 	bl CpuFastSet
 	str r5, [sp, #0x14]
 	add r0, sp, #0x14
-	ldr r1, .L0806F428 @ =0x02003C38
+	ldr r1, .L0806F428 @ =gUnk_Tm_02003C38
 	ldr r2, .L0806F42C @ =0x01000120
 	bl CpuFastSet
 	lsls r4, r4, #2
@@ -1029,9 +324,9 @@ func_fe6_0806F3DC: @ 0x0806F3DC
 	bx r0
 	.align 2, 0
 .L0806F41C: .4byte gUnk_083195B8
-.L0806F420: .4byte 0x02003238
+.L0806F420: .4byte gUnk_Tm_02003238
 .L0806F424: .4byte 0x01000140
-.L0806F428: .4byte 0x02003C38
+.L0806F428: .4byte gUnk_Tm_02003C38
 .L0806F42C: .4byte 0x01000120
 
 	thumb_func_start func_fe6_0806F430
@@ -1143,7 +438,7 @@ func_fe6_0806F470: @ 0x0806F470
 	movs r5, #0
 .L0806F504:
 	lsls r5, r5, #1
-	ldr r0, .L0806F56C @ =0x02003238
+	ldr r0, .L0806F56C @ =gUnk_Tm_02003238
 	adds r0, r5, r0
 	lsls r4, r4, #1
 	ldr r1, .L0806F570 @ =gBg0Tm+0x98
@@ -1151,14 +446,14 @@ func_fe6_0806F470: @ 0x0806F470
 	adds r2, r6, #0
 	movs r3, #0x12
 	bl TmCopyRect_t
-	ldr r0, .L0806F574 @ =0x02003738
+	ldr r0, .L0806F574 @ =gUnk_Tm_02003738
 	adds r0, r5, r0
 	ldr r1, .L0806F578 @ =gBg1Tm+0x98
 	adds r1, r4, r1
 	adds r2, r6, #0
 	movs r3, #0x12
 	bl TmCopyRect_t
-	ldr r0, .L0806F57C @ =0x02003C38
+	ldr r0, .L0806F57C @ =gUnk_Tm_02003C38
 	adds r5, r5, r0
 	ldr r0, .L0806F580 @ =gBg2Tm+0x98
 	adds r4, r4, r0
@@ -1191,11 +486,11 @@ func_fe6_0806F470: @ 0x0806F470
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0806F56C: .4byte 0x02003238
+.L0806F56C: .4byte gUnk_Tm_02003238
 .L0806F570: .4byte gBg0Tm+0x98
-.L0806F574: .4byte 0x02003738
+.L0806F574: .4byte gUnk_Tm_02003738
 .L0806F578: .4byte gBg1Tm+0x98
-.L0806F57C: .4byte 0x02003C38
+.L0806F57C: .4byte gUnk_Tm_02003C38
 .L0806F580: .4byte gBg2Tm+0x98
 .L0806F584: .4byte gUnk_08677510
 
@@ -2526,17 +1821,17 @@ func_fe6_0806FFDC: @ 0x0806FFDC
 	bl func_fe6_0806EB48
 	ldrb r0, [r4]
 	bl func_fe6_0806F3DC
-	ldr r0, .L08070090 @ =0x02003238
+	ldr r0, .L08070090 @ =gUnk_Tm_02003238
 	ldr r1, .L08070094 @ =gBg0Tm+0x98
 	movs r2, #0x12
 	movs r3, #0x12
 	bl TmCopyRect_t
-	ldr r0, .L08070098 @ =0x02003738
+	ldr r0, .L08070098 @ =gUnk_Tm_02003738
 	ldr r1, .L0807009C @ =gBg1Tm+0x98
 	movs r2, #0x12
 	movs r3, #0x12
 	bl TmCopyRect_t
-	ldr r0, .L080700A0 @ =0x02003C38
+	ldr r0, .L080700A0 @ =gUnk_Tm_02003C38
 	adds r5, #0x56
 	adds r1, r5, #0
 	movs r2, #0x12
@@ -2550,11 +1845,11 @@ func_fe6_0806FFDC: @ 0x0806FFDC
 	.align 2, 0
 .L08070088: .4byte gBg2Tm+0x42
 .L0807008C: .4byte gStatScreenSt
-.L08070090: .4byte 0x02003238
+.L08070090: .4byte gUnk_Tm_02003238
 .L08070094: .4byte gBg0Tm+0x98
-.L08070098: .4byte 0x02003738
+.L08070098: .4byte gUnk_Tm_02003738
 .L0807009C: .4byte gBg1Tm+0x98
-.L080700A0: .4byte 0x02003C38
+.L080700A0: .4byte gUnk_Tm_02003C38
 
 	thumb_func_start func_fe6_080700A4
 func_fe6_080700A4: @ 0x080700A4

@@ -312,9 +312,9 @@ void Copy2dChr(void const * src, u8 * dst, int width, int height)
     }
 }
 
-static void func_fe6_08013DE8(u8 const * src, void * dst, int width);
+static void ApplyBitmapLine(u8 const * src, void * dst, int width);
 
-void Bitmap2Chr(u8 const * src, void * dst, int width, int height)
+void ApplyBitmap(u8 const * src, void * dst, int width, int height)
 {
     int i, line_size;
 
@@ -325,16 +325,16 @@ void Bitmap2Chr(u8 const * src, void * dst, int width, int height)
 
     for (i = height; i != 0; --i)
     {
-        func_fe6_08013DE8(src, dst, width);
+        ApplyBitmapLine(src, dst, width);
 
         src += line_size;
         dst += CHR_SIZE * width;
     }
 }
 
-static void func_fe6_08013E10(u8 const * src, u32 * dst, int width);
+static void ApplyBitmapTile(u8 const * src, u32 * dst, int width);
 
-static void func_fe6_08013DE8(u8 const * src, void * dst, int width)
+static void ApplyBitmapLine(u8 const * src, void * dst, int width)
 {
     int i;
 
@@ -343,14 +343,14 @@ static void func_fe6_08013DE8(u8 const * src, void * dst, int width)
 
     for (i = width; i != 0; i--)
     {
-        func_fe6_08013E10(src, dst, width);
+        ApplyBitmapTile(src, dst, width);
 
         src += 8;
         dst += CHR_SIZE;
     }
 }
 
-static void func_fe6_08013E10(u8 const * src, u32 * dst, int width)
+static void ApplyBitmapTile(u8 const * src, u32 * dst, int width)
 {
     int i;
 
@@ -386,7 +386,7 @@ static void func_fe6_08013E10(u8 const * src, u32 * dst, int width)
     }
 }
 
-void PutIncrTileref(u16 * tm, int tileref, int width, int height)
+void PutAppliedBitmap(u16 * tm, int tileref, int width, int height)
 {
     int ix, iy;
 
