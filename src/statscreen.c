@@ -1088,6 +1088,69 @@ void func_fe6_0806FBD8(struct StatScreenPageNameProc * proc)
     gStatScreenSt.page_slide_key_bit = 0;
 }
 
+void func_fe6_0806FC0C(struct StatScreenPageNameProc * proc)
+{
+    int base_oam2 = OAM2_CHR(OBJCHR_STATSCREEN_240) + OAM2_PAL(OBJPAL_STATSCREEN_4) + OAM2_LAYER(3);
+
+    proc->clock_left += proc->anim_speed_left;
+    proc->clock_right += proc->anim_speed_right;
+
+    if (proc->anim_speed_left > 4)
+        proc->anim_speed_left--;
+
+    if (proc->anim_speed_right > 4)
+        proc->anim_speed_right--;
+
+    if ((GetGameTime() % 4) == 0)
+    {
+        if (proc->x_left < 101)
+            proc->x_left++;
+
+        if (proc->x_right > 198)
+            proc->x_right--;
+    }
+
+    PutSprite(
+        4, gStatScreenSt.x_disp_off + proc->x_left,
+        gStatScreenSt.y_disp_off + 6, Sprite_8x16,
+        base_oam2 + 0x4A + (proc->clock_left >> 5) % 6);
+
+    PutSprite(
+        4, gStatScreenSt.x_disp_off + proc->x_right,
+        gStatScreenSt.y_disp_off + 6, Sprite_8x16_HFlipped,
+        base_oam2 + 0x4A + (proc->clock_right >> 5) % 6);
+}
+
+void func_fe6_0806FCF4(struct StatScreenPageNameProc * proc)
+{
+    enum
+    {
+        PAGENUM_X = 214,
+        PAGENUM_Y = 12
+    };
+
+    // page amt
+    PutSprite(
+        2, gStatScreenSt.x_disp_off + PAGENUM_X + 13,
+        gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
+        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBJPAL_STATSCREEN_4) +
+            OAM2_LAYER(3) + gStatScreenSt.page_count);
+
+    // '/'
+    PutSprite(
+        2, gStatScreenSt.x_disp_off + PAGENUM_X + 7,
+        gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
+        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x05) + OAM2_PAL(OBJPAL_STATSCREEN_4) +
+            OAM2_LAYER(3));
+
+    // page num
+    PutSprite(
+        2, gStatScreenSt.x_disp_off + PAGENUM_X,
+        gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
+        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBJPAL_STATSCREEN_4) +
+            OAM2_LAYER(3) + gStatScreenSt.page + 1);
+}
+
 /*
 
 */
