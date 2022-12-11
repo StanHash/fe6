@@ -1,15 +1,5 @@
 	.data
 
-	.incbin "fe6-base.gba", 0x677594, (0x6775D4 - 0x677594) @ length: 0040
-
-	.global gUnk_086775D4
-gUnk_086775D4: @ 086775D4
-	.incbin "fe6-base.gba", 0x6775D4, (0x677680 - 0x6775D4) @ length: 00AC
-
-	.global gUnk_08677680
-gUnk_08677680: @ 08677680
-	.incbin "fe6-base.gba", 0x677680, (0x677720 - 0x677680) @ length: 00A0
-
 	.global ProcScr_HelpBox
 ProcScr_HelpBox: @ 08677720
 	.incbin "fe6-base.gba", 0x677720, (0x677758 - 0x677720) @ length: 0038

@@ -1961,7 +1961,7 @@ func_fe6_08074558: @ 0x08074558
 	strh r3, [r7]
 	b .L0807465E
 .L080745A2:
-	bl func_fe6_0806EACC
+	bl GetLastStatScreenUnitId
 	adds r2, r0, #0
 .L080745A8:
 	movs r5, #0
@@ -2232,13 +2232,13 @@ func_fe6_08074778: @ 0x08074778
 	cmp r0, #1
 	bne .L080747BC
 	movs r0, #4
-	bl func_fe6_0806EAE4
+	bl SetStatScreenExcludedUnitFlags
 	b .L080747C2
 	.align 2, 0
 .L080747B8: .4byte gDispIo
 .L080747BC:
 	movs r0, #0xc
-	bl func_fe6_0806EAE4
+	bl SetStatScreenExcludedUnitFlags
 .L080747C2:
 	ldr r1, .L080747FC @ =0x0200CC38
 	adds r0, r4, #0
@@ -4059,7 +4059,7 @@ func_fe6_08075570: @ 0x08075570
 	ldrb r0, [r0, #0xb]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
-	bl func_fe6_0806EAD8
+	bl SetStatScreenLastUnitId
 	ldr r0, .L0807569C @ =gPlaySt
 	ldrb r0, [r0, #0x1d]
 	lsls r0, r0, #0x1e
@@ -4884,7 +4884,7 @@ func_fe6_08075570: @ 0x08075570
 	bl m4aSongNumStart
 .L08075CD8:
 	movs r0, #0
-	bl func_fe6_0806EAD8
+	bl SetStatScreenLastUnitId
 	adds r0, r7, #0
 	bl Proc_Break
 .L08075CE4:
@@ -13848,7 +13848,7 @@ func_fe6_0807A268: @ 0x0807A268
 	ldrb r0, [r0]
 	cmp r0, #6
 	bne .L0807A324
-	bl func_fe6_0806EACC
+	bl GetLastStatScreenUnitId
 	adds r1, r0, #0
 	adds r0, r7, #0
 	movs r2, #0
@@ -15899,7 +15899,7 @@ func_fe6_0807B28C: @ 0x0807B28C
 	ands r0, r1
 	strb r0, [r2, #1]
 	movs r0, #4
-	bl func_fe6_0806EAE4
+	bl SetStatScreenExcludedUnitFlags
 	ldr r1, .L0807B3D4 @ =0x0200E6D4
 	adds r0, r4, #0
 	adds r0, #0x30

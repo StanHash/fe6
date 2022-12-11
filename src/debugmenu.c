@@ -16,6 +16,7 @@
 #include "menuinfo.h"
 #include "ui.h"
 #include "menu.h"
+#include "statscreen.h" // StartMuralBackground
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -401,9 +402,7 @@ fu8 func_fe6_0801ABE8(struct MenuProc * menu)
     EndFaceById(1);
 
     SetDispEnable(0, 0, 0, 0, 0);
-
-    gPal[0] = 0;
-    EnablePalSync();
+    SetBackdropColor(0);
 }
 
 fu8 func_fe6_0801AC2C(struct MenuProc * menu, struct MenuEntProc * ent)

@@ -46,10 +46,9 @@ typedef uintptr_t uptr;
 enum { FALSE, TRUE };
 
 #if !defined(__cplusplus) && !defined(bool)
-
 typedef fi8 bool;
-
 #endif
+typedef i8 bool8;
 
 // TODO: move types below
 
@@ -77,6 +76,7 @@ struct UnitSprite;
 struct SupportInfo;
 
 struct HelpBoxInfo;
+struct HelpBoxProc;
 
 struct SelectTarget;
 struct MapSelectInfo;

@@ -19099,7 +19099,7 @@ func_fe6_0803EA54: @ 0x0803EA54
 	adds r4, r0, #0
 	movs r0, #0xa3
 	lsls r0, r0, #2
-	bl func_fe6_0806EAE4
+	bl SetStatScreenExcludedUnitFlags
 	ldr r0, .L0803EA70 @ =gActiveUnit
 	ldr r0, [r0]
 	adds r1, r4, #0

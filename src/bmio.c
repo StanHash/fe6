@@ -306,9 +306,7 @@ void LockBmDisplay(void)
         return;
 
     SetOnHBlankB(NULL);
-
-    gPal[0] = 0;
-    EnablePalSync();
+    SetBackdropColor(0);
 
     Proc_LockEachMarked(PROC_MARK_1);
 }

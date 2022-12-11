@@ -1536,7 +1536,7 @@ fu8 StealMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * tar
 
     EndMapSelect(proc);
 
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
+    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->pinfo->msg_name))) / 2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(3, 3), TEXT_COLOR_SYSTEM_WHITE, x, 7,

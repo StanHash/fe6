@@ -10,25 +10,25 @@ struct HelpBoxProc
 
     /* 2C */ struct HelpBoxInfo const * info;
 
-    /* 30 */ short xBox;
-    /* 32 */ short yBox;
-    /* 34 */ short wBox;
-    /* 36 */ short hBox;
-    /* 38 */ short xBoxInit;
-    /* 3A */ short yBoxInit;
-    /* 3C */ short xBoxFinal;
-    /* 3E */ short yBoxFinal;
-    /* 40 */ short wBoxInit;
-    /* 42 */ short hBoxInit;
-    /* 44 */ short wBoxFinal;
-    /* 46 */ short hBoxFinal;
-    /* 48 */ short timer;
-    /* 4A */ short timerMax;
+    /* 30 */ i16 x_box;
+    /* 32 */ i16 y_box;
+    /* 34 */ i16 w_box;
+    /* 36 */ i16 h_box;
+    /* 38 */ i16 x_box_init;
+    /* 3A */ i16 y_box_init;
+    /* 3C */ i16 x_box_fini;
+    /* 3E */ i16 y_box_fini;
+    /* 40 */ i16 w_box_init;
+    /* 42 */ i16 h_box_init;
+    /* 44 */ i16 w_box_fini;
+    /* 46 */ i16 h_box_fini;
+    /* 48 */ i16 timer;
+    /* 4A */ i16 timer_end;
 
     /* 4C */ u16 msg;
     /* 4E */ u16 item;
 
-    /* 50 */ u16 moveKey; // move ctrl proc only
+    /* 50 */ u16 move_key_bit; // move ctrl proc only
 
     /* 52 */ u8 unk_52;
 

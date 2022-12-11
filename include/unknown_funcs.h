@@ -2109,69 +2109,7 @@ void StartGameEndingScene(ProcPtr parent);
 // func_fe6_0806E7D8
 // func_fe6_0806E7F4
 // func_fe6_0806E810
-// DrawUiGaugeBitmapEdgeColumn
-// DrawUiGaugeBitmapBaseColumn
-// DrawUiGaugeBitmapFilledColumn
-// DrawUiGaugeBitmapBonusColumn
-// DrawUiGauge
-// PutDrawUiGauge
-// BackgroundSlide_Init
-// BackgroundSlide_Loop
-ProcPtr StartMuralBackground(ProcPtr parent, void * vram, int pal);
-void EndMuralBackground(void);
-int func_fe6_0806EACC(void);
-// func_fe6_0806EAD8
-void func_fe6_0806EAE4(int flags);
-// func_fe6_0806EAF0
-// func_fe6_0806EB00
-// func_fe6_0806EB48
-// PutStatScreenStatWithBar
-// func_fe6_0806ED34
-// func_fe6_0806EFE0
-// PutStatScreenSupportList
-// PutStatScreenWeaponExpBar
-// func_fe6_0806F324
-// func_fe6_0806F3DC
-// func_fe6_0806F430
-// func_fe6_0806F470
-// StatScreenPageSlide_End
-// StartStatScreenPageSlide
-// StatScreenUnitSlide_FadeOutInit
-// StatScreenUnitSlide_FadeOutLoop
-// StatScreenUnitSlide_FadeInInit
-// StatScreenUnitSlide_FadeInLoop
-// StatScreenUnitSlide_ChangeUnit
-// StatScreenUnitSlide_End
-// StartStatScreenUnitSlide
-// func_fe6_0806F8F0
-// func_fe6_0806F95C
-// func_fe6_0806F9F4
-// func_fe6_0806FA28
-// func_fe6_0806FAF0
-// func_fe6_0806FBC0
-// func_fe6_0806FBD8
-// func_fe6_0806FC0C
-// func_fe6_0806FCF4
-// func_fe6_0806FD68
-// func_fe6_0806FDB4
-// func_fe6_0806FE80
-// func_fe6_0806FEE8
-void func_fe6_0806FFDC(void * todo);
-// func_fe6_080700A4
-// func_fe6_0807022C
-// func_fe6_08070264
-// func_fe6_08070278
-// func_fe6_080702B0
-void StartStatScreen(struct Unit * unit, ProcPtr parent);
-// func_fe6_0807030C
-// func_fe6_0807036C
-// func_fe6_08070398
-// func_fe6_08070410
-// func_fe6_08070448
-// func_fe6_0807049C
-// func_fe6_080704DC
-// func_fe6_08070504
-// func_fe6_08070518
+
 // UpdateHelpBoxDisplay
 // HelpBox_OnOpen
 // HelpBox_OnLoop
@@ -2194,13 +2132,13 @@ void StartMovingHelpBoxExt(struct HelpBoxInfo const * info, ProcPtr parent, int 
 // ResetHelpBoxInitSize
 // func_fe6_08070B30
 // HbPopulate_AutoItem
-// func_fe6_08070B8C
-// func_fe6_08070BBC
-// func_fe6_08070BEC
+void HelpBoxTryRelocateUp(struct HelpBoxProc * proc);
+void HelpBoxTryRelocateDown(struct HelpBoxProc * proc);
+void HelpBoxTryRelocateLeft(struct HelpBoxProc * proc);
 // func_fe6_08070C1C
 // func_fe6_08070C4C
 // func_fe6_08070C70
-// func_fe6_08070CA8
+struct HelpBoxInfo const * func_fe6_08070CA8(void);
 void func_fe6_08070CB4(int flags, int palid);
 void func_fe6_08070D08(int chr, int chapter);
 // func_fe6_08070D48
@@ -2620,7 +2558,7 @@ void func_fe6_0808495C(struct Unit * unit);
 void func_fe6_08084A10(u8 pid);
 void func_fe6_08084AEC(u8 pid, int arg_1, int arg_2);
 void func_fe6_08084B84(u8 pid);
-// func_fe6_08084BB8
+void func_fe6_08084BB8(u8 pid);
 // func_fe6_08084BEC
 void PidStatsAddSquaresMoved(int pid, int amount);
 void PidStatsAddExpGained(int pid, int amount);

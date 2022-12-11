@@ -253,7 +253,7 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
 
 static void DrawBattlePreviewContentsLong(struct BattlePreviewProc * proc)
 {
-    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOW_FRAME));
+    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOWFRAME));
     TmFillRect_t(gUnk_Tm_02003238, 10, 19, 0);
 
     PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unitNameTextA, &gBattleUnitA.unit);

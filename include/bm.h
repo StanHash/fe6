@@ -23,14 +23,17 @@ enum
 
 enum
 {
-    PLAY_FLAG_0    = (1 << 0),
-    PLAY_FLAG_1    = (1 << 1),
-    PLAY_FLAG_2    = (1 << 2),
-    PLAY_FLAG_3    = (1 << 3),
-    PLAY_FLAG_4    = (1 << 4),
-    PLAY_FLAG_5    = (1 << 5),
-    PLAY_FLAG_HARD = (1 << 6),
-    PLAY_FLAG_7    = (1 << 7),
+    PLAY_FLAG_STATSCREENPAGE0 = (1 << 0),
+    PLAY_FLAG_STATSCREENPAGE1 = (1 << 1),
+    PLAY_FLAG_2               = (1 << 2),
+    PLAY_FLAG_3               = (1 << 3),
+    PLAY_FLAG_4               = (1 << 4),
+    PLAY_FLAG_5               = (1 << 5),
+    PLAY_FLAG_HARD            = (1 << 6),
+    PLAY_FLAG_7               = (1 << 7),
+
+    PLAY_FLAG_STATSCREENPAGE_SHIFT = 0,
+    PLAY_FLAG_STATSCREENPAGE_MASK = PLAY_FLAG_STATSCREENPAGE0 | PLAY_FLAG_STATSCREENPAGE1,
 };
 
 enum

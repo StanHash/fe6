@@ -1535,9 +1535,7 @@ void BeginBattleAnimations(void)
 {
     TmFill(gBg2Tm, 0);
     EnableBgSync(BG2_SYNC_BIT);
-
-    gPal[0] = 0;
-    EnablePalSync();
+    SetBackdropColor(0);
 
     RenderMap();
 

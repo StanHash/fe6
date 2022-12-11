@@ -644,6 +644,5 @@ void func_fe6_080192E4(void)
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));
     SetBlankChr(BGCHR_TILESET_A + (*tile++ & 0x3FF));
 
-    gPal[0] = RGB(0, 24, 16);
-    EnablePalSync();
+    SetBackdropColor(RGB(0, 24, 16));
 }

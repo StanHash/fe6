@@ -111,17 +111,17 @@ static struct UnitPanelProc * InitUnitPanel(struct UnitPanelProc * proc, struct 
     proc->y = y;
 
     PutUiWindowFrame(x, y+2, width, 2 + lines*2, UI_WINDOW_REGULAR);
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOW_FRAME, BGPAL_WINDOW_FRAME));
+    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     if (width > 10)
     {
         int ix;
 
         for (ix = x+10; ix < x+width-1; ++ix)
-            gBg1Tm[TM_OFFSET(ix, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0B, BGPAL_WINDOW_FRAME);
+            gBg1Tm[TM_OFFSET(ix, y+2)] = TILEREF(BGCHR_WINDOWFRAME+0x0B, BGPAL_WINDOWFRAME);
 
-        gBg1Tm[TM_OFFSET(x+9,       y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x26, BGPAL_WINDOW_FRAME);
-        gBg1Tm[TM_OFFSET(x+width-1, y+2)] = TILEREF(BGCHR_WINDOW_FRAME+0x0C, BGPAL_WINDOW_FRAME);
+        gBg1Tm[TM_OFFSET(x+9,       y+2)] = TILEREF(BGCHR_WINDOWFRAME+0x26, BGPAL_WINDOWFRAME);
+        gBg1Tm[TM_OFFSET(x+width-1, y+2)] = TILEREF(BGCHR_WINDOWFRAME+0x0C, BGPAL_WINDOWFRAME);
     }
 
     ClearText(&proc->name);

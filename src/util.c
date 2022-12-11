@@ -1285,8 +1285,7 @@ bool func_fe6_08014A68(struct FadeUnkProc * proc)
 
     func_fe6_08000234_t();
 
-    gPal[0] = 0;
-    EnablePalSync();
+    SetBackdropColor(0);
 
     return TRUE;
 }
@@ -1314,13 +1313,9 @@ void func_fe6_08014ADC(void)
 void func_fe6_08014AF8(void)
 {
     SetBlendDarken(0x10);
-
     SetBlendTargetA(1, 1, 1, 1, 1);
     SetBlendBackdropA(1);
-
-    gPal[0] = 0;
-    EnablePalSync();
-
+    SetBackdropColor(0);
     SetDispEnable(0, 0, 0, 0, 0);
 }
 

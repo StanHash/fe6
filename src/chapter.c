@@ -119,9 +119,7 @@ void StartChapter(struct GenericProc * parent)
 
     StartMapMain(parent);
 
-    gPal[0] = 0;
-    EnablePalSync();
-
+    SetBackdropColor(0);
     SetBlendTargetA(1, 1, 1, 1, 1); SetBlendBackdropA(1);
     SetBlendDarken(0x10);
 }
@@ -152,9 +150,7 @@ void func_fe6_08029084(void)
     StartBmVSync();
     SpawnProc(ProcScr_MapTask, PROC_TREE_4);
 
-    gPal[0] = 0;
-    EnablePalSync();
-
+    SetBackdropColor(0);
     SetDispEnable(1, 1, 1, 0, 0);
 }
 

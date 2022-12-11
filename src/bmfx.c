@@ -1,4 +1,3 @@
-
 // TODO: better name for this file
 
 #include "bmfx.h"
@@ -32,6 +31,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "mu.h"
+#include "statscreen.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/pids.h"
@@ -748,7 +748,7 @@ static void InitPhaseCursor_Init(ProcPtr proc)
 
 static void func_fe6_0801C510(ProcPtr proc)
 {
-    struct Unit * unit = GetUnit(func_fe6_0806EACC());
+    struct Unit * unit = GetUnit(GetLastStatScreenUnitId());
 
     if (unit != NULL)
     {
@@ -1970,12 +1970,8 @@ static void ChapterIntro_Loop_0801E244(struct GenericProc * proc)
         if (proc->unk4C < 0)
         {
             SetDispEnable(1, 1, 0, 0, 0);
-
             SetBgChrOffset(2, 0);
-
-            gPal[0] = 0;
-            EnablePalSync();
-
+            SetBackdropColor(0);
             Proc_Break(proc);
         }
     }
@@ -2315,9 +2311,7 @@ static void GameOverScreen_End(struct GenericProc * proc)
     SetOnHBlankB(NULL);
 
     SetDispEnable(0, 0, 0, 0, 0);
-
-    gPal[0] = 0;
-    EnablePalSync();
+    SetBackdropColor(0);
 }
 
 void StartGameOverScreen(ProcPtr parent)

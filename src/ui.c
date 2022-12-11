@@ -9,7 +9,7 @@
 
 #include "constants/videoalloc_global.h"
 
-#define FRAME_TILE(chr) TILEREF((chr), BGPAL_WINDOW_FRAME)
+#define FRAME_TILE(chr) TILEREF((chr), BGPAL_WINDOWFRAME)
 
 u16 const UiWindowFrameModelTmRegular[] =
 {
@@ -71,7 +71,7 @@ u16 const * CONST_DATA gUiStatBarPalLut[] =
 void ApplyUiWindowFramePal(int palid)
 {
     if (palid < 0)
-        palid = BGPAL_WINDOW_FRAME;
+        palid = BGPAL_WINDOWFRAME;
 
     ApplyPalette(gUiWindowFramePalLut[gPlaySt.config_window_theme], palid);
 }
@@ -79,7 +79,7 @@ void ApplyUiWindowFramePal(int palid)
 void UnpackUiWindowFrameImg(void * vram)
 {
     if (vram == NULL)
-        vram = (void *) VRAM + CHR_SIZE * BGCHR_WINDOW_FRAME;
+        vram = (void *) VRAM + CHR_SIZE * BGCHR_WINDOWFRAME;
 
     Decompress(gUiWindowFrameImgLut[gPlaySt.config_window_theme], vram);
 }
@@ -104,7 +104,7 @@ void UnpackUiWindowFrameGraphics2(int window_theme)
     buf = gBuf + ARRAY_COUNT(gBuf) - (len / sizeof (* gBuf));
 
     Decompress(gUiWindowFrameImgLut[window_theme], buf);
-    RegisterVramMove(buf, CHR_SIZE * BGCHR_WINDOW_FRAME, len);
+    RegisterVramMove(buf, CHR_SIZE * BGCHR_WINDOWFRAME, len);
 
     ApplyUiWindowFramePal(-1);
 }
@@ -266,14 +266,14 @@ enum
 
 u16 const gUiEntryHoverTileLut[] =
 {
-    [UI_ENTRY_HOVER_TILE_LEFT]        = TILEREF(0x78, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_MIDDLE_EVEN] = TILEREF(0x79, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_RIGHT_EVEN]  = TILEREF(0x7A, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_UNK_3]       = TILEREF(0x7B, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_MIDDLE_ODD]  = TILEREF(0x7C, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_RIGHT_ODD]   = TILEREF(0x7D, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_CLEAR_EVEN]  = TILEREF(0x5D, BGPAL_WINDOW_FRAME),
-    [UI_ENTRY_HOVER_TILE_CLEAR_ODD]   = TILEREF(0x5E, BGPAL_WINDOW_FRAME),
+    [UI_ENTRY_HOVER_TILE_LEFT]        = TILEREF(0x78, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_MIDDLE_EVEN] = TILEREF(0x79, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_RIGHT_EVEN]  = TILEREF(0x7A, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_UNK_3]       = TILEREF(0x7B, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_MIDDLE_ODD]  = TILEREF(0x7C, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_RIGHT_ODD]   = TILEREF(0x7D, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_CLEAR_EVEN]  = TILEREF(0x5D, BGPAL_WINDOWFRAME),
+    [UI_ENTRY_HOVER_TILE_CLEAR_ODD]   = TILEREF(0x5E, BGPAL_WINDOWFRAME),
 };
 
 void PutUiEntryHover(int x, int y, int width)

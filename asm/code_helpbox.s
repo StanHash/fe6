@@ -503,7 +503,7 @@ HelpBoxMoveControl_OnIdle: @ 0x0807090C
 	cmp r0, #0
 	beq .L08070946
 	adds r0, r5, #0
-	bl func_fe6_08070B8C
+	bl HelpBoxTryRelocateUp
 	lsls r0, r0, #0x18
 	lsrs r4, r0, #0x18
 .L08070946:
@@ -514,7 +514,7 @@ HelpBoxMoveControl_OnIdle: @ 0x0807090C
 	cmp r0, #0
 	beq .L0807095E
 	adds r0, r5, #0
-	bl func_fe6_08070BBC
+	bl HelpBoxTryRelocateDown
 	orrs r4, r0
 	lsls r0, r4, #0x18
 	lsrs r4, r0, #0x18
@@ -526,7 +526,7 @@ HelpBoxMoveControl_OnIdle: @ 0x0807090C
 	cmp r0, #0
 	beq .L08070976
 	adds r0, r5, #0
-	bl func_fe6_08070BEC
+	bl HelpBoxTryRelocateLeft
 	orrs r4, r0
 	lsls r0, r4, #0x18
 	lsrs r4, r0, #0x18
@@ -821,8 +821,8 @@ HbPopulate_AutoItem: @ 0x08070B70
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_08070B8C
-func_fe6_08070B8C: @ 0x08070B8C
+	thumb_func_start HelpBoxTryRelocateUp
+HelpBoxTryRelocateUp: @ 0x08070B8C
 	push {lr}
 	adds r2, r0, #0
 	ldr r0, [r2, #0x2c]
@@ -850,8 +850,8 @@ func_fe6_08070B8C: @ 0x08070B8C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08070BBC
-func_fe6_08070BBC: @ 0x08070BBC
+	thumb_func_start HelpBoxTryRelocateDown
+HelpBoxTryRelocateDown: @ 0x08070BBC
 	push {lr}
 	adds r2, r0, #0
 	ldr r0, [r2, #0x2c]
@@ -879,8 +879,8 @@ func_fe6_08070BBC: @ 0x08070BBC
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08070BEC
-func_fe6_08070BEC: @ 0x08070BEC
+	thumb_func_start HelpBoxTryRelocateLeft
+HelpBoxTryRelocateLeft: @ 0x08070BEC
 	push {lr}
 	adds r2, r0, #0
 	ldr r0, [r2, #0x2c]

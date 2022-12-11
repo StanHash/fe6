@@ -327,3 +327,7 @@ extern short SHOULD_BE_CONST gSinLut[];
 
 #define SetBlendBackdropB(enable) \
     gDispIo.blend_ct.target2_enable_bd = (enable)
+
+#define SetBackdropColor(color) \
+    gPal[0] = (color); \
+    EnablePalSync()
