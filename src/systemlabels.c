@@ -2,7 +2,7 @@
  * Label strings used by the stat screen, helpbox and some more
  */
 
-#include "system_labels.h"
+#include "systemlabels.h"
 #include "text.h"
 
 char const * CONST_DATA SystemLabel_08677DB8[] =

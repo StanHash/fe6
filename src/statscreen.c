@@ -23,7 +23,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "helpbox.h"
-#include "system_labels.h"
+#include "systemlabels.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
