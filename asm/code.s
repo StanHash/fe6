@@ -74571,7 +74571,7 @@ func_fe6_08098624: @ 0x08098624
 	bl SetTextFont
 	bl InitSystemTextFont
 	ldr r4, .L080986C0 @ =gBg0Tm+0x290
-	ldr r5, .L080986C4 @ =gUnk_08677DB8
+	ldr r5, .L080986C4 @ =SystemLabel_08677DB8
 	bl GetLang
 	adds r1, r0, #0
 	lsls r0, r1, #2
@@ -74624,7 +74624,7 @@ func_fe6_08098624: @ 0x08098624
 	bx r0
 	.align 2, 0
 .L080986C0: .4byte gBg0Tm+0x290
-.L080986C4: .4byte gUnk_08677DB8
+.L080986C4: .4byte SystemLabel_08677DB8
 .L080986C8: .4byte gBg0Tm+0x298
 .L080986CC: .4byte gArenaSt
 .L080986D0: .4byte gBg0Tm+0x310

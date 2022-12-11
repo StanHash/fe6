@@ -1,0 +1,49 @@
+#pragma once
+
+#include "common.h"
+
+extern char const * CONST_DATA SystemLabel_08677DB8[];
+extern char const * CONST_DATA SystemLabel_08677DC0[];
+extern char const * CONST_DATA SystemLabel_08677DC8[];
+extern char const * CONST_DATA SystemLabel_08677DD0[];
+extern char const * CONST_DATA SystemLabel_08677DD8[];
+extern char const * CONST_DATA SystemLabel_Skill[];
+extern char const * CONST_DATA SystemLabel_Speed[];
+extern char const * CONST_DATA SystemLabel_Defense[];
+extern char const * CONST_DATA SystemLabel_Resistance[];
+extern char const * CONST_DATA SystemLabel_Luck[];
+extern char const * CONST_DATA SystemLabel_Constitution[];
+extern char const * CONST_DATA SystemLabel_Aid[];
+extern char const * CONST_DATA SystemLabel_Movement[];
+extern char const * CONST_DATA SystemLabel_Rescue[];
+extern char const * CONST_DATA SystemLabel_Affinity[];
+extern char const * CONST_DATA SystemLabel_EquipRange[];
+extern char const * CONST_DATA SystemLabel_EquipAttack[];
+extern char const * CONST_DATA SystemLabel_EquipHit[];
+extern char const * CONST_DATA SystemLabel_EquipCrit[];
+extern char const * CONST_DATA SystemLabel_EquipAvoid[];
+extern char const * CONST_DATA SystemLabel_Status[];
+extern char const * CONST_DATA SystemLabel_08677E60[];
+extern char const * CONST_DATA SystemLabel_08677E68[];
+extern char const * CONST_DATA SystemLabel_08677E70[];
+extern char const * CONST_DATA SystemLabel_08677E78[];
+extern char const * CONST_DATA SystemLabel_08677E80[];
+extern char const * CONST_DATA SystemLabel_08677E88[];
+extern char const * CONST_DATA SystemLabel_08677E90[];
+extern char const * CONST_DATA SystemLabel_08677E98[];
+extern char const * CONST_DATA SystemLabel_08677EA0[];
+extern char const * CONST_DATA SystemLabel_08677EA8[];
+extern char const * CONST_DATA SystemLabel_08677EB0[];
+extern char const * CONST_DATA SystemLabel_08677EB8[];
+extern char const * CONST_DATA SystemLabel_08677EC0[];
+extern char const * CONST_DATA SystemLabel_08677EC8[];
+extern char const * CONST_DATA SystemLabel_08677ED0[];
+extern char const * CONST_DATA SystemLabel_08677ED8[];
+extern char const * CONST_DATA SystemLabel_WeaponKindSword[];
+extern char const * CONST_DATA SystemLabel_WeaponKindLance[];
+extern char const * CONST_DATA SystemLabel_WeaponKindAxe[];
+extern char const * CONST_DATA SystemLabel_WeaponKindBow[];
+extern char const * CONST_DATA SystemLabel_WeaponKindStaff[];
+extern char const * CONST_DATA SystemLabel_WeaponKindAnima[];
+extern char const * CONST_DATA SystemLabel_WeaponKindLight[];
+extern char const * CONST_DATA SystemLabel_WeaponKindElder[];

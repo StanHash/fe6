@@ -23,47 +23,17 @@
 #include "ui.h"
 #include "mu.h"
 #include "helpbox.h"
+#include "system_labels.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 #include "constants/msg.h"
 
-extern u16 const Pal_LinkArenaMuralBackground[];
-extern u16 const Pal_MuralBackground[];
-extern u8 const Img_MuralBackground[];
-extern u16 const Pal_Unk_083087C8[][0x20];
-
-extern u8 const gUnk_083080D0[]; // compressed img (statscreen misc sprite sheet)
-extern u8 const gUnk_08307CEC[]; // compressed tsa (statscreen main window frame)
-extern u16 const gUnk_08308050[]; // pal (statscreen equip stats frame)
-extern u8 const gUnk_08307ED4[]; // compressed img (statscreen equip stats frame)
-extern u8 const gUnk_08308920[]; // compressed img (equipment label)
-
-extern u8 const gUnk_08307D58[]; // tsa (compressed): statscreen page A frame
-extern u8 const gUnk_08307DD4[]; // tsa (compressed): statscreen page B frame
-extern u8 const gUnk_08307E50[]; // tsa (compressed): statscreen page C frame
-extern u8 const gUnk_08308070[]; // tsa (compressed): statscreen page B battle stat box
-extern u8 const gUnk_083080AC[]; // tsa: statscreen page B equipped weapon background
-
-extern struct ProcScr CONST_DATA ProcScr_BackgroundSlide[];
-
-extern struct StatScreenTextInfo const gUnk_083193EC[]; // statscreen page A text
-extern struct StatScreenTextInfo const gUnk_083194AC[]; // statscreen page B text
-extern struct StatScreenTextInfo const gUnk_0831950C[]; // statscreen page C text (physical unit)
-extern struct StatScreenTextInfo const gUnk_0831955C[]; // statscreen page C text (magical unit)
-
-extern char const gUnk_083195AC[]; // magic label string literal
-extern char const gUnk_083195B4[]; // strength label string literal
-
-extern u16 CONST_DATA Sprite_StatScreenMuAreaBackground[];
-
-extern struct ProcScr CONST_DATA ProcScr_StatScreen[];
-
-extern struct HelpBoxInfo const gUnk_08677824; // &gHelpInfo_Ss0Pow;
-extern struct HelpBoxInfo const gUnk_08677A00; // &gHelpInfo_Ss1Item0;
-extern struct HelpBoxInfo const gUnk_08677BA4; // &gHelpInfo_Ss2Rank0;
-
-enum { PAGE_FRAME_SCREEN_X = 12, PAGE_FRAME_SCREEN_Y = 2 };
+enum
+{
+    PAGE_FRAME_SCREEN_X = 12,
+    PAGE_FRAME_SCREEN_Y = 2,
+};
 
 struct StatScreenInfo EWRAM_DATA gStatScreenInfo = { 0 };
 
@@ -203,43 +173,91 @@ void SetStatScreenExcludedUnitFlags(int flags)
 
 struct TextInitInfo CONST_DATA gStatScreenTextList[] =
 {
-    { gStatScreenSt.text + STATSCREEN_TEXT_PNAME,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_JNAME,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_2,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_3,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_4,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_5,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_6,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_7,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_8,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_9,   3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_10,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_11,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_12,  9 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_13,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_14,  9 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_15,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_16,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_17,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_18,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_19,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_20,  6 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_21,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_22,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_23,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_24,  3 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_25,  2 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_26,  2 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_27,  2 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_28,  2 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_29,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_30,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_31,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_32,  7 },
-    { gStatScreenSt.text + STATSCREEN_TEXT_33,  7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_PNAME, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_JNAME, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_UNUSED, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_POW, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SKL, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SPD, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_LCK, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_DEF, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RES, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_MOV, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_CON, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AID, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RESCUE, 9 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AFFINITY, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_STATUS, 9 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_ITEM_A, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_ITEM_B, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_ITEM_C, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_ITEM_D, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_ITEM_E, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE, 6 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPATTACK, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPHIT, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPCRIT, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPAVOID, 3 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, 2 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, 2 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, 2 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, 2 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_A, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_B, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_C, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_D, 7 },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_E, 7 },
     { gStatScreenSt.text + STATSCREEN_TEXT_BWL, 16 },
 
     { 0 }, // end!
+};
+
+struct StatScreenTextInfo const gStatScreenPersonalInfoLabelsInfo[] =
+{
+    { gStatScreenSt.text + STATSCREEN_TEXT_SKL,      gUnk_Tm_02003238 + TM_OFFSET(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 4, SystemLabel_Skill },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SPD,      gUnk_Tm_02003238 + TM_OFFSET(1, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Speed },
+    { gStatScreenSt.text + STATSCREEN_TEXT_LCK,      gUnk_Tm_02003238 + TM_OFFSET(1, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Luck },
+    { gStatScreenSt.text + STATSCREEN_TEXT_DEF,      gUnk_Tm_02003238 + TM_OFFSET(1, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Defense },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RES,      gUnk_Tm_02003238 + TM_OFFSET(1, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Resistance },
+    { gStatScreenSt.text + STATSCREEN_TEXT_MOV,      gUnk_Tm_02003238 + TM_OFFSET(9, 1),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Movement },
+    { gStatScreenSt.text + STATSCREEN_TEXT_CON,      gUnk_Tm_02003238 + TM_OFFSET(9, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Constitution },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AID,      gUnk_Tm_02003238 + TM_OFFSET(9, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Aid },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RESCUE,   gUnk_Tm_02003238 + TM_OFFSET(9, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Rescue },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AFFINITY, gUnk_Tm_02003238 + TM_OFFSET(9, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Affinity },
+    { gStatScreenSt.text + STATSCREEN_TEXT_STATUS,   gUnk_Tm_02003238 + TM_OFFSET(9, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Status },
+
+    { 0 }, // end
+};
+
+struct StatScreenTextInfo const gStatScreenEquipmentLabelsInfo[] =
+{
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPATTACK, gUnk_Tm_02003238 + TM_OFFSET(3,  13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAttack },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPHIT,    gUnk_Tm_02003238 + TM_OFFSET(3,  15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipHit },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE,  gUnk_Tm_02003238 + TM_OFFSET(10, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipRange },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPCRIT,   gUnk_Tm_02003238 + TM_OFFSET(10, 13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipCrit },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPAVOID,  gUnk_Tm_02003238 + TM_OFFSET(10, 15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAvoid },
+
+    { 0 }, // end
+};
+
+struct StatScreenTextInfo const gStatScreenWeaponExpLabelsPhysicalInfo[] =
+{
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUnk_Tm_02003238 + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindSword },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUnk_Tm_02003238 + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLance },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUnk_Tm_02003238 + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAxe },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUnk_Tm_02003238 + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindBow },
+
+    { 0 }, // end
+};
+
+struct StatScreenTextInfo const gStatScreenWeaponExpLabelsMagicalInfo[] =
+{
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUnk_Tm_02003238 + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAnima },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUnk_Tm_02003238 + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLight },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUnk_Tm_02003238 + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindElder },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUnk_Tm_02003238 + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindStaff },
+
+    { 0 }, // end
 };
 
 void InitStatScreenText(void)
@@ -321,25 +339,25 @@ void PutStatScreenPersonalInfoPage(void)
     Decompress(gUnk_08307D58, gBuf);
     TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
-    PutStatScreenText(gUnk_083193EC);
+    PutStatScreenText(gStatScreenPersonalInfoLabelsInfo);
 
     // display strength/magic labels
 
     if (UnitKnowsMagic(gStatScreenSt.unit))
     {
         // magic
-        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_3,
+        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_POW,
             gUnk_Tm_02003238 + TM_OFFSET(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
-            gUnk_083195AC); // TODO: string literal
+            TEXT("魔力", "Mag"));
     }
     else
     {
         // strength
-        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_3,
+        PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_POW,
             gUnk_Tm_02003238 + TM_OFFSET(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 4, 0,
-            gUnk_083195B4); // TODO: string literal
+            TEXT("力", "Str"));
     }
 
     // display strength/magic stat value
@@ -404,12 +422,12 @@ void PutStatScreenPersonalInfoPage(void)
         TILEREF(0, BGPAL_ICONS + 1));
 
     // display unit rescue name
-    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_12,
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_RESCUE,
         24, TEXT_COLOR_SYSTEM_BLUE,
         GetUnitRescueName(gStatScreenSt.unit));
 
     // display status name
-    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_14,
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_STATUS,
         24, TEXT_COLOR_SYSTEM_BLUE,
         GetUnitStatusName(gStatScreenSt.unit));
 
@@ -428,7 +446,7 @@ void PutStatScreenPersonalInfoPage(void)
         GetUnitAffinityIcon(gStatScreenSt.unit),
         TILEREF(0, BGPAL_ICONS + 1));
 
-    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_13,
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_AFFINITY,
         40, TEXT_COLOR_SYSTEM_BLUE, GetAffinityName(gStatScreenSt.unit->pinfo->affinity));
 }
 
@@ -442,11 +460,11 @@ void PutStatScreenItemsPage(void)
     Decompress(gUnk_08308070, gBuf);
     TmApplyTsa_t(gUnk_Tm_02003C38 + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
 
-    PutStatScreenText(gUnk_083194AC);
+    PutStatScreenText(gStatScreenEquipmentLabelsInfo);
 
     for (i = 0; (i < ITEMSLOT_INV_COUNT) && (item = gStatScreenSt.unit->items[i]); i++)
     {
-        func_fe6_08016860(gStatScreenSt.text + STATSCREEN_TEXT_15 + i,
+        func_fe6_08016860(gStatScreenSt.text + STATSCREEN_TEXT_ITEM_A + i,
             item, IsItemDisplayUseable(gStatScreenSt.unit, item),
             gUnk_Tm_02003238 + TM_OFFSET(1, 1 + i * 2));
     }
@@ -479,7 +497,7 @@ void PutStatScreenItemsPage(void)
     PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(15, 15),
         TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_avoid);
 
-    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_20,
+    Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE,
         16, TEXT_COLOR_SYSTEM_BLUE, GetItemRangeString(item));
 
     for (i = 0; i < 8; ++i)
@@ -513,7 +531,7 @@ void PutStatScreenSupportList(void)
                 GetAffinityIconByPid(pid),
                 TILEREF(0, BGPAL_ICONS + 1));
 
-            PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_29 + line,
+            PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_A + line,
                 gUnk_Tm_02003238 + TM_OFFSET(7, y_tm),
                 text_color, 0, 0, DecodeMsg(GetPInfo(pid)->msg_name));
 
@@ -571,7 +589,7 @@ void PutStatScreenWeaponExpAndSupportsPage(void)
 
     if (UnitKnowsMagic(gStatScreenSt.unit))
     {
-        PutStatScreenText(gUnk_0831955C);
+        PutStatScreenText(gStatScreenWeaponExpLabelsMagicalInfo);
 
         PutStatScreenWeaponExpBar(0, 1, 1, ITEM_KIND_ANIMA);
         PutStatScreenWeaponExpBar(1, 1, 3, ITEM_KIND_LIGHT);
@@ -580,7 +598,7 @@ void PutStatScreenWeaponExpAndSupportsPage(void)
     }
     else
     {
-        PutStatScreenText(gUnk_0831950C);
+        PutStatScreenText(gStatScreenWeaponExpLabelsPhysicalInfo);
 
         PutStatScreenWeaponExpBar(0, 1, 1, ITEM_KIND_SWORD);
         PutStatScreenWeaponExpBar(1, 1, 3, ITEM_KIND_LANCE);
@@ -918,13 +936,13 @@ void PutUpdateStatScreenPageName(int page_id)
 
 enum { STATSCREEN_PAGE_NAME_SCALE_STEPS = 6 };
 
-void StatScreenPageName_Init(struct StatScreenPageNameProc * proc)
+void StatScreenPageName_Init(struct StatScreenSpritesProc * proc)
 {
     SetObjAffineAuto(8, 0, 0x100, 0x100);
     proc->page_id = gStatScreenSt.page;
 }
 
-void StatScreenPageName_Main(struct StatScreenPageNameProc * proc)
+void StatScreenPageName_Main(struct StatScreenSpritesProc * proc)
 {
     PutUpdateStatScreenPageName(proc->page_id);
 
@@ -938,7 +956,7 @@ void StatScreenPageName_Main(struct StatScreenPageNameProc * proc)
     proc->page_id = gStatScreenSt.page;
 }
 
-void StatScreenPageName_CloseMain(struct StatScreenPageNameProc * proc)
+void StatScreenPageName_CloseMain(struct StatScreenSpritesProc * proc)
 {
     SetObjAffineAuto(8, 0, 0x100, proc->vertical_scale * 0x100 / STATSCREEN_PAGE_NAME_SCALE_STEPS);
     PutUpdateStatScreenPageName(proc->page_id);
@@ -952,7 +970,7 @@ void StatScreenPageName_CloseMain(struct StatScreenPageNameProc * proc)
     }
 }
 
-void StatScreenPageName_OpenMain(struct StatScreenPageNameProc * proc)
+void StatScreenPageName_OpenMain(struct StatScreenSpritesProc * proc)
 {
     SetObjAffineAuto(8, 0, 0x100, proc->vertical_scale * 0x100 / STATSCREEN_PAGE_NAME_SCALE_STEPS);
     PutUpdateStatScreenPageName(gStatScreenSt.page);
@@ -982,7 +1000,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-void StatScreenSprites_Init(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_Init(struct StatScreenSpritesProc * proc)
 {
     proc->x_left = 101;
     proc->x_right = 198;
@@ -992,7 +1010,7 @@ void StatScreenSprites_Init(struct StatScreenPageNameProc * proc)
     proc->anim_speed_left = 4;
 }
 
-void StatScreenSprites_BumpCheck(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_BumpCheck(struct StatScreenSpritesProc * proc)
 {
     if (gStatScreenSt.page_slide_key_bit & KEY_DPAD_LEFT)
     {
@@ -1009,7 +1027,7 @@ void StatScreenSprites_BumpCheck(struct StatScreenPageNameProc * proc)
     gStatScreenSt.page_slide_key_bit = 0;
 }
 
-void StatScreenSprites_PutArrows(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_PutArrows(struct StatScreenSpritesProc * proc)
 {
     int base_oam2 = OAM2_CHR(OBJCHR_STATSCREEN_240) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3);
 
@@ -1042,7 +1060,7 @@ void StatScreenSprites_PutArrows(struct StatScreenPageNameProc * proc)
         base_oam2 + 0x4A + (proc->clock_right >> 5) % 6);
 }
 
-void StatScreenSprites_PutNumberLabel(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_PutNumberLabel(struct StatScreenSpritesProc * proc)
 {
     enum
     {
@@ -1089,7 +1107,7 @@ u16 CONST_DATA Sprite_StatScreenMuAreaBackground[] =
     OAM0_SHAPE_8x32  + OAM0_Y(120) + OAM0_BLEND, OAM1_SIZE_8x32  + OAM1_X(96) + OAM1_VFLIP, OAM2_CHR(0x4),
 };
 
-void StatScreenSprites_PutMuAreaSprites(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_PutMuAreaSprites(struct StatScreenSpritesProc * proc)
 {
     PutSprite(12,
         gStatScreenSt.x_disp_off,
@@ -1104,7 +1122,7 @@ void StatScreenSprites_PutMuAreaSprites(struct StatScreenPageNameProc * proc)
         OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x50) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3));
 }
 
-void StatScreenSprites_PutRescueMarkers(struct StatScreenPageNameProc * proc)
+void StatScreenSprites_PutRescueMarkers(struct StatScreenSpritesProc * proc)
 {
     bool display_icon = (GetGameTime() % 32) < 20;
 
@@ -1116,7 +1134,7 @@ void StatScreenSprites_PutRescueMarkers(struct StatScreenPageNameProc * proc)
 
     if (!gStatScreenSt.is_transitioning)
     {
-        if ((gStatScreenSt.page == STATSCREEN_PAGE_0) && (gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING))
+        if ((gStatScreenSt.page == STATSCREEN_PAGE_PERSONALINFO) && (gStatScreenSt.unit->flags & UNIT_FLAG_RESCUING))
         {
             PutSysArrow(120, 40, TRUE);
             PutSysArrow(120, 56, TRUE);
@@ -1159,7 +1177,7 @@ PROC_LABEL(0),
     PROC_END,
 };
 
-void StatScreen_DisableScreen(void)
+void StatScreen_DisableScreen(ProcPtr proc)
 {
     SetDispEnable(0, 0, 0, 0, 0);
     SetBlendDarken(0x10);
@@ -1310,14 +1328,14 @@ void StatScreen_Main(ProcPtr proc)
     }
 }
 
-void StatScreen_BackUpStatus(void)
+void StatScreen_BackUpStatus(ProcPtr proc)
 {
     gPlaySt.flags = (gPlaySt.flags & ~PLAY_FLAG_STATSCREENPAGE_MASK) | (gStatScreenSt.page & PLAY_FLAG_STATSCREENPAGE_MASK);
     gStatScreenInfo.unit_id = gStatScreenSt.unit->id;
     SetOnVMatch(NULL);
 }
 
-void StatScreen_UpdateLastHelpInfo(void)
+void StatScreen_UpdateLastHelpInfo(ProcPtr proc)
 {
     gStatScreenSt.help = func_fe6_08070CA8();
 }
@@ -1337,7 +1355,7 @@ struct ProcScr CONST_DATA ProcScr_SyncStatScreenBgOffset[] =
     PROC_END,
 };
 
-void StatScreen_CleanUp(void)
+void StatScreen_CleanUp(ProcPtr proc)
 {
     EndMuralBackground();
 }
@@ -1399,16 +1417,16 @@ void StartStatScreenHelp(int page_id, ProcPtr proc)
         switch (page_id)
         {
 
-        case STATSCREEN_PAGE_0:
-            gStatScreenSt.help = &gUnk_08677824;
+        case STATSCREEN_PAGE_PERSONALINFO:
+            gStatScreenSt.help = &HelpInfo_StatScreenPersonalInfo_Pow;
             break;
         
-        case STATSCREEN_PAGE_1:
-            gStatScreenSt.help = &gUnk_08677A00;
+        case STATSCREEN_PAGE_ITEMS:
+            gStatScreenSt.help = &HelpInfo_StatScreenItems_ItemA;
             break;
 
-        case STATSCREEN_PAGE_2:
-            gStatScreenSt.help = &gUnk_08677BA4;
+        case STATSCREEN_PAGE_WEXPANDSUPPORTS:
+            gStatScreenSt.help = &HelpInfo_StatScreenWeaponExp_WExpA;
             break;
 
         }

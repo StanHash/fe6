@@ -8,54 +8,55 @@
 
 enum
 {
-    STATSCREEN_TEXT_PNAME = 0,
-    STATSCREEN_TEXT_JNAME = 1,
-    STATSCREEN_TEXT_2 = 2,
-    STATSCREEN_TEXT_3 = 3,
-    STATSCREEN_TEXT_4 = 4,
-    STATSCREEN_TEXT_5 = 5,
-    STATSCREEN_TEXT_6 = 6,
-    STATSCREEN_TEXT_7 = 7,
-    STATSCREEN_TEXT_8 = 8,
-    STATSCREEN_TEXT_9 = 9,
-    STATSCREEN_TEXT_10 = 10,
-    STATSCREEN_TEXT_11 = 11,
-    STATSCREEN_TEXT_12 = 12,
-    STATSCREEN_TEXT_13 = 13,
-    STATSCREEN_TEXT_14 = 14,
-    STATSCREEN_TEXT_15 = 15,
-    STATSCREEN_TEXT_16 = 16,
-    STATSCREEN_TEXT_17 = 17,
-    STATSCREEN_TEXT_18 = 18,
-    STATSCREEN_TEXT_19 = 19,
-    STATSCREEN_TEXT_20 = 20,
-    STATSCREEN_TEXT_21 = 21,
-    STATSCREEN_TEXT_22 = 22,
-    STATSCREEN_TEXT_23 = 23,
-    STATSCREEN_TEXT_24 = 24,
-    STATSCREEN_TEXT_25 = 25,
-    STATSCREEN_TEXT_26 = 26,
-    STATSCREEN_TEXT_27 = 27,
-    STATSCREEN_TEXT_28 = 28,
-    STATSCREEN_TEXT_29 = 29,
-    STATSCREEN_TEXT_30 = 30,
-    STATSCREEN_TEXT_31 = 31,
-    STATSCREEN_TEXT_32 = 32,
-    STATSCREEN_TEXT_33 = 33,
-    STATSCREEN_TEXT_BWL = 34,
+    STATSCREEN_TEXT_PNAME,
+    STATSCREEN_TEXT_JNAME,
+    STATSCREEN_TEXT_UNUSED,
+    STATSCREEN_TEXT_POW,
+    STATSCREEN_TEXT_SKL,
+    STATSCREEN_TEXT_SPD,
+    STATSCREEN_TEXT_LCK,
+    STATSCREEN_TEXT_DEF,
+    STATSCREEN_TEXT_RES,
+    STATSCREEN_TEXT_MOV,
+    STATSCREEN_TEXT_CON,
+    STATSCREEN_TEXT_AID,
+    STATSCREEN_TEXT_RESCUE,
+    STATSCREEN_TEXT_AFFINITY,
+    STATSCREEN_TEXT_STATUS,
+    // TODO: assert that there are as many items here than in inv
+    STATSCREEN_TEXT_ITEM_A,
+    STATSCREEN_TEXT_ITEM_B,
+    STATSCREEN_TEXT_ITEM_C,
+    STATSCREEN_TEXT_ITEM_D,
+    STATSCREEN_TEXT_ITEM_E,
+    STATSCREEN_TEXT_EQUIPRANGE,
+    STATSCREEN_TEXT_EQUIPATTACK,
+    STATSCREEN_TEXT_EQUIPHIT,
+    STATSCREEN_TEXT_EQUIPCRIT,
+    STATSCREEN_TEXT_EQUIPAVOID,
+    STATSCREEN_TEXT_WEXP_A,
+    STATSCREEN_TEXT_WEXP_B,
+    STATSCREEN_TEXT_WEXP_C,
+    STATSCREEN_TEXT_WEXP_D,
+    STATSCREEN_TEXT_SUPPORT_A,
+    STATSCREEN_TEXT_SUPPORT_B,
+    STATSCREEN_TEXT_SUPPORT_C,
+    STATSCREEN_TEXT_SUPPORT_D,
+    STATSCREEN_TEXT_SUPPORT_E,
+    STATSCREEN_TEXT_BWL,
 
     MAX_STATSCREEN_TEXT,
 };
 
 enum
 {
-    STATSCREEN_PAGE_0,
-    STATSCREEN_PAGE_1,
-    STATSCREEN_PAGE_2,
+    STATSCREEN_PAGE_PERSONALINFO,
+    STATSCREEN_PAGE_ITEMS,
+    STATSCREEN_PAGE_WEXPANDSUPPORTS,
 };
 
 // TODO: rename (the use of "Info" in this name doesn't fit convention used elsewhere in the source)
-// ("Info" should refer to something const)
+// (tl;dr "Info" should imply const)
 struct StatScreenInfo
 {
     /* 00 */ u8 unk_00;
@@ -117,11 +118,11 @@ struct StatScreenUnitSlideProc
     /* 4C */ i16 clock;
 };
 
-struct StatScreenPageNameProc
+struct StatScreenSpritesProc
 {
     /* 00 */ PROC_HEADER;
 
-    // number sprite proc only
+    // sprites proc only
     /* 2A */ i16 x_left;
     /* 2C */ i16 x_right;
     /* 2E */ u16 clock_left;
@@ -134,68 +135,80 @@ struct StatScreenPageNameProc
     /* 38 */ i16 vertical_scale; // int 6 == 1:1 (1.0) scale
 };
 
-// DrawUiGaugeBitmapEdgeColumn
-// DrawUiGaugeBitmapBaseColumn
-// DrawUiGaugeBitmapFilledColumn
-// DrawUiGaugeBitmapBonusColumn
-// DrawUiGauge
-// PutDrawUiGauge
+void DrawUiGaugeBitmapEdgeColumn(u8 * bitmap, int pixels_per_line, int column);
+void DrawUiGaugeBitmapBaseColumn(u8 * bitmap, int pixels_per_line, int column);
+void DrawUiGaugeBitmapFilledColumn(u8 * bitmap, int pixels_per_line, int column);
+void DrawUiGaugeBitmapBonusColumn(u8 * bitmap, int pixels_per_line, int column);
+void DrawUiGauge(int chr, int dot_x, int chr_count, int dot_width, int dot_plain, int dot_bonus);
+void PutDrawUiGauge(int chr, int width, u16 * tm, int tileref, int dot_width, int dot_plain, int dot_bonus);
 
-// BackgroundSlide_Init
-// BackgroundSlide_Loop
+void BackgroundSlide_Init(struct MuralBackgroundProc * proc);
+void BackgroundSlide_Loop(struct MuralBackgroundProc * proc);
 ProcPtr StartMuralBackground(ProcPtr parent, void * vram, int pal);
 void EndMuralBackground(void);
 
 int GetLastStatScreenUnitId(void);
-// SetStatScreenLastUnitId
+void SetStatScreenLastUnitId(int unit_id);
 void SetStatScreenExcludedUnitFlags(int flags);
-// InitStatScreenText
-// PutStatScreenText
-// PutStatScreenLeftPanelInfo
-// PutStatScreenStatWithBar
-// PutStatScreenPersonalInfoPage
-// PutStatScreenItemsPage
-// PutStatScreenSupportList
-// PutStatScreenWeaponExpBar
-// PutStatScreenWeaponExpAndSupportsPage
-// PutStatScreenPage
-// FindNextStatScreenUnit
+void InitStatScreenText(void);
+void PutStatScreenText(struct StatScreenTextInfo const * list);
+void PutStatScreenLeftPanelInfo(void);
+void PutStatScreenStatWithBar(int num, int x, int y, int base, int total, int max);
+void PutStatScreenPersonalInfoPage(void);
+void PutStatScreenItemsPage(void);
+void PutStatScreenSupportList(void);
+void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind);
+void PutStatScreenWeaponExpAndSupportsPage(void);
+void PutStatScreenPage(int page_id);
+struct Unit * FindNextStatScreenUnit(struct Unit * current_unit, int iter_step);
 void StatScreenPageSlide_Loop(struct StatScreenPageSlideProc * proc);
 void StatScreenPageSlide_End(struct StatScreenPageSlideProc * proc);
 void StartStatScreenPageSlide(fu16 key_bit, int new_page, ProcPtr parent);
 void StatScreenUnitSlide_FadeOutInit(struct StatScreenUnitSlideProc * proc);
-// StatScreenUnitSlide_FadeOutLoop
-// StatScreenUnitSlide_FadeInInit
-// StatScreenUnitSlide_FadeInLoop
-// StatScreenUnitSlide_ChangeUnit
-// StatScreenUnitSlide_End
-// StartStatScreenUnitSlide
-// PutUpdateStatScreenPageName
-// StatScreenPageName_Init
-// StatScreenPageName_Main
-// StatScreenPageName_CloseMain
-// StatScreenPageName_OpenMain
-// StatScreenSprites_Init
-// StatScreenSprites_BumpCheck
-// StatScreenSprites_PutArrows
-// StatScreenSprites_PutNumberLabel
-// StatScreenSprites_PutMuAreaSprites
-// StatScreenSprites_PutRescueMarkers
-// StatScreen_DisableScreen
-// StatScreen_Init
+void StatScreenUnitSlide_FadeOutLoop(struct StatScreenUnitSlideProc * proc);
+void StatScreenUnitSlide_FadeInInit(struct StatScreenUnitSlideProc * proc);
+void StatScreenUnitSlide_FadeInLoop(struct StatScreenUnitSlideProc * proc);
+void StatScreenUnitSlide_ChangeUnit(struct StatScreenUnitSlideProc * proc);
+void StatScreenUnitSlide_End(struct StatScreenUnitSlideProc * proc);
+void StartStatScreenUnitSlide(struct Unit * unit, int direction, ProcPtr parent);
+void PutUpdateStatScreenPageName(int page_id);
+void StatScreenPageName_Init(struct StatScreenSpritesProc * proc);
+void StatScreenPageName_Main(struct StatScreenSpritesProc * proc);
+void StatScreenPageName_CloseMain(struct StatScreenSpritesProc * proc);
+void StatScreenPageName_OpenMain(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_Init(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_BumpCheck(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_PutArrows(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_PutNumberLabel(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_PutMuAreaSprites(struct StatScreenSpritesProc * proc);
+void StatScreenSprites_PutRescueMarkers(struct StatScreenSpritesProc * proc);
+void StatScreen_DisableScreen(ProcPtr proc);
+void StatScreen_Init(ProcPtr proc);
 void StatScreen_InitUnit(ProcPtr proc);
-// StatScreen_Main
-// StatScreen_BackUpStatus
-// StatScreen_UpdateLastHelpInfo
-// SyncStatScreenBgOffset
-// StatScreen_CleanUp
+void StatScreen_Main(ProcPtr proc);
+void StatScreen_BackUpStatus(ProcPtr proc);
+void StatScreen_UpdateLastHelpInfo(ProcPtr proc);
+void SyncStatScreenBgOffset(void);
+void StatScreen_CleanUp(ProcPtr proc);
 void StartStatScreen(struct Unit * unit, ProcPtr parent);
 void StartStatScreenHelp(int page_id, ProcPtr proc);
-// HelpBoxPopulateStatScreenItem
-// HelpBoxPopulateStatScreenStatus
-// HelpBoxPopulateStatScreenPower
-// HelpBoxRedirectStatScreenItem
-// HelpBoxPopulateStatScreenWeaponExp
-// HelpBoxPopulateStatScreenPInfo
-// HelpBoxPopulateStatScreenJInfo
-// HelpBoxRedirectStatScreenSupports
+
+void HelpBoxPopulateStatScreenItem(struct HelpBoxProc * proc);
+void HelpBoxPopulateStatScreenStatus(struct HelpBoxProc * proc);
+void HelpBoxPopulateStatScreenPower(struct HelpBoxProc * proc);
+void HelpBoxRedirectStatScreenItem(struct HelpBoxProc * proc);
+void HelpBoxPopulateStatScreenWeaponExp(struct HelpBoxProc * proc);
+void HelpBoxPopulateStatScreenPInfo(struct HelpBoxProc * proc);
+void HelpBoxPopulateStatScreenJInfo(struct HelpBoxProc * proc);
+void HelpBoxRedirectStatScreenSupports(struct HelpBoxProc * proc);
+
+extern struct ProcScr CONST_DATA ProcScr_BackgroundSlide[];
+extern struct ProcScr CONST_DATA ProcScr_StatScreenPageSlide[];
+extern struct ProcScr CONST_DATA ProcScr_StatScreenUnitSlide[];
+extern struct ProcScr CONST_DATA ProcScr_StatScreenPageName[];
+extern struct ProcScr CONST_DATA ProcScr_StatScreenSprites[];
+extern struct ProcScr CONST_DATA ProcScr_SyncStatScreenBgOffset[];
+extern struct ProcScr CONST_DATA ProcScr_StatScreen[];
+
+extern struct StatScreenInfo gStatScreenInfo;
+extern struct StatScreenSt gStatScreenSt;

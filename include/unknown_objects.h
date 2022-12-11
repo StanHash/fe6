@@ -154,6 +154,23 @@ extern void const * CONST_DATA ChapterAssets[];
 
 extern int CONST_DATA gUnk_08664F00[];
 
+extern u16 const Pal_LinkArenaMuralBackground[];
+extern u16 const Pal_MuralBackground[];
+extern u8 const Img_MuralBackground[];
+extern u16 const Pal_Unk_083087C8[][0x20];
+
+extern u8 const gUnk_083080D0[]; // compressed img (statscreen misc sprite sheet)
+extern u8 const gUnk_08307CEC[]; // compressed tsa (statscreen main window frame)
+extern u16 const gUnk_08308050[]; // pal (statscreen equip stats frame)
+extern u8 const gUnk_08307ED4[]; // compressed img (statscreen equip stats frame)
+extern u8 const gUnk_08308920[]; // compressed img (equipment label)
+
+extern u8 const gUnk_08307D58[]; // tsa (compressed): statscreen page A frame
+extern u8 const gUnk_08307DD4[]; // tsa (compressed): statscreen page B frame
+extern u8 const gUnk_08307E50[]; // tsa (compressed): statscreen page C frame
+extern u8 const gUnk_08308070[]; // tsa (compressed): statscreen page B battle stat box
+extern u8 const gUnk_083080AC[]; // tsa: statscreen page B equipped weapon background
+
 extern u8 const Img_Background_082D80B0[];
 extern u8 const Tsa_Background_082DAC8C[];
 extern u16 const Pal_Background_082DB140[];

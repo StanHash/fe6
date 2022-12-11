@@ -1,4 +1,4 @@
-	.data
+	.section .data_helpbox
 
 	.global ProcScr_HelpBox
 ProcScr_HelpBox: @ 08677720
@@ -12,16 +12,16 @@ ProcScr_HelpBoxMoveControl: @ 08677758
 gUnk_08677788: @ 08677788
 	.incbin "fe6-base.gba", 0x677788, (0x677824 - 0x677788) @ length: 009C
 
-	.global gUnk_08677824
-gUnk_08677824: @ 08677824
+	.global HelpInfo_StatScreenPersonalInfo_Pow
+HelpInfo_StatScreenPersonalInfo_Pow: @ 08677824
 	.incbin "fe6-base.gba", 0x677824, (0x677A00 - 0x677824) @ length: 01DC
 
-	.global gUnk_08677A00
-gUnk_08677A00: @ 08677A00
+	.global HelpInfo_StatScreenItems_ItemA
+HelpInfo_StatScreenItems_ItemA: @ 08677A00
 	.incbin "fe6-base.gba", 0x677A00, (0x677BA4 - 0x677A00) @ length: 01A4
 
-	.global gUnk_08677BA4
-gUnk_08677BA4: @ 08677BA4
+	.global HelpInfo_StatScreenWeaponExp_WExpA
+HelpInfo_StatScreenWeaponExp_WExpA: @ 08677BA4
 	.incbin "fe6-base.gba", 0x677BA4, (0x677C4C - 0x677BA4) @ length: 00A8
 
 	.global HelpInfo_BpShort_Hp
@@ -32,9 +32,7 @@ HelpInfo_BpShort_Hp: @ 08677C4C
 HelpInfo_BpLarge_Hp: @ 08677CF4
 	.incbin "fe6-base.gba", 0x677CF4, (0x677DB8 - 0x677CF4) @ length: 00C4
 
-	.global gUnk_08677DB8
-gUnk_08677DB8: @ 08677DB8
-	.incbin "fe6-base.gba", 0x677DB8, (0x677F20 - 0x677DB8) @ length: 0168
+	.data
 
 	.global gUnk_08677F20
 gUnk_08677F20: @ 08677F20

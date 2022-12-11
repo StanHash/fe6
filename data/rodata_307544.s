@@ -221,27 +221,3 @@ gUnk_083193C4: @ 083193C4
 	.global gUnk_083193D0
 gUnk_083193D0: @ 083193D0
 	.incbin "fe6-base.gba", 0x3193D0, (0x3193EC - 0x3193D0) @ length: 001C
-
-	.global gUnk_083193EC
-gUnk_083193EC: @ 083193EC
-	.incbin "fe6-base.gba", 0x3193EC, (0x3194AC - 0x3193EC) @ length: 00C0
-
-	.global gUnk_083194AC
-gUnk_083194AC: @ 083194AC
-	.incbin "fe6-base.gba", 0x3194AC, (0x31950C - 0x3194AC) @ length: 0060
-
-	.global gUnk_0831950C
-gUnk_0831950C: @ 0831950C
-	.incbin "fe6-base.gba", 0x31950C, (0x31955C - 0x31950C) @ length: 0050
-
-	.global gUnk_0831955C
-gUnk_0831955C: @ 0831955C
-	.incbin "fe6-base.gba", 0x31955C, (0x3195AC - 0x31955C) @ length: 0050
-
-	.global gUnk_083195AC
-gUnk_083195AC: @ 083195AC
-	.incbin "fe6-base.gba", 0x3195AC, (0x3195B4 - 0x3195AC) @ length: 0008
-
-	.global gUnk_083195B4
-gUnk_083195B4: @ 083195B4
-	.incbin "fe6-base.gba", 0x3195B4, (0x3195B8 - 0x3195B4) @ length: 0004

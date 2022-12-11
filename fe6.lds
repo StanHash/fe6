@@ -525,6 +525,7 @@ SECTIONS
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); data/rodata_307544.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
+        . = ALIGN(4); src/system_labels.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
@@ -590,6 +591,8 @@ SECTIONS
         . = ALIGN(4); src/eventinfo.o(.data);
         . = ALIGN(4); data/data_66618C.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);
+        . = ALIGN(4); data/data.o(.data_helpbox);
+        . = ALIGN(4); src/system_labels.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

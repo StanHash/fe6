@@ -47,5 +47,8 @@ struct HelpBoxInfo
     /* 18 */ void (* populate)(struct HelpBoxProc * proc);
 };
 
+extern struct HelpBoxInfo const HelpInfo_StatScreenPersonalInfo_Pow;
+extern struct HelpBoxInfo const HelpInfo_StatScreenItems_ItemA;
+extern struct HelpBoxInfo const HelpInfo_StatScreenWeaponExp_WExpA;
 extern struct HelpBoxInfo const HelpInfo_BpShort_Hp;
 extern struct HelpBoxInfo const HelpInfo_BpLarge_Hp;
