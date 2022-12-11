@@ -1,4 +1,3 @@
-
 # Fire Emblem: The Binding Blade
 
 This is a decompilation of Fire Emblem: The Binding Blade.
@@ -11,16 +10,18 @@ It builds the following ROM:
 
 ## Quick setup
 
-- get devkitARM. Other `arm-none-eabi` toolchain work too.
+- get a `arm-none-eabi` binutils toolchain (devkitARM works).
 - get a copy of the original rom (still required for every build for now), put it in this folder and name it `fe6-base.gba`.
-- run [tools/install-agbcc.sh](tools/install-agbcc.sh) or get agbcc another way.
+- run [tools/install-agbcc.sh](tools/install-agbcc.sh) or get an agbcc another way.
 - `make compare`
+
+In the future, a native GCC or GCC-like C compiler (such as clang) will be required to build tools, there is just no tool to build yet.
 
 ## Contributing
 
 Please do. I'm going to be pretty strict on what I accept though, so mind your formatting and naming conventions.
 
-You can also consider porting stuff from fe6 over to fe8.
+You can also consider porting stuff between fe6 and fe8.
 
 ## See also
 
