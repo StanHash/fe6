@@ -122,12 +122,12 @@ gUnk_083093F8: @ 083093F8
 gUnk_08309408: @ 08309408
 	.incbin "fe6-base.gba", 0x309408, (0x309474 - 0x309408) @ length: 006C
 
-	.global gUnk_08309474
-gUnk_08309474: @ 08309474
+	.global Pal_Unk_08309474
+Pal_Unk_08309474: @ 08309474
 	.incbin "fe6-base.gba", 0x309474, (0x3094F4 - 0x309474) @ length: 0080
 
-	.global gUnk_083094F4
-gUnk_083094F4: @ 083094F4
+	.global Pal_Unk_083094F4
+Pal_Unk_083094F4: @ 083094F4
 	.incbin "fe6-base.gba", 0x3094F4, (0x309574 - 0x3094F4) @ length: 0080
 
 	.global Img_ChapterIntroMotif
@@ -162,8 +162,8 @@ gUnk_0830CFE0: @ 0830CFE0
 gUnk_0830D4F0: @ 0830D4F0
 	.incbin "fe6-base.gba", 0x30D4F0, (0x30D5E4 - 0x30D4F0) @ length: 00F4
 
-	.global gUnk_0830D5E4
-gUnk_0830D5E4: @ 0830D5E4
+	.global Pal_Unk_0830D5E4
+Pal_Unk_0830D5E4: @ 0830D5E4
 	.incbin "fe6-base.gba", 0x30D5E4, (0x30D604 - 0x30D5E4) @ length: 0020
 
 	.global Img_GameOverText

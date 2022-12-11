@@ -11,7 +11,7 @@ struct AnimProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x50 - 0x29];
+    /* 29 */ u8 pad_29[0x50 - 0x29];
 
     /* 50 */ struct SpriteAnim * anim;
     /* 54 */ int x, y;

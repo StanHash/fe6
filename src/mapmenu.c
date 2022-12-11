@@ -28,6 +28,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "eventinfo.h"
+#include "helpbox.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/terrains.h"

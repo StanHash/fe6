@@ -18,5 +18,7 @@ enum
 
     CHAPTER_UNK_24 = 0x24,
 
+    CHAPTER_UNK_26 = 0x26,
+
     CHAPTER_COUNT = 0x2D,
 };

@@ -17,15 +17,15 @@ struct MusicProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x4A - 0x29];
+    /* 29 */ u8 pad_29[0x4A - 0x29];
     /* 4A */ short song;
     /* 4C */ short clock;
     /* 4E */ short fi_time_end;
 
-    /* 50 */ u8 pad50[0x54 - 0x50];
+    /* 50 */ u8 pad_50[0x54 - 0x50];
     /* 54 */ struct MusicPlayer * music_player;
 
-    /* 58 */ u8 pad60[0x64 - 0x58];
+    /* 58 */ u8 pad_60[0x64 - 0x58];
     /* 64 */ short vc_init_volume;
     /* 66 */ short vc_end_volume;
     /* 68 */ short vc_clock;

@@ -65,7 +65,7 @@ struct ChapterInfo
 
     /* 0C */ u8 fog;
     /* 0D */ u8 has_prep;
-    /* 0E */ u8 unk_name;
+    /* 0E */ u8 title_id;
     /* 0F */ u8 unk_0F;
     /* 10 */ u8 unk_10;
     /* 11 */ u8 weather;

@@ -12,6 +12,7 @@
 #include "unit.h"
 #include "action.h"
 #include "ui.h"
+#include "helpbox.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
@@ -54,9 +55,9 @@ struct TradeMenuProc
 
     /* 2C */ struct Unit * units[2];
 
-    /* 34 */ bool hasItem[2][ITEMSLOT_INV_COUNT + 1];
+    /* 34 */ bool8 hasItem[2][ITEMSLOT_INV_COUNT + 1];
 
-    /* 40 */ bool hasTraded;
+    /* 40 */ bool8 hasTraded;
 
     /* 41 */ u8 hoverColumn;
     /* 42 */ u8 hoverRow;
@@ -64,7 +65,7 @@ struct TradeMenuProc
     /* 43 */ u8 selectedColumn;
     /* 44 */ u8 selectedRow;
 
-    /* 45 */ bool extraCellEnabled;
+    /* 45 */ bool8 extraCellEnabled;
 
     /* 46 */ u8 extraColumn;
     /* 47 */ u8 extraRow;

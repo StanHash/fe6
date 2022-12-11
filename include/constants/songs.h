@@ -11,7 +11,7 @@ enum
     SONG_61 = 0x61,
     SONG_65 = 0x65,
     SONG_66 = 0x66,
-    SONG_67 = 0x67,
+    SONG_67 = 0x67, // change selection in menu/help box
     SONG_68 = 0x68,
     SONG_69 = 0x69,
     SONG_6A = 0x6A,
@@ -19,6 +19,8 @@ enum
     SONG_6C = 0x6C,
     SONG_6E = 0x6E,
     SONG_6F = 0x6F, // stat screen page slide
+    SONG_70 = 0x70, // help box open
+    SONG_71 = 0x71, // help box close
     SONG_73 = 0x73,
     SONG_74 = 0x74, // exp bar thingy
     SONG_75 = 0x75,

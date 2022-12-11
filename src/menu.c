@@ -5,6 +5,7 @@
 #include "text.h"
 #include "face.h"
 #include "ui.h"
+#include "helpbox.h"
 
 #include "constants/songs.h"
 

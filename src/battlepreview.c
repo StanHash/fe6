@@ -44,8 +44,8 @@ struct BattlePreviewProc
     /* 2C */ int unk_2C;
     /* 30 */ i8 x, y;
     /* 32 */ u8 frameKind;
-    /* 33 */ bool ready;
-    /* 34 */ bool needContentUpdate;
+    /* 33 */ bool8 ready;
+    /* 34 */ bool8 needContentUpdate;
     /* 35 */ i8 side; // -1 is left, +1 is right
     /* 36 */ i8 unk_36;
     /* 38 */ struct Text unitNameTextA;
@@ -53,8 +53,8 @@ struct BattlePreviewProc
     /* 48 */ struct Text itemNameText;
     /* 50 */ i8 hitCountA;
     /* 51 */ i8 hitCountB;
-    /* 52 */ bool isEffectiveA;
-    /* 53 */ bool isEffectiveB;
+    /* 52 */ bool8 isEffectiveA;
+    /* 53 */ bool8 isEffectiveB;
 };
 
 extern struct Text gBattlePreviewLabels[BATTLEPREVIEW_LABEL_COUNT];

@@ -63,14 +63,14 @@ struct PopupProc
 
     /* 3B */ u8 color;
 
-    /* 3C */ u8 pad3C[0x3E - 0x3C];
+    /* 3C */ u8 pad_3C[0x3E - 0x3C];
 
     /* 3E */ u16 icon;
     /* 40 */ u16 iconChr;
     /* 42 */ u8 iconPalid;
-    /* 43 */ u8 pad43;
+    /* 43 */ u8 pad_43;
     /* 44 */ u8 iconX;
-    /* 45 */ u8 pad45;
+    /* 45 */ u8 pad_45;
 
     /* 46 */ u16 widthPx;
 
@@ -92,24 +92,24 @@ struct EventProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ u32 const * scriptStart;
+    /* 2C */ u32 const * script_start;
     /* 30 */ u32 const * script;
-    /* 34 */ void (* onSkip)(void);
+    /* 34 */ void (* on_skip)(void);
     /* 38 */ void (* on_idle)(struct EventProc * proc);
-    /* 3C */ struct UnitInfo const * unitInfo;
-    /* 40 */ int msgParam;
+    /* 3C */ struct UnitInfo const * unit_info;
+    /* 40 */ i32 msg_param;
     /* 44 */ i8 background;
-    /* 45 */ bool noMap;
+    /* 45 */ bool8 no_map;
     /* 46 */ u8 flags;
     /* 47 */ // pad
-    /* 48 */ u16 sleepDuration;
-    /* 4A */ short cmdShort;
-    /* 4C */ u8 cmdByte;
+    /* 48 */ u16 sleep_duration;
+    /* 4A */ i16 cmd_short;
+    /* 4C */ u8 cmd_byte;
     /* 4D */ // pad
-    /* 50 */ int moneyParam;
-    /* 54 */ u16 iidParam;
-    /* 56 */ u8 pidParam;
-    /* 57 */ u8 mapChangeParam;
+    /* 50 */ i32 money_param;
+    /* 54 */ u16 iid_param;
+    /* 56 */ u8 pid_param;
+    /* 57 */ u8 map_change_param;
 };
 
 struct EventCmdInfo
@@ -788,7 +788,7 @@ static void FadeFromSkip_Start(struct GenericProc * proc)
 
     if (evproc->flags & EVENT_FLAG_SKIPPED)
     {
-        if (evproc->noMap)
+        if (evproc->no_map)
             StartLockingFadeFromBlack(0x20, proc);
 
         return;
@@ -827,19 +827,19 @@ static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent)
     else
         proc = SpawnProcLocking(ProcScr_Event, parent);
 
-    proc->scriptStart = script;
+    proc->script_start = script;
     proc->script = script;
 
     proc->on_idle = NULL;
-    proc->onSkip = NULL;
+    proc->on_skip = NULL;
 
-    proc->msgParam = 0;
+    proc->msg_param = 0;
 
     proc->flags = EVENT_FLAG_UNITCAM;
 
-    proc->sleepDuration = 0;
+    proc->sleep_duration = 0;
     proc->background = -1;
-    proc->noMap = FALSE;
+    proc->no_map = FALSE;
 
     MapFill(gMapOther, 0);
 
@@ -898,7 +898,7 @@ static void Event_RestartFromQueued(struct EventProc * proc)
 
         proc->on_idle = NULL;
 
-        proc->scriptStart = gEventScriptQueue[gEventScriptQueueIt];
+        proc->script_start = gEventScriptQueue[gEventScriptQueueIt];
         proc->script = gEventScriptQueue[gEventScriptQueueIt];
 
         Proc_Goto(proc, 0);
@@ -938,12 +938,12 @@ struct DarkenFuncProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 pad29[0x4C - 0x29];
+    /* 29 */ u8 pad_29[0x4C - 0x29];
 
     /* 4C */ struct EventProc * eventProc;
     /* 50 */ void (* func)(struct EventProc * proc);
 
-    /* 54 */ u8 pad54[0x64 - 0x54];
+    /* 54 */ u8 pad_54[0x64 - 0x54];
 
     /* 64 */ short q4_darkenStep;
     /* 66 */ short q4_darken;
@@ -1027,14 +1027,14 @@ static void Event_MainLoop(struct EventProc * proc)
 
     if (Event_SkipAllowed(proc) && (gKeySt->pressed & KEY_BUTTON_START))
     {
-        if (proc->onSkip)
-            proc->onSkip();
+        if (proc->on_skip)
+            proc->on_skip();
 
         proc->flags |= EVENT_FLAG_SKIPPED;
 
         if (!IsTalkDebugActive())
         {
-            proc->noMap = TRUE;
+            proc->no_map = TRUE;
 
             if (func_fe6_08093444())
                 Event_ClearTextOnSkip(proc);
@@ -1046,9 +1046,9 @@ static void Event_MainLoop(struct EventProc * proc)
         return;
     }
 
-    if (proc->sleepDuration != 0)
+    if (proc->sleep_duration != 0)
     {
-        proc->sleepDuration--;
+        proc->sleep_duration--;
         return;
     }
 
@@ -1101,7 +1101,7 @@ static int EvtCmd_Sleep(struct EventProc * proc)
     if (duration > 0)
         duration--;
 
-    proc->sleepDuration = duration;
+    proc->sleep_duration = duration;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -1251,7 +1251,7 @@ static int EvtCmd_TalkAuto(struct EventProc * proc)
         return EVENT_CMDRET_YIELD;
 
     InitTalk(0x80, 2, TRUE);
-    StartTalkMsg(1, 1, proc->msgParam);
+    StartTalkMsg(1, 1, proc->msg_param);
 
     if (proc->flags & EVENT_FLAG_DISABLETEXTSKIP)
         SetTalkFlag(TALK_FLAG_NOSKIP);
@@ -1293,7 +1293,7 @@ static int EvtCmd_CameraPosition(struct EventProc * proc)
 {
     // script[0]: coords (u16, u16)
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         gBmSt.camera.x = GetCameraAdjustedX(EVTCMD_GET_X(proc->script[0]) << 4);
         gBmSt.camera.y = GetCameraAdjustedY(EVTCMD_GET_Y(proc->script[0]) << 4);
@@ -1324,7 +1324,7 @@ static int EvtCmd_CameraPid(struct EventProc * proc)
 
     struct Unit * unit = GetUnitByPid(proc->script[0]);
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         gBmSt.camera.x = GetCameraAdjustedX(unit->x << 4);
         gBmSt.camera.y = GetCameraAdjustedY(unit->y << 4);
@@ -1371,7 +1371,7 @@ static int EvtCmd_MovePosition(struct EventProc * proc)
 
     unit = GetUnit(gMapUnit[yUnit][xUnit]);
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         TryMoveUnit(unit, x_target, y_target, TRUE);
         RefreshUnitSprites();
@@ -1397,7 +1397,7 @@ static int EvtCmd_MovePid(struct EventProc * proc)
     int x_target = EVTCMD_GET_X(proc->script[1]);
     int y_target = EVTCMD_GET_Y(proc->script[1]);
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         TryMoveUnit(unit, x_target, y_target, TRUE);
         RefreshUnitSprites();
@@ -1424,7 +1424,7 @@ static int EvtCmd_MovePidScript(struct EventProc * proc)
 
     u8 const * movescr = (u8 const *) proc->script[1];
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         x = unit->x;
         y = unit->y;
@@ -1459,7 +1459,7 @@ static int EvtCmd_MovePositionScript(struct EventProc * proc)
 
     unit = GetUnit(gMapUnit[y][x]);
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         ApplyMoveScriptToCoordinates(&x, &y, movescr);
 
@@ -1489,7 +1489,7 @@ static int EvtCmd_MovePidNextTo(struct EventProc * proc)
 
     unit = GetUnitByPid(proc->script[0]);
 
-    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+    if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
     {
         TryMoveUnit(unit, x, y, TRUE);
         RefreshUnitSprites();
@@ -1647,7 +1647,7 @@ static int EvtCmd_LoadUnits(struct EventProc * proc)
 
     MapFill(gMapOther, 0);
 
-    proc->unitInfo = (struct UnitInfo const *) proc->script[0];
+    proc->unit_info = (struct UnitInfo const *) proc->script[0];
     proc->on_idle = EventUnitLoadWait;
 
     return EVENT_CMDRET_YIELD;
@@ -1661,7 +1661,7 @@ static int EvtCmd_LoadUnitsParty(struct EventProc * proc)
 
     MapFill(gMapOther, 0);
 
-    proc->unitInfo = (struct UnitInfo const *) proc->script[0];
+    proc->unit_info = (struct UnitInfo const *) proc->script[0];
     EventLoadUnitsAsParty(proc);
 
     return EVENT_CMDRET_YIELD;
@@ -1704,7 +1704,7 @@ static void EventMovementWait(struct EventProc * proc);
 
 static void EventUnitLoadWait(struct EventProc * proc)
 {
-    struct UnitInfo const * info = proc->unitInfo;
+    struct UnitInfo const * info = proc->unit_info;
 
     while (TRUE)
     {
@@ -1714,7 +1714,7 @@ static void EventUnitLoadWait(struct EventProc * proc)
             break;
         }
 
-        if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->noMap)
+        if ((proc->flags & EVENT_FLAG_SKIPPED) || proc->no_map)
         {
             while (info->pid != 0)
             {
@@ -1735,7 +1735,7 @@ static void EventUnitLoadWait(struct EventProc * proc)
         }
 
         info++;
-        proc->unitInfo = info;
+        proc->unit_info = info;
     }
 
     ForceSyncUnitSpriteSheet();
@@ -1743,7 +1743,7 @@ static void EventUnitLoadWait(struct EventProc * proc)
 
 static void EventLoadUnitsAsParty(struct EventProc * proc)
 {
-    struct UnitInfo const * info = proc->unitInfo;
+    struct UnitInfo const * info = proc->unit_info;
 
     int id;
     struct Unit * unit;
@@ -1923,7 +1923,7 @@ int EventGotoLabel(ProcPtr proc, int label)
 {
     u32 const * it;
 
-    for (it = ((struct EventProc *) proc)->scriptStart; it[0] != EVT_CMD_END; it += sEventCmdInfoTable[it[0]].size)
+    for (it = ((struct EventProc *) proc)->script_start; it[0] != EVT_CMD_END; it += sEventCmdInfoTable[it[0]].size)
     {
         if (it[0] == EVT_CMD_LABEL && it[1] == label)
         {
@@ -2025,7 +2025,7 @@ static int EvtCmd_GotoIfyFlag(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const * it = proc->scriptStart;
+    u32 const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2051,7 +2051,7 @@ static int EvtCmd_GotoIfnFlag(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const * it = proc->scriptStart;
+    u32 const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2077,7 +2077,7 @@ static int EvtCmd_GotoIfyActive(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: pid
 
-    u32 const * it = proc->scriptStart;
+    u32 const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2105,7 +2105,7 @@ static int EvtCmd_Jump(struct EventProc * proc)
     u32 const * newScript = (u32 const *) proc->script[0];
 
     proc->script = newScript;
-    proc->scriptStart = newScript;
+    proc->script_start = newScript;
 
     return EVENT_CMDRET_JUMPED;
 }
@@ -2129,7 +2129,7 @@ static int EvtCmd_GiveItemTo(struct EventProc * proc)
     u16 iid = proc->script[1];
 
     if (pid == 0)
-        pid = proc->pidParam;
+        pid = proc->pid_param;
 
     return EventGiveItem(GetUnitByPid(pid), iid, proc);
 }
@@ -2137,7 +2137,7 @@ static int EvtCmd_GiveItemTo(struct EventProc * proc)
 static int EventGiveItem(struct Unit * unit, u16 iid, struct EventProc * proc)
 {
     if (iid == 0)
-        iid = proc->iidParam;
+        iid = proc->iid_param;
 
     StartGiveItem(unit, iid, proc);
 
@@ -2153,9 +2153,9 @@ static int EvtCmd_MapChange(struct EventProc * proc)
     // Common with EvtCmd_MapChangePosition
 
     if (id == -1)
-        id = proc->mapChangeParam;
+        id = proc->map_change_param;
 
-    if (!proc->noMap)
+    if (!proc->no_map)
     {
         RenderMapForFade();
 
@@ -2194,9 +2194,9 @@ static int EvtCmd_MapChangePosition(struct EventProc * proc)
     // Common with EvtCmd_MapChange
 
     if (id == -1)
-        id = proc->mapChangeParam;
+        id = proc->map_change_param;
 
-    if (!proc->noMap)
+    if (!proc->no_map)
     {
         RenderMapForFade();
 
@@ -2367,8 +2367,8 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc * proc)
     struct MuProc * mu;
     struct Unit * unit;
 
-    proc->pidParam = proc->script[0];
-    unit = GetUnitByPid(proc->pidParam);
+    proc->pid_param = proc->script[0];
+    unit = GetUnitByPid(proc->pid_param);
 
     HideUnitSprite(unit);
 
@@ -2378,7 +2378,7 @@ static int EvtCmd_RemovePidDisplayed(struct EventProc * proc)
     StartMuDeathFade(mu);
 
     proc->on_idle = EventRemoveDisplayedWait;
-    proc->sleepDuration = 60;
+    proc->sleep_duration = 60;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -2388,7 +2388,7 @@ static void EventRemoveDisplayedWait(struct EventProc * proc)
     // this is only called after the locking death fade proc ended
     // so we can cleanup immediately
 
-    struct Unit * unit = GetUnitByPid(proc->pidParam);
+    struct Unit * unit = GetUnitByPid(proc->pid_param);
 
     EndAllMus();
 
@@ -2647,7 +2647,7 @@ static int EvtCmd_NoSkip(struct EventProc * proc)
 
 static void EventFadeFromSkipWait(struct EventProc * proc)
 {
-    proc->noMap = FALSE;
+    proc->no_map = FALSE;
     StartFastLockingFadeFromBlack(proc);
 
     proc->on_idle = NULL;
@@ -2659,7 +2659,7 @@ static int EvtCmd_NoSkipNoTextSkip(struct EventProc * proc)
     {
         proc->flags &= ~EVENT_FLAG_SKIPPED;
 
-        proc->noMap = FALSE;
+        proc->no_map = FALSE;
         StartFastLockingFadeFromBlack(proc);
     }
 
@@ -2745,7 +2745,7 @@ static int EvtCmd_GiveMoney(struct EventProc * proc)
     given = proc->script[0];
 
     if (given == 0)
-        given = proc->moneyParam;
+        given = proc->money_param;
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
     {
@@ -2775,7 +2775,7 @@ static int EvtCmd_FightScript(struct EventProc * proc)
 
     int isBallista;
 
-    proc->cmdShort = GetGameLock();
+    proc->cmd_short = GetGameLock();
     proc->on_idle = EventScriptedBattleWait;
 
     unitA = GetUnitByPid(proc->script[0]);
@@ -2836,7 +2836,7 @@ static void EventScriptedBattleWaitB(struct EventProc * proc);
 
 static void EventScriptedBattleWait(struct EventProc * proc)
 {
-    if (proc->cmdShort == GetGameLock())
+    if (proc->cmd_short == GetGameLock())
         proc->on_idle = EventScriptedBattleWaitB;
 }
 
@@ -2858,7 +2858,7 @@ static int EvtCmd_FuncOnSkip(struct EventProc * proc)
 {
     // script[0]: function address
 
-    proc->onSkip = (void(*)(void)) proc->script[0];
+    proc->on_skip = (void(*)(void)) proc->script[0];
     return EVENT_CMDRET_CONTINUE;
 }
 
@@ -2903,7 +2903,7 @@ static int EvtCmd_WmEnd(struct EventProc * proc)
         return EVENT_CMDRET_YIELD;
 
     StartSlowLockingFadeToBlack(proc);
-    proc->noMap = TRUE;
+    proc->no_map = TRUE;
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3168,7 +3168,7 @@ static int EvtCmd_WmTalk(struct EventProc * proc)
         return EVENT_CMDRET_CONTINUE;
 
     InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
-    StartTalkMsg(1, 1 + proc->cmdShort, proc->script[0]);
+    StartTalkMsg(1, 1 + proc->cmd_short, proc->script[0]);
 
     SetTalkPrintDelay(4);
     SetTalkFlag(TALK_FLAG_SPRITE);
@@ -3190,10 +3190,10 @@ static int EvtCmd_WmTalkBoxBottom(struct EventProc * proc)
 
     func_fe6_08093518();
 
-    proc->cmdShort = 14;
+    proc->cmd_short = 14;
 
     InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
-    StartPutTalkSpriteText(0, proc->cmdShort*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
+    StartPutTalkSpriteText(0, proc->cmd_short*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3205,10 +3205,10 @@ static int EvtCmd_WmTalkBoxTop(struct EventProc * proc)
 
     func_fe6_08093518();
 
-    proc->cmdShort = 0;
+    proc->cmd_short = 0;
 
     InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
-    StartPutTalkSpriteText(0, proc->cmdShort*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
+    StartPutTalkSpriteText(0, proc->cmd_short*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3259,7 +3259,7 @@ static int EvtCmd_WmRemoveHighlight(struct EventProc * proc)
         return EVENT_CMDRET_CONTINUE;
 
     func_fe6_080939A8(id);
-    proc->cmdByte = id;
+    proc->cmd_byte = id;
 
     proc->on_idle = EventWmRemoveHighlightWait;
 
@@ -3268,7 +3268,7 @@ static int EvtCmd_WmRemoveHighlight(struct EventProc * proc)
 
 static void EventWmRemoveHighlightWait(struct EventProc * proc)
 {
-    if (WMHighlightExists(proc->cmdByte))
+    if (WMHighlightExists(proc->cmd_byte))
         return;
 
     proc->on_idle = NULL;
@@ -3412,7 +3412,7 @@ static int EvtCmd_Kill(struct EventProc * proc)
 
 static void EventClearTalkDisplayed(struct EventProc * proc)
 {
-    if (proc->noMap)
+    if (proc->no_map)
     {
         ClearTalk();
         return;
@@ -3423,7 +3423,7 @@ static void EventClearTalkDisplayed(struct EventProc * proc)
         ClearTalkBubble();
         Proc_ForEach(ProcScr_Face, (ProcFunc) StartFaceFadeOut);
 
-        proc->sleepDuration = 8;
+        proc->sleep_duration = 8;
         StartTemporaryLock(proc, 8);
     }
 }
@@ -3472,7 +3472,7 @@ void SetFightEventFaceConfig(void)
 ProcPtr StartTalkEvent(int msgid)
 {
     struct EventProc * proc = StartEvent(EventScr_AutoTalk);
-    proc->msgParam = msgid;
+    proc->msg_param = msgid;
 
     return proc;
 }
@@ -3480,7 +3480,7 @@ ProcPtr StartTalkEvent(int msgid)
 ProcPtr StartTalkSupportEvent(int msgid)
 {
     struct EventProc * proc = StartEvent(EventScr_085C46DC);
-    proc->msgParam = msgid;
+    proc->msg_param = msgid;
 
     return proc;
 }
@@ -3569,40 +3569,40 @@ static void GiveItem_DoGiveItem(struct GenericProc * proc)
 void StartGiveItemEvent(u16 iid)
 {
     struct EventProc * proc = StartEvent(EventScr_Item);
-    proc->iidParam = iid;
+    proc->iid_param = iid;
 }
 
 void StartGiveItemToEvent(u16 pid, u16 iid)
 {
     struct EventProc * proc = StartEvent(EventScr_ItemTo);
-    proc->pidParam = pid;
-    proc->iidParam = iid;
+    proc->pid_param = pid;
+    proc->iid_param = iid;
 }
 
 void StartGiveMoneyEvent(int amount)
 {
     struct EventProc * proc = StartEvent(EventScr_Money);
-    proc->moneyParam = amount;
+    proc->money_param = amount;
 }
 
 void StartMapChangeEvent(u8 id)
 {
     struct EventProc * proc = StartEvent(EventScr_MapChange);
-    proc->mapChangeParam = id;
+    proc->map_change_param = id;
 }
 
 void StartChestItemEvent(u16 iid, u8 id)
 {
     struct EventProc * proc = StartEvent(EventScr_ItemChest);
-    proc->iidParam = iid;
-    proc->mapChangeParam = id;
+    proc->iid_param = iid;
+    proc->map_change_param = id;
 }
 
 void StartChestMoneyEvent(int amount, u8 id)
 {
     struct EventProc * proc = StartEvent(EventScr_MoneyChest);
-    proc->moneyParam = amount;
-    proc->mapChangeParam = id;
+    proc->money_param = amount;
+    proc->map_change_param = id;
 }
 
 void SetEventTalkSkipped(void)
@@ -3719,7 +3719,7 @@ void func_fe6_080126FC(int a, int b)
 
 static void Event_SetExitMap(struct EventProc * proc)
 {
-    proc->noMap = TRUE;
+    proc->no_map = TRUE;
 }
 
 static void Event_SetEnterMap(struct EventProc * proc)
@@ -3727,7 +3727,7 @@ static void Event_SetEnterMap(struct EventProc * proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return;
 
-    proc->noMap = FALSE;
+    proc->no_map = FALSE;
 }
 
 void ResetWeather(void)

@@ -73,7 +73,7 @@ enum
 
 struct BmSt
 {
-    /* 00 */ bool main_loop_ended;
+    /* 00 */ bool8 main_loop_ended;
     /* 01 */ i8 lock;
     /* 02 */ i8 lock_display;
     /* 03 */ u8 pad_03;
@@ -91,8 +91,8 @@ struct BmSt
     /* 28 */ struct Vec2i camera_max;
     /* 2C */ u16 inventory_item_overflow;
     /* 2E */ u16 convoy_item_overflow;
-    /* 30 */ bool unk_30;
-    /* 31 */ bool unk_31;
+    /* 30 */ bool8 unk_30;
+    /* 31 */ bool8 unk_31;
     /* 32 */ short unk_32;
     /* 34 */ short unk_34;
     /* 36 */ i8 unk_36;

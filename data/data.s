@@ -1,16 +1,6 @@
 	.section .data_helpbox
 
-	.global ProcScr_HelpBox
-ProcScr_HelpBox: @ 08677720
-	.incbin "fe6-base.gba", 0x677720, (0x677758 - 0x677720) @ length: 0038
-
-	.global ProcScr_HelpBoxMoveControl
-ProcScr_HelpBoxMoveControl: @ 08677758
-	.incbin "fe6-base.gba", 0x677758, (0x677788 - 0x677758) @ length: 0030
-
-	.global gUnk_08677788
-gUnk_08677788: @ 08677788
-	.incbin "fe6-base.gba", 0x677788, (0x677824 - 0x677788) @ length: 009C
+	.incbin "fe6-base.gba", 0x677798, (0x677824 - 0x677798) @ length: 008C
 
 	.global HelpInfo_StatScreenPersonalInfo_Pow
 HelpInfo_StatScreenPersonalInfo_Pow: @ 08677824

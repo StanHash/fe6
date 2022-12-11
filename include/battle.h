@@ -66,7 +66,7 @@ struct BattleUnit
     /* 4C */ u16 weapon_attributes;
     /* 4E */ u8 weapon_kind;
     /* 4F */ u8 weapon_inventory_slot;
-    /* 50 */ bool has_inventory_weapon;
+    /* 50 */ bool8 has_inventory_weapon;
 
     /* 51 */ i8 advantage_bonus_hit;
     /* 52 */ i8 advantage_bonus_damage;
@@ -103,10 +103,10 @@ struct BattleUnit
     /* 76 */ i8 change_con;
 
     /* 77 */ i8 wexp_gain;
-    /* 78 */ bool dealt_damage;
-    /* 79 */ bool weapon_broke;
+    /* 78 */ bool8 dealt_damage;
+    /* 79 */ bool8 weapon_broke;
 
-    /* 7A */ bool has_item_effect_target;
+    /* 7A */ bool8 has_item_effect_target;
     /* 7B */ /* pad */
 };
 

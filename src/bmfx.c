@@ -32,6 +32,7 @@
 #include "menu.h"
 #include "mu.h"
 #include "statscreen.h"
+#include "helpbox.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/pids.h"
@@ -49,7 +50,7 @@ struct RescueTransferAnimProc
     /* 30 */ struct Unit * unit;
     /* 34 */ struct MuProc * mu;
     /* 38 */ u8 movescr[4];
-    /* 3C */ bool unk_3C;
+    /* 3C */ bool8 unk_3C;
 };
 
 struct EquipInfoWindowProc

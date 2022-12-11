@@ -32,7 +32,7 @@ struct AiDecision
     /* 08 */ u8 x_target;
     /* 09 */ u8 y_target;
 
-    /* 0A */ bool action_performed;
+    /* 0A */ bool8 action_performed;
 };
 
 void AiClearDecision(void);

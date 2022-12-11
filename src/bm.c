@@ -49,7 +49,7 @@ struct CamMoveProc
     /* 38 */ short calibration;
     /* 3A */ short distance;
     /* 3C */ int frame;
-    /* 40 */ bool xCalibrated;
+    /* 40 */ bool8 xCalibrated;
 };
 
 struct UnkMapCursorProc

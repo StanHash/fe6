@@ -19,9 +19,9 @@ struct Text
     /* 02 */ u8 x;
     /* 03 */ u8 color;
     /* 04 */ u8 tile_width;
-    /* 05 */ bool db_enabled;
+    /* 05 */ bool8 db_enabled;
     /* 06 */ u8 db_id;
-    /* 07 */ bool is_printing;
+    /* 07 */ bool8 is_printing;
 };
 
 struct Font

@@ -11,7 +11,7 @@ struct SpriteProc
     /* 2C */ int x;
     /* 30 */ int y;
 
-    /* 34 */ u8 pad34[0x50 - 0x34];
+    /* 34 */ u8 pad_34[0x50 - 0x34];
 
     /* 50 */ i16 layer;
     /* 52 */ u16 tileref;
