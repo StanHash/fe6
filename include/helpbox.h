@@ -117,8 +117,8 @@ void func_fe6_08071514(void);
 // func_fe6_08071760
 // func_fe6_08071778
 // func_fe6_080717B8
-// func_fe6_08071830
-// func_fe6_08071838
+void func_fe6_08071830(struct HelpBoxProc * proc, int x, int y);
+void func_fe6_08071838(struct HelpBoxProc * proc);
 // func_fe6_08071848
 // func_fe6_08071888
 // func_fe6_080718A8

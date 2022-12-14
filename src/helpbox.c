@@ -30,6 +30,13 @@ struct HelpBoxInfo EWRAM_DATA gMutableHelpBoxInfo = { 0 };
 struct HelpBoxInfo const * EWRAM_DATA gLastHelpBoxInfo = NULL;
 struct Vec2i EWRAM_DATA gHelpBoxOrigin = { 0 };
 
+extern char const gUnk_08319894[]; // JTEXT("射程");
+extern char const gUnk_0831989C[]; // JTEXT("重さ");
+extern char const gUnk_083198A4[]; // JTEXT("威力");
+extern char const gUnk_083198AC[]; // JTEXT("命中");
+extern char const gUnk_083198B4[]; // JTEXT("必殺");
+extern char const gUnk_083198BC[]; // JTEXT("杖");
+
 void UpdateHelpBoxDisplay(struct HelpBoxProc * proc, int interpolate_method)
 {
     proc->x_box = Interpolate(interpolate_method, proc->x_box_init, proc->x_box_fini, proc->timer, proc->timer_end);
@@ -712,4 +719,320 @@ void func_fe6_08070F64(int x_box, int y_box, int w_box, int h_box)
     PutSprite(0, x_box + w_box, y_box - 8, Sprite_8x8_HFlipped, gUnk_0203D40C.unk_30 + 0x3E);
     PutSprite(0, x_box - 8, y_box + h_box, Sprite_8x8_VFlipped, gUnk_0203D40C.unk_30 + 0x3E);
     PutSprite(0, x_box + w_box, y_box + h_box, Sprite_8x8_HFlipped_VFlipped, gUnk_0203D40C.unk_30 + 0x3E);
+}
+
+int func_fe6_08071120(int item)
+{
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x00, TEXT_COLOR_47CF, GetItemKindString(GetItemKind(item)));
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x24, TEXT_COLOR_47CF, gUnk_08319894);
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x60, TEXT_COLOR_47CF, gUnk_0831989C);
+    Text_InsertDrawString(&gUnk_0203D40C.text[1], 0x00, TEXT_COLOR_47CF, gUnk_083198A4);
+    Text_InsertDrawString(&gUnk_0203D40C.text[1], 0x30, TEXT_COLOR_47CF, gUnk_083198AC);
+    Text_InsertDrawString(&gUnk_0203D40C.text[1], 0x60, TEXT_COLOR_47CF, gUnk_083198B4);
+
+    return 2; // TODO: what?
+}
+
+void func_fe6_08071198(int item)
+{
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x0C, TEXT_COLOR_456F, GetWeaponLevelStringFromExp(GetItemRequiredExp(item)));
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x38, TEXT_COLOR_456F, GetItemRangeString(item));
+    Text_InsertDrawNumberOrBlank(&gUnk_0203D40C.text[0], 0x80, TEXT_COLOR_456F, GetItemWeight(item));
+    Text_InsertDrawNumberOrBlank(&gUnk_0203D40C.text[1], 0x20, TEXT_COLOR_456F, GetItemMight(item));
+    Text_InsertDrawNumberOrBlank(&gUnk_0203D40C.text[1], 0x50, TEXT_COLOR_456F, GetItemHit(item));
+    Text_InsertDrawNumberOrBlank(&gUnk_0203D40C.text[1], 0x80, TEXT_COLOR_456F, GetItemCrit(item));
+}
+
+int func_fe6_08071218(int item)
+{
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x00, TEXT_COLOR_47CF, gUnk_083198BC);
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x0C, TEXT_COLOR_456F, GetWeaponLevelStringFromExp(GetItemRequiredExp(item)));
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x24, TEXT_COLOR_47CF, gUnk_08319894);
+    Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x38, TEXT_COLOR_456F, GetItemRangeString(item));
+
+    return 1; // TODO: what?
+}
+
+struct UnkPrintProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ char const * str_it;
+    /* 30 */ struct Font * font;
+    /* 34 */ struct Text * text[6];
+    /* 4C */ u8 pad_4C[0x5C - 0x4C];
+    /* 5C */ i16 line;
+    /* 5E */ i16 clock;
+    /* 60 */ i16 clock_interval;
+    /* 62 */ i16 chars_per_print;
+};
+
+struct UnkProc2
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad_29[0x58 - 0x29];
+    /* 58 */ i32 item;
+    /* 5C */ i32 msg;
+    /* 60 */ u8 pad_60[0x64 - 0x60];
+    /* 64 */ i16 unk_64; // NOTE: might not be same proc
+};
+
+void func_fe6_08071274(struct UnkPrintProc * proc)
+{
+    int i;
+
+    proc->clock--;
+
+    if (proc->clock > 0)
+        return;
+
+    proc->clock = proc->clock_interval;
+
+    SetTextFont(proc->font);
+
+    for (i = 0; i < proc->chars_per_print; i++)
+    {
+        switch (*proc->str_it)
+        {
+
+        case 0:
+            Proc_Break(proc);
+            break;
+
+        case 1:
+            proc->str_it++;
+            proc->line++;
+            continue;
+
+        case 4:
+            proc->str_it++;
+            continue;
+
+        default:
+            proc->str_it = Text_DrawCharacter(proc->text[proc->line], proc->str_it);
+            continue;
+
+        }
+
+        break;
+    }
+
+    SetTextFont(NULL);
+}
+
+void func_fe6_08071308(struct UnkPrintProc * proc)
+{
+    int i;
+
+    SetTextFont(proc->font);
+
+    // jumping around switches and for loops requires me to use labels
+    // not the nicest
+
+    for (i = 0; i < 6; i++)
+    {
+        struct Text * text = proc->text[i];
+
+        Text_SetCursor(text, GetStringTextCenteredPos(text->tile_width * 8, proc->str_it));
+
+        for (;;)
+        {
+            switch (*proc->str_it)
+            {
+
+            case 0:
+                goto end;
+
+            case 4:
+            case 5:
+                proc->str_it++;
+                continue;
+
+            case 1:
+                proc->str_it++;
+                goto next_line;
+
+            default:
+                proc->str_it = Text_DrawCharacter(text, proc->str_it);
+                continue;
+
+            }
+        }
+
+    next_line:;
+    }
+
+end:
+    // NOTE: is this supposed to be NULL?
+    SetTextFont(proc->font);
+}
+
+/*
+struct ProcScr CONST_DATA gUnk_08677FD0[] =
+{
+    PROC_REPEAT(func_fe6_08071274),
+    PROC_END,
+};
+// end at 08677FE0
+*/
+
+extern struct ProcScr CONST_DATA gUnk_08677FD0[];
+
+void func_fe6_08071374(struct UnkProc2 * proc)
+{
+    int item = proc->item;
+
+    SetTextFont(&gUnk_0203D40C.font);
+    SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
+
+    switch (func_fe6_08070B30(item))
+    {
+
+    case HELPBOX_INFO_NONE:
+        proc->unk_64 = 0;
+        break;
+
+    case HELPBOX_INFO_WEAPON:
+        func_fe6_08071120(item);
+        proc->unk_64 = 2;
+        break;
+
+    case HELPBOX_INFO_STAFF:
+        func_fe6_08071218(item);
+        proc->unk_64 = 1;
+        break;
+
+    }
+
+    SetTextFont(NULL);
+
+    Proc_Break(proc);
+}
+
+void func_fe6_080713DC(struct UnkProc2 * proc)
+{
+    int item = proc->item;
+
+    SetTextFont(&gUnk_0203D40C.font);
+
+    if (func_fe6_08070B30(item) == HELPBOX_INFO_WEAPON)
+    {
+        func_fe6_08071198(item);
+    }
+
+    SetTextFont(NULL);
+
+    Proc_Break(proc);
+}
+
+void func_fe6_08071410(struct UnkProc2 * proc)
+{
+    struct UnkPrintProc * print_proc;
+
+    SetTextFont(&gUnk_0203D40C.font);
+    SetTextFontGlyphs(TEXT_GLYPHS_TALK);
+    Text_SetColor(&gUnk_0203D40C.text[0], TEXT_COLOR_4DEF);
+    Text_SetColor(&gUnk_0203D40C.text[1], TEXT_COLOR_4DEF);
+    Text_SetColor(&gUnk_0203D40C.text[2], TEXT_COLOR_4DEF);
+    SetTextFont(NULL);
+
+    Proc_EndEach(gUnk_08677FD0);
+
+    print_proc = SpawnProc(gUnk_08677FD0, PROC_TREE_3);
+    print_proc->font = &gUnk_0203D40C.font;
+    print_proc->text[0] = &gUnk_0203D40C.text[0];
+    print_proc->text[1] = &gUnk_0203D40C.text[1];
+    print_proc->text[2] = &gUnk_0203D40C.text[2];
+    print_proc->line = proc->unk_64;
+    print_proc->str_it = DecodeMsg(proc->msg);
+    print_proc->chars_per_print = 1;
+    print_proc->clock = 0;
+
+    switch (gPlaySt.config_talk_speed)
+    {
+
+    case 0:
+        print_proc->clock_interval = 2;
+        break;
+
+    case 1:
+        print_proc->clock_interval = 1;
+        break;
+
+    case 2:
+        print_proc->clock_interval = 1;
+        print_proc->chars_per_print = 2;
+        break;
+
+    case 3:
+        print_proc->clock_interval = 0;
+        print_proc->chars_per_print = INT8_MAX;
+        break;
+
+    }
+}
+
+extern struct ProcScr CONST_DATA gUnk_08677FF8[];
+/*
+struct ProcScr CONST_DATA gUnk_08677FF8[] =
+{
+    PROC_SLEEP(6),
+    PROC_REPEAT(func_fe6_08071374),
+    PROC_REPEAT(func_fe6_080713DC),
+    PROC_CALL(func_fe6_08071410),
+    PROC_END,
+};
+// end at 08678020
+*/
+
+void func_fe6_080714F8(int item, int msg)
+{
+    struct UnkProc2 * proc;
+
+    proc = SpawnProc(gUnk_08677FF8, PROC_TREE_3);
+
+    proc->item = item;
+    proc->msg = msg;
+}
+
+void func_fe6_08071514(void)
+{
+    SetTextFont(&gUnk_0203D40C.font);
+
+    SpriteText_DrawBackground(&gUnk_0203D40C.text[0]);
+    SpriteText_DrawBackground(&gUnk_0203D40C.text[1]);
+    SpriteText_DrawBackground(&gUnk_0203D40C.text[2]);
+
+    Proc_EndEach(gUnk_08677FD0);
+    Proc_EndEach(gUnk_08677FF8);
+
+    SetTextFont(NULL);
+}
+
+void func_fe6_0807155C(struct HelpBoxProc * proc)
+{
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_RCUBIC);
+
+    if (proc->timer < proc->timer_end)
+        proc->timer++;
+}
+
+void func_fe6_08071584(struct HelpBoxProc * proc)
+{
+    func_fe6_08071838(proc);
+    func_fe6_08071830(proc, proc->info->x, proc->info->y);
+
+    proc->timer_end = proc->timer_end / 3;
+    proc->timer = proc->timer_end;
+}
+
+void func_fe6_080715B4(struct HelpBoxProc * proc)
+{
+    UpdateHelpBoxDisplay(proc, INTERPOLATE_LINEAR);
+
+    proc->timer--;
+
+    if (proc->timer < 0)
+        Proc_Break(proc);
 }

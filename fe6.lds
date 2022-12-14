@@ -528,6 +528,7 @@ SECTIONS
         . = ALIGN(4); data/rodata_307544.o(.rodata);
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/systemlabels.o(.rodata);
+        . = ALIGN(4); src/helpbox.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
