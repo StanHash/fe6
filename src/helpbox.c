@@ -17,11 +17,74 @@
 #include "constants/chapters.h"
 #include "constants/videoalloc_global.h"
 
+struct Unk_0203D404
+{
+    u16 unk_00;
+    u16 unk_02;
+};
+
+struct Unk_0203D40C
+{
+    /* 00 */ struct Font font;
+    /* 18 */ struct Text text[3];
+    /* 30 */ u16 unk_30;
+};
+
+struct UnkPrintProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ char const * str_it;
+    /* 30 */ struct Font * font;
+    /* 34 */ struct Text * text[6];
+    /* 4C */ u8 pad_4C[0x5C - 0x4C];
+    /* 5C */ i16 line;
+    /* 5E */ i16 clock;
+    /* 60 */ i16 clock_interval;
+    /* 62 */ i16 chars_per_print;
+};
+
+struct UnkProc2
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 29 */ u8 pad_29[0x58 - 0x29];
+    /* 58 */ i32 item;
+    /* 5C */ i32 msg;
+    /* 60 */ u8 pad_60[0x64 - 0x60];
+    /* 64 */ i16 unk_64; // NOTE: might not be same proc
+};
+
+struct UnkAgainProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ i32 x;
+    /* 30 */ i32 y;
+    /* 34 */ i32 msg;
+    /* 38 */ u8 pal;
+};
+
+struct SomeOtherProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ char const * str;
+    /* 30 */ struct Font * font;
+    /* 34 */ struct Text * text[6];
+    /* 4C */ i16 line;
+    /* 4E */ i16 unk_4E;
+    /* 50 */ i16 unk_50;
+    /* 52 */ i16 chars_per_frame;
+    /* 54 */ u8 pad_54[0x56 - 0x54];
+    /* 56 */ u8 x, y;
+    /* 58 */ u8 unk_58;
+    /* 5C */ i32 msg; // Maybe other proc?
+};
+
 extern u16 const Pal_Unk_08309474[];
 extern u16 const Pal_Unk_083094F4[];
 extern u16 const Pal_Unk_0830D5E4[];
 
-extern u8 const * CONST_DATA gUnk_08677F20[]; // array img ref
 extern u8 const gUnk_0830C804[]; // img
 extern u8 const gUnk_0830CFE0[]; // img
 extern u8 const gUnk_0830D4F0[]; // tsa
@@ -31,6 +94,9 @@ extern u16 const Pal_08100A48[]; // pal
 struct HelpBoxInfo EWRAM_DATA gMutableHelpBoxInfo = { 0 };
 struct HelpBoxInfo const * EWRAM_DATA gLastHelpBoxInfo = NULL;
 struct Vec2i EWRAM_DATA gHelpBoxOrigin = { 0 };
+struct Unk_0203D404 EWRAM_DATA gUnk_0203D404 = { 0 };
+int EWRAM_DATA unused_0203D408 = 0;
+struct Unk_0203D40C EWRAM_DATA gUnk_0203D40C = { { 0 } };
 
 extern char const gUnk_08319894[]; // JTEXT("射程");
 extern char const gUnk_0831989C[]; // JTEXT("重さ");
@@ -46,7 +112,7 @@ void UpdateHelpBoxDisplay(struct HelpBoxProc * proc, int interpolate_method)
     proc->w_box = Interpolate(interpolate_method, proc->w_box_init, proc->w_box_fini, proc->timer, proc->timer_end);
     proc->h_box = Interpolate(interpolate_method, proc->h_box_init, proc->h_box_fini, proc->timer, proc->timer_end);
 
-    func_fe6_08070F64(proc->x_box, proc->y_box, proc->w_box, proc->h_box);
+    PutSpriteTalkBox(proc->x_box, proc->y_box, proc->w_box, proc->h_box);
 
     if (proc->unk_52 == 0)
     {
@@ -93,10 +159,10 @@ void HelpBox_WaitClose(struct HelpBoxProc * proc)
 
 void StartHelpBox(int x, int y, int msg)
 {
-    gMutableHelpBoxInfo.adjUp = NULL;
-    gMutableHelpBoxInfo.adjDown = NULL;
-    gMutableHelpBoxInfo.adjLeft = NULL;
-    gMutableHelpBoxInfo.adjRight = NULL;
+    gMutableHelpBoxInfo.adjacent_up = NULL;
+    gMutableHelpBoxInfo.adjacent_down = NULL;
+    gMutableHelpBoxInfo.adjacent_left = NULL;
+    gMutableHelpBoxInfo.adjacent_right = NULL;
     gMutableHelpBoxInfo.x = x;
     gMutableHelpBoxInfo.y = y;
     gMutableHelpBoxInfo.msg = msg;
@@ -111,10 +177,10 @@ void StartHelpBox(int x, int y, int msg)
 
 void StartItemHelpBox(int x, int y, int item)
 {
-    gMutableHelpBoxInfo.adjUp = NULL;
-    gMutableHelpBoxInfo.adjDown = NULL;
-    gMutableHelpBoxInfo.adjLeft = NULL;
-    gMutableHelpBoxInfo.adjRight = NULL;
+    gMutableHelpBoxInfo.adjacent_up = NULL;
+    gMutableHelpBoxInfo.adjacent_down = NULL;
+    gMutableHelpBoxInfo.adjacent_left = NULL;
+    gMutableHelpBoxInfo.adjacent_right = NULL;
     gMutableHelpBoxInfo.x = x;
     gMutableHelpBoxInfo.y = y;
     gMutableHelpBoxInfo.msg = item;
@@ -407,10 +473,10 @@ void HelpBoxPopulateAutoItem(struct HelpBoxProc * proc)
 
 int HelpBoxTryRelocateUp(struct HelpBoxProc* proc)
 {
-    if (proc->info->adjUp == NULL)
+    if (proc->info->adjacent_up == NULL)
         return FALSE;
 
-    proc->info = proc->info->adjUp;
+    proc->info = proc->info->adjacent_up;
     proc->move_key_bit = KEY_DPAD_UP;
 
     if (proc->info->redirect)
@@ -421,10 +487,10 @@ int HelpBoxTryRelocateUp(struct HelpBoxProc* proc)
 
 int HelpBoxTryRelocateDown(struct HelpBoxProc* proc)
 {
-    if (proc->info->adjDown == NULL)
+    if (proc->info->adjacent_down == NULL)
         return FALSE;
 
-    proc->info = proc->info->adjDown;
+    proc->info = proc->info->adjacent_down;
     proc->move_key_bit = KEY_DPAD_DOWN;
 
     if (proc->info->redirect)
@@ -435,10 +501,10 @@ int HelpBoxTryRelocateDown(struct HelpBoxProc* proc)
 
 int HelpBoxTryRelocateLeft(struct HelpBoxProc* proc)
 {
-    if (proc->info->adjLeft == NULL)
+    if (proc->info->adjacent_left == NULL)
         return FALSE;
 
-    proc->info = proc->info->adjLeft;
+    proc->info = proc->info->adjacent_left;
     proc->move_key_bit = KEY_DPAD_LEFT;
 
     if (proc->info->redirect)
@@ -449,10 +515,10 @@ int HelpBoxTryRelocateLeft(struct HelpBoxProc* proc)
 
 int HelpBoxTryRelocateRight(struct HelpBoxProc * proc)
 {
-    if (proc->info->adjRight == NULL)
+    if (proc->info->adjacent_right == NULL)
         return FALSE;
 
-    proc->info = proc->info->adjRight;
+    proc->info = proc->info->adjacent_right;
     proc->move_key_bit = KEY_DPAD_RIGHT;
 
     if (proc->info->redirect)
@@ -484,31 +550,13 @@ int StartLockingHelpBox(int msg, ProcPtr parent)
     return TRUE;
 }
 
-struct HelpBoxInfo const * func_fe6_08070CA8(void)
+struct HelpBoxInfo const * GetLastHelpBoxInfo(void)
 {
     return gLastHelpBoxInfo;
 }
 
-// TODO: move
-
-struct Unk_0203D404
-{
-    u16 unk_00;
-    u16 unk_02;
-};
-
-struct Unk_0203D404 EWRAM_DATA gUnk_0203D404 = { 0 };
-
-int EWRAM_DATA unused_0203D408 = 0;
-
-struct Unk_0203D40C
-{
-    /* 00 */ struct Font font;
-    /* 18 */ struct Text text[3];
-    /* 30 */ u16 unk_30;
-};
-
-struct Unk_0203D40C EWRAM_DATA gUnk_0203D40C = { { 0 } };
+#include "data/helpboxinfo.h"
+#include "data/systemlabels.h"
 
 void func_fe6_08070CB4(int flags, int pal)
 {
@@ -532,6 +580,56 @@ void func_fe6_08070CB4(int flags, int pal)
 
     ApplyPalette(pal_src, pal);
 }
+
+u8 const * CONST_DATA gUnk_08677F20[] =
+{
+    // TODO
+
+    (void *) 0x0830D9C0,
+    (void *) 0x0830DDBC,
+    (void *) 0x0830E1DC,
+    (void *) 0x0830E640,
+    (void *) 0x0830EA4C,
+    (void *) 0x0830EDC8,
+    (void *) 0x0830F250,
+    (void *) 0x0830F6C4,
+    (void *) 0x0830F9B8,
+    (void *) 0x0830FE60,
+    (void *) 0x083102CC,
+    (void *) 0x083107A8,
+    (void *) 0x08310BBC,
+    (void *) 0x08311094,
+    (void *) 0x083114AC,
+    (void *) 0x08311890,
+    (void *) 0x08311D54,
+    (void *) 0x08312158,
+    (void *) 0x083124FC,
+    (void *) 0x083129A0,
+    (void *) 0x08312D20,
+    (void *) 0x08313104,
+    (void *) 0x083135C0,
+    (void *) 0x0831394C,
+    (void *) 0x08313D38,
+    (void *) 0x083140C8,
+    (void *) 0x083144E4,
+    (void *) 0x083149C8,
+    (void *) 0x08314E14,
+    (void *) 0x083151E8,
+    (void *) 0x0831569C,
+    (void *) 0x08315AC0,
+    (void *) 0x08315F88,
+    (void *) 0x08316354,
+    (void *) 0x083167EC,
+    (void *) 0x08316C00,
+    (void *) 0x08317014,
+    (void *) 0x08317484,
+    (void *) 0x08317858,
+    (void *) 0x08317AA4,
+    (void *) 0x08317D94,
+    (void *) 0x08318040,
+    (void *) 0x0831833C,
+    (void *) 0x08318658,
+};
 
 void func_fe6_08070D08(int chr, int title_id)
 {
@@ -658,7 +756,7 @@ void func_fe6_08070EEC(void * vram, int pal)
     gUnk_0203D40C.unk_30 = OAM2_CHR(((uptr) vram) / CHR_SIZE) + OAM2_PAL(pal);
 }
 
-void func_fe6_08070F64(int x_box, int y_box, int w_box, int h_box)
+void PutSpriteTalkBox(int x_box, int y_box, int w_box, int h_box)
 {
     int y_count, x_count;
     int iy, ix, x_px, y_px;
@@ -724,7 +822,7 @@ void func_fe6_08070F64(int x_box, int y_box, int w_box, int h_box)
     PutSprite(0, x_box + w_box, y_box + h_box, Sprite_8x8_HFlipped_VFlipped, gUnk_0203D40C.unk_30 + 0x3E);
 }
 
-int func_fe6_08071120(int item)
+int DrawHelpBoxWeaponLabels(int item)
 {
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x00, TEXT_COLOR_47CF, GetItemKindString(GetItemKind(item)));
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x24, TEXT_COLOR_47CF, gUnk_08319894);
@@ -736,7 +834,7 @@ int func_fe6_08071120(int item)
     return 2; // TODO: what?
 }
 
-void func_fe6_08071198(int item)
+void DrawHelpBoxWeaponStats(int item)
 {
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x0C, TEXT_COLOR_456F, GetWeaponLevelStringFromExp(GetItemRequiredExp(item)));
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x38, TEXT_COLOR_456F, GetItemRangeString(item));
@@ -746,7 +844,7 @@ void func_fe6_08071198(int item)
     Text_InsertDrawNumberOrBlank(&gUnk_0203D40C.text[1], 0x80, TEXT_COLOR_456F, GetItemCrit(item));
 }
 
-int func_fe6_08071218(int item)
+int DrawHelpBoxStaffLabels(int item)
 {
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x00, TEXT_COLOR_47CF, gUnk_083198BC);
     Text_InsertDrawString(&gUnk_0203D40C.text[0], 0x0C, TEXT_COLOR_456F, GetWeaponLevelStringFromExp(GetItemRequiredExp(item)));
@@ -755,31 +853,6 @@ int func_fe6_08071218(int item)
 
     return 1; // TODO: what?
 }
-
-struct UnkPrintProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ char const * str_it;
-    /* 30 */ struct Font * font;
-    /* 34 */ struct Text * text[6];
-    /* 4C */ u8 pad_4C[0x5C - 0x4C];
-    /* 5C */ i16 line;
-    /* 5E */ i16 clock;
-    /* 60 */ i16 clock_interval;
-    /* 62 */ i16 chars_per_print;
-};
-
-struct UnkProc2
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad_29[0x58 - 0x29];
-    /* 58 */ i32 item;
-    /* 5C */ i32 msg;
-    /* 60 */ u8 pad_60[0x64 - 0x60];
-    /* 64 */ i16 unk_64; // NOTE: might not be same proc
-};
 
 void func_fe6_08071274(struct UnkPrintProc * proc)
 {
@@ -825,6 +898,12 @@ void func_fe6_08071274(struct UnkPrintProc * proc)
 
     SetTextFont(NULL);
 }
+
+struct ProcScr CONST_DATA gUnk_08677FD0[] =
+{
+    PROC_REPEAT(func_fe6_08071274),
+    PROC_END,
+};
 
 void func_fe6_08071308(struct UnkPrintProc * proc)
 {
@@ -875,16 +954,12 @@ end:
     SetTextFont(proc->font);
 }
 
-/*
-struct ProcScr CONST_DATA gUnk_08677FD0[] =
+struct ProcScr CONST_DATA gUnk_08677FE0[] =
 {
-    PROC_REPEAT(func_fe6_08071274),
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08071308),
     PROC_END,
 };
-// end at 08677FE0
-*/
-
-extern struct ProcScr CONST_DATA gUnk_08677FD0[];
 
 void func_fe6_08071374(struct UnkProc2 * proc)
 {
@@ -901,12 +976,12 @@ void func_fe6_08071374(struct UnkProc2 * proc)
         break;
 
     case HELPBOX_INFO_WEAPON:
-        func_fe6_08071120(item);
+        DrawHelpBoxWeaponLabels(item);
         proc->unk_64 = 2;
         break;
 
     case HELPBOX_INFO_STAFF:
-        func_fe6_08071218(item);
+        DrawHelpBoxStaffLabels(item);
         proc->unk_64 = 1;
         break;
 
@@ -925,7 +1000,7 @@ void func_fe6_080713DC(struct UnkProc2 * proc)
 
     if (func_fe6_08070B30(item) == HELPBOX_INFO_WEAPON)
     {
-        func_fe6_08071198(item);
+        DrawHelpBoxWeaponStats(item);
     }
 
     SetTextFont(NULL);
@@ -982,8 +1057,6 @@ void func_fe6_08071410(struct UnkProc2 * proc)
     }
 }
 
-extern struct ProcScr CONST_DATA gUnk_08677FF8[];
-/*
 struct ProcScr CONST_DATA gUnk_08677FF8[] =
 {
     PROC_SLEEP(6),
@@ -992,8 +1065,6 @@ struct ProcScr CONST_DATA gUnk_08677FF8[] =
     PROC_CALL(func_fe6_08071410),
     PROC_END,
 };
-// end at 08678020
-*/
 
 void func_fe6_080714F8(int item, int msg)
 {
@@ -1046,6 +1117,14 @@ void func_fe6_080715B4(struct HelpBoxProc * proc)
         Proc_Break(proc);
 }
 
+struct ProcScr CONST_DATA gUnk_08678020[] =
+{
+    PROC_REPEAT(func_fe6_0807155C),
+    PROC_CALL(func_fe6_08071584),
+    PROC_REPEAT(func_fe6_080715B4),
+    PROC_END,
+};
+
 void func_fe6_080715DC(int x, int y, int msg)
 {
     static struct HelpBoxInfo EWRAM_DATA static_info = { 0 };
@@ -1060,18 +1139,6 @@ void func_fe6_080715DC(int x, int y, int msg)
 }
 
 struct HelpBoxInfo const * EWRAM_DATA gUnk_0203D45C = NULL;
-
-extern struct ProcScr CONST_DATA gUnk_08678020[];
-/*
-struct ProcScr CONST_DATA gUnk_08678020[] =
-{
-    PROC_REPEAT(func_fe6_0807155C),
-    PROC_CALL(func_fe6_08071584),
-    PROC_REPEAT(func_fe6_080715B4),
-    PROC_END,
-};
-// end at 08678040
-*/
 
 void func_fe6_080715FC(struct HelpBoxInfo const * info)
 {
@@ -1137,14 +1204,6 @@ void func_fe6_08071714(struct HelpBoxProc * proc)
         Proc_Break(proc);
 }
 
-void func_fe6_08071734(struct HelpBoxProc * proc)
-{
-    func_fe6_080716C8();
-    Proc_End(proc);
-}
-
-extern struct ProcScr CONST_DATA gUnk_08678040[];
-/*
 struct ProcScr CONST_DATA gUnk_08678040[] =
 {
     PROC_SLEEP(1),
@@ -1154,8 +1213,12 @@ PROC_LABEL(0),
     PROC_CALL(func_fe6_080716C8),
     PROC_END,
 };
-// end at 08678070
-*/
+
+void func_fe6_08071734(struct HelpBoxProc * proc)
+{
+    func_fe6_080716C8();
+    Proc_End(proc);
+}
 
 void func_fe6_08071748(struct HelpBoxInfo const * info)
 {
@@ -1261,15 +1324,11 @@ void func_fe6_08071888(struct HelpBoxProc * proc)
         Proc_Break(proc);
 }
 
-extern struct ProcScr CONST_DATA gUnk_08678070[];
-/*
 struct ProcScr CONST_DATA gUnk_08678070[] =
 {
     PROC_REPEAT(func_fe6_08071888),
     PROC_END,
 };
-// end at 08678080
-*/
 
 int func_fe6_080718A8(int msg, ProcPtr parent)
 {
@@ -1278,23 +1337,6 @@ int func_fe6_080718A8(int msg, ProcPtr parent)
     SpawnProcLocking(gUnk_08678070, parent);
     return 1; // ?
 }
-
-extern struct ProcScr CONST_DATA gUnk_08678080[];
-/*
-struct ProcScr CONST_DATA gUnk_08678080[] =
-{
-    PROC_CALL(LockGame),
-    PROC_SLEEP(1),
-    PROC_CALL(func_fe6_080719EC),
-    PROC_REPEAT(func_fe6_08071A20),
-PROC_LABEL(0),
-    PROC_CALL(func_fe6_08071A24),
-    PROC_SLEEP(10),
-    PROC_CALL(UnlockGame),
-    PROC_END,
-};
-// end at 086780C8
-*/
 
 bool func_fe6_080718E0(void)
 {
@@ -1364,16 +1406,6 @@ void func_fe6_080719D8(struct HelpBoxProc * proc, int w, int h)
     proc->h_box_fini = h;
 }
 
-struct UnkAgainProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ i32 x;
-    /* 30 */ i32 y;
-    /* 34 */ i32 msg;
-    /* 38 */ u8 pal;
-};
-
 void func_fe6_080719EC(struct UnkAgainProc * proc)
 {
     if (proc->pal == UINT8_MAX)
@@ -1393,6 +1425,19 @@ void func_fe6_08071A24(void)
     SetTextFontGlyphs(TEXT_GLYPHS_SYSTEM);
     func_fe6_08071B6C();
 }
+
+struct ProcScr CONST_DATA gUnk_08678080[] =
+{
+    PROC_CALL(LockGame),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080719EC),
+    PROC_REPEAT(func_fe6_08071A20),
+PROC_LABEL(0),
+    PROC_CALL(func_fe6_08071A24),
+    PROC_SLEEP(10),
+    PROC_CALL(UnlockGame),
+    PROC_END,
+};
 
 void func_fe6_08071A34(struct HelpBoxProc * proc, int interpolate_method)
 {
@@ -1433,8 +1478,6 @@ void func_fe6_08071B44(struct HelpBoxProc * proc)
         Proc_Break(proc);
 }
 
-extern struct ProcScr CONST_DATA gUnk_086780C8[];
-/*
 struct ProcScr CONST_DATA gUnk_086780C8[] =
 {
     PROC_REPEAT(func_fe6_08071AF8),
@@ -1442,8 +1485,6 @@ struct ProcScr CONST_DATA gUnk_086780C8[] =
     PROC_REPEAT(func_fe6_08071B44),
     PROC_END,
 };
-// end at 086780E8
-*/
 
 void func_fe6_08071B6C(void)
 {
@@ -1651,7 +1692,7 @@ void func_fe6_08071D04(int x, int y, int msg)
 
 void func_fe6_08071D94(int x_box, int y_box, int w_box, int h_box)
 {
-    // identical to func_fe6_08070F64
+    // identical to PutSpriteTalkBox
     // except it refers to gUnk_0203D460 instead of gUnk_0203D40C, and uses layer 2 instead of 0
 
     int y_count, x_count;
@@ -1717,22 +1758,6 @@ void func_fe6_08071D94(int x_box, int y_box, int w_box, int h_box)
     PutSprite(2, x_box - 8, y_box + h_box, Sprite_8x8_VFlipped, gUnk_0203D460.unk_30 + 0x3E);
     PutSprite(2, x_box + w_box, y_box + h_box, Sprite_8x8_HFlipped_VFlipped, gUnk_0203D460.unk_30 + 0x3E);
 }
-
-struct SomeOtherProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ char const * str;
-    /* 30 */ struct Font * font;
-    /* 34 */ struct Text * text[6];
-    /* 4C */ i16 line;
-    /* 4E */ i16 unk_4E;
-    /* 50 */ i16 unk_50;
-    /* 52 */ i16 chars_per_frame;
-    /* 54 */ u8 pad_54[0x56 - 0x54];
-    /* 56 */ u8 x, y;
-    /* 58 */ u8 unk_58;
-    /* 5C */ i32 msg; // Maybe other proc?
-};
 
 void func_fe6_08071F50(struct SomeOtherProc * proc)
 {
@@ -1840,8 +1865,6 @@ void func_fe6_080720E0(struct SomeOtherProc * proc)
     Proc_Break(proc);
 }
 
-extern struct ProcScr CONST_DATA gUnk_086780E8[];
-/*
 struct ProcScr CONST_DATA gUnk_086780E8[] =
 {
     PROC_SLEEP(0),
@@ -1850,8 +1873,6 @@ struct ProcScr CONST_DATA gUnk_086780E8[] =
     PROC_CALL(func_fe6_080720E0),
     PROC_END,
 };
-// end at 08678110
-*/
 
 void func_fe6_08072100(struct SomeOtherProc * proc)
 {
@@ -1883,16 +1904,12 @@ void func_fe6_08072100(struct SomeOtherProc * proc)
     new_proc->unk_58 = 0;
 }
 
-extern struct ProcScr CONST_DATA gUnk_08678110[];
-/*
 struct ProcScr CONST_DATA gUnk_08678110[] =
 {
     PROC_SLEEP(6),
     PROC_CALL(func_fe6_08072100),
     PROC_END,
 };
-// end at 08678128
-*/
 
 void func_fe6_080721B8(int msg)
 {

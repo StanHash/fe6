@@ -1337,7 +1337,7 @@ void StatScreen_BackUpStatus(ProcPtr proc)
 
 void StatScreen_UpdateLastHelpInfo(ProcPtr proc)
 {
-    gStatScreenSt.help = func_fe6_08070CA8();
+    gStatScreenSt.help = GetLastHelpBoxInfo();
 }
 
 void SyncStatScreenBgOffset(void)

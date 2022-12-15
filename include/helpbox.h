@@ -44,10 +44,10 @@ struct HelpBoxProc
 
 struct HelpBoxInfo
 {
-    /* 00 */ struct HelpBoxInfo const * adjUp;
-    /* 04 */ struct HelpBoxInfo const * adjDown;
-    /* 08 */ struct HelpBoxInfo const * adjLeft;
-    /* 0C */ struct HelpBoxInfo const * adjRight;
+    /* 00 */ struct HelpBoxInfo const * adjacent_up;
+    /* 04 */ struct HelpBoxInfo const * adjacent_down;
+    /* 08 */ struct HelpBoxInfo const * adjacent_left;
+    /* 0C */ struct HelpBoxInfo const * adjacent_right;
     /* 10 */ u8 x, y;
     /* 12 */ u16 msg;
     /* 14 */ void (* redirect)(struct HelpBoxProc * proc);
@@ -82,7 +82,7 @@ int HelpBoxTryRelocateLeft(struct HelpBoxProc * proc);
 int HelpBoxTryRelocateRight(struct HelpBoxProc * proc);
 // func_fe6_08070C4C
 // StartLockingHelpBox
-struct HelpBoxInfo const * func_fe6_08070CA8(void);
+struct HelpBoxInfo const * GetLastHelpBoxInfo(void);
 void func_fe6_08070CB4(int flags, int pal);
 void func_fe6_08070D08(int chr, int chapter);
 // func_fe6_08070D48
@@ -93,10 +93,10 @@ void func_fe6_08070DE8(u16 * tm, int pal);
 int func_fe6_08070E0C(struct PlaySt const * play_st);
 void func_fe6_08070E70(void * vram, int pal);
 // func_fe6_08070EEC
-void func_fe6_08070F64(int x_box, int y_box, int w_box, int h_box);
-// func_fe6_08071120
-// func_fe6_08071198
-// func_fe6_08071218
+void PutSpriteTalkBox(int x_box, int y_box, int w_box, int h_box);
+// DrawHelpBoxWeaponLabels
+// DrawHelpBoxWeaponStats
+// DrawHelpBoxStaffLabels
 // func_fe6_08071274
 // func_fe6_08071308
 // func_fe6_08071374
@@ -148,9 +148,75 @@ void func_fe6_080721B8(int msg);
 void func_fe6_080721D0(void);
 
 extern struct ProcScr CONST_DATA ProcScr_HelpBox[];
+extern struct ProcScr CONST_DATA ProcScr_HelpBoxMoveControl[];
 
-extern struct HelpBoxInfo const HelpInfo_StatScreenPersonalInfo_Pow;
-extern struct HelpBoxInfo const HelpInfo_StatScreenItems_ItemA;
-extern struct HelpBoxInfo const HelpInfo_StatScreenWeaponExp_WExpA;
-extern struct HelpBoxInfo const HelpInfo_BpShort_Hp;
-extern struct HelpBoxInfo const HelpInfo_BpLarge_Hp;
+extern u8 const * CONST_DATA gUnk_08677F20[]; // array img ref
+
+extern struct ProcScr CONST_DATA gUnk_08677FD0[];
+extern struct ProcScr CONST_DATA gUnk_08677FE0[];
+extern struct ProcScr CONST_DATA gUnk_08677FF8[];
+extern struct ProcScr CONST_DATA gUnk_08678020[];
+extern struct ProcScr CONST_DATA gUnk_08678040[];
+extern struct ProcScr CONST_DATA gUnk_08678070[];
+extern struct ProcScr CONST_DATA gUnk_08678080[];
+extern struct ProcScr CONST_DATA gUnk_086780C8[];
+extern struct ProcScr CONST_DATA gUnk_086780E8[];
+extern struct ProcScr CONST_DATA gUnk_08678110[];
+
+// TODO: move to helpboxinfo
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677798;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086777B4;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086777D0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086777EC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677808;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_StatScreenPersonalInfo_Pow;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677840;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_0867785C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677878;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677894;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086778B0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086778CC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086778E8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677904;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677920;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_0867793C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677958;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677974;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677990;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086779AC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086779C8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_086779E4;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_StatScreenItems_ItemA;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677A1C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677A38;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677A54;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677A70;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677A8C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677AA8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677AC4;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677AE0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677AFC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677B18;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677B34;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677B50;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677B6C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677B88;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_StatScreenWeaponExp_WExpA;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677BC0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677BDC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677BF8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677C14;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677C30;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_BpShort_Hp;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677C68;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677C84;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677CA0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677CBC;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677CD8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_BpLarge_Hp;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D10;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D2C;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D48;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D64;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D80;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_08677D9C;
