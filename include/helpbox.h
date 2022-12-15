@@ -113,13 +113,13 @@ void func_fe6_08071514(void);
 // func_fe6_080716F0
 // func_fe6_08071714
 // func_fe6_08071734
-// func_fe6_08071748
+void func_fe6_08071748(struct HelpBoxInfo const * info);
 // func_fe6_08071760
-// func_fe6_08071778
-// func_fe6_080717B8
+void func_fe6_08071778(struct HelpBoxProc * proc, int w_inner, int h_inner);
+void func_fe6_080717B8(struct HelpBoxProc * proc, int x, int y);
 void func_fe6_08071830(struct HelpBoxProc * proc, int x, int y);
 void func_fe6_08071838(struct HelpBoxProc * proc);
-// func_fe6_08071848
+int func_fe6_08071848(int item);
 // func_fe6_08071888
 // func_fe6_080718A8
 // func_fe6_080718E0
@@ -133,19 +133,19 @@ void func_fe6_08071838(struct HelpBoxProc * proc);
 // func_fe6_08071AF8
 // func_fe6_08071B20
 // func_fe6_08071B44
-// func_fe6_08071B6C
+void func_fe6_08071B6C(void);
 // func_fe6_08071B80
 // func_fe6_08071BC0
 // func_fe6_08071C00
 // func_fe6_08071C8C
-// func_fe6_08071D04
-// func_fe6_08071D94
+void func_fe6_08071D04(int x, int y, int msg);
+void func_fe6_08071D94(int x, int y, int w, int h);
 // func_fe6_08071F50
 // func_fe6_08071F64
 // func_fe6_080720E0
 // func_fe6_08072100
-// func_fe6_080721B8
-// func_fe6_080721D0
+void func_fe6_080721B8(int msg);
+void func_fe6_080721D0(void);
 
 extern struct ProcScr CONST_DATA ProcScr_HelpBox[];
 

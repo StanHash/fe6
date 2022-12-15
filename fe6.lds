@@ -443,7 +443,6 @@ SECTIONS
         asm/code_eventfunctions.o(.text);
         src/statscreen.o(.text);
         src/helpbox.o(.text);
-        asm/code_helpbox.o(.text);
         asm/code_mapui.o(.text);
         asm/code_sioerror.o(.text);
 
