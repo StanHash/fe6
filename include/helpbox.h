@@ -160,8 +160,8 @@ extern struct ProcScr CONST_DATA gUnk_08678040[];
 extern struct ProcScr CONST_DATA gUnk_08678070[];
 extern struct ProcScr CONST_DATA gUnk_08678080[];
 extern struct ProcScr CONST_DATA gUnk_086780C8[];
-extern struct ProcScr CONST_DATA gUnk_086780E8[];
-extern struct ProcScr CONST_DATA gUnk_08678110[];
+extern struct ProcScr CONST_DATA ProcScr_HelpBoxPrint_086780E8[];
+extern struct ProcScr CONST_DATA ProcScr_HelpBoxStartPrint_08678110[];
 
 // TODO: move to helpboxinfo
 extern struct HelpBoxInfo CONST_DATA HelpInfo_08677798;

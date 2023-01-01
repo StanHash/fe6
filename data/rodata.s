@@ -1,29 +1,5 @@
 	.section .rodata
 
-	.global gUnk_08319894
-gUnk_08319894: @ 08319894
-	.incbin "fe6-base.gba", 0x319894, (0x31989C - 0x319894) @ length: 0008
-
-	.global gUnk_0831989C
-gUnk_0831989C: @ 0831989C
-	.incbin "fe6-base.gba", 0x31989C, (0x3198A4 - 0x31989C) @ length: 0008
-
-	.global gUnk_083198A4
-gUnk_083198A4: @ 083198A4
-	.incbin "fe6-base.gba", 0x3198A4, (0x3198AC - 0x3198A4) @ length: 0008
-
-	.global gUnk_083198AC
-gUnk_083198AC: @ 083198AC
-	.incbin "fe6-base.gba", 0x3198AC, (0x3198B4 - 0x3198AC) @ length: 0008
-
-	.global gUnk_083198B4
-gUnk_083198B4: @ 083198B4
-	.incbin "fe6-base.gba", 0x3198B4, (0x3198BC - 0x3198B4) @ length: 0008
-
-	.global gUnk_083198BC
-gUnk_083198BC: @ 083198BC
-	.incbin "fe6-base.gba", 0x3198BC, (0x3198C0 - 0x3198BC) @ length: 0004
-
 	.global gUnk_083198C0
 gUnk_083198C0: @ 083198C0
 	.incbin "fe6-base.gba", 0x3198C0, (0x3198C4 - 0x3198C0) @ length: 0004

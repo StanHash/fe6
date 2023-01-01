@@ -223,3 +223,7 @@ extern u16 const Pal_Background_08304DD0[];
 extern u8 const Img_Background_08304E50[];
 extern u8 const Tsa_Background_08306F24[];
 extern u16 const Pal_Background_083073D8[];
+
+extern u16 const Pal_Unk_08309474[];
+extern u16 const Pal_Unk_083094F4[];
+extern u16 const Pal_Unk_0830D5E4[];

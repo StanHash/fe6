@@ -4,8 +4,7 @@
 
 #pragma once
 
-// specify folder to not include itself
-#include "include/systemlabels.h"
+#include "systemlabels.h"
 
 #include "text.h"
 
