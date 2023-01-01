@@ -235,7 +235,7 @@ func_fe6_080668D8: @ 0x080668D8
 	movs r2, #1
 	ldr r3, [r7]
 	bl func_fe6_08067498
-	ldr r1, .L080669B8 @ =gUnk_086660FC
+	ldr r1, .L080669B8 @ =ProcScr_Unk_086660FC
 	adds r0, r1, #0
 	ldr r1, [r7]
 	bl SpawnProc
@@ -265,7 +265,7 @@ func_fe6_080668D8: @ 0x080668D8
 .L080669AC: .4byte gBg2Tm
 .L080669B0: .4byte gBuf
 .L080669B4: .4byte 0x00004140
-.L080669B8: .4byte gUnk_086660FC
+.L080669B8: .4byte ProcScr_Unk_086660FC
 
 	thumb_func_start func_fe6_080669BC
 func_fe6_080669BC: @ 0x080669BC
@@ -417,7 +417,7 @@ func_fe6_08066AD4: @ 0x08066AD4
 	sub sp, #8
 	mov r7, sp
 	str r0, [r7]
-	ldr r1, .L08066B34 @ =gUnk_08665454
+	ldr r1, .L08066B34 @ =ProcScr_Unk_08665454
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -461,7 +461,7 @@ func_fe6_08066AD4: @ 0x08066AD4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08066B34: .4byte gUnk_08665454
+.L08066B34: .4byte ProcScr_Unk_08665454
 .L08066B38: .4byte gBmSt
 
 	thumb_func_start func_fe6_08066B3C
@@ -805,7 +805,7 @@ func_fe6_08066DFC: @ 0x08066DFC
 	sub sp, #8
 	mov r7, sp
 	str r0, [r7]
-	ldr r1, .L08066E5C @ =gUnk_08665494
+	ldr r1, .L08066E5C @ =ProcScr_Unk_08665494
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -849,7 +849,7 @@ func_fe6_08066DFC: @ 0x08066DFC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08066E5C: .4byte gUnk_08665494
+.L08066E5C: .4byte ProcScr_Unk_08665494
 .L08066E60: .4byte gBmSt
 
 	thumb_func_start func_fe6_08066E64
@@ -1038,7 +1038,7 @@ func_fe6_08066FD8: @ 0x08066FD8
 	mov r7, sp
 	str r0, [r7]
 	str r1, [r7, #4]
-	ldr r1, .L08067038 @ =gUnk_086654BC
+	ldr r1, .L08067038 @ =ProcScr_Unk_086654BC
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -1080,7 +1080,7 @@ func_fe6_08066FD8: @ 0x08066FD8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067038: .4byte gUnk_086654BC
+.L08067038: .4byte ProcScr_Unk_086654BC
 .L0806703C: .4byte gBmSt
 
 	thumb_func_start func_fe6_08067040
@@ -1631,7 +1631,7 @@ func_fe6_08067498: @ 0x08067498
 	str r1, [r7, #4]
 	str r2, [r7, #8]
 	str r3, [r7, #0xc]
-	ldr r0, .L08067510 @ =gUnk_08665514
+	ldr r0, .L08067510 @ =ProcScr_Unk_08665514
 	ldr r1, [r7, #0xc]
 	bl SpawnProc
 	str r0, [r7, #0x10]
@@ -1683,20 +1683,20 @@ func_fe6_08067498: @ 0x08067498
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067510: .4byte gUnk_08665514
+.L08067510: .4byte ProcScr_Unk_08665514
 
 	thumb_func_start func_fe6_08067514
 func_fe6_08067514: @ 0x08067514
 	push {r7, lr}
 	mov r7, sp
-	ldr r1, .L08067528 @ =gUnk_08665514
+	ldr r1, .L08067528 @ =ProcScr_Unk_08665514
 	adds r0, r1, #0
 	bl Proc_EndEach
 	pop {r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067528: .4byte gUnk_08665514
+.L08067528: .4byte ProcScr_Unk_08665514
 
 	thumb_func_start func_fe6_0806752C
 func_fe6_0806752C: @ 0x0806752C
@@ -1828,7 +1828,7 @@ func_fe6_080675AC: @ 0x080675AC
 	movs r0, #0
 	str r0, [r7, #0xc]
 .L08067636:
-	ldr r0, .L0806766C @ =gUnk_08665524
+	ldr r0, .L0806766C @ =gManimLevelUpLabelInfoList
 	ldr r1, [r7, #0xc]
 	adds r3, r1, #0
 	lsls r2, r3, #1
@@ -1848,9 +1848,9 @@ func_fe6_080675AC: @ 0x080675AC
 .L08067660: .4byte gUnk_081150C8
 .L08067664: .4byte gBg0Tm
 .L08067668: .4byte gMapAnimSt
-.L0806766C: .4byte gUnk_08665524
+.L0806766C: .4byte gManimLevelUpLabelInfoList
 .L08067670:
-	ldr r0, .L080676E0 @ =gUnk_08665524
+	ldr r0, .L080676E0 @ =gManimLevelUpLabelInfoList
 	ldr r1, [r7, #0xc]
 	adds r3, r1, #0
 	lsls r2, r3, #1
@@ -1861,7 +1861,7 @@ func_fe6_080675AC: @ 0x080675AC
 	ldr r0, [r7, #8]
 	adds r1, r1, r0
 	lsls r0, r1, #5
-	ldr r1, .L080676E0 @ =gUnk_08665524
+	ldr r1, .L080676E0 @ =gManimLevelUpLabelInfoList
 	ldr r2, [r7, #0xc]
 	adds r5, r2, #0
 	lsls r3, r5, #1
@@ -1888,7 +1888,7 @@ func_fe6_080675AC: @ 0x080675AC
 	bl UnitKnowsMagic
 	strb r0, [r7, #0x10]
 	bl GetLang
-	ldr r1, .L080676E0 @ =gUnk_08665524
+	ldr r1, .L080676E0 @ =gManimLevelUpLabelInfoList
 	ldr r2, [r7, #0xc]
 	mov r8, r2
 	mov r6, r8
@@ -1904,7 +1904,7 @@ func_fe6_080675AC: @ 0x080675AC
 	adds r2, r4, #4
 	b .L080676EE
 	.align 2, 0
-.L080676E0: .4byte gUnk_08665524
+.L080676E0: .4byte gManimLevelUpLabelInfoList
 .L080676E4: .4byte gBg0Tm
 .L080676E8: .4byte gMapAnimSt
 .L080676EC:
@@ -1948,7 +1948,7 @@ MALevelUp_DrawActorStat: @ 0x08067720
 	adds r1, r7, #0
 	adds r1, #0x10
 	strb r0, [r1]
-	ldr r0, .L080677A0 @ =gUnk_08665524
+	ldr r0, .L080677A0 @ =gManimLevelUpLabelInfoList
 	ldr r1, [r7, #0xc]
 	adds r3, r1, #0
 	lsls r2, r3, #1
@@ -1960,7 +1960,7 @@ MALevelUp_DrawActorStat: @ 0x08067720
 	adds r0, r1, r2
 	lsls r1, r0, #5
 	adds r0, r1, #4
-	ldr r1, .L080677A0 @ =gUnk_08665524
+	ldr r1, .L080677A0 @ =gManimLevelUpLabelInfoList
 	ldr r2, [r7, #0xc]
 	adds r5, r2, #0
 	lsls r3, r5, #1
@@ -2000,7 +2000,7 @@ MALevelUp_DrawActorStat: @ 0x08067720
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080677A0: .4byte gUnk_08665524
+.L080677A0: .4byte gManimLevelUpLabelInfoList
 .L080677A4: .4byte gBg0Tm
 
 	thumb_func_start MALevelUp_GetActorStatUp
@@ -2335,7 +2335,7 @@ func_fe6_08067A28: @ 0x08067A28
 	str r1, [r7, #4]
 	str r2, [r7, #8]
 	str r3, [r7, #0xc]
-	ldr r0, .L08067ADC @ =gUnk_0866559C
+	ldr r0, .L08067ADC @ =ProcScr_Unk_0866559C
 	ldr r1, [r7, #0xc]
 	bl SpawnProc
 	str r0, [r7, #0x10]
@@ -2393,7 +2393,7 @@ func_fe6_08067A28: @ 0x08067A28
 	lsls r1, r2, #5
 	movs r2, #0x20
 	bl ApplyPaletteExt
-	ldr r0, .L08067AEC @ =gUnk_086655AC
+	ldr r0, .L08067AEC @ =ProcScr_Unk_086655AC
 	ldr r1, [r7, #0x10]
 	bl SpawnProc
 	str r0, [r7, #0x14]
@@ -2414,24 +2414,24 @@ func_fe6_08067A28: @ 0x08067A28
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067ADC: .4byte gUnk_0866559C
+.L08067ADC: .4byte ProcScr_Unk_0866559C
 .L08067AE0: .4byte gUnk_082DBB24
 .L08067AE4: .4byte 0x06010000
 .L08067AE8: .4byte gUnk_082DBAC4
-.L08067AEC: .4byte gUnk_086655AC
+.L08067AEC: .4byte ProcScr_Unk_086655AC
 
 	thumb_func_start func_fe6_08067AF0
 func_fe6_08067AF0: @ 0x08067AF0
 	push {r7, lr}
 	mov r7, sp
-	ldr r1, .L08067B04 @ =gUnk_0866559C
+	ldr r1, .L08067B04 @ =ProcScr_Unk_0866559C
 	adds r0, r1, #0
 	bl Proc_EndEach
 	pop {r7}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067B04: .4byte gUnk_0866559C
+.L08067B04: .4byte ProcScr_Unk_0866559C
 
 	thumb_func_start func_fe6_08067B08
 func_fe6_08067B08: @ 0x08067B08
@@ -2444,7 +2444,7 @@ func_fe6_08067B08: @ 0x08067B08
 	str r3, [r7, #0xc]
 	ldr r0, .L08067B88 @ =gUnk_082DBDB0
 	str r0, [r7, #0x20]
-	ldr r1, .L08067B8C @ =gUnk_0866559C
+	ldr r1, .L08067B8C @ =ProcScr_Unk_0866559C
 	adds r0, r1, #0
 	bl FindProc
 	str r0, [r7, #0x1c]
@@ -2499,7 +2499,7 @@ func_fe6_08067B08: @ 0x08067B08
 	b .L08067CE8
 	.align 2, 0
 .L08067B88: .4byte gUnk_082DBDB0
-.L08067B8C: .4byte gUnk_0866559C
+.L08067B8C: .4byte ProcScr_Unk_0866559C
 .L08067B90: .4byte gUnk_082A75FC
 .L08067B94:
 	ldr r0, [r7, #0xc]
@@ -2688,7 +2688,7 @@ func_fe6_08067CF8: @ 0x08067CF8
 	mov r7, sp
 	str r0, [r7]
 	str r1, [r7, #4]
-	ldr r0, .L08067D28 @ =gUnk_086655C4
+	ldr r0, .L08067D28 @ =ProcScr_Unk_086655C4
 	ldr r1, [r7, #4]
 	bl SpawnProcLocking
 	str r0, [r7, #8]
@@ -2707,7 +2707,7 @@ func_fe6_08067CF8: @ 0x08067CF8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08067D28: .4byte gUnk_086655C4
+.L08067D28: .4byte ProcScr_Unk_086655C4
 
 	thumb_func_start func_fe6_08067D2C
 func_fe6_08067D2C: @ 0x08067D2C
@@ -3389,7 +3389,7 @@ func_fe6_080681D8: @ 0x080681D8
 	bl MALevelUp_DrawActorStat
 	movs r0, #1
 	bl EnableBgSync
-	ldr r0, .L08068310 @ =gUnk_08665524
+	ldr r0, .L08068310 @ =gManimLevelUpLabelInfoList
 	ldr r1, [r7, #4]
 	adds r3, r1, #0
 	lsls r2, r3, #1
@@ -3401,7 +3401,7 @@ func_fe6_080681D8: @ 0x080681D8
 	lsls r1, r0, #3
 	adds r4, r1, #0
 	adds r4, #0x3e
-	ldr r0, .L08068310 @ =gUnk_08665524
+	ldr r0, .L08068310 @ =gManimLevelUpLabelInfoList
 	ldr r1, [r7, #4]
 	adds r3, r1, #0
 	lsls r2, r3, #1
@@ -3471,7 +3471,7 @@ func_fe6_080681D8: @ 0x080681D8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08068310: .4byte gUnk_08665524
+.L08068310: .4byte gManimLevelUpLabelInfoList
 .L08068314: .4byte gPlaySt
 
 	thumb_func_start func_fe6_08068318
@@ -3721,15 +3721,15 @@ func_fe6_080684EC: @ 0x080684EC
 	ldr r0, [r7]
 	cmp r0, #0
 	beq .L0806850C
-	ldr r1, .L08068508 @ =gUnk_08665684
+	ldr r1, .L08068508 @ =ProcScr_Unk_08665684
 	adds r0, r1, #0
 	ldr r1, [r7]
 	bl SpawnProcLocking
 	b .L08068516
 	.align 2, 0
-.L08068508: .4byte gUnk_08665684
+.L08068508: .4byte ProcScr_Unk_08665684
 .L0806850C:
-	ldr r1, .L08068520 @ =gUnk_08665684
+	ldr r1, .L08068520 @ =ProcScr_Unk_08665684
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -3739,7 +3739,7 @@ func_fe6_080684EC: @ 0x080684EC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08068520: .4byte gUnk_08665684
+.L08068520: .4byte ProcScr_Unk_08665684
 
 	thumb_func_start func_fe6_08068524
 func_fe6_08068524: @ 0x08068524
@@ -3793,15 +3793,15 @@ func_fe6_08068578: @ 0x08068578
 	ldr r0, [r7]
 	cmp r0, #0
 	beq .L08068598
-	ldr r1, .L08068594 @ =gUnk_0866569C
+	ldr r1, .L08068594 @ =ProcScr_Unk_0866569C
 	adds r0, r1, #0
 	ldr r1, [r7]
 	bl SpawnProcLocking
 	b .L080685A2
 	.align 2, 0
-.L08068594: .4byte gUnk_0866569C
+.L08068594: .4byte ProcScr_Unk_0866569C
 .L08068598:
-	ldr r1, .L080685AC @ =gUnk_0866569C
+	ldr r1, .L080685AC @ =ProcScr_Unk_0866569C
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -3811,7 +3811,7 @@ func_fe6_08068578: @ 0x08068578
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080685AC: .4byte gUnk_0866569C
+.L080685AC: .4byte ProcScr_Unk_0866569C
 
 	thumb_func_start func_fe6_080685B0
 func_fe6_080685B0: @ 0x080685B0
@@ -3853,7 +3853,7 @@ func_fe6_080685B0: @ 0x080685B0
 func_fe6_080685F0: @ 0x080685F0
 	push {r7, lr}
 	mov r7, sp
-	ldr r1, .L08068604 @ =gUnk_086656B4
+	ldr r1, .L08068604 @ =ProcScr_Unk_086656B4
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -3861,7 +3861,7 @@ func_fe6_080685F0: @ 0x080685F0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08068604: .4byte gUnk_086656B4
+.L08068604: .4byte ProcScr_Unk_086656B4
 
 	thumb_func_start func_fe6_08068608
 func_fe6_08068608: @ 0x08068608
@@ -4287,7 +4287,7 @@ func_fe6_08068938: @ 0x08068938
 	str r1, [r7, #4]
 	str r2, [r7, #8]
 	str r3, [r7, #0xc]
-	ldr r1, .L080689EC @ =gUnk_086656CC
+	ldr r1, .L080689EC @ =ProcScr_Unk_086656CC
 	adds r0, r1, #0
 	movs r1, #3
 	bl SpawnProc
@@ -4369,7 +4369,7 @@ func_fe6_08068938: @ 0x08068938
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080689EC: .4byte gUnk_086656CC
+.L080689EC: .4byte ProcScr_Unk_086656CC
 
 	thumb_func_start func_fe6_080689F0
 func_fe6_080689F0: @ 0x080689F0
@@ -4427,11 +4427,11 @@ func_fe6_08068A48: @ 0x08068A48
 	ldr r1, [r0, #0x54]
 	cmp r1, #0
 	bne .L08068A60
-	ldr r0, .L08068A5C @ =gUnk_086656FC
+	ldr r0, .L08068A5C @ =ProcScr_Unk_086656FC
 	b .L08068A6C
 	.align 2, 0
 .L08068A58: .4byte gMapAnimSt
-.L08068A5C: .4byte gUnk_086656FC
+.L08068A5C: .4byte ProcScr_Unk_086656FC
 .L08068A60:
 	ldr r0, .L08068A68 @ =gMapAnimSt
 	ldr r1, [r0, #0x54]

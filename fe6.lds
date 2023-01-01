@@ -592,7 +592,6 @@ SECTIONS
         . = ALIGN(4); src/mu.o(.data);
         . = ALIGN(4); data/data-code-mu.o(.data);
         . = ALIGN(4); src/manim.o(.data);
-        . = ALIGN(4); data/data-code-manim.o(.data);
         . = ALIGN(4); src/eventinfo.o(.data);
         . = ALIGN(4); data/data_66618C.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);

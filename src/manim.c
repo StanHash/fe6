@@ -15,9 +15,11 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "battle.h"
+#include "bmio.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "systemlabels.h"
 
 #include "constants/iids.h"
 #include "constants/pids.h"
@@ -2840,3 +2842,763 @@ void func_fe6_0806671C(struct Unit * unit)
 /*
 
 */
+
+// REMAINING MANIM DATA
+
+struct ManimSomethingProc_0806686C
+{
+    /* 00 */ PROC_HEADER;
+    /*    */ // TODO
+};
+
+void func_fe6_080668D8(struct ManimSomethingProc_0806686C * proc);
+void func_fe6_080669BC(struct ManimSomethingProc_0806686C * proc);
+void func_fe6_08066A48(struct ManimSomethingProc_0806686C * proc);
+
+struct ProcScr CONST_DATA gUnk_08665404[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080668D8),
+    PROC_SLEEP(10),
+    PROC_REPEAT(func_fe6_080669BC),
+    PROC_SLEEP(60),
+    PROC_REPEAT(func_fe6_08066A48),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065B90),
+    PROC_END,
+};
+
+u8 CONST_DATA gUnk_0866544C[] =
+{
+    4, 6, 7, 8, 8, 9,
+    UINT8_MAX, // end
+};
+
+struct ManimSomethingProc_08066AD4
+{
+    /* 00 */ PROC_HEADER;
+    /*    */ // TODO
+};
+
+void func_fe6_08066B3C(struct ManimSomethingProc_08066AD4 * proc);
+void func_fe6_08066C70(struct ManimSomethingProc_08066AD4 * proc);
+void func_fe6_08066D5C(struct ManimSomethingProc_08066AD4 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665454[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08066B3C),
+    PROC_SLEEP(50),
+    PROC_CALL(func_fe6_08066C70),
+    PROC_SLEEP(40),
+    PROC_REPEAT(func_fe6_08066D5C),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+struct ManimSomethingProc_08066DFC
+{
+    /* 00 */ PROC_HEADER;
+    /*    */ // TODO
+};
+
+void func_fe6_08066E64(struct ManimSomethingProc_08066DFC * proc);
+void func_fe6_08066F34(struct ManimSomethingProc_08066DFC * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665494[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08066E64),
+    PROC_REPEAT(func_fe6_08066F34),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+struct ManimSomethingProc_08066FD8
+{
+    /* 00 */ PROC_HEADER;
+    /*    */ // TODO
+};
+
+void func_fe6_08067040(struct ManimSomethingProc_08066FD8 * proc);
+void func_fe6_08067084(struct ManimSomethingProc_08066FD8 * proc);
+void func_fe6_080670B8(struct ManimSomethingProc_08066FD8 * proc);
+void func_fe6_080671F4(struct ManimSomethingProc_08066FD8 * proc);
+void func_fe6_080672B0(struct ManimSomethingProc_08066FD8 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086654BC[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080670B8),
+    PROC_REPEAT(func_fe6_080671F4),
+    PROC_SLEEP(80),
+    PROC_REPEAT(func_fe6_080672B0),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08065B90),
+    PROC_CALL(func_fe6_08067040),
+    PROC_SLEEP(4),
+    PROC_CALL(func_fe6_08067084),
+    PROC_END,
+};
+
+struct ManimSomethingProc_08067498
+{
+    /* 00 */ PROC_HEADER;
+    /*    */ // TODO
+};
+
+void func_fe6_0806752C(struct ManimSomethingProc_08067498 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665514[] =
+{
+    PROC_REPEAT(func_fe6_0806752C),
+    PROC_END,
+};
+
+struct ManimLevelUpLabelInfo
+{
+    /* 00 */ u8 x;
+    /* 01 */ u8 y;
+    /* 02 */ u8 pad_02[0x04 - 0x02];
+    /* 04 */ char const * const * label_str;
+    /* 08 */ char const * const * label_mag;
+};
+
+struct ManimLevelUpLabelInfo CONST_DATA gManimLevelUpLabelInfoList[] =
+{
+    {
+        .x = 9, .y = 0,
+        .label_str = SystemLabel_Level,
+        .label_mag = SystemLabel_Level,
+    },
+
+    {
+        .x = 1, .y = 4,
+        .label_str = SystemLabel_Hp,
+        .label_mag = SystemLabel_Hp,
+    },
+
+    {
+        .x = 1, .y = 6,
+        .label_str = SystemLabel_Strength,
+        .label_mag = SystemLabel_Magic,
+    },
+
+    {
+        .x = 1, .y = 8,
+        .label_str = SystemLabel_Skill,
+        .label_mag = SystemLabel_Skill,
+    },
+
+    {
+        .x = 1, .y = 10,
+        .label_str = SystemLabel_Speed,
+        .label_mag = SystemLabel_Speed,
+    },
+
+    {
+        .x = 9, .y = 4,
+        .label_str = SystemLabel_Luck,
+        .label_mag = SystemLabel_Luck,
+    },
+
+    {
+        .x = 9, .y = 6,
+        .label_str = SystemLabel_Defense,
+        .label_mag = SystemLabel_Defense,
+    },
+
+    {
+        .x = 9, .y = 8,
+        .label_str = SystemLabel_Resistance,
+        .label_mag = SystemLabel_Resistance,
+    },
+
+    {
+        .x = 9, .y = 10,
+        .label_str = SystemLabel_Constitution,
+        .label_mag = SystemLabel_Constitution,
+    },
+
+    // end
+    { .x = UINT8_MAX, .y = UINT8_MAX },
+};
+
+void func_fe6_08067A14(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866559C[] =
+{
+    PROC_ONEND(func_fe6_08067A14),
+    PROC_BLOCK,
+};
+
+// TODO: the struct
+void func_fe6_08068048(ProcPtr proc);
+void func_fe6_08068060(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086655AC[] =
+{
+    PROC_CALL(func_fe6_08068048),
+    PROC_REPEAT(func_fe6_08068060),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_080684D8(ProcPtr proc);
+void func_fe6_08067D2C(ProcPtr proc);
+void func_fe6_08068318(ProcPtr proc);
+void func_fe6_08068338(ProcPtr proc);
+void func_fe6_080684A4(ProcPtr proc);
+void func_fe6_080684B8(ProcPtr proc);
+void func_fe6_08067E84(ProcPtr proc);
+void func_fe6_080680F0(ProcPtr proc);
+void func_fe6_080681D8(ProcPtr proc);
+void func_fe6_08067AF0(ProcPtr proc);
+void func_fe6_08068164(ProcPtr proc);
+void func_fe6_08067E50(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086655C4[] =
+{
+    PROC_ONEND(func_fe6_080684D8),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08067D2C),
+    PROC_CALL(func_fe6_08068318),
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08068338),
+    PROC_SLEEP(70),
+    PROC_CALL(func_fe6_080684A4),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080684B8),
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08067E84),
+    PROC_SLEEP(0),
+    PROC_REPEAT(func_fe6_080680F0),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_080681D8),
+    PROC_SLEEP(60),
+    PROC_CALL(func_fe6_08067AF0),
+    PROC_SLEEP(1),
+    PROC_REPEAT(func_fe6_08068164),
+    PROC_CALL(func_fe6_08067E50),
+    PROC_CALL(ClearTalk),
+    PROC_SLEEP(4),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_08068524(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665684[] =
+{
+    PROC_CALL(func_fe6_08068524),
+    PROC_SLEEP(15),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_080685B0(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866569C[] =
+{
+    PROC_CALL(func_fe6_080685B0),
+    PROC_SLEEP(16),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_08068608(ProcPtr proc);
+void func_fe6_08068628(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086656B4[] =
+{
+    PROC_CALL(func_fe6_08068608),
+    PROC_REPEAT(func_fe6_08068628),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_080687BC(ProcPtr proc);
+void func_fe6_08068858(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086656CC[] =
+{
+    PROC_CALL(LockGame),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_080687BC),
+    PROC_REPEAT(func_fe6_08068858),
+    PROC_CALL(UnlockGame),
+    PROC_END,
+};
+
+void func_fe6_08068FD8(ProcPtr proc);
+void func_fe6_08069098(ProcPtr proc);
+void func_fe6_08069504(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086656FC[] =
+{
+    PROC_CALL(func_fe6_08068C84),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068E80),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(8),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068F04),
+    PROC_SLEEP(20),
+    PROC_END,
+};
+
+void func_fe6_08069C04(ProcPtr proc);
+void func_fe6_08068A74(ProcPtr proc);
+void func_fe6_080695C0(ProcPtr proc);
+void func_fe6_08068AA8(ProcPtr proc);
+void func_fe6_08069C1C(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086657B4[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080695C0),
+    PROC_SLEEP(2),
+    PROC_SLEEP(200),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_080695F0(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866582C[] =
+{
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080695F0),
+    PROC_SLEEP(2),
+    PROC_SLEEP(70),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_0806962C(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665874[] =
+{
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_0806962C),
+    PROC_SLEEP(2),
+    PROC_SLEEP(70),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_08069668(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086658BC[] =
+{
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069668),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_08069758(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665914[] =
+{
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069758),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_080696A4(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0866596C[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080696A4),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_080696E0(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086659D4[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080696E0),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_0806971C(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665A3C[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_0806971C),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665AA4[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080696A4),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_0806988C(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665B0C[] =
+{
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_0806988C),
+    PROC_SLEEP(2),
+    PROC_SLEEP(100),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+void func_fe6_08069028(ProcPtr proc);
+void func_fe6_080698BC(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665B54[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08069028),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080698BC),
+    PROC_SLEEP(2),
+    PROC_SLEEP(140),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_080698E4(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665BDC[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_080698E4),
+    PROC_SLEEP(2),
+    PROC_SLEEP(50),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069944(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665C7C[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069944),
+    PROC_SLEEP(2),
+    PROC_SLEEP(140),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069560(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665D1C[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069560),
+    PROC_SLEEP(2),
+    PROC_SLEEP(64),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069914(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665DBC[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069914),
+    PROC_SLEEP(2),
+    PROC_SLEEP(80),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069974(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665E44[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069974),
+    PROC_SLEEP(2),
+    PROC_SLEEP(80),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069530(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665ECC[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069530),
+    PROC_SLEEP(2),
+    PROC_SLEEP(94),
+    PROC_SLEEP(10),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665F04[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069530),
+    PROC_SLEEP(2),
+    PROC_SLEEP(50),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(44),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665F54[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069098),
+    PROC_SLEEP(30),
+    PROC_REPEAT(func_fe6_08069504),
+    PROC_SLEEP(20),
+    PROC_END,
+};
+
+void func_fe6_08069590(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665F8C[] =
+{
+    PROC_CALL(DisableTilesetPalAnim),
+    PROC_CALL(func_fe6_08069C04),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069590),
+    PROC_SLEEP(2),
+    PROC_SLEEP(60),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069C1C),
+    PROC_SLEEP(1),
+    PROC_CALL(EnableTilesetPalAnim),
+    PROC_END,
+};
+
+void func_fe6_08069794(ProcPtr proc);
+void func_fe6_080699A4(ProcPtr proc);
+void func_fe6_08069A40(ProcPtr proc);
+void func_fe6_08069A0C(ProcPtr proc);
+void func_fe6_08069B70(ProcPtr proc);
+void func_fe6_08069AB4(ProcPtr proc);
+void func_fe6_0806984C(ProcPtr proc);
+void func_fe6_08069B3C(ProcPtr proc);
+void func_fe6_080699D8(ProcPtr proc);
+void func_fe6_08068F88(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08666014[] =
+{
+    PROC_CALL(func_fe6_08068FD8),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068A74),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069794),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_080699A4),
+    PROC_SLEEP(20),
+    PROC_CALL(func_fe6_08069A40),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069A0C),
+    PROC_SLEEP(8),
+    PROC_CALL(func_fe6_08069B70),
+    PROC_SLEEP(30),
+    PROC_CALL(func_fe6_08069028),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08069AB4),
+    PROC_SLEEP(40),
+    PROC_CALL(func_fe6_0806984C),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08069B3C),
+    PROC_CALL(func_fe6_080699D8),
+    PROC_SLEEP(16),
+    PROC_SLEEP(10),
+    PROC_CALL(func_fe6_08068F88),
+    PROC_SLEEP(2),
+    PROC_CALL(func_fe6_08068AA8),
+    PROC_SLEEP(30),
+    PROC_END,
+};
+
+// TODO: the struct
+void func_fe6_0806A750(ProcPtr proc);
+void func_fe6_0806A770(ProcPtr proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086660FC[] =
+{
+    PROC_CALL(func_fe6_0806A750),
+    PROC_REPEAT(func_fe6_0806A770),
+    PROC_END,
+};

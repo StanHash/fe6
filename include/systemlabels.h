@@ -2,11 +2,11 @@
 
 #include "common.h"
 
-extern char const * CONST_DATA SystemLabel_08677DB8[];
-extern char const * CONST_DATA SystemLabel_08677DC0[];
-extern char const * CONST_DATA SystemLabel_08677DC8[];
-extern char const * CONST_DATA SystemLabel_08677DD0[];
-extern char const * CONST_DATA SystemLabel_08677DD8[];
+extern char const * CONST_DATA SystemLabel_Level[];
+extern char const * CONST_DATA SystemLabel_Exp[];
+extern char const * CONST_DATA SystemLabel_Hp[];
+extern char const * CONST_DATA SystemLabel_Strength[];
+extern char const * CONST_DATA SystemLabel_Magic[];
 extern char const * CONST_DATA SystemLabel_Skill[];
 extern char const * CONST_DATA SystemLabel_Speed[];
 extern char const * CONST_DATA SystemLabel_Defense[];

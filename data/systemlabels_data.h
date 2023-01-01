@@ -8,31 +8,31 @@
 
 #include "text.h"
 
-char const * CONST_DATA SystemLabel_08677DB8[] =
+char const * CONST_DATA SystemLabel_Level[] =
 {
     [LANG_JAPANESE] = JTEXT("ＬＶ"),
     [LANG_ENGLISH] = TEXT("Lv", "Lv"),
 };
 
-char const * CONST_DATA SystemLabel_08677DC0[] =
+char const * CONST_DATA SystemLabel_Exp[] =
 {
     [LANG_JAPANESE] = JTEXT("ＥＸ"),
     [LANG_ENGLISH] = TEXT("Ex", "Exp"),
 };
 
-char const * CONST_DATA SystemLabel_08677DC8[] =
+char const * CONST_DATA SystemLabel_Hp[] =
 {
     [LANG_JAPANESE] = JTEXT("ＨＰ"),
     [LANG_ENGLISH] = TEXT("HP", "HP"),
 };
 
-char const * CONST_DATA SystemLabel_08677DD0[] =
+char const * CONST_DATA SystemLabel_Strength[] =
 {
     [LANG_JAPANESE] = JTEXT("力"),
     [LANG_ENGLISH] = TEXT("str", "Str"),
 };
 
-char const * CONST_DATA SystemLabel_08677DD8[] =
+char const * CONST_DATA SystemLabel_Magic[] =
 {
     [LANG_JAPANESE] = JTEXT("魔力"),
     [LANG_ENGLISH] = TEXT("mag", "Mag"),
