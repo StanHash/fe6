@@ -1,4 +1,3 @@
-
 	.include "macro.inc"
 
 	@ TODO: fix this file
@@ -103,8 +102,8 @@ ClearOam: @ 0x08000304
 	bpl .L08000310
 	bx lr
 
-	arm_func_start func_fe6_08000360
-func_fe6_08000360: @ 0x08000360
+	arm_func_start Checksum32
+Checksum32: @ 0x08000360
 	push {r4, r5, r6, r7}
 	sub r1, r1, #2
 	mov r2, #0

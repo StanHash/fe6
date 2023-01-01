@@ -37534,7 +37534,7 @@ func_fe6_08085F4C: @ 0x08085F4C
 	bl _call_via_r3
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl func_fe6_08000360_t
+	bl Checksum32_t
 	pop {r4, r5}
 	pop {r1}
 	bx r1

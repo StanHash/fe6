@@ -470,7 +470,7 @@ SECTIONS
         *libc.a:memset.o(.text);
         *libc.a:strcpy.o(.text);
 
-        asm/code_blx_stub.o(.text);
+        asm/code_linker_stubs.o(.text);
 
         /* .rodata */
         . = ALIGN(4); data/rodata_msg.o(.rodata);
