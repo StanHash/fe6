@@ -26,6 +26,7 @@ enum
     SONG_75 = 0x75,
     SONG_77 = 0x77,
     SONG_7A = 0x7A,
+    SONG_82 = 0x82, // manim
     SONG_86 = 0x86,
     SONG_87 = 0x87,
     SONG_89 = 0x89,

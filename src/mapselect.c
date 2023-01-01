@@ -233,7 +233,7 @@ u32 HandleMapSelectActions(struct MapSelectProc * proc)
 
 void FreezeMapSelect(void)
 {
-    struct MapSelectProc * proc = Proc_Find(ProcScr_MapSelect);
+    struct MapSelectProc * proc = FindProc(ProcScr_MapSelect);
 
     if (proc != NULL)
         proc->flags |= MAPSELECT_FLAG_FROZEN;
@@ -241,7 +241,7 @@ void FreezeMapSelect(void)
 
 void ResumeMapSelect(void)
 {
-    struct MapSelectProc * proc = Proc_Find(ProcScr_MapSelect);
+    struct MapSelectProc * proc = FindProc(ProcScr_MapSelect);
 
     if (proc != NULL)
         proc->flags &= ~MAPSELECT_FLAG_FROZEN;

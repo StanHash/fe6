@@ -102,7 +102,7 @@ static struct UnitPanelProc * InitUnitPanel(struct UnitPanelProc * proc, struct 
 {
     if (proc == NULL)
     {
-        proc = Proc_Find(ProcScr_UnitPanel);
+        proc = FindProc(ProcScr_UnitPanel);
         ClearUi();
     }
 

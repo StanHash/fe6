@@ -1,22 +1,6 @@
 	.section .rodata
 
-	.incbin "fe6-base.gba", 0x307544, (0x3075B4 - 0x307544)
-
-	.global gManimMuSpriteLayerLut
-gManimMuSpriteLayerLut: @ 083075B4
-	.incbin "fe6-base.gba", 0x3075B4, (0x307928 - 0x3075B4) @ length: 0374
-
-	.global gUnk_08307928
-gUnk_08307928: @ 08307928
-	.incbin "fe6-base.gba", 0x307928, (0x307944 - 0x307928) @ length: 001C
-
-	.global gUnk_08307944
-gUnk_08307944: @ 08307944
-	.incbin "fe6-base.gba", 0x307944, (0x307970 - 0x307944) @ length: 002C
-
-	.global gUnk_08307970
-gUnk_08307970: @ 08307970
-	.incbin "fe6-base.gba", 0x307970, (0x307A10 - 0x307970) @ length: 00A0
+	.incbin "fe6-base.gba", 0x307994, (0x307A10 - 0x307994) @ length: ????
 
 	.global gUnk_08307A10
 gUnk_08307A10: @ 08307A10

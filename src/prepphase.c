@@ -354,7 +354,7 @@ put_map_cursor:
 
 fu8 PrepMapMenuConfirm(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    ProcPtr proc = Proc_Find(ProcScr_PrepPhase);
+    ProcPtr proc = FindProc(ProcScr_PrepPhase);
 
     func_fe6_0807B6BC();
     Proc_Goto(proc, L_PREPPHASE_BEGINMAP);

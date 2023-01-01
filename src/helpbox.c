@@ -125,7 +125,7 @@ void StartHelpBoxExt(struct HelpBoxInfo const * info, int unk)
     struct HelpBoxProc * proc;
     int w_inner, h_inner;
 
-    proc = Proc_Find(ProcScr_HelpBox);
+    proc = FindProc(ProcScr_HelpBox);
 
     if (proc == NULL)
     {
@@ -197,7 +197,7 @@ void StartHelpBox_08070804(int x, int y, int msg)
 
 void CloseHelpBox(void)
 {
-    struct HelpBoxProc * proc = Proc_Find(ProcScr_HelpBox);
+    struct HelpBoxProc * proc = FindProc(ProcScr_HelpBox);
 
     if (proc != NULL)
     {
@@ -208,7 +208,7 @@ void CloseHelpBox(void)
 
 void KillHelpBox(void)
 {
-    struct HelpBoxProc * proc = Proc_Find(ProcScr_HelpBox);
+    struct HelpBoxProc * proc = FindProc(ProcScr_HelpBox);
 
     if (proc != NULL)
     {

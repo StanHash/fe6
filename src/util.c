@@ -773,10 +773,10 @@ struct ProcScr CONST_DATA ProcScr_FadeFromWhite[] =
 
 bool FadeExists(void)
 {
-    if (!Proc_Find(ProcScr_FadeFromBlack) &&
-        !Proc_Find(ProcScr_FadeToBlack) &&
-        !Proc_Find(ProcScr_FadeFromWhite) &&
-        !Proc_Find(ProcScr_FadeToWhite))
+    if (!FindProc(ProcScr_FadeFromBlack) &&
+        !FindProc(ProcScr_FadeToBlack) &&
+        !FindProc(ProcScr_FadeFromWhite) &&
+        !FindProc(ProcScr_FadeToWhite))
     {
         return FALSE;
     }
@@ -1204,7 +1204,7 @@ void func_fe6_08014ACC(int a, int b)
 
 void func_fe6_08014ADC(void)
 {
-    struct FadeUnkProc * proc = Proc_Find(ProcScr_FadeUnk);
+    struct FadeUnkProc * proc = FindProc(ProcScr_FadeUnk);
 
     if (proc)
         proc->on_end = NULL;

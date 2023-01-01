@@ -502,7 +502,7 @@ void StartGame(void)
 
 static struct GameController * GetGameController(void)
 {
-    return Proc_Find(ProcScr_GameController);
+    return FindProc(ProcScr_GameController);
 }
 
 void SetNextGameAction(int action)

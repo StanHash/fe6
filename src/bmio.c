@@ -322,7 +322,7 @@ void UnlockBmDisplay(void)
 
     Proc_ReleaseEachMarked(PROC_MARK_1);
 
-    proc = Proc_Find(ProcScr_BmVSync);
+    proc = FindProc(ProcScr_BmVSync);
 
     if (proc != NULL)
     {
@@ -939,7 +939,7 @@ void WeatherUpdate(void)
 
 void DisableTilesetPalAnim(void)
 {
-    struct BmVSyncProc * proc = Proc_Find(ProcScr_BmVSync);
+    struct BmVSyncProc * proc = FindProc(ProcScr_BmVSync);
 
     if (proc)
         proc->palAnimStart = NULL;
@@ -947,7 +947,7 @@ void DisableTilesetPalAnim(void)
 
 void EnableTilesetPalAnim(void)
 {
-    struct BmVSyncProc * proc = Proc_Find(ProcScr_BmVSync);
+    struct BmVSyncProc * proc = FindProc(ProcScr_BmVSync);
 
     if (proc)
     {

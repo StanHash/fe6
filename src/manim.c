@@ -69,6 +69,7 @@ extern u16 const gUnk_082E110C[]; // sprite anim
 extern u8 const gUnk_082DFAD4[]; // img
 extern u16 const gUnk_081B4274[]; // pal
 extern u8 const gUnk_082E07A8[]; // ???
+extern u8 const gUnk_082DF868[]; // ??? ^
 extern u8 const gUnk_08307928[]; // ???
 
 enum { MAX_MANIM_DEBUG_HITS = 5 };
@@ -391,20 +392,6 @@ struct ProcScr CONST_DATA ProcScr_MAnimExpBar[] =
     PROC_CALL(func_fe6_08063848),
     PROC_SLEEP(1),
     PROC_END,
-};
-
-char const * CONST_DATA gManimDebugHitKindNameLut[] =
-{
-    (char const *) 0x0830771C, // JTEXT("ーーー"),
-    (char const *) 0x08307714, // JTEXT("攻撃"),
-    (char const *) 0x0830770C, // JTEXT("攻撃デ"),
-    (char const *) 0x08307704, // JTEXT("攻撃リ"),
-    (char const *) 0x083076FC, // JTEXT("攻撃毒"),
-    (char const *) 0x083076F4, // JTEXT("必殺"),
-    (char const *) 0x083076EC, // JTEXT("必殺デ"),
-    (char const *) 0x083076E4, // JTEXT("必殺リ"),
-    (char const *) 0x083076DC, // JTEXT("必殺毒"),
-    (char const *) 0x083076D4, // JTEXT("空ぶり"),
 };
 
 void func_fe6_08061838(ProcPtr proc)
@@ -833,6 +820,8 @@ void func_fe6_080622FC(void)
 
     }
 }
+
+u8 const gManimMuSpriteLayerLut[] = { 10, 9, 8, 7 };
 
 void MA_SortMuLayers(void)
 {
@@ -1407,6 +1396,20 @@ void func_fe6_08063848(struct MAnimExpBarProc * proc)
     func_fe6_08067CF8(proc->actor_id, proc);
 }
 
+char const * CONST_DATA gManimDebugHitKindNameLut[] =
+{
+    JTEXT("ーーー"),
+    JTEXT("攻撃"),
+    JTEXT("攻撃デ"),
+    JTEXT("攻撃リ"),
+    JTEXT("攻撃毒"),
+    JTEXT("必殺"),
+    JTEXT("必殺デ"),
+    JTEXT("必殺リ"),
+    JTEXT("必殺毒"),
+    JTEXT("空ぶり"),
+};
+
 struct ManimDebugParamInfo CONST_DATA gManimDebugParamInfoTable[] =
 {
     [MANIM_DEBUG_PARAM_PID] =
@@ -1510,17 +1513,17 @@ struct ManimDebugParamInfo CONST_DATA gManimDebugParamInfoTable[] =
     },
 };
 
-char const * CONST_DATA gManimDebugParamLabelLut[] =
+char const * CONST_DATA gManimDebugParamLabelList[] =
 {
-    (char const *) 0x08307750, // JTEXT("ＰＩＤ"),
-    (char const *) 0x08307748, // JTEXT("ＸＹ"),
-    (char const *) 0x08307740, // JTEXT("兵種"),
-    (char const *) 0x08307738, // JTEXT("武器"),
-    (char const *) 0x08307734, // JTEXT("１"),
-    (char const *) 0x08307730, // JTEXT("２"),
-    (char const *) 0x0830772C, // JTEXT("３"),
-    (char const *) 0x08307728, // JTEXT("４"),
-    (char const *) 0x08307724, // JTEXT("５"),
+    JTEXT("ＰＩＤ"),
+    JTEXT("ＸＹ"),
+    JTEXT("兵種"),
+    JTEXT("武器"),
+    JTEXT("１"),
+    JTEXT("２"),
+    JTEXT("３"),
+    JTEXT("４"),
+    JTEXT("５"),
     NULL, // end
 };
 
@@ -1655,9 +1658,9 @@ void func_fe6_08063EF0(struct GenericProc * proc)
 
     PutUiWindowFrame(0, 0, 29, 19, UI_WINDOW_FILL);
 
-    for (i = 0; gManimDebugParamLabelLut[i] != NULL; i++)
+    for (i = 0; gManimDebugParamLabelList[i] != NULL; i++)
     {
-        PutString(gBg0Tm + TM_OFFSET(1, i * 2), 0, gManimDebugParamLabelLut[i]);
+        PutString(gBg0Tm + TM_OFFSET(1, i * 2), 0, gManimDebugParamLabelList[i]);
     }
 
     for (i = 0; i < MAX_MANIM_DEBUG_PARAM; i++)
@@ -2667,6 +2670,21 @@ struct ProcScr CONST_DATA ProcScr_Unk_08665344[] =
     PROC_END,
 };
 
+void func_fe6_0806664C(struct ManimSomethingProc_08066294 * proc);
+void func_fe6_08066678(struct ManimSomethingProc_08066294 * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_08665384[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_0806631C),
+    PROC_CALL(func_fe6_0806664C),
+    PROC_REPEAT(func_fe6_08066678),
+    PROC_REPEAT(func_fe6_08066484),
+    PROC_REPEAT(func_fe6_08066544),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
 void func_fe6_08066294(struct Unit * unit)
 {
     struct ManimSomethingProc_08066294 * proc;
@@ -2695,16 +2713,128 @@ void func_fe6_0806631C(struct ManimSomethingProc_08066294 * proc)
 
 void func_fe6_080663E0(struct ManimSomethingProc_08066294 * proc)
 {
+    static u8 const unk_param_list[] =
+    {
+        0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6,
+        UINT8_MAX, // end
+    };
+
     func_fe6_0801501C(gBg2Tm,
         proc->x / 8 - 2, proc->y / 8 - 9,
         TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4),
         4, 11, gUnk_082E07A8,
-        gUnk_08307928[proc->unk_48++]);
+        unk_param_list[proc->unk_48++]);
 
     EnableBgSync(BG2_SYNC_BIT);
 
-    if (gUnk_08307928[proc->unk_48] == UINT8_MAX)
+    if (unk_param_list[proc->unk_48] == UINT8_MAX)
         Proc_Break(proc);
+}
+
+void func_fe6_08066484(struct ManimSomethingProc_08066294 * proc)
+{
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST blend_coef_list[] =
+    {
+        16, 14, 12, 10, 8, 10, 12, 14, 16,
+        16, 14, 12, 10, 8, 10, 12, 14, 16,
+        UINT8_MAX, // end
+    };
+
+    SetBlendAlpha(blend_coef_list[proc->unk_4A++], 0x10);
+
+    if (blend_coef_list[proc->unk_4A] == UINT8_MAX)
+    {
+        proc->unk_4A = 0;
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_08066544(struct ManimSomethingProc_08066294 * proc)
+{
+    enum { DURATION = 30 };
+
+    SetBlendAlpha(
+        Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_4A++, DURATION), 0x10);
+
+    if (proc->unk_4A > DURATION)
+    {
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_080665E4(struct Unit * unit)
+{
+    struct ManimSomethingProc_08066294 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665384, PROC_TREE_3);
+
+    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
+    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+}
+
+void func_fe6_0806664C(struct ManimSomethingProc_08066294 * proc)
+{
+    PlaySeSpacial(SONG_82, proc->x);
+    ApplyPalette(Pal_Unk_081B1710, BGPAL_MANIM_4);
+}
+
+void func_fe6_08066678(struct ManimSomethingProc_08066294 * proc)
+{
+    // same as func_fe6_080663E0 except gUnk_082E07A8 -> gUnk_082DF868
+
+    static u8 const unk_param_list[] =
+    {
+        0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6,
+        UINT8_MAX, // end
+    };
+
+    func_fe6_0801501C(gBg2Tm,
+        proc->x / 8 - 2, proc->y / 8 - 9,
+        TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4),
+        4, 11, gUnk_082DF868,
+        unk_param_list[proc->unk_48++]);
+
+    EnableBgSync(BG2_SYNC_BIT);
+
+    if (unk_param_list[proc->unk_48] == UINT8_MAX)
+        Proc_Break(proc);
+}
+
+struct ManimSomethingProc_0806671C
+{
+    /* 00 */ PROC_HEADER;
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 unk_40, unk_42;
+    /* 44 */ u8 pad_44[0x48 - 0x44];
+    /* 48 */ i16 unk_48, unk_4A;
+};
+
+void func_fe6_08066784(struct ManimSomethingProc_0806671C * proc);
+void func_fe6_080667F0(struct ManimSomethingProc_0806671C * proc);
+void func_fe6_08066830(struct ManimSomethingProc_0806671C * proc);
+
+struct ProcScr CONST_DATA ProcScr_Unk_086653C4[] =
+{
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08066784),
+    PROC_SLEEP(50),
+    PROC_CALL(func_fe6_080667F0),
+    PROC_SLEEP(50),
+    PROC_CALL(func_fe6_08066830),
+    PROC_CALL(func_fe6_08065AF8),
+    PROC_END,
+};
+
+void func_fe6_0806671C(struct Unit * unit)
+{
+    struct ManimSomethingProc_0806671C * proc;
+
+    proc = SpawnProc(ProcScr_Unk_086653C4, PROC_TREE_3);
+
+    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
+    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
 }
 
 /*

@@ -1592,7 +1592,7 @@ func_fe6_08072EAC: @ 0x08072EAC
 	cmp r1, r0
 	beq .L08072F2A
 	ldr r0, .L08072F20 @ =ProcScr_CamMove
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08072F24
 	bl func_fe6_080727A8
@@ -1662,7 +1662,7 @@ func_fe6_08072F48: @ 0x08072F48
 	cmp r6, #0
 	beq .L08072FAC
 	ldr r0, .L08072FBC @ =ProcScr_CamMove
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08072FAC
 	bl func_fe6_0807277C
@@ -1756,7 +1756,7 @@ func_fe6_08072FC0: @ 0x08072FC0
 	cmp r6, #0
 	beq .L08073074
 	ldr r0, .L08073070 @ =ProcScr_CamMove
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08073074
 	bl func_fe6_0807277C
@@ -1896,11 +1896,11 @@ func_fe6_080730F4: @ 0x080730F4
 	cmp r1, #0
 	beq .L080731D2
 	ldr r0, .L08073180 @ =ProcScr_CamMove
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L080731D2
 	ldr r0, .L08073184 @ =gUnk_08678174
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	cmp r1, #0
 	beq .L08073188

@@ -115,6 +115,9 @@ extern u16 const Pal_UiStatBar_ThemeGray[];
 extern u16 const Pal_UiStatBar_ThemeGreen[];
 extern u8 const Img_UiUnitNameFrame[];
 extern u16 const Pal_UiUnitNameFrame[];
+
+extern u16 const Pal_Unk_081B1710[]; // manim
+
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];

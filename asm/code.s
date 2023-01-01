@@ -1136,7 +1136,7 @@ func_fe6_08073F34: @ 0x08073F34
 	adds r7, r2, #0
 	ldr r5, .L08073F84 @ =gUnk_086783C4
 	adds r0, r5, #0
-	bl Proc_Find
+	bl FindProc
 	adds r4, r0, #0
 	cmp r4, #0
 	bne .L08073F78
@@ -60587,7 +60587,7 @@ func_fe6_08091880: @ 0x08091880
 	beq .L080918FC
 	ldr r4, .L0809190C @ =gUnk_08677FD0
 	adds r0, r4, #0
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08091902
 	adds r0, r4, #0
@@ -60784,7 +60784,7 @@ func_fe6_08091A24: @ 0x08091A24
 func_fe6_08091A4C: @ 0x08091A4C
 	push {lr}
 	ldr r0, .L08091A60 @ =gUnk_0868BE74
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08091A5A
 	movs r0, #1
@@ -60949,7 +60949,7 @@ func_fe6_08091B94: @ 0x08091B94
 	beq .L08091C10
 	ldr r4, .L08091C20 @ =gUnk_08677FD0
 	adds r0, r4, #0
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08091C16
 	adds r0, r4, #0
@@ -61170,7 +61170,7 @@ func_fe6_08091D70: @ 0x08091D70
 	beq .L08091DEC
 	ldr r4, .L08091DFC @ =gUnk_08677FD0
 	adds r0, r4, #0
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08091DF2
 	adds r0, r4, #0
@@ -61476,7 +61476,7 @@ func_fe6_08091FFC: @ 0x08091FFC
 func_fe6_08092028: @ 0x08092028
 	push {lr}
 	ldr r0, .L0809203C @ =gUnk_0868BF3C
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08092036
 	movs r0, #1
@@ -61514,7 +61514,7 @@ func_fe6_08092054: @ 0x08092054
 	cmp r0, #0
 	beq .L08092098
 	ldr r0, .L080920AC @ =gUnk_0868BF3C
-	bl Proc_Find
+	bl FindProc
 	adds r5, r0, #0
 	ldr r1, .L080920B0 @ =0xFFFFFF00
 	ldr r3, [r5, #0x2c]
@@ -61975,7 +61975,7 @@ func_fe6_08092424: @ 0x08092424
 func_fe6_08092434: @ 0x08092434
 	push {lr}
 	ldr r0, .L08092444 @ =gUnk_0868C37C
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08092448
 	movs r0, #0
@@ -62583,7 +62583,7 @@ func_fe6_0809289C: @ 0x0809289C
 func_fe6_080928C0: @ 0x080928C0
 	push {lr}
 	ldr r0, .L080928D0 @ =gUnk_0868C3AC
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L080928D4
 	movs r0, #0
@@ -62607,7 +62607,7 @@ func_fe6_080928DC: @ 0x080928DC
 	bl SpawnProc
 	adds r4, r0, #0
 	ldr r0, .L08092908 @ =gUnk_0868C324
-	bl Proc_Find
+	bl FindProc
 	str r0, [r4, #0x4c]
 	lsls r5, r5, #8
 	str r5, [r4, #0x2c]
@@ -63118,7 +63118,7 @@ func_fe6_08092CD8: @ 0x08092CD8
 	bl SpawnProc
 	adds r4, r0, #0
 	ldr r0, .L08092CF8 @ =gUnk_0868C324
-	bl Proc_Find
+	bl FindProc
 	str r0, [r4, #0x4c]
 	pop {r4}
 	pop {r0}
@@ -63315,11 +63315,11 @@ func_fe6_08092D0C: @ 0x08092D0C
 func_fe6_08092E68: @ 0x08092E68
 	push {lr}
 	ldr r0, .L08092E84 @ =gUnk_0868C3C4
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08092E8C
 	ldr r0, .L08092E88 @ =gUnk_0868C3EC
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L08092E8C
 	movs r0, #0
@@ -63679,7 +63679,7 @@ SetWMFlag: @ 0x0809312C
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, .L0809314C @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08093144
 	lsls r1, r4, #2
@@ -63698,7 +63698,7 @@ GetWMFlag: @ 0x08093150
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08093164 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08093168
@@ -63723,7 +63723,7 @@ SetWMDot: @ 0x08093178
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, .L08093198 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08093190
 	lsls r1, r4, #2
@@ -63742,7 +63742,7 @@ GetWMDot: @ 0x0809319C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L080931B0 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L080931B4
@@ -63767,7 +63767,7 @@ SetWMHighlight: @ 0x080931C4
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, .L080931E4 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L080931DC
 	lsls r1, r4, #2
@@ -63786,7 +63786,7 @@ GetWMHighlight: @ 0x080931E8
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L080931FC @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08093200
@@ -63811,7 +63811,7 @@ SetWMMapText: @ 0x08093210
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, .L08093230 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08093228
 	lsls r1, r4, #2
@@ -63830,7 +63830,7 @@ GetWMMapText: @ 0x08093234
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08093248 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L0809324C
@@ -63888,7 +63888,7 @@ func_fe6_08093288: @ 0x08093288
 	ldrh r2, [r2, #4]
 	ands r4, r2
 	ldr r0, .L080932D0 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	movs r0, #0x80
 	lsls r0, r0, #1
@@ -63926,7 +63926,7 @@ func_fe6_080932D8: @ 0x080932D8
 	adds r2, r2, r0
 	ldrb r4, [r2, #2]
 	ldr r0, .L08093314 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	adds r1, r0, #0
 	movs r0, #0x80
 	ands r0, r4
@@ -64104,7 +64104,7 @@ func_fe6_080933F8: @ 0x080933F8
 func_fe6_08093444: @ 0x08093444
 	push {lr}
 	ldr r0, .L08093458 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L08093452
 	movs r0, #1
@@ -64134,7 +64134,7 @@ func_fe6_0809347C: @ 0x0809347C
 	adds r4, r0, #0
 	adds r5, r1, #0
 	ldr r0, .L0809349C @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	subs r4, #0x78
 	strh r4, [r0, #0x2a]
 	subs r5, #0x50
@@ -64152,7 +64152,7 @@ func_fe6_0809347C: @ 0x0809347C
 func_fe6_080934A0: @ 0x080934A0
 	push {lr}
 	ldr r0, .L080934B8 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	movs r2, #0
 	movs r1, #0
 	strh r1, [r0, #0x2a]
@@ -64171,7 +64171,7 @@ func_fe6_080934BC: @ 0x080934BC
 	adds r5, r0, #0
 	adds r6, r1, #0
 	ldr r0, .L08093510 @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	lsls r1, r5, #1
 	adds r1, r1, r5
 	lsls r1, r1, #2
@@ -65613,7 +65613,7 @@ func_fe6_08093FD8: @ 0x08093FD8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L0809400C @ =gUnk_0868C648
-	bl Proc_Find
+	bl FindProc
 	ldrh r1, [r4]
 	ldrh r3, [r0, #0x2a]
 	subs r2, r1, r3
@@ -69660,7 +69660,7 @@ func_fe6_08095FC4: @ 0x08095FC4
 	mov r7, sp
 	ldr r1, .L08095FE4 @ =gUnk_08690F00
 	adds r0, r1, #0
-	bl Proc_Find
+	bl FindProc
 	str r0, [r7]
 	ldr r1, [r7]
 	adds r0, r1, #0
@@ -69688,7 +69688,7 @@ func_fe6_08095FF8: @ 0x08095FF8
 	mov r7, sp
 	ldr r1, .L08096018 @ =gUnk_08690F00
 	adds r0, r1, #0
-	bl Proc_Find
+	bl FindProc
 	str r0, [r7]
 	ldr r1, [r7]
 	adds r0, r1, #0
@@ -75108,7 +75108,7 @@ func_fe6_08098A4C: @ 0x08098A4C
 func_fe6_08098A54: @ 0x08098A54
 	push {lr}
 	ldr r0, .L08098A70 @ =gUnk_08691634
-	bl Proc_Find
+	bl FindProc
 	ldr r2, .L08098A74 @ =gUnk_03005290
 	ldr r1, [r2]
 	adds r1, #1
@@ -77395,7 +77395,7 @@ func_fe6_08099BA8: @ 0x08099BA8
 func_fe6_08099BCC: @ 0x08099BCC
 	push {lr}
 	ldr r0, .L08099BE0 @ =gUnk_08691B20
-	bl Proc_Find
+	bl FindProc
 	adds r0, #0x64
 	ldrh r0, [r0]
 	lsls r0, r0, #0x10

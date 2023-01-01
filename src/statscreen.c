@@ -748,7 +748,7 @@ void StartStatScreenPageSlide(fu16 key_bit, int new_page, ProcPtr parent)
 {
     struct StatScreenPageSlideProc * proc;
 
-    if (Proc_Find(ProcScr_StatScreenPageSlide) != NULL)
+    if (FindProc(ProcScr_StatScreenPageSlide) != NULL)
         return;
 
     PlaySe(SONG_6F);

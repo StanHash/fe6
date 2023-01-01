@@ -210,7 +210,7 @@ struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y
 void MoveSpriteRefresher(struct SpriteProc * proc, int x, int y)
 {
     if (proc == NULL)
-        proc = Proc_Find(ProcSrc_SpriteRefresher);
+        proc = FindProc(ProcSrc_SpriteRefresher);
 
     proc->x = x;
     proc->y = y;

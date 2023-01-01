@@ -969,7 +969,7 @@ void StartLimitView(int flags)
 {
     struct GenericProc * proc;
 
-    if ((proc = Proc_Find(ProcScr_LimitView)))
+    if ((proc = FindProc(ProcScr_LimitView)))
     {
         LimitView_Init(proc);
         OpenLimitView_Init(NULL);
@@ -1002,7 +1002,7 @@ static bool TrySetCursorOn(int uid)
     if (unit->status == UNIT_STATUS_BERSERK || unit->status == UNIT_STATUS_SLEEP)
         return FALSE;
 
-    CameraMoveWatchPosition(Proc_Find(ProcScr_PlayerPhase) ?: Proc_Find(ProcScr_PrepPhase), unit->x, unit->y);
+    CameraMoveWatchPosition(FindProc(ProcScr_PlayerPhase) ?: FindProc(ProcScr_PrepPhase), unit->x, unit->y);
     SetMapCursorPosition(unit->x, unit->y);
 
     return TRUE;

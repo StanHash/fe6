@@ -273,7 +273,7 @@ void EndMapMain(void)
 
     Proc_EndEachMarked(PROC_MARK_1);
 
-    mapmain = Proc_Find(ProcScr_BmMain);
+    mapmain = FindProc(ProcScr_BmMain);
     parent = mapmain->ptr;
 
     parent->proc_lock_cnt--;

@@ -871,7 +871,7 @@ bool CameraMoveWatchPosition(ProcPtr proc, int x, int y)
     int x_target = GetCameraAdjustedX(x*16);
     int y_target = GetCameraAdjustedY(y*16);
 
-    if ((x_target == gBmSt.camera.x && y_target == gBmSt.camera.y) || Proc_Find(ProcScr_CamMove) != NULL)
+    if ((x_target == gBmSt.camera.x && y_target == gBmSt.camera.y) || FindProc(ProcScr_CamMove) != NULL)
         return FALSE;
 
     if (proc)
@@ -906,7 +906,7 @@ bool CameraMove_08016290(ProcPtr proc)
 {
     struct CamMoveProc * cam;
 
-    if ((gBmSt.camera.y <= gBmSt.camera_max.y) || Proc_Find(ProcScr_CamMove) != NULL)
+    if ((gBmSt.camera.y <= gBmSt.camera_max.y) || FindProc(ProcScr_CamMove) != NULL)
         return FALSE;
 
     if (proc)

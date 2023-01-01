@@ -1181,8 +1181,8 @@ gUnk_081AEA8C: @ 081AEA8C
 gUnk_081AEC8C: @ 081AEC8C
 	.incbin "fe6-base.gba", 0x1AEC8C, (0x1B1710 - 0x1AEC8C) @ length: 2A84
 
-	.global gUnk_081B1710
-gUnk_081B1710: @ 081B1710
+	.global Pal_Unk_081B1710
+Pal_Unk_081B1710: @ 081B1710
 	.incbin "fe6-base.gba", 0x1B1710, (0x1B2348 - 0x1B1710) @ length: 0C38
 
 	.global gUnk_081B2348

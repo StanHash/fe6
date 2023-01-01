@@ -480,7 +480,7 @@ fu8 MenuFrozenHelpBox(struct MenuProc * proc, int msg)
 
 void FreezeMenu(void)
 {
-    struct MenuProc * proc = Proc_Find(ProcScr_Menu);
+    struct MenuProc * proc = FindProc(ProcScr_Menu);
 
     if (proc != NULL)
         proc->flags |= MENU_FLAG_FROZEN;
@@ -488,7 +488,7 @@ void FreezeMenu(void)
 
 void ResumeMenu(void)
 {
-    struct MenuProc * proc = Proc_Find(ProcScr_Menu);
+    struct MenuProc * proc = FindProc(ProcScr_Menu);
 
     if (proc != NULL)
         proc->flags &= ~MENU_FLAG_FROZEN;

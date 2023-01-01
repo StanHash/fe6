@@ -243,7 +243,7 @@ void Proc_Break(ProcPtr proc)
     casted->proc_repeat_func = NULL;
 }
 
-ProcPtr Proc_Find(struct ProcScr const * script)
+ProcPtr FindProc(struct ProcScr const * script)
 {
     struct ProcDummy * proc = sProcArray;
     int i;
@@ -257,7 +257,7 @@ ProcPtr Proc_Find(struct ProcScr const * script)
     return NULL;
 }
 
-ProcPtr Proc_FindActive(struct ProcScr const * script)
+ProcPtr FindActiveProc(struct ProcScr const * script)
 {
     struct ProcDummy * proc = sProcArray;
     int i;
@@ -271,7 +271,7 @@ ProcPtr Proc_FindActive(struct ProcScr const * script)
     return NULL;
 }
 
-ProcPtr Proc_FindMarked(int mark)
+ProcPtr FindMarkedProc(int mark)
 {
     struct ProcDummy * proc = sProcArray;
     int i;

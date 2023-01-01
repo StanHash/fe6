@@ -4772,7 +4772,7 @@ func_fe6_0806DD84: @ 0x0806DD84
 func_fe6_0806DD98: @ 0x0806DD98
 	push {lr}
 	ldr r0, .L0806DDB4 @ =gUnk_0867688C
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L0806DDBC
 	ldr r0, .L0806DDB8 @ =gUnk_08677FE0
@@ -5065,7 +5065,7 @@ func_fe6_0806DF94: @ 0x0806DF94
 func_fe6_0806DFAC: @ 0x0806DFAC
 	push {lr}
 	ldr r0, .L0806DFC0 @ =gUnk_086768DC
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	beq .L0806DFBA
 	movs r0, #1
@@ -6149,7 +6149,7 @@ func_fe6_0806E7F4: @ 0x0806E7F4
 func_fe6_0806E810: @ 0x0806E810
 	push {lr}
 	ldr r0, .L0806E82C @ =ProcScr_Unk_08677378
-	bl Proc_Find
+	bl FindProc
 	cmp r0, #0
 	bne .L0806E834
 	ldr r0, .L0806E830 @ =ProcScr_Unk_08677348

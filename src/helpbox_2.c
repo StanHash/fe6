@@ -679,7 +679,7 @@ void func_fe6_080715FC(struct HelpBoxInfo const * info)
     struct HelpBoxProc * proc;
     int w_text_box, h_text_box;
 
-    proc = Proc_Find(gUnk_08678020);
+    proc = FindProc(gUnk_08678020);
 
     if (proc == NULL)
     {
@@ -764,7 +764,7 @@ void func_fe6_08071748(struct HelpBoxInfo const * info)
 
 bool func_fe6_08071760(void)
 {
-    return Proc_Find(gUnk_08678040) != NULL;
+    return FindProc(gUnk_08678040) != NULL;
 }
 
 void func_fe6_08071778(struct HelpBoxProc * proc, int w_inner, int h_inner)
@@ -874,7 +874,7 @@ int func_fe6_080718A8(int msg, ProcPtr parent)
 
 bool func_fe6_080718E0(void)
 {
-    if (Proc_Find(gUnk_08678080) != NULL)
+    if (FindProc(gUnk_08678080) != NULL)
         return TRUE;
 
     return FALSE;
@@ -1366,7 +1366,7 @@ void func_fe6_08071F64(struct HelpBoxPrintProc2 * proc)
             if (*proc->str == 1)
                 proc->str++;
 
-            helpbox_proc = Proc_Find(gUnk_086780C8);
+            helpbox_proc = FindProc(gUnk_086780C8);
 
             StartTalkWaitForInput(proc, helpbox_proc->x_box_fini + proc->x, helpbox_proc->y_box_fini + proc->y);
             func_fe6_08071C8C(proc->str, &proc->x, &proc->y);
@@ -1396,7 +1396,7 @@ void func_fe6_08071F64(struct HelpBoxPrintProc2 * proc)
 
 void func_fe6_080720E0(struct HelpBoxPrintProc2 * proc)
 {
-    Proc_Goto(Proc_Find(gUnk_08678080), 0);
+    Proc_Goto(FindProc(gUnk_08678080), 0);
     Proc_Break(proc);
 }
 

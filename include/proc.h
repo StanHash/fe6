@@ -149,9 +149,9 @@ ProcPtr SpawnProcLocking(struct ProcScr const * scr, ProcPtr parent);
 void Proc_End(ProcPtr proc);
 void Proc_Run(ProcPtr proc);
 void Proc_Break(ProcPtr proc);
-ProcPtr Proc_Find(struct ProcScr const * script);
-ProcPtr Proc_FindActive(struct ProcScr const * script);
-ProcPtr Proc_FindMarked(int mark);
+ProcPtr FindProc(struct ProcScr const * script);
+ProcPtr FindActiveProc(struct ProcScr const * script);
+ProcPtr FindMarkedProc(int mark);
 void Proc_Goto(ProcPtr proc, int label);
 void Proc_GotoScript(ProcPtr proc, struct ProcScr const * script);
 void Proc_Mark(ProcPtr proc, int mark);
@@ -170,4 +170,4 @@ void Proc_SetRepeatFunc(ProcPtr proc, ProcFunc func);
 void Proc_Lock(ProcPtr proc);
 void Proc_Release(ProcPtr proc);
 
-#define Proc_Exists(script) (Proc_Find(script) ? TRUE : FALSE)
+#define Proc_Exists(script) (FindProc((script)) ? TRUE : FALSE)

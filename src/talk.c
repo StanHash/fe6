@@ -473,10 +473,10 @@ void SetTalkPrintColor(int color)
 
 static void TalkSkipListener_OnIdle(ProcPtr proc)
 {
-    if (Proc_Find(ProcScr_TalkShiftClearAll) != NULL)
+    if (FindProc(ProcScr_TalkShiftClearAll) != NULL)
         return;
 
-    if (Proc_Find(ProcScr_TalkShiftClear) != NULL)
+    if (FindProc(ProcScr_TalkShiftClear) != NULL)
         return;
 
     if (!CheckTalkFlag(TALK_FLAG_NOSKIP) && (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_START)))
@@ -490,7 +490,7 @@ static void TalkSkipListener_OnIdle(ProcPtr proc)
         return;
     }
 
-    if (Proc_Find(ProcScr_TalkWaitForInput) != NULL)
+    if (FindProc(ProcScr_TalkWaitForInput) != NULL)
         return;
 
     if (!CheckTalkFlag(TALK_FLAG_NOFAST) && (gKeySt->pressed & (KEY_BUTTON_A | KEY_BUTTON_B | KEY_DPAD_ANY)))
@@ -1065,7 +1065,7 @@ static void MoveTalkFace(int talkFaceFrom, int talkFaceTo)
 
 static bool IsTalkFaceMoving(void)
 {
-    if (Proc_Find(ProcScr_TalkMoveFace) != NULL)
+    if (FindProc(ProcScr_TalkMoveFace) != NULL)
         return TRUE;
 
     return FALSE;
@@ -1783,7 +1783,7 @@ void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent)
 {
     struct GenericProc * proc;
 
-    proc = Proc_Find(ProcScr_TalkPutSpriteText);
+    proc = FindProc(ProcScr_TalkPutSpriteText);
 
     if (!proc)
         proc = SpawnProc(ProcScr_TalkPutSpriteText, parent);

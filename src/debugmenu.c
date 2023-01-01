@@ -153,7 +153,7 @@ u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
         JTEXT("　ＯＮ"),
     };
 
-    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = FindProc(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
@@ -165,7 +165,7 @@ u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801A7D4(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = FindProc(ProcScr_DebugMonitor);
 
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
@@ -194,7 +194,7 @@ u32 func_fe6_0801A820(struct MenuProc * menu, struct MenuEntProc * ent)
         [DEBUG_WEATHER_FLAMES]    = TEXT("溶岩", "Flames"),
     };
 
-    struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
+    struct GenericProc * proc = FindProc(ProcScr_DebugMonitor);
 
     ClearText(&ent->text);
 
@@ -208,7 +208,7 @@ fu8 func_fe6_0801A89C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (gKeySt->pressed & (KEY_BUTTON_A | KEY_DPAD_RIGHT | KEY_DPAD_LEFT))
     {
-        struct GenericProc * proc = Proc_Find(ProcScr_DebugMonitor);
+        struct GenericProc * proc = FindProc(ProcScr_DebugMonitor);
 
         proc->unk58++;
         func_fe6_0801A820(menu, ent);
@@ -494,7 +494,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    if (Proc_Find(ProcScr_BmMain) != NULL)
+    if (FindProc(ProcScr_BmMain) != NULL)
         EndMapMain();
 
     func_fe6_080858E4(SAVE_ID_SUSPEND1);
@@ -633,5 +633,5 @@ fu8 DebugCpControlMenu_Entry_Idle(struct MenuProc * menu, struct MenuEntProc * e
 fu8 func_fe6_0801B018(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     RestartGameAndChapter();
-    Proc_Goto(Proc_Find(ProcScr_GameController), L_GAMECTRL_SRAMRESET);
+    Proc_Goto(FindProc(ProcScr_GameController), L_GAMECTRL_SRAMRESET);
 }

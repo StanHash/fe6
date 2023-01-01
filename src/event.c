@@ -809,7 +809,7 @@ ProcPtr StartEventLocking(u32 const * script, ProcPtr parent)
 
 static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent)
 {
-    struct EventProc * proc = Proc_Find(ProcScr_Event);
+    struct EventProc * proc = FindProc(ProcScr_Event);
 
     if (proc)
     {
@@ -1016,7 +1016,7 @@ static void DarkenThenFunc_StepDarken(struct DarkenFuncProc * proc)
 
 static void Event_MainLoop(struct EventProc * proc)
 {
-    if (Proc_Find(ProcScr_SubtitleHelpDarkener) != NULL)
+    if (FindProc(ProcScr_SubtitleHelpDarkener) != NULL)
         return;
 
     if (IsSubtitleHelpActive())
@@ -1346,7 +1346,7 @@ static bool CanDisplayUnitMovement(struct EventProc * proc, int x, int y)
 {
     if (proc->flags & EVENT_FLAG_UNITCAM)
     {
-        if (Proc_Find(ProcScr_CamMove) != NULL || CameraMoveWatchPosition(proc, x, y))
+        if (FindProc(ProcScr_CamMove) != NULL || CameraMoveWatchPosition(proc, x, y))
             return FALSE;
     }
 
@@ -2293,7 +2293,7 @@ static int EvtCmd_FlashCursorPid(struct EventProc * proc)
 
 static void EventFlashCursorWait(struct EventProc * proc)
 {
-    if (Proc_Find(ProcScr_FlashCursor) != NULL)
+    if (FindProc(ProcScr_FlashCursor) != NULL)
         return;
 
     proc->on_idle = NULL;
@@ -3393,7 +3393,7 @@ static int EvtCmd_End(struct EventProc * proc)
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
-        if (Proc_Find(ProcScr_Face) != NULL)
+        if (FindProc(ProcScr_Face) != NULL)
             ClearTalk();
 
         return EVENT_CMDRET_YIELD;
@@ -3418,7 +3418,7 @@ static void EventClearTalkDisplayed(struct EventProc * proc)
         return;
     }
 
-    if (Proc_Find(ProcScr_Face) != NULL)
+    if (FindProc(ProcScr_Face) != NULL)
     {
         ClearTalkBubble();
         Proc_ForEach(ProcScr_Face, (ProcFunc) StartFaceFadeOut);
@@ -3447,12 +3447,12 @@ void func_fe6_08011F64(void)
 
 bool IsEventRunning(void)
 {
-    return Proc_FindMarked(PROC_MARK_6) != NULL ? TRUE : FALSE;
+    return FindMarkedProc(PROC_MARK_6) != NULL ? TRUE : FALSE;
 }
 
 bool IsEventProcRunning(void)
 {
-    return Proc_FindActive(ProcScr_Event) != NULL ? TRUE : FALSE;
+    return FindActiveProc(ProcScr_Event) != NULL ? TRUE : FALSE;
 }
 
 void KillTalkAndEvent(void)
@@ -3607,7 +3607,7 @@ void StartChestMoneyEvent(int amount, u8 id)
 
 void SetEventTalkSkipped(void)
 {
-    struct EventProc * proc = Proc_Find(ProcScr_Event);
+    struct EventProc * proc = FindProc(ProcScr_Event);
 
     if (proc == NULL)
         return;

@@ -316,7 +316,7 @@ struct MuProc * StartMuInternal(u16 x, u16 y, u16 jid, int pal)
     if (config == NULL)
         return NULL;
 
-    if (Proc_Find(ProcScr_Mu))
+    if (FindProc(ProcScr_Mu))
         soundDelay = 254;
 
     mu = SpawnProc(ProcScr_Mu, PROC_TREE_5);
@@ -378,7 +378,7 @@ void SetMuDefaultFacing(struct MuProc * mu)
 
 void SetAutoMuDefaultFacing(void)
 {
-    struct MuProc * mu = Proc_Find(ProcScr_Mu);
+    struct MuProc * mu = FindProc(ProcScr_Mu);
 
     if (mu == NULL)
         return;
@@ -388,7 +388,7 @@ void SetAutoMuDefaultFacing(void)
 
 void SetAutoMuMoveScript(u8 const * movescr)
 {
-    struct MuProc * mu = Proc_Find(ProcScr_Mu);
+    struct MuProc * mu = FindProc(ProcScr_Mu);
 
     if (mu == NULL)
         return;
@@ -398,7 +398,7 @@ void SetAutoMuMoveScript(u8 const * movescr)
 
 bool MuExists(void)
 {
-    return Proc_Find(ProcScr_Mu) != NULL ? TRUE : FALSE;
+    return FindProc(ProcScr_Mu) != NULL ? TRUE : FALSE;
 }
 
 bool MuExistsActive(void)
@@ -501,7 +501,7 @@ void StartPlayMuStepSe(int song, int alt_offset, int x)
 {
     struct GenericProc * proc;
 
-    proc = Proc_Find(ProcScr_MuStepSe);
+    proc = FindProc(ProcScr_MuStepSe);
 
     if (proc == NULL)
         proc = SpawnProc(ProcScr_MuStepSe, PROC_TREE_3);
@@ -672,7 +672,7 @@ void MuFogBump_EndLoop(struct MuFogBumpProc * proc)
 
 bool IsMuFogBumpActive(void)
 {
-    return Proc_Find(ProcScr_MuFogBump) ? TRUE : FALSE;
+    return Proc_Exists(ProcScr_MuFogBump);
 }
 
 void Mu_OnStateBump(struct MuProc * mu)

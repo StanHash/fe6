@@ -430,7 +430,7 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc * proc)
 
     if (gBattleUnitA.unit.hp == 0)
     {
-        mu = Proc_Find(ProcScr_Mu);
+        mu = FindProc(ProcScr_Mu);
 
         StartMuDeathFade(mu);
         proc->ptr = mu;

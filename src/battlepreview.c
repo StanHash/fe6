@@ -648,7 +648,7 @@ void StartBattlePreview(struct MapSelectProc * mapselect_proc)
 
 void UpdateBattlePreviewContents(void)
 {
-    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = FindProc(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return;
@@ -659,7 +659,7 @@ void UpdateBattlePreviewContents(void)
 
 void CloseBattlePreview(void)
 {
-    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = FindProc(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return;
@@ -679,7 +679,7 @@ fu8 StartBattlePreviewHelpBox(struct MapSelectProc * mapselect_proc, struct Sele
 {
     int x;
 
-    struct BattlePreviewProc * proc = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * proc = FindProc(ProcScr_BattlePreview);
 
     if (proc == NULL)
         return 0;
@@ -734,12 +734,12 @@ static int func_fe6_0802E43C(int wt, bool is_effective)
 
 void HelpBoxPopulateBattlePreviewAdvantageA(struct HelpBoxProc * proc)
 {
-    struct BattlePreviewProc * bp = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * bp = FindProc(ProcScr_BattlePreview);
     proc->msg = func_fe6_0802E43C(gBattleUnitA.advantage_bonus_hit, bp->is_effective_a);
 }
 
 void HelpBoxPopulateBattlePreviewAdvantageB(struct HelpBoxProc * proc)
 {
-    struct BattlePreviewProc * bp = Proc_Find(ProcScr_BattlePreview);
+    struct BattlePreviewProc * bp = FindProc(ProcScr_BattlePreview);
     proc->msg = func_fe6_0802E43C(gBattleUnitB.advantage_bonus_hit, bp->is_effective_b);
 }

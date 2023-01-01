@@ -661,7 +661,7 @@ void StartMapFade(bool locksGame)
 
 bool IsMapFadeActive(void)
 {
-    return Proc_Find(ProcScr_MapFade) ? TRUE : FALSE;
+    return Proc_Exists(ProcScr_MapFade);
 }
 
 static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
@@ -918,7 +918,7 @@ void StartEquipInfoWindow(ProcPtr parent, struct Unit * unit, int x, int y)
 {
     struct EquipInfoWindowProc * proc;
 
-    if (Proc_Find(ProcScr_EquipInfoWindow) != NULL)
+    if (FindProc(ProcScr_EquipInfoWindow) != NULL)
         return;
 
     proc = SpawnProc(ProcScr_EquipInfoWindow, parent);
@@ -945,7 +945,7 @@ void StartEquipInfoWindow(ProcPtr parent, struct Unit * unit, int x, int y)
 
 void UpdateEquipInfoWindow(int item_slot)
 {
-    struct EquipInfoWindowProc * proc = Proc_Find(ProcScr_EquipInfoWindow);
+    struct EquipInfoWindowProc * proc = FindProc(ProcScr_EquipInfoWindow);
 
     int item;
 
@@ -1420,7 +1420,7 @@ static void PhaseIntro_WaitForEnd(ProcPtr proc)
 {
     SetBlendAlpha(gBmSt.alt_blend_b_ca, gBmSt.alt_blend_b_cb);
 
-    if (Proc_Find(ProcScr_PhaseIntroText) == NULL && Proc_Find(ProcScr_PhaseIntroSquares) == NULL && Proc_Find(ProcScr_PhaseIntroBlendBox) == NULL)
+    if (FindProc(ProcScr_PhaseIntroText) == NULL && FindProc(ProcScr_PhaseIntroSquares) == NULL && FindProc(ProcScr_PhaseIntroBlendBox) == NULL)
     {
         ClearUi();
 

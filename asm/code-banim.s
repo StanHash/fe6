@@ -37944,7 +37944,7 @@ func_fe6_0805581C: @ 0x0805581C
 	str r1, [r0, #0x50]
 	ldr r1, .L08055868 @ =gUnk_085D304C
 	str r1, [r0, #0x54]
-	ldr r0, .L0805586C @ =gUnk_081B1710
+	ldr r0, .L0805586C @ =Pal_Unk_081B1710
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
@@ -37957,7 +37957,7 @@ func_fe6_0805581C: @ 0x0805581C
 .L08055860: .4byte gUnk_0811ABB0
 .L08055864: .4byte gUnk_085D3018
 .L08055868: .4byte gUnk_085D304C
-.L0805586C: .4byte gUnk_081B1710
+.L0805586C: .4byte Pal_Unk_081B1710
 
 	thumb_func_start func_fe6_08055870
 func_fe6_08055870: @ 0x08055870
