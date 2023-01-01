@@ -58,7 +58,7 @@ MAP := $(ROM:%.gba=%.map)
 C_SRCS := $(wildcard $(SRC_DIR)/*.c)
 C_OBJS := $(C_SRCS:%.c=$(BUILD_DIR)/%.o)
 
-ASM_SRCS := $(wildcard $(SRC_DIR)/*.s) $(wildcard $(ASM_DIR)/*.s) $(wildcard $(ASM_DIR)/lib/*.s)
+ASM_SRCS := $(wildcard $(SRC_DIR)/*.s) $(wildcard $(ASM_DIR)/*.s)
 ASM_OBJS := $(ASM_SRCS:%.s=$(BUILD_DIR)/%.o)
 
 DATA_SRCS := $(wildcard data/*.s)

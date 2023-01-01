@@ -12,157 +12,57 @@
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
 
-#if NONMATCHING
-
 int Interpolate(int method, int lo, int hi, int x, int end)
 {
+    int denom, left, result;
+    register int _deno asm("r0");
+
     if (end == 0)
         return hi;
 
-    switch (shape)
+    switch (method)
     {
 
     case INTERPOLATE_LINEAR:
-        return lo + Div((hi - lo) * x, end);
+        denom = (hi - lo) * x;
+        result = lo + Div(denom, end);
+        break;
 
     case INTERPOLATE_SQUARE:
-        return lo + Div((hi - lo) * x * x, end * end);
+        _deno = x * x;
+        denom = _deno * (hi - lo);
+        result = lo + Div(denom, end * end);
+        break;
 
     case INTERPOLATE_CUBIC:
-        return lo + Div((hi - lo) * x * x * x, end * end * end);
+        denom = x * x * x * (hi - lo);
+        result = lo + Div(denom,  end * end * end);
+        break;
 
     case INTERPOLATE_POW4:
-        return lo + Div((hi - lo) * x * x * x * x, end * end * end * end);
+        denom = x * x * x * x * (hi - lo);
+        result = lo + Div(denom, end * end * end * end);
+        break;
 
     case INTERPOLATE_RSQUARE:
-        return hi - Div((hi - lo) * (end - x) * (end - x), end * end);
+        left = end - x;
+        denom = left * left * (hi - lo);
+        result = lo + (hi - lo) - Div(denom, end * end);
+        break;
 
     case INTERPOLATE_RCUBIC:
-        return hi - Div((hi - lo) * (end - x) * (end - x) * (end - x), end * end * end);
+        left = end - x;
+        denom = left * left * left * (hi - lo);
+        result = lo + (hi - lo) - Div(denom, end * end * end);
+        break;
 
     default:
-        return 0;
+        result = 0;
 
     }
+
+    return result;
 }
-
-#else
-
-NAKEDFUNC int Interpolate(int method, int lo, int hi, int x, int end)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, lr}\n\
-        adds r6, r1, #0\n\
-        ldr r5, [sp, #0x10]\n\
-        cmp r5, #0\n\
-        bne .L08013B32\n\
-        adds r0, r2, #0\n\
-        b .L08013BE6\n\
-    .L08013B32:\n\
-        cmp r0, #5\n\
-        bhi .L08013BE4\n\
-        lsls r0, r0, #2\n\
-        ldr r1, .L08013B40 @ =.L08013B44\n\
-        adds r0, r0, r1\n\
-        ldr r0, [r0]\n\
-        mov pc, r0\n\
-        .align 2, 0\n\
-    .L08013B40: .4byte .L08013B44\n\
-    .L08013B44: @ jump table\n\
-        .4byte .L08013B5C @ case 0\n\
-        .4byte .L08013B68 @ case 1\n\
-        .4byte .L08013B78 @ case 2\n\
-        .4byte .L08013B8C @ case 3\n\
-        .4byte .L08013BB0 @ case 4\n\
-        .4byte .L08013BC2 @ case 5\n\
-    .L08013B5C:\n\
-        subs r0, r2, r6\n\
-        adds r2, r0, #0\n\
-        muls r2, r3, r2\n\
-        adds r0, r2, #0\n\
-        adds r1, r5, #0\n\
-        b .L08013BA8\n\
-    .L08013B68:\n\
-        adds r0, r3, #0\n\
-        muls r0, r3, r0\n\
-        subs r1, r2, r6\n\
-        adds r2, r0, #0\n\
-        muls r2, r1, r2\n\
-        adds r1, r5, #0\n\
-        muls r1, r5, r1\n\
-        b .L08013BA6\n\
-    .L08013B78:\n\
-        adds r0, r3, #0\n\
-        muls r0, r3, r0\n\
-        adds r1, r0, #0\n\
-        muls r1, r3, r1\n\
-        subs r0, r2, r6\n\
-        adds r2, r1, #0\n\
-        muls r2, r0, r2\n\
-        adds r0, r5, #0\n\
-        muls r0, r5, r0\n\
-        b .L08013BA2\n\
-    .L08013B8C:\n\
-        adds r0, r3, #0\n\
-        muls r0, r3, r0\n\
-        muls r0, r3, r0\n\
-        adds r1, r0, #0\n\
-        muls r1, r3, r1\n\
-        subs r0, r2, r6\n\
-        adds r2, r1, #0\n\
-        muls r2, r0, r2\n\
-        adds r0, r5, #0\n\
-        muls r0, r5, r0\n\
-        muls r0, r5, r0\n\
-    .L08013BA2:\n\
-        adds r1, r0, #0\n\
-        muls r1, r5, r1\n\
-    .L08013BA6:\n\
-        adds r0, r2, #0\n\
-    .L08013BA8:\n\
-        bl Div\n\
-        adds r0, r6, r0\n\
-        b .L08013BE6\n\
-    .L08013BB0:\n\
-        subs r1, r5, r3\n\
-        adds r0, r1, #0\n\
-        muls r0, r1, r0\n\
-        subs r4, r2, r6\n\
-        adds r2, r0, #0\n\
-        muls r2, r4, r2\n\
-        adds r1, r5, #0\n\
-        muls r1, r5, r1\n\
-        b .L08013BD8\n\
-    .L08013BC2:\n\
-        subs r1, r5, r3\n\
-        adds r0, r1, #0\n\
-        muls r0, r1, r0\n\
-        muls r0, r1, r0\n\
-        subs r4, r2, r6\n\
-        adds r2, r0, #0\n\
-        muls r2, r4, r2\n\
-        adds r0, r5, #0\n\
-        muls r0, r5, r0\n\
-        adds r1, r0, #0\n\
-        muls r1, r5, r1\n\
-    .L08013BD8:\n\
-        adds r0, r2, #0\n\
-        bl Div\n\
-        adds r4, r6, r4\n\
-        subs r0, r4, r0\n\
-        b .L08013BE6\n\
-    .L08013BE4:\n\
-        movs r0, #0\n\
-    .L08013BE6:\n\
-        pop {r4, r5, r6}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif
 
 void func_fe6_08013BEC(void)
 {

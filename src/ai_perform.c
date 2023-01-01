@@ -251,7 +251,7 @@ bool AiPillageAction(struct AiPerformProc * proc)
     };
 
     int x = gAiDecision.x_move;
-    int register y asm("r4") = gAiDecision.y_move;
+    int y = gAiDecision.y_move;
 
     if (gMapTerrain[y][x] == TERRAIN_CHEST)
     {
@@ -259,13 +259,14 @@ bool AiPillageAction(struct AiPerformProc * proc)
         gActiveUnit->y = gAiDecision.y_move;
 
         gAction.id = ACTION_USEITEM;
+        gAiDecision.item_slot = gAiDecision.item_slot;
         gAction.item_slot = gAiDecision.item_slot;
 
         DoItemAction(proc);
     }
     else
     {
-        int const y2 = y-1;
+        int y2 = y - 1;
         StartAvailableTileEvent(x, y2);
 
         PlaySe(SONG_AB);
