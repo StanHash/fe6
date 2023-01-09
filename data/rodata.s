@@ -236,8 +236,8 @@ gUnk_08327304: @ 08327304
 gUnk_0832730C: @ 0832730C
 	.incbin "fe6-base.gba", 0x32730C, (0x327314 - 0x32730C) @ length: 0008
 
-	.global gUnk_08327314
-gUnk_08327314: @ 08327314
+	.global gGlobalSaveInfoName
+gGlobalSaveInfoName: @ 08327314
 	.incbin "fe6-base.gba", 0x327314, (0x32731C - 0x327314) @ length: 0008
 
 	.global gUnk_0832731C

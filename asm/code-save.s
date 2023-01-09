@@ -2,90 +2,8 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_0808439C
-func_fe6_0808439C: @ 0x0808439C
-	push {lr}
-	sub sp, #0x20
-	bl EraseSaveData
-	ldr r1, .L08084408 @ =gUnk_08327314
-	mov r0, sp
-	bl StringCopy
-	ldr r0, .L0808440C @ =0x00011217
-	str r0, [sp, #8]
-	mov r1, sp
-	movs r3, #0
-	ldr r0, .L08084410 @ =0x0000200A
-	strh r0, [r1, #0xc]
-	movs r0, #2
-	rsbs r0, r0, #0
-	ldrb r2, [r1, #0xe]
-	ands r0, r2
-	strb r0, [r1, #0xe]
-	mov r2, sp
-	movs r1, #5
-	rsbs r1, r1, #0
-	ands r1, r0
-	strb r1, [r2, #0xe]
-	mov r0, sp
-	movs r2, #3
-	rsbs r2, r2, #0
-	ands r2, r1
-	strb r2, [r0, #0xe]
-	mov r1, sp
-	movs r0, #9
-	rsbs r0, r0, #0
-	ands r0, r2
-	strb r0, [r1, #0xe]
-	movs r0, #0xf
-	ldrh r2, [r1, #0xe]
-	ands r0, r2
-	strh r0, [r1, #0xe]
-	mov r0, sp
-	strb r3, [r0, #0x1f]
-	strb r3, [r0, #0x1e]
-	add r1, sp, #0x10
-	movs r2, #0
-	adds r0, #0x1b
-.L080843F4:
-	strb r2, [r0]
-	subs r0, #1
-	cmp r0, r1
-	bge .L080843F4
-	mov r0, sp
-	bl SaveGlobalSaveInfo
-	add sp, #0x20
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08084408: .4byte gUnk_08327314
-.L0808440C: .4byte 0x00011217
-.L08084410: .4byte 0x0000200A
-
-	thumb_func_start func_fe6_08084414
-func_fe6_08084414: @ 0x08084414
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	ldr r1, .L08084424 @ =gUnk_08689DD8
-	ldr r1, [r1]
-	adds r1, r1, r0
-	adds r0, r1, #0
-	bx lr
-	.align 2, 0
-.L08084424: .4byte gUnk_08689DD8
-
-	thumb_func_start func_fe6_08084428
-func_fe6_08084428: @ 0x08084428
-	ldr r1, .L08084434 @ =gUnk_08689DD8
-	ldr r1, [r1]
-	subs r0, r0, r1
-	lsls r0, r0, #0x10
-	lsrs r0, r0, #0x10
-	bx lr
-	.align 2, 0
-.L08084434: .4byte gUnk_08689DD8
-
-	thumb_func_start func_fe6_08084438
-func_fe6_08084438: @ 0x08084438
+	thumb_func_start LoadAndVerifySaveBlockInfo
+LoadAndVerifySaveBlockInfo: @ 0x08084438
 	push {r4, r5, lr}
 	sub sp, #0x10
 	adds r4, r0, #0
@@ -95,7 +13,7 @@ func_fe6_08084438: @ 0x08084438
 	mov r4, sp
 .L08084446:
 	ldr r2, .L08084474 @ =ReadSramFast
-	ldr r0, .L08084478 @ =gUnk_08689DD8
+	ldr r0, .L08084478 @ =gpSramEntry
 	lsls r1, r5, #4
 	adds r1, #0x20
 	ldr r0, [r0]
@@ -117,7 +35,7 @@ func_fe6_08084438: @ 0x08084438
 	mov pc, r0
 	.align 2, 0
 .L08084474: .4byte ReadSramFast
-.L08084478: .4byte gUnk_08689DD8
+.L08084478: .4byte gpSramEntry
 .L0808447C: .4byte 0x0000200A
 .L08084480: .4byte .L08084484
 .L08084484: @ jump table
@@ -145,7 +63,7 @@ func_fe6_08084438: @ 0x08084438
 	cmp r0, r1
 	bne .L080844C8
 	adds r0, r4, #0
-	bl func_fe6_08085F74
+	bl VerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L080844CA
@@ -221,7 +139,7 @@ func_fe6_080844D4: @ 0x080844D4
 .L0808453E:
 	adds r0, r4, #0
 	bl func_fe6_08085F98
-	ldr r0, .L0808455C @ =gUnk_08689DD8
+	ldr r0, .L0808455C @ =gpSramEntry
 	lsls r2, r6, #4
 	adds r2, #0x20
 	ldr r1, [r0]
@@ -234,7 +152,7 @@ func_fe6_080844D4: @ 0x080844D4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0808455C: .4byte gUnk_08689DD8
+.L0808455C: .4byte gpSramEntry
 
 	thumb_func_start func_fe6_08084560
 func_fe6_08084560: @ 0x08084560
@@ -256,56 +174,56 @@ func_fe6_08084560: @ 0x08084560
 	.4byte .L080845EC @ case 5
 	.4byte .L08084600 @ case 6
 .L08084590:
-	ldr r0, .L0808459C @ =gUnk_08689DD8
+	ldr r0, .L0808459C @ =gpSramEntry
 	ldr r0, [r0]
 	ldr r1, .L080845A0 @ =0x00003BE8
 	adds r0, r0, r1
 	b .L0808460A
 	.align 2, 0
-.L0808459C: .4byte gUnk_08689DD8
+.L0808459C: .4byte gpSramEntry
 .L080845A0: .4byte 0x00003BE8
 .L080845A4:
-	ldr r0, .L080845B0 @ =gUnk_08689DD8
+	ldr r0, .L080845B0 @ =gpSramEntry
 	ldr r0, [r0]
 	ldr r1, .L080845B4 @ =0x000049D8
 	adds r0, r0, r1
 	b .L0808460A
 	.align 2, 0
-.L080845B0: .4byte gUnk_08689DD8
+.L080845B0: .4byte gpSramEntry
 .L080845B4: .4byte 0x000049D8
 .L080845B8:
-	ldr r0, .L080845C4 @ =gUnk_08689DD8
+	ldr r0, .L080845C4 @ =gpSramEntry
 	ldr r0, [r0]
 	ldr r1, .L080845C8 @ =0x000057C8
 	adds r0, r0, r1
 	b .L0808460A
 	.align 2, 0
-.L080845C4: .4byte gUnk_08689DD8
+.L080845C4: .4byte gpSramEntry
 .L080845C8: .4byte 0x000057C8
 .L080845CC:
-	ldr r0, .L080845D4 @ =gUnk_08689DD8
+	ldr r0, .L080845D4 @ =gpSramEntry
 	ldr r0, [r0]
 	adds r0, #0x90
 	b .L0808460A
 	.align 2, 0
-.L080845D4: .4byte gUnk_08689DD8
+.L080845D4: .4byte gpSramEntry
 .L080845D8:
-	ldr r0, .L080845E4 @ =gUnk_08689DD8
+	ldr r0, .L080845E4 @ =gpSramEntry
 	ldr r0, [r0]
 	ldr r1, .L080845E8 @ =0x00001E3C
 	adds r0, r0, r1
 	b .L0808460A
 	.align 2, 0
-.L080845E4: .4byte gUnk_08689DD8
+.L080845E4: .4byte gpSramEntry
 .L080845E8: .4byte 0x00001E3C
 .L080845EC:
-	ldr r0, .L080845F8 @ =gUnk_08689DD8
+	ldr r0, .L080845F8 @ =gpSramEntry
 	ldr r0, [r0]
 	ldr r1, .L080845FC @ =0x000065B8
 	adds r0, r0, r1
 	b .L0808460A
 	.align 2, 0
-.L080845F8: .4byte gUnk_08689DD8
+.L080845F8: .4byte gpSramEntry
 .L080845FC: .4byte 0x000065B8
 .L08084600:
 	ldr r0, .L08084604 @ =0x0E007000
@@ -323,10 +241,10 @@ func_fe6_0808460C: @ 0x0808460C
 	sub sp, #0x10
 	adds r1, r0, #0
 	mov r0, sp
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	mov r0, sp
 	ldrh r0, [r0, #8]
-	bl func_fe6_08084414
+	bl SramOffsetToPointer
 	add sp, #0x10
 	pop {r1}
 	bx r1
@@ -918,7 +836,7 @@ func_fe6_08084A10: @ 0x08084A10
 	bl WriteAndVerifySramFast
 	mov r0, sp
 	adds r1, r4, #0
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	mov r0, sp
 	adds r1, r4, #0
 	bl func_fe6_080844D4
@@ -933,7 +851,7 @@ func_fe6_08084A10: @ 0x08084A10
 	bl WriteAndVerifySramFast
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
 	bl func_fe6_080844D4
@@ -1490,7 +1408,7 @@ func_fe6_08084EA4: @ 0x08084EA4
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08084EBE
-	bl func_fe6_0808439C
+	bl InitGlobalSaveInfo
 	mov r0, sp
 	bl LoadGlobalSaveInfo
 .L08084EBE:
@@ -1936,7 +1854,7 @@ func_fe6_0808525C: @ 0x0808525C
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -2879,7 +2797,7 @@ func_fe6_080859E0: @ 0x080859E0
 	adds r1, r0, #0
 	adds r1, #3
 	movs r0, #0
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08085A2C
@@ -2888,7 +2806,7 @@ func_fe6_080859E0: @ 0x080859E0
 	adds r1, r0, #0
 	adds r1, #3
 	movs r0, #0
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08085A2C
@@ -3574,8 +3492,8 @@ func_fe6_08085F24: @ 0x08085F24
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08085F4C
-func_fe6_08085F4C: @ 0x08085F4C
+	thumb_func_start CalcSaveDataCkSum32
+CalcSaveDataCkSum32: @ 0x08085F4C
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	ldr r1, .L08085F6C @ =ReadSramFast
@@ -3594,15 +3512,15 @@ func_fe6_08085F4C: @ 0x08085F4C
 .L08085F6C: .4byte ReadSramFast
 .L08085F70: .4byte gBuf
 
-	thumb_func_start func_fe6_08085F74
-func_fe6_08085F74: @ 0x08085F74
+	thumb_func_start VerifySaveBlockInfo
+VerifySaveBlockInfo: @ 0x08085F74
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
-	bl func_fe6_08084414
+	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	ldr r1, [r4, #0xc]
 	cmp r1, r0
 	bne .L08085F90
@@ -3621,9 +3539,9 @@ func_fe6_08085F98: @ 0x08085F98
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
-	bl func_fe6_08084414
+	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	str r0, [r4, #0xc]
 	pop {r4, r5}
 	pop {r0}
@@ -3644,7 +3562,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3663,7 +3581,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3682,7 +3600,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3699,7 +3617,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3711,14 +3629,14 @@ func_fe6_08085FB4: @ 0x08085FB4
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0
 	bl GetTrap
 	movs r1, #0x80
-	bl func_fe6_08085F4C
+	bl CalcSaveDataCkSum32
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3743,7 +3661,7 @@ func_fe6_08086090: @ 0x08086090
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
-	bl func_fe6_08084438
+	bl LoadAndVerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}

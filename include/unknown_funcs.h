@@ -2433,10 +2433,10 @@ bool IsSramWorking(void);
 bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 // SaveGlobalSaveInfoNoChecksum
-// func_fe6_0808439C
-// func_fe6_08084414
-// func_fe6_08084428
-bool func_fe6_08084438(struct SaveBlockInfo * blockInfo, int id);
+// InitGlobalSaveInfo
+// SramOffsetToPointer
+// SramPointerToOffset
+bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
 // func_fe6_080844D4
 // func_fe6_08084560
 // func_fe6_0808460C
@@ -2506,8 +2506,8 @@ bool func_fe6_080859E0(int saveId);
 // func_fe6_08085EF4
 // func_fe6_08085F14
 // func_fe6_08085F24
-// func_fe6_08085F4C
-// func_fe6_08085F74
+// CalcSaveDataCkSum32
+// VerifySaveBlockInfo
 // func_fe6_08085F98
 // func_fe6_08085FB4
 // func_fe6_08086088

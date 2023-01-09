@@ -13861,7 +13861,7 @@ func_fe6_0803C060: @ 0x0803C060
 	bl GetTalkChoiceResult
 	cmp r0, #1
 	bne .L0803C072
-	bl func_fe6_0808439C
+	bl InitGlobalSaveInfo
 	b .L0803C07A
 .L0803C072:
 	adds r0, r4, #0

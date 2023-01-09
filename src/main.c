@@ -13,7 +13,7 @@
 #include "m4a.h"
 
 void SramInit(void);
-void func_fe6_0808439C(void);
+void InitGlobalSaveInfo(void);
 
 NAKEDFUNC void AgbMain(void)
 {
@@ -59,7 +59,7 @@ NAKEDFUNC void AgbMain(void)
     RandInit(RandNextB());
 
     if (!LoadGlobalSaveInfo(NULL))
-        func_fe6_0808439C();
+        InitGlobalSaveInfo();
 
     m4aSoundInit();
     SetOnVBlank(OnVBlank);
