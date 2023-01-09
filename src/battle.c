@@ -16,6 +16,7 @@
 #include "action.h"
 #include "chapterinfo.h"
 #include "mu.h"
+#include "save.h"
 
 #include "constants/pids.h"
 #include "constants/jids.h"

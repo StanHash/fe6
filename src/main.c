@@ -12,7 +12,7 @@
 
 #include "m4a.h"
 
-void func_fe6_080841FC(void);
+void SramInit(void);
 void func_fe6_0808439C(void);
 
 NAKEDFUNC void AgbMain(void)
@@ -50,7 +50,7 @@ NAKEDFUNC void AgbMain(void)
     RefreshKeySt(gKeySt);
 
     InitRamFuncs();
-    func_fe6_080841FC();
+    SramInit();
     InitProcs();
     InitSpriteAnims();
     InitMus();

@@ -2426,13 +2426,13 @@ void func_fe6_08081620(struct Unit * unit, ProcPtr parent);
 // func_fe6_080841B4
 // func_fe6_080841EC
 // func_fe6_080841F8
-// func_fe6_080841FC
+// SramInit
 bool IsSramWorking(void);
-// func_fe6_08084280
+// EraseSaveData
 // ComputeChecksum16
 bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-// func_fe6_08084388
+// SaveGlobalSaveInfoNoChecksum
 // func_fe6_0808439C
 // func_fe6_08084414
 // func_fe6_08084428

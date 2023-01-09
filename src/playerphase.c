@@ -20,6 +20,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 #include "statscreen.h"
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"

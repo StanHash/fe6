@@ -27,6 +27,7 @@
 #include "ai_phase.h"
 #include "ui.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"

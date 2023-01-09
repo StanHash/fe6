@@ -17,6 +17,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "statscreen.h" // StartMuralBackground
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"

@@ -5,6 +5,7 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "action.h"
+#include "save.h"
 #include "ai_perform.h"
 #include "ai_utility.h"
 #include "ai_script.h"
