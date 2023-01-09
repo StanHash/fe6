@@ -177,12 +177,11 @@ struct GlobalSaveInfo
     /* 08 */ u32 magic_a;
     /* 0C */ u16 magic_b;
 
-    /* 0E */ u8 unk_0E_0 : 1;
-    /* 0E */ u8 unk_0E_1 : 1;
-    /* 0E */ u8 unk_0E_2 : 1;
-    /* 0E */ u8 unk_0E_3 : 1;
-    /* 0E */ u8 unk_0E_4 : 4;
-    /* 0F */ u8 pad_0F[0x10 - 0x0F];
+    /* 0E */ u32 unk_0E_0 : 1;
+             u32 unk_0E_1 : 1;
+             u32 unk_0E_2 : 1;
+             u32 unk_0E_3 : 1;
+             u32 unk_0E_4 : 12;
 
     /* 10 */ u8 unk_10[MAX_SAVED_GAME_CLEARS];
     /* 1C */ u16 cksum16;

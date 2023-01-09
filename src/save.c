@@ -87,8 +87,6 @@ void SaveGlobalSaveInfoNoChecksum(struct GlobalSaveInfo *saveInfo)
     WriteAndVerifySramFast((u8*)saveInfo, gpSramEntry, sizeof(struct GlobalSaveInfo));
 }
 
-#if NONMATCHING
-
 void InitGlobalSaveInfo()
 {
     int i;
@@ -106,84 +104,14 @@ void InitGlobalSaveInfo()
     info.unk_0E_3 = 0;
     info.unk_0E_4 = 0;
     
-    info.unk1F = 0;
-    info.slot_sa = 0;
     info.slot_su = 0;
+    info.slot_sa = 0;
 
     for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
         info.unk_10[i] = 0;
 
     SaveGlobalSaveInfo(&info);
 }
-
-#else // if !NONMATCHING
-
-NAKEDFUNC
-void InitGlobalSaveInfo()
-{
-    asm("\
-        .syntax unified\n\
-        push {lr}\n\
-        sub sp, #0x20\n\
-        bl EraseSaveData\n\
-        ldr r1, .L08084408\n\
-        mov r0, sp\n\
-        bl StringCopy\n\
-        ldr r0, .L0808440C\n\
-        str r0, [sp, #8]\n\
-        mov r1, sp\n\
-        movs r3, #0\n\
-        ldr r0, .L08084410\n\
-        strh r0, [r1, #0xc]\n\
-        movs r0, #2\n\
-        rsbs r0, r0, #0\n\
-        ldrb r2, [r1, #0xe]\n\
-        ands r0, r2\n\
-        strb r0, [r1, #0xe]\n\
-        mov r2, sp\n\
-        movs r1, #5\n\
-        rsbs r1, r1, #0\n\
-        ands r1, r0\n\
-        strb r1, [r2, #0xe]\n\
-        mov r0, sp\n\
-        movs r2, #3\n\
-        rsbs r2, r2, #0\n\
-        ands r2, r1\n\
-        strb r2, [r0, #0xe]\n\
-        mov r1, sp\n\
-        movs r0, #9\n\
-        rsbs r0, r0, #0\n\
-        ands r0, r2\n\
-        strb r0, [r1, #0xe]\n\
-        movs r0, #0xf\n\
-        ldrh r2, [r1, #0xe]\n\
-        ands r0, r2\n\
-        strh r0, [r1, #0xe]\n\
-        mov r0, sp\n\
-        strb r3, [r0, #0x1f]\n\
-        strb r3, [r0, #0x1e]\n\
-        add r1, sp, #0x10\n\
-        movs r2, #0\n\
-        adds r0, #0x1b\n\
-    .L080843F4:\n\
-        strb r2, [r0]\n\
-        subs r0, #1\n\
-        cmp r0, r1\n\
-        bge .L080843F4\n\
-        mov r0, sp\n\
-        bl SaveGlobalSaveInfo\n\
-        add sp, #0x20\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    .L08084408: .4byte gGlobalSaveInfoName\n\
-    .L0808440C: .4byte 0x00011217\n\
-    .L08084410: .4byte 0x0000200A\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // if !NONMATCHING
 
 u8 *SramOffsetToPointer(u16 off)
 {
