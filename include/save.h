@@ -17,3 +17,5 @@ bool IsSramWorking();
 u16 ComputeChecksum16(const u16* data, int size);
 bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 bool CkSum32SaveBlockInfo(struct SaveBlockInfo *chunk);
+u8 *GetSaveTargetAddress(int index);
+void GenerateSaveBlockInfoCkSum32(struct SaveBlockInfo *chunk);

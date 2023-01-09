@@ -122,3 +122,121 @@ u16 SramPointerToOffset(u8 *addr)
 {
     return addr - gpSramEntry;
 }
+
+bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo *chunk, int id)
+{
+    u32 magic_a;
+    struct SaveBlockInfo tmp;
+
+    if (NULL == chunk)
+        chunk = &tmp;
+
+    (*ReadSramFast)((u8*)&((struct SramHeader*)gpSramEntry)->chunks[id], (u8*)chunk, sizeof(struct SaveBlockInfo));
+
+    if (0x200A != chunk->magic_b)
+        return FALSE;
+
+    switch (id) {
+    case SAVE_ID_GAME0:
+    case SAVE_ID_GAME1:
+    case SAVE_ID_GAME2:
+    case SAVE_ID_SUSPEND0:
+        magic_a = 0x11217;
+        break;
+
+    case SAVE_ID_SUSPEND1:
+        magic_a = 0x11217;
+        break;
+    
+    case SAVE_ID_5:
+        magic_a = 0x20112;
+        break;
+
+    case SAVE_ID_6:
+        magic_a = 0x20223;
+        break;
+
+    default:
+        return FALSE;
+    } /* switch */
+
+    if (chunk->magic_a != magic_a)
+        return FALSE;
+
+    return CkSum32SaveBlockInfo(chunk);
+}
+
+void WriteAndCkSum32SaveBlockInfo(struct SaveBlockInfo *chunk, int index)
+{
+    chunk->magic_b = 0x200A;
+    chunk->offset  = (uintptr_t)GetSaveTargetAddress(index);
+
+    if (!(index < SAVE_ID_MAX))
+        return;
+    
+    switch (chunk->kind) {
+    case SAVE_ID_GAME0:
+        chunk->size = 0xDF0;
+        break;
+
+    case SAVE_ID_GAME1:
+        chunk->size = 0x1DAC;
+        break;
+
+    case SAVE_ID_GAME2:
+        chunk->size = 0x93C;
+        break;
+
+    case SAVE_ID_SUSPEND0:
+        chunk->size = 0x1000;
+        break;
+
+    case 0xFF:
+        chunk->size = 0;
+        chunk->offset = 0;
+        chunk->magic_b = 0;
+        break;
+
+    default:
+        return;
+    }; /* switch */
+
+    GenerateSaveBlockInfoCkSum32(chunk);
+    WriteAndVerifySramFast((u8*)chunk, (u8*)&((struct SramHeader*)gpSramEntry)->chunks[index], sizeof(struct SaveBlockInfo));
+}
+
+u8 *GetSaveTargetAddress(int index)
+{
+    switch (index) {
+        case SAVE_ID_GAME0:
+            return 0x3BE8 + gpSramEntry;
+
+        case SAVE_ID_GAME1:
+            return 0x49D8 + gpSramEntry;
+
+        case SAVE_ID_GAME2:
+            return 0x57C8 + gpSramEntry;
+
+        case SAVE_ID_SUSPEND0:
+            return 0x0090 + gpSramEntry;
+
+        case SAVE_ID_SUSPEND1:
+            return 0x1E3C + gpSramEntry;
+
+        case SAVE_ID_5:
+            return 0x65B8 + gpSramEntry;
+
+        case SAVE_ID_6:
+            return (u8*)0x0E007000;
+
+        default:
+            return NULL;
+    } /* switch */
+}
+
+u8 *GetSaveSourceAddress(int index)
+{
+    struct SaveBlockInfo chunk;
+    LoadAndVerifySaveBlockInfo(&chunk, index);
+    return SramOffsetToPointer(chunk.offset);
+}
