@@ -54,7 +54,7 @@ void AiDecide_Suspend(ProcPtr proc)
     else
         gAction.suspendPoint = SUSPEND_POINT_AI_PHASE;
 
-    func_fe6_080857B0(SAVE_ID_SUSPEND0);
+    SaveSuspendedGame(SAVE_ID_SUSPEND0);
 }
 
 void AiDecide_NextUnit(ProcPtr proc)

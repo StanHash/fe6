@@ -182,12 +182,12 @@ struct GlobalSaveInfo
     /* 0E */ u8 unk_0E_2 : 1;
     /* 0E */ u8 unk_0E_3 : 1;
     /* 0E */ u8 unk_0E_4 : 4;
-    
-    /* 0F */ u8 unk0F;
+    /* 0F */ u8 pad_0F[0x10 - 0x0F];
 
     /* 10 */ u8 unk_10[MAX_SAVED_GAME_CLEARS];
     /* 1C */ u16 cksum16;
-    /* 1E */ u16 unk1E;
+    /* 1E */ u8 slot_sa;
+    /* 1F */ u8 slot_su;
 };
 
 struct SaveBlockInfo

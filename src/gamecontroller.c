@@ -229,10 +229,10 @@ static int GetFurthestSaveChapter(void)
 
     for (i = SAVE_ID_GAME0; i < SAVE_ID_GAME2 + 1; ++i)
     {
-        if (!func_fe6_0808525C(i))
+        if (!VerifySaveBlockInfo2(i))
             continue;
 
-        func_fe6_08085270(i, &playSt);
+        LoadPlaySt(i, &playSt);
 
         if (number < GetChapterInfo(playSt.chapter)->numberId)
         {

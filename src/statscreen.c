@@ -1401,7 +1401,7 @@ void StartStatScreen(struct Unit * unit, ProcPtr parent)
     gStatScreenSt.page_slide_key_bit = 0;
     gStatScreenSt.is_transitioning = FALSE;
 
-    func_fe6_08084BB8(unit->pinfo->id);
+    PidStatsAddStatViewAmt(unit->pinfo->id);
 
     PlaySe(SONG_6A);
 

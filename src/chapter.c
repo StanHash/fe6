@@ -42,7 +42,7 @@ int GetTextPrintDelay(void)
 
 int IsFirstPlaythrough(void)
 {
-    if (!func_fe6_080846F0())
+    if (!GetGlobalSaveInfo_unk0Eb0())
         return TRUE;
 
     if (gPlaySt.flags & PLAY_FLAG_5)

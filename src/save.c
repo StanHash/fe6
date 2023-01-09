@@ -107,7 +107,8 @@ void InitGlobalSaveInfo()
     info.unk_0E_4 = 0;
     
     info.unk1F = 0;
-    info.unk1E = 0;
+    info.slot_sa = 0;
+    info.slot_su = 0;
 
     for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
         info.unk_10[i] = 0;

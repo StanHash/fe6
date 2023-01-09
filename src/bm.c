@@ -462,7 +462,7 @@ int BmMain_UpdateTraps(ProcPtr proc)
 void BmMain_SuspendBeforePhase(ProcPtr proc)
 {
     gAction.suspendPoint = SUSPEND_POINT_CHANGE_PHASE;
-    func_fe6_080857B0(SAVE_ID_SUSPEND0);
+    SaveSuspendedGame(SAVE_ID_SUSPEND0);
 }
 
 void InitBmBgLayers(void)

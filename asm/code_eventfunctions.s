@@ -1590,7 +1590,7 @@ func_fe6_0806C594: @ 0x0806C594
 func_fe6_0806C5A8: @ 0x0806C5A8
 	push {r4, r5, lr}
 	movs r0, #5
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	adds r2, r0, #0
 	ldrb r1, [r2, #7]
 	lsrs r0, r1, #4
@@ -1598,7 +1598,7 @@ func_fe6_0806C5A8: @ 0x0806C5A8
 	lsls r5, r2, #4
 	orrs r5, r0
 	movs r0, #4
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	adds r2, r0, #0
 	ldrb r0, [r2, #7]
 	lsrs r1, r0, #4
@@ -1607,7 +1607,7 @@ func_fe6_0806C5A8: @ 0x0806C5A8
 	orrs r0, r1
 	adds r5, r5, r0
 	movs r0, #0x2e
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	adds r2, r0, #0
 	ldrb r1, [r2, #7]
 	lsrs r0, r1, #4
@@ -1615,7 +1615,7 @@ func_fe6_0806C5A8: @ 0x0806C5A8
 	lsls r4, r2, #4
 	orrs r4, r0
 	movs r0, #0x31
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	adds r2, r0, #0
 	ldrb r0, [r2, #7]
 	lsrs r1, r0, #4

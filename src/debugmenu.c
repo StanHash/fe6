@@ -343,7 +343,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
     CleanupUnitsBeforeChapter();
-    func_fe6_08085110(func_fe6_08084F94());
+    SaveGame(GetLastestSaveSlotIndex());
 
     SoftReset(GBA_RESET_ALL);
 }
@@ -437,10 +437,10 @@ fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     InitUnits();
 
-    func_fe6_0808505C(SAVE_ID_GAME0, FALSE);
+    SaveNewGame(SAVE_ID_GAME0, FALSE);
     gPlaySt.chapter = ent->id;
 
-    func_fe6_08085110(0);
+    SaveGame(0);
     CleanupUnitsBeforeChapter();
 
     RestartGameAndChapter();
@@ -479,7 +479,7 @@ fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    func_fe6_080857B0(SAVE_ID_SUSPEND1);
+    SaveSuspendedGame(SAVE_ID_SUSPEND1);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
@@ -497,7 +497,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
     if (FindProc(ProcScr_BmMain) != NULL)
         EndMapMain();
 
-    func_fe6_080858E4(SAVE_ID_SUSPEND1);
+    LoadSuspendedGame(SAVE_ID_SUSPEND1);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
@@ -513,7 +513,7 @@ fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    func_fe6_080858E4(SAVE_ID_SUSPEND0);
+    LoadSuspendedGame(SAVE_ID_SUSPEND0);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;

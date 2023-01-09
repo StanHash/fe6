@@ -43,7 +43,7 @@ struct SuspendPackedUnit
     /*    */ u32 item_e          : 14;
 };
 
-void func_fe6_08085A48(struct Unit * unit, void * buf)
+void PackUnitForSuspend(struct Unit * unit, void * buf)
 {
     int i;
 

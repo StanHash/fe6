@@ -805,8 +805,8 @@ void func_fe6_08021B30(int arg_0)
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {
-            func_fe6_08084AEC(other->pinfo->id, 0, arg_0);
-            func_fe6_08084A10(other->pinfo->id);
+            PidStatsRecordDeathData(other->pinfo->id, 0, arg_0);
+            PidStatsRecordLoseData(other->pinfo->id);
         }
     }
 }

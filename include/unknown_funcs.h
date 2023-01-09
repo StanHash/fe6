@@ -2437,19 +2437,19 @@ void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 // SramOffsetToPointer
 // SramPointerToOffset
 bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
-// func_fe6_080844D4
-// func_fe6_08084560
-// func_fe6_0808460C
-// func_fe6_08084628
-// func_fe6_08084648
-// func_fe6_08084668
-// func_fe6_08084690
-// func_fe6_080846B8
-// func_fe6_080846D0
-bool func_fe6_080846F0(void);
+// WriteAndCkSum32SaveBlockInfo
+// GetSaveTargetAddress
+// GetSaveSourceAddress
+// SaveChapterFlagBits
+// SavePermanentFlagBits
+// LoadChapterFlagBits
+// LoadPermanentFlagBits
+// SaveSupplyItems
+// LoadSupplyItems
+bool GetGlobalSaveInfo_unk0Eb0(void);
 // func_fe6_08084714
 // func_fe6_08084718
-// func_fe6_0808474C
+// GetGlobalSaveInfo_unk0Eb0_
 // func_fe6_0808475C
 // func_fe6_08084798
 void func_fe6_08084818(void);
@@ -2461,57 +2461,57 @@ void func_fe6_08084818(void);
 // func_fe6_080848C8
 // func_fe6_080848DC
 void func_fe6_08084908(struct PlaySt * playSt);
-void func_fe6_0808495C(struct Unit * unit);
-// func_fe6_080849BC
-void func_fe6_08084A10(u8 pid);
-void func_fe6_08084AEC(u8 pid, int arg_1, int arg_2);
-void func_fe6_08084B84(u8 pid);
-void func_fe6_08084BB8(u8 pid);
-// func_fe6_08084BEC
+void PidStatsAddBattleAmt(struct Unit * unit);
+// PidStatsAddWinAmt
+void PidStatsRecordLoseData(u8 pid);
+void PidStatsRecordDeathData(u8 pid, int arg_1, int arg_2);
+void PidStatsAddActAmt(u8 pid);
+void PidStatsAddStatViewAmt(u8 pid);
+// PidStatsAddDeployAmt
 void PidStatsAddSquaresMoved(int pid, int amount);
 void PidStatsAddExpGained(int pid, int amount);
-// func_fe6_08084CD8
-// func_fe6_08084CFC
-// func_fe6_08084D1C
-// func_fe6_08084D34
-void func_fe6_08084D64(void);
-// func_fe6_08084DC8
-// func_fe6_08084E18
+// PidStatsGetTotalBattleAmt
+// PidStatsGetTotalWinAmt
+// PidStatsGetTotalLossAmt
+// PidStatsGetTotalLevel
+void PidStatsRecordBattleRes(void);
+// IsPlaythroughIdUnique
+// GetNewPlaythroughId
 int GetGlobalCompletedPlaythroughCount(void);
 void RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
 void func_fe6_08084EA4(void);
 // func_fe6_08084F48
-// func_fe6_08084F4C
-// func_fe6_08084F78
-int func_fe6_08084F94(void);
+// GetPidStats
+// SettLastestSaveSlotIndex
+int GetLastestSaveSlotIndex(void);
 // func_fe6_08084FB8
-// func_fe6_08084FF8
-void func_fe6_0808505C(int saveId, int isHard);
-void func_fe6_08085110(int arg_0);
-// func_fe6_080851B4
-i8 func_fe6_0808525C(int saveId);
-void func_fe6_08085270(int saveId, struct PlaySt * out);
+// CopyGameSave
+void SaveNewGame(int saveId, int isHard);
+void SaveGame(int arg_0);
+// LoadGame
+i8 VerifySaveBlockInfo2(int saveId);
+void LoadPlaySt(int saveId, struct PlaySt * out);
 // func_fe6_08085290
-// func_fe6_080852C4
-// func_fe6_080855C4
+// SaveUnit
+// LoadUnit
 void func_fe6_08085788(int saveId);
-void func_fe6_080857B0(int saveId);
-void func_fe6_080858E4(int saveId);
+void SaveSuspendedGame(int saveId);
+void LoadSuspendedGame(int saveId);
 bool func_fe6_080859E0(int saveId);
 // func_fe6_08085A34
-// func_fe6_08085A48
-// func_fe6_08085CE0
-// func_fe6_08085EB4
-// func_fe6_08085ED0
-// func_fe6_08085EF4
-// func_fe6_08085F14
-// func_fe6_08085F24
-// CalcSaveDataCkSum32
-// VerifySaveBlockInfo
-// func_fe6_08085F98
-// func_fe6_08085FB4
+// PackUnitForSuspend
+// LoadUnitFormSuspend
+// SaveTraps
+// LoadTraps
+// GetLastSuspendSlotIndex
+// GetNextSuspendSlotIndex
+// ChangeSuspendSlotIndex
+// GetCkSum32FromSRAM
+// CkSum32SaveBlockInfo
+// GenerateSaveBlockInfoCkSum32
+// ComputeSaveDataCkSum32
 // func_fe6_08086088
-// func_fe6_08086090
+// VerifySaveBlockInfo
 // func_fe6_080860A4
 // func_fe6_080861EC
 // func_fe6_08086220

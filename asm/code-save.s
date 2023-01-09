@@ -63,7 +63,7 @@ LoadAndVerifySaveBlockInfo: @ 0x08084438
 	cmp r0, r1
 	bne .L080844C8
 	adds r0, r4, #0
-	bl VerifySaveBlockInfo
+	bl CkSum32SaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	b .L080844CA
@@ -78,8 +78,8 @@ LoadAndVerifySaveBlockInfo: @ 0x08084438
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_080844D4
-func_fe6_080844D4: @ 0x080844D4
+	thumb_func_start WriteAndCkSum32SaveBlockInfo
+WriteAndCkSum32SaveBlockInfo: @ 0x080844D4
 	push {r4, r5, r6, r7, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -88,7 +88,7 @@ func_fe6_080844D4: @ 0x080844D4
 	ldr r0, .L08084504 @ =0x0000200A
 	strh r0, [r4, #4]
 	adds r0, r6, #0
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	strh r0, [r4, #8]
 	cmp r6, #6
 	bgt .L08084556
@@ -138,7 +138,7 @@ func_fe6_080844D4: @ 0x080844D4
 	strh r5, [r4, #4]
 .L0808453E:
 	adds r0, r4, #0
-	bl func_fe6_08085F98
+	bl GenerateSaveBlockInfoCkSum32
 	ldr r0, .L0808455C @ =gpSramEntry
 	lsls r2, r6, #4
 	adds r2, #0x20
@@ -154,8 +154,8 @@ func_fe6_080844D4: @ 0x080844D4
 	.align 2, 0
 .L0808455C: .4byte gpSramEntry
 
-	thumb_func_start func_fe6_08084560
-func_fe6_08084560: @ 0x08084560
+	thumb_func_start GetSaveTargetAddress
+GetSaveTargetAddress: @ 0x08084560
 	cmp r0, #6
 	bhi .L08084608
 	lsls r0, r0, #2
@@ -235,8 +235,8 @@ func_fe6_08084560: @ 0x08084560
 .L0808460A:
 	bx lr
 
-	thumb_func_start func_fe6_0808460C
-func_fe6_0808460C: @ 0x0808460C
+	thumb_func_start GetSaveSourceAddress
+GetSaveSourceAddress: @ 0x0808460C
 	push {lr}
 	sub sp, #0x10
 	adds r1, r0, #0
@@ -250,8 +250,8 @@ func_fe6_0808460C: @ 0x0808460C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08084628
-func_fe6_08084628: @ 0x08084628
+	thumb_func_start SaveChapterFlagBits
+SaveChapterFlagBits: @ 0x08084628
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	bl GetChapterFlagBits
@@ -266,8 +266,8 @@ func_fe6_08084628: @ 0x08084628
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08084648
-func_fe6_08084648: @ 0x08084648
+	thumb_func_start SavePermanentFlagBits
+SavePermanentFlagBits: @ 0x08084648
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	bl GetPermanentFlagBits
@@ -282,8 +282,8 @@ func_fe6_08084648: @ 0x08084648
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08084668
-func_fe6_08084668: @ 0x08084668
+	thumb_func_start LoadChapterFlagBits
+LoadChapterFlagBits: @ 0x08084668
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r4, .L0808468C @ =ReadSramFast
@@ -301,8 +301,8 @@ func_fe6_08084668: @ 0x08084668
 	.align 2, 0
 .L0808468C: .4byte ReadSramFast
 
-	thumb_func_start func_fe6_08084690
-func_fe6_08084690: @ 0x08084690
+	thumb_func_start LoadPermanentFlagBits
+LoadPermanentFlagBits: @ 0x08084690
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	ldr r4, .L080846B4 @ =ReadSramFast
@@ -320,8 +320,8 @@ func_fe6_08084690: @ 0x08084690
 	.align 2, 0
 .L080846B4: .4byte ReadSramFast
 
-	thumb_func_start func_fe6_080846B8
-func_fe6_080846B8: @ 0x080846B8
+	thumb_func_start SaveSupplyItems
+SaveSupplyItems: @ 0x080846B8
 	push {r4, lr}
 	adds r4, r0, #0
 	bl GetSupplyItems
@@ -333,8 +333,8 @@ func_fe6_080846B8: @ 0x080846B8
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_080846D0
-func_fe6_080846D0: @ 0x080846D0
+	thumb_func_start LoadSupplyItems
+LoadSupplyItems: @ 0x080846D0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L080846EC @ =ReadSramFast
@@ -350,8 +350,8 @@ func_fe6_080846D0: @ 0x080846D0
 	.align 2, 0
 .L080846EC: .4byte ReadSramFast
 
-	thumb_func_start func_fe6_080846F0
-func_fe6_080846F0: @ 0x080846F0
+	thumb_func_start GetGlobalSaveInfo_unk0Eb0
+GetGlobalSaveInfo_unk0Eb0: @ 0x080846F0
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -406,10 +406,10 @@ func_fe6_08084718: @ 0x08084718
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_0808474C
-func_fe6_0808474C: @ 0x0808474C
+	thumb_func_start GetGlobalSaveInfo_unk0Eb0_
+GetGlobalSaveInfo_unk0Eb0_: @ 0x0808474C
 	push {lr}
-	bl func_fe6_080846F0
+	bl GetGlobalSaveInfo_unk0Eb0
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -423,13 +423,13 @@ func_fe6_0808475C: @ 0x0808475C
 	movs r4, #0
 .L08084762:
 	adds r0, r4, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08084786
 	adds r0, r4, #0
 	mov r1, sp
-	bl func_fe6_08085270
+	bl LoadPlaySt
 	mov r1, sp
 	movs r0, #0x20
 	ldrb r1, [r1, #0x14]
@@ -679,8 +679,8 @@ func_fe6_08084908: @ 0x08084908
 	.align 2, 0
 .L08084958: .4byte 0x0000EA60
 
-	thumb_func_start func_fe6_0808495C
-func_fe6_0808495C: @ 0x0808495C
+	thumb_func_start PidStatsAddBattleAmt
+PidStatsAddBattleAmt: @ 0x0808495C
 	push {r4, lr}
 	adds r1, r0, #0
 	movs r0, #0xc0
@@ -727,8 +727,8 @@ func_fe6_0808495C: @ 0x0808495C
 .L080849B4: .4byte 0x00000FFF
 .L080849B8: .4byte 0xFFFFC003
 
-	thumb_func_start func_fe6_080849BC
-func_fe6_080849BC: @ 0x080849BC
+	thumb_func_start PidStatsAddWinAmt
+PidStatsAddWinAmt: @ 0x080849BC
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -768,8 +768,8 @@ func_fe6_080849BC: @ 0x080849BC
 .L08084A08: .4byte 0x000003FF
 .L08084A0C: .4byte 0xFFFC00FF
 
-	thumb_func_start func_fe6_08084A10
-func_fe6_08084A10: @ 0x08084A10
+	thumb_func_start PidStatsRecordLoseData
+PidStatsRecordLoseData: @ 0x08084A10
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x10
 	lsls r0, r0, #0x18
@@ -822,11 +822,11 @@ func_fe6_08084A10: @ 0x08084A10
 	bhi .L08084AD0
 	adds r0, #1
 	strb r0, [r5]
-	bl func_fe6_08085EF4
+	bl GetLastSuspendSlotIndex
 	adds r4, r0, #0
 	adds r4, #3
 	adds r0, r4, #0
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	ldr r2, .L08084AE4 @ =0x000018B0
 	adds r0, r6, r2
@@ -839,9 +839,9 @@ func_fe6_08084A10: @ 0x08084A10
 	bl LoadAndVerifySaveBlockInfo
 	mov r0, sp
 	adds r1, r4, #0
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	ldrb r0, [r7, #0xc]
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	ldr r2, .L08084AE8 @ =0x000008F8
 	adds r0, r6, r2
@@ -854,7 +854,7 @@ func_fe6_08084A10: @ 0x08084A10
 	bl LoadAndVerifySaveBlockInfo
 	ldrb r1, [r7, #0xc]
 	mov r0, sp
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 .L08084AD0:
 	add sp, #0x10
 	pop {r4, r5, r6, r7}
@@ -867,8 +867,8 @@ func_fe6_08084A10: @ 0x08084A10
 .L08084AE4: .4byte 0x000018B0
 .L08084AE8: .4byte 0x000008F8
 
-	thumb_func_start func_fe6_08084AEC
-func_fe6_08084AEC: @ 0x08084AEC
+	thumb_func_start PidStatsRecordDeathData
+PidStatsRecordDeathData: @ 0x08084AEC
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -944,8 +944,8 @@ func_fe6_08084AEC: @ 0x08084AEC
 .L08084B7C: .4byte 0x0203D524
 .L08084B80: .4byte gPlaySt
 
-	thumb_func_start func_fe6_08084B84
-func_fe6_08084B84: @ 0x08084B84
+	thumb_func_start PidStatsAddActAmt
+PidStatsAddActAmt: @ 0x08084B84
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -973,8 +973,8 @@ func_fe6_08084B84: @ 0x08084B84
 	.align 2, 0
 .L08084BB4: .4byte 0x0203D524
 
-	thumb_func_start func_fe6_08084BB8
-func_fe6_08084BB8: @ 0x08084BB8
+	thumb_func_start PidStatsAddStatViewAmt
+PidStatsAddStatViewAmt: @ 0x08084BB8
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -1002,8 +1002,8 @@ func_fe6_08084BB8: @ 0x08084BB8
 	.align 2, 0
 .L08084BE8: .4byte 0x0203D524
 
-	thumb_func_start func_fe6_08084BEC
-func_fe6_08084BEC: @ 0x08084BEC
+	thumb_func_start PidStatsAddDeployAmt
+PidStatsAddDeployAmt: @ 0x08084BEC
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -1129,8 +1129,8 @@ PidStatsAddExpGained: @ 0x08084C84
 	.align 2, 0
 .L08084CD4: .4byte 0x0203D524
 
-	thumb_func_start func_fe6_08084CD8
-func_fe6_08084CD8: @ 0x08084CD8
+	thumb_func_start PidStatsGetTotalBattleAmt
+PidStatsGetTotalBattleAmt: @ 0x08084CD8
 	push {r4, lr}
 	movs r3, #0
 	ldr r2, .L08084CF8 @ =0x0203D534
@@ -1151,8 +1151,8 @@ func_fe6_08084CD8: @ 0x08084CD8
 	.align 2, 0
 .L08084CF8: .4byte 0x0203D534
 
-	thumb_func_start func_fe6_08084CFC
-func_fe6_08084CFC: @ 0x08084CFC
+	thumb_func_start PidStatsGetTotalWinAmt
+PidStatsGetTotalWinAmt: @ 0x08084CFC
 	movs r3, #0
 	ldr r2, .L08084D18 @ =0x0203D534
 	movs r1, #0x45
@@ -1170,8 +1170,8 @@ func_fe6_08084CFC: @ 0x08084CFC
 	.align 2, 0
 .L08084D18: .4byte 0x0203D534
 
-	thumb_func_start func_fe6_08084D1C
-func_fe6_08084D1C: @ 0x08084D1C
+	thumb_func_start PidStatsGetTotalLossAmt
+PidStatsGetTotalLossAmt: @ 0x08084D1C
 	movs r0, #0
 	ldr r2, .L08084D30 @ =0x0203D534
 	movs r1, #0x45
@@ -1186,8 +1186,8 @@ func_fe6_08084D1C: @ 0x08084D1C
 	.align 2, 0
 .L08084D30: .4byte 0x0203D534
 
-	thumb_func_start func_fe6_08084D34
-func_fe6_08084D34: @ 0x08084D34
+	thumb_func_start PidStatsGetTotalLevel
+PidStatsGetTotalLevel: @ 0x08084D34
 	push {r4, r5, r6, lr}
 	movs r6, #0
 	ldr r0, .L08084D60 @ =0x0203D534
@@ -1213,8 +1213,8 @@ func_fe6_08084D34: @ 0x08084D34
 	.align 2, 0
 .L08084D60: .4byte 0x0203D534
 
-	thumb_func_start func_fe6_08084D64
-func_fe6_08084D64: @ 0x08084D64
+	thumb_func_start PidStatsRecordBattleRes
+PidStatsRecordBattleRes: @ 0x08084D64
 	push {r4, r5, r6, r7, lr}
 	movs r7, #0
 	movs r5, #0
@@ -1245,7 +1245,7 @@ func_fe6_08084D64: @ 0x08084D64
 	bne .L08084DA4
 	ldr r0, [r5]
 	ldrb r0, [r0, #4]
-	bl func_fe6_080849BC
+	bl PidStatsAddWinAmt
 .L08084DA4:
 	cmp r7, #0
 	beq .L08084DBA
@@ -1256,7 +1256,7 @@ func_fe6_08084D64: @ 0x08084D64
 	bne .L08084DBA
 	ldr r0, [r7]
 	ldrb r0, [r0, #4]
-	bl func_fe6_08084A10
+	bl PidStatsRecordLoseData
 .L08084DBA:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -1265,8 +1265,8 @@ func_fe6_08084D64: @ 0x08084D64
 .L08084DC0: .4byte gBattleUnitA
 .L08084DC4: .4byte gBattleUnitB
 
-	thumb_func_start func_fe6_08084DC8
-func_fe6_08084DC8: @ 0x08084DC8
+	thumb_func_start IsPlaythroughIdUnique
+IsPlaythroughIdUnique: @ 0x08084DC8
 	push {r4, r5, r6, lr}
 	sub sp, #0x40
 	adds r6, r0, #0
@@ -1286,13 +1286,13 @@ func_fe6_08084DC8: @ 0x08084DC8
 	add r5, sp, #0x20
 .L08084DEA:
 	adds r0, r4, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08084E08
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl func_fe6_08085270
+	bl LoadPlaySt
 	ldrb r0, [r5, #0x18]
 	cmp r0, r6
 	bne .L08084E08
@@ -1310,13 +1310,13 @@ func_fe6_08084DC8: @ 0x08084DC8
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_08084E18
-func_fe6_08084E18: @ 0x08084E18
+	thumb_func_start GetNewPlaythroughId
+GetNewPlaythroughId: @ 0x08084E18
 	push {r4, lr}
 	movs r4, #1
 .L08084E1C:
 	adds r0, r4, #0
-	bl func_fe6_08084DC8
+	bl IsPlaythroughIdUnique
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08084E2C
@@ -1491,8 +1491,8 @@ func_fe6_08084F48: @ 0x08084F48
 	bx lr
 	.align 2, 0
 
-	thumb_func_start func_fe6_08084F4C
-func_fe6_08084F4C: @ 0x08084F4C
+	thumb_func_start GetPidStats
+GetPidStats: @ 0x08084F4C
 	push {r4, lr}
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
@@ -1517,8 +1517,8 @@ func_fe6_08084F4C: @ 0x08084F4C
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_08084F78
-func_fe6_08084F78: @ 0x08084F78
+	thumb_func_start SettLastestSaveSlotIndex
+SettLastestSaveSlotIndex: @ 0x08084F78
 	push {r4, lr}
 	sub sp, #0x20
 	adds r4, r0, #0
@@ -1532,8 +1532,8 @@ func_fe6_08084F78: @ 0x08084F78
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_08084F94
-func_fe6_08084F94: @ 0x08084F94
+	thumb_func_start GetLastestSaveSlotIndex
+GetLastestSaveSlotIndex: @ 0x08084F94
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -1579,25 +1579,25 @@ func_fe6_08084FB8: @ 0x08084FB8
 	strb r0, [r1, #6]
 	mov r0, sp
 	adds r1, r5, #0
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x30
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08084FF8
-func_fe6_08084FF8: @ 0x08084FF8
+	thumb_func_start CopyGameSave
+CopyGameSave: @ 0x08084FF8
 	push {r4, r5, r6, lr}
 	mov r6, sb
 	mov r5, r8
 	push {r5, r6}
 	sub sp, #0x10
 	mov sb, r1
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r6, r0, #0
 	mov r0, sb
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	mov r8, r0
 	ldr r0, .L08085050 @ =ReadSramFast
 	ldr r4, .L08085054 @ =gBuf
@@ -1619,7 +1619,7 @@ func_fe6_08084FF8: @ 0x08084FF8
 	strb r0, [r1, #6]
 	mov r0, sp
 	mov r1, sb
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -1632,15 +1632,15 @@ func_fe6_08084FF8: @ 0x08084FF8
 .L08085054: .4byte gBuf
 .L08085058: .4byte 0x00011217
 
-	thumb_func_start func_fe6_0808505C
-func_fe6_0808505C: @ 0x0808505C
+	thumb_func_start SaveNewGame
+SaveNewGame: @ 0x0808505C
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #0x3c
 	adds r7, r0, #0
 	adds r4, r1, #0
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r6, r0, #0
 	adds r0, r4, #0
 	bl InitPlayConfig
@@ -1649,7 +1649,7 @@ func_fe6_0808505C: @ 0x0808505C
 	bl ResetPermanentFlags
 	movs r0, #3
 	bl func_fe6_08085788
-	bl func_fe6_08084E18
+	bl GetNewPlaythroughId
 	adds r1, r0, #0
 	ldr r0, .L08085100 @ =gPlaySt
 	movs r4, #0
@@ -1681,20 +1681,20 @@ func_fe6_0808505C: @ 0x0808505C
 	movs r1, #0x84
 	lsls r1, r1, #4
 	adds r0, r6, r1
-	bl func_fe6_080846B8
+	bl SaveSupplyItems
 	adds r0, r6, #0
 	bl func_fe6_08084798
 	ldr r1, .L08085108 @ =0x00000DE8
 	adds r0, r6, r1
-	bl func_fe6_08084648
+	bl SavePermanentFlagBits
 	ldr r0, .L0808510C @ =0x00011217
 	str r0, [sp]
 	mov r0, sp
 	strb r4, [r0, #6]
 	adds r1, r7, #0
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	adds r0, r7, #0
-	bl func_fe6_08084F78
+	bl SettLastestSaveSlotIndex
 	add sp, #0x3c
 	pop {r3}
 	mov r8, r3
@@ -1707,14 +1707,14 @@ func_fe6_0808505C: @ 0x0808505C
 .L08085108: .4byte 0x00000DE8
 .L0808510C: .4byte 0x00011217
 
-	thumb_func_start func_fe6_08085110
-func_fe6_08085110: @ 0x08085110
+	thumb_func_start SaveGame
+SaveGame: @ 0x08085110
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	sub sp, #0x10
 	mov r8, r0
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r7, r0, #0
 	movs r0, #3
 	bl func_fe6_08085788
@@ -1735,7 +1735,7 @@ func_fe6_08085110: @ 0x08085110
 	ldr r0, .L080851A0 @ =gUnitArrayBlue
 	adds r0, r6, r0
 	adds r1, r4, #0
-	bl func_fe6_080852C4
+	bl SaveUnit
 	adds r4, #0x28
 	adds r6, #0x48
 	subs r5, #1
@@ -1745,7 +1745,7 @@ func_fe6_08085110: @ 0x08085110
 	movs r1, #0x84
 	lsls r1, r1, #4
 	adds r0, r7, r1
-	bl func_fe6_080846B8
+	bl SaveSupplyItems
 	ldr r1, .L080851A4 @ =0x00000908
 	adds r0, r7, r1
 	bl func_fe6_08084884
@@ -1754,15 +1754,15 @@ func_fe6_08085110: @ 0x08085110
 	bl func_fe6_080848A8
 	ldr r1, .L080851AC @ =0x00000DE8
 	adds r0, r7, r1
-	bl func_fe6_08084648
+	bl SavePermanentFlagBits
 	ldr r0, .L080851B0 @ =0x00011217
 	str r0, [sp]
 	mov r0, sp
 	strb r4, [r0, #6]
 	mov r1, r8
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	mov r0, r8
-	bl func_fe6_08084F78
+	bl SettLastestSaveSlotIndex
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -1777,13 +1777,13 @@ func_fe6_08085110: @ 0x08085110
 .L080851AC: .4byte 0x00000DE8
 .L080851B0: .4byte 0x00011217
 
-	thumb_func_start func_fe6_080851B4
-func_fe6_080851B4: @ 0x080851B4
+	thumb_func_start LoadGame
+LoadGame: @ 0x080851B4
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
 	mov r8, r0
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r7, r0, #0
 	ldr r1, .L08085240 @ =gBmSt
 	movs r0, #0x40
@@ -1814,7 +1814,7 @@ func_fe6_080851B4: @ 0x080851B4
 	ldr r1, .L0808524C @ =gUnitArrayBlue
 	adds r1, r6, r1
 	adds r0, r4, #0
-	bl func_fe6_080855C4
+	bl LoadUnit
 	adds r6, #0x48
 	adds r4, #0x28
 	subs r5, #1
@@ -1823,10 +1823,10 @@ func_fe6_080851B4: @ 0x080851B4
 	movs r1, #0x84
 	lsls r1, r1, #4
 	adds r0, r7, r1
-	bl func_fe6_080846D0
+	bl LoadSupplyItems
 	ldr r1, .L08085250 @ =0x00000DE8
 	adds r0, r7, r1
-	bl func_fe6_08084690
+	bl LoadPermanentFlagBits
 	ldr r1, .L08085254 @ =0x00000908
 	adds r0, r7, r1
 	bl func_fe6_0808483C
@@ -1834,7 +1834,7 @@ func_fe6_080851B4: @ 0x080851B4
 	adds r0, r7, r1
 	bl func_fe6_08084868
 	mov r0, r8
-	bl func_fe6_08084F78
+	bl SettLastestSaveSlotIndex
 	pop {r3}
 	mov r8, r3
 	pop {r4, r5, r6, r7}
@@ -1849,8 +1849,8 @@ func_fe6_080851B4: @ 0x080851B4
 .L08085254: .4byte 0x00000908
 .L08085258: .4byte 0x00000D68
 
-	thumb_func_start func_fe6_0808525C
-func_fe6_0808525C: @ 0x0808525C
+	thumb_func_start VerifySaveBlockInfo2
+VerifySaveBlockInfo2: @ 0x0808525C
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
@@ -1861,11 +1861,11 @@ func_fe6_0808525C: @ 0x0808525C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08085270
-func_fe6_08085270: @ 0x08085270
+	thumb_func_start LoadPlaySt
+LoadPlaySt: @ 0x08085270
 	push {r4, lr}
 	adds r4, r1, #0
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	ldr r1, .L0808528C @ =ReadSramFast
 	ldr r3, [r1]
 	adds r1, r4, #0
@@ -1882,13 +1882,13 @@ func_fe6_08085290: @ 0x08085290
 	push {r4, lr}
 	sub sp, #0x20
 	adds r4, r0, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L080852B8
 	adds r0, r4, #0
 	mov r1, sp
-	bl func_fe6_08085270
+	bl LoadPlaySt
 	mov r0, sp
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
@@ -1906,8 +1906,8 @@ func_fe6_08085290: @ 0x08085290
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_080852C4
-func_fe6_080852C4: @ 0x080852C4
+	thumb_func_start SaveUnit
+SaveUnit: @ 0x080852C4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -2287,8 +2287,8 @@ func_fe6_080852C4: @ 0x080852C4
 .L080855BC: .4byte 0xFFFC000F
 .L080855C0: .4byte 0xFFFFFE07
 
-	thumb_func_start func_fe6_080855C4
-func_fe6_080855C4: @ 0x080855C4
+	thumb_func_start LoadUnit
+LoadUnit: @ 0x080855C4
 	push {r4, r5, r6, r7, lr}
 	sub sp, #0x28
 	adds r4, r1, #0
@@ -2531,20 +2531,20 @@ func_fe6_08085788: @ 0x08085788
 	strb r0, [r1, #6]
 	mov r0, sp
 	adds r1, r4, #0
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	cmp r4, #3
 	bne .L080857A8
 	mov r0, sp
 	movs r1, #4
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 .L080857A8:
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_080857B0
-func_fe6_080857B0: @ 0x080857B0
+	thumb_func_start SaveSuspendedGame
+SaveSuspendedGame: @ 0x080857B0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -2561,10 +2561,10 @@ func_fe6_080857B0: @ 0x080857B0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L080858AA
-	bl func_fe6_08085F14
+	bl GetNextSuspendSlotIndex
 	add r8, r0
 	mov r0, r8
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r7, r0, #0
 	bl GetGameTime
 	str r0, [r4]
@@ -2585,7 +2585,7 @@ func_fe6_080857B0: @ 0x080857B0
 	adds r1, r5, #0
 	adds r5, #0x34
 	adds r0, r6, #0
-	bl func_fe6_08085A48
+	bl PackUnitForSuspend
 	adds r6, #0x48
 	subs r4, #1
 	cmp r4, #0
@@ -2599,7 +2599,7 @@ func_fe6_080857B0: @ 0x080857B0
 	adds r1, r5, #0
 	adds r5, #0x34
 	adds r0, r6, #0
-	bl func_fe6_08085A48
+	bl PackUnitForSuspend
 	adds r6, #0x48
 	subs r4, #1
 	cmp r4, #0
@@ -2610,7 +2610,7 @@ func_fe6_080857B0: @ 0x080857B0
 	adds r1, r5, #0
 	adds r5, #0x34
 	adds r0, r6, #0
-	bl func_fe6_08085A48
+	bl PackUnitForSuspend
 	adds r6, #0x48
 	subs r4, #1
 	cmp r4, #0
@@ -2624,13 +2624,13 @@ func_fe6_080857B0: @ 0x080857B0
 	movs r1, #0xed
 	lsls r1, r1, #5
 	adds r0, r7, r1
-	bl func_fe6_08084648
+	bl SavePermanentFlagBits
 	ldr r1, .L080858D0 @ =0x00001DA5
 	adds r0, r7, r1
-	bl func_fe6_08084628
+	bl SaveChapterFlagBits
 	ldr r1, .L080858D4 @ =0x000017F8
 	adds r0, r7, r1
-	bl func_fe6_080846B8
+	bl SaveSupplyItems
 	movs r1, #0xc6
 	lsls r1, r1, #5
 	adds r0, r7, r1
@@ -2641,7 +2641,7 @@ func_fe6_080857B0: @ 0x080857B0
 	bl func_fe6_080848A8
 	ldr r1, .L080858D8 @ =0x000016F8
 	adds r0, r7, r1
-	bl func_fe6_08085EB4
+	bl SaveTraps
 	ldr r0, .L080858DC @ =0x00011217
 	str r0, [sp]
 	mov r1, sp
@@ -2649,11 +2649,11 @@ func_fe6_080857B0: @ 0x080857B0
 	strb r0, [r1, #6]
 	mov r0, sp
 	mov r1, r8
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	ldr r0, .L080858E0 @ =gBmSt
 	adds r0, #0x3c
 	strb r4, [r0]
-	bl func_fe6_08085F24
+	bl ChangeSuspendSlotIndex
 .L080858AA:
 	add sp, #0x10
 	pop {r3, r4}
@@ -2675,13 +2675,13 @@ func_fe6_080857B0: @ 0x080857B0
 .L080858DC: .4byte 0x00011217
 .L080858E0: .4byte gBmSt
 
-	thumb_func_start func_fe6_080858E4
-func_fe6_080858E4: @ 0x080858E4
+	thumb_func_start LoadSuspendedGame
+LoadSuspendedGame: @ 0x080858E4
 	push {r4, r5, r6, lr}
 	ldr r1, .L080859B0 @ =0x0203DA14
 	ldrb r1, [r1]
 	adds r0, r1, r0
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r6, r0, #0
 	ldr r5, .L080859B4 @ =ReadSramFast
 	ldr r4, .L080859B8 @ =gPlaySt
@@ -2708,7 +2708,7 @@ func_fe6_080858E4: @ 0x080858E4
 	adds r0, r6, r0
 	ldr r1, .L080859C0 @ =gUnitArrayBlue
 	adds r1, r5, r1
-	bl func_fe6_08085CE0
+	bl LoadUnitFormSuspend
 	adds r5, #0x48
 	adds r4, #1
 	cmp r4, #0x33
@@ -2723,7 +2723,7 @@ func_fe6_080858E4: @ 0x080858E4
 	adds r0, r6, r0
 	ldr r1, .L080859C8 @ =gUnitArrayRed
 	adds r1, r5, r1
-	bl func_fe6_08085CE0
+	bl LoadUnitFormSuspend
 	adds r5, #0x48
 	adds r4, #1
 	cmp r4, #0x31
@@ -2738,7 +2738,7 @@ func_fe6_080858E4: @ 0x080858E4
 	adds r0, r6, r0
 	ldr r1, .L080859D0 @ =gUnitArrayGreen
 	adds r1, r5, r1
-	bl func_fe6_08085CE0
+	bl LoadUnitFormSuspend
 	adds r5, #0x48
 	adds r4, #1
 	cmp r4, #9
@@ -2753,17 +2753,17 @@ func_fe6_080858E4: @ 0x080858E4
 	bl func_fe6_08084868
 	ldr r1, .L080859D4 @ =0x000017F8
 	adds r0, r6, r1
-	bl func_fe6_080846D0
+	bl LoadSupplyItems
 	movs r1, #0xed
 	lsls r1, r1, #5
 	adds r0, r6, r1
-	bl func_fe6_08084690
+	bl LoadPermanentFlagBits
 	ldr r1, .L080859D8 @ =0x00001DA5
 	adds r0, r6, r1
-	bl func_fe6_08084668
+	bl LoadChapterFlagBits
 	ldr r1, .L080859DC @ =0x000016F8
 	adds r0, r6, r1
-	bl func_fe6_08085ED0
+	bl LoadTraps
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -2792,7 +2792,7 @@ func_fe6_080859E0: @ 0x080859E0
 	cmp r4, #3
 	bne .L08085A24
 	ldr r4, .L08085A28 @ =0x0203DA14
-	bl func_fe6_08085EF4
+	bl GetLastSuspendSlotIndex
 	strb r0, [r4]
 	adds r1, r0, #0
 	adds r1, #3
@@ -2801,7 +2801,7 @@ func_fe6_080859E0: @ 0x080859E0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08085A2C
-	bl func_fe6_08085F14
+	bl GetNextSuspendSlotIndex
 	strb r0, [r4]
 	adds r1, r0, #0
 	adds r1, #3
@@ -2830,14 +2830,14 @@ func_fe6_08085A34: @ 0x08085A34
 	ldr r2, .L08085A44 @ =0x0203DA14
 	ldrb r2, [r2]
 	adds r0, r2, r0
-	bl func_fe6_08085270
+	bl LoadPlaySt
 	pop {r0}
 	bx r0
 	.align 2, 0
 .L08085A44: .4byte 0x0203DA14
 
-	thumb_func_start func_fe6_08085A48
-func_fe6_08085A48: @ 0x08085A48
+	thumb_func_start PackUnitForSuspend
+PackUnitForSuspend: @ 0x08085A48
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3167,8 +3167,8 @@ func_fe6_08085A48: @ 0x08085A48
 .L08085CD8: .4byte 0x00003FFF
 .L08085CDC: .4byte 0xFFFC000F
 
-	thumb_func_start func_fe6_08085CE0
-func_fe6_08085CE0: @ 0x08085CE0
+	thumb_func_start LoadUnitFormSuspend
+LoadUnitFormSuspend: @ 0x08085CE0
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -3406,8 +3406,8 @@ func_fe6_08085CE0: @ 0x08085CE0
 	.align 2, 0
 .L08085EB0: .4byte ReadSramFast
 
-	thumb_func_start func_fe6_08085EB4
-func_fe6_08085EB4: @ 0x08085EB4
+	thumb_func_start SaveTraps
+SaveTraps: @ 0x08085EB4
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #0
@@ -3421,8 +3421,8 @@ func_fe6_08085EB4: @ 0x08085EB4
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08085ED0
-func_fe6_08085ED0: @ 0x08085ED0
+	thumb_func_start LoadTraps
+LoadTraps: @ 0x08085ED0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L08085EF0 @ =ReadSramFast
@@ -3440,8 +3440,8 @@ func_fe6_08085ED0: @ 0x08085ED0
 	.align 2, 0
 .L08085EF0: .4byte ReadSramFast
 
-	thumb_func_start func_fe6_08085EF4
-func_fe6_08085EF4: @ 0x08085EF4
+	thumb_func_start GetLastSuspendSlotIndex
+GetLastSuspendSlotIndex: @ 0x08085EF4
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -3460,18 +3460,18 @@ func_fe6_08085EF4: @ 0x08085EF4
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08085F14
-func_fe6_08085F14: @ 0x08085F14
+	thumb_func_start GetNextSuspendSlotIndex
+GetNextSuspendSlotIndex: @ 0x08085F14
 	push {lr}
-	bl func_fe6_08085EF4
+	bl GetLastSuspendSlotIndex
 	adds r1, r0, #0
 	movs r0, #1
 	subs r0, r0, r1
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_08085F24
-func_fe6_08085F24: @ 0x08085F24
+	thumb_func_start ChangeSuspendSlotIndex
+ChangeSuspendSlotIndex: @ 0x08085F24
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -3492,8 +3492,8 @@ func_fe6_08085F24: @ 0x08085F24
 	bx r0
 	.align 2, 0
 
-	thumb_func_start CalcSaveDataCkSum32
-CalcSaveDataCkSum32: @ 0x08085F4C
+	thumb_func_start GetCkSum32FromSRAM
+GetCkSum32FromSRAM: @ 0x08085F4C
 	push {r4, r5, lr}
 	adds r5, r1, #0
 	ldr r1, .L08085F6C @ =ReadSramFast
@@ -3512,15 +3512,15 @@ CalcSaveDataCkSum32: @ 0x08085F4C
 .L08085F6C: .4byte ReadSramFast
 .L08085F70: .4byte gBuf
 
-	thumb_func_start VerifySaveBlockInfo
-VerifySaveBlockInfo: @ 0x08085F74
+	thumb_func_start CkSum32SaveBlockInfo
+CkSum32SaveBlockInfo: @ 0x08085F74
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
 	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	ldr r1, [r4, #0xc]
 	cmp r1, r0
 	bne .L08085F90
@@ -3533,23 +3533,23 @@ VerifySaveBlockInfo: @ 0x08085F74
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_08085F98
-func_fe6_08085F98: @ 0x08085F98
+	thumb_func_start GenerateSaveBlockInfoCkSum32
+GenerateSaveBlockInfoCkSum32: @ 0x08085F98
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldrh r5, [r4, #0xa]
 	ldrh r0, [r4, #8]
 	bl SramOffsetToPointer
 	adds r1, r5, #0
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	str r0, [r4, #0xc]
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08085FB4
-func_fe6_08085FB4: @ 0x08085FB4
+	thumb_func_start ComputeSaveDataCkSum32
+ComputeSaveDataCkSum32: @ 0x08085FB4
 	push {r4, r5, r6, lr}
 	movs r6, #0
 	ldr r4, .L0808607C @ =gUnitArrayBlue
@@ -3562,7 +3562,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3581,7 +3581,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3600,7 +3600,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	str r0, [r4, #0x3c]
 	adds r0, r4, #0
 	movs r1, #0x24
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3617,7 +3617,7 @@ func_fe6_08085FB4: @ 0x08085FB4
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3629,14 +3629,14 @@ func_fe6_08085FB4: @ 0x08085FB4
 	adds r1, r1, r0
 	asrs r1, r1, #1
 	adds r0, r4, #0
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
 	movs r0, #0
 	bl GetTrap
 	movs r1, #0x80
-	bl CalcSaveDataCkSum32
+	bl GetCkSum32FromSRAM
 	adds r0, r6, r0
 	lsls r0, r0, #0x10
 	lsrs r6, r0, #0x10
@@ -3656,8 +3656,8 @@ func_fe6_08086088: @ 0x08086088
 	bx lr
 	.align 2, 0
 
-	thumb_func_start func_fe6_08086090
-func_fe6_08086090: @ 0x08086090
+	thumb_func_start VerifySaveBlockInfo
+VerifySaveBlockInfo: @ 0x08086090
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
@@ -3677,7 +3677,7 @@ func_fe6_080860A4: @ 0x080860A4
 	push {r5, r6, r7}
 	sub sp, #0x6c
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	mov r8, r0
 	add r0, sp, #0x5c
 	movs r4, #0
@@ -3809,7 +3809,7 @@ func_fe6_080860A4: @ 0x080860A4
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x6c
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -3831,7 +3831,7 @@ func_fe6_080861EC: @ 0x080861EC
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	ldr r2, .L08086214 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
@@ -3860,7 +3860,7 @@ func_fe6_08086220: @ 0x08086220
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	ldr r2, .L08086254 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
@@ -3894,7 +3894,7 @@ func_fe6_08086264: @ 0x08086264
 	sub sp, #0x14
 	adds r6, r0, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r4, r0, #0
 	add r0, sp, #0x10
 	movs r1, #0
@@ -3917,7 +3917,7 @@ func_fe6_08086264: @ 0x08086264
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -3937,10 +3937,10 @@ func_fe6_080862B8: @ 0x080862B8
 	adds r6, r0, #0
 	mov sb, r1
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r4, r0, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r5, r0, #0
 	ldr r1, .L08086324 @ =ReadSramFast
 	movs r0, #0xd8
@@ -3969,7 +3969,7 @@ func_fe6_080862B8: @ 0x080862B8
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -3993,10 +3993,10 @@ func_fe6_08086330: @ 0x08086330
 	mov r8, r0
 	mov sl, r1
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r5, r0, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r6, r0, #0
 	ldr r0, .L080863BC @ =ReadSramFast
 	mov sb, r0
@@ -4037,7 +4037,7 @@ func_fe6_08086330: @ 0x08086330
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -4062,7 +4062,7 @@ func_fe6_080863CC: @ 0x080863CC
 	mov r8, r1
 	adds r6, r2, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r5, r0, #0
 	movs r0, #0xd8
 	muls r4, r0, r4
@@ -4077,7 +4077,7 @@ func_fe6_080863CC: @ 0x080863CC
 .L080863F8:
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl func_fe6_080852C4
+	bl SaveUnit
 	adds r5, #0x28
 	adds r4, #0x48
 	subs r6, #1
@@ -4090,7 +4090,7 @@ func_fe6_080863CC: @ 0x080863CC
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -4109,7 +4109,7 @@ func_fe6_0808642C: @ 0x0808642C
 	adds r6, r1, #0
 	adds r5, r2, #0
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	adds r7, r0, #0
 	ldr r1, .L08086480 @ =ReadSramFast
 	movs r0, #0xd8
@@ -4126,7 +4126,7 @@ func_fe6_0808642C: @ 0x0808642C
 .L0808645A:
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl func_fe6_080855C4
+	bl LoadUnit
 	adds r6, #0x48
 	adds r4, #0x28
 	subs r5, #1
@@ -4159,7 +4159,7 @@ func_fe6_08086490: @ 0x08086490
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	ldr r0, .L080864C4 @ =0x00000874
 	adds r1, r1, r0
@@ -4173,7 +4173,7 @@ func_fe6_08086490: @ 0x08086490
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -4187,7 +4187,7 @@ func_fe6_080864CC: @ 0x080864CC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	ldr r1, .L080864EC @ =ReadSramFast
 	ldr r2, .L080864F0 @ =0x00000874
 	adds r0, r0, r2
@@ -4208,7 +4208,7 @@ func_fe6_080864F4: @ 0x080864F4
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl func_fe6_08084560
+	bl GetSaveTargetAddress
 	adds r1, r0, #0
 	movs r0, #0x87
 	lsls r0, r0, #4
@@ -4223,7 +4223,7 @@ func_fe6_080864F4: @ 0x080864F4
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl func_fe6_080844D4
+	bl WriteAndCkSum32SaveBlockInfo
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -4236,7 +4236,7 @@ func_fe6_08086530: @ 0x08086530
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl func_fe6_0808460C
+	bl GetSaveSourceAddress
 	ldr r1, .L08086554 @ =ReadSramFast
 	movs r2, #0x87
 	lsls r2, r2, #4
@@ -4256,7 +4256,7 @@ func_fe6_08086558: @ 0x08086558
 	push {r4, lr}
 	sub sp, #0x10
 	movs r0, #5
-	bl func_fe6_08086090
+	bl VerifySaveBlockInfo
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0808656E
@@ -4592,319 +4592,3 @@ func_fe6_0808677C: @ 0x0808677C
 	pop {r4}
 	pop {r1}
 	bx r1
-
-	thumb_func_start func_fe6_080867F0
-func_fe6_080867F0: @ 0x080867F0
-	push {lr}
-	bl GetChapterUnk_0802BBD0
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start func_fe6_080867FC
-func_fe6_080867FC: @ 0x080867FC
-	push {lr}
-	movs r2, #0
-	adds r0, #1
-	cmp r0, #0x2d
-	bls .L08086808
-	b .L08086904
-.L08086808:
-	lsls r0, r0, #2
-	ldr r1, .L08086814 @ =.L08086818
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-.L08086814: .4byte .L08086818
-.L08086818: @ jump table
-	.4byte .L080868F8 @ case 0
-	.4byte .L08086904 @ case 1
-	.4byte .L08086904 @ case 2
-	.4byte .L08086904 @ case 3
-	.4byte .L08086904 @ case 4
-	.4byte .L08086904 @ case 5
-	.4byte .L08086904 @ case 6
-	.4byte .L08086904 @ case 7
-	.4byte .L08086904 @ case 8
-	.4byte .L08086904 @ case 9
-	.4byte .L08086904 @ case 10
-	.4byte .L08086904 @ case 11
-	.4byte .L08086904 @ case 12
-	.4byte .L08086904 @ case 13
-	.4byte .L08086904 @ case 14
-	.4byte .L08086904 @ case 15
-	.4byte .L08086904 @ case 16
-	.4byte .L08086904 @ case 17
-	.4byte .L08086904 @ case 18
-	.4byte .L08086904 @ case 19
-	.4byte .L08086904 @ case 20
-	.4byte .L08086904 @ case 21
-	.4byte .L08086904 @ case 22
-	.4byte .L08086904 @ case 23
-	.4byte .L08086904 @ case 24
-	.4byte .L08086904 @ case 25
-	.4byte .L08086904 @ case 26
-	.4byte .L08086904 @ case 27
-	.4byte .L08086904 @ case 28
-	.4byte .L08086904 @ case 29
-	.4byte .L08086904 @ case 30
-	.4byte .L08086904 @ case 31
-	.4byte .L08086904 @ case 32
-	.4byte .L08086904 @ case 33
-	.4byte .L08086904 @ case 34
-	.4byte .L08086904 @ case 35
-	.4byte .L08086904 @ case 36
-	.4byte .L08086904 @ case 37
-	.4byte .L08086904 @ case 38
-	.4byte .L08086904 @ case 39
-	.4byte .L08086904 @ case 40
-	.4byte .L080868D0 @ case 41
-	.4byte .L080868D8 @ case 42
-	.4byte .L080868E0 @ case 43
-	.4byte .L080868E8 @ case 44
-	.4byte .L080868F0 @ case 45
-.L080868D0:
-	ldr r2, .L080868D4 @ =0x00000C7C
-	b .L08086904
-	.align 2, 0
-.L080868D4: .4byte 0x00000C7C
-.L080868D8:
-	ldr r2, .L080868DC @ =0x00000C7F
-	b .L08086904
-	.align 2, 0
-.L080868DC: .4byte 0x00000C7F
-.L080868E0:
-	ldr r2, .L080868E4 @ =0x00000C82
-	b .L08086904
-	.align 2, 0
-.L080868E4: .4byte 0x00000C82
-.L080868E8:
-	ldr r2, .L080868EC @ =0x00000C85
-	b .L08086904
-	.align 2, 0
-.L080868EC: .4byte 0x00000C85
-.L080868F0:
-	ldr r2, .L080868F4 @ =0x00000C88
-	b .L08086904
-	.align 2, 0
-.L080868F4: .4byte 0x00000C88
-.L080868F8:
-	ldr r0, .L08086900 @ =gTrialLoadInfo
-	ldr r0, [r0]
-	ldr r0, [r0, #0x10]
-	b .L0808690A
-	.align 2, 0
-.L08086900: .4byte gTrialLoadInfo
-.L08086904:
-	adds r0, r2, #0
-	bl DecodeMsg
-.L0808690A:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start func_fe6_08086910
-func_fe6_08086910: @ 0x08086910
-	push {lr}
-	movs r2, #0
-	adds r0, #1
-	cmp r0, #0x2d
-	bls .L0808691C
-	b .L08086A18
-.L0808691C:
-	lsls r0, r0, #2
-	ldr r1, .L08086928 @ =.L0808692C
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-.L08086928: .4byte .L0808692C
-.L0808692C: @ jump table
-	.4byte .L08086A0C @ case 0
-	.4byte .L08086A18 @ case 1
-	.4byte .L08086A18 @ case 2
-	.4byte .L08086A18 @ case 3
-	.4byte .L08086A18 @ case 4
-	.4byte .L08086A18 @ case 5
-	.4byte .L08086A18 @ case 6
-	.4byte .L08086A18 @ case 7
-	.4byte .L08086A18 @ case 8
-	.4byte .L08086A18 @ case 9
-	.4byte .L08086A18 @ case 10
-	.4byte .L08086A18 @ case 11
-	.4byte .L08086A18 @ case 12
-	.4byte .L08086A18 @ case 13
-	.4byte .L08086A18 @ case 14
-	.4byte .L08086A18 @ case 15
-	.4byte .L08086A18 @ case 16
-	.4byte .L08086A18 @ case 17
-	.4byte .L08086A18 @ case 18
-	.4byte .L08086A18 @ case 19
-	.4byte .L08086A18 @ case 20
-	.4byte .L08086A18 @ case 21
-	.4byte .L08086A18 @ case 22
-	.4byte .L08086A18 @ case 23
-	.4byte .L08086A18 @ case 24
-	.4byte .L08086A18 @ case 25
-	.4byte .L08086A18 @ case 26
-	.4byte .L08086A18 @ case 27
-	.4byte .L08086A18 @ case 28
-	.4byte .L08086A18 @ case 29
-	.4byte .L08086A18 @ case 30
-	.4byte .L08086A18 @ case 31
-	.4byte .L08086A18 @ case 32
-	.4byte .L08086A18 @ case 33
-	.4byte .L08086A18 @ case 34
-	.4byte .L08086A18 @ case 35
-	.4byte .L08086A18 @ case 36
-	.4byte .L08086A18 @ case 37
-	.4byte .L08086A18 @ case 38
-	.4byte .L08086A18 @ case 39
-	.4byte .L08086A18 @ case 40
-	.4byte .L080869E4 @ case 41
-	.4byte .L080869EC @ case 42
-	.4byte .L080869F2 @ case 43
-	.4byte .L080869FC @ case 44
-	.4byte .L08086A04 @ case 45
-.L080869E4:
-	ldr r2, .L080869E8 @ =0x00000C7D
-	b .L08086A18
-	.align 2, 0
-.L080869E8: .4byte 0x00000C7D
-.L080869EC:
-	movs r2, #0xc8
-	lsls r2, r2, #4
-	b .L08086A18
-.L080869F2:
-	ldr r2, .L080869F8 @ =0x00000C83
-	b .L08086A18
-	.align 2, 0
-.L080869F8: .4byte 0x00000C83
-.L080869FC:
-	ldr r2, .L08086A00 @ =0x00000C86
-	b .L08086A18
-	.align 2, 0
-.L08086A00: .4byte 0x00000C86
-.L08086A04:
-	ldr r2, .L08086A08 @ =0x00000C89
-	b .L08086A18
-	.align 2, 0
-.L08086A08: .4byte 0x00000C89
-.L08086A0C:
-	ldr r0, .L08086A14 @ =gTrialLoadInfo
-	ldr r0, [r0]
-	ldr r0, [r0, #0x14]
-	b .L08086A1E
-	.align 2, 0
-.L08086A14: .4byte gTrialLoadInfo
-.L08086A18:
-	adds r0, r2, #0
-	bl DecodeMsg
-.L08086A1E:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start LoadTrialMapBonusUnits
-LoadTrialMapBonusUnits: @ 0x08086A24
-	push {r4, lr}
-	bl GetGlobalCompletedPlaythroughCount
-	adds r4, r0, #1
-	ldr r1, .L08086A88 @ =gMapHidden
-	movs r0, #0
-	str r0, [r1]
-	cmp r4, #1
-	ble .L08086A3C
-	ldr r0, .L08086A8C @ =gUnk_086876AC
-	bl BatchCreateUnits
-.L08086A3C:
-	cmp r4, #2
-	ble .L08086A46
-	ldr r0, .L08086A90 @ =gUnk_086876CC
-	bl BatchCreateUnits
-.L08086A46:
-	cmp r4, #3
-	ble .L08086A50
-	ldr r0, .L08086A94 @ =gUnk_086876EC
-	bl BatchCreateUnits
-.L08086A50:
-	cmp r4, #4
-	ble .L08086A5A
-	ldr r0, .L08086A98 @ =gUnk_0868770C
-	bl BatchCreateUnits
-.L08086A5A:
-	cmp r4, #5
-	ble .L08086A64
-	ldr r0, .L08086A9C @ =gUnk_0868772C
-	bl BatchCreateUnits
-.L08086A64:
-	cmp r4, #6
-	ble .L08086A6E
-	ldr r0, .L08086AA0 @ =gUnk_0868774C
-	bl BatchCreateUnits
-.L08086A6E:
-	cmp r4, #7
-	ble .L08086A78
-	ldr r0, .L08086AA4 @ =gUnk_0868776C
-	bl BatchCreateUnits
-.L08086A78:
-	cmp r4, #9
-	ble .L08086A82
-	ldr r0, .L08086AA8 @ =gUnk_0868778C
-	bl BatchCreateUnits
-.L08086A82:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08086A88: .4byte gMapHidden
-.L08086A8C: .4byte gUnk_086876AC
-.L08086A90: .4byte gUnk_086876CC
-.L08086A94: .4byte gUnk_086876EC
-.L08086A98: .4byte gUnk_0868770C
-.L08086A9C: .4byte gUnk_0868772C
-.L08086AA0: .4byte gUnk_0868774C
-.L08086AA4: .4byte gUnk_0868776C
-.L08086AA8: .4byte gUnk_0868778C
-
-	thumb_func_start func_fe6_08086AAC
-func_fe6_08086AAC: @ 0x08086AAC
-	push {r4, r5, lr}
-	bl GetGameTime
-	ldr r4, .L08086AF4 @ =gPlaySt
-	ldr r1, [r4, #4]
-	subs r0, r0, r1
-	movs r1, #0xb4
-	bl __udivsi3
-	adds r3, r0, #0
-	ldr r0, .L08086AF8 @ =0x0000EA60
-	cmp r3, r0
-	ble .L08086AC8
-	adds r3, r0, #0
-.L08086AC8:
-	ldr r0, .L08086AFC @ =0x0203DBE4
-	movs r2, #0x3f
-	ldrb r1, [r4, #0xe]
-	ands r2, r1
-	movs r1, #0x40
-	rsbs r1, r1, #0
-	ldrb r5, [r0]
-	ands r1, r5
-	orrs r1, r2
-	strb r1, [r0]
-	ldrh r4, [r4, #0x10]
-	lsls r2, r4, #6
-	movs r1, #0x3f
-	ldrh r4, [r0]
-	ands r1, r4
-	orrs r1, r2
-	strh r1, [r0]
-	strh r3, [r0, #2]
-	pop {r4, r5}
-	pop {r1}
-	bx r1
-	.align 2, 0
-.L08086AF4: .4byte gPlaySt
-.L08086AF8: .4byte 0x0000EA60
-.L08086AFC: .4byte 0x0203DBE4

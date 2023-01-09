@@ -16,4 +16,4 @@ void SramInit();
 bool IsSramWorking();
 u16 ComputeChecksum16(const u16* data, int size);
 bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-bool VerifySaveBlockInfo(struct SaveBlockInfo *chunk);
+bool CkSum32SaveBlockInfo(struct SaveBlockInfo *chunk);

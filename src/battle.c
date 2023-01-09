@@ -130,10 +130,10 @@ void BattleGenerateRealInternal(struct Unit * instigator, struct Unit * target)
     if (gBattleUnitB.unit.id != 0)
     {
         BattleApplyExpGains();
-        func_fe6_08084D64();
+        PidStatsRecordBattleRes();
 
-        func_fe6_0808495C(instigator);
-        func_fe6_0808495C(target);
+        PidStatsAddBattleAmt(instigator);
+        PidStatsAddBattleAmt(target);
     }
 }
 
@@ -1746,7 +1746,7 @@ void BattleGenerateArena(struct Unit * unit)
     BattleApplyWeaponTriangleEffect(&gBattleUnitA, &gBattleUnitB);
 
     gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
-    func_fe6_080857B0(SAVE_ID_SUSPEND0);
+    SaveSuspendedGame(SAVE_ID_SUSPEND0);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonuses(&gBattleUnitB, 8); // TODO: terrain id constants
@@ -1759,7 +1759,7 @@ void BattleGenerateArena(struct Unit * unit)
     UpdateUnitDuringBattle(unit, &gBattleUnitA);
 
     if (!something || (gBattleUnitB.unit.hp == 0))
-        func_fe6_08084D64();
+        PidStatsRecordBattleRes();
 
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);
 }

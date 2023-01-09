@@ -2,6 +2,322 @@
 
 	.syntax unified
 
+	thumb_func_start func_fe6_080867F0
+func_fe6_080867F0: @ 0x080867F0
+	push {lr}
+	bl GetChapterUnk_0802BBD0
+	pop {r1}
+	bx r1
+	.align 2, 0
+
+	thumb_func_start func_fe6_080867FC
+func_fe6_080867FC: @ 0x080867FC
+	push {lr}
+	movs r2, #0
+	adds r0, #1
+	cmp r0, #0x2d
+	bls .L08086808
+	b .L08086904
+.L08086808:
+	lsls r0, r0, #2
+	ldr r1, .L08086814 @ =.L08086818
+	adds r0, r0, r1
+	ldr r0, [r0]
+	mov pc, r0
+	.align 2, 0
+.L08086814: .4byte .L08086818
+.L08086818: @ jump table
+	.4byte .L080868F8 @ case 0
+	.4byte .L08086904 @ case 1
+	.4byte .L08086904 @ case 2
+	.4byte .L08086904 @ case 3
+	.4byte .L08086904 @ case 4
+	.4byte .L08086904 @ case 5
+	.4byte .L08086904 @ case 6
+	.4byte .L08086904 @ case 7
+	.4byte .L08086904 @ case 8
+	.4byte .L08086904 @ case 9
+	.4byte .L08086904 @ case 10
+	.4byte .L08086904 @ case 11
+	.4byte .L08086904 @ case 12
+	.4byte .L08086904 @ case 13
+	.4byte .L08086904 @ case 14
+	.4byte .L08086904 @ case 15
+	.4byte .L08086904 @ case 16
+	.4byte .L08086904 @ case 17
+	.4byte .L08086904 @ case 18
+	.4byte .L08086904 @ case 19
+	.4byte .L08086904 @ case 20
+	.4byte .L08086904 @ case 21
+	.4byte .L08086904 @ case 22
+	.4byte .L08086904 @ case 23
+	.4byte .L08086904 @ case 24
+	.4byte .L08086904 @ case 25
+	.4byte .L08086904 @ case 26
+	.4byte .L08086904 @ case 27
+	.4byte .L08086904 @ case 28
+	.4byte .L08086904 @ case 29
+	.4byte .L08086904 @ case 30
+	.4byte .L08086904 @ case 31
+	.4byte .L08086904 @ case 32
+	.4byte .L08086904 @ case 33
+	.4byte .L08086904 @ case 34
+	.4byte .L08086904 @ case 35
+	.4byte .L08086904 @ case 36
+	.4byte .L08086904 @ case 37
+	.4byte .L08086904 @ case 38
+	.4byte .L08086904 @ case 39
+	.4byte .L08086904 @ case 40
+	.4byte .L080868D0 @ case 41
+	.4byte .L080868D8 @ case 42
+	.4byte .L080868E0 @ case 43
+	.4byte .L080868E8 @ case 44
+	.4byte .L080868F0 @ case 45
+.L080868D0:
+	ldr r2, .L080868D4 @ =0x00000C7C
+	b .L08086904
+	.align 2, 0
+.L080868D4: .4byte 0x00000C7C
+.L080868D8:
+	ldr r2, .L080868DC @ =0x00000C7F
+	b .L08086904
+	.align 2, 0
+.L080868DC: .4byte 0x00000C7F
+.L080868E0:
+	ldr r2, .L080868E4 @ =0x00000C82
+	b .L08086904
+	.align 2, 0
+.L080868E4: .4byte 0x00000C82
+.L080868E8:
+	ldr r2, .L080868EC @ =0x00000C85
+	b .L08086904
+	.align 2, 0
+.L080868EC: .4byte 0x00000C85
+.L080868F0:
+	ldr r2, .L080868F4 @ =0x00000C88
+	b .L08086904
+	.align 2, 0
+.L080868F4: .4byte 0x00000C88
+.L080868F8:
+	ldr r0, .L08086900 @ =gTrialLoadInfo
+	ldr r0, [r0]
+	ldr r0, [r0, #0x10]
+	b .L0808690A
+	.align 2, 0
+.L08086900: .4byte gTrialLoadInfo
+.L08086904:
+	adds r0, r2, #0
+	bl DecodeMsg
+.L0808690A:
+	pop {r1}
+	bx r1
+	.align 2, 0
+
+	thumb_func_start func_fe6_08086910
+func_fe6_08086910: @ 0x08086910
+	push {lr}
+	movs r2, #0
+	adds r0, #1
+	cmp r0, #0x2d
+	bls .L0808691C
+	b .L08086A18
+.L0808691C:
+	lsls r0, r0, #2
+	ldr r1, .L08086928 @ =.L0808692C
+	adds r0, r0, r1
+	ldr r0, [r0]
+	mov pc, r0
+	.align 2, 0
+.L08086928: .4byte .L0808692C
+.L0808692C: @ jump table
+	.4byte .L08086A0C @ case 0
+	.4byte .L08086A18 @ case 1
+	.4byte .L08086A18 @ case 2
+	.4byte .L08086A18 @ case 3
+	.4byte .L08086A18 @ case 4
+	.4byte .L08086A18 @ case 5
+	.4byte .L08086A18 @ case 6
+	.4byte .L08086A18 @ case 7
+	.4byte .L08086A18 @ case 8
+	.4byte .L08086A18 @ case 9
+	.4byte .L08086A18 @ case 10
+	.4byte .L08086A18 @ case 11
+	.4byte .L08086A18 @ case 12
+	.4byte .L08086A18 @ case 13
+	.4byte .L08086A18 @ case 14
+	.4byte .L08086A18 @ case 15
+	.4byte .L08086A18 @ case 16
+	.4byte .L08086A18 @ case 17
+	.4byte .L08086A18 @ case 18
+	.4byte .L08086A18 @ case 19
+	.4byte .L08086A18 @ case 20
+	.4byte .L08086A18 @ case 21
+	.4byte .L08086A18 @ case 22
+	.4byte .L08086A18 @ case 23
+	.4byte .L08086A18 @ case 24
+	.4byte .L08086A18 @ case 25
+	.4byte .L08086A18 @ case 26
+	.4byte .L08086A18 @ case 27
+	.4byte .L08086A18 @ case 28
+	.4byte .L08086A18 @ case 29
+	.4byte .L08086A18 @ case 30
+	.4byte .L08086A18 @ case 31
+	.4byte .L08086A18 @ case 32
+	.4byte .L08086A18 @ case 33
+	.4byte .L08086A18 @ case 34
+	.4byte .L08086A18 @ case 35
+	.4byte .L08086A18 @ case 36
+	.4byte .L08086A18 @ case 37
+	.4byte .L08086A18 @ case 38
+	.4byte .L08086A18 @ case 39
+	.4byte .L08086A18 @ case 40
+	.4byte .L080869E4 @ case 41
+	.4byte .L080869EC @ case 42
+	.4byte .L080869F2 @ case 43
+	.4byte .L080869FC @ case 44
+	.4byte .L08086A04 @ case 45
+.L080869E4:
+	ldr r2, .L080869E8 @ =0x00000C7D
+	b .L08086A18
+	.align 2, 0
+.L080869E8: .4byte 0x00000C7D
+.L080869EC:
+	movs r2, #0xc8
+	lsls r2, r2, #4
+	b .L08086A18
+.L080869F2:
+	ldr r2, .L080869F8 @ =0x00000C83
+	b .L08086A18
+	.align 2, 0
+.L080869F8: .4byte 0x00000C83
+.L080869FC:
+	ldr r2, .L08086A00 @ =0x00000C86
+	b .L08086A18
+	.align 2, 0
+.L08086A00: .4byte 0x00000C86
+.L08086A04:
+	ldr r2, .L08086A08 @ =0x00000C89
+	b .L08086A18
+	.align 2, 0
+.L08086A08: .4byte 0x00000C89
+.L08086A0C:
+	ldr r0, .L08086A14 @ =gTrialLoadInfo
+	ldr r0, [r0]
+	ldr r0, [r0, #0x14]
+	b .L08086A1E
+	.align 2, 0
+.L08086A14: .4byte gTrialLoadInfo
+.L08086A18:
+	adds r0, r2, #0
+	bl DecodeMsg
+.L08086A1E:
+	pop {r1}
+	bx r1
+	.align 2, 0
+
+	thumb_func_start LoadTrialMapBonusUnits
+LoadTrialMapBonusUnits: @ 0x08086A24
+	push {r4, lr}
+	bl GetGlobalCompletedPlaythroughCount
+	adds r4, r0, #1
+	ldr r1, .L08086A88 @ =gMapHidden
+	movs r0, #0
+	str r0, [r1]
+	cmp r4, #1
+	ble .L08086A3C
+	ldr r0, .L08086A8C @ =gUnk_086876AC
+	bl BatchCreateUnits
+.L08086A3C:
+	cmp r4, #2
+	ble .L08086A46
+	ldr r0, .L08086A90 @ =gUnk_086876CC
+	bl BatchCreateUnits
+.L08086A46:
+	cmp r4, #3
+	ble .L08086A50
+	ldr r0, .L08086A94 @ =gUnk_086876EC
+	bl BatchCreateUnits
+.L08086A50:
+	cmp r4, #4
+	ble .L08086A5A
+	ldr r0, .L08086A98 @ =gUnk_0868770C
+	bl BatchCreateUnits
+.L08086A5A:
+	cmp r4, #5
+	ble .L08086A64
+	ldr r0, .L08086A9C @ =gUnk_0868772C
+	bl BatchCreateUnits
+.L08086A64:
+	cmp r4, #6
+	ble .L08086A6E
+	ldr r0, .L08086AA0 @ =gUnk_0868774C
+	bl BatchCreateUnits
+.L08086A6E:
+	cmp r4, #7
+	ble .L08086A78
+	ldr r0, .L08086AA4 @ =gUnk_0868776C
+	bl BatchCreateUnits
+.L08086A78:
+	cmp r4, #9
+	ble .L08086A82
+	ldr r0, .L08086AA8 @ =gUnk_0868778C
+	bl BatchCreateUnits
+.L08086A82:
+	pop {r4}
+	pop {r0}
+	bx r0
+	.align 2, 0
+.L08086A88: .4byte gMapHidden
+.L08086A8C: .4byte gUnk_086876AC
+.L08086A90: .4byte gUnk_086876CC
+.L08086A94: .4byte gUnk_086876EC
+.L08086A98: .4byte gUnk_0868770C
+.L08086A9C: .4byte gUnk_0868772C
+.L08086AA0: .4byte gUnk_0868774C
+.L08086AA4: .4byte gUnk_0868776C
+.L08086AA8: .4byte gUnk_0868778C
+
+	thumb_func_start func_fe6_08086AAC
+func_fe6_08086AAC: @ 0x08086AAC
+	push {r4, r5, lr}
+	bl GetGameTime
+	ldr r4, .L08086AF4 @ =gPlaySt
+	ldr r1, [r4, #4]
+	subs r0, r0, r1
+	movs r1, #0xb4
+	bl __udivsi3
+	adds r3, r0, #0
+	ldr r0, .L08086AF8 @ =0x0000EA60
+	cmp r3, r0
+	ble .L08086AC8
+	adds r3, r0, #0
+.L08086AC8:
+	ldr r0, .L08086AFC @ =0x0203DBE4
+	movs r2, #0x3f
+	ldrb r1, [r4, #0xe]
+	ands r2, r1
+	movs r1, #0x40
+	rsbs r1, r1, #0
+	ldrb r5, [r0]
+	ands r1, r5
+	orrs r1, r2
+	strb r1, [r0]
+	ldrh r4, [r4, #0x10]
+	lsls r2, r4, #6
+	movs r1, #0x3f
+	ldrh r4, [r0]
+	ands r1, r4
+	orrs r1, r2
+	strh r1, [r0]
+	strh r3, [r0, #2]
+	pop {r4, r5}
+	pop {r1}
+	bx r1
+	.align 2, 0
+.L08086AF4: .4byte gPlaySt
+.L08086AF8: .4byte 0x0000EA60
+.L08086AFC: .4byte 0x0203DBE4
+
 	thumb_func_start func_fe6_08086B00
 func_fe6_08086B00: @ 0x08086B00
 	push {r4, r5, lr}
@@ -2643,7 +2959,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	adds r1, #0x2d
 	movs r0, #4
 	strb r0, [r1]
-	bl func_fe6_08084F94
+	bl GetLastestSaveSlotIndex
 	adds r1, r5, #0
 	adds r1, #0x2b
 	strb r0, [r1]
@@ -3086,7 +3402,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088352:
-	bl func_fe6_08084F94
+	bl GetLastestSaveSlotIndex
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3097,7 +3413,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L0808836A:
-	bl func_fe6_08084F94
+	bl GetLastestSaveSlotIndex
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3108,7 +3424,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088382:
-	bl func_fe6_08084F94
+	bl GetLastestSaveSlotIndex
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3236,7 +3552,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r1, r4, #0
 	adds r1, #0x2b
 	ldrb r1, [r1]
-	bl func_fe6_08084FF8
+	bl CopyGameSave
 	adds r0, r4, #0
 	movs r1, #5
 	bl Proc_Goto
@@ -3289,7 +3605,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl func_fe6_080851B4
+	bl LoadGame
 	adds r0, r4, #0
 	movs r1, #0xd
 	b .L08088554
@@ -3325,7 +3641,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #0
-	bl func_fe6_0808505C
+	bl SaveNewGame
 	b .L08088596
 .L08088530:
 	cmp r0, #2
@@ -3334,7 +3650,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #1
-	bl func_fe6_0808505C
+	bl SaveNewGame
 	b .L08088596
 .L08088542:
 	cmp r1, #1
@@ -3374,7 +3690,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl func_fe6_08085110
+	bl SaveGame
 .L08088596:
 	adds r0, r4, #0
 	movs r1, #5
@@ -3595,7 +3911,7 @@ func_fe6_080885DC: @ 0x080885DC
 	bl Proc_Goto
 	b .L0808884C
 .L08088744:
-	bl func_fe6_080846F0
+	bl GetGlobalSaveInfo_unk0Eb0
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08088774
@@ -3639,7 +3955,7 @@ func_fe6_080885DC: @ 0x080885DC
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #0
-	bl func_fe6_0808505C
+	bl SaveNewGame
 	b .L080887B6
 .L080887A6:
 	cmp r1, #2
@@ -3648,7 +3964,7 @@ func_fe6_080885DC: @ 0x080885DC
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #1
-	bl func_fe6_0808505C
+	bl SaveNewGame
 .L080887B6:
 	adds r0, r4, #0
 	movs r1, #5
@@ -4491,7 +4807,7 @@ func_fe6_08088D6C: @ 0x08088D6C
 .L08088E4C: .4byte gPlaySt
 .L08088E50: .4byte gKeySt
 .L08088E54:
-	bl func_fe6_08084F94
+	bl GetLastestSaveSlotIndex
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -4727,7 +5043,7 @@ func_fe6_08088F60: @ 0x08088F60
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl func_fe6_080851B4
+	bl LoadGame
 	adds r0, r4, #0
 	movs r1, #0xd
 	bl Proc_Goto
@@ -4866,7 +5182,7 @@ func_fe6_080890D0: @ 0x080890D0
 	cmp r0, #1
 	bne .L08089142
 	movs r0, #3
-	bl func_fe6_080858E4
+	bl LoadSuspendedGame
 	movs r0, #3
 	bl SetNextGameAction
 	b .L0808917A
@@ -4875,7 +5191,7 @@ func_fe6_080890D0: @ 0x080890D0
 	bne .L08089156
 	adds r4, #0x2b
 	ldrb r0, [r4]
-	bl func_fe6_080851B4
+	bl LoadGame
 	ldrb r0, [r4]
 	bl SetNextGameAction
 	b .L0808917A
@@ -7539,7 +7855,7 @@ func_fe6_0808A524: @ 0x0808A524
 	adds r0, #1
 	strb r0, [r1]
 .L0808A5FE:
-	bl func_fe6_0808474C
+	bl GetGlobalSaveInfo_unk0Eb0_
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A61A
@@ -7600,7 +7916,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A66C:
 	adds r0, r4, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -7627,7 +7943,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A69A:
 	adds r0, r4, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -7968,14 +8284,14 @@ func_fe6_0808A918: @ 0x0808A918
 	cmp r4, #2
 	bhi .L0808A9B4
 	adds r0, r4, #0
-	bl func_fe6_0808525C
+	bl VerifySaveBlockInfo2
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
 	beq .L0808A98C
 	adds r0, r4, #0
 	mov r1, sp
-	bl func_fe6_08085270
+	bl LoadPlaySt
 	mov r0, sp
 	bl func_fe6_08070E0C
 	adds r1, r5, #0
@@ -11677,7 +11993,7 @@ func_fe6_0808C75C: @ 0x0808C75C
 	ldr r0, [r0]
 	movs r4, #0
 	strh r4, [r0, #0x32]
-	bl func_fe6_080846F0
+	bl GetGlobalSaveInfo_unk0Eb0
 	cmp r0, #0
 	beq .L0808C784
 	mov r2, sl
@@ -17247,9 +17563,9 @@ func_fe6_0808F3E8: @ 0x0808F3E8
 	thumb_func_start func_fe6_0808F470
 func_fe6_0808F470: @ 0x0808F470
 	push {r4, lr}
-	bl func_fe6_08084CD8
+	bl PidStatsGetTotalBattleAmt
 	adds r4, r0, #0
-	bl func_fe6_08084CFC
+	bl PidStatsGetTotalWinAmt
 	movs r1, #0x64
 	muls r0, r1, r0
 	adds r1, r4, #0
@@ -17287,9 +17603,9 @@ func_fe6_0808F490: @ 0x0808F490
 	thumb_func_start func_fe6_0808F4B8
 func_fe6_0808F4B8: @ 0x0808F4B8
 	push {r4, lr}
-	bl func_fe6_08084CD8
+	bl PidStatsGetTotalBattleAmt
 	adds r4, r0, #0
-	bl func_fe6_08084CFC
+	bl PidStatsGetTotalWinAmt
 	movs r1, #0x64
 	muls r0, r1, r0
 	adds r1, r4, #0
@@ -17416,7 +17732,7 @@ func_fe6_0808F550: @ 0x0808F550
 	thumb_func_start func_fe6_0808F59C
 func_fe6_0808F59C: @ 0x0808F59C
 	push {lr}
-	bl func_fe6_08084D34
+	bl PidStatsGetTotalLevel
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	pop {r1}
@@ -21494,7 +21810,7 @@ func_fe6_0809172C: @ 0x0809172C
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	mov r8, r0
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	mov sl, r0
 	ldr r0, .L0809180C @ =gUnk_08677FD0
 	movs r1, #3
@@ -21876,7 +22192,7 @@ func_fe6_08091A64: @ 0x08091A64
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	str r0, [sp, #4]
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	mov sb, r0
 	ldr r0, .L08091B40 @ =gUnk_08677FD0
 	movs r1, #3
@@ -22097,7 +22413,7 @@ func_fe6_08091C40: @ 0x08091C40
 	ldr r0, [r0]
 	ldrb r0, [r0, #4]
 	str r0, [sp, #4]
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	mov sb, r0
 	ldr r0, .L08091D1C @ =gUnk_08677FD0
 	movs r1, #3
@@ -22627,7 +22943,7 @@ func_fe6_080920B4: @ 0x080920B4
 	lsrs r4, r4, #0x18
 	ldr r0, [r7]
 	ldrb r0, [r0, #4]
-	bl func_fe6_08084F4C
+	bl GetPidStats
 	mov sl, r0
 	ldr r0, [r7]
 	ldrb r6, [r0, #4]
@@ -35384,7 +35700,7 @@ func_fe6_080983EC: @ 0x080983EC
 	ldr r0, .L08098474 @ =gActiveUnit
 	ldr r1, [r0]
 	adds r0, r1, #0
-	bl func_fe6_0808495C
+	bl PidStatsAddBattleAmt
 	bl EndAllMus
 	ldr r0, .L08098470 @ =gAction
 	ldrb r1, [r0, #0x15]
@@ -35813,7 +36129,7 @@ func_fe6_08098798: @ 0x08098798
 	adds r2, r1, #0
 	strb r2, [r0, #0x16]
 	movs r0, #3
-	bl func_fe6_080857B0
+	bl SaveSuspendedGame
 	pop {r7}
 	pop {r0}
 	bx r0
