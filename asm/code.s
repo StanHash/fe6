@@ -2959,7 +2959,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	adds r1, #0x2d
 	movs r0, #4
 	strb r0, [r1]
-	bl GetLastestSaveSlotIndex
+	bl GetLastUsedGameSaveSlot
 	adds r1, r5, #0
 	adds r1, #0x2b
 	strb r0, [r1]
@@ -3402,7 +3402,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088352:
-	bl GetLastestSaveSlotIndex
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3413,7 +3413,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L0808836A:
-	bl GetLastestSaveSlotIndex
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3424,7 +3424,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088382:
-	bl GetLastestSaveSlotIndex
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -4807,7 +4807,7 @@ func_fe6_08088D6C: @ 0x08088D6C
 .L08088E4C: .4byte gPlaySt
 .L08088E50: .4byte gKeySt
 .L08088E54:
-	bl GetLastestSaveSlotIndex
+	bl GetLastUsedGameSaveSlot
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1

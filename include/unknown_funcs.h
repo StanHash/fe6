@@ -2482,8 +2482,8 @@ bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
 void SavePlayThroughData(void);
 // func_fe6_08084F48
 // GetPidStats
-// SettLastestSaveSlotIndex
-int GetLastestSaveSlotIndex(void);
+// UpdateLastUsedGameSaveSlot
+int GetLastUsedGameSaveSlot(void);
 // func_fe6_08084FB8
 // CopyGameSave
 void SaveNewGame(int saveId, int isHard);
@@ -2492,13 +2492,13 @@ void SaveGame(int arg_0);
 bool VerifySaveBlockInfoByIndex(int saveId);
 void LoadPlaySt(int saveId, struct PlaySt * out);
 // CheckSaveChunkChapterValid
-// SaveUnit
-// LoadUnit
-void func_fe6_08085788(int saveId);
+void SaveUnit(struct Unit *unit, void *sram_dst);
+void LoadUnit(u8 *sram_src, struct Unit *unit);
+void ResetSaveBlockInfo(int saveId);
 void SaveSuspendedGame(int saveId);
 void LoadSuspendedGame(int saveId);
 bool func_fe6_080859E0(int saveId);
-// func_fe6_08085A34
+void func_fe6_08085A34(int saveId, struct PlaySt *playSt);
 // PackUnitForSuspend
 // LoadUnitFormSuspend
 // SaveTraps

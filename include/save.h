@@ -34,6 +34,48 @@ struct ChWinData {
              u16 chapter_time  : 0x10;
 };
 
+struct UnitSavePack {       /* Save Data */
+    /* 000 */ u32 pid    : 7;
+    /* 007 */ u32 jid    : 7;
+    /* 014 */ u32 level  : 5;
+    /* 019 */ u32 flags  : 6;
+    /* 025 */ u32 exp    : 7;
+    /* 032 */ u32 x      : 6;
+    /* 038 */ u32 y      : 6;
+    /* 044 */ u32 max_hp : 6;
+
+    /* 049 */ u32 pow : 5;
+    /* 054 */ u32 skl : 5;
+    /* 059 */ u32 spd : 5;
+    /* 065 */ u32 def : 5;
+    /* 070 */ u32 res : 5;
+    /* 075 */ u32 lck : 5;
+    /* 080 */ u32 con : 5;
+    /* 085 */ u32 mov : 5;
+
+    /* 090 */ u32 item0 : 14;
+    /* 104 */ u32 item1 : 14;
+    /* 118 */ u32 item2 : 14;
+    /* 132 */ u32 item3 : 14;
+    /* 146 */ u32 item4 : 14;
+
+    /* x14 */ u8 _pad_14[2];
+
+    /* x16 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
+    /* x1E */ u8 supports[UNIT_SUPPORT_COUNT];
+};
+
+enum packed_unit_state_bits {
+    PACKED_US_DEAD       = 1 << 0,
+    PACKED_US_UNDEPLOYED = 1 << 1,
+    PACKED_US_SOLO_ANIM1 = 1 << 2,
+    PACKED_US_SOLO_ANIM2 = 1 << 3,
+    PACKED_US_METIS_TOME = 1 << 4,
+    PACKED_US_B4         = 1 << 5,
+    PACKED_US_B5         = 1 << 6,
+    PACKED_US_NEW_FRIEND = 1 << 7,
+};
+
 extern u8 gUnk_0203D524[0xA];
 extern i8 gBoolSramWorking;
 extern u8 *gPidStatsSaveLoc;
@@ -56,7 +98,6 @@ void WriteAndCkSum32SaveBlockInfo(struct SaveBlockInfo *chunk, int index);
 u8 *GetSaveTargetAddress(int index);
 u8 *GetSaveSourceAddress(int index);
 void GenerateSaveBlockInfoCkSum32(struct SaveBlockInfo *chunk);
-bool CheckSaveChunkChapterValid();
 bool func_fe6_08086558();
 bool CheckSaveChunkChapterValid(int index);
 int GetLastSuspendSlotIndex();

@@ -426,7 +426,7 @@ static void GC_InitTrialMap(struct GameController * proc)
 
 static void GC_ClearSuspend(struct GameController * proc)
 {
-    func_fe6_08085788(SAVE_ID_SUSPEND0);
+    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
 }
 
 static void GC_PostChapter(struct GameController * proc)

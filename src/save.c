@@ -9,6 +9,26 @@
 #include "hardware.h"
 #include "faction.h"
 #include "battle.h"
+#include "chapter.h"
+#include "unit.h"
+
+enum SaveSaDataSizes {
+    SAVESA_SIZE_PLAYST = sizeof(struct PlaySt),
+    SAVESA_SIZE_UNIT = 52 * sizeof(struct UnitSavePack),
+    SAVESA_SIZE_SUPPLY = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SAVESA_SIZE_PIDSTATS = sizeof(gPidStatsData),
+    SAVESA_SIZE_CHWIN = sizeof(gChWinData),
+};
+
+enum SaveSaDataOffsets {
+    SAVESA_OFF_START = 0,
+    SAVESA_OFF_PLAYST = SAVESA_OFF_START,
+    SAVESA_OFF_UNIT = SAVESA_OFF_PLAYST + SAVESA_SIZE_PLAYST,
+    SAVESA_OFF_SUPPLY = SAVESA_OFF_UNIT + SAVESA_SIZE_UNIT,
+    SAVESA_OFF_PIDSTATS = SAVESA_OFF_SUPPLY + SAVESA_SIZE_SUPPLY,
+    SAVESA_OFF_CHWIN = SAVESA_OFF_PIDSTATS + SAVESA_SIZE_PIDSTATS,
+    SAVESA_OFF_PERMFLAG = SAVESA_OFF_CHWIN + SAVESA_SIZE_CHWIN,
+};
 
 EWRAM_DATA u8 gUnk_0203D524[0xA] = {0};
 EWRAM_DATA bool gBoolSramWorking = 0;
@@ -292,7 +312,7 @@ void SaveSupplyItems(u8 *sram_dst)
     WriteAndVerifySramFast(
         (u8*)GetSupplyItems(),
         sram_dst,
-        100 * sizeof(u16)
+        SUPPLY_ITEM_COUNT * sizeof(u16)
     );
 }
 
@@ -301,7 +321,7 @@ void LoadSupplyItems(u8 *sram_src)
     (*ReadSramFast)(
         sram_src,
         (u8*)GetSupplyItems(),
-        100 * sizeof(u16)
+        SUPPLY_ITEM_COUNT * sizeof(u16)
     );
 }
 
@@ -793,4 +813,293 @@ struct PidStats *GetPidStats(u8 pid)
         return NULL;
     else
         return &gPidStats[pid];
+}
+
+void UpdateLastUsedGameSaveSlot(int slot_sa)
+{
+    struct GlobalSaveInfo info;
+
+    LoadGlobalSaveInfo(&info);
+    info.slot_sa = slot_sa;
+    SaveGlobalSaveInfoNoChecksum(&info);
+}
+
+int GetLastUsedGameSaveSlot()
+{
+    int ret;
+    struct GlobalSaveInfo info;
+
+    if (!LoadGlobalSaveInfo(&info))
+        return 0;
+    
+    ret = info.slot_sa;
+    if (ret > 2)
+        return 0;
+    else if (ret < 0)
+        return 0;
+    else
+        return ret;
+}
+
+void func_fe6_08084FB8(int slot)
+{
+    struct SaveBlockInfo chunk;
+    struct PlaySt playSt;
+
+    if (func_fe6_080859E0(SAVE_ID_SUSPEND0)) {
+        func_fe6_08085A34(SAVE_ID_SUSPEND0, &playSt);
+
+        if (playSt.save_slot == slot)
+            ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+    }
+
+    chunk.kind = -1;
+    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+}
+
+void CopyGameSave(int index_src, int index_dst)
+{
+    struct SaveBlockInfo chunk;
+    u8 *src = GetSaveSourceAddress(index_src);
+    u8 *dst = GetSaveTargetAddress(index_dst);
+
+    (*ReadSramFast)(src, gBuf, 0xDF0);
+    WriteAndVerifySramFast(gBuf, dst, 0xDF0);
+
+    chunk.magic_a = 0x11217;
+    chunk.kind = 0;
+    WriteAndCkSum32SaveBlockInfo(&chunk, index_dst);
+}
+
+void SaveNewGame(int slot, int isHard)
+{
+    int i;
+    struct SaveBlockInfo chunk;
+    u8 buf[0x28];
+    u8 *dst = GetSaveTargetAddress(slot);
+
+    InitPlayConfig(isHard);
+    InitUnits();
+    ClearSupplyItems();
+    ResetPermanentFlags();
+    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+
+    gPlaySt.playthrough_id = GetNewPlaythroughId();
+    gPlaySt.save_slot = slot;
+
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst, sizeof(gPlaySt));
+
+    CpuFill16(0, buf, sizeof(buf));
+    for (i = 0; i < 0x34; i++)
+        WriteAndVerifySramFast(buf, dst + sizeof(gPlaySt) + sizeof(buf) * i, sizeof(buf));
+
+    SaveSupplyItems(dst + 0x840);
+    ClearPidChStatsSaveData(dst);
+    SavePermanentFlagBits(dst + 0xDE8);
+
+    chunk.magic_a = 0x11217;
+    chunk.kind = 0;
+    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+    UpdateLastUsedGameSaveSlot(slot);
+}
+
+void SaveGame(int slot)
+{
+    int i;
+    struct SaveBlockInfo chunk;
+    u8 *dst = GetSaveTargetAddress(slot);
+
+    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+
+    gPlaySt.save_slot = slot;
+    gPlaySt.unk_00 = GetGameTime();
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESA_OFF_PLAYST, sizeof(gPlaySt));
+
+    for (i = 0; i < 52; i++)
+        SaveUnit(&gUnitArrayBlue[i], dst + SAVESA_OFF_UNIT + i * sizeof(struct UnitSavePack));
+
+    SaveSupplyItems(dst + SAVESA_OFF_SUPPLY);
+    SavePidStats(dst + SAVESA_OFF_PIDSTATS);
+    SaveChWinData(dst + SAVESA_OFF_CHWIN);
+    SavePermanentFlagBits(dst + SAVESA_OFF_PERMFLAG);
+
+    chunk.magic_a = 0x11217;
+    chunk.kind = 0;
+    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+    UpdateLastUsedGameSaveSlot(slot);
+}
+
+void LoadGame(int slot)
+{
+    int i;
+    u8 *src = GetSaveSourceAddress(slot);
+
+    if (!(BM_FLAG_LINKARENA & gBmSt.flags))
+        ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+
+    (*ReadSramFast)(src + SAVESA_OFF_PLAYST, (u8*)&gPlaySt, sizeof(gPlaySt));
+    SetGameTime(gPlaySt.unk_00);
+    gPlaySt.save_slot = slot;
+
+    InitUnits();
+    for (i = 0; i < 52; i++)
+        LoadUnit(src + SAVESA_OFF_UNIT + i * sizeof(struct UnitSavePack), &gUnitArrayBlue[i]);
+
+    LoadSupplyItems(src + SAVESA_OFF_SUPPLY);
+    LoadPermanentFlagBits(src + SAVESA_OFF_PERMFLAG);
+    LoadPidStats(src + SAVESA_OFF_PIDSTATS);
+    LoadChWinData(src + SAVESA_OFF_CHWIN);
+
+    UpdateLastUsedGameSaveSlot(slot);
+}
+
+bool VerifySaveBlockInfoByIndex(int slot)
+{
+    return LoadAndVerifySaveBlockInfo(NULL, slot);
+}
+
+void LoadPlaySt(int slot, struct PlaySt *playSt)
+{
+    u8 *src = GetSaveSourceAddress(slot);
+    (*ReadSramFast)(src + SAVESA_OFF_PLAYST, (u8*)playSt, sizeof(struct PlaySt));
+}
+
+bool CheckSaveChunkChapterValid(int slot)
+{
+    struct PlaySt playSt;
+
+    if (!VerifySaveBlockInfoByIndex(slot))
+        return FALSE;
+
+    LoadPlaySt(slot, &playSt);
+
+    if (playSt.chapter <= 1)
+        return FALSE;
+    else
+        return TRUE;
+}
+
+void SaveUnit(struct Unit *unit, void *sram_dst)
+{
+    int i;
+    struct UnitSavePack unitp;
+
+    unitp.pid = unit->pinfo->id;
+    unitp.jid = unit->jinfo->id;
+
+    if (!unit->pinfo) {
+        struct Unit _unit;
+        unit = &_unit;
+
+        ClearUnit(unit);
+        unitp.pid = 0;
+        unitp.jid = 0;
+    }
+
+    unitp.level = *(u8*)&unit->level;
+    unitp.exp = unit->exp;
+    unitp.x = unit->x;
+    unitp.y = unit->y;
+    unitp.max_hp = *(i8*)&unit->max_hp;
+    unitp.pow = unit->pow;
+    unitp.skl = unit->skl;
+    unitp.spd = unit->spd;
+    unitp.def = unit->def;
+    unitp.res = unit->res;
+    unitp.lck = unit->lck;
+    unitp.con = unit->bonus_con;
+    unitp.mov = unit->bonus_mov;
+
+    unitp.item0 = unit->items[0];
+    unitp.item1 = unit->items[1];
+    unitp.item2 = unit->items[2];
+    unitp.item3 = unit->items[3];
+    unitp.item4 = unit->items[4];
+
+    unitp.flags = 0;
+
+    if (UNIT_FLAG_DEAD & unit->flags)
+        unitp.flags |= PACKED_US_DEAD;
+
+    if (UNIT_FLAG_NOT_DEPLOYED & unit->flags)
+        unitp.flags |= PACKED_US_UNDEPLOYED;
+
+    if (UNIT_FLAG_SOLOANIM_1 & unit->flags)
+        unitp.flags |= PACKED_US_SOLO_ANIM1;
+
+    if (UNIT_FLAG_SOLOANIM_2 & unit->flags)
+        unitp.flags |= PACKED_US_SOLO_ANIM2;
+
+    for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
+        unitp.wexp[i] = unit->wexp[i];
+
+    for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
+        unitp.supports[i] = unit->supports[i];
+
+    WriteAndVerifySramFast((u8*)&unitp, sram_dst, sizeof(struct UnitSavePack));
+}
+
+void LoadUnit(u8 *sram_src, struct Unit *unit)
+{
+    int i;
+    struct UnitSavePack unitp;
+
+    (*ReadSramFast)(sram_src, (u8*)&unitp, sizeof(struct UnitSavePack));
+
+    unit->pinfo = GetPInfo(unitp.pid);
+    unit->jinfo = GetJInfo(unitp.jid);
+
+    unit->level = unitp.level;
+    unit->exp = unitp.exp;
+    unit->x = unitp.x;
+    unit->y = unitp.y;
+    unit->max_hp = unitp.max_hp;
+    unit->pow = unitp.pow;
+    unit->skl = unitp.skl;
+    unit->spd = unitp.spd;
+    unit->def = unitp.def;
+    unit->res = unitp.res;
+    unit->lck = unitp.lck;
+    unit->bonus_con = unitp.con;
+    unit->bonus_mov = unitp.mov;
+
+    unit->items[0] = unitp.item0;
+    unit->items[1] = unitp.item1;
+    unit->items[2] = unitp.item2;
+    unit->items[3] = unitp.item3;
+    unit->items[4] = unitp.item4;
+
+    if (unit->exp > 99)
+        unit->exp = -1;
+
+    unit->flags = 0;
+
+    if (unitp.flags & PACKED_US_DEAD)
+        unit->flags |= UNIT_FLAG_DEAD | UNIT_FLAG_HIDDEN;
+
+    if (unitp.flags & PACKED_US_UNDEPLOYED)
+        unit->flags |= UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_HIDDEN;
+
+    if (unitp.flags & PACKED_US_SOLO_ANIM1)
+        unit->flags |= UNIT_FLAG_SOLOANIM_1;
+
+    if (unitp.flags & PACKED_US_SOLO_ANIM2)
+        unit->flags |= UNIT_FLAG_SOLOANIM_2;
+
+    for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
+        unit->wexp[i] = unitp.wexp[i];
+
+    for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
+        unit->supports[i] = unitp.supports[i];
+
+    SetUnitHp(unit, GetUnitMaxHp(unit));
+
+    if (0x7F == unit->exp)
+        unit->exp = -1;
+
+    if (0x3F == unit->x)
+        unit->x = -1;
+
+    if (0x3F == unit->y)
+        unit->y = -1;
 }

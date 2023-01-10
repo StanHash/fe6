@@ -343,7 +343,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
     CleanupUnitsBeforeChapter();
-    SaveGame(GetLastestSaveSlotIndex());
+    SaveGame(GetLastUsedGameSaveSlot());
 
     SoftReset(GBA_RESET_ALL);
 }
