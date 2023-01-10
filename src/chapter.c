@@ -42,7 +42,7 @@ int GetTextPrintDelay(void)
 
 int IsFirstPlaythrough(void)
 {
-    if (!GetGlobalSaveInfo_unk0Eb0())
+    if (!IsGamePlayThroughed())
         return TRUE;
 
     if (gPlaySt.flags & PLAY_FLAG_COMPLETE)

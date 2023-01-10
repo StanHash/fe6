@@ -2,160 +2,6 @@
 
 	.syntax unified
 
-	thumb_func_start ResetSaveBlockInfo
-ResetSaveBlockInfo: @ 0x08085788
-	push {r4, lr}
-	sub sp, #0x10
-	adds r4, r0, #0
-	mov r1, sp
-	movs r0, #0xff
-	strb r0, [r1, #6]
-	mov r0, sp
-	adds r1, r4, #0
-	bl WriteAndCkSum32SaveBlockInfo
-	cmp r4, #3
-	bne .L080857A8
-	mov r0, sp
-	movs r1, #4
-	bl WriteAndCkSum32SaveBlockInfo
-.L080857A8:
-	add sp, #0x10
-	pop {r4}
-	pop {r0}
-	bx r0
-
-	thumb_func_start SaveSuspendedGame
-SaveSuspendedGame: @ 0x080857B0
-	push {r4, r5, r6, r7, lr}
-	mov r7, sb
-	mov r6, r8
-	push {r6, r7}
-	sub sp, #0x10
-	mov r8, r0
-	ldr r4, .L080858B8 @ =gPlaySt
-	movs r0, #8
-	ldrb r1, [r4, #0x14]
-	ands r0, r1
-	cmp r0, #0
-	bne .L080858AA
-	bl IsSramWorking
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	beq .L080858AA
-	bl GetNextSuspendSlotIndex
-	add r8, r0
-	mov r0, r8
-	bl GetSaveTargetAddress
-	adds r7, r0, #0
-	bl GetGameTime
-	str r0, [r4]
-	adds r0, r4, #0
-	adds r1, r7, #0
-	movs r2, #0x20
-	bl WriteAndVerifySramFast
-	bl SaveActionRand
-	ldr r0, .L080858BC @ =gAction
-	adds r1, r7, #0
-	adds r1, #0x20
-	movs r2, #0x18
-	bl WriteAndVerifySramFast
-	ldr r5, .L080858C0 @ =gBuf
-	ldr r6, .L080858C4 @ =gUnitArrayBlue
-	movs r4, #0x33
-.L08085806:
-	adds r1, r5, #0
-	adds r5, #0x34
-	adds r0, r6, #0
-	bl PackUnitForSuspend
-	adds r6, #0x48
-	subs r4, #1
-	cmp r4, #0
-	bge .L08085806
-	movs r0, #0x38
-	adds r0, r0, r7
-	mov sb, r0
-	ldr r6, .L080858C8 @ =gUnitArrayRed
-	movs r4, #0x31
-.L08085822:
-	adds r1, r5, #0
-	adds r5, #0x34
-	adds r0, r6, #0
-	bl PackUnitForSuspend
-	adds r6, #0x48
-	subs r4, #1
-	cmp r4, #0
-	bge .L08085822
-	ldr r6, .L080858CC @ =gUnitArrayGreen
-	movs r4, #9
-.L08085838:
-	adds r1, r5, #0
-	adds r5, #0x34
-	adds r0, r6, #0
-	bl PackUnitForSuspend
-	adds r6, #0x48
-	subs r4, #1
-	cmp r4, #0
-	bge .L08085838
-	movs r4, #0
-	ldr r0, .L080858C0 @ =gBuf
-	movs r2, #0xb6
-	lsls r2, r2, #5
-	mov r1, sb
-	bl WriteSramFast
-	movs r1, #0xed
-	lsls r1, r1, #5
-	adds r0, r7, r1
-	bl SavePermanentFlagBits
-	ldr r1, .L080858D0 @ =0x00001DA5
-	adds r0, r7, r1
-	bl SaveChapterFlagBits
-	ldr r1, .L080858D4 @ =0x000017F8
-	adds r0, r7, r1
-	bl SaveSupplyItems
-	movs r1, #0xc6
-	lsls r1, r1, #5
-	adds r0, r7, r1
-	bl SavePidStats
-	movs r1, #0xe9
-	lsls r1, r1, #5
-	adds r0, r7, r1
-	bl SaveChWinData
-	ldr r1, .L080858D8 @ =0x000016F8
-	adds r0, r7, r1
-	bl SaveTraps
-	ldr r0, .L080858DC @ =0x00011217
-	str r0, [sp]
-	mov r1, sp
-	movs r0, #1
-	strb r0, [r1, #6]
-	mov r0, sp
-	mov r1, r8
-	bl WriteAndCkSum32SaveBlockInfo
-	ldr r0, .L080858E0 @ =gBmSt
-	adds r0, #0x3c
-	strb r4, [r0]
-	bl ChangeSuspendSlotIndex
-.L080858AA:
-	add sp, #0x10
-	pop {r3, r4}
-	mov r8, r3
-	mov sb, r4
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080858B8: .4byte gPlaySt
-.L080858BC: .4byte gAction
-.L080858C0: .4byte gBuf
-.L080858C4: .4byte gUnitArrayBlue
-.L080858C8: .4byte gUnitArrayRed
-.L080858CC: .4byte gUnitArrayGreen
-.L080858D0: .4byte 0x00001DA5
-.L080858D4: .4byte 0x000017F8
-.L080858D8: .4byte 0x000016F8
-.L080858DC: .4byte 0x00011217
-.L080858E0: .4byte gBmSt
-
 	thumb_func_start LoadSuspendedGame
 LoadSuspendedGame: @ 0x080858E4
 	push {r4, r5, r6, lr}
@@ -273,21 +119,21 @@ func_fe6_080859E0: @ 0x080859E0
 	cmp r4, #3
 	bne .L08085A24
 	ldr r4, .L08085A28 @ =0x0203DA14
-	bl GetLastSuspendSlotIndex
+	bl GetLastSuspendSlotId
 	strb r0, [r4]
 	adds r1, r0, #0
 	adds r1, #3
 	movs r0, #0
-	bl LoadAndVerifySaveBlockInfo
+	bl LoadSaveBlockInfo
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08085A2C
-	bl GetNextSuspendSlotIndex
+	bl GetNextSuspendSaveId
 	strb r0, [r4]
 	adds r1, r0, #0
 	adds r1, #3
 	movs r0, #0
-	bl LoadAndVerifySaveBlockInfo
+	bl LoadSaveBlockInfo
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08085A2C
@@ -921,8 +767,8 @@ LoadTraps: @ 0x08085ED0
 	.align 2, 0
 .L08085EF0: .4byte ReadSramFast
 
-	thumb_func_start GetLastSuspendSlotIndex
-GetLastSuspendSlotIndex: @ 0x08085EF4
+	thumb_func_start GetLastSuspendSlotId
+GetLastSuspendSlotId: @ 0x08085EF4
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -941,18 +787,18 @@ GetLastSuspendSlotIndex: @ 0x08085EF4
 	bx r1
 	.align 2, 0
 
-	thumb_func_start GetNextSuspendSlotIndex
-GetNextSuspendSlotIndex: @ 0x08085F14
+	thumb_func_start GetNextSuspendSaveId
+GetNextSuspendSaveId: @ 0x08085F14
 	push {lr}
-	bl GetLastSuspendSlotIndex
+	bl GetLastSuspendSlotId
 	adds r1, r0, #0
 	movs r0, #1
 	subs r0, r0, r1
 	pop {r1}
 	bx r1
 
-	thumb_func_start ChangeSuspendSlotIndex
-ChangeSuspendSlotIndex: @ 0x08085F24
+	thumb_func_start ChangeSuspendSlotId
+ChangeSuspendSlotId: @ 0x08085F24
 	push {lr}
 	sub sp, #0x20
 	mov r0, sp
@@ -1142,7 +988,7 @@ VerifySaveBlockInfoByIndex2: @ 0x08086090
 	push {lr}
 	adds r1, r0, #0
 	movs r0, #0
-	bl LoadAndVerifySaveBlockInfo
+	bl LoadSaveBlockInfo
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	pop {r1}
@@ -1290,7 +1136,7 @@ func_fe6_080860A4: @ 0x080860A4
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x6c
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1398,7 +1244,7 @@ func_fe6_08086264: @ 0x08086264
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x14
 	pop {r4, r5, r6}
 	pop {r0}
@@ -1450,7 +1296,7 @@ func_fe6_080862B8: @ 0x080862B8
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x10
 	pop {r3, r4}
 	mov r8, r3
@@ -1518,7 +1364,7 @@ func_fe6_08086330: @ 0x08086330
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x10
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -1571,7 +1417,7 @@ func_fe6_080863CC: @ 0x080863CC
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x10
 	pop {r3}
 	mov r8, r3
@@ -1654,7 +1500,7 @@ func_fe6_08086490: @ 0x08086490
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x10
 	pop {r4}
 	pop {r0}
@@ -1704,7 +1550,7 @@ func_fe6_080864F4: @ 0x080864F4
 	strb r0, [r1, #6]
 	mov r0, sp
 	movs r1, #5
-	bl WriteAndCkSum32SaveBlockInfo
+	bl WriteSaveBlockInfo
 	add sp, #0x10
 	pop {r4}
 	pop {r0}

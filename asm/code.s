@@ -3911,7 +3911,7 @@ func_fe6_080885DC: @ 0x080885DC
 	bl Proc_Goto
 	b .L0808884C
 .L08088744:
-	bl GetGlobalSaveInfo_unk0Eb0
+	bl IsGamePlayThroughed
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08088774
@@ -7855,7 +7855,7 @@ func_fe6_0808A524: @ 0x0808A524
 	adds r0, #1
 	strb r0, [r1]
 .L0808A5FE:
-	bl GetGlobalSaveInfo_unk0Eb0_
+	bl IsGamePlayThroughed_
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A61A
@@ -11993,7 +11993,7 @@ func_fe6_0808C75C: @ 0x0808C75C
 	ldr r0, [r0]
 	movs r4, #0
 	strh r4, [r0, #0x32]
-	bl GetGlobalSaveInfo_unk0Eb0
+	bl IsGamePlayThroughed
 	cmp r0, #0
 	beq .L0808C784
 	mov r2, sl

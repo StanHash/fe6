@@ -2436,8 +2436,8 @@ void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
 // InitGlobalSaveInfo
 // SramOffsetToPointer
 // SramPointerToOffset
-bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
-// WriteAndCkSum32SaveBlockInfo
+bool LoadSaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
+// WriteSaveBlockInfo
 // GetSaveTargetAddress
 // GetSaveSourceAddress
 // SaveChapterFlagBits
@@ -2446,10 +2446,10 @@ bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
 // LoadPermanentFlagBits
 // SaveSupplyItems
 // LoadSupplyItems
-bool GetGlobalSaveInfo_unk0Eb0(void);
+bool IsGamePlayThroughed(void);
 // func_fe6_08084714
 // func_fe6_08084718
-// GetGlobalSaveInfo_unk0Eb0_
+// IsGamePlayThroughed_
 // CheckHasCompletedSave
 // ClearPidChStatsSaveData
 void ClearPidStats(void);
@@ -2499,13 +2499,13 @@ void SaveSuspendedGame(int saveId);
 void LoadSuspendedGame(int saveId);
 bool func_fe6_080859E0(int saveId);
 void func_fe6_08085A34(int saveId, struct PlaySt *playSt);
-// PackUnitForSuspend
-// LoadUnitFormSuspend
-// SaveTraps
-// LoadTraps
-// GetLastSuspendSlotIndex
-// GetNextSuspendSlotIndex
-// ChangeSuspendSlotIndex
+void PackUnitForSuspend(struct Unit *unit, u8 *buf);
+void LoadUnitFormSuspend(u8 *sram_src, struct Unit *unit);
+void SaveTraps(void *sram_dest);
+void LoadTraps(void *sram_dest);
+int GetLastSuspendSlotId();
+int GetNextSuspendSaveId();
+void ChangeSuspendSlotId();
 // GetCkSum32FromSRAM
 // CkSum32SaveBlockInfo
 // GenerateSaveBlockInfoCkSum32

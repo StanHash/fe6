@@ -11,23 +11,50 @@
 #include "battle.h"
 #include "chapter.h"
 #include "unit.h"
+#include "action.h"
 
 enum SaveSaDataSizes {
     SAVESA_SIZE_PLAYST = sizeof(struct PlaySt),
-    SAVESA_SIZE_UNIT = 52 * sizeof(struct UnitSavePack),
+    SAVESA_SIZE_UNIT = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SavePackedUnit),
     SAVESA_SIZE_SUPPLY = SUPPLY_ITEM_COUNT * sizeof(u16),
     SAVESA_SIZE_PIDSTATS = sizeof(gPidStatsData),
     SAVESA_SIZE_CHWIN = sizeof(gChWinData),
 };
 
+enum SaveSuDataSizes {
+    SAVESU_SIZE_PLAYST = sizeof(struct PlaySt),
+    SAVESU_SIZE_ACTION = sizeof(struct Action),
+    SAVESU_SIZE_UNIT = (UNIT_SAVE_AMOUNT_BLUE + UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit),
+    SAVESU_SIZE_TRAP = 0x100,
+    SAVESU_SIZE_SUPPLY = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SAVESU_SIZE_PIDSTATS = sizeof(gPidStatsData),
+    SAVESU_SIZE_CHWIN = sizeof(gChWinData),
+    SAVESU_SIZE_PERMFLAG = 0x5,
+};
+
+/* Save data memory map */
 enum SaveSaDataOffsets {
-    SAVESA_OFF_START = 0,
-    SAVESA_OFF_PLAYST = SAVESA_OFF_START,
-    SAVESA_OFF_UNIT = SAVESA_OFF_PLAYST + SAVESA_SIZE_PLAYST,
-    SAVESA_OFF_SUPPLY = SAVESA_OFF_UNIT + SAVESA_SIZE_UNIT,
-    SAVESA_OFF_PIDSTATS = SAVESA_OFF_SUPPLY + SAVESA_SIZE_SUPPLY,
-    SAVESA_OFF_CHWIN = SAVESA_OFF_PIDSTATS + SAVESA_SIZE_PIDSTATS,
-    SAVESA_OFF_PERMFLAG = SAVESA_OFF_CHWIN + SAVESA_SIZE_CHWIN,
+    SAVESA_MEMMAP_START    = 0,
+    SAVESA_MEMMAP_PLAYST   = SAVESA_MEMMAP_START,
+    SAVESA_MEMMAP_UNIT     = SAVESA_MEMMAP_PLAYST   + SAVESA_SIZE_PLAYST,
+    SAVESA_MEMMAP_SUPPLY   = SAVESA_MEMMAP_UNIT     + SAVESA_SIZE_UNIT,
+    SAVESA_MEMMAP_PIDSTATS = SAVESA_MEMMAP_SUPPLY   + SAVESA_SIZE_SUPPLY,
+    SAVESA_MEMMAP_CHWIN    = SAVESA_MEMMAP_PIDSTATS + SAVESA_SIZE_PIDSTATS,
+    SAVESA_MEMMAP_PERMFLAG = SAVESA_MEMMAP_CHWIN    + SAVESA_SIZE_CHWIN,
+};
+
+/* Suspand data memory map */
+enum SaveSuDataOffsets {
+    SAVESU_MEMMAP_START    = 0,
+    SAVESU_MEMMAP_PLAYST   = SAVESU_MEMMAP_START,
+    SAVESU_MEMMAP_ACTION   = SAVESU_MEMMAP_PLAYST   + SAVESU_SIZE_PLAYST,
+    SAVESU_MEMMAP_UNIT     = SAVESU_MEMMAP_ACTION   + SAVESU_SIZE_ACTION,
+    SAVESU_MEMMAP_TRAP     = SAVESU_MEMMAP_UNIT     + SAVESU_SIZE_UNIT,
+    SAVESU_MEMMAP_SUPPLY   = SAVESU_MEMMAP_TRAP     + SAVESU_SIZE_TRAP,
+    SAVESU_MEMMAP_PIDSTATS = SAVESU_MEMMAP_SUPPLY   + SAVESU_SIZE_SUPPLY,
+    SAVESU_MEMMAP_CHWIN    = SAVESU_MEMMAP_PIDSTATS + SAVESU_SIZE_PIDSTATS,
+    SAVESU_MEMMAP_PERMFLAG = SAVESU_MEMMAP_CHWIN    + SAVESU_SIZE_CHWIN,
+    SAVESU_MEMMAP_TEMPFLAG = SAVESU_MEMMAP_PERMFLAG + SAVESU_SIZE_PERMFLAG,
 };
 
 EWRAM_DATA u8 gUnk_0203D524[0xA] = {0};
@@ -128,7 +155,7 @@ void InitGlobalSaveInfo()
     info.magic_a = 0x11217;
     info.magic_b = 0x200A;
 
-    info.unk_0E_0 = 0;
+    info.playedThrough = 0;
     info.unk_0E_2 = 0;
     info.unk_0E_1 = 0;
     info.unk_0E_3 = 0;
@@ -153,7 +180,7 @@ u16 SramPointerToOffset(u8 *addr)
     return addr - gpSramEntry;
 }
 
-bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo *chunk, int id)
+bool LoadSaveBlockInfo(struct SaveBlockInfo *chunk, int id)
 {
     u32 magic_a;
     struct SaveBlockInfo tmp;
@@ -196,7 +223,7 @@ bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo *chunk, int id)
     return CkSum32SaveBlockInfo(chunk);
 }
 
-void WriteAndCkSum32SaveBlockInfo(struct SaveBlockInfo *chunk, int index)
+void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index)
 {
     chunk->magic_b = 0x200A;
     chunk->offset  = (uintptr_t)GetSaveTargetAddress(index);
@@ -267,7 +294,7 @@ u8 *GetSaveTargetAddress(int index)
 u8 *GetSaveSourceAddress(int index)
 {
     struct SaveBlockInfo chunk;
-    LoadAndVerifySaveBlockInfo(&chunk, index);
+    LoadSaveBlockInfo(&chunk, index);
     return SramOffsetToPointer(chunk.offset);
 }
 
@@ -325,14 +352,14 @@ void LoadSupplyItems(u8 *sram_src)
     );
 }
 
-bool GetGlobalSaveInfo_unk0Eb0()
+bool IsGamePlayThroughed()
 {
     int ret;
     struct GlobalSaveInfo info;
 
     ret = LoadGlobalSaveInfo(&info);
     if (ret)
-        return info.unk_0E_0;
+        return info.playedThrough;
     else
         return FALSE;
 }
@@ -362,9 +389,9 @@ bool func_fe6_08084718()
     /* return FLASE; */
 }
 
-bool GetGlobalSaveInfo_unk0Eb0_()
+bool IsGamePlayThroughed_()
 {
-    return GetGlobalSaveInfo_unk0Eb0();
+    return IsGamePlayThroughed();
 }
 
 bool CheckHasCompletedSave()
@@ -544,20 +571,16 @@ void PidStatsRecordLoseData(u8 pid)
         if (bwl->lossAmt < 200) {
             bwl->lossAmt++;
 
-            index = GetLastSuspendSlotIndex() + 3;
-            WriteAndVerifySramFast((u8*)bwl,
-                                   GetSaveTargetAddress(index) + 0x18B0 + pid * sizeof(struct PidStats),
-                                   1);
+            index = GetLastSuspendSlotId() + 3;
+            WriteAndVerifySramFast((u8*)bwl, GetSaveTargetAddress(index) + 0x18B0 + pid * sizeof(struct PidStats), 1);
 
-            LoadAndVerifySaveBlockInfo(&chunk, index);
-            WriteAndCkSum32SaveBlockInfo(&chunk, index);
+            LoadSaveBlockInfo(&chunk, index);
+            WriteSaveBlockInfo(&chunk, index);
 
-            WriteAndVerifySramFast((u8*)bwl,
-                                   GetSaveTargetAddress(gPlaySt.save_slot) + 0x8F8 + pid * sizeof(struct PidStats),
-                                   1);
+            WriteAndVerifySramFast((u8*)bwl, GetSaveTargetAddress(gPlaySt.save_slot) + 0x8F8 + pid * sizeof(struct PidStats), 1);
 
-            LoadAndVerifySaveBlockInfo(&chunk, gPlaySt.save_slot);
-            WriteAndCkSum32SaveBlockInfo(&chunk, gPlaySt.save_slot);
+            LoadSaveBlockInfo(&chunk, gPlaySt.save_slot);
+            WriteSaveBlockInfo(&chunk, gPlaySt.save_slot);
         }
     }
 }
@@ -769,7 +792,7 @@ void SavePlayThroughData()
     }
 
     RegisterCompletedPlaythrough(&info, gPlaySt.playthrough_id);
-    info.unk_0E_0 = TRUE;
+    info.playedThrough = TRUE;
 
     difficult = PLAY_FLAG_HARD & gPlaySt.flags;
     mode = (0 != difficult) * 2;
@@ -854,7 +877,7 @@ void func_fe6_08084FB8(int slot)
     }
 
     chunk.kind = -1;
-    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+    WriteSaveBlockInfo(&chunk, slot);
 }
 
 void CopyGameSave(int index_src, int index_dst)
@@ -868,7 +891,7 @@ void CopyGameSave(int index_src, int index_dst)
 
     chunk.magic_a = 0x11217;
     chunk.kind = 0;
-    WriteAndCkSum32SaveBlockInfo(&chunk, index_dst);
+    WriteSaveBlockInfo(&chunk, index_dst);
 }
 
 void SaveNewGame(int slot, int isHard)
@@ -899,7 +922,7 @@ void SaveNewGame(int slot, int isHard)
 
     chunk.magic_a = 0x11217;
     chunk.kind = 0;
-    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+    WriteSaveBlockInfo(&chunk, slot);
     UpdateLastUsedGameSaveSlot(slot);
 }
 
@@ -913,19 +936,19 @@ void SaveGame(int slot)
 
     gPlaySt.save_slot = slot;
     gPlaySt.unk_00 = GetGameTime();
-    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESA_OFF_PLAYST, sizeof(gPlaySt));
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESA_MEMMAP_PLAYST, sizeof(gPlaySt));
 
     for (i = 0; i < 52; i++)
-        SaveUnit(&gUnitArrayBlue[i], dst + SAVESA_OFF_UNIT + i * sizeof(struct UnitSavePack));
+        SaveUnit(&gUnitArrayBlue[i], dst + SAVESA_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit));
 
-    SaveSupplyItems(dst + SAVESA_OFF_SUPPLY);
-    SavePidStats(dst + SAVESA_OFF_PIDSTATS);
-    SaveChWinData(dst + SAVESA_OFF_CHWIN);
-    SavePermanentFlagBits(dst + SAVESA_OFF_PERMFLAG);
+    SaveSupplyItems(dst + SAVESA_MEMMAP_SUPPLY);
+    SavePidStats(dst + SAVESA_MEMMAP_PIDSTATS);
+    SaveChWinData(dst + SAVESA_MEMMAP_CHWIN);
+    SavePermanentFlagBits(dst + SAVESA_MEMMAP_PERMFLAG);
 
     chunk.magic_a = 0x11217;
     chunk.kind = 0;
-    WriteAndCkSum32SaveBlockInfo(&chunk, slot);
+    WriteSaveBlockInfo(&chunk, slot);
     UpdateLastUsedGameSaveSlot(slot);
 }
 
@@ -937,31 +960,31 @@ void LoadGame(int slot)
     if (!(BM_FLAG_LINKARENA & gBmSt.flags))
         ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
 
-    (*ReadSramFast)(src + SAVESA_OFF_PLAYST, (u8*)&gPlaySt, sizeof(gPlaySt));
+    (*ReadSramFast)(src + SAVESA_MEMMAP_PLAYST, (u8*)&gPlaySt, sizeof(gPlaySt));
     SetGameTime(gPlaySt.unk_00);
     gPlaySt.save_slot = slot;
 
     InitUnits();
-    for (i = 0; i < 52; i++)
-        LoadUnit(src + SAVESA_OFF_UNIT + i * sizeof(struct UnitSavePack), &gUnitArrayBlue[i]);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
+        LoadUnit(src + SAVESA_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit), &gUnitArrayBlue[i]);
 
-    LoadSupplyItems(src + SAVESA_OFF_SUPPLY);
-    LoadPermanentFlagBits(src + SAVESA_OFF_PERMFLAG);
-    LoadPidStats(src + SAVESA_OFF_PIDSTATS);
-    LoadChWinData(src + SAVESA_OFF_CHWIN);
+    LoadSupplyItems(src + SAVESA_MEMMAP_SUPPLY);
+    LoadPermanentFlagBits(src + SAVESA_MEMMAP_PERMFLAG);
+    LoadPidStats(src + SAVESA_MEMMAP_PIDSTATS);
+    LoadChWinData(src + SAVESA_MEMMAP_CHWIN);
 
     UpdateLastUsedGameSaveSlot(slot);
 }
 
 bool VerifySaveBlockInfoByIndex(int slot)
 {
-    return LoadAndVerifySaveBlockInfo(NULL, slot);
+    return LoadSaveBlockInfo(NULL, slot);
 }
 
 void LoadPlaySt(int slot, struct PlaySt *playSt)
 {
     u8 *src = GetSaveSourceAddress(slot);
-    (*ReadSramFast)(src + SAVESA_OFF_PLAYST, (u8*)playSt, sizeof(struct PlaySt));
+    (*ReadSramFast)(src + SAVESA_MEMMAP_PLAYST, (u8*)playSt, sizeof(struct PlaySt));
 }
 
 bool CheckSaveChunkChapterValid(int slot)
@@ -982,7 +1005,7 @@ bool CheckSaveChunkChapterValid(int slot)
 void SaveUnit(struct Unit *unit, void *sram_dst)
 {
     int i;
-    struct UnitSavePack unitp;
+    struct SavePackedUnit unitp;
 
     unitp.pid = unit->pinfo->id;
     unitp.jid = unit->jinfo->id;
@@ -1036,15 +1059,15 @@ void SaveUnit(struct Unit *unit, void *sram_dst)
     for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
         unitp.supports[i] = unit->supports[i];
 
-    WriteAndVerifySramFast((u8*)&unitp, sram_dst, sizeof(struct UnitSavePack));
+    WriteAndVerifySramFast((u8*)&unitp, sram_dst, sizeof(struct SavePackedUnit));
 }
 
 void LoadUnit(u8 *sram_src, struct Unit *unit)
 {
     int i;
-    struct UnitSavePack unitp;
+    struct SavePackedUnit unitp;
 
-    (*ReadSramFast)(sram_src, (u8*)&unitp, sizeof(struct UnitSavePack));
+    (*ReadSramFast)(sram_src, (u8*)&unitp, sizeof(struct SavePackedUnit));
 
     unit->pinfo = GetPInfo(unitp.pid);
     unit->jinfo = GetJInfo(unitp.jid);
@@ -1102,4 +1125,61 @@ void LoadUnit(u8 *sram_src, struct Unit *unit)
 
     if (0x3F == unit->y)
         unit->y = -1;
+}
+
+void ResetSaveBlockInfo(int slot)
+{
+    struct SaveBlockInfo chunk;
+
+    chunk.kind = -1;
+    WriteSaveBlockInfo(&chunk, slot);
+
+    if (SAVE_ID_SUSPEND0 == slot)
+        WriteSaveBlockInfo(&chunk, SAVE_ID_SUSPEND1);
+}
+
+void SaveSuspendedGame(int slot)
+{
+    int i;
+    u8 *dst;
+    struct SuspendPackedUnit *buf;
+    struct SaveBlockInfo chunk;
+
+    if (PLAY_FLAG_3 & gPlaySt.flags)
+        return;
+
+    if (!IsSramWorking())
+        return;
+
+    slot += GetNextSuspendSaveId();
+    dst = GetSaveTargetAddress(slot);
+
+    gPlaySt.unk_00 = GetGameTime();
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESU_MEMMAP_PLAYST, sizeof(struct PlaySt));
+
+    SaveActionRand();
+    WriteAndVerifySramFast((u8*)&gAction, dst + SAVESU_MEMMAP_ACTION, sizeof(struct Action));
+
+    buf = (struct SuspendPackedUnit*)gBuf;
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
+        PackUnitForSuspend(&gUnitArrayBlue[i], (u8*)buf++);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
+        PackUnitForSuspend(&gUnitArrayRed[i], (u8*)buf++);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
+        PackUnitForSuspend(&gUnitArrayGreen[i], (u8*)buf++);
+    WriteSramFast(gBuf, dst + SAVESU_MEMMAP_UNIT, (UNIT_SAVE_AMOUNT_BLUE + UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit));
+
+    SavePermanentFlagBits(dst + SAVESU_MEMMAP_PERMFLAG);
+    SaveChapterFlagBits(dst + SAVESU_MEMMAP_TEMPFLAG);
+    SaveSupplyItems(dst + SAVESU_MEMMAP_SUPPLY);
+    SavePidStats(dst + SAVESU_MEMMAP_PIDSTATS);
+    SaveChWinData(dst + SAVESU_MEMMAP_CHWIN);
+    SaveTraps(dst + SAVESU_MEMMAP_TRAP);
+
+    chunk.magic_a = 0x11217;
+    chunk.kind = 1;
+    WriteSaveBlockInfo(&chunk, slot);
+
+    gBmSt.unk_3C = 0;
+    ChangeSuspendSlotId();
 }
