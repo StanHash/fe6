@@ -221,7 +221,7 @@ int func_fe6_08070E0C(struct PlaySt const * play_st)
         return 0x2B;
 
     default:
-        if (play_st->flags & PLAY_FLAG_5)
+        if (play_st->flags & PLAY_FLAG_COMPLETE)
         {
             switch (play_st->ending_id)
             {

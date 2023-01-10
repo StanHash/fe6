@@ -10255,7 +10255,7 @@ func_fe6_0803A1FC: @ 0x0803A1FC
 	mov r2, sb
 	str r0, [r2]
 	mov r0, r8
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803A322
@@ -10281,7 +10281,7 @@ func_fe6_0803A1FC: @ 0x0803A1FC
 	str r0, [r2]
 .L0803A2C8:
 	mov r0, r8
-	bl func_fe6_08085290
+	bl CheckSaveChunkChapterValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803A2F4
@@ -12186,12 +12186,12 @@ func_fe6_0803B2AC: @ 0x0803B2AC
 	movs r4, #0
 .L0803B2B0:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803B2CC
 	adds r0, r4, #0
-	bl func_fe6_08085290
+	bl CheckSaveChunkChapterValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803B2CC
@@ -13119,7 +13119,7 @@ func_fe6_0803BA64: @ 0x0803BA64
 	movs r3, #0
 	bl InitTextFont
 	movs r0, #5
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0803BA88

@@ -886,7 +886,7 @@ void BattleApplyExpGains(void)
 {
     if ((UNIT_FACTION(&gBattleUnitA.unit) != FACTION_BLUE) || (UNIT_FACTION(&gBattleUnitB.unit) != FACTION_BLUE))
     {
-        if (!(gPlaySt.flags & PLAY_FLAG_5))
+        if (!(gPlaySt.flags & PLAY_FLAG_COMPLETE))
         {
             gBattleUnitA.exp_gain = GetBattleUnitExpGain(&gBattleUnitA, &gBattleUnitB);
             gBattleUnitB.exp_gain = GetBattleUnitExpGain(&gBattleUnitB, &gBattleUnitA);
@@ -1119,7 +1119,7 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit * bu)
     if (bu->unit.hp == 0)
         return -1;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return -1;
 
     if (gBmSt.flags & BM_FLAG_LINKARENA)
@@ -1328,7 +1328,7 @@ int GetBattleUnitExpGain(struct BattleUnit * bu, struct BattleUnit * other)
 
 void BattleApplyItemExpGains(void)
 {
-    if ((gBattleUnitA.weapon_attributes & ITEM_ATTR_STAFF) && !(gPlaySt.flags & PLAY_FLAG_5))
+    if ((gBattleUnitA.weapon_attributes & ITEM_ATTR_STAFF) && !(gPlaySt.flags & PLAY_FLAG_COMPLETE))
     {
         if (UNIT_FACTION(&gBattleUnitA.unit) == FACTION_BLUE)
             gBattleUnitA.wexp_gain++;
@@ -1369,7 +1369,7 @@ void BattleApplyMiscActionExpGains(void)
     if (!CanBattleUnitGainExp(&gBattleUnitA))
         return;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return;
 
     gBattleUnitA.exp_gain = 10;

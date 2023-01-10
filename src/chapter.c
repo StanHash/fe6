@@ -45,7 +45,7 @@ int IsFirstPlaythrough(void)
     if (!GetGlobalSaveInfo_unk0Eb0())
         return TRUE;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return FALSE;
 
     return gPlaySt.unk_1D_5;
@@ -575,6 +575,6 @@ void func_fe6_08029654(void)
 
     gPlaySt.ending_id = GetEndingId();
 
-    func_fe6_08084908(&gPlaySt);
-    func_fe6_08084EA4();
+    RegisterChWinData(&gPlaySt);
+    SavePlayThroughData();
 }

@@ -290,7 +290,7 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
     LoadGlobalSaveInfo(&saveInfo);
 
     for (i = 0; i < MAX_SAVED_GAME_CLEARS; ++i)
-        saveInfo.unk_10[i] = 0;
+        saveInfo.playThrough[i] = 0;
 
     i = 0;
 
@@ -338,7 +338,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     // required for a match
     if (gPlaySt.playthrough_id != 0) {}
 
-    func_fe6_08084EA4();
+    SavePlayThroughData();
 
     gPlaySt.flags &= ~PLAY_FLAG_4;
 

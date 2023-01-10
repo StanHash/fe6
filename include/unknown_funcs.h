@@ -2450,26 +2450,26 @@ bool GetGlobalSaveInfo_unk0Eb0(void);
 // func_fe6_08084714
 // func_fe6_08084718
 // GetGlobalSaveInfo_unk0Eb0_
-// func_fe6_0808475C
-// func_fe6_08084798
-void func_fe6_08084818(void);
-// func_fe6_0808483C
-// func_fe6_08084868
-// func_fe6_08084884
-// func_fe6_080848A8
-// func_fe6_080848BC
-// func_fe6_080848C8
-// func_fe6_080848DC
-void func_fe6_08084908(struct PlaySt * playSt);
+// CheckHasCompletedSave
+// ClearPidChStatsSaveData
+void ClearPidStats(void);
+// LoadPidStats
+// LoadChWinData
+// SavePidStats
+// SaveChWinData
+// GetChWinData
+// IsWinDataValid
+// GetFreeChWinDataIndex
+void RegisterChWinData(struct PlaySt * playSt);
 void PidStatsAddBattleAmt(struct Unit * unit);
 // PidStatsAddWinAmt
 void PidStatsRecordLoseData(u8 pid);
-void PidStatsRecordDeathData(u8 pid, int arg_1, int arg_2);
+void PidStatsRecordDeathData(u8 pid, u8 killerPid, int deathCause);
 void PidStatsAddActAmt(u8 pid);
 void PidStatsAddStatViewAmt(u8 pid);
 // PidStatsAddDeployAmt
-void PidStatsAddSquaresMoved(int pid, int amount);
-void PidStatsAddExpGained(int pid, int amount);
+void PidStatsAddSquaresMoved(u8 pid, int amount);
+void PidStatsAddExpGained(u8 pid, int amount);
 // PidStatsGetTotalBattleAmt
 // PidStatsGetTotalWinAmt
 // PidStatsGetTotalLossAmt
@@ -2478,8 +2478,8 @@ void PidStatsRecordBattleRes(void);
 // IsPlaythroughIdUnique
 // GetNewPlaythroughId
 int GetGlobalCompletedPlaythroughCount(void);
-void RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
-void func_fe6_08084EA4(void);
+bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
+void SavePlayThroughData(void);
 // func_fe6_08084F48
 // GetPidStats
 // SettLastestSaveSlotIndex
@@ -2489,9 +2489,9 @@ int GetLastestSaveSlotIndex(void);
 void SaveNewGame(int saveId, int isHard);
 void SaveGame(int arg_0);
 // LoadGame
-i8 VerifySaveBlockInfo2(int saveId);
+bool VerifySaveBlockInfoByIndex(int saveId);
 void LoadPlaySt(int saveId, struct PlaySt * out);
-// func_fe6_08085290
+// CheckSaveChunkChapterValid
 // SaveUnit
 // LoadUnit
 void func_fe6_08085788(int saveId);

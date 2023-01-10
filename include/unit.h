@@ -331,6 +331,7 @@ extern struct Unit EWRAM_DATA gUnitArrayGreen[UNIT_AMOUNT_GREEN];
 extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 
 #define UNIT_FACTION(unit) ((unit)->id & 0xC0)
+#define UNIT_PID(unit) ((unit)->pinfo->id)
 #define UNIT_ATTRIBUTES(unit) (((unit)->pinfo->attributes) | ((unit)->jinfo->attributes))
 
 #define UNIT_HP_CAP(unit)  (UNIT_FACTION(unit) == FACTION_RED ? 80 : 60)

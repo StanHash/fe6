@@ -7869,7 +7869,7 @@ func_fe6_0808A524: @ 0x0808A524
 	adds r0, #1
 	strb r0, [r1]
 .L0808A61A:
-	bl func_fe6_0808475C
+	bl CheckHasCompletedSave
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A636
@@ -7916,7 +7916,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A66C:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -7943,7 +7943,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A69A:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -8284,7 +8284,7 @@ func_fe6_0808A918: @ 0x0808A918
 	cmp r4, #2
 	bhi .L0808A9B4
 	adds r0, r4, #0
-	bl VerifySaveBlockInfo2
+	bl VerifySaveBlockInfoByIndex
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
@@ -16233,7 +16233,7 @@ func_fe6_0808E93C: @ 0x0808E93C
 	mov sl, r0
 	ldr r7, .L0808E95C @ =0x02016A24
 	ldrh r4, [r7]
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	cmp r4, r0
 	blt .L0808E960
 	movs r0, #1
@@ -16242,7 +16242,7 @@ func_fe6_0808E93C: @ 0x0808E93C
 .L0808E95C: .4byte 0x02016A24
 .L0808E960:
 	ldrh r0, [r7]
-	bl func_fe6_080848BC
+	bl GetChWinData
 	mov sb, r0
 	movs r6, #7
 	ldrh r0, [r7]
@@ -16563,7 +16563,7 @@ func_fe6_0808EB94: @ 0x0808EB94
 func_fe6_0808EC1C: @ 0x0808EC1C
 	push {r4, r5, r6, r7, lr}
 	movs r6, #0
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r6, r5
@@ -16571,7 +16571,7 @@ func_fe6_0808EC1C: @ 0x0808EC1C
 	movs r7, #0xb4
 .L0808EC2E:
 	adds r0, r4, #0
-	bl func_fe6_080848BC
+	bl GetChWinData
 	ldrh r0, [r0, #2]
 	muls r0, r7, r0
 	adds r6, r6, r0
@@ -17373,14 +17373,14 @@ func_fe6_0808F2F0: @ 0x0808F2F0
 func_fe6_0808F30C: @ 0x0808F30C
 	push {r4, r5, r6, lr}
 	movs r6, #0
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r6, r5
 	bge .L0808F330
 .L0808F31C:
 	adds r0, r4, #0
-	bl func_fe6_080848BC
+	bl GetChWinData
 	ldr r0, [r0]
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x16
@@ -17410,7 +17410,7 @@ func_fe6_0808F33C: @ 0x0808F33C
 	subs r0, #4
 	cmp r0, sp
 	bge .L0808F34C
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	adds r6, r0, #0
 	movs r4, #0
 	cmp r4, r6
@@ -17418,7 +17418,7 @@ func_fe6_0808F33C: @ 0x0808F33C
 	ldr r5, .L0808F3E4 @ =ChapterInfoTable
 .L0808F362:
 	adds r0, r4, #0
-	bl func_fe6_080848BC
+	bl GetChWinData
 	ldr r2, [r0]
 	lsls r2, r2, #0x1a
 	lsrs r2, r2, #0x1a
@@ -17745,9 +17745,9 @@ func_fe6_0808F5AC: @ 0x0808F5AC
 	bl func_fe6_0808F59C
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	subs r0, #1
-	bl func_fe6_080848BC
+	bl GetChWinData
 	ldr r1, [r0]
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a
@@ -17786,8 +17786,8 @@ func_fe6_0808F600: @ 0x0808F600
 	push {r4, lr}
 	bl func_fe6_08017104
 	adds r4, r0, #0
-	bl func_fe6_080848DC
-	bl func_fe6_080848BC
+	bl GetFreeChWinDataIndex
+	bl GetChWinData
 	ldr r0, .L0808F640 @ =gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
@@ -17862,9 +17862,9 @@ func_fe6_0808F68C: @ 0x0808F68C
 	bl func_fe6_0808F648
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl func_fe6_080848DC
+	bl GetFreeChWinDataIndex
 	subs r0, #1
-	bl func_fe6_080848BC
+	bl GetChWinData
 	ldr r1, [r0]
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a

@@ -183,7 +183,7 @@ struct GlobalSaveInfo
              u32 unk_0E_3 : 1;
              u32 unk_0E_4 : 12;
 
-    /* 10 */ u8 unk_10[MAX_SAVED_GAME_CLEARS];
+    /* 10 */ u8 playThrough[MAX_SAVED_GAME_CLEARS];
     /* 1C */ u16 cksum16;
     /* 1E */ u8 slot_sa;
     /* 1F */ u8 slot_su;
