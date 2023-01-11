@@ -15,13 +15,12 @@
 #include "chapterinfo.h"
 #include "masseffect.h"
 #include "mu.h"
+#include "save.h"
 
 #include "constants/iids.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
 #include "constants/msg.h"
-
-enum { TRAP_MAX_COUNT = 0x20 };
 
 static struct Trap EWRAM_DATA sTraps[TRAP_MAX_COUNT] = {};
 

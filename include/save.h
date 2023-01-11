@@ -2,8 +2,14 @@
 
 #include "common.h"
 #include "unit.h"
+#include "bm.h"
+#include "trap.h"
+#include "supply.h"
+#include "action.h"
+#include "eventinfo.h"
 
-enum {
+enum
+{
     SAVE_ID_GAME0,
     SAVE_ID_GAME1,
     SAVE_ID_GAME2,
@@ -14,13 +20,32 @@ enum {
     SAVE_ID_MAX
 };
 
+enum
+{
+    BLOCK_INFO_KIND_SAV,
+    BLOCK_INFO_KIND_SUS,
+    BLOCK_INFO_KIND_2,
+    BLOCK_INFO_KIND_3,
+    BLOCK_INFO_KIND_INVALID = -1
+};
+
+enum
+{
+    SAVE_MAGICA_COMM = 0x11217,
+    SAVE_MAGICA_5    = 0x20112,
+    SAVE_MAGICA_6    = 0x20223,
+
+    SAVE_MAGICB_COMM = 0x200A,
+};
+
 #define MAX_SAVED_GAME_CLEARS 12
 
 
 /**
  * SRAM image header
  */
-struct GlobalSaveInfo {
+struct GlobalSaveInfo
+{
     /* 00 */ char name[0x8];
     /* 08 */ u32 magic_a;
     /* 0C */ u16 magic_b;
@@ -37,7 +62,8 @@ struct GlobalSaveInfo {
     /* 1F */ u8 slot_su;
 };
 
-struct SaveBlockInfo {
+struct SaveBlockInfo
+{
     /* 00 */ u32 magic_a;
     /* 04 */ u16 magic_b;
     /* 06 */ u8 kind;
@@ -46,57 +72,63 @@ struct SaveBlockInfo {
     /* 0C */ u32 checksum32;
 };
 
-struct SramHeader {
+struct SramHeader
+{
     struct GlobalSaveInfo meta;
     struct SaveBlockInfo chunks[SAVE_ID_MAX];
 };
 
-extern CONST_DATA u8 *gpSramEntry;
+extern CONST_DATA u8 * gpSramEntry;
 extern const char gGlobalSaveInfoName[];
 
 
 /**
- * Battle-Win-Lose Table
+ * BWL(Battle-Win-Lose) Table
  */
-struct PidStats {
-    /* 000 */ u32 lossAmt     : 8;
-    /* 008 */ u32 actAmt      : 8;
-    /* 016 */ u32 statViewAmt : 8;
-    /* 024 */ u32 deathCh     : 6;
-    /* 030 */ u32 deathTurn   : 10;
-    /* 040 */ u32 deployAmt   : 6;
-    /* 046 */ u32 moveAmt     : 10;
-	/* 056 */ u32 deathCause  : 4;
-	/* 060 */ u32 expGained   : 12;
-	/* 072 */ u32 winAmt      : 10;
-	/* 082 */ u32 battleAmt   : 12;
-	/* 094 */ u32 killerPid   : 9;
-    /* 113 */ u32 _pad_       : 15;
+struct PidStats
+{
+    u32 lossAmt     : 8;
+    u32 actAmt      : 8;
+    u32 statViewAmt : 8;
+    u32 deathCh     : 6;
+    u32 deathTurn   : 10;
+    u32 deployAmt   : 6;
+    u32 moveAmt     : 10;
+    u32 deathCause  : 4;
+    u32 expGained   : 12;
+    u32 winAmt      : 10;
+    u32 battleAmt   : 12;
+    u32 killerPid   : 9;
+    u32 _pad_       : 15;
 };
 
 #define BWL_ARRAY_SIZE 0x46
 extern struct PidStats gPidStatsData[BWL_ARRAY_SIZE];
 #define gPidStats (&gPidStatsData[-1])
-extern u8 *gPidStatsSaveLoc;
+extern u8 * gPidStatsSaveLoc;
 
-void PidStatsAddBattleAmt(struct Unit *unit);
+void PidStatsAddBattleAmt(struct Unit * unit);
 void PidStatsAddWinAmt(u8 pid);
-
-static inline struct PidStats *GetPidStats_(u8 pid)
-{
-    if (pid >= BWL_ARRAY_SIZE)
-        return NULL;
-    else if (0 == GetPInfo(pid)->affinity)
-        return NULL;
-    else
-        return &gPidStats[pid];
-}
+void PidStatsRecordLoseData(u8 pid);
+void PidStatsRecordDeathData(u8 pid, u8 killerPid, int deathCause);
+void PidStatsAddActAmt(u8 pid);
+void PidStatsAddStatViewAmt(u8 pid);
+void PidStatsAddDeployAmt(u8 pid);
+void PidStatsAddSquaresMoved(u8 pid, int amount);
+void PidStatsAddExpGained(u8 pid, int amount);
+int PidStatsGetTotalBattleAmt();
+int PidStatsGetTotalWinAmt();
+int PidStatsGetTotalLossAmt();
+int PidStatsGetTotalLevel();
+void PidStatsRecordBattleRes(void);
+struct PidStats * GetPidStats(u8 pid);
 
 
 /**
  * Chapter Win Data
  */
-struct ChWinData {
+struct ChWinData
+{
     u16 chapter_index : 0x06;
     u16 chapter_turn  : 0x0A;
     u16 chapter_time  : 0x10;
@@ -104,14 +136,18 @@ struct ChWinData {
 
 #define WIN_ARRAY_SIZE 0x20
 extern struct ChWinData gChWinData[WIN_ARRAY_SIZE];
+
 struct ChWinData *GetChWinData(int index);
-void RegisterChWinData(struct PlaySt *playSt);
+bool IsWinDataValid(struct ChWinData * winData);
+int GetFreeChWinDataIndex();
+void RegisterChWinData(struct PlaySt * playSt);
 
 
 /**
  * Packed unit struct in save & suspand data
  */
-struct SavePackedUnit {
+struct SavePackedUnit
+{
     u32 pid    : 7;
     u32 jid    : 7;
     u32 level  : 5;
@@ -142,7 +178,8 @@ struct SavePackedUnit {
     u8 supports[UNIT_SUPPORT_COUNT];
 };
 
-enum packed_unit_state_bits {
+enum packed_unit_state_bits
+{
     PACKED_US_DEAD       = 1 << 0,
     PACKED_US_UNDEPLOYED = 1 << 1,
     PACKED_US_SOLO_ANIM1 = 1 << 2,
@@ -193,31 +230,167 @@ struct SuspendPackedUnit
     /*    */ u16 item_e          : 14;
 };
 
-enum unit_amount_in_savedata {
+enum unit_amount_in_savedata
+{
     UNIT_SAVE_AMOUNT_BLUE = 52,
     UNIT_SAVE_AMOUNT_RED = 50,
     UNIT_SAVE_AMOUNT_GREEN = 10,
 };
 
 
+/**
+ * Save data memory maps
+ */
+enum SaveDataSizes
+{
+    SAV_SIZE_PLAYST     = sizeof(struct PlaySt),
+    SAV_SIZE_UNIT       = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SavePackedUnit),
+    SAV_SIZE_SUPPLY     = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SAV_SIZE_PIDSTATS   = sizeof(gPidStatsData),
+    SAV_SIZE_CHWIN      = sizeof(gChWinData),
+    SAV_SIZE_PERMFLAG   = sizeof(gPermanentFlagBits) + 3 /* align 2 */,
+};
+
+enum SaveDataMemoryMap
+{
+    SAV_MEMMAP_START    = 0,
+    SAV_MEMMAP_PLAYST   = SAV_MEMMAP_START,
+    SAV_MEMMAP_UNIT     = SAV_MEMMAP_PLAYST   + SAV_SIZE_PLAYST,
+    SAV_MEMMAP_SUPPLY   = SAV_MEMMAP_UNIT     + SAV_SIZE_UNIT,
+    SAV_MEMMAP_PIDSTATS = SAV_MEMMAP_SUPPLY   + SAV_SIZE_SUPPLY,
+    SAV_MEMMAP_CHWIN    = SAV_MEMMAP_PIDSTATS + SAV_SIZE_PIDSTATS,
+    SAV_MEMMAP_PERMFLAG = SAV_MEMMAP_CHWIN    + SAV_SIZE_CHWIN,
+    
+    SAV_MEMMAP_RSV      = SAV_MEMMAP_PERMFLAG + SAV_SIZE_PERMFLAG,
+    SAV_MEMMAP_MAX      = SAV_MEMMAP_RSV
+};
+
+enum SuspandDataSizes
+{
+    SUS_SIZE_PLAYST     = sizeof(struct PlaySt),
+    SUS_SIZE_ACTION     = sizeof(struct Action),
+    SUS_SIZE_UNIT_B     = (UNIT_SAVE_AMOUNT_BLUE) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_UNIT_R     = (UNIT_SAVE_AMOUNT_RED) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_UNIT_G     = (UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_TRAP       = TRAP_MAX_COUNT * sizeof(struct Trap),
+    SUS_SIZE_SUPPLY     = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SUS_SIZE_PIDSTATS   = sizeof(gPidStatsData),
+    SUS_SIZE_CHWIN      = sizeof(gChWinData),
+    SUS_SIZE_PERMFLAG   = sizeof(gPermanentFlagBits),
+    SUS_SIZE_TEMPFLAG   = sizeof(gChapterFlagBits) + 3 /* align 2 */,
+};
+
+enum SuspandDataMemoryMap
+{
+    SUS_MEMMAP_START    = 0,
+    SUS_MEMMAP_PLAYST   = SUS_MEMMAP_START,
+    SUS_MEMMAP_ACTION   = SUS_MEMMAP_PLAYST   + SUS_SIZE_PLAYST,
+    SUS_MEMMAP_UNIT_B   = SUS_MEMMAP_ACTION   + SUS_SIZE_ACTION,
+    SUS_MEMMAP_UNIT_R   = SUS_MEMMAP_UNIT_B   + SUS_SIZE_UNIT_B,
+    SUS_MEMMAP_UNIT_G   = SUS_MEMMAP_UNIT_R   + SUS_SIZE_UNIT_R,
+    SUS_MEMMAP_TRAP     = SUS_MEMMAP_UNIT_G   + SUS_SIZE_UNIT_G,
+    SUS_MEMMAP_SUPPLY   = SUS_MEMMAP_TRAP     + SUS_SIZE_TRAP,
+    SUS_MEMMAP_PIDSTATS = SUS_MEMMAP_SUPPLY   + SUS_SIZE_SUPPLY,
+    SUS_MEMMAP_CHWIN    = SUS_MEMMAP_PIDSTATS + SUS_SIZE_PIDSTATS,
+    SUS_MEMMAP_PERMFLAG = SUS_MEMMAP_CHWIN    + SUS_SIZE_CHWIN,
+    SUS_MEMMAP_TEMPFLAG = SUS_MEMMAP_PERMFLAG + SUS_SIZE_PERMFLAG,
+
+    SUS_MEMMAP_RSV      = SUS_MEMMAP_TEMPFLAG + SUS_SIZE_TEMPFLAG,
+    SUS_MEMMAP_MAX      = SUS_MEMMAP_RSV
+};
+
+enum SramDataSizes
+{
+    SRAM_SIZE_HEADER = sizeof(struct SramHeader),
+    SRAM_SIZE_SUS0   = SUS_MEMMAP_MAX,
+    SRAM_SIZE_SUS1   = SUS_MEMMAP_MAX,
+    SRAM_SIZE_SAV0   = SAV_MEMMAP_MAX,
+    SRAM_SIZE_SAV1   = SAV_MEMMAP_MAX,
+    SRAM_SIZE_SAV2   = SAV_MEMMAP_MAX,
+};
+
+enum SramMemoryMap
+{
+    SRAM_MEMMAP_START  = 0,
+    SRAM_MEMMAP_HEADER = SRAM_MEMMAP_START,
+    SRAM_MEMMAP_SUS0   = SRAM_MEMMAP_HEADER + SRAM_SIZE_HEADER,
+    SRAM_MEMMAP_SUS1   = SRAM_MEMMAP_SUS0   + SRAM_SIZE_SUS0,
+    SRAM_MEMMAP_SAV0   = SRAM_MEMMAP_SUS1   + SRAM_SIZE_SUS1,
+    SRAM_MEMMAP_SAV1   = SRAM_MEMMAP_SAV0   + SRAM_SIZE_SAV0,
+    SRAM_MEMMAP_SAV2   = SRAM_MEMMAP_SAV1   + SRAM_SIZE_SAV1,
+    SRAM_MEMMAP_5      = SRAM_MEMMAP_SAV2   + SRAM_SIZE_SAV2,
+};
+
+
+/**
+ * Misc
+ */
 extern u8 gUnk_0203D524[0xA];
 extern i8 gBoolSramWorking;
 extern u8 gSuspendSlotIndex;
 
 void SramInit();
-bool IsSramWorking();
-u16 ComputeChecksum16(const u16* data, int size);
+bool IsSramWorking(void);
+void EraseSaveData();
+u16 ComputeChecksum16(const u16 * data, int size);
 bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-bool CkSum32SaveBlockInfo(struct SaveBlockInfo *chunk);
-u8 *SramOffsetToPointer(u16 off);
-u16 SramPointerToOffset(u8 *addr);
-bool LoadSaveBlockInfo(struct SaveBlockInfo *chunk, int index);
-void WriteSaveBlockInfo(struct SaveBlockInfo *chunk, int index);
-u8 *GetSaveTargetAddress(int index);
-u8 *GetSaveSourceAddress(int index);
-void GenerateSaveBlockInfoCkSum32(struct SaveBlockInfo *chunk);
-bool func_fe6_08086558();
-bool CheckSaveChunkChapterValid(int index);
-int GetLastSuspendSlotId();
+void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
+void SaveGlobalSaveInfoNoChecksum(struct GlobalSaveInfo * saveInfo);
+void InitGlobalSaveInfo();
+u8 * SramOffsetToPointer(u16 off);
+u16 SramPointerToOffset(u8 * addr);
+bool LoadAndVerifySaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
+void WriteSaveBlockInfo(struct SaveBlockInfo * chunk, int index);
+u8 * GetSaveTargetAddress(int index);
+u8 * GetSaveSourceAddress(int index);
+void SaveChapterFlagBits(u8 * sram_dst);
+void SavePermanentFlagBits(u8 * sram_dst);
+void LoadChapterFlagBits(u8 * sram_src);
+void LoadPermanentFlagBits(u8 * sram_src);
+void SaveSupplyItems(u8 * sram_dst);
+void LoadSupplyItems(u8 * sram_src);
+bool IsGamePlayThroughed(void);
+bool func_fe6_08084714();
+bool func_fe6_08084718();
+bool IsGamePlayThroughed_();
+bool CheckHasCompletedSave();
+void ClearPidChStatsSaveData(u8 * sram_dst);
+void ClearPidStats(void);
+void LoadPidStats(u8 * sram_src);
+void LoadChWinData(u8 * sram_src);
+void SavePidStats(u8 * sram_dst);
+void SaveChWinData(u8 * sram_dst);
+bool IsPlaythroughIdUnique(int index);
+int GetNewPlaythroughId();
+int GetGlobalCompletedPlaythroughCount(void);
+bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
+void SavePlayThroughData(void);
+// func_fe6_08084F48
+void UpdateLastUsedGameSaveSlot(int slot_sa);
+int GetLastUsedGameSaveSlot(void);
+// func_fe6_08084FB8
+void CopyGameSave(int index_src, int index_dst);
+void SaveNewGame(int saveId, int isHard);
+void SaveGame(int slot);
+void LoadGame(int slot);
 bool VerifySaveBlockInfoByIndex(int saveId);
-void LoadPlaySt(int saveId, struct PlaySt *out);
+void LoadPlaySt(int saveId, struct PlaySt * out);
+bool CheckSaveChunkChapterValid(int index);
+void SaveUnit(struct Unit * unit, void * sram_dst);
+void LoadUnit(u8 * sram_src, struct Unit * unit);
+void ResetSaveBlockInfo(int saveId);
+void SaveSuspendedGame(int saveId);
+void LoadSuspendedGame(int saveId);
+bool AdvanceSuspendSaveDataSlotId(int saveId);
+void LoadPlayStByGlobalSusIndex(int saveId, struct PlaySt * playSt);
+void PackUnitForSuspend(struct Unit * unit, u8 * buf);
+void LoadUnitFormSuspend(u8 * sram_src, struct Unit * unit);
+void SaveTraps(u8 * sram_dest);
+void LoadTraps(u8 * sram_dest);
+int GetLastSuspendSaveId();
+int GetNextSuspendSaveId();
+void ChangeSuspendSaveId();
+int GetCkSum32ViaGenericBuf(void * sram_src, int size);
+bool CkSum32SaveBlockInfo(struct SaveBlockInfo * chunk);
+void GenerateSaveBlockInfoCkSum32(struct SaveBlockInfo * chunk);
+u16 ComputeSaveDataCkSum32();

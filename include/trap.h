@@ -4,6 +4,11 @@
 
 enum
 {
+    TRAP_MAX_COUNT = 0x20,
+};
+
+enum
+{
     TRAP_NONE,
 
     TRAP_BALLISTA = 1,

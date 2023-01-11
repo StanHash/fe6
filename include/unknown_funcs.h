@@ -2426,90 +2426,6 @@ void func_fe6_08081620(struct Unit * unit, ProcPtr parent);
 // func_fe6_080841B4
 // func_fe6_080841EC
 // func_fe6_080841F8
-// SramInit
-bool IsSramWorking(void);
-// EraseSaveData
-// ComputeChecksum16
-bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-// SaveGlobalSaveInfoNoChecksum
-// InitGlobalSaveInfo
-// SramOffsetToPointer
-// SramPointerToOffset
-bool LoadSaveBlockInfo(struct SaveBlockInfo * blockInfo, int id);
-// WriteSaveBlockInfo
-// GetSaveTargetAddress
-// GetSaveSourceAddress
-// SaveChapterFlagBits
-// SavePermanentFlagBits
-// LoadChapterFlagBits
-// LoadPermanentFlagBits
-// SaveSupplyItems
-// LoadSupplyItems
-bool IsGamePlayThroughed(void);
-// func_fe6_08084714
-// func_fe6_08084718
-// IsGamePlayThroughed_
-// CheckHasCompletedSave
-// ClearPidChStatsSaveData
-void ClearPidStats(void);
-// LoadPidStats
-// LoadChWinData
-// SavePidStats
-// SaveChWinData
-// GetChWinData
-// IsWinDataValid
-// GetFreeChWinDataIndex
-void RegisterChWinData(struct PlaySt * playSt);
-void PidStatsAddBattleAmt(struct Unit * unit);
-// PidStatsAddWinAmt
-void PidStatsRecordLoseData(u8 pid);
-void PidStatsRecordDeathData(u8 pid, u8 killerPid, int deathCause);
-void PidStatsAddActAmt(u8 pid);
-void PidStatsAddStatViewAmt(u8 pid);
-// PidStatsAddDeployAmt
-void PidStatsAddSquaresMoved(u8 pid, int amount);
-void PidStatsAddExpGained(u8 pid, int amount);
-// PidStatsGetTotalBattleAmt
-// PidStatsGetTotalWinAmt
-// PidStatsGetTotalLossAmt
-// PidStatsGetTotalLevel
-void PidStatsRecordBattleRes(void);
-// IsPlaythroughIdUnique
-// GetNewPlaythroughId
-int GetGlobalCompletedPlaythroughCount(void);
-bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
-void SavePlayThroughData(void);
-// func_fe6_08084F48
-// GetPidStats
-// UpdateLastUsedGameSaveSlot
-int GetLastUsedGameSaveSlot(void);
-// func_fe6_08084FB8
-// CopyGameSave
-void SaveNewGame(int saveId, int isHard);
-void SaveGame(int arg_0);
-// LoadGame
-bool VerifySaveBlockInfoByIndex(int saveId);
-void LoadPlaySt(int saveId, struct PlaySt * out);
-// CheckSaveChunkChapterValid
-void SaveUnit(struct Unit *unit, void *sram_dst);
-void LoadUnit(u8 *sram_src, struct Unit *unit);
-void ResetSaveBlockInfo(int saveId);
-void SaveSuspendedGame(int saveId);
-void LoadSuspendedGame(int saveId);
-bool AdvanceSuspendSaveDataSlotId(int saveId);
-void LoadPlayStByGlobalSusIndex(int saveId, struct PlaySt *playSt);
-void PackUnitForSuspend(struct Unit *unit, u8 *buf);
-void LoadUnitFormSuspend(u8 *sram_src, struct Unit *unit);
-void SaveTraps(void *sram_dest);
-void LoadTraps(void *sram_dest);
-int GetLastSuspendSlotId();
-int GetNextSuspendSaveId();
-void ChangeSuspendSlotId();
-// GetCkSum32FromSRAM
-// CkSum32SaveBlockInfo
-// GenerateSaveBlockInfoCkSum32
-// ComputeSaveDataCkSum32
 // func_fe6_08086088
 // VerifySaveBlockInfo
 // func_fe6_080860A4
@@ -2524,7 +2440,7 @@ void ChangeSuspendSlotId();
 // func_fe6_080864CC
 // func_fe6_080864F4
 // func_fe6_08086530
-// func_fe6_08086558
+bool func_fe6_08086558();
 // func_fe6_08086590
 u8 const * func_fe6_080865EC(void);
 int func_fe6_08086608(void);
@@ -3300,3 +3216,4 @@ void func_fe6_0809874C(void);
 // func_fe6_0809B99C
 // func_fe6_0809BAF0
 // func_fe6_0809BB00
+u32 Checksum32_t(u16 *buf, int size);

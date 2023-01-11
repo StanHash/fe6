@@ -1257,7 +1257,7 @@ u8 * GetPermanentFlagBits(void)
     return gPermanentFlagBits;
 }
 
-u32 GetPermanentFlagBitsSize(void)
+int GetPermanentFlagBitsSize(void)
 {
     return sizeof gPermanentFlagBits;
 }
@@ -1267,7 +1267,7 @@ u8 * GetChapterFlagBits(void)
     return gChapterFlagBits;
 }
 
-u32 GetChapterFlagBitsSize(void)
+int GetChapterFlagBitsSize(void)
 {
     return sizeof gChapterFlagBits;
 }

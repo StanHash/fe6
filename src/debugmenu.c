@@ -381,7 +381,7 @@ fu8 func_fe6_0801AB64(struct MenuProc * menu)
 
     menu->entries[3]->id = 1;
 
-    if (LoadSaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND0) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
+    if (LoadAndVerifySaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND0) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
     {
         StartFace(0, FID_63, 32, 80, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(4));
         StartFace(1, FID_61, DISPLAY_WIDTH - 32, 80, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4));

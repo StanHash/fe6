@@ -239,7 +239,7 @@ SECTIONS
         . = ALIGN(4); src/helpbox_2.o(ewram_data);
 
         . = 0x0203D524 - __ewram_overlay_end;
-        . = ALIGN(4); src/save.o(ewram_data);
+        . = ALIGN(4); src/save_lib.o(ewram_data);
         . = 0x02040000 - __ewram_overlay_end; /* end */
     }
 
@@ -450,6 +450,8 @@ SECTIONS
         asm/code_mapui.o(.text);
         asm/code_sioerror.o(.text);
         asm/code_8073548.o(.text);
+        src/save_lib.o(.text);
+        src/save_bwl.o(.text);
         src/save.o(.text);
         asm/code-save.o(.text);
 

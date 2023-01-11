@@ -10,6 +10,7 @@
 #include "support.h"
 #include "trap.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/terrains.h"
 

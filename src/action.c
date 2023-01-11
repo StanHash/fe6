@@ -14,6 +14,7 @@
 #include "itemaction.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/terrains.h"
 #include "constants/songs.h"

@@ -16,6 +16,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/chapters.h"
 
