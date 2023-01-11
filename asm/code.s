@@ -8361,13 +8361,13 @@ func_fe6_0808A918: @ 0x0808A918
 	cmp r1, r0
 	bne .L0808A9EA
 	movs r0, #3
-	bl func_fe6_080859E0
+	bl AdvanceSuspendSaveDataSlotId
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A9E6
 	movs r0, #3
 	mov r1, sp
-	bl func_fe6_08085A34
+	bl LoadPlayStByGlobalSusIndex
 	mov r0, sp
 	ldrb r0, [r0, #0xc]
 	adds r1, r5, #0

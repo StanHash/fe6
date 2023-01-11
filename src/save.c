@@ -13,55 +13,92 @@
 #include "unit.h"
 #include "action.h"
 
-enum SaveSaDataSizes {
-    SAVESA_SIZE_PLAYST = sizeof(struct PlaySt),
-    SAVESA_SIZE_UNIT = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SavePackedUnit),
-    SAVESA_SIZE_SUPPLY = SUPPLY_ITEM_COUNT * sizeof(u16),
-    SAVESA_SIZE_PIDSTATS = sizeof(gPidStatsData),
-    SAVESA_SIZE_CHWIN = sizeof(gChWinData),
-};
-
-enum SaveSuDataSizes {
-    SAVESU_SIZE_PLAYST = sizeof(struct PlaySt),
-    SAVESU_SIZE_ACTION = sizeof(struct Action),
-    SAVESU_SIZE_UNIT = (UNIT_SAVE_AMOUNT_BLUE + UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit),
-    SAVESU_SIZE_TRAP = 0x100,
-    SAVESU_SIZE_SUPPLY = SUPPLY_ITEM_COUNT * sizeof(u16),
-    SAVESU_SIZE_PIDSTATS = sizeof(gPidStatsData),
-    SAVESU_SIZE_CHWIN = sizeof(gChWinData),
-    SAVESU_SIZE_PERMFLAG = 0x5,
-};
-
 /* Save data memory map */
-enum SaveSaDataOffsets {
-    SAVESA_MEMMAP_START    = 0,
-    SAVESA_MEMMAP_PLAYST   = SAVESA_MEMMAP_START,
-    SAVESA_MEMMAP_UNIT     = SAVESA_MEMMAP_PLAYST   + SAVESA_SIZE_PLAYST,
-    SAVESA_MEMMAP_SUPPLY   = SAVESA_MEMMAP_UNIT     + SAVESA_SIZE_UNIT,
-    SAVESA_MEMMAP_PIDSTATS = SAVESA_MEMMAP_SUPPLY   + SAVESA_SIZE_SUPPLY,
-    SAVESA_MEMMAP_CHWIN    = SAVESA_MEMMAP_PIDSTATS + SAVESA_SIZE_PIDSTATS,
-    SAVESA_MEMMAP_PERMFLAG = SAVESA_MEMMAP_CHWIN    + SAVESA_SIZE_CHWIN,
+enum SaveDataSizes {
+    SAV_SIZE_PLAYST     = sizeof(struct PlaySt),
+    SAV_SIZE_UNIT       = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SavePackedUnit),
+    SAV_SIZE_SUPPLY     = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SAV_SIZE_PIDSTATS   = sizeof(gPidStatsData),
+    SAV_SIZE_CHWIN      = sizeof(gChWinData),
+    SAV_SIZE_PERMFLAG   = 0x8,
 };
+
+enum SaveDataOffsets {
+    SAV_MEMMAP_START    = 0,
+    SAV_MEMMAP_PLAYST   = SAV_MEMMAP_START,
+    SAV_MEMMAP_UNIT     = SAV_MEMMAP_PLAYST   + SAV_SIZE_PLAYST,
+    SAV_MEMMAP_SUPPLY   = SAV_MEMMAP_UNIT     + SAV_SIZE_UNIT,
+    SAV_MEMMAP_PIDSTATS = SAV_MEMMAP_SUPPLY   + SAV_SIZE_SUPPLY,
+    SAV_MEMMAP_CHWIN    = SAV_MEMMAP_PIDSTATS + SAV_SIZE_PIDSTATS,
+    SAV_MEMMAP_PERMFLAG = SAV_MEMMAP_CHWIN    + SAV_SIZE_CHWIN,
+    
+    SAV_MEMMAP_RSV      = SAV_MEMMAP_PERMFLAG + SAV_SIZE_PERMFLAG,
+    SAV_MEMMAP_MAX      = SAV_MEMMAP_RSV
+};
+
 
 /* Suspand data memory map */
-enum SaveSuDataOffsets {
-    SAVESU_MEMMAP_START    = 0,
-    SAVESU_MEMMAP_PLAYST   = SAVESU_MEMMAP_START,
-    SAVESU_MEMMAP_ACTION   = SAVESU_MEMMAP_PLAYST   + SAVESU_SIZE_PLAYST,
-    SAVESU_MEMMAP_UNIT     = SAVESU_MEMMAP_ACTION   + SAVESU_SIZE_ACTION,
-    SAVESU_MEMMAP_TRAP     = SAVESU_MEMMAP_UNIT     + SAVESU_SIZE_UNIT,
-    SAVESU_MEMMAP_SUPPLY   = SAVESU_MEMMAP_TRAP     + SAVESU_SIZE_TRAP,
-    SAVESU_MEMMAP_PIDSTATS = SAVESU_MEMMAP_SUPPLY   + SAVESU_SIZE_SUPPLY,
-    SAVESU_MEMMAP_CHWIN    = SAVESU_MEMMAP_PIDSTATS + SAVESU_SIZE_PIDSTATS,
-    SAVESU_MEMMAP_PERMFLAG = SAVESU_MEMMAP_CHWIN    + SAVESU_SIZE_CHWIN,
-    SAVESU_MEMMAP_TEMPFLAG = SAVESU_MEMMAP_PERMFLAG + SAVESU_SIZE_PERMFLAG,
+enum SuspandDataSizes {
+    SUS_SIZE_PLAYST     = sizeof(struct PlaySt),
+    SUS_SIZE_ACTION     = sizeof(struct Action),
+    SUS_SIZE_UNIT_B     = (UNIT_SAVE_AMOUNT_BLUE) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_UNIT_R     = (UNIT_SAVE_AMOUNT_RED) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_UNIT_G     = (UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit),
+    SUS_SIZE_TRAP       = 0x100,
+    SUS_SIZE_SUPPLY     = SUPPLY_ITEM_COUNT * sizeof(u16),
+    SUS_SIZE_PIDSTATS   = sizeof(gPidStatsData),
+    SUS_SIZE_CHWIN      = sizeof(gChWinData),
+    SUS_SIZE_PERMFLAG   = 0x5,
+    SUS_SIZE_TEMPFLAG   = 0x7,
 };
+
+enum SuspandDataOffsets {
+    SUS_MEMMAP_START    = 0,
+    SUS_MEMMAP_PLAYST   = SUS_MEMMAP_START,
+    SUS_MEMMAP_ACTION   = SUS_MEMMAP_PLAYST   + SUS_SIZE_PLAYST,
+    SUS_MEMMAP_UNIT_B   = SUS_MEMMAP_ACTION   + SUS_SIZE_ACTION,
+    SUS_MEMMAP_UNIT_R   = SUS_MEMMAP_UNIT_B   + SUS_SIZE_UNIT_B,
+    SUS_MEMMAP_UNIT_G   = SUS_MEMMAP_UNIT_R   + SUS_SIZE_UNIT_R,
+    SUS_MEMMAP_TRAP     = SUS_MEMMAP_UNIT_G   + SUS_SIZE_UNIT_G,
+    SUS_MEMMAP_SUPPLY   = SUS_MEMMAP_TRAP     + SUS_SIZE_TRAP,
+    SUS_MEMMAP_PIDSTATS = SUS_MEMMAP_SUPPLY   + SUS_SIZE_SUPPLY,
+    SUS_MEMMAP_CHWIN    = SUS_MEMMAP_PIDSTATS + SUS_SIZE_PIDSTATS,
+    SUS_MEMMAP_PERMFLAG = SUS_MEMMAP_CHWIN    + SUS_SIZE_CHWIN,
+    SUS_MEMMAP_TEMPFLAG = SUS_MEMMAP_PERMFLAG + SUS_SIZE_PERMFLAG,
+
+    SUS_MEMMAP_RSV      = SUS_MEMMAP_TEMPFLAG + SUS_SIZE_TEMPFLAG,
+    SUS_MEMMAP_MAX      = SUS_MEMMAP_RSV
+};
+
+
+/* SRAM memory map */
+enum SramDataSizes {
+    SRAM_SIZE_HEADER = sizeof(struct SramHeader),
+    SRAM_SIZE_SUS0   = SUS_MEMMAP_MAX,
+    SRAM_SIZE_SUS1   = SUS_MEMMAP_MAX,
+    SRAM_SIZE_SAV0   = SAV_MEMMAP_MAX,
+    SRAM_SIZE_SAV1   = SAV_MEMMAP_MAX,
+    SRAM_SIZE_SAV2   = SAV_MEMMAP_MAX,
+};
+
+enum SramDataOffsets {
+    SRAM_MEMMAP_START  = 0,
+    SRAM_MEMMAP_HEADER = SRAM_MEMMAP_START,
+    SRAM_MEMMAP_SUS0   = SRAM_MEMMAP_HEADER + SRAM_SIZE_HEADER,
+    SRAM_MEMMAP_SUS1   = SRAM_MEMMAP_SUS0   + SRAM_SIZE_SUS0,
+    SRAM_MEMMAP_SAV0   = SRAM_MEMMAP_SUS1   + SRAM_SIZE_SUS1,
+    SRAM_MEMMAP_SAV1   = SRAM_MEMMAP_SAV0   + SRAM_SIZE_SAV0,
+    SRAM_MEMMAP_SAV2   = SRAM_MEMMAP_SAV1   + SRAM_SIZE_SAV1,
+    SRAM_MEMMAP_5      = SRAM_MEMMAP_SAV2   + SRAM_SIZE_SAV2,
+};
+
 
 EWRAM_DATA u8 gUnk_0203D524[0xA] = {0};
 EWRAM_DATA bool gBoolSramWorking = 0;
 EWRAM_DATA u8 *gPidStatsSaveLoc = NULL;
 EWRAM_DATA struct PidStats gPidStatsData[BWL_ARRAY_SIZE] = {0};
 EWRAM_DATA struct ChWinData gChWinData[WIN_ARRAY_SIZE] = {0};
+EWRAM_DATA u8 gSuspendSlotIndex = 0;
 EWRAM_DATA u32 gBonusContentClaimFlags = 0;
 
 void SramInit()
@@ -266,22 +303,22 @@ u8 *GetSaveTargetAddress(int index)
 {
     switch (index) {
         case SAVE_ID_GAME0:
-            return 0x3BE8 + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_SAV0; // 0x3BE8
 
         case SAVE_ID_GAME1:
-            return 0x49D8 + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_SAV1; // 0x49D8
 
         case SAVE_ID_GAME2:
-            return 0x57C8 + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_SAV2; // 0x57C8
 
         case SAVE_ID_SUSPEND0:
-            return 0x0090 + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_SUS0; // 0x0090
 
         case SAVE_ID_SUSPEND1:
-            return 0x1E3C + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_SUS1; // 0x1E3C
 
         case SAVE_ID_5:
-            return 0x65B8 + gpSramEntry;
+            return gpSramEntry + SRAM_MEMMAP_5;    // 0x65B8
 
         case SAVE_ID_6:
             return (u8*)0x0E007000;
@@ -420,19 +457,19 @@ void ClearPidChStatsSaveData(u8 *sram_dst)
 
     for (i = 0; i < BWL_ARRAY_SIZE; i++) {
         WriteAndVerifySramFast((u8*)gPidStatsData,
-                               sram_dst + 0x908 + i * sizeof(struct PidStats),
+                               sram_dst + SAV_MEMMAP_PIDSTATS + i * sizeof(struct PidStats),
                                sizeof(struct PidStats)
         );
     }
 
     for (i = 0; i < WIN_ARRAY_SIZE; i++) {
         WriteAndVerifySramFast((u8*)gChWinData,
-                               sram_dst + 0xD68 + i * sizeof(struct ChWinData),
+                               sram_dst + SAV_MEMMAP_CHWIN + i * sizeof(struct ChWinData),
                                sizeof(struct ChWinData)
         );
     }
 
-    gPidStatsSaveLoc = sram_dst + 0x908;
+    gPidStatsSaveLoc = sram_dst + SAV_MEMMAP_PIDSTATS;
 }
 
 void ClearPidStats()
@@ -823,10 +860,7 @@ void SavePlayThroughData()
     gPlaySt.flags |= PLAY_FLAG_COMPLETE;
 }
 
-void func_fe6_08084F48()
-{
-
-}
+void func_fe6_08084F48() {}
 
 struct PidStats *GetPidStats(u8 pid)
 {
@@ -869,8 +903,8 @@ void func_fe6_08084FB8(int slot)
     struct SaveBlockInfo chunk;
     struct PlaySt playSt;
 
-    if (func_fe6_080859E0(SAVE_ID_SUSPEND0)) {
-        func_fe6_08085A34(SAVE_ID_SUSPEND0, &playSt);
+    if (AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND0)) {
+        LoadPlayStByGlobalSusIndex(SAVE_ID_SUSPEND0, &playSt);
 
         if (playSt.save_slot == slot)
             ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
@@ -936,15 +970,15 @@ void SaveGame(int slot)
 
     gPlaySt.save_slot = slot;
     gPlaySt.unk_00 = GetGameTime();
-    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESA_MEMMAP_PLAYST, sizeof(gPlaySt));
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAV_MEMMAP_PLAYST, sizeof(gPlaySt));
 
     for (i = 0; i < 52; i++)
-        SaveUnit(&gUnitArrayBlue[i], dst + SAVESA_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit));
+        SaveUnit(&gUnitArrayBlue[i], dst + SAV_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit));
 
-    SaveSupplyItems(dst + SAVESA_MEMMAP_SUPPLY);
-    SavePidStats(dst + SAVESA_MEMMAP_PIDSTATS);
-    SaveChWinData(dst + SAVESA_MEMMAP_CHWIN);
-    SavePermanentFlagBits(dst + SAVESA_MEMMAP_PERMFLAG);
+    SaveSupplyItems(dst + SAV_MEMMAP_SUPPLY);
+    SavePidStats(dst + SAV_MEMMAP_PIDSTATS);
+    SaveChWinData(dst + SAV_MEMMAP_CHWIN);
+    SavePermanentFlagBits(dst + SAV_MEMMAP_PERMFLAG);
 
     chunk.magic_a = 0x11217;
     chunk.kind = 0;
@@ -960,18 +994,18 @@ void LoadGame(int slot)
     if (!(BM_FLAG_LINKARENA & gBmSt.flags))
         ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
 
-    (*ReadSramFast)(src + SAVESA_MEMMAP_PLAYST, (u8*)&gPlaySt, sizeof(gPlaySt));
+    (*ReadSramFast)(src + SAV_MEMMAP_PLAYST, (u8*)&gPlaySt, sizeof(gPlaySt));
     SetGameTime(gPlaySt.unk_00);
     gPlaySt.save_slot = slot;
 
     InitUnits();
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        LoadUnit(src + SAVESA_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit), &gUnitArrayBlue[i]);
+        LoadUnit(src + SAV_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit), &gUnitArrayBlue[i]);
 
-    LoadSupplyItems(src + SAVESA_MEMMAP_SUPPLY);
-    LoadPermanentFlagBits(src + SAVESA_MEMMAP_PERMFLAG);
-    LoadPidStats(src + SAVESA_MEMMAP_PIDSTATS);
-    LoadChWinData(src + SAVESA_MEMMAP_CHWIN);
+    LoadSupplyItems(src + SAV_MEMMAP_SUPPLY);
+    LoadPermanentFlagBits(src + SAV_MEMMAP_PERMFLAG);
+    LoadPidStats(src + SAV_MEMMAP_PIDSTATS);
+    LoadChWinData(src + SAV_MEMMAP_CHWIN);
 
     UpdateLastUsedGameSaveSlot(slot);
 }
@@ -984,7 +1018,7 @@ bool VerifySaveBlockInfoByIndex(int slot)
 void LoadPlaySt(int slot, struct PlaySt *playSt)
 {
     u8 *src = GetSaveSourceAddress(slot);
-    (*ReadSramFast)(src + SAVESA_MEMMAP_PLAYST, (u8*)playSt, sizeof(struct PlaySt));
+    (*ReadSramFast)(src + SAV_MEMMAP_PLAYST, (u8*)playSt, sizeof(struct PlaySt));
 }
 
 bool CheckSaveChunkChapterValid(int slot)
@@ -1155,10 +1189,10 @@ void SaveSuspendedGame(int slot)
     dst = GetSaveTargetAddress(slot);
 
     gPlaySt.unk_00 = GetGameTime();
-    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SAVESU_MEMMAP_PLAYST, sizeof(struct PlaySt));
+    WriteAndVerifySramFast((u8*)&gPlaySt, dst + SUS_MEMMAP_PLAYST, sizeof(struct PlaySt));
 
     SaveActionRand();
-    WriteAndVerifySramFast((u8*)&gAction, dst + SAVESU_MEMMAP_ACTION, sizeof(struct Action));
+    WriteAndVerifySramFast((u8*)&gAction, dst + SUS_MEMMAP_ACTION, sizeof(struct Action));
 
     buf = (struct SuspendPackedUnit*)gBuf;
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
@@ -1167,14 +1201,14 @@ void SaveSuspendedGame(int slot)
         PackUnitForSuspend(&gUnitArrayRed[i], (u8*)buf++);
     for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
         PackUnitForSuspend(&gUnitArrayGreen[i], (u8*)buf++);
-    WriteSramFast(gBuf, dst + SAVESU_MEMMAP_UNIT, (UNIT_SAVE_AMOUNT_BLUE + UNIT_SAVE_AMOUNT_RED + UNIT_SAVE_AMOUNT_GREEN) * sizeof(struct SuspendPackedUnit));
+    WriteSramFast(gBuf, dst + SUS_MEMMAP_UNIT_B, SUS_SIZE_UNIT_B + SUS_SIZE_UNIT_R + SUS_SIZE_UNIT_G);
 
-    SavePermanentFlagBits(dst + SAVESU_MEMMAP_PERMFLAG);
-    SaveChapterFlagBits(dst + SAVESU_MEMMAP_TEMPFLAG);
-    SaveSupplyItems(dst + SAVESU_MEMMAP_SUPPLY);
-    SavePidStats(dst + SAVESU_MEMMAP_PIDSTATS);
-    SaveChWinData(dst + SAVESU_MEMMAP_CHWIN);
-    SaveTraps(dst + SAVESU_MEMMAP_TRAP);
+    SavePermanentFlagBits(dst + SUS_MEMMAP_PERMFLAG);
+    SaveChapterFlagBits(dst + SUS_MEMMAP_TEMPFLAG);
+    SaveSupplyItems(dst + SUS_MEMMAP_SUPPLY);
+    SavePidStats(dst + SUS_MEMMAP_PIDSTATS);
+    SaveChWinData(dst + SUS_MEMMAP_CHWIN);
+    SaveTraps(dst + SUS_MEMMAP_TRAP);
 
     chunk.magic_a = 0x11217;
     chunk.kind = 1;
@@ -1182,4 +1216,176 @@ void SaveSuspendedGame(int slot)
 
     gBmSt.unk_3C = 0;
     ChangeSuspendSlotId();
+}
+
+void LoadSuspendedGame(int slot)
+{
+    int i;
+    u8 *src = GetSaveSourceAddress(slot + gSuspendSlotIndex);
+
+    (*ReadSramFast)(src + SUS_MEMMAP_PLAYST, (u8*)&gPlaySt, sizeof(struct PlaySt));
+    SetGameTime(gPlaySt.unk_00);
+
+    (*ReadSramFast)(src + SUS_MEMMAP_ACTION, (u8*)&gAction, sizeof(struct Action));
+    RestoreActionRand();
+
+    InitUnits();
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
+        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_B + i * sizeof(struct SuspendPackedUnit), &gUnitArrayBlue[i]);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
+        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_R + i * sizeof(struct SuspendPackedUnit), &gUnitArrayRed[i]);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
+        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_G + i * sizeof(struct SuspendPackedUnit), &gUnitArrayGreen[i]);
+
+    LoadPidStats(src + SUS_MEMMAP_PIDSTATS);
+    LoadChWinData(src + SUS_MEMMAP_CHWIN);
+    LoadSupplyItems(src + SUS_MEMMAP_SUPPLY);
+    LoadPermanentFlagBits(src + SUS_MEMMAP_PERMFLAG);
+    LoadChapterFlagBits(src + SUS_MEMMAP_TEMPFLAG);
+    LoadTraps(src + SUS_MEMMAP_TRAP);
+}
+
+bool AdvanceSuspendSaveDataSlotId(int slot)
+{
+    int ret;
+
+    if (!IsSramWorking())
+        return FALSE;
+    
+    if (SAVE_ID_SUSPEND0 != slot)
+        return FALSE;
+    
+    gSuspendSlotIndex = GetLastSuspendSlotId();
+
+    ret = LoadSaveBlockInfo(NULL, gSuspendSlotIndex + SAVE_ID_SUSPEND0);
+    if (ret)
+        return TRUE;
+
+    gSuspendSlotIndex = GetNextSuspendSaveId();
+
+    ret = LoadSaveBlockInfo(NULL, gSuspendSlotIndex + SAVE_ID_SUSPEND0);
+    if (ret)
+        return TRUE;
+
+    gSuspendSlotIndex = 0x7F;
+    return FALSE;
+}
+
+void LoadPlayStByGlobalSusIndex(int slot, struct PlaySt *buf)
+{
+    LoadPlaySt(slot + gSuspendSlotIndex, buf);
+}
+
+void PackUnitForSuspend(struct Unit *unit, u8 *buf)
+{
+    int i;
+    struct SuspendPackedUnit* unitp = (struct SuspendPackedUnit*)buf;
+
+    if (unit->pinfo == NULL) {
+        unitp->pid = 0;
+        return;
+    }
+
+    unitp->pid = unit->pinfo->id;
+    unitp->jid = unit->jinfo->id;
+    unitp->level = unit->level;
+    unitp->exp = unit->exp;
+    unitp->flags = unit->flags;
+    unitp->x = unit->x;
+    unitp->y = unit->y;
+    unitp->max_hp = unit->max_hp;
+    unitp->hp = unit->hp;
+    unitp->pow = unit->pow;
+    unitp->skl = unit->skl;
+    unitp->spd = unit->spd;
+    unitp->def = unit->def;
+    unitp->res = unit->res;
+    unitp->lck = unit->lck;
+    unitp->bonus_con = unit->bonus_con;
+    unitp->status = unit->status;
+    unitp->status_duration = unit->status_duration;
+    unitp->torch = unit->torch;
+    unitp->barrier = unit->barrier;
+    unitp->rescue = unit->rescue;
+    unitp->bonus_mov = unit->bonus_mov;
+    unitp->item_a = unit->items[0];
+    unitp->item_b = unit->items[1];
+    unitp->item_c = unit->items[2];
+    unitp->item_d = unit->items[3];
+    unitp->item_e = unit->items[4];
+
+    for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
+        unitp->wexp[i] = unit->wexp[i];
+
+    for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
+        unitp->supports[i] = unit->supports[i];
+
+    unitp->ai_a = unit->ai_a;
+    unitp->ai_a_pc = unit->ai_a_pc;
+    unitp->ai_b = unit->ai_b;
+    unitp->ai_b_pc = unit->ai_b_pc;
+    unitp->ai_config = unit->ai_config;
+    unitp->unit_unk_46 = unit->unk_46;
+    unitp->ai_flags = unit->ai_flags;
+}
+
+void LoadUnitFormSuspend(u8 *sram_src, struct Unit *unit)
+{
+    int i;
+    struct SuspendPackedUnit unitp;
+
+    (*ReadSramFast)(sram_src, (u8*)&unitp, sizeof(struct SuspendPackedUnit));
+
+    unit->pinfo = GetPInfo(unitp.pid);
+    unit->jinfo = GetJInfo(unitp.jid);
+
+    unit->level = unitp.level;
+    unit->exp = unitp.exp;
+    unit->flags =unitp.flags;
+    unit->x = unitp.x;
+    unit->y = unitp.y;
+    unit->max_hp = unitp.max_hp;
+    unit->hp = unitp.hp;
+    unit->pow = unitp.pow;
+    unit->skl = unitp.skl;
+    unit->spd = unitp.spd;
+    unit->def = unitp.def;
+    unit->res = unitp.res;
+    unit->lck = unitp.lck;
+    unit->bonus_con = unitp.bonus_con;
+    unit->status = unitp.status;
+    unit->status_duration = unitp.status_duration;
+    unit->torch = unitp.torch;
+    unit->barrier = unitp.barrier;
+    unit->rescue = unitp.rescue;
+    unit->bonus_mov = unitp.bonus_mov;
+
+    unit->items[0] = unitp.item_a;
+    unit->items[1] = unitp.item_b;
+    unit->items[2] = unitp.item_c;
+    unit->items[3] = unitp.item_d;
+    unit->items[4] = unitp.item_e;
+
+    for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
+        unit->wexp[i] = unitp.wexp[i];
+
+    for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
+        unit->supports[i] = unitp.supports[i];
+
+    unit->ai_a = unitp.ai_a;
+    unit->ai_a_pc = unitp.ai_a_pc;
+    unit->ai_b = unitp.ai_b;
+    unit->ai_b_pc = unitp.ai_b_pc;
+    unit->ai_config = unitp.ai_config;
+    unit->unk_46 = unitp.unit_unk_46;
+    unit->ai_flags = unitp.ai_flags;
+
+    if (0x7F == unit->exp)
+        unit->exp = -1;
+
+    if (0x3F == unit->x)
+        unit->x = -1;
+
+    if (0x3F == unit->y)
+        unit->y = -1;
 }

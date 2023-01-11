@@ -17,6 +17,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "statscreen.h" // StartMuralBackground
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -486,7 +487,7 @@ fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801AD6C(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -505,7 +506,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801ADB4(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)

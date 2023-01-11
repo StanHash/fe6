@@ -3,13 +3,47 @@
 #include "common.h"
 #include "unit.h"
 
-#define BWL_ARRAY_SIZE 0x46
-#define WIN_ARRAY_SIZE 0x20
+enum {
+    SAVE_ID_GAME0,
+    SAVE_ID_GAME1,
+    SAVE_ID_GAME2,
+    SAVE_ID_SUSPEND0,
+    SAVE_ID_SUSPEND1,
+    SAVE_ID_5,
+    SAVE_ID_6,
+    SAVE_ID_MAX
+};
 
-enum unit_amount_in_savedata {
-    UNIT_SAVE_AMOUNT_BLUE = 52,
-    UNIT_SAVE_AMOUNT_RED = 50,
-    UNIT_SAVE_AMOUNT_GREEN = 10,
+#define MAX_SAVED_GAME_CLEARS 12
+
+
+/**
+ * SRAM image header
+ */
+struct GlobalSaveInfo {
+    /* 00 */ char name[0x8];
+    /* 08 */ u32 magic_a;
+    /* 0C */ u16 magic_b;
+
+    /* 0E */ u32 playedThrough : 1;
+             u32 unk_0E_1 : 1;
+             u32 unk_0E_2 : 1;
+             u32 unk_0E_3 : 1;
+             u32 unk_0E_4 : 12;
+
+    /* 10 */ u8 playThrough[MAX_SAVED_GAME_CLEARS];
+    /* 1C */ u16 cksum16;
+    /* 1E */ u8 slot_sa;
+    /* 1F */ u8 slot_su;
+};
+
+struct SaveBlockInfo {
+    /* 00 */ u32 magic_a;
+    /* 04 */ u16 magic_b;
+    /* 06 */ u8 kind;
+    /* 08 */ u16 offset;
+    /* 0A */ u16 size;
+    /* 0C */ u32 checksum32;
 };
 
 struct SramHeader {
@@ -17,7 +51,13 @@ struct SramHeader {
     struct SaveBlockInfo chunks[SAVE_ID_MAX];
 };
 
-/* BWL Table */
+extern CONST_DATA u8 *gpSramEntry;
+extern const char gGlobalSaveInfoName[];
+
+
+/**
+ * Battle-Win-Lose Table
+ */
 struct PidStats {
     /* 000 */ u32 lossAmt     : 8;
     /* 008 */ u32 actAmt      : 8;
@@ -34,41 +74,72 @@ struct PidStats {
     /* 113 */ u32 _pad_       : 15;
 };
 
+#define BWL_ARRAY_SIZE 0x46
+extern struct PidStats gPidStatsData[BWL_ARRAY_SIZE];
+#define gPidStats (&gPidStatsData[-1])
+extern u8 *gPidStatsSaveLoc;
+
+void PidStatsAddBattleAmt(struct Unit *unit);
+void PidStatsAddWinAmt(u8 pid);
+
+static inline struct PidStats *GetPidStats_(u8 pid)
+{
+    if (pid >= BWL_ARRAY_SIZE)
+        return NULL;
+    else if (0 == GetPInfo(pid)->affinity)
+        return NULL;
+    else
+        return &gPidStats[pid];
+}
+
+
+/**
+ * Chapter Win Data
+ */
 struct ChWinData {
-    /* 00 */ u16 chapter_index : 0x06;
-             u16 chapter_turn  : 0x0A;
-             u16 chapter_time  : 0x10;
+    u16 chapter_index : 0x06;
+    u16 chapter_turn  : 0x0A;
+    u16 chapter_time  : 0x10;
 };
 
-struct SavePackedUnit {       /* Save Data */
-    /* 000 */ u32 pid    : 7;
-    /* 007 */ u32 jid    : 7;
-    /* 014 */ u32 level  : 5;
-    /* 019 */ u32 flags  : 6;
-    /* 025 */ u32 exp    : 7;
-    /* 032 */ u32 x      : 6;
-    /* 038 */ u32 y      : 6;
-    /* 044 */ u32 max_hp : 6;
+#define WIN_ARRAY_SIZE 0x20
+extern struct ChWinData gChWinData[WIN_ARRAY_SIZE];
+struct ChWinData *GetChWinData(int index);
+void RegisterChWinData(struct PlaySt *playSt);
 
-    /* 049 */ u32 pow : 5;
-    /* 054 */ u32 skl : 5;
-    /* 059 */ u32 spd : 5;
-    /* 065 */ u32 def : 5;
-    /* 070 */ u32 res : 5;
-    /* 075 */ u32 lck : 5;
-    /* 080 */ u32 con : 5;
-    /* 085 */ u32 mov : 5;
 
-    /* 090 */ u32 item0 : 14;
-    /* 104 */ u32 item1 : 14;
-    /* 118 */ u32 item2 : 14;
-    /* 132 */ u32 item3 : 14;
-    /* 146 */ u32 item4 : 14;
+/**
+ * Packed unit struct in save & suspand data
+ */
+struct SavePackedUnit {
+    u32 pid    : 7;
+    u32 jid    : 7;
+    u32 level  : 5;
+    u32 flags  : 6;
+    u32 exp    : 7;
+    u32 x      : 6;
+    u32 y      : 6;
+    u32 max_hp : 6;
 
-    /* x14 */ u8 _pad_14[2];
+    u32 pow : 5;
+    u32 skl : 5;
+    u32 spd : 5;
+    u32 def : 5;
+    u32 res : 5;
+    u32 lck : 5;
+    u32 con : 5;
+    u32 mov : 5;
 
-    /* x16 */ u8 wexp[UNIT_WEAPON_EXP_COUNT];
-    /* x1E */ u8 supports[UNIT_SUPPORT_COUNT];
+    u32 item0 : 14;
+    u32 item1 : 14;
+    u32 item2 : 14;
+    u32 item3 : 14;
+    u32 item4 : 14;
+
+    u8 _pad_14[2];
+
+    u8 wexp[UNIT_WEAPON_EXP_COUNT];
+    u8 supports[UNIT_SUPPORT_COUNT];
 };
 
 enum packed_unit_state_bits {
@@ -119,18 +190,19 @@ struct SuspendPackedUnit
     /*    */ u32 barrier         : 3;
     /* 30 */ u32 bonus_mov       : 4;
     /*    */ u32 item_d          : 14;
-    /*    */ u32 item_e          : 14;
+    /*    */ u16 item_e          : 14;
 };
+
+enum unit_amount_in_savedata {
+    UNIT_SAVE_AMOUNT_BLUE = 52,
+    UNIT_SAVE_AMOUNT_RED = 50,
+    UNIT_SAVE_AMOUNT_GREEN = 10,
+};
+
 
 extern u8 gUnk_0203D524[0xA];
 extern i8 gBoolSramWorking;
-extern u8 *gPidStatsSaveLoc;
-extern struct PidStats gPidStatsData[BWL_ARRAY_SIZE];
-#define gPidStats (&gPidStatsData[-1])
-
-extern struct ChWinData gChWinData[WIN_ARRAY_SIZE];
-extern u8 *gpSramEntry;
-extern CONST_DATA char gGlobalSaveInfoName[];
+extern u8 gSuspendSlotIndex;
 
 void SramInit();
 bool IsSramWorking();
@@ -149,19 +221,3 @@ bool CheckSaveChunkChapterValid(int index);
 int GetLastSuspendSlotId();
 bool VerifySaveBlockInfoByIndex(int saveId);
 void LoadPlaySt(int saveId, struct PlaySt *out);
-
-struct ChWinData *GetChWinData(int index);
-void RegisterChWinData(struct PlaySt *playSt);
-
-void PidStatsAddBattleAmt(struct Unit *unit);
-void PidStatsAddWinAmt(u8 pid);
-
-static inline struct PidStats *GetPidStats_(u8 pid)
-{
-    if (pid >= BWL_ARRAY_SIZE)
-        return NULL;
-    else if (0 == GetPInfo(pid)->affinity)
-        return NULL;
-    else
-        return &gPidStats[pid];
-}
