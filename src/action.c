@@ -14,6 +14,7 @@
 #include "itemaction.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/terrains.h"
 #include "constants/songs.h"
@@ -404,7 +405,7 @@ void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent)
 {
     if (GetUnitCurrentHp(unit) == 0)
     {
-        func_fe6_08084AEC(unit->pinfo->id, opponent->pinfo->id, 2);
+        PidStatsRecordDeathData(unit->pinfo->id, opponent->pinfo->id, 2);
         KillUnit(unit);
     }
 }
@@ -414,7 +415,7 @@ void func_fe6_0802A6B4(struct Unit * unit)
     if (GetUnitCurrentHp(unit) == 0)
     {
         KillUnit(unit);
-        func_fe6_08084AEC(unit->pinfo->id, 0, 6);
+        PidStatsRecordDeathData(unit->pinfo->id, 0, 6);
     }
 }
 

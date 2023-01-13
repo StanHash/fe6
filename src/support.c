@@ -120,7 +120,7 @@ bool CanUnitSupportNow(struct Unit * unit, int num)
 {
     int exp, maxExp;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return FALSE;
 
     if (gPlaySt.flags & PLAY_FLAG_3)
@@ -188,7 +188,7 @@ void DoTurnSupportExp(void)
     if (gPlaySt.support_gain >= 250)
         return;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return;
 
     for (i = 1; i < 0x40; ++i)

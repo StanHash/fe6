@@ -28,7 +28,7 @@ enum
     PLAY_FLAG_2               = (1 << 2),
     PLAY_FLAG_3               = (1 << 3),
     PLAY_FLAG_4               = (1 << 4),
-    PLAY_FLAG_5               = (1 << 5),
+    PLAY_FLAG_COMPLETE               = (1 << 5),
     PLAY_FLAG_HARD            = (1 << 6),
     PLAY_FLAG_7               = (1 << 7),
 

@@ -156,35 +156,3 @@ struct TrialLoadInfo
     /* 0C */ char const * msg_0C;
     /* 10 */ // ...
 };
-
-enum
-{
-    SAVE_ID_GAME0,
-    SAVE_ID_GAME1,
-    SAVE_ID_GAME2,
-    SAVE_ID_SUSPEND0,
-    SAVE_ID_SUSPEND1,
-};
-
-enum { MAX_SAVED_GAME_CLEARS = 12 };
-
-struct GlobalSaveInfo
-{
-    /* 00 */ u8 pad_00[0x0E - 0x00];
-    /* 0E */ u8 unk_0E_0 : 1;
-    /* 0E */ u8 unk_0E_1 : 1;
-    /* 0E */ u8 unk_0E_2 : 1;
-    /* 0E */ u8 unk_0E_3 : 1;
-    /* 0F */ u8 pad_0F[0x10 - 0x0F];
-    /* 10 */ u8 unk_10[0x10];
-};
-
-struct SaveBlockInfo
-{
-    /* 00 */ u32 magic_a;
-    /* 04 */ u16 magic_b;
-    /* 06 */ u8 kind;
-    /* 08 */ u16 offset;
-    /* 0A */ u16 size;
-    /* 0C */ u32 checksum32;
-};

@@ -16,6 +16,7 @@
 #include "action.h"
 #include "chapterinfo.h"
 #include "mu.h"
+#include "save.h"
 
 #include "constants/pids.h"
 #include "constants/jids.h"
@@ -130,10 +131,10 @@ void BattleGenerateRealInternal(struct Unit * instigator, struct Unit * target)
     if (gBattleUnitB.unit.id != 0)
     {
         BattleApplyExpGains();
-        func_fe6_08084D64();
+        PidStatsRecordBattleRes();
 
-        func_fe6_0808495C(instigator);
-        func_fe6_0808495C(target);
+        PidStatsAddBattleAmt(instigator);
+        PidStatsAddBattleAmt(target);
     }
 }
 
@@ -886,7 +887,7 @@ void BattleApplyExpGains(void)
 {
     if ((UNIT_FACTION(&gBattleUnitA.unit) != FACTION_BLUE) || (UNIT_FACTION(&gBattleUnitB.unit) != FACTION_BLUE))
     {
-        if (!(gPlaySt.flags & PLAY_FLAG_5))
+        if (!(gPlaySt.flags & PLAY_FLAG_COMPLETE))
         {
             gBattleUnitA.exp_gain = GetBattleUnitExpGain(&gBattleUnitA, &gBattleUnitB);
             gBattleUnitB.exp_gain = GetBattleUnitExpGain(&gBattleUnitB, &gBattleUnitA);
@@ -1119,7 +1120,7 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit * bu)
     if (bu->unit.hp == 0)
         return -1;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return -1;
 
     if (gBmSt.flags & BM_FLAG_LINKARENA)
@@ -1328,7 +1329,7 @@ int GetBattleUnitExpGain(struct BattleUnit * bu, struct BattleUnit * other)
 
 void BattleApplyItemExpGains(void)
 {
-    if ((gBattleUnitA.weapon_attributes & ITEM_ATTR_STAFF) && !(gPlaySt.flags & PLAY_FLAG_5))
+    if ((gBattleUnitA.weapon_attributes & ITEM_ATTR_STAFF) && !(gPlaySt.flags & PLAY_FLAG_COMPLETE))
     {
         if (UNIT_FACTION(&gBattleUnitA.unit) == FACTION_BLUE)
             gBattleUnitA.wexp_gain++;
@@ -1369,7 +1370,7 @@ void BattleApplyMiscActionExpGains(void)
     if (!CanBattleUnitGainExp(&gBattleUnitA))
         return;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return;
 
     gBattleUnitA.exp_gain = 10;
@@ -1746,7 +1747,7 @@ void BattleGenerateArena(struct Unit * unit)
     BattleApplyWeaponTriangleEffect(&gBattleUnitA, &gBattleUnitB);
 
     gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
-    func_fe6_080857B0(SAVE_ID_SUSPEND0);
+    SaveSuspendedGame(SAVE_ID_SUSPEND0);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonuses(&gBattleUnitB, 8); // TODO: terrain id constants
@@ -1759,7 +1760,7 @@ void BattleGenerateArena(struct Unit * unit)
     UpdateUnitDuringBattle(unit, &gBattleUnitA);
 
     if (!something || (gBattleUnitB.unit.hp == 0))
-        func_fe6_08084D64();
+        PidStatsRecordBattleRes();
 
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);
 }

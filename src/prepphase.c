@@ -491,7 +491,7 @@ static void PrepPhase_MapSwapSelectFogFadeB(struct GenericProc * proc)
 
 void func_fe6_0802B784(void)
 {
-    if (gPlaySt.flags & PLAY_FLAG_5 && !(gBmSt.flags & BM_FLAG_LINKARENA))
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE && !(gBmSt.flags & BM_FLAG_LINKARENA))
     {
         UnitRearrangeInit((struct Unit *) gBuf);
 

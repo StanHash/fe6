@@ -15,13 +15,12 @@
 #include "chapterinfo.h"
 #include "masseffect.h"
 #include "mu.h"
+#include "save.h"
 
 #include "constants/iids.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
 #include "constants/msg.h"
-
-enum { TRAP_MAX_COUNT = 0x20 };
 
 static struct Trap EWRAM_DATA sTraps[TRAP_MAX_COUNT] = {};
 
@@ -693,7 +692,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
 static void StepFireTrap_08027318(ProcPtr proc)
 {
     if (GetUnitCurrentHp(gActiveUnit) <= 10)
-        func_fe6_08084A10(gActiveUnit->pinfo->id);
+        PidStatsRecordLoseData(gActiveUnit->pinfo->id);
 }
 
 static void StepPikeTrap_08027318(ProcPtr proc)
@@ -701,7 +700,7 @@ static void StepPikeTrap_08027318(ProcPtr proc)
     int damage = 10 - GetUnitDefense(gActiveUnit);
 
     if (GetUnitCurrentHp(gActiveUnit) <= damage)
-        func_fe6_08084A10(gActiveUnit->pinfo->id);
+        PidStatsRecordLoseData(gActiveUnit->pinfo->id);
 }
 
 static void StepTrap_End(ProcPtr proc)
@@ -709,7 +708,7 @@ static void StepTrap_End(ProcPtr proc)
     ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
-        func_fe6_08084AEC(gActiveUnit->pinfo->id, 0, 3);
+        PidStatsRecordDeathData(gActiveUnit->pinfo->id, 0, 3);
 
     FinishDamageDisplay(proc);
 

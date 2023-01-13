@@ -5,6 +5,7 @@
 #include "proc.h"
 #include "text.h"
 #include "unit.h"
+#include "save.h"
 
 enum
 {

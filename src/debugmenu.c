@@ -17,6 +17,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "statscreen.h" // StartMuralBackground
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -290,7 +291,7 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
     LoadGlobalSaveInfo(&saveInfo);
 
     for (i = 0; i < MAX_SAVED_GAME_CLEARS; ++i)
-        saveInfo.unk_10[i] = 0;
+        saveInfo.playThrough[i] = 0;
 
     i = 0;
 
@@ -302,14 +303,14 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     if (clearCount == 0)
     {
-        saveInfo.unk_0E_0 = FALSE;
+        saveInfo.playedThrough = FALSE;
         saveInfo.unk_0E_2 = FALSE;
         saveInfo.unk_0E_1 = FALSE;
         saveInfo.unk_0E_3 = FALSE;
     }
     else
     {
-        saveInfo.unk_0E_0 = TRUE;
+        saveInfo.playedThrough = TRUE;
     }
 
     SaveGlobalSaveInfo(&saveInfo);
@@ -338,12 +339,12 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     // required for a match
     if (gPlaySt.playthrough_id != 0) {}
 
-    func_fe6_08084EA4();
+    SavePlayThroughData();
 
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
     CleanupUnitsBeforeChapter();
-    func_fe6_08085110(func_fe6_08084F94());
+    SaveGame(GetLastUsedGameSaveSlot());
 
     SoftReset(GBA_RESET_ALL);
 }
@@ -380,7 +381,7 @@ fu8 func_fe6_0801AB64(struct MenuProc * menu)
 
     menu->entries[3]->id = 1;
 
-    if (func_fe6_08084438(&blockInfo, SAVE_ID_SUSPEND0) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
+    if (LoadAndVerifySaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND0) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
     {
         StartFace(0, FID_63, 32, 80, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(4));
         StartFace(1, FID_61, DISPLAY_WIDTH - 32, 80, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4));
@@ -437,10 +438,10 @@ fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     InitUnits();
 
-    func_fe6_0808505C(SAVE_ID_GAME0, FALSE);
+    SaveNewGame(SAVE_ID_GAME0, FALSE);
     gPlaySt.chapter = ent->id;
 
-    func_fe6_08085110(0);
+    SaveGame(0);
     CleanupUnitsBeforeChapter();
 
     RestartGameAndChapter();
@@ -479,14 +480,14 @@ fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    func_fe6_080857B0(SAVE_ID_SUSPEND1);
+    SaveSuspendedGame(SAVE_ID_SUSPEND1);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 fu8 func_fe6_0801AD6C(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -497,7 +498,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
     if (FindProc(ProcScr_BmMain) != NULL)
         EndMapMain();
 
-    func_fe6_080858E4(SAVE_ID_SUSPEND1);
+    LoadSuspendedGame(SAVE_ID_SUSPEND1);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
@@ -505,7 +506,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801ADB4(struct MenuEntInfo const * info, int id)
 {
-    return !func_fe6_080859E0(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -513,7 +514,7 @@ fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    func_fe6_080858E4(SAVE_ID_SUSPEND0);
+    LoadSuspendedGame(SAVE_ID_SUSPEND0);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;

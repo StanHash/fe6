@@ -184,9 +184,9 @@ void SetFlag(int flag);
 bool CheckFlag(int flag);
 void ClearFlag(int flag);
 u8 * GetPermanentFlagBits(void);
-u32 GetPermanentFlagBitsSize(void);
+int GetPermanentFlagBitsSize(void);
 u8 * GetChapterFlagBits(void);
-u32 GetChapterFlagBitsSize(void);
+int GetChapterFlagBitsSize(void);
 
 extern u8 gChapterFlagBits[(MAX_CHAPTER_FLAGS + CHAR_BIT - 1) / CHAR_BIT];
 extern u8 gPermanentFlagBits[(MAX_PERMANENT_FLAGS + CHAR_BIT - 1) / CHAR_BIT];

@@ -14,6 +14,7 @@
 #include "trap.h"
 #include "action.h"
 #include "ai_utility.h"
+#include "save.h"
 
 #include "constants/terrains.h"
 #include "constants/iids.h"

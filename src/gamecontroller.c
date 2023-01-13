@@ -9,6 +9,7 @@
 #include "ui.h"
 #include "eventinfo.h"
 #include "statscreen.h"
+#include "save.h"
 
 #include "constants/chapters.h"
 
@@ -229,10 +230,10 @@ static int GetFurthestSaveChapter(void)
 
     for (i = SAVE_ID_GAME0; i < SAVE_ID_GAME2 + 1; ++i)
     {
-        if (!func_fe6_0808525C(i))
+        if (!VerifySaveBlockInfoByIndex(i))
             continue;
 
-        func_fe6_08085270(i, &playSt);
+        LoadPlaySt(i, &playSt);
 
         if (number < GetChapterInfo(playSt.chapter)->numberId)
         {
@@ -420,13 +421,13 @@ static void GC_InitTutorial(struct GameController * proc)
 static void GC_InitTrialMap(struct GameController * proc)
 {
     LoadTrialMapBonusUnits();
-    func_fe6_08084818();
+    ClearPidStats();
     CleanupUnitsBeforeChapter();
 }
 
 static void GC_ClearSuspend(struct GameController * proc)
 {
-    func_fe6_08085788(SAVE_ID_SUSPEND0);
+    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
 }
 
 static void GC_PostChapter(struct GameController * proc)
@@ -450,7 +451,7 @@ static void GC_PostChapter(struct GameController * proc)
 
 static void GC_CheckForGameEnded(struct GameController * proc)
 {
-    if (!(gPlaySt.flags & PLAY_FLAG_5))
+    if (!(gPlaySt.flags & PLAY_FLAG_COMPLETE))
         return;
 
     Proc_Goto(proc, L_GAMECTRL_ENDING);
@@ -458,7 +459,7 @@ static void GC_CheckForGameEnded(struct GameController * proc)
 
 static void GC_PostLoadSuspend(struct GameController * proc)
 {
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         Proc_Goto(proc, L_GAMECTRL_POSTTRIAL);
     else
         Proc_Goto(proc, L_GAMECTRL_POSTCHAPTER);
@@ -466,7 +467,7 @@ static void GC_PostLoadSuspend(struct GameController * proc)
 
 static void GC_InitNextChapter(struct GameController * proc)
 {
-    func_fe6_08084908(&gPlaySt);
+    RegisterChWinData(&gPlaySt);
     gPlaySt.chapter = proc->nextChapter;
 
     CleanupUnitsBeforeChapter();

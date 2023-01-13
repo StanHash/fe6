@@ -20,6 +20,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 #include "statscreen.h"
+#include "save.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -199,7 +200,7 @@ struct ProcScr CONST_DATA ProcScr_LimitView[] =
 static void PlayerPhase_Suspend(ProcPtr proc)
 {
     gAction.suspendPoint = SUSPEND_POINT_PLAYER_PHASE;
-    func_fe6_080857B0(SAVE_ID_SUSPEND0);
+    SaveSuspendedGame(SAVE_ID_SUSPEND0);
 }
 
 void HandlePlayerMapCursor(void)
@@ -269,7 +270,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_CONTROL:
                 UnitBeginAction(unit);
-                func_fe6_08084B84(gActiveUnit->pinfo->id);
+                PidStatsAddActAmt(gActiveUnit->pinfo->id);
 
                 Proc_Break(proc);
 
@@ -651,7 +652,7 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
     if ((gAction.id != ACTION_WAIT) && gBmSt.unk_3C == 0)
     {
         gAction.suspendPoint = SUSPEND_POINT_DURING_ACTION;
-        func_fe6_080857B0(SAVE_ID_SUSPEND0);
+        SaveSuspendedGame(SAVE_ID_SUSPEND0);
     }
 
     return camret;

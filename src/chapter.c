@@ -16,6 +16,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "save.h"
 
 #include "constants/chapters.h"
 
@@ -42,10 +43,10 @@ int GetTextPrintDelay(void)
 
 int IsFirstPlaythrough(void)
 {
-    if (!func_fe6_080846F0())
+    if (!IsGamePlayThroughed())
         return TRUE;
 
-    if (gPlaySt.flags & PLAY_FLAG_5)
+    if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return FALSE;
 
     return gPlaySt.unk_1D_5;
@@ -575,6 +576,6 @@ void func_fe6_08029654(void)
 
     gPlaySt.ending_id = GetEndingId();
 
-    func_fe6_08084908(&gPlaySt);
-    func_fe6_08084EA4();
+    RegisterChWinData(&gPlaySt);
+    SavePlayThroughData();
 }

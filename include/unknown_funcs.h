@@ -2426,92 +2426,8 @@ void func_fe6_08081620(struct Unit * unit, ProcPtr parent);
 // func_fe6_080841B4
 // func_fe6_080841EC
 // func_fe6_080841F8
-// func_fe6_080841FC
-bool IsSramWorking(void);
-// func_fe6_08084280
-// ComputeChecksum16
-bool LoadGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-void SaveGlobalSaveInfo(struct GlobalSaveInfo * saveInfo);
-// func_fe6_08084388
-// func_fe6_0808439C
-// func_fe6_08084414
-// func_fe6_08084428
-bool func_fe6_08084438(struct SaveBlockInfo * blockInfo, int id);
-// func_fe6_080844D4
-// func_fe6_08084560
-// func_fe6_0808460C
-// func_fe6_08084628
-// func_fe6_08084648
-// func_fe6_08084668
-// func_fe6_08084690
-// func_fe6_080846B8
-// func_fe6_080846D0
-bool func_fe6_080846F0(void);
-// func_fe6_08084714
-// func_fe6_08084718
-// func_fe6_0808474C
-// func_fe6_0808475C
-// func_fe6_08084798
-void func_fe6_08084818(void);
-// func_fe6_0808483C
-// func_fe6_08084868
-// func_fe6_08084884
-// func_fe6_080848A8
-// func_fe6_080848BC
-// func_fe6_080848C8
-// func_fe6_080848DC
-void func_fe6_08084908(struct PlaySt * playSt);
-void func_fe6_0808495C(struct Unit * unit);
-// func_fe6_080849BC
-void func_fe6_08084A10(u8 pid);
-void func_fe6_08084AEC(u8 pid, int arg_1, int arg_2);
-void func_fe6_08084B84(u8 pid);
-void func_fe6_08084BB8(u8 pid);
-// func_fe6_08084BEC
-void PidStatsAddSquaresMoved(int pid, int amount);
-void PidStatsAddExpGained(int pid, int amount);
-// func_fe6_08084CD8
-// func_fe6_08084CFC
-// func_fe6_08084D1C
-// func_fe6_08084D34
-void func_fe6_08084D64(void);
-// func_fe6_08084DC8
-// func_fe6_08084E18
-int GetGlobalCompletedPlaythroughCount(void);
-void RegisterCompletedPlaythrough(struct GlobalSaveInfo * saveInfo, int id);
-void func_fe6_08084EA4(void);
-// func_fe6_08084F48
-// func_fe6_08084F4C
-// func_fe6_08084F78
-int func_fe6_08084F94(void);
-// func_fe6_08084FB8
-// func_fe6_08084FF8
-void func_fe6_0808505C(int saveId, int isHard);
-void func_fe6_08085110(int arg_0);
-// func_fe6_080851B4
-i8 func_fe6_0808525C(int saveId);
-void func_fe6_08085270(int saveId, struct PlaySt * out);
-// func_fe6_08085290
-// func_fe6_080852C4
-// func_fe6_080855C4
-void func_fe6_08085788(int saveId);
-void func_fe6_080857B0(int saveId);
-void func_fe6_080858E4(int saveId);
-bool func_fe6_080859E0(int saveId);
-// func_fe6_08085A34
-// func_fe6_08085A48
-// func_fe6_08085CE0
-// func_fe6_08085EB4
-// func_fe6_08085ED0
-// func_fe6_08085EF4
-// func_fe6_08085F14
-// func_fe6_08085F24
-// func_fe6_08085F4C
-// func_fe6_08085F74
-// func_fe6_08085F98
-// func_fe6_08085FB4
 // func_fe6_08086088
-// func_fe6_08086090
+// VerifySaveBlockInfo
 // func_fe6_080860A4
 // func_fe6_080861EC
 // func_fe6_08086220
@@ -2524,7 +2440,7 @@ bool func_fe6_080859E0(int saveId);
 // func_fe6_080864CC
 // func_fe6_080864F4
 // func_fe6_08086530
-// func_fe6_08086558
+bool func_fe6_08086558();
 // func_fe6_08086590
 u8 const * func_fe6_080865EC(void);
 int func_fe6_08086608(void);
@@ -3300,3 +3216,4 @@ void func_fe6_0809874C(void);
 // func_fe6_0809B99C
 // func_fe6_0809BAF0
 // func_fe6_0809BB00
+u32 Checksum32_t(u16 *buf, int size);
