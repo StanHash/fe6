@@ -288,10 +288,10 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
             clearCount++;
     }
 
-    LoadGlobalSaveInfo(&saveInfo);
+    ReadGlobalSaveInfo(&saveInfo);
 
     for (i = 0; i < MAX_SAVED_GAME_CLEARS; ++i)
-        saveInfo.playThrough[i] = 0;
+        saveInfo.cleared_playthroughs[i] = 0;
 
     i = 0;
 
@@ -303,17 +303,17 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     if (clearCount == 0)
     {
-        saveInfo.playedThrough = FALSE;
-        saveInfo.unk_0E_2 = FALSE;
-        saveInfo.unk_0E_1 = FALSE;
-        saveInfo.unk_0E_3 = FALSE;
+        saveInfo.completed = FALSE;
+        saveInfo.completed_true = FALSE;
+        saveInfo.completed_hard = FALSE;
+        saveInfo.completed_true_hard = FALSE;
     }
     else
     {
-        saveInfo.playedThrough = TRUE;
+        saveInfo.completed = TRUE;
     }
 
-    SaveGlobalSaveInfo(&saveInfo);
+    WriteGlobalSaveInfo(&saveInfo);
 
     func_fe6_0801A944(menu, ent);
 }
@@ -344,7 +344,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
     CleanupUnitsBeforeChapter();
-    SaveGame(GetLastUsedGameSaveSlot());
+    WriteGameSave(ReadLastGameSaveId());
 
     SoftReset(GBA_RESET_ALL);
 }
@@ -365,7 +365,7 @@ void func_fe6_0801AAE0(void)
     DebugInitBg(2, 0);
 
     if (!IsSramWorking())
-        PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, "\x82\x72\x82\x71\x82\x60\x82\x6C\x82\xAA\x91\x95\x92\x85\x82\xB3\x82\xEA\x82\xC4\x82\xA2\x82\xDC\x82\xB9\x82\xF1"); // "ＳＲＡＭが装着されていません"
+        PutDrawText(NULL, gBg0Tm + TM_OFFSET(0, 18), 0, 0, 30, JTEXT("ＳＲＡＭが装着されていません"));
 
     StartMuralBackground(StartMenu(&MenuInfo_Debug_085C742C), (u8 *) BG_VRAM + CHR_SIZE * 0x580, -1);
 
@@ -381,7 +381,7 @@ fu8 func_fe6_0801AB64(struct MenuProc * menu)
 
     menu->entries[3]->id = 1;
 
-    if (LoadAndVerifySaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND0) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
+    if (ReadSaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
     {
         StartFace(0, FID_63, 32, 80, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(4));
         StartFace(1, FID_61, DISPLAY_WIDTH - 32, 80, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4));
@@ -438,10 +438,10 @@ fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     InitUnits();
 
-    SaveNewGame(SAVE_ID_GAME0, FALSE);
+    WriteNewGameSave(SAVE_ID_GAME0, FALSE);
     gPlaySt.chapter = ent->id;
 
-    SaveGame(0);
+    WriteGameSave(SAVE_ID_GAME0);
     CleanupUnitsBeforeChapter();
 
     RestartGameAndChapter();
@@ -480,14 +480,14 @@ fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    SaveSuspendedGame(SAVE_ID_SUSPEND1);
+    WriteSuspendSave(SAVE_ID_SUSPEND_ALT);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 fu8 func_fe6_0801AD6C(struct MenuEntInfo const * info, int id)
 {
-    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND1) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !IsValidSuspendSave(SAVE_ID_SUSPEND_ALT) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -498,7 +498,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
     if (FindProc(ProcScr_BmMain) != NULL)
         EndMapMain();
 
-    LoadSuspendedGame(SAVE_ID_SUSPEND1);
+    ReadSuspendSave(SAVE_ID_SUSPEND_ALT);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
@@ -506,7 +506,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801ADB4(struct MenuEntInfo const * info, int id)
 {
-    return !AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND0) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !IsValidSuspendSave(SAVE_ID_SUSPEND) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -514,7 +514,7 @@ fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    LoadSuspendedGame(SAVE_ID_SUSPEND0);
+    ReadSuspendSave(SAVE_ID_SUSPEND);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
@@ -524,13 +524,13 @@ u32 func_fe6_0801ADEC(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     char const * offon[] =
     {
-        "\x82\x6E\x82\x65\x82\x65", // "ＯＦＦ"
-        "\x82\x6E\x82\x6D", // "ＯＮ"
+        JTEXT("ＯＦＦ"),
+        JTEXT("ＯＮ"),
     };
 
     ClearText(&ent->text);
 
-    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, "\x82\xB3\x82\xAD\x93\x47"); // "さく敵"
+    Text_InsertDrawString(&ent->text, 8, TEXT_COLOR_SYSTEM_WHITE, JTEXT("さく敵"));
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[gPlaySt.vision != 0]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));

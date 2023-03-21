@@ -51,11 +51,11 @@ PROC_LABEL(0),
 void AiDecide_Suspend(ProcPtr proc)
 {
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        gAction.suspendPoint = SUSPEND_POINT_BERSERK_PHASE;
+        gAction.suspend_point = SUSPEND_POINT_BERSERK_PHASE;
     else
-        gAction.suspendPoint = SUSPEND_POINT_AI_PHASE;
+        gAction.suspend_point = SUSPEND_POINT_AI_PHASE;
 
-    SaveSuspendedGame(SAVE_ID_SUSPEND0);
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 }
 
 void AiDecide_NextUnit(ProcPtr proc)

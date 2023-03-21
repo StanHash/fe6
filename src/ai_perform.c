@@ -180,7 +180,7 @@ void AiEndMuAndRefreshUnits(void)
         RefreshEntityMaps();
     }
 
-    if (gPlaySt.chapter == CHAPTER_UNK_19 && CheckAvailableVictoryEvent())
+    if (gPlaySt.chapter == CHAPTER_FINAL && CheckAvailableVictoryEvent())
         StartAvailableVictoryEvent();
 
     EndAllMus();

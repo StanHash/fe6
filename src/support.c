@@ -123,7 +123,7 @@ bool CanUnitSupportNow(struct Unit * unit, int num)
     if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
         return FALSE;
 
-    if (gPlaySt.flags & PLAY_FLAG_3)
+    if (gPlaySt.flags & PLAY_FLAG_TUTORIAL)
         return FALSE;
 
     if (GetUnitTotalSupportLevel(unit) >= MAX_SIMULTANEOUS_SUPPORT_COUNT)

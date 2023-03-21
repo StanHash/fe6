@@ -462,8 +462,8 @@ int BmMain_UpdateTraps(ProcPtr proc)
 
 void BmMain_SuspendBeforePhase(ProcPtr proc)
 {
-    gAction.suspendPoint = SUSPEND_POINT_CHANGE_PHASE;
-    SaveSuspendedGame(SAVE_ID_SUSPEND0);
+    gAction.suspend_point = SUSPEND_POINT_CHANGE_PHASE;
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 }
 
 void InitBmBgLayers(void)

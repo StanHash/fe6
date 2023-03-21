@@ -9673,7 +9673,7 @@ func_fe6_08039D34: @ 0x08039D34
 	ldr r0, [r1]
 	adds r0, r0, r7
 	adds r1, r5, #0
-	bl LoadUnit
+	bl ReadGameSavePackedUnit
 	adds r0, r5, #0
 	bl func_fe6_08039CFC
 	strb r4, [r5, #0xb]
@@ -9829,7 +9829,7 @@ func_fe6_08039E04: @ 0x08039E04
 	bl ClearUnit
 	mov r0, sp
 	adds r1, r5, #0
-	bl LoadUnit
+	bl ReadGameSavePackedUnit
 	adds r0, r5, #0
 	bl func_fe6_08039CFC
 	ldrb r3, [r6]
@@ -10255,13 +10255,13 @@ func_fe6_0803A1FC: @ 0x0803A1FC
 	mov r2, sb
 	str r0, [r2]
 	mov r0, r8
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803A322
 	mov r0, r8
 	add r1, sp, #8
-	bl LoadPlaySt
+	bl ReadGameSavePlaySt
 	add r0, sp, #8
 	bl func_fe6_08070E0C
 	adds r2, r7, #0
@@ -10281,7 +10281,7 @@ func_fe6_0803A1FC: @ 0x0803A1FC
 	str r0, [r2]
 .L0803A2C8:
 	mov r0, r8
-	bl CheckSaveChunkChapterValid
+	bl IsGameSavePastFirstChapter
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803A2F4
@@ -10619,7 +10619,7 @@ func_fe6_0803A570: @ 0x0803A570
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x48]
-	bl LoadGame
+	bl ReadGameSave
 	ldr r1, .L0803A5A4 @ =gPlaySt
 	movs r0, #0xdf
 	ldrb r2, [r1, #0x14]
@@ -12186,12 +12186,12 @@ func_fe6_0803B2AC: @ 0x0803B2AC
 	movs r4, #0
 .L0803B2B0:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803B2CC
 	adds r0, r4, #0
-	bl CheckSaveChunkChapterValid
+	bl IsGameSavePastFirstChapter
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803B2CC
@@ -13119,7 +13119,7 @@ func_fe6_0803BA64: @ 0x0803BA64
 	movs r3, #0
 	bl InitTextFont
 	movs r0, #5
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0803BA88

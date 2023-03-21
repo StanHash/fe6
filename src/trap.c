@@ -654,7 +654,7 @@ static void UpdateTraps_08027248(ProcPtr proc)
 
 static void UpdateTraps_08027264(ProcPtr proc)
 {
-    func_fe6_08021B30(3);
+    func_fe6_08021B30(DEFEAT_CAUSE_TRAP);
 }
 
 static void StepPikeTrap_StartAnim(ProcPtr proc)
@@ -708,7 +708,7 @@ static void StepTrap_End(ProcPtr proc)
     ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
-        PidStatsRecordDeathData(gActiveUnit->pinfo->id, 0, 3);
+        PidStatsRecordDefeatInfo(gActiveUnit->pinfo->id, 0, DEFEAT_CAUSE_TRAP);
 
     FinishDamageDisplay(proc);
 

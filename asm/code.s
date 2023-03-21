@@ -2959,7 +2959,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	adds r1, #0x2d
 	movs r0, #4
 	strb r0, [r1]
-	bl GetLastUsedGameSaveSlot
+	bl ReadLastGameSaveId
 	adds r1, r5, #0
 	adds r1, #0x2b
 	strb r0, [r1]
@@ -3402,7 +3402,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088352:
-	bl GetLastUsedGameSaveSlot
+	bl ReadLastGameSaveId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3413,7 +3413,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L0808836A:
-	bl GetLastUsedGameSaveSlot
+	bl ReadLastGameSaveId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3424,7 +3424,7 @@ func_fe6_080881C8: @ 0x080881C8
 	strb r0, [r1]
 	b .L080883AA
 .L08088382:
-	bl GetLastUsedGameSaveSlot
+	bl ReadLastGameSaveId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -3605,7 +3605,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl LoadGame
+	bl ReadGameSave
 	adds r0, r4, #0
 	movs r1, #0xd
 	b .L08088554
@@ -3641,7 +3641,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #0
-	bl SaveNewGame
+	bl WriteNewGameSave
 	b .L08088596
 .L08088530:
 	cmp r0, #2
@@ -3650,7 +3650,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #1
-	bl SaveNewGame
+	bl WriteNewGameSave
 	b .L08088596
 .L08088542:
 	cmp r1, #1
@@ -3658,7 +3658,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl func_fe6_08084FB8
+	bl InvalidateGameSave
 	adds r0, r4, #0
 	movs r1, #5
 .L08088554:
@@ -3690,7 +3690,7 @@ func_fe6_08088404: @ 0x08088404
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl SaveGame
+	bl WriteGameSave
 .L08088596:
 	adds r0, r4, #0
 	movs r1, #5
@@ -3911,7 +3911,7 @@ func_fe6_080885DC: @ 0x080885DC
 	bl Proc_Goto
 	b .L0808884C
 .L08088744:
-	bl IsGamePlayThroughed
+	bl IsNotFirstPlaythrough
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L08088774
@@ -3955,7 +3955,7 @@ func_fe6_080885DC: @ 0x080885DC
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #0
-	bl SaveNewGame
+	bl WriteNewGameSave
 	b .L080887B6
 .L080887A6:
 	cmp r1, #2
@@ -3964,7 +3964,7 @@ func_fe6_080885DC: @ 0x080885DC
 	adds r0, #0x2b
 	ldrb r0, [r0]
 	movs r1, #1
-	bl SaveNewGame
+	bl WriteNewGameSave
 .L080887B6:
 	adds r0, r4, #0
 	movs r1, #5
@@ -4807,7 +4807,7 @@ func_fe6_08088D6C: @ 0x08088D6C
 .L08088E4C: .4byte gPlaySt
 .L08088E50: .4byte gKeySt
 .L08088E54:
-	bl GetLastUsedGameSaveSlot
+	bl ReadLastGameSaveId
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	movs r1, #1
@@ -5043,7 +5043,7 @@ func_fe6_08088F60: @ 0x08088F60
 	adds r0, r4, #0
 	adds r0, #0x2b
 	ldrb r0, [r0]
-	bl LoadGame
+	bl ReadGameSave
 	adds r0, r4, #0
 	movs r1, #0xd
 	bl Proc_Goto
@@ -5182,7 +5182,7 @@ func_fe6_080890D0: @ 0x080890D0
 	cmp r0, #1
 	bne .L08089142
 	movs r0, #3
-	bl LoadSuspendedGame
+	bl ReadSuspendSave
 	movs r0, #3
 	bl SetNextGameAction
 	b .L0808917A
@@ -5191,7 +5191,7 @@ func_fe6_080890D0: @ 0x080890D0
 	bne .L08089156
 	adds r4, #0x2b
 	ldrb r0, [r4]
-	bl LoadGame
+	bl ReadGameSave
 	ldrb r0, [r4]
 	bl SetNextGameAction
 	b .L0808917A
@@ -7855,7 +7855,7 @@ func_fe6_0808A524: @ 0x0808A524
 	adds r0, #1
 	strb r0, [r1]
 .L0808A5FE:
-	bl IsGamePlayThroughed_
+	bl IsNotFirstPlaythrough_2
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A61A
@@ -7916,7 +7916,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A66C:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -7943,7 +7943,7 @@ func_fe6_0808A658: @ 0x0808A658
 	lsls r6, r1, #0x18
 .L0808A69A:
 	adds r0, r4, #0
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	cmp r0, r6
 	beq .L0808A692
@@ -8284,14 +8284,14 @@ func_fe6_0808A918: @ 0x0808A918
 	cmp r4, #2
 	bhi .L0808A9B4
 	adds r0, r4, #0
-	bl VerifySaveBlockInfoByIndex
+	bl IsSaveValid
 	lsls r0, r0, #0x18
 	asrs r2, r0, #0x18
 	cmp r2, #0
 	beq .L0808A98C
 	adds r0, r4, #0
 	mov r1, sp
-	bl LoadPlaySt
+	bl ReadGameSavePlaySt
 	mov r0, sp
 	bl func_fe6_08070E0C
 	adds r1, r5, #0
@@ -8361,13 +8361,13 @@ func_fe6_0808A918: @ 0x0808A918
 	cmp r1, r0
 	bne .L0808A9EA
 	movs r0, #3
-	bl AdvanceSuspendSaveDataSlotId
+	bl IsValidSuspendSave
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A9E6
 	movs r0, #3
 	mov r1, sp
-	bl LoadPlayStByGlobalSusIndex
+	bl ReadSuspendSavePlaySt
 	mov r0, sp
 	ldrb r0, [r0, #0xc]
 	adds r1, r5, #0
@@ -11993,7 +11993,7 @@ func_fe6_0808C75C: @ 0x0808C75C
 	ldr r0, [r0]
 	movs r4, #0
 	strh r4, [r0, #0x32]
-	bl IsGamePlayThroughed
+	bl IsNotFirstPlaythrough
 	cmp r0, #0
 	beq .L0808C784
 	mov r2, sl
@@ -16233,7 +16233,7 @@ func_fe6_0808E93C: @ 0x0808E93C
 	mov sl, r0
 	ldr r7, .L0808E95C @ =0x02016A24
 	ldrh r4, [r7]
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	cmp r4, r0
 	blt .L0808E960
 	movs r0, #1
@@ -16242,7 +16242,7 @@ func_fe6_0808E93C: @ 0x0808E93C
 .L0808E95C: .4byte 0x02016A24
 .L0808E960:
 	ldrh r0, [r7]
-	bl GetChWinData
+	bl GetChapterStats
 	mov sb, r0
 	movs r6, #7
 	ldrh r0, [r7]
@@ -16563,7 +16563,7 @@ func_fe6_0808EB94: @ 0x0808EB94
 func_fe6_0808EC1C: @ 0x0808EC1C
 	push {r4, r5, r6, r7, lr}
 	movs r6, #0
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r6, r5
@@ -16571,7 +16571,7 @@ func_fe6_0808EC1C: @ 0x0808EC1C
 	movs r7, #0xb4
 .L0808EC2E:
 	adds r0, r4, #0
-	bl GetChWinData
+	bl GetChapterStats
 	ldrh r0, [r0, #2]
 	muls r0, r7, r0
 	adds r6, r6, r0
@@ -17373,14 +17373,14 @@ func_fe6_0808F2F0: @ 0x0808F2F0
 func_fe6_0808F30C: @ 0x0808F30C
 	push {r4, r5, r6, lr}
 	movs r6, #0
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	adds r5, r0, #0
 	movs r4, #0
 	cmp r6, r5
 	bge .L0808F330
 .L0808F31C:
 	adds r0, r4, #0
-	bl GetChWinData
+	bl GetChapterStats
 	ldr r0, [r0]
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x16
@@ -17410,7 +17410,7 @@ func_fe6_0808F33C: @ 0x0808F33C
 	subs r0, #4
 	cmp r0, sp
 	bge .L0808F34C
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	adds r6, r0, #0
 	movs r4, #0
 	cmp r4, r6
@@ -17418,7 +17418,7 @@ func_fe6_0808F33C: @ 0x0808F33C
 	ldr r5, .L0808F3E4 @ =ChapterInfoTable
 .L0808F362:
 	adds r0, r4, #0
-	bl GetChWinData
+	bl GetChapterStats
 	ldr r2, [r0]
 	lsls r2, r2, #0x1a
 	lsrs r2, r2, #0x1a
@@ -17745,9 +17745,9 @@ func_fe6_0808F5AC: @ 0x0808F5AC
 	bl func_fe6_0808F59C
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	subs r0, #1
-	bl GetChWinData
+	bl GetChapterStats
 	ldr r1, [r0]
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a
@@ -17786,8 +17786,8 @@ func_fe6_0808F600: @ 0x0808F600
 	push {r4, lr}
 	bl func_fe6_08017104
 	adds r4, r0, #0
-	bl GetFreeChWinDataIndex
-	bl GetChWinData
+	bl GetNextChapterStatsSlot
+	bl GetChapterStats
 	ldr r0, .L0808F640 @ =gPlaySt
 	ldrb r0, [r0, #0xe]
 	lsls r0, r0, #0x18
@@ -17862,9 +17862,9 @@ func_fe6_0808F68C: @ 0x0808F68C
 	bl func_fe6_0808F648
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl GetFreeChWinDataIndex
+	bl GetNextChapterStatsSlot
 	subs r0, #1
-	bl GetChWinData
+	bl GetChapterStats
 	ldr r1, [r0]
 	lsls r1, r1, #0x1a
 	lsrs r1, r1, #0x1a
@@ -36129,7 +36129,7 @@ func_fe6_08098798: @ 0x08098798
 	adds r2, r1, #0
 	strb r2, [r0, #0x16]
 	movs r0, #3
-	bl SaveSuspendedGame
+	bl WriteSuspendSave
 	pop {r7}
 	pop {r0}
 	bx r0

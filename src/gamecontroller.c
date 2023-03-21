@@ -222,23 +222,23 @@ PROC_LABEL(L_GAMECTRL_SRAMRESET),
 
 static int GetFurthestSaveChapter(void)
 {
-    struct PlaySt playSt;
+    struct PlaySt play_st;
     int i, chapter, number;
 
     chapter = 0;
     number = 0;
 
-    for (i = SAVE_ID_GAME0; i < SAVE_ID_GAME2 + 1; ++i)
+    for (i = SAVE_ID_GAME0; i <= SAVE_ID_GAME2; ++i)
     {
-        if (!VerifySaveBlockInfoByIndex(i))
+        if (!IsSaveValid(i))
             continue;
 
-        LoadPlaySt(i, &playSt);
+        ReadGameSavePlaySt(i, &play_st);
 
-        if (number < GetChapterInfo(playSt.chapter)->numberId)
+        if (number < GetChapterInfo(play_st.chapter)->numberId)
         {
-            number = GetChapterInfo(playSt.chapter)->numberId;
-            chapter = playSt.chapter;
+            number = GetChapterInfo(play_st.chapter)->numberId;
+            chapter = play_st.chapter;
         }
     }
 
@@ -408,7 +408,7 @@ static void GC_InitTutorial(struct GameController * proc)
 {
     InitPlayConfig(FALSE);
 
-    gPlaySt.flags |= PLAY_FLAG_3;
+    gPlaySt.flags |= PLAY_FLAG_TUTORIAL;
 
     ResetPermanentFlags();
     ResetChapterFlags();
@@ -427,7 +427,7 @@ static void GC_InitTrialMap(struct GameController * proc)
 
 static void GC_ClearSuspend(struct GameController * proc)
 {
-    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+    InvalidateSuspendSave(SAVE_ID_SUSPEND);
 }
 
 static void GC_PostChapter(struct GameController * proc)
@@ -467,7 +467,7 @@ static void GC_PostLoadSuspend(struct GameController * proc)
 
 static void GC_InitNextChapter(struct GameController * proc)
 {
-    RegisterChWinData(&gPlaySt);
+    RegisterChapterStats(&gPlaySt);
     gPlaySt.chapter = proc->nextChapter;
 
     CleanupUnitsBeforeChapter();

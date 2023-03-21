@@ -1,6 +1,6 @@
 #include "save.h"
 
-#include "sram.h"
+#include "gbasram.h"
 #include "gbaio.h"
 #include "util.h"
 #include "eventinfo.h"
@@ -10,195 +10,220 @@
 #include "faction.h"
 #include "battle.h"
 #include "chapter.h"
+#include "savelayout.h"
 
-void UpdateLastUsedGameSaveSlot(int slot_sa)
+#include "constants/chapters.h"
+
+void WriteLastGameSaveId(int save_id)
 {
     struct GlobalSaveInfo info;
 
-    LoadGlobalSaveInfo(&info);
-    info.slot_sa = slot_sa;
-    SaveGlobalSaveInfoNoChecksum(&info);
+    ReadGlobalSaveInfo(&info);
+    info.last_game_save_id = save_id;
+    WriteGlobalSaveInfoNoChecksum(&info);
 }
 
-int GetLastUsedGameSaveSlot()
+int ReadLastGameSaveId(void)
 {
-    int ret;
     struct GlobalSaveInfo info;
+    int result;
 
-    if (!LoadGlobalSaveInfo(&info))
-        return 0;
-    
-    ret = info.slot_sa;
-    if (ret > 2)
-        return 0;
-    else if (ret < 0)
-        return 0;
-    else
-        return ret;
+    if (!ReadGlobalSaveInfo(&info))
+        return SAVE_ID_GAME0;
+
+    result = info.last_game_save_id;
+
+    if (result > SAVE_ID_GAME2)
+        return SAVE_ID_GAME0;
+
+    if (result < 0)
+        return SAVE_ID_GAME0;
+
+    return result;
 }
 
-void func_fe6_08084FB8(int slot)
+void InvalidateGameSave(int save_id)
 {
     struct SaveBlockInfo chunk;
-    struct PlaySt playSt;
+    struct PlaySt play_st;
 
-    if (AdvanceSuspendSaveDataSlotId(SAVE_ID_SUSPEND0))
+    if (IsValidSuspendSave(SAVE_ID_SUSPEND))
     {
-        LoadPlayStByGlobalSusIndex(SAVE_ID_SUSPEND0, &playSt);
+        ReadSuspendSavePlaySt(SAVE_ID_SUSPEND, &play_st);
 
-        if (playSt.save_slot == slot)
-            ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+        if (play_st.save_id == save_id)
+            InvalidateSuspendSave(SAVE_ID_SUSPEND);
     }
 
-    chunk.kind = BLOCK_INFO_KIND_INVALID;
-    WriteSaveBlockInfo(&chunk, slot);
+    chunk.kind = SAVEBLOCK_KIND_INVALID;
+    WriteSaveBlockInfo(&chunk, save_id);
 }
 
 void CopyGameSave(int index_src, int index_dst)
 {
-    struct SaveBlockInfo chunk;
-    u8 * src = GetSaveSourceAddress(index_src);
-    u8 * dst = GetSaveTargetAddress(index_dst);
+    struct SaveBlockInfo block_info;
 
-    (*ReadSramFast)(src, gBuf, SAV_MEMMAP_MAX);
-    WriteAndVerifySramFast(gBuf, dst, SAV_MEMMAP_MAX);
+    void const * src = GetSaveReadAddr(index_src);
+    void * dst = GetSaveWriteAddr(index_dst);
 
-    chunk.magic_a = SAVE_MAGICA_COMM;
-    chunk.kind = BLOCK_INFO_KIND_SAV;
-    WriteSaveBlockInfo(&chunk, index_dst);
+    STATIC_ASSERT(SRAM_SIZE_GAMESAVE <= sizeof(gBuf));
+
+    ReadSramFast(src, gBuf, SRAM_SIZE_GAMESAVE);
+    WriteAndVerifySramFast(gBuf, dst, SRAM_SIZE_GAMESAVE);
+
+    block_info.magic32 = SAVEMAGIC32;
+    block_info.kind = SAVEBLOCK_KIND_GAME;
+    WriteSaveBlockInfo(&block_info, index_dst);
 }
 
-void SaveNewGame(int slot, int isHard)
+void WriteNewGameSave(int save_id, int is_hard)
 {
+    struct SaveBlockInfo block_info;
+    struct GameSavePackedUnit unitp;
     int i;
-    struct SaveBlockInfo chunk;
-    struct SavePackedUnit unitp;
-    u8 * dst = GetSaveTargetAddress(slot);
 
-    InitPlayConfig(isHard);
+    void * dst = GetSaveWriteAddr(save_id);
+
+    InitPlayConfig(is_hard);
     InitUnits();
     ClearSupplyItems();
     ResetPermanentFlags();
-    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+    InvalidateSuspendSave(SAVE_ID_SUSPEND);
 
     gPlaySt.playthrough_id = GetNewPlaythroughId();
-    gPlaySt.save_slot = slot;
+    gPlaySt.save_id = save_id;
 
-    WriteAndVerifySramFast((u8 *)&gPlaySt, dst, sizeof(gPlaySt));
+    WriteAndVerifySramFast(&gPlaySt, dst + GAMESAVE_OFFSET_PLAYST, sizeof(gPlaySt));
 
     CpuFill16(0, &unitp, sizeof(unitp));
-    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        WriteAndVerifySramFast((u8*)&unitp, dst + SAV_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit), sizeof(struct SavePackedUnit));
 
-    SaveSupplyItems(dst + SAV_MEMMAP_SUPPLY);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
+        WriteAndVerifySramFast(&unitp, dst + GAMESAVE_OFFSET_UNITS + i * sizeof(struct GameSavePackedUnit), sizeof(struct GameSavePackedUnit));
+
+    WriteSupplyItems(dst + GAMESAVE_OFFSET_SUPPLY);
     ClearPidChStatsSaveData(dst);
-    SavePermanentFlagBits(dst + SAV_MEMMAP_PERMFLAG);
+    WritePermanentFlags(dst + GAMESAVE_OFFSET_PERMANENTFLAGS);
 
-    chunk.magic_a = SAVE_MAGICA_COMM;
-    chunk.kind = BLOCK_INFO_KIND_SAV;
-    WriteSaveBlockInfo(&chunk, slot);
-    UpdateLastUsedGameSaveSlot(slot);
+    block_info.magic32 = SAVEMAGIC32;
+    block_info.kind = SAVEBLOCK_KIND_GAME;
+    WriteSaveBlockInfo(&block_info, save_id);
+
+    WriteLastGameSaveId(save_id);
 }
 
-void SaveGame(int slot)
+void WriteGameSave(int save_id)
 {
+    struct SaveBlockInfo block_info;
     int i;
-    struct SaveBlockInfo chunk;
-    u8 * dst = GetSaveTargetAddress(slot);
 
-    ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+    void * dst = GetSaveWriteAddr(save_id);
 
-    gPlaySt.save_slot = slot;
-    gPlaySt.unk_00 = GetGameTime();
-    WriteAndVerifySramFast((u8 *)&gPlaySt, dst + SAV_MEMMAP_PLAYST, sizeof(gPlaySt));
+    InvalidateSuspendSave(SAVE_ID_SUSPEND);
+
+    gPlaySt.save_id = save_id;
+    gPlaySt.time_saved = GetGameTime();
+    WriteAndVerifySramFast(&gPlaySt, dst + GAMESAVE_OFFSET_PLAYST, sizeof(gPlaySt));
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        SaveUnit(&gUnitArrayBlue[i], dst + SAV_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit));
+        WriteGameSavePackedUnit(&gUnitArrayBlue[i], dst + GAMESAVE_OFFSET_UNITS + i * sizeof(struct GameSavePackedUnit));
 
-    SaveSupplyItems(dst + SAV_MEMMAP_SUPPLY);
-    SavePidStats(dst + SAV_MEMMAP_PIDSTATS);
-    SaveChWinData(dst + SAV_MEMMAP_CHWIN);
-    SavePermanentFlagBits(dst + SAV_MEMMAP_PERMFLAG);
+    WriteSupplyItems(dst + GAMESAVE_OFFSET_SUPPLY);
+    WritePidStats(dst + GAMESAVE_OFFSET_PIDSTATS);
+    WriteChapterStats(dst + GAMESAVE_OFFSET_CHAPTERSTATS);
+    WritePermanentFlags(dst + GAMESAVE_OFFSET_PERMANENTFLAGS);
 
-    chunk.magic_a = SAVE_MAGICA_COMM;
-    chunk.kind = BLOCK_INFO_KIND_SAV;
-    WriteSaveBlockInfo(&chunk, slot);
-    UpdateLastUsedGameSaveSlot(slot);
+    block_info.magic32 = SAVEMAGIC32;
+    block_info.kind = SAVEBLOCK_KIND_GAME;
+    WriteSaveBlockInfo(&block_info, save_id);
+
+    WriteLastGameSaveId(save_id);
 }
 
-void LoadGame(int slot)
+void ReadGameSave(int save_id)
 {
     int i;
-    u8 * src = GetSaveSourceAddress(slot);
 
-    if (!(BM_FLAG_LINKARENA & gBmSt.flags))
-        ResetSaveBlockInfo(SAVE_ID_SUSPEND0);
+    void * src = GetSaveReadAddr(save_id);
 
-    (*ReadSramFast)(src + SAV_MEMMAP_PLAYST, (u8 *)&gPlaySt, sizeof(gPlaySt));
-    SetGameTime(gPlaySt.unk_00);
-    gPlaySt.save_slot = slot;
+    if (!(gBmSt.flags & BM_FLAG_LINKARENA))
+        InvalidateSuspendSave(SAVE_ID_SUSPEND);
+
+    ReadSramFast(src + GAMESAVE_OFFSET_PLAYST, &gPlaySt, sizeof(gPlaySt));
+    SetGameTime(gPlaySt.time_saved);
+    gPlaySt.save_id = save_id;
 
     InitUnits();
+
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        LoadUnit(src + SAV_MEMMAP_UNIT + i * sizeof(struct SavePackedUnit), &gUnitArrayBlue[i]);
+        ReadGameSavePackedUnit(src + GAMESAVE_OFFSET_UNITS + i * sizeof(struct GameSavePackedUnit), &gUnitArrayBlue[i]);
 
-    LoadSupplyItems(src + SAV_MEMMAP_SUPPLY);
-    LoadPermanentFlagBits(src + SAV_MEMMAP_PERMFLAG);
-    LoadPidStats(src + SAV_MEMMAP_PIDSTATS);
-    LoadChWinData(src + SAV_MEMMAP_CHWIN);
+    ReadSupplyItems(src + GAMESAVE_OFFSET_SUPPLY);
+    ReadPermanentFlags(src + GAMESAVE_OFFSET_PERMANENTFLAGS);
+    ReadPidStats(src + GAMESAVE_OFFSET_PIDSTATS);
+    ReadChapterStats(src + GAMESAVE_OFFSET_CHAPTERSTATS);
 
-    UpdateLastUsedGameSaveSlot(slot);
+    WriteLastGameSaveId(save_id);
 }
 
-bool VerifySaveBlockInfoByIndex(int slot)
+bool IsSaveValid(int save_id)
 {
-    return LoadAndVerifySaveBlockInfo(NULL, slot);
+    return ReadSaveBlockInfo(NULL, save_id);
 }
 
-void LoadPlaySt(int slot, struct PlaySt * playSt)
+void ReadGameSavePlaySt(int save_id, struct PlaySt * play_st)
 {
-    u8 * src = GetSaveSourceAddress(slot);
-    (*ReadSramFast)(src + SAV_MEMMAP_PLAYST, (u8 *)playSt, sizeof(struct PlaySt));
+    void const * src = GetSaveReadAddr(save_id);
+    ReadSramFast(src + GAMESAVE_OFFSET_PLAYST, play_st, sizeof(struct PlaySt));
 }
 
-bool CheckSaveChunkChapterValid(int slot)
+bool IsGameSavePastFirstChapter(int save_id)
 {
-    struct PlaySt playSt;
+    struct PlaySt play_st;
 
-    if (!VerifySaveBlockInfoByIndex(slot))
+    if (!IsSaveValid(save_id))
         return FALSE;
 
-    LoadPlaySt(slot, &playSt);
+    ReadGameSavePlaySt(save_id, &play_st);
 
-    if (playSt.chapter <= 1)
+    if (play_st.chapter <= CHAPTER_CH01)
         return FALSE;
-    else
-        return TRUE;
+
+    return TRUE;
 }
 
-void SaveUnit(struct Unit * unit, void * sram_dst)
+void WriteGameSavePackedUnit(struct Unit * unit, void * sram_dst)
 {
+    struct GameSavePackedUnit unitp;
+    struct Unit unit_tmp;
     int i;
-    struct SavePackedUnit unitp;
 
+#if !BUGFIX
+    // BUG: because we read from unit->pinfo here, the compiler is allowed to assume it is not NULL
+    // and could thus optimize out the test later on, which would be disastrous
     unitp.pid = unit->pinfo->id;
     unitp.jid = unit->jinfo->id;
+#endif
 
-    if (!unit->pinfo)
+    if (unit->pinfo == NULL)
     {
-        struct Unit _unit;
-        unit = &_unit;
-
+        unit = &unit_tmp;
         ClearUnit(unit);
         unitp.pid = 0;
         unitp.jid = 0;
     }
+#if BUGFIX
+    else
+    {
+        unitp.pid = unit->pinfo->id;
+        unitp.jid = unit->jinfo->id;
+    }
+#endif
 
-    unitp.level = *(u8 *)&unit->level;
+    unitp.level = unit->level;
     unitp.exp = unit->exp;
     unitp.x = unit->x;
     unitp.y = unit->y;
-    unitp.max_hp = *(i8 *)&unit->max_hp;
+    unitp.max_hp = unit->max_hp;
     unitp.pow = unit->pow;
     unitp.skl = unit->skl;
     unitp.spd = unit->spd;
@@ -208,25 +233,25 @@ void SaveUnit(struct Unit * unit, void * sram_dst)
     unitp.con = unit->bonus_con;
     unitp.mov = unit->bonus_mov;
 
-    unitp.item0 = unit->items[0];
-    unitp.item1 = unit->items[1];
-    unitp.item2 = unit->items[2];
-    unitp.item3 = unit->items[3];
-    unitp.item4 = unit->items[4];
+    unitp.item_a = unit->items[0];
+    unitp.item_b = unit->items[1];
+    unitp.item_c = unit->items[2];
+    unitp.item_d = unit->items[3];
+    unitp.item_e = unit->items[4];
 
     unitp.flags = 0;
 
     if (UNIT_FLAG_DEAD & unit->flags)
-        unitp.flags |= PACKED_US_DEAD;
+        unitp.flags |= SAVEUNIT_FLAG_DEAD;
 
     if (UNIT_FLAG_NOT_DEPLOYED & unit->flags)
-        unitp.flags |= PACKED_US_UNDEPLOYED;
+        unitp.flags |= SAVEUNIT_FLAG_UNDEPLOYED;
 
     if (UNIT_FLAG_SOLOANIM_1 & unit->flags)
-        unitp.flags |= PACKED_US_SOLO_ANIM1;
+        unitp.flags |= SAVEUNIT_FLAG_SOLOANIM1;
 
     if (UNIT_FLAG_SOLOANIM_2 & unit->flags)
-        unitp.flags |= PACKED_US_SOLO_ANIM2;
+        unitp.flags |= SAVEUNIT_FLAG_SOLOANIM2;
 
     for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
         unitp.wexp[i] = unit->wexp[i];
@@ -234,15 +259,15 @@ void SaveUnit(struct Unit * unit, void * sram_dst)
     for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
         unitp.supports[i] = unit->supports[i];
 
-    WriteAndVerifySramFast((u8*)&unitp, sram_dst, sizeof(struct SavePackedUnit));
+    WriteAndVerifySramFast(&unitp, sram_dst, sizeof(struct GameSavePackedUnit));
 }
 
-void LoadUnit(u8 * sram_src, struct Unit * unit)
+void ReadGameSavePackedUnit(void const * sram_src, struct Unit * unit)
 {
     int i;
-    struct SavePackedUnit unitp;
+    struct GameSavePackedUnit unitp;
 
-    (*ReadSramFast)(sram_src, (u8 *)&unitp, sizeof(struct SavePackedUnit));
+    ReadSramFast(sram_src, &unitp, sizeof(struct GameSavePackedUnit));
 
     unit->pinfo = GetPInfo(unitp.pid);
     unit->jinfo = GetJInfo(unitp.jid);
@@ -261,27 +286,27 @@ void LoadUnit(u8 * sram_src, struct Unit * unit)
     unit->bonus_con = unitp.con;
     unit->bonus_mov = unitp.mov;
 
-    unit->items[0] = unitp.item0;
-    unit->items[1] = unitp.item1;
-    unit->items[2] = unitp.item2;
-    unit->items[3] = unitp.item3;
-    unit->items[4] = unitp.item4;
+    unit->items[0] = unitp.item_a;
+    unit->items[1] = unitp.item_b;
+    unit->items[2] = unitp.item_c;
+    unit->items[3] = unitp.item_d;
+    unit->items[4] = unitp.item_e;
 
     if (unit->exp > 99)
         unit->exp = -1;
 
     unit->flags = 0;
 
-    if (unitp.flags & PACKED_US_DEAD)
+    if (unitp.flags & SAVEUNIT_FLAG_DEAD)
         unit->flags |= UNIT_FLAG_DEAD | UNIT_FLAG_HIDDEN;
 
-    if (unitp.flags & PACKED_US_UNDEPLOYED)
+    if (unitp.flags & SAVEUNIT_FLAG_UNDEPLOYED)
         unit->flags |= UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_HIDDEN;
 
-    if (unitp.flags & PACKED_US_SOLO_ANIM1)
+    if (unitp.flags & SAVEUNIT_FLAG_SOLOANIM1)
         unit->flags |= UNIT_FLAG_SOLOANIM_1;
 
-    if (unitp.flags & PACKED_US_SOLO_ANIM2)
+    if (unitp.flags & SAVEUNIT_FLAG_SOLOANIM2)
         unit->flags |= UNIT_FLAG_SOLOANIM_2;
 
     for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
@@ -292,310 +317,317 @@ void LoadUnit(u8 * sram_src, struct Unit * unit)
 
     SetUnitHp(unit, GetUnitMaxHp(unit));
 
-    if (0x7F == unit->exp)
+    if (unit->exp == 0x7F)
         unit->exp = -1;
 
-    if (0x3F == unit->x)
+    if (unit->x == 0x3F)
         unit->x = -1;
 
-    if (0x3F == unit->y)
+    if (unit->y == 0x3F)
         unit->y = -1;
 }
 
-void ResetSaveBlockInfo(int slot)
+void InvalidateSuspendSave(int save_id)
 {
     struct SaveBlockInfo chunk;
 
-    chunk.kind = BLOCK_INFO_KIND_INVALID;
-    WriteSaveBlockInfo(&chunk, slot);
+    chunk.kind = SAVEBLOCK_KIND_INVALID;
+    WriteSaveBlockInfo(&chunk, save_id);
 
-    if (SAVE_ID_SUSPEND0 == slot)
-        WriteSaveBlockInfo(&chunk, SAVE_ID_SUSPEND1);
+    if (save_id == SAVE_ID_SUSPEND)
+        WriteSaveBlockInfo(&chunk, SAVE_ID_SUSPEND_ALT);
 }
 
-void SaveSuspendedGame(int slot)
+void WriteSuspendSave(int save_id)
 {
+    struct SaveBlockInfo block_info;
+    struct SuspendSavePackedUnit * buf;
+    void * dst;
     int i;
-    u8 * dst;
-    struct SuspendPackedUnit * buf;
-    struct SaveBlockInfo chunk;
 
-    if (PLAY_FLAG_3 & gPlaySt.flags)
+    if (gPlaySt.flags & PLAY_FLAG_TUTORIAL)
         return;
 
     if (!IsSramWorking())
         return;
 
-    slot += GetNextSuspendSaveId();
-    dst = GetSaveTargetAddress(slot);
+    save_id += GetNextSuspendSaveId();
+    dst = GetSaveWriteAddr(save_id);
 
-    gPlaySt.unk_00 = GetGameTime();
-    WriteAndVerifySramFast((u8 *)&gPlaySt, dst + SUS_MEMMAP_PLAYST, sizeof(struct PlaySt));
+    gPlaySt.time_saved = GetGameTime();
+    WriteAndVerifySramFast(&gPlaySt, dst + SUSPENDSAVE_OFFSET_PLAYST, sizeof(struct PlaySt));
 
     SaveActionRand();
-    WriteAndVerifySramFast((u8 *)&gAction, dst + SUS_MEMMAP_ACTION, sizeof(struct Action));
+    WriteAndVerifySramFast(&gAction, dst + SUSPENDSAVE_OFFSET_ACTION, sizeof(struct Action));
 
-    buf = (struct SuspendPackedUnit *)gBuf;
+    buf = (struct SuspendSavePackedUnit *)gBuf;
+
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        PackUnitForSuspend(&gUnitArrayBlue[i], (u8 *)buf++);
+        EncodeSuspendSavePackedUnit(&gUnitArrayBlue[i], buf++);
+
     for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
-        PackUnitForSuspend(&gUnitArrayRed[i], (u8 *)buf++);
+        EncodeSuspendSavePackedUnit(&gUnitArrayRed[i], buf++);
+
     for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
-        PackUnitForSuspend(&gUnitArrayGreen[i], (u8 *)buf++);
-    WriteSramFast(gBuf, dst + SUS_MEMMAP_UNIT_B, SUS_SIZE_UNIT_B + SUS_SIZE_UNIT_R + SUS_SIZE_UNIT_G);
+        EncodeSuspendSavePackedUnit(&gUnitArrayGreen[i], buf++);
 
-    SavePermanentFlagBits(dst + SUS_MEMMAP_PERMFLAG);
-    SaveChapterFlagBits(dst + SUS_MEMMAP_TEMPFLAG);
-    SaveSupplyItems(dst + SUS_MEMMAP_SUPPLY);
-    SavePidStats(dst + SUS_MEMMAP_PIDSTATS);
-    SaveChWinData(dst + SUS_MEMMAP_CHWIN);
-    SaveTraps(dst + SUS_MEMMAP_TRAP);
+    WriteSramFast(gBuf, dst + SUSPENDSAVE_OFFSET_UNITS_BLUE, SUSPENDSAVE_SIZE_UNITS_BLUE + SUSPENDSAVE_SIZE_UNITS_RED + SUSPENDSAVE_SIZE_UNITS_GREEN);
 
-    chunk.magic_a = SAVE_MAGICA_COMM;
-    chunk.kind = BLOCK_INFO_KIND_SUS;
-    WriteSaveBlockInfo(&chunk, slot);
+    WritePermanentFlags(dst + SUSPENDSAVE_OFFSET_PERMANENTFLAGS);
+    WriteChapterFlags(dst + SUSPENDSAVE_OFFSET_CHAPTERFLAGS);
+    WriteSupplyItems(dst + SUSPENDSAVE_OFFSET_SUPPLY);
+    WritePidStats(dst + SUSPENDSAVE_OFFSET_PIDSTATS);
+    WriteChapterStats(dst + SUSPENDSAVE_OFFSET_CHAPTERSTATS);
+    WriteTraps(dst + SUSPENDSAVE_OFFSET_TRAPS);
 
-    gBmSt.unk_3C = 0;
-    ChangeSuspendSaveId();
+    block_info.magic32 = SAVEMAGIC32;
+    block_info.kind = SAVEBLOCK_KIND_SUSPEND;
+    WriteSaveBlockInfo(&block_info, save_id);
+
+    gBmSt.just_resumed = FALSE;
+    WriteSwappedSuspendSaveId();
 }
 
-void LoadSuspendedGame(int slot)
+void ReadSuspendSave(int save_id)
 {
     int i;
-    u8 *src = GetSaveSourceAddress(slot + gSuspendSlotIndex);
 
-    (*ReadSramFast)(src + SUS_MEMMAP_PLAYST, (u8 *)&gPlaySt, sizeof(struct PlaySt));
-    SetGameTime(gPlaySt.unk_00);
+    void * src = GetSaveReadAddr(save_id + gSuspendSaveIdOffset);
 
-    (*ReadSramFast)(src + SUS_MEMMAP_ACTION, (u8 *)&gAction, sizeof(struct Action));
+    ReadSramFast(src + SUSPENDSAVE_OFFSET_PLAYST, &gPlaySt, sizeof(struct PlaySt));
+    SetGameTime(gPlaySt.time_saved);
+
+    ReadSramFast(src + SUSPENDSAVE_OFFSET_ACTION, &gAction, sizeof(struct Action));
     RestoreActionRand();
 
     InitUnits();
-    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
-        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_B + i * sizeof(struct SuspendPackedUnit), &gUnitArrayBlue[i]);
-    for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
-        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_R + i * sizeof(struct SuspendPackedUnit), &gUnitArrayRed[i]);
-    for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
-        LoadUnitFormSuspend(src + SUS_MEMMAP_UNIT_G + i * sizeof(struct SuspendPackedUnit), &gUnitArrayGreen[i]);
 
-    LoadPidStats(src + SUS_MEMMAP_PIDSTATS);
-    LoadChWinData(src + SUS_MEMMAP_CHWIN);
-    LoadSupplyItems(src + SUS_MEMMAP_SUPPLY);
-    LoadPermanentFlagBits(src + SUS_MEMMAP_PERMFLAG);
-    LoadChapterFlagBits(src + SUS_MEMMAP_TEMPFLAG);
-    LoadTraps(src + SUS_MEMMAP_TRAP);
+    for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
+        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_BLUE + i * sizeof(struct SuspendSavePackedUnit), gUnitArrayBlue + i);
+
+    for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
+        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_RED + i * sizeof(struct SuspendSavePackedUnit), gUnitArrayRed + i);
+
+    for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
+        ReadSuspendSavePackedUnit(src + SUSPENDSAVE_OFFSET_UNITS_GREEN + i * sizeof(struct SuspendSavePackedUnit), gUnitArrayGreen + i);
+
+    ReadPidStats(src + SUSPENDSAVE_OFFSET_PIDSTATS);
+    ReadChapterStats(src + SUSPENDSAVE_OFFSET_CHAPTERSTATS);
+    ReadSupplyItems(src + SUSPENDSAVE_OFFSET_SUPPLY);
+    ReadPermanentFlags(src + SUSPENDSAVE_OFFSET_PERMANENTFLAGS);
+    ReadChapterFlags(src + SUSPENDSAVE_OFFSET_CHAPTERFLAGS);
+    ReadTraps(src + SUSPENDSAVE_OFFSET_TRAPS);
 }
 
-bool AdvanceSuspendSaveDataSlotId(int slot)
+bool IsValidSuspendSave(int save_id)
 {
-    int ret;
+    int result;
 
     if (!IsSramWorking())
         return FALSE;
-    
-    if (SAVE_ID_SUSPEND0 != slot)
+
+    if (save_id != SAVE_ID_SUSPEND)
         return FALSE;
-    
-    gSuspendSlotIndex = GetLastSuspendSaveId();
 
-    ret = LoadAndVerifySaveBlockInfo(NULL, gSuspendSlotIndex + SAVE_ID_SUSPEND0);
-    if (ret)
+    gSuspendSaveIdOffset = GetLastSuspendSaveId();
+
+    if (ReadSaveBlockInfo(NULL, SAVE_ID_SUSPEND + gSuspendSaveIdOffset))
         return TRUE;
 
-    gSuspendSlotIndex = GetNextSuspendSaveId();
+    gSuspendSaveIdOffset = GetNextSuspendSaveId();
 
-    ret = LoadAndVerifySaveBlockInfo(NULL, gSuspendSlotIndex + SAVE_ID_SUSPEND0);
-    if (ret)
+    if (ReadSaveBlockInfo(NULL, SAVE_ID_SUSPEND + gSuspendSaveIdOffset))
         return TRUE;
 
-    gSuspendSlotIndex = 0x7F;
+    gSuspendSaveIdOffset = 0x7F;
     return FALSE;
 }
 
-void LoadPlayStByGlobalSusIndex(int slot, struct PlaySt * buf)
+void ReadSuspendSavePlaySt(int save_id, struct PlaySt * buf)
 {
-    LoadPlaySt(slot + gSuspendSlotIndex, buf);
+    // because of this function, ReadGameSavePlaySt is used for both game saves and suspend saves, despite them potentially having different layouts
+    STATIC_ASSERT(GAMESAVE_OFFSET_PLAYST == SUSPENDSAVE_OFFSET_PLAYST);
+
+    ReadGameSavePlaySt(save_id + gSuspendSaveIdOffset, buf);
 }
 
-void PackUnitForSuspend(struct Unit * unit, u8 * buf)
+void EncodeSuspendSavePackedUnit(struct Unit * unit, void * buf)
 {
     int i;
-    struct SuspendPackedUnit * unitp = (struct SuspendPackedUnit *)buf;
+    struct SuspendSavePackedUnit * suspend_unit = (struct SuspendSavePackedUnit *)buf;
 
     if (unit->pinfo == NULL)
     {
-        unitp->pid = 0;
+        suspend_unit->pid = 0;
         return;
     }
 
-    unitp->pid = unit->pinfo->id;
-    unitp->jid = unit->jinfo->id;
-    unitp->level = unit->level;
-    unitp->exp = unit->exp;
-    unitp->flags = unit->flags;
-    unitp->x = unit->x;
-    unitp->y = unit->y;
-    unitp->max_hp = unit->max_hp;
-    unitp->hp = unit->hp;
-    unitp->pow = unit->pow;
-    unitp->skl = unit->skl;
-    unitp->spd = unit->spd;
-    unitp->def = unit->def;
-    unitp->res = unit->res;
-    unitp->lck = unit->lck;
-    unitp->bonus_con = unit->bonus_con;
-    unitp->status = unit->status;
-    unitp->status_duration = unit->status_duration;
-    unitp->torch = unit->torch;
-    unitp->barrier = unit->barrier;
-    unitp->rescue = unit->rescue;
-    unitp->bonus_mov = unit->bonus_mov;
-    unitp->item_a = unit->items[0];
-    unitp->item_b = unit->items[1];
-    unitp->item_c = unit->items[2];
-    unitp->item_d = unit->items[3];
-    unitp->item_e = unit->items[4];
+    suspend_unit->pid = unit->pinfo->id;
+    suspend_unit->jid = unit->jinfo->id;
+    suspend_unit->level = unit->level;
+    suspend_unit->exp = unit->exp;
+    suspend_unit->flags = unit->flags;
+    suspend_unit->x = unit->x;
+    suspend_unit->y = unit->y;
+    suspend_unit->max_hp = unit->max_hp;
+    suspend_unit->hp = unit->hp;
+    suspend_unit->pow = unit->pow;
+    suspend_unit->skl = unit->skl;
+    suspend_unit->spd = unit->spd;
+    suspend_unit->def = unit->def;
+    suspend_unit->res = unit->res;
+    suspend_unit->lck = unit->lck;
+    suspend_unit->bonus_con = unit->bonus_con;
+    suspend_unit->status = unit->status;
+    suspend_unit->status_duration = unit->status_duration;
+    suspend_unit->torch = unit->torch;
+    suspend_unit->barrier = unit->barrier;
+    suspend_unit->rescue = unit->rescue;
+    suspend_unit->bonus_mov = unit->bonus_mov;
+    suspend_unit->item_a = unit->items[0];
+    suspend_unit->item_b = unit->items[1];
+    suspend_unit->item_c = unit->items[2];
+    suspend_unit->item_d = unit->items[3];
+    suspend_unit->item_e = unit->items[4];
 
     for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
-        unitp->wexp[i] = unit->wexp[i];
+        suspend_unit->wexp[i] = unit->wexp[i];
 
     for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
-        unitp->supports[i] = unit->supports[i];
+        suspend_unit->supports[i] = unit->supports[i];
 
-    unitp->ai_a = unit->ai_a;
-    unitp->ai_a_pc = unit->ai_a_pc;
-    unitp->ai_b = unit->ai_b;
-    unitp->ai_b_pc = unit->ai_b_pc;
-    unitp->ai_config = unit->ai_config;
-    unitp->unit_unk_46 = unit->unk_46;
-    unitp->ai_flags = unit->ai_flags;
+    suspend_unit->ai_a = unit->ai_a;
+    suspend_unit->ai_a_pc = unit->ai_a_pc;
+    suspend_unit->ai_b = unit->ai_b;
+    suspend_unit->ai_b_pc = unit->ai_b_pc;
+    suspend_unit->ai_config = unit->ai_config;
+    suspend_unit->unit_unk_46 = unit->unk_46;
+    suspend_unit->ai_flags = unit->ai_flags;
 }
 
-void LoadUnitFormSuspend(u8 * sram_src, struct Unit * unit)
+void ReadSuspendSavePackedUnit(void const * sram_src, struct Unit * unit)
 {
+    struct SuspendSavePackedUnit suspend_unit;
     int i;
-    struct SuspendPackedUnit unitp;
 
-    (*ReadSramFast)(sram_src, (u8 *)&unitp, sizeof(struct SuspendPackedUnit));
+    ReadSramFast(sram_src, &suspend_unit, sizeof(struct SuspendSavePackedUnit));
 
-    unit->pinfo = GetPInfo(unitp.pid);
-    unit->jinfo = GetJInfo(unitp.jid);
+    unit->pinfo = GetPInfo(suspend_unit.pid);
+    unit->jinfo = GetJInfo(suspend_unit.jid);
 
-    unit->level = unitp.level;
-    unit->exp = unitp.exp;
-    unit->flags =unitp.flags;
-    unit->x = unitp.x;
-    unit->y = unitp.y;
-    unit->max_hp = unitp.max_hp;
-    unit->hp = unitp.hp;
-    unit->pow = unitp.pow;
-    unit->skl = unitp.skl;
-    unit->spd = unitp.spd;
-    unit->def = unitp.def;
-    unit->res = unitp.res;
-    unit->lck = unitp.lck;
-    unit->bonus_con = unitp.bonus_con;
-    unit->status = unitp.status;
-    unit->status_duration = unitp.status_duration;
-    unit->torch = unitp.torch;
-    unit->barrier = unitp.barrier;
-    unit->rescue = unitp.rescue;
-    unit->bonus_mov = unitp.bonus_mov;
-
-    unit->items[0] = unitp.item_a;
-    unit->items[1] = unitp.item_b;
-    unit->items[2] = unitp.item_c;
-    unit->items[3] = unitp.item_d;
-    unit->items[4] = unitp.item_e;
+    unit->level = suspend_unit.level;
+    unit->exp = suspend_unit.exp;
+    unit->flags =suspend_unit.flags;
+    unit->x = suspend_unit.x;
+    unit->y = suspend_unit.y;
+    unit->max_hp = suspend_unit.max_hp;
+    unit->hp = suspend_unit.hp;
+    unit->pow = suspend_unit.pow;
+    unit->skl = suspend_unit.skl;
+    unit->spd = suspend_unit.spd;
+    unit->def = suspend_unit.def;
+    unit->res = suspend_unit.res;
+    unit->lck = suspend_unit.lck;
+    unit->bonus_con = suspend_unit.bonus_con;
+    unit->status = suspend_unit.status;
+    unit->status_duration = suspend_unit.status_duration;
+    unit->torch = suspend_unit.torch;
+    unit->barrier = suspend_unit.barrier;
+    unit->rescue = suspend_unit.rescue;
+    unit->bonus_mov = suspend_unit.bonus_mov;
+    unit->items[0] = suspend_unit.item_a;
+    unit->items[1] = suspend_unit.item_b;
+    unit->items[2] = suspend_unit.item_c;
+    unit->items[3] = suspend_unit.item_d;
+    unit->items[4] = suspend_unit.item_e;
 
     for (i = 0; i < UNIT_WEAPON_EXP_COUNT; i++)
-        unit->wexp[i] = unitp.wexp[i];
+        unit->wexp[i] = suspend_unit.wexp[i];
 
     for (i = 0; i < UNIT_SUPPORT_COUNT; i++)
-        unit->supports[i] = unitp.supports[i];
+        unit->supports[i] = suspend_unit.supports[i];
 
-    unit->ai_a = unitp.ai_a;
-    unit->ai_a_pc = unitp.ai_a_pc;
-    unit->ai_b = unitp.ai_b;
-    unit->ai_b_pc = unitp.ai_b_pc;
-    unit->ai_config = unitp.ai_config;
-    unit->unk_46 = unitp.unit_unk_46;
-    unit->ai_flags = unitp.ai_flags;
+    unit->ai_a = suspend_unit.ai_a;
+    unit->ai_a_pc = suspend_unit.ai_a_pc;
+    unit->ai_b = suspend_unit.ai_b;
+    unit->ai_b_pc = suspend_unit.ai_b_pc;
+    unit->ai_config = suspend_unit.ai_config;
+    unit->unk_46 = suspend_unit.unit_unk_46;
+    unit->ai_flags = suspend_unit.ai_flags;
 
-    if (0x7F == unit->exp)
+    if (unit->exp == 0x7F)
         unit->exp = -1;
 
-    if (0x3F == unit->x)
+    if (unit->x == 0x3F)
         unit->x = -1;
 
-    if (0x3F == unit->y)
+    if (unit->y == 0x3F)
         unit->y = -1;
 }
 
-void SaveTraps(u8 * sram_dst)
+void WriteTraps(void * sram_dst)
 {
     WriteAndVerifySramFast((u8 *)GetTrap(0), sram_dst, TRAP_MAX_COUNT * sizeof(struct Trap));
 }
 
-void LoadTraps(u8 * sram_src)
+void ReadTraps(void const * sram_src)
 {
-    (*ReadSramFast)(sram_src, (u8 *)GetTrap(0), TRAP_MAX_COUNT * sizeof(struct Trap));
+    ReadSramFast(sram_src, (u8 *)GetTrap(0), TRAP_MAX_COUNT * sizeof(struct Trap));
 }
 
 int GetLastSuspendSaveId()
 {
     struct GlobalSaveInfo info;
-	LoadGlobalSaveInfo(&info);
+    ReadGlobalSaveInfo(&info);
 
-    if (1 == info.slot_su)
+    if (info.last_suspend_slot == 1)
         return 1;
     else
         return 0;
 }
 
-int GetNextSuspendSaveId()
+int GetNextSuspendSaveId(void)
 {
     return 1 - GetLastSuspendSaveId();
 }
 
-void ChangeSuspendSaveId()
+void WriteSwappedSuspendSaveId(void)
 {
     struct GlobalSaveInfo info;
-	LoadGlobalSaveInfo(&info);
-
-    info.slot_su = 0 == info.slot_su;
-    SaveGlobalSaveInfoNoChecksum(&info);
+    ReadGlobalSaveInfo(&info);
+    info.last_suspend_slot = !info.last_suspend_slot;
+    WriteGlobalSaveInfoNoChecksum(&info);
 }
 
-int GetCkSum32ViaGenericBuf(void * sram_src, int size)
+int SramChecksum32(void const * sram_src, int size)
 {
-    (*ReadSramFast)(sram_src, gBuf, size);
-    return Checksum32_t((u16 *)gBuf, size);
+    ReadSramFast(sram_src, gBuf, size);
+    return Checksum32_t(gBuf, size);
 }
 
-bool CkSum32SaveBlockInfo(struct SaveBlockInfo * chunk)
+bool VerifySaveBlockChecksum(struct SaveBlockInfo * chunk)
 {
     int size = chunk->size;
-    u8 * sram_dst = SramOffsetToPointer(chunk->offset);
-    int cksum32 = GetCkSum32ViaGenericBuf(sram_dst, size);
+    void * sram_dst = SramOffsetToAddr(chunk->offset);
+    int checksum32 = SramChecksum32(sram_dst, size);
 
-    if (chunk->checksum32 != cksum32)
+    if (chunk->checksum32 != checksum32)
         return FALSE;
     else
         return TRUE;
 }
 
-void GenerateSaveBlockInfoCkSum32(struct SaveBlockInfo * chunk)
+void PopulateSaveBlockChecksum(struct SaveBlockInfo * chunk)
 {
     int size = chunk->size;
-    u8 * dst = SramOffsetToPointer(chunk->offset);
-    chunk->checksum32 = GetCkSum32ViaGenericBuf(dst, size);
+    u8 * dst = SramOffsetToAddr(chunk->offset);
+    chunk->checksum32 = SramChecksum32(dst, size);
 }
 
-u16 ComputeSaveDataCkSum32()
+u16 GetGameStateChecksum_Unused(void)
 {
     int i;
-    u16 ret = 0;
+    u16 result = 0;
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_BLUE; i++)
     {
@@ -603,7 +635,7 @@ u16 ComputeSaveDataCkSum32()
             continue;
 
         gUnitArrayBlue[i].map_sprite = NULL;
-        ret += GetCkSum32ViaGenericBuf(&gUnitArrayBlue[i], sizeof(struct Unit) / 2);
+        result += SramChecksum32(&gUnitArrayBlue[i], sizeof(struct Unit) / 2);
     }
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_RED; i++)
@@ -612,7 +644,7 @@ u16 ComputeSaveDataCkSum32()
             continue;
 
         gUnitArrayRed[i].map_sprite = NULL;
-        ret += GetCkSum32ViaGenericBuf(&gUnitArrayRed[i], sizeof(struct Unit) / 2);
+        result += SramChecksum32(&gUnitArrayRed[i], sizeof(struct Unit) / 2);
     }
 
     for (i = 0; i < UNIT_SAVE_AMOUNT_GREEN; i++)
@@ -621,22 +653,22 @@ u16 ComputeSaveDataCkSum32()
             continue;
 
         gUnitArrayGreen[i].map_sprite = NULL;
-        ret += GetCkSum32ViaGenericBuf(&gUnitArrayGreen[i], sizeof(struct Unit) / 2);
+        result += SramChecksum32(&gUnitArrayGreen[i], sizeof(struct Unit) / 2);
     }
 
-    ret += GetCkSum32ViaGenericBuf(GetPermanentFlagBits(), GetPermanentFlagBitsSize() / 2);
-    ret += GetCkSum32ViaGenericBuf(GetChapterFlagBits(), GetChapterFlagBitsSize() / 2);
-    ret += GetCkSum32ViaGenericBuf((u8*)GetTrap(0), TRAP_MAX_COUNT * sizeof(struct Trap) / 2);
+    result += SramChecksum32(GetPermanentFlagBits(), GetPermanentFlagBitsSize() / 2);
+    result += SramChecksum32(GetChapterFlagBits(), GetChapterFlagBitsSize() / 2);
+    result += SramChecksum32(GetTrap(0), TRAP_MAX_COUNT * sizeof(struct Trap) / 2);
 
-    return ret;
+    return result;
 }
 
-void func_fe6_08086088()
+void func_fe6_08086088(void)
 {
     u8 buf[8];
 }
 
-bool VerifySaveBlockInfoByIndex2(int slot)
+bool IsSaveBlockValid2(int save_id)
 {
-    return LoadAndVerifySaveBlockInfo(NULL, slot);
+    return ReadSaveBlockInfo(NULL, save_id);
 }

@@ -405,7 +405,7 @@ void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent)
 {
     if (GetUnitCurrentHp(unit) == 0)
     {
-        PidStatsRecordDeathData(unit->pinfo->id, opponent->pinfo->id, 2);
+        PidStatsRecordDefeatInfo(unit->pinfo->id, opponent->pinfo->id, DEFEAT_CAUSE_COMBAT);
         KillUnit(unit);
     }
 }
@@ -415,7 +415,7 @@ void func_fe6_0802A6B4(struct Unit * unit)
     if (GetUnitCurrentHp(unit) == 0)
     {
         KillUnit(unit);
-        PidStatsRecordDeathData(unit->pinfo->id, 0, 6);
+        PidStatsRecordDefeatInfo(unit->pinfo->id, 0, DEFEAT_CAUSE_6);
     }
 }
 

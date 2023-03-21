@@ -59,7 +59,7 @@ NAKEDFUNC void AgbMain(void)
     RandInitB(0x42D690E9);
     RandInit(RandNextB());
 
-    if (!LoadGlobalSaveInfo(NULL))
+    if (!ReadGlobalSaveInfo(NULL))
         InitGlobalSaveInfo();
 
     m4aSoundInit();

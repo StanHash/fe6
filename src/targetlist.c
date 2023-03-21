@@ -795,7 +795,7 @@ void ListSaintsStaffTargets(struct Unit * unit)
     }
 }
 
-void func_fe6_08021B30(int arg_0)
+void func_fe6_08021B30(int defeat_cause)
 {
     int i, count = CountTargets();
 
@@ -806,7 +806,7 @@ void func_fe6_08021B30(int arg_0)
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {
-            PidStatsRecordDeathData(other->pinfo->id, 0, arg_0);
+            PidStatsRecordDefeatInfo(other->pinfo->id, 0, defeat_cause);
             PidStatsRecordLoseData(other->pinfo->id);
         }
     }

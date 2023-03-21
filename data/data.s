@@ -388,8 +388,8 @@ gUnk_0868776C: @ 0868776C
 gUnk_0868778C: @ 0868778C
 	.incbin "fe6-base.gba", 0x68778C, (0x689DD8 - 0x68778C) @ length: 264C
 
-	.global gpSramEntry
-gpSramEntry: @ 08689DD8
+	.global gSram
+gSram: @ 08689DD8
 	.incbin "fe6-base.gba", 0x689DD8, (0x689DDC - 0x689DD8) @ length: 0004
 
 	.global gUnk_08689DDC

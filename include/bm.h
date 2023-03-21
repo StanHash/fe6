@@ -26,9 +26,9 @@ enum
     PLAY_FLAG_STATSCREENPAGE0 = (1 << 0),
     PLAY_FLAG_STATSCREENPAGE1 = (1 << 1),
     PLAY_FLAG_2               = (1 << 2),
-    PLAY_FLAG_3               = (1 << 3),
+    PLAY_FLAG_TUTORIAL        = (1 << 3),
     PLAY_FLAG_4               = (1 << 4),
-    PLAY_FLAG_COMPLETE               = (1 << 5),
+    PLAY_FLAG_COMPLETE        = (1 << 5),
     PLAY_FLAG_HARD            = (1 << 6),
     PLAY_FLAG_7               = (1 << 7),
 
@@ -101,7 +101,7 @@ struct BmSt
     /* 39 */ u8 alt_blend_a_cb;
     /* 3A */ u8 alt_blend_b_ca;
     /* 3B */ u8 alt_blend_b_cb;
-    /* 3C */ u8 unk_3C;
+    /* 3C */ u8 just_resumed;
     /* 3D */ u8 partial_actions_taken;
     /* 3E */ u8 unk_3E;
     /* 3F */ i8 unk_3F;
@@ -109,11 +109,10 @@ struct BmSt
 
 struct PlaySt
 {
-    /* 00 */ u32 unk_00; // a time value
-    /* 04 */ u32 unk_04; // a time value
-
-    /* 08 */ int gold;
-    /* 0C */ u8 save_slot;
+    /* 00 */ u32 time_saved;
+    /* 04 */ u32 time_chapter_started;
+    /* 08 */ int gold; // TODO: is this u32 or i32?
+    /* 0C */ u8 save_id;
     /* 0D */ u8 vision;
     /* 0E */ i8 chapter;
     /* 0F */ u8 faction;

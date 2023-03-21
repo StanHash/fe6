@@ -883,7 +883,7 @@ void StartAvailableMoveEvent(void)
 
 bool CheckChapterVictory(void)
 {
-    if (gPlaySt.chapter == CHAPTER_UNK_19 && CheckFlag(0x72)) // TODO: flag constants
+    if (gPlaySt.chapter == CHAPTER_FINAL && CheckFlag(0x72)) // TODO: flag constants
         SetFlag(3); // TODO: flag constants
 
     return CheckFlag(3); // TODO: flag constants
@@ -893,7 +893,7 @@ void StartChapterVictoryEvent(void)
 {
     if (CheckFlag(3)) // TODO: flag constants
     {
-        if (gPlaySt.chapter == CHAPTER_UNK_19)
+        if (gPlaySt.chapter == CHAPTER_FINAL)
         {
             if (func_fe6_0806CD78())
                 StartEvent(GetChapterEventInfo(gPlaySt.chapter)->script_18);
@@ -1059,7 +1059,7 @@ void StartBattleDefeatTalk(fu8 pid)
             StartBgm(SONG_45, NULL);
     }
 
-    if (gPlaySt.chapter == CHAPTER_UNK_19 && pid == PID_66)
+    if (gPlaySt.chapter == CHAPTER_FINAL && pid == PID_66)
         FadeBgmOut(4);
 
     if (pid == PID_ROY)

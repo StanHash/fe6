@@ -43,7 +43,7 @@ int GetTextPrintDelay(void)
 
 int IsFirstPlaythrough(void)
 {
-    if (!IsGamePlayThroughed())
+    if (!IsNotFirstPlaythrough())
         return TRUE;
 
     if (gPlaySt.flags & PLAY_FLAG_COMPLETE)
@@ -113,7 +113,7 @@ void StartChapter(struct GenericProc * parent)
     InitMapForChapter(gPlaySt.chapter);
     InitMapTraps();
 
-    gPlaySt.unk_04 = GetGameTime();
+    gPlaySt.time_chapter_started = GetGameTime();
     gPlaySt.support_gain = 0;
 
     CreateInitialRedUnits();
@@ -177,14 +177,14 @@ void ResumeChapterFromSuspend(struct GenericProc * parent)
 
     InitMapForChapter(gPlaySt.chapter);
 
-    gBmSt.unk_3C = TRUE;
+    gBmSt.just_resumed = TRUE;
 
     mapmain = StartMapMain(parent);
 
     gBmSt.camera.x = GetCameraCenteredX(16*gBmSt.cursor.x);
     gBmSt.camera.y = GetCameraCenteredY(16*gBmSt.cursor.y);
 
-    switch (gAction.suspendPoint)
+    switch (gAction.suspend_point)
     {
 
     case SUSPEND_POINT_DURING_ACTION:
@@ -295,7 +295,7 @@ void CleanupUnitsBeforeChapter(void)
 
     // Cleanup blue unit states
 
-    if (gPlaySt.chapter != CHAPTER_UNK_19)
+    if (gPlaySt.chapter != CHAPTER_FINAL)
     {
         FOR_UNITS(FACTION_BLUE+1, FACTION_BLUE+0x40, unit,
         {
@@ -576,6 +576,6 @@ void func_fe6_08029654(void)
 
     gPlaySt.ending_id = GetEndingId();
 
-    RegisterChWinData(&gPlaySt);
+    RegisterChapterStats(&gPlaySt);
     SavePlayThroughData();
 }

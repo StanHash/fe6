@@ -17,6 +17,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "save.h" // DEFEAT_CAUSE_...
 
 #include "constants/iids.h"
 
@@ -500,7 +501,7 @@ PROC_LABEL(1),
 static void PoisonDamageDisplay_Init(struct GenericProc * proc)
 {
     ListPoisonDamageTargets(gPlaySt.faction);
-    func_fe6_08021B30(4);
+    func_fe6_08021B30(DEFEAT_CAUSE_POISON);
 
     if (CountTargets() == 0)
     {

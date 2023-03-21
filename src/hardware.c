@@ -1,17 +1,9 @@
-
 #include "hardware.h"
 
 #include "irq.h"
 #include "move.h"
 #include "oam.h"
 #include "bm.h"
-
-enum
-{
-    FRAMES_PER_SECOND = 60,
-    FRAMES_PER_MINUTE = 60 * FRAMES_PER_SECOND,
-    FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
-};
 
 static struct BgCnt * GetBgCt(u16 bgid);
 static void RefreshKeyStFromKeys(struct KeySt * keySt, short keys);

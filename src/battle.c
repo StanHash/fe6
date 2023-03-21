@@ -1723,7 +1723,7 @@ void BattleGenerateArena(struct Unit * unit)
 {
     struct Unit * target = gArenaSt.opponent;
 
-    int something = gBmSt.unk_3C;
+    int just_resumed = gBmSt.just_resumed;
 
     gBattleSt.flags = BATTLE_FLAG_REAL | BATTLE_FLAG_ARENA;
 
@@ -1746,8 +1746,8 @@ void BattleGenerateArena(struct Unit * unit)
 
     BattleApplyWeaponTriangleEffect(&gBattleUnitA, &gBattleUnitB);
 
-    gAction.suspendPoint = SUSPEND_POINT_DURING_ARENA;
-    SaveSuspendedGame(SAVE_ID_SUSPEND0);
+    gAction.suspend_point = SUSPEND_POINT_DURING_ARENA;
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonuses(&gBattleUnitB, 8); // TODO: terrain id constants
@@ -1759,7 +1759,7 @@ void BattleGenerateArena(struct Unit * unit)
 
     UpdateUnitDuringBattle(unit, &gBattleUnitA);
 
-    if (!something || (gBattleUnitB.unit.hp == 0))
+    if (!just_resumed || (gBattleUnitB.unit.hp == 0))
         PidStatsRecordBattleRes();
 
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);

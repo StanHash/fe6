@@ -199,8 +199,8 @@ struct ProcScr CONST_DATA ProcScr_LimitView[] =
 
 static void PlayerPhase_Suspend(ProcPtr proc)
 {
-    gAction.suspendPoint = SUSPEND_POINT_PLAYER_PHASE;
-    SaveSuspendedGame(SAVE_ID_SUSPEND0);
+    gAction.suspend_point = SUSPEND_POINT_PLAYER_PHASE;
+    WriteSuspendSave(SAVE_ID_SUSPEND);
 }
 
 void HandlePlayerMapCursor(void)
@@ -649,10 +649,10 @@ static bool PlayerPhase_BeginAction(ProcPtr proc)
 
     }
 
-    if ((gAction.id != ACTION_WAIT) && gBmSt.unk_3C == 0)
+    if ((gAction.id != ACTION_WAIT) && !gBmSt.just_resumed)
     {
-        gAction.suspendPoint = SUSPEND_POINT_DURING_ACTION;
-        SaveSuspendedGame(SAVE_ID_SUSPEND0);
+        gAction.suspend_point = SUSPEND_POINT_DURING_ACTION;
+        WriteSuspendSave(SAVE_ID_SUSPEND);
     }
 
     return camret;
@@ -918,7 +918,7 @@ static void LimitView_Init(struct GenericProc * proc)
     case CHAPTER_UNK_08:
     case CHAPTER_UNK_10:
     case CHAPTER_UNK_18:
-    case CHAPTER_UNK_19:
+    case CHAPTER_FINAL:
     case CHAPTER_UNK_20:
     case CHAPTER_UNK_22:
     case CHAPTER_UNK_24:

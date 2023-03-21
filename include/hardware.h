@@ -3,6 +3,13 @@
 #include "common.h"
 #include "gbaio.h"
 
+enum
+{
+    FRAMES_PER_SECOND = 60,
+    FRAMES_PER_MINUTE = 60 * FRAMES_PER_SECOND,
+    FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
+};
+
 struct DispCnt
 {
     /* bit  0 */ u16 mode : 3;

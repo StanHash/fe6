@@ -11,7 +11,7 @@ func_fe6_080860A4: @ 0x080860A4
 	push {r5, r6, r7}
 	sub sp, #0x6c
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	mov r8, r0
 	add r0, sp, #0x5c
 	movs r4, #0
@@ -165,7 +165,7 @@ func_fe6_080861EC: @ 0x080861EC
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	ldr r2, .L08086214 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
@@ -194,7 +194,7 @@ func_fe6_08086220: @ 0x08086220
 	adds r4, r0, #0
 	adds r5, r1, #0
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	ldr r2, .L08086254 @ =ReadSramFast
 	movs r1, #0xd8
 	muls r1, r4, r1
@@ -228,7 +228,7 @@ func_fe6_08086264: @ 0x08086264
 	sub sp, #0x14
 	adds r6, r0, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r4, r0, #0
 	add r0, sp, #0x10
 	movs r1, #0
@@ -271,10 +271,10 @@ func_fe6_080862B8: @ 0x080862B8
 	adds r6, r0, #0
 	mov sb, r1
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r5, r0, #0
 	ldr r1, .L08086324 @ =ReadSramFast
 	movs r0, #0xd8
@@ -327,10 +327,10 @@ func_fe6_08086330: @ 0x08086330
 	mov r8, r0
 	mov sl, r1
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	adds r5, r0, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r6, r0, #0
 	ldr r0, .L080863BC @ =ReadSramFast
 	mov sb, r0
@@ -396,7 +396,7 @@ func_fe6_080863CC: @ 0x080863CC
 	mov r8, r1
 	adds r6, r2, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r5, r0, #0
 	movs r0, #0xd8
 	muls r4, r0, r4
@@ -411,7 +411,7 @@ func_fe6_080863CC: @ 0x080863CC
 .L080863F8:
 	adds r0, r4, #0
 	adds r1, r5, #0
-	bl SaveUnit
+	bl WriteGameSavePackedUnit
 	adds r5, #0x28
 	adds r4, #0x48
 	subs r6, #1
@@ -443,7 +443,7 @@ func_fe6_0808642C: @ 0x0808642C
 	adds r6, r1, #0
 	adds r5, r2, #0
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	adds r7, r0, #0
 	ldr r1, .L08086480 @ =ReadSramFast
 	movs r0, #0xd8
@@ -460,7 +460,7 @@ func_fe6_0808642C: @ 0x0808642C
 .L0808645A:
 	adds r0, r4, #0
 	adds r1, r6, #0
-	bl LoadUnit
+	bl ReadGameSavePackedUnit
 	adds r6, #0x48
 	adds r4, #0x28
 	subs r5, #1
@@ -493,7 +493,7 @@ func_fe6_08086490: @ 0x08086490
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r1, r0, #0
 	ldr r0, .L080864C4 @ =0x00000874
 	adds r1, r1, r0
@@ -521,7 +521,7 @@ func_fe6_080864CC: @ 0x080864CC
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	ldr r1, .L080864EC @ =ReadSramFast
 	ldr r2, .L080864F0 @ =0x00000874
 	adds r0, r0, r2
@@ -542,7 +542,7 @@ func_fe6_080864F4: @ 0x080864F4
 	sub sp, #0x10
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveTargetAddress
+	bl GetSaveWriteAddr
 	adds r1, r0, #0
 	movs r0, #0x87
 	lsls r0, r0, #4
@@ -570,7 +570,7 @@ func_fe6_08086530: @ 0x08086530
 	push {r4, lr}
 	adds r4, r0, #0
 	movs r0, #5
-	bl GetSaveSourceAddress
+	bl GetSaveReadAddr
 	ldr r1, .L08086554 @ =ReadSramFast
 	movs r2, #0x87
 	lsls r2, r2, #4
@@ -590,7 +590,7 @@ func_fe6_08086558: @ 0x08086558
 	push {r4, lr}
 	sub sp, #0x10
 	movs r0, #5
-	bl VerifySaveBlockInfoByIndex2
+	bl IsSaveBlockValid2
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0808656E
@@ -871,7 +871,7 @@ func_fe6_0808677C: @ 0x0808677C
 	sub sp, #0x20
 	adds r4, r0, #0
 	mov r0, sp
-	bl LoadGlobalSaveInfo
+	bl ReadGlobalSaveInfo
 	movs r0, #0x28
 	strb r0, [r4]
 	adds r4, #1

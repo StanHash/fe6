@@ -105,7 +105,7 @@ fu8 func_fe6_0801EA40(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 MapMenu_Suspend_Available(struct MenuEntInfo const * info, int id)
 {
-    if (gPlaySt.flags & PLAY_FLAG_3)
+    if (gPlaySt.flags & PLAY_FLAG_TUTORIAL)
         return MENU_ENTRY_DISABLED;
 
     return MENU_ENTRY_ENABLED;

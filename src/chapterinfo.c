@@ -2,7 +2,7 @@
 
 #include "hardware.h"
 #include "msg.h"
-#include "sram.h"
+#include "gbasram.h"
 
 struct ChapterInfo const * GetChapterInfo(int chapter)
 {

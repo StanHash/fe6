@@ -60,7 +60,7 @@ struct Action
     /* 12 */ u8 item_slot;
     /* 13 */ u8 x_target, y_target;
     /* 15 */ u8 extra;
-    /* 16 */ u8 suspendPoint;
+    /* 16 */ u8 suspend_point;
 };
 
 extern struct Action gAction;

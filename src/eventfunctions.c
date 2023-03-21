@@ -23,7 +23,7 @@ bool EvtCheck_IsHard(void)
     return FALSE;
 }
 
-int GetHardModeBonusLevelsByPid(u8 pid)
+int GetHardModeBonusLevelsByPid(fu8 pid)
 {
     struct HardModeBonusLevelsOverrideEnt const * it = gHardModeBonusLevelsOverrideList;
 
