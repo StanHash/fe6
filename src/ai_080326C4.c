@@ -323,7 +323,7 @@ bool AiTryMoveTowardsEscape(void)
 
 struct AiEscapePt const * func_fe6_08032C2C(void)
 {
-    int i;
+    int i = 0;
 
     struct AiEscapePt const * list = NULL;
     struct AiEscapePt const * result = NULL;
@@ -347,12 +347,6 @@ struct AiEscapePt const * func_fe6_08032C2C(void)
         break;
 
     }
-
-#if NONMATCHING
-    i = 0;
-#else
-    asm("mov %0, #0" : "=r" (i));
-#endif
 
     for (; list[i].x != UINT8_MAX; ++i)
     {
@@ -382,8 +376,6 @@ bool func_fe6_08032CB4(void)
 
     return TRUE;
 }
-
-#if NONMATCHING
 
 bool func_fe6_08032CE8(u16 * out)
 {
@@ -422,8 +414,7 @@ bool func_fe6_08032CE8(u16 * out)
             if (GetItemMaxRange(item) == 1)
                 out[i] |= 1;
 
-            // This needs to be in r4 :/
-            perc = Div(GetItemUses(item) * 100, GetItemMaxUses(item));
+            perc = Div(perc = GetItemUses(item) * 100, GetItemMaxUses(item));
 
             if (perc <= 10)
                 out[i] |= 4;
@@ -437,150 +428,6 @@ bool func_fe6_08032CE8(u16 * out)
         out[i] |= (GetItemMight(item) << 8);
     }
 }
-
-#else // NONMATCHING
-
-NAKEDFUNC
-bool func_fe6_08032CE8(u16 * out)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, r8\n\
-        push {r7}\n\
-        adds r4, r0, #0\n\
-        ldr r5, .L08032D00 @ =gActiveUnit\n\
-        ldr r0, [r5]\n\
-        bl GetUnitItemCount\n\
-        cmp r0, #0\n\
-        bne .L08032D04\n\
-        movs r0, #0\n\
-        b .L08032DE6\n\
-        .align 2, 0\n\
-    .L08032D00: .4byte gActiveUnit\n\
-    .L08032D04:\n\
-        movs r7, #0\n\
-        strh r7, [r4]\n\
-        ldr r0, [r5]\n\
-        ldrh r5, [r0, #0x1c]\n\
-        cmp r5, #0\n\
-        beq .L08032DE6\n\
-        adds r6, r4, #0\n\
-        movs r0, #0\n\
-        mov r8, r0\n\
-    .L08032D16:\n\
-        adds r0, r5, #0\n\
-        bl GetItemAttributes\n\
-        movs r1, #5\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq .L08032DC8\n\
-        adds r0, r5, #0\n\
-        bl GetItemAttributes\n\
-        movs r1, #0x80\n\
-        lsls r1, r1, #3\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        bne .L08032DC8\n\
-        ldr r4, .L08032DA8 @ =gActiveUnit\n\
-        ldr r0, [r4]\n\
-        adds r1, r5, #0\n\
-        bl CanUnitUseWeapon\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        bne .L08032D52\n\
-        ldr r0, [r4]\n\
-        adds r1, r5, #0\n\
-        bl CanUnitUseStaff\n\
-        lsls r0, r0, #0x18\n\
-        cmp r0, #0\n\
-        beq .L08032DC8\n\
-    .L08032D52:\n\
-        adds r0, r5, #0\n\
-        bl GetItemAttributes\n\
-        movs r1, #1\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq .L08032DAC\n\
-        adds r0, r5, #0\n\
-        bl GetItemMinRange\n\
-        cmp r0, #1\n\
-        ble .L08032D72\n\
-        movs r0, #2\n\
-        ldrh r1, [r6]\n\
-        orrs r0, r1\n\
-        strh r0, [r6]\n\
-    .L08032D72:\n\
-        adds r0, r5, #0\n\
-        bl GetItemMaxRange\n\
-        cmp r0, #1\n\
-        bne .L08032D84\n\
-        movs r0, #1\n\
-        ldrh r1, [r6]\n\
-        orrs r0, r1\n\
-        strh r0, [r6]\n\
-    .L08032D84:\n\
-        adds r0, r5, #0\n\
-        bl GetItemUses\n\
-        movs r1, #0x64\n\
-        adds r4, r0, #0\n\
-        muls r4, r1, r4\n\
-        adds r0, r5, #0\n\
-        bl GetItemMaxUses\n\
-        adds r1, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl Div\n\
-        adds r4, r0, #0\n\
-        cmp r4, #0xa\n\
-        bhi .L08032DBA\n\
-        movs r0, #4\n\
-        b .L08032DB4\n\
-        .align 2, 0\n\
-    .L08032DA8: .4byte gActiveUnit\n\
-    .L08032DAC:\n\
-        adds r0, r5, #0\n\
-        bl func_fe6_08032FBC\n\
-        movs r0, #8\n\
-    .L08032DB4:\n\
-        ldrh r1, [r6]\n\
-        orrs r0, r1\n\
-        strh r0, [r6]\n\
-    .L08032DBA:\n\
-        adds r0, r5, #0\n\
-        bl GetItemMight\n\
-        lsls r0, r0, #8\n\
-        ldrh r1, [r6]\n\
-        orrs r0, r1\n\
-        strh r0, [r6]\n\
-    .L08032DC8:\n\
-        adds r6, #2\n\
-        movs r0, #2\n\
-        add r8, r0\n\
-        adds r7, #1\n\
-        cmp r7, #4\n\
-        bgt .L08032DE6\n\
-        movs r0, #0\n\
-        strh r0, [r6]\n\
-        ldr r0, .L08032DF0 @ =gActiveUnit\n\
-        ldr r0, [r0]\n\
-        adds r0, #0x1c\n\
-        add r0, r8\n\
-        ldrh r5, [r0]\n\
-        cmp r5, #0\n\
-        bne .L08032D16\n\
-    .L08032DE6:\n\
-        pop {r3}\n\
-        mov r8, r3\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r1}\n\
-        bx r1\n\
-        .align 2, 0\n\
-    .L08032DF0: .4byte gActiveUnit\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
 
 struct Unk_0810DB34 const gUnk_0810DB34[] =
 {

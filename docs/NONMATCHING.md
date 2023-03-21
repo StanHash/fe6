@@ -14,15 +14,12 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `main.c`     | `PutBuildInfo`     | `O2`       | ^
 | `util.c`     | `func_fe6_080149E0` | `O2` | Reg swap + Weird function pointer invocations.
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block regarding constant loads for unit->flags changes
-| `ai-080326C4.c` | `func_fe6_08032CE8` | `O2` | perc needs to be loaded into r4, I have no way of doing that.
 
 ## List of fake-matching functions in fe6
 
 | File           | Function          | Opt. Level | Notes
 | -------------- | ----------------- | ---------- | -----
 | `util.c`       | `Interpolate` | `O2` | stole it from fe8
-| `ai-utility.c` | `AiFindClosestUnlockPosition` | `O2` | `mov r0, #0 ; cmp r0, #0 ; bne label`?
 | `ai-utility.c` | `func_fe6_08030968` | `O2` | need to load constant before useless function call
-| `ai-080326C4.c` | `func_fe6_08032C2C` | `O2` | need to load 0 and do math with it.
 | `eventinfo.c` | `EvtListCmd_Door` | `O2` | `asm("":::"memory");` needed
 | `eventinfo.c` | `StartAvailableTileEvent` | `O2` | somehow theres a couple `nop`s in here.

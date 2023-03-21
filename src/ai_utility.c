@@ -412,6 +412,8 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
     struct Vec2i tmp;
     int ix, iy;
 
+    u16 unk = 0;
+
     u8 bestDistance = UINT8_MAX;
     u8 count = 0;
 
@@ -493,20 +495,8 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
         }
     }
 
-#if NONMATCHING
-
-    gAiSt.cmd_result[1] = 1;
-
-#else
-    {
-    int r0;
-
-    asm("mov %0, #0" : "=r" (r0));
-
-    if (!r0)
+    if ((unk & 0x10000) == 0) // if (1); required to match
         gAiSt.cmd_result[1] = 1;
-    }
-#endif
 
     if (count == 0)
         gAiSt.cmd_result[0] = 5;
