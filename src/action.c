@@ -23,32 +23,32 @@ struct DeathDropAnimProc
 {
     /* 00 */ PROC_HEADER;
     /* 2C */ struct Unit * unit;
-    /* 30 */ int xDrop, yDrop;
-    /* 38 */ short xFrom, yFrom;
-    /* 3C */ short xTo, yTo;
-    /* 40 */ short yOffset;
-    /* 42 */ short ySpeed;
-    /* 44 */ short yAccel;
-    /* 46 */ short clock;
-    /* 48 */ short clockEnd;
+    /* 30 */ i32 x_drop, y_drop;
+    /* 38 */ i16 x_from, y_from;
+    /* 3C */ i16 x_to, y_to;
+    /* 40 */ i16 y_offset;
+    /* 42 */ i16 y_speed;
+    /* 44 */ i16 y_acceleration;
+    /* 46 */ i16 clock;
+    /* 48 */ i16 clock_end;
 };
 
-static bool DoRescueAction(ProcPtr proc);
-static bool DoRescueDropAction(ProcPtr proc);
-static bool DoVisitAction(ProcPtr proc);
-static bool func_fe6_0802A274(ProcPtr proc);
-static bool func_fe6_0802A2C0(ProcPtr proc);
-static bool DoCombatAction(ProcPtr proc);
-static bool func_fe6_0802A35C(ProcPtr proc);
-static bool DoRefreshAction(ProcPtr proc);
-static bool DoTalkAction(ProcPtr proc);
-static bool DoSupportAction(ProcPtr proc);
-static bool DoStealAction(ProcPtr proc);
+bool DoRescueAction(ProcPtr proc);
+bool DoRescueDropAction(ProcPtr proc);
+bool DoVisitAction(ProcPtr proc);
+bool func_fe6_0802A274(ProcPtr proc);
+bool func_fe6_0802A2C0(ProcPtr proc);
+bool DoCombatAction(ProcPtr proc);
+bool func_fe6_0802A35C(ProcPtr proc);
+bool DoRefreshAction(ProcPtr proc);
+bool DoTalkAction(ProcPtr proc);
+bool DoSupportAction(ProcPtr proc);
+bool DoStealAction(ProcPtr proc);
 
-struct Action EWRAM_DATA gAction = { 0 };
+struct Action EWRAM_DATA gAction = { { 0 } };
 
-static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc * proc);
-static void DeathDropSpriteAnim_End(struct DeathDropAnimProc * proc);
+void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc * proc);
+void DeathDropSpriteAnim_End(struct DeathDropAnimProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_DeathDropAnim[] =
 {
@@ -57,12 +57,12 @@ struct ProcScr CONST_DATA ProcScr_DeathDropAnim[] =
     PROC_END,
 };
 
-static void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc * proc);
-static void CombatAction_PostBanimDeathFades(struct GenericProc * proc);
-static void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc);
-static void CombatAction_DoHandleDeaths(struct GenericProc * proc);
-static void CombatAction_0802A814(struct GenericProc * proc);
-static void CombatAction_0802A840(struct GenericProc * proc);
+void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc * proc);
+void CombatAction_PostBanimDeathFades(struct GenericProc * proc);
+void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc);
+void CombatAction_DoHandleDeaths(struct GenericProc * proc);
+void CombatAction_0802A814(struct GenericProc * proc);
+void CombatAction_0802A840(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_CombatAction[] =
 {
@@ -174,7 +174,7 @@ bool DoAction(ProcPtr proc)
     }
 }
 
-static bool DoRescueAction(ProcPtr proc)
+bool DoRescueAction(ProcPtr proc)
 {
     struct Unit * instigator = GetUnit(gAction.instigator);
     struct Unit * target = GetUnit(gAction.target);
@@ -186,7 +186,7 @@ static bool DoRescueAction(ProcPtr proc)
     return FALSE;
 }
 
-static bool DoRescueDropAction(ProcPtr proc)
+bool DoRescueDropAction(ProcPtr proc)
 {
     struct Unit * target = GetUnit(gAction.target);
 
@@ -208,7 +208,7 @@ static bool DoRescueDropAction(ProcPtr proc)
     return FALSE;
 }
 
-static bool DoVisitAction(ProcPtr proc)
+bool DoVisitAction(ProcPtr proc)
 {
     int x = GetUnit(gAction.instigator)->x;
     int y = GetUnit(gAction.instigator)->y;
@@ -218,14 +218,14 @@ static bool DoVisitAction(ProcPtr proc)
     return FALSE;
 }
 
-static void func_fe6_0802A234(ProcPtr proc, struct Unit * unitA, struct Unit * unitB)
+void func_fe6_0802A234(ProcPtr proc, struct Unit * unitA, struct Unit * unitB)
 {
     struct Unit * rescue = GetUnit(unitA->rescue);
 
     StartRescueTransferAnim(rescue, func_fe6_0801C160(unitB->x, unitB->y, unitA->x, unitA->y), FALSE, proc);
 }
 
-static bool func_fe6_0802A274(ProcPtr proc)
+bool func_fe6_0802A274(ProcPtr proc)
 {
     UnitSyncMovement(GetUnit(gAction.target));
 
@@ -235,7 +235,7 @@ static bool func_fe6_0802A274(ProcPtr proc)
     return FALSE;
 }
 
-static bool func_fe6_0802A2C0(ProcPtr proc)
+bool func_fe6_0802A2C0(ProcPtr proc)
 {
     UnitSyncMovement(GetUnit(gAction.instigator));
 
@@ -245,7 +245,7 @@ static bool func_fe6_0802A2C0(ProcPtr proc)
     return FALSE;
 }
 
-static bool DoCombatAction(ProcPtr proc)
+bool DoCombatAction(ProcPtr proc)
 {
     struct Unit * target = GetUnit(gAction.target);
 
@@ -262,13 +262,13 @@ static bool DoCombatAction(ProcPtr proc)
     return FALSE;
 }
 
-static bool func_fe6_0802A35C(ProcPtr proc)
+bool func_fe6_0802A35C(ProcPtr proc)
 {
     SpawnProcLocking(ProcScr_085C7DC4, proc);
     return FALSE;
 }
 
-static bool DoRefreshAction(ProcPtr proc)
+bool DoRefreshAction(ProcPtr proc)
 {
     GetUnit(gAction.target)->flags &= ~(UNIT_FLAG_TURN_ENDED | UNIT_FLAG_HAD_ACTION | UNIT_FLAG_AI_PROCESSED);
 
@@ -284,13 +284,13 @@ static bool DoRefreshAction(ProcPtr proc)
     return FALSE;
 }
 
-static bool DoTalkAction(ProcPtr proc)
+bool DoTalkAction(ProcPtr proc)
 {
     StartAvailableTalkEvent(GetUnit(gAction.instigator)->pinfo->id, GetUnit(gAction.target)->pinfo->id);
     return FALSE;
 }
 
-static bool DoSupportAction(ProcPtr proc)
+bool DoSupportAction(ProcPtr proc)
 {
     int expA, expB;
 
@@ -323,7 +323,7 @@ static bool DoSupportAction(ProcPtr proc)
     return FALSE;
 }
 
-static bool DoStealAction(ProcPtr proc)
+bool DoStealAction(ProcPtr proc)
 {
     int item = GetUnit(gAction.target)->items[gAction.item_slot];
     UnitRemoveItem(GetUnit(gAction.target), gAction.item_slot);
@@ -344,25 +344,25 @@ static bool DoStealAction(ProcPtr proc)
     return FALSE;
 }
 
-static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc * proc)
+void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc * proc)
 {
-    int x = Interpolate(INTERPOLATE_LINEAR, proc->xFrom, proc->xTo, proc->clock, proc->clockEnd);
-    int y = Interpolate(INTERPOLATE_LINEAR, proc->yFrom, proc->yTo, proc->clock, proc->clockEnd);
+    int x = Interpolate(INTERPOLATE_LINEAR, proc->x_from, proc->x_to, proc->clock, proc->clock_end);
+    int y = Interpolate(INTERPOLATE_LINEAR, proc->y_from, proc->y_to, proc->clock, proc->clock_end);
 
-    y += proc->yOffset;
+    y += proc->y_offset;
 
-    proc->yOffset += proc->ySpeed;
-    proc->ySpeed += proc->yAccel;
+    proc->y_offset += proc->y_speed;
+    proc->y_speed += proc->y_acceleration;
 
     PutUnitSprite(7, x - gBmSt.camera.x, y - gBmSt.camera.y, proc->unit);
 
     ++proc->clock;
 
-    if (proc->clock == proc->clockEnd)
+    if (proc->clock == proc->clock_end)
         Proc_Break(proc);
 }
 
-static void DeathDropSpriteAnim_End(struct DeathDropAnimProc * proc)
+void DeathDropSpriteAnim_End(struct DeathDropAnimProc * proc)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -376,21 +376,21 @@ void DropRescueOnDeath(ProcPtr parent, struct Unit * unit)
 
         proc->unit = GetUnit(unit->rescue);
 
-        UnitGetDropPositionOnDeath(unit, &proc->xDrop, &proc->yDrop);
-        UnitDropRescue(unit, proc->xDrop, proc->yDrop);
+        UnitGetDropPositionOnDeath(unit, &proc->x_drop, &proc->y_drop);
+        UnitDropRescue(unit, proc->x_drop, proc->y_drop);
 
-        proc->xFrom = unit->x*16;
-        proc->yFrom = unit->y*16;
+        proc->x_from = unit->x*16;
+        proc->y_from = unit->y*16;
 
-        proc->xTo = proc->xDrop*16;
-        proc->yTo = proc->yDrop*16;
+        proc->x_to = proc->x_drop*16;
+        proc->y_to = proc->y_drop*16;
 
-        proc->yOffset = 0;
-        proc->ySpeed = -5;
-        proc->yAccel = +1;
+        proc->y_offset = 0;
+        proc->y_speed = -5;
+        proc->y_acceleration = +1;
 
         proc->clock = 0;
-        proc->clockEnd = 11;
+        proc->clock_end = 11;
 
         proc->unit->flags &= ~UNIT_FLAG_TURN_ENDED;
 
@@ -419,13 +419,13 @@ void func_fe6_0802A6B4(struct Unit * unit)
     }
 }
 
-static void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc * proc)
+void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc * proc)
 {
     if ((gBattleSt.flags & BATTLE_FLAG_MAPANIMS) || (gBattleUnitA.unit.hp != 0 && gBattleUnitB.unit.hp != 0))
         Proc_Goto(proc, 1);
 }
 
-static void CombatAction_PostBanimDeathFades(struct GenericProc * proc)
+void CombatAction_PostBanimDeathFades(struct GenericProc * proc)
 {
     struct MuProc * mu;
 
@@ -455,12 +455,12 @@ static void CombatAction_PostBanimDeathFades(struct GenericProc * proc)
     }
 }
 
-static void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc)
+void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc)
 {
     EndMu(proc->ptr);
 }
 
-static void CombatAction_DoHandleDeaths(struct GenericProc * proc)
+void CombatAction_DoHandleDeaths(struct GenericProc * proc)
 {
     struct Unit * unitA = GetUnit(gBattleUnitA.unit.id);
     struct Unit * unitB = GetUnit(gBattleUnitB.unit.id);
@@ -480,7 +480,7 @@ void func_fe6_0802A7F4(void)
         StartBgmExt(song, 6, NULL);
 }
 
-static void CombatAction_0802A814(struct GenericProc * proc)
+void CombatAction_0802A814(struct GenericProc * proc)
 {
     gBattleUnitB.unit.hp = 1;
 
@@ -488,7 +488,7 @@ static void CombatAction_0802A814(struct GenericProc * proc)
         Proc_Goto(proc, 1);
 }
 
-static void CombatAction_0802A840(struct GenericProc * proc)
+void CombatAction_0802A840(struct GenericProc * proc)
 {
     func_fe6_0802A6B4(gActiveUnit);
     DropRescueOnDeath(proc, gActiveUnit);

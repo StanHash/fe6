@@ -17,12 +17,12 @@ enum
 
 struct PalFadeSt
 {
-    /* 00 */ u16 fromColors[0x10];
-    /* 20 */ u16 const * toColors;
+    /* 00 */ u16 from_colors[0x10];
+    /* 20 */ u16 const * to_colors;
     /* 24 */ u16 * pal;
     /* 28 */ u16 clock;
-    /* 2A */ u16 clockEnd;
-    /* 2C */ u16 clockStop;
+    /* 2A */ u16 clock_end;
+    /* 2C */ u16 clock_stop;
 };
 
 int Interpolate(int method, int lo, int hi, int x, int end);

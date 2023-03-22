@@ -17,12 +17,12 @@ void InitRamFuncs(void)
 
     CpuCopy16(ArmCodeStart, RamFuncArea, size);
 
-    DrawGlyphRamFunc        = (void *) RamFuncArea + (((u8 *) DrawGlyph)        - ArmCodeStart);
-    DecodeStringRamFunc     = (void *) RamFuncArea + (((u8 *) DecodeString)     - ArmCodeStart);
-    PutOamHiRamFunc         = (void *) RamFuncArea + (((u8 *) PutOamHi)         - ArmCodeStart);
-    PutOamLoRamFunc         = (void *) RamFuncArea + (((u8 *) PutOamLo)         - ArmCodeStart);
-    MapFloodCoreStepRamFunc = (void *) RamFuncArea + (((u8 *) MapFloodCoreStep) - ArmCodeStart);
-    MapFloodCoreRamFunc     = (void *) RamFuncArea + (((u8 *) MapFloodCore)     - ArmCodeStart);
+    DrawGlyphRamFunc        = (void *) RamFuncArea + (((u8 *) (void *) DrawGlyph)        - ArmCodeStart);
+    DecodeStringRamFunc     = (void *) RamFuncArea + (((u8 *) (void *) DecodeString)     - ArmCodeStart);
+    PutOamHiRamFunc         = (void *) RamFuncArea + (((u8 *) (void *) PutOamHi)         - ArmCodeStart);
+    PutOamLoRamFunc         = (void *) RamFuncArea + (((u8 *) (void *) PutOamLo)         - ArmCodeStart);
+    MapFloodCoreStepRamFunc = (void *) RamFuncArea + (((u8 *) (void *) MapFloodCoreStep) - ArmCodeStart);
+    MapFloodCoreRamFunc     = (void *) RamFuncArea + (((u8 *) (void *) MapFloodCore)     - ArmCodeStart);
 }
 
 void DrawGlyphRam(u16 const * cvtLut, void * chr, u32 const * glyph, int offset)

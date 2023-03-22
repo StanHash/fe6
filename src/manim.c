@@ -16,6 +16,7 @@
 #include "unitsprite.h"
 #include "battle.h"
 #include "bmio.h"
+#include "action.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
@@ -73,6 +74,27 @@ extern u16 const gUnk_081B4274[]; // pal
 extern u8 const gUnk_082E07A8[]; // ???
 extern u8 const gUnk_082DF868[]; // ??? ^
 extern u8 const gUnk_08307928[]; // ???
+extern u8 const gUnk_081B7468[]; // img
+extern u16 const gUnk_081B7650[]; // pal
+extern u16 const gUnk_082E0A14[]; // sprite anim
+extern u8 const gUnk_082E161C[]; // img
+extern u8 const gUnk_082E11DC[]; // img
+extern u16 const gUnk_082E172C[]; // pal
+extern u16 const gUnk_082E174C[]; // sprite anim
+extern u8 const gUnk_082E1884[]; // img
+extern u16 const gUnk_081B8934[]; // pal
+extern u8 const gUnk_082E2440[]; // ???
+extern u8 const gUnk_082DF724[]; // img
+extern u8 const gUnk_082DF844[]; // ???
+extern u8 const gUnk_082DF6B0[]; // img
+extern u16 const gUnk_082DF704[]; // pal
+extern u16 const gUnk_082DF824[]; // colors
+extern u16 const gUnk_082A84A4[]; // sprite anim
+extern u8 const gUnk_08114D80[]; // img (stat gains)
+extern u8 const gUnk_08114FCC[]; // tiles (stat gains)
+extern u16 const gUnk_081150C8[]; // pal (stat gains)
+extern u8 const gUnk_082DBB24[]; // img
+extern u16 const gUnk_082DBAC4[]; // pal
 
 enum { MAX_MANIM_DEBUG_HITS = 5 };
 
@@ -151,9 +173,10 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_0866510C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0866512C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0866514C[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08665194[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_086660FC[];
 
-#define UNIT_SCREEN_TILE_X(unit) (((unit)->x - (gBmSt.camera.x >> 4)) << 1)
-#define UNIT_SCREEN_TILE_Y(unit) (((unit)->y - (gBmSt.camera.y >> 4)) << 1)
+#define SCREEN_TILE_X(x_param) (((x_param) - (gBmSt.camera.x >> 4)) << 1)
+#define SCREEN_TILE_Y(y_param) (((y_param) - (gBmSt.camera.y >> 4)) << 1)
 
 void func_fe6_08063CF4(struct GenericProc * proc);
 void func_fe6_08063EF0(struct GenericProc * proc);
@@ -1878,8 +1901,8 @@ void func_fe6_08064994(struct Unit * unit)
     Decompress(gUnk_082DB1C0, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_180);
 
     StartSpriteAnimProc(gUnk_082DB2B0,
-        UNIT_SCREEN_TILE_X(unit) * 8 + 8,
-        UNIT_SCREEN_TILE_Y(unit) * 8 + 16,
+        SCREEN_TILE_X(unit->x) * 8 + 8,
+        SCREEN_TILE_Y(unit->y) * 8 + 16,
         OAM2_CHR(OBJCHR_MANIM_180), 0, 2);
 }
 
@@ -1888,8 +1911,8 @@ void func_fe6_08064A10(struct Unit * unit)
     Decompress(gUnk_082DB418, OBJ_VRAM0 + CHR_SIZE * OBJCHR_MANIM_180);
 
     StartSpriteAnimProc(gUnk_082DB55C,
-        UNIT_SCREEN_TILE_X(unit) * 8 + 8,
-        UNIT_SCREEN_TILE_Y(unit) * 8 + 16,
+        SCREEN_TILE_X(unit->x) * 8 + 8,
+        SCREEN_TILE_Y(unit->y) * 8 + 16,
         OAM2_CHR(OBJCHR_MANIM_180), 0, 2);
 }
 
@@ -1908,8 +1931,8 @@ void func_fe6_08064A8C(struct Unit * unit, int arg_04)
     proc = SpawnProc(ProcScr_Unk_0866510C, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = UNIT_SCREEN_TILE_X(unit) * 8 + 8;
-    proc->y = UNIT_SCREEN_TILE_Y(unit) * 8 - 8;
+    proc->x = SCREEN_TILE_X(unit->x) * 8 + 8;
+    proc->y = SCREEN_TILE_Y(unit->y) * 8 - 8;
     proc->unk_48 = arg_04 ^ 1;
 }
 
@@ -1938,8 +1961,8 @@ void func_fe6_08064B7C(struct Unit * unit)
     proc = SpawnProc(ProcScr_Unk_0866512C, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
 }
 
 void func_fe6_08064BEC(struct ManimEffectProc * proc)
@@ -1972,8 +1995,8 @@ void func_fe6_08064C50(struct Unit * unit)
     proc = SpawnProc(ProcScr_Unk_0866514C, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
 }
 
 void func_fe6_08064CC0(struct ManimEffectProc * proc)
@@ -2207,8 +2230,8 @@ void func_fe6_080653BC(struct Unit * unit, void const * arg_04, void const * arg
     proc = SpawnProc(ProcScr_Unk_086651EC, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
     proc->img = arg_04;
     proc->pal = arg_08;
 }
@@ -2281,8 +2304,8 @@ void func_fe6_08065608(struct Unit * unit)
 
     proc = SpawnProc(ProcScr_Unk_08665234, PROC_TREE_3);
 
-    proc->x = UNIT_SCREEN_TILE_X(unit) * 8 + 8;
-    proc->y = UNIT_SCREEN_TILE_Y(unit) * 8 + 8;
+    proc->x = SCREEN_TILE_X(unit->x) * 8 + 8;
+    proc->y = SCREEN_TILE_Y(unit->y) * 8 + 8;
 }
 
 void func_fe6_08065674(struct ManimSomethingProc_08065608 * proc)
@@ -2341,7 +2364,7 @@ void func_fe6_080656F0(struct ManimSomethingProc_08065694 * proc)
 
     Decompress(proc->img, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
 
-    func_fe6_08014E30(gBg2Tm, UNIT_SCREEN_TILE_X(proc->unit) - 2, UNIT_SCREEN_TILE_Y(proc->unit) - 2, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 6, 6);
+    func_fe6_08014E30(gBg2Tm, SCREEN_TILE_X(proc->unit->x) - 2, SCREEN_TILE_Y(proc->unit->y) - 2, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 6, 6);
     EnableBgSync(BG2_SYNC_BIT);
 
     func_fe6_08014DB4(proc->pal, BGPAL_MANIM_4 * 0x20, 0x20, 4, proc);
@@ -2349,7 +2372,7 @@ void func_fe6_080656F0(struct ManimSomethingProc_08065694 * proc)
     proc->ca = 0;
     proc->cb = 0x10;
 
-    PlaySeSpacial(proc->song, (UNIT_SCREEN_TILE_X(proc->unit) + 1) * 8);
+    PlaySeSpacial(proc->song, (SCREEN_TILE_X(proc->unit->x) + 1) * 8);
 }
 
 void func_fe6_08065830(struct ManimSomethingProc_08065694 * proc)
@@ -2445,8 +2468,8 @@ void func_fe6_08065C30(struct Unit * unit, int arg_04, int arg_08)
     proc = SpawnProc(ProcScr_Unk_0866528C, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = UNIT_SCREEN_TILE_X(proc->unit);
-    proc->y = UNIT_SCREEN_TILE_Y(proc->unit);
+    proc->x = SCREEN_TILE_X(proc->unit->x);
+    proc->y = SCREEN_TILE_Y(proc->unit->y);
 }
 
 void func_fe6_08065C9C(struct ManimSomethingProc_08065C30 * proc)
@@ -2523,8 +2546,8 @@ void func_fe6_08065E08(struct Unit * unit)
     proc = SpawnProc(ProcScr_Unk_086652D4, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = UNIT_SCREEN_TILE_X(proc->unit) * 8;
-    proc->y = UNIT_SCREEN_TILE_Y(proc->unit) * 8;
+    proc->x = SCREEN_TILE_X(proc->unit->x) * 8;
+    proc->y = SCREEN_TILE_Y(proc->unit->y) * 8;
 }
 
 void func_fe6_08065E78(struct ManimSomethingProc_08065E08 * proc)
@@ -2628,8 +2651,8 @@ void func_fe6_080661A4(struct Unit * unit)
     proc = SpawnProc(ProcScr_Unk_0866531C, PROC_TREE_3);
 
     proc->unit = unit;
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
 }
 
 void func_fe6_08066214(struct ManimSomethingProc_080661A4 * proc)
@@ -2693,8 +2716,8 @@ void func_fe6_08066294(struct Unit * unit)
 
     proc = SpawnProc(ProcScr_Unk_08665344, PROC_TREE_3);
 
-    proc->x = UNIT_SCREEN_TILE_X(unit) * 8 + 8;
-    proc->y = UNIT_SCREEN_TILE_Y(unit) * 8 + 8;
+    proc->x = SCREEN_TILE_X(unit->x) * 8 + 8;
+    proc->y = SCREEN_TILE_Y(unit->y) * 8 + 8;
 }
 
 void func_fe6_08066300(struct ManimSomethingProc_08066294 * proc)
@@ -2770,8 +2793,8 @@ void func_fe6_080665E4(struct Unit * unit)
 
     proc = SpawnProc(ProcScr_Unk_08665384, PROC_TREE_3);
 
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
 }
 
 void func_fe6_0806664C(struct ManimSomethingProc_08066294 * proc)
@@ -2835,20 +2858,46 @@ void func_fe6_0806671C(struct Unit * unit)
 
     proc = SpawnProc(ProcScr_Unk_086653C4, PROC_TREE_3);
 
-    proc->x = (UNIT_SCREEN_TILE_X(unit) + 1) * 8;
-    proc->y = (UNIT_SCREEN_TILE_Y(unit) + 1) * 8;
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
 }
 
-/*
+// TODO: VRAM as a pointer
 
-*/
+void func_fe6_08066784(struct ManimSomethingProc_0806671C * proc)
+{
+    PlaySeSpacial(SONG_85, proc->x);
 
-// REMAINING MANIM DATA
+    SetBgOffset(2, 0, 0);
+    func_fe6_08067324();
+
+    Decompress(gUnk_081B7468, OBJ_VRAM0 + OBJCHR_MANIM_1C0 * CHR_SIZE);
+    ApplyPalette(gUnk_081B7650, 0x10 + OBJPAL_MANIM_4);
+
+    StartSpriteAnimProc(gUnk_082E0A14, proc->x, proc->y - 16, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+}
+
+void func_fe6_080667F0(struct ManimSomethingProc_0806671C * proc)
+{
+    PlaySeSpacial(SONG_85, proc->x);
+
+    StartSpriteAnimProc(gUnk_082E0A14, proc->x, proc->y - 8, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+}
+
+void func_fe6_08066830(struct ManimSomethingProc_0806671C * proc)
+{
+    PlaySeSpacial(SONG_85, proc->x);
+
+    StartSpriteAnimProc(gUnk_082E0A14, proc->x, proc->y, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+}
 
 struct ManimSomethingProc_0806686C
 {
     /* 00 */ PROC_HEADER;
-    /*    */ // TODO
+    /* 29 */ u8 pad_29[0x30 - 0x29];
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x48 - 0x38];
+    /* 48 */ i16 unk_48, unk_4A;
 };
 
 void func_fe6_080668D8(struct ManimSomethingProc_0806686C * proc);
@@ -2868,16 +2917,73 @@ struct ProcScr CONST_DATA gUnk_08665404[] =
     PROC_END,
 };
 
+void func_fe6_0806686C(struct Unit * unit)
+{
+    struct ManimSomethingProc_0806686C * proc;
+
+    proc = SpawnProc(gUnk_08665404, PROC_TREE_3);
+
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y)) * 8 + 18;
+}
+
+void func_fe6_080668D8(struct ManimSomethingProc_0806686C * proc)
+{
+    PlaySeSpacial(SONG_FD, proc->x);
+
+    func_fe6_08069C34();
+    func_fe6_08069C74();
+    SetOnHBlankA(func_fe6_08069E50);
+    func_fe6_08067324();
+    SetBlendAlpha(0x10, 0x10);
+
+    TmApplyTsa_t(gBg2Tm, gBuf, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4));
+    EnableBgSync(BG2_SYNC_BIT);
+
+    func_fe6_08067498(2, 0, 1, proc);
+    SpawnProc(ProcScr_Unk_086660FC, proc);
+
+    proc->unk_48 = 0;
+    proc->unk_4A = 0;
+}
+
 u8 CONST_DATA gUnk_0866544C[] =
 {
     4, 6, 7, 8, 8, 9,
     UINT8_MAX, // end
 };
 
+void func_fe6_080669BC(struct ManimSomethingProc_0806686C * proc)
+{
+    if (proc->unk_48 >= 12)
+    {
+        proc->unk_48--;
+        Proc_Break(proc);
+    }
+
+    func_fe6_0806A270(proc->x, proc->y, ++proc->unk_48, 12, gUnk_0866544C);
+}
+
+void func_fe6_08066A48(struct ManimSomethingProc_0806686C * proc)
+{
+    if (proc->unk_48 <= 0)
+    {
+        proc->unk_48++;
+        Proc_Break(proc);
+    }
+
+    func_fe6_0806A270(proc->x, proc->y, --proc->unk_48, 12, gUnk_0866544C);
+}
+
 struct ManimSomethingProc_08066AD4
 {
     /* 00 */ PROC_HEADER;
-    /*    */ // TODO
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 unk_40, unk_42;
+    /* 44 */ u8 pad_44[0x48 - 0x44];
+    /* 48 */ i16 unk_48, unk_4A;
 };
 
 void func_fe6_08066B3C(struct ManimSomethingProc_08066AD4 * proc);
@@ -2896,10 +3002,64 @@ struct ProcScr CONST_DATA ProcScr_Unk_08665454[] =
     PROC_END,
 };
 
+void func_fe6_08066AD4(struct Unit * unit)
+{
+    struct ManimSomethingProc_08066AD4 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665454, PROC_TREE_3);
+
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
+}
+
+void func_fe6_08066B3C(struct ManimSomethingProc_08066AD4 * proc)
+{
+    PlaySeSpacial(SONG_83, proc->x);
+
+    SetBgOffset(2, 0, 0);
+    func_fe6_08067324();
+
+    Decompress(gUnk_082E161C, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+    Decompress(gUnk_082E11DC, ((void *) VRAM) + 0x10000 + CHR_SIZE * OBJCHR_MANIM_1C0);
+    ApplyPalette(gUnk_082E172C, BGPAL_MANIM_4);
+    ApplyPalette(gUnk_082E172C, 0x10 + OBJPAL_MANIM_4);
+
+    StartSpriteAnimProc(gUnk_082E174C, proc->x, proc->y | OAM0_BLEND, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+
+    proc->unk_48 = 0;
+
+    SetBlendTargetA(0, 0, 0, 0, 1); SetBlendBackdropA(0);
+    SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0x10, 0);
+}
+
+void func_fe6_08066C70(struct ManimSomethingProc_08066AD4 * proc)
+{
+    PlaySeSpacial(SONG_84, proc->x);
+
+    func_fe6_08014E30(gBg2Tm, proc->x / 8 - 2, proc->y / 8 - 2, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4), 4, 4);
+    EnableBgSync(BG2_SYNC_BIT);
+
+    SetBlendTargetA(0, 0, 1, 0, 0); SetBlendBackdropA(0);
+    SetBlendAlpha(0x10, 0x10);
+}
+
+void func_fe6_08066D5C(struct ManimSomethingProc_08066AD4 * proc)
+{
+    SetBlendAlpha(Interpolate(INTERPOLATE_LINEAR, 0x10, 0, proc->unk_48++, 30), 0x10);
+
+    if (proc->unk_48 >= 30)
+        Proc_Break(proc);
+}
+
 struct ManimSomethingProc_08066DFC
 {
     /* 00 */ PROC_HEADER;
-    /*    */ // TODO
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 unk_40, unk_42;
+    /* 44 */ u8 pad_44[0x48 - 0x44];
+    /* 48 */ i16 unk_48, unk_4A;
 };
 
 void func_fe6_08066E64(struct ManimSomethingProc_08066DFC * proc);
@@ -2914,14 +3074,70 @@ struct ProcScr CONST_DATA ProcScr_Unk_08665494[] =
     PROC_END,
 };
 
+void func_fe6_08066DFC(struct Unit * unit)
+{
+    struct ManimSomethingProc_08066DFC * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665494, PROC_TREE_3);
+
+    proc->x = (SCREEN_TILE_X(unit->x) + 1) * 8;
+    proc->y = (SCREEN_TILE_Y(unit->y) + 1) * 8;
+}
+
+void func_fe6_08066E64(struct ManimSomethingProc_08066DFC * proc)
+{
+    PlaySeSpacial(SONG_88, proc->x);
+
+    SetBgOffset(2, 0, 0);
+    func_fe6_08067324();
+
+    SetBlendAlpha(0x10, 0x10);
+
+    Decompress(gUnk_082E1884, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+    ApplyPalette(gUnk_081B8934, BGPAL_MANIM_4);
+
+    proc->unk_48 = 0;
+    proc->unk_4A = 0;
+}
+
+void func_fe6_08066F34(struct ManimSomethingProc_08066DFC * proc)
+{
+    static u8 const unk_param_list[] =
+    {
+        0, 0, 1, 1, 2, 2, 3, 3,
+        4, 4, 3, 3, 4, 4, 3, 3,
+        4, 4, 3, 3, 4, 4, 3, 3,
+        4, 4, 3, 3, 4, 4, 3, 3,
+        4, 4, 3, 3, 4, 4, 3, 3,
+        2, 2, 1, 1, 0, 0,
+        UINT8_MAX, // end
+    };
+
+    func_fe6_0801501C(gBg2Tm,
+        proc->x / 8 - 2, proc->y / 8 - 8,
+        TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4),
+        4, 10, gUnk_082E2440,
+        unk_param_list[proc->unk_48++]);
+
+    EnableBgSync(BG2_SYNC_BIT);
+
+    if (unk_param_list[proc->unk_48] == UINT8_MAX)
+        Proc_Break(proc);
+}
+
 struct ManimSomethingProc_08066FD8
 {
     /* 00 */ PROC_HEADER;
-    /*    */ // TODO
+    /* 2C */ struct Unit * unit;
+    /* 30 */ int x, y;
+    /* 38 */ u8 pad_38[0x40 - 0x38];
+    /* 40 */ u16 unk_40, unk_42;
+    /* 44 */ u8 pad_44[0x48 - 0x44];
+    /* 48 */ i16 unk_48, unk_4A;
 };
 
-void func_fe6_08067040(struct ManimSomethingProc_08066FD8 * proc);
-void func_fe6_08067084(struct ManimSomethingProc_08066FD8 * proc);
+void func_fe6_08067040(void);
+void func_fe6_08067084(void);
 void func_fe6_080670B8(struct ManimSomethingProc_08066FD8 * proc);
 void func_fe6_080671F4(struct ManimSomethingProc_08066FD8 * proc);
 void func_fe6_080672B0(struct ManimSomethingProc_08066FD8 * proc);
@@ -2941,10 +3157,114 @@ struct ProcScr CONST_DATA ProcScr_Unk_086654BC[] =
     PROC_END,
 };
 
+void func_fe6_08066FD8(int x, int y)
+{
+    struct ManimSomethingProc_08066FD8 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_086654BC, PROC_TREE_3);
+
+    proc->x = SCREEN_TILE_X(x) * 8 + 8;
+    proc->y = SCREEN_TILE_Y(y) * 8 + 8;
+}
+
+void func_fe6_08067040(void)
+{
+    GetUnit(gAction.instigator)->flags |= UNIT_FLAG_HIDDEN;
+    StartAvailableDoorTileEvent(gAction.x_target, gAction.y_target);
+}
+
+void func_fe6_08067084(void)
+{
+    GetUnit(gAction.instigator)->flags &= ~UNIT_FLAG_HIDDEN;
+}
+
+void func_fe6_080670B8(struct ManimSomethingProc_08066FD8 * proc)
+{
+    PlaySeSpacial(SONG_8D, proc->x);
+
+    SetBgOffset(2, 0, 0);
+    Decompress(gUnk_082DF724, ((void *) VRAM) + GetBgChrOffset(2) + CHR_SIZE * BGCHR_MANIM_140);
+
+    func_fe6_0801501C(gBg2Tm,
+        proc->x / 8 - 2, proc->y / 8 - 2,
+        TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4),
+        4, 4, gUnk_082DF844, 0);
+
+    EnableBgSync(BG2_SYNC_BIT);
+
+    Decompress(gUnk_082DF6B0, ((void *) VRAM) + 0x10000 + CHR_SIZE * OBJCHR_MANIM_1C0);
+    ApplyPalette(gUnk_082DF704, 0x10 + OBJPAL_MANIM_4);
+
+    func_fe6_08014D9C(gUnk_082DF824, 0x20 * BGPAL_MANIM_4, 0x20, 4, proc);
+
+    func_fe6_08069C34();
+    func_fe6_08069C74();
+    func_fe6_08067324();
+
+    SetBlendAlpha(0x10, 0x10);
+
+    proc->unk_48 = 1;
+}
+
+void func_fe6_080671F4(struct ManimSomethingProc_08066FD8 * proc)
+{
+    int var_04 = Interpolate(INTERPOLATE_RCUBIC, 1, 0x10, proc->unk_48, 30);
+
+    proc->unk_48++;
+
+    func_fe6_08069DA4(proc->x, proc->y, var_04);
+
+    if (proc->unk_48 >= 30)
+    {
+        proc->unk_48 = 0;
+
+        Proc_Break(proc);
+
+        StartSpriteAnimProc(gUnk_082A84A4, proc->x, proc->y, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 0, 2);
+        StartSpriteAnimProc(gUnk_082A84A4, proc->x, proc->y, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4), 1, 2);
+    }
+}
+
+void func_fe6_080672B0(struct ManimSomethingProc_08066FD8 * proc)
+{
+    int var_04 = Interpolate(INTERPOLATE_RCUBIC, 0x10, 0, proc->unk_48, 30);
+
+    proc->unk_48++;
+
+    func_fe6_08069DA4(proc->x, proc->y, var_04);
+
+    if (proc->unk_48 >= 30)
+        Proc_Break(proc);
+}
+
+void func_fe6_08067324(void)
+{
+    // TODO: macro?
+    gDispIo.bg0_ct.priority = 0;
+    gDispIo.bg1_ct.priority = 0;
+    gDispIo.bg2_ct.priority = 0;
+    gDispIo.bg3_ct.priority = 2;
+
+    SetBlendTargetA(0, 0, 1, 0, 0); SetBlendBackdropA(0);
+    SetBlendTargetB(0, 0, 0, 1, 1); SetBlendBackdropB(1);
+
+    gDispIo.win_ct.win0_enable_blend = 1;
+    gDispIo.win_ct.wout_enable_blend = 0;
+
+    SetWin0Layers(1, 1, 1, 1, 1);
+    SetWOutLayers(1, 1, 0, 1, 1);
+}
+
 struct ManimSomethingProc_08067498
 {
     /* 00 */ PROC_HEADER;
-    /*    */ // TODO
+    /* 29 */ u8 pad_29[0x58 - 0x29];
+    /* 58 */ i32 unk_58;
+    /* 5C */ u8 pad_5C[0x64 - 0x5C];
+    /* 64 */ i16 unk_64;
+    /* 66 */ i16 unk_66;
+    /* 68 */ i16 unk_68;
+    /* 6A */ i16 unk_6A;
 };
 
 void func_fe6_0806752C(struct ManimSomethingProc_08067498 * proc);
@@ -2955,76 +3275,215 @@ struct ProcScr CONST_DATA ProcScr_Unk_08665514[] =
     PROC_END,
 };
 
+void func_fe6_08067498(int bg, int x_inc, int y_inc, ProcPtr parent)
+{
+    struct ManimSomethingProc_08067498 * proc;
+
+    proc = SpawnProc(ProcScr_Unk_08665514, parent);
+
+    proc->unk_58 = bg;
+
+    proc->unk_64 = 0;
+    proc->unk_66 = x_inc;
+    proc->unk_68 = 0;
+    proc->unk_6A = y_inc;
+}
+
+void func_fe6_08067514(void)
+{
+    Proc_EndEach(ProcScr_Unk_08665514);
+}
+
+void func_fe6_0806752C(struct ManimSomethingProc_08067498 * proc)
+{
+    SetBgOffset(proc->unk_58, proc->unk_64, proc->unk_68);
+
+    proc->unk_64 += proc->unk_66;
+    proc->unk_68 += proc->unk_6A;
+}
+
 struct ManimLevelUpLabelInfo
 {
     /* 00 */ u8 x;
     /* 01 */ u8 y;
     /* 02 */ u8 pad_02[0x04 - 0x02];
-    /* 04 */ char const * const * label_str;
-    /* 08 */ char const * const * label_mag;
+    /* 04 */ char const * const * labels[2];
 };
 
 struct ManimLevelUpLabelInfo CONST_DATA gManimLevelUpLabelInfoList[] =
 {
     {
         .x = 9, .y = 0,
-        .label_str = SystemLabel_Level,
-        .label_mag = SystemLabel_Level,
+        .labels = { SystemLabel_Level, SystemLabel_Level },
     },
 
     {
         .x = 1, .y = 4,
-        .label_str = SystemLabel_Hp,
-        .label_mag = SystemLabel_Hp,
+        .labels = { SystemLabel_Hp, SystemLabel_Hp },
     },
 
     {
         .x = 1, .y = 6,
-        .label_str = SystemLabel_Strength,
-        .label_mag = SystemLabel_Magic,
+        .labels = { SystemLabel_Strength, SystemLabel_Magic },
     },
 
     {
         .x = 1, .y = 8,
-        .label_str = SystemLabel_Skill,
-        .label_mag = SystemLabel_Skill,
+        .labels = { SystemLabel_Skill, SystemLabel_Skill },
     },
 
     {
         .x = 1, .y = 10,
-        .label_str = SystemLabel_Speed,
-        .label_mag = SystemLabel_Speed,
+        .labels = { SystemLabel_Speed, SystemLabel_Speed },
     },
 
     {
         .x = 9, .y = 4,
-        .label_str = SystemLabel_Luck,
-        .label_mag = SystemLabel_Luck,
+        .labels = { SystemLabel_Luck, SystemLabel_Luck },
     },
 
     {
         .x = 9, .y = 6,
-        .label_str = SystemLabel_Defense,
-        .label_mag = SystemLabel_Defense,
+        .labels = { SystemLabel_Defense, SystemLabel_Defense },
     },
 
     {
         .x = 9, .y = 8,
-        .label_str = SystemLabel_Resistance,
-        .label_mag = SystemLabel_Resistance,
+        .labels = { SystemLabel_Resistance, SystemLabel_Resistance },
     },
 
     {
         .x = 9, .y = 10,
-        .label_str = SystemLabel_Constitution,
-        .label_mag = SystemLabel_Constitution,
+        .labels = { SystemLabel_Constitution, SystemLabel_Constitution },
     },
 
     // end
     { .x = UINT8_MAX, .y = UINT8_MAX },
 };
 
-void func_fe6_08067A14(ProcPtr proc);
+void func_fe6_080675AC(int actor_id, int x, int y)
+{
+    int i;
+
+    TmFill(gBg1Tm, 0);
+
+    Decompress(gUnk_08114D80, ((void *) VRAM) + GetBgChrOffset(1) + BGCHR_MANIM_200 * CHR_SIZE);
+    Decompress(gUnk_08114FCC, gBuf);
+    func_fe6_080152C4((u16 const *) gBuf, gBg1Tm, 0x20 * 0x1C, TILEREF(BGCHR_MANIM_200, BGPAL_MANIM_5));
+    ApplyPalette(gUnk_081150C8, BGPAL_MANIM_5);
+
+    PutString(
+        gBg0Tm + TM_OFFSET(x + 1, y),
+        TEXT_COLOR_SYSTEM_WHITE,
+        DecodeMsg(gMapAnimSt.actor[actor_id].unit->jinfo->msg_name));
+
+    for (i = 0; gManimLevelUpLabelInfoList[i].x != UINT8_MAX; i++)
+    {
+        PutStringCentered(
+            gBg0Tm + TM_OFFSET(x + gManimLevelUpLabelInfoList[i].x, y + gManimLevelUpLabelInfoList[i].y),
+            TEXT_COLOR_SYSTEM_GOLD, 3,
+            gManimLevelUpLabelInfoList[i].labels[UnitKnowsMagic(gMapAnimSt.actor[actor_id].unit) == TRUE][GetLang()]);
+    }
+
+    EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
+}
+
+void MALevelUp_DrawActorStat(int actor_id, int x, int y, int stat_num, bool arg_10)
+{
+    PutNumberOrBlank(
+        gBg0Tm + TM_OFFSET(x + gManimLevelUpLabelInfoList[stat_num].x + 4, y + gManimLevelUpLabelInfoList[stat_num].y),
+        TEXT_COLOR_SYSTEM_BLUE,
+        func_fe6_08067920(actor_id, stat_num) + (arg_10 ? MALevelUp_GetActorStatUp(actor_id, stat_num) : 0));
+}
+
+int MALevelUp_GetActorStatUp(int actor_id, int stat_num)
+{
+    switch (stat_num)
+    {
+        case 0:
+            return 1;
+
+        case 1:
+            return gMapAnimSt.actor[actor_id].bu->change_hp;
+
+        case 2:
+            return gMapAnimSt.actor[actor_id].bu->change_pow;
+
+        case 3:
+            return gMapAnimSt.actor[actor_id].bu->change_skl;
+
+        case 4:
+            return gMapAnimSt.actor[actor_id].bu->change_spd;
+
+        case 5:
+            return gMapAnimSt.actor[actor_id].bu->change_lck;
+
+        case 6:
+            return gMapAnimSt.actor[actor_id].bu->change_def;
+
+        case 7:
+            return gMapAnimSt.actor[actor_id].bu->change_res;
+
+        case 8:
+            return gMapAnimSt.actor[actor_id].bu->change_con;
+
+        default:
+            return 0;
+    }
+}
+
+int func_fe6_08067920(int actor_id, int stat_num)
+{
+    // getting the original unit to ensure we get the base stats
+    struct Unit * unit = GetUnit(gMapAnimSt.actor[actor_id].unit->id);
+
+    switch (stat_num)
+    {
+        case 0:
+            return gMapAnimSt.actor[actor_id].bu->previous_level;
+
+        case 1:
+            return unit->max_hp;
+
+        case 2:
+            return unit->pow;
+
+        case 3:
+            return unit->skl;
+
+        case 4:
+            return unit->spd;
+
+        case 5:
+            return unit->lck;
+
+        case 6:
+            return unit->def;
+
+        case 7:
+            return unit->res;
+
+        case 8:
+            return UNIT_CON_BASE(unit);
+
+        default:
+            return 0;
+    }
+}
+
+void func_fe6_08067A14(ProcPtr proc)
+{
+    EndEachSpriteAnimProc();
+}
+
+struct ManimSomethingProc_08067A28_A
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 pad_29[0x2A - 0x29];
+    /* 2A */ i16 unk_2A;
+    /* 2C */ i16 unk_2C;
+    /* 2E */ i16 unk_2E;
+};
 
 struct ProcScr CONST_DATA ProcScr_Unk_0866559C[] =
 {
@@ -3032,9 +3491,16 @@ struct ProcScr CONST_DATA ProcScr_Unk_0866559C[] =
     PROC_BLOCK,
 };
 
+struct ManimSomethingProc_08067A28_B
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 pad_29[0x64 - 0x29];
+    /* 64 */ i16 unk_64;
+};
+
 // TODO: the struct
-void func_fe6_08068048(ProcPtr proc);
-void func_fe6_08068060(ProcPtr proc);
+void func_fe6_08068048(struct ManimSomethingProc_08067A28_B * proc);
+void func_fe6_08068060(struct ManimSomethingProc_08067A28_B * proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_086655AC[] =
 {
@@ -3042,6 +3508,36 @@ struct ProcScr CONST_DATA ProcScr_Unk_086655AC[] =
     PROC_REPEAT(func_fe6_08068060),
     PROC_END,
 };
+
+void func_fe6_08067A28(int arg_0, int arg_4, int arg_8, ProcPtr parent)
+{
+    struct ManimSomethingProc_08067A28_A * proc_a;
+    struct ManimSomethingProc_08067A28_B * proc_b;
+
+    proc_a = SpawnProc(ProcScr_Unk_0866559C, parent);
+
+    proc_a->unk_2A = arg_0;
+    proc_a->unk_2C = arg_4;
+    proc_a->unk_2E = arg_8;
+
+    Decompress(gUnk_082DBB24, ((void *) VRAM) + 0x10000 + (OAM2_CHR(arg_0) << 5));
+    ApplyPalette(gUnk_082DBAC4, 0x10 + arg_4);
+    ApplyPalette(gUnk_082DBAC4, 0x10 + arg_4 + 1);
+
+    proc_b = SpawnProc(ProcScr_Unk_086655AC, proc_a);
+    proc_b->unk_64 = arg_4;
+}
+
+void func_fe6_08067AF0(void)
+{
+    Proc_EndEach(ProcScr_Unk_0866559C);
+}
+
+/*
+
+*/
+
+// REMAINING MANIM DATA
 
 // TODO: the struct
 void func_fe6_080684D8(ProcPtr proc);
@@ -3053,7 +3549,6 @@ void func_fe6_080684B8(ProcPtr proc);
 void func_fe6_08067E84(ProcPtr proc);
 void func_fe6_080680F0(ProcPtr proc);
 void func_fe6_080681D8(ProcPtr proc);
-void func_fe6_08067AF0(ProcPtr proc);
 void func_fe6_08068164(ProcPtr proc);
 void func_fe6_08067E50(ProcPtr proc);
 

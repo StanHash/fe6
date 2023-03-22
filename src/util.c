@@ -573,13 +573,13 @@ struct PalFadeSt * StartPalFade(u16 const * colors, int pal, int duration, ProcP
 
     struct PalFadeProc * proc = SpawnProc(ProcScr_PalFade, parent);
 
-    CpuCopy16(gPal + pal * 0x10, st->fromColors, sizeof(st->fromColors));
+    CpuCopy16(gPal + pal * 0x10, st->from_colors, sizeof(st->from_colors));
 
     st->pal = gPal + pal * 0x10;
-    st->toColors = colors;
+    st->to_colors = colors;
     st->clock = 0;
-    st->clockEnd = duration;
-    st->clockStop = duration + 1;
+    st->clock_end = duration;
+    st->clock_stop = duration + 1;
 
     proc->st = st;
 
@@ -593,19 +593,19 @@ void EndPalFade(void)
 
 void SetPalFadeStop(struct PalFadeSt * st, int val)
 {
-    st->clockStop = val;
+    st->clock_stop = val;
 }
 
 static void PalFade_OnLoop(struct PalFadeProc * proc)
 {
     int i;
 
-    u16 const * fromColors = proc->st->fromColors;
-    u16 const * toColors = proc->st->toColors;
+    u16 const * from_colors = proc->st->from_colors;
+    u16 const * to_colors = proc->st->to_colors;
 
     u16 * pal = proc->st->pal;
 
-    if (proc->st->clock == proc->st->clockStop || proc->st->clock > proc->st->clockEnd)
+    if (proc->st->clock == proc->st->clock_stop || proc->st->clock > proc->st->clock_end)
     {
         Proc_End(proc);
         return;
@@ -613,17 +613,17 @@ static void PalFade_OnLoop(struct PalFadeProc * proc)
 
     for (i = 0; i < 0x10; ++i)
     {
-        int redA   = fromColors[i] & 0x001F;
-        int greenA = fromColors[i] & 0x03E0;
-        int blueA  = fromColors[i] & 0x7C00;
+        int red_a   = from_colors[i] & 0x001F;
+        int green_a = from_colors[i] & 0x03E0;
+        int blue_a  = from_colors[i] & 0x7C00;
 
-        int redB   = toColors[i] & 0x001F;
-        int greenB = toColors[i] & 0x03E0;
-        int blueB  = toColors[i] & 0x7C00;
+        int red_b   = to_colors[i] & 0x001F;
+        int green_b = to_colors[i] & 0x03E0;
+        int blue_b  = to_colors[i] & 0x7C00;
 
-        int red   = Interpolate(INTERPOLATE_LINEAR, redA,   redB,   proc->st->clock, proc->st->clockEnd);
-        int green = Interpolate(INTERPOLATE_LINEAR, greenA, greenB, proc->st->clock, proc->st->clockEnd);
-        int blue  = Interpolate(INTERPOLATE_LINEAR, blueA,  blueB,  proc->st->clock, proc->st->clockEnd);
+        int red   = Interpolate(INTERPOLATE_LINEAR, red_a,   red_b,   proc->st->clock, proc->st->clock_end);
+        int green = Interpolate(INTERPOLATE_LINEAR, green_a, green_b, proc->st->clock, proc->st->clock_end);
+        int blue  = Interpolate(INTERPOLATE_LINEAR, blue_a,  blue_b,  proc->st->clock, proc->st->clock_end);
 
         pal[i] = (blue & 0x7C00) | (green & 0x03E0) | (red & 0x001F);
     }
@@ -1351,7 +1351,7 @@ struct UnkProc_085C4E64
     /* 2C */ u16 const * colors;
     /* 30 */ u16 palOffset;
     /* 32 */ u16 colorCount;
-    /* 34 */ u16 clockEnd;
+    /* 34 */ u16 clock_end;
     /* 36 */ u16 clock;
     /* 38 */ u16 counter;
     /* 3A */ u16 reverseOrder;
@@ -1379,7 +1379,7 @@ struct UnkProc_085C4E64 * func_fe6_08014D60(u16 const * colors, int pal_offset, 
     proc->palOffset = pal_offset;
     proc->colorCount = pal_size / 2;
     proc->clock = interval;
-    proc->clockEnd = interval;
+    proc->clock_end = interval;
     proc->counter = 0;
     proc->reverseOrder = 0;
 
@@ -1402,7 +1402,7 @@ void func_fe6_08014DCC(struct UnkProc_085C4E64 * proc)
 
     proc->clock++;
 
-    if (proc->clock < proc->clockEnd)
+    if (proc->clock < proc->clock_end)
         return;
 
     proc->clock = 0;

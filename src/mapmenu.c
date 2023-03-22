@@ -115,7 +115,7 @@ fu8 MapMenu_Suspend_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     if (ent->availability == MENU_ENTRY_DISABLED)
     {
-        MenuFrozenHelpBox(menu, 0xC46); // TODO: msgids
+        MenuFrozenHelpBox(menu, MSG_C46);
         return MENU_ACTION_SE_6B;
     }
 

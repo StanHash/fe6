@@ -155,14 +155,14 @@ enum
 #define EvtCameraUnit(pid) \
     EVT_CMD_CAMERA_PID, (pid),
 
-#define EvtMove(x, y, xTo, yTo) \
-    EVT_CMD_MOVE_POS, _EvtParams2(x, y), _EvtParams2(xTo, yTo),
+#define EvtMove(x, y, x_to, y_to) \
+    EVT_CMD_MOVE_POS, _EvtParams2(x, y), _EvtParams2(x_to, y_to),
 
 #define EvtMoveScript(x, y, movescript) \
     EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (u32) (movescript),
 
-#define EvtMoveUnit(pid, xTo, yTo) \
-    EVT_CMD_MOVE_PID, (pid), _EvtParams2(xTo, yTo),
+#define EvtMoveUnit(pid, x_to, y_to) \
+    EVT_CMD_MOVE_PID, (pid), _EvtParams2(x_to, y_to),
 
 #define EvtMoveUnitScript(pid, movescript) \
     EVT_CMD_MOVE_PID_MANUAL, (pid), (u32) (movescript),

@@ -42,6 +42,7 @@
 #include "constants/videoalloc_banim.h"
 #include "constants/terrains.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 struct PopupProc
 {
@@ -3438,7 +3439,7 @@ void ClearTalk(void)
 
 void func_fe6_08011F4C(void)
 {
-    StartTalkEvent(0x281); // TODO: msgids
+    StartTalkEvent(MSG_281);
 }
 
 void func_fe6_08011F64(void)
@@ -4100,7 +4101,7 @@ struct PopupInfo CONST_DATA Popup_085C46FC[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC72), // TODO: msgids
+    POPUP_MSG(MSG_C72),
 
     POPUP_END,
 };
@@ -4115,7 +4116,7 @@ struct PopupInfo CONST_DATA Popup_085C473C[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC73), // TODO: msgids
+    POPUP_MSG(MSG_C73),
 
     POPUP_END,
 };
@@ -4124,9 +4125,9 @@ struct PopupInfo CONST_DATA Popup_085C477C[] =
 {
     POPUP_SONG(SONG_5A),
 
-    POPUP_MSG(0xC70), // TODO: msgids
+    POPUP_MSG(MSG_C70),
     POPUP_ICON_IKIND,
-    POPUP_MSG(0xC71), // TODO: msgids
+    POPUP_MSG(MSG_C71),
 
     POPUP_END,
 };
@@ -4140,7 +4141,7 @@ struct PopupInfo CONST_DATA Popup_085C47A4[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC74), // TODO: msgids
+    POPUP_MSG(MSG_C74),
 
     POPUP_END,
 };
@@ -4154,7 +4155,7 @@ struct PopupInfo CONST_DATA Popup_085C47DC[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC77), // TODO: msgids
+    POPUP_MSG(MSG_C77),
 
     POPUP_END,
 };
@@ -4169,7 +4170,7 @@ struct PopupInfo CONST_DATA Popup_085C4814[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC75), // TODO: msgids
+    POPUP_MSG(MSG_C75),
 
     POPUP_END,
 };
@@ -4184,7 +4185,7 @@ struct PopupInfo CONST_DATA Popup_085C4854[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC78), // TODO: msgids
+    POPUP_MSG(MSG_C78),
 
     POPUP_END,
 };
@@ -4199,7 +4200,7 @@ struct PopupInfo CONST_DATA Popup_085C4894[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC76), // TODO: msgids
+    POPUP_MSG(MSG_C76),
 
     POPUP_END,
 };
@@ -4214,7 +4215,7 @@ struct PopupInfo CONST_DATA Popup_085C48D4[] =
     POPUP_SPACE(3),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC79), // TODO: msgids
+    POPUP_MSG(MSG_C79),
 
     POPUP_END,
 };
@@ -4224,7 +4225,7 @@ struct PopupInfo CONST_DATA Popup_085C4914[] =
     POPUP_SONG(SONG_5A),
 
     POPUP_COLOR(TEXT_COLOR_0123),
-    POPUP_MSG(0xC7A), // TODO: msgids
+    POPUP_MSG(MSG_C7A),
 
     POPUP_END,
 };

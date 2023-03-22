@@ -3346,4 +3346,6 @@ enum
     MSG_D0B = 0xD0B,
     MSG_D0C = 0xD0C,
     MSG_D0D = 0xD0D,
+
+    MSG_COUNT,
 };

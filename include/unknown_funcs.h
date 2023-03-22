@@ -1735,13 +1735,13 @@ void func_fe6_080650A4(int x, int y, int square_size, int freeze_duration, int f
 // func_fe6_080671F4
 // func_fe6_080672B0
 void func_fe6_08067324(void);
-// func_fe6_08067498
+void func_fe6_08067498(int bg, int x_inc, int y_inc, ProcPtr parent);
 // func_fe6_08067514
 // func_fe6_0806752C
 // func_fe6_080675AC
 // MALevelUp_DrawActorStat
-// MALevelUp_GetActorStatUp
-// func_fe6_08067920
+int MALevelUp_GetActorStatUp(int actor_id, int stat_num);
+int func_fe6_08067920(int actor_id, int stat_num);
 // func_fe6_08067A14
 // func_fe6_08067A28
 // func_fe6_08067AF0
@@ -1826,14 +1826,14 @@ void func_fe6_08069C74(void);
 void func_fe6_08069DA4(int x, int y, int arg_08);
 void func_fe6_08069DD8(void);
 // func_fe6_08069DE8
-// func_fe6_08069E50
+void func_fe6_08069E50(void);
 // func_fe6_08069ED4
 // func_fe6_08069F58
 // func_fe6_08069FD8
 // func_fe6_0806A040
 void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, int color_2, int color_3);
 void func_fe6_0806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
-// func_fe6_0806A270
+void func_fe6_0806A270(int x, int y, int a, int b, u8 const * unk);
 // func_fe6_0806A330
 // func_fe6_0806A3A8
 // func_fe6_0806A424

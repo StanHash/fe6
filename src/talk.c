@@ -21,6 +21,7 @@
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 struct TalkChoiceEnt
 {
@@ -205,14 +206,14 @@ struct ProcScr CONST_DATA ProcScr_TalkShiftClearAll[] =
 
 struct TalkChoiceEnt CONST_DATA gYesNoTalkChoice[] =
 {
-    { 0x2BF, NULL }, // Yes (TODO: msgids)
-    { 0x2C0, NULL }, // No (TODO: msgids)
+    { MSG_2BF, NULL }, // Yes
+    { MSG_2C0, NULL }, // No
 };
 
 struct TalkChoiceEnt CONST_DATA gBuySellTalkChoice[] =
 {
-    { 0x2C1, func_fe6_08095FC4 }, // Buy (TODO: msgids)
-    { 0x2C2, func_fe6_08095FF8 }, // Sell (TODO: msgids)
+    { MSG_2C1, func_fe6_08095FC4 }, // Buy
+    { MSG_2C2, func_fe6_08095FF8 }, // Sell
 };
 
 struct ProcScr CONST_DATA ProcScr_TalkChoice[] =
@@ -2073,8 +2074,8 @@ static void TalkDebug_OnIdle(struct GenericProc * proc)
     if (msg < 0)
         msg = 0;
 
-    if (msg > 0xD0D) // TODO: msgid
-        msg = 0xD0D; // TODO: msgid
+    if (msg > MSG_COUNT - 1)
+        msg = MSG_COUNT - 1;
 
     if (msg != proc->x)
     {

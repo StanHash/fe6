@@ -27,10 +27,15 @@ enum
     SONG_77 = 0x77,
     SONG_7A = 0x7A,
     SONG_82 = 0x82, // manim
+    SONG_83 = 0x83, // manim
+    SONG_84 = 0x84, // manim
+    SONG_85 = 0x85, // manim
     SONG_86 = 0x86,
     SONG_87 = 0x87,
+    SONG_88 = 0x88, // manim
     SONG_89 = 0x89,
     SONG_8C = 0x8C,
+    SONG_8D = 0x8D, // manim (unlock?)
     SONG_90 = 0x90,
     SONG_91 = 0x91,
     SONG_96 = 0x96,
@@ -56,5 +61,6 @@ enum
     SONG_BF = 0xBF,
     SONG_C8 = 0xC8, // stat screen unit slide
     SONG_D6 = 0xD6,
+    SONG_FD = 0xFD, // manim
     SONG_10F = 0x10F,
 };

@@ -1297,12 +1297,12 @@ AI_LABEL(1),
 };
 
 // FIXME: use func_fe6_08033998 input struct
-struct { u8 unk_00; } const gUnk_0810DB0C[] = { 1 };
+struct { u8 unk_00; } const gUnk_0810DB0C = { 1 };
 
 // unused
 struct AiScr CONST_DATA AiScr_Unk_085C8FD8[] =
 {
-    AI_CALL_FUNC(func_fe6_08033998, gUnk_0810DB0C),
+    AI_CALL_FUNC(func_fe6_08033998, &gUnk_0810DB0C),
 
     AI_GOTO_IFEQ(1, gAiSt.cmd_result+1, 1),
 

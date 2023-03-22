@@ -21,8 +21,8 @@ enum { TILESET_METATILES = 0x400 };
 static void MapInit(u8 * data, u8 *** rowsOut, int width, int height);
 static void UnpackRawMap(void * buf, int chapter);
 static void InitMetatilesMap(void);
-static void RenderMapColumn(u16 xOffset);
-static void RenderMapLine(u16 yOffset);
+static void RenderMapColumn(u16 x_offset);
+static void RenderMapLine(u16 y_offset);
 
 extern u16 gMapBuf[]; // ??
 
@@ -439,12 +439,12 @@ void UpdateRenderMap(void)
     }
 }
 
-void RenderMapColumn(u16 xOffset)
+void RenderMapColumn(u16 x_offset)
 {
-    u16 x = (gBmSt.camera.x >> 4) + xOffset;
+    u16 x = (gBmSt.camera.x >> 4) + x_offset;
     u16 y = (gBmSt.camera.y >> 4);
 
-    u16 x_tm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.map_render_anchor.x + xOffset) & 0xF;
+    u16 x_tm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.map_render_anchor.x + x_offset) & 0xF;
     u16 y_tm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.map_render_anchor.y);
 
     int iy;
@@ -474,13 +474,13 @@ void RenderMapColumn(u16 xOffset)
     }
 }
 
-void RenderMapLine(u16 yOffset)
+void RenderMapLine(u16 y_offset)
 {
     u16 x = (gBmSt.camera.x >> 4);
-    u16 y = (gBmSt.camera.y >> 4) + yOffset;
+    u16 y = (gBmSt.camera.y >> 4) + y_offset;
 
     u16 x_tm = ((gBmSt.camera.x >> 4) - (u16) gBmSt.map_render_anchor.x);
-    u16 y_tm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.map_render_anchor.y + yOffset) & 0xF;
+    u16 y_tm = ((gBmSt.camera.y >> 4) - (u16) gBmSt.map_render_anchor.y + y_offset) & 0xF;
 
     int ix;
 

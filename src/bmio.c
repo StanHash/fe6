@@ -35,8 +35,8 @@ struct WeatherParticle
     /* 00 */ short x;
     /* 02 */ short y;
 
-    /* 04 */ short xSpeed;
-    /* 06 */ short ySpeed;
+    /* 04 */ short x_speed;
+    /* 06 */ short y_speed;
 
     /* 08 */ u8 chr;
     /* 09 */ u8 kind;
@@ -380,8 +380,8 @@ static void WeatherInit_Snow(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].xSpeed = sParticleTemplates[templateId + 0] * 2;
-        gWeatherEffect.particles[i].ySpeed = sParticleTemplates[templateId + 1] * 2;
+        gWeatherEffect.particles[i].x_speed = sParticleTemplates[templateId + 0] * 2;
+        gWeatherEffect.particles[i].y_speed = sParticleTemplates[templateId + 1] * 2;
         gWeatherEffect.particles[i].kind = sParticleTemplates[templateId + 2];
 
         gWeatherEffect.particles[i].chr = chrs[sParticleTemplates[templateId + 2]];
@@ -408,8 +408,8 @@ static void WeatherVBlank_Snow(void)
 
         for (i = 0; i < 0x20; ++i)
         {
-            it->x += it->xSpeed;
-            it->y += it->ySpeed;
+            it->x += it->x_speed;
+            it->y += it->y_speed;
 
             PutOamLoRam(
                 ((it->x >> 8) - origins[it->kind].x) & 0xFF,
@@ -434,8 +434,8 @@ static void WeatherInit_Rain(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].xSpeed = sParticleTemplates[templateId+0] * 6;
-        gWeatherEffect.particles[i].ySpeed = sParticleTemplates[templateId+1] * 16;
+        gWeatherEffect.particles[i].x_speed = sParticleTemplates[templateId+0] * 6;
+        gWeatherEffect.particles[i].y_speed = sParticleTemplates[templateId+1] * 16;
         gWeatherEffect.particles[i].chr = sParticleTemplates[templateId+2];
     }
 }
@@ -450,8 +450,8 @@ static void WeatherVBlank_Rain(void)
 
         for (i = 0; i < 0x20; ++i)
         {
-            it->x += it->xSpeed;
-            it->y += it->ySpeed;
+            it->x += it->x_speed;
+            it->y += it->y_speed;
 
             PutOamLoRam(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
@@ -477,8 +477,8 @@ static void WeatherInit_Sandstorm(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = (RandNextB() % DISPLAY_HEIGHT + DISPLAY_HEIGHT*3/2) & 0xFF;
 
-        gWeatherEffect.particles[i].xSpeed = (RandNextB() & 0x7) - 32;
-        gWeatherEffect.particles[i].ySpeed = 0;
+        gWeatherEffect.particles[i].x_speed = (RandNextB() & 0x7) - 32;
+        gWeatherEffect.particles[i].y_speed = 0;
     }
 }
 
@@ -492,7 +492,7 @@ static void WeatherVBlank_Sandstorm(void)
 
         for (i = 0; i < 0x20; ++i)
         {
-            it->x += it->xSpeed;
+            it->x += it->x_speed;
 
             PutOamLoRam(
                 OAM1_X((it->x & 0xFF) - 0x10),
@@ -522,18 +522,18 @@ static void WeatherInit_Snowstorm(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].ySpeed = (RandNextB() & 0x3FF) - 0x100;
+        gWeatherEffect.particles[i].y_speed = (RandNextB() & 0x3FF) - 0x100;
         gWeatherEffect.particles[i].chr = kind;
 
         switch (kind)
         {
 
         case 0:
-            gWeatherEffect.particles[i].xSpeed = 0x700 + (RandNextB() & 0x1FF);
+            gWeatherEffect.particles[i].x_speed = 0x700 + (RandNextB() & 0x1FF);
             break;
 
         case 1:
-            gWeatherEffect.particles[i].xSpeed = 0xA00 + (RandNextB() & 0x1FF);
+            gWeatherEffect.particles[i].x_speed = 0xA00 + (RandNextB() & 0x1FF);
             break;
 
         }
@@ -550,8 +550,8 @@ static void WeatherVBlank_Snowstorm(void)
 
         for (i = 0; i < 0x20; ++i)
         {
-            it->x += it->xSpeed;
-            it->y += it->ySpeed;
+            it->x += it->x_speed;
+            it->y += it->y_speed;
 
             PutOamLoRam(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
@@ -691,8 +691,8 @@ static void FlamesWeatherInitParticles(void)
         gWeatherEffect.particles[i].x = RandNextB();
         gWeatherEffect.particles[i].y = RandNextB();
 
-        gWeatherEffect.particles[i].xSpeed = -sParticleTemplates[i*3 + 0];
-        gWeatherEffect.particles[i].ySpeed = -sParticleTemplates[i*3 + 1];
+        gWeatherEffect.particles[i].x_speed = -sParticleTemplates[i*3 + 0];
+        gWeatherEffect.particles[i].y_speed = -sParticleTemplates[i*3 + 1];
     }
 }
 
@@ -743,8 +743,8 @@ static void FlamesWeatherUpdateParticles(void)
         {
             int y, oam2;
 
-            it->x += it->xSpeed;
-            it->y += it->ySpeed;
+            it->x += it->x_speed;
+            it->y += it->y_speed;
 
             y = ((it->y >> 8) - gBmSt.camera.y) & 0xFF;
 

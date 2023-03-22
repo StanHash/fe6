@@ -399,7 +399,7 @@ enum
 extern char gNumMusicPlayers[];
 extern char gMaxLines[];
 
-#define NUM_MUSIC_PLAYERS ((u16)(u32) gNumMusicPlayers)
-#define MAX_LINES ((u32) gMaxLines)
+#define NUM_MUSIC_PLAYERS ((u16) (uptr) gNumMusicPlayers)
+#define MAX_LINES ((u32) (uptr) gMaxLines)
 
 // end TODO

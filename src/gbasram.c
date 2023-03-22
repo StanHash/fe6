@@ -76,6 +76,10 @@ u32 WriteAndVerifySramFast(void const * src, void * dest, u32 size)
     u8 i;
     u32 errorAddr;
 
+#if BUGFIX
+    errorAddr = 0;
+#endif
+
     // try writing and verifying the data 3 times
     for (i = 0; i < 3; i++)
     {

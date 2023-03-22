@@ -1,10 +1,8 @@
 	.section .rodata
 
-	.incbin "fe6-base.gba", 0x307994, (0x307A10 - 0x307994) @ length: ????
+	MANIM_END = 0x307AD8
 
-	.global gUnk_08307A10
-gUnk_08307A10: @ 08307A10
-	.incbin "fe6-base.gba", 0x307A10, (0x307CEC - 0x307A10) @ length: 02DC
+	.incbin "fe6-base.gba", MANIM_END, (0x307CEC - MANIM_END) @ length: 02DC
 
 	.global gUnk_08307CEC
 gUnk_08307CEC: @ 08307CEC

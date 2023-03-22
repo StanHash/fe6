@@ -167,6 +167,10 @@ struct BgCnt * GetBgCt(u16 bgid)
     case 3: return &gDispIo.bg3_ct;
 
     }
+
+#if BUGFIX
+    return NULL;
+#endif
 }
 
 int GetBgChrOffset(int bg)
@@ -381,29 +385,29 @@ void InitKeySt(struct KeySt * keySt)
     keySt->time_since_start_select = 0;
 }
 
-void SetBgOffset(u16 bgid, u16 xOffset, u16 yOffset)
+void SetBgOffset(u16 bgid, u16 x_offset, u16 y_offset)
 {
     switch (bgid)
     {
 
     case 0:
-        gDispIo.bg_off[0].x = xOffset;
-        gDispIo.bg_off[0].y = yOffset;
+        gDispIo.bg_off[0].x = x_offset;
+        gDispIo.bg_off[0].y = y_offset;
         break;
 
     case 1:
-        gDispIo.bg_off[1].x = xOffset;
-        gDispIo.bg_off[1].y = yOffset;
+        gDispIo.bg_off[1].x = x_offset;
+        gDispIo.bg_off[1].y = y_offset;
         break;
 
     case 2:
-        gDispIo.bg_off[2].x = xOffset;
-        gDispIo.bg_off[2].y = yOffset;
+        gDispIo.bg_off[2].x = x_offset;
+        gDispIo.bg_off[2].y = y_offset;
         break;
 
     case 3:
-        gDispIo.bg_off[3].x = xOffset;
-        gDispIo.bg_off[3].y = yOffset;
+        gDispIo.bg_off[3].x = x_offset;
+        gDispIo.bg_off[3].y = y_offset;
         break;
 
     }
@@ -431,43 +435,43 @@ void func_fe6_08001B4C(u16 * a, u16 * b)
         *a++ = *b++;
 }
 
-void func_fe6_08001B8C(void * tm, void const * inData, u8 base, u8 linebits)
+void func_fe6_08001B8C(void * tm, void const * in_data, u8 base, u8 linebits)
 {
-    u8 const * it = (u8 const *) inData + 2;
+    u8 const * it = (u8 const *) in_data + 2;
     u8 * out;
 
-    u8 xSize = (*(u32 const *) inData);
-    u8 ySize = (*(u32 const *) inData) >> 8;
+    u8 x_size = (*(u32 const *) in_data);
+    u8 y_size = (*(u32 const *) in_data) >> 8;
 
     i8 ix, iy;
 
-    for (iy = ySize; iy >= 0; iy--)
+    for (iy = y_size; iy >= 0; iy--)
     {
         out = (u8 *) tm + (iy << linebits);
 
-        for (ix = xSize; ix >= 0; ix--)
+        for (ix = x_size; ix >= 0; ix--)
             *out++ = *it++ + base;
     }
 }
 
-void func_fe6_08001C68(u16 * tm, short const * inData, int unused)
+void func_fe6_08001C68(u16 * tm, short const * in_data, int unused)
 {
-    int xSize = (inData[0]) & 0xFF;
-    int ySize = (inData[0] >> 8) & 0xFF;
+    int x_size = (in_data[0]) & 0xFF;
+    int y_size = (in_data[0] >> 8) & 0xFF;
 
     int ix, iy;
 
     int acc = 0;
 
-    inData = inData + 1;
+    in_data = in_data + 1;
 
-    for (iy = 0; iy < ySize; ++iy)
+    for (iy = 0; iy < y_size; ++iy)
     {
         u16 * out = tm + (iy << 5);
 
-        for (ix = 0; ix < xSize; ++ix)
+        for (ix = 0; ix < x_size; ++ix)
         {
-            acc += *inData++;
+            acc += *in_data++;
             *out++ = acc;
         }
     }
@@ -481,45 +485,45 @@ void func_fe6_08001D0C(void)
         gUnk_020210E8[i] = 0;
 }
 
-void func_fe6_08001D44(u16 const * inPal, int bank, int count, int unk)
+void func_fe6_08001D44(u16 const * in_pal, int bank, int count, int unk)
 {
-    int iBank, iColor;
+    int ibank, icolor;
 
     int add = (unk < 0) ? 0x20 : 0;
     int color = bank * 0x30;
 
-    for (iBank = 0; iBank < count; ++iBank)
+    for (ibank = 0; ibank < count; ++ibank)
     {
-        gUnk_020210E8[bank + iBank] = unk;
+        gUnk_020210E8[bank + ibank] = unk;
 
-        for (iColor = 0; iColor < 0x10; ++iColor)
+        for (icolor = 0; icolor < 0x10; ++icolor)
         {
-            gUnk_02021108[color++] = RGB_GET_RED (* inPal)   + add;
-            gUnk_02021108[color++] = RGB_GET_GREEN (* inPal) + add;
-            gUnk_02021108[color++] = RGB_GET_BLUE (* inPal)  + add;
+            gUnk_02021108[color++] = RGB_GET_RED(*in_pal)   + add;
+            gUnk_02021108[color++] = RGB_GET_GREEN(*in_pal) + add;
+            gUnk_02021108[color++] = RGB_GET_BLUE(*in_pal)  + add;
 
-            inPal++;
+            in_pal++;
         }
     }
 }
 
 void func_fe6_08001E68(int a, int b, int c, int d)
 {
-    int iBank;
-    int iColor;
-    int destOffset = a * 16;
+    int ibank;
+    int icolor;
+    int dst_offset = a * 16;
 
-    u16 const * src = gPal + destOffset;
+    u16 const * src = gPal + dst_offset;
 
-    for (iBank = 0; iBank < b; ++iBank)
+    for (ibank = 0; ibank < b; ++ibank)
     {
-        gUnk_020210E8[a + iBank] = d;
+        gUnk_020210E8[a + ibank] = d;
 
-        for (iColor = 0; iColor < 16; ++iColor)
+        for (icolor = 0; icolor < 16; ++icolor)
         {
-            gUnk_02021108[destOffset++] = RGB_GET_RED (* src) + c;
-            gUnk_02021108[destOffset++] = RGB_GET_GREEN (* src) + c;
-            gUnk_02021108[destOffset++] = RGB_GET_BLUE (* src) + c;
+            gUnk_02021108[dst_offset++] = RGB_GET_RED(*src) + c;
+            gUnk_02021108[dst_offset++] = RGB_GET_GREEN(*src) + c;
+            gUnk_02021108[dst_offset++] = RGB_GET_BLUE(*src) + c;
 
             src++;
         }
@@ -653,7 +657,7 @@ void func_fe6_080024A4(void)
 
 void InitBgs(u16 const * config)
 {
-    u16 default_config[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST default_config[] =
     {
         // tile offset  map offset  size id
         0x0000,         0x6000,     BG_SIZE_256x256, // BG 0
@@ -700,7 +704,7 @@ void InitBgs(u16 const * config)
 
 u16 * GetBgTilemap(int bg)
 {
-    static u16 * lut[] =
+    static u16 * SHOULD_BE_CONST lut[] =
     {
         gBg0Tm,
         gBg1Tm,
