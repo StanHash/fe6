@@ -2,12 +2,13 @@
 
 #include "hardware.h"
 #include "msg.h"
+#include "save_xmap.h"
 #include "gbasram.h"
 
 struct ChapterInfo const * GetChapterInfo(int chapter)
 {
     if (chapter < 0)
-        return gTrialLoadInfo->chapter_info;
+        return gExtraMapInfo->chapter_info;
 
     return ChapterInfoTable + chapter;
 }
@@ -17,7 +18,7 @@ u8 const * GetChapterMap(int chapter)
     if (chapter >= 0)
         return ChapterAssets[GetChapterInfo(chapter)->asset_map];
 
-    ReadSramFast(func_fe6_080865EC(), gBuf, func_fe6_08086608());
+    ReadSramFast(GetExtraMapMapReadAddr(), gBuf, GetExtraMapMapSize());
     return gBuf;
 }
 
@@ -26,7 +27,7 @@ struct MapChangeInfo const * GetChapterMapChanges(int chapter)
     if (chapter >= 0)
         return ChapterAssets[GetChapterInfo(chapter)->asset_map_changes];
 
-    return gTrialLoadInfo->map_change_info;
+    return gExtraMapInfo->map_change_info;
 }
 
 struct ChapterEventInfo const * GetChapterEventInfo(int chapter)
@@ -34,7 +35,7 @@ struct ChapterEventInfo const * GetChapterEventInfo(int chapter)
     if (chapter >= 0)
         return ChapterAssets[GetChapterInfo(chapter)->asset_event_info];
 
-    return gTrialLoadInfo->event_info;
+    return gExtraMapInfo->event_info;
 }
 
 char const * GetChapterUnk_0802BBD0(int chapter)
@@ -42,5 +43,5 @@ char const * GetChapterUnk_0802BBD0(int chapter)
     if (chapter >= 0)
         return DecodeMsg(GetChapterInfo(chapter)->msg_38);
 
-    return gTrialLoadInfo->msg_0C;
+    return gExtraMapInfo->msg_0C;
 }

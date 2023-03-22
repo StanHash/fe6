@@ -20,5 +20,11 @@ enum
 
     CHAPTER_UNK_26 = 0x26,
 
+    CHAPTER_TRIAL_A = 0x28,
+    CHAPTER_TRIAL_B = 0x29,
+    CHAPTER_TRIAL_C = 0x2A,
+    CHAPTER_TRIAL_D = 0x2B,
+    CHAPTER_TRIAL_E = 0x2C,
+
     CHAPTER_COUNT = 0x2D,
 };

@@ -17,7 +17,9 @@
 #include "ui.h"
 #include "menu.h"
 #include "statscreen.h" // StartMuralBackground
-#include "save.h"
+#include "save_core.h"
+#include "save_stats.h"
+#include "save_game.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -268,7 +270,7 @@ u32 func_fe6_0801A944(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    struct GlobalSaveInfo saveInfo;
+    struct GlobalSaveInfo save_info;
     int clearCount, i;
 
     if (!(gKeySt->repeated & (KEY_DPAD_RIGHT | KEY_DPAD_LEFT)))
@@ -284,36 +286,36 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     if (gKeySt->repeated & KEY_DPAD_RIGHT)
     {
-        if (clearCount < MAX_SAVED_GAME_CLEARS)
+        if (clearCount < MAX_CLEARED_PLAYTHROUGHS)
             clearCount++;
     }
 
-    ReadGlobalSaveInfo(&saveInfo);
+    ReadGlobalSaveInfo(&save_info);
 
-    for (i = 0; i < MAX_SAVED_GAME_CLEARS; ++i)
-        saveInfo.cleared_playthroughs[i] = 0;
+    for (i = 0; i < MAX_CLEARED_PLAYTHROUGHS; ++i)
+        save_info.cleared_playthroughs[i] = 0;
 
     i = 0;
 
     while (i < clearCount)
     {
         i++;
-        RegisterCompletedPlaythrough(&saveInfo, i);
+        RegisterCompletedPlaythrough(&save_info, i);
     }
 
     if (clearCount == 0)
     {
-        saveInfo.completed = FALSE;
-        saveInfo.completed_true = FALSE;
-        saveInfo.completed_hard = FALSE;
-        saveInfo.completed_true_hard = FALSE;
+        save_info.completed = FALSE;
+        save_info.completed_true = FALSE;
+        save_info.completed_hard = FALSE;
+        save_info.completed_true_hard = FALSE;
     }
     else
     {
-        saveInfo.completed = TRUE;
+        save_info.completed = TRUE;
     }
 
-    WriteGlobalSaveInfo(&saveInfo);
+    WriteGlobalSaveInfo(&save_info);
 
     func_fe6_0801A944(menu, ent);
 }
@@ -339,7 +341,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     // required for a match
     if (gPlaySt.playthrough_id != 0) {}
 
-    SavePlayThroughData();
+    WriteCompletedPlaythroughSaveData();
 
     gPlaySt.flags &= ~PLAY_FLAG_4;
 
@@ -381,7 +383,7 @@ fu8 func_fe6_0801AB64(struct MenuProc * menu)
 
     menu->entries[3]->id = 1;
 
-    if (ReadSaveBlockInfo(&blockInfo, SAVE_ID_SUSPEND) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
+    if (ReadSaveBlockInfo(&blockInfo, SAVE_SUSPEND) != TRUE || ((blockInfo.checksum32 + (blockInfo.checksum32>>16)) & 0xFF) != 0)
     {
         StartFace(0, FID_63, 32, 80, FACE_DISP_KIND(FACE_96x80_FLIPPED) | FACE_DISP_HLAYER(4));
         StartFace(1, FID_61, DISPLAY_WIDTH - 32, 80, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(4));
@@ -438,10 +440,10 @@ fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
 
     InitUnits();
 
-    WriteNewGameSave(SAVE_ID_GAME0, FALSE);
+    WriteNewGameSave(SAVE_GAME0, FALSE);
     gPlaySt.chapter = ent->id;
 
-    WriteGameSave(SAVE_ID_GAME0);
+    WriteGameSave(SAVE_GAME0);
     CleanupUnitsBeforeChapter();
 
     RestartGameAndChapter();
@@ -480,14 +482,14 @@ fu8 func_fe6_0801AD50(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    WriteSuspendSave(SAVE_ID_SUSPEND_ALT);
+    WriteSuspendSave(SAVE_SUSPEND_ALT);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 
 fu8 func_fe6_0801AD6C(struct MenuEntInfo const * info, int id)
 {
-    return !IsValidSuspendSave(SAVE_ID_SUSPEND_ALT) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !IsValidSuspendSave(SAVE_SUSPEND_ALT) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -498,7 +500,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
     if (FindProc(ProcScr_BmMain) != NULL)
         EndMapMain();
 
-    ReadSuspendSave(SAVE_ID_SUSPEND_ALT);
+    ReadSuspendSave(SAVE_SUSPEND_ALT);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
@@ -506,7 +508,7 @@ fu8 func_fe6_0801AD84(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801ADB4(struct MenuEntInfo const * info, int id)
 {
-    return !IsValidSuspendSave(SAVE_ID_SUSPEND) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
+    return !IsValidSuspendSave(SAVE_SUSPEND) ? MENU_ENTRY_DISABLED : MENU_ENTRY_ENABLED;
 }
 
 fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -514,7 +516,7 @@ fu8 func_fe6_0801ADCC(struct MenuProc * menu, struct MenuEntProc * ent)
     if (ent->availability != 0)
         return MENU_ACTION_SE_6B;
 
-    ReadSuspendSave(SAVE_ID_SUSPEND);
+    ReadSuspendSave(SAVE_SUSPEND);
     RestartGameAndLoadSuspend();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;

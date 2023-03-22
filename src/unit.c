@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "unit.h"
 
 #include "msg.h"
@@ -14,7 +12,7 @@
 #include "trap.h"
 #include "action.h"
 #include "ai_utility.h"
-#include "save.h"
+#include "save_stats.h"
 
 #include "constants/terrains.h"
 #include "constants/iids.h"
@@ -24,8 +22,6 @@
 
 extern struct PInfo CONST_DATA PersonInfoTable[];
 extern struct JInfo CONST_DATA JobInfoTable[];
-
-extern struct Unit * CONST_DATA gUnitLut[0x100];
 
 u8 EWRAM_DATA gActiveUnitId = 0;
 struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin = {};
@@ -826,7 +822,7 @@ void func_fe6_08017EDC(int x, int y)
 
     gActiveUnit->flags |= UNIT_FLAG_TURN_ENDED;
 
-    PidStatsAddSquaresMoved(gActiveUnit->pinfo->id, gAction.move_count);
+    PidStatsAddMove(gActiveUnit->pinfo->id, gAction.move_count);
 
     if (GetUnitCurrentHp(gActiveUnit) != 0)
         gActiveUnit->flags = gActiveUnit->flags &~ UNIT_FLAG_HIDDEN;

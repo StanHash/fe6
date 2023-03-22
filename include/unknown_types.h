@@ -147,12 +147,3 @@ struct ChapterEventInfo
     /* 14 */ void const * units_blue;
     /* 18 */ void const * script_18;
 };
-
-struct TrialLoadInfo
-{
-    /* 00 */ struct ChapterInfo const * chapter_info;
-    /* 04 */ struct MapChangeInfo const * map_change_info;
-    /* 08 */ struct ChapterEventInfo const * event_info;
-    /* 0C */ char const * msg_0C;
-    /* 10 */ // ...
-};

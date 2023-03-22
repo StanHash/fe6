@@ -7,7 +7,8 @@
 #include "faction.h"
 #include "battle.h"
 #include "action.h"
-#include "save.h"
+#include "save_stats.h"
+#include "save_game.h"
 
 #include "constants/jids.h"
 #include "constants/pids.h"
@@ -650,7 +651,7 @@ void ArenaContinueBattle(void)
     gAction.extra = gBattleUnitB.unit.hp;
 
     gAction.suspend_point = SUSPEND_POINT_DURING_ARENA;
-    WriteSuspendSave(SAVE_ID_SUSPEND);
+    WriteSuspendSave(SAVE_SUSPEND);
 
     BattleUnwind();
 
@@ -660,7 +661,7 @@ void ArenaContinueBattle(void)
     UpdateUnitDuringBattle(gArenaSt.player, &gBattleUnitA);
 
     if (!just_resumed || gBattleUnitB.unit.hp == 0)
-        PidStatsRecordBattleRes();
+        PidStatsUpdateFromBattleOutcome();
 }
 
 bool ArenaIsUnitAllowed(struct Unit * unit)

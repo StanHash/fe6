@@ -5,10 +5,10 @@
 #include "faction.h"
 #include "unitsprite.h"
 #include "action.h"
-#include "save.h"
 #include "ai_perform.h"
 #include "ai_utility.h"
 #include "ai_script.h"
+#include "save_game.h"
 
 struct AiDecision EWRAM_DATA gAiDecision = {};
 
@@ -55,7 +55,7 @@ void AiDecide_Suspend(ProcPtr proc)
     else
         gAction.suspend_point = SUSPEND_POINT_AI_PHASE;
 
-    WriteSuspendSave(SAVE_ID_SUSPEND);
+    WriteSuspendSave(SAVE_SUSPEND);
 }
 
 void AiDecide_NextUnit(ProcPtr proc)
@@ -82,7 +82,7 @@ next_unit:
 
         func_fe6_08035064(gActiveUnit);
 
-        gAiSt.combat_wgt_table_id = (gActiveUnit->ai_config & 0xF8) >> 3;
+        gAiSt.combat_wgt_table_id = (gActiveUnit->ai_config & AI_UNIT_CONFIG_COMBATWEIGHT_MASK) >> AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT;
 
         gAiSt.danger_map_filled = FALSE;
         AiRefreshDangerMap();

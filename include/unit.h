@@ -320,6 +320,8 @@ int GetAidIconFromAttributes(int attributes);
 int func_fe6_08018258(struct Unit * unit);
 bool CanActiveUnitStillMove(void);
 
+extern struct Unit * CONST_DATA gUnitLut[0x100];
+
 extern struct Unit * gActiveUnit;
 
 extern u8 EWRAM_DATA gActiveUnitId;

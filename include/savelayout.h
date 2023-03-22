@@ -1,106 +1,26 @@
 #pragma once
 
 #include "common.h"
-
 #include "save.h"
 
-enum
+#include "save_core.h"
+#include "save_stats.h"
+#include "save_game.h"
+#include "save_multiarena.h"
+#include "save_xmap.h"
+
+#include "gbasram.h"
+
+struct SramMain
 {
-    UNIT_SAVE_AMOUNT_BLUE = 52,
-    UNIT_SAVE_AMOUNT_RED = 50,
-    UNIT_SAVE_AMOUNT_GREEN = 10,
+    struct GlobalSaveInfo head;
+    struct SaveBlockInfo block_info[SAVE_COUNT];
+    struct SuspendSaveBlock suspend;
+    struct SuspendSaveBlock suspend_alt;
+    struct GameSaveBlock game_0;
+    struct GameSaveBlock game_1;
+    struct GameSaveBlock game_2;
+    struct MultiArenaSaveBlock multi_arena;
 };
 
-// game save component sizes
-enum
-{
-    GAMESAVE_SIZE_PLAYST         = sizeof(struct PlaySt),
-    GAMESAVE_SIZE_UNITS           = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct GameSavePackedUnit),
-    GAMESAVE_SIZE_SUPPLY         = SUPPLY_ITEM_COUNT * sizeof(u16),
-    GAMESAVE_SIZE_PIDSTATS       = sizeof(gPidStatsData),
-    GAMESAVE_SIZE_CHAPTERSTATS   = sizeof(gChapterStats),
-    GAMESAVE_SIZE_PERMANENTFLAGS = sizeof(gPermanentFlagBits),
-};
-
-// game save memory map
-enum
-{
-    GAMESAVE_OFFSET_START = 0,
-
-    GAMESAVE_OFFSET_PLAYST         = GAMESAVE_OFFSET_START,
-    GAMESAVE_OFFSET_UNITS          = GAMESAVE_OFFSET_PLAYST       + GAMESAVE_SIZE_PLAYST,
-    GAMESAVE_OFFSET_SUPPLY         = GAMESAVE_OFFSET_UNITS        + GAMESAVE_SIZE_UNITS,
-    GAMESAVE_OFFSET_PIDSTATS       = GAMESAVE_OFFSET_SUPPLY       + GAMESAVE_SIZE_SUPPLY,
-    GAMESAVE_OFFSET_CHAPTERSTATS   = GAMESAVE_OFFSET_PIDSTATS     + GAMESAVE_SIZE_PIDSTATS,
-    GAMESAVE_OFFSET_PERMANENTFLAGS = GAMESAVE_OFFSET_CHAPTERSTATS + GAMESAVE_SIZE_CHAPTERSTATS,
-
-    GAMESAVE_OFFSET_MAX = GAMESAVE_OFFSET_PERMANENTFLAGS + GAMESAVE_SIZE_PERMANENTFLAGS + 3, // aligned 4
-};
-
-// suspend save compnent sizes
-enum
-{
-    SUSPENDSAVE_SIZE_PLAYST         = sizeof(struct PlaySt),
-    SUSPENDSAVE_SIZE_ACTION         = sizeof(struct Action),
-    SUSPENDSAVE_SIZE_UNITS_BLUE     = UNIT_SAVE_AMOUNT_BLUE * sizeof(struct SuspendSavePackedUnit),
-    SUSPENDSAVE_SIZE_UNITS_RED      = UNIT_SAVE_AMOUNT_RED * sizeof(struct SuspendSavePackedUnit),
-    SUSPENDSAVE_SIZE_UNITS_GREEN    = UNIT_SAVE_AMOUNT_GREEN * sizeof(struct SuspendSavePackedUnit),
-    SUSPENDSAVE_SIZE_TRAPS          = TRAP_MAX_COUNT * sizeof(struct Trap),
-    SUSPENDSAVE_SIZE_SUPPLY         = SUPPLY_ITEM_COUNT * sizeof(u16),
-    SUSPENDSAVE_SIZE_PIDSTATS       = sizeof(gPidStatsData),
-    SUSPENDSAVE_SIZE_CHAPTERSTATS   = sizeof(gChapterStats),
-    SUSPENDSAVE_SIZE_PERMANENTFLAGS = sizeof(gPermanentFlagBits),
-    SUSPENDSAVE_SIZE_CHAPTERFLAGS   = sizeof(gChapterFlagBits),
-};
-
-// suspend save memory map
-enum
-{
-    SUSPENDSAVE_OFFSET_START = 0,
-
-    SUSPENDSAVE_OFFSET_PLAYST         = SUSPENDSAVE_OFFSET_START,
-    SUSPENDSAVE_OFFSET_ACTION         = SUSPENDSAVE_OFFSET_PLAYST         + SUSPENDSAVE_SIZE_PLAYST,
-    SUSPENDSAVE_OFFSET_UNITS_BLUE     = SUSPENDSAVE_OFFSET_ACTION         + SUSPENDSAVE_SIZE_ACTION,
-    SUSPENDSAVE_OFFSET_UNITS_RED      = SUSPENDSAVE_OFFSET_UNITS_BLUE     + SUSPENDSAVE_SIZE_UNITS_BLUE,
-    SUSPENDSAVE_OFFSET_UNITS_GREEN    = SUSPENDSAVE_OFFSET_UNITS_RED      + SUSPENDSAVE_SIZE_UNITS_RED,
-    SUSPENDSAVE_OFFSET_TRAPS          = SUSPENDSAVE_OFFSET_UNITS_GREEN    + SUSPENDSAVE_SIZE_UNITS_GREEN,
-    SUSPENDSAVE_OFFSET_SUPPLY         = SUSPENDSAVE_OFFSET_TRAPS          + SUSPENDSAVE_SIZE_TRAPS,
-    SUSPENDSAVE_OFFSET_PIDSTATS       = SUSPENDSAVE_OFFSET_SUPPLY         + SUSPENDSAVE_SIZE_SUPPLY,
-    SUSPENDSAVE_OFFSET_CHAPTERSTATS   = SUSPENDSAVE_OFFSET_PIDSTATS       + SUSPENDSAVE_SIZE_PIDSTATS,
-    SUSPENDSAVE_OFFSET_PERMANENTFLAGS = SUSPENDSAVE_OFFSET_CHAPTERSTATS   + SUSPENDSAVE_SIZE_CHAPTERSTATS,
-    SUSPENDSAVE_OFFSET_CHAPTERFLAGS   = SUSPENDSAVE_OFFSET_PERMANENTFLAGS + SUSPENDSAVE_SIZE_PERMANENTFLAGS,
-
-    SUSPENDSAVE_OFFSET_MAX = SUSPENDSAVE_OFFSET_CHAPTERFLAGS + SUSPENDSAVE_SIZE_CHAPTERFLAGS + 3, // aligned 4
-};
-
-// sram block sizes by kind
-enum
-{
-    SRAM_SIZE_HEADER    = sizeof(struct GlobalSaveInfo),
-    SRAM_SIZE_BLOCKINFO = SAVE_ID_MAX * sizeof(struct SaveBlockInfo),
-    SRAM_SIZE_SUSPEND   = SUSPENDSAVE_OFFSET_MAX,
-    SRAM_SIZE_GAMESAVE  = GAMESAVE_OFFSET_MAX,
-    SRAM_SIZE_5         = 0x93C, // this is link arena stuff I think
-    SRAM_SIZE_6         = 0x1000, // this is trial map stuff I think
-};
-
-// global sram memory map
-enum
-{
-    SRAM_OFFSET_START = 0,
-
-    SRAM_OFFSET_HEADER    = SRAM_OFFSET_START,
-    SRAM_OFFSET_BLOCKINFO = SRAM_OFFSET_HEADER + SRAM_SIZE_HEADER,
-    SRAM_OFFSET_SUS0      = SRAM_OFFSET_BLOCKINFO + SRAM_SIZE_BLOCKINFO,
-    SRAM_OFFSET_SUS1      = SRAM_OFFSET_SUS0   + SRAM_SIZE_SUSPEND,
-    SRAM_OFFSET_SAV0      = SRAM_OFFSET_SUS1   + SRAM_SIZE_SUSPEND,
-    SRAM_OFFSET_SAV1      = SRAM_OFFSET_SAV0   + SRAM_SIZE_GAMESAVE,
-    SRAM_OFFSET_SAV2      = SRAM_OFFSET_SAV1   + SRAM_SIZE_GAMESAVE,
-    SRAM_OFFSET_5         = SRAM_OFFSET_SAV2   + SRAM_SIZE_GAMESAVE,
-
-    SRAM_OFFSET_END = SRAM_OFFSET_5 + SRAM_SIZE_5,
-
-    SRAM_OFFSET_6         = CART_SRAM_SIZE - SRAM_SIZE_6,
-};
-
-STATIC_ASSERT(SRAM_OFFSET_6 >= SRAM_OFFSET_END);
+STATIC_ASSERT(CART_SRAM_SIZE - SRAM_XMAP_SIZE >= sizeof(struct SramMain));

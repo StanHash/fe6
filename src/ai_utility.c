@@ -1224,7 +1224,7 @@ void UnitInitAiFromInfo(struct Unit * unit, struct UnitInfo const * info)
 {
     unit->ai_a = info->ai[0];
     unit->ai_b = info->ai[1];
-    unit->ai_config = (0xFFF8 & unit->ai_config) | info->ai[2] | (info->ai[3] << 8);
+    unit->ai_config = (unit->ai_config & ~AI_UNIT_CONFIG_HEALTHRESHOLD_MASK) | info->ai[2] | (info->ai[3] << 8);
 }
 
 bool func_fe6_08030AB4(struct Vec2i * out)

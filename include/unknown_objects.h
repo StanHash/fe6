@@ -9,6 +9,8 @@
 #include "menu.h"
 #include "mapselect.h"
 
+// some or those are not so much "unknown" as much as they just don't have a home yet
+
 extern struct Font gFont_Unk_02002770;
 extern u16 gUnk_Tm_02003238[];
 extern u16 gUnk_Tm_02003738[];
@@ -151,7 +153,6 @@ extern u8 CONST_DATA JList_GuidingRingPromotes[];
 extern i8 CONST_DATA MoveTable_Unk_0860C912[];
 
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
-extern struct TrialLoadInfo * CONST_DATA gTrialLoadInfo;
 
 extern void const * CONST_DATA ChapterAssets[];
 
@@ -230,3 +231,13 @@ extern u16 const Pal_Background_083073D8[];
 extern u16 const Pal_Unk_08309474[];
 extern u16 const Pal_Unk_083094F4[];
 extern u16 const Pal_Unk_0830D5E4[];
+
+// extra map bonus units
+extern struct UnitInfo const gUnk_086876AC[];
+extern struct UnitInfo const gUnk_086876CC[];
+extern struct UnitInfo const gUnk_086876EC[];
+extern struct UnitInfo const gUnk_0868770C[];
+extern struct UnitInfo const gUnk_0868772C[];
+extern struct UnitInfo const gUnk_0868774C[];
+extern struct UnitInfo const gUnk_0868776C[];
+extern struct UnitInfo const gUnk_0868778C[];

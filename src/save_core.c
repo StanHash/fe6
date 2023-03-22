@@ -1,4 +1,5 @@
-#include "save.h"
+#include "save_core.h"
+#include "savelayout.h"
 
 #include "gbasram.h"
 #include "gbaio.h"
@@ -13,14 +14,15 @@
 #include "unit.h"
 #include "action.h"
 #include "trap.h"
-#include "savelayout.h"
 
-u8 EWRAM_DATA gUnk_0203D524[0xA] = {0};
+static char const sSaveMarker[] = "AGB-FE6";
+
+struct SramMain * CONST_DATA gSramMain = CART_SRAM;
+
+// TODO: this doesn't belong here
+u8 EWRAM_DATA gUnk_0203D524[0xA] = { 0 };
+
 bool EWRAM_DATA gIsSramWorking = FALSE;
-void * EWRAM_DATA gPidStatsSaveLoc = NULL;
-struct PidStats EWRAM_DATA gPidStatsData[BWL_ARRAY_SIZE] = {0};
-struct ChapterStats EWRAM_DATA gChapterStats[WIN_ARRAY_SIZE] = {0};
-u8 EWRAM_DATA gSuspendSaveIdOffset = 0;
 
 void SramInit(void)
 {
@@ -33,8 +35,8 @@ void SramInit(void)
 
     REG_IE |= INTR_FLAG_GAMEPAK;
 
-    WriteSramFast((u8 const *) &buf[0], gSram + SRAM_OFFSET_END, sizeof(u32));
-    ReadSramFast(gSram + SRAM_OFFSET_END, (u8 *) &buf[1], sizeof(u32));
+    WriteSramFast((u8 const *) &buf[0], ((void *) gSramMain) + sizeof(*gSramMain), sizeof(u32));
+    ReadSramFast(((void *) gSramMain) + sizeof(*gSramMain), &buf[1], sizeof(u32));
 
     gIsSramWorking = (buf[1] == buf[0]) ? TRUE : FALSE;
 }
@@ -49,11 +51,13 @@ void WipeSram(void)
     u32 buf[0x10];
     int i;
 
-    for (i = 0; i < 0x10; i++)
+    for (i = 0; i < (int) ARRAY_COUNT(buf); i++)
         buf[i] = 0xFFFFFFFF;
 
-    for (i = 0; i < 0x200; i++)
-        WriteAndVerifySramFast((u8 *) buf, gSram + i * 0x40, 0x40);
+    for (i = 0; i < CART_SRAM_SIZE / (int) sizeof(buf); i++)
+        WriteAndVerifySramFast(buf, ((void *) gSramMain) + i * sizeof(buf), sizeof(buf));
+
+    STATIC_ASSERT(CART_SRAM_SIZE % sizeof(buf) == 0);
 }
 
 u16 Checksum16(void const * data, int size)
@@ -65,7 +69,7 @@ u16 Checksum16(void const * data, int size)
     u32 add_acc = 0;
     u32 xor_acc = 0;
 
-    for (i = 0; i < size/2; ++i)
+    for (i = 0; i < size / 2; ++i)
     {
         add_acc += data_u16[i];
         xor_acc ^= data_u16[i];
@@ -84,12 +88,12 @@ bool ReadGlobalSaveInfo(struct GlobalSaveInfo * info)
     if (info == NULL)
         info = &local_info;
 
-    ReadSramFast(gSram + SRAM_OFFSET_HEADER, info, sizeof(struct GlobalSaveInfo));
+    ReadSramFast(&gSramMain->head, info, sizeof(struct GlobalSaveInfo));
 
-    if (!StringEquals(info->name, gGlobalSaveInfoName))
+    if (!StringEquals(info->name, sSaveMarker))
         return FALSE;
 
-    if (info->magic32 == SAVEMAGIC32 && info->magic16 == SAVEMAGIC16 && info->checksum == Checksum16(info, GLOBALSIZEINFO_SIZE_FOR_CHECKSUM))
+    if (info->magic32 == SAVE_MAGIC32 && info->magic16 == SAVE_MAGIC16 && info->checksum == Checksum16(info, GLOBALSIZEINFO_SIZE_FOR_CHECKSUM))
         return TRUE;
 
     return FALSE;
@@ -98,12 +102,12 @@ bool ReadGlobalSaveInfo(struct GlobalSaveInfo * info)
 void WriteGlobalSaveInfo(struct GlobalSaveInfo * info)
 {
     info->checksum = Checksum16(info, GLOBALSIZEINFO_SIZE_FOR_CHECKSUM);
-    WriteAndVerifySramFast(info, gSram + SRAM_OFFSET_HEADER, sizeof(struct GlobalSaveInfo));
+    WriteAndVerifySramFast(info, &gSramMain->head, sizeof(struct GlobalSaveInfo));
 }
 
 void WriteGlobalSaveInfoNoChecksum(struct GlobalSaveInfo * info)
 {
-    WriteAndVerifySramFast(info, gSram + SRAM_OFFSET_HEADER, sizeof(struct GlobalSaveInfo));
+    WriteAndVerifySramFast(info, &gSramMain->head, sizeof(struct GlobalSaveInfo));
 }
 
 void InitGlobalSaveInfo(void)
@@ -114,9 +118,9 @@ void InitGlobalSaveInfo(void)
 
     WipeSram();
 
-    StringCopy(info.name, gGlobalSaveInfoName);
-    info.magic32 = SAVEMAGIC32;
-    info.magic16 = SAVEMAGIC16;
+    StringCopy(info.name, sSaveMarker);
+    info.magic32 = SAVE_MAGIC32;
+    info.magic16 = SAVE_MAGIC16;
     info.completed = FALSE;
     info.completed_true = FALSE;
     info.completed_hard = FALSE;
@@ -125,7 +129,7 @@ void InitGlobalSaveInfo(void)
     info.last_suspend_slot = 0;
     info.last_game_save_id = 0;
 
-    for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
+    for (i = 0; i < MAX_CLEARED_PLAYTHROUGHS; i++)
         info.cleared_playthroughs[i] = 0;
 
     WriteGlobalSaveInfo(&info);
@@ -133,138 +137,138 @@ void InitGlobalSaveInfo(void)
 
 void * SramOffsetToAddr(u16 off)
 {
-    return gSram + off;
+    return ((void *) gSramMain) + off;
 }
 
 u16 SramAddrToOffset(void * addr)
 {
-    return ((u8 *) addr) - gSram;
+    return ((u8 *) addr) - ((u8 *) (void *) gSramMain);
 }
 
-bool ReadSaveBlockInfo(struct SaveBlockInfo * chunk, int id)
+bool ReadSaveBlockInfo(struct SaveBlockInfo * block_info, int save_id)
 {
     struct SaveBlockInfo local_block_info;
     u32 magic32;
 
-    if (chunk == NULL)
-        chunk = &local_block_info;
+    if (block_info == NULL)
+        block_info = &local_block_info;
 
-    ReadSramFast(gSram + SRAM_OFFSET_BLOCKINFO + id * sizeof(struct SaveBlockInfo), chunk, sizeof(struct SaveBlockInfo));
+    ReadSramFast(&gSramMain->block_info[save_id], block_info, sizeof(struct SaveBlockInfo));
 
-    if (chunk->magic16 != SAVEMAGIC16)
+    if (block_info->magic16 != SAVE_MAGIC16)
         return FALSE;
 
-    switch (id)
+    switch (save_id)
     {
-        case SAVE_ID_GAME0:
-        case SAVE_ID_GAME1:
-        case SAVE_ID_GAME2:
-            magic32 = SAVEMAGIC32;
+        case SAVE_GAME0:
+        case SAVE_GAME1:
+        case SAVE_GAME2:
+            magic32 = SAVE_MAGIC32;
             break;
 
-        case SAVE_ID_SUSPEND:
-        case SAVE_ID_SUSPEND_ALT:
-            magic32 = SAVEMAGIC32;
+        case SAVE_SUSPEND:
+        case SAVE_SUSPEND_ALT:
+            magic32 = SAVE_MAGIC32;
             break;
 
-        case SAVE_ID_5:
-            magic32 = SAVEMAGIC32_UNK5;
+        case SAVE_MULTIARENA:
+            magic32 = SAVE_MAGIC32_MULTIARENA;
             break;
 
-        case SAVE_ID_6:
-            magic32 = SAVEMAGIC32_UNK6;
+        case SAVE_XMAP:
+            magic32 = SAVE_MAGIC32_XMAP;
             break;
 
         default:
             return FALSE;
     }
 
-    if (chunk->magic32 != magic32)
+    if (block_info->magic32 != magic32)
         return FALSE;
 
-    return VerifySaveBlockChecksum(chunk);
+    return VerifySaveBlockChecksum(block_info);
 }
 
-void WriteSaveBlockInfo(struct SaveBlockInfo * chunk, int id)
+void WriteSaveBlockInfo(struct SaveBlockInfo * block_info, int save_id)
 {
-    chunk->magic16 = SAVEMAGIC16;
+    block_info->magic16 = SAVE_MAGIC16;
 
 #if BUGFIX
-    chuck->offset = SramAddrToOffset(GetSaveWriteAddr(id));
+    chuck->offset = SramAddrToOffset(GetSaveWriteAddr(save_id));
 #else
-    chunk->offset = (uintptr_t)GetSaveWriteAddr(id);
+    block_info->offset = (uintptr_t)GetSaveWriteAddr(save_id);
 #endif
 
-    if (id >= SAVE_ID_MAX)
+    if (save_id >= SAVE_COUNT)
         return;
 
-    switch (chunk->kind)
+    switch (block_info->kind)
     {
-        case SAVEBLOCK_KIND_GAME:
-            chunk->size = SRAM_SIZE_GAMESAVE;
+        case SAVE_KIND_GAME:
+            block_info->size = sizeof(struct GameSaveBlock);
             break;
 
-        case SAVEBLOCK_KIND_SUSPEND:
-            chunk->size = SRAM_SIZE_SUSPEND;
+        case SAVE_KIND_SUSPEND:
+            block_info->size = sizeof(struct SuspendSaveBlock);
             break;
 
-        case SAVEBLOCK_KIND_2:
-            chunk->size = SRAM_SIZE_5;
+        case SAVE_KIND_MULTIARENA:
+            block_info->size = sizeof(struct MultiArenaSaveBlock);
             break;
 
-        case SAVEBLOCK_KIND_3:
-            chunk->size = SRAM_SIZE_6;
+        case SAVE_KIND_XMAP:
+            block_info->size = SRAM_XMAP_SIZE;
             break;
 
-        case (u8)SAVEBLOCK_KIND_INVALID:
-            chunk->size = 0;
-            chunk->offset = 0;
-            chunk->magic16 = 0;
+        case SAVE_KIND_INVALID:
+            block_info->size = 0;
+            block_info->offset = 0;
+            block_info->magic16 = 0;
             break;
 
         default:
             return;
     }
 
-    PopulateSaveBlockChecksum(chunk);
-    WriteAndVerifySramFast(chunk, gSram + SRAM_OFFSET_BLOCKINFO + id * sizeof(struct SaveBlockInfo), sizeof(struct SaveBlockInfo));
+    PopulateSaveBlockChecksum(block_info);
+    WriteAndVerifySramFast(block_info, &gSramMain->block_info[save_id], sizeof(struct SaveBlockInfo));
 }
 
-void * GetSaveWriteAddr(int id)
+void * GetSaveWriteAddr(int save_id)
 {
-    switch (id)
+    switch (save_id)
     {
-        case SAVE_ID_GAME0:
-            return gSram + SRAM_OFFSET_SAV0; // 0x3BE8
+        case SAVE_GAME0:
+            return &gSramMain->game_0;
 
-        case SAVE_ID_GAME1:
-            return gSram + SRAM_OFFSET_SAV1; // 0x49D8
+        case SAVE_GAME1:
+            return &gSramMain->game_1;
 
-        case SAVE_ID_GAME2:
-            return gSram + SRAM_OFFSET_SAV2; // 0x57C8
+        case SAVE_GAME2:
+            return &gSramMain->game_2;
 
-        case SAVE_ID_SUSPEND:
-            return gSram + SRAM_OFFSET_SUS0; // 0x0090
+        case SAVE_SUSPEND:
+            return &gSramMain->suspend;
 
-        case SAVE_ID_SUSPEND_ALT:
-            return gSram + SRAM_OFFSET_SUS1; // 0x1E3C
+        case SAVE_SUSPEND_ALT:
+            return &gSramMain->suspend_alt;
 
-        case SAVE_ID_5:
-            return gSram + SRAM_OFFSET_5;    // 0x65B8
+        case SAVE_MULTIARENA:
+            return &gSramMain->multi_arena;
 
-        case SAVE_ID_6:
-            return CART_SRAM + SRAM_OFFSET_6; // TODO: nicer
+        case SAVE_XMAP:
+            return SRAM_XMAP_ADDR;
 
         default:
             return NULL;
     }
 }
 
-void * GetSaveReadAddr(int id)
+void * GetSaveReadAddr(int save_id)
 {
-    struct SaveBlockInfo chunk;
-    ReadSaveBlockInfo(&chunk, id);
-    return SramOffsetToAddr(chunk.offset);
+    struct SaveBlockInfo block_info;
+    ReadSaveBlockInfo(&block_info, save_id);
+    return SramOffsetToAddr(block_info.offset);
 }
 
 void WriteChapterFlags(void * sram_dst)
@@ -312,7 +316,7 @@ bool func_fe6_08084714(void)
     return TRUE;
 }
 
-bool func_fe6_08084718(void)
+bool IsMultiArenaAvailable(void)
 {
     int i;
 
@@ -324,7 +328,7 @@ bool func_fe6_08084718(void)
                 return TRUE;
         }
 
-        return func_fe6_08086558();
+        return IsMultiArenaSaveReady();
     }
 
     /*

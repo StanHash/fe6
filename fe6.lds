@@ -239,7 +239,12 @@ SECTIONS
         . = ALIGN(4); src/helpbox_2.o(ewram_data);
 
         . = 0x0203D524 - __ewram_overlay_end;
-        . = ALIGN(4); src/save_lib.o(ewram_data);
+        . = ALIGN(4); src/save_core.o(ewram_data);
+        . = ALIGN(4); src/save_stats.o(ewram_data);
+        . = ALIGN(4); src/save_game.o(ewram_data);
+        . = ALIGN(4); src/save_multiarena.o(ewram_data);
+        . = ALIGN(4); src/save_xmap.o(ewram_data);
+
         . = 0x02040000 - __ewram_overlay_end; /* end */
     }
 
@@ -450,10 +455,11 @@ SECTIONS
         asm/code_mapui.o(.text);
         asm/code_sioerror.o(.text);
         asm/code_8073548.o(.text);
-        src/save_lib.o(.text);
-        src/save_bwl.o(.text);
-        src/save.o(.text);
-        asm/code-save.o(.text);
+        src/save_core.o(.text);
+        src/save_stats.o(.text);
+        src/save_game.o(.text);
+        src/save_multiarena.o(.text);
+        src/save_xmap.o(.text);
 
         asm/code.o(.text);
 
@@ -538,6 +544,9 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/helpbox.o(.rodata);
         . = ALIGN(4); src/helpbox_2.o(.rodata);
+        . = ALIGN(4); data/rodata_3198C0.o(.rodata);
+        . = ALIGN(4); src/save_core.o(.rodata);
+        . = ALIGN(4); src/save_multiarena.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
@@ -604,6 +613,9 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/helpbox.o(.data);
         . = ALIGN(4); src/helpbox_2.o(.data);
+        . = ALIGN(4); data/data_678128.o(.data);
+        . = ALIGN(4); src/save_core.o(.data);
+        . = ALIGN(4); src/save_xmap.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

@@ -14,7 +14,7 @@
 #include "itemaction.h"
 #include "mu.h"
 #include "eventinfo.h"
-#include "save.h"
+#include "save_stats.h"
 
 #include "constants/terrains.h"
 #include "constants/songs.h"
@@ -45,7 +45,7 @@ static bool DoTalkAction(ProcPtr proc);
 static bool DoSupportAction(ProcPtr proc);
 static bool DoStealAction(ProcPtr proc);
 
-struct Action EWRAM_DATA gAction = {};
+struct Action EWRAM_DATA gAction = { 0 };
 
 static void DeathDropSpriteAnim_Loop(struct DeathDropAnimProc * proc);
 static void DeathDropSpriteAnim_End(struct DeathDropAnimProc * proc);
@@ -405,7 +405,7 @@ void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent)
 {
     if (GetUnitCurrentHp(unit) == 0)
     {
-        PidStatsRecordDefeatInfo(unit->pinfo->id, opponent->pinfo->id, DEFEAT_CAUSE_COMBAT);
+        PidStatsSetDefeatInfo(unit->pinfo->id, opponent->pinfo->id, DEFEAT_CAUSE_COMBAT);
         KillUnit(unit);
     }
 }
@@ -415,7 +415,7 @@ void func_fe6_0802A6B4(struct Unit * unit)
     if (GetUnitCurrentHp(unit) == 0)
     {
         KillUnit(unit);
-        PidStatsRecordDefeatInfo(unit->pinfo->id, 0, DEFEAT_CAUSE_6);
+        PidStatsSetDefeatInfo(unit->pinfo->id, 0, DEFEAT_CAUSE_6);
     }
 }
 

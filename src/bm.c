@@ -27,7 +27,7 @@
 #include "ai_phase.h"
 #include "ui.h"
 #include "eventinfo.h"
-#include "save.h"
+#include "save_game.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
@@ -463,7 +463,7 @@ int BmMain_UpdateTraps(ProcPtr proc)
 void BmMain_SuspendBeforePhase(ProcPtr proc)
 {
     gAction.suspend_point = SUSPEND_POINT_CHANGE_PHASE;
-    WriteSuspendSave(SAVE_ID_SUSPEND);
+    WriteSuspendSave(SAVE_SUSPEND);
 }
 
 void InitBmBgLayers(void)

@@ -85,6 +85,3 @@ struct MapSelectProc;
 struct MenuProc;
 struct MenuEntProc;
 struct MenuEntInfo;
-
-struct GlobalSaveInfo;
-struct SaveBlockInfo;

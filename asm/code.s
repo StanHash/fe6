@@ -2,281 +2,6 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_080867F0
-func_fe6_080867F0: @ 0x080867F0
-	push {lr}
-	bl GetChapterUnk_0802BBD0
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start func_fe6_080867FC
-func_fe6_080867FC: @ 0x080867FC
-	push {lr}
-	movs r2, #0
-	adds r0, #1
-	cmp r0, #0x2d
-	bls .L08086808
-	b .L08086904
-.L08086808:
-	lsls r0, r0, #2
-	ldr r1, .L08086814 @ =.L08086818
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-.L08086814: .4byte .L08086818
-.L08086818: @ jump table
-	.4byte .L080868F8 @ case 0
-	.4byte .L08086904 @ case 1
-	.4byte .L08086904 @ case 2
-	.4byte .L08086904 @ case 3
-	.4byte .L08086904 @ case 4
-	.4byte .L08086904 @ case 5
-	.4byte .L08086904 @ case 6
-	.4byte .L08086904 @ case 7
-	.4byte .L08086904 @ case 8
-	.4byte .L08086904 @ case 9
-	.4byte .L08086904 @ case 10
-	.4byte .L08086904 @ case 11
-	.4byte .L08086904 @ case 12
-	.4byte .L08086904 @ case 13
-	.4byte .L08086904 @ case 14
-	.4byte .L08086904 @ case 15
-	.4byte .L08086904 @ case 16
-	.4byte .L08086904 @ case 17
-	.4byte .L08086904 @ case 18
-	.4byte .L08086904 @ case 19
-	.4byte .L08086904 @ case 20
-	.4byte .L08086904 @ case 21
-	.4byte .L08086904 @ case 22
-	.4byte .L08086904 @ case 23
-	.4byte .L08086904 @ case 24
-	.4byte .L08086904 @ case 25
-	.4byte .L08086904 @ case 26
-	.4byte .L08086904 @ case 27
-	.4byte .L08086904 @ case 28
-	.4byte .L08086904 @ case 29
-	.4byte .L08086904 @ case 30
-	.4byte .L08086904 @ case 31
-	.4byte .L08086904 @ case 32
-	.4byte .L08086904 @ case 33
-	.4byte .L08086904 @ case 34
-	.4byte .L08086904 @ case 35
-	.4byte .L08086904 @ case 36
-	.4byte .L08086904 @ case 37
-	.4byte .L08086904 @ case 38
-	.4byte .L08086904 @ case 39
-	.4byte .L08086904 @ case 40
-	.4byte .L080868D0 @ case 41
-	.4byte .L080868D8 @ case 42
-	.4byte .L080868E0 @ case 43
-	.4byte .L080868E8 @ case 44
-	.4byte .L080868F0 @ case 45
-.L080868D0:
-	ldr r2, .L080868D4 @ =0x00000C7C
-	b .L08086904
-	.align 2, 0
-.L080868D4: .4byte 0x00000C7C
-.L080868D8:
-	ldr r2, .L080868DC @ =0x00000C7F
-	b .L08086904
-	.align 2, 0
-.L080868DC: .4byte 0x00000C7F
-.L080868E0:
-	ldr r2, .L080868E4 @ =0x00000C82
-	b .L08086904
-	.align 2, 0
-.L080868E4: .4byte 0x00000C82
-.L080868E8:
-	ldr r2, .L080868EC @ =0x00000C85
-	b .L08086904
-	.align 2, 0
-.L080868EC: .4byte 0x00000C85
-.L080868F0:
-	ldr r2, .L080868F4 @ =0x00000C88
-	b .L08086904
-	.align 2, 0
-.L080868F4: .4byte 0x00000C88
-.L080868F8:
-	ldr r0, .L08086900 @ =gTrialLoadInfo
-	ldr r0, [r0]
-	ldr r0, [r0, #0x10]
-	b .L0808690A
-	.align 2, 0
-.L08086900: .4byte gTrialLoadInfo
-.L08086904:
-	adds r0, r2, #0
-	bl DecodeMsg
-.L0808690A:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start func_fe6_08086910
-func_fe6_08086910: @ 0x08086910
-	push {lr}
-	movs r2, #0
-	adds r0, #1
-	cmp r0, #0x2d
-	bls .L0808691C
-	b .L08086A18
-.L0808691C:
-	lsls r0, r0, #2
-	ldr r1, .L08086928 @ =.L0808692C
-	adds r0, r0, r1
-	ldr r0, [r0]
-	mov pc, r0
-	.align 2, 0
-.L08086928: .4byte .L0808692C
-.L0808692C: @ jump table
-	.4byte .L08086A0C @ case 0
-	.4byte .L08086A18 @ case 1
-	.4byte .L08086A18 @ case 2
-	.4byte .L08086A18 @ case 3
-	.4byte .L08086A18 @ case 4
-	.4byte .L08086A18 @ case 5
-	.4byte .L08086A18 @ case 6
-	.4byte .L08086A18 @ case 7
-	.4byte .L08086A18 @ case 8
-	.4byte .L08086A18 @ case 9
-	.4byte .L08086A18 @ case 10
-	.4byte .L08086A18 @ case 11
-	.4byte .L08086A18 @ case 12
-	.4byte .L08086A18 @ case 13
-	.4byte .L08086A18 @ case 14
-	.4byte .L08086A18 @ case 15
-	.4byte .L08086A18 @ case 16
-	.4byte .L08086A18 @ case 17
-	.4byte .L08086A18 @ case 18
-	.4byte .L08086A18 @ case 19
-	.4byte .L08086A18 @ case 20
-	.4byte .L08086A18 @ case 21
-	.4byte .L08086A18 @ case 22
-	.4byte .L08086A18 @ case 23
-	.4byte .L08086A18 @ case 24
-	.4byte .L08086A18 @ case 25
-	.4byte .L08086A18 @ case 26
-	.4byte .L08086A18 @ case 27
-	.4byte .L08086A18 @ case 28
-	.4byte .L08086A18 @ case 29
-	.4byte .L08086A18 @ case 30
-	.4byte .L08086A18 @ case 31
-	.4byte .L08086A18 @ case 32
-	.4byte .L08086A18 @ case 33
-	.4byte .L08086A18 @ case 34
-	.4byte .L08086A18 @ case 35
-	.4byte .L08086A18 @ case 36
-	.4byte .L08086A18 @ case 37
-	.4byte .L08086A18 @ case 38
-	.4byte .L08086A18 @ case 39
-	.4byte .L08086A18 @ case 40
-	.4byte .L080869E4 @ case 41
-	.4byte .L080869EC @ case 42
-	.4byte .L080869F2 @ case 43
-	.4byte .L080869FC @ case 44
-	.4byte .L08086A04 @ case 45
-.L080869E4:
-	ldr r2, .L080869E8 @ =0x00000C7D
-	b .L08086A18
-	.align 2, 0
-.L080869E8: .4byte 0x00000C7D
-.L080869EC:
-	movs r2, #0xc8
-	lsls r2, r2, #4
-	b .L08086A18
-.L080869F2:
-	ldr r2, .L080869F8 @ =0x00000C83
-	b .L08086A18
-	.align 2, 0
-.L080869F8: .4byte 0x00000C83
-.L080869FC:
-	ldr r2, .L08086A00 @ =0x00000C86
-	b .L08086A18
-	.align 2, 0
-.L08086A00: .4byte 0x00000C86
-.L08086A04:
-	ldr r2, .L08086A08 @ =0x00000C89
-	b .L08086A18
-	.align 2, 0
-.L08086A08: .4byte 0x00000C89
-.L08086A0C:
-	ldr r0, .L08086A14 @ =gTrialLoadInfo
-	ldr r0, [r0]
-	ldr r0, [r0, #0x14]
-	b .L08086A1E
-	.align 2, 0
-.L08086A14: .4byte gTrialLoadInfo
-.L08086A18:
-	adds r0, r2, #0
-	bl DecodeMsg
-.L08086A1E:
-	pop {r1}
-	bx r1
-	.align 2, 0
-
-	thumb_func_start LoadTrialMapBonusUnits
-LoadTrialMapBonusUnits: @ 0x08086A24
-	push {r4, lr}
-	bl GetGlobalCompletedPlaythroughCount
-	adds r4, r0, #1
-	ldr r1, .L08086A88 @ =gMapHidden
-	movs r0, #0
-	str r0, [r1]
-	cmp r4, #1
-	ble .L08086A3C
-	ldr r0, .L08086A8C @ =gUnk_086876AC
-	bl BatchCreateUnits
-.L08086A3C:
-	cmp r4, #2
-	ble .L08086A46
-	ldr r0, .L08086A90 @ =gUnk_086876CC
-	bl BatchCreateUnits
-.L08086A46:
-	cmp r4, #3
-	ble .L08086A50
-	ldr r0, .L08086A94 @ =gUnk_086876EC
-	bl BatchCreateUnits
-.L08086A50:
-	cmp r4, #4
-	ble .L08086A5A
-	ldr r0, .L08086A98 @ =gUnk_0868770C
-	bl BatchCreateUnits
-.L08086A5A:
-	cmp r4, #5
-	ble .L08086A64
-	ldr r0, .L08086A9C @ =gUnk_0868772C
-	bl BatchCreateUnits
-.L08086A64:
-	cmp r4, #6
-	ble .L08086A6E
-	ldr r0, .L08086AA0 @ =gUnk_0868774C
-	bl BatchCreateUnits
-.L08086A6E:
-	cmp r4, #7
-	ble .L08086A78
-	ldr r0, .L08086AA4 @ =gUnk_0868776C
-	bl BatchCreateUnits
-.L08086A78:
-	cmp r4, #9
-	ble .L08086A82
-	ldr r0, .L08086AA8 @ =gUnk_0868778C
-	bl BatchCreateUnits
-.L08086A82:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08086A88: .4byte gMapHidden
-.L08086A8C: .4byte gUnk_086876AC
-.L08086A90: .4byte gUnk_086876CC
-.L08086A94: .4byte gUnk_086876EC
-.L08086A98: .4byte gUnk_0868770C
-.L08086A9C: .4byte gUnk_0868772C
-.L08086AA0: .4byte gUnk_0868774C
-.L08086AA4: .4byte gUnk_0868776C
-.L08086AA8: .4byte gUnk_0868778C
-
 	thumb_func_start func_fe6_08086AAC
 func_fe6_08086AAC: @ 0x08086AAC
 	push {r4, r5, lr}
@@ -7841,7 +7566,7 @@ func_fe6_0808A524: @ 0x0808A524
 	adds r0, #1
 	strb r0, [r1]
 .L0808A5E2:
-	bl func_fe6_08084718
+	bl IsMultiArenaAvailable
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0808A5FE
@@ -8783,7 +8508,7 @@ func_fe6_0808ABD4: @ 0x0808ABD4
 	adds r4, r7, #0
 	adds r4, #0x38
 	adds r0, r4, #0
-	bl func_fe6_0808677C
+	bl ListAvailableTrialChapters
 	adds r1, r7, #0
 	adds r1, #0x2b
 	movs r0, #0
@@ -17563,9 +17288,9 @@ func_fe6_0808F3E8: @ 0x0808F3E8
 	thumb_func_start func_fe6_0808F470
 func_fe6_0808F470: @ 0x0808F470
 	push {r4, lr}
-	bl PidStatsGetTotalBattleAmt
+	bl PidStatsCountTotalBattles
 	adds r4, r0, #0
-	bl PidStatsGetTotalWinAmt
+	bl PidStatsCountTotalWins
 	movs r1, #0x64
 	muls r0, r1, r0
 	adds r1, r4, #0
@@ -17603,9 +17328,9 @@ func_fe6_0808F490: @ 0x0808F490
 	thumb_func_start func_fe6_0808F4B8
 func_fe6_0808F4B8: @ 0x0808F4B8
 	push {r4, lr}
-	bl PidStatsGetTotalBattleAmt
+	bl PidStatsCountTotalBattles
 	adds r4, r0, #0
-	bl PidStatsGetTotalWinAmt
+	bl PidStatsCountTotalWins
 	movs r1, #0x64
 	muls r0, r1, r0
 	adds r1, r4, #0
@@ -17732,7 +17457,7 @@ func_fe6_0808F550: @ 0x0808F550
 	thumb_func_start func_fe6_0808F59C
 func_fe6_0808F59C: @ 0x0808F59C
 	push {lr}
-	bl PidStatsGetTotalLevel
+	bl PidStatsCountTotalLevelsGained
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
 	pop {r1}
@@ -35700,7 +35425,7 @@ func_fe6_080983EC: @ 0x080983EC
 	ldr r0, .L08098474 @ =gActiveUnit
 	ldr r1, [r0]
 	adds r0, r1, #0
-	bl PidStatsAddBattleAmt
+	bl PidStatsAddBattle
 	bl EndAllMus
 	ldr r0, .L08098470 @ =gAction
 	ldrb r1, [r0, #0x15]

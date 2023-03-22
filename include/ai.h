@@ -23,6 +23,28 @@ enum
 
 enum
 {
+    // "ai3"
+
+    // 0~2 healing ai theshold select
+    AI_UNIT_CONFIG_HEALTHRESHOLD_SHIFT = 0,
+    AI_UNIT_CONFIG_HEALTHRESHOLD_BITS = 3,
+    AI_UNIT_CONFIG_HEALTHRESHOLD_MASK = ((1 << AI_UNIT_CONFIG_HEALTHRESHOLD_BITS) - 1) << AI_UNIT_CONFIG_HEALTHRESHOLD_SHIFT,
+
+    // 3~7 combat target decide weight set select
+    AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT = 3,
+    AI_UNIT_CONFIG_COMBATWEIGHT_BITS = 5,
+    AI_UNIT_CONFIG_COMBATWEIGHT_MASK = ((1 << AI_UNIT_CONFIG_COMBATWEIGHT_BITS) - 1) << AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT,
+
+    // "ai4"
+
+    // 8+
+
+    // 13
+    AI_UNIT_CONFIG_FLAG_UNK13 = 1 << 13,
+};
+
+enum
+{
     AI_A_00 = 0x00,
     AI_A_06 = 0x06,
 };

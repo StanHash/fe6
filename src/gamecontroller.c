@@ -9,7 +9,8 @@
 #include "ui.h"
 #include "eventinfo.h"
 #include "statscreen.h"
-#include "save.h"
+#include "save_stats.h"
+#include "save_game.h"
 
 #include "constants/chapters.h"
 
@@ -33,7 +34,7 @@ static void GC_PostIntro(struct GameController * proc);
 static void GC_PostDemo(struct GameController * proc);
 static void GC_PostMainMenu(struct GameController * proc);
 static void GC_InitTutorial(struct GameController * proc);
-static void GC_InitTrialMap(struct GameController * proc);
+static void GC_InitTrialChapter(struct GameController * proc);
 static void GC_ClearSuspend(struct GameController * proc);
 static void GC_PostChapter(struct GameController * proc);
 static void GC_CheckForGameEnded(struct GameController * proc);
@@ -152,7 +153,7 @@ PROC_LABEL(L_GAMECTRL_LOADSUSPEND),
     PROC_GOTO(L_GAMECTRL_POSTCHAPTER),
 
 PROC_LABEL(L_GAMECTRL_TRIAL),
-    PROC_CALL(GC_InitTrialMap),
+    PROC_CALL(GC_InitTrialChapter),
 
     PROC_CALL(StartChapter),
 
@@ -228,7 +229,7 @@ static int GetFurthestSaveChapter(void)
     chapter = 0;
     number = 0;
 
-    for (i = SAVE_ID_GAME0; i <= SAVE_ID_GAME2; ++i)
+    for (i = SAVE_GAME0; i <= SAVE_GAME2; ++i)
     {
         if (!IsSaveValid(i))
             continue;
@@ -418,16 +419,16 @@ static void GC_InitTutorial(struct GameController * proc)
     gPlaySt.chapter = CHAPTER_TUTORIAL;
 }
 
-static void GC_InitTrialMap(struct GameController * proc)
+static void GC_InitTrialChapter(struct GameController * proc)
 {
-    LoadTrialMapBonusUnits();
+    CreateTrialChapterBonusUnits();
     ClearPidStats();
     CleanupUnitsBeforeChapter();
 }
 
 static void GC_ClearSuspend(struct GameController * proc)
 {
-    InvalidateSuspendSave(SAVE_ID_SUSPEND);
+    InvalidateSuspendSave(SAVE_SUSPEND);
 }
 
 static void GC_PostChapter(struct GameController * proc)

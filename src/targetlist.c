@@ -10,7 +10,7 @@
 #include "support.h"
 #include "trap.h"
 #include "eventinfo.h"
-#include "save.h"
+#include "save_stats.h"
 
 #include "constants/terrains.h"
 
@@ -806,8 +806,8 @@ void func_fe6_08021B30(int defeat_cause)
 
         if (GetUnitCurrentHp(other) <= target->extra)
         {
-            PidStatsRecordDefeatInfo(other->pinfo->id, 0, defeat_cause);
-            PidStatsRecordLoseData(other->pinfo->id);
+            PidStatsSetDefeatInfo(other->pinfo->id, 0, defeat_cause);
+            PidStatsAddLoss(other->pinfo->id);
         }
     }
 }

@@ -17,7 +17,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
-#include "save.h" // DEFEAT_CAUSE_...
+#include "save_stats.h"
 
 #include "constants/iids.h"
 

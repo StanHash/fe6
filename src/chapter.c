@@ -16,7 +16,8 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
-#include "save.h"
+#include "save_core.h"
+#include "save_stats.h"
 
 #include "constants/chapters.h"
 
@@ -160,7 +161,7 @@ void ResumeChapterFromSuspend(struct GenericProc * parent)
     ProcPtr mapmain;
 
     if (gPlaySt.chapter < 0)
-        func_fe6_080866EC();
+        ReadExtraMapInfo();
 
     InitBgs(NULL);
 
@@ -577,5 +578,5 @@ void func_fe6_08029654(void)
     gPlaySt.ending_id = GetEndingId();
 
     RegisterChapterStats(&gPlaySt);
-    SavePlayThroughData();
+    WriteCompletedPlaythroughSaveData();
 }

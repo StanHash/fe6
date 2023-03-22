@@ -139,7 +139,7 @@ bool AiTryGetNearestHealPoint(struct Vec2i * out)
     int currentCount = 10000;
     int currentMove = UINT8_MAX;
 
-    if (gActiveUnit->ai_config & 0x2000) // TODO: AI CONFIG CONSTANTS
+    if (gActiveUnit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13)
         return FALSE;
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_LORD)
@@ -175,7 +175,7 @@ bool AiTryGetNearestHealPoint(struct Vec2i * out)
 
                     unit = GetUnit(gMapUnit[iy][ix]);
 
-                    if (unit->ai_config & 0x2000) // TODO: AI CONFIG CONSTANTS
+                    if (unit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13)
                         if (!(unit->ai_flags & AI_UNIT_FLAG_2))
                             continue;
                 }
@@ -235,7 +235,7 @@ bool AiUpdateGetUnitIsHealing(struct Unit * unit)
 
     if (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
     {
-        if (gUnk_085C8820[unit->ai_config & 7].exit_threshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].exit_threshold > hpPercentage)
         {
             return TRUE;
         }
@@ -247,7 +247,7 @@ bool AiUpdateGetUnitIsHealing(struct Unit * unit)
     }
     else
     {
-        if (gUnk_085C8820[unit->ai_config & 7].enter_threshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].enter_threshold > hpPercentage)
         {
             unit->ai_flags |= AI_UNIT_FLAG_SEEK_HEALING;
             return TRUE;

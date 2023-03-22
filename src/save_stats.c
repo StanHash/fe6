@@ -1,4 +1,4 @@
-#include "save.h"
+#include "save_stats.h"
 
 #include "gbasram.h"
 #include "gbaio.h"
@@ -13,57 +13,58 @@
 #include "unit.h"
 #include "action.h"
 #include "trap.h"
-#include "savelayout.h"
+#include "save_core.h"
+#include "save_game.h"
 
 #include "constants/chapters.h"
 
-void ClearPidChStatsSaveData(void * sram_dst)
+struct PidStats * EWRAM_DATA gPidStatsSram = NULL;
+
+struct PidStats EWRAM_DATA gPidStats[PID_STATS_COUNT] = { { 0 } };
+struct ChapterStats EWRAM_DATA gChapterStats[CHAPTER_STATS_COUNT] = { { 0 } };
+
+void WriteGameSaveFreshStats(struct GameSaveBlock * gamesave_sram)
 {
     int i;
 
-    CpuFill16(0, gPidStatsData, sizeof(gPidStatsData));
+    CpuFill16(0, gPidStats, sizeof(gPidStats));
     CpuFill16(0, gChapterStats, sizeof(gChapterStats));
 
-    for (i = 0; i < BWL_ARRAY_SIZE; i++)
+    for (i = 0; i < PID_STATS_COUNT; i++)
     {
         WriteAndVerifySramFast(
-            gPidStatsData, sram_dst + GAMESAVE_OFFSET_PIDSTATS + i * sizeof(struct PidStats), sizeof(struct PidStats));
+            gPidStats, &gamesave_sram->pid_stats[i], sizeof(struct PidStats));
     }
 
-    for (i = 0; i < WIN_ARRAY_SIZE; i++)
+    for (i = 0; i < CHAPTER_STATS_COUNT; i++)
     {
         WriteAndVerifySramFast(
-            gChapterStats, sram_dst + GAMESAVE_OFFSET_CHAPTERSTATS + i * sizeof(struct ChapterStats), sizeof(struct ChapterStats));
+            gChapterStats, &gamesave_sram->chapter_stats[i], sizeof(struct ChapterStats));
     }
 
-    gPidStatsSaveLoc = sram_dst + GAMESAVE_OFFSET_PIDSTATS;
+    gPidStatsSram = gamesave_sram->pid_stats;
 }
 
 void ClearPidStats(void)
 {
-    CpuFill16(0, gPidStatsData, sizeof(gPidStatsData));
+    CpuFill16(0, gPidStats, sizeof(gPidStats));
 }
 
-void ReadPidStats(void * sram_src)
+void ReadPidStats(void const * sram_src)
 {
-    ReadSramFast(sram_src, (u8 *)gPidStatsData, sizeof(gPidStatsData));
-    gPidStatsSaveLoc = sram_src;
+    ReadSramFast(sram_src, gPidStats, sizeof(gPidStats));
+    gPidStatsSram = (void *) sram_src;
 }
 
 void ReadChapterStats(void const * sram_src)
 {
-    ReadSramFast(sram_src, (u8 *)gChapterStats, sizeof(gChapterStats));
+    ReadSramFast(sram_src, gChapterStats, sizeof(gChapterStats));
 }
 
 void WritePidStats(void * sram_dst)
 {
-    WriteAndVerifySramFast(
-        (u8 *)gPidStatsData,
-        sram_dst,
-        sizeof(gPidStatsData)
-    );
-
-    gPidStatsSaveLoc = sram_dst;
+    WriteAndVerifySramFast(gPidStats, sram_dst, sizeof(gPidStats));
+    gPidStatsSram = sram_dst;
 }
 
 void WriteChapterStats(void * sram_dst)
@@ -76,7 +77,7 @@ struct ChapterStats * GetChapterStats(int num)
     return gChapterStats + num;
 }
 
-bool IsWinDataValid(struct ChapterStats * chapter_stats)
+bool IsValidChapterStats(struct ChapterStats * chapter_stats)
 {
     return chapter_stats->chapter_turn > 0;
 }
@@ -113,16 +114,16 @@ void RegisterChapterStats(struct PlaySt * play_st)
 
 inline struct PidStats * GetPidStats(fu8 pid)
 {
-    if (pid >= BWL_ARRAY_SIZE)
+    if (pid >= PID_STATS_COUNT)
         return NULL;
 
     if (GetPInfo(pid)->affinity == 0)
         return NULL;
 
-    return gPidStatsData + pid - 1;
+    return gPidStats + pid - 1;
 }
 
-void PidStatsAddBattleAmt(struct Unit * unit)
+void PidStatsAddBattle(struct Unit * unit)
 {
     struct PidStats * stats;
 
@@ -138,7 +139,7 @@ void PidStatsAddBattleAmt(struct Unit * unit)
         stats->battle_count++;
 }
 
-void PidStatsAddWinAmt(fu8 pid)
+void PidStatsAddWin(fu8 pid)
 {
     struct PidStats * stats = GetPidStats(pid);
 
@@ -149,7 +150,7 @@ void PidStatsAddWinAmt(fu8 pid)
         stats->win_count++;
 }
 
-void PidStatsRecordLoseData(fu8 pid)
+void PidStatsAddLoss(fu8 pid)
 {
     struct SaveBlockInfo chunk;
     int suspend_id;
@@ -183,13 +184,13 @@ void PidStatsRecordLoseData(fu8 pid)
             suspend_id = GetLastSuspendSaveId() + 3;
 
             WriteAndVerifySramFast(
-                stats, GetSaveWriteAddr(suspend_id) + SUSPENDSAVE_OFFSET_PIDSTATS - sizeof(struct PidStats) + pid * sizeof(struct PidStats), 1);
+                stats, &((struct SuspendSaveBlock *) GetSaveWriteAddr(suspend_id))->pid_stats[pid - 1], 1);
 
             ReadSaveBlockInfo(&chunk, suspend_id);
             WriteSaveBlockInfo(&chunk, suspend_id);
 
             WriteAndVerifySramFast(
-                stats, GetSaveWriteAddr(gPlaySt.save_id) + GAMESAVE_OFFSET_PIDSTATS - sizeof(struct PidStats) + pid * sizeof(struct PidStats), 1);
+                stats, &((struct GameSaveBlock *) GetSaveWriteAddr(gPlaySt.save_id))->pid_stats[pid - 1], 1);
 
             ReadSaveBlockInfo(&chunk, gPlaySt.save_id);
             WriteSaveBlockInfo(&chunk, gPlaySt.save_id);
@@ -197,7 +198,7 @@ void PidStatsRecordLoseData(fu8 pid)
     }
 }
 
-void PidStatsRecordDefeatInfo(fu8 pid, fu8 killer_pid, int defeat_cause)
+void PidStatsSetDefeatInfo(fu8 pid, fu8 killer_pid, int defeat_cause)
 {
     struct PidStats * stats = GetPidStats(pid);
 
@@ -210,7 +211,7 @@ void PidStatsRecordDefeatInfo(fu8 pid, fu8 killer_pid, int defeat_cause)
     stats->defeat_cause = defeat_cause;
 }
 
-void PidStatsAddActAmt(fu8 pid)
+void PidStatsAddAct(fu8 pid)
 {
     struct PidStats * stats = GetPidStats(pid);
 
@@ -221,7 +222,7 @@ void PidStatsAddActAmt(fu8 pid)
         stats->act_count++;
 }
 
-void PidStatsAddStatViewAmt(fu8 pid)
+void PidStatsAddStatView(fu8 pid)
 {
     struct PidStats * stats = GetPidStats(pid);
 
@@ -232,7 +233,7 @@ void PidStatsAddStatViewAmt(fu8 pid)
         stats->stat_view_count++;
 }
 
-void PidStatsAddDeployAmt(fu8 pid)
+void PidStatsAddDeploy(fu8 pid)
 {
     struct PidStats * stats = GetPidStats(pid);
 
@@ -243,7 +244,7 @@ void PidStatsAddDeployAmt(fu8 pid)
         stats->deploy_count++;
 }
 
-void PidStatsAddSquaresMoved(fu8 pid, int amount)
+void PidStatsAddMove(fu8 pid, int amount)
 {
     int move_count;
 
@@ -277,71 +278,74 @@ void PidStatsAddExpGained(fu8 pid, int amount)
     stats->exp_gained = exp;
 }
 
-int PidStatsGetTotalBattleAmt(void)
+int PidStatsCountTotalBattles(void)
 {
     int i, result = 0;
 
-    for (i = 0; i < BWL_ARRAY_SIZE; i++)
-        result += gPidStatsData[i].battle_count;
+    for (i = 0; i < PID_STATS_COUNT; i++)
+        result += gPidStats[i].battle_count;
 
     return result;
 }
 
-int PidStatsGetTotalWinAmt(void)
+int PidStatsCountTotalWins(void)
 {
     int i, result = 0;
 
-    for (i = 0; i < BWL_ARRAY_SIZE; i++)
-        result += gPidStatsData[i].win_count;
+    for (i = 0; i < PID_STATS_COUNT; i++)
+        result += gPidStats[i].win_count;
 
     return result;
 }
 
-int PidStatsGetTotalLossAmt()
+int PidStatsCountTotalLosses(void)
 {
     int i, result = 0;
-    for (i = 0; i < BWL_ARRAY_SIZE; i++)
-        result += gPidStatsData[i].loss_count;
+
+    for (i = 0; i < PID_STATS_COUNT; i++)
+        result += gPidStats[i].loss_count;
 
     return result;
 }
 
-int PidStatsGetTotalLevel()
+int PidStatsCountTotalLevelsGained(void)
 {
     int i, result = 0;
-    for (i = 0; i < BWL_ARRAY_SIZE; i++)
-        result += gPidStatsData[i].exp_gained / 100;
+
+    for (i = 0; i < PID_STATS_COUNT; i++)
+        result += gPidStats[i].exp_gained / 100;
 
     return result;
 }
 
-void PidStatsRecordBattleRes(void)
+void PidStatsUpdateFromBattleOutcome(void)
 {
-    struct BattleUnit * buA = NULL, * buB = NULL;
+    struct BattleUnit * loser = NULL;
+    struct BattleUnit * winner = NULL;
 
-    if (0 == GetUnitCurrentHp(&gBattleUnitA.unit))
+    if (GetUnitCurrentHp(&gBattleUnitA.unit) == 0)
     {
-        buA = &gBattleUnitA;
-        buB = &gBattleUnitB;
+        loser = &gBattleUnitA;
+        winner = &gBattleUnitB;
     }
 
-    if (0 == GetUnitCurrentHp(&gBattleUnitB.unit))
+    if (GetUnitCurrentHp(&gBattleUnitB.unit) == 0)
     {
-        buA = &gBattleUnitB;
-        buB = &gBattleUnitA;
+        loser = &gBattleUnitB;
+        winner = &gBattleUnitA;
     }
 
-    if (buA)
+    if (loser != NULL)
     {
-        if (buB && FACTION_BLUE == UNIT_FACTION(&buB->unit))
-            PidStatsAddWinAmt(UNIT_PID(&buB->unit));
+        if (winner != NULL && UNIT_FACTION(&winner->unit) == FACTION_BLUE)
+            PidStatsAddWin(UNIT_PID(&winner->unit));
 
-        if (buA && FACTION_BLUE == UNIT_FACTION(&buA->unit))
-            PidStatsRecordLoseData(UNIT_PID(&buA->unit));
+        if (loser != NULL && UNIT_FACTION(&loser->unit) == FACTION_BLUE)
+            PidStatsAddLoss(UNIT_PID(&loser->unit));
     }
 }
 
-bool IsPlaythroughIdUnique(int index)
+bool IsPlaythroughIdUnique(int playthrough_id)
 {
     struct GlobalSaveInfo info;
     struct PlaySt play_st;
@@ -349,9 +353,9 @@ bool IsPlaythroughIdUnique(int index)
 
     ReadGlobalSaveInfo(&info);
 
-    for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
+    for (i = 0; i < MAX_CLEARED_PLAYTHROUGHS; i++)
     {
-        if (info.cleared_playthroughs[i] == index)
+        if (info.cleared_playthroughs[i] == playthrough_id)
             return FALSE;
     }
 
@@ -364,7 +368,7 @@ bool IsPlaythroughIdUnique(int index)
 
         ReadGameSavePlaySt(i, &play_st);
 
-        if (play_st.playthrough_id == index)
+        if (play_st.playthrough_id == playthrough_id)
             return FALSE;
     }
 
@@ -390,7 +394,7 @@ int GetGlobalCompletedPlaythroughCount(void)
     if (!ReadGlobalSaveInfo(&info))
         return 0;
 
-    for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
+    for (i = 0; i < MAX_CLEARED_PLAYTHROUGHS; i++)
     {
         if (info.cleared_playthroughs[i] != 0)
             result++;
@@ -399,21 +403,21 @@ int GetGlobalCompletedPlaythroughCount(void)
     return result;
 }
 
-bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * info, int index)
+bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * info, int playthrough_id)
 {
     int i;
 
-    for (i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
+    for (i = 0; i < MAX_CLEARED_PLAYTHROUGHS; i++)
     {
-        if (info->cleared_playthroughs[i] == index)
+        if (info->cleared_playthroughs[i] == playthrough_id)
             return FALSE;
     }
 
-    for(i = 0; i < MAX_SAVED_GAME_CLEARS; i++)
+    for(i = 0; i < MAX_CLEARED_PLAYTHROUGHS; i++)
     {
         if (info->cleared_playthroughs[i] == 0)
         {
-            info->cleared_playthroughs[i] = index;
+            info->cleared_playthroughs[i] = playthrough_id;
             return TRUE;
         }
     }
@@ -421,7 +425,7 @@ bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * info, int index)
     return FALSE;  
 }
 
-void SavePlayThroughData(void)
+void WriteCompletedPlaythroughSaveData(void)
 {
     struct GlobalSaveInfo info;
     int mode_math;
@@ -466,4 +470,6 @@ void SavePlayThroughData(void)
     gPlaySt.flags |= PLAY_FLAG_COMPLETE;
 }
 
-void func_fe6_08084F48() {}
+void func_fe6_08084F48(void)
+{
+}

@@ -15,7 +15,7 @@
 #include "chapterinfo.h"
 #include "masseffect.h"
 #include "mu.h"
-#include "save.h"
+#include "save_stats.h"
 
 #include "constants/iids.h"
 #include "constants/terrains.h"
@@ -692,7 +692,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
 static void StepFireTrap_08027318(ProcPtr proc)
 {
     if (GetUnitCurrentHp(gActiveUnit) <= 10)
-        PidStatsRecordLoseData(gActiveUnit->pinfo->id);
+        PidStatsAddLoss(gActiveUnit->pinfo->id);
 }
 
 static void StepPikeTrap_08027318(ProcPtr proc)
@@ -700,7 +700,7 @@ static void StepPikeTrap_08027318(ProcPtr proc)
     int damage = 10 - GetUnitDefense(gActiveUnit);
 
     if (GetUnitCurrentHp(gActiveUnit) <= damage)
-        PidStatsRecordLoseData(gActiveUnit->pinfo->id);
+        PidStatsAddLoss(gActiveUnit->pinfo->id);
 }
 
 static void StepTrap_End(ProcPtr proc)
@@ -708,7 +708,7 @@ static void StepTrap_End(ProcPtr proc)
     ApplyHazardHealing(proc, GetUnit(gAction.instigator), -gAction.extra, -1);
 
     if (GetUnitCurrentHp(gActiveUnit) <= 0)
-        PidStatsRecordDefeatInfo(gActiveUnit->pinfo->id, 0, DEFEAT_CAUSE_TRAP);
+        PidStatsSetDefeatInfo(gActiveUnit->pinfo->id, 0, DEFEAT_CAUSE_TRAP);
 
     FinishDamageDisplay(proc);
 

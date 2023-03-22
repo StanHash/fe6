@@ -24,6 +24,7 @@
 #include "mu.h"
 #include "helpbox.h"
 #include "systemlabels.h"
+#include "save_stats.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
@@ -1401,7 +1402,7 @@ void StartStatScreen(struct Unit * unit, ProcPtr parent)
     gStatScreenSt.page_slide_key_bit = 0;
     gStatScreenSt.is_transitioning = FALSE;
 
-    PidStatsAddStatViewAmt(unit->pinfo->id);
+    PidStatsAddStatView(unit->pinfo->id);
 
     PlaySe(SONG_6A);
 

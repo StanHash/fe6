@@ -16,7 +16,8 @@
 #include "action.h"
 #include "chapterinfo.h"
 #include "mu.h"
-#include "save.h"
+#include "save_stats.h"
+#include "save_game.h"
 
 #include "constants/pids.h"
 #include "constants/jids.h"
@@ -131,10 +132,9 @@ void BattleGenerateRealInternal(struct Unit * instigator, struct Unit * target)
     if (gBattleUnitB.unit.id != 0)
     {
         BattleApplyExpGains();
-        PidStatsRecordBattleRes();
-
-        PidStatsAddBattleAmt(instigator);
-        PidStatsAddBattleAmt(target);
+        PidStatsUpdateFromBattleOutcome();
+        PidStatsAddBattle(instigator);
+        PidStatsAddBattle(target);
     }
 }
 
@@ -1747,7 +1747,7 @@ void BattleGenerateArena(struct Unit * unit)
     BattleApplyWeaponTriangleEffect(&gBattleUnitA, &gBattleUnitB);
 
     gAction.suspend_point = SUSPEND_POINT_DURING_ARENA;
-    WriteSuspendSave(SAVE_ID_SUSPEND);
+    WriteSuspendSave(SAVE_SUSPEND);
 
     SetBattleUnitTerrainBonusesAuto(&gBattleUnitA);
     SetBattleUnitTerrainBonuses(&gBattleUnitB, 8); // TODO: terrain id constants
@@ -1760,7 +1760,7 @@ void BattleGenerateArena(struct Unit * unit)
     UpdateUnitDuringBattle(unit, &gBattleUnitA);
 
     if (!just_resumed || (gBattleUnitB.unit.hp == 0))
-        PidStatsRecordBattleRes();
+        PidStatsUpdateFromBattleOutcome();
 
     BattlePrintDebugUnitInfo(&gBattleUnitA, &gBattleUnitB);
 }

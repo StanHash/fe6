@@ -3736,13 +3736,13 @@ func_fe6_08036D3C: @ 0x08036D3C
 	push {r4, lr}
 	ldr r4, .L08036D5C @ =0x0203C704
 	adds r0, r4, #0
-	bl func_fe6_08086530
+	bl ReadMultiArenaSaveConfig
 	movs r0, #8
 	ldrb r1, [r4]
 	orrs r0, r1
 	strb r0, [r4]
 	adds r0, r4, #0
-	bl func_fe6_080864F4
+	bl WriteMultiArenaSaveConfig
 	pop {r4}
 	pop {r0}
 	bx r0
@@ -3981,7 +3981,7 @@ func_fe6_08036EB4: @ 0x08036EB4
 	adds r4, r7, r0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl func_fe6_08086220
+	bl ReadMultiArenaSaveTeamName
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -4010,7 +4010,7 @@ func_fe6_08036EB4: @ 0x08036EB4
 	adds r1, r0, #0
 	adds r0, r6, #0
 	mov r2, sp
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	movs r1, #5
 	add r8, r1
 	adds r7, #0x14
@@ -4029,7 +4029,7 @@ func_fe6_08036EB4: @ 0x08036EB4
 	adds r4, r1, r0
 	adds r0, r6, #0
 	adds r1, r4, #0
-	bl func_fe6_08086220
+	bl ReadMultiArenaSaveTeamName
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
@@ -4045,7 +4045,7 @@ func_fe6_08036EB4: @ 0x08036EB4
 	adds r1, r0, #0
 	adds r0, r6, #0
 	mov r2, sp
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	adds r7, #1
 .L08036F8C:
 	adds r6, #1
@@ -4248,11 +4248,11 @@ func_fe6_080370E4: @ 0x080370E4
 	movs r0, #0x7f
 	ldrb r3, [r4, #0xf]
 	ands r0, r3
-	bl func_fe6_08086264
+	bl WipeMultiArenaSaveTeam
 	adds r0, r5, #0
 	adds r1, r6, #0
 	adds r2, r4, #0
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	ldr r0, .L08037174 @ =gUnk_Sio_0810F164
 	adds r1, r4, #0
 	bl func_fe6_080368DC
@@ -4342,7 +4342,7 @@ func_fe6_080371B4: @ 0x080371B4
 	adds r4, r4, r2
 	ldrb r2, [r4, #0xf]
 	ands r1, r2
-	bl func_fe6_08086330
+	bl SwapMultiArenaSaveTeams
 	ldrb r1, [r6, #0x10]
 	ldrb r0, [r4, #0x10]
 	strb r0, [r6, #0x10]
@@ -4353,7 +4353,7 @@ func_fe6_080371B4: @ 0x080371B4
 	adds r1, r0, #0
 	mov r0, r8
 	adds r2, r6, #0
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08037224
@@ -4383,7 +4383,7 @@ func_fe6_080371B4: @ 0x080371B4
 	adds r4, r4, r0
 	adds r0, r7, #0
 	adds r2, r4, #0
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L08037268
@@ -5086,7 +5086,7 @@ func_fe6_080377E8: @ 0x080377E8
 	adds r0, r0, r3
 	ldrb r0, [r0, #0xf]
 	mov r2, sp
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	adds r0, r4, #0
 	bl func_fe6_080762E4
 	add sp, #0x10
@@ -6083,7 +6083,7 @@ func_fe6_08038004: @ 0x08038004
 	adds r1, r0, #0
 	adds r0, r4, #0
 	mov r2, sp
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	adds r0, r5, #0
 	bl func_fe6_08084168
 	add sp, #0x10
@@ -6427,7 +6427,7 @@ func_fe6_080382A0: @ 0x080382A0
 	mov r0, sb
 	mov r1, r8
 	mov r2, sl
-	bl func_fe6_080863CC
+	bl WriteMultiArenaSaveTeam
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov sb, r4
@@ -8446,7 +8446,7 @@ func_fe6_080392F4: @ 0x080392F4
 	mov r8, r0
 	ldr r6, .L08039370 @ =0x0203C838
 	adds r0, r6, #0
-	bl func_fe6_080864CC
+	bl ReadMultiArenaSaveRankings
 	adds r0, r4, #0
 	mov r1, sb
 	adds r2, r5, #0
@@ -8454,7 +8454,7 @@ func_fe6_080392F4: @ 0x080392F4
 	bl func_fe6_080391C0
 	str r0, [r7, #0x58]
 	adds r0, r6, #0
-	bl func_fe6_08086490
+	bl WriteMultiArenaSaveRankings
 	ldr r1, [r7, #0x58]
 	movs r0, #1
 	rsbs r0, r0, #0
@@ -8516,7 +8516,7 @@ func_fe6_08039388: @ 0x08039388
 	ldr r1, .L08039414 @ =0x0203C6B9
 	adds r2, r2, r1
 	adds r1, r5, #0
-	bl func_fe6_0808642C
+	bl ReadMultiArenaSaveTeam
 	movs r7, #0
 	adds r2, r6, #1
 	mov sl, r2
@@ -8855,7 +8855,7 @@ func_fe6_08039650: @ 0x08039650
 	ldr r4, .L08039788 @ =0x0203C618
 	ldrb r0, [r4, #3]
 	add r1, sp, #8
-	bl func_fe6_08086220
+	bl ReadMultiArenaSaveTeamName
 	ldr r0, .L0803978C @ =0x0203C758
 	bl SetTextFont
 	bl InitSystemTextFont
@@ -9657,7 +9657,7 @@ func_fe6_08039D34: @ 0x08039D34
 	ldrb r0, [r0, #3]
 	ldr r4, .L08039DFC @ =gUnk_Sio_085C9EA8
 	ldr r1, [r4]
-	bl func_fe6_080861EC
+	bl ReadMultiArenaSaveTeamRaw
 	movs r6, #0
 	ldr r0, .L08039E00 @ =0x0203C9A8
 	mov sl, r0
@@ -11035,7 +11035,7 @@ func_fe6_0803A7E8: @ 0x0803A7E8
 	movs r1, #1
 	bl func_fe6_08036BFC
 	ldr r0, .L0803A9F0 @ =0x0203C838
-	bl func_fe6_080864CC
+	bl ReadMultiArenaSaveRankings
 	bl func_fe6_0803A748
 	ldr r1, .L0803A9F4 @ =gDispIo
 	mov ip, r1
@@ -11408,7 +11408,7 @@ func_fe6_0803AB10: @ 0x0803AB10
 	adds r0, r4, #0
 	bl PutText
 	ldr r0, .L0803AD68 @ =0x0203C838
-	bl func_fe6_080864CC
+	bl ReadMultiArenaSaveRankings
 	bl func_fe6_0803A748
 	ldr r1, .L0803AD6C @ =gDispIo
 	mov ip, r1
@@ -11997,7 +11997,7 @@ func_fe6_0803B11C: @ 0x0803B11C
 	movs r0, #1
 	bl func_fe6_08036D08
 	ldr r0, .L0803B23C @ =0x0203C704
-	bl func_fe6_080864F4
+	bl WriteMultiArenaSaveConfig
 	adds r0, r6, #0
 	bl Proc_Break
 .L0803B146:
@@ -12250,7 +12250,7 @@ func_fe6_0803B31C: @ 0x0803B31C
 	bl memcpy
 	ldr r4, .L0803B3B4 @ =0x0203C704
 	adds r0, r4, #0
-	bl func_fe6_08086530
+	bl ReadMultiArenaSaveConfig
 	ldrb r4, [r4]
 	lsls r0, r4, #0x1c
 	lsrs r0, r0, #0x1f
@@ -12276,7 +12276,7 @@ func_fe6_0803B31C: @ 0x0803B31C
 	bl ResetTextFont
 	bl func_fe6_08036C60
 	str r4, [r6, #0x4c]
-	bl func_fe6_08086558
+	bl IsMultiArenaSaveReady
 	adds r2, r6, #0
 	adds r2, #0x58
 	strb r0, [r2]
@@ -12551,7 +12551,7 @@ func_fe6_0803B5A0: @ 0x0803B5A0
 	bl memcpy
 	ldr r4, .L0803B640 @ =0x0203C704
 	adds r0, r4, #0
-	bl func_fe6_08086530
+	bl ReadMultiArenaSaveConfig
 	ldrb r4, [r4]
 	lsls r0, r4, #0x1c
 	lsrs r0, r0, #0x1f
@@ -12577,7 +12577,7 @@ func_fe6_0803B5A0: @ 0x0803B5A0
 	bl ResetTextFont
 	bl func_fe6_08036C60
 	str r4, [r6, #0x4c]
-	bl func_fe6_08086558
+	bl IsMultiArenaSaveReady
 	adds r2, r6, #0
 	adds r2, #0x58
 	strb r0, [r2]
@@ -13123,7 +13123,7 @@ func_fe6_0803BA64: @ 0x0803BA64
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0803BA88
-	bl func_fe6_080860A4
+	bl WriteNewMultiArenaSave
 .L0803BA88:
 	ldr r1, .L0803BAD0 @ =0x0203C618
 	movs r0, #0
@@ -13249,7 +13249,7 @@ func_fe6_0803BAE0: @ 0x0803BAE0
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	bne .L0803BBB4
-	bl func_fe6_0808667C
+	bl IsExtraMapAvailable
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0803BBB4
