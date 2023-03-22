@@ -10,7 +10,7 @@ enum
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-struct DispCnt
+struct ALIGNED(4) DispCnt
 {
     /* bit  0 */ u16 mode : 3;
     /* bit  3 */ u16 : 1;
@@ -28,7 +28,7 @@ struct DispCnt
     /* bit 15 */ u16 objwin_enable : 1;
 };
 
-struct DispStat
+struct ALIGNED(4) DispStat
 {
     /* bit  0 */ u16 vblank : 1;
     /* bit  1 */ u16 hblank : 1;
@@ -40,7 +40,7 @@ struct DispStat
     /* bit  8 */ u16 vcount_compare : 8;
 };
 
-struct BgCnt
+struct ALIGNED(4) BgCnt
 {
     /* bit  0 */ u16 priority : 2;
     /* bit  2 */ u16 chr_block : 2;
@@ -52,7 +52,7 @@ struct BgCnt
     /* bit 14 */ u16 size : 2;
 };
 
-struct WinCnt
+struct ALIGNED(4) WinCnt
 {
     u8 win0_enable_bg0 : 1;
     u8 win0_enable_bg1 : 1;
@@ -87,7 +87,7 @@ struct WinCnt
     u8 : 2;
 };
 
-struct BlendCnt
+struct ALIGNED(4) BlendCnt
 {
     u16 target1_enable_bg0 : 1;
     u16 target1_enable_bg1 : 1;
