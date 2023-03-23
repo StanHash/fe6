@@ -5,7 +5,7 @@ temp=$(mktemp -d)
 
 if [[ "$OSTYPE" == "darwin"* ]]
 then
-    agbcc_repo="https://github.com/holmesmr/agbcc.git"
+    agbcc_repo="https://github.com/pret/agbcc.git"
     agbcc_branch="master"
 else
     agbcc_repo="https://github.com/StanHash/agbcc.git"
