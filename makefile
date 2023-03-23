@@ -18,6 +18,7 @@ ifeq ($(OS),Windows_NT)
   EXE := .exe
 else
   EXE :=
+  UNAME_S := $(shell uname -s)
 endif
 
 TOOLCHAIN ?= $(DEVKITARM)
@@ -28,6 +29,13 @@ ifneq (,$(TOOLCHAIN))
 endif
 
 PREFIX := arm-none-eabi-
+
+ifeq ($(UNAME_S),Darwin)
+  ifneq (,$(TOOLCHAIN))
+    PREFIX := $(TOOLCHAIN)/bin/$(PREFIX)
+  endif
+  SHASUM ?= shasum
+endif
 
 export OBJCOPY := $(PREFIX)objcopy
 export AS := $(PREFIX)as
@@ -81,7 +89,7 @@ compare: $(ROM)
 
 clean:
 	@echo "RM $(ROM) $(ELF) $(MAP) $(BUILD_DIR)/"
-	@rm -f $(ROM) $(ELF) $(MAP) 
+	@rm -f $(ROM) $(ELF) $(MAP)
 	@rm -fr $(BUILD_DIR)/
 
 .PHONY: clean
