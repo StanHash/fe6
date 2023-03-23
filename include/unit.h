@@ -332,6 +332,16 @@ extern struct Unit EWRAM_DATA gUnitArrayRed[UNIT_AMOUNT_RED];
 extern struct Unit EWRAM_DATA gUnitArrayGreen[UNIT_AMOUNT_GREEN];
 extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 
+// extra map bonus units
+extern struct UnitInfo const gUnk_086876AC[];
+extern struct UnitInfo const gUnk_086876CC[];
+extern struct UnitInfo const gUnk_086876EC[];
+extern struct UnitInfo const gUnk_0868770C[];
+extern struct UnitInfo const gUnk_0868772C[];
+extern struct UnitInfo const gUnk_0868774C[];
+extern struct UnitInfo const gUnk_0868776C[];
+extern struct UnitInfo const gUnk_0868778C[];
+
 #define UNIT_FACTION(unit) ((unit)->id & 0xC0)
 #define UNIT_PID(unit) ((unit)->pinfo->id)
 #define UNIT_ATTRIBUTES(unit) (((unit)->pinfo->attributes) | ((unit)->jinfo->attributes))
