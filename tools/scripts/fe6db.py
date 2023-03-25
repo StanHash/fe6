@@ -299,12 +299,20 @@ CHARACTER_NAME_DICT = {
     0x43: "Eliwood",
     0x44: "Guinivere",
 
+    0x59: "Narcian",
+
+    0x62: "Murdock",
+    0x63: "Brunnya",
+    0x64: "Zephiel",
     0x65: "Idunn",
     0x66: "Idunn (Dragon)",
 
     0xA4: "Citizen (A4)",
 
     0xCD: "Citizen (CD)",
+
+    0xCF: "Hector",
+    0xD0: "Bors (Tutorial)",
 
     0xE1: "Arena Opponent",
     0xE2: "Wall"}
@@ -329,8 +337,10 @@ ITEM_IID_OVERRIDE_DICT = {
 
 CLASS_JID_OVERRIDE_DICT = {}
 
-CHARACTER_JID_OVERRIDE_DICT = {
+CHARACTER_PID_OVERRIDE_DICT = {
     0x30: "PID_THEA_NPC_ALT",
+    0xD1: "PID_TUTORIAL_SOLDIER",
+    0xD2: "PID_TUTORIAL_ARCHER",
     0xE1: "PID_ARENA_OPPONENT"}
 
 def iid_name(iid: int) -> str:
@@ -352,8 +362,8 @@ def jid_name(jid: int) -> str:
     return f"JID_UNKNOWN_{jid:02X}"
 
 def pid_name(pid: int) -> str:
-    if pid in CHARACTER_JID_OVERRIDE_DICT:
-        return CHARACTER_JID_OVERRIDE_DICT[pid]
+    if pid in CHARACTER_PID_OVERRIDE_DICT:
+        return CHARACTER_PID_OVERRIDE_DICT[pid]
 
     if pid in CHARACTER_NAME_DICT:
         return f"PID_{name_to_constant(CHARACTER_NAME_DICT[pid])}"

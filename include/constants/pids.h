@@ -1,9 +1,10 @@
 #pragma once
 
+// will figure most of this out once chapter events are dumped
+
 enum
 {
-    PID_NONE,
-
+    PID_NONE = 0x00,
     PID_ROY = 0x01,
     PID_CLARINE = 0x02,
     PID_FAE = 0x03,
@@ -92,7 +93,7 @@ enum
     PID_UNKNOWN_56 = 0x56,
     PID_UNKNOWN_57 = 0x57,
     PID_UNKNOWN_58 = 0x58,
-    PID_UNKNOWN_59 = 0x59,
+    PID_NARCIAN = 0x59,
     PID_UNKNOWN_5A = 0x5A,
     PID_UNKNOWN_5B = 0x5B,
     PID_UNKNOWN_5C = 0x5C,
@@ -101,9 +102,9 @@ enum
     PID_UNKNOWN_5F = 0x5F,
     PID_UNKNOWN_60 = 0x60,
     PID_UNKNOWN_61 = 0x61,
-    PID_UNKNOWN_62 = 0x62,
-    PID_UNKNOWN_63 = 0x63,
-    PID_UNKNOWN_64 = 0x64,
+    PID_MURDOCK = 0x62,
+    PID_BRUNNYA = 0x63,
+    PID_ZEPHIEL = 0x64,
     PID_IDUNN = 0x65,
     PID_IDUNN_DRAGON = 0x66,
     PID_UNKNOWN_67 = 0x67,
@@ -210,10 +211,10 @@ enum
     PID_UNKNOWN_CC = 0xCC,
     PID_CITIZEN_CD = 0xCD,
     PID_UNKNOWN_CE = 0xCE,
-    PID_UNKNOWN_CF = 0xCF,
-    PID_UNKNOWN_D0 = 0xD0,
-    PID_UNKNOWN_D1 = 0xD1,
-    PID_UNKNOWN_D2 = 0xD2,
+    PID_HECTOR = 0xCF,
+    PID_BORS_TUTORIAL = 0xD0,
+    PID_TUTORIAL_SOLDIER = 0xD1,
+    PID_TUTORIAL_ARCHER = 0xD2,
     PID_UNKNOWN_D3 = 0xD3,
     PID_UNKNOWN_D4 = 0xD4,
     PID_UNKNOWN_D5 = 0xD5,

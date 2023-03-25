@@ -79,8 +79,8 @@ enum
     EVT_CMD_FADE_FROMBLACK,
     EVT_CMD_FADE_TOWHITE,
     EVT_CMD_FADE_FROMWHITE,
-    EVT_CMD_UNK47,
-    EVT_CMD_UNK48,
+    EVT_CMD_EXIT_MAP,
+    EVT_CMD_ENTER_MAP,
     EVT_CMD_FIGHTSCR,
     EVT_CMD_NOCLEARTALK,
     EVT_CMD_FUNC_ONSKIP,
@@ -138,10 +138,10 @@ enum
     EVT_CMD_CLEARSKIP,
 
 #define EvtTalk(msgid) \
-    EVT_CMD_TALK, msgid,
+    EVT_CMD_TALK, (msgid),
 
 #define EvtTalkMore(msgid) \
-    EVT_CMD_TALKMORE, msgid,
+    EVT_CMD_TALKMORE, (msgid),
 
 #define EvtTalkAuto \
     EVT_CMD_TALKAUTO,
@@ -159,22 +159,22 @@ enum
     EVT_CMD_MOVE_POS, _EvtParams2(x, y), _EvtParams2(x_to, y_to),
 
 #define EvtMoveScript(x, y, movescript) \
-    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (u32) (uptr) (movescript),
+    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (EventScr) (uptr) (movescript),
 
 #define EvtMoveUnit(pid, x_to, y_to) \
     EVT_CMD_MOVE_PID, (pid), _EvtParams2(x_to, y_to),
 
 #define EvtMoveUnitScript(pid, movescript) \
-    EVT_CMD_MOVE_PID_MANUAL, (pid), (u32) (uptr) (movescript),
+    EVT_CMD_MOVE_PID_MANUAL, (pid), (EventScr) (uptr) (movescript),
 
 #define EvtMoveUnitNextTo(pid, pidTo) \
     EVT_CMD_MOVE_PID_NEXTTO, (pid), (pidTo),
 
 #define EvtLoadUnits(info) \
-    EVT_CMD_LOADUNITS, (u32) (uptr) (info),
+    EVT_CMD_LOADUNITS, (EventScr) (uptr) (info),
 
 #define EvtLoadUnitsParty(info) \
-    EVT_CMD_LOADUNITS_PARTY, (u32) (uptr) (info),
+    EVT_CMD_LOADUNITS_PARTY, (EventScr) (uptr) (info),
 
 #define EvtMoveWait \
     EVT_CMD_MOVEWAIT,
@@ -186,13 +186,13 @@ enum
     EVT_CMD_UNITCAM_OFF,
 
 #define EvtFunc(func) \
-    EVT_CMD_FUNC, (u32) (uptr) (func),
+    EVT_CMD_FUNC, (EventScr) (uptr) (func),
 
 #define EvtFuncUntil(func) \
-    EVT_CMD_FUNC_UNTIL, (u32) (uptr) (func),
+    EVT_CMD_FUNC_UNTIL, (EventScr) (uptr) (func),
 
 #define EvtFuncWhile(func) \
-    EVT_CMD_FUNC_WHILE, (u32) (uptr) (func),
+    EVT_CMD_FUNC_WHILE, (EventScr) (uptr) (func),
 
 #define EvtStop \
     EVT_CMD_STOP,
@@ -210,10 +210,10 @@ enum
     EVT_CMD_GOTO_IFN_INTEAM, (id), (pid),
 
 #define EvtGotoIfFunc(id, func) \
-    EVT_CMD_GOTO_IFY_FUNC, (id), (u32) (uptr) (func),
+    EVT_CMD_GOTO_IFY_FUNC, (id), (EventScr) (uptr) (func),
 
 #define EvtGotoIfNotFunc(id, func) \
-    EVT_CMD_GOTO_IFN_FUNC, (id), (u32) (uptr) (func),
+    EVT_CMD_GOTO_IFN_FUNC, (id), (EventScr) (uptr) (func),
 
 #define EvtGotoIfSkipped(id) \
     EVT_CMD_GOTO_IFY_SKIPPED, (id),
@@ -228,7 +228,7 @@ enum
     EVT_CMD_GOTO_IFY_ACTIVE, (id), (pid),
 
 #define EvtJump(script) \
-    EVT_CMD_JUMP, (u32) (script),
+    EVT_CMD_JUMP, (EventScr) (script),
 
 #define EvtGiveItem(iid) \
     EVT_CMD_ITEM, (iid),
@@ -316,6 +316,39 @@ enum
 
 #define EvtYesSkip \
     EVT_CMD_YESSKIP,
+
+#define EvtFadeToBlack(speed) \
+    EVT_CMD_FADE_TOBLACK, (speed),
+
+#define EvtFadeFromBlack(speed) \
+    EVT_CMD_FADE_FROMBLACK, (speed),
+
+#define EvtFadeToWhite(speed) \
+    EVT_CMD_FADE_TOWHITE, (speed),
+
+#define EvtFadeFromWhite(speed) \
+    EVT_CMD_FADE_FROMWHITE, (speed),
+
+#define EvtExitMap \
+    EVT_CMD_EXIT_MAP,
+
+#define EvtEnterMap \
+    EVT_CMD_ENTER_MAP,
+
+#define EvtFightScript(attacker_pid, defender_pid, battle_hits) \
+    EVT_CMD_FIGHTSCR, (attacker_pid), (defender_pid), (EventScr) (uptr) (battle_hits), FALSE,
+
+#define EvtFightScriptBallista(attacker_pid, defender_pid, battle_hits) \
+    EVT_CMD_FIGHTSCR, (attacker_pid), (defender_pid), (EventScr) (uptr) (battle_hits), TRUE,
+
+#define EvtDisableAutoClear \
+    EVT_CMD_NOCLEARTALK,
+
+#define EvtFuncOnSkip(func) \
+    EVT_CMD_FUNC_ONSKIP, (EventScr) (uptr) (func),
+
+#define EvtWeather(weather) \
+    EVT_CMD_WEATHER, (weather),
 
 // Helper event macros
 // EventScr const EventScr_<Name>[] = { /* to be used here */ };
