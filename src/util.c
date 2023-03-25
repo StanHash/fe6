@@ -1839,17 +1839,17 @@ void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int
     PutText(text, gBg0Tm + TM_OFFSET(x, y));
 }
 
-void VecMulMat(int const * vec, int const * mat, int* ovec)
+void VecMulMat(int const * vec, int const * mat, int * ovec)
 {
     ovec[0] = ((vec[0] * mat[0]) + (vec[1] * mat[3]) + (vec[2] * mat[6])) >> 12;
     ovec[1] = ((vec[0] * mat[1]) + (vec[1] * mat[4]) + (vec[2] * mat[7])) >> 12;
     ovec[2] = ((vec[0] * mat[2]) + (vec[1] * mat[5]) + (vec[2] * mat[8])) >> 12;
 }
 
-void MatMulMat(int const * lmat, int const * rmat, int* omat)
+void MatMulMat(int const * lmat, int const * rmat, int * omat)
 {
     int tmpmat[12];
-    int* mat;
+    int * mat;
 
     if (lmat == omat || rmat == omat)
         mat = tmpmat;
@@ -1876,7 +1876,7 @@ void MatMulMat(int const * lmat, int const * rmat, int* omat)
         MatCopy(tmpmat, omat);
 }
 
-void MatIdent(int* mat)
+void MatIdent(int * mat)
 {
     mat[0] = 1 << 12;
     mat[1] = 0;
@@ -1895,7 +1895,7 @@ void MatIdent(int* mat)
     mat[11] = 0;
 }
 
-void MatCopy(int const * src, int* dst)
+void MatCopy(int const * src, int * dst)
 {
     dst[0] = src[0];
     dst[1] = src[1];
@@ -1914,7 +1914,7 @@ void MatCopy(int const * src, int* dst)
     dst[11] = src[11];
 }
 
-void MatRotA(int* mat, short angle)
+void MatRotA(int * mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -1932,7 +1932,7 @@ void MatRotA(int* mat, short angle)
     mat[8] = +cos;
 }
 
-void MatRotB(int* mat, short angle)
+void MatRotB(int * mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -1950,7 +1950,7 @@ void MatRotB(int* mat, short angle)
     mat[8] = +cos;
 }
 
-void MatRotC(int* mat, short angle)
+void MatRotC(int * mat, short angle)
 {
     short cos = COS_Q12(angle);
     short sin = SIN_Q12(angle);
@@ -1977,7 +1977,7 @@ int VecDotVec(int const * lvec, int const * rvec)
     return ((lvec[0] * rvec[0]) + (lvec[1] * rvec[1]) + (lvec[2] * rvec[2])) >> 12;
 }
 
-void VecCrossVec(int const * lvec, int const * rvec, int* ovec)
+void VecCrossVec(int const * lvec, int const * rvec, int * ovec)
 {
     ovec[0] = (lvec[1] * rvec[2] - lvec[2] * rvec[1]) >> 12;
     ovec[1] = (lvec[2] * rvec[0] - lvec[0] * rvec[2]) >> 12;

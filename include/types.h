@@ -75,6 +75,9 @@ struct UnitInfo;
 struct UnitSprite;
 struct SupportInfo;
 
+struct BattleUnit;
+struct BattleHit;
+
 struct HelpBoxInfo;
 struct HelpBoxProc;
 

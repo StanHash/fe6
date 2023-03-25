@@ -66,13 +66,13 @@ void DoItemBarrierStaffAction(ProcPtr proc)
     BeginBattleAnimations();
 }
 
-static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * target, int* xOut, int* yOut)
+static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * target, int * x_out, int * y_out)
 {
     int foundDist, dist;
     int ix, iy;
 
-    *xOut = -1;
-    *yOut = -1;
+    *x_out = -1;
+    *y_out = -1;
 
     foundDist = 9999;
 
@@ -101,13 +101,13 @@ static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * targe
             if (foundDist >= dist)
             {
                 foundDist = dist;
-                *xOut = ix;
-                *yOut = iy;
+                *x_out = ix;
+                *y_out = iy;
             }
         }
     }
 
-    if (*xOut >= 0 && *yOut >= 0)
+    if (*x_out >= 0 && *y_out >= 0)
         return;
 
     foundDist = 9999;
@@ -137,17 +137,17 @@ static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * targe
             if (foundDist >= dist)
             {
                 foundDist = dist;
-                *xOut = ix;
-                *yOut = iy;
+                *x_out = ix;
+                *y_out = iy;
             }
         }
     }
 
-    if (*xOut >= 0 && *yOut >= 0)
+    if (*x_out >= 0 && *y_out >= 0)
         return;
 
-    *xOut = target->x;
-    *yOut = target->y;
+    *x_out = target->x;
+    *y_out = target->y;
 }
 
 void DoItemRescueStaffAction(ProcPtr proc)

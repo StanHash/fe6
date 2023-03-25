@@ -727,7 +727,7 @@ void UnitSyncMovement(struct Unit * unit)
     }
 }
 
-void UnitGetDropPositionOnDeath(struct Unit * unit, int* xOut, int* yOut)
+void UnitGetDropPositionOnDeath(struct Unit * unit, int * x_out, int * y_out)
 {
     int iy, ix, minDistance = 9999;
 
@@ -766,8 +766,8 @@ void UnitGetDropPositionOnDeath(struct Unit * unit, int* xOut, int* yOut)
             {
                 minDistance = distance;
 
-                *xOut = ix;
-                *yOut = iy;
+                *x_out = ix;
+                *y_out = iy;
             }
         }
     }

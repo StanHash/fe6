@@ -614,6 +614,8 @@ SECTIONS
         . = ALIGN(4); src/helpbox.o(.data);
         . = ALIGN(4); src/helpbox_2.o(.data);
         . = ALIGN(4); data/data_678128.o(.data);
+        . = ALIGN(4); src/chapterunits.o(.data);
+        . = ALIGN(4); data/data_mapchangeinfo.o(.data);
         . = ALIGN(4); src/save_core.o(.data);
         . = ALIGN(4); src/save_xmap.o(.data);
         . = ALIGN(4); data/data.o(.data);

@@ -752,7 +752,7 @@ void UpdateMuStepSounds(struct MuProc * mu)
         {
 
         case JID_PEGASUSKNIGHT:
-        case JID_FALCOKNIGHT:
+        case JID_FALCONKNIGHT:
             soundScript = MuSoundScr_Pegasus;
             break;
 
@@ -856,7 +856,7 @@ void ReleaseMus(void)
     Proc_ReleaseEachMarked(PROC_MARK_MU);
 }
 
-void ApplyMoveScriptToCoordinates(int* x, int* y, u8 const * movescr)
+void ApplyMoveScriptToCoordinates(int * x, int * y, u8 const * movescr)
 {
     while (TRUE)
     {

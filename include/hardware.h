@@ -321,6 +321,26 @@ extern short SHOULD_BE_CONST gSinLut[];
 #define SetBlendNone() \
     SetBlendConfig(BLEND_EFFECT_NONE, 0x10, 0, 0)
 
+#if BUGFIX
+
+// fixes violation of strict aliasing rules
+
+#define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.blend_ct.target1_enable_bg0 = (bg0); \
+    gDispIo.blend_ct.target1_enable_bg1 = (bg1); \
+    gDispIo.blend_ct.target1_enable_bg2 = (bg2); \
+    gDispIo.blend_ct.target1_enable_bg3 = (bg3); \
+    gDispIo.blend_ct.target1_enable_obj = (obj)
+
+#define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
+    gDispIo.blend_ct.target2_enable_bg0 = (bg0); \
+    gDispIo.blend_ct.target2_enable_bg1 = (bg1); \
+    gDispIo.blend_ct.target2_enable_bg2 = (bg2); \
+    gDispIo.blend_ct.target2_enable_bg3 = (bg3); \
+    gDispIo.blend_ct.target2_enable_obj = (obj)
+
+#else
+
 #define SetBlendTargetA(bg0, bg1, bg2, bg3, obj) \
     *((u16 *) &gDispIo.blend_ct) &= ~BLDCNT_TARGETA(1, 1, 1, 1, 1); \
     *((u16 *) &gDispIo.blend_ct) |= BLDCNT_TARGETA((bg0), (bg1), (bg2), (bg3), (obj))
@@ -328,6 +348,8 @@ extern short SHOULD_BE_CONST gSinLut[];
 #define SetBlendTargetB(bg0, bg1, bg2, bg3, obj) \
     *((u16 *) &gDispIo.blend_ct) &= ~BLDCNT_TARGETB(1, 1, 1, 1, 1); \
     *((u16 *) &gDispIo.blend_ct) |= BLDCNT_TARGETB((bg0), (bg1), (bg2), (bg3), (obj))
+
+#endif
 
 #define SetBlendBackdropA(enable) \
     gDispIo.blend_ct.target1_enable_bd = (enable)

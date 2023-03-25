@@ -125,6 +125,10 @@ fu8 func_fe6_0801A698(struct MenuProc * menu, struct MenuEntProc * ent)
 
         EnableBgSync(BG0_SYNC_BIT);
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801A724(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -164,6 +168,10 @@ u32 func_fe6_0801A760(struct MenuProc * menu, struct MenuEntProc * ent)
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[proc->unk66]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801A7D4(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -177,6 +185,10 @@ fu8 func_fe6_0801A7D4(struct MenuProc * menu, struct MenuEntProc * ent)
 
         DebugInitObj(-1, 9);
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801A81C(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -205,6 +217,10 @@ u32 func_fe6_0801A820(struct MenuProc * menu, struct MenuEntProc * ent)
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, weatherNames[proc->unk58 % DEBUG_WEATHER_COUNT]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801A89C(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -249,6 +265,10 @@ fu8 func_fe6_0801A89C(struct MenuProc * menu, struct MenuEntProc * ent)
 
         }
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801A940(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -265,6 +285,10 @@ u32 func_fe6_0801A944(struct MenuProc * menu, struct MenuEntProc * ent)
     Text_InsertDrawNumberOrBlank(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, GetGlobalCompletedPlaythroughCount() + 1);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 
@@ -318,6 +342,10 @@ fu8 func_fe6_0801A9A8(struct MenuProc * menu, struct MenuEntProc * ent)
     WriteGlobalSaveInfo(&save_info);
 
     func_fe6_0801A944(menu, ent);
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801AA70(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -349,12 +377,20 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
     WriteGameSave(ReadLastGameSaveId());
 
     SoftReset(GBA_RESET_ALL);
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801AABC(struct MenuProc * menu)
 {
     DebugPutStr(gBg0Tm + TM_OFFSET(7, 3), GetChapterInfo(1)->debug_name);
     EnableBgSync(BG0_SYNC_BIT);
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 void func_fe6_0801AAE0(void)
@@ -406,6 +442,10 @@ fu8 func_fe6_0801ABE8(struct MenuProc * menu)
 
     SetDispEnable(0, 0, 0, 0, 0);
     SetBackdropColor(0);
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801AC2C(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -432,6 +472,10 @@ fu8 func_fe6_0801AC2C(struct MenuProc * menu, struct MenuEntProc * ent)
 
         EnableBgSync(BG0_SYNC_BIT);
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801ACD8(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -536,6 +580,10 @@ u32 func_fe6_0801ADEC(struct MenuProc * menu, struct MenuEntProc * ent)
     Text_InsertDrawString(&ent->text, 64, TEXT_COLOR_SYSTEM_BLUE, offon[gPlaySt.vision != 0]);
 
     PutText(&ent->text, gBg0Tm + TM_OFFSET(ent->x, ent->y));
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801AE60(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -552,6 +600,10 @@ fu8 func_fe6_0801AE60(struct MenuProc * menu, struct MenuEntProc * ent)
 
         func_fe6_0801ADEC(menu, ent);
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 func_fe6_0801AEB8(struct MenuProc * menu, struct MenuEntProc * ent)
@@ -637,4 +689,8 @@ fu8 func_fe6_0801B018(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     RestartGameAndChapter();
     Proc_Goto(FindProc(ProcScr_GameController), L_GAMECTRL_SRAMRESET);
+
+#if BUGFIX
+    return 0;
+#endif
 }

@@ -427,6 +427,10 @@ bool func_fe6_08032CE8(u16 * out)
 
         out[i] |= (GetItemMight(item) << 8);
     }
+
+#ifdef BUGFIX
+    return TRUE;
+#endif
 }
 
 struct Unk_0810DB34 const gUnk_0810DB34[] =

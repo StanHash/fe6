@@ -46,14 +46,50 @@ enum
 enum
 {
     AI_A_00 = 0x00,
+    AI_A_01 = 0x01,
+    AI_A_02 = 0x02,
+    AI_A_03 = 0x03,
+    AI_A_04 = 0x04,
+    AI_A_05 = 0x05,
     AI_A_06 = 0x06,
+    AI_A_07 = 0x07,
+    AI_A_08 = 0x08,
+    AI_A_09 = 0x09,
+    AI_A_0A = 0x0A,
+    AI_A_0B = 0x0B,
+    AI_A_0C = 0x0C,
+    AI_A_0D = 0x0D,
+    AI_A_0E = 0x0E,
+    AI_A_0F = 0x0F,
 };
 
 enum
 {
     AI_B_00 = 0x00,
     AI_B_01 = 0x01,
+    AI_B_02 = 0x02,
+    AI_B_03 = 0x03,
+    AI_B_04 = 0x04,
+    AI_B_05 = 0x05,
+    AI_B_06 = 0x06,
+    AI_B_07 = 0x07,
+    AI_B_08 = 0x08,
+    AI_B_09 = 0x09,
+    AI_B_0A = 0x0A,
+    AI_B_0B = 0x0B,
     AI_B_0C = 0x0C,
+    AI_B_0D = 0x0D,
+    AI_B_0E = 0x0E,
+    AI_B_0F = 0x0F,
+    AI_B_10 = 0x10,
+    AI_B_11 = 0x11,
+    AI_B_12 = 0x12,
+    AI_B_13 = 0x13,
+    AI_B_14 = 0x14,
+    AI_B_15 = 0x15,
+    AI_B_16 = 0x16,
+    AI_B_17 = 0x17,
+    AI_B_18 = 0x18,
 };
 
 enum

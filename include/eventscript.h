@@ -159,22 +159,22 @@ enum
     EVT_CMD_MOVE_POS, _EvtParams2(x, y), _EvtParams2(x_to, y_to),
 
 #define EvtMoveScript(x, y, movescript) \
-    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (u32) (movescript),
+    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (u32) (uptr) (movescript),
 
 #define EvtMoveUnit(pid, x_to, y_to) \
     EVT_CMD_MOVE_PID, (pid), _EvtParams2(x_to, y_to),
 
 #define EvtMoveUnitScript(pid, movescript) \
-    EVT_CMD_MOVE_PID_MANUAL, (pid), (u32) (movescript),
+    EVT_CMD_MOVE_PID_MANUAL, (pid), (u32) (uptr) (movescript),
 
 #define EvtMoveUnitNextTo(pid, pidTo) \
     EVT_CMD_MOVE_PID_NEXTTO, (pid), (pidTo),
 
 #define EvtLoadUnits(info) \
-    EVT_CMD_LOADUNITS, (u32) (info),
+    EVT_CMD_LOADUNITS, (u32) (uptr) (info),
 
 #define EvtLoadUnitsParty(info) \
-    EVT_CMD_LOADUNITS_PARTY, (u32) (info),
+    EVT_CMD_LOADUNITS_PARTY, (u32) (uptr) (info),
 
 #define EvtMoveWait \
     EVT_CMD_MOVEWAIT,
@@ -210,10 +210,10 @@ enum
     EVT_CMD_GOTO_IFN_INTEAM, (id), (pid),
 
 #define EvtGotoIfFunc(id, func) \
-    EVT_CMD_GOTO_IFY_FUNC, (id), (u32) (func),
+    EVT_CMD_GOTO_IFY_FUNC, (id), (u32) (uptr) (func),
 
 #define EvtGotoIfNotFunc(id, func) \
-    EVT_CMD_GOTO_IFN_FUNC, (id), (u32) (func),
+    EVT_CMD_GOTO_IFN_FUNC, (id), (u32) (uptr) (func),
 
 #define EvtGotoIfSkipped(id) \
     EVT_CMD_GOTO_IFY_SKIPPED, (id),

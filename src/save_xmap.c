@@ -8,6 +8,7 @@
 #include "battle.h"
 #include "chapterinfo.h"
 #include "gbasram.h"
+#include "chapterunits.h"
 #include "save_core.h"
 #include "savelayout.h"
 
@@ -229,26 +230,26 @@ void CreateTrialChapterBonusUnits(void)
     gMapHidden = NULL;
 
     if (count > 1)
-        BatchCreateUnits(gUnk_086876AC);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitA);
 
     if (count > 2)
-        BatchCreateUnits(gUnk_086876CC);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitB);
 
     if (count > 3)
-        BatchCreateUnits(gUnk_086876EC);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitC);
 
     if (count > 4)
-        BatchCreateUnits(gUnk_0868770C);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitD);
 
     if (count > 5)
-        BatchCreateUnits(gUnk_0868772C);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitE);
 
     if (count > 6)
-        BatchCreateUnits(gUnk_0868774C);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitF);
 
     if (count > 7)
-        BatchCreateUnits(gUnk_0868776C);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitG);
 
     if (count > 9)
-        BatchCreateUnits(gUnk_0868778C);
+        BatchCreateUnits(UnitInfo_TrialBonusUnitH);
 }

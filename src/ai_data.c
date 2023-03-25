@@ -38,7 +38,7 @@ static u8 const JList_AiJobRankSupport[] = { JID_THIEF, JID_THIEF_F, JID_BARD, J
 static u8 const JList_AiJobRankHealers[] = { JID_PRIEST, JID_CLERIC, JID_TROUBADOUR, 0 };
 static u8 const JList_AiJobRankCivilians[] = { JID_CIVILIAN, JID_CIVILIAN_F, JID_CHILD, JID_CHILD_F, 0 };
 static u8 const JList_AiJobRankMages[] = { JID_BISHOP, JID_BISHOP_F, JID_MAGE, JID_MAGE_F, JID_SAGE, JID_SAGE_F, JID_SHAMAN, JID_SHAMAN_F, JID_DRUID, JID_DRUID_F, JID_VALKYRIE, 0 };
-static u8 const JList_AiJobRankFlyers[] = { JID_PEGASUSKNIGHT, JID_FALCOKNIGHT, JID_WYVERNRIDER, JID_WYVERNRIDER_F, JID_WYVERNLORD, JID_WYVERNLORD_F, 0 };
+static u8 const JList_AiJobRankFlyers[] = { JID_PEGASUSKNIGHT, JID_FALCONKNIGHT, JID_WYVERNRIDER, JID_WYVERNRIDER_F, JID_WYVERNLORD, JID_WYVERNLORD_F, 0 };
 static u8 const JList_AiJobRankArmors[] = { JID_ARMOR, JID_GENERAL, 0 };
 static u8 const JList_AiJobRankCavaliers[] = { JID_CAVALIER, JID_CAVALIER_F, JID_PALADIN, JID_PALADIN_F, 0 };
 static u8 const JList_AiJobRankArchers[] = { JID_ARCHER, JID_ARCHER_F, JID_SNIPER, JID_SNIPER_F, 0 };
@@ -668,7 +668,7 @@ u16 CONST_DATA PList_AiClarine[] =
 
 u16 CONST_DATA PList_AiLalumAndElfin[] =
 {
-    PID_LALUM, PID_ELFIN, 0,
+    PID_LARUM, PID_ELFFIN, 0,
 };
 
 u16 CONST_DATA PList_Ai_085C86AA[] =
@@ -1438,11 +1438,11 @@ AI_LABEL(1),
 };
 
 // FIXME: use AiFunc_DecideTalk input struct
-struct { u8 pidA, pidB; } const gUnk_0810DB14 = { PID_LANCE, PID_ALAN };
+struct { u8 pidA, pidB; } const gUnk_0810DB14 = { PID_LANCE, PID_ALEN };
 
 struct AiScr CONST_DATA AiScr_Unk_085C9448[] =
 {
-    AI_MOVE_TOWARDS_PID(PID_ALAN),
+    AI_MOVE_TOWARDS_PID(PID_ALEN),
     AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 2),
 
     AI_CALL_FUNC(AiFunc_DecideTalk, &gUnk_0810DB14),
@@ -1546,51 +1546,51 @@ AI_LABEL(1),
 
 static struct AiScr const * CONST_DATA sAiScriptLutB[] =
 {
-    AiScr_AiB_MoveToEnemy,
-    AiScr_AiB_MoveToEnemy_IgnoreClarine,
-    AiScr_AiB_MoveToEnemy_IgnoreRefreshers,
-    AiScr_AiB_Nop,
-    AiScr_AiB_PillageThenPursue,
-    AiScr_AiB_PillageThenStop,
-    AiScr_Unk_085C8A18,
-    AiScr_Unk_085C8A88,
-    AiScr_Unk_085C89C8,
-    AiScr_Unk_085C8B88,
-    AiScr_Unk_085C9448,
-    AiScr_AiB_Clarine,
-    AiScr_AiB_Escape,
-    AiScr_AiB_MoveTo_21_17,
-    AiScr_AiB_MoveToRoy,
-    AiScr_AiB_MoveToLilina,
-    AiScr_Unk_085C9048,
-    AiScr_Unk_085C90C8,
-    AiScr_Unk_085C9148,
-    AiScr_Unk_085C91C8,
-    AiScr_Unk_085C9248,
-    AiScr_Unk_085C92C8,
-    AiScr_Unk_085C9348,
-    AiScr_Unk_085C93C8,
-    AiScr_Unk_085C8C08,
+    [AI_B_00] = AiScr_AiB_MoveToEnemy,
+    [AI_B_01] = AiScr_AiB_MoveToEnemy_IgnoreClarine,
+    [AI_B_02] = AiScr_AiB_MoveToEnemy_IgnoreRefreshers,
+    [AI_B_03] = AiScr_AiB_Nop,
+    [AI_B_04] = AiScr_AiB_PillageThenPursue,
+    [AI_B_05] = AiScr_AiB_PillageThenStop,
+    [AI_B_06] = AiScr_Unk_085C8A18,
+    [AI_B_07] = AiScr_Unk_085C8A88,
+    [AI_B_08] = AiScr_Unk_085C89C8,
+    [AI_B_09] = AiScr_Unk_085C8B88,
+    [AI_B_0A] = AiScr_Unk_085C9448,
+    [AI_B_0B] = AiScr_AiB_Clarine,
+    [AI_B_0C] = AiScr_AiB_Escape,
+    [AI_B_0D] = AiScr_AiB_MoveTo_21_17,
+    [AI_B_0E] = AiScr_AiB_MoveToRoy,
+    [AI_B_0F] = AiScr_AiB_MoveToLilina,
+    [AI_B_10] = AiScr_Unk_085C9048,
+    [AI_B_11] = AiScr_Unk_085C90C8,
+    [AI_B_12] = AiScr_Unk_085C9148,
+    [AI_B_13] = AiScr_Unk_085C91C8,
+    [AI_B_14] = AiScr_Unk_085C9248,
+    [AI_B_15] = AiScr_Unk_085C92C8,
+    [AI_B_16] = AiScr_Unk_085C9348,
+    [AI_B_17] = AiScr_Unk_085C93C8,
+    [AI_B_18] = AiScr_Unk_085C8C08,
 };
 
 static struct AiScr const * CONST_DATA sAiScriptLutA[] =
 {
-    AiScr_AiA_Action,
-    AiScr_AiA_Action80,
-    AiScr_AiA_Action50,
-    AiScr_AiA_ActionInPlace,
-    AiScr_AiA_ActionInPlace80,
-    AiScr_AiA_ActionInPlace50,
-    AiScr_AiA_Nop,
-    AiScr_Unk_085C8DF8,
-    AiScr_Unk_085C8E18,
-    AiScr_Unk_085C8E38,
-    AiScr_Unk_085C8E58,
-    AiScr_Unk_085C8EB8,
-    AiScr_Unk_085C8EF8,
-    AiScr_Unk_085C8F68,
-    AiScr_Unk_085C9698,
-    AiScr_Unk_085C96B8,
+    [AI_A_00] = AiScr_AiA_Action,
+    [AI_A_01] = AiScr_AiA_Action80,
+    [AI_A_02] = AiScr_AiA_Action50,
+    [AI_A_03] = AiScr_AiA_ActionInPlace,
+    [AI_A_04] = AiScr_AiA_ActionInPlace80,
+    [AI_A_05] = AiScr_AiA_ActionInPlace50,
+    [AI_A_06] = AiScr_AiA_Nop,
+    [AI_A_07] = AiScr_Unk_085C8DF8,
+    [AI_A_08] = AiScr_Unk_085C8E18,
+    [AI_A_09] = AiScr_Unk_085C8E38,
+    [AI_A_0A] = AiScr_Unk_085C8E58,
+    [AI_A_0B] = AiScr_Unk_085C8EB8,
+    [AI_A_0C] = AiScr_Unk_085C8EF8,
+    [AI_A_0D] = AiScr_Unk_085C8F68,
+    [AI_A_0E] = AiScr_Unk_085C9698,
+    [AI_A_0F] = AiScr_Unk_085C96B8,
 };
 
 struct AiScr const * const * CONST_DATA gAiScriptLutB[] =

@@ -97,7 +97,7 @@ void EndMu(struct MuProc * proc);
 void HaltMu(struct MuProc * mu);
 void LockMus(void);
 void ReleaseMus(void);
-void ApplyMoveScriptToCoordinates(int* x, int* y, u8 const * movescr);
+void ApplyMoveScriptToCoordinates(int * x, int * y, u8 const * movescr);
 bool CanStartMu(void);
 void ResetMuAnims(void);
 struct MuConfig * GetNewMuConfig(void);

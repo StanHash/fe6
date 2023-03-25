@@ -664,7 +664,7 @@ bool IsMapFadeActive(void)
     return Proc_Exists(ProcScr_MapFade);
 }
 
-static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
+static void GetPlayerInitialCursorPosition(int * x_out, int * y_out)
 {
     struct Unit * unit;
 
@@ -680,17 +680,17 @@ static void GetPlayerInitialCursorPosition(int* xOut, int* yOut)
     {
         unit = GetUnitByPid(PID_ROY);
 
-        *xOut = unit->x;
-        *yOut = unit->y;
+        *x_out = unit->x;
+        *y_out = unit->y;
     }
     else
     {
-        *xOut = gPlaySt.x_cursor;
-        *yOut = gPlaySt.y_cursor;
+        *x_out = gPlaySt.x_cursor;
+        *y_out = gPlaySt.y_cursor;
     }
 }
 
-static void GetAiInitialCursorPosition(int* xOut, int* yOut)
+static void GetAiInitialCursorPosition(int * x_out, int * y_out)
 {
     int i;
 
@@ -707,8 +707,8 @@ static void GetAiInitialCursorPosition(int* xOut, int* yOut)
         if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_CONCEALED))
             continue;
 
-        *xOut = unit->x;
-        *yOut = unit->y;
+        *x_out = unit->x;
+        *y_out = unit->y;
 
         if (UNIT_ATTRIBUTES(unit) & UNIT_ATTR_BOSS)
             return;
@@ -823,6 +823,10 @@ u32 DiscardItemMenu_ExtraEntry_Display(struct MenuProc * menu, struct MenuEntPro
     func_fe6_080167E4(&ent->text, item, gBg0Tm + TM_OFFSET(ent->x, ent->y));
 
     EnableBgSync(BG0_SYNC_BIT);
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 fu8 DiscardItemMenu_InventoryEntry_Select(struct MenuProc * menu, struct MenuEntProc * ent)

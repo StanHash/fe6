@@ -292,7 +292,7 @@ int GetStringTextLen(char const * str)
     return result;
 }
 
-char const * GetCharTextLen(char const * str, int* out_width)
+char const * GetCharTextLen(char const * str, int * out_width)
 {
     struct Glyph const * glyph;
     char byte2, byte1;
@@ -323,7 +323,7 @@ int GetStringTextCenteredPos(int areaLength, char const * str)
     return (areaLength - GetStringTextLen(str)) / 2;
 }
 
-void GetStringTextBox(char const * str, int* out_width, int* out_height)
+void GetStringTextBox(char const * str, int * out_width, int * out_height)
 {
     *out_width = 0;
     *out_height = 0;

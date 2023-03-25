@@ -918,8 +918,8 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
 
     u8 bestRange;
 
-    short xOut = 0;
-    short yOut = 0;
+    short x_out = 0;
+    short y_out = 0;
 
     if (gActiveUnit->x == x && gActiveUnit->y == y)
     {
@@ -939,7 +939,7 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     MapFlood_08019344(gActiveUnit);
 
     bestRange = gMapRange[gActiveUnit->y][gActiveUnit->x];
-    xOut = -1;
+    x_out = -1;
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)
     {
@@ -964,14 +964,14 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
                 continue;
 
             bestRange = gMapRange[iy][ix];
-            xOut = ix;
-            yOut = iy;
+            x_out = ix;
+            y_out = iy;
         }
     }
 
-    if (xOut >= 0)
+    if (x_out >= 0)
     {
-        AiSetDecision(xOut, yOut, action, 0, 0, 0, 0);
+        AiSetDecision(x_out, y_out, action, 0, 0, 0, 0);
     }
 }
 

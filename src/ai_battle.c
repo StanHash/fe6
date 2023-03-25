@@ -47,6 +47,12 @@ bool AiAttemptOffensiveAction(bool (* is_enemy)(struct Unit * unit))
     finResult.target_id = 0;
     finResult.score = 0;
 
+#if BUGFIX
+    finResult.x_move = 0;
+    finResult.y_move = 0;
+    finResult.item_slot = 0;
+#endif
+
     if (gAiSt.flags & AI_FLAG_1)
     {
         MapFill(gMapMovement, -1);
@@ -113,6 +119,10 @@ bool AiAttemptOffensiveAction(bool (* is_enemy)(struct Unit * unit))
         AiSetDecision(finResult.x_move, finResult.y_move,
             AI_ACTION_COMBAT, finResult.target_id, finResult.item_slot, 0, 0);
     }
+
+#if BUGFIX
+    return TRUE;
+#endif
 }
 
 bool AiAttemptCombatWithinMovement(bool (* is_enemy)(struct Unit * unit))
@@ -124,6 +134,12 @@ bool AiAttemptCombatWithinMovement(bool (* is_enemy)(struct Unit * unit))
 
     finResult.target_id = 0;
     finResult.score = 0;
+
+#if BUGFIX
+    finResult.x_move = 0;
+    finResult.y_move = 0;
+    finResult.item_slot = 0;
+#endif
 
     SetWorkingMap(gMapRange);
 
@@ -181,6 +197,10 @@ bool AiAttemptCombatWithinMovement(bool (* is_enemy)(struct Unit * unit))
         AiSetDecision(finResult.x_move, finResult.y_move,
             AI_ACTION_COMBAT, finResult.target_id, finResult.item_slot, 0, 0);
     }
+
+#if BUGFIX
+    return TRUE;
+#endif
 }
 
 void AiFillReversedAttackRangeMap(struct Unit * unit, u16 item)

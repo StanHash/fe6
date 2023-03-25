@@ -3,6 +3,7 @@
 #include "common.h"
 
 #include "ai.h"
+#include "ai_script.h"
 
 struct AiCombatScoreCoefficients
 {

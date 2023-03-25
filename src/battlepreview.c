@@ -146,7 +146,7 @@ static void PutBattlePreviewItemName(u16 * tm, struct Text * text, int item)
     PutDrawText(text, tm, TEXT_COLOR_SYSTEM_WHITE, pos, 0, str);
 }
 
-static void BattlePreviewHitCountUpdate(struct BattleUnit * bu, u8 * hitCounter, int* usesCounter)
+static void BattlePreviewHitCountUpdate(struct BattleUnit * bu, i8 * hitCounter, int * usesCounter)
 {
     if (*usesCounter > 0)
     {
@@ -327,6 +327,10 @@ static u16 const * GetFactionBattlePreviewFramePalette(int faction)
     case FACTION_PURPLE: return Pal_BattlePreviewFrame_Purple;
 
     }
+
+#if BUGFIX
+    return Pal_BattlePreviewFrame_Purple;
+#endif
 }
 
 static void InitBattlePreviewFramePalettes(void)

@@ -149,16 +149,16 @@ void func_fe6_0801549C(short speed);
 // func_fe6_080154AC
 // func_fe6_08015504
 void PutDrawTextCentered(struct Text * text, int x, int y, char const * str, int width);
-void VecMulMat(int const * vec, int const * mat, int* ovec);
-void MatMulMat(int const * lmat, int const * rmat, int* omat);
-void MatIdent(int* mat);
-void MatCopy(int const * src, int* dst);
-void MatRotA(int* mat, short angle);
-void MatRotB(int* mat, short angle);
-void MatRotC(int* mat, short angle);
+void VecMulMat(int const * vec, int const * mat, int * ovec);
+void MatMulMat(int const * lmat, int const * rmat, int * omat);
+void MatIdent(int * mat);
+void MatCopy(int const * src, int * dst);
+void MatRotA(int * mat, short angle);
+void MatRotB(int * mat, short angle);
+void MatRotC(int * mat, short angle);
 void func_fe6_08015858(void);
 int VecDotVec(int const * lvec, int const * rvec);
-void VecCrossVec(int const * lvec, int const * rvec, int* ovec);
+void VecCrossVec(int const * lvec, int const * rvec, int * ovec);
 int func_fe6_080158B8(int arg_0, int arg_1, int arg_2, int arg_3);
 
 extern u16 CONST_DATA Pal_AllBlack[];

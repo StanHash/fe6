@@ -50,7 +50,7 @@ u8 CONST_DATA JList_MeleeArena[] =
     JID_PALADIN,
     JID_VALKYRIE,
     JID_PEGASUSKNIGHT,
-    JID_FALCOKNIGHT,
+    JID_FALCONKNIGHT,
     JID_WYVERNRIDER,
     JID_WYVERNLORD,
     JID_SOLDIER,
@@ -97,7 +97,7 @@ u8 CONST_DATA JList_MagicArena[] =
     JID_NOMAD,
     JID_NOMADTROOPER,
     JID_PEGASUSKNIGHT,
-    JID_FALCOKNIGHT,
+    JID_FALCONKNIGHT,
     JID_WYVERNRIDER,
     JID_WYVERNLORD,
     JID_SOLDIER,
@@ -344,6 +344,11 @@ static bool ArenaIsMagicWeaponKind(int weapon_kind)
     case ITEM_KIND_ELDER:
         return TRUE;
 
+#if BUGFIX
+    default:
+        return FALSE;
+#endif
+
     }
 }
 
@@ -475,10 +480,14 @@ static u16 ArenaGetUpgradedWeapon(u16 item)
             continue;
 
         if (*++it != 0)
-            return CreateItem (* it);
+            return CreateItem(*it);
 
         return item;
     }
+
+#if BUGFIX
+    return 0;
+#endif
 }
 
 static bool ArenaAdjustOpponentDamage(void)

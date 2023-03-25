@@ -743,7 +743,7 @@ static void PrintProcInfo(struct ProcDummy * proc)
     }
 }
 
-static void WalkPrintProcInfo(struct ProcDummy * proc, int* indent)
+static void WalkPrintProcInfo(struct ProcDummy * proc, int * indent)
 {
     if (proc->proc_prev != NULL)
         WalkPrintProcInfo(proc->proc_prev, indent);

@@ -970,6 +970,11 @@ int GetActiveMapSong(void)
 
         return GetChapterInfo(gPlaySt.chapter)->song_blue_bgm;
 
+#if BUGFIX
+    default:
+        return GetChapterInfo(gPlaySt.chapter)->song_blue_bgm;
+#endif
+
     }
 }
 
