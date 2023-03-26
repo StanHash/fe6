@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-typedef u32 EventScr;
+typedef uptr EventScr;
 
 // Event command ids
 
@@ -159,22 +159,22 @@ enum
     EVT_CMD_MOVE_POS, _EvtParams2(x, y), _EvtParams2(x_to, y_to),
 
 #define EvtMoveScript(x, y, movescript) \
-    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (EventScr) (uptr) (movescript),
+    EVT_CMD_MOVE_POS_MANUAL, _EvtParams2(x, y), (EventScr) (movescript),
 
 #define EvtMoveUnit(pid, x_to, y_to) \
     EVT_CMD_MOVE_PID, (pid), _EvtParams2(x_to, y_to),
 
 #define EvtMoveUnitScript(pid, movescript) \
-    EVT_CMD_MOVE_PID_MANUAL, (pid), (EventScr) (uptr) (movescript),
+    EVT_CMD_MOVE_PID_MANUAL, (pid), (EventScr) (movescript),
 
-#define EvtMoveUnitNextTo(pid, pidTo) \
-    EVT_CMD_MOVE_PID_NEXTTO, (pid), (pidTo),
+#define EvtMoveUnitNextTo(pid, pid_to) \
+    EVT_CMD_MOVE_PID_NEXTTO, (pid), (pid_to),
 
 #define EvtLoadUnits(info) \
-    EVT_CMD_LOADUNITS, (EventScr) (uptr) (info),
+    EVT_CMD_LOADUNITS, (EventScr) (info),
 
 #define EvtLoadUnitsParty(info) \
-    EVT_CMD_LOADUNITS_PARTY, (EventScr) (uptr) (info),
+    EVT_CMD_LOADUNITS_PARTY, (EventScr) (info),
 
 #define EvtMoveWait \
     EVT_CMD_MOVEWAIT,
@@ -186,13 +186,13 @@ enum
     EVT_CMD_UNITCAM_OFF,
 
 #define EvtFunc(func) \
-    EVT_CMD_FUNC, (EventScr) (uptr) (func),
+    EVT_CMD_FUNC, (EventScr) (func),
 
 #define EvtFuncUntil(func) \
-    EVT_CMD_FUNC_UNTIL, (EventScr) (uptr) (func),
+    EVT_CMD_FUNC_UNTIL, (EventScr) (func),
 
 #define EvtFuncWhile(func) \
-    EVT_CMD_FUNC_WHILE, (EventScr) (uptr) (func),
+    EVT_CMD_FUNC_WHILE, (EventScr) (func),
 
 #define EvtStop \
     EVT_CMD_STOP,
@@ -210,10 +210,10 @@ enum
     EVT_CMD_GOTO_IFN_INTEAM, (id), (pid),
 
 #define EvtGotoIfFunc(id, func) \
-    EVT_CMD_GOTO_IFY_FUNC, (id), (EventScr) (uptr) (func),
+    EVT_CMD_GOTO_IFY_FUNC, (id), (EventScr) (func),
 
 #define EvtGotoIfNotFunc(id, func) \
-    EVT_CMD_GOTO_IFN_FUNC, (id), (EventScr) (uptr) (func),
+    EVT_CMD_GOTO_IFN_FUNC, (id), (EventScr) (func),
 
 #define EvtGotoIfSkipped(id) \
     EVT_CMD_GOTO_IFY_SKIPPED, (id),
@@ -287,8 +287,8 @@ enum
 #define EvtRestoreBgm \
     EVT_CMD_BGM_RESTORE,
 
-#define EvtFadeBgmOut(fadeSpeed) \
-    EVT_CMD_BGM_FADEOUT, (fadeSpeed),
+#define EvtFadeBgmOut(fade_speed) \
+    EVT_CMD_BGM_FADEOUT, (fade_speed),
 
 #define EvtLowerBgmVolume \
     EVT_CMD_BGM_LOWER_ON,
@@ -296,7 +296,7 @@ enum
 #define EvtRaiseBgmVolume \
     EVT_CMD_BGM_LOWER_OFF,
 
-#define EvtPlaySE(song) \
+#define EvtPlaySe(song) \
     EVT_CMD_SE, (song),
 
 #define EvtNextChapter(chapter) \
@@ -335,20 +335,20 @@ enum
 #define EvtEnterMap \
     EVT_CMD_ENTER_MAP,
 
-#define EvtFightScript(attacker_pid, defender_pid, battle_hits) \
-    EVT_CMD_FIGHTSCR, (attacker_pid), (defender_pid), (EventScr) (uptr) (battle_hits), FALSE,
-
-#define EvtFightScriptBallista(attacker_pid, defender_pid, battle_hits) \
-    EVT_CMD_FIGHTSCR, (attacker_pid), (defender_pid), (EventScr) (uptr) (battle_hits), TRUE,
+#define EvtFightScript(attacker_pid, defender_pid, battle_hits, is_ballista) \
+    EVT_CMD_FIGHTSCR, (attacker_pid), (defender_pid), (EventScr) (battle_hits), (is_ballista),
 
 #define EvtDisableAutoClear \
     EVT_CMD_NOCLEARTALK,
 
 #define EvtFuncOnSkip(func) \
-    EVT_CMD_FUNC_ONSKIP, (EventScr) (uptr) (func),
+    EVT_CMD_FUNC_ONSKIP, (EventScr) (func),
 
 #define EvtWeather(weather) \
     EVT_CMD_WEATHER, (weather),
+
+// aliases
+#define EvtPlaySE(song) EvtPlaySe(song)
 
 // Helper event macros
 // EventScr const EventScr_<Name>[] = { /* to be used here */ };

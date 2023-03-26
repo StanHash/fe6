@@ -122,7 +122,7 @@ void func_fe6_08071838(struct HelpBoxProc * proc);
 int func_fe6_08071848(int item);
 // func_fe6_08071888
 // func_fe6_080718A8
-// func_fe6_080718E0
+bool func_fe6_080718E0(void);
 // func_fe6_080718FC
 // func_fe6_08071978
 // func_fe6_080719D8

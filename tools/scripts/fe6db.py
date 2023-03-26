@@ -22,6 +22,7 @@ def name_to_display(name: str) -> str:
 ALL_IIDS = [1 + x for x in range(0x7F)]
 ALL_PIDS = [1 + x for x in range(0xE2)]
 ALL_JIDS = [1 + x for x in range(0x4C)]
+ALL_CHAPTERS = [x for x in range(0x2D)]
 
 ITEM_NAME_DICT = {
     0x01: "Iron Sword",
@@ -343,6 +344,23 @@ CHARACTER_PID_OVERRIDE_DICT = {
     0xD2: "PID_TUTORIAL_ARCHER",
     0xE1: "PID_ARENA_OPPONENT"}
 
+CHAPTER_OVERRIDE_DICT = {
+    0x00: 'CHAPTER_TUTORIAL',
+    0x01: 'CHAPTER_CH01',
+    0x08: 'CHAPTER_UNK_08',
+    0x10: 'CHAPTER_UNK_10',
+    0x18: 'CHAPTER_UNK_18',
+    0x19: 'CHAPTER_FINAL',
+    0x20: 'CHAPTER_UNK_20',
+    0x22: 'CHAPTER_UNK_22',
+    0x24: 'CHAPTER_UNK_24',
+    0x26: 'CHAPTER_UNK_26',
+    0x28: 'CHAPTER_TRIAL_A',
+    0x29: 'CHAPTER_TRIAL_B',
+    0x2A: 'CHAPTER_TRIAL_C',
+    0x2B: 'CHAPTER_TRIAL_D',
+    0x2C: 'CHAPTER_TRIAL_E'}
+
 def iid_name(iid: int) -> str:
     if iid in ITEM_IID_OVERRIDE_DICT:
         return ITEM_IID_OVERRIDE_DICT[iid]
@@ -370,9 +388,16 @@ def pid_name(pid: int) -> str:
 
     return f"PID_UNKNOWN_{pid:02X}"
 
+def chapter_name(chapter: int) -> str:
+    if chapter in CHAPTER_OVERRIDE_DICT:
+        return CHAPTER_OVERRIDE_DICT[chapter]
+
+    return f"CHAPTER_UNK_{chapter:02X}"
+
 IID_DICT = { iid: iid_name(iid) for iid in ALL_IIDS }
 JID_DICT = { jid: jid_name(jid) for jid in ALL_JIDS }
 PID_DICT = { pid: pid_name(pid) for pid in ALL_PIDS }
+CHAPTER_DICT = { chapter: chapter_name(chapter) for chapter in ALL_CHAPTERS }
 
 IINFO_LAYOUT = [
     ('msg_name', 'H'),

@@ -1,0 +1,62 @@
+#pragma once
+
+enum
+{
+    FLAG_TUTORIAL_4 = 4,
+    FLAG_TUTORIAL_5 = 5,
+    FLAG_TUTORIAL_6 = 6,
+    FLAG_TUTORIAL_7 = 7,
+    FLAG_TUTORIAL_8 = 8,
+    FLAG_TUTORIAL_9 = 9,
+    FLAG_TUTORIAL_10 = 10,
+    FLAG_TUTORIAL_11 = 11,
+    FLAG_TUTORIAL_14 = 14,
+    FLAG_TUTORIAL_15 = 15,
+    FLAG_TUTORIAL_16 = 16,
+
+    FLAG_TUTORIAL_19 = 19,
+    FLAG_TUTORIAL_20 = 20,
+    FLAG_TUTORIAL_21 = 21,
+
+    FLAG_TUTORIAL_24 = 24,
+    FLAG_TUTORIAL_25 = 25,
+    FLAG_TUTORIAL_26 = 26,
+};
+
+enum
+{
+    FLAG_CHAPTER3_5 = 5,
+};
+
+enum
+{
+    FLAG_CHAPTER4_2 = 2,
+};
+
+enum
+{
+    FLAG_CHAPTER5_2 = 2,
+    FLAG_CHAPTER5_5 = 5,
+};
+
+enum
+{
+    FLAG_CHAPTER6_7 = 7,
+    FLAG_CHAPTER6_11 = 11,
+};
+
+enum
+{
+    FLAG_CHAPTER7_2 = 2,
+    FLAG_CHAPTER7_9 = 9,
+    FLAG_CHAPTER7_14 = 14,
+};
+
+enum
+{
+    FLAG_101 = 0x65,
+    FLAG_102 = 0x66,
+    FLAG_103 = 0x67,
+    FLAG_104 = 0x68,
+    FLAG_105 = 0x69,
+};

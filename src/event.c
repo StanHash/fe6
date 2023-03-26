@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "event.h"
 #include "eventscript.h"
 
@@ -1870,7 +1868,7 @@ static int EvtCmd_FuncUntil(struct EventProc * proc)
 
     i8 result;
 
-    typedef i8 (* FuncType)(struct EventProc * proc);
+    typedef bool (* FuncType)(struct EventProc * proc);
     FuncType func;
 
     u32 const * script = proc->script;
@@ -1893,7 +1891,7 @@ static int EvtCmd_FuncWhile(struct EventProc * proc)
 
     i8 result;
 
-    typedef i8 (* FuncType)(struct EventProc * proc);
+    typedef bool (* FuncType)(struct EventProc * proc);
     FuncType func;
 
     u32 const * script = proc->script;
@@ -1986,7 +1984,7 @@ static int EvtCmd_GotoIfyFunc(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef i8 (* FuncType)(void);
+    typedef bool (* FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];
@@ -2002,7 +2000,7 @@ static int EvtCmd_GotoIfnFunc(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: address of function
 
-    typedef i8 (* FuncType)(void);
+    typedef bool (* FuncType)(void);
     FuncType func;
 
     func = (FuncType) proc->script[1];

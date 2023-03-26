@@ -3,6 +3,8 @@
 #include "common.h"
 #include "proc.h"
 
+// TODO: u32 * -> EventScr *
+
 struct PopupInfo
 {
     /* 00 */ u8 cmd;
