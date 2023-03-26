@@ -28,7 +28,7 @@ EventScr CONST_DATA EventScr_Unk_0866CE68[] =
     EvtClearTalk
     EvtMoveUnit(PID_UNKNOWN_50, 4, 2)
     EvtMoveWait
-    EvtMoveUnit(PID_UNKNOWN_51, 8, 65535)
+    EvtMoveUnit(PID_UNKNOWN_51, 8, -1)
     EvtMoveWait
     EvtRemoveUnit(PID_UNKNOWN_51)
     EvtMoveUnit(PID_UNKNOWN_50, 5, 1)
@@ -409,7 +409,7 @@ EventScr CONST_DATA EventScr_Unk_0866D498[] =
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_08)
+    EvtNextChapter(CHAPTER_8)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

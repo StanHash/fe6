@@ -23,7 +23,7 @@ EventScr CONST_DATA EventScr_Unk_0866C308[] =
     EvtMoveWait
     EvtSleep(16)
     EvtUnitCameraOn
-    EvtMoveUnit(PID_NARCIAN, 13, 65535)
+    EvtMoveUnit(PID_NARCIAN, 13, -1)
     EvtMoveWait
     EvtRemoveUnit(PID_NARCIAN)
     EvtSleep(16)
@@ -303,7 +303,7 @@ EventScr CONST_DATA EventScr_Unk_0866C7DC[] =
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_05)
+    EvtNextChapter(CHAPTER_5)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

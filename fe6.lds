@@ -611,7 +611,6 @@ SECTIONS
         . = ALIGN(4); src/eventinfo.o(.data);
         . = ALIGN(4); data/data_66618C.o(.data);
         . = ALIGN(4); src/chapterevents.o(.data);
-        . = ALIGN(4); data/data_chapterevents.o(.data);
         . = ALIGN(4); data/data_67619C.o(.data);
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/helpbox.o(.data);

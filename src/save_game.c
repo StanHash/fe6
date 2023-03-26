@@ -187,7 +187,7 @@ bool IsGameSavePastFirstChapter(int save_id)
 
     ReadGameSavePlaySt(save_id, &play_st);
 
-    if (play_st.chapter <= CHAPTER_CH01)
+    if (play_st.chapter <= CHAPTER_1)
         return FALSE;
 
     return TRUE;

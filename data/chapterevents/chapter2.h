@@ -251,7 +251,7 @@ EvtLabel(2)
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_03)
+    EvtNextChapter(CHAPTER_3)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

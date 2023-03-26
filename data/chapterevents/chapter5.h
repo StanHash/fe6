@@ -160,7 +160,7 @@ EventScr CONST_DATA EventScr_Unk_0866CAD8[] =
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_06)
+    EvtNextChapter(CHAPTER_6)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

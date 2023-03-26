@@ -95,6 +95,9 @@ void SetEventTalkSkipped(void);
 int GetPlayerDeployCount(void);
 void InitPlayerDeployUnits(void);
 void InitPlayerDeployUnitPositions(void);
+void func_fe6_08012780(void);
+void func_fe6_08012798(void);
+void func_fe6_080127B0(void);
 
 #define POPUP_END { POPUP_CMD_END, 0 }
 #define POPUP_SPACE(len) { POPUP_CMD_SPACE, (len) }

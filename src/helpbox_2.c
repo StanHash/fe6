@@ -169,7 +169,7 @@ void func_fe6_08070D08(int chr, int title_id)
 {
     // TODO: is this really chapter?
     if (title_id < 0 || title_id >= CHAPTER_COUNT)
-        title_id = CHAPTER_UNK_26;
+        title_id = CHAPTER_21X;
 
     gUnk_0203D404.unk_02 = chr & 0x3FF;
     Decompress(gUnk_08677F20[title_id], ((void *) VRAM) + chr * CHR_SIZE);

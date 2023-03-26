@@ -194,7 +194,7 @@ EventScr CONST_DATA EventScr_Unk_0866C2B0[] =
     EvtTalk(MSG_06E)
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_04)
+    EvtNextChapter(CHAPTER_4)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

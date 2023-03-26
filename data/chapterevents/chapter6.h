@@ -174,7 +174,7 @@ EvtLabel(3)
     EvtTalk(MSG_096)
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_07)
+    EvtNextChapter(CHAPTER_7)
     EvtSleep(1)
     EvtKill
     EvtClearSkip

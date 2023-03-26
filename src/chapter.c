@@ -57,7 +57,7 @@ void InitPlayConfig(int is_hard)
 {
     CpuFill16(0, &gPlaySt, sizeof(gPlaySt));
 
-    gPlaySt.chapter = CHAPTER_CH01;
+    gPlaySt.chapter = CHAPTER_1;
 
     if (is_hard)
         gPlaySt.flags |= PLAY_FLAG_HARD;

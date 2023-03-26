@@ -192,22 +192,22 @@ def main(args):
 
             # any one i16 coord pair cmd
             if cmd_name in ('Camera', 'FlashCursor', 'PutCursor'):
-                x = int.from_bytes(param_data[0:2], 'little')
-                y = int.from_bytes(param_data[2:4], 'little')
+                x = int.from_bytes(param_data[0:2], 'little', signed = True)
+                y = int.from_bytes(param_data[2:4], 'little', signed = True)
                 line = f"{line}({x}, {y})"
 
             # Move
             if cmd_name == 'Move':
-                x = int.from_bytes(param_data[0:2], 'little')
-                y = int.from_bytes(param_data[2:4], 'little')
-                x_to = int.from_bytes(param_data[4:6], 'little')
-                y_to = int.from_bytes(param_data[6:8], 'little')
+                x = int.from_bytes(param_data[0:2], 'little', signed = True)
+                y = int.from_bytes(param_data[2:4], 'little', signed = True)
+                x_to = int.from_bytes(param_data[4:6], 'little', signed = True)
+                y_to = int.from_bytes(param_data[6:8], 'little', signed = True)
                 line = f"{line}({x}, {y}, {x_to}, {y_to})"
 
             # MoveScript
             if cmd_name == 'MoveScript':
-                x = int.from_bytes(param_data[0:2], 'little')
-                y = int.from_bytes(param_data[2:4], 'little')
+                x = int.from_bytes(param_data[0:2], 'little', signed = True)
+                y = int.from_bytes(param_data[2:4], 'little', signed = True)
                 movescr_addr = int.from_bytes(param_data[4:8], 'little')
                 line = f"{line}({x}, {y}, {names[movescr_addr]})"
 
@@ -264,8 +264,8 @@ def main(args):
 
             # GiveItemTo
             if cmd_name == 'GiveItemTo':
-                iid = int.from_bytes(param_data[0:4], 'little')
-                pid = int.from_bytes(param_data[4:8], 'little')
+                pid = int.from_bytes(param_data[0:4], 'little')
+                iid = int.from_bytes(param_data[4:8], 'little')
                 line = f"{line}({IID_DICT[iid]}, {PID_DICT[pid]})"
 
             # MapChange
@@ -300,8 +300,8 @@ def main(args):
 
             # SetAiPosition
             if cmd_name == 'SetAiPosition':
-                x = int.from_bytes(param_data[0:2], 'little')
-                y = int.from_bytes(param_data[2:4], 'little')
+                x = int.from_bytes(param_data[0:2], 'little', signed = True)
+                y = int.from_bytes(param_data[2:4], 'little', signed = True)
                 ai_a = int.from_bytes(param_data[4:5], 'little')
                 ai_b = int.from_bytes(param_data[5:6], 'little')
                 ai_c = int.from_bytes(param_data[6:7], 'little')

@@ -204,10 +204,9 @@ EvtLabel(0)
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtNextChapter(CHAPTER_UNK_02)
+    EvtNextChapter(CHAPTER_2)
     EvtSleep(1)
     EvtKill
     EvtClearSkip
     EvtEnd
 };
-// end @ 0866B9C4

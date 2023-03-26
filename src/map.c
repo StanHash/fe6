@@ -71,7 +71,7 @@ void InitMapForChapter(int chapter)
     ApplyEnabledMapChanges();
     RefreshTerrainMap();
 
-    if (gPlaySt.chapter == CHAPTER_UNK_22)
+    if (gPlaySt.chapter == CHAPTER_14X)
         func_fe6_080187EC();
 }
 

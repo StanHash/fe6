@@ -920,10 +920,11 @@ u16 CONST_DATA gUnk_085C8834[] =
     -1,
 };
 
+// TODO: constants + finish chapter map
 u32 const AiItemConfigTable[] =
 {
     [CHAPTER_TUTORIAL] = 0x7,
-    [CHAPTER_CH01]     = 0x7,
+    [CHAPTER_1] = 0x7,
     0x7,
     0x7,
     0x7,
