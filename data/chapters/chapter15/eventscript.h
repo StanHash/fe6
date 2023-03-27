@@ -238,7 +238,7 @@ EventScr CONST_DATA EventScr_Unk_086704E4[] =
 EvtLabel(22)
     EvtTalkContinue
     EvtClearTalk
-    EvtGotoIfNotFunc(5, func_fe6_0806C158)
+    EvtGotoIfNotFunc(5, IsPercivalBlueDeployed)
 
     EvtGotoIfFlag(5, FLAG_CHAPTER15_11)
 

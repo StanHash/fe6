@@ -27,6 +27,7 @@ enum
     FLAG_TUTORIAL_19 = 19,
     FLAG_TUTORIAL_20 = 20,
     FLAG_TUTORIAL_21 = 21,
+    FLAG_TUTORIAL_22 = 22,
 
     FLAG_TUTORIAL_24 = 24,
     FLAG_TUTORIAL_25 = 25,
@@ -322,6 +323,8 @@ enum
     FLAG_CHAPTER24_7 = 7,
     FLAG_CHAPTER24_8 = 8,
     FLAG_CHAPTER24_9 = 9,
+
+    FLAG_CHAPTER24_17 = 17,
 };
 
 enum
@@ -341,6 +344,7 @@ enum
     FLAG_111 = 0x6F,
     FLAG_112 = 0x70,
     FLAG_113 = 0x71,
+    FLAG_114 = 0x72,
 
     FLAG_118 = 0x76,
     FLAG_119 = 0x77,

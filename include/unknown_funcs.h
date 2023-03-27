@@ -12,8 +12,8 @@
 // func_fe6_0802B964
 // func_fe6_0802B980
 // func_fe6_0802B99C
-// func_fe6_0802B9DC
-// func_fe6_0802BA08
+int func_fe6_0802B9DC(void);
+int func_fe6_0802BA08(void);
 // func_fe6_0802BA44
 
 void AiRefreshDangerMap(void);
@@ -1453,7 +1453,7 @@ void func_fe6_08047CC8(void);
 // func_fe6_0805B458
 // func_fe6_0805B4D8
 // func_fe6_0805B5C8
-// func_fe6_0805B644
+void func_fe6_0805B644(u16 * pal, int arg_1, int arg_2, int arg_3);
 // func_fe6_0805B6C8
 // func_fe6_0805B780
 // func_fe6_0805B7F4
@@ -1878,19 +1878,19 @@ void func_fe6_0806BFCC(void);
 // func_fe6_0806BFE4
 // func_fe6_0806C000
 // func_fe6_0806C068
-// func_fe6_0806C07C
-bool func_fe6_0806C0B8(void);
-bool func_fe6_0806C0C8(void);
-bool func_fe6_0806C0D8(void);
-bool func_fe6_0806C0E8(void);
-bool func_fe6_0806C0F8(void);
-bool func_fe6_0806C108(void);
-bool func_fe6_0806C118(void);
-bool func_fe6_0806C128(void);
-bool func_fe6_0806C138(void);
-bool func_fe6_0806C148(void);
-bool func_fe6_0806C158(void);
-// IsPidInBlueTeam
+// IsPidBlueDeployed
+bool IsLilinaBlueDeployed(void);
+bool IsMarcusBlueDeployed(void);
+bool IsMerlinusBlueDeployed(void);
+bool IsJunoBlueDeployed(void);
+bool IsZelotBlueDeployed(void);
+bool IsSinBlueDeployed(void);
+bool IsDayanBlueDeployed(void);
+bool IsSueBlueDeployed(void);
+bool IsMeladyBlueDeployed(void);
+bool IsZeissBlueDeployed(void);
+bool IsPercivalBlueDeployed(void);
+// IsPidBlue
 bool func_fe6_0806C1A4(void);
 bool func_fe6_0806C1B4(void);
 bool func_fe6_0806C1C4(void);
@@ -1910,8 +1910,8 @@ bool IsKleinInBlueTeam(void);
 bool func_fe6_0806C2A4(void);
 bool func_fe6_0806C2B4(void);
 // func_fe6_0806C2C4
-bool func_fe6_0806C2F8(struct EventInfo * info);
-// IsPidInNonBlueTeam
+bool func_fe6_0806C2F8(void);
+bool IsPidInNonBlueTeam(fu8 pid);
 // func_fe6_0806C34C
 bool func_fe6_0806C35C(void);
 // IsKleinInNonBlueTeam
@@ -1920,7 +1920,7 @@ bool func_fe6_0806C38C(void);
 bool func_fe6_0806C39C(void);
 bool func_fe6_0806C3AC(void);
 bool func_fe6_0806C3BC(void);
-// func_fe6_0806C3CC
+bool func_fe6_0806C3CC(void);
 bool func_fe6_0806C3DC(void);
 bool func_fe6_0806C3EC(void);
 bool func_fe6_0806C3FC(void);

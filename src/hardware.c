@@ -718,7 +718,7 @@ u16 * GetBgTilemap(int bg)
 void SoftResetIfKeyCombo(void)
 {
     if (gKeySt->held == (KEY_BUTTON_A + KEY_BUTTON_B + KEY_BUTTON_SELECT + KEY_BUTTON_START))
-        SoftReset(0xFF);
+        SoftReset(GBA_RESET_ALL);
 }
 
 void func_fe6_0800285C(int unk)

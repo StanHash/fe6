@@ -1,12 +1,12 @@
 #pragma once
 
 // EventScr @ 0866AAF8
-EventScr CONST_DATA EventScr_0866AAF8[] =
+EventScr CONST_DATA EventScr_RoyDefeated[] =
 {
     EvtNoSkip
     EvtTalk(MSG_26B)
     EvtClearTalk
-    EvtGotoIfNotFunc(1, func_fe6_0806C0B8)
+    EvtGotoIfNotFunc(1, IsLilinaBlueDeployed)
 
     EvtTalk(MSG_2A1)
     EvtClearTalk
@@ -20,14 +20,14 @@ EvtLabel(1)
     EvtGoto(9)
 
 EvtLabel(2)
-    EvtGotoIfNotFunc(3, func_fe6_0806C0C8)
+    EvtGotoIfNotFunc(3, IsMarcusBlueDeployed)
 
     EvtTalk(MSG_2A2)
     EvtClearTalk
     EvtGoto(9)
 
 EvtLabel(3)
-    EvtGotoIfNotFunc(9, func_fe6_0806C0D8)
+    EvtGotoIfNotFunc(9, IsMerlinusBlueDeployed)
 
     EvtTalk(MSG_2A3)
     EvtClearTalk

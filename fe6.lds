@@ -233,6 +233,10 @@ SECTIONS
         . = ALIGN(4); . = . + 0x100; /* TODO */
         . = ALIGN(4); src/manim.o(ewram_data);
 
+        . = 0x0203D354 - __ewram_overlay_end;
+        . = ALIGN(4); gUnk_0203D354 = .; . = . + 4;
+        . = ALIGN(4); gUnk_0203D358 = .; . = . + 4;
+
         . = 0x0203D3DC - __ewram_overlay_end;
         . = ALIGN(4); src/statscreen.o(ewram_data);
         . = ALIGN(4); src/helpbox.o(ewram_data);

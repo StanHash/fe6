@@ -13,6 +13,7 @@
 #include "chapterinfo.h"
 #include "support.h"
 #include "trap.h"
+#include "chapterevents.h"
 
 #include "constants/iids.h"
 #include "constants/chapters.h"
@@ -34,7 +35,6 @@ extern struct BattleTalkExtEnt CONST_DATA gBattleTalkExtList[];
 extern struct BattleTalkEnt CONST_DATA gBattleTalkList[];
 extern struct BattleTalkEnt CONST_DATA gTriangleAttackTalkList[];
 extern struct BattleTalkEnt CONST_DATA gBattleDefeatTalkList[];
-extern EventScr CONST_DATA EventScr_0866AAF8[];
 
 struct EventListCmdInfo
 {
@@ -167,7 +167,7 @@ int EvtListCmd_TurnHard(struct EventInfo * info)
     if (!(gPlaySt.flags & PLAY_FLAG_HARD))
         return FALSE;
 
-    if (CheckFlag(2)) // TODO: flag ids
+    if (CheckFlag(FLAG_2))
         return FALSE;
 
     return EvtListCmd_Turn(info);
@@ -334,7 +334,7 @@ int EvtListCmd_AreaHard(struct EventInfo * info)
     if (!(gPlaySt.flags & PLAY_FLAG_HARD))
         return FALSE;
 
-    if (CheckFlag(2)) // TODO: flag ids
+    if (CheckFlag(FLAG_2))
         return FALSE;
 
     return EvtListCmd_Area(info);
@@ -355,7 +355,7 @@ int EvtListCmd_Func(struct EventInfo * info)
     return FALSE;
 }
 
-int EventInfoCheckTalk(struct EventInfo * info, fu8 pid_a, fu8 pid_b)
+bool EventInfoCheckTalk(struct EventInfo * info, fu8 pid_a, fu8 pid_b)
 {
     if (info->pid_a == pid_a && info->pid_b == pid_b)
     {
@@ -883,15 +883,15 @@ void StartAvailableMoveEvent(void)
 
 bool CheckChapterVictory(void)
 {
-    if (gPlaySt.chapter == CHAPTER_FINAL && CheckFlag(0x72)) // TODO: flag constants
-        SetFlag(3); // TODO: flag constants
+    if (gPlaySt.chapter == CHAPTER_FINAL && CheckFlag(FLAG_114))
+        SetFlag(FLAG_3);
 
-    return CheckFlag(3); // TODO: flag constants
+    return CheckFlag(FLAG_3);
 }
 
 void StartChapterVictoryEvent(void)
 {
-    if (CheckFlag(3)) // TODO: flag constants
+    if (CheckFlag(FLAG_3))
     {
         if (gPlaySt.chapter == CHAPTER_FINAL)
         {
@@ -1064,11 +1064,11 @@ void StartBattleDefeatTalk(fu8 pid)
 
     if (pid == PID_ROY)
     {
-        SetFlag(0x65); // TODO: flag constants
+        SetFlag(FLAG_101);
 
         if (gPlaySt.chapter != CHAPTER_TUTORIAL)
         {
-            StartEvent(EventScr_0866AAF8);
+            StartEvent(EventScr_RoyDefeated);
             StartBgm(SONG_37, NULL);
         }
 

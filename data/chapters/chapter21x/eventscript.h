@@ -29,9 +29,9 @@ EventScr CONST_DATA EventScr_Unk_08675BA8[] =
     EvtMoveWait
     EvtCameraUnit(PID_ROY)
     EvtFlashCursorUnit(PID_ROY)
-    EvtGotoIfFunc(5, func_fe6_0806C138)
+    EvtGotoIfFunc(5, IsMeladyBlueDeployed)
 
-    EvtGotoIfFunc(7, func_fe6_0806C148)
+    EvtGotoIfFunc(7, IsZeissBlueDeployed)
 
     EvtFadeToBlack(16)
     EvtExitMap

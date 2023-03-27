@@ -48,6 +48,7 @@ extern u16 CONST_DATA ShopItems_Unk_0866AAB0[];
 extern u16 CONST_DATA ShopItems_Unk_0866AAC4[];
 extern u16 CONST_DATA ShopItems_Unk_0866AAE4[];
 
+extern EventScr CONST_DATA EventScr_RoyDefeated[];
 extern EventScr CONST_DATA EventScr_CathTalk[];
 extern EventScr CONST_DATA EventScr_GameOver[];
 
@@ -501,7 +502,7 @@ extern EventScr CONST_DATA EventScr_Unk_08674BB0[];
 extern EventScr CONST_DATA EventScr_Unk_08674F00[];
 extern EventScr CONST_DATA EventScr_Unk_08674F84[];
 
-struct UnkTrapEnt CONST_DATA gUnk_0867507C[];
+extern struct UnkTrapEnt CONST_DATA gUnk_0867507C[];
 extern EventScr CONST_DATA EventScr_Unk_0867514C[];
 extern EventScr CONST_DATA EventScr_Unk_086751E8[];
 

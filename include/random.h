@@ -13,4 +13,4 @@ bool RandRoll(int threshold);
 bool RandRoll2Rn(int threshold);
 
 void RandInitB(int seed);
-unsigned RandNextB(void);
+u32 RandNextB(void);

@@ -26,11 +26,11 @@ EventScr CONST_DATA EventScr_Unk_08675768[] =
     EvtMoveWait
     EvtCameraUnit(PID_ROY)
     EvtFlashCursorUnit(PID_ROY)
-    EvtGotoIfFunc(1, func_fe6_0806C108)
+    EvtGotoIfFunc(1, IsSinBlueDeployed)
 
-    EvtGotoIfFunc(2, func_fe6_0806C118)
+    EvtGotoIfFunc(2, IsDayanBlueDeployed)
 
-    EvtGotoIfFunc(3, func_fe6_0806C128)
+    EvtGotoIfFunc(3, IsSueBlueDeployed)
 
     EvtFadeToBlack(16)
     EvtExitMap

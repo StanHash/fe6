@@ -90,7 +90,7 @@ int EvtListCmd_Shop(struct EventInfo * info);
 int EvtListCmd_Area(struct EventInfo * info);
 int EvtListCmd_AreaHard(struct EventInfo * info);
 int EvtListCmd_Func(struct EventInfo * info);
-int EventInfoCheckTalk(struct EventInfo * info, fu8 pid_a, fu8 pid_b);
+bool EventInfoCheckTalk(struct EventInfo * info, fu8 pid_a, fu8 pid_b);
 int CheckActiveUnitArea(int x1, int y1, int x2, int y2);
 bool CheckAnyBlueUnitArea(int x1, int y1, int x2, int y2);
 bool func_fe6_0806AD48(struct EventInfo * info);
