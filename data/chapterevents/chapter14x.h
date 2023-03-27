@@ -1,12 +1,5 @@
 #pragma once
 
-// TODO: move (eventfunctions)
-struct UnkTrapEnt
-{
-    int delay;
-    int interval;
-};
-
 struct UnkTrapEnt CONST_DATA gUnk_0867507C[26] =
 {
     {  1,  6 },

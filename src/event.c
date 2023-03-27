@@ -91,8 +91,8 @@ struct EventProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ u32 const * script_start;
-    /* 30 */ u32 const * script;
+    /* 2C */ EventScr const * script_start;
+    /* 30 */ EventScr const * script;
     /* 34 */ void (* on_skip)(void);
     /* 38 */ void (* on_idle)(struct EventProc * proc);
     /* 3C */ struct UnitInfo const * unit_info;
@@ -155,7 +155,7 @@ static void FadeFromBg_FadeToBlack(struct GenericProc * proc);
 static void FadeFromBg_FadeFromBlack(struct GenericProc * proc);
 static void FadeFromBg_ClearScreen(struct GenericProc * proc);
 static void FadeFromSkip_Start(struct GenericProc * proc);
-static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent);
+static ProcPtr StartEventInternal(EventScr const * script, ProcPtr parent);
 static void Event_OnInit(struct EventProc * proc);
 static void Event_OnEnd(struct EventProc * proc);
 static void Event_ResetText(struct EventProc * proc);
@@ -285,7 +285,7 @@ static struct Unit * sPopupUnit;
 static u16 sPopupItem;
 static int sPopupNumber;
 
-extern u32 const * gEventScriptQueue[]; // COMMON
+extern EventScr const * gEventScriptQueue[]; // COMMON
 extern u8 gEventScriptQueueIt; // COMMON
 
 struct ProcScr CONST_DATA ProcScr_Popup[];
@@ -796,17 +796,17 @@ static void FadeFromSkip_Start(struct GenericProc * proc)
     StartMidLockingFadeFromBlack(proc);
 }
 
-ProcPtr StartEvent(u32 const * script)
+ProcPtr StartEvent(EventScr const * script)
 {
     return StartEventInternal(script, PROC_TREE_3);
 }
 
-ProcPtr StartEventLocking(u32 const * script, ProcPtr parent)
+ProcPtr StartEventLocking(EventScr const * script, ProcPtr parent)
 {
     return StartEventInternal(script, parent);
 }
 
-static ProcPtr StartEventInternal(u32 const * script, ProcPtr parent)
+static ProcPtr StartEventInternal(EventScr const * script, ProcPtr parent)
 {
     struct EventProc * proc = FindProc(ProcScr_Event);
 
@@ -1851,7 +1851,7 @@ static int EvtCmd_Func(struct EventProc * proc)
     typedef void (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const * script = proc->script;
+    EventScr const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     func(proc);
@@ -1871,7 +1871,7 @@ static int EvtCmd_FuncUntil(struct EventProc * proc)
     typedef bool (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const * script = proc->script;
+    EventScr const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     result = func(proc);
@@ -1894,7 +1894,7 @@ static int EvtCmd_FuncWhile(struct EventProc * proc)
     typedef bool (* FuncType)(struct EventProc * proc);
     FuncType func;
 
-    u32 const * script = proc->script;
+    EventScr const * script = proc->script;
 
     func = (FuncType) proc->script[0];
     result = func(proc);
@@ -1920,7 +1920,7 @@ static int EvtCmd_Label(struct EventProc * proc)
 
 int EventGotoLabel(ProcPtr proc, int label)
 {
-    u32 const * it;
+    EventScr const * it;
 
     for (it = ((struct EventProc *) proc)->script_start; it[0] != EVT_CMD_END; it += sEventCmdInfoTable[it[0]].size)
     {
@@ -2024,7 +2024,7 @@ static int EvtCmd_GotoIfyFlag(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const * it = proc->script_start;
+    EventScr const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2050,7 +2050,7 @@ static int EvtCmd_GotoIfnFlag(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: flag to check
 
-    u32 const * it = proc->script_start;
+    EventScr const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2076,7 +2076,7 @@ static int EvtCmd_GotoIfyActive(struct EventProc * proc)
     // script[0]: label to go to
     // script[1]: pid
 
-    u32 const * it = proc->script_start;
+    EventScr const * it = proc->script_start;
 
     int label = proc->script[0];
 
@@ -2101,10 +2101,10 @@ static int EvtCmd_Jump(struct EventProc * proc)
 {
     // script[0]: address of new script
 
-    u32 const * newScript = (u32 const *) proc->script[0];
+    EventScr const * new_script = (EventScr const *) proc->script[0];
 
-    proc->script = newScript;
-    proc->script_start = newScript;
+    proc->script = new_script;
+    proc->script_start = new_script;
 
     return EVENT_CMDRET_JUMPED;
 }

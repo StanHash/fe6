@@ -1,5 +1,6 @@
 #include "chapterunits.h"
 
+#include "event.h"
 #include "eventscript.h"
 #include "unit.h"
 #include "faction.h"

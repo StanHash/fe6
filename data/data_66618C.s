@@ -26,4 +26,4 @@ gSupportTalkList: @ 08666CF8
 
 	.global EventListScr_Tutorial_ActionSelect
 EventListScr_Tutorial_ActionSelect: @ 086676E0
-	.incbin "fe6-base.gba", 0x6676E0, (0x66AAF8 - 0x6676E0) @ length: 3418
+	.incbin "fe6-base.gba", 0x6676E0, (0x66A81C - 0x6676E0) @ length: 3418

@@ -14,24 +14,6 @@ enum { MAX_PERMANENT_FLAGS = 40 };
 
 enum
 {
-    EVT_LIST_CMD_END,
-    EVT_LIST_CMD_FLAG,
-    EVT_LIST_CMD_TURN,
-    EVT_LIST_CMD_TURN_HARD,
-    EVT_LIST_CMD_TALK,
-    EVT_LIST_CMD_TILE,
-    EVT_LIST_CMD_TILE_MAPCHANGE,
-    EVT_LIST_CMD_ITEM,
-    EVT_LIST_CMD_DOOR,
-    EVT_LIST_CMD_DRAWBRIDGE,
-    EVT_LIST_CMD_SHOP,
-    EVT_LIST_CMD_AREA,
-    EVT_LIST_CMD_AREA_HARD,
-    EVT_LIST_CMD_FUNC,
-};
-
-enum
-{
     TILE_COMMAND_NONE,
 
     TILE_COMMAND_VISIT    = 0x0E,
@@ -47,12 +29,12 @@ enum
     TILE_COMMAND_1D       = 0x1D,
 };
 
-typedef u32 EventListScr;
+typedef uptr EventListScr;
 
 struct EventInfo
 {
     /* 00 */ EventListScr const * list_script;
-    /* 04 */ void const * script;
+    /* 04 */ void const * script; // could be EventScr, could be item list, could be "1"...
     /* 08 */ u32 flag;
     /* 0C */ u32 tile_command;
     /* 10 */ u32 given_money;

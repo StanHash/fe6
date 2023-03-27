@@ -3,7 +3,7 @@
 #include "common.h"
 #include "proc.h"
 
-// TODO: u32 * -> EventScr *
+typedef uptr EventScr;
 
 struct PopupInfo
 {
@@ -58,8 +58,8 @@ ProcPtr StartPopup(struct PopupInfo const * info, int duration, int window_kind,
 ProcPtr StartPopupExt(struct PopupInfo const * info, int duration, int window_kind, int iconChr, int iconPal, ProcPtr parent);
 void EndPopup(void);
 void DisableEventSkip(void);
-ProcPtr StartEvent(u32 const * script);
-ProcPtr StartEventLocking(u32 const * script, ProcPtr parent);
+ProcPtr StartEvent(EventScr const * script);
+ProcPtr StartEventLocking(EventScr const * script, ProcPtr parent);
 void DisplayBackground(int background);
 void DisplayBackgroundNoClear(int background);
 void TryMoveUnit(struct Unit * unit, int x, int y, i8 moveClosest);

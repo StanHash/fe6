@@ -51,7 +51,7 @@ struct EventListCmdInfo CONST_DATA gEventListCmdInfoTable[] =
     [EVT_LIST_CMD_TALK]           = { EvtListCmd_Talk, 3 },
     [EVT_LIST_CMD_TILE]           = { EvtListCmd_Tile, 3 },
     [EVT_LIST_CMD_TILE_MAPCHANGE] = { EvtListCmd_TileWithMapChange, 3 },
-    [EVT_LIST_CMD_ITEM]           = { EvtListCmd_ItemChest, 3 },
+    [EVT_LIST_CMD_CHEST]          = { EvtListCmd_ItemChest, 3 },
     [EVT_LIST_CMD_DOOR]           = { EvtListCmd_Door, 3 },
     [EVT_LIST_CMD_DRAWBRIDGE]     = { EvtListCmd_Drawbridge, 3 },
     [EVT_LIST_CMD_SHOP]           = { EvtListCmd_Shop, 3 },
@@ -896,12 +896,12 @@ void StartChapterVictoryEvent(void)
         if (gPlaySt.chapter == CHAPTER_FINAL)
         {
             if (func_fe6_0806CD78())
-                StartEvent(GetChapterEventInfo(gPlaySt.chapter)->script_18);
+                StartEvent(GetChapterEventInfo(gPlaySt.chapter)->event_script_victory);
         }
         else
         {
             if (CheckAvailableVictoryEvent())
-                StartEvent(GetChapterEventInfo(gPlaySt.chapter)->script_18);
+                StartEvent(GetChapterEventInfo(gPlaySt.chapter)->event_script_victory);
         }
     }
 }

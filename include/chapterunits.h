@@ -2,7 +2,7 @@
 
 #include "common.h"
 
-#include "eventscript.h"
+#include "event.h"
 #include "unit.h"
 
 extern struct UnitInfo CONST_DATA UnitInfo_Unk_08679974[];

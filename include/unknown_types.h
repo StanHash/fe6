@@ -136,14 +136,3 @@ struct MapAnimSt
     /* 61 */ u8 unk_61;
     /* 62 */ u8 unk_62;
 };
-
-struct ChapterEventInfo
-{
-    /* 00 */ void const * event_list_turn;
-    /* 04 */ void const * event_list_talk;
-    /* 08 */ void const * event_list_tile;
-    /* 0C */ void const * event_list_move;
-    /* 10 */ void const * units_red;
-    /* 14 */ void const * units_blue;
-    /* 18 */ void const * script_18;
-};

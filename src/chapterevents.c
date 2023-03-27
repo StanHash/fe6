@@ -3,6 +3,7 @@
 #include "proc.h"
 #include "oam.h"
 #include "event.h"
+#include "eventscript.h"
 #include "util.h"
 #include "unit.h"
 #include "map.h"
@@ -24,6 +25,8 @@
 #include "constants/songs.h"
 #include "constants/chapters.h"
 
+
+#include "data/chaptershops.h"
 #include "data/chapterevents/unk_0866AAF8.h"
 #include "data/chapterevents/tutorial.h"
 #include "data/chapterevents/chapter1.h"

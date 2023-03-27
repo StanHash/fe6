@@ -2,8 +2,6 @@
 
 #include "common.h"
 
-typedef uptr EventScr;
-
 // Event command ids
 
 enum
@@ -352,3 +350,63 @@ enum
 
 // Helper event macros
 // EventScr const EventScr_<Name>[] = { /* to be used here */ };
+
+enum
+{
+    EVT_LIST_CMD_END,
+    EVT_LIST_CMD_FLAG,
+    EVT_LIST_CMD_TURN,
+    EVT_LIST_CMD_TURN_HARD,
+    EVT_LIST_CMD_TALK,
+    EVT_LIST_CMD_TILE,
+    EVT_LIST_CMD_TILE_MAPCHANGE,
+    EVT_LIST_CMD_CHEST,
+    EVT_LIST_CMD_DOOR,
+    EVT_LIST_CMD_DRAWBRIDGE,
+    EVT_LIST_CMD_SHOP,
+    EVT_LIST_CMD_AREA,
+    EVT_LIST_CMD_AREA_HARD,
+    EVT_LIST_CMD_FUNC,
+};
+
+#define EvtListEnd \
+    _EvtParams2(EVT_LIST_CMD_END, 0),
+
+#define EvtListFlag(ent_flag, ent_script, flag) \
+    _EvtParams2(EVT_LIST_CMD_FLAG, (ent_flag)), (EventListScr) (ent_script), (flag),
+
+#define EvtListTurn(ent_flag, ent_script, turn, turn_max, faction) \
+    _EvtParams2(EVT_LIST_CMD_TURN, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((turn), (turn_max), (faction), 0),
+
+#define EvtListTurnHard(ent_flag, ent_script, turn, turn_max, faction) \
+    _EvtParams2(EVT_LIST_CMD_TURN_HARD, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((turn), (turn_max), (faction), 0),
+
+#define EvtListTalk(ent_flag, ent_script, pid_a, pid_b) \
+    _EvtParams2(EVT_LIST_CMD_TALK, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((pid_a), (pid_b), 0, 0),
+
+#define EvtListTile(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_TILE, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListTileMapChange(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_TILE_MAPCHANGE, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListChest(ent_flag, iid, money, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_CHEST, (ent_flag)), _EvtParams2((iid), (money)), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListDoor(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_DOOR, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListDrawbridge(ent_flag, ent_script, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_DRAWBRIDGE, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListShop(ent_flag, item_list, x, y, tile_command) \
+    _EvtParams2(EVT_LIST_CMD_SHOP, (ent_flag)), (EventListScr) (item_list), _EvtParams4((x), (y), (tile_command), 0),
+
+#define EvtListArea(ent_flag, ent_script, x1, y1, x2, y2) \
+    _EvtParams2(EVT_LIST_CMD_AREA, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x1), (y1), (x2), (y2)),
+
+#define EvtListAreaHard(ent_flag, ent_script, x1, y1, x2, y2) \
+    _EvtParams2(EVT_LIST_CMD_AREA_HARD, (ent_flag)), (EventListScr) (ent_script), _EvtParams4((x1), (y1), (x2), (y2)),
+
+#define EvtListFunc(ent_flag, ent_script, func) \
+    _EvtParams2(EVT_LIST_CMD_FUNC, (ent_flag)), (EventListScr) (ent_script), (EventListScr) (func),
