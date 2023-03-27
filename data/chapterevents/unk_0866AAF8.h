@@ -13,7 +13,7 @@ EventScr CONST_DATA EventScr_RoyDefeated[] =
     EvtGoto(9)
 
 EvtLabel(1)
-    EvtGotoIfNotFunc(2, func_fe6_0806BF38)
+    EvtGotoIfNotFunc(2, IsGuinivereAround)
 
     EvtTalk(MSG_2A4)
     EvtClearTalk

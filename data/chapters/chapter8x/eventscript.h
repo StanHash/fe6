@@ -65,7 +65,7 @@ EventScr CONST_DATA EventScr_Unk_08674B2C[] =
 EventScr CONST_DATA EventScr_Unk_08674BB0[] =
 {
     EvtSetBgm(SONG_27)
-    EvtGotoIfNotFunc(3, func_fe6_0806C1B4)
+    EvtGotoIfNotFunc(3, IsLilinaBlue)
 
     EvtFadeToBlack(16)
     EvtExitMap

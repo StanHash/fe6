@@ -63,7 +63,7 @@ EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
     EvtClearTalk
     EvtMoveUnit(PID_LANCE, 4, 18)
     EvtMoveWait
-    EvtFunc(func_fe6_0806BFCC)
+    EvtFunc(AddFiveThousandGold)
     EvtFunc(ApplyAllHardModeBonusLevels)
     EvtClearSkip
     EvtEnd
@@ -195,7 +195,7 @@ EventScr CONST_DATA EventScr_Unk_0866B944[] =
     EvtFadeFromBlack(16)
     EvtEnterMap
     EvtTalk(MSG_011)
-    EvtGotoIfNotFunc(0, func_fe6_0806C1A4)
+    EvtGotoIfNotFunc(0, IsBorsBlue)
 
     EvtTalkMore(MSG_012)
 

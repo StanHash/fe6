@@ -58,7 +58,7 @@ EventScr CONST_DATA EventScr_Unk_0866FCD0[] =
 // EventScr @ 0866FD28
 EventScr CONST_DATA EventScr_Unk_0866FD28[] =
 {
-    EvtFunc(func_fe6_0806BFC0)
+    EvtFunc(RemoveFog)
     EvtFunc(func_fe6_0806DDD4)
     EvtSleep(128)
     EvtCameraUnit(PID_ROY)
@@ -256,9 +256,9 @@ EvtLabel(9)
 // EventScr @ 08670030
 EventScr CONST_DATA EventScr_Unk_08670030[] =
 {
-    EvtGotoIfFunc(7, func_fe6_0806C4B0)
+    EvtGotoIfFunc(7, IsPastTurn25)
 
-    EvtGotoIfNotFunc(7, func_fe6_0806C224)
+    EvtGotoIfNotFunc(7, IsSophiaBlue)
 
     EvtSetBgm(SONG_26)
     EvtFadeToBlack(16)

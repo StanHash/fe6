@@ -8,7 +8,7 @@ EventScr CONST_DATA EventScr_Unk_086720EC[] =
     EvtSetFlag(FLAG_CHAPTER22_10)
 
 EvtLabel(0)
-    EvtGotoIfNotFunc(1, EvtCheck_IsHard)
+    EvtGotoIfNotFunc(1, IsHard)
 
     EvtLoadUnits(UnitInfo_Unk_08680FF0)
     EvtMoveWait
@@ -56,7 +56,7 @@ EventScr CONST_DATA EventScr_Unk_086721F4[] =
 
     EvtLoadUnits(UnitInfo_Unk_086811C0)
     EvtMoveWait
-    EvtGotoIfNotFunc(3, func_fe6_0806C37C)
+    EvtGotoIfNotFunc(3, IsCathNonBlue)
 
     EvtOverrideBgm(SONG_32)
     EvtTalk(MSG_1C7)
@@ -75,14 +75,14 @@ EvtLabel(9)
 // EventScr @ 08672260
 EventScr CONST_DATA EventScr_Unk_08672260[] =
 {
-    EvtGotoIfFunc(1, func_fe6_0806C4D8)
+    EvtGotoIfFunc(1, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER22_5)
     EvtGoto(9)
 
 EvtLabel(1)
     EvtLowerBgmVolume
-    EvtGotoIfNotFunc(3, func_fe6_0806C500)
+    EvtGotoIfNotFunc(3, IsActiveUnitMale)
 
     EvtTalk(MSG_1C8)
     EvtClearTalk
@@ -106,14 +106,14 @@ EvtLabel(9)
 // EventScr @ 086722EC
 EventScr CONST_DATA EventScr_Unk_086722EC[] =
 {
-    EvtGotoIfFunc(1, func_fe6_0806C4D8)
+    EvtGotoIfFunc(1, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER22_6)
     EvtGoto(9)
 
 EvtLabel(1)
     EvtLowerBgmVolume
-    EvtGotoIfNotFunc(3, func_fe6_0806C500)
+    EvtGotoIfNotFunc(3, IsActiveUnitMale)
 
     EvtTalk(MSG_1C8)
     EvtClearTalk
@@ -137,7 +137,7 @@ EvtLabel(9)
 // EventScr @ 08672378
 EventScr CONST_DATA EventScr_Unk_08672378[] =
 {
-    EvtGotoIfNotFunc(1, func_fe6_0806C4D8)
+    EvtGotoIfNotFunc(1, IsBluePhase)
 
     EvtGotoIfNotFlag(1, FLAG_CHAPTER22_5)
 

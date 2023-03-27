@@ -235,13 +235,13 @@ EventScr CONST_DATA EventScr_Unk_0866BE04[] =
     EvtFadeFromBlack(16)
     EvtEnterMap
     EvtTalk(MSG_05E)
-    EvtGotoIfNotFunc(1, func_fe6_0806C1C4)
+    EvtGotoIfNotFunc(1, IsElenBlue)
 
     EvtTalkMore(MSG_05F)
 
 EvtLabel(1)
     EvtTalkMore(MSG_060)
-    EvtGotoIfNotFunc(2, func_fe6_0806C1C4)
+    EvtGotoIfNotFunc(2, IsElenBlue)
 
     EvtTalkMore(MSG_061)
 

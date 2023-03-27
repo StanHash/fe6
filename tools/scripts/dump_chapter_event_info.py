@@ -40,7 +40,7 @@ TILE_COMMAND_NAMES = {
     0x14: 'TILE_COMMAND_VENDOR',
     0x15: 'TILE_COMMAND_SECRET',
     0x16: 'TILE_COMMAND_SHOP_UNK',
-    0x1D: 'TILE_COMMAND_1D'}
+    0x1D: 'TILE_COMMAND_PILLAGE'}
 
 def read_cmd_size(rom_data: bytes, cmd: int) -> int:
     int_bytes = rom_data[CMD_REF_ADDR - 0x08000000 + 4 + cmd * 8:CMD_REF_ADDR - 0x08000000 + 8 + cmd * 8]

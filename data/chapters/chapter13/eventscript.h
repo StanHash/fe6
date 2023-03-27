@@ -243,7 +243,7 @@ EventScr CONST_DATA EventScr_Unk_0866F6C4[] =
 // EventScr @ 0866F710
 EventScr CONST_DATA EventScr_Unk_0866F710[] =
 {
-    EvtGotoIfFunc(1, func_fe6_0806C4D8)
+    EvtGotoIfFunc(1, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER13_6)
     EvtGoto(9)
@@ -272,7 +272,7 @@ EvtLabel(9)
 // EventScr @ 0866F7B0
 EventScr CONST_DATA EventScr_Unk_0866F7B0[] =
 {
-    EvtGotoIfNotFunc(9, func_fe6_0806C3DC)
+    EvtGotoIfNotFunc(9, IsPercevalNonBlue)
 
     EvtOverrideBgm(SONG_12)
     EvtCameraUnit(PID_PERCEVAL)

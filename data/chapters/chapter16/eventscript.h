@@ -96,7 +96,7 @@ EventScr CONST_DATA EventScr_Unk_0867074C[] =
 // EventScr @ 08670800
 EventScr CONST_DATA EventScr_Unk_08670800[] =
 {
-    EvtGotoIfNotFunc(9, func_fe6_0806C38C)
+    EvtGotoIfNotFunc(9, IsHughNonBlue)
 
     EvtOverrideBgm(SONG_3B)
     EvtCameraUnit(PID_HUGH)
@@ -299,7 +299,7 @@ EvtLabel(3)
     EvtTalk(MSG_172)
     EvtClearTalk
     EvtSleep(64)
-    EvtGotoIfNotFunc(7, func_fe6_0806C5A8)
+    EvtGotoIfNotFunc(7, AreWeGoingToSacae)
 
     EvtNextChapter(CHAPTER_17_S)
     EvtSleep(1)

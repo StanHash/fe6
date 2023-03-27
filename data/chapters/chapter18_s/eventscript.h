@@ -30,7 +30,7 @@ EventScr CONST_DATA EventScr_Unk_08673F24[] =
 // EventScr @ 08673FB0
 EventScr CONST_DATA EventScr_Unk_08673FB0[] =
 {
-    EvtGotoIfFunc(9, func_fe6_0806C4D8)
+    EvtGotoIfFunc(9, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER18S_5)
 

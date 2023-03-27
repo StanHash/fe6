@@ -53,7 +53,7 @@ EventScr CONST_DATA EventScr_Unk_0866C8C0[] =
 // EventScr @ 0866C948
 EventScr CONST_DATA EventScr_Unk_0866C948[] =
 {
-    EvtGotoIfFunc(1, func_fe6_0806C4D8)
+    EvtGotoIfFunc(1, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER5_5)
     EvtGoto(9)
@@ -69,7 +69,7 @@ EvtLabel(1)
     EvtCamera(2, 14)
     EvtTalk(MSG_085)
     EvtClearTalk
-    EvtGotoIfNotFunc(7, EvtCheck_IsHard)
+    EvtGotoIfNotFunc(7, IsHard)
 
     EvtLoadUnits(UnitInfo_Unk_0867AE18)
 

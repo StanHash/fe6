@@ -34,7 +34,7 @@ EventListScr CONST_DATA EventListScr_Unk_0866A724[] =
 // EventListScr @ 0866A728
 EventListScr CONST_DATA EventListScr_Unk_0866A728[] =
 {
-    EvtListFunc(FLAG_FIRST_CHAPTER, EventScr_LoadUnits_Unk_086872E4, func_fe6_0806C2F8)
+    EvtListFunc(FLAG_CHAPTER_BASE, EventScr_LoadUnits_Unk_086872E4, func_fe6_0806C2F8)
     EvtListFunc(FLAG_3, EventScr_Unk_08676104, func_fe6_0806BF14)
     EvtListFlag(FLAG_3, EventScr_Unk_08676128, FLAG_101)
     EvtListFlag(0, EventScr_GameOver, FLAG_101)

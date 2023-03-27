@@ -134,7 +134,7 @@ bool func_fe6_080718E0(void);
 // func_fe6_08071B20
 // func_fe6_08071B44
 void func_fe6_08071B6C(void);
-// func_fe6_08071B80
+void func_fe6_08071B80(int x, int y, int msg, ProcPtr parent);
 // func_fe6_08071BC0
 // func_fe6_08071C00
 // func_fe6_08071C8C

@@ -222,7 +222,7 @@ EventScr CONST_DATA EventScr_Unk_0866F1B4[] =
     EvtClearTalk
     EvtGotoIfFlag(7, FLAG_118)
 
-    EvtGotoIfFunc(7, func_fe6_0806C49C)
+    EvtGotoIfFunc(7, IsPastTurn20)
 
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(16)

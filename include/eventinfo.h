@@ -25,7 +25,7 @@ enum
     TILE_COMMAND_SECRET   = 0x15,
     TILE_COMMAND_SHOP_UNK = 0x16,
 
-    TILE_COMMAND_1D       = 0x1D,
+    TILE_COMMAND_PILLAGE  = 0x1D,
 };
 
 typedef uptr EventListScr;

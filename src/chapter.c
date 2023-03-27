@@ -16,6 +16,7 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
+#include "eventfunctions.h"
 #include "save_core.h"
 #include "save_stats.h"
 

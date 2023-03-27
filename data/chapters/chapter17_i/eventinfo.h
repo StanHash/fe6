@@ -26,7 +26,7 @@ EventListScr CONST_DATA EventListScr_Unk_08668D2C[] =
 EventListScr CONST_DATA EventListScr_Unk_08668D30[] =
 {
     EvtListTileMapChange(0, EventScr_Unk_08670DB4, 2, 12, TILE_COMMAND_VISIT)
-    EvtListTile(0, EVENT_NOSCRIPT, 2, 11, TILE_COMMAND_1D)
+    EvtListTile(0, EVENT_NOSCRIPT, 2, 11, TILE_COMMAND_PILLAGE)
     EvtListShop(0, ShopItems_Unk_0866A93A, 6, 8, TILE_COMMAND_ARMORY)
     EvtListTile(0, EventScr_Unk_08670DFC, 8, 13, TILE_COMMAND_VISIT)
     EvtListTile(0, EventScr_Unk_08670E38, 8, 14, TILE_COMMAND_VISIT)

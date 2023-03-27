@@ -2,6 +2,7 @@
 
 #include "common.h"
 
+#include "proc.h"
 #include "event.h"
 
 // TODO: move (eventfunctions)
@@ -40,7 +41,7 @@ extern u16 CONST_DATA ShopItems_Unk_0866A9EC[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA12[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA2A[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA3C[];
-extern u16 CONST_DATA ShopItems_Unk_0866AA4E[];
+extern u16 CONST_DATA ShopItems_Chapter10B_Armory[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA64[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA76[];
 extern u16 CONST_DATA ShopItems_Unk_0866AA98[];
@@ -52,6 +53,9 @@ extern EventScr CONST_DATA EventScr_RoyDefeated[];
 extern EventScr CONST_DATA EventScr_CathTalk[];
 extern EventScr CONST_DATA EventScr_GameOver[];
 
+extern u16 CONST_DATA Sprite_0866ACCC[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0866ACE8[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0866AD00[];
 extern EventScr CONST_DATA EventScr_Unk_0866AD18[];
 extern EventScr CONST_DATA EventScr_Unk_0866AD78[];
 extern EventScr CONST_DATA EventScr_Unk_0866ADE4[];
@@ -414,28 +418,28 @@ extern EventScr CONST_DATA EventScr_Unk_08672ED8[];
 extern EventScr CONST_DATA EventScr_Unk_08672F64[];
 extern EventScr CONST_DATA EventScr_Unk_08672FB4[];
 extern EventScr CONST_DATA EventScr_Unk_08673000[];
-extern EventScr CONST_DATA EventScr_Unk_0867303C[];
-extern EventScr CONST_DATA EventScr_Unk_086730B4[];
+extern EventScr CONST_DATA EventScr_Chapter10B_KleinSquadArrives[];
+extern EventScr CONST_DATA EventScr_Chapter10B_TheaSquadArrives[];
 extern EventScr CONST_DATA EventScr_Unk_086730F4[];
 extern EventScr CONST_DATA EventScr_Unk_0867315C[];
 extern EventScr CONST_DATA EventScr_Unk_08673190[];
 extern EventScr CONST_DATA EventScr_Unk_086731F8[];
-extern EventScr CONST_DATA EventScr_Unk_0867322C[];
-extern EventScr CONST_DATA EventScr_Unk_08673258[];
-extern EventScr CONST_DATA EventScr_Unk_08673274[];
-extern EventScr CONST_DATA EventScr_Unk_086732C0[];
-extern EventScr CONST_DATA EventScr_Unk_08673304[];
-extern EventScr CONST_DATA EventScr_Unk_08673350[];
-extern EventScr CONST_DATA EventScr_Unk_0867339C[];
-extern EventScr CONST_DATA EventScr_Unk_086733D4[];
-extern EventScr CONST_DATA EventScr_Unk_086733E8[];
-extern EventScr CONST_DATA EventScr_Unk_08673430[];
-extern EventScr CONST_DATA EventScr_Unk_08673478[];
-extern EventScr CONST_DATA EventScr_Unk_086734C0[];
-extern EventScr CONST_DATA EventScr_Unk_08673570[];
-extern EventScr CONST_DATA EventScr_Unk_08673620[];
-extern EventScr CONST_DATA EventScr_Unk_08673668[];
-extern EventScr CONST_DATA EventScr_Unk_086736B0[];
+extern EventScr CONST_DATA EventScr_Chapter10B_LilinaRecruitsGonzalez[];
+extern EventScr CONST_DATA EventScr_Chapter10B_TalkTheaShanna[];
+extern EventScr CONST_DATA EventScr_Chapter10B_RoyRecruitsKlein[];
+extern EventScr CONST_DATA EventScr_Chapter10B_ClarineRecruitsKlein[];
+extern EventScr CONST_DATA EventScr_Chapter10B_ShannaRecruitsThea[];
+extern EventScr CONST_DATA EventScr_Chapter10B_KleinRecruitsThea[];
+extern EventScr CONST_DATA EventScr_Chapter10B_TalkTheaShannaAfterKlein[];
+extern EventScr CONST_DATA EventScr_TalkKleinClarine[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageA[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageB[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageC[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageD[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageE[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageF[];
+extern EventScr CONST_DATA EventScr_Chapter10B_VillageG[];
+extern EventScr CONST_DATA EventScr_Chapter10B_Victory[];
 
 extern EventScr CONST_DATA EventScr_Unk_0867389C[];
 extern EventScr CONST_DATA EventScr_Unk_08673998[];

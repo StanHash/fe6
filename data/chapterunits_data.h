@@ -2660,16 +2660,16 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_0867D1CC[] =
 struct UnitInfo CONST_DATA UnitInfo_Unk_0867D20C[] =
 {
     { PID_KLEIN, JID_SNIPER, 0, FALSE, FACTION_ID_RED, 1, 22, 25, 22, 24, { IID_SILVERBOW, IID_WHITEGEM }, { AI_A_01, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 21, 24, 21, 23, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 23, 24, 23, 23, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 21, 24, 21, 23, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 23, 24, 23, 23, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0867D24C
 struct UnitInfo CONST_DATA UnitInfo_Unk_0867D24C[] =
 {
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 20, 25, 21, 25, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 24, 25, 23, 25, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 20, 25, 21, 25, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 24, 25, 23, 25, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
@@ -2677,16 +2677,16 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_0867D24C[] =
 struct UnitInfo CONST_DATA UnitInfo_Unk_0867D27C[] =
 {
     { PID_THEA, JID_PEGASUSKNIGHT, 0, FALSE, FACTION_ID_RED, 8, 2, 0, 2, 1, { IID_SLIMLANCE, IID_JAVELIN }, { AI_A_01, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 0, 0, 1, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 4, 0, 3, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 0, 0, 1, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 4, 0, 3, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0867D2BC
 struct UnitInfo CONST_DATA UnitInfo_Unk_0867D2BC[] =
 {
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 1, 1, 2, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 5, 1, 3, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 1, 1, 2, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 5, 1, 3, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
     { 0 }, // end
 };
 
@@ -6004,7 +6004,7 @@ EventScr CONST_DATA EventScr_LoadUnits_Unk_08681E94[] =
 // Units UnitInfo_Unk_08681E94 1
 
 // UnitInfo @ 08681F5C
-struct UnitInfo CONST_DATA UnitInfo_Unk_08681F5C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_Deploy[] =
 {
     { PID_ROY, JID_ROY, 0, TRUE, FACTION_ID_BLUE, 9, 2, 30, 2, 30, { IID_RAPIER, IID_IRONSWORD, IID_DOORKEY }, { 0 } },
     { PID_LILINA, JID_MAGE_F, PID_ROY, TRUE, FACTION_ID_BLUE, 7, 2, 31, 2, 31, { IID_THUNDER, IID_FIRE, IID_VULNERARY }, { 0 } },
@@ -6022,7 +6022,7 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_08681F5C[] =
 };
 
 // UnitInfo @ 0868202C
-struct UnitInfo CONST_DATA UnitInfo_Unk_0868202C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_Red[] =
 {
     { PID_UNKNOWN_68, JID_GENERAL, 0, FALSE, FACTION_ID_RED, 5, 20, 2, 20, 2, { IID_SILVERLANCE, IID_JAVELIN }, { AI_A_03, AI_B_03, 0x01, 0x20 } },
     { PID_UNKNOWN_81, JID_MERCENARY, PID_UNKNOWN_68, TRUE, FACTION_ID_RED, 12, 19, 4, 19, 4, { IID_STEELBLADE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
@@ -6087,36 +6087,36 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_0868227C[] =
 };
 
 // UnitInfo @ 086822AC
-struct UnitInfo CONST_DATA UnitInfo_Unk_086822AC[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_KleinSquadA[] =
 {
     { PID_KLEIN, JID_SNIPER, 0, FALSE, FACTION_ID_RED, 1, 21, 31, 21, 30, { IID_SILVERBOW, IID_WHITEGEM }, { AI_A_01, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 20, 28, 20, 29, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 22, 28, 22, 29, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 20, 28, 20, 29, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 14, 22, 28, 22, 29, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 086822EC
-struct UnitInfo CONST_DATA UnitInfo_Unk_086822EC[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_KleinSquadB[] =
 {
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 20, 30, 20, 31, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
-    { PID_UNKNOWN_D8, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 22, 30, 22, 31, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 20, 30, 20, 31, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
+    { PID_KLEIN_SQUAD, JID_ARCHER, PID_KLEIN, TRUE, FACTION_ID_RED, 15, 22, 30, 22, 31, { IID_STEELBOW }, { AI_A_00, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0868231C
-struct UnitInfo CONST_DATA UnitInfo_Unk_0868231C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_TheaSquadA[] =
 {
     { PID_THEA, JID_PEGASUSKNIGHT, 0, FALSE, FACTION_ID_RED, 8, 12, 0, 12, 1, { IID_SLIMLANCE, IID_JAVELIN }, { AI_A_01, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 10, 0, 11, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 14, 0, 13, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 10, 0, 11, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 14, 0, 13, 0, { IID_STEELLANCE }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0868235C
-struct UnitInfo CONST_DATA UnitInfo_Unk_0868235C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_TheaSquadB[] =
 {
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 11, 1, 12, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
-    { PID_UNKNOWN_D9, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 15, 1, 14, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 11, 1, 12, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
+    { PID_THEA_SQUAD, JID_PEGASUSKNIGHT, PID_THEA, TRUE, FACTION_ID_RED, 6, 15, 1, 14, 2, { IID_IRONLANCE, IID_JAVELIN }, { AI_A_00, AI_B_00, 0x69, 0x00 } },
     { 0 }, // end
 };
 
@@ -6138,21 +6138,21 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_086823CC[] =
 };
 
 // UnitInfo @ 086823FC
-struct UnitInfo CONST_DATA UnitInfo_Unk_086823FC[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_CutsceneMelady[] =
 {
     { PID_MELADY, JID_WYVERNRIDER_F, 0, TRUE, FACTION_ID_RED, 6, 20, 2, 6, 1, { IID_SILVERBOW, IID_WHITEGEM }, { AI_A_01, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0868241C
-struct UnitInfo CONST_DATA UnitInfo_Unk_0868241C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_CutsceneGalle[] =
 {
     { PID_GALLE, JID_WYVERNLORD, 0, TRUE, FACTION_ID_RED, 6, 6, 0, 6, 0, { IID_SILVERBOW, IID_WHITEGEM }, { AI_A_01, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 0868243C
-struct UnitInfo CONST_DATA UnitInfo_Unk_0868243C[] =
+struct UnitInfo CONST_DATA UnitInfo_Chapter10B_CutsceneThea[] =
 {
     { PID_THEA, JID_PEGASUSKNIGHT, 0, TRUE, FACTION_ID_RED, 6, 17, 31, 20, 30, { IID_SILVERBOW, IID_WHITEGEM }, { AI_A_01, AI_B_00, 0x29, 0x00 } },
     { 0 }, // end
@@ -6166,20 +6166,20 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_0868245C[] =
 };
 
 // EventScr @ 0868247C
-EventScr CONST_DATA EventScr_LoadUnits_Unk_08681F5C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_Deploy[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_08681F5C)
+    EvtLoadUnits(UnitInfo_Chapter10B_Deploy)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08682490
-EventScr CONST_DATA EventScr_LoadUnits_Unk_0868202C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_Red[] =
 {
     EvtUnitCameraOff
     EvtNoSkip
-    EvtLoadUnits(UnitInfo_Unk_0868202C)
+    EvtLoadUnits(UnitInfo_Chapter10B_Red)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
@@ -6222,36 +6222,36 @@ EventScr CONST_DATA EventScr_LoadUnits_Unk_0868227C[] =
 };
 
 // EventScr @ 086824FC
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086822AC[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_KleinSquadA[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086822AC)
+    EvtLoadUnits(UnitInfo_Chapter10B_KleinSquadA)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08682510
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086822EC[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_KleinSquadB[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086822EC)
+    EvtLoadUnits(UnitInfo_Chapter10B_KleinSquadB)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08682524
-EventScr CONST_DATA EventScr_LoadUnits_Unk_0868231C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_TheaSquadA[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_0868231C)
+    EvtLoadUnits(UnitInfo_Chapter10B_TheaSquadA)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08682538
-EventScr CONST_DATA EventScr_LoadUnits_Unk_0868235C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_TheaSquadB[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_0868235C)
+    EvtLoadUnits(UnitInfo_Chapter10B_TheaSquadB)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
@@ -6276,27 +6276,27 @@ EventScr CONST_DATA EventScr_LoadUnits_Unk_086823CC[] =
 };
 
 // EventScr @ 08682574
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086823FC[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_CutsceneMelady[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086823FC)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneMelady)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08682588
-EventScr CONST_DATA EventScr_LoadUnits_Unk_0868241C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_CutsceneGalle[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_0868241C)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneGalle)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 0868259C
-EventScr CONST_DATA EventScr_LoadUnits_Unk_0868243C[] =
+EventScr CONST_DATA EventScr_LoadUnits_Chapter10B_CutsceneThea[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_0868243C)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneThea)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
@@ -6312,21 +6312,21 @@ EventScr CONST_DATA EventScr_LoadUnits_Unk_0868245C[] =
 };
 
 // Group 26 summary:
-// Units UnitInfo_Unk_08681F5C 1
-// Units UnitInfo_Unk_0868202C 2
+// Units UnitInfo_Chapter10B_Deploy 1
+// Units UnitInfo_Chapter10B_Red 2
 // Units UnitInfo_Unk_086821DC 1
 // Units UnitInfo_Unk_0868220C 1
 // Units UnitInfo_Unk_0868223C 1
 // Units UnitInfo_Unk_0868227C 1
-// Units UnitInfo_Unk_086822AC 1
-// Units UnitInfo_Unk_086822EC 1
-// Units UnitInfo_Unk_0868231C 1
-// Units UnitInfo_Unk_0868235C 1
+// Units UnitInfo_Chapter10B_KleinSquadA 1
+// Units UnitInfo_Chapter10B_KleinSquadB 1
+// Units UnitInfo_Chapter10B_TheaSquadA 1
+// Units UnitInfo_Chapter10B_TheaSquadB 1
 // Units UnitInfo_Unk_0868238C 1
 // Units UnitInfo_Unk_086823CC 1
-// Units UnitInfo_Unk_086823FC 1
-// Units UnitInfo_Unk_0868241C 1
-// Units UnitInfo_Unk_0868243C 1
+// Units UnitInfo_Chapter10B_CutsceneMelady 1
+// Units UnitInfo_Chapter10B_CutsceneGalle 1
+// Units UnitInfo_Chapter10B_CutsceneThea 1
 // Units UnitInfo_Unk_0868245C 1
 
 // UnitInfo @ 086825C4

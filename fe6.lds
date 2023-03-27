@@ -236,6 +236,8 @@ SECTIONS
         . = 0x0203D354 - __ewram_overlay_end;
         . = ALIGN(4); gUnk_0203D354 = .; . = . + 4;
         . = ALIGN(4); gUnk_0203D358 = .; . = . + 4;
+        . = ALIGN(1); gUnk_0203D35C = .; . = . + 1;
+        . = ALIGN(1); gUnk_0203D35D = .; . = . + 1;
 
         . = 0x0203D3DC - __ewram_overlay_end;
         . = ALIGN(4); src/statscreen.o(ewram_data);

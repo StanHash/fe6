@@ -3,7 +3,7 @@
 // EventScr @ 08671B48
 EventScr CONST_DATA EventScr_Unk_08671B48[] =
 {
-    EvtGotoIfNotFunc(1, EvtCheck_IsHard)
+    EvtGotoIfNotFunc(1, IsHard)
 
     EvtLoadUnits(UnitInfo_Unk_08680694)
     EvtMoveWait
@@ -53,7 +53,7 @@ EventScr CONST_DATA EventScr_Unk_08671C4C[] =
 {
     EvtLoadUnits(UnitInfo_Unk_08680784)
     EvtMoveWait
-    EvtGotoIfNotFunc(9, func_fe6_0806C39C)
+    EvtGotoIfNotFunc(9, IsGalleNonBlue)
 
     EvtOverrideBgm(SONG_05)
     EvtLoadUnits(UnitInfo_Unk_086807A4)
@@ -248,11 +248,11 @@ EventScr CONST_DATA EventScr_Unk_08671F50[] =
 {
     EvtNoSkipNoTextSkip
     EvtFadeBgmOut(4)
-    EvtGotoIfNotFunc(3, func_fe6_0806C204)
+    EvtGotoIfNotFunc(3, IsMeladyBlue)
 
-    EvtGotoIfNotFunc(3, func_fe6_0806C214)
+    EvtGotoIfNotFunc(3, IsZeissBlue)
 
-    EvtGotoIfFunc(3, func_fe6_0806C4C4)
+    EvtGotoIfFunc(3, IsPastTurn30)
 
     EvtFadeToBlack(16)
     EvtExitMap

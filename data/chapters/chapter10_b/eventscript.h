@@ -15,7 +15,7 @@ EventScr CONST_DATA EventScr_Unk_08672E40[] =
     EvtTalk(MSG_948)
     EvtClearTalk
     EvtSetBgm(SONG_24)
-    EvtLoadUnitsParty(UnitInfo_Unk_08681F5C)
+    EvtLoadUnitsParty(UnitInfo_Chapter10B_Deploy)
     EvtMoveWait
     EvtCameraUnit(PID_ROY)
     EvtFadeToBlack(16)
@@ -35,10 +35,10 @@ EventScr CONST_DATA EventScr_Unk_08672ED8[] =
     EvtOverrideBgm(SONG_05)
     EvtCamera(20, 2)
     EvtUnitCameraOff
-    EvtLoadUnits(UnitInfo_Unk_0868241C)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneGalle)
     EvtMoveWait
     EvtUnitCameraOn
-    EvtLoadUnits(UnitInfo_Unk_086823FC)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneMelady)
     EvtMoveWait
     EvtSleep(16)
     EvtTalk(MSG_94A)
@@ -106,15 +106,15 @@ EventScr CONST_DATA EventScr_Unk_08673000[] =
 };
 
 // EventScr @ 0867303C
-EventScr CONST_DATA EventScr_Unk_0867303C[] =
+EventScr CONST_DATA EventScr_Chapter10B_KleinSquadArrives[] =
 {
     EvtOverrideBgm(SONG_02)
-    EvtLoadUnits(UnitInfo_Unk_086822AC)
+    EvtLoadUnits(UnitInfo_Chapter10B_KleinSquadA)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_086822EC)
+    EvtLoadUnits(UnitInfo_Chapter10B_KleinSquadB)
     EvtMoveWait
     EvtSleep(16)
-    EvtLoadUnits(UnitInfo_Unk_0868243C)
+    EvtLoadUnits(UnitInfo_Chapter10B_CutsceneThea)
     EvtMoveWait
     EvtTalk(MSG_94E)
     EvtClearTalk
@@ -130,12 +130,12 @@ EventScr CONST_DATA EventScr_Unk_0867303C[] =
 };
 
 // EventScr @ 086730B4
-EventScr CONST_DATA EventScr_Unk_086730B4[] =
+EventScr CONST_DATA EventScr_Chapter10B_TheaSquadArrives[] =
 {
     EvtOverrideBgm(SONG_04)
-    EvtLoadUnits(UnitInfo_Unk_0868231C)
+    EvtLoadUnits(UnitInfo_Chapter10B_TheaSquadA)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_0868235C)
+    EvtLoadUnits(UnitInfo_Chapter10B_TheaSquadB)
     EvtMoveWait
     EvtSleep(16)
     EvtTalk(MSG_950)
@@ -220,7 +220,7 @@ EvtLabel(9)
 };
 
 // EventScr @ 0867322C
-EventScr CONST_DATA EventScr_Unk_0867322C[] =
+EventScr CONST_DATA EventScr_Chapter10B_LilinaRecruitsGonzalez[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_953)
@@ -232,7 +232,7 @@ EventScr CONST_DATA EventScr_Unk_0867322C[] =
 };
 
 // EventScr @ 08673258
-EventScr CONST_DATA EventScr_Unk_08673258[] =
+EventScr CONST_DATA EventScr_Chapter10B_TalkTheaShanna[] =
 {
     EvtLowerBgmVolume
     EvtTalk(MSG_954)
@@ -243,14 +243,14 @@ EventScr CONST_DATA EventScr_Unk_08673258[] =
 };
 
 // EventScr @ 08673274
-EventScr CONST_DATA EventScr_Unk_08673274[] =
+EventScr CONST_DATA EventScr_Chapter10B_RoyRecruitsKlein[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_957)
     EvtClearTalk
     EvtChangeFaction(PID_KLEIN, FACTION_BLUE)
-    EvtChangeFaction(PID_UNKNOWN_D8, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D8, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_KLEIN_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_KLEIN_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtClearFlag(FLAG_CHAPTER10B_11)
     EvtRestoreBgm
     EvtClearSkip
@@ -258,64 +258,64 @@ EventScr CONST_DATA EventScr_Unk_08673274[] =
 };
 
 // EventScr @ 086732C0
-EventScr CONST_DATA EventScr_Unk_086732C0[] =
+EventScr CONST_DATA EventScr_Chapter10B_ClarineRecruitsKlein[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_958)
     EvtClearTalk
     EvtChangeFaction(PID_KLEIN, FACTION_BLUE)
-    EvtChangeFaction(PID_UNKNOWN_D8, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D8, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_KLEIN_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_KLEIN_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08673304
-EventScr CONST_DATA EventScr_Unk_08673304[] =
+EventScr CONST_DATA EventScr_Chapter10B_ShannaRecruitsThea[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_955)
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_BLUE)
     EvtSetFlag(FLAG_CHAPTER10B_10)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D9, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_THEA_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08673350
-EventScr CONST_DATA EventScr_Unk_08673350[] =
+EventScr CONST_DATA EventScr_Chapter10B_KleinRecruitsThea[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_959)
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_BLUE)
     EvtSetFlag(FLAG_CHAPTER10B_10)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D9, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_THEA_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 0867339C
-EventScr CONST_DATA EventScr_Unk_0867339C[] =
+EventScr CONST_DATA EventScr_Chapter10B_TalkTheaShannaAfterKlein[] =
 {
     EvtOverrideBgm(SONG_12)
     EvtTalk(MSG_956)
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_GREEN)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 086733D4
-EventScr CONST_DATA EventScr_Unk_086733D4[] =
+EventScr CONST_DATA EventScr_TalkKleinClarine[] =
 {
     EvtTalk(MSG_95A)
     EvtClearTalk
@@ -324,7 +324,7 @@ EventScr CONST_DATA EventScr_Unk_086733D4[] =
 };
 
 // EventScr @ 086733E8
-EventScr CONST_DATA EventScr_Unk_086733E8[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageA[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -342,7 +342,7 @@ EventScr CONST_DATA EventScr_Unk_086733E8[] =
 };
 
 // EventScr @ 08673430
-EventScr CONST_DATA EventScr_Unk_08673430[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageB[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -360,7 +360,7 @@ EventScr CONST_DATA EventScr_Unk_08673430[] =
 };
 
 // EventScr @ 08673478
-EventScr CONST_DATA EventScr_Unk_08673478[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageC[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -378,7 +378,7 @@ EventScr CONST_DATA EventScr_Unk_08673478[] =
 };
 
 // EventScr @ 086734C0
-EventScr CONST_DATA EventScr_Unk_086734C0[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageD[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -415,7 +415,7 @@ EvtLabel(9)
 };
 
 // EventScr @ 08673570
-EventScr CONST_DATA EventScr_Unk_08673570[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageE[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -452,7 +452,7 @@ EvtLabel(9)
 };
 
 // EventScr @ 08673620
-EventScr CONST_DATA EventScr_Unk_08673620[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageF[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -470,7 +470,7 @@ EventScr CONST_DATA EventScr_Unk_08673620[] =
 };
 
 // EventScr @ 08673668
-EventScr CONST_DATA EventScr_Unk_08673668[] =
+EventScr CONST_DATA EventScr_Chapter10B_VillageG[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -488,7 +488,7 @@ EventScr CONST_DATA EventScr_Unk_08673668[] =
 };
 
 // EventScr @ 086736B0
-EventScr CONST_DATA EventScr_Unk_086736B0[] =
+EventScr CONST_DATA EventScr_Chapter10B_Victory[] =
 {
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(4)
@@ -531,7 +531,7 @@ EventScr CONST_DATA EventScr_Unk_086736B0[] =
     EvtGiveItemTo(IID_HEROCREST, PID_ROY)
 
 EvtLabel(3)
-    EvtGotoIfNotFunc(5, IsKleinInBlueTeam)
+    EvtGotoIfNotFunc(5, IsKleinBlue)
 
     EvtGotoIfFlag(5, FLAG_CHAPTER10B_17)
 
@@ -546,7 +546,7 @@ EvtLabel(3)
     EvtGiveItemTo(IID_ORIONSBOLT, PID_KLEIN)
 
 EvtLabel(5)
-    EvtGotoIfNotFunc(7, func_fe6_0806C2A4)
+    EvtGotoIfNotFunc(7, IsTheaBlue)
 
     EvtGotoIfFlag(7, FLAG_CHAPTER10B_18)
 

@@ -33,7 +33,7 @@ EventScr CONST_DATA EventScr_Unk_0866CE68[] =
     EvtRemoveUnit(PID_UNKNOWN_51)
     EvtMoveUnit(PID_UNKNOWN_50, 5, 1)
     EvtMoveWait
-    EvtGotoIfNotFunc(5, EvtCheck_IsHard)
+    EvtGotoIfNotFunc(5, IsHard)
 
     EvtLoadUnits(UnitInfo_Unk_0867B8D0)
     EvtMoveWait
@@ -59,7 +59,7 @@ EvtLabel(5)
 // EventScr @ 0866CF6C
 EventScr CONST_DATA EventScr_Unk_0866CF6C[] =
 {
-    EvtGotoIfFunc(9, func_fe6_0806C4D8)
+    EvtGotoIfFunc(9, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER7_14)
 

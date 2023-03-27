@@ -52,7 +52,7 @@ u8 CONST_DATA MoveScr_Unk_0866D50D[] =
 // EventScr @ 0866D528
 EventScr CONST_DATA EventScr_Unk_0866D528[] =
 {
-    EvtFunc(func_fe6_0806CF88)
+    EvtFunc(Chapter8_WeakenNorthWestWall)
     EvtUnitCameraOff
     EvtMove(6, 19, 6, 18)
     EvtMoveWait
@@ -248,7 +248,7 @@ EventScr CONST_DATA EventScr_Unk_0866D7DC[] =
 // EventScr @ 0866D818
 EventScr CONST_DATA EventScr_Unk_0866D818[] =
 {
-    EvtGotoIfNotFunc(3, func_fe6_0806C1B4)
+    EvtGotoIfNotFunc(3, IsLilinaBlue)
 
     EvtSetBgm(SONG_28)
     EvtFadeToBlack(16)

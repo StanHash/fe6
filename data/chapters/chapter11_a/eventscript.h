@@ -293,8 +293,8 @@ EventScr CONST_DATA EventScr_Unk_0866E824[] =
     EvtTalk(MSG_957)
     EvtClearTalk
     EvtChangeFaction(PID_KLEIN, FACTION_BLUE)
-    EvtChangeFaction(PID_UNKNOWN_D8, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D8, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_KLEIN_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_KLEIN_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtClearFlag(FLAG_CHAPTER11A_13)
     EvtRestoreBgm
     EvtClearSkip
@@ -308,8 +308,8 @@ EventScr CONST_DATA EventScr_Unk_0866E870[] =
     EvtTalk(MSG_958)
     EvtClearTalk
     EvtChangeFaction(PID_KLEIN, FACTION_BLUE)
-    EvtChangeFaction(PID_UNKNOWN_D8, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D8, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_KLEIN_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_KLEIN_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
@@ -323,8 +323,8 @@ EventScr CONST_DATA EventScr_Unk_0866E8B4[] =
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_BLUE)
     EvtSetFlag(FLAG_CHAPTER11A_12)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D9, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_THEA_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
@@ -338,8 +338,8 @@ EventScr CONST_DATA EventScr_Unk_0866E900[] =
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_BLUE)
     EvtSetFlag(FLAG_CHAPTER11A_12)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
-    EvtSetAi(PID_UNKNOWN_D9, AI_A_06, AI_B_0C, 0)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
+    EvtSetAi(PID_THEA_SQUAD, AI_A_06, AI_B_0C, 0)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
@@ -352,7 +352,7 @@ EventScr CONST_DATA EventScr_Unk_0866E94C[] =
     EvtTalk(MSG_956)
     EvtClearTalk
     EvtChangeFaction(PID_THEA, FACTION_GREEN)
-    EvtChangeFaction(PID_UNKNOWN_D9, FACTION_GREEN)
+    EvtChangeFaction(PID_THEA_SQUAD, FACTION_GREEN)
     EvtRestoreBgm
     EvtClearSkip
     EvtEnd
@@ -553,7 +553,7 @@ EventScr CONST_DATA EventScr_Unk_0866EBC4[] =
     EvtGiveItemTo(IID_HEROCREST, PID_ROY)
 
 EvtLabel(3)
-    EvtGotoIfNotFunc(5, IsKleinInBlueTeam)
+    EvtGotoIfNotFunc(5, IsKleinBlue)
 
     EvtGotoIfFlag(5, FLAG_CHAPTER11A_22)
 
@@ -569,7 +569,7 @@ EvtLabel(3)
     EvtGiveItemTo(IID_ORIONSBOLT, PID_KLEIN)
 
 EvtLabel(5)
-    EvtGotoIfNotFunc(7, func_fe6_0806C2A4)
+    EvtGotoIfNotFunc(7, IsTheaBlue)
 
     EvtGotoIfFlag(7, FLAG_CHAPTER11A_23)
 

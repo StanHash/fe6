@@ -170,7 +170,7 @@ EventScr CONST_DATA EventScr_Unk_0866C5C8[] =
 // EventScr @ 0866C614
 EventScr CONST_DATA EventScr_Unk_0866C614[] =
 {
-    EvtFunc(func_fe6_0806CED8)
+    EvtFunc(RefreshClarine)
     EvtClearSkip
     EvtEnd
 };

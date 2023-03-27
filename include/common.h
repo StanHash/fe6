@@ -26,6 +26,10 @@
 #include "unknown_funcs.h"
 #include "unknown_objects.h"
 
+// use to pad a struct that contains unused space
+// TODO: use this everywere
+#define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]
+
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 
 #define ABS(val) ((val) >= 0 ? (val) : -(val))

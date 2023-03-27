@@ -427,7 +427,7 @@ u16 CONST_DATA ShopItems_Unk_0866AA3C[] =
 };
 
 // ShopItems @ 0866AA4E
-u16 CONST_DATA ShopItems_Unk_0866AA4E[] =
+u16 CONST_DATA ShopItems_Chapter10B_Armory[] =
 {
     IID_SLIMLANCE,
     IID_IRONLANCE,

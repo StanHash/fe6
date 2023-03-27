@@ -13,6 +13,7 @@
 #include "chapterinfo.h"
 #include "support.h"
 #include "trap.h"
+#include "eventfunctions.h"
 #include "chapterevents.h"
 
 #include "constants/iids.h"
@@ -606,7 +607,7 @@ void StartAvailableTileEvent(fi8 x, fi8 y)
 
             // fallthrough
 
-        case TILE_COMMAND_1D:
+        case TILE_COMMAND_PILLAGE:
             StartMapChangeEvent(GetMapChangeIdAt(info.x_location, info.y_location));
             DisableEventSkip();
             return;
@@ -895,7 +896,7 @@ void StartChapterVictoryEvent(void)
     {
         if (gPlaySt.chapter == CHAPTER_FINAL)
         {
-            if (func_fe6_0806CD78())
+            if (IsBossDefeated())
                 StartEvent(GetChapterEventInfo(gPlaySt.chapter)->event_script_victory);
         }
         else

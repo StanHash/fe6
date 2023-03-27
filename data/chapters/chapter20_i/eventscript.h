@@ -87,7 +87,7 @@ EventScr CONST_DATA EventScr_Unk_08671800[] =
 // EventScr @ 08671834
 EventScr CONST_DATA EventScr_Unk_08671834[] =
 {
-    EvtGotoIfFunc(7, func_fe6_0806C4D8)
+    EvtGotoIfFunc(7, IsBluePhase)
 
     EvtClearFlag(FLAG_CHAPTER20I_5)
     EvtGoto(9)
@@ -183,11 +183,11 @@ EventScr CONST_DATA EventScr_Unk_0867199C[] =
 // EventScr @ 086719B8
 EventScr CONST_DATA EventScr_Unk_086719B8[] =
 {
-    EvtGotoIfNotFunc(5, func_fe6_0806C234)
+    EvtGotoIfNotFunc(5, IsJunoBlue)
 
-    EvtGotoIfNotFunc(5, func_fe6_0806C244)
+    EvtGotoIfNotFunc(5, IsZelotBlue)
 
-    EvtGotoIfFunc(5, func_fe6_0806C4B0)
+    EvtGotoIfFunc(5, IsPastTurn25)
 
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(16)

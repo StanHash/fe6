@@ -352,16 +352,16 @@ EventScr CONST_DATA EventScr_Unk_0866B2FC[] =
 EventScr CONST_DATA EventScr_Unk_0866B350[] =
 {
     EvtNoSkipNoTextSkip
-    EvtGotoIfFunc(10, func_fe6_0806CC08)
+    EvtGotoIfFunc(10, IsActiveUnitRoy)
 
-    EvtGotoIfFunc(20, func_fe6_0806CC20)
+    EvtGotoIfFunc(20, IsActiveUnitWolt)
 
-    EvtGotoIfFunc(30, func_fe6_0806CC38)
+    EvtGotoIfFunc(30, IsActiveUnitLilina)
 
     EvtGoto(99)
 
 EvtLabel(10)
-    EvtGotoIfNotFunc(12, func_fe6_0806CC80)
+    EvtGotoIfNotFunc(12, IsCombatAction)
 
     EvtGotoIfFlag(12, FLAG_TUTORIAL_14)
 
@@ -382,7 +382,7 @@ EvtLabel(14)
     EvtGoto(99)
 
 EvtLabel(20)
-    EvtGotoIfNotFunc(22, func_fe6_0806CC80)
+    EvtGotoIfNotFunc(22, IsCombatAction)
 
     EvtGotoIfFlag(22, FLAG_TUTORIAL_15)
 
@@ -403,7 +403,7 @@ EvtLabel(24)
     EvtGoto(99)
 
 EvtLabel(30)
-    EvtGotoIfNotFunc(32, func_fe6_0806CC80)
+    EvtGotoIfNotFunc(32, IsCombatAction)
 
     EvtGotoIfFlag(32, FLAG_TUTORIAL_16)
 
@@ -425,7 +425,7 @@ EvtLabel(34)
 EvtLabel(99)
     EvtGotoIfFlag(100, FLAG_TUTORIAL_25)
 
-    EvtGotoIfNotFunc(100, func_fe6_0806CCE8)
+    EvtGotoIfNotFunc(100, IsAnyTutorialUnitDamaged)
 
     EvtSetFlag(FLAG_TUTORIAL_25)
     EvtTalk(MSG_02C)
@@ -434,7 +434,7 @@ EvtLabel(99)
 EvtLabel(100)
     EvtGotoIfFlag(109, FLAG_TUTORIAL_26)
 
-    EvtGotoIfNotFunc(109, func_fe6_0806CD78)
+    EvtGotoIfNotFunc(109, IsBossDefeated)
 
     EvtSetFlag(FLAG_TUTORIAL_26)
     EvtTalk(MSG_03D)
@@ -443,7 +443,7 @@ EvtLabel(100)
 EvtLabel(109)
     EvtGotoIfFlag(129, FLAG_TUTORIAL_24)
 
-    EvtGotoIfNotFunc(129, func_fe6_0806CD34)
+    EvtGotoIfNotFunc(129, IsAnyTutorialUnitPastColumn16)
 
     EvtSetFlag(FLAG_TUTORIAL_24)
     EvtCamera(22, 4)

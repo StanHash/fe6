@@ -17,6 +17,7 @@
 #include "helpbox.h"
 #include "chapterinfo.h"
 #include "eventinfo.h"
+#include "eventfunctions.h"
 #include "chapterunits.h"
 
 #include "constants/pids.h"

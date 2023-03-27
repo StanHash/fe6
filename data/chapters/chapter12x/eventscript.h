@@ -30,7 +30,7 @@ EventScr CONST_DATA EventScr_Unk_08674F00[] =
 EventScr CONST_DATA EventScr_Unk_08674F84[] =
 {
     EvtSetBgm(SONG_28)
-    EvtGotoIfFunc(1, func_fe6_0806C254)
+    EvtGotoIfFunc(1, IsElffinBlue)
 
     EvtGotoIfNotFlag(3, FLAG_106)
 

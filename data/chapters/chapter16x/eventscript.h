@@ -52,7 +52,7 @@ EvtLabel(9)
 EventScr CONST_DATA EventScr_Unk_08675410[] =
 {
     EvtSetBgm(SONG_27)
-    EvtGotoIfNotFunc(1, func_fe6_0806C2B4)
+    EvtGotoIfNotFunc(1, IsDouglasBlue)
 
     EvtFadeToBlack(16)
     EvtExitMap
@@ -81,7 +81,7 @@ EvtLabel(2)
     EvtEnterMap
     EvtTalk(MSG_172)
     EvtClearTalk
-    EvtGotoIfFunc(3, func_fe6_0806C2B4)
+    EvtGotoIfFunc(3, IsDouglasBlue)
 
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(16)
@@ -96,7 +96,7 @@ EvtLabel(3)
     EvtNoSkip
     EvtGiveItemTo(IID_AUREOLA, PID_ROY)
     EvtSleep(64)
-    EvtGotoIfNotFunc(7, func_fe6_0806C5A8)
+    EvtGotoIfNotFunc(7, AreWeGoingToSacae)
 
     EvtNextChapter(CHAPTER_17_S)
     EvtSleep(1)
