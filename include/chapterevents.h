@@ -48,6 +48,9 @@ extern u16 CONST_DATA ShopItems_Unk_0866AAB0[];
 extern u16 CONST_DATA ShopItems_Unk_0866AAC4[];
 extern u16 CONST_DATA ShopItems_Unk_0866AAE4[];
 
+extern EventScr CONST_DATA EventScr_CathTalk[];
+extern EventScr CONST_DATA EventScr_GameOver[];
+
 extern EventScr CONST_DATA EventScr_Unk_0866AD18[];
 extern EventScr CONST_DATA EventScr_Unk_0866AD78[];
 extern EventScr CONST_DATA EventScr_Unk_0866ADE4[];
@@ -545,6 +548,6 @@ extern EventScr CONST_DATA EventScr_Unk_086760FC[];
 extern EventScr CONST_DATA EventScr_Unk_08676104[];
 extern EventScr CONST_DATA EventScr_Unk_08676128[];
 
-extern EventScr CONST_DATA EventScr_Unk_0867614C[];
-extern EventScr CONST_DATA EventScr_Unk_08676154[];
-extern EventScr CONST_DATA EventScr_Unk_08676178[];
+extern EventScr CONST_DATA EventScr_TrialE_Opening[];
+extern EventScr CONST_DATA EventScr_TrialE_Victory[];
+extern EventScr CONST_DATA EventScr_TrialE_Failure[];

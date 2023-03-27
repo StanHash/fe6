@@ -38,7 +38,7 @@ EvtLabel(9)
 };
 
 // EventScr @ 0866ABA8
-EventScr CONST_DATA EventScr_Unk_0866ABA8[] =
+EventScr CONST_DATA EventScr_CathTalk[] =
 {
     EvtGotoIfFlag(2, FLAG_103)
 
@@ -73,7 +73,7 @@ EvtLabel(9)
 };
 
 // EventScr @ 0866AC6C
-EventScr CONST_DATA EventScr_Unk_0866AC6C[] =
+EventScr CONST_DATA EventScr_GameOver[] =
 {
     EvtNoSkipNoTextSkip
     EvtSleep(30)
@@ -95,9 +95,9 @@ EvtLabel(1)
 u16 CONST_DATA Sprite_0866ACCC[] =
 {
     4,
-    OAM0_SHAPE_8x8 + OAM0_Y(255), OAM1_SIZE_8x8 + OAM1_X(510), 0,
-    OAM0_SHAPE_8x8 + OAM0_Y(255), OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP, 0,
-    OAM0_SHAPE_8x8 + OAM0_Y(10), OAM1_SIZE_8x8 + OAM1_X(510) + OAM1_VFLIP, 0,
+    OAM0_SHAPE_8x8 + OAM0_Y(-1), OAM1_SIZE_8x8 + OAM1_X(-2), 0,
+    OAM0_SHAPE_8x8 + OAM0_Y(-1), OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP, 0,
+    OAM0_SHAPE_8x8 + OAM0_Y(10), OAM1_SIZE_8x8 + OAM1_X(-2) + OAM1_VFLIP, 0,
     OAM0_SHAPE_8x8 + OAM0_Y(10), OAM1_SIZE_8x8 + OAM1_X(9) + OAM1_HFLIP + OAM1_VFLIP, 0,
 };
 

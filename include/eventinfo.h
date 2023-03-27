@@ -4,8 +4,7 @@
 
 #include "event.h"
 
-// TODO: move
-enum { FLAG_PERMANENT_BASE = 100 };
+#include "constants/flags.h"
 
 enum { EVENT_NOSCRIPT = 1 };
 

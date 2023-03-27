@@ -9610,14 +9610,14 @@ EventScr CONST_DATA EventScr_LoadUnits_Unk_086872E4[] =
 // Units UnitInfo_Unk_086872E4 1
 
 // UnitInfo @ 08687384
-struct UnitInfo CONST_DATA UnitInfo_Unk_08687384[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Deploy[] =
 {
     { PID_ROY, 0, 0, FALSE, FACTION_ID_BLUE, 1, 16, 14, 16, 14, { IID_RAPIER, IID_VULNERARY }, { 0 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 086873A4
-struct UnitInfo CONST_DATA UnitInfo_Unk_086873A4[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Red[] =
 {
     { PID_UNKNOWN_89, JID_WARRIOR, 0, TRUE, FACTION_ID_RED, 10, 13, 10, 13, 10, { IID_SILVERAXE, IID_STEELBOW }, { AI_A_03, AI_B_03, 0x09, 0x20 } },
     { PID_UNKNOWN_89, JID_WARRIOR, 0, TRUE, FACTION_ID_RED, 10, 20, 10, 20, 10, { IID_KILLERAXE, IID_STEELBOW }, { AI_A_03, AI_B_03, 0x09, 0x20 } },
@@ -9648,130 +9648,130 @@ struct UnitInfo CONST_DATA UnitInfo_Unk_086873A4[] =
 };
 
 // UnitInfo @ 08687544
-struct UnitInfo CONST_DATA UnitInfo_Unk_08687544[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn10Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 13, 10, 13, 10, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 08687564
-struct UnitInfo CONST_DATA UnitInfo_Unk_08687564[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn12Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 20, 10, 20, 10, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 08687584
-struct UnitInfo CONST_DATA UnitInfo_Unk_08687584[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn14Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 21, 16, 21, 16, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 086875A4
-struct UnitInfo CONST_DATA UnitInfo_Unk_086875A4[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn16Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 17, 20, 17, 20, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 086875C4
-struct UnitInfo CONST_DATA UnitInfo_Unk_086875C4[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn18Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 12, 18, 12, 18, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // UnitInfo @ 086875E4
-struct UnitInfo CONST_DATA UnitInfo_Unk_086875E4[] =
+struct UnitInfo CONST_DATA UnitInfo_TrialE_Turn20Extra[] =
 {
     { PID_UNKNOWN_89, JID_FIGHTER, 0, TRUE, FACTION_ID_RED, 15, 10, 14, 10, 14, { IID_STEELAXE }, { AI_A_00, AI_B_00, 0x09, 0x00 } },
     { 0 }, // end
 };
 
 // EventScr @ 08687604
-EventScr CONST_DATA EventScr_LoadUnits_Unk_08687384[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Deploy[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_08687384)
+    EvtLoadUnits(UnitInfo_TrialE_Deploy)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687618
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086873A4[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Red[] =
 {
     EvtUnitCameraOff
     EvtNoSkip
-    EvtLoadUnits(UnitInfo_Unk_086873A4)
+    EvtLoadUnits(UnitInfo_TrialE_Red)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687634
-EventScr CONST_DATA EventScr_LoadUnits_Unk_08687544[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn10Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_08687544)
+    EvtLoadUnits(UnitInfo_TrialE_Turn10Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687648
-EventScr CONST_DATA EventScr_LoadUnits_Unk_08687564[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn12Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_08687564)
+    EvtLoadUnits(UnitInfo_TrialE_Turn12Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 0868765C
-EventScr CONST_DATA EventScr_LoadUnits_Unk_08687584[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn14Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_08687584)
+    EvtLoadUnits(UnitInfo_TrialE_Turn14Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687670
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086875A4[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn16Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086875A4)
+    EvtLoadUnits(UnitInfo_TrialE_Turn16Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687684
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086875C4[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn18Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086875C4)
+    EvtLoadUnits(UnitInfo_TrialE_Turn18Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // EventScr @ 08687698
-EventScr CONST_DATA EventScr_LoadUnits_Unk_086875E4[] =
+EventScr CONST_DATA EventScr_LoadUnits_TrialE_Turn20Extra[] =
 {
-    EvtLoadUnits(UnitInfo_Unk_086875E4)
+    EvtLoadUnits(UnitInfo_TrialE_Turn20Extra)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
 // Group 43 summary:
-// Units UnitInfo_Unk_08687384 1
-// Units UnitInfo_Unk_086873A4 2
-// Units UnitInfo_Unk_08687544 1
-// Units UnitInfo_Unk_08687564 1
-// Units UnitInfo_Unk_08687584 1
-// Units UnitInfo_Unk_086875A4 1
-// Units UnitInfo_Unk_086875C4 1
-// Units UnitInfo_Unk_086875E4 1
+// Units UnitInfo_TrialE_Deploy 1
+// Units UnitInfo_TrialE_Red 2
+// Units UnitInfo_TrialE_Turn10Extra 1
+// Units UnitInfo_TrialE_Turn12Extra 1
+// Units UnitInfo_TrialE_Turn14Extra 1
+// Units UnitInfo_TrialE_Turn16Extra 1
+// Units UnitInfo_TrialE_Turn18Extra 1
+// Units UnitInfo_TrialE_Turn20Extra 1
 
 // UnitInfo @ 086876AC
 struct UnitInfo CONST_DATA UnitInfo_TrialBonusUnitA[] =

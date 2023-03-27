@@ -1849,25 +1849,25 @@ void func_fe6_0806A270(int x, int y, int a, int b, u8 const * unk);
 bool EvtCheck_IsHard(void);
 // GetHardModeBonusLevelsByPid
 void ApplyAllHardModeBonusLevels(void);
-// func_fe6_0806BB34
-// func_fe6_0806BB68
-// func_fe6_0806BB9C
-// func_fe6_0806BBD0
+bool func_fe6_0806BB34(struct EventInfo * info);
+bool func_fe6_0806BB68(struct EventInfo * info);
+bool func_fe6_0806BB9C(struct EventInfo * info);
+bool func_fe6_0806BBD0(struct EventInfo * info);
 // func_fe6_0806BBF8
-// func_fe6_0806BC20
-// func_fe6_0806BC5C
-// func_fe6_0806BCA4
-// func_fe6_0806BCEC
-// func_fe6_0806BD34
-// func_fe6_0806BD7C
-// func_fe6_0806BDC4
-// func_fe6_0806BE00
-// func_fe6_0806BE30
-// func_fe6_0806BE60
+bool func_fe6_0806BC20(struct EventInfo * info);
+bool func_fe6_0806BC5C(struct EventInfo * info);
+bool func_fe6_0806BCA4(struct EventInfo * info);
+bool func_fe6_0806BCEC(struct EventInfo * info);
+bool func_fe6_0806BD34(struct EventInfo * info);
+bool func_fe6_0806BD7C(struct EventInfo * info);
+bool func_fe6_0806BDC4(struct EventInfo * info);
+bool func_fe6_0806BE00(struct EventInfo * info);
+bool func_fe6_0806BE30(struct EventInfo * info);
+bool func_fe6_0806BE60(struct EventInfo * info);
 // func_fe6_0806BE90
 // func_fe6_0806BEB8
-// func_fe6_0806BEEC
-// func_fe6_0806BF14
+bool func_fe6_0806BEEC(struct EventInfo * info);
+bool func_fe6_0806BF14(struct EventInfo * info);
 bool func_fe6_0806BF38(void);
 // func_fe6_0806BF70
 // func_fe6_0806BF7C
@@ -1910,7 +1910,7 @@ bool IsKleinInBlueTeam(void);
 bool func_fe6_0806C2A4(void);
 bool func_fe6_0806C2B4(void);
 // func_fe6_0806C2C4
-// func_fe6_0806C2F8
+bool func_fe6_0806C2F8(struct EventInfo * info);
 // IsPidInNonBlueTeam
 // func_fe6_0806C34C
 bool func_fe6_0806C35C(void);
