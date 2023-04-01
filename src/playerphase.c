@@ -279,7 +279,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_NOCONTROL:
                 UnitBeginAction(unit);
-                gBmSt.unk_3E = 0;
+                gBmSt.swap_action_range_count = 0;
 
                 Proc_Goto(proc, L_PLAYERPHASE_SEE_RANGE);
 
@@ -360,7 +360,7 @@ void DisplayUnitActionRange(struct Unit * unit)
             break;
 
         case UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF:
-            if (gBmSt.unk_3E & 1)
+            if (gBmSt.swap_action_range_count & 1)
             {
                 BuildUnitCompleteStaffRange(gActiveUnit);
                 flags = LIMITVIEW_GREEN | LIMITVIEW_BLUE;
@@ -560,7 +560,7 @@ do_act:
         break;
 
     case ACT_SWAP_RANGES:
-        gBmSt.unk_3E++;
+        gBmSt.swap_action_range_count++;
         EndLimitView();
 
         Proc_Goto(proc, L_PLAYERPHASE_SEE_RANGE);

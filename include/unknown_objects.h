@@ -150,7 +150,7 @@ extern u8 CONST_DATA JList_OrionBoltPromotes[];
 extern u8 CONST_DATA JList_ElysianWhipPromotes[];
 extern u8 CONST_DATA JList_GuidingRingPromotes[];
 
-extern i8 CONST_DATA MoveTable_Unk_0860C912[];
+extern i8 CONST_DATA MoveTable_Flying[];
 
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 

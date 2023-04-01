@@ -4,10 +4,13 @@ import struct
 from typing import List, NamedTuple, Tuple
 
 def name_to_words(name: str) -> List[str]:
-    return [w for w in re.sub(r'[^A-Za-z0-9]+', '', name).split()]
+    return [w for w in re.sub(r'[^A-Za-z0-9 ]+', '', name).split()]
 
 def name_to_big_sticky(name: str) -> str:
     return ''.join(name_to_words(name)).upper()
+
+def name_to_pascal_sticky(name: str) -> str:
+    return ''.join(f"{w[0].upper()}{w[1:].lower()}" for w in name_to_words(name))
 
 def name_to_constant(name: str) -> str:
     part_a = re.sub(r'\(.+\)', '', name)
@@ -16,12 +19,19 @@ def name_to_constant(name: str) -> str:
 
     return name_to_big_sticky(part_a) if part_b is None else f"{name_to_big_sticky(part_a)}_{name_to_big_sticky(part_b)}"
 
+def name_to_identifier(name: str) -> str:
+    part_a = re.sub(r'\(.+\)', '', name)
+    part_b = re.match(r'.+\((.+)\)', name)
+    part_b = part_b.group(1) if part_b is not None else None
+
+    return name_to_pascal_sticky(part_a) if part_b is None else f"{name_to_pascal_sticky(part_a)}_{name_to_pascal_sticky(part_b)}"
+
 def name_to_display(name: str) -> str:
     return re.sub(r'\(.+\)', '', name).strip()
 
 ALL_IIDS = [1 + x for x in range(0x7F)]
 ALL_PIDS = [1 + x for x in range(0xE2)]
-ALL_JIDS = [1 + x for x in range(0x4C)]
+ALL_JIDS = [1 + x for x in range(0x4B)]
 ALL_CHAPTERS = [x for x in range(0x2D)]
 
 ITEM_NAME_DICT = {
@@ -409,6 +419,12 @@ def jid_name(jid: int) -> str:
 
     return f"JID_UNKNOWN_{jid:02X}"
 
+def jid_ident(jid: int) -> str:
+    if jid in CLASS_NAME_DICT:
+        return f"{name_to_identifier(CLASS_NAME_DICT[jid])}"
+
+    return f"Unk_Jid{jid:02X}"
+
 def pid_name(pid: int) -> str:
     if pid in CHARACTER_PID_OVERRIDE_DICT:
         return CHARACTER_PID_OVERRIDE_DICT[pid]
@@ -451,6 +467,153 @@ IINFO_LAYOUT = [
     ('item_effect', 'B'),
     ('weapon_effect', 'B')]
 
+PINFO_LAYOUT = [
+    ('msg_name', 'H'),
+    ('msg_desc', 'H'),
+    ('id', 'B'),
+    ('jid_default', 'B'),
+    ('fid', 'H'),
+    ('chibi_id', 'B'),
+    ('affinity', 'B'),
+    ('unk_0A', 'B'),
+    ('base_level', 'B'),
+    ('base_hp', 'B'),
+    ('base_pow', 'B'),
+    ('base_skl', 'B'),
+    ('base_spd', 'B'),
+    ('base_def', 'B'),
+    ('base_res', 'B'),
+    ('base_lck', 'B'),
+    ('bonus_con', 'B'),
+    ('wexp_sword', 'B'),
+    ('wexp_lance', 'B'),
+    ('wexp_axe', 'B'),
+    ('wexp_bow', 'B'),
+    ('wexp_staff', 'B'),
+    ('wexp_anima', 'B'),
+    ('wexp_light', 'B'),
+    ('wexp_elder', 'B'),
+    ('growth_hp', 'B'),
+    ('growth_pow', 'B'),
+    ('growth_skl', 'B'),
+    ('growth_spd', 'B'),
+    ('growth_def', 'B'),
+    ('growth_res', 'B'),
+    ('growth_lck', 'B'),
+    ('banim_pal_a', 'B'),
+    ('banim_pal_b', 'B'),
+    ('', 'xxx'), # pad
+    ('attributes', 'I'),
+    ('support_info', 'I')] # ptr
+
+JINFO_LAYOUT = [
+    ('msg_name', 'H'),
+    ('msg_desc', 'H'),
+    ('id', 'B'),
+    ('jid_promote', 'B'),
+    ('map_sprite', 'B'),
+    ('walk_speed', 'B'),
+    ('fid', 'H'),
+    ('unk_0A', 'B'),
+    ('base_hp', 'B'),
+    ('base_pow', 'B'),
+    ('base_skl', 'B'),
+    ('base_spd', 'B'),
+    ('base_def', 'B'),
+    ('base_res', 'B'),
+    ('base_con', 'B'),
+    ('base_mov', 'B'),
+    ('max_hp', 'B'),
+    ('max_pow', 'B'),
+    ('max_skl', 'B'),
+    ('max_spd', 'B'),
+    ('max_def', 'B'),
+    ('max_res', 'B'),
+    ('max_con', 'B'),
+    ('power_level', 'B'),
+    ('growth_hp', 'B'),
+    ('growth_pow', 'B'),
+    ('growth_skl', 'B'),
+    ('growth_spd', 'B'),
+    ('growth_def', 'B'),
+    ('growth_res', 'B'),
+    ('growth_lck', 'B'),
+    ('', 'xx'), # pad
+    ('attributes', 'I'),
+    ('wexp_sword', 'B'),
+    ('wexp_lance', 'B'),
+    ('wexp_axe', 'B'),
+    ('wexp_bow', 'B'),
+    ('wexp_staff', 'B'),
+    ('wexp_anima', 'B'),
+    ('wexp_light', 'B'),
+    ('wexp_elder', 'B'),
+    ('banim_info', 'I'), # ptr
+    ('mov_table', 'I'), # ptr
+    ('avo_terrain_table', 'I'), # ptr
+    ('def_terrain_table', 'I'), # ptr
+    ('res_terrain_table', 'I'), # ptr
+    ('unk_44', 'I')] # ptr?
+
 def unpack_from_layout(bytes: bytes, name: str, layout: List[Tuple[str, str]]):
     result_type = namedtuple(name, (field[0] for field in layout if len(field[0]) != 0))
     return result_type._make(struct.unpack(f"<{''.join((field[1] for field in layout))}", bytes))
+
+def all_iinfo(rom_data):
+    for iid in ALL_IIDS:
+        off = iid * 0x20
+        ent_data = rom_data[0x60B648 + off:0x60B648 + off + 0x20]
+        yield iid, unpack_from_layout(ent_data, 'IInfo', IINFO_LAYOUT)
+
+def all_pinfo(rom_data):
+    for pid in ALL_PIDS:
+        off = (pid - 1) * 0x30
+        ent_data = rom_data[0x6076D0 + off:0x6076D0 + off + 0x30]
+        yield pid, unpack_from_layout(ent_data, 'PInfo', PINFO_LAYOUT)
+
+def all_jinfo(rom_data):
+    for jid in ALL_JIDS:
+        off = (jid - 1) * 0x48
+        ent_data = rom_data[0x60A130 + off:0x60A130 + off + 0x48]
+        yield jid, unpack_from_layout(ent_data, 'JInfo', JINFO_LAYOUT)
+
+# following this is stuff I used for listing game data objects for dumping
+
+def print_all_support_info(rom_data):
+    for pid, pinfo in all_pinfo(rom_data):
+        if pinfo.support_info != 0:
+            print(f"{pinfo.support_info:08X} SupportInfo_{name_to_identifier(CHARACTER_NAME_DICT[pid])}")
+
+def print_all_banim_info(rom_data):
+    for jid, jinfo in all_jinfo(rom_data):
+        if jinfo.banim_info != 0:
+            print(f"{jinfo.banim_info:08X} BanimInfo_{jid_ident(jid)}")
+
+def print_all_mov_tables(rom_data):
+    for jid, jinfo in all_jinfo(rom_data):
+        if jinfo.mov_table != 0:
+            print(f"{jinfo.mov_table:08X} MoveTable_{jid_ident(jid)}")
+
+def print_all_terrain_tables(rom_data):
+    for jid, jinfo in all_jinfo(rom_data):
+        if jinfo.avo_terrain_table != 0:
+            print(f"{jinfo.avo_terrain_table:08X} TerrainAvoTable_{jid_ident(jid)}")
+        if jinfo.def_terrain_table != 0:
+            print(f"{jinfo.def_terrain_table:08X} TerrainDefTable_{jid_ident(jid)}")
+        if jinfo.res_terrain_table != 0:
+            print(f"{jinfo.res_terrain_table:08X} TerrainResTable_{jid_ident(jid)}")
+
+def print_all_unk_44(rom_data):
+    for jid, jinfo in all_jinfo(rom_data):
+        if jinfo.unk_44 != 0:
+            print(f"{jinfo.unk_44:08X} gUnk_Jinfo44_{jid_ident(jid)}")
+
+def print_all_iinfo_bonuses(rom_data):
+    for iid, iinfo in all_iinfo(rom_data):
+        if iinfo.bonuses != 0:
+            print(f"{iinfo.bonuses:08X} ItemBonuses_{name_to_identifier(ITEM_NAME_DICT[iid])}")
+
+def print_all_iinfo_effectiveness(rom_data):
+    for iid, iinfo in all_iinfo(rom_data):
+        if iinfo.effectiveness != 0:
+            print(f"{iinfo.effectiveness:08X} JList_Effectiveness_{name_to_identifier(ITEM_NAME_DICT[iid])}")

@@ -1385,14 +1385,14 @@ func_fe6_08072CA8: @ 0x08072CA8
 	mov sl, r2
 	adds r0, r6, #0
 	bl TmApplyTsa_t
-	ldr r0, .L08072DC4 @ =gUnk_0860C714
+	ldr r0, .L08072DC4 @ =MoveTable_Berserker
 	adds r0, r7, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #0
 	ble .L08072D7E
-	ldr r0, .L08072DC8 @ =gUnk_0860C9AB
+	ldr r0, .L08072DC8 @ =TerrainDefTable_Default
 	adds r0, r7, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -1408,7 +1408,7 @@ func_fe6_08072CA8: @ 0x08072CA8
 	adds r2, r5, #0
 	movs r3, #2
 	bl func_fe6_08013E8C
-	ldr r0, .L08072DD0 @ =gUnk_0860C978
+	ldr r0, .L08072DD0 @ =TerrainAvoTable_Default
 	adds r0, r7, r0
 	ldrb r0, [r0]
 	lsls r0, r0, #0x18
@@ -1450,10 +1450,10 @@ func_fe6_08072CA8: @ 0x08072CA8
 .L08072DB8: .4byte 0x020034B8
 .L08072DBC: .4byte 0x01000070
 .L08072DC0: .4byte gUnk_083193B0
-.L08072DC4: .4byte gUnk_0860C714
-.L08072DC8: .4byte gUnk_0860C9AB
+.L08072DC4: .4byte MoveTable_Berserker
+.L08072DC8: .4byte TerrainDefTable_Default
 .L08072DCC: .4byte gNumberStr+0x7
-.L08072DD0: .4byte gUnk_0860C978
+.L08072DD0: .4byte TerrainAvoTable_Default
 .L08072DD4: .4byte gUnk_083193BC
 .L08072DD8:
 	ldr r1, .L08072E08 @ =gUnk_083193C4

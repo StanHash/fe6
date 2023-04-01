@@ -124,7 +124,7 @@ struct ItemBonuses
     /* 08 */ i8 con;
 };
 
-struct ItemInfo
+struct IInfo
 {
     /* 00 */ u16 msg_name;
     /* 02 */ u16 msg_desc;

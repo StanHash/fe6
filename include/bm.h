@@ -103,7 +103,7 @@ struct BmSt
     /* 3B */ u8 alt_blend_b_cb;
     /* 3C */ u8 just_resumed;
     /* 3D */ u8 partial_actions_taken;
-    /* 3E */ u8 unk_3E;
+    /* 3E */ u8 swap_action_range_count;
     /* 3F */ i8 unk_3F;
 };
 

@@ -15,9 +15,9 @@
 #include "constants/iids.h"
 #include "constants/icons.h"
 
-extern struct ItemInfo CONST_DATA ItemInfoTable[];
+extern struct IInfo CONST_DATA ItemInfoTable[];
 
-inline struct ItemInfo const * GetItemInfo(int iid)
+inline struct IInfo const * GetIInfo(int iid)
 {
     return ItemInfoTable + iid;
 }
@@ -29,17 +29,17 @@ inline int GetItemIid(int item)
 
 inline char const * GetItemName(int item)
 {
-    return DecodeMsg(GetItemInfo(ITEM_IID(item))->msg_name);
+    return DecodeMsg(GetIInfo(ITEM_IID(item))->msg_name);
 }
 
 inline int GetItemDescMsg(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->msg_desc;
+    return GetIInfo(ITEM_IID(item))->msg_desc;
 }
 
 inline int GetItemUseDescMsg(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->msg_desc_use;
+    return GetIInfo(ITEM_IID(item))->msg_desc_use;
 }
 
 inline int GetItemKind(int item)
@@ -47,12 +47,12 @@ inline int GetItemKind(int item)
     if (!item)
         return ITEM_KIND_INVALID;
 
-    return GetItemInfo(ITEM_IID(item))->kind;
+    return GetIInfo(ITEM_IID(item))->kind;
 }
 
 inline int GetItemAttributes(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->attributes;
+    return GetIInfo(ITEM_IID(item))->attributes;
 }
 
 inline int GetItemUses(int item)
@@ -68,62 +68,62 @@ inline int GetItemMaxUses(int item)
     if (GetItemAttributes(item) & ITEM_ATTR_UNBREAKABLE)
         return 0xFF;
 
-    return GetItemInfo(ITEM_IID(item))->uses;
+    return GetIInfo(ITEM_IID(item))->uses;
 }
 
 inline int GetItemMight(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->might;
+    return GetIInfo(ITEM_IID(item))->might;
 }
 
 inline int GetItemHit(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->hit;
+    return GetIInfo(ITEM_IID(item))->hit;
 }
 
 inline int GetItemWeight(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->weight;
+    return GetIInfo(ITEM_IID(item))->weight;
 }
 
 inline int GetItemCrit(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->crit;
+    return GetIInfo(ITEM_IID(item))->crit;
 }
 
 inline int GetItemValue(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->cost_per_use * GetItemUses(item);
+    return GetIInfo(ITEM_IID(item))->cost_per_use * GetItemUses(item);
 }
 
 inline int GetItemMinRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encoded_range >> 4;
+    return GetIInfo(ITEM_IID(item))->encoded_range >> 4;
 }
 
 inline int GetItemMaxRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encoded_range & 0xF;
+    return GetIInfo(ITEM_IID(item))->encoded_range & 0xF;
 }
 
 inline int GetItemEncodedRange(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->encoded_range;
+    return GetIInfo(ITEM_IID(item))->encoded_range;
 }
 
 inline int GetItemRequiredExp(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->required_wexp;
+    return GetIInfo(ITEM_IID(item))->required_wexp;
 }
 
 inline u8 const * GetItemEffectiveness(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->effectiveness;
+    return GetIInfo(ITEM_IID(item))->effectiveness;
 }
 
 inline struct ItemBonuses const * GetItemBonuses(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->bonuses;
+    return GetIInfo(ITEM_IID(item))->bonuses;
 }
 
 inline int GetItemIcon(int item)
@@ -131,27 +131,27 @@ inline int GetItemIcon(int item)
     if (!item)
         return ICON_NONE;
 
-    return GetItemInfo(ITEM_IID(item))->icon;
+    return GetIInfo(ITEM_IID(item))->icon;
 }
 
 inline int GetItemWeaponEffect(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->weapon_effect;
+    return GetIInfo(ITEM_IID(item))->weapon_effect;
 }
 
 inline int GetItemEffect(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->item_effect;
+    return GetIInfo(ITEM_IID(item))->item_effect;
 }
 
 inline int GetItemCostPerUse(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->cost_per_use;
+    return GetIInfo(ITEM_IID(item))->cost_per_use;
 }
 
 inline int GetItemMaxValue(int item)
 {
-    return GetItemInfo(ITEM_IID(item))->cost_per_use * GetItemMaxUses(item);
+    return GetIInfo(ITEM_IID(item))->cost_per_use * GetItemMaxUses(item);
 }
 
 int GetItemHpBonus(int item)
