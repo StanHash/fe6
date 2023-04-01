@@ -317,6 +317,7 @@ CHARACTER_NAME_DICT = {
     0x64: "Zephiel",
     0x65: "Idunn",
     0x66: "Idunn (Dragon)",
+    0x67: "Jahn",
 
     0xA4: "Citizen (A4)",
 
@@ -350,8 +351,11 @@ CLASS_JID_OVERRIDE_DICT = {}
 
 CHARACTER_PID_OVERRIDE_DICT = {
     0x30: "PID_THEA_NPC_ALT",
+    0xB0: "PID_COMMON_MANAKETE",
     0xD1: "PID_TUTORIAL_SOLDIER",
     0xD2: "PID_TUTORIAL_ARCHER",
+    0xD8: "PID_KLEIN_SQUAD",
+    0xD9: "PID_THEA_SQUAD",
     0xE1: "PID_ARENA_OPPONENT"}
 
 CHAPTER_OVERRIDE_DICT = {

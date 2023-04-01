@@ -21,6 +21,17 @@ enum
     SUPPORT_EXP_A = 201,
 };
 
+enum
+{
+    AFFINITY_1 = 1,
+    AFFINITY_2 = 2,
+    AFFINITY_3 = 3,
+    AFFINITY_4 = 4,
+    AFFINITY_5 = 5,
+    AFFINITY_6 = 6,
+    AFFINITY_7 = 7,
+};
+
 struct SupportInfo
 {
     /* 00 */ u8 pids[UNIT_SUPPORT_COUNT];

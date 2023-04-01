@@ -12,6 +12,7 @@
 #include "trap.h"
 #include "action.h"
 #include "ai_utility.h"
+#include "gamedata.h"
 #include "save_stats.h"
 
 #include "constants/terrains.h"
@@ -19,9 +20,6 @@
 #include "constants/map-sprites.h"
 #include "constants/icons.h"
 #include "constants/faces.h"
-
-extern struct PInfo CONST_DATA PersonInfoTable[];
-extern struct JInfo CONST_DATA JobInfoTable[];
 
 u8 EWRAM_DATA gActiveUnitId = 0;
 struct Vec2i EWRAM_DATA gActiveUnitMoveOrigin = {};
@@ -41,7 +39,7 @@ inline struct JInfo const * GetJInfo(int jid)
     if (jid < 1)
         return NULL;
 
-    return JobInfoTable + (jid - 1);
+    return JInfoTable + (jid - 1);
 }
 
 inline struct PInfo const * GetPInfo(int pid)
@@ -49,7 +47,7 @@ inline struct PInfo const * GetPInfo(int pid)
     if (pid < 1)
         return NULL;
 
-    return PersonInfoTable + (pid - 1);
+    return PInfoTable + (pid - 1);
 }
 
 void InitUnits(void)

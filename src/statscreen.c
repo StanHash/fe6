@@ -562,7 +562,7 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
         0x70 + item_kind, // TODO: icon id definitions
         TILEREF(0, BGPAL_ICONS + 1));
 
-    color = (wexp >= WPN_EXP_S)
+    color = (wexp >= WEXP_S)
         ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE;
 
     // display rank letter
@@ -570,17 +570,17 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
         color, GetWeaponLevelSpecialCharFromExp(wexp));
 
     // this code makes the following assumptions
-    STATIC_ASSERT(WPN_EXP_C - WPN_EXP_D == (WPN_EXP_D - WPN_EXP_E));
-    STATIC_ASSERT(WPN_EXP_B - WPN_EXP_C == (WPN_EXP_D - WPN_EXP_E));
-    STATIC_ASSERT(WPN_EXP_A - WPN_EXP_B == (WPN_EXP_D - WPN_EXP_E));
-    STATIC_ASSERT(WPN_EXP_S - WPN_EXP_A == (WPN_EXP_D - WPN_EXP_E));
+    STATIC_ASSERT(WEXP_C - WEXP_D == (WEXP_D - WEXP_E));
+    STATIC_ASSERT(WEXP_B - WEXP_C == (WEXP_D - WEXP_E));
+    STATIC_ASSERT(WEXP_A - WEXP_B == (WEXP_D - WEXP_E));
+    STATIC_ASSERT(WEXP_S - WEXP_A == (WEXP_D - WEXP_E));
 
-    if (wexp != WPN_EXP_0)
-        wexp -= WPN_EXP_E;
+    if (wexp != WEXP_0)
+        wexp -= WEXP_E;
 
     PutDrawUiGauge(0x400 + 1 + num * 6, 5,
         gUnk_Tm_02003C38 + TM_OFFSET(x + 3, y + 1), TILEREF(0, BGPAL_STATSCREEN_6),
-        34, ((wexp % (WPN_EXP_D - WPN_EXP_E)) * 33) / 48, 0); // math look weird but gets something that ranges from 0 to 33. I would do "((wexp % 50) * 34) / 50"
+        34, ((wexp % (WEXP_D - WEXP_E)) * 33) / 48, 0); // math look weird but gets something that ranges from 0 to 33. I would do "((wexp % 50) * 34) / 50"
 }
 
 void PutStatScreenWeaponExpAndSupportsPage(void)

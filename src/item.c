@@ -10,16 +10,15 @@
 #include "gold.h"
 #include "itemuse.h"
 #include "supply.h"
+#include "gamedata.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/iids.h"
 #include "constants/icons.h"
 
-extern struct IInfo CONST_DATA ItemInfoTable[];
-
 inline struct IInfo const * GetIInfo(int iid)
 {
-    return ItemInfoTable + iid;
+    return IInfoTable + iid;
 }
 
 inline int GetItemIid(int item)
@@ -533,22 +532,22 @@ char const * GetItemRangeString(int item)
 
 int GetWeaponLevelFromExp(int wexp)
 {
-    if (wexp < WPN_EXP_E)
+    if (wexp < WEXP_E)
         return WPN_LEVEL_0;
 
-    if (wexp < WPN_EXP_D)
+    if (wexp < WEXP_D)
         return WPN_LEVEL_E;
 
-    if (wexp < WPN_EXP_C)
+    if (wexp < WEXP_C)
         return WPN_LEVEL_D;
 
-    if (wexp < WPN_EXP_B)
+    if (wexp < WEXP_B)
         return WPN_LEVEL_C;
 
-    if (wexp < WPN_EXP_A)
+    if (wexp < WEXP_A)
         return WPN_LEVEL_B;
 
-    if (wexp < WPN_EXP_S)
+    if (wexp < WEXP_S)
         return WPN_LEVEL_A;
 
     return WPN_LEVEL_S;

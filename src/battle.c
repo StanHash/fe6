@@ -1043,8 +1043,8 @@ void UnitPromote(struct Unit * unit)
 
         wexp += unit->jinfo->wexp[i];
 
-        if (wexp > WPN_EXP_S)
-            wexp = WPN_EXP_S;
+        if (wexp > WEXP_S)
+            wexp = WEXP_S;
 
         unit->wexp[i] = wexp;
     }
@@ -1142,13 +1142,13 @@ int GetBattleUnitUpdatedWeaponExp(struct BattleUnit * bu)
 
     if (UNIT_ATTRIBUTES(&bu->unit) & UNIT_ATTR_PROMOTED)
     {
-        if (result > WPN_EXP_S)
-            result = WPN_EXP_S;
+        if (result > WEXP_S)
+            result = WEXP_S;
     }
     else
     {
-        if (result > WPN_EXP_A)
-            result = WPN_EXP_A;
+        if (result > WEXP_A)
+            result = WEXP_A;
     }
 
     return result;

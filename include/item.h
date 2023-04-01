@@ -24,6 +24,9 @@ enum
     ITEM_KIND_INVALID = 0xFF,
 };
 
+// pretending to be reasonable
+#define ITEM_KIND_DARK ITEM_KIND_ELDER
+
 enum
 {
     // Item attribute flags
@@ -78,13 +81,13 @@ enum
 {
     // Weapon exp needed to have a given weapon level
 
-    WPN_EXP_0 = 0,
-    WPN_EXP_E = 1,
-    WPN_EXP_D = 51,
-    WPN_EXP_C = 101,
-    WPN_EXP_B = 151,
-    WPN_EXP_A = 201,
-    WPN_EXP_S = 251,
+    WEXP_0 = 0,
+    WEXP_E = 1,
+    WEXP_D = 51,
+    WEXP_C = 101,
+    WEXP_B = 151,
+    WEXP_A = 201,
+    WEXP_S = 251,
 };
 
 enum

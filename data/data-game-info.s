@@ -1,15 +1,11 @@
     .data
 
-    .global PersonInfoTable
-PersonInfoTable: @ 086076D0
-    .incbin "fe6-base.gba", 0x6076D0, (0x60A130 - 0x6076D0) @ length: 2A60
-
-    .global JobInfoTable
-JobInfoTable: @ 0860A130
+    .global JInfoTable
+JInfoTable: @ 0860A130
     .incbin "fe6-base.gba", 0x60A130, (0x60B648 - 0x60A130) @ length: 1518
 
-    .global ItemInfoTable
-ItemInfoTable: @ 0860B648
+    .global IInfoTable
+IInfoTable: @ 0860B648
     .incbin "fe6-base.gba", 0x60B648, (0x60C648 - 0x60B648) @ length: 1000
 
     .global MoveTable_BigFootie

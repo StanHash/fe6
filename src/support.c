@@ -256,7 +256,9 @@ static struct SupportBonuses const * GetAffinityBonuses(int affinity)
             return it;
     }
 
-    // return NULL; // BUG?
+#if BUGFIX
+    return NULL;
+#endif
 }
 
 static void ApplyAffinityBonuses(struct SupportBonuses * bonuses, int affinity, int level)
@@ -334,7 +336,7 @@ int GetUnitAffinityIcon(struct Unit * unit)
 {
     int affinity = unit->pinfo->affinity;
 
-    if (!affinity)
+    if (affinity == 0)
         return -1;
 
     return ICON_AFFINITY_BASE + affinity;
@@ -344,7 +346,7 @@ int GetAffinityIconByPid(int pid)
 {
     int affinity = GetPInfo(pid)->affinity;
 
-    if (!affinity)
+    if (affinity == 0)
         return -1;
 
     return ICON_AFFINITY_BASE + affinity;
@@ -367,14 +369,14 @@ char const * GetAffinityName(int affinity)
 {
     char const * lut[] =
     {
-        JTEXT("ー"),
-        JTEXT("炎"),
-        JTEXT("雷"),
-        JTEXT("風"),
-        JTEXT("氷"),
-        JTEXT("闇"),
-        JTEXT("光"),
-        JTEXT("理"),
+        [0] = JTEXT("ー"),
+        [AFFINITY_1] = JTEXT("炎"),
+        [AFFINITY_2] = JTEXT("雷"),
+        [AFFINITY_3] = JTEXT("風"),
+        [AFFINITY_4] = JTEXT("氷"),
+        [AFFINITY_5] = JTEXT("闇"),
+        [AFFINITY_6] = JTEXT("光"),
+        [AFFINITY_7] = JTEXT("理"),
     };
 
     return lut[affinity];
