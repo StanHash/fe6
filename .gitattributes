@@ -1,0 +1,4 @@
+*.c linguist-language=c
+*.h linguist-language=c
+*.s linguist-language=gas
+*.inc linguist-language=gas
