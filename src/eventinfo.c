@@ -35,7 +35,6 @@ extern struct SupportTalkEnt CONST_DATA gSupportTalkList[];
 extern struct BattleTalkExtEnt CONST_DATA gBattleTalkExtList[];
 extern struct BattleTalkEnt CONST_DATA gBattleTalkList[];
 extern struct BattleTalkEnt CONST_DATA gTriangleAttackTalkList[];
-extern struct BattleTalkEnt CONST_DATA gBattleDefeatTalkList[];
 
 struct EventListCmdInfo
 {

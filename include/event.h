@@ -3,13 +3,9 @@
 #include "common.h"
 #include "proc.h"
 
-typedef uptr EventScr;
+#include "unit.h"
 
-struct PopupInfo
-{
-    /* 00 */ u8 cmd;
-    /* 04 */ int arg;
-};
+typedef uptr EventScr;
 
 enum
 {
@@ -49,6 +45,47 @@ enum
     BACKGROUND_18,
     BACKGROUND_19,
     BACKGROUND_20,
+};
+
+enum
+{
+    EVENT_FLAG_UNITCAM = 1 << 0,
+    EVENT_FLAG_TEXTSKIPPED = 1 << 1,
+    EVENT_FLAG_SKIPPED = 1 << 2,
+    EVENT_FLAG_DISABLESKIP = 1 << 3,
+    EVENT_FLAG_DISABLETEXTSKIP = 1 << 4,
+    EVENT_FLAG_ENDMAPMAIN = 1 << 5,
+    EVENT_FLAG_NOAUTOCLEAR = 1 << 6,
+};
+
+struct PopupInfo
+{
+    /* 00 */ u8 cmd;
+    /* 04 */ int arg;
+};
+
+struct EventProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ EventScr const * script_start;
+    /* 30 */ EventScr const * script;
+    /* 34 */ void (* on_skip)(void);
+    /* 38 */ void (* on_idle)(struct EventProc * proc);
+    /* 3C */ struct UnitInfo const * unit_info;
+    /* 40 */ i32 msg_param;
+    /* 44 */ i8 background;
+    /* 45 */ bool8 no_map;
+    /* 46 */ u8 flags;
+    /* 47 */ // pad
+    /* 48 */ u16 sleep_duration;
+    /* 4A */ i16 cmd_short;
+    /* 4C */ u8 cmd_byte;
+    /* 4D */ // pad
+    /* 50 */ i32 money_param;
+    /* 54 */ u16 iid_param;
+    /* 56 */ u8 pid_param;
+    /* 57 */ u8 map_change_param;
 };
 
 void SetPopupUnit(struct Unit * unit);

@@ -7,15 +7,19 @@
 #include "sound.h"
 #include "talk.h"
 #include "event.h"
+#include "msg.h"
 #include "util.h"
+#include "gamecontroller.h"
 #include "unit.h"
 #include "item.h"
+#include "supply.h"
 #include "bm.h"
 #include "bmfx.h"
 #include "trap.h"
 #include "gold.h"
 #include "faction.h"
 #include "action.h"
+#include "itemaction.h"
 #include "mapselect.h"
 #include "chapterinfo.h"
 #include "chapterevents.h"
@@ -24,17 +28,34 @@
 
 #include "constants/flags.h"
 #include "constants/pids.h"
+#include "constants/jids.h"
+#include "constants/iids.h"
 #include "constants/chapters.h"
 #include "constants/msg.h"
+#include "constants/songs.h"
 #include "constants/videoalloc_global.h"
 
 extern u16 const gUnk_08342A98[]; // colors
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_08676220[];
 
 extern u8 gUnk_030048A8;
 extern u32 EWRAM_DATA gUnk_0203D354;
 extern u32 EWRAM_DATA gUnk_0203D358;
 extern u8 EWRAM_DATA gUnk_0203D35C;
 extern u8 EWRAM_DATA gUnk_0203D35D;
+
+extern u8 EWRAM_DATA gUnk_0203D360;
+extern u8 EWRAM_DATA gUnk_0203D361;
+extern u8 EWRAM_DATA gUnk_0203D362;
+extern u16 EWRAM_DATA gUnk_0203D364;
+
+struct UnkProc0806D82C
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ i16 unk_4C;
+};
 
 struct HardModeBonusLevelsOverrideEnt
 {
@@ -43,6 +64,10 @@ struct HardModeBonusLevelsOverrideEnt
 };
 
 extern struct HardModeBonusLevelsOverrideEnt CONST_DATA gHardModeBonusLevelsOverrideList[];
+
+// NOTE: this uses the RNG that is usually used for aesthetic purposes
+// this means that random events will not be the same accross suspend reloads
+#define EventRandNext_N(upper_bound) (DivRem(RandNextB(), (upper_bound)))
 
 bool IsHard(void)
 {
@@ -127,7 +152,7 @@ bool func_fe6_0806BBF8(void)
     if (gPlaySt.faction != FACTION_BLUE)
         return FALSE;
 
-    if (DivRem(RandNextB(), 11) == 0)
+    if (EventRandNext_N(11) == 0)
         return TRUE;
 
     return FALSE;
@@ -1435,4 +1460,477 @@ void Chapter8_WeakenNorthWestWall(void)
 
     if (trap != NULL)
         trap->extra = 10;
+}
+
+void func_fe6_0806CFA0(void)
+{
+    m4aMPlayStart(&gMusicPlayer_MainBgm, &Song_Unk_0857B774);
+}
+
+void func_fe6_0806CFB8(void)
+{
+    m4aMPlayStart(&gMusicPlayer_MainBgm, &Song_Unk_0857C95C);
+}
+
+void func_fe6_0806CFD0(void)
+{
+    m4aMPlayStart(&gMusicPlayer_MainBgm, &Song_Unk_0857C1E4);
+}
+
+void func_fe6_0806CFE8(void)
+{
+    m4aMPlayStart(&gMusicPlayer_MainBgm, &Song_Unk_0857A61C);
+}
+
+void func_fe6_0806D000(void)
+{
+    PlaySe(SONG_C4);
+}
+
+void func_fe6_0806D01C(void)
+{
+    func_fe6_080030B4(0);
+}
+
+bool func_fe6_0806D028(void)
+{
+    if (gPlaySt.faction != FACTION_BLUE)
+        return FALSE;
+
+    if (UNIT_JID(gActiveUnit) == JID_THIEF)
+        return TRUE;
+
+    if (UNIT_JID(gActiveUnit) == JID_THIEF_F)
+        return TRUE;
+
+    if (EventRandNext_N(11) == 0)
+        return TRUE;
+
+    return FALSE;
+}
+
+void func_fe6_0806D064(void)
+{
+    if (CheckFlag(FLAG_CHAPTER16_15))
+    {
+        RemoveGold(10000);
+    }
+
+    if (CheckFlag(FLAG_CHAPTER16_16))
+    {
+        WeakenUnitStatsByPid(PID_HUGH);
+        RemoveGold(8000);
+    }
+
+    if (CheckFlag(FLAG_CHAPTER16_17))
+    {
+        WeakenUnitStatsByPid(PID_HUGH);
+        WeakenUnitStatsByPid(PID_HUGH);
+        RemoveGold(6000);
+    }
+
+    if (CheckFlag(FLAG_CHAPTER16_18))
+    {
+        WeakenUnitStatsByPid(PID_HUGH);
+        WeakenUnitStatsByPid(PID_HUGH);
+        WeakenUnitStatsByPid(PID_HUGH);
+        RemoveGold(5000);
+    }
+}
+
+void func_fe6_0806D0E4(void)
+{
+    func_fe6_08073324();
+    func_fe6_08027DB4(GetUnitByPid(PID_ROY), ITEM_FROM_IID(IID_BINDINGBLADE));
+}
+
+bool func_fe6_0806D0FC(int iid)
+{
+    int i;
+
+    if (FindSupplyItem(ITEM_FROM_IID(iid)) >= 0)
+        return TRUE;
+
+    FOR_UNITS_FACTION(FACTION_BLUE, unit,
+    {
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        for (i = 0; i < ITEMSLOT_INV_COUNT; i++)
+        {
+            if (GetItemIid(unit->items[i]) == iid)
+                return TRUE;
+        }
+    })
+
+    return FALSE;
+}
+
+bool func_fe6_0806D150(void)
+{
+    u8 const * it;
+
+    for (it = gUnk_08672458; *it != 0; it++)
+    {
+        if (!func_fe6_0806D0FC(*it))
+            return FALSE;
+    }
+
+    return TRUE;
+}
+
+void func_fe6_0806D17C(void)
+{
+    StartMapChangeEvent(GetMapChangeIdAt(22, 23));
+}
+
+void func_fe6_0806D194(void)
+{
+    int i;
+
+    for (i = 0; i <= FLAG_CHAPTER24_17 - FLAG_CHAPTER24_13; i++)
+    {
+        ClearFlag(FLAG_CHAPTER24_13 + i);
+    }
+}
+
+void func_fe6_0806D1AC(void)
+{
+    int i;
+
+    for (i = 0; i <= FLAG_CHAPTER24_17 - FLAG_CHAPTER24_13; i++)
+    {
+        int flag = FLAG_CHAPTER24_13 + i;
+
+        if (!CheckFlag(flag))
+        {
+            SetFlag(flag);
+            return;
+        }
+    }
+}
+
+void func_fe6_0806D1D4(void)
+{
+    gUnk_0203D360 = 0;
+    gUnk_0203D361 = 0;
+    gUnk_0203D362 = 0;
+    gUnk_0203D364 = 0;
+}
+
+bool func_fe6_0806D1FC(struct EventProc * proc)
+{
+    struct Unit * unit;
+    int i, j;
+
+    if ((proc->flags & EVENT_FLAG_SKIPPED) != 0)
+    {
+        EndTalk();
+        return FALSE;
+    }
+
+    if (IsTalkActive())
+        return TRUE;
+
+    switch (gUnk_0203D360)
+    {
+        case 0:
+            i = 1;
+
+            if (gUnk_0203D361 != 0)
+                i = gUnk_0203D361;
+
+            for (; i < 0x40; ++i)
+            {
+                unit = GetUnit(i);
+
+                if (unit == NULL)
+                    continue;
+
+                if (unit->pinfo == NULL)
+                    continue;
+
+                if ((unit->flags & UNIT_FLAG_UNAVAILABLE) != 0)
+                    continue;
+
+                gUnk_0203D362 = UNIT_PID(unit);
+
+                if (gUnk_0203D362 == PID_ROY)
+                    continue;
+
+                for (j = 0; gBattleDefeatTalkList[j].pid != 0; j++)
+                {
+                    if (gUnk_0203D362 == gBattleDefeatTalkList[j].pid)
+                    {
+                        gUnk_0203D364 = gBattleDefeatTalkList[j].unk_0C;
+                        gUnk_0203D361 = i + 1;
+                        gUnk_0203D360++;
+                        return TRUE;
+                    }
+                }
+            }
+
+            return FALSE;
+
+        case 1:
+            unit = GetUnitByPid(gUnk_0203D362);
+
+            CameraMoveWatchPosition(proc, unit->x, unit->y);
+            SetMapCursorPosition(unit->x, unit->y);
+
+            gUnk_0203D360++;
+            break;
+
+        case 2:
+            SetInitTalkTextFont();
+            ClearTalkText();
+            ClearPutTalkText();
+            ClearTalk();
+
+            StartTalkExt(10, 14, DecodeMsg(gUnk_0203D364), proc);
+            SetTalkPrintColor(TEXT_COLOR_0456);
+            SetActiveTalkFace(TALK_FACE_1);
+
+            gUnk_0203D360 = 0;
+            break;
+    }
+
+    return TRUE;
+}
+
+bool func_fe6_0806D35C(void)
+{
+    int count = 0;
+
+    FOR_UNITS(FACTION_GREEN + 1, FACTION_RED + 0x40, unit,
+    {
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        count++;
+    })
+
+    if (count < 3)
+        return FALSE;
+
+    return TRUE;
+}
+
+bool func_fe6_0806D398(void)
+{
+    if (EventRandNext_N(5) == 0)
+        return TRUE;
+
+    return FALSE;
+}
+
+bool func_fe6_0806D3B4(void)
+{
+    if (func_fe6_0806D398())
+    {
+        if (gChapterFlagBits[sizeof(gChapterFlagBits) - 1] + 4 != func_fe6_0806C460(FACTION_RED))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+void func_fe6_0806D3E0(void)
+{
+    gChapterFlagBits[sizeof(gChapterFlagBits) - 2]++;
+    gChapterFlagBits[sizeof(gChapterFlagBits) - 1] = func_fe6_0806C460(FACTION_RED);
+
+    if (IsHard())
+    {
+        if (gChapterFlagBits[sizeof(gChapterFlagBits) - 2] == 10)
+            return;
+    }
+    else
+    {
+        if (gChapterFlagBits[sizeof(gChapterFlagBits) - 2] == 5)
+            return;
+    }
+
+    ClearFlag(FLAG_CHAPTER18S_6);
+}
+
+void func_fe6_0806D41C(void)
+{
+    AddFireTrap(10, 22, 1, 4);
+    AddFireTrap(14, 21, 2, 3);
+    AddFireTrap(14, 23, 2, 5);
+    AddFireTrap(17, 22, 4, 2);
+    AddFireTrap(19, 21, 4, 6);
+    AddFireTrap(23, 18, 6, 4);
+    AddFireTrap(25, 18, 6, 3);
+    AddFireTrap(23, 16, 5, 3);
+    AddFireTrap(24,  9, 5, 2);
+    AddFireTrap(23,  8, 6, 5);
+    AddFireTrap(25,  8, 5, 4);
+    AddFireTrap(20,  1, 7, 5);
+    AddFireTrap(19,  3, 6, 6);
+    AddFireTrap(14,  8, 9, 2);
+    AddFireTrap(15,  9, 3, 3);
+    AddFireTrap(13,  9, 9, 4);
+    AddFireTrap(14, 10, 11, 3);
+    AddFireTrap(12, 12, 1, 5);
+    AddFireTrap(11, 11, 1, 3);
+    AddFireTrap(11, 13, 7, 3);
+    AddFireTrap( 9, 13, 8, 4);
+    AddFireTrap( 9, 11, 2, 4);
+    AddFireTrap( 8, 12, 6, 2);
+    AddFireTrap( 7, 11, 5, 3);
+    AddFireTrap( 7, 13, 4, 5);
+    AddFireTrap( 3, 10, 1, 3);
+}
+
+void func_fe6_0806D55C(void)
+{
+    gPlaySt.chapter = CHAPTER_8X;
+}
+
+void func_fe6_0806D568(void)
+{
+    AddGasTrap( 1,  2, FACING_DOWN, 1, 8);
+    AddGasTrap( 1, 14, FACING_RIGHT, 7, 8);
+    AddGasTrap(10,  7, FACING_LEFT, 2, 8);
+    AddGasTrap( 8, 13, FACING_RIGHT, 3, 8);
+    AddGasTrap(11,  2, FACING_DOWN, 5, 8);
+    AddGasTrap(13, 13, FACING_DOWN, 4, 8);
+    AddGasTrap(14, 17, FACING_UP, 1, 8);
+    AddGasTrap(15,  1, FACING_UP, 5, 8);
+    AddGasTrap(20, 18, FACING_LEFT, 2, 8);
+    AddGasTrap(21,  9, FACING_LEFT, 6, 8);
+    AddGasTrap(23, 12, FACING_RIGHT, 3, 8);
+    AddGasTrap(23, 20, FACING_RIGHT, 7, 8);
+}
+
+void func_fe6_0806D620(void)
+{
+    int i;
+
+    for (i = 0; i < (int) ARRAY_COUNT(gUnk_0867507C); i++)
+    {
+        func_fe6_08026BA4(i + 26, i, gUnk_0867507C[i].delay, gUnk_0867507C[i].interval);
+    }
+}
+
+void func_fe6_0806D648(void)
+{
+    AddArrowTrap(14, 3, 5);
+    AddArrowTrap( 6, 1, 9);
+    AddArrowTrap( 8, 4, 9);
+    AddArrowTrap( 4, 7, 9);
+    AddArrowTrap(13, 8, 9);
+    AddArrowTrap(16, 3, 5);
+    AddArrowTrap(24, 2, 9);
+    AddArrowTrap(26, 5, 9);
+    AddArrowTrap(22, 9, 9);
+    AddArrowTrap(17, 6, 9);
+}
+
+void func_fe6_0806D6B4(void)
+{
+    SetFlag(gUnk_08675750[EventRandNext_N(ARRAY_COUNT(gUnk_08675750))]);
+}
+
+void func_fe6_0806D6D8(void)
+{
+    AddStepFireTrap( 6, 6);
+    AddStepFireTrap( 7, 8);
+    AddStepFireTrap( 6, 10);
+    AddStepFireTrap( 7, 13);
+    AddStepFireTrap( 6, 15);
+    AddStepFireTrap( 7, 17);
+    AddStepFireTrap(24,  6);
+    AddStepFireTrap(23,  8);
+    AddStepFireTrap(24, 10);
+    AddStepFireTrap(23, 13);
+    AddStepFireTrap(24, 16);
+    AddStepFireTrap(23, 17);
+
+    AddStepPikeTrap(12, 14, FACING_UP);
+    AddStepPikeTrap(18, 14, FACING_UP);
+    AddStepPikeTrap(10,  7, FACING_RIGHT);
+    AddStepPikeTrap(20,  7, FACING_LEFT);
+    AddStepPikeTrap(14,  7, FACING_RIGHT);
+    AddStepPikeTrap(16,  7, FACING_LEFT);
+}
+
+void func_fe6_0806D77C(void)
+{
+    int i, count;
+
+    for (i = 0, count = 0;; i++)
+    {
+        if (!CheckFlag(gUnk_08675B90[i % (int) ARRAY_COUNT(gUnk_08675B90)]) && EventRandNext_N(11) == 0)
+        {
+            SetFlag(gUnk_08675B90[i % (int) ARRAY_COUNT(gUnk_08675B90)]);
+
+            count++;
+
+            if (count == 3)
+                return;
+        }
+    }
+}
+
+void func_fe6_0806D7C8(void)
+{
+    func_fe6_08013A64();
+    SetNextGameAction(GAME_ACTION_1);
+    SpawnProc(ProcScr_Unk_08676220, PROC_TREE_4);
+}
+
+void func_fe6_0806D7E4(void)
+{
+    gPlaySt.config_battle_anim = 3; // TODO: battle anim config constants
+}
+
+void func_fe6_0806D7F4(void)
+{
+    gPlaySt.config_battle_anim = 0; // TODO: battle anim config constants
+}
+
+void func_fe6_0806D808(void)
+{
+    InitUnits();
+    ClearTalk();
+    Proc_EndEachMarked(PROC_MARK_1);
+}
+
+void func_fe6_0806D81C(void)
+{
+    Proc_EndEach(ProcScr_Unk_08676220);
+}
+
+void func_fe6_0806D82C(ProcPtr proc)
+{
+    if (gKeySt->pressed & (KEY_BUTTON_ANY & ~KEY_BUTTON_SELECT))
+        Proc_Break(proc);
+}
+
+void func_fe6_0806D850(struct UnkProc0806D82C * proc)
+{
+    SetNextGameAction(GAME_ACTION_0);
+    proc->unk_4C = 31;
+}
+
+void func_fe6_0806D868(struct UnkProc0806D82C * proc)
+{
+    DarkenPals(0x20 - proc->unk_4C);
+
+    proc->unk_4C--;
+
+    if (proc->unk_4C < 0)
+        Proc_Break(proc);
+}
+
+void func_fe6_0806D894(void)
+{
+    CleanupGame(NULL);
+    SyncHiOam();
+    func_fe6_0806D808();
+    func_fe6_0806D81C();
+    KillTalkAndEvent();
 }

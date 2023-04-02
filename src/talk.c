@@ -43,8 +43,8 @@ struct TalkChoiceProc
 static void TalkSkipListener_OnIdle(ProcPtr proc);
 static void Talk_OnInit(ProcPtr proc);
 static void Talk_OnIdle(ProcPtr proc);
-static i8 TalkPrepNextChar(ProcPtr proc);
-static i8 TalkSpritePrepNextChar(ProcPtr proc);
+static bool TalkPrepNextChar(ProcPtr proc);
+static bool TalkSpritePrepNextChar(ProcPtr proc);
 static void LockTalk(ProcPtr proc);
 static int TalkInterpret(ProcPtr proc);
 static void TalkInterpretNewFace(ProcPtr proc);
@@ -52,7 +52,7 @@ static int GetFaceIdByX(int x);
 static void SetTalkFaceLayer(int talk_face, int toBack);
 static void MoveTalkFace(int talkFaceFrom, int talkFaceTo);
 static bool IsTalkFaceMoving(void);
-static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap);
+static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, bool isSwap);
 static void TalkFaceMove_OnInit(struct GenericProc * proc);
 static void TalkFaceMove_OnIdle(struct GenericProc * proc);
 static void Talk_OnEnd(ProcPtr proc);
@@ -76,14 +76,14 @@ static void TalkOpen_InitBlend(struct GenericProc * proc);
 static void TalkOpen_PutTalkBubble(struct GenericProc * proc);
 static void TalkOpen_OnIdle(struct GenericProc * proc);
 static void StartTalkOpen(int talk_face, ProcPtr parent);
-static i8 TalkHasCorrectBubble(void);
+static bool TalkHasCorrectBubble(void);
 static int GetTalkFaceHPos(int talk_face);
 static void SetTalkFaceDisp(int talk_face, int faceDisp);
 static void SetTalkFaceMouthMove(int talk_face);
 static void SetTalkFaceNoMouthMove(int talk_face);
 static void TalkPutSpriteText_OnIdle(struct GenericProc * proc);
 static void TalkPutSpriteText_OnEnd(struct GenericProc * proc);
-static int GetStrTalkLen(char const * str, i8 isBubbleOpen);
+static int GetStrTalkLen(char const * str, bool isBubbleOpen);
 static void TalkDebug_Unk_0800CA88(struct GenericProc * proc);
 static void TalkDebug_Unk_0800CAA0(struct GenericProc * proc);
 static void TalkDebug_OnInit(struct GenericProc * proc);
@@ -323,7 +323,7 @@ struct ProcScr CONST_DATA ProcScr_TalkDebug[] =
     PROC_END,
 };
 
-void InitTalk(int chr, int lines, i8 unpack_bubble)
+void InitTalk(int chr, int lines, bool unpack_bubble)
 {
     int i;
 
@@ -652,7 +652,7 @@ static void LockTalk(ProcPtr proc)
     SpawnProcLocking(ProcScr_TalkLock, proc);
 }
 
-i8 IsTalkLocked(void)
+bool IsTalkLocked(void)
 {
     return Proc_Exists(ProcScr_TalkLock);
 }
@@ -1049,7 +1049,7 @@ static void SetTalkFaceLayer(int talk_face, int toBack)
 static void MoveTalkFace(int talkFaceFrom, int talkFaceTo)
 {
     struct FaceProc * face;
-    i8 isSwap = FALSE;
+    bool isSwap = FALSE;
 
     if (sTalkSt->faces[talkFaceTo] != NULL)
     {
@@ -1072,7 +1072,7 @@ static bool IsTalkFaceMoving(void)
     return FALSE;
 }
 
-static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, i8 isSwap)
+static void StartTalkFaceMove(int talkFaceFrom, int talkFaceTo, bool isSwap)
 {
     struct GenericProc * proc;
 
@@ -1695,12 +1695,12 @@ static void SetTalkFaceNoMouthMove(int talk_face)
     SetTalkFaceDisp(talk_face, 0);
 }
 
-i8 IsTalkActive(void)
+bool IsTalkActive(void)
 {
     return Proc_Exists(ProcScr_Talk);
 }
 
-i8 FaceExists(void)
+bool FaceExists(void)
 {
     return Proc_Exists(ProcScr_Face);
 }
@@ -1803,7 +1803,7 @@ void EndPutTalkSpriteText(void)
     Proc_EndEach(ProcScr_TalkPutSpriteText);
 }
 
-int GetStrTalkLen(char const * str, i8 isBubbleOpen)
+int GetStrTalkLen(char const * str, bool isBubbleOpen)
 {
     char buf[0x20];
 
@@ -2003,7 +2003,7 @@ ret:
     return maxLineLen;
 }
 
-i8 IsTalkDebugActive(void)
+bool IsTalkDebugActive(void)
 {
     return Proc_Exists(ProcScr_TalkDebug);
 }

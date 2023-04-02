@@ -653,7 +653,7 @@ void MPlayOpen(struct MusicPlayer * music_player, struct MusicPlayerTrack * trac
     music_player->ident = ID_NUMBER;
 }
 
-void m4aMPlayStart(struct MusicPlayer * music_player, struct Song * song_header)
+void m4aMPlayStart(struct MusicPlayer * music_player, struct Song const * song_header)
 {
     int i;
     u8 unk_B;

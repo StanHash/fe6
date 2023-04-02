@@ -5,6 +5,7 @@
 #include "common.h"
 
 #include "proc.h"
+#include "event.h"
 #include "eventinfo.h"
 
 struct TutorialEventProcA
@@ -191,7 +192,7 @@ void func_fe6_0806D17C(void);
 void func_fe6_0806D194(void);
 void func_fe6_0806D1AC(void);
 void func_fe6_0806D1D4(void);
-bool func_fe6_0806D1FC(ProcPtr todo_event_proc);
+bool func_fe6_0806D1FC(struct EventProc * proc);
 bool func_fe6_0806D35C(void);
 bool func_fe6_0806D398(void);
 bool func_fe6_0806D3B4(void);

@@ -12,6 +12,8 @@ struct UnkTrapEnt
     int interval;
 };
 
+extern struct BattleTalkEnt CONST_DATA gBattleDefeatTalkList[];
+
 extern u16 CONST_DATA ShopItems_Unk_0866A81C[];
 extern u16 CONST_DATA ShopItems_Unk_0866A820[];
 extern u16 CONST_DATA ShopItems_Unk_0866A82A[];
@@ -506,7 +508,7 @@ extern EventScr CONST_DATA EventScr_Unk_08674BB0[];
 extern EventScr CONST_DATA EventScr_Unk_08674F00[];
 extern EventScr CONST_DATA EventScr_Unk_08674F84[];
 
-extern struct UnkTrapEnt CONST_DATA gUnk_0867507C[];
+extern struct UnkTrapEnt CONST_DATA gUnk_0867507C[26];
 extern EventScr CONST_DATA EventScr_Unk_0867514C[];
 extern EventScr CONST_DATA EventScr_Unk_086751E8[];
 
@@ -517,7 +519,7 @@ extern EventScr CONST_DATA EventScr_Unk_08675410[];
 extern EventScr CONST_DATA EventScr_Unk_0867557C[];
 extern EventScr CONST_DATA EventScr_Unk_086756A8[];
 
-extern u32 CONST_DATA gUnk_08675750[];
+extern u32 CONST_DATA gUnk_08675750[6];
 extern EventScr CONST_DATA EventScr_Unk_08675768[];
 extern EventScr CONST_DATA EventScr_Unk_086758D4[];
 extern EventScr CONST_DATA EventScr_Unk_0867592C[];
@@ -527,7 +529,7 @@ extern EventScr CONST_DATA EventScr_Unk_08675A34[];
 extern EventScr CONST_DATA EventScr_Unk_08675A8C[];
 extern EventScr CONST_DATA EventScr_Unk_08675AE4[];
 
-extern u32 CONST_DATA gUnk_08675B90[];
+extern u32 CONST_DATA gUnk_08675B90[6];
 extern EventScr CONST_DATA EventScr_Unk_08675BA8[];
 extern EventScr CONST_DATA EventScr_Unk_08675CF4[];
 extern EventScr CONST_DATA EventScr_Unk_08675D38[];

@@ -90,6 +90,7 @@ enum
     SONG_BD = 0xBD,
     SONG_BE = 0xBE,
     SONG_BF = 0xBF,
+    SONG_C4 = 0xC4,
     SONG_C6 = 0xC6,
     SONG_C8 = 0xC8, // stat screen unit slide
     SONG_D6 = 0xD6,

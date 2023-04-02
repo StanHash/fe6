@@ -163,14 +163,14 @@ void func_fe6_08026BA4(int x, int y, int turnCountdown, int turnInterval)
     AddDamagingTrap(x, y, TRAP_8, 0, turnCountdown, turnInterval, 0);
 }
 
-void func_fe6_08026BC0(int x, int y)
+void AddStepFireTrap(int x, int y)
 {
     AddTrap(x, y, TRAP_STEP_FIRE, 0);
 }
 
-void func_fe6_08026BD0(int x, int y, int extra)
+void AddStepPikeTrap(int x, int y, int facing)
 {
-    AddTrap(x, y, TRAP_STEP_PIKE, extra);
+    AddTrap(x, y, TRAP_STEP_PIKE, facing);
 }
 
 void InitMapTraps(void)

@@ -24,9 +24,6 @@ enum
     ITEM_KIND_INVALID = 0xFF,
 };
 
-// pretending to be reasonable
-#define ITEM_KIND_DARK ITEM_KIND_ELDER
-
 enum
 {
     // Item attribute flags
@@ -219,4 +216,8 @@ enum { ITEM_USES_SHIFT = 8 };
 #define ITEM_IID(item) ((item) & ((1 << ITEM_USES_SHIFT) - 1))
 #define ITEM_USES(item) ((item) >> ITEM_USES_SHIFT)
 
+// dummy macro for when the game confuses the two
+#define ITEM_FROM_IID(iid) (iid)
+
+// pretending to be reasonable
 #define ITEM_KIND_DARK ITEM_KIND_ELDER

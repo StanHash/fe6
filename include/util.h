@@ -43,7 +43,7 @@ void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len);
 // func_fe6_08013EE4
 // func_fe6_08013F04
 // func_fe6_08013F7C
-// DarkenPals
+void DarkenPals(int reduction);
 // func_fe6_0801412C
 // func_fe6_08014130
 void StartSpacialSeTest(void);

@@ -4,8 +4,8 @@
 gUnk_0867619C: @ 0867619C
 	.incbin "fe6-base.gba", 0x67619C, (0x676220 - 0x67619C) @ length: 0084
 
-	.global gUnk_08676220
-gUnk_08676220: @ 08676220
+	.global ProcScr_Unk_08676220
+ProcScr_Unk_08676220: @ 08676220
 	.incbin "fe6-base.gba", 0x676220, (0x676738 - 0x676220) @ length: 0518
 
 	.global gUnk_08676738

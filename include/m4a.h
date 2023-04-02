@@ -353,7 +353,7 @@ struct MusicPlayerEnt
 
 struct SongEnt
 {
-    /* +00 */ struct Song * song;
+    /* +00 */ struct Song const * song;
     /* +04 */ u16 ms;
     /* +06 */ u16 me;
 };
@@ -372,7 +372,7 @@ void m4aSongNumStartOrChange(u16 n);
 void m4aSongNumStartOrContinue(u16 n);
 void m4aSongNumStop(u16 n);
 void m4aMPlayAllStop(void);
-void m4aMPlayStart(struct MusicPlayer * music_player, struct Song * song);
+void m4aMPlayStart(struct MusicPlayer * music_player, struct Song const * song);
 void m4aMPlayStop(struct MusicPlayer * music_player);
 void m4aMPlayContinue(struct MusicPlayer * music_player);
 void m4aMPlayFadeOut(struct MusicPlayer * music_player, u16 speed);

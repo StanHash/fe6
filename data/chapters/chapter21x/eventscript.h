@@ -1,6 +1,6 @@
 #pragma once
 
-u32 CONST_DATA gUnk_08675B90[] =
+u32 CONST_DATA gUnk_08675B90[6] =
 {
     FLAG_CHAPTER21X_8,
     FLAG_CHAPTER21X_9,
