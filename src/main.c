@@ -39,7 +39,12 @@ NAKEDFUNC void AgbMain(void)
     DmaFill32(3, 0, (void *) IWRAM_START, 0x7F80);
     CpuFastFill(0, (void *) EWRAM_START, 0x40000);
 
-    REG_WAITCNT = 0x45B4;
+    REG_WAITCNT = WAITCNT_SRAM_4
+        | WAITCNT_WS0_N_3 | WAITCNT_WS0_S_1
+        | WAITCNT_WS1_N_3 | WAITCNT_WS1_S_1
+        | WAITCNT_WS2_N_3 | WAITCNT_WS2_S_1
+        | WAITCNT_PHI_OUT_NONE
+        | WAITCNT_PREFETCH_ENABLE;
 
     IrqInit();
     SetOnVBlank(NULL);

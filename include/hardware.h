@@ -10,7 +10,13 @@ enum
     FRAMES_PER_HOUR   = 60 * FRAMES_PER_MINUTE,
 };
 
-struct ALIGNED(4) DispCnt
+#if MODERN
+#  define IO_ALIGNED(n) ALIGNED(n)
+#else
+#  define IO_ALIGNED(n) ALIGNED(4)
+#endif
+
+struct IO_ALIGNED(2) DispCnt
 {
     /* bit  0 */ u16 mode : 3;
     /* bit  3 */ u16 : 1;
@@ -28,7 +34,7 @@ struct ALIGNED(4) DispCnt
     /* bit 15 */ u16 objwin_enable : 1;
 };
 
-struct ALIGNED(4) DispStat
+struct IO_ALIGNED(2) DispStat
 {
     /* bit  0 */ u16 vblank : 1;
     /* bit  1 */ u16 hblank : 1;
@@ -40,7 +46,7 @@ struct ALIGNED(4) DispStat
     /* bit  8 */ u16 vcount_compare : 8;
 };
 
-struct ALIGNED(4) BgCnt
+struct IO_ALIGNED(2) BgCnt
 {
     /* bit  0 */ u16 priority : 2;
     /* bit  2 */ u16 chr_block : 2;
@@ -52,7 +58,7 @@ struct ALIGNED(4) BgCnt
     /* bit 14 */ u16 size : 2;
 };
 
-struct ALIGNED(4) WinCnt
+struct IO_ALIGNED(4) WinCnt
 {
     u8 win0_enable_bg0 : 1;
     u8 win0_enable_bg1 : 1;
@@ -87,7 +93,7 @@ struct ALIGNED(4) WinCnt
     u8 : 2;
 };
 
-struct ALIGNED(4) BlendCnt
+struct IO_ALIGNED(2) BlendCnt
 {
     u16 target1_enable_bg0 : 1;
     u16 target1_enable_bg1 : 1;
@@ -108,7 +114,7 @@ struct DispIo
 {
     /* 00 */ struct DispCnt disp_ct;
     /* 04 */ struct DispStat disp_stat;
-    /* 08 */ u8 pad_08[4];
+    /* 08 */ STRUCT_PAD(0x08, 0x0C);
     /* 0C */ struct BgCnt bg0_ct;
     /* 10 */ struct BgCnt bg1_ct;
     /* 14 */ struct BgCnt bg2_ct;
@@ -118,9 +124,9 @@ struct DispIo
     /* 30 */ u8 win0_bottom, win0_top, win1_bottom, win1_top;
     /* 34 */ struct WinCnt win_ct;
     /* 38 */ u16 mosaic;
-    /* 3A */ u8 pad_3A[2];
+    /* 3A */ STRUCT_PAD(0x3A, 0x3C);
     /* 3C */ struct BlendCnt blend_ct;
-    /* 40 */ u8 pad_40[4];
+    /* 40 */ STRUCT_PAD(0x40, 0x44);
     /* 44 */ u8 blend_coef_a;
     /* 45 */ u8 blend_coef_b;
     /* 46 */ u8 blend_y;

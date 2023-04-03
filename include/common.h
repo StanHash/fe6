@@ -28,7 +28,12 @@
 
 // use to pad a struct that contains unused space
 // TODO: use this everywere
-#define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]
+
+#if !MODERN
+#  define STRUCT_PAD(from, to) unsigned char _pad_ ## from[(to) - (from)]
+#else
+#  define STRUCT_PAD(from, to)
+#endif
 
 #define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
 

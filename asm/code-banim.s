@@ -1183,7 +1183,7 @@ func_fe6_08042E58: @ 0x08042E58
 	movs r3, #1
 	mov r8, r3
 	mov r1, r8
-	ldr r6, .L08042F5C @ =gUnk_Banim_030026E4
+	ldr r6, .L08042F5C @ =gDispIo+0x34
 	ldrb r6, [r6]
 	orrs r1, r6
 	movs r0, #2
@@ -1208,7 +1208,7 @@ func_fe6_08042E58: @ 0x08042E58
 	orrs r0, r3
 	subs r2, #0x1e
 	ands r1, r2
-	ldr r3, .L08042F5C @ =gUnk_Banim_030026E4
+	ldr r3, .L08042F5C @ =gDispIo+0x34
 	strb r1, [r3]
 	ands r0, r2
 	strb r0, [r6, r7]
@@ -1261,7 +1261,7 @@ func_fe6_08042E58: @ 0x08042E58
 	.align 2, 0
 .L08042F54: .4byte gUnk_Banim_0201947C
 .L08042F58: .4byte gDispIo
-.L08042F5C: .4byte gUnk_Banim_030026E4
+.L08042F5C: .4byte gDispIo+0x34
 .L08042F60: .4byte gUnk_08113584
 .L08042F64: .4byte 0x06002000
 .L08042F68: .4byte gUnk_08113CE4

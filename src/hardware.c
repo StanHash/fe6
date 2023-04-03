@@ -18,31 +18,31 @@ static unsigned sGameTime;
 static u8 sUnk_03000014;
 static u8 sUnk_03000015;
 
-u8 EWRAM_DATA gBuf[0x2000] = {};
+u8 EWRAM_DATA gBuf[0x2000] = { 0 };
 
-i8 EWRAM_DATA gUnk_020210E8[0x20] = {};
-i8 EWRAM_DATA gUnk_02021108[0x600] = {};
+i8 EWRAM_DATA gUnk_020210E8[0x20] = { 0 };
+i8 EWRAM_DATA gUnk_02021108[0x600] = { 0 };
 
-u16 EWRAM_DATA gPal[0x200] = {};
+u16 EWRAM_DATA gPal[0x200] = { 0 };
 
-u16 EWRAM_DATA gBg0Tm[0x400] = {};
-u16 EWRAM_DATA gBg1Tm[0x400] = {};
-u16 EWRAM_DATA gBg2Tm[0x400] = {};
-u16 EWRAM_DATA gBg3Tm[0x400] = {};
+u16 EWRAM_DATA gBg0Tm[0x400] = { 0 };
+u16 EWRAM_DATA gBg1Tm[0x400] = { 0 };
+u16 EWRAM_DATA gBg2Tm[0x400] = { 0 };
+u16 EWRAM_DATA gBg3Tm[0x400] = { 0 };
 
-void * EWRAM_DATA gBgMapVramTable[4] = {};
+void * EWRAM_DATA gBgMapVramTable[4] = { 0 };
 
 static Func EWRAM_DATA MainFunc = NULL;
 
 int EWRAM_DATA pad_02023B1C = 0;
 
-static struct KeySt EWRAM_DATA gKeyStObj = {};
+static struct KeySt EWRAM_DATA gKeyStObj = { 0 };
 struct KeySt * CONST_DATA gKeySt = &gKeyStObj;
 
-extern struct DispIo gDispIo; // COMMON
+struct DispIo COMMON_DATA(gDispIo) gDispIo = { 0 };
 
-extern Func gOnHBlankA; // COMMON
-extern Func gOnHBlankB; // COMMON
+Func COMMON_DATA(gOnHBlankA) gOnHBlankA = NULL;
+Func COMMON_DATA(gOnHBlankB) gOnHBlankB = NULL;
 
 unsigned GetGameTime(void)
 {
@@ -65,7 +65,7 @@ void IncGameTime(void)
     }
 }
 
-i8 FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds)
+bool FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds)
 {
     *seconds = (time / FRAMES_PER_SECOND) % 60;
     *minutes = (time / FRAMES_PER_MINUTE) % 60;
@@ -111,7 +111,14 @@ void ApplyPaletteExt(void const * data, int startOffset, int size)
 
 void SyncDispIo(void)
 {
-    #define SET_REG(type, reg, src) *((type*) &REG_##reg) = *((type*) &(src))
+    // TODO: rewrite the MODERN version of this function
+    // this is a bit of a mess
+
+    #if MODERN
+    #  define SET_REG(type, reg, src) *((typeof((src)) volatile *) &REG_##reg) = (src)
+    #else
+    #  define SET_REG(type, reg, src) *((type*) &REG_##reg) = *((type*) &(src))
+    #endif
 
     SET_REG(u16, DISPCNT,  gDispIo.disp_ct);
     SET_REG(u16, DISPSTAT, gDispIo.disp_stat);
@@ -127,29 +134,57 @@ void SyncDispIo(void)
     SET_REG(u32, BG2HOFS,  gDispIo.bg_off[2]);
     SET_REG(u32, BG3HOFS,  gDispIo.bg_off[3]);
 
+#if MODERN
+    REG_WIN0H = gDispIo.win0_right + (gDispIo.win0_left << 8);
+    REG_WIN1H = gDispIo.win1_right + (gDispIo.win1_left << 8);
+    REG_WIN0V = gDispIo.win0_bottom + (gDispIo.win0_top << 8);
+    REG_WIN1V = gDispIo.win1_bottom + (gDispIo.win1_top << 8);
+#else
     // set both WIN0H and WIN1H with a single 32-bit copy
     SET_REG(u32, WIN0H,    gDispIo.win0_right);
     // set both WIN0V and WIN1V with a single 32-bit copy
     SET_REG(u32, WIN0V,    gDispIo.win0_bottom);
+#endif
+
     // set both WININ and WINOUT with a single 32-bit copy
     SET_REG(u32, WININ,    gDispIo.win_ct);
 
     SET_REG(u16, MOSAIC,   gDispIo.mosaic);
     SET_REG(u16, BLDCNT,   gDispIo.blend_ct);
+#if MODERN
+    REG_BLDALPHA = gDispIo.blend_coef_a + (gDispIo.blend_coef_b << 8);
+#else
     SET_REG(u16, BLDALPHA, gDispIo.blend_coef_a);
+#endif
     SET_REG(u8,  BLDY,     gDispIo.blend_y);
 
+#if MODERN
+    REG_BG2PA = gDispIo.bg2pa;
+    REG_BG2PB = gDispIo.bg2pb;
+    REG_BG2PC = gDispIo.bg2pc;
+    REG_BG2PD = gDispIo.bg2pd;
+#else
     // set both BG2PA and BG2PB with a single 32-bit copy
     SET_REG(u32, BG2PA,    gDispIo.bg2pa);
     // set both BG2PC and BG2PD with a single 32-bit copy
     SET_REG(u32, BG2PC,    gDispIo.bg2pc);
+#endif
+
     SET_REG(u32, BG2X,     gDispIo.bg2x);
     SET_REG(u32, BG2Y,     gDispIo.bg2y);
 
+#if MODERN
+    REG_BG3PA = gDispIo.bg3pa;
+    REG_BG3PB = gDispIo.bg3pb;
+    REG_BG3PC = gDispIo.bg3pc;
+    REG_BG3PD = gDispIo.bg3pd;
+#else
     // set both BG3PA and BG3PB with a single 32-bit copy
     SET_REG(u32, BG3PA,    gDispIo.bg3pa);
     // set both BG3PC and BG3PD with a single 32-bit copy
     SET_REG(u32, BG3PC,    gDispIo.bg3pc);
+#endif
+
     SET_REG(u32, BG3X,     gDispIo.bg3x);
     SET_REG(u32, BG3Y,     gDispIo.bg3y);
 
@@ -671,10 +706,17 @@ void InitBgs(u16 const * config)
     if (config == NULL)
         config = default_config;
 
+#if MODERN
+    gDispIo.bg0_ct = (struct BgCnt){ 0 };
+    gDispIo.bg1_ct = (struct BgCnt){ 0 };
+    gDispIo.bg2_ct = (struct BgCnt){ 0 };
+    gDispIo.bg3_ct = (struct BgCnt){ 0 };
+#else
     *(u16 *) &gDispIo.bg0_ct = 0;
     *(u16 *) &gDispIo.bg1_ct = 0;
     *(u16 *) &gDispIo.bg2_ct = 0;
     *(u16 *) &gDispIo.bg3_ct = 0;
+#endif
 
     gDispIo.disp_ct.forced_blank = FALSE;
     gDispIo.disp_ct.mode = 0;

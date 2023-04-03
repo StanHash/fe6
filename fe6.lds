@@ -304,28 +304,21 @@ SECTIONS
         . = ALIGN(4); *(.iwram.SoundMainRam);
 
         /* COMMON */
-        . = 0x0026A0; gOamLoPutIt = .;
-        . = 0x0026B0; gDispIo = .;
-        . = 0x0026E4; gUnk_Banim_030026E4 = .;
-        . = 0x0026F4; gUnk_030026F4 = .;
-        . = 0x0026F5; gUnk_030026F5 = .;
-        . = 0x0026F8; gUnk_030026F8 = .;
-        . = 0x0026FA; gUnk_030026FA = .;
-        . = 0x0026FE; gUnk_030026FE = .;
-        . = 0x002708; gUnk_03002708 = .;
+        . = 0x0026A0; *(.common.gOamLoPutIt);
+        . = 0x0026B0; *(.common.gDispIo);
         . = 0x002720; gIrqFuncs = .;
         . = 0x002758; MapFloodCoreRamFunc = .;
-        . = 0x00275C; gOamAffinePutId = .;
+        . = 0x00275C; *(.common.gOamAffinePutId);
         . = 0x002760; PutOamHiRamFunc = .;
-        . = 0x002764; gOnHBlankA = .;
-        . = 0x002770; gOam = .;
+        . = 0x002764; *(.common.gOnHBlankA);
+        . = 0x002770; *(.common.gOam);
         . = 0x002D70; DrawGlyphRamFunc = .;
-        . = 0x002D74; gOamHiPutIt = .;
-        . = 0x002D78; gOnHBlankB = .;
+        . = 0x002D74; *(.common.gOamHiPutIt);
+        . = 0x002D78; *(.common.gOnHBlankB);
         . = 0x002D80; RamFuncArea = .;
         . = 0x003780; DecodeStringRamFunc = .;
         . = 0x003784; PutOamLoRamFunc = .;
-        . = 0x003788; gOamAffinePutIt = .;
+        . = 0x003788; *(.common.gOamAffinePutIt);
         . = 0x003790; IntrMainRam = .;
         . = 0x003F90; MapFloodCoreStepRamFunc = .;
         . = 0x003FA0; gEventScriptQueueIt = .;

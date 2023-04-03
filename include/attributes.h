@@ -13,10 +13,12 @@
 
 #if defined(MODERN) && MODERN
 #  define CONST_DATA const
+#  define COMMON_DATA(name) SECTION(".bss")
 #  define SHOULD_BE_STATIC static
 #  define SHOULD_BE_CONST const
 #else
 #  define CONST_DATA SECTION(".data")
+#  define COMMON_DATA(name) SECTION(".common." # name)
 #  define SHOULD_BE_STATIC
 #  define SHOULD_BE_CONST
 #endif

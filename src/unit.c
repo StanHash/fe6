@@ -385,6 +385,12 @@ struct Unit * CreateUnit(struct UnitInfo const * info)
         unit = GetFreeUnit(FACTION_GREEN);
         break;
 
+#if BUGFIX
+    default:
+        unit = NULL;
+        break;
+#endif
+
     }
 
     if (unit == NULL)

@@ -1,4 +1,3 @@
-
 #include "irq.h"
 
 extern IrqFunc gIrqFuncs[INT_COUNT];

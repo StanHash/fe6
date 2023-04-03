@@ -14,6 +14,12 @@ struct OamSection
 static struct OamSection sOamHi;
 static struct OamSection sOamLo;
 
+u16 COMMON_DATA(gOam) gOam[0x200] = { 0 };
+u16 * COMMON_DATA(gOamHiPutIt) gOamHiPutIt = NULL;
+u16 * COMMON_DATA(gOamLoPutIt) gOamLoPutIt = NULL;
+struct OamView * COMMON_DATA(gOamAffinePutIt) gOamAffinePutIt = NULL;
+u16 COMMON_DATA(gOamAffinePutId) gOamAffinePutId = 0;
+
 void InitOam(int loSz)
 {
     sOamLo.buf = gOam;
@@ -77,8 +83,15 @@ void PutUnkSprite(struct UnkSprite * sprites, int xBase, int yBase)
         x = OAM1_X(sprites->x + xBase);
         y = OAM0_Y(sprites->y + yBase);
 
+#if MODERN
+        *gOamHiPutIt++ = (sprites->oam01 >>  0) | y;
+        *gOamHiPutIt++ = (sprites->oam01 >> 16) | x;
+        *gOamHiPutIt++ = sprites->oam2;
+        *gOamHiPutIt++ = 0;
+#else
         *(u32 *) ((u32 *) gOamHiPutIt)++ = sprites->oam01 | (x << 16) | (y);
         *(u16 *) ((u32 *) gOamHiPutIt)++ = sprites->oam2;
+#endif
 
         sprites++;
     }
