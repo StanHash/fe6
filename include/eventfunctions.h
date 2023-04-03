@@ -224,7 +224,7 @@ void func_fe6_0806D77C(void);
 // func_fe6_0806DAC0
 // func_fe6_0806DAD0
 // func_fe6_0806DAF0
-void func_fe6_0806DB00(int arg_0);
+void func_fe6_0806DB00(int arg_0, ProcPtr proc);
 // func_fe6_0806DB2C
 // func_fe6_0806DB38
 // func_fe6_0806DB58

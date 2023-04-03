@@ -12,9 +12,12 @@
 #include "gamecontroller.h"
 #include "unit.h"
 #include "item.h"
+#include "map.h"
+#include "unitsprite.h"
 #include "supply.h"
 #include "bm.h"
 #include "bmfx.h"
+#include "chapter.h"
 #include "trap.h"
 #include "gold.h"
 #include "faction.h"
@@ -38,6 +41,9 @@
 extern u16 const gUnk_08342A98[]; // colors
 
 extern struct ProcScr CONST_DATA ProcScr_Unk_08676220[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08676844[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08676854[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_0867686C[];
 
 extern u8 gUnk_030048A8;
 extern u32 EWRAM_DATA gUnk_0203D354;
@@ -50,11 +56,41 @@ extern u8 EWRAM_DATA gUnk_0203D361;
 extern u8 EWRAM_DATA gUnk_0203D362;
 extern u16 EWRAM_DATA gUnk_0203D364;
 
+extern struct ProcScr CONST_DATA gUnk_08677FE0[];
+
+extern u32 EWRAM_DATA gUnk_0203D368;
+extern u32 EWRAM_DATA gUnk_0203D36C;
+extern struct Text EWRAM_DATA gUnkText_0203D370[];
+
+struct Unk_0867619C
+{
+    /* 00 */ u16 unk_00;
+    /* 02 */ u8 unk_02;
+};
+
+extern struct Unk_0867619C CONST_DATA gUnk_0867619C[];
+
+extern EventScr const * CONST_DATA gUnk_08676738[];
+
 struct UnkProc0806D82C
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ STRUCT_PAD(0x29, 0x4C);
     /* 4C */ i16 unk_4C;
+};
+
+struct UnkProc_08676854
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ i16 unk_64;
+};
+
+struct UnkProc_0867686C
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ i16 unk_64;
 };
 
 struct HardModeBonusLevelsOverrideEnt
@@ -1933,4 +1969,196 @@ void func_fe6_0806D894(void)
     func_fe6_0806D808();
     func_fe6_0806D81C();
     KillTalkAndEvent();
+}
+
+void func_fe6_0806D8B0(void)
+{
+    struct HelpBoxPrintProc * proc;
+    int i;
+
+    SetDispEnable(1, 0, 0, 0, 0);
+
+    SetBgOffset(0, 0, 0);
+
+    ResetText();
+    ResetTextFont();
+    InitTalkTextFont();
+
+    TmFill(gBg0Tm, 0);
+
+    CpuFastFill(0, (void *) VRAM + GetBgChrOffset(3) + 0 * CHR_SIZE, CHR_SIZE);
+
+    proc = SpawnProc(gUnk_08677FE0, PROC_TREE_3);
+
+    for (i = 0; i < (int) ARRAY_COUNT(proc->text); i++)
+    {
+        struct Text * text = gUnkText_0203D370 + i;
+
+        InitText(text, 24);
+        ClearText(text);
+
+        Text_SetColor(text, TEXT_COLOR_0123);
+
+        proc->text[i] = text;
+
+        PutText(text, gBg0Tm + TM_OFFSET(3, 2 * i + gUnk_0867619C[gUnk_0203D36C].unk_02));
+    }
+
+    proc->font = NULL;
+    proc->line = 0;
+    proc->str_it = DecodeMsg(gUnk_0867619C[gUnk_0203D36C].unk_00);
+
+    gUnk_0203D36C++;
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+void func_fe6_0806D9B4(void)
+{
+    SetDispEnable(1, 1, 1, 1, 1);
+    CpuFastFill(0, (void *) VRAM + 0x6000, 0x2000);
+}
+
+void func_fe6_0806D9F4(int chapter, int x, int y)
+{
+    InitUnits();
+
+    gPlaySt.chapter = chapter;
+
+    func_fe6_08029084();
+
+    gPlaySt.vision = GetChapterInfo(gPlaySt.chapter)->fog;
+
+    gBmSt.camera.x = GetCameraCenteredX(x * 16 + 8);
+    gBmSt.camera.y = GetCameraCenteredY(y * 16 + 8);
+
+    RefreshEntityMaps();
+    RenderMap();
+    RefreshUnitSprites();
+}
+
+void func_fe6_0806DA54(void)
+{
+    // TODO: constants?
+    func_fe6_0806D9F4(CHAPTER_4, 11, 11);
+    CpuFastCopy(gPal + (BGPAL_TILESET + 5) * 0x10, gPal + BGPAL_TILESET * 0x10, 5 * 0x20);
+    func_fe6_0805B644(gPal, 26, 6, 8);
+    EnablePalSync();
+}
+
+void func_fe6_0806DA90(void)
+{
+    func_fe6_0806D9F4(CHAPTER_1, 7, 5);
+}
+
+void func_fe6_0806DAA0(void)
+{
+    func_fe6_0806D9F4(CHAPTER_10_A, 0, 20);
+}
+
+void func_fe6_0806DAB0(void)
+{
+    func_fe6_0806D9F4(CHAPTER_2, 7, 10);
+}
+
+void func_fe6_0806DAC0(void)
+{
+    func_fe6_0806D9F4(CHAPTER_22, 15, 9);
+}
+
+void func_fe6_0806DAD0(void)
+{
+    struct Unit * unit = GetUnitByPid(PID_ROY);
+    SetUnitHp(unit, GetUnitCurrentHp(unit) - 10);
+}
+
+EventScr const * func_fe6_0806DAF0(int arg_0, int arg_1)
+{
+    return gUnk_08676738[arg_1];
+}
+
+void func_fe6_0806DB00(int arg_0, ProcPtr proc)
+{
+    StartEventLocking(gUnk_08676738[arg_0], proc);
+
+    gUnk_0203D368 = arg_0;
+    gUnk_0203D36C = 0;
+}
+
+void func_fe6_0806DB2C(void)
+{
+    Proc_EndEachMarked(PROC_MARK_1);
+}
+
+void func_fe6_0806DB38(void)
+{
+    if (GetGameTime() % 2 == 0)
+        return;
+
+    gBmSt.camera.x ^= 2;
+}
+
+void func_fe6_0806DB58(ProcPtr proc)
+{
+    PlaySe(SONG_26A);
+    SpawnProc(ProcScr_Unk_08676844, proc);
+}
+
+void func_fe6_0806DB88(void)
+{
+    Proc_EndEach(ProcScr_Unk_08676844);
+    func_fe6_080030B4(4);
+}
+
+void func_fe6_0806DBA0(struct UnkProc_08676854 * proc)
+{
+    proc->unk_64 = 0;
+}
+
+void func_fe6_0806DBA8(struct UnkProc_08676854 * proc)
+{
+    if (GetGameTime() % 2 != 0)
+    {
+        gBmSt.camera.x ^= 2;
+
+        proc->unk_64++;
+
+        if (proc->unk_64 > 5)
+            Proc_Break(proc);
+    }
+
+    SetBgOffset(2, gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x * 16, gBmSt.camera.y - (u16) gBmSt.map_render_anchor.y * 16);
+    SetBgOffset(3, gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x * 16, gBmSt.camera.y - (u16) gBmSt.map_render_anchor.y * 16);
+}
+
+void func_fe6_0806DC24(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_08676854, parent);
+}
+
+void func_fe6_0806DC38(void)
+{
+    Proc_EndEach(ProcScr_Unk_08676854);
+}
+
+void func_fe6_0806DC48(struct UnkProc_0867686C * proc)
+{
+    proc->unk_64 = 0;
+}
+
+void func_fe6_0806DC50(struct UnkProc_0867686C * proc)
+{
+    if (GetGameTime() % 8 == 0)
+    {
+        if (proc->unk_64++ > 11)
+            Proc_Break(proc);
+
+        func_fe6_08001E68(0, 0x20, 0x20, -1);
+        func_fe6_080024A4();
+    }
+}
+
+void func_fe6_0806DC90(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_0867686C, parent);
 }

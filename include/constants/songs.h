@@ -96,4 +96,5 @@ enum
     SONG_D6 = 0xD6,
     SONG_FD = 0xFD, // manim
     SONG_10F = 0x10F,
+    SONG_26A = 0x26A,
 };

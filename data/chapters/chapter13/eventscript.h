@@ -51,7 +51,7 @@ EventScr CONST_DATA EventScr_Unk_0866F2C4[] =
     EvtEnd
 };
 
-struct BattleHit CONST_DATA FightScr_Unk_0866F3A4[] =
+struct BattleHit CONST_DATA FightScr_Chapter13_CeciliaVsZephiel[] =
 {
     // Cecilia attacks
     {
@@ -81,7 +81,7 @@ EventScr CONST_DATA EventScr_Unk_0866F3B0[] =
     EvtMoveWait
     EvtTalk(MSG_119)
     EvtClearTalk
-    EvtFightScript(PID_CECILIA, PID_ZEPHIEL, FightScr_Unk_0866F3A4, FALSE)
+    EvtFightScript(PID_CECILIA, PID_ZEPHIEL, FightScr_Chapter13_CeciliaVsZephiel, FALSE)
     EvtTalk(MSG_11A)
     EvtClearTalk
     EvtRemoveUnitDisplayed(PID_CECILIA)

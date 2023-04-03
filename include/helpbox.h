@@ -42,6 +42,20 @@ struct HelpBoxProc
     // NOTE: there's likely more, need to decompile more files
 };
 
+struct HelpBoxPrintProc
+{
+    /* 00 */ PROC_HEADER;
+
+    /* 2C */ char const * str_it;
+    /* 30 */ struct Font * font;
+    /* 34 */ struct Text * text[6];
+    /* 4C */ STRUCT_PAD(0x4C, 0x5C);
+    /* 5C */ i16 line;
+    /* 5E */ i16 clock;
+    /* 60 */ i16 clock_interval;
+    /* 62 */ i16 chars_per_print;
+};
+
 struct HelpBoxInfo
 {
     /* 00 */ struct HelpBoxInfo const * adjacent_up;
