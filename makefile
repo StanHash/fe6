@@ -53,7 +53,7 @@ SHASUM ?= sha1sum
 # ================
 
 CPPFLAGS := -I $(AGBCC_HOME)/include -iquote include -iquote . -nostdinc -undef
-CFLAGS := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -O2
+CFLAGS := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -ffix-debug-line -O2
 ASFLAGS := -mcpu=arm7tdmi -I asm/include -I include
 
 LDS := $(BUILD_NAME).lds
