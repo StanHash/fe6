@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build_stats:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dependencies
+      run: sudo apt update && sudo apt install -y build-essential binutils-arm-none-eabi && python -m pip install requests argparse
+
+    - uses: actions/checkout@v3
+
+    - name: Install agbcc
+      run: tools/install-agbcc.sh
+
+    - name: Generate dummy base ROM
+      run: head -c 8M /dev/urandom > fe6-base.gba
+
+    - name: Build target ROM
+      run: make fe6.gba
+
+    - name: Build stats
+      run: tools/stats/calcstats.sh fe6.elf fe6.map > stats.txt
+
+    - name: Upload stats
+      run: python tools/stats/upload_stats.py -b https://progress.deco.mp -a ${{secrets.FROGRESS_API_KEY}} -p fireemblem6 -v jp stats.txt
