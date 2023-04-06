@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Dependencies
-      run: sudo apt update && sudo apt install -y build-essential binutils-arm-none-eabi && python -m pip install requests argparse
+      run: sudo apt update && sudo apt install -y build-essential gcc-arm-none-eabi binutils-arm-none-eabi && python -m pip install requests argparse
 
     - uses: actions/checkout@v3
 
