@@ -103,6 +103,12 @@ enum
     ITEMSLOT_BALLISTA = ITEMSLOT_INV_COUNT + 3,
 };
 
+enum
+{
+    UNIT_WALKSPEED_FAST,
+    UNIT_WALKSPEED_SLOW,
+};
+
 struct PInfo
 {
     /* 00 */ u16 msg_name;

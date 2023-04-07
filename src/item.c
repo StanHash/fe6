@@ -598,7 +598,7 @@ char const * GetItemKindString(int kind)
         [ITEM_KIND_LIGHT]  = TEXT("光", "Light"),
         [ITEM_KIND_ELDER]  = TEXT("闇", "Dark"),
         [ITEM_KIND_UNK8]   = JTEXT("道"),
-        [ITEM_KIND_UNK9]   = JTEXT("ア"),
+        [ITEM_KIND_ITEM]   = JTEXT("ア"),
         [ITEM_KIND_DRAGON] = TEXT("竜", "Dragon"),
     };
 
@@ -695,7 +695,7 @@ int FindUnitItemSlot(struct Unit * unit, int iid)
 
 bool IsItemStealable(int item)
 {
-    return GetItemKind(item) == ITEM_KIND_UNK9;
+    return GetItemKind(item) == ITEM_KIND_ITEM;
 }
 
 bool IsItemRepairable(int item)

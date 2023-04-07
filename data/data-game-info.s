@@ -1,13 +1,5 @@
     .data
 
-    .global JInfoTable
-JInfoTable: @ 0860A130
-    .incbin "fe6-base.gba", 0x60A130, (0x60B648 - 0x60A130) @ length: 1518
-
-    .global IInfoTable
-IInfoTable: @ 0860B648
-    .incbin "fe6-base.gba", 0x60B648, (0x60C648 - 0x60B648) @ length: 1000
-
     .global MoveTable_BigFootie
 MoveTable_BigFootie: @ 0860C648
     .incbin "fe6-base.gba", 0x60C648, (0x60C67B - 0x60C648) @ length: 0033

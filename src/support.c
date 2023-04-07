@@ -339,7 +339,7 @@ int GetUnitAffinityIcon(struct Unit * unit)
     if (affinity == 0)
         return -1;
 
-    return ICON_AFFINITY_BASE + affinity;
+    return ICON_AFFINITY_BASE + affinity - 1;
 }
 
 int GetAffinityIconByPid(int pid)
@@ -349,7 +349,7 @@ int GetAffinityIconByPid(int pid)
     if (affinity == 0)
         return -1;
 
-    return ICON_AFFINITY_BASE + affinity;
+    return ICON_AFFINITY_BASE + affinity - 1;
 }
 
 int GetSupportLevelSpecialChar(int level)

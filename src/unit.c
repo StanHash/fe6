@@ -17,7 +17,7 @@
 
 #include "constants/terrains.h"
 #include "constants/iids.h"
-#include "constants/map-sprites.h"
+#include "constants/unitsprites.h"
 #include "constants/icons.h"
 #include "constants/faces.h"
 
@@ -259,13 +259,13 @@ int GetUnitMapSprite(struct Unit * unit)
     {
 
     case TERRAIN_BALLISTA:
-        return UNITSPRITE_BALLISTA_REGULAR;
+        return UNITSPRITE_ARCHER_BALLISTA;
 
     case TERRAIN_LONGBALLISTA:
-        return UNITSPRITE_BALLISTA_LONG;
+        return UNITSPRITE_ARCHER_LONGBALLISTA;
 
     case TERRAIN_KILLERBALLISTA:
-        return UNITSPRITE_BALLISTA_KILLER;
+        return UNITSPRITE_ARCHER_KILLERBALLISTA;
 
     default:
         return unit->jinfo->map_sprite;

@@ -4,7 +4,7 @@
 import re, bisect
 
 RE_SYM = re.compile(r'^(?P<addr>0[028][0-9a-f]+).+\s+(?P<name>[^ .]+)$')
-RE_UNK = re.compile(r'[Uu]nk(nown)?_')
+RE_UNK = re.compile(r'([Uu]nk(nown)?|func_fe6)_')
 RE_PAR = re.compile(r'_(?P<addr>[0-9a-fA-F]{7,8})$')
 
 RE_MAP_INPUT_SECTION = re.compile(r'^ +(?P<name>[._\w]+)\s+0x0*(?P<addr>[0-9a-f]+)\s+0x0*(?P<size>[0-9a-f]+)\s+(?P<file>[^ ]+\.o)?$')

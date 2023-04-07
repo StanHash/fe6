@@ -980,8 +980,8 @@ void UpdateEquipInfoWindow(int item_slot)
     {
 
     case ITEM_KIND_STAFF:
-    case ITEM_KIND_UNK9:
-    case ITEM_KIND_UNK11:
+    case ITEM_KIND_ITEM:
+    case ITEM_KIND_DRAGONSTONE:
     {
         // print use description
 

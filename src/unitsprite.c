@@ -14,7 +14,7 @@
 #include "mu.h"
 
 #include "constants/videoalloc_global.h"
-#include "constants/map-sprites.h"
+#include "constants/unitsprites.h"
 #include "constants/terrains.h"
 
 enum { UNITSPRITE_SHEET_LINES = 8 };
@@ -609,15 +609,15 @@ void RefreshUnitSprites(void)
         {
 
         case TRAP_BALLISTA:
-            oam2 = UseUnitSprite(UNITSPRITE_42) - 0x4000;
+            oam2 = UseUnitSprite(UNITSPRITE_BALLISTA) - 0x4000;
             break;
 
         case TRAP_LONGBALLISTA:
-            oam2 = UseUnitSprite(UNITSPRITE_43) - 0x4000;
+            oam2 = UseUnitSprite(UNITSPRITE_LONGBALLISTA) - 0x4000;
             break;
 
         case TRAP_KILLERBALLISTA:
-            oam2 = UseUnitSprite(UNITSPRITE_44) - 0x4000;
+            oam2 = UseUnitSprite(UNITSPRITE_KILLERBALLISTA) - 0x4000;
             break;
 
         default:
@@ -632,7 +632,7 @@ void RefreshUnitSprites(void)
 
         map_sprite->oam2 = oam2;
 
-        map_sprite->config = GetInfo(UNITSPRITE_42).size;
+        map_sprite->config = GetInfo(UNITSPRITE_BALLISTA).size;
     }
 
     if (sSheetSyncRequest != 0)
