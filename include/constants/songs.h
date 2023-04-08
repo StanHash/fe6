@@ -38,6 +38,7 @@ enum
     SONG_3F = 0x3F,
     SONG_45 = 0x45,
     SONG_5A = 0x5A,
+    SONG_5B = 0x5B,
     SONG_5C = 0x5C,
     SONG_61 = 0x61,
     SONG_65 = 0x65,
@@ -55,6 +56,7 @@ enum
     SONG_73 = 0x73,
     SONG_74 = 0x74, // exp bar thingy
     SONG_75 = 0x75,
+    SONG_76 = 0x76,
     SONG_77 = 0x77,
     SONG_7A = 0x7A,
     SONG_82 = 0x82, // manim

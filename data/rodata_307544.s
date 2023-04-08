@@ -1,6 +1,6 @@
 	.section .rodata
 
-	MANIM_END = 0x307AD8
+	MANIM_END = 0x307B3C
 
 	.incbin "fe6-base.gba", MANIM_END, (0x307CEC - MANIM_END) @ length: 02DC
 

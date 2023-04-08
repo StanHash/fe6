@@ -95,6 +95,13 @@ extern u8 const gUnk_08114FCC[]; // tiles (stat gains)
 extern u16 const gUnk_081150C8[]; // pal (stat gains)
 extern u8 const gUnk_082DBB24[]; // img
 extern u16 const gUnk_082DBAC4[]; // pal
+extern u8 const gUnk_082DBDB0[]; // img (raw)
+extern u16 const gUnk_082A75FC[]; // sprite anim
+extern u16 const gUnk_082DB6E8[]; // colors
+extern u8 const gUnk_082DB8B0[]; // img
+extern u16 const gUnk_082A7CBC[]; // sprite anim
+
+extern u16 gUnk_03004750[]; // map palette save
 
 enum { MAX_MANIM_DEBUG_HITS = 5 };
 
@@ -3258,9 +3265,9 @@ void func_fe6_08067324(void)
 struct ManimSomethingProc_08067498
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 pad_29[0x58 - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x58);
     /* 58 */ i32 unk_58;
-    /* 5C */ u8 pad_5C[0x64 - 0x5C];
+    /* 5C */ STRUCT_PAD(0x5C, 0x64);
     /* 64 */ i16 unk_64;
     /* 66 */ i16 unk_66;
     /* 68 */ i16 unk_68;
@@ -3306,7 +3313,7 @@ struct ManimLevelUpLabelInfo
 {
     /* 00 */ u8 x;
     /* 01 */ u8 y;
-    /* 02 */ u8 pad_02[0x04 - 0x02];
+    /* 02 */ STRUCT_PAD(0x02, 0x04);
     /* 04 */ char const * const * labels[2];
 };
 
@@ -3479,10 +3486,10 @@ void func_fe6_08067A14(ProcPtr proc)
 struct ManimSomethingProc_08067A28_A
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 pad_29[0x2A - 0x29];
-    /* 2A */ i16 unk_2A;
-    /* 2C */ i16 unk_2C;
-    /* 2E */ i16 unk_2E;
+    /* 29 */ STRUCT_PAD(0x29, 0x2A);
+    /* 2A */ u16 chr;
+    /* 2C */ u16 pal;
+    /* 2E */ u16 sprite_layer;
 };
 
 struct ProcScr CONST_DATA ProcScr_Unk_0866559C[] =
@@ -3494,11 +3501,12 @@ struct ProcScr CONST_DATA ProcScr_Unk_0866559C[] =
 struct ManimSomethingProc_08067A28_B
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 pad_29[0x64 - 0x29];
+    /* 29 */ STRUCT_PAD(0x29, 0x54);
+    /* 54 */ i32 unk_54;
+    /* 58 */ STRUCT_PAD(0x58, 0x64);
     /* 64 */ i16 unk_64;
 };
 
-// TODO: the struct
 void func_fe6_08068048(struct ManimSomethingProc_08067A28_B * proc);
 void func_fe6_08068060(struct ManimSomethingProc_08067A28_B * proc);
 
@@ -3509,23 +3517,23 @@ struct ProcScr CONST_DATA ProcScr_Unk_086655AC[] =
     PROC_END,
 };
 
-void func_fe6_08067A28(int arg_0, int arg_4, int arg_8, ProcPtr parent)
+void func_fe6_08067A28(int chr, int pal, int sprite_layer, ProcPtr parent)
 {
     struct ManimSomethingProc_08067A28_A * proc_a;
     struct ManimSomethingProc_08067A28_B * proc_b;
 
     proc_a = SpawnProc(ProcScr_Unk_0866559C, parent);
 
-    proc_a->unk_2A = arg_0;
-    proc_a->unk_2C = arg_4;
-    proc_a->unk_2E = arg_8;
+    proc_a->chr = chr;
+    proc_a->pal = pal;
+    proc_a->sprite_layer = sprite_layer;
 
-    Decompress(gUnk_082DBB24, ((void *) VRAM) + 0x10000 + (OAM2_CHR(arg_0) << 5));
-    ApplyPalette(gUnk_082DBAC4, 0x10 + arg_4);
-    ApplyPalette(gUnk_082DBAC4, 0x10 + arg_4 + 1);
+    Decompress(gUnk_082DBB24, ((void *) VRAM) + 0x10000 + (OAM2_CHR(chr) << 5));
+    ApplyPalette(gUnk_082DBAC4, 0x10 + pal);
+    ApplyPalette(gUnk_082DBAC4, 0x10 + pal + 1);
 
     proc_b = SpawnProc(ProcScr_Unk_086655AC, proc_a);
-    proc_b->unk_64 = arg_4;
+    proc_b->unk_64 = pal;
 }
 
 void func_fe6_08067AF0(void)
@@ -3533,24 +3541,85 @@ void func_fe6_08067AF0(void)
     Proc_EndEach(ProcScr_Unk_0866559C);
 }
 
-/*
+void func_fe6_08067B08(int x, int y, int stat_num, int stat_gain)
+{
+    int var_10;
+    int var_14, var_18;
+    struct ManimSomethingProc_08067A28_A * proc;
 
-*/
+    u8 const * var_20 = gUnk_082DBDB0;
 
-// REMAINING MANIM DATA
+    proc = FindProc(ProcScr_Unk_0866559C);
+    var_14 = proc->chr;
+    var_18 = proc->chr + (stat_num - 1) * 2;
 
-// TODO: the struct
-void func_fe6_080684D8(ProcPtr proc);
-void func_fe6_08067D2C(ProcPtr proc);
-void func_fe6_08068318(ProcPtr proc);
-void func_fe6_08068338(ProcPtr proc);
-void func_fe6_080684A4(ProcPtr proc);
-void func_fe6_080684B8(ProcPtr proc);
-void func_fe6_08067E84(ProcPtr proc);
-void func_fe6_080680F0(ProcPtr proc);
-void func_fe6_080681D8(ProcPtr proc);
-void func_fe6_08068164(ProcPtr proc);
-void func_fe6_08067E50(ProcPtr proc);
+    if (stat_num == 0)
+    {
+        StartSpriteAnimProc(gUnk_082A75FC,
+            x - 18, y - 4,
+            OAM2_PAL(proc->pal) + var_14 + ((proc->sprite_layer & 3) * 0x0400),
+            0, 2);
+    }
+    else
+    {
+        if (stat_gain > 0)
+            var_10 = 0;
+        else
+            var_10 = 1;
+
+        StartSpriteAnimProc(gUnk_082A75FC,
+            x, y,
+            OAM2_PAL(proc->pal + var_10) + var_14 + ((proc->sprite_layer & 3) * 0x0400),
+            1 + var_10, 2);
+
+        StartSpriteAnimProc(gUnk_082A75FC,
+            x - 3, y,
+            OAM2_PAL(proc->pal) + var_18 + ((proc->sprite_layer & 3) * 0x0400),
+            3 + var_10, 2);
+
+        if (stat_gain > 0)
+        {
+            StartSpriteAnimProc(gUnk_082A75FC,
+                x - 18, y - 4,
+                OAM2_PAL(proc->pal) + var_14 + ((proc->sprite_layer & 3) * 0x0400),
+                0, 2);
+        }
+
+        if (stat_gain < 0)
+        {
+            func_fe6_08015260(var_20 + 0x20 * CHR_SIZE,
+                (void *) OBJ_VRAM0 + (OAM2_CHR(var_18 + 0x4C) << 5), CHR_SIZE);
+        }
+
+        func_fe6_08015260(var_20 + (OAM2_CHR(ABS(stat_gain)) << 5),
+            (void *) OBJ_VRAM0 + (OAM2_CHR(var_18 + 0x2D) << 5), CHR_SIZE);
+
+        func_fe6_08015260(var_20 + (OAM2_CHR(ABS(stat_gain) + 0x20) << 5),
+            (void *) OBJ_VRAM0 + (OAM2_CHR(var_18 + 0x4D) << 5), CHR_SIZE);
+    }
+}
+
+struct ManimSomethingProc_08067CF8
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2E);
+    /* 2E */ i16 actor_id;
+    /* 30 */ u8 next_stat_num;
+    /* 31 */ u8 clock;
+    /* 32 */ i16 y_scroll_offset;
+};
+
+void func_fe6_08067D2C(void);
+void func_fe6_08067E50(void);
+void func_fe6_08067E84(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_080680F0(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_08068164(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_080681D8(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_08068318(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_08068338(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_080684A4(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_080684B8(struct ManimSomethingProc_08067CF8 * proc);
+void func_fe6_080684D8(struct ManimSomethingProc_08067CF8 * proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_086655C4[] =
 {
@@ -3580,7 +3649,195 @@ struct ProcScr CONST_DATA ProcScr_Unk_086655C4[] =
     PROC_END,
 };
 
-// TODO: the struct
+void func_fe6_08067CF8(int actor_id, ProcPtr parent)
+{
+    struct ManimSomethingProc_08067CF8 * proc;
+
+    proc = SpawnProcLocking(ProcScr_Unk_086655C4, parent);
+    proc->actor_id = actor_id;
+}
+
+void func_fe6_08067D2C(void)
+{
+    SetWinEnable(1, 0, 0);
+    SetWin0Box(0, 0, 240, 48);
+    SetWin0Layers(0, 0, 1, 1, 1);
+    SetWOutLayers(1, 1, 1, 1, 1);
+}
+
+void func_fe6_08067E50(void)
+{
+    SetWinEnable(0, 0, 0);
+}
+
+void func_fe6_08067E84(struct ManimSomethingProc_08067CF8 * proc)
+{
+    int i;
+
+    ResetTextFont();
+    TmFill(gBg0Tm, 0);
+    func_fe6_080675AC(proc->actor_id, 1, 1);
+
+    for (i = 0; i < 9; i++)
+    {
+        MALevelUp_DrawActorStat(proc->actor_id, 1, 1, i, FALSE);
+    }
+
+    EnableBgSync(BG0_SYNC_BIT);
+
+    proc->next_stat_num = 0;
+    proc->clock = 0;
+    proc->y_scroll_offset = -144;
+
+    gDispIo.bg0_ct.priority = 0;
+    gDispIo.bg1_ct.priority = 1;
+    gDispIo.bg2_ct.priority = 1;
+    gDispIo.bg3_ct.priority = 2;
+
+    SetBlendNone();
+    SetWinEnable(0, 0, 0);
+
+    SetBgOffset(0, 0, proc->y_scroll_offset);
+    SetBgOffset(1, 0, proc->y_scroll_offset);
+
+    StartFace(0, gMapAnimSt.actor[proc->actor_id].unit->pinfo->fid, 184, 80, FACE_DISP_KIND(FACE_96x80) | FACE_DISP_HLAYER(1));
+    gFaces[0]->y_disp = -proc->y_scroll_offset;
+
+    // TODO: constants
+    func_fe6_08067A28(0x200, 3, 1, proc);
+}
+
+void func_fe6_08068048(struct ManimSomethingProc_08067A28_B * proc)
+{
+    proc->unk_54 = 0;
+}
+
+void func_fe6_08068060(struct ManimSomethingProc_08067A28_B * proc)
+{
+    int var_04;
+
+    u16 const * var_08 = gUnk_082DB6E8;
+
+    proc->unk_54++;
+
+    if ((proc->unk_54 % 4) != 0)
+        return;
+    {
+        var_04 = (proc->unk_54 >> 2) & 0xF;
+
+        // TODO: constants
+        ApplyPaletteExt(var_08 + var_04 + 0x00, (0x10 + proc->unk_64 + 0) * 0x20 + 0x12, 0x0E);
+        ApplyPaletteExt(var_08 + var_04 + 0x20, (0x10 + proc->unk_64 + 1) * 0x20 + 0x12, 0x0E);
+    }
+}
+
+void func_fe6_080680F0(struct ManimSomethingProc_08067CF8 * proc)
+{
+    proc->y_scroll_offset += 8;
+
+    SetBgOffset(0, 0, proc->y_scroll_offset);
+    SetBgOffset(1, 0, proc->y_scroll_offset);
+
+    // NOTE: this is inconsistent with math in func_fe6_08067E84
+    gFaces[0]->y_disp = 32 - proc->y_scroll_offset;
+
+    if (proc->y_scroll_offset >= -48)
+        Proc_Break(proc);
+}
+
+void func_fe6_08068164(struct ManimSomethingProc_08067CF8 * proc)
+{
+    proc->y_scroll_offset -= 8;
+
+    SetBgOffset(0, 0, proc->y_scroll_offset);
+    SetBgOffset(1, 0, proc->y_scroll_offset);
+
+    // NOTE: this is inconsistent with math in func_fe6_08067E84
+    gFaces[0]->y_disp = 32 - proc->y_scroll_offset;
+
+    if (proc->y_scroll_offset <= -144)
+        Proc_Break(proc);
+}
+
+void func_fe6_080681D8(struct ManimSomethingProc_08067CF8 * proc)
+{
+    int stat_num;
+
+    if (proc->clock != 0)
+    {
+        proc->clock--;
+        return;
+    }
+
+    for (stat_num = proc->next_stat_num; stat_num < 9; stat_num++)
+    {
+        if (MALevelUp_GetActorStatUp(proc->actor_id, stat_num) != 0)
+            break;
+    }
+
+    if (stat_num >= 9)
+    {
+        Proc_Break(proc);
+        return;
+    }
+
+    MALevelUp_DrawActorStat(proc->actor_id, 1, 1, stat_num, TRUE);
+    EnableBgSync(BG0_SYNC_BIT);
+
+    func_fe6_08067B08(
+        gManimLevelUpLabelInfoList[stat_num].x * 8 + 62,
+        gManimLevelUpLabelInfoList[stat_num].y * 8 + 23 - proc->y_scroll_offset,
+        stat_num, MALevelUp_GetActorStatUp(proc->actor_id, stat_num));
+
+    PlaySe(SONG_76);
+
+    proc->next_stat_num = stat_num + 1;
+    proc->clock = 20;
+}
+
+void func_fe6_08068318(struct ManimSomethingProc_08067CF8 * proc)
+{
+    StartBgmVolumeChange(0x100, 0x80, 0x10, proc);
+}
+
+void func_fe6_08068338(struct ManimSomethingProc_08067CF8 * proc)
+{
+    int x, y;
+
+    Decompress(gUnk_082DB8B0, (void *) OBJ_VRAM0 + OBJCHR_MANIM_1C0 * CHR_SIZE);
+    ApplyPalettes(gUnk_082DBAC4, 0x10 + OBJPAL_MANIM_3, 3);
+
+    x = SCREEN_TILE_X(gMapAnimSt.actor[proc->actor_id].unit->x) * 8 + 16;
+    y = SCREEN_TILE_Y(gMapAnimSt.actor[proc->actor_id].unit->y) * 8 - 8;
+
+    if (SCREEN_TILE_Y(gMapAnimSt.actor[proc->actor_id].unit->y) < 4)
+        y = y + 32;
+
+    if (SCREEN_TILE_X(gMapAnimSt.actor[proc->actor_id].unit->x) < 4)
+        x = 48;
+
+    if (SCREEN_TILE_X(gMapAnimSt.actor[proc->actor_id].unit->x) > 25)
+        x = 208;
+
+    StartSpriteAnimProc(gUnk_082A7CBC, x, y, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_3), 0, 2);
+    PlaySe(SONG_5B);
+}
+
+void func_fe6_080684A4(struct ManimSomethingProc_08067CF8 * proc)
+{
+    EndEachSpriteAnimProc();
+}
+
+void func_fe6_080684B8(struct ManimSomethingProc_08067CF8 * proc)
+{
+    StartBgmVolumeChange(0x80, 0x100, 0x10, proc);
+}
+
+void func_fe6_080684D8(struct ManimSomethingProc_08067CF8 * proc)
+{
+    ClearTalk();
+}
+
 void func_fe6_08068524(ProcPtr proc);
 
 struct ProcScr CONST_DATA ProcScr_Unk_08665684[] =
@@ -3589,6 +3846,28 @@ struct ProcScr CONST_DATA ProcScr_Unk_08665684[] =
     PROC_SLEEP(15),
     PROC_END,
 };
+
+void func_fe6_080684EC(ProcPtr parent)
+{
+    if (parent != NULL)
+        SpawnProcLocking(ProcScr_Unk_08665684, parent);
+    else
+        SpawnProc(ProcScr_Unk_08665684, PROC_TREE_3);
+}
+
+void func_fe6_08068524(ProcPtr proc)
+{
+    int i;
+
+    CpuFastCopy(gPal + 0x60, gUnk_03004750, 10 * 0x20);
+
+    for (i = 0; i < 10; i++)
+    {
+        SetPalFadeStop(StartPalFade(Pal_AllBlack, 6 + i, 60, proc), 15);
+    }
+}
+
+// REMAINING MANIM DATA
 
 // TODO: the struct
 void func_fe6_080685B0(ProcPtr proc);
