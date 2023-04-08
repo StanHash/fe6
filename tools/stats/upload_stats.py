@@ -6,6 +6,7 @@ STAT_DICT = {
     'code src': 'code',
     'code max': 'code/total',
     'data src': 'data',
+    'data banim': 'data/banim',
     'data max': 'data/total',
     'code sym src': 'functions',
     'code sym max': 'functions/total',
@@ -46,6 +47,10 @@ def decode_stats(input: str):
 
             frog_name = STAT_DICT[name]
             result[frog_name] = value
+
+    for key in STAT_DICT.values():
+        if key not in result:
+            result[key] = 0
 
     return result
 

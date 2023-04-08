@@ -2,16 +2,17 @@
 # (I made some changes)
 
 import re, bisect
+from typing import List, Tuple
 
-RE_SYM = re.compile(r'^(?P<addr>0[028][0-9a-f]+).+\s+(?P<name>[^ .]+)$')
-RE_UNK = re.compile(r'([Uu]nk(nown)?|func_fe6)_')
+RE_SYM = re.compile(r'^(?P<addr>0[238][0-9a-f]+).+\s+(?P<name>[^_][^ .]+)$')
+RE_UNK = re.compile(r'[Uu]nk(nown)?_|^func_fe6_')
 RE_PAR = re.compile(r'_(?P<addr>[0-9a-fA-F]{7,8})$')
 
 RE_MAP_INPUT_SECTION = re.compile(r'^ +(?P<name>[._\w]+)\s+0x0*(?P<addr>[0-9a-f]+)\s+0x0*(?P<size>[0-9a-f]+)\s+(?P<file>[^ ]+\.o)?$')
 RE_MAP_INPUT_SECTION_LONG_LINE1 = re.compile(r'^ +(?P<name>[._\w]+)$')
 RE_MAP_INPUT_SECTION_LONG_LINE2 = re.compile(r'^\s+0x0*(?P<addr>[0-9a-f]+)\s+0x0*(?P<size>[0-9a-f]+)\s+(?P<file>[^ ]+\.o)?$')
 
-def main(args):
+def main(args: List[str]) -> str | int:
     try:
         mapfile_path = args[1]
         symfile_path = args[2]
@@ -41,14 +42,29 @@ def main(args):
     addrs = [k for k in names.keys()]
     addrs.sort()
 
-    def count_syms_in(addr: int, size: int, pattern: re.Pattern | None = None) -> int:
+    def count_syms_in(addr: int, size: int) -> Tuple[int, int, int]:
         min_idx = bisect.bisect_left(addrs, addr)
         max_idx = bisect.bisect_left(addrs, addr + size)
 
-        if pattern == None:
-            return max_idx - min_idx
+        count = 0
+        count_par = 0
+        count_unk = 0
 
-        return sum(pattern.search(names[addr]) != None for addr in addrs[min_idx:max_idx])
+        for name_addr in addrs[min_idx:max_idx]:
+            name = names[name_addr]
+
+            count = count + 1
+
+            if RE_UNK.search(name) != None:
+                count_unk = count_unk + 1
+                continue
+
+            m = RE_PAR.search(name)
+
+            if m != None and int(m.group('addr'), base = 16) == name_addr:
+                count_par = count_par + 1
+
+        return count, count_par, count_unk
 
     text_src = 0
     text_asm = 0
@@ -112,9 +128,7 @@ def main(args):
 
             dirname = file.split('/')[0]
 
-            syms = count_syms_in(addr, size)
-            pars = count_syms_in(addr, size, RE_PAR)
-            unks = count_syms_in(addr, size, RE_UNK)
+            syms, pars, unks = count_syms_in(addr, size)
 
             syms_doc += syms - unks - pars
             syms_par += pars
