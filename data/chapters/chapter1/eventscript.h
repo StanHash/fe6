@@ -1,12 +1,11 @@
 #pragma once
 
-// EventScr @ 0866B5F8
-EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
+EventScr CONST_DATA EventScr_Chapter1_Opening[] =
 {
     EvtUnitCameraOff
-    EvtLoadUnits(UnitInfo_Unk_08679BE0)
+    EvtLoadUnits(UnitInfo_Chapter1_RedA)
     EvtMoveWait
-    EvtFlashCursorUnit(PID_UNKNOWN_4A)
+    EvtFlashCursorUnit(PID_CHAPTER1_4A)
     EvtFadeToBlack(16)
     EvtExitMap
     EvtBackground(BACKGROUND_7)
@@ -15,7 +14,7 @@ EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
     EvtTalk(MSG_001)
     EvtClearTalk
     EvtCamera(7, 9)
-    EvtLoadUnits(UnitInfo_Unk_08679CE0)
+    EvtLoadUnits(UnitInfo_Chapter1_Pillager)
     EvtMoveWait
     EvtFlashCursor(7, 7)
     EvtFadeToBlack(16)
@@ -25,7 +24,7 @@ EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
     EvtEnterMap
     EvtTalk(MSG_002)
     EvtClearTalk
-    EvtMoveUnit(PID_UNKNOWN_E0, 4, 9)
+    EvtMoveUnit(PID_CHAPTER1_PILLAGER, 4, 9)
     EvtMoveWait
     EvtPlaySe(SONG_AB)
     EvtMapChangePosition(4, 8)
@@ -43,16 +42,16 @@ EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
     EvtCamera(8, 12)
     EvtUnitCameraOff
     EvtSleep(16)
-    EvtLoadUnits(UnitInfo_Unk_08679C40)
+    EvtLoadUnits(UnitInfo_Chapter1_RedB)
     EvtCamera(8, 17)
-    EvtLoadUnits(UnitInfo_Unk_08679C90)
+    EvtLoadUnits(UnitInfo_Chapter1_RedC)
     EvtMoveWait
     EvtSleep(16)
-    EvtLoadUnits(UnitInfo_Unk_08679B40)
+    EvtLoadUnits(UnitInfo_Chapter1_BlueA)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_08679B70)
+    EvtLoadUnits(UnitInfo_Chapter1_BlueB)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_08679BB0)
+    EvtLoadUnits(UnitInfo_Chapter1_Lance)
     EvtMoveWait
     EvtFadeToBlack(16)
     EvtExitMap
@@ -69,13 +68,12 @@ EventScr CONST_DATA EventScr_Unk_0866B5F8[] =
     EvtEnd
 };
 
-// EventScr @ 0866B79C
-EventScr CONST_DATA EventScr_Unk_0866B79C[] =
+EventScr CONST_DATA EventScr_Chapter1_FirstRedTurn[] =
 {
     EvtSetBgm(SONG_02)
     EvtCamera(5, 3)
     EvtMoveWait
-    EvtMoveUnit(PID_UNKNOWN_4A, 5, 4)
+    EvtMoveUnit(PID_CHAPTER1_4A, 5, 4)
     EvtMoveWait
     EvtSleep(16)
     EvtTalk(MSG_008)
@@ -84,8 +82,7 @@ EventScr CONST_DATA EventScr_Unk_0866B79C[] =
     EvtEnd
 };
 
-// EventScr @ 0866B7DC
-EventScr CONST_DATA EventScr_Unk_0866B7DC[] =
+EventScr CONST_DATA EventScr_Chapter1_UnusedTalk[] =
 {
     EvtSetBgm(SONG_27)
     EvtTalk(MSG_009)
@@ -94,8 +91,7 @@ EventScr CONST_DATA EventScr_Unk_0866B7DC[] =
     EvtEnd
 };
 
-// EventScr @ 0866B7F8
-EventScr CONST_DATA EventScr_Unk_0866B7F8[] =
+EventScr CONST_DATA EventScr_Chapter1_Village[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -112,8 +108,7 @@ EventScr CONST_DATA EventScr_Unk_0866B7F8[] =
     EvtEnd
 };
 
-// EventScr @ 0866B840
-EventScr CONST_DATA EventScr_Unk_0866B840[] =
+EventScr CONST_DATA EventScr_Chapter1_TopVillageDummy[] =
 {
     EvtNoSkip
     EvtGiveMoney(5000)
@@ -121,8 +116,7 @@ EventScr CONST_DATA EventScr_Unk_0866B840[] =
     EvtEnd
 };
 
-// EventScr @ 0866B854
-EventScr CONST_DATA EventScr_Unk_0866B854[] =
+EventScr CONST_DATA EventScr_Chapter1_HouseA[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -137,8 +131,7 @@ EventScr CONST_DATA EventScr_Unk_0866B854[] =
     EvtEnd
 };
 
-// EventScr @ 0866B890
-EventScr CONST_DATA EventScr_Unk_0866B890[] =
+EventScr CONST_DATA EventScr_Chapter1_HouseB[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -153,8 +146,7 @@ EventScr CONST_DATA EventScr_Unk_0866B890[] =
     EvtEnd
 };
 
-// EventScr @ 0866B8CC
-EventScr CONST_DATA EventScr_Unk_0866B8CC[] =
+EventScr CONST_DATA EventScr_Chapter1_HouseC[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -169,8 +161,7 @@ EventScr CONST_DATA EventScr_Unk_0866B8CC[] =
     EvtEnd
 };
 
-// EventScr @ 0866B908
-EventScr CONST_DATA EventScr_Unk_0866B908[] =
+EventScr CONST_DATA EventScr_Chapter1_HouseUnused[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -185,8 +176,7 @@ EventScr CONST_DATA EventScr_Unk_0866B908[] =
     EvtEnd
 };
 
-// EventScr @ 0866B944
-EventScr CONST_DATA EventScr_Unk_0866B944[] =
+EventScr CONST_DATA EventScr_Chapter1_Victory[] =
 {
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(16)

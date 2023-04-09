@@ -1,14 +1,14 @@
 #pragma once
 
 // ShopItems @ 0866A81C
-u16 CONST_DATA ShopItems_Unk_0866A81C[] =
+u16 CONST_DATA ShopItems_Chapter2_Vendor[] =
 {
     IID_VULNERARY,
     0, // end
 };
 
 // ShopItems @ 0866A820
-u16 CONST_DATA ShopItems_Unk_0866A820[] =
+u16 CONST_DATA ShopItems_Chapter2_Armory[] =
 {
     IID_IRONSWORD,
     IID_IRONLANCE,

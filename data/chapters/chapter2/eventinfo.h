@@ -1,37 +1,37 @@
 #pragma once
 
 // EventListScr @ 086677BC
-EventListScr CONST_DATA EventListScr_Unk_086677BC[] =
+EventListScr CONST_DATA EventListScr_Chapter2_Turn[] =
 {
-    EvtListTurn(0, EventScr_Unk_0866B9D0, 1, 0, FACTION_BLUE)
-    EvtListTurn(0, EventScr_Unk_0866BBD0, 2, 0, FACTION_BLUE)
+    EvtListTurn(0, EventScr_Chapter2_Opening, 1, 0, FACTION_BLUE)
+    EvtListTurn(0, EventScr_Chapter2_DieckComes, 2, 0, FACTION_BLUE)
     EvtListEnd
 };
 
 // EventListScr @ 086677D8
-EventListScr CONST_DATA EventListScr_Unk_086677D8[] =
+EventListScr CONST_DATA EventListScr_Chapter2_Talk[] =
 {
-    EvtListTalk(FLAG_CHAPTER2_5, EventScr_Unk_0866BCA0, PID_ROY, PID_DIECK)
-    EvtListTalk(FLAG_CHAPTER2_5, EventScr_Unk_0866BCA0, PID_DIECK, PID_ROY)
+    EvtListTalk(FLAG_CHAPTER2_VILLAGE, EventScr_Chapter2_DieckTalk, PID_ROY, PID_DIECK)
+    EvtListTalk(FLAG_CHAPTER2_VILLAGE, EventScr_Chapter2_DieckTalk, PID_DIECK, PID_ROY)
     EvtListEnd
 };
 
 // EventListScr @ 086677F4
-EventListScr CONST_DATA EventListScr_Unk_086677F4[] =
+EventListScr CONST_DATA EventListScr_Chapter2_Tile[] =
 {
-    EvtListShop(0, ShopItems_Unk_0866A81C, 7, 9, TILE_COMMAND_VENDOR)
-    EvtListShop(0, ShopItems_Unk_0866A820, 6, 1, TILE_COMMAND_ARMORY)
-    EvtListTileMapChange(0, EventScr_Unk_0866BD08, 3, 4, TILE_COMMAND_VISIT)
+    EvtListShop(0, ShopItems_Chapter2_Vendor, 7, 9, TILE_COMMAND_VENDOR)
+    EvtListShop(0, ShopItems_Chapter2_Armory, 6, 1, TILE_COMMAND_ARMORY)
+    EvtListTileMapChange(0, EventScr_Chapter2_Village, 3, 4, TILE_COMMAND_VISIT)
     EvtListTile(0, EVENT_NOSCRIPT, 3, 3, TILE_COMMAND_PILLAGE)
-    EvtListTile(0, EventScr_Unk_0866BD50, 6, 7, TILE_COMMAND_VISIT)
-    EvtListTile(0, EventScr_Unk_0866BD8C, 0, 4, TILE_COMMAND_VISIT)
-    EvtListTile(0, EventScr_Unk_0866BDC8, 5, 7, TILE_COMMAND_VISIT)
+    EvtListTile(0, EventScr_Chapter2_HouseA, 6, 7, TILE_COMMAND_VISIT)
+    EvtListTile(0, EventScr_Chapter2_HouseB, 0, 4, TILE_COMMAND_VISIT)
+    EvtListTile(0, EventScr_Chapter2_HouseC, 5, 7, TILE_COMMAND_VISIT)
     EvtListTile(FLAG_3, EVENT_NOSCRIPT, 16, 3, TILE_COMMAND_SEIZE)
     EvtListEnd
 };
 
 // EventListScr @ 08667858
-EventListScr CONST_DATA EventListScr_Unk_08667858[] =
+EventListScr CONST_DATA EventListScr_Chapter2_Move[] =
 {
     EvtListFlag(0, EventScr_GameOver, FLAG_101)
     EvtListEnd
@@ -40,11 +40,11 @@ EventListScr CONST_DATA EventListScr_Unk_08667858[] =
 // ChapterEventInfo @ 08667868
 struct ChapterEventInfo CONST_DATA ChapterEventInfo_Unk_08667868 =
 {
-    .event_list_turn = EventListScr_Unk_086677BC,
-    .event_list_talk = EventListScr_Unk_086677D8,
-    .event_list_tile = EventListScr_Unk_086677F4,
-    .event_list_move = EventListScr_Unk_08667858,
-    .units_red = UnitInfo_Unk_08679E7C,
-    .units_blue = UnitInfo_Unk_08679DEC,
-    .event_script_victory = EventScr_Unk_0866BE04,
+    .event_list_turn = EventListScr_Chapter2_Turn,
+    .event_list_talk = EventListScr_Chapter2_Talk,
+    .event_list_tile = EventListScr_Chapter2_Tile,
+    .event_list_move = EventListScr_Chapter2_Move,
+    .units_red = UnitInfo_Chapter2_RedDummy,
+    .units_blue = UnitInfo_Chapter2_Blue,
+    .event_script_victory = EventScr_Chapter2_Victory,
 };

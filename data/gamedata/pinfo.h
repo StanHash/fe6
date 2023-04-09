@@ -2143,9 +2143,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = UNIT_ATTR_FEMALE,
     },
 
-    [PID_UNKNOWN_45 - 1] =
+    [PID_CHAPTER1_BANDIT - 1] =
     {
-        .id = PID_UNKNOWN_45,
+        .id = PID_CHAPTER1_BANDIT,
         .msg_name = MSG_830,
         .msg_desc = MSG_521,
         .jid_default = JID_BRIGAND,
@@ -2204,9 +2204,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = 0,
     },
 
-    [PID_UNKNOWN_48 - 1] =
+    [PID_CHAPTER1_ARCHER - 1] =
     {
-        .id = PID_UNKNOWN_48,
+        .id = PID_CHAPTER1_ARCHER,
         .msg_name = MSG_830,
         .msg_desc = MSG_521,
         .jid_default = JID_ARCHER,
@@ -2245,9 +2245,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = 0,
     },
 
-    [PID_UNKNOWN_4A - 1] =
+    [PID_CHAPTER1_4A - 1] =
     {
-        .id = PID_UNKNOWN_4A,
+        .id = PID_CHAPTER1_4A,
         .msg_name = MSG_831,
         .msg_desc = MSG_4F2,
         .jid_default = JID_BRIGAND,
@@ -2269,9 +2269,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = UNIT_ATTR_BOSS,
     },
 
-    [PID_UNKNOWN_4B - 1] =
+    [PID_CHAPTER2_4B - 1] =
     {
-        .id = PID_UNKNOWN_4B,
+        .id = PID_CHAPTER2_4B,
         .msg_name = MSG_832,
         .msg_desc = MSG_4F3,
         .jid_default = JID_ARMOR,
@@ -3205,9 +3205,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = 0,
     },
 
-    [PID_UNKNOWN_6C - 1] =
+    [PID_CHAPTER2_GENERIC - 1] =
     {
-        .id = PID_UNKNOWN_6C,
+        .id = PID_CHAPTER2_GENERIC,
         .msg_name = MSG_853,
         .msg_desc = MSG_522,
         .jid_default = JID_FIGHTER,
@@ -3216,9 +3216,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = 0,
     },
 
-    [PID_UNKNOWN_6D - 1] =
+    [PID_CHAPTER2_SOLDIER_JAVELIN - 1] =
     {
-        .id = PID_UNKNOWN_6D,
+        .id = PID_CHAPTER2_SOLDIER_JAVELIN,
         .msg_name = MSG_854,
         .msg_desc = MSG_523,
         .jid_default = JID_SOLDIER,
@@ -3231,9 +3231,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = 0,
     },
 
-    [PID_UNKNOWN_6E - 1] =
+    [PID_CHAPTER2_MERCENARY - 1] =
     {
-        .id = PID_UNKNOWN_6E,
+        .id = PID_CHAPTER2_MERCENARY,
         .msg_name = MSG_855,
         .msg_desc = MSG_524,
         .jid_default = JID_MERCENARY,
@@ -5479,9 +5479,9 @@ struct PInfo CONST_DATA PInfoTable[] =
         .attributes = UNIT_ATTR_BOSS,
     },
 
-    [PID_UNKNOWN_E0 - 1] =
+    [PID_CHAPTER1_PILLAGER - 1] =
     {
-        .id = PID_UNKNOWN_E0,
+        .id = PID_CHAPTER1_PILLAGER,
         .msg_name = MSG_830,
         .msg_desc = MSG_521,
         .jid_default = JID_BRIGAND,

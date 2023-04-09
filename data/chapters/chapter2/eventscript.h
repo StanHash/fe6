@@ -1,6 +1,6 @@
 #pragma once
 
-u8 CONST_DATA MoveScr_Unk_0866B9C4[] =
+u8 CONST_DATA MoveScr_Chapter2_ElenA[] =
 {
     MOVE_CMD_SET_SPEED, 18,
     MOVE_CMD_MOVE_UP,
@@ -9,7 +9,7 @@ u8 CONST_DATA MoveScr_Unk_0866B9C4[] =
     MOVE_CMD_HALT,
 };
 
-u8 CONST_DATA MoveScr_Unk_0866B9CA[] =
+u8 CONST_DATA MoveScr_Chapter2_ElenB[] =
 {
     MOVE_CMD_SET_SPEED, 22,
     MOVE_CMD_MOVE_UP,
@@ -18,43 +18,43 @@ u8 CONST_DATA MoveScr_Unk_0866B9CA[] =
 };
 
 // EventScr @ 0866B9D0
-EventScr CONST_DATA EventScr_Unk_0866B9D0[] =
+EventScr CONST_DATA EventScr_Chapter2_Opening[] =
 {
     EvtCamera(18, 0)
     EvtUnitCameraOff
-    EvtLoadUnits(UnitInfo_Unk_0867A06C)
+    EvtLoadUnits(UnitInfo_Chapter2_Boss)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_0867A04C)
+    EvtLoadUnits(UnitInfo_Chapter2_CutsceneMelady)
     EvtMoveWait
     EvtTalk(MSG_04D)
     EvtClearTalk
-    EvtMoveUnit(PID_UNKNOWN_4B, 17, 4)
+    EvtMoveUnit(PID_CHAPTER2_4B, 17, 4)
     EvtMoveWait
     EvtMoveUnit(PID_MELADY, 13, -1)
     EvtMoveWait
     EvtRemoveUnit(PID_MELADY)
     EvtSleep(16)
-    EvtMoveUnit(PID_UNKNOWN_4B, 16, 4)
+    EvtMoveUnit(PID_CHAPTER2_4B, 16, 4)
     EvtMoveWait
     EvtSleep(16)
-    EvtLoadUnits(UnitInfo_Unk_0867A08C)
+    EvtLoadUnits(UnitInfo_Chapter2_OpeningSoldier)
     EvtSetBgm(SONG_02)
     EvtTalk(MSG_04E)
     EvtClearTalk
     EvtSleep(16)
     EvtMove(16, 3, 17, 11)
     EvtMoveWait
-    EvtMoveUnit(PID_UNKNOWN_4B, 16, 3)
+    EvtMoveUnit(PID_CHAPTER2_4B, 16, 3)
     EvtMoveWait
     EvtUnitCameraOff
-    EvtLoadUnits(UnitInfo_Unk_08679E8C)
+    EvtLoadUnits(UnitInfo_Chapter2_RedA)
     EvtMoveWait
     EvtFadeBgmOut(1)
     EvtSleep(16)
     EvtSetBgm(SONG_24)
-    EvtLoadUnitsParty(UnitInfo_Unk_08679DEC)
+    EvtLoadUnitsParty(UnitInfo_Chapter2_Blue)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_08679E5C)
+    EvtLoadUnits(UnitInfo_Chapter2_Merlinus)
     EvtMoveWait
     EvtSleep(16)
     EvtCameraUnit(PID_ROY)
@@ -63,27 +63,27 @@ EventScr CONST_DATA EventScr_Unk_0866B9D0[] =
     EvtMoveWait
     EvtTalk(MSG_04F)
     EvtClearTalk
-    EvtLoadUnits(UnitInfo_Unk_0867A0AC)
+    EvtLoadUnits(UnitInfo_Chapter2_Elen)
     EvtMoveWait
-    EvtMoveUnitScript(PID_ELEN, MoveScr_Unk_0866B9C4)
+    EvtMoveUnitScript(PID_ELEN, MoveScr_Chapter2_ElenA)
     EvtMoveWait
     EvtSleep(16)
-    EvtMoveUnitScript(PID_ELEN, MoveScr_Unk_0866B9CA)
+    EvtMoveUnitScript(PID_ELEN, MoveScr_Chapter2_ElenB)
     EvtMoveWait
     EvtTalk(MSG_050)
     EvtSetBgm(SONG_23)
     EvtTalkContinue
     EvtClearTalk
-    EvtLoadUnits(UnitInfo_Unk_08679F5C)
+    EvtLoadUnits(UnitInfo_Chapter2_RedB)
     EvtSleep(16)
     EvtCamera(0, 14)
     EvtUnitCameraOff
     EvtMoveWait
     EvtTalk(MSG_051)
     EvtClearTalk
-    EvtLoadUnits(UnitInfo_Unk_08679F7C)
+    EvtLoadUnits(UnitInfo_Chapter2_RedC)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_08679FAC)
+    EvtLoadUnits(UnitInfo_Chapter2_RedD)
     EvtMoveWait
     EvtCameraUnit(PID_ROY)
     EvtTalk(MSG_052)
@@ -97,14 +97,14 @@ EventScr CONST_DATA EventScr_Unk_0866B9D0[] =
 };
 
 // EventScr @ 0866BBD0
-EventScr CONST_DATA EventScr_Unk_0866BBD0[] =
+EventScr CONST_DATA EventScr_Chapter2_DieckComes[] =
 {
     EvtSleep(32)
     EvtOverrideBgm(SONG_33)
     EvtCamera(20, 18)
     EvtSleep(32)
-    EvtLoadUnits(UnitInfo_Unk_08679FEC)
-    EvtLoadUnits(UnitInfo_Unk_0867A01C)
+    EvtLoadUnits(UnitInfo_Chapter2_WardLot)
+    EvtLoadUnits(UnitInfo_Chapter2_DieckShanna)
     EvtMoveWait
     EvtTalk(MSG_053)
     EvtClearTalk
@@ -131,7 +131,7 @@ EventScr CONST_DATA EventScr_Unk_0866BBD0[] =
 };
 
 // EventScr @ 0866BCA0
-EventScr CONST_DATA EventScr_Unk_0866BCA0[] =
+EventScr CONST_DATA EventScr_Chapter2_DieckTalk[] =
 {
     EvtOverrideBgm(SONG_33)
     EvtTalk(MSG_056)
@@ -142,7 +142,7 @@ EventScr CONST_DATA EventScr_Unk_0866BCA0[] =
 };
 
 // EventScr @ 0866BCC0
-EventScr CONST_DATA EventScr_Unk_0866BCC0[] =
+EventScr CONST_DATA EventScr_Chapter2_VillageUnused[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -160,7 +160,7 @@ EventScr CONST_DATA EventScr_Unk_0866BCC0[] =
 };
 
 // EventScr @ 0866BD08
-EventScr CONST_DATA EventScr_Unk_0866BD08[] =
+EventScr CONST_DATA EventScr_Chapter2_Village[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -178,7 +178,7 @@ EventScr CONST_DATA EventScr_Unk_0866BD08[] =
 };
 
 // EventScr @ 0866BD50
-EventScr CONST_DATA EventScr_Unk_0866BD50[] =
+EventScr CONST_DATA EventScr_Chapter2_HouseA[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -194,7 +194,7 @@ EventScr CONST_DATA EventScr_Unk_0866BD50[] =
 };
 
 // EventScr @ 0866BD8C
-EventScr CONST_DATA EventScr_Unk_0866BD8C[] =
+EventScr CONST_DATA EventScr_Chapter2_HouseB[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -210,7 +210,7 @@ EventScr CONST_DATA EventScr_Unk_0866BD8C[] =
 };
 
 // EventScr @ 0866BDC8
-EventScr CONST_DATA EventScr_Unk_0866BDC8[] =
+EventScr CONST_DATA EventScr_Chapter2_HouseC[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -226,7 +226,7 @@ EventScr CONST_DATA EventScr_Unk_0866BDC8[] =
 };
 
 // EventScr @ 0866BE04
-EventScr CONST_DATA EventScr_Unk_0866BE04[] =
+EventScr CONST_DATA EventScr_Chapter2_Victory[] =
 {
     EvtSetBgm(SONG_27)
     EvtFadeToBlack(16)

@@ -14,8 +14,8 @@ struct UnkTrapEnt
 
 extern struct BattleTalkEnt CONST_DATA gBattleDefeatTalkList[];
 
-extern u16 CONST_DATA ShopItems_Unk_0866A81C[];
-extern u16 CONST_DATA ShopItems_Unk_0866A820[];
+extern u16 CONST_DATA ShopItems_Chapter2_Vendor[];
+extern u16 CONST_DATA ShopItems_Chapter2_Armory[];
 extern u16 CONST_DATA ShopItems_Unk_0866A82A[];
 extern u16 CONST_DATA ShopItems_Unk_0866A832[];
 extern u16 CONST_DATA ShopItems_Unk_0866A844[];
@@ -78,28 +78,28 @@ extern EventScr CONST_DATA EventScr_Unk_0866B2FC[];
 extern EventScr CONST_DATA EventScr_Unk_0866B350[];
 extern EventScr CONST_DATA EventScr_Unk_0866B5A0[];
 
-extern EventScr CONST_DATA EventScr_Unk_0866B5F8[];
-extern EventScr CONST_DATA EventScr_Unk_0866B79C[];
-extern EventScr CONST_DATA EventScr_Unk_0866B7DC[];
-extern EventScr CONST_DATA EventScr_Unk_0866B7F8[];
-extern EventScr CONST_DATA EventScr_Unk_0866B840[];
-extern EventScr CONST_DATA EventScr_Unk_0866B854[];
-extern EventScr CONST_DATA EventScr_Unk_0866B890[];
-extern EventScr CONST_DATA EventScr_Unk_0866B8CC[];
-extern EventScr CONST_DATA EventScr_Unk_0866B908[];
-extern EventScr CONST_DATA EventScr_Unk_0866B944[];
+extern EventScr CONST_DATA EventScr_Chapter1_Opening[];
+extern EventScr CONST_DATA EventScr_Chapter1_FirstRedTurn[];
+extern EventScr CONST_DATA EventScr_Chapter1_UnusedTalk[];
+extern EventScr CONST_DATA EventScr_Chapter1_Village[];
+extern EventScr CONST_DATA EventScr_Chapter1_TopVillageDummy[];
+extern EventScr CONST_DATA EventScr_Chapter1_HouseA[];
+extern EventScr CONST_DATA EventScr_Chapter1_HouseB[];
+extern EventScr CONST_DATA EventScr_Chapter1_HouseC[];
+extern EventScr CONST_DATA EventScr_Chapter1_HouseUnused[];
+extern EventScr CONST_DATA EventScr_Chapter1_Victory[];
 
-extern u8 CONST_DATA MoveScr_Unk_0866B9C4[];
-extern u8 CONST_DATA MoveScr_Unk_0866B9CA[];
-extern EventScr CONST_DATA EventScr_Unk_0866B9D0[];
-extern EventScr CONST_DATA EventScr_Unk_0866BBD0[];
-extern EventScr CONST_DATA EventScr_Unk_0866BCA0[];
-extern EventScr CONST_DATA EventScr_Unk_0866BCC0[];
-extern EventScr CONST_DATA EventScr_Unk_0866BD08[];
-extern EventScr CONST_DATA EventScr_Unk_0866BD50[];
-extern EventScr CONST_DATA EventScr_Unk_0866BD8C[];
-extern EventScr CONST_DATA EventScr_Unk_0866BDC8[];
-extern EventScr CONST_DATA EventScr_Unk_0866BE04[];
+extern u8 CONST_DATA MoveScr_Chapter2_ElenA[];
+extern u8 CONST_DATA MoveScr_Chapter2_ElenB[];
+extern EventScr CONST_DATA EventScr_Chapter2_Opening[];
+extern EventScr CONST_DATA EventScr_Chapter2_DieckComes[];
+extern EventScr CONST_DATA EventScr_Chapter2_DieckTalk[];
+extern EventScr CONST_DATA EventScr_Chapter2_VillageUnused[];
+extern EventScr CONST_DATA EventScr_Chapter2_Village[];
+extern EventScr CONST_DATA EventScr_Chapter2_HouseA[];
+extern EventScr CONST_DATA EventScr_Chapter2_HouseB[];
+extern EventScr CONST_DATA EventScr_Chapter2_HouseC[];
+extern EventScr CONST_DATA EventScr_Chapter2_Victory[];
 
 extern EventScr CONST_DATA EventScr_Unk_0866BEB0[];
 extern EventScr CONST_DATA EventScr_Unk_0866BF78[];
