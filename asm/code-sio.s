@@ -19661,7 +19661,7 @@ func_fe6_0803EE7C: @ 0x0803EE7C
 .L0803EEAC:
 	bl EndAllMus
 	bl RenderMap
-	bl func_fe6_080627D0
+	bl StartBattleManim
 	ldr r0, .L0803EEC8 @ =gBattleSt
 	movs r1, #0x80
 	ldrb r2, [r0, #1]

@@ -94,7 +94,7 @@ enum
     SONG_B4 = 0xB4, // manim
     SONG_B5 = 0xB5, // manim
     SONG_B6 = 0xB6,
-    SONG_B7 = 0xB7,
+    SONG_B7 = 0xB7, // manim poison
     SONG_BA = 0xBA,
     SONG_BC = 0xBC,
     SONG_BD = 0xBD,

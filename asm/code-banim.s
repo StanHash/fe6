@@ -13527,7 +13527,7 @@ func_fe6_08049058: @ 0x08049058
 	bl GetItemIid
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
-	bl func_fe6_0805F784
+	bl GetWeaponAnimActorCount
 	lsls r0, r0, #0x18
 	lsrs r0, r0, #0x18
 	str r0, [sp, #0x18]
@@ -53925,11 +53925,11 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	ldr r0, [r0]
 	mov r8, r0
 	ldr r7, [r6, #0x5c]
-	ldr r0, .L0805D964 @ =gUnk_08114D80
+	ldr r0, .L0805D964 @ =Img_LevelUpFrame
 	ldr r5, .L0805D968 @ =gUnk_Banim_0201777C
 	adds r1, r5, #0
 	bl LZ77UnCompWram
-	ldr r0, .L0805D96C @ =gUnk_08114FCC
+	ldr r0, .L0805D96C @ =Tm_LevelUpFrame
 	ldr r4, .L0805D970 @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
 	bl LZ77UnCompWram
@@ -53947,7 +53947,7 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	lsls r2, r2, #3
 	adds r0, r5, #0
 	bl RegisterDataMove
-	ldr r0, .L0805D97C @ =gUnk_081150C8
+	ldr r0, .L0805D97C @ =Pal_LevelUpFrame
 	ldr r4, .L0805D980 @ =gPal+0x20
 	adds r1, r4, #0
 	movs r2, #8
@@ -53988,13 +53988,13 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	.align 2, 0
 .L0805D95C: .4byte 0x0203CD7C
 .L0805D960: .4byte 0x0203CD80
-.L0805D964: .4byte gUnk_08114D80
+.L0805D964: .4byte Img_LevelUpFrame
 .L0805D968: .4byte gUnk_Banim_0201777C
-.L0805D96C: .4byte gUnk_08114FCC
+.L0805D96C: .4byte Tm_LevelUpFrame
 .L0805D970: .4byte gUnk_Banim_0201977C
 .L0805D974: .4byte gBg1Tm+0x180
 .L0805D978: .4byte 0x06002000
-.L0805D97C: .4byte gUnk_081150C8
+.L0805D97C: .4byte Pal_LevelUpFrame
 .L0805D980: .4byte gPal+0x20
 .L0805D984: .4byte gUnk_081150E8
 .L0805D988: .4byte gUnk_Banim_0201A77C
@@ -54263,7 +54263,7 @@ func_fe6_0805DBA4: @ 0x0805DBA4
 	movs r1, #1
 	movs r2, #1
 	movs r3, #3
-	bl func_fe6_08067A28
+	bl StartManimLevelUpStatGainLabels
 	adds r0, r4, #0
 	bl Proc_Break
 	ldr r1, .L0805DBD0 @ =gUnk_Banim_0201F05C
@@ -54441,7 +54441,7 @@ func_fe6_0805DD08: @ 0x0805DD08
 	movs r1, #0x3c
 	movs r2, #0
 	movs r3, #0
-	bl func_fe6_08067B08
+	bl StartManimLevelUpStatGainLabelAnim
 	ldr r1, .L0805DD4C @ =gUnk_Banim_0201F0B4
 	ldr r0, .L0805DD50 @ =gUnk_Banim_0201F0B6
 	ldrh r0, [r0]
@@ -54571,7 +54571,7 @@ func_fe6_0805DDA8: @ 0x0805DDA8
 	adds r1, #6
 	adds r2, #1
 	adds r3, r5, #0
-	bl func_fe6_08067B08
+	bl StartManimLevelUpStatGainLabelAnim
 	movs r1, #0x2e
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
@@ -54632,7 +54632,7 @@ func_fe6_0805DE8C: @ 0x0805DE8C
 	ble .L0805DEB2
 	movs r0, #0
 	strh r0, [r4, #0x2c]
-	bl func_fe6_08067AF0
+	bl EndManimLevelUpStatGainLabels
 	ldr r0, .L0805DEB8 @ =func_fe6_0805E4D4
 	bl SetOnHBlankA
 	adds r0, r4, #0
@@ -57761,8 +57761,8 @@ func_fe6_0805F750: @ 0x0805F750
 .L0805F77C: .4byte gUnk_08662E4C
 .L0805F780: .4byte 0x0000FFFF
 
-	thumb_func_start func_fe6_0805F784
-func_fe6_0805F784: @ 0x0805F784
+	thumb_func_start GetWeaponAnimActorCount
+GetWeaponAnimActorCount: @ 0x0805F784
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -57781,8 +57781,8 @@ func_fe6_0805F794: @ 0x0805F794
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_0805F7A4
-func_fe6_0805F7A4: @ 0x0805F7A4
+	thumb_func_start GetWeaponAnimManimSpecialScr
+GetWeaponAnimManimSpecialScr: @ 0x0805F7A4
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10

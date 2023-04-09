@@ -295,16 +295,16 @@ void PutAppliedBitmap(u16 * tm, int tileref, int width, int height)
             tm[TM_OFFSET(ix, iy)] = tileref++;
 }
 
-void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len)
+void PutDigits(u16 * tm, u8 const * src, int tileref, int len)
 {
     int i;
 
     for (i = 0; i < len; ++i)
         tm[-i] = 0;
 
-    while (*src != 0x20)
+    while (*src != ' ')
     {
-        *tm-- = tileref + *src - 0x30;
+        *tm-- = tileref + *src - '0';
         src--;
     }
 }
@@ -1684,7 +1684,7 @@ static void PartialGameLock_OnLoop(struct GenericProc * proc)
         Proc_Break(proc);
 }
 
-void func_fe6_08015260(u8 const * src, u8 * dst, int size)
+void VramCopy(u8 const * src, u8 * dst, int size)
 {
     if ((size & 0x1F) != 0)
         CpuCopy16(src, dst, size);
@@ -1698,14 +1698,14 @@ void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height)
 
     for (i = 0; i < height; ++i)
     {
-        func_fe6_08015260(src, dst, line_size);
+        VramCopy(src, dst, line_size);
 
         src += line_size;
         dst += 0x20 * CHR_SIZE;
     }
 }
 
-void func_fe6_080152C4(u16 const * src, u16 * dst, int size, u16 tileref)
+void PutTmLinear(u16 const * src, u16 * dst, int size, u16 tileref)
 {
     while (size > 0)
     {

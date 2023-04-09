@@ -341,9 +341,9 @@ SECTIONS
         . = 0x00456C; gUnk_0300456C = .;
         . = 0x004570; AiDecideFunc = .;
         . = 0x004580; gUnk_03004580 = .;
-        . = 0x004600; gManimDebugStObj = .;
-        . = 0x0046D0; gUnk_030046D0 = .;
-        . = 0x004750; gUnk_03004750 = .;
+        . = 0x004600; *(.common.gManimDebugStObj);
+        . = 0x0046D0; *(.common.gUnk_030046D0);
+        . = 0x004750; *(.common.gUnk_03004750);
         . = 0x004890; gPermanentFlagBits = .;
         . = 0x004898; gChapterFlagBits = .;
         . = 0x0048A4; gUnk_030048A4 = .;

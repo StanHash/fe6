@@ -36,7 +36,7 @@ void Register2dChrMove(u8 const * img, u8 * vram, int width, int height);
 void Copy2dChr(void const * src, u8 * dst, int width, int height);
 void ApplyBitmap(u8 const * src, void * dst, int width, int height);
 void PutAppliedBitmap(u16 * tm, int tileref, int width, int height);
-void func_fe6_08013E8C(u16 * tm, u8 const * src, int tileref, int len);
+void PutDigits(u16 * tm, u8 const * src, int tileref, int len);
 // func_fe6_08013EBC
 // func_fe6_08013EC4
 // func_fe6_08013ED8
@@ -136,9 +136,9 @@ void CallDelayedArg(void (* func)(int), int arg, int delay);
 // func_fe6_080151F8
 void func_fe6_08015208(u16 * out, int size, int value);
 void StartPartialGameLock(ProcPtr proc);
-void func_fe6_08015260(u8 const * src, u8 * dst, int size);
+void VramCopy(u8 const * src, u8 * dst, int size);
 void func_fe6_08015298(u8 const * src, u8 * dst, int width, int height);
-void func_fe6_080152C4(u16 const * src, u16 * dst, int size, u16 tileref);
+void PutTmLinear(u16 const * src, u16 * dst, int size, u16 tileref);
 u16 * GetTmOffsetById(int bgid, int x, int y);
 void func_fe6_08015344(void);
 int Screen2Pan(int x);

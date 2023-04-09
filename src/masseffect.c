@@ -16,6 +16,7 @@
 #include "unitsprite.h"
 #include "ui.h"
 #include "mu.h"
+#include "manim.h"
 #include "eventinfo.h"
 #include "save_stats.h"
 
@@ -59,7 +60,7 @@ void BeginUnitHealAnim(struct Unit * unit, int hp)
     BeginBattleAnimations();
 }
 
-void BeginUnitDamageAnim(struct Unit * unit, int damage)
+void BeginPoisonDamageAnim(struct Unit * unit, int damage)
 {
     BattleInitItemEffect(unit, -1);
 
@@ -75,12 +76,12 @@ void BeginUnitDamageAnim(struct Unit * unit, int damage)
 
     BattleHitTerminate();
 
-    func_fe6_08062598();
+    StartPoisonDamageManim();
 
     RenderMapForFogFadeIfUnitDied(unit);
 }
 
-void BeginUnitCritDamageAnim(struct Unit * unit, int damage)
+void BeginUnitTrapDamageAnim(struct Unit * unit, int damage)
 {
     BattleInitItemEffect(unit, -1);
 
@@ -99,7 +100,7 @@ void BeginUnitCritDamageAnim(struct Unit * unit, int damage)
 
     BattleHitTerminate();
 
-    func_fe6_08062614();
+    StartTrapDamageManim();
 
     RenderMapForFogFadeIfUnitDied(unit);
 }
@@ -518,7 +519,7 @@ static void PoisonDamageDisplay_Display(struct GenericProc * proc)
     struct Unit * unit = GetUnit(target->uid);
 
     HideUnitSprite(unit);
-    BeginUnitDamageAnim(unit, target->extra);
+    BeginPoisonDamageAnim(unit, target->extra);
 }
 
 static void PoisonDamageDisplay_Next(struct GenericProc * proc)
@@ -680,10 +681,11 @@ static void TrapDamageDisplay_Display(struct GenericProc * proc)
 
     HideUnitSprite(GetUnit(gAction.instigator));
 
+    // this is just a strange way of checking for gas trap
     if (gAction.extra < 6)
-        BeginUnitDamageAnim(GetUnit(gAction.instigator), target->extra);
+        BeginPoisonDamageAnim(GetUnit(gAction.instigator), target->extra);
     else
-        BeginUnitCritDamageAnim(GetUnit(gAction.instigator), target->extra);
+        BeginUnitTrapDamageAnim(GetUnit(gAction.instigator), target->extra);
 }
 
 static void TrapDamageDisplay_Next(struct GenericProc * proc)

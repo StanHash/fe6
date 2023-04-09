@@ -25443,7 +25443,7 @@ func_fe6_08093608: @ 0x08093608
 	movs r0, #0
 	mov r1, sb
 	strh r0, [r1]
-	bl func_fe6_08069C34
+	bl InitScanlineEffect
 	bl func_fe6_08069C74
 	ldr r2, .L080936E0 @ =gDispIo+0x3C
 	mov ip, r2
@@ -27092,8 +27092,8 @@ func_fe6_08094234: @ 0x08094234
 	adds r1, r2, #0
 	orrs r0, r1
 	strh r0, [r3, #0x3c]
-	bl func_fe6_08069C34
-	ldr r0, .L080943CC @ =func_fe6_08069FD8
+	bl InitScanlineEffect
+	ldr r0, .L080943CC @ =OnHBlank_08069FD8
 	bl SetOnHBlankA
 	bl func_fe6_0806A7AC
 	ldr r4, .L080943D0 @ =gUnk_0831B0A8
@@ -27115,7 +27115,7 @@ func_fe6_08094234: @ 0x08094234
 	movs r2, #0x80
 	lsls r2, r2, #4
 	adds r0, r4, #0
-	bl func_fe6_08015260
+	bl VramCopy
 	ldr r0, .L080943E0 @ =gUnk_08320D98
 	movs r1, #0x80
 	movs r2, #0x80
@@ -27208,7 +27208,7 @@ func_fe6_08094234: @ 0x08094234
 .L080943C0: .4byte gDispIo
 .L080943C4: .4byte 0x0000FFE0
 .L080943C8: .4byte 0x0000E0FF
-.L080943CC: .4byte func_fe6_08069FD8
+.L080943CC: .4byte OnHBlank_08069FD8
 .L080943D0: .4byte gUnk_0831B0A8
 .L080943D4: .4byte gBuf
 .L080943D8: .4byte gUnk_08320434
@@ -38143,7 +38143,7 @@ func_fe6_080998D4: @ 0x080998D4
 	mov r1, sb
 	mov r2, r8
 	adds r3, r5, #0
-	bl func_fe6_080152C4
+	bl PutTmLinear
 	movs r0, #0x80
 	lsls r0, r0, #4
 	adds r4, r4, r0
@@ -38154,7 +38154,7 @@ func_fe6_080998D4: @ 0x080998D4
 	adds r1, r6, #0
 	mov r2, r8
 	adds r3, r5, #0
-	bl func_fe6_080152C4
+	bl PutTmLinear
 	pop {r3, r4}
 	mov r8, r3
 	mov sb, r4
@@ -38934,8 +38934,8 @@ func_fe6_08099EC0: @ 0x08099EC0
 	strh r6, [r5]
 	movs r0, #0x10
 	bl SetBlackPal
-	bl func_fe6_08069C34
-	ldr r0, .L08099F90 @ =func_fe6_0806A040
+	bl InitScanlineEffect
+	ldr r0, .L08099F90 @ =OnHBlank_0806A040
 	bl SetOnHBlankA
 	ldr r0, .L08099F94 @ =gUnk_08691CC0
 	mov r1, r8
@@ -38951,7 +38951,7 @@ func_fe6_08099EC0: @ 0x08099EC0
 .L08099F84: .4byte 0x0000E0FF
 .L08099F88: .4byte gUnk_08379D2C
 .L08099F8C: .4byte gPal
-.L08099F90: .4byte func_fe6_0806A040
+.L08099F90: .4byte OnHBlank_0806A040
 .L08099F94: .4byte gUnk_08691CC0
 
 	thumb_func_start func_fe6_08099F98
@@ -39345,7 +39345,7 @@ func_fe6_0809A26C: @ 0x0809A26C
 	ldr r3, .L0809A2C0 @ =gUnk_086914D0
 	movs r5, #0
 	ldrsh r3, [r3, r5]
-	bl func_fe6_0806A330
+	bl PrepareSineWaveScanlineBuf
 	movs r0, #1
 	movs r1, #0xa0
 	bl func_fe6_0806A87C
@@ -39357,8 +39357,8 @@ func_fe6_0809A26C: @ 0x0809A26C
 	ldr r3, .L0809A2C8 @ =gUnk_086914D8
 	movs r5, #0
 	ldrsh r3, [r3, r5]
-	bl func_fe6_0806A330
-	bl func_fe6_0806A424
+	bl PrepareSineWaveScanlineBuf
+	bl SwapScanlineBufs
 	ldrh r0, [r4]
 	adds r0, #2
 	strh r0, [r4]
@@ -40803,7 +40803,7 @@ func_fe6_0809ADCC: @ 0x0809ADCC
 	adds r4, r4, r1
 	adds r1, r4, #0
 	movs r2, #0x20
-	bl func_fe6_08015260
+	bl VramCopy
 	movs r0, #1
 	str r0, [sp]
 	movs r1, #1

@@ -1407,7 +1407,7 @@ func_fe6_08072CA8: @ 0x08072CA8
 	adds r1, r4, #0
 	adds r2, r5, #0
 	movs r3, #2
-	bl func_fe6_08013E8C
+	bl PutDigits
 	ldr r0, .L08072DD0 @ =TerrainAvoTable_Default
 	adds r0, r7, r0
 	ldrb r0, [r0]
@@ -1420,7 +1420,7 @@ func_fe6_08072CA8: @ 0x08072CA8
 	adds r1, r4, #0
 	adds r2, r5, #0
 	movs r3, #2
-	bl func_fe6_08013E8C
+	bl PutDigits
 .L08072D7E:
 	cmp r7, #0x1b
 	beq .L08072DD8
@@ -1491,7 +1491,7 @@ func_fe6_08072CA8: @ 0x08072CA8
 	movs r2, #0x94
 	lsls r2, r2, #1
 	movs r3, #2
-	bl func_fe6_08013E8C
+	bl PutDigits
 .L08072E28:
 	ldr r0, .L08072E48 @ =0x020039B8
 	ldr r1, .L08072E4C @ =gUnk_083190CC

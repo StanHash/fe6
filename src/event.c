@@ -289,8 +289,8 @@ struct PopupInfo CONST_DATA Popup_085C47A4[];
 struct PopupInfo CONST_DATA Popup_085C47DC[];
 struct PopupInfo CONST_DATA Popup_085C4814[];
 struct PopupInfo CONST_DATA Popup_085C4854[];
-struct PopupInfo CONST_DATA Popup_085C4894[];
-struct PopupInfo CONST_DATA Popup_085C48D4[];
+struct PopupInfo CONST_DATA Popup_PlayerStoleItem[];
+struct PopupInfo CONST_DATA Popup_AiStoleItem[];
 struct PopupInfo CONST_DATA Popup_085C4914[];
 
 struct ProcScr CONST_DATA ProcScr_GiveItem[];
@@ -3487,14 +3487,14 @@ void StartPopup_08012120(u16 item, ProcPtr parent)
         StartPopup(Popup_085C4854, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
-void StartPopup_08012178(u16 item, ProcPtr parent)
+void StartStoleItemPopup(u16 item, ProcPtr parent)
 {
     SetPopupItem(item);
 
     if (UNIT_FACTION(gActiveUnit) == FACTION_BLUE)
-        StartPopup(Popup_085C4894, 0x60, UI_WINDOW_REGULAR, parent);
+        StartPopup(Popup_PlayerStoleItem, 0x60, UI_WINDOW_REGULAR, parent);
     else
-        StartPopup(Popup_085C48D4, 0x60, UI_WINDOW_REGULAR, parent);
+        StartPopup(Popup_AiStoleItem, 0x60, UI_WINDOW_REGULAR, parent);
 }
 
 void StartSupportLevelGaindPopup(ProcPtr parent)
@@ -4153,7 +4153,7 @@ struct PopupInfo CONST_DATA Popup_085C4854[] =
     POPUP_END,
 };
 
-struct PopupInfo CONST_DATA Popup_085C4894[] =
+struct PopupInfo CONST_DATA Popup_PlayerStoleItem[] =
 {
     POPUP_SONG(SONG_5A),
 
@@ -4168,7 +4168,7 @@ struct PopupInfo CONST_DATA Popup_085C4894[] =
     POPUP_END,
 };
 
-struct PopupInfo CONST_DATA Popup_085C48D4[] =
+struct PopupInfo CONST_DATA Popup_AiStoleItem[] =
 {
     POPUP_SONG(SONG_5C),
 

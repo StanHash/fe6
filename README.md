@@ -6,7 +6,10 @@ It builds the following ROM:
 
 * **[fe6.gba]** `sha1: a57095da867de4d585c33d4394712986245fe6ca`
 
+GBAFE decompilation progress history can be found on [laqieer's FE decomp portal][fe-decomp-portal].
+
 [fe6.gba]: https://datomatic.no-intro.org/index.php?page=show_record&s=23&n=0367
+[fe-decomp-portal]: https://laqieer.github.io/fe-decomp-portal/
 
 ## Quick setup
 

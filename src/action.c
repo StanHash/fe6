@@ -13,6 +13,7 @@
 #include "unitsprite.h"
 #include "itemaction.h"
 #include "mu.h"
+#include "manim.h"
 #include "eventinfo.h"
 #include "save_stats.h"
 
@@ -339,7 +340,7 @@ bool DoStealAction(ProcPtr proc)
     BattleApplyMiscAction(proc);
 
     EndAllMus();
-    func_fe6_08062690();
+    StartStealManim();
 
     return FALSE;
 }

@@ -18,6 +18,7 @@
 #include "unit.h"
 #include "chapter.h"
 #include "ui.h"
+#include "manim.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/songs.h"
@@ -1794,7 +1795,7 @@ void StartPutTalkSpriteText(int x, int y, int chr, int palid, ProcPtr parent)
     proc->unk52 = chr;
     proc->unk64 = palid;
 
-    func_fe6_08069C34();
+    InitScanlineEffect();
     func_fe6_0806A218(y + 7, y + 41, 0x44C3, 0x7247);
 }
 

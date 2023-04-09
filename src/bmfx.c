@@ -31,6 +31,7 @@
 #include "ui.h"
 #include "menu.h"
 #include "mu.h"
+#include "manim.h"
 #include "statscreen.h"
 #include "helpbox.h"
 

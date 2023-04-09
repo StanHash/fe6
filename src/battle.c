@@ -16,6 +16,7 @@
 #include "action.h"
 #include "chapterinfo.h"
 #include "mu.h"
+#include "manim.h"
 #include "save_stats.h"
 #include "save_game.h"
 
@@ -1550,7 +1551,7 @@ void BeginBattleAnimations(void)
         EndAllMus();
         RenderMap();
 
-        func_fe6_080627D0();
+        StartBattleManim();
 
         gBattleSt.flags |= BATTLE_FLAG_MAPANIMS;
     }

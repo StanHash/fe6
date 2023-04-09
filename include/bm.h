@@ -180,3 +180,6 @@ extern struct ProcScr CONST_DATA ProcScr_CamMove[];
 
 extern struct BmSt EWRAM_DATA gBmSt;
 extern struct PlaySt EWRAM_DATA gPlaySt;
+
+#define SCREEN_TILE_X(x_param) (((x_param) - (gBmSt.camera.x >> 4)) << 1)
+#define SCREEN_TILE_Y(y_param) (((y_param) - (gBmSt.camera.y >> 4)) << 1)

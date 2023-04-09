@@ -1248,8 +1248,8 @@ func_fe6_0806E520: @ 0x0806E520
 	movs r2, #1
 	movs r3, #0
 	bl func_fe6_0809892C
-	bl func_fe6_08069C34
-	ldr r0, .L0806E67C @ =func_fe6_08069FD8
+	bl InitScanlineEffect
+	ldr r0, .L0806E67C @ =OnHBlank_08069FD8
 	bl SetOnHBlankA
 	bl func_fe6_0806A7AC
 	ldr r0, .L0806E680 @ =gUnk_030048B8
@@ -1274,7 +1274,7 @@ func_fe6_0806E520: @ 0x0806E520
 .L0806E670: .4byte gBuf
 .L0806E674: .4byte gPal
 .L0806E678: .4byte gUnk_08353308
-.L0806E67C: .4byte func_fe6_08069FD8
+.L0806E67C: .4byte OnHBlank_08069FD8
 .L0806E680: .4byte gUnk_030048B8
 
 	thumb_func_start func_fe6_0806E684

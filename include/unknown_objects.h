@@ -16,8 +16,6 @@ extern u16 gUnk_Tm_02003238[];
 extern u16 gUnk_Tm_02003738[];
 extern u16 gUnk_Tm_02003C38[];
 
-extern struct MapAnimSt EWRAM_DATA gMapAnimSt;
-
 extern struct Glyph const * CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const * CONST_DATA TextGlyphs_System[];
 extern struct Glyph const * CONST_DATA TextGlyphs_Talk[];
@@ -98,11 +96,10 @@ extern u8 const Img_BattlePreviewMultipliers[];
 extern u16 const Pal_BattlePreviewMultipliers[];
 extern u8 const Img_MuFogBump[];
 extern u16 const SpriteAnim_MuFogBump[];
-extern u8 const gManimMuSpriteLayerLut[];
-extern u8 const Img_Unk_082DC618[];
-extern u16 const Pal_Unk_082E278C[];
-extern u8 const gUnk_082DC6DC[];
-extern u8 const gUnk_082E25D4[];
+extern u8 const Img_ManimInfoWindowDigits[];
+extern u16 const Pal_ManimWindowHpBar[];
+extern u8 const Img_ManimInfoFrame[];
+extern u8 const Img_ManimHpBar[];
 extern u16 const Pal_UiWindowFrame_ThemeBlue[];
 extern u16 const Pal_UiWindowFrame_ThemeRed[];
 extern u16 const Pal_UiWindowFrame_ThemeGray[];
@@ -126,18 +123,8 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
-extern struct ProcScr CONST_DATA ProcScr_Mu[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664E4C[];
-extern struct ProcScr CONST_DATA ProcScr_MAnimExpBar[];
 extern u16 CONST_DATA Pal_ManimFireDragonMu[];
 extern u16 CONST_DATA Pal_ManimDivineDragonMu[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664C0C[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664C4C[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664C8C[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664D5C[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08664DA4[];
-extern struct ProcScr CONST_DATA ProcScr_MAnimInfoWindow[];
-extern u16 CONST_DATA gUnk_08664EE4[];
 
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern bool CONST_DATA TerrainHealsStatusTable[];
@@ -155,8 +142,6 @@ extern i8 CONST_DATA MoveTable_Flying[];
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 
 extern void const * CONST_DATA ChapterAssets[];
-
-extern int CONST_DATA gUnk_08664F00[];
 
 extern u16 const Pal_LinkArenaMuralBackground[];
 extern u16 const Pal_MuralBackground[];

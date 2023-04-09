@@ -305,16 +305,16 @@ gUnk_0811446C: @ 0811446C
 gUnk_0811490C: @ 0811490C
 	.incbin "fe6-base.gba", 0x11490C, (0x114D80 - 0x11490C) @ length: 0474
 
-	.global gUnk_08114D80
-gUnk_08114D80: @ 08114D80
+	.global Img_LevelUpFrame
+Img_LevelUpFrame: @ 08114D80
 	.incbin "fe6-base.gba", 0x114D80, (0x114FCC - 0x114D80) @ length: 024C
 
-	.global gUnk_08114FCC
-gUnk_08114FCC: @ 08114FCC
+	.global Tm_LevelUpFrame
+Tm_LevelUpFrame: @ 08114FCC
 	.incbin "fe6-base.gba", 0x114FCC, (0x1150C8 - 0x114FCC) @ length: 00FC
 
-	.global gUnk_081150C8
-gUnk_081150C8: @ 081150C8
+	.global Pal_LevelUpFrame
+Pal_LevelUpFrame: @ 081150C8
 	.incbin "fe6-base.gba", 0x1150C8, (0x1150E8 - 0x1150C8) @ length: 0020
 
 	.global gUnk_081150E8
@@ -1849,8 +1849,8 @@ Pal_TilesetAnim_085C7B5C_4: @ 08279D14
 Pal_TilesetAnim_085C7B5C_5: @ 08279D1C
 	.incbin "fe6-base.gba", 0x279D1C, (0x2A75FC - 0x279D1C) @ length: 2D8E0
 
-	.global gUnk_082A75FC
-gUnk_082A75FC: @ 082A75FC
+	.global SpriteAnim_ManimStatGain
+SpriteAnim_ManimStatGain: @ 082A75FC
 	.incbin "fe6-base.gba", 0x2A75FC, (0x2A7CBC - 0x2A75FC) @ length: 06C0
 
 	.global gUnk_082A7CBC
@@ -1865,12 +1865,12 @@ gUnk_082A8448: @ 082A8448
 gUnk_082A84A4: @ 082A84A4
 	.incbin "fe6-base.gba", 0x2A84A4, (0x2A9190 - 0x2A84A4) @ length: 0CEC
 
-	.global gUnk_082A9190
-gUnk_082A9190: @ 082A9190
+	.global SpriteAnim_ManimPoison
+SpriteAnim_ManimPoison: @ 082A9190
 	.incbin "fe6-base.gba", 0x2A9190, (0x2A9228 - 0x2A9190) @ length: 0098
 
-	.global gUnk_082A9228
-gUnk_082A9228: @ 082A9228
+	.global SpriteAnim_ManimRubble
+SpriteAnim_ManimRubble: @ 082A9228
 	.incbin "fe6-base.gba", 0x2A9228, (0x2AA324 - 0x2A9228) @ length: 10FC
 
 	.global SpriteAnim_MuFogBump
@@ -1957,64 +1957,64 @@ gUnk_082DB418: @ 082DB418
 gUnk_082DB55C: @ 082DB55C
 	.incbin "fe6-base.gba", 0x2DB55C, (0x2DB6E8 - 0x2DB55C) @ length: 018C
 
-	.global gUnk_082DB6E8
-gUnk_082DB6E8: @ 082DB6E8
+	.global Pal_ManimLevelUpStatGainCycling
+Pal_ManimLevelUpStatGainCycling: @ 082DB6E8
 	.incbin "fe6-base.gba", 0x2DB6E8, (0x2DB8B0 - 0x2DB6E8) @ length: 01C8
 
-	.global gUnk_082DB8B0
-gUnk_082DB8B0: @ 082DB8B0
+	.global Img_ManimLevelUpText
+Img_ManimLevelUpText: @ 082DB8B0
 	.incbin "fe6-base.gba", 0x2DB8B0, (0x2DBAC4 - 0x2DB8B0) @ length: 0214
 
-	.global gUnk_082DBAC4
-gUnk_082DBAC4: @ 082DBAC4
+	.global Pal_ManimLevelUp
+Pal_ManimLevelUp: @ 082DBAC4
 	.incbin "fe6-base.gba", 0x2DBAC4, (0x2DBB24 - 0x2DBAC4) @ length: 0060
 
-	.global gUnk_082DBB24
-gUnk_082DBB24: @ 082DBB24
+	.global Img_ManimLevelUpStatGain
+Img_ManimLevelUpStatGain: @ 082DBB24
 	.incbin "fe6-base.gba", 0x2DBB24, (0x2DBDB0 - 0x2DBB24) @ length: 028C
 
-	.global gUnk_082DBDB0
-gUnk_082DBDB0: @ 082DBDB0
+	.global Img_ManimLevelUpStatGainDigits
+Img_ManimLevelUpStatGainDigits: @ 082DBDB0
 	.incbin "fe6-base.gba", 0x2DBDB0, (0x2DC5B0 - 0x2DBDB0) @ length: 0800
 
 	.global gUnk_082DC5B0
 gUnk_082DC5B0: @ 082DC5B0
 	.incbin "fe6-base.gba", 0x2DC5B0, (0x2DC618 - 0x2DC5B0) @ length: 0068
 
-	.global Img_Unk_082DC618
-Img_Unk_082DC618: @ 082DC618
+	.global Img_ManimInfoWindowDigits
+Img_ManimInfoWindowDigits: @ 082DC618
 	.incbin "fe6-base.gba", 0x2DC618, (0x2DC6DC - 0x2DC618) @ length: 00C4
 
-	.global gUnk_082DC6DC
-gUnk_082DC6DC: @ 082DC6DC
+	.global Img_ManimInfoFrame
+Img_ManimInfoFrame: @ 082DC6DC
 	.incbin "fe6-base.gba", 0x2DC6DC, (0x2DC840 - 0x2DC6DC) @ length: 0164
 
-	.global gUnk_082DC840
-gUnk_082DC840: @ 082DC840
+	.global Pal_ManimInfoFrameBlue
+Pal_ManimInfoFrameBlue: @ 082DC840
 	.incbin "fe6-base.gba", 0x2DC840, (0x2DC860 - 0x2DC840) @ length: 0020
 
-	.global gUnk_082DC860
-gUnk_082DC860: @ 082DC860
+	.global Pal_ManimInfoFrameRed
+Pal_ManimInfoFrameRed: @ 082DC860
 	.incbin "fe6-base.gba", 0x2DC860, (0x2DC880 - 0x2DC860) @ length: 0020
 
-	.global gUnk_082DC880
-gUnk_082DC880: @ 082DC880
+	.global Pal_ManimInfoFrameGreen
+Pal_ManimInfoFrameGreen: @ 082DC880
 	.incbin "fe6-base.gba", 0x2DC880, (0x2DC8A0 - 0x2DC880) @ length: 0020
 
-	.global gUnk_082DC8A0
-gUnk_082DC8A0: @ 082DC8A0
+	.global Pal_ManimInfoFramePurple
+Pal_ManimInfoFramePurple: @ 082DC8A0
 	.incbin "fe6-base.gba", 0x2DC8A0, (0x2DC8C0 - 0x2DC8A0) @ length: 0020
 
-	.global gUnk_082DC8C0
-gUnk_082DC8C0: @ 082DC8C0
+	.global Tsa_ManimInfoFrameSingle
+Tsa_ManimInfoFrameSingle: @ 082DC8C0
 	.incbin "fe6-base.gba", 0x2DC8C0, (0x2DC8EC - 0x2DC8C0) @ length: 002C
 
-	.global gUnk_082DC8EC
-gUnk_082DC8EC: @ 082DC8EC
+	.global Tsa_ManimInfoFrameLeft
+Tsa_ManimInfoFrameLeft: @ 082DC8EC
 	.incbin "fe6-base.gba", 0x2DC8EC, (0x2DC918 - 0x2DC8EC) @ length: 002C
 
-	.global gUnk_082DC918
-gUnk_082DC918: @ 082DC918
+	.global Tsa_ManimInfoFrameRight
+Tsa_ManimInfoFrameRight: @ 082DC918
 	.incbin "fe6-base.gba", 0x2DC918, (0x2DC944 - 0x2DC918) @ length: 002C
 
 	.global gUnk_082DC944
@@ -2025,24 +2025,24 @@ gUnk_082DC944: @ 082DC944
 gUnk_082DCA2C: @ 082DCA2C
 	.incbin "fe6-base.gba", 0x2DCA2C, (0x2DCAE4 - 0x2DCA2C) @ length: 00B8
 
-	.global gUnk_082DCAE4
-gUnk_082DCAE4: @ 082DCAE4
+	.global Img_ManimRubble
+Img_ManimRubble: @ 082DCAE4
 	.incbin "fe6-base.gba", 0x2DCAE4, (0x2DCD70 - 0x2DCAE4) @ length: 028C
 
-	.global gUnk_082DCD70
-gUnk_082DCD70: @ 082DCD70
+	.global Pal_ManimRubble
+Pal_ManimRubble: @ 082DCD70
 	.incbin "fe6-base.gba", 0x2DCD70, (0x2DCD90 - 0x2DCD70) @ length: 0020
 
 	.global Img_MuFogBump
 Img_MuFogBump: @ 082DCD90
 	.incbin "fe6-base.gba", 0x2DCD90, (0x2DCEF4 - 0x2DCD90) @ length: 0164
 
-	.global gUnk_082DCEF4
-gUnk_082DCEF4: @ 082DCEF4
+	.global Img_ManimPoison
+Img_ManimPoison: @ 082DCEF4
 	.incbin "fe6-base.gba", 0x2DCEF4, (0x2DD248 - 0x2DCEF4) @ length: 0354
 
-	.global gUnk_082DD248
-gUnk_082DD248: @ 082DD248
+	.global Pal_ManimPoison
+Pal_ManimPoison: @ 082DD248
 	.incbin "fe6-base.gba", 0x2DD248, (0x2DD268 - 0x2DD248) @ length: 0020
 
 	.global gUnk_082DD268
@@ -2181,12 +2181,12 @@ gUnk_082E1884: @ 082E1884
 gUnk_082E2440: @ 082E2440
 	.incbin "fe6-base.gba", 0x2E2440, (0x2E25D4 - 0x2E2440) @ length: 0194
 
-	.global gUnk_082E25D4
-gUnk_082E25D4: @ 082E25D4
+	.global Img_ManimHpBar
+Img_ManimHpBar: @ 082E25D4
 	.incbin "fe6-base.gba", 0x2E25D4, (0x2E278C - 0x2E25D4) @ length: 01B8
 
-	.global Pal_Unk_082E278C
-Pal_Unk_082E278C: @ 082E278C
+	.global Pal_ManimWindowHpBar
+Pal_ManimWindowHpBar: @ 082E278C
 	.incbin "fe6-base.gba", 0x2E278C, (0x2E28F8 - 0x2E278C) @ length: 016C
 
 	.global Img_Background_082E28F8

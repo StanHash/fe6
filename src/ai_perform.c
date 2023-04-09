@@ -238,7 +238,7 @@ void AiStartStealAction(struct AiPerformProc * proc)
     UnitAddItem(gActiveUnit, item);
     UnitRemoveItem(target, gAiDecision.item_slot);
 
-    StartPopup_08012178(item, proc);
+    StartStoleItemPopup(item, proc);
 }
 
 bool AiPillageAction(struct AiPerformProc * proc)

@@ -540,7 +540,7 @@ void ListDamagingTrapTargetsForDisplay(void)
 {
     struct Trap * trap;
 
-    int specialType = 0;
+    int gas_facing_mark = 0;
 
     BeginTargetList(0, 0);
 
@@ -560,28 +560,26 @@ void ListDamagingTrapTargetsForDisplay(void)
             case TRAP_GAS:
                 switch (trap->extra)
                 {
+                    // see TrapDamageDisplay_Display
 
-                    // TODO: figure out
+                    case FACING_UP:
+                        gas_facing_mark = 100;
+                        break;
 
-                case FACING_UP:
-                    specialType = 0x64;
-                    break;
+                    case FACING_DOWN:
+                        gas_facing_mark = 101;
+                        break;
 
-                case FACING_DOWN:
-                    specialType = 0x65;
-                    break;
+                    case FACING_LEFT:
+                        gas_facing_mark = 102;
+                        break;
 
-                case FACING_LEFT:
-                    specialType = 0x66;
-                    break;
-
-                case FACING_RIGHT:
-                    specialType = 0x67;
-                    break;
-
+                    case FACING_RIGHT:
+                        gas_facing_mark = 103;
+                        break;
                 }
 
-                EnlistTarget(trap->x, trap->y, 0, specialType);
+                EnlistTarget(trap->x, trap->y, 0, gas_facing_mark);
                 EnlistGasTrapTargets(trap->x, trap->y, trap->data[TRAPDATA_TRAP_DAMAGE], trap->extra);
 
                 break;
@@ -678,7 +676,7 @@ static void StepPikeTrap_ApplyDamage(ProcPtr proc)
     EndAllMus();
 
     gAction.extra = damage;
-    BeginUnitCritDamageAnim(gActiveUnit, damage);
+    BeginUnitTrapDamageAnim(gActiveUnit, damage);
 }
 
 static void StepFireTrap_ApplyDamage(ProcPtr proc)
@@ -686,7 +684,7 @@ static void StepFireTrap_ApplyDamage(ProcPtr proc)
     EndAllMus();
 
     gAction.extra = 10;
-    BeginUnitCritDamageAnim(gActiveUnit, 10);
+    BeginUnitTrapDamageAnim(gActiveUnit, 10);
 }
 
 static void StepFireTrap_08027318(ProcPtr proc)

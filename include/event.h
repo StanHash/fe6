@@ -119,7 +119,7 @@ void StartPopup_08012070(u16 item, ProcPtr parent);
 void StartWeaponLevelGainedPopup(u16 item, ProcPtr parent);
 void StartPopup_080120D0(int amount, ProcPtr parent);
 void StartPopup_08012120(u16 item, ProcPtr parent);
-void StartPopup_08012178(u16 item, ProcPtr parent);
+void StartStoleItemPopup(u16 item, ProcPtr parent);
 void StartSupportLevelGaindPopup(ProcPtr parent);
 void StartGiveItem(struct Unit * unit, u16 iid, ProcPtr parent);
 void StartGiveItemEvent(u16 iid);

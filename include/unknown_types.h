@@ -103,40 +103,6 @@ struct MapChangeInfo
     /* 08 */ u16 const * metatiles;
 };
 
-struct BattleHit;
-struct BattleUnit;
-
-struct MapAnimActor
-{
-    /* 00 */ struct Unit * unit;
-    /* 04 */ struct BattleUnit * bu;
-    /* 08 */ struct MuProc * mu;
-    /* 0C */ u8 hp_max;
-    /* 0D */ u8 hp_cur;
-    /* 0E */ u16 unk_0E;
-    /* 10 */ u8 unk_10;
-    /* 11 */ u8 unk_11;
-    /* 12 */ u8 unk_12;
-    /* 13 */ u8 unk_13;
-};
-
-struct MapAnimSt
-{
-    /* 00 */ struct MapAnimActor actor[4];
-    /* 50 */ struct BattleHit * hit_it;
-    /* 54 */ struct ProcScr const * special_proc_scr;
-    /* 58 */ u8 attacker_actor;
-    /* 59 */ u8 defender_actor;
-    /* 5A */ u16 hit_attributes;
-    /* 5C */ u8 hit_info;
-    /* 5D */ i8 hit_damage;
-    /* 5E */ u8 main_actor_count;
-    /* 5F */ u8 unk_5F;
-    /* 60 */ u8 unk_60;
-    /* 61 */ u8 unk_61;
-    /* 62 */ u8 unk_62;
-};
-
 struct BanimInfoEnt
 {
     /* 00 */ u8 identifier;

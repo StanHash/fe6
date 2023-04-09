@@ -11,6 +11,7 @@
 #include "faction.h"
 #include "chapter.h"
 #include "battle.h"
+#include "manim.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/jids.h"
@@ -1131,24 +1132,24 @@ static void MuActionAnimFinishFunc(int arg)
     FreezeSpriteAnim((struct SpriteAnim *) arg);
 }
 
-static void MuDelayedFaceTargetFunc(int arg);
+static void MuDelayedFaceDefenderFunc(int arg);
 
-void StartMuDelayedFaceTarget(struct MuProc * mu)
+void StartMuDelayedFaceDefender(struct MuProc * mu)
 {
     ResetSpriteAnimClock(mu->sprite_anim);
 
-    CallDelayedArg(MuDelayedFaceTargetFunc, (int) mu->sprite_anim, 30);
+    CallDelayedArg(MuDelayedFaceDefenderFunc, (int) mu->sprite_anim, 30);
 }
 
-static void MuDelayedFaceTargetFunc(int arg)
+static void MuDelayedFaceDefenderFunc(int arg)
 {
-    MA_SetActorFacing(gMapAnimSt.attacker_actor, 1-gMapAnimSt.attacker_actor, GetItemMaFacing(gMapAnimSt.actor[0].bu->weapon_before));
+    SetManimActorFacing(gManimSt.attacker_actor, 1-gManimSt.attacker_actor, GetItemMaFacing(gManimSt.actor[0].bu->weapon_before));
     FreezeSpriteAnim((struct SpriteAnim *) arg);
 }
 
 static void MuSlowDownAnimFreezeFunc(int arg);
 
-void StartMuSlowDownAnim(struct MuProc * mu)
+void StartMuSpeedUpAnim(struct MuProc * mu)
 {
     mu->sprite_anim->clock = 0;
     mu->sprite_anim->clock_interval_q8 = 0x40;
