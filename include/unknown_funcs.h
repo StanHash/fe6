@@ -1596,10 +1596,10 @@ void func_fe6_0805B644(u16 * pal, int arg_1, int arg_2, int arg_3);
 // func_fe6_0805F750
 u8 func_fe6_0805F784(int item);
 // func_fe6_0805F794
-struct ProcScr const * func_fe6_0805F7A4(int item);
-u8 func_fe6_0805F7B4(int item);
-u8 GetItemMaFacing(int item);
-// func_fe6_0805F7D4
+struct ProcScr const * func_fe6_0805F7A4(int item); // fu16?
+fu8 func_fe6_0805F7B4(int item); // fu16?
+fu8 GetItemMaFacing(int item); // fu16?
+fu8 func_fe6_0805F7D4(int item); // fu16?
 
 void func_fe6_08061838(ProcPtr proc);
 void func_fe6_08061878(ProcPtr proc);
@@ -1791,7 +1791,7 @@ void func_fe6_08068F04(ProcPtr proc);
 // func_fe6_08068FD8
 // func_fe6_08069028
 // func_fe6_08069098
-// func_fe6_08069430
+void func_fe6_08069430(int actor_id, int damage);
 // func_fe6_08069504
 // func_fe6_08069530
 // func_fe6_08069560
@@ -1831,17 +1831,17 @@ void func_fe6_08069E50(void);
 // func_fe6_08069F58
 // func_fe6_08069FD8
 // func_fe6_0806A040
-void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, int color_2, int color_3);
-void func_fe6_0806A218(u16 yStart, u16 yEnd, int arg_2, int arg_3);
+void func_fe6_0806A0DC(u16 arg_0, u16 arg_1, u16 color_2, u16 color_3);
+void func_fe6_0806A218(u16 yStart, u16 yEnd, u16 arg_2, u16 arg_3);
 void func_fe6_0806A270(int x, int y, int a, int b, u8 const * unk);
 // func_fe6_0806A330
 // func_fe6_0806A3A8
-// func_fe6_0806A424
-// func_fe6_0806A44C
-// func_fe6_0806A488
-// func_fe6_0806A4D4
-// func_fe6_0806A51C
-// func_fe6_0806A600
+void func_fe6_0806A424(void);
+void func_fe6_0806A44C(u16 * buf);
+void func_fe6_0806A488(u16 * buf, int x, int y);
+void func_fe6_0806A4D4(u16 * buf, int x, int y);
+void func_fe6_0806A51C(u16 * buf, int x, int y, int arg_0C);
+void func_fe6_0806A600(u16 * buf, u16 arg_02, u16 arg_04, u16 arg_06, u16 arg_30);
 // func_fe6_0806A750
 // func_fe6_0806A770
 // func_fe6_0806A7AC

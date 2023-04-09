@@ -232,8 +232,6 @@ SECTIONS
         . = ALIGN(4); src/mapselect.o(ewram_data);
         . = ALIGN(4); . = . + 0x100; /* TODO */
         . = ALIGN(4); src/manim.o(ewram_data);
-
-        . = 0x0203D354 - __ewram_overlay_end;
         . = ALIGN(4); gUnk_0203D354 = .; . = . + 4;
         . = ALIGN(4); gUnk_0203D358 = .; . = . + 4;
         . = ALIGN(1); gUnk_0203D35C = .; . = . + 1;
@@ -451,7 +449,6 @@ SECTIONS
         asm/code-banim.o(.text);
         src/mu.o(.text);
         src/manim.o(.text);
-        asm/code-manim.o(.text);
         src/eventinfo.o(.text);
         src/eventfunctions.o(.text);
         asm/code_eventfunctions.o(.text);
