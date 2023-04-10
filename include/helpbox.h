@@ -167,7 +167,7 @@ extern struct ProcScr CONST_DATA ProcScr_HelpBoxMoveControl[];
 extern u8 const * CONST_DATA gUnk_08677F20[]; // array img ref
 
 extern struct ProcScr CONST_DATA gUnk_08677FD0[];
-extern struct ProcScr CONST_DATA gUnk_08677FE0[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08677FE0[];
 extern struct ProcScr CONST_DATA gUnk_08677FF8[];
 extern struct ProcScr CONST_DATA gUnk_08678020[];
 extern struct ProcScr CONST_DATA gUnk_08678040[];

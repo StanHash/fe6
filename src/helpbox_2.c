@@ -13,6 +13,7 @@
 #include "chapter.h"
 #include "chapterinfo.h"
 #include "ui.h"
+#include "eventfunctions.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -211,18 +212,14 @@ int func_fe6_08070E0C(struct PlaySt const * play_st)
         {
             switch (play_st->ending_id)
             {
+                case ENDING_0:
+                    return 0x2A;
 
-                // TODO: ending enum constants
+                case ENDING_1:
+                    return 0x29;
 
-            case 0:
-                return 0x2A;
-
-            case 1:
-                return 0x29;
-
-            case 2:
-                return 0x28;
-
+                case ENDING_2:
+                    return 0x28;
             }
         }
 
@@ -474,7 +471,7 @@ end:
     SetTextFont(proc->font);
 }
 
-struct ProcScr CONST_DATA gUnk_08677FE0[] =
+struct ProcScr CONST_DATA ProcScr_Unk_08677FE0[] =
 {
     PROC_SLEEP(0),
     PROC_CALL(func_fe6_08071308),

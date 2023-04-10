@@ -21239,13 +21239,13 @@ func_fe6_080914DC: @ 0x080914DC
 	bne .L08091514
 	cmp r5, #0xd
 	bgt .L08091520
-	ldr r0, .L08091510 @ =0x0203DCA7
+	ldr r0, .L08091510 @ =gUnk_0203DCA7
 	adds r0, r5, r0
 	strb r4, [r0]
 	adds r5, #1
 	b .L08091520
 	.align 2, 0
-.L08091510: .4byte 0x0203DCA7
+.L08091510: .4byte gUnk_0203DCA7
 .L08091514:
 	cmp r6, #0x35
 	bgt .L08091520
@@ -21257,7 +21257,7 @@ func_fe6_080914DC: @ 0x080914DC
 	adds r4, #1
 	cmp r4, #0x3f
 	ble .L080914E4
-	ldr r0, .L08091548 @ =0x0203DCA7
+	ldr r0, .L08091548 @ =gUnk_0203DCA7
 	adds r0, r5, r0
 	movs r2, #0xff
 	ldrb r1, [r0]
@@ -21273,7 +21273,7 @@ func_fe6_080914DC: @ 0x080914DC
 	bx r0
 	.align 2, 0
 .L08091544: .4byte 0x0203DC70
-.L08091548: .4byte 0x0203DCA7
+.L08091548: .4byte gUnk_0203DCA7
 
 	thumb_func_start func_fe6_0809154C
 func_fe6_0809154C: @ 0x0809154C
@@ -21415,7 +21415,7 @@ func_fe6_0809164C: @ 0x0809164C
 	ldrb r0, [r0, #4]
 	cmp r0, #0x42
 	beq .L08091692
-	ldr r1, .L080916A8 @ =0x0203DCA7
+	ldr r1, .L080916A8 @ =gUnk_0203DCA7
 	movs r0, #0
 	ldrsb r0, [r1, r0]
 	cmp r0, r5
@@ -21444,7 +21444,7 @@ func_fe6_0809164C: @ 0x0809164C
 	bx r1
 	.align 2, 0
 .L080916A4: .4byte 0x02016B88
-.L080916A8: .4byte 0x0203DCA7
+.L080916A8: .4byte gUnk_0203DCA7
 
 	thumb_func_start func_fe6_080916AC
 func_fe6_080916AC: @ 0x080916AC

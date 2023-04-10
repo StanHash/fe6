@@ -15,8 +15,11 @@
 #include "map.h"
 #include "unitsprite.h"
 #include "supply.h"
+#include "battle.h"
 #include "bm.h"
 #include "bmfx.h"
+#include "bmio.h"
+#include "support.h"
 #include "chapter.h"
 #include "trap.h"
 #include "gold.h"
@@ -24,6 +27,9 @@
 #include "action.h"
 #include "itemaction.h"
 #include "mapselect.h"
+#include "mu.h"
+#include "manim.h"
+#include "ui.h"
 #include "chapterinfo.h"
 #include "chapterevents.h"
 #include "helpbox.h"
@@ -56,21 +62,38 @@ extern u8 EWRAM_DATA gUnk_0203D361;
 extern u8 EWRAM_DATA gUnk_0203D362;
 extern u16 EWRAM_DATA gUnk_0203D364;
 
-extern struct ProcScr CONST_DATA gUnk_08677FE0[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08677FE0[];
 
 extern u32 EWRAM_DATA gUnk_0203D368;
 extern u32 EWRAM_DATA gUnk_0203D36C;
 extern struct Text EWRAM_DATA gUnkText_0203D370[];
+extern struct Text EWRAM_DATA gUnkText_0203D3A0;
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_0867688C[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_086768DC[];
+
+extern EventScr const * CONST_DATA gUnk_086770D4[];
+
+extern u8 EWRAM_DATA gUnk_0203D3D8; // ending related value
+extern u8 EWRAM_DATA gUnk_0203D3D9; // ending id
 
 struct Unk_0867619C
 {
-    /* 00 */ u16 unk_00;
-    /* 02 */ u8 unk_02;
+    /* 00 */ u16 msg;
+    /* 02 */ u8 y_offset;
 };
 
 extern struct Unk_0867619C CONST_DATA gUnk_0867619C[];
 
 extern EventScr const * CONST_DATA gUnk_08676738[];
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_08677348[];
+
+extern u8 const gUnk_0836F6D4[]; // img
+extern u8 const gUnk_08373F80[]; // tm
+extern u8 const gUnk_08374670[]; // compressed pal
+extern u16 const gUnk_08353308[]; // pal
+extern u16 CONST_DATA gUnk_08677360[]; // bg config
 
 struct UnkProc0806D82C
 {
@@ -100,6 +123,82 @@ struct HardModeBonusLevelsOverrideEnt
 };
 
 extern struct HardModeBonusLevelsOverrideEnt CONST_DATA gHardModeBonusLevelsOverrideList[];
+
+struct UnkProc_0806DDC4
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x44);
+    /* 44 */ u8 unk_44;
+    /* 45 */ u8 unk_45;
+};
+
+struct UnkProc_086768C4
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ u16 unk_64;
+};
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_086768C4[];
+
+struct UnkProc_086768DC
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
+    /* 4C */ ProcPtr unk_4C;
+    /* 50 */ STRUCT_PAD(0x50, 0x64);
+    /* 64 */ i16 unk_64;
+};
+
+struct UnkProc_086768FC
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ i16 unk_64;
+};
+
+struct UnkProc_08676914
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x64);
+    /* 64 */ i16 unk_64;
+    /* 66 */ i16 unk_66;
+};
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_086768FC[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08676914[];
+
+struct Unk_0867692C { u8 x, y; u16 more; };
+
+extern struct Unk_0867692C CONST_DATA gUnk_0867692C[];
+extern struct Unk_0867692C CONST_DATA gUnk_0867695C[];
+extern i8 EWRAM_DATA gUnk_0203DCA7[];
+
+
+struct UnkProc_08677348
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ int unk_2C;
+    /* 30 */ int unk_30;
+    /* 34 */ int unk_34;
+    /* 38 */ int unk_38;
+    /* 3C */ i8 const * unk_3C;
+    /* 40 */ int unk_40;
+};
+
+extern u8 gUnk_030048A4; // COMMON
+extern u8 gUnk_030048B8; // COMMON
+extern u8 const gUnk_0834B69C[]; // img
+extern u8 const gUnk_08349A98[]; // img
+extern u8 const gUnk_0834E1D4[]; // img
+extern u8 const gUnk_08352160[]; // img
+extern i8 CONST_DATA gUnk_086772FC[];
+extern i8 CONST_DATA gUnk_0867730C[];
+extern i8 CONST_DATA gUnk_0867731C[];
+extern i8 CONST_DATA gUnk_08677327[];
+
+extern struct ProcScr CONST_DATA ProcScr_Unk_08677378[];
 
 // NOTE: this uses the RNG that is usually used for aesthetic purposes
 // this means that random events will not be the same accross suspend reloads
@@ -1988,7 +2087,7 @@ void func_fe6_0806D8B0(void)
 
     CpuFastFill(0, (void *) VRAM + GetBgChrOffset(3) + 0 * CHR_SIZE, CHR_SIZE);
 
-    proc = SpawnProc(gUnk_08677FE0, PROC_TREE_3);
+    proc = SpawnProc(ProcScr_Unk_08677FE0, PROC_TREE_3);
 
     for (i = 0; i < (int) ARRAY_COUNT(proc->text); i++)
     {
@@ -2001,12 +2100,12 @@ void func_fe6_0806D8B0(void)
 
         proc->text[i] = text;
 
-        PutText(text, gBg0Tm + TM_OFFSET(3, 2 * i + gUnk_0867619C[gUnk_0203D36C].unk_02));
+        PutText(text, gBg0Tm + TM_OFFSET(3, 2 * i + gUnk_0867619C[gUnk_0203D36C].y_offset));
     }
 
     proc->font = NULL;
     proc->line = 0;
-    proc->str_it = DecodeMsg(gUnk_0867619C[gUnk_0203D36C].unk_00);
+    proc->str_it = DecodeMsg(gUnk_0867619C[gUnk_0203D36C].msg);
 
     gUnk_0203D36C++;
 
@@ -2161,4 +2260,650 @@ void func_fe6_0806DC50(struct UnkProc_0867686C * proc)
 void func_fe6_0806DC90(ProcPtr parent)
 {
     SpawnProc(ProcScr_Unk_0867686C, parent);
+}
+
+void func_fe6_0806DCA4(void)
+{
+    InitBgs(NULL);
+
+    SetDispEnable(1, 1, 1, 1, 1);
+
+    CpuFastFill(0, (void *) VRAM + GetBgChrOffset(3), CHR_SIZE);
+    CpuFastFill(0, (void *) VRAM + 0x300 * CHR_SIZE, CHR_SIZE * 0x100);
+}
+
+void func_fe6_0806DD08(void)
+{
+    SetDispEnable(1, 0, 0, 0, 0);
+
+    SetBgOffset(0, 0, 0);
+    TmFill(gBg0Tm, 0);
+
+    ResetText();
+    InitTalkTextFont();
+
+    InitText(&gUnkText_0203D3A0, 14);
+    PutDrawText(&gUnkText_0203D3A0, gBg0Tm + TM_OFFSET(8, 9),
+        TEXT_COLOR_0123, 0, 0, DecodeMsg(MSG_24A));
+}
+
+void func_fe6_0806DD84(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_0867688C, parent);
+}
+
+bool func_fe6_0806DD98(void)
+{
+    if (FindProc(ProcScr_Unk_0867688C) != NULL)
+        return TRUE;
+
+    Proc_EndEach(ProcScr_Unk_08677FE0);
+    func_fe6_0806DCA4();
+
+    return FALSE;
+}
+
+void func_fe6_0806DDC4(struct UnkProc_0806DDC4 * proc)
+{
+    proc->unk_44 = 0xFF;
+}
+
+void func_fe6_0806DDCC(struct UnkProc_0806DDC4 * proc)
+{
+    proc->unk_45 = 1;
+}
+
+void func_fe6_0806DDD4(void)
+{
+    SetWeather(WEATHER_NONE);
+}
+
+void func_fe6_0806DDE0(void)
+{
+    PlaySe(SONG_C4);
+    SetWeather(WEATHER_SANDSTORM);
+}
+
+void func_fe6_0806DE00(void)
+{
+    PlaySe(SONG_269);
+}
+
+void func_fe6_0806DE20(void)
+{
+    PlaySe(SONG_269);
+}
+
+void func_fe6_0806DE40(void)
+{
+    PlaySe(SONG_6A);
+}
+
+void func_fe6_0806DE5C(struct UnkProc_086768C4 * proc)
+{
+    StartBgm(SONG_43, NULL);
+    proc->unk_64 = 17600;
+}
+
+void func_fe6_0806DE78(struct UnkProc_086768C4 * proc)
+{
+    proc->unk_64--;
+
+    if (proc->unk_64 == 0)
+    {
+        StartBgm(SONG_34, NULL);
+        Proc_Break(proc);
+    }
+}
+
+void func_fe6_0806DEA0(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_086768C4, parent);
+}
+
+void func_fe6_0806DEB4(void)
+{
+    Proc_EndEach(ProcScr_Unk_086768C4);
+}
+
+bool func_fe6_0806DEC4(void)
+{
+    // this is funny
+#if BUGFIX
+    if (IsLilinaBlue())
+#else
+    if (IsLilinaBlue != NULL)
+#endif
+    {
+        struct Unit * roy = GetUnitByPid(PID_ROY);
+
+        if (GetUnitSupportLevel(roy, GetUnitSupportNumByPid(roy, PID_LILINA)) > 2)
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+void func_fe6_0806DEF8(void)
+{
+    RenderMapForFade();
+    gPlaySt.vision = 0;
+    RefreshEntityMaps();
+    RefreshUnitSprites();
+    RenderMap();
+}
+
+void func_fe6_0806DF18(struct UnkProc_086768DC * proc)
+{
+    proc->unk_64 = 1;
+
+    if (CheckFlag(FLAG_123))
+        proc->unk_64++;
+}
+
+void func_fe6_0806DF3C(struct UnkProc_086768DC * proc)
+{
+    for (;;)
+    {
+        if (!CanStartMu())
+            return;
+
+        proc->unk_64 = GetNextAvailableBlueUnitId(proc->unk_64);
+
+        if (proc->unk_64 != 0)
+        {
+            TryMoveUnitDisplayed(proc->unk_4C, GetUnit(proc->unk_64), 8, (gBmSt.camera.x >> 4) + 13);
+            proc->unk_64++;
+            continue;
+        }
+
+        Proc_Break(proc);
+        return;
+    }
+}
+
+void func_fe6_0806DF94(ProcPtr parent)
+{
+    struct UnkProc_086768DC * proc;
+
+    proc = SpawnProc(ProcScr_Unk_086768DC, parent);
+    proc->unk_4C = parent;
+}
+
+bool func_fe6_0806DFAC(void)
+{
+    return FindProc(ProcScr_Unk_086768DC) != NULL ? TRUE : FALSE;
+}
+
+void func_fe6_0806DFC4(struct UnkProc_086768FC * proc)
+{
+    proc->unk_64 = 0x100;
+}
+
+void func_fe6_0806DFD0(struct UnkProc_08676914 * proc)
+{
+    proc->unk_64 = 0;
+}
+
+void func_fe6_0806DFD8(struct UnkProc_086768FC * proc)
+{
+    proc->unk_64 -= 3;
+
+    if (proc->unk_64 <= 0)
+    {
+        proc->unk_64 = 0;
+        Proc_Break(proc);
+    }
+
+    SetBgmVolume(proc->unk_64);
+}
+
+void func_fe6_0806E004(struct UnkProc_08676914 * proc)
+{
+    proc->unk_66++;
+
+    if ((proc->unk_66 & 1) != 0)
+    {
+        proc->unk_64++;
+
+        if (proc->unk_64 >= 0x100)
+            Proc_Break(proc);
+
+        SetBgmVolume(proc->unk_64);
+    }
+}
+
+void func_fe6_0806E040(void)
+{
+    func_fe6_080030B4(0);
+}
+
+void func_fe6_0806E04C(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_086768FC, parent);
+}
+
+void func_fe6_0806E060(ProcPtr parent)
+{
+    SpawnProcLocking(ProcScr_Unk_08676914, parent);
+}
+
+void func_fe6_0806E074(void)
+{
+    int i;
+
+    for (i = FACTION_BLUE; i < FACTION_BLUE + 0x40; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+
+        if (unit == NULL)
+            continue;
+
+        if (unit->pinfo == NULL)
+            continue;
+
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED);
+    }
+
+    RefreshEntityMaps();
+    RefreshUnitSprites();
+}
+
+void func_fe6_0806E0B8(void)
+{
+    int i, j;
+    int next_slot = 1;
+
+    for (i = FACTION_BLUE + 1; i < FACTION_BLUE + 0x40; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+
+        if (unit == NULL)
+            continue;
+
+        if (unit->pinfo == NULL)
+            continue;
+
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        switch (UNIT_PID(unit))
+        {
+            case PID_ROY:
+                unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
+                unit->x = gUnk_0867692C[0].x;
+                unit->y = gUnk_0867692C[0].y;
+                break;
+
+            default:
+                for (j = 0; gUnk_0203DCA7[j] != -1; j++)
+                {
+                    if (gUnk_0203DCA7[j] == i)
+                    {
+                        unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
+                        unit->x = gUnk_0867692C[next_slot].x;
+                        unit->y = gUnk_0867692C[next_slot].y;
+                        next_slot++;
+                    }
+                }
+
+                break;
+        }
+    }
+
+    RefreshEntityMaps();
+    RefreshUnitSprites();
+}
+
+void func_fe6_0806E178(void)
+{
+    int i, j, pid;
+    int next_slot = 2;
+
+    for (i = FACTION_BLUE + 1; i < FACTION_BLUE + 0x40; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+
+        if (unit == NULL)
+            continue;
+
+        if (unit->pinfo == NULL)
+            continue;
+
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        switch (UNIT_PID(unit))
+        {
+            case PID_ROY:
+                unit->flags |= UNIT_FLAG_HIDDEN;
+                unit->x = gUnk_0867695C[0].x;
+                unit->y = gUnk_0867695C[0].y;
+                break;
+
+            case PID_MERLINUS:
+                unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
+                unit->x = gUnk_0867695C[1].x;
+                unit->y = gUnk_0867695C[1].y;
+                break;
+
+            default:
+                for (j = 0; gUnk_0203DCA7[j] != -1; j++)
+                {
+                    if (gUnk_0203DCA7[j] == i)
+                    {
+                        unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
+                        unit->x = gUnk_0867695C[next_slot].x;
+                        unit->y = gUnk_0867695C[next_slot].y;
+                        next_slot++;
+                    }
+                }
+
+                break;
+        }
+    }
+
+    RefreshEntityMaps();
+    RefreshUnitSprites();
+}
+
+void func_fe6_0806E240(void)
+{
+    int i;
+
+    for (i = FACTION_BLUE + 1; i < FACTION_BLUE + 0x40; i++)
+    {
+        struct Unit * unit = GetUnit(i);
+
+        if (unit == NULL)
+            continue;
+
+        if (unit->pinfo == NULL)
+            continue;
+
+        if (UNIT_PID(unit) != PID_ROY)
+            continue;
+
+        unit->flags &= ~(UNIT_FLAG_HIDDEN | UNIT_FLAG_NOT_DEPLOYED);
+        break;
+    }
+}
+
+void func_fe6_0806E278(void)
+{
+    if (GetItemIid(gBattleUnitA.weapon_before) == IID_BINDINGBLADE ||
+        GetItemIid(gBattleUnitB.weapon_before) == IID_BINDINGBLADE)
+    {
+        SetFlag(FLAG_123);
+    }
+}
+
+void UpdateEndingId(void)
+{
+    if (gPlaySt.chapter == CHAPTER_FINAL)
+    {
+        if (CheckFlag(FLAG_123) && IsFaeBlue())
+        {
+            gUnk_0203D3D9 = 0;
+        }
+        else
+        {
+            gUnk_0203D3D9 = 1;
+        }
+    }
+    else
+    {
+        gUnk_0203D3D9 = 2;
+    }
+}
+
+fu8 GetEndingId(void)
+{
+    UpdateEndingId();
+    return gUnk_0203D3D9;
+}
+
+void StartGameEndingScene(ProcPtr parent)
+{
+    StartEventLocking(gUnk_086770D4[GetEndingId()], parent);
+}
+
+void func_fe6_0806E32C(void)
+{
+    switch (GetEndingId())
+    {
+        case ENDING_0:
+            gUnk_0203D3D8 = 0;
+            func_fe6_080914DC();
+            return;
+
+        case ENDING_1:
+            gUnk_0203D3D8 = 1;
+            func_fe6_080914DC();
+            return;
+
+        case ENDING_2:
+            gUnk_0203D3D8 = 0x80;
+            func_fe6_0809154C();
+            return;
+    }
+}
+
+void func_fe6_0806E36C(struct UnkProc_08677348 * proc)
+{
+    if (gUnk_030048A4 == 0)
+    {
+        Decompress(gUnk_0834B69C, (void *) VRAM + 1 * CHR_SIZE);
+        proc->unk_3C = gUnk_086772FC;
+        proc->unk_38 = -28;
+    }
+    else if (gUnk_030048A4 == 1)
+    {
+        Decompress(gUnk_0834B69C, (void *) VRAM + 1 * CHR_SIZE);
+        proc->unk_3C = gUnk_0867730C;
+        proc->unk_38 = -28;
+    }
+    else if (gUnk_030048A4 == 2)
+    {
+        Decompress(gUnk_08349A98, (void *) VRAM + 1 * CHR_SIZE);
+        proc->unk_3C = gUnk_0867731C;
+        proc->unk_38 = -48;
+    }
+    else if (gUnk_030048A4 == 3)
+    {
+        Decompress(gUnk_0834E1D4, (void *) VRAM + 1 * CHR_SIZE);
+        proc->unk_3C = gUnk_08677327;
+        proc->unk_38 = -24;
+    }
+
+    proc->unk_30 = 0;
+    proc->unk_2C = -144;
+    proc->unk_34 = 0;
+    proc->unk_40 = 0;
+
+    func_fe6_0806E684(0, proc->unk_3C[0]);
+    SetBgOffset(0, proc->unk_38, proc->unk_2C);
+}
+
+void func_fe6_0806E430(struct UnkProc_08677348 * proc)
+{
+    proc->unk_30++;
+
+    if (proc->unk_30 < 7)
+        return;
+
+    proc->unk_30 = 0;
+
+    proc->unk_2C++;
+    SetBgOffset(0, proc->unk_38, proc->unk_2C);
+
+    proc->unk_34++;
+
+    if ((proc->unk_34 % 24) != 0)
+        return;
+
+    if (proc->unk_40 != 0)
+    {
+        func_fe6_0806E684(proc->unk_34 / 8, -3);
+    }
+    else
+    {
+        if (proc->unk_3C[proc->unk_34 / 24] == -2 && proc->unk_3C == gUnk_08677327)
+        {
+            Decompress(gUnk_08352160, (void *) VRAM + 1 * CHR_SIZE);
+        }
+
+        func_fe6_0806E684(proc->unk_34 / 8, proc->unk_3C[proc->unk_34 / 24]);
+    }
+
+    if (proc->unk_40 != 0 || proc->unk_3C[proc->unk_34 / 24] == -3)
+    {
+        proc->unk_40++;
+
+        if (proc->unk_40 == 4)
+            gUnk_030048B8 = 1;
+    }
+}
+
+void func_fe6_0806E50C(ProcPtr parent)
+{
+    SpawnProc(ProcScr_Unk_08677348, parent);
+}
+
+void func_fe6_0806E520(void)
+{
+    int i;
+
+    InitBgs(gUnk_08677360);
+    DisableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
+
+    gDispIo.disp_ct.mode = DISPCNT_BG_MODE_REGULAR;
+    SetDispEnable(1, 0, 1, 0, 0);
+    SetWinEnable(0, 0, 0);
+
+    SetBlendAlpha(0x10, 0x10);
+    SetBlendTargetA(1, 0, 0, 0, 0);
+    SetBlendTargetB(0, 0, 1, 0, 0);
+
+    UnpackUiWindowFrameGraphics();
+
+    TmFill(gBg0Tm, 0);
+    TmFill(gBg1Tm, 0);
+    SetBgOffset(2, 0, 0);
+
+    Decompress(gUnk_0836F6D4, (void *) VRAM + GetBgChrOffset(2));
+    Decompress(gUnk_08373F80, gBg2Tm);
+    Decompress(gUnk_08374670, gBuf);
+
+    for (i = 0; i < 8; i++)
+    {
+        func_fe6_0805B5C8((u16 const *) gBuf, i, 1, 2);
+    }
+
+    ApplyPalettes(gBuf, 0, 0x10);
+    gPal[0] = 0;
+    ApplyPalette(gUnk_08353308, 15);
+
+    func_fe6_0809892C(1, 0, 1, 0, 1);
+
+    InitScanlineEffect();
+    SetOnHBlankA(OnHBlank_08069FD8);
+    func_fe6_0806A7AC();
+
+    gUnk_030048B8 = 0;
+
+    EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
+}
+
+void func_fe6_0806E684(int arg_0, int arg_1)
+{
+    int iy, ix;
+
+    if (arg_1 == -2)
+        arg_1 = 0;
+
+    for (iy = -1; iy < 3; iy++)
+    {
+        u16 * tm = gBg0Tm + TM_OFFSET(0, (arg_0 + iy) & 0x1F);
+
+        if (iy == -1 || iy == 2)
+        {
+            for (ix = 0; ix < 0x20; ix++)
+                *tm++ = 0;
+        }
+        else if (arg_1 == -1 || arg_1 == -3)
+        {
+            for (ix = 0; ix < 0x20; ix++)
+                *tm++ = 0;
+        }
+        else
+        {
+            // TODO: constants
+            int base = TILEREF(arg_1 * 0x40 + iy * 0x20 + 1, 15);
+
+            for (ix = 0; ix < 0x20; ix++)
+                *tm++ = base + ix;
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+void func_fe6_0806E714(ProcPtr proc)
+{
+    if (gUnk_030048B8 != 0)
+        Proc_Break(proc);
+}
+
+void func_fe6_0806E730(void)
+{
+    SetOnHBlankA(NULL);
+}
+
+void func_fe6_0806E73C(void)
+{
+    InitBgs(NULL);
+
+    SetDispEnable(1, 1, 1, 1, 1);
+
+    CpuFastFill(0, (void *) VRAM + GetBgChrOffset(3), CHR_SIZE);
+    CpuFastFill(0, (void *) VRAM + 0x6000, 0x2000); // TODO: constants
+}
+
+void func_fe6_0806E7A0(ProcPtr parent)
+{
+    gUnk_030048A4 = 0;
+    SpawnProc(ProcScr_Unk_08677378, parent);
+}
+
+void func_fe6_0806E7BC(ProcPtr parent)
+{
+    gUnk_030048A4 = 1;
+    SpawnProc(ProcScr_Unk_08677378, parent);
+}
+
+void func_fe6_0806E7D8(ProcPtr parent)
+{
+    gUnk_030048A4 = 2;
+    SpawnProc(ProcScr_Unk_08677378, parent);
+}
+
+void func_fe6_0806E7F4(ProcPtr parent)
+{
+    gUnk_030048A4 = 3;
+    SpawnProc(ProcScr_Unk_08677378, parent);
+}
+
+bool func_fe6_0806E810(void)
+{
+    if (FindProc(ProcScr_Unk_08677378) != NULL)
+        return TRUE;
+
+    Proc_EndEach(ProcScr_Unk_08677348);
+    func_fe6_0806DCA4();
+
+    return FALSE;
 }

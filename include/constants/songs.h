@@ -30,12 +30,14 @@ enum
     SONG_31 = 0x31,
     SONG_32 = 0x32,
     SONG_33 = 0x33,
+    SONG_34 = 0x34,
     SONG_37 = 0x37,
     SONG_3B = 0x3B,
     SONG_3C = 0x3C,
     SONG_3D = 0x3D,
     SONG_3E = 0x3E,
     SONG_3F = 0x3F,
+    SONG_43 = 0x43,
     SONG_45 = 0x45,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
@@ -110,5 +112,6 @@ enum
     SONG_EC = 0xEC, // no damage
     SONG_FD = 0xFD, // manim
     SONG_10F = 0x10F,
+    SONG_269 = 0x269,
     SONG_26A = 0x26A,
 };

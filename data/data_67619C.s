@@ -41,24 +41,24 @@ ProcScr_Unk_08676854: @ 08676854
 ProcScr_Unk_0867686C: @ 0867686C
 	.incbin "fe6-base.gba", 0x67686C, (0x67688C - 0x67686C) @ length: 0020
 
-	.global gUnk_0867688C
-gUnk_0867688C: @ 0867688C
+	.global ProcScr_Unk_0867688C
+ProcScr_Unk_0867688C: @ 0867688C
 	.incbin "fe6-base.gba", 0x67688C, (0x6768C4 - 0x67688C) @ length: 0038
 
-	.global gUnk_086768C4
-gUnk_086768C4: @ 086768C4
+	.global ProcScr_Unk_086768C4
+ProcScr_Unk_086768C4: @ 086768C4
 	.incbin "fe6-base.gba", 0x6768C4, (0x6768DC - 0x6768C4) @ length: 0018
 
-	.global gUnk_086768DC
-gUnk_086768DC: @ 086768DC
+	.global ProcScr_Unk_086768DC
+ProcScr_Unk_086768DC: @ 086768DC
 	.incbin "fe6-base.gba", 0x6768DC, (0x6768FC - 0x6768DC) @ length: 0020
 
-	.global gUnk_086768FC
-gUnk_086768FC: @ 086768FC
+	.global ProcScr_Unk_086768FC
+ProcScr_Unk_086768FC: @ 086768FC
 	.incbin "fe6-base.gba", 0x6768FC, (0x676914 - 0x6768FC) @ length: 0018
 
-	.global gUnk_08676914
-gUnk_08676914: @ 08676914
+	.global ProcScr_Unk_08676914
+ProcScr_Unk_08676914: @ 08676914
 	.incbin "fe6-base.gba", 0x676914, (0x67692C - 0x676914) @ length: 0018
 
 	.global gUnk_0867692C

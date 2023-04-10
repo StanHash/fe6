@@ -16,11 +16,17 @@
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
-#include "eventfunctions.h"
 #include "save_core.h"
 #include "save_stats.h"
 
 #include "constants/chapters.h"
+
+// compiler needs to think func returns int (not u8) to match
+#if BUGFIX
+  #include "eventfunctions.h"
+#else
+  int GetEndingId(void);
+#endif
 
 static void ResumeMapMainDuringPhase(ProcPtr mapmain);
 static void ResumeMapMainDuringAction(ProcPtr mapmain);

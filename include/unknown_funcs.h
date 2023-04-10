@@ -1452,7 +1452,7 @@ void func_fe6_08047CC8(void);
 // func_fe6_0805B380
 // func_fe6_0805B458
 // func_fe6_0805B4D8
-// func_fe6_0805B5C8
+void func_fe6_0805B5C8(u16 const * pal, int arg_1, int arg_2, int arg_3);
 void func_fe6_0805B644(u16 * pal, int arg_1, int arg_2, int arg_3);
 // func_fe6_0805B6C8
 // func_fe6_0805B780
@@ -2253,8 +2253,8 @@ void func_fe6_0808FD6C(ProcPtr parent);
 // func_fe6_0809104C
 // func_fe6_080910DC
 // func_fe6_080911D0
-// func_fe6_080914DC
-// func_fe6_0809154C
+void func_fe6_080914DC(void);
+void func_fe6_0809154C(void);
 // func_fe6_08091588
 // func_fe6_0809159C
 // func_fe6_0809164C
@@ -2533,7 +2533,7 @@ void func_fe6_080987B8(ProcPtr todo_event_proc);
 // func_fe6_08098868
 // func_fe6_080988BC
 // func_fe6_080988C0
-// func_fe6_0809892C
+void func_fe6_0809892C(int arg_0, int arg_1, int arg_2, int arg_3, int arg_4);
 // func_fe6_080989F8
 // func_fe6_08098A18
 // func_fe6_08098A44

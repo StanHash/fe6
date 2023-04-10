@@ -244,6 +244,13 @@ SECTIONS
         . = ALIGN(4); gUnk_0203D36C = .; . = . + 4;
         . = ALIGN(4); gUnkText_0203D370 = .;
 
+        . = 0x0203D3A0 - __ewram_overlay_end;
+        . = ALIGN(4); gUnkText_0203D3A0 = .;
+
+        . = 0x0203D3D8 - __ewram_overlay_end;
+        . = ALIGN(1); gUnk_0203D3D8 = .; . = . + 1;
+        . = ALIGN(1); gUnk_0203D3D9 = .; . = . + 1;
+
         . = 0x0203D3DC - __ewram_overlay_end;
         . = ALIGN(4); src/statscreen.o(ewram_data);
         . = ALIGN(4); src/helpbox.o(ewram_data);
@@ -255,6 +262,9 @@ SECTIONS
         . = ALIGN(4); src/save_game.o(ewram_data);
         . = ALIGN(4); src/save_multiarena.o(ewram_data);
         . = ALIGN(4); src/save_xmap.o(ewram_data);
+
+        . = 0x0203DCA7 - __ewram_overlay_end;
+        . = ALIGN(1); gUnk_0203DCA7 = .;
 
         . = 0x02040000 - __ewram_overlay_end; /* end */
     }
@@ -451,7 +461,6 @@ SECTIONS
         src/manim.o(.text);
         src/eventinfo.o(.text);
         src/eventfunctions.o(.text);
-        asm/code_eventfunctions.o(.text);
         src/statscreen.o(.text);
         src/helpbox.o(.text);
         src/helpbox_2.o(.text);

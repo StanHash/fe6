@@ -8,6 +8,13 @@
 #include "event.h"
 #include "eventinfo.h"
 
+enum
+{
+    ENDING_0,
+    ENDING_1,
+    ENDING_2,
+};
+
 struct TutorialEventProcA
 {
     /* 00 */ PROC_HEADER;
@@ -270,14 +277,14 @@ void func_fe6_0806DE20(void);
 // func_fe6_0806E240
 void func_fe6_0806E278(void);
 void UpdateEndingId(void);
-int GetEndingId(void);
+fu8 GetEndingId(void);
 void StartGameEndingScene(ProcPtr parent);
 // func_fe6_0806E32C
 // func_fe6_0806E36C
 // func_fe6_0806E430
 // func_fe6_0806E50C
 // func_fe6_0806E520
-// func_fe6_0806E684
+void func_fe6_0806E684(int arg_0, int arg_1);
 // func_fe6_0806E714
 // func_fe6_0806E730
 // func_fe6_0806E73C

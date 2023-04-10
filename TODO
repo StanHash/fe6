@@ -1,6 +1,8 @@
+- clean up: manim and eventfunctions
+- dump: gamedata
+- tools: msg, face, unitinfo, banim
+- decomp: prepscreen or mapui might be good to do next > everything else > code_banim > code_sio
+
 - flatten dir structure (include/gba -> include)
 - name remaining ewram symbols
-- decompile the rest of the game
-  - priorities: code_manim > other code (event, statscreen, prepscreen and save might be good to do next) > code_banim > code_sio
 - clean up hard asm (not decompilable) in asm/ and move them to src/
-- dump data (lmao)

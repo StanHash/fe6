@@ -280,12 +280,12 @@ void InitScanlineEffect(void);
 void func_fe6_08069C74(void);
 void func_fe6_08069DA4(int x, int y, int arg_08);
 void func_fe6_08069DD8(void);
-// OnHBlank_WinHScanlines
+void OnHBlank_WinHScanlines(void);
 void OnHBlank_08069E50(void);
-// OnHBlank_ManimFrameGradient
-// OnHBlank_08069F58
-// OnHBlank_08069FD8
-// OnHBlank_0806A040
+void OnHBlank_ManimFrameGradient(void);
+void OnHBlank_08069F58(void);
+void OnHBlank_08069FD8(void);
+void OnHBlank_0806A040(void);
 void StartManimFrameGradientScanlineEffect(u16 arg_0, u16 arg_1, u16 color_2, u16 color_3);
 void func_fe6_0806A218(u16 yStart, u16 yEnd, u16 arg_2, u16 arg_3);
 void func_fe6_0806A270(int x, int y, int a, int b, u8 const * unk);
@@ -299,7 +299,7 @@ void func_fe6_0806A51C(u16 * buf, int x, int y, int arg_0C);
 void PrepareGradientScanlineBuf(u16 * buf, u16 arg_02, u16 arg_04, u16 arg_06, u16 arg_30);
 // ManimShiftingSineWaveScanlineBuf_Init
 // ManimShiftingSineWaveScanlineBuf_Loop
-// func_fe6_0806A7AC
+void func_fe6_0806A7AC(void);
 // func_fe6_0806A87C
 
 extern struct ProcScr CONST_DATA ProcScr_PoisonDamageManim[];
