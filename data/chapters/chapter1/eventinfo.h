@@ -1,6 +1,5 @@
 #pragma once
 
-// EventListScr @ 0866770C
 EventListScr CONST_DATA EventListScr_Chapter1_Turn[] =
 {
     EvtListTurn(0, EventScr_Chapter1_Opening, 1, 0, FACTION_BLUE)
@@ -8,13 +7,11 @@ EventListScr CONST_DATA EventListScr_Chapter1_Turn[] =
     EvtListEnd
 };
 
-// EventListScr @ 08667728
 EventListScr CONST_DATA EventListScr_Chapter1_Talk[] =
 {
     EvtListEnd
 };
 
-// EventListScr @ 0866772C
 EventListScr CONST_DATA EventListScr_Chapter1_Tile[] =
 {
     EvtListTileMapChange(FLAG_CHAPTER1_VILLAGE, EventScr_Chapter1_Village, 12, 19, TILE_COMMAND_VISIT)
@@ -28,15 +25,13 @@ EventListScr CONST_DATA EventListScr_Chapter1_Tile[] =
     EvtListEnd
 };
 
-// EventListScr @ 08667790
 EventListScr CONST_DATA EventListScr_Chapter1_Move[] =
 {
     EvtListFlag(0, EventScr_GameOver, FLAG_101)
     EvtListEnd
 };
 
-// ChapterEventInfo @ 086677A0
-struct ChapterEventInfo CONST_DATA ChapterEventInfo_Unk_086677A0 =
+struct ChapterEventInfo CONST_DATA ChapterEventInfo_Chapter1 =
 {
     .event_list_turn = EventListScr_Chapter1_Turn,
     .event_list_talk = EventListScr_Chapter1_Talk,

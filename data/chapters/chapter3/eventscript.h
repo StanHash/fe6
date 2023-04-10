@@ -1,7 +1,6 @@
 #pragma once
 
-// EventScr @ 0866BEB0
-EventScr CONST_DATA EventScr_Unk_0866BEB0[] =
+EventScr CONST_DATA EventScr_Chapter3_Opening[] =
 {
     EvtCamera(19, 2)
     EvtSleep(16)
@@ -13,7 +12,7 @@ EventScr CONST_DATA EventScr_Unk_0866BEB0[] =
     EvtTalk(MSG_063)
     EvtClearTalk
     EvtUnitCameraOff
-    EvtLoadUnitsParty(UnitInfo_Unk_0867A2AC)
+    EvtLoadUnitsParty(UnitInfo_Chapter3_Blue)
     EvtMoveWait
     EvtSetBgm(SONG_33)
     EvtCameraUnit(PID_ROY)
@@ -28,7 +27,7 @@ EventScr CONST_DATA EventScr_Unk_0866BEB0[] =
     EvtTalkContinue
     EvtClearTalk
     EvtSleep(64)
-    EvtLoadUnits(UnitInfo_Unk_0867A37C)
+    EvtLoadUnits(UnitInfo_Chapter3_Chad)
     EvtMoveWait
     EvtCameraUnit(PID_ROY)
     EvtFunc(ApplyAllHardModeBonusLevels)
@@ -36,8 +35,7 @@ EventScr CONST_DATA EventScr_Unk_0866BEB0[] =
     EvtEnd
 };
 
-// EventScr @ 0866BF78
-EventScr CONST_DATA EventScr_Unk_0866BF78[] =
+EventScr CONST_DATA EventScr_Chapter3_OrphanageCutscene[] =
 {
     EvtSetBgm(SONG_0A)
     EvtCamera(0, 0)
@@ -52,9 +50,9 @@ EventScr CONST_DATA EventScr_Unk_0866BF78[] =
     EvtTalk(MSG_065)
     EvtClearTalk
     EvtRaiseBgmVolume
-    EvtLoadUnits(UnitInfo_Unk_0867A5DC)
+    EvtLoadUnits(UnitInfo_Chapter3_CutsceneBishop)
     EvtMoveWait
-    EvtLoadUnits(UnitInfo_Unk_0867A5FC)
+    EvtLoadUnits(UnitInfo_Chapter3_CutsceneChildren)
     EvtMoveWait
     EvtMoveUnit(PID_UNKNOWN_56, 5, -1)
     EvtMoveUnit(PID_CATH, 5, -1)
@@ -70,8 +68,7 @@ EventScr CONST_DATA EventScr_Unk_0866BF78[] =
     EvtEnd
 };
 
-// EventScr @ 0866C044
-EventScr CONST_DATA EventScr_Unk_0866C044[] =
+EventScr CONST_DATA EventScr_Chapter3_ZephielScene[] =
 {
     EvtOverrideBgm(SONG_05)
     EvtSleep(16)
@@ -79,7 +76,7 @@ EventScr CONST_DATA EventScr_Unk_0866C044[] =
     EvtUnitCameraOff
     EvtSleep(16)
     EvtMapChangePosition(19, 4)
-    EvtLoadUnits(UnitInfo_Unk_0867A4CC)
+    EvtLoadUnits(UnitInfo_Chapter3_ZephielSquad)
     EvtSleep(16)
     EvtMoveUnit(PID_NARCIAN, 19, 5)
     EvtMoveWait
@@ -115,7 +112,7 @@ EventScr CONST_DATA EventScr_Unk_0866C044[] =
     EvtMove(16, 5, 17, 4)
     EvtMove(22, 5, 21, 4)
     EvtSleep(16)
-    EvtLoadUnits(UnitInfo_Unk_0867A58C)
+    EvtLoadUnits(UnitInfo_Chapter3_CavalierReinforcements)
     EvtMoveWait
     EvtMoveWait
     EvtRestoreBgm
@@ -123,8 +120,7 @@ EventScr CONST_DATA EventScr_Unk_0866C044[] =
     EvtEnd
 };
 
-// EventScr @ 0866C1B4
-EventScr CONST_DATA EventScr_Unk_0866C1B4[] =
+EventScr CONST_DATA EventScr_Chapter3_ChadLughTalk[] =
 {
     EvtFadeToBlack(16)
     EvtExitMap
@@ -137,8 +133,7 @@ EventScr CONST_DATA EventScr_Unk_0866C1B4[] =
     EvtEnd
 };
 
-// EventScr @ 0866C1E8
-EventScr CONST_DATA EventScr_Unk_0866C1E8[] =
+EventScr CONST_DATA EventScr_Chapter3_TopVillage[] =
 {
     EvtFadeToBlack(16)
     EvtExitMap
@@ -153,19 +148,18 @@ EventScr CONST_DATA EventScr_Unk_0866C1E8[] =
 
 EvtLabel(1)
     EvtTalk(MSG_069)
-    EvtSetFlag(FLAG_CHAPTER3_5)
+    EvtSetFlag(FLAG_CHAPTER3_CHADLUGHTALK)
 
 EvtLabel(9)
     EvtRestoreBgm
     EvtClearTalk
-    EvtLoadUnits(UnitInfo_Unk_0867A5BC)
+    EvtLoadUnits(UnitInfo_Chapter3_Lugh)
     EvtMoveWait
     EvtClearSkip
     EvtEnd
 };
 
-// EventScr @ 0866C268
-EventScr CONST_DATA EventScr_Unk_0866C268[] =
+EventScr CONST_DATA EventScr_Chapter3_BottomVillage[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -182,8 +176,7 @@ EventScr CONST_DATA EventScr_Unk_0866C268[] =
     EvtEnd
 };
 
-// EventScr @ 0866C2B0
-EventScr CONST_DATA EventScr_Unk_0866C2B0[] =
+EventScr CONST_DATA EventScr_Chapter3_Victory[] =
 {
     EvtSetBgm(SONG_28)
     EvtFadeToBlack(16)

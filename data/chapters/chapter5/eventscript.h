@@ -1,14 +1,13 @@
 #pragma once
 
-// EventScr @ 0866C840
-EventScr CONST_DATA EventScr_Unk_0866C840[] =
+EventScr CONST_DATA EventScr_Chapter5_Opening[] =
 {
     EvtCamera(2, 14)
     EvtSleep(16)
     EvtTalk(MSG_081)
     EvtClearTalk
     EvtUnitCameraOff
-    EvtLoadUnitsParty(UnitInfo_Unk_0867AB48)
+    EvtLoadUnitsParty(UnitInfo_Chapter5_Blue)
     EvtMoveWait
     EvtSetBgm(SONG_24)
     EvtCameraUnit(PID_ROY)
@@ -25,8 +24,7 @@ EventScr CONST_DATA EventScr_Unk_0866C840[] =
     EvtEnd
 };
 
-// EventScr @ 0866C8C0
-EventScr CONST_DATA EventScr_Unk_0866C8C0[] =
+EventScr CONST_DATA EventScr_Chapter5_SaulDorothyScene[] =
 {
     EvtOverrideBgm(SONG_32)
     EvtCamera(10, 0)
@@ -39,7 +37,7 @@ EventScr CONST_DATA EventScr_Unk_0866C8C0[] =
     EvtEnterMap
     EvtTalk(MSG_083)
     EvtClearTalk
-    EvtLoadUnits(UnitInfo_Unk_0867AE98)
+    EvtLoadUnits(UnitInfo_Chapter5_SaulDorothy)
     EvtMoveUnit(PID_SAUL, 20, 5)
     EvtMoveUnit(PID_DOROTHY, 20, 6)
     EvtMoveWait
@@ -50,12 +48,11 @@ EventScr CONST_DATA EventScr_Unk_0866C8C0[] =
     EvtEnd
 };
 
-// EventScr @ 0866C948
-EventScr CONST_DATA EventScr_Unk_0866C948[] =
+EventScr CONST_DATA EventScr_Chapter5_OpenBarrier[] =
 {
     EvtGotoIfFunc(1, IsBluePhase)
 
-    EvtClearFlag(FLAG_CHAPTER5_5)
+    EvtClearFlag(FLAG_CHAPTER5_BARRIER)
     EvtGoto(9)
 
 EvtLabel(1)
@@ -71,7 +68,7 @@ EvtLabel(1)
     EvtClearTalk
     EvtGotoIfNotFunc(7, IsHard)
 
-    EvtLoadUnits(UnitInfo_Unk_0867AE18)
+    EvtLoadUnits(UnitInfo_Chapter5_OpenBarrierReinforcements)
 
 EvtLabel(7)
     EvtRaiseBgmVolume
@@ -81,8 +78,7 @@ EvtLabel(9)
     EvtEnd
 };
 
-// EventScr @ 0866C9DC
-EventScr CONST_DATA EventScr_Unk_0866C9DC[] =
+EventScr CONST_DATA EventScr_Chapter5_Village[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -99,8 +95,7 @@ EventScr CONST_DATA EventScr_Unk_0866C9DC[] =
     EvtEnd
 };
 
-// EventScr @ 0866CA24
-EventScr CONST_DATA EventScr_Unk_0866CA24[] =
+EventScr CONST_DATA EventScr_Chapter5_HouseA[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -115,8 +110,7 @@ EventScr CONST_DATA EventScr_Unk_0866CA24[] =
     EvtEnd
 };
 
-// EventScr @ 0866CA60
-EventScr CONST_DATA EventScr_Unk_0866CA60[] =
+EventScr CONST_DATA EventScr_Chapter5_HouseB[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -131,8 +125,7 @@ EventScr CONST_DATA EventScr_Unk_0866CA60[] =
     EvtEnd
 };
 
-// EventScr @ 0866CA9C
-EventScr CONST_DATA EventScr_Unk_0866CA9C[] =
+EventScr CONST_DATA EventScr_Chapter5_HouseC[] =
 {
     EvtLowerBgmVolume
     EvtFadeToBlack(16)
@@ -147,8 +140,7 @@ EventScr CONST_DATA EventScr_Unk_0866CA9C[] =
     EvtEnd
 };
 
-// EventScr @ 0866CAD8
-EventScr CONST_DATA EventScr_Unk_0866CAD8[] =
+EventScr CONST_DATA EventScr_Chapter5_Victory[] =
 {
     EvtFadeToBlack(16)
     EvtExitMap

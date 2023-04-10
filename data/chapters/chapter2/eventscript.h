@@ -17,7 +17,6 @@ u8 CONST_DATA MoveScr_Chapter2_ElenB[] =
     MOVE_CMD_HALT,
 };
 
-// EventScr @ 0866B9D0
 EventScr CONST_DATA EventScr_Chapter2_Opening[] =
 {
     EvtCamera(18, 0)
@@ -96,7 +95,6 @@ EventScr CONST_DATA EventScr_Chapter2_Opening[] =
     EvtEnd
 };
 
-// EventScr @ 0866BBD0
 EventScr CONST_DATA EventScr_Chapter2_DieckComes[] =
 {
     EvtSleep(32)
@@ -130,7 +128,6 @@ EventScr CONST_DATA EventScr_Chapter2_DieckComes[] =
     EvtEnd
 };
 
-// EventScr @ 0866BCA0
 EventScr CONST_DATA EventScr_Chapter2_DieckTalk[] =
 {
     EvtOverrideBgm(SONG_33)
@@ -141,7 +138,6 @@ EventScr CONST_DATA EventScr_Chapter2_DieckTalk[] =
     EvtEnd
 };
 
-// EventScr @ 0866BCC0
 EventScr CONST_DATA EventScr_Chapter2_VillageUnused[] =
 {
     EvtLowerBgmVolume
@@ -159,7 +155,6 @@ EventScr CONST_DATA EventScr_Chapter2_VillageUnused[] =
     EvtEnd
 };
 
-// EventScr @ 0866BD08
 EventScr CONST_DATA EventScr_Chapter2_Village[] =
 {
     EvtLowerBgmVolume
@@ -177,7 +172,6 @@ EventScr CONST_DATA EventScr_Chapter2_Village[] =
     EvtEnd
 };
 
-// EventScr @ 0866BD50
 EventScr CONST_DATA EventScr_Chapter2_HouseA[] =
 {
     EvtLowerBgmVolume
@@ -193,7 +187,6 @@ EventScr CONST_DATA EventScr_Chapter2_HouseA[] =
     EvtEnd
 };
 
-// EventScr @ 0866BD8C
 EventScr CONST_DATA EventScr_Chapter2_HouseB[] =
 {
     EvtLowerBgmVolume
@@ -209,7 +202,6 @@ EventScr CONST_DATA EventScr_Chapter2_HouseB[] =
     EvtEnd
 };
 
-// EventScr @ 0866BDC8
 EventScr CONST_DATA EventScr_Chapter2_HouseC[] =
 {
     EvtLowerBgmVolume
@@ -225,7 +217,6 @@ EventScr CONST_DATA EventScr_Chapter2_HouseC[] =
     EvtEnd
 };
 
-// EventScr @ 0866BE04
 EventScr CONST_DATA EventScr_Chapter2_Victory[] =
 {
     EvtSetBgm(SONG_27)

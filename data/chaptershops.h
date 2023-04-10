@@ -18,7 +18,7 @@ u16 CONST_DATA ShopItems_Chapter2_Armory[] =
 };
 
 // ShopItems @ 0866A82A
-u16 CONST_DATA ShopItems_Unk_0866A82A[] =
+u16 CONST_DATA ShopItems_Chapter4_Vendor[] =
 {
     IID_FIRE,
     IID_HEALSTAFF,
@@ -27,7 +27,7 @@ u16 CONST_DATA ShopItems_Unk_0866A82A[] =
 };
 
 // ShopItems @ 0866A832
-u16 CONST_DATA ShopItems_Unk_0866A832[] =
+u16 CONST_DATA ShopItems_Chapter4_Armory[] =
 {
     IID_SLIMSWORD,
     IID_IRONSWORD,
@@ -41,7 +41,7 @@ u16 CONST_DATA ShopItems_Unk_0866A832[] =
 };
 
 // ShopItems @ 0866A844
-u16 CONST_DATA ShopItems_Unk_0866A844[] =
+u16 CONST_DATA ShopItems_Chapter5_Vendor[] =
 {
     IID_FIRE,
     IID_HEALSTAFF,
