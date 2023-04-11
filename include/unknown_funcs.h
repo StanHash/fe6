@@ -26,17 +26,17 @@ bool AiTryMoveTowardsEscape(void);
 // func_fe6_08032C2C
 bool func_fe6_08032CB4(void);
 bool func_fe6_08032CE8(u16 * out);
-void func_fe6_08032DF4(u16 arg_0, u16 arg_1, u16 * arg_2, u16 * arg_3, u16 * arg_4);
+void func_fe6_08032DF4(int arg_0, int arg_1, u16 * arg_2, u16 * arg_3, u16 * arg_4);
 // func_fe6_08032F48
 void func_fe6_08032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16 * arg_3);
 void func_fe6_08032FBC(u16 item);
-// func_fe6_08032FF4
-// func_fe6_08033038
+bool func_fe6_08032FF4(struct Unit * unit, int x, int y);
+int func_fe6_08033038(struct Unit * unit, u16 * item_out);
 void AiTryDanceOrStealAfterMove(void);
 void AiTryActionAfterMove(void);
-// func_fe6_080330C8
-// func_fe6_080331EC
-// func_fe6_08033250
+bool func_fe6_080330C8(int x, int y);
+bool func_fe6_080331EC(int x, int y);
+bool func_fe6_08033250(int x, int y);
 // func_fe6_08033380
 bool func_fe6_080333B0(void const * arg);
 // func_fe6_080334F4

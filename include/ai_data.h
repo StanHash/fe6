@@ -43,3 +43,4 @@ extern u16 CONST_DATA gUnk_085C8834[];
 extern u32 const AiItemConfigTable[];
 extern struct AiScr const * const * CONST_DATA gAiScriptLutB[];
 extern struct AiScr const * const * CONST_DATA gAiScriptLutA[];
+extern struct Vec2i const * const * CONST_DATA gUnk_085C8878;

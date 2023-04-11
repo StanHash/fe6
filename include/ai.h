@@ -17,6 +17,7 @@ enum
     AI_UNIT_FLAG_1 = (1 << 1),
     AI_UNIT_FLAG_2 = (1 << 2),
     AI_UNIT_FLAG_3 = (1 << 3),
+    AI_UNIT_FLAG_4 = (1 << 4),
 
     AI_UNIT_FLAG_6 = (1 << 6),
 };
