@@ -68,7 +68,7 @@ bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit));
 // func_fe6_080344AC
 // func_fe6_0803462C
 // func_fe6_080347A4
-// func_fe6_080348DC
+bool func_fe6_080348DC(struct Vec2i * pos);
 // func_fe6_08034A60
 bool AiTryDoSpecialItems(void);
 // func_fe6_08034B58
@@ -86,7 +86,7 @@ bool AiTryDoSpecialItems(void);
 // func_fe6_08034F94
 // func_fe6_08034FC4
 // func_fe6_08034FF8
-// func_fe6_08035028
+void func_fe6_08035028(struct Unit * unit);
 void func_fe6_08035064(struct Unit * unit);
 void func_fe6_08035098(int x, int y, struct Unit * unit);
 // func_fe6_080350C8

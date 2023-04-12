@@ -5,6 +5,7 @@
 #include "unit.h"
 #include "map.h"
 #include "mapwork.h"
+#include "battle.h"
 #include "faction.h"
 #include "ai_decide.h"
 #include "ai_utility.h"
@@ -589,8 +590,8 @@ bool func_fe6_080330C8(int x, int y)
     int ix, iy;
     struct Unit * unit;
 
-    u8 level = 0;
-    u8 target = 0;
+    fu8 level = 0;
+    fu8 target = 0;
 
     if ((UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_REFRESHER) == 0)
         return FALSE;
@@ -654,7 +655,7 @@ bool func_fe6_08033250(int x, int y)
     int ix, iy;
     struct Unit * unit;
 
-    u16 item = GetUnitEquippedWeapon(gActiveUnit);
+    fu16 item = GetUnitEquippedWeapon(gActiveUnit);
 
     if (item == 0)
         return FALSE;
@@ -703,11 +704,11 @@ bool func_fe6_080333B0(void const * input)
 {
     u8 const * cast = input;
 
-    u16 item;
+    fu16 item;
     int ix, iy;
-    u16 move;
+    fu16 move;
 
-    u8 count = 0;
+    fu8 count = 0;
 
     move = (UNIT_MOV(gActiveUnit) * cast[0]);
     move = move >> 4;
@@ -764,12 +765,12 @@ struct Unknown_Sub80315C
 
 bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
 {
-    u16 item;
+    fu16 item;
     int ix;
     int iy;
     int x_unk;
     int y_unk;
-    u16 move;
+    fu16 move;
     int x_prev;
     int y_prev;
 
@@ -927,7 +928,7 @@ bool func_fe6_080337B4(void const * input)
     int enemies_in_range;
     struct Vec2i pos;
 
-    u16 item = GetUnitEquippedWeapon(gActiveUnit);
+    fu16 item = GetUnitEquippedWeapon(gActiveUnit);
 
     if (item != 0)
     {
@@ -966,8 +967,8 @@ bool func_fe6_08033824(void const * input)
 {
     struct UnknownSub803F4A4 const * cast = input;
 
-    u8 x = gActiveUnit->x;
-    u8 y = gActiveUnit->y;
+    fu8 x = gActiveUnit->x;
+    fu8 y = gActiveUnit->y;
 
     if (cast->unk_00 <= x && cast->unk_02 >= x && cast->unk_01 <= y && cast->unk_03 >= y)
     {
@@ -993,14 +994,14 @@ bool func_fe6_08033898(void const * input)
 {
     int i = 0;
 
-    u16 lead_ai_a;
-    u16 lead_ai_a_pc;
+    fu16 lead_ai_a;
+    fu16 lead_ai_a_pc;
     struct Unit * lead_unit;
 
-    u8 unit_id = gActiveUnitId;
+    fu8 unit_id = gActiveUnitId;
     struct Unit * unit = gActiveUnit;
 
-    u16 lead_unit_id = GetUnitLeaderPid(gActiveUnit);
+    fu16 lead_unit_id = GetUnitLeaderPid(gActiveUnit);
 
     if (lead_unit_id == 0)
         return FALSE;
@@ -1149,7 +1150,7 @@ bool func_fe6_08033AA4(void const * input)
 bool func_fe6_08033B04(void const * input)
 {
     u8 const * cast = input;
-    u8 random_number = RandNext(100);
+    fu8 random_number = RandNext(100);
 
     gAiSt.unk_7C = cast[1];
 
@@ -1168,7 +1169,7 @@ bool func_fe6_08033B04(void const * input)
 bool func_fe6_08033B50(void const * input)
 {
     u8 const * cast = input;
-    u8 random_number = RandNext(100);
+    fu8 random_number = RandNext(100);
 
     if (random_number <= cast[0])
     {
@@ -1219,7 +1220,7 @@ struct Unk_0810DB9C const gUnk_0810DB9C[] =
 
 int func_fe6_08033B9C(u16 item)
 {
-    u16 iid;
+    fu16 iid;
     int i = 0;
 
     if (!CanUnitUseStaff(gActiveUnit, item))
@@ -1249,7 +1250,7 @@ bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit))
     int i, item;
     int ent_id;
 
-    u8 max_wexp = 0;
+    fu8 max_wexp = 0;
 
     for (i = 0; i < ITEMSLOT_INV_COUNT && (item = gActiveUnit->items[i]) != 0; ++i)
     {
@@ -1317,8 +1318,8 @@ void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit))
     struct Vec2i pos;
 
     // lower is better
-    u8 score_min = 100;
-    u8 score;
+    fu8 score_min = 100;
+    fu8 score;
 
     int x_decide = -1;
     int y_decide = -1;
@@ -1374,8 +1375,8 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
     struct Vec2i pos;
 
     // lower is better
-    u8 score_min = 100;
-    u8 score;
+    fu8 score_min = 100;
+    fu8 score;
 
     int x_decide = -1;
     int y_decide = -1;
@@ -1437,8 +1438,6 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-
-
 void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int ix, iy;
@@ -1482,6 +1481,467 @@ void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit))
     {
         AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, 0, slot, 0, 0);
     }
+}
+
+void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit))
+{
+    int iy, ix;
+    struct Unit * unit;
+    struct Vec2i pos;
+
+    fu8 max_level = 0;
+
+    int x_decide = 0;
+    int y_decide = 0;
+    int target_decide = 0;
+
+    if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
+        return;
+
+    func_fe6_08030CBC(gActiveUnit);
+    MapMovementMarkFloodEdges();
+
+    for (iy = gMapSize.y - 1; iy >= 0; --iy)
+    {
+        for (ix = gMapSize.x - 1; ix >= 0; --ix)
+        {
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
+                continue;
+
+            if (gMapUnit[iy][ix] == 0)
+                continue;
+
+            unit = GetUnit(gMapUnit[iy][ix]);
+
+            if ((gAiSt.flags & AI_FLAG_BERSERKED) == 0 && is_enemy != NULL)
+            {
+                if (is_enemy(unit) == TRUE)
+                    continue;
+            }
+
+            if ((unit->ai_flags & (AI_UNIT_FLAG_SEEK_HEALING | AI_UNIT_FLAG_3)) != 0)
+                continue;
+
+            if (unit->level >= max_level && func_fe6_08033C8C(ix, iy, &pos))
+            {
+                max_level = unit->level;
+                x_decide = pos.x;
+                y_decide = pos.y;
+                target_decide = gMapUnit[iy][ix];
+            }
+        }
+    }
+
+    if (max_level != 0 && func_fe6_080348DC(&pos))
+    {
+        AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, pos.x, pos.y);
+    }
+}
+
+void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit))
+{
+    int iy, ix;
+    struct Unit * unit;
+    struct Vec2i pos;
+
+    fu8 max_level = 0;
+
+    int x_decide = 0;
+    int y_decide = 0;
+    int target_decide = 0;
+
+    if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
+        return;
+
+    func_fe6_08030CBC(gActiveUnit);
+    MapMovementMarkFloodEdges();
+
+    for (iy = gMapSize.y - 1; iy >= 0; --iy)
+    {
+        for (ix = gMapSize.x - 1; ix >= 0; --ix)
+        {
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
+                continue;
+
+            if (gMapUnit[iy][ix] == 0)
+                continue;
+
+            unit = GetUnit(gMapUnit[iy][ix]);
+
+            if ((gAiSt.flags & AI_FLAG_BERSERKED) == 0 && is_enemy != NULL)
+            {
+                if (is_enemy(unit) == TRUE)
+                    continue;
+            }
+
+            if (unit->status == UNIT_STATUS_NONE)
+                continue;
+
+            if (unit->level >= max_level && func_fe6_08033C8C(ix, iy, &pos))
+            {
+                max_level = unit->level;
+                x_decide = pos.x;
+                y_decide = pos.y;
+                target_decide = gMapUnit[iy][ix];
+            }
+        }
+    }
+
+    if (max_level != 0)
+    {
+        AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, 0, 0);
+    }
+}
+
+bool func_fe6_08034400(struct Unit * unit)
+{
+    int i;
+
+    for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
+    {
+        fu16 item = unit->items[i];
+
+        if (item == 0)
+            return FALSE;
+
+        if ((GetItemAttributes(item) & (ITEM_ATTR_WEAPON | ITEM_ATTR_STAFF | ITEM_ATTR_LOCK_DRAGON)) == 0)
+            continue;
+
+        if (CanUnitUseWeapon(unit, item) || CanUnitUseStaff(unit, item))
+            return TRUE;
+    }
+
+    return FALSE;
+}
+
+int func_fe6_08034458(struct Unit * unit)
+{
+    fu16 item;
+
+    fu8 score = GetOffensiveStaffAccuracy(gActiveUnit, unit);
+
+    if (score < 5)
+        return FALSE;
+
+    score = score + GetUnitPower(unit);
+
+    item = GetUnitEquippedWeapon(unit);
+
+    if (item != 0 && (GetItemAttributes(item) & ITEM_ATTR_MAGIC))
+        score = score * 2;
+
+    return score;
+}
+
+void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit))
+{
+    struct Vec2i pos;
+
+    fu8 score_max = 0;
+    fu8 score;
+
+    int x_decide = 0;
+    int y_decide = 0;
+    int target_decide = 0;
+
+    if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
+        return;
+
+    func_fe6_08030CBC(gActiveUnit);
+
+    FOR_UNITS_ALL(unit,
+    {
+        if ((unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD)) != 0)
+            continue;
+
+        if ((gAiSt.flags & AI_FLAG_BERSERKED) == 0 && is_enemy != NULL)
+        {
+            if (is_enemy(unit) == FALSE)
+                continue;
+        }
+
+        if (unit->status == UNIT_STATUS_SILENCED)
+            continue;
+
+        if (!AiUnitHasAnyStaff(unit))
+            continue;
+
+        if (!AiIsWithinRectDistance(
+            gActiveUnit->x, gActiveUnit->y,
+            unit->x, unit->y,
+            GetUnitMagRange(gActiveUnit) + UNIT_MOV(gActiveUnit)))
+        {
+            continue;
+        }
+
+        if (!func_fe6_08034400(unit))
+            continue;
+
+        score = func_fe6_08034458(unit);
+
+        if (score != 0 && score >= score_max)
+        {
+            MapFill(gMapRange, 0);
+            MapAddInRange(unit->x, unit->y, GetUnitMagRange(gActiveUnit), 1);
+
+            if (func_fe6_08030AB4(&pos))
+            {
+                score_max = score;
+                x_decide = pos.x;
+                y_decide = pos.y;
+                target_decide = unit->id;
+            }
+        }
+    })
+
+    if (score_max != 0)
+    {
+        AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, 0, 0);
+    }
+}
+
+void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
+{
+    struct Vec2i pos;
+
+    fu8 level_max = 0;
+    fu8 accuracy;
+
+    int x_decide = 0;
+    int y_decide = 0;
+    int target_decide = 0;
+
+    if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
+        return;
+
+    func_fe6_08030CBC(gActiveUnit);
+
+    FOR_UNITS_ALL(unit,
+    {
+        if ((unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD)) != 0)
+            continue;
+
+        if ((gAiSt.flags & AI_FLAG_BERSERKED) == 0 && is_enemy != NULL)
+        {
+            if (is_enemy(unit) == FALSE)
+                continue;
+        }
+
+        if (unit->status != UNIT_STATUS_NONE)
+            continue;
+
+        if (!AiIsWithinRectDistance(
+            gActiveUnit->x, gActiveUnit->y,
+            unit->x, unit->y,
+            GetUnitMagRange(gActiveUnit) + UNIT_MOV(gActiveUnit)))
+        {
+            continue;
+        }
+
+        if (!func_fe6_08034400(unit))
+            continue;
+
+        accuracy = GetOffensiveStaffAccuracy(gActiveUnit, unit);
+
+        if (accuracy >= 5 && accuracy + unit->level >= level_max)
+        {
+            MapFill(gMapRange, 0);
+            MapAddInRange(unit->x, unit->y, GetUnitMagRange(gActiveUnit), 1);
+
+            if (func_fe6_08030AB4(&pos))
+            {
+                level_max = unit->level;
+                x_decide = pos.x;
+                y_decide = pos.y;
+                target_decide = unit->id;
+            }
+        }
+    })
+
+    if (level_max != 0)
+    {
+        AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, 0, 0);
+    }
+}
+
+void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit))
+{
+    int iy, ix;
+    struct Unit * unit;
+    struct Vec2i pos;
+
+    fu8 min_resistance = UINT8_MAX;
+
+    int x_decide = 0;
+    int y_decide = 0;
+    int target_decide = 0;
+
+    if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
+        return;
+
+    func_fe6_08030CBC(gActiveUnit);
+    MapMovementMarkFloodEdges();
+
+    for (iy = gMapSize.y - 1; iy >= 0; --iy)
+    {
+        for (ix = gMapSize.x - 1; ix >= 0; --ix)
+        {
+            if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
+                continue;
+
+            if (gMapUnit[iy][ix] == 0)
+                continue;
+
+            unit = GetUnit(gMapUnit[iy][ix]);
+
+            if ((gAiSt.flags & AI_FLAG_BERSERKED) == 0 && is_enemy != NULL)
+            {
+                if (is_enemy(unit) == TRUE)
+                    continue;
+            }
+
+            if (GetUnitResistance(unit) <= min_resistance && func_fe6_08033C8C(ix, iy, &pos))
+            {
+                min_resistance = GetUnitResistance(unit);
+                x_decide = pos.x;
+                y_decide = pos.y;
+                target_decide = gMapUnit[iy][ix];
+            }
+        }
+    }
+
+    if (min_resistance != UINT8_MAX)
+    {
+        AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, 0, 0);
+    }
+}
+
+bool func_fe6_080348DC(struct Vec2i * pos)
+{
+    int iy, ix;
+
+    fu8 min_score = UINT8_MAX;
+    fu8 nearest_enemy_distance = UINT8_MAX;
+    fu8 some_other_distance = UINT8_MAX;
+
+    int x_found = 0;
+    int y_found = 0;
+
+    i8 const * mov_table = gActiveUnit->jinfo->mov_table;
+
+    int alliance = GetActiveFactionAlliance();
+
+    FOR_UNITS(alliance + 1, alliance + 0x80, unit,
+    {
+        if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
+            continue;
+
+        func_fe6_08035028(unit);
+
+        for (iy = gMapSize.y - 1; iy >= 0; --iy)
+        {
+            for (ix = gMapSize.x - 1; ix >= 0; --ix)
+            {
+                if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
+                    continue;
+
+                if (gMapUnit[iy][ix] != 0)
+                {
+                    if (!AreUnitIdsAllied(unit->id, gMapUnit[iy][ix]))
+                    {
+                        if (nearest_enemy_distance > gMapRangeSigned[iy][ix])
+                            nearest_enemy_distance = gMapRangeSigned[iy][ix];
+                    }
+
+                    continue;
+                }
+                else
+                {
+                    if (mov_table[gMapTerrain[iy][ix]] <= 0)
+                        continue;
+
+                    if (gMapMovementSigned[iy][ix] <= MAP_MOVEMENT_MAX)
+                        continue;
+
+                    if (some_other_distance <= gMapRangeSigned[iy][ix])
+                        continue;
+
+                    x_found = ix;
+                    y_found = iy;
+                    some_other_distance = gMapRangeSigned[iy][ix];
+                }
+            }
+        }
+
+        if (nearest_enemy_distance != UINT8_MAX && min_score >= nearest_enemy_distance && some_other_distance != UINT8_MAX)
+        {
+            pos->x = x_found;
+            pos->y = y_found;
+            min_score = nearest_enemy_distance;
+        }
+    })
+
+    if (min_score != UINT8_MAX)
+        return 1;
+
+    return 0;
+}
+
+int func_fe6_08034A60(u16 item)
+{
+    fu16 iid;
+    int i = 0;
+
+    iid = GetItemIid(item);
+
+    while (gUnk_0810DB9C[i].iid != 0)
+    {
+        if (iid == gUnk_0810DB9C[i].iid)
+        {
+            if (iid == IID_LOCKPICK && (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL) == 0)
+            {
+#if BUGFIX
+                i++;
+#endif
+                continue;
+            }
+
+            if (gUnk_0810DB9C[i].func != NULL)
+                return i;
+        }
+
+        i++;
+    }
+
+    return -1;
+}
+
+bool AiTryDoSpecialItems(void)
+{
+    int i, item;
+    int ent_id;
+
+    if ((gAiSt.flags & AI_FLAG_1) != 0)
+        return FALSE;
+
+    for (i = 0; i < ITEMSLOT_INV_COUNT && (item = gActiveUnit->items[i]) != 0; ++i)
+    {
+        // hm...
+        if (GetItemKind(item) == ITEM_KIND_SWORD)
+            continue;
+
+        ent_id = func_fe6_08034A60(item);
+
+        if (ent_id != -1)
+        {
+            gUnk_0810DB9C[ent_id].func(i);
+        }
+    }
+
+    if (gAiSt.decide_state == 0)
+        return TRUE;
+
+    return gAiDecision.action_performed;
 }
 
 u8 CONST_DATA gUnk_085C98F0[] =
