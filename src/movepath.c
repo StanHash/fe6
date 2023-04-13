@@ -173,7 +173,7 @@ void GenMoveScriptFromMovePath(void)
 
 static void MovePathFloodFromTail(void)
 {
-    MapFlood_08019454(gActiveUnit,
+    MapFloodWorkingMap_From_UpTo(gActiveUnit,
         gMovePath->x[gMovePath->path], gMovePath->y[gMovePath->path],
         gMovePath->move[gMovePath->path]);
 }

@@ -15,6 +15,7 @@
 #include "battle.h"
 #include "itemaction.h"
 #include "ai_decide.h"
+#include "ai_unk.h"
 #include "ui.h"
 #include "mu.h"
 #include "eventinfo.h"
@@ -62,8 +63,8 @@ static void AiPerform_StartMovement(struct AiPerformProc * proc);
 static void AiPerform_WatchTarget(struct AiPerformProc * proc);
 static void AiPerform_StartAction(struct AiPerformProc * proc);
 static void AiPerform_WaitAction(struct AiPerformProc * proc);
-static void AiPerform_0802F20C(struct AiPerformProc * proc);
-static void AiPerform_0802F29C(struct AiPerformProc * proc);
+static void AiPerform_Cleanup(struct AiPerformProc * proc);
+static void AiPerform_EquipBest(struct AiPerformProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_AiPerform[] =
 {
@@ -83,8 +84,8 @@ struct ProcScr CONST_DATA ProcScr_AiPerform[] =
 
     PROC_CALL_2(PlayerPhase_0801B9B0),
 
-    PROC_CALL(AiPerform_0802F20C),
-    PROC_CALL(AiPerform_0802F29C),
+    PROC_CALL(AiPerform_Cleanup),
+    PROC_CALL(AiPerform_EquipBest),
 
 PROC_LABEL(1),
     PROC_END,
@@ -144,7 +145,7 @@ void AiPerform_StartMovement(struct AiPerformProc * proc)
 
     HideUnitSprite(gActiveUnit);
 
-    MapFlood_08019344(gActiveUnit);
+    MapFlood_UpToMove(gActiveUnit);
     SetWorkingMap(gMapMovement);
 
     BuildBestMoveScript(gAiDecision.x_move, gAiDecision.y_move, gWorkingMoveScr);
@@ -451,9 +452,9 @@ void AiPerform_WaitAction(struct AiPerformProc * proc)
         Proc_Break(proc);
 }
 
-void AiPerform_0802F20C(struct AiPerformProc * proc)
+void AiPerform_Cleanup(struct AiPerformProc * proc)
 {
-    func_fe6_08032A08();
+    AiUpdateUnitsSeekHealing();
     AiEndMuAndRefreshUnits();
 
     if (!gActiveUnit->pinfo || gActiveUnit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD))
@@ -490,15 +491,17 @@ bool AiWaitAndClearScreenAction(struct AiPerformProc * proc)
     return FALSE;
 }
 
-void AiPerform_0802F29C(struct AiPerformProc * proc)
+void AiPerform_EquipBest(struct AiPerformProc * proc)
 {
-    u16 var_04[6];
+    u16 equip_flags[ITEMSLOT_INV_COUNT];
 
-    if (func_fe6_08032CB4() && func_fe6_08032CE8(var_04))
+    if (AiCanEquip() && AiEquipGetFlags(equip_flags))
     {
-        u16 var_10, var_12, var_14;
+        u16 range_danger;
+        u16 melee_danger;
+        u16 combined_danger;
 
-        func_fe6_08032DF4(gAiDecision.x_move, gAiDecision.y_move, &var_10, &var_12, &var_14);
-        func_fe6_08032F94(var_10, var_12, var_14, var_04);
+        AiEquipGetDanger(gAiDecision.x_move, gAiDecision.y_move, &range_danger, &melee_danger, &combined_danger);
+        AiEquipBestConsideringDanger(range_danger, melee_danger, combined_danger, equip_flags);
     }
 }

@@ -9,6 +9,7 @@
 #include "ai_decide.h"
 #include "ai_data.h"
 #include "ai_battle.h"
+#include "ai_unk.h"
 
 #include "constants/iids.h"
 #include "constants/terrains.h"
@@ -76,7 +77,7 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2i * pos_out)
 {
     int i;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
     MapMarkFloodEdges();
 
     pos_out->x = -1;
@@ -133,7 +134,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i * pos_out)
 
     u8 bestDistance = UINT8_MAX;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     pos_out->x = -1;
 
@@ -179,7 +180,7 @@ bool AiFindTargetInReachByFunc(bool (* func)(struct Unit * unit), struct Vec2i *
     short x = 0;
     short y = 0;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     x = -1;
 
@@ -228,7 +229,7 @@ void AiRandomMove(void)
     short x = 0;
     short y = 0;
 
-    MapFlood_08019344(gActiveUnit);
+    MapFlood_UpToMove(gActiveUnit);
 
     x = -1;
 
@@ -673,7 +674,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon(struct Unit * unit, u16 item)
 {
     int ix, iy;
 
-    MapFlood_08019344(unit);
+    MapFlood_UpToMove(unit);
     MapFill(gMapRange, 0);
 
     for (iy = gMapSize.y-1; iy >= 0; iy--)
@@ -694,7 +695,7 @@ void AiMakeMoveRangeUnitPowerMaps(struct Unit * unit)
 
     int range = GetUnitPower(unit) > 20 ? 20 : GetUnitPower(unit);
 
-    MapFlood_08019344(unit);
+    MapFlood_UpToMove(unit);
     MapFill(gMapRange, 0);
 
     for (iy = gMapSize.y-1; iy >= 0; iy--)
@@ -713,7 +714,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit * unit, u16 item)
 {
     int ix, iy;
 
-    MapFlood_08019344(unit);
+    MapFlood_UpToMove(unit);
     MapFill(gMapRange, 0);
 
     for (iy = gMapSize.y-1; iy >= 0; iy--)
@@ -818,14 +819,14 @@ bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * pos_out)
 
     u8 bestDanger = UINT8_MAX;
 
-    if (gAiSt.flags & AI_FLAG_1)
+    if (gAiSt.flags & AI_FLAG_STAY)
     {
         MapFill(gMapMovement, -1);
         gMapMovement[unit->y][unit->x] = 0;
     }
     else
     {
-        MapFlood_08019344(unit);
+        MapFlood_UpToMove(unit);
     }
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)
@@ -870,7 +871,7 @@ bool AiFindPillageLocation(struct Vec2i * pos_out, u8 * outItemSlot)
     if (AiFindClosestTerrainPosition(terrains, AI_FINDPOS_FLAG_CHECK_ENEMY, pos_out) == TRUE)
         return TRUE;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(terrains, 0, pos_out) == TRUE)
         return TRUE;
@@ -929,14 +930,14 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
 
     if (arg_4)
     {
-        MapFlood_080193F4(x, y, gActiveUnit->jinfo->mov_table);
+        MapFloodRange_Unitless(x, y, gActiveUnit->jinfo->mov_table);
     }
     else
     {
-        func_fe6_08035098(x, y, gActiveUnit);
+        AiMapFloodRangeFrom(x, y, gActiveUnit);
     }
 
-    MapFlood_08019344(gActiveUnit);
+    MapFlood_UpToMove(gActiveUnit);
 
     bestRange = gMapRange[gActiveUnit->y][gActiveUnit->x];
     x_out = -1;
@@ -988,8 +989,8 @@ bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct 
         return TRUE;
     }
 
-    MapFlood_080193F4(x, y, unit->jinfo->mov_table);
-    MapFlood_080193C0(unit);
+    MapFloodRange_Unitless(x, y, unit->jinfo->mov_table);
+    MapFlood_Pass(unit);
 
     bestRange = 124;
     pos_out->x = -1;
@@ -1183,7 +1184,7 @@ void func_fe6_08030994(struct Unit * unit, u16 item)
     case ITEM_EFFECT_06:
     case ITEM_EFFECT_24:
     case ITEM_EFFECT_25:
-        flag |= AI_UNIT_FLAG_2;
+        flag |= AI_UNIT_FLAG_HEALER;
         break;
 
     }
@@ -1217,7 +1218,7 @@ void func_fe6_080309E0(struct Unit * unit)
         }
     }
 
-    unit->unk_46 = count;
+    unit->ai_counter = count;
 }
 
 void UnitInitAiFromInfo(struct Unit * unit, struct UnitInfo const * info)
@@ -1227,7 +1228,7 @@ void UnitInitAiFromInfo(struct Unit * unit, struct UnitInfo const * info)
     unit->ai_config = (unit->ai_config & ~AI_UNIT_CONFIG_HEALTHRESHOLD_MASK) | info->ai[2] | (info->ai[3] << 8);
 }
 
-bool func_fe6_08030AB4(struct Vec2i * pos_out)
+bool AiFindGoodMovePositionWithinRange(struct Vec2i * pos_out)
 {
     int ix, iy;
 
@@ -1337,14 +1338,14 @@ bool AiUnitHasAnyStaff(struct Unit * unit)
     return FALSE;
 }
 
-void func_fe6_08030CBC(struct Unit * unit)
+void AiStayAwareMapFlood_UpToMove(struct Unit * unit)
 {
-    if (gAiSt.flags & AI_FLAG_1)
+    if (gAiSt.flags & AI_FLAG_STAY)
     {
-        MapFlood_08019384(unit, 0);
+        MapFlood_UpTo(unit, 0);
     }
     else
     {
-        MapFlood_08019344(unit);
+        MapFlood_UpToMove(unit);
     }
 }

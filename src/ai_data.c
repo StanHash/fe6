@@ -1,6 +1,7 @@
 #include "ai_data.h"
 
 #include "ai_script.h"
+#include "ai_unk.h"
 
 #include "constants/iids.h"
 #include "constants/jids.h"
@@ -1077,12 +1078,16 @@ AI_LABEL(1),
     AI_CALL_FUNC(func_fe6_080336CC, gUnk_0810DB00),
 };
 
-// FIXME: use func_fe6_080333B0 input struct
-u8 const gUnk_0810DB04[] = { +32, +1, 0, 0 };
+struct AiCountEnemiesInRangeArg const gUnk_0810DB04 =
+{
+    .move_coeff_q4 = 0x20, // 2.0
+    .attack_range = TRUE,
+    .result_slot = 0,
+};
 
 struct AiScr CONST_DATA AiScr_Unk_085C8A18[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB04),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB04),
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
@@ -1095,7 +1100,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C8A88[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB04),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB04),
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
@@ -1109,7 +1114,7 @@ AI_LABEL(1),
 // unused
 struct AiScr CONST_DATA AiScr_Unk_085C8AF8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB04),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB04),
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_NOP_0E,
@@ -1202,7 +1207,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8D48[] =
 {
     AI_ACTION(100),
 
-    AI_CALL_FUNC(func_fe6_080336B0, NULL),
+    AI_CALL_FUNC(AiFunc_GetCounter, NULL),
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
     AI_GOTO_START,
@@ -1266,12 +1271,16 @@ struct AiScr CONST_DATA AiScr_Unk_085C8EB8[] =
     AI_GOTO_START,
 };
 
-// FIXME: use func_fe6_080333B0 input struct
-u8 const gUnk_0810DB08[] = { +8, +1, 0, 0, };
+struct AiCountEnemiesInRangeArg const gUnk_0810DB08 =
+{
+    .move_coeff_q4 = 0x08, // 0.5
+    .attack_range = TRUE,
+    .result_slot = 0,
+};
 
 struct AiScr CONST_DATA AiScr_Unk_085C8EF8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB08),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB08),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1289,7 +1298,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8F68[] =
 
     AI_GOTO_IFEQ(1, gAiSt.cmd_result+1, 1),
 
-    AI_CALL_FUNC(func_fe6_08033AA4, NULL),
+    AI_CALL_FUNC(AiFunc_AttackCmdResult, NULL),
     AI_GOTO_START,
 
 AI_LABEL(1),
@@ -1307,7 +1316,7 @@ struct AiScr CONST_DATA AiScr_Unk_085C8FD8[] =
 
     AI_GOTO_IFEQ(1, gAiSt.cmd_result+1, 1),
 
-    AI_CALL_FUNC(func_fe6_08033AA4, NULL),
+    AI_CALL_FUNC(AiFunc_AttackCmdResult, NULL),
     AI_GOTO_START,
 
 AI_LABEL(1),
@@ -1315,12 +1324,16 @@ AI_LABEL(1),
     AI_GOTO_START,
 };
 
-// FIXME: use func_fe6_080333B0 input struct
-u8 const gUnk_0810DB10[] = { 8, 1, 0, 0 };
+struct AiCountEnemiesInRangeArg const gUnk_0810DB10 =
+{
+    .move_coeff_q4 = 0x08, // 0.5
+    .attack_range = TRUE,
+    .result_slot = 0,
+};
 
 struct AiScr CONST_DATA AiScr_Unk_085C9048[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1335,7 +1348,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C90C8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1350,7 +1363,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C9148[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1365,7 +1378,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C91C8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1380,7 +1393,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C9248[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1395,7 +1408,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C92C8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1410,7 +1423,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C9348[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1425,7 +1438,7 @@ AI_LABEL(1),
 
 struct AiScr CONST_DATA AiScr_Unk_085C93C8[] =
 {
-    AI_CALL_FUNC(func_fe6_080333B0, gUnk_0810DB10),
+    AI_CALL_FUNC(AiFunc_CountEnemiesInRange, &gUnk_0810DB10),
 
     AI_GOTO_IFGT(1, gAiSt.cmd_result+0, 0),
 
@@ -1438,20 +1451,18 @@ AI_LABEL(1),
     AI_GOTO_START,
 };
 
-// FIXME: use AiFunc_DecideTalk input struct
-struct { u8 pidA, pidB; } const gUnk_0810DB14 = { PID_LANCE, PID_ALEN };
+struct AiDecideTalkArg const AiDecideTalkArg_LanceAlen = { PID_LANCE, PID_ALEN };
 
 struct AiScr CONST_DATA AiScr_Unk_085C9448[] =
 {
     AI_MOVE_TOWARDS_PID(PID_ALEN),
     AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 2),
 
-    AI_CALL_FUNC(AiFunc_DecideTalk, &gUnk_0810DB14),
+    AI_CALL_FUNC(AiFunc_DecideTalk, &AiDecideTalkArg_LanceAlen),
     AI_SET_AI(AI_A_00, AI_B_00),
 };
 
-// FIXME: use AiFunc_DecideTalk input struct
-struct { u8 pidA, pidB; } const gUnk_0810DB18 = { PID_CLARINE, PID_ROY };
+struct AiDecideTalkArg const AiDecideTalkArg_ClarineRoy = { PID_CLARINE, PID_ROY };
 
 struct AiScr CONST_DATA AiScr_AiB_Clarine[] =
 {
@@ -1461,7 +1472,7 @@ struct AiScr CONST_DATA AiScr_AiB_Clarine[] =
     AI_GOTO_IFEQ(0, gAiSt.cmd_result+0, 3),
     AI_GOTO_IFNE(0, gAiSt.cmd_result+0, 2),
 
-    AI_CALL_FUNC(AiFunc_DecideTalk, &gUnk_0810DB18),
+    AI_CALL_FUNC(AiFunc_DecideTalk, &AiDecideTalkArg_ClarineRoy),
     AI_SET_AI(AI_A_00, AI_B_00),
     AI_GOTO_START,
 
@@ -1510,32 +1521,38 @@ AI_LABEL(2),
 struct AiScr CONST_DATA AiScr_Unk_085C9568[] =
 {
     AI_CALL_FUNC(func_fe6_08033898, NULL),
-    AI_CALL_FUNC(func_fe6_08033AA4, NULL),
+    AI_CALL_FUNC(AiFunc_AttackCmdResult, NULL),
     AI_GOTO_START,
 };
 
-// FIXME: use func_fe6_08033B04 input struct
-struct { u8 chance, unk_01; } const gUnk_0810DB1C = { 100, 50 };
+struct UnkAiFuncArg_08033B04 const gUnk_0810DB1C =
+{
+    .action_random_threshold = 100,
+    .maximum_heal_percent = 50,
+};
 
 struct AiScr CONST_DATA AiScr_Unk_085C9698[] =
 {
-    AI_CALL_FUNC(func_fe6_08033B04, &gUnk_0810DB1C),
+    AI_CALL_FUNC(AiFunc_08033B04, &gUnk_0810DB1C),
     AI_GOTO_START,
 };
 
 struct AiScr CONST_DATA AiScr_Unk_085C96B8[] =
 {
-    AI_CALL_FUNC(func_fe6_08033B04, &gUnk_0810DB1C),
+    AI_CALL_FUNC(AiFunc_08033B04, &gUnk_0810DB1C),
     AI_ACTION_IN_PLACE(100),
     AI_GOTO_START,
 };
 
-// FIXME: use func_fe6_08033B50 input struct
-struct { u8 a, b; } const gUnk_0810DB20 = { 100, 0 };
+struct UnkAiFuncArg_08033B50 const gUnk_0810DB20 =
+{
+    .do_anything_threshold = 100,
+    .do_offensive_threshold = 0,
+};
 
 struct AiScr CONST_DATA AiScr_Unk_085C96E8[] =
 {
-    AI_CALL_FUNC(func_fe6_08033B50, &gUnk_0810DB20),
+    AI_CALL_FUNC(AiFunc_08033B50, &gUnk_0810DB20),
     AI_GOTO_IFEQ(1, gAiSt.cmd_result+0, 5),
 
     AI_GOTO_START,

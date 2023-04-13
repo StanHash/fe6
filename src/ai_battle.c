@@ -36,7 +36,7 @@ bool AiAttemptOffensiveAction(bool (* is_enemy)(struct Unit * unit))
     {
         if (GetUnitItemCount(gActiveUnit) < 5)
         {
-            MapFlood_08019344(gActiveUnit);
+            MapFlood_UpToMove(gActiveUnit);
             MapMovementMarkFloodEdges();
 
             if (AiAttemptStealActionWithinMovement() == TRUE)
@@ -53,14 +53,14 @@ bool AiAttemptOffensiveAction(bool (* is_enemy)(struct Unit * unit))
     finResult.item_slot = 0;
 #endif
 
-    if (gAiSt.flags & AI_FLAG_1)
+    if (gAiSt.flags & AI_FLAG_STAY)
     {
         MapFill(gMapMovement, -1);
         gMapMovement[gActiveUnit->y][gActiveUnit->x] = 0;
     }
     else
     {
-        MapFlood_08019344(gActiveUnit);
+        MapFlood_UpToMove(gActiveUnit);
     }
 
     SetWorkingMap(gMapRange);
@@ -383,7 +383,7 @@ bool AiAttemptStealActionWithinMovement(void)
 
     if (rank != UINT8_MAX)
     {
-        gActiveUnit->unk_46++;
+        gActiveUnit->ai_counter++;
         AiSetDecision(pos.x, pos.y, AI_ACTION_STEAL, target, item_slot, 0, 0);
 
         return TRUE;

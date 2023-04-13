@@ -1,3 +1,4 @@
+#include "ai_unk.h"
 #include "ai.h"
 
 #include "random.h"
@@ -15,39 +16,30 @@
 #include "constants/iids.h"
 #include "constants/terrains.h"
 
-struct Unk_0810DB34
+struct AiStaffAttemptEnt
 {
     u16 iid;
     void (* func)(int slot, bool (* is_enemy)(struct Unit * unit));
 };
 
-struct Unk_0810DB9C
+struct AiConsumableAttemptEnt
 {
     u16 iid;
     void (* func)(int slot);
 };
 
-struct Unk_085C98D0
-{
-    int x, y;
-};
+void AiAttemptHealStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptRangedHealStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptFortifyStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptWarpStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptRestoreStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptSilenceStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptOffensiveStaff(int slot, bool (* is_enemy)(struct Unit * unit));
+void AiAttemptBarrierStaff(int slot, bool (* is_enemy)(struct Unit * unit));
 
-struct AiEscapePt const * func_fe6_08032C2C(void);
-
-static void AiFillDangerMap(void);
-
-void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit));
-void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit));
-
-void func_fe6_08034B58(int slot);
-void func_fe6_08034BF0(int slot);
-void func_fe6_08034CC0(int slot);
+void AiAttemptDoorKey(int slot);
+void AiAttemptLockpick(int slot);
+void AiAttemptAntitoxin(int slot);
 
 u8 EWRAM_DATA gUnk_Pid_02039694 = 0;
 
@@ -62,7 +54,7 @@ void AiRefreshDangerMap(void)
     }
 }
 
-static void AiFillDangerMap(void)
+void AiFillDangerMap(void)
 {
     int i, j, ix, iy;
 
@@ -124,7 +116,7 @@ static void AiFillDangerMap(void)
     }
 }
 
-bool AiCheckDangerAt(int x, int y, u8 threshold)
+bool AiCheckDangerAt(int x, int y, fu8 threshold)
 {
     if (gMapOther[y][x] > threshold)
         return FALSE;
@@ -134,22 +126,22 @@ bool AiCheckDangerAt(int x, int y, u8 threshold)
 
 bool AiTryGetNearestHealPoint(struct Vec2i * pos_out)
 {
-    static u8 CONST_DATA fortTerrains[] = { TERRAIN_FORT, 0 };
+    static u8 CONST_DATA fort_terrains[] = { TERRAIN_FORT, 0 };
 
     struct Unit * unit;
 
     int ix, iy;
 
-    int currentCount = 10000;
-    int currentMove = UINT8_MAX;
+    int current_count = 10000;
+    int current_move = UINT8_MAX;
 
-    if (gActiveUnit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13)
+    if (gActiveUnit->ai_config & AI_UNIT_CONFIG_FLAG_STAY)
         return FALSE;
 
     if (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_LORD)
         return FALSE;
 
-    MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);
+    MapFlood_UpTo(gActiveUnit, MAP_MOVEMENT_EXTENDED);
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
     {
@@ -160,14 +152,14 @@ bool AiTryGetNearestHealPoint(struct Vec2i * pos_out)
             if (gMapMovement[iy][ix] > MAP_MOVEMENT_MAX)
                 continue;
 
-            if (!AiIsInByteList(fortTerrains, gMapTerrain[iy][ix]))
+            if (!AiIsInByteList(fort_terrains, gMapTerrain[iy][ix]))
             {
                 if (gMapUnit[iy][ix] == 0 || !AreUnitIdsAllied(gActiveUnitId, gMapUnit[iy][ix]))
                     continue;
 
                 unit = GetUnit(gMapUnit[iy][ix]);
 
-                if (!(unit->ai_flags & AI_UNIT_FLAG_2))
+                if (!(unit->ai_flags & AI_UNIT_FLAG_HEALER))
                     continue;
             }
             else
@@ -179,25 +171,25 @@ bool AiTryGetNearestHealPoint(struct Vec2i * pos_out)
 
                     unit = GetUnit(gMapUnit[iy][ix]);
 
-                    if (unit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13)
-                        if (!(unit->ai_flags & AI_UNIT_FLAG_2))
+                    if (unit->ai_config & AI_UNIT_CONFIG_FLAG_STAY)
+                        if (!(unit->ai_flags & AI_UNIT_FLAG_HEALER))
                             continue;
                 }
             }
 
             count = AiCountNearbyEnemyUnits(ix, iy);
 
-            if ((count <= currentCount) && (gMapMovementSigned[iy][ix] <= currentMove))
+            if ((count <= current_count) && (gMapMovementSigned[iy][ix] <= current_move))
             {
-                currentCount = count;
-                currentMove = gMapMovement[iy][ix];
+                current_count = count;
+                current_move = gMapMovement[iy][ix];
                 pos_out->x = ix;
                 pos_out->y = iy;
             }
         }
     }
 
-    if (currentMove != 0xFF)
+    if (current_move != 0xFF)
     {
         if (gMapUnit[pos_out->y][pos_out->x] != 0 && gMapUnit[pos_out->y][pos_out->x] != gActiveUnitId)
         {
@@ -211,15 +203,20 @@ bool AiTryGetNearestHealPoint(struct Vec2i * pos_out)
     return FALSE;
 }
 
-void func_fe6_08032A08(void)
+void AiUpdateUnitsSeekHealing(void)
 {
     int i, count = 0;
 
     fu8 faction = gPlaySt.faction;
 
-    int factionUnitCountLut[3] = { UNIT_AMOUNT_BLUE, UNIT_AMOUNT_GREEN, UNIT_AMOUNT_RED };
+    SHOULD_BE_STATIC int SHOULD_BE_CONST faction_unit_count_table[3] =
+    {
+        UNIT_AMOUNT_BLUE,
+        UNIT_AMOUNT_GREEN,
+        UNIT_AMOUNT_RED,
+    };
 
-    for (i = 0; i < factionUnitCountLut[faction >> 6]; ++i)
+    for (i = 0; i < faction_unit_count_table[faction >> 6]; ++i)
     {
         struct Unit * unit = GetUnit(faction+i+1);
 
@@ -229,11 +226,11 @@ void func_fe6_08032A08(void)
         if (!unit->pinfo)
             continue;
 
-        AiUpdateGetUnitIsHealing(unit);
+        AiUpdateUnitSeeksHealing(unit);
     }
 }
 
-bool AiUpdateGetUnitIsHealing(struct Unit * unit)
+bool AiUpdateUnitSeeksHealing(struct Unit * unit)
 {
     fu16 hp_percent = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
 
@@ -276,7 +273,7 @@ bool AiTryHealSelf(void)
 
         if (GetItemIid(item) == IID_VULNERARY || GetItemIid(item) == IID_ELIXIR)
         {
-            if (!(gAiSt.flags & AI_FLAG_1))
+            if (!(gAiSt.flags & AI_FLAG_STAY))
             {
                 struct Vec2i pos;
 
@@ -301,8 +298,8 @@ bool AiTryMoveTowardsEscape(void)
 {
     struct AiEscapePt const * escape_pt;
 
-    MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);
-    escape_pt = func_fe6_08032C2C();
+    MapFlood_UpTo(gActiveUnit, MAP_MOVEMENT_EXTENDED);
+    escape_pt = AiGetNearestEscapePoint();
 
     if (escape_pt != NULL)
     {
@@ -325,7 +322,7 @@ bool AiTryMoveTowardsEscape(void)
     return FALSE;
 }
 
-struct AiEscapePt const * func_fe6_08032C2C(void)
+struct AiEscapePt const * AiGetNearestEscapePoint(void)
 {
     int i = 0;
 
@@ -365,9 +362,9 @@ struct AiEscapePt const * func_fe6_08032C2C(void)
     return result;
 }
 
-bool func_fe6_08032CB4(void)
+bool AiCanEquip(void)
 {
-    if (gActiveUnit->flags & UNIT_FLAG_HAD_ACTION)
+    if ((gActiveUnit->flags & UNIT_FLAG_HAD_ACTION) != 0)
         return FALSE;
 
     if (gAiDecision.action_id == AI_ACTION_COMBAT)
@@ -379,11 +376,11 @@ bool func_fe6_08032CB4(void)
     return TRUE;
 }
 
-bool func_fe6_08032CE8(u16 * out)
+bool AiEquipGetFlags(u16 * equip_flags_out)
 {
     int i;
 
-    u32 perc;
+    u32 percent;
 
     if (GetUnitItemCount(gActiveUnit) == 0)
         return FALSE;
@@ -392,17 +389,17 @@ bool func_fe6_08032CE8(u16 * out)
     {
         fu16 item;
 
-        out[i] = 0;
+        equip_flags_out[i] = 0;
 
         item = gActiveUnit->items[i];
 
         if (item == 0)
             break;
 
-        if (!(GetItemAttributes(item) & (ITEM_ATTR_WEAPON | ITEM_ATTR_STAFF)))
+        if ((GetItemAttributes(item) & (ITEM_ATTR_WEAPON | ITEM_ATTR_STAFF)) == 0)
             continue;
 
-        if (GetItemAttributes(item) & ITEM_ATTR_LOCK_DRAGON)
+        if ((GetItemAttributes(item) & ITEM_ATTR_LOCK_DRAGON) != 0)
             continue;
 
         if (!CanUnitUseWeapon(gActiveUnit, item) && !CanUnitUseStaff(gActiveUnit, item))
@@ -411,23 +408,23 @@ bool func_fe6_08032CE8(u16 * out)
         if (GetItemAttributes(item) & ITEM_ATTR_WEAPON)
         {
             if (GetItemMinRange(item) > 1)
-                out[i] |= 2;
+                equip_flags_out[i] |= AI_EQUIP_FLAG_RANGE;
 
             if (GetItemMaxRange(item) == 1)
-                out[i] |= 1;
+                equip_flags_out[i] |= AI_EQUIP_FLAG_MELEE;
 
-            perc = Div(perc = GetItemUses(item) * 100, GetItemMaxUses(item));
+            percent = Div(percent = GetItemUses(item) * 100, GetItemMaxUses(item));
 
-            if (perc <= 10)
-                out[i] |= 4;
+            if (percent <= 10)
+                equip_flags_out[i] |= AI_EQUIP_FLAG_LOW_USES;
         }
         else
         {
-            func_fe6_08032FBC(item);
-            out[i] |= 8;
+            AiUpdateUnitFlagsFromStaff(item);
+            equip_flags_out[i] |= AI_EQUIP_FLAG_STAFF;
         }
 
-        out[i] |= (GetItemMight(item) << 8);
+        equip_flags_out[i] |= AI_EQUIP_FLAG_MIGHT(GetItemMight(item));
     }
 
 #ifdef BUGFIX
@@ -435,15 +432,15 @@ bool func_fe6_08032CE8(u16 * out)
 #endif
 }
 
-void func_fe6_08032DF4(int x, int y, u16 * ranged_danger, u16 * melee_danger, u16 * combined_danger)
+void AiEquipGetDanger(int x, int y, u16 * range_danger_out, u16 * melee_danger_out, u16 * combined_danger_out)
 {
     int iy, ix;
     int might;
     u16 item;
 
-    *combined_danger = 0;
-    *melee_danger = 0;
-    *ranged_danger = 0;
+    *combined_danger_out = 0;
+    *melee_danger_out = 0;
+    *range_danger_out = 0;
 
     MapFill(gMapOther, 0);
 
@@ -455,21 +452,21 @@ void func_fe6_08032DF4(int x, int y, u16 * ranged_danger, u16 * melee_danger, u1
         if (AreUnitIdsAllied(gActiveUnitId, unit->id))
             continue;
 
-        if (!func_fe6_08032FF4(unit, x, y))
+        if (!AiIsWithinFlyingDistance(unit, x, y))
             continue;
 
-        MapFlood_08019344(unit);
+        MapFlood_UpToMove(unit);
 
         if (gMapMovement[y][x] == 0xFF)
             continue;
 
-        might = func_fe6_08033038(unit, &item);
+        might = AiGetUnitAttackAndWeapon(unit, &item);
 
         if (GetItemMinRange(item) > 1)
-            *ranged_danger += might;
+            *range_danger_out += might;
 
         if (GetItemMaxRange(item) == 1)
-            *melee_danger += might;
+            *melee_danger_out += might;
 
         for (iy = gMapSize.y - 1; iy >= 0; iy--)
         {
@@ -486,27 +483,27 @@ void func_fe6_08032DF4(int x, int y, u16 * ranged_danger, u16 * melee_danger, u1
         }
     })
 
-    *combined_danger = *ranged_danger + *melee_danger;
+    *combined_danger_out = *range_danger_out + *melee_danger_out;
 }
 
-void func_fe6_08032F48(int arg_0, u16 * arg_1) {
-
+void AiEquipBestMatch(int equip_flag, u16 const * equip_flags)
+{
     int i;
 
     int item_slot = -1;
-    fu16 unk = 0;
+    fu16 best_might = 0;
 
     for (i = 0; i < ITEMSLOT_INV_COUNT; i++)
     {
-        if (arg_1[i] == 0)
+        if (equip_flags[i] == 0)
             continue;
 
-        if ((arg_1[i] & arg_0) == 0)
+        if ((equip_flags[i] & equip_flag) == 0)
             continue;
 
-        if ((arg_1[i] & 0xFF00) > unk)
+        if ((equip_flags[i] & AI_EQUIP_FLAG_MIGHT_MASK) > best_might)
         {
-            unk = arg_1[i] & 0xFF00;
+            best_might = equip_flags[i] & AI_EQUIP_FLAG_MIGHT_MASK;
             item_slot = i;
         }
     }
@@ -515,18 +512,18 @@ void func_fe6_08032F48(int arg_0, u16 * arg_1) {
         UnitEquipItemSlot(gActiveUnit, item_slot);
 }
 
-void func_fe6_08032F94(fu16 arg_0, fu16 arg_1, fu16 arg_2, u16 * arg_3)
+void AiEquipBestConsideringDanger(fu16 range_danger, fu16 melee_danger, fu16 combined_danger, u16 const * equip_flags)
 {
-    if ((arg_1 + arg_0) != 0)
+    if ((melee_danger + range_danger) != 0)
     {
-        if (arg_1 >= arg_0)
-            func_fe6_08032F48(1, arg_3);
+        if (melee_danger >= range_danger)
+            AiEquipBestMatch(AI_EQUIP_FLAG_MELEE, equip_flags);
         else
-            func_fe6_08032F48(2, arg_3);
+            AiEquipBestMatch(AI_EQUIP_FLAG_RANGE, equip_flags);
     }
 }
 
-void func_fe6_08032FBC(fu16 item)
+void AiUpdateUnitFlagsFromStaff(fu16 item)
 {
     switch (GetItemIid(item))
     {
@@ -535,16 +532,16 @@ void func_fe6_08032FBC(fu16 item)
         case IID_RECOVERSTAFF:
         case IID_PHYSICSTAFF:
         case IID_FORTIFYSTAFF:
-            gActiveUnit->ai_flags |= AI_UNIT_FLAG_2;
+            gActiveUnit->ai_flags |= AI_UNIT_FLAG_HEALER;
             break;
 
         case IID_HAMMERNESTAFF:
-            gActiveUnit->ai_flags |= AI_UNIT_FLAG_4;
+            gActiveUnit->ai_flags |= AI_UNIT_FLAG_REPAIRER;
             break;
     }
 }
 
-bool func_fe6_08032FF4(struct Unit * unit, int x, int y)
+bool AiIsWithinFlyingDistance(struct Unit * unit, int x, int y)
 {
     int mov = UNIT_MOV(unit);
     int dist = RECT_DISTANCE(x, y, unit->x, unit->y);
@@ -555,7 +552,7 @@ bool func_fe6_08032FF4(struct Unit * unit, int x, int y)
     return FALSE;
 }
 
-int func_fe6_08033038(struct Unit * unit, u16 * item_out)
+int AiGetUnitAttackAndWeapon(struct Unit * unit, u16 * item_out)
 {
     fu16 item = GetUnitEquippedWeapon(unit);
 
@@ -563,29 +560,29 @@ int func_fe6_08033038(struct Unit * unit, u16 * item_out)
     return GetUnitPower(unit) + GetItemMight(item);
 }
 
-void AiTryDanceOrStealAfterMove(void)
+void AiTryRefreshOrStealAfterMove(void)
 {
     if (gAiDecision.action_id == AI_ACTION_ESCAPE)
         return;
 
-    if (func_fe6_080330C8(gAiDecision.x_move, gAiDecision.y_move) == 1)
+    if (AiTryRefreshAt(gAiDecision.x_move, gAiDecision.y_move) == TRUE)
         return;
 
-    func_fe6_080331EC(gAiDecision.x_move, gAiDecision.y_move);
+    AiTryStealAt(gAiDecision.x_move, gAiDecision.y_move);
 }
 
 void AiTryActionAfterMove(void)
 {
-    if (func_fe6_080330C8(gAiDecision.x_move, gAiDecision.y_move) == 1)
+    if (AiTryRefreshAt(gAiDecision.x_move, gAiDecision.y_move) == TRUE)
         return;
 
-    if (func_fe6_080331EC(gAiDecision.x_move, gAiDecision.y_move) == 1)
+    if (AiTryStealAt(gAiDecision.x_move, gAiDecision.y_move) == TRUE)
         return;
 
-    func_fe6_08033250(gAiDecision.x_move, gAiDecision.y_move);
+    AiTryCombatAt(gAiDecision.x_move, gAiDecision.y_move);
 }
 
-bool func_fe6_080330C8(int x, int y)
+bool AiTryRefreshAt(int x, int y)
 {
     int ix, iy;
     struct Unit * unit;
@@ -634,7 +631,7 @@ bool func_fe6_080330C8(int x, int y)
     return FALSE;
 }
 
-bool func_fe6_080331EC(int x, int y)
+bool AiTryStealAt(int x, int y)
 {
     if ((UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL) == 0)
         return FALSE;
@@ -644,13 +641,17 @@ bool func_fe6_080331EC(int x, int y)
     gMapMovement[y][x] = 0;
     MapAddInRange(x, y, 1, MAP_MOVEMENT_MAX);
 
+#if BUGFIX
+    return AiAttemptStealActionWithinMovement();
+#else
     if (AiAttemptStealActionWithinMovement() != -1)
         return TRUE;
 
     return FALSE;
+#endif
 }
 
-bool func_fe6_08033250(int x, int y)
+bool AiTryCombatAt(int x, int y)
 {
     int ix, iy;
     struct Unit * unit;
@@ -689,20 +690,20 @@ bool func_fe6_08033250(int x, int y)
     return FALSE;
 }
 
-bool func_fe6_08033380(int x, int y)
+bool AiFunc_CountEnemiesInRange_IsEnemyAt(int x, int y)
 {
     if (gMapUnit[y][x] == 0)
         return FALSE;
 
-    if ((gActiveUnitId ^ gMapUnit[y][x]) & 0x80)
+    if (((gActiveUnitId ^ gMapUnit[y][x]) & 0x80) != 0)
         return TRUE;
 
     return FALSE;
 }
 
-bool func_fe6_080333B0(void const * input)
+bool AiFunc_CountEnemiesInRange(void const * arg)
 {
-    u8 const * cast = input;
+    struct AiCountEnemiesInRangeArg const * cast = arg;
 
     fu16 item;
     int ix, iy;
@@ -710,12 +711,12 @@ bool func_fe6_080333B0(void const * input)
 
     fu8 count = 0;
 
-    move = (UNIT_MOV(gActiveUnit) * cast[0]);
+    move = (UNIT_MOV(gActiveUnit) * cast->move_coeff_q4);
     move = move >> 4;
 
     item = GetUnitEquippedWeapon(gActiveUnit);
 
-    if ((cast[1] != 0) && item != 0)
+    if (cast->attack_range != 0 && item != 0)
     {
         AiFloodMovementAndRange(gActiveUnit, move, item);
 
@@ -726,7 +727,7 @@ bool func_fe6_080333B0(void const * input)
                 if (gMapRangeSigned[iy][ix] == 0)
                     continue;
 
-                if (func_fe6_08033380(ix, iy) == 1)
+                if (AiFunc_CountEnemiesInRange_IsEnemyAt(ix, iy) == TRUE)
                     count++;
             }
         }
@@ -745,26 +746,21 @@ bool func_fe6_080333B0(void const * input)
                 if (gMapRange[iy][ix] > MAP_MOVEMENT_MAX)
                     continue;
 
-                if (func_fe6_08033380(ix, iy) == 1)
+                if (AiFunc_CountEnemiesInRange_IsEnemyAt(ix, iy) == TRUE)
                     count++;
             }
         }
     }
 
-    gAiSt.cmd_result[cast[2]] = count;
+    gAiSt.cmd_result[cast->result_slot] = count;
 
     return 0;
 }
 
-struct Unknown_Sub80315C
+bool AiFunc_080334F4(void const * arg)
 {
-    /* 00 */ u8 * unk_00;
-    /* 04 */ u8 unk_04;
-    /* 05 */ u8 unk_05;
-};
+    struct UnkAiFuncArg_080334F4 const * cast = arg;
 
-bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
-{
     fu16 item;
     int ix;
     int iy;
@@ -774,13 +770,13 @@ bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
     int x_prev;
     int y_prev;
 
-    move = UNIT_MOV(gActiveUnit) * input->unk_04;
+    move = UNIT_MOV(gActiveUnit) * cast->unk_04;
     move = move >> 4;
 
     item = GetUnitEquippedWeapon(gActiveUnit);
 
-    x_unk = input->unk_00[((gActiveUnit->ai_config & 0x1fc0) >> 8)*2+0];
-    y_unk = input->unk_00[((gActiveUnit->ai_config & 0x1fc0) >> 8)*2+1];
+    x_unk = cast->unk_00[((gActiveUnit->ai_config & 0x1FC0) >> 8) * 2 + 0];
+    y_unk = cast->unk_00[((gActiveUnit->ai_config & 0x1FC0) >> 8) * 2 + 1];
 
     x_prev = gActiveUnit->x;
     y_prev = gActiveUnit->y;
@@ -788,7 +784,7 @@ bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
     gActiveUnit->x = x_unk;
     gActiveUnit->y = y_unk;
 
-    if ((input->unk_05 != 0) && (item != 0))
+    if ((cast->unk_05 != 0) && (item != 0))
     {
         AiFloodMovementAndRange(gActiveUnit, move, item);
 
@@ -819,7 +815,7 @@ bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
     gActiveUnit->x = x_prev;
     gActiveUnit->y = y_prev;
 
-    MapFlood_08019344(gActiveUnit);
+    MapFlood_UpToMove(gActiveUnit);
 
     for (iy = gMapSize.y - 1; iy >= 0; iy--)
     {
@@ -852,9 +848,9 @@ bool func_fe6_080334F4(struct Unknown_Sub80315C const * input)
     return TRUE;
 }
 
-bool func_fe6_080336B0(void const * no_input)
+bool AiFunc_GetCounter(void const * no_input)
 {
-    gAiSt.cmd_result[0] = gActiveUnit->unk_46;
+    gAiSt.cmd_result[0] = gActiveUnit->ai_counter;
     return FALSE;
 }
 
@@ -892,7 +888,7 @@ bool func_fe6_0803372C(struct Vec2i * pos_out)
     struct Vec2i const * pos_b;
 
     int idx = (gActiveUnit->ai_config & 0x1FC0) >> 8;
-    int unk46 = gActiveUnit->unk_46;
+    int unk46 = gActiveUnit->ai_counter;
 
     if (gUnk_085C8878 == NULL)
         return FALSE;
@@ -907,7 +903,7 @@ bool func_fe6_0803372C(struct Vec2i * pos_out)
     if (pos_b->x == -1)
     {
         unk46 = 0;
-        gActiveUnit->unk_46 = 0;
+        gActiveUnit->ai_counter = 0;
         pos_b = pos_a;
     }
 
@@ -917,13 +913,13 @@ bool func_fe6_0803372C(struct Vec2i * pos_out)
     if (gMapMovement[pos_b->y][pos_b->x] != 0xFF)
     {
         unk46++;
-        gActiveUnit->unk_46 = unk46;
+        gActiveUnit->ai_counter = unk46;
     }
 
     return TRUE;
 }
 
-bool func_fe6_080337B4(void const * input)
+bool func_fe6_080337B4(void const * no_input)
 {
     int enemies_in_range;
     struct Vec2i pos;
@@ -943,7 +939,7 @@ bool func_fe6_080337B4(void const * input)
     }
     else
     {
-        MapFlood_08019344(gActiveUnit);
+        MapFlood_UpToMove(gActiveUnit);
     }
 
     if (func_fe6_0803372C(&pos) == 1)
@@ -955,37 +951,29 @@ bool func_fe6_080337B4(void const * input)
     return FALSE;
 }
 
-struct UnknownSub803F4A4
+bool AiFunc_IsInArea(void const * arg)
 {
-    u8 unk_00;
-    u8 unk_01;
-    u8 unk_02;
-    u8 unk_03;
-};
-
-bool func_fe6_08033824(void const * input)
-{
-    struct UnknownSub803F4A4 const * cast = input;
+    struct AiIsInAreaArg const * cast = arg;
 
     fu8 x = gActiveUnit->x;
     fu8 y = gActiveUnit->y;
 
-    if (cast->unk_00 <= x && cast->unk_02 >= x && cast->unk_01 <= y && cast->unk_03 >= y)
+    if (cast->x1 <= x && cast->x2 >= x && cast->y1 <= y && cast->y2 >= y)
     {
-        gAiSt.cmd_result[0] = 1;
+        gAiSt.cmd_result[0] = TRUE;
         return FALSE;
     }
 
-    gAiSt.cmd_result[0] = 0;
+    gAiSt.cmd_result[0] = FALSE;
     return FALSE;
 }
 
 bool AiFunc_DecideTalk(void const * input)
 {
-    u8 const * pids = input;
+    struct AiDecideTalkArg const * cast = input;
 
     AiUpdateDecision(AI_ACTION_TALK, 0,
-        GetUnitByPid(pids[0])->id, GetUnitByPid(pids[1])->id, 0xff);
+        GetUnitByPid(cast->pid_a)->id, GetUnitByPid(cast->pid_b)->id, 0xff);
 
     return TRUE;
 }
@@ -1071,7 +1059,7 @@ bool func_fe6_08033998(void const * input)
 
     if (AiUnitWithPidExists(cast[0]) != 1)
     {
-        gAiSt.cmd_result[1] = 1;
+        gAiSt.cmd_result[1] = TRUE;
         return FALSE;
     }
 
@@ -1079,7 +1067,7 @@ bool func_fe6_08033998(void const * input)
 
     gAiSt.cmd_result[0] = 0;
 
-    if ((gAiDecision.action_performed == 1) && (gAiDecision.action_id == AI_ACTION_COMBAT))
+    if ((gAiDecision.action_performed == TRUE) && (gAiDecision.action_id == AI_ACTION_COMBAT))
         gAiSt.cmd_result[0] = gAiDecision.target_id;
 
     AiClearDecision();
@@ -1087,7 +1075,7 @@ bool func_fe6_08033998(void const * input)
     return FALSE;
 }
 
-bool func_fe6_080339F8(struct Unit * unit)
+bool AiIsUnitEnemyCmdResult(struct Unit * unit)
 {
     if (unit->id != gAiSt.cmd_result[0])
         return FALSE;
@@ -1098,7 +1086,7 @@ bool func_fe6_080339F8(struct Unit * unit)
     return TRUE;
 }
 
-bool func_fe6_08033A30(struct Unit * unit)
+bool AiIsUnitEnemyOnTheWayToCmdResult(struct Unit * unit)
 {
     int a;
     int b;
@@ -1124,7 +1112,7 @@ bool func_fe6_08033A30(struct Unit * unit)
     return TRUE;
 }
 
-bool func_fe6_08033AA4(void const * input)
+bool AiFunc_AttackCmdResult(void const * no_input)
 {
     struct Unit * unit;
 
@@ -1133,30 +1121,30 @@ bool func_fe6_08033AA4(void const * input)
 
     unit = GetUnit(gAiSt.cmd_result[0]);
 
-    AiAttemptOffensiveAction(func_fe6_080339F8);
+    AiAttemptOffensiveAction(AiIsUnitEnemyCmdResult);
 
-    if (gAiDecision.action_performed == 1)
+    if (gAiDecision.action_performed == TRUE)
         return TRUE;
 
-    AiAttemptOffensiveAction(func_fe6_08033A30);
+    AiAttemptOffensiveAction(AiIsUnitEnemyOnTheWayToCmdResult);
 
-    if (gAiDecision.action_performed == 1)
+    if (gAiDecision.action_performed == TRUE)
         return TRUE;
 
     AiTryMoveTowards(unit->x, unit->y, 0, 0xff, 1);
     return TRUE;
 }
 
-bool func_fe6_08033B04(void const * input)
+bool AiFunc_08033B04(void const * arg)
 {
-    u8 const * cast = input;
+    struct UnkAiFuncArg_08033B04 const * cast = arg;
     fu8 random_number = RandNext(100);
 
-    gAiSt.unk_7C = cast[1];
+    gAiSt.maximum_heal_percent = cast->maximum_heal_percent;
 
-    if (random_number <= cast[0])
+    if (random_number <= cast->action_random_threshold)
     {
-        if (func_fe6_08033C04(AiIsUnitEnemy) == FALSE)
+        if (AiAttemptStaffAction(AiIsUnitEnemy) == FALSE)
             AiAttemptOffensiveAction(AiIsUnitEnemy);
 
         return TRUE;
@@ -1166,14 +1154,15 @@ bool func_fe6_08033B04(void const * input)
     return TRUE;
 }
 
-bool func_fe6_08033B50(void const * input)
+bool AiFunc_08033B50(void const * arg)
 {
-    u8 const * cast = input;
+    struct UnkAiFuncArg_08033B50 const * cast = arg;
+
     fu8 random_number = RandNext(100);
 
-    if (random_number <= cast[0])
+    if (random_number <= cast->do_anything_threshold)
     {
-        if (AiTryDoSpecialItems() != FALSE)
+        if (AiAttemptConsumableAction() != FALSE)
             return TRUE;
 
         // this was also fixed in fe8 (maybe fe7)
@@ -1183,7 +1172,7 @@ bool func_fe6_08033B50(void const * input)
         RandNext(100);
 #endif
 
-        if (random_number <= cast[1])
+        if (random_number <= cast->do_offensive_threshold)
             AiAttemptOffensiveAction(AiIsUnitEnemy);
 
         return TRUE;
@@ -1193,32 +1182,32 @@ bool func_fe6_08033B50(void const * input)
     return TRUE;
 }
 
-struct Unk_0810DB34 const gUnk_0810DB34[] =
+struct AiStaffAttemptEnt const gAiStaffAttemptList[] =
 {
-    { IID_HEALSTAFF, func_fe6_08033D5C },
-    { IID_MENDSTAFF, func_fe6_08033D5C },
-    { IID_RECOVERSTAFF, func_fe6_08033D5C },
-    { IID_PHYSICSTAFF, func_fe6_08033ECC },
-    { IID_FORTIFYSTAFF, func_fe6_08034094 },
-    { IID_WARPSTAFF, func_fe6_08034178 },
-    { IID_RESCUESTAFF, func_fe6_08033ECC },
-    { IID_RESTORESTAFF, func_fe6_080342C4 },
-    { IID_SILENCESTAFF, func_fe6_080344AC },
-    { IID_SLEEPSTAFF, func_fe6_0803462C },
-    { IID_BERSERKSTAFF, func_fe6_0803462C },
-    { IID_BARRIERSTAFF, func_fe6_080347A4 },
+    { IID_HEALSTAFF, AiAttemptHealStaff },
+    { IID_MENDSTAFF, AiAttemptHealStaff },
+    { IID_RECOVERSTAFF, AiAttemptHealStaff },
+    { IID_PHYSICSTAFF, AiAttemptRangedHealStaff },
+    { IID_FORTIFYSTAFF, AiAttemptFortifyStaff },
+    { IID_WARPSTAFF, AiAttemptWarpStaff },
+    { IID_RESCUESTAFF, AiAttemptRangedHealStaff },
+    { IID_RESTORESTAFF, AiAttemptRestoreStaff },
+    { IID_SILENCESTAFF, AiAttemptSilenceStaff },
+    { IID_SLEEPSTAFF, AiAttemptOffensiveStaff },
+    { IID_BERSERKSTAFF, AiAttemptOffensiveStaff },
+    { IID_BARRIERSTAFF, AiAttemptBarrierStaff },
     { 0 }, // end
 };
 
-struct Unk_0810DB9C const gUnk_0810DB9C[] =
+struct AiConsumableAttemptEnt const gAiConsumableAttemptList[] =
 {
-    { IID_DOORKEY, func_fe6_08034B58 },
-    { IID_LOCKPICK, func_fe6_08034BF0 },
-    { IID_ANTITOXIN, func_fe6_08034CC0 },
+    { IID_DOORKEY, AiAttemptDoorKey },
+    { IID_LOCKPICK, AiAttemptLockpick },
+    { IID_ANTITOXIN, AiAttemptAntitoxin },
     { 0 }, // end
 };
 
-int func_fe6_08033B9C(fu16 item)
+int AiGetStaffAttemptId(fu16 item)
 {
     fu16 iid;
     int i = 0;
@@ -1228,24 +1217,16 @@ int func_fe6_08033B9C(fu16 item)
 
     iid = GetItemIid(item);
 
-    for (i = 0; gUnk_0810DB34[i].iid != 0; i++)
+    for (i = 0; gAiStaffAttemptList[i].iid != 0; i++)
     {
-        if (iid == gUnk_0810DB34[i].iid && gUnk_0810DB34[i].func != NULL)
+        if (iid == gAiStaffAttemptList[i].iid && gAiStaffAttemptList[i].func != NULL)
             return i;
     }
 
     return -1;
 }
 
-struct Unk_085C98D0 CONST_DATA gUnk_085C98D0[] =
-{
-    { +1,  0 },
-    { -1,  0 },
-    {  0, +1 },
-    {  0, -1 },
-};
-
-bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit))
+bool AiAttemptStaffAction(bool (* is_enemy)(struct Unit * unit))
 {
     int i, item;
     int ent_id;
@@ -1262,11 +1243,11 @@ bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit))
         if (GetItemRequiredExp(item) < max_wexp)
             continue;
 
-        ent_id = func_fe6_08033B9C(item);
+        ent_id = AiGetStaffAttemptId(item);
 
         if (ent_id != -1)
         {
-            gUnk_0810DB34[ent_id].func(i, is_enemy);
+            gAiStaffAttemptList[ent_id].func(i, is_enemy);
             max_wexp = GetItemRequiredExp(item);
         }
     }
@@ -1274,16 +1255,30 @@ bool func_fe6_08033C04(bool (* is_enemy)(struct Unit * unit))
     return gAiDecision.action_performed;
 }
 
-bool func_fe6_08033C8C(int x_center, int y_center, struct Vec2i * pos_out)
+bool AiGetReachableAdjacentPosition(int x_center, int y_center, struct Vec2i * pos_out)
 {
-    u32 score, score_max = 0;
+    struct LargeVec2i
+    {
+        int x, y;
+    };
+
+    static struct LargeVec2i CONST_DATA unit_vecs[] =
+    {
+        { +1,  0 },
+        { -1,  0 },
+        {  0, +1 },
+        {  0, -1 },
+    };
+
+    u32 score;
+    u32 score_max = 0;
 
     int i;
 
-    for (i = 0; i < (int) ARRAY_COUNT(gUnk_085C98D0); i++)
+    for (i = 0; i < (int) ARRAY_COUNT(unit_vecs); i++)
     {
-        int x = x_center + gUnk_085C98D0[i].x;
-        int y = y_center + gUnk_085C98D0[i].y;
+        int x = x_center + unit_vecs[i].x;
+        int y = y_center + unit_vecs[i].y;
 
         if (gMapMovement[y][x] >= MAP_MOVEMENT_MAX)
             continue;
@@ -1311,7 +1306,7 @@ bool func_fe6_08033C8C(int x_center, int y_center, struct Vec2i * pos_out)
     return FALSE;
 }
 
-void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptHealStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int iy, ix;
     struct Unit * unit;
@@ -1325,11 +1320,11 @@ void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit))
     int y_decide = -1;
     int target_decide = 0;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
     MapMovementMarkFloodEdges();
 
-    if (gAiSt.unk_7C != 0)
-        score_min = gAiSt.unk_7C;
+    if (gAiSt.maximum_heal_percent != 0)
+        score_min = gAiSt.maximum_heal_percent;
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
     {
@@ -1349,12 +1344,12 @@ void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit))
                     continue;
             }
 
-            if (gAiSt.unk_7C == 0 && (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING) == 0)
+            if (gAiSt.maximum_heal_percent == 0 && (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING) == 0)
                 continue;
 
             score = Div(100 * GetUnitCurrentHp(unit), GetUnitMaxHp(unit));
 
-            if (score <= score_min && func_fe6_08033C8C(ix, iy, &pos))
+            if (score <= score_min && AiGetReachableAdjacentPosition(ix, iy, &pos))
             {
                 score_min = score;
                 x_decide = pos.x;
@@ -1370,7 +1365,7 @@ void func_fe6_08033D5C(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptRangedHealStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     struct Vec2i pos;
 
@@ -1385,10 +1380,10 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
 
-    if (gAiSt.unk_7C != 0)
-        score_min = gAiSt.unk_7C;
+    if (gAiSt.maximum_heal_percent != 0)
+        score_min = gAiSt.maximum_heal_percent;
 
     FOR_UNITS_ALL(unit,
     {
@@ -1404,7 +1399,7 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
                 continue;
         }
 
-        if (gAiSt.unk_7C == 0 && (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING) == 0)
+        if (gAiSt.maximum_heal_percent == 0 && (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING) == 0)
             continue;
 
         if (!AiIsWithinRectDistance(
@@ -1418,7 +1413,7 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
         MapFill(gMapRange, 0);
         MapAddInRange(unit->x, unit->y, GetUnitMagRange(gActiveUnit), 1);
 
-        if (!func_fe6_08030AB4(&pos))
+        if (!AiFindGoodMovePositionWithinRange(&pos))
             continue;
 
         score = Div(100 * GetUnitCurrentHp(unit), GetUnitMaxHp(unit));
@@ -1438,7 +1433,7 @@ void func_fe6_08033ECC(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptFortifyStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int ix, iy;
 
@@ -1454,7 +1449,7 @@ void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit))
     if (func_fe6_08030B94() < 3)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
     {
@@ -1483,7 +1478,7 @@ void func_fe6_08034094(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptWarpStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int iy, ix;
     struct Unit * unit;
@@ -1498,7 +1493,7 @@ void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
     MapMovementMarkFloodEdges();
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
@@ -1522,7 +1517,7 @@ void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit))
             if ((unit->ai_flags & (AI_UNIT_FLAG_SEEK_HEALING | AI_UNIT_FLAG_3)) != 0)
                 continue;
 
-            if (unit->level >= max_level && func_fe6_08033C8C(ix, iy, &pos))
+            if (unit->level >= max_level && AiGetReachableAdjacentPosition(ix, iy, &pos))
             {
                 max_level = unit->level;
                 x_decide = pos.x;
@@ -1532,13 +1527,13 @@ void func_fe6_08034178(int slot, bool (* is_enemy)(struct Unit * unit))
         }
     }
 
-    if (max_level != 0 && func_fe6_080348DC(&pos))
+    if (max_level != 0 && AiGetGoodWarpPosition(&pos))
     {
         AiSetDecision(x_decide, y_decide, AI_ACTION_STAFF, target_decide, slot, pos.x, pos.y);
     }
 }
 
-void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptRestoreStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int iy, ix;
     struct Unit * unit;
@@ -1553,7 +1548,7 @@ void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
     MapMovementMarkFloodEdges();
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
@@ -1577,7 +1572,7 @@ void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit))
             if (unit->status == UNIT_STATUS_NONE)
                 continue;
 
-            if (unit->level >= max_level && func_fe6_08033C8C(ix, iy, &pos))
+            if (unit->level >= max_level && AiGetReachableAdjacentPosition(ix, iy, &pos))
             {
                 max_level = unit->level;
                 x_decide = pos.x;
@@ -1593,7 +1588,8 @@ void func_fe6_080342C4(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-bool func_fe6_08034400(struct Unit * unit)
+// used to check if this unit should be ignored when finding a target for status staves
+bool AiIsUnitArmed(struct Unit * unit)
 {
     int i;
 
@@ -1614,7 +1610,8 @@ bool func_fe6_08034400(struct Unit * unit)
     return FALSE;
 }
 
-int func_fe6_08034458(struct Unit * unit)
+// used to find the "best" target for a silence staff use
+int AiGetSilenceStaffTargetScore(struct Unit * unit)
 {
     fu16 item;
 
@@ -1633,7 +1630,7 @@ int func_fe6_08034458(struct Unit * unit)
     return score;
 }
 
-void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptSilenceStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     struct Vec2i pos;
 
@@ -1647,7 +1644,7 @@ void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
 
     FOR_UNITS_ALL(unit,
     {
@@ -1674,17 +1671,17 @@ void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit))
             continue;
         }
 
-        if (!func_fe6_08034400(unit))
+        if (!AiIsUnitArmed(unit))
             continue;
 
-        score = func_fe6_08034458(unit);
+        score = AiGetSilenceStaffTargetScore(unit);
 
         if (score != 0 && score >= score_max)
         {
             MapFill(gMapRange, 0);
             MapAddInRange(unit->x, unit->y, GetUnitMagRange(gActiveUnit), 1);
 
-            if (func_fe6_08030AB4(&pos))
+            if (AiFindGoodMovePositionWithinRange(&pos))
             {
                 score_max = score;
                 x_decide = pos.x;
@@ -1700,7 +1697,7 @@ void func_fe6_080344AC(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptOffensiveStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     struct Vec2i pos;
 
@@ -1714,7 +1711,7 @@ void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
 
     FOR_UNITS_ALL(unit,
     {
@@ -1738,7 +1735,7 @@ void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
             continue;
         }
 
-        if (!func_fe6_08034400(unit))
+        if (!AiIsUnitArmed(unit))
             continue;
 
         accuracy = GetOffensiveStaffAccuracy(gActiveUnit, unit);
@@ -1748,7 +1745,7 @@ void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
             MapFill(gMapRange, 0);
             MapAddInRange(unit->x, unit->y, GetUnitMagRange(gActiveUnit), 1);
 
-            if (func_fe6_08030AB4(&pos))
+            if (AiFindGoodMovePositionWithinRange(&pos))
             {
                 level_max = unit->level;
                 x_decide = pos.x;
@@ -1764,7 +1761,7 @@ void func_fe6_0803462C(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit))
+void AiAttemptBarrierStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 {
     int iy, ix;
     struct Unit * unit;
@@ -1779,7 +1776,7 @@ void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit))
     if ((gAiSt.flags & AI_FLAG_BERSERKED) != 0)
         return;
 
-    func_fe6_08030CBC(gActiveUnit);
+    AiStayAwareMapFlood_UpToMove(gActiveUnit);
     MapMovementMarkFloodEdges();
 
     for (iy = gMapSize.y - 1; iy >= 0; --iy)
@@ -1800,7 +1797,7 @@ void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit))
                     continue;
             }
 
-            if (GetUnitResistance(unit) <= min_resistance && func_fe6_08033C8C(ix, iy, &pos))
+            if (GetUnitResistance(unit) <= min_resistance && AiGetReachableAdjacentPosition(ix, iy, &pos))
             {
                 min_resistance = GetUnitResistance(unit);
                 x_decide = pos.x;
@@ -1816,8 +1813,11 @@ void func_fe6_080347A4(int slot, bool (* is_enemy)(struct Unit * unit))
     }
 }
 
-bool func_fe6_080348DC(struct Vec2i * pos)
+bool AiGetGoodWarpPosition(struct Vec2i * pos_out)
 {
+    // idk how this is supposed to work
+    // this function doesn't know the warp target
+
     int iy, ix;
 
     fu8 min_score = UINT8_MAX;
@@ -1836,7 +1836,7 @@ bool func_fe6_080348DC(struct Vec2i * pos)
         if (unit->flags & (UNIT_FLAG_HIDDEN | UNIT_FLAG_DEAD | UNIT_FLAG_RESCUED))
             continue;
 
-        func_fe6_08035028(unit);
+        AiMapFloodRange_UpToMove(unit);
 
         for (iy = gMapSize.y - 1; iy >= 0; --iy)
         {
@@ -1875,28 +1875,28 @@ bool func_fe6_080348DC(struct Vec2i * pos)
 
         if (nearest_enemy_distance != UINT8_MAX && min_score >= nearest_enemy_distance && some_other_distance != UINT8_MAX)
         {
-            pos->x = x_found;
-            pos->y = y_found;
+            pos_out->x = x_found;
+            pos_out->y = y_found;
             min_score = nearest_enemy_distance;
         }
     })
 
     if (min_score != UINT8_MAX)
-        return 1;
+        return TRUE;
 
-    return 0;
+    return FALSE;
 }
 
-int func_fe6_08034A60(fu16 item)
+int AiGetConsumableAttemptId(fu16 item)
 {
     fu16 iid;
     int i = 0;
 
     iid = GetItemIid(item);
 
-    while (gUnk_0810DB9C[i].iid != 0)
+    while (gAiConsumableAttemptList[i].iid != 0)
     {
-        if (iid == gUnk_0810DB9C[i].iid)
+        if (iid == gAiConsumableAttemptList[i].iid)
         {
             if (iid == IID_LOCKPICK && (UNIT_ATTRIBUTES(gActiveUnit) & UNIT_ATTR_STEAL) == 0)
             {
@@ -1906,7 +1906,7 @@ int func_fe6_08034A60(fu16 item)
                 continue;
             }
 
-            if (gUnk_0810DB9C[i].func != NULL)
+            if (gAiConsumableAttemptList[i].func != NULL)
                 return i;
         }
 
@@ -1916,12 +1916,12 @@ int func_fe6_08034A60(fu16 item)
     return -1;
 }
 
-bool AiTryDoSpecialItems(void)
+bool AiAttemptConsumableAction(void)
 {
     int i, item;
     int ent_id;
 
-    if ((gAiSt.flags & AI_FLAG_1) != 0)
+    if ((gAiSt.flags & AI_FLAG_STAY) != 0)
         return FALSE;
 
     for (i = 0; i < ITEMSLOT_INV_COUNT && (item = gActiveUnit->items[i]) != 0; ++i)
@@ -1930,11 +1930,11 @@ bool AiTryDoSpecialItems(void)
         if (GetItemKind(item) == ITEM_KIND_SWORD)
             continue;
 
-        ent_id = func_fe6_08034A60(item);
+        ent_id = AiGetConsumableAttemptId(item);
 
         if (ent_id != -1)
         {
-            gUnk_0810DB9C[ent_id].func(i);
+            gAiConsumableAttemptList[ent_id].func(i);
         }
     }
 
@@ -1944,14 +1944,14 @@ bool AiTryDoSpecialItems(void)
     return gAiDecision.action_performed;
 }
 
-void func_fe6_08034B58(int slot)
+void AiAttemptDoorKey(int slot)
 {
     struct Vec2i pos;
 
     if ((gAiSt.special_item_flags & (0x80000001)) == 0)
         return;
 
-    if (!func_fe6_08034D80(gActiveUnit, &pos))
+    if (!AiFindGoodDoorKeyUsePosition(gActiveUnit, &pos))
         return;
 
     AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, TRUE);
@@ -1965,7 +1965,7 @@ void func_fe6_08034B58(int slot)
     AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_USEITEM, 0, slot, 0, 0);
 }
 
-void func_fe6_08034BF0(int slot)
+void AiAttemptLockpick(int slot)
 {
     struct Vec2i pos;
 
@@ -1984,7 +1984,7 @@ void func_fe6_08034BF0(int slot)
     if (GetUnitItemCount(gActiveUnit) >= ITEMSLOT_INV_COUNT)
         findpos_flags |= AI_FINDPOS_FLAG_NO_CHESTS;
 
-    if (func_fe6_08034DFC(gActiveUnit, findpos_flags, &pos) == TRUE)
+    if (AiFindGoodLockpickUsePosition(gActiveUnit, findpos_flags, &pos) == TRUE)
     {
         AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, FALSE);
 
@@ -1998,7 +1998,7 @@ void func_fe6_08034BF0(int slot)
     }
 }
 
-void func_fe6_08034CC0(int slot)
+void AiAttemptAntitoxin(int slot)
 {
     struct Vec2i pos;
 
@@ -2014,7 +2014,8 @@ void func_fe6_08034CC0(int slot)
     AiSetDecision(pos.x, pos.y, AI_ACTION_USEITEM, 0, slot, 0, 0);
 }
 
-fu8 func_fe6_08034D28(int x, int y)
+// unused
+fu8 AiGetRangeAt(int x, int y)
 {
     if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX)
         return UINT8_MAX;
@@ -2025,19 +2026,16 @@ fu8 func_fe6_08034D28(int x, int y)
     return gMapRange[y][x];
 }
 
-u8 CONST_DATA gUnk_085C98F0[] =
+bool AiFindGoodDoorKeyUsePosition(struct Unit * unit, struct Vec2i * pos_out)
 {
-    TERRAIN_DOOR, 0,
-};
+    static u8 CONST_DATA door_terrains[] = { TERRAIN_DOOR, 0 };
 
-bool func_fe6_08034D80(struct Unit * unit, struct Vec2i * pos_out)
-{
-    func_fe6_08034FF8(unit);
+    AiMapFloodRange_NoDoors_Pass(unit);
 
-    if (!AiFindClosestTerrainAdjacentPosition(gUnk_085C98F0, 0, pos_out))
+    if (!AiFindClosestTerrainAdjacentPosition(door_terrains, 0, pos_out))
         return FALSE;
 
-    func_fe6_08034F34(unit);
+    AiMapFloodRange(unit);
 
     if (gMapRangeSigned[pos_out->y][pos_out->x] >= MAP_MOVEMENT_MAX)
         return FALSE;
@@ -2045,26 +2043,23 @@ bool func_fe6_08034D80(struct Unit * unit, struct Vec2i * pos_out)
     return TRUE;
 }
 
-u8 CONST_DATA gUnk_085C98F2[] =
+bool AiFindGoodChestKeyUsePosition(struct Unit * unit, struct Vec2i * pos_out)
 {
-    TERRAIN_CHEST, 0,
-};
+    static u8 CONST_DATA chest_terrains[] = { TERRAIN_CHEST, 0 };
 
-bool func_fe6_08034DD4(struct Unit * unit, struct Vec2i * pos_out)
-{
-    func_fe6_08034F34(unit);
+    AiMapFloodRange(unit);
 
-    if (!AiFindClosestTerrainPosition(gUnk_085C98F2, 0, pos_out))
+    if (!AiFindClosestTerrainPosition(chest_terrains, 0, pos_out))
         return FALSE;
 
     return TRUE;
 }
 
-int func_fe6_08034DFC(struct Unit * unit, int findpos_flags, struct Vec2i * pos_out)
+int AiFindGoodLockpickUsePosition(struct Unit * unit, int findpos_flags, struct Vec2i * pos_out)
 {
-    func_fe6_08034F04(unit);
+    AiMapFlood(unit);
 
-    func_fe6_08034FC4(unit);
+    AiMapFloodRange_NoDoors(unit);
 
     if (AiFindClosestUnlockPosition(findpos_flags | AI_FINDPOS_FLAG_CHECK_ENEMY, pos_out) == TRUE)
     {
@@ -2072,7 +2067,7 @@ int func_fe6_08034DFC(struct Unit * unit, int findpos_flags, struct Vec2i * pos_
             return TRUE;
     }
 
-    func_fe6_08034FF8(unit);
+    AiMapFloodRange_NoDoors_Pass(unit);
 
     if ((AiFindClosestUnlockPosition(findpos_flags, pos_out) == TRUE))
     {
@@ -2085,9 +2080,9 @@ int func_fe6_08034DFC(struct Unit * unit, int findpos_flags, struct Vec2i * pos_
     return FALSE;
 }
 
-void func_fe6_08034E9C(i8 const * mov_table)
+void AiSetWorkingMovTableIgnoringWalls(i8 const * mov_table)
 {
-    u16 i;
+    fu16 i;
 
     for (i = 1; i < TERRAIN_COUNT; i++)
     {
@@ -2098,9 +2093,9 @@ void func_fe6_08034E9C(i8 const * mov_table)
     }
 }
 
-void func_fe6_08034ED4(i8 const * mov_table, int free_terrain)
+void AiSetWorkingMovTableIgnoringTerrain(i8 const * mov_table, int free_terrain)
 {
-    u16 i;
+    fu16 i;
 
     for (i = 1; i < TERRAIN_COUNT; i++)
         gWorkingMovTable[i] = mov_table[i];
@@ -2108,70 +2103,78 @@ void func_fe6_08034ED4(i8 const * mov_table, int free_terrain)
     gWorkingMovTable[free_terrain] = 1;
 }
 
-void func_fe6_08034F04(struct Unit * unit)
+void AiMapFlood(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
 }
 
-void func_fe6_08034F34(struct Unit * unit)
+void AiMapFloodRange(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapRange);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
 }
 
-void func_fe6_08034F64(struct Unit * unit)
+void AiMapFlood_NoWall(struct Unit * unit)
 {
-    func_fe6_08034E9C(unit->jinfo->mov_table);
+    AiSetWorkingMovTableIgnoringWalls(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
 }
 
-void func_fe6_08034F94(struct Unit * unit)
+void AiMapFlood_NoWall_Pass(struct Unit * unit)
 {
-    func_fe6_08034E9C(unit->jinfo->mov_table);
+    AiSetWorkingMovTableIgnoringWalls(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void func_fe6_08034FC4(struct Unit * unit)
+void AiMapFloodRange_NoDoors(struct Unit * unit)
 {
-    func_fe6_08034ED4(unit->jinfo->mov_table, TERRAIN_DOOR);
+    AiSetWorkingMovTableIgnoringTerrain(unit->jinfo->mov_table, TERRAIN_DOOR);
     SetWorkingMap(gMapRange);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
 }
 
-void func_fe6_08034FF8(struct Unit * unit)
+void AiMapFloodRange_NoDoors_Pass(struct Unit * unit)
 {
-    func_fe6_08034ED4(unit->jinfo->mov_table, TERRAIN_DOOR);
+    AiSetWorkingMovTableIgnoringTerrain(unit->jinfo->mov_table, TERRAIN_DOOR);
     SetWorkingMap(gMapRange);
+
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void func_fe6_08035028(struct Unit * unit)
+void AiMapFloodRange_UpToMove(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapRange);
+
     BeginMapFlood(unit->x, unit->y, UNIT_MOV(unit), unit->id);
 }
 
-void func_fe6_08035064(struct Unit * unit)
+void AiUpdateStayFlag(struct Unit * unit)
 {
-    if ((unit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13) != 0)
+    if ((unit->ai_config & AI_UNIT_CONFIG_FLAG_STAY) != 0)
     {
-        gAiSt.flags |= AI_FLAG_1;
+        gAiSt.flags |= AI_FLAG_STAY;
     }
     else
     {
-        gAiSt.flags &= ~AI_FLAG_1;
+        gAiSt.flags &= ~AI_FLAG_STAY;
     }
 }
 
-void func_fe6_08035098(int x, int y, struct Unit * unit)
+void AiMapFloodRangeFrom(int x, int y, struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapRange);
+
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, unit->id);
 }

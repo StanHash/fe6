@@ -738,7 +738,7 @@ void UnitGetDropPositionOnDeath(struct Unit * unit, int * x_out, int * y_out)
     struct Unit * rescue = GetUnit(unit->rescue);
 
     // Fill the movement map
-    MapFlood_08019424(unit->x, unit->y, MoveTable_Flying);
+    MapFlood_Unitless(unit->x, unit->y, MoveTable_Flying);
 
     // Put the active unit on the unit map (kinda, just marking its spot)
     gMapUnit[gActiveUnit->y][gActiveUnit->x] = 0xFF;

@@ -503,7 +503,7 @@ void EncodeSuspendSavePackedUnit(struct Unit * unit, void * buf)
     suspend_unit->ai_b = unit->ai_b;
     suspend_unit->ai_b_pc = unit->ai_b_pc;
     suspend_unit->ai_config = unit->ai_config;
-    suspend_unit->unit_unk_46 = unit->unk_46;
+    suspend_unit->ai_counter = unit->ai_counter;
     suspend_unit->ai_flags = unit->ai_flags;
 }
 
@@ -554,7 +554,7 @@ void ReadSuspendSavePackedUnit(void const * sram_src, struct Unit * unit)
     unit->ai_b = suspend_unit.ai_b;
     unit->ai_b_pc = suspend_unit.ai_b_pc;
     unit->ai_config = suspend_unit.ai_config;
-    unit->unk_46 = suspend_unit.unit_unk_46;
+    unit->ai_counter = suspend_unit.ai_counter;
     unit->ai_flags = suspend_unit.ai_flags;
 
     if (unit->exp == 0x7F)

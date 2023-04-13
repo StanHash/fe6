@@ -8,6 +8,7 @@
 #include "ai_utility.h"
 #include "ai_data.h"
 #include "ai_battle.h"
+#include "ai_unk.h"
 
 enum ScriptKind
 {
@@ -305,7 +306,7 @@ void AiCmd_ActionOnPid(u8 * pc)
 
     if (rand <= sScr->unk_01)
     {
-        if (!func_fe6_08033C04(AiIsUnitEnemy))
+        if (!AiAttemptStaffAction(AiIsUnitEnemy))
         {
             if (AiUnitWithPidExists(sScr->unk_04) == TRUE)
             {
@@ -342,12 +343,12 @@ void AiCmd_Action(u8 * pc)
     {
         if (sScr->unk_08 == NULL)
         {
-            if (!func_fe6_08033C04(AiIsUnitEnemy))
+            if (!AiAttemptStaffAction(AiIsUnitEnemy))
                 AiAttemptOffensiveAction(AiIsUnitEnemy);
         }
         else
         {
-            if (!func_fe6_08033C04(AiIsUnitEnemyOrInScrList))
+            if (!AiAttemptStaffAction(AiIsUnitEnemyOrInScrList))
                 AiAttemptOffensiveAction(AiIsUnitEnemyAndNotInScrList);
         }
     }
@@ -370,9 +371,9 @@ void AiCmd_ActionInPlace(u8 * pc)
 
     if (rand <= sScr->unk_01)
     {
-        gAiSt.flags |= AI_FLAG_1;
+        gAiSt.flags |= AI_FLAG_STAY;
 
-        if (!func_fe6_08033C04(AiIsUnitEnemy))
+        if (!AiAttemptStaffAction(AiIsUnitEnemy))
             AiAttemptOffensiveAction(AiIsUnitEnemy);
     }
     else
@@ -389,7 +390,7 @@ void AiCmd_ActionOnJid(u8 * pc)
 
     if (rand <= sScr->unk_01)
     {
-        if (!func_fe6_08033C04(AiIsUnitEnemyAndScrJid))
+        if (!AiAttemptStaffAction(AiIsUnitEnemyAndScrJid))
             AiAttemptOffensiveAction(AiIsUnitEnemyAndScrJid);
     }
     else
@@ -402,19 +403,19 @@ void AiCmd_ActionOnJid(u8 * pc)
 
 void AiCmd_StaffAction(u8 * pc)
 {
-    func_fe6_08033C04(AiIsUnitEnemy);
+    AiAttemptStaffAction(AiIsUnitEnemy);
     (*pc)++;
 }
 
 void AiCmd_StaffAction2(u8 * pc)
 {
-    func_fe6_08033C04(AiIsUnitEnemy);
+    AiAttemptStaffAction(AiIsUnitEnemy);
     (*pc)++;
 }
 
 void AiCmd_StaffAction3(u8 * pc)
 {
-    func_fe6_08033C04(AiIsUnitEnemy);
+    AiAttemptStaffAction(AiIsUnitEnemy);
     (*pc)++;
 }
 
@@ -483,13 +484,13 @@ void AiCmd_MoveTowardsJid(u8 * pc)
 
 void AiCmd_Pillage(u8 * pc)
 {
-    if (AiTryDoSpecialItems() == TRUE)
+    if (AiAttemptConsumableAction() == TRUE)
     {
         if (sScr->unk_03 != 0)
         {
-            gActiveUnit->unk_46++;
+            gActiveUnit->ai_counter++;
 
-            if (gActiveUnit->unk_46 == sScr->unk_03)
+            if (gActiveUnit->ai_counter == sScr->unk_03)
             {
                 (*pc)++;
                 sScrEnded = FALSE;
@@ -511,9 +512,9 @@ void AiCmd_Pillage(u8 * pc)
 
                 if (sScr->unk_03 != 0)
                 {
-                    gActiveUnit->unk_46++;
+                    gActiveUnit->ai_counter++;
 
-                    if (gActiveUnit->unk_46 == sScr->unk_03)
+                    if (gActiveUnit->ai_counter == sScr->unk_03)
                     {
                         (*pc)++;
                         sScrEnded = FALSE;
@@ -617,7 +618,7 @@ void AiCmd_MoveTowardsTerrain(u8 * pc)
 {
     struct Vec2i pos;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(&sScr->unk_03, 0, &pos) == TRUE)
     {
@@ -636,7 +637,7 @@ void AiCmd_MoveTowardsListedTerrain(u8 * pc)
 {
     struct Vec2i pos;
 
-    MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
+    MapFloodRange_Unitless(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
     if (AiFindClosestTerrainPosition(sScr->unk_08, 0, &pos) == TRUE)
     {
@@ -659,7 +660,7 @@ void AiCmd_Label(u8 * pc)
 
 void AiDoBerserkAction(void)
 {
-    if (!func_fe6_08033C04(AiIsUnitEnemy))
+    if (!AiAttemptStaffAction(AiIsUnitEnemy))
         AiAttemptOffensiveAction(AiIsUnitNonActive);
 }
 

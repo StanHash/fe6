@@ -8,6 +8,7 @@
 #include "ai_perform.h"
 #include "ai_utility.h"
 #include "ai_script.h"
+#include "ai_unk.h"
 #include "save_game.h"
 
 struct AiDecision EWRAM_DATA gAiDecision = {};
@@ -65,7 +66,7 @@ next_unit:
 
     if (*gAiSt.unit_it != 0)
     {
-        gAiSt.unk_7C = 0;
+        gAiSt.maximum_heal_percent = 0;
 
         gActiveUnitId = *gAiSt.unit_it;
         gActiveUnit = GetUnit(gActiveUnitId);
@@ -80,7 +81,7 @@ next_unit:
         RenderMap();
         RefreshUnitSprites();
 
-        func_fe6_08035064(gActiveUnit);
+        AiUpdateStayFlag(gActiveUnit);
 
         gAiSt.combat_wgt_table_id = (gActiveUnit->ai_config & AI_UNIT_CONFIG_COMBATWEIGHT_MASK) >> AI_UNIT_CONFIG_COMBATWEIGHT_SHIFT;
 
@@ -178,7 +179,7 @@ void AiDecideHealOrEscape(void)
     if (gAiSt.flags & AI_FLAG_BERSERKED)
         return;
 
-    if (AiUpdateGetUnitIsHealing(gActiveUnit) == TRUE)
+    if (AiUpdateUnitSeeksHealing(gActiveUnit) == TRUE)
     {
         struct Vec2i position;
 
@@ -187,7 +188,7 @@ void AiDecideHealOrEscape(void)
 
         if ((gActiveUnit->ai_flags & AI_UNIT_FLAG_3) && (AiTryMoveTowardsEscape() == TRUE))
         {
-            AiTryDanceOrStealAfterMove();
+            AiTryRefreshOrStealAfterMove();
             return;
         }
 
@@ -202,7 +203,7 @@ void AiDecideHealOrEscape(void)
     else
     {
         if ((gActiveUnit->ai_flags & AI_UNIT_FLAG_3) && (AiTryMoveTowardsEscape() == TRUE))
-            AiTryDanceOrStealAfterMove();
+            AiTryRefreshOrStealAfterMove();
     }
 }
 
@@ -211,7 +212,7 @@ void AiDecideSpecialItems(void)
     if (gAiSt.flags & AI_FLAG_BERSERKED)
         return;
 
-    AiTryDoSpecialItems();
+    AiAttemptConsumableAction();
 }
 
 void AiDecideScriptA(void)

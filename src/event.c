@@ -1530,7 +1530,7 @@ bool TryMoveUnitDisplayed(ProcPtr proc, struct Unit * unit, int x, int y)
         AiGetUnitClosestValidPosition(unit, x, y, &vec);
     }
 
-    MapFlood_080193F4(unit->x, unit->y, unit->jinfo->mov_table);
+    MapFloodRange_Unitless(unit->x, unit->y, unit->jinfo->mov_table);
     BuildBestMoveScript(vec.x, vec.y, gWorkingMoveScr);
 
     if (terrainChanged)

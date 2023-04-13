@@ -105,7 +105,7 @@ int func_fe6_0802B99C(void)
 
 int func_fe6_0802B9DC(void)
 {
-    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
+    MapFlood_UpTo(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
     return func_fe6_0802B99C();
 }
 

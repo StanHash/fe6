@@ -4,6 +4,7 @@
 #include "ai_order.h"
 #include "ai_utility.h"
 #include "ai_data.h"
+#include "ai_unk.h"
 
 struct AiSt EWRAM_DATA gAiSt = {};
 
@@ -51,7 +52,7 @@ static void AiPhase_Begin(ProcPtr proc)
     gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
     gAiSt.unk_84 = 0;
 
-    func_fe6_08032A08();
+    AiUpdateUnitsSeekHealing();
     func_fe6_080308B0();
 
     SpawnProcLocking(ProcScr_AiOrder, proc);
@@ -69,7 +70,7 @@ static void AiPhase_Berserk_Begin(ProcPtr proc)
 
     gAiSt.special_item_flags = AiItemConfigTable[gPlaySt.chapter];
 
-    func_fe6_08032A08();
+    AiUpdateUnitsSeekHealing();
     func_fe6_080308B0();
 
     SpawnProcLocking(ProcScr_AiOrder_Berserk, proc);

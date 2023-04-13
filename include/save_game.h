@@ -76,7 +76,7 @@ struct SuspendSavePackedUnit
     /* 23 */ u8 ai_b;
     /* 24 */ u16 ai_config;
     /* 26 */ u8 ai_b_pc;
-    /* 27 */ u8 unit_unk_46;
+    /* 27 */ u8 ai_counter;
     /* 28 */ u32 level           : 5;
     /*    */ u32 x               : 6;
     /*    */ u32 y               : 6;

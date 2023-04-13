@@ -7,7 +7,7 @@ enum
     AI_FLAGS_NONE = 0,
 
     AI_FLAG_0 = (1 << 0),
-    AI_FLAG_1 = (1 << 1),
+    AI_FLAG_STAY = (1 << 1),
     AI_FLAG_BERSERKED = (1 << 2),
 };
 
@@ -15,9 +15,9 @@ enum
 {
     AI_UNIT_FLAG_SEEK_HEALING = (1 << 0),
     AI_UNIT_FLAG_1 = (1 << 1),
-    AI_UNIT_FLAG_2 = (1 << 2),
+    AI_UNIT_FLAG_HEALER = (1 << 2),
     AI_UNIT_FLAG_3 = (1 << 3),
-    AI_UNIT_FLAG_4 = (1 << 4),
+    AI_UNIT_FLAG_REPAIRER = (1 << 4),
 
     AI_UNIT_FLAG_6 = (1 << 6),
 };
@@ -41,7 +41,7 @@ enum
     // 8+
 
     // 13
-    AI_UNIT_CONFIG_FLAG_UNK13 = 1 << 13,
+    AI_UNIT_CONFIG_FLAG_STAY = 1 << 13,
 };
 
 enum
@@ -126,7 +126,7 @@ struct AiSt
     /* 79 */ u8 decide_state;
     /* 7A */ u8 danger_map_filled;
     /* 7B */ u8 flags;
-    /* 7C */ u8 unk_7C;
+    /* 7C */ u8 maximum_heal_percent;
     /* 7D */ u8 combat_wgt_table_id;
     /* 7E */ u8 unk_7E;
     /* 7F */ u8 unk_7F;

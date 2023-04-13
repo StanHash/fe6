@@ -76,7 +76,7 @@ static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * targe
 
     foundDist = 9999;
 
-    MapFlood_080193C0(unit);
+    MapFlood_Pass(unit);
 
     gMapUnit[unit->y][unit->x] = 0xFF;
 
@@ -112,7 +112,7 @@ static void GetRescueStaffTargetPosition(struct Unit * unit, struct Unit * targe
 
     foundDist = 9999;
 
-    MapFlood_08019424(unit->x, unit->y, MoveTable_Flying);
+    MapFlood_Unitless(unit->x, unit->y, MoveTable_Flying);
 
     gMapUnit[unit->y][unit->x] = 0xFF;
 

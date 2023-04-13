@@ -22,7 +22,7 @@ inline void SetWorkingMap(u8 ** map)
     gWorkingMap = map;
 }
 
-void MapFlood_08019344(struct Unit * unit)
+void MapFlood_UpToMove(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -30,7 +30,7 @@ void MapFlood_08019344(struct Unit * unit)
     BeginMapFlood(unit->x, unit->y, UNIT_MOV(unit), unit->id);
 }
 
-void MapFlood_08019384(struct Unit * unit, i8 move)
+void MapFlood_UpTo(struct Unit * unit, i8 move)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -38,7 +38,7 @@ void MapFlood_08019384(struct Unit * unit, i8 move)
     BeginMapFlood(unit->x, unit->y, move, unit->id);
 }
 
-void MapFlood_080193C0(struct Unit * unit)
+void MapFlood_Pass(struct Unit * unit)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
     SetWorkingMap(gMapMovement);
@@ -46,7 +46,7 @@ void MapFlood_080193C0(struct Unit * unit)
     BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_080193F4(int x, int y, i8 const * mov_table)
+void MapFloodRange_Unitless(int x, int y, i8 const * mov_table)
 {
     SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapRange);
@@ -54,7 +54,7 @@ void MapFlood_080193F4(int x, int y, i8 const * mov_table)
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_08019424(int x, int y, i8 const * mov_table)
+void MapFlood_Unitless(int x, int y, i8 const * mov_table)
 {
     SetWorkingMovTable(mov_table);
     SetWorkingMap(gMapMovement);
@@ -62,7 +62,7 @@ void MapFlood_08019424(int x, int y, i8 const * mov_table)
     BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, 0);
 }
 
-void MapFlood_08019454(struct Unit * unit, int x, int y, int move)
+void MapFloodWorkingMap_From_UpTo(struct Unit * unit, int x, int y, int move)
 {
     SetWorkingMovTable(unit->jinfo->mov_table);
 

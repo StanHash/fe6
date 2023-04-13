@@ -239,7 +239,7 @@ struct Unit
     /* 43 */ u8 ai_a_pc;
     /* 44 */ u8 ai_b;
     /* 45 */ u8 ai_b_pc;
-    /* 46 */ u8 unk_46;
+    /* 46 */ u8 ai_counter;
     /* 47 */ // pad?
     /* 48 */ // end
 };

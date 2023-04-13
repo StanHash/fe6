@@ -348,7 +348,7 @@ void DisplayUnitActionRange(struct Unit * unit)
 {
     int flags = LIMITVIEW_BLUE;
 
-    MapFlood_08019384(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
+    MapFlood_UpTo(gActiveUnit, UNIT_MOV(gActiveUnit) - gAction.move_count);
 
     if (!(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
     {
