@@ -1,4 +1,4 @@
-- clean up: manim and eventfunctions
+- clean up: ai_080326C4, manim, eventfunctions
 - dump: gamedata
 - tools: msg, face, unitinfo, banim
 - decomp: prepscreen or mapui might be good to do next > everything else > code_banim > code_sio

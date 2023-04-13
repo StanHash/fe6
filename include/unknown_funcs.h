@@ -18,7 +18,7 @@ void func_fe6_0802BA44(struct Unit * unit);
 
 void AiRefreshDangerMap(void);
 bool AiCheckDangerAt(int x, int y, u8 threshold);
-bool AiTryGetNearestHealPoint(struct Vec2i * out);
+bool AiTryGetNearestHealPoint(struct Vec2i * pos_out);
 void func_fe6_08032A08(void);
 bool AiUpdateGetUnitIsHealing(struct Unit * unit);
 bool AiTryHealSelf(void);
@@ -75,17 +75,17 @@ bool AiTryDoSpecialItems(void);
 // func_fe6_08034BF0
 // func_fe6_08034CC0
 // func_fe6_08034D28
-// func_fe6_08034D80
+bool func_fe6_08034D80(struct Unit * unit, struct Vec2i * pos_out);
 // func_fe6_08034DD4
-// func_fe6_08034DFC
+int func_fe6_08034DFC(struct Unit * unit, int findpos_flags, struct Vec2i * pos_out);
 // func_fe6_08034E9C
 // func_fe6_08034ED4
-// func_fe6_08034F04
-// func_fe6_08034F34
+void func_fe6_08034F04(struct Unit * unit);
+void func_fe6_08034F34(struct Unit * unit);
 // func_fe6_08034F64
 // func_fe6_08034F94
-// func_fe6_08034FC4
-// func_fe6_08034FF8
+void func_fe6_08034FC4(struct Unit * unit);
+void func_fe6_08034FF8(struct Unit * unit);
 void func_fe6_08035028(struct Unit * unit);
 void func_fe6_08035064(struct Unit * unit);
 void func_fe6_08035098(int x, int y, struct Unit * unit);

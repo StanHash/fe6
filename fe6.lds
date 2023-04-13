@@ -451,7 +451,6 @@ SECTIONS
         src/ai_script.o(.text);
         src/ai_battle.o(.text);
         src/ai_080326C4.o(.text);
-        asm/code-ai.o(.text);
         asm/code-sio.o(.text);
         src/ui.o(.text);
         src/menu.o(.text);

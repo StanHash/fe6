@@ -939,7 +939,7 @@ struct MuConfig * GetNewMuConfig(void)
     return NULL;
 }
 
-bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * out)
+bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * pos_out)
 {
     short x, y;
 
@@ -947,8 +947,8 @@ bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * out)
     {
 
     case MU_STATE_DISPLAY_UI:
-        out->x = (mu->x_q4 + mu->x_offset_q4) >> 4;
-        out->y = (mu->y_q4 + mu->y_offset_q4) >> 4;
+        pos_out->x = (mu->x_q4 + mu->x_offset_q4) >> 4;
+        pos_out->y = (mu->y_q4 + mu->y_offset_q4) >> 4;
 
         return TRUE;
 
@@ -956,8 +956,8 @@ bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * out)
         x = ((mu->x_q4 + mu->x_offset_q4) >> 4) - gBmSt.camera.x + 8;
         y = ((mu->y_q4 + mu->y_offset_q4) >> 4) - gBmSt.camera.y + 8;
 
-        out->x = x;
-        out->y = y + 8;
+        pos_out->x = x;
+        pos_out->y = y + 8;
 
         if (x < -0x10 || x > 0x100 || y < -0x10 || y > 0xB0)
             return FALSE;

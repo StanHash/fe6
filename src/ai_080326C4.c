@@ -66,12 +66,12 @@ static void AiFillDangerMap(void)
 {
     int i, j, ix, iy;
 
-    u16 item = 0;
-    u8 might = 0;
+    fu16 item = 0;
+    fu8 might = 0;
 
     for (i = 1; i < 0xC0; ++i)
     {
-        u16 itemTmp;
+        fu16 item_tmp;
 
         struct Unit * unit = GetUnit(i);
 
@@ -87,16 +87,18 @@ static void AiFillDangerMap(void)
         if (AreUnitIdsAllied(gActiveUnitId, unit->id))
             continue;
 
-        // BUG: item needs to be set back to 0 here
+#if BUGFIX
+        item = 0;
+#endif
 
-        for (j = 0; (j < ITEMSLOT_INV_COUNT) && (itemTmp = unit->items[j]); ++j)
+        for (j = 0; (j < ITEMSLOT_INV_COUNT) && (item_tmp = unit->items[j]); ++j)
         {
-            if (!CanUnitUseWeapon(unit, itemTmp))
+            if (!CanUnitUseWeapon(unit, item_tmp))
                 continue;
 
-            if (GetItemMight(itemTmp) > might)
+            if (GetItemMight(item_tmp) > might)
             {
-                item = itemTmp;
+                item = item_tmp;
                 might = GetItemMight(item);
             }
         }
@@ -130,7 +132,7 @@ bool AiCheckDangerAt(int x, int y, u8 threshold)
     return TRUE;
 }
 
-bool AiTryGetNearestHealPoint(struct Vec2i * out)
+bool AiTryGetNearestHealPoint(struct Vec2i * pos_out)
 {
     static u8 CONST_DATA fortTerrains[] = { TERRAIN_FORT, 0 };
 
@@ -189,17 +191,17 @@ bool AiTryGetNearestHealPoint(struct Vec2i * out)
             {
                 currentCount = count;
                 currentMove = gMapMovement[iy][ix];
-                out->x = ix;
-                out->y = iy;
+                pos_out->x = ix;
+                pos_out->y = iy;
             }
         }
     }
 
     if (currentMove != 0xFF)
     {
-        if (gMapUnit[out->y][out->x] != 0 && gMapUnit[out->y][out->x] != gActiveUnitId)
+        if (gMapUnit[pos_out->y][pos_out->x] != 0 && gMapUnit[pos_out->y][pos_out->x] != gActiveUnitId)
         {
-            unit = GetUnit(gMapUnit[out->y][out->x]);
+            unit = GetUnit(gMapUnit[pos_out->y][pos_out->x]);
             unit->ai_flags |= AI_UNIT_FLAG_1;
         }
 
@@ -213,7 +215,7 @@ void func_fe6_08032A08(void)
 {
     int i, count = 0;
 
-    u8 faction = gPlaySt.faction;
+    fu8 faction = gPlaySt.faction;
 
     int factionUnitCountLut[3] = { UNIT_AMOUNT_BLUE, UNIT_AMOUNT_GREEN, UNIT_AMOUNT_RED };
 
@@ -233,11 +235,11 @@ void func_fe6_08032A08(void)
 
 bool AiUpdateGetUnitIsHealing(struct Unit * unit)
 {
-    u16 hpPercentage = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
+    fu16 hp_percent = Div(GetUnitCurrentHp(unit) * 100, GetUnitMaxHp(unit));
 
     if (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
     {
-        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].exit_threshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].exit_threshold > hp_percent)
         {
             return TRUE;
         }
@@ -249,7 +251,7 @@ bool AiUpdateGetUnitIsHealing(struct Unit * unit)
     }
     else
     {
-        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].enter_threshold > hpPercentage)
+        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].enter_threshold > hp_percent)
         {
             unit->ai_flags |= AI_UNIT_FLAG_SEEK_HEALING;
             return TRUE;
@@ -267,7 +269,7 @@ bool AiTryHealSelf(void)
 
     for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
-        u16 item = gActiveUnit->items[i];
+        fu16 item = gActiveUnit->items[i];
 
         if (item == 0)
             return FALSE;
@@ -276,11 +278,11 @@ bool AiTryHealSelf(void)
         {
             if (!(gAiSt.flags & AI_FLAG_1))
             {
-                struct Vec2i position;
+                struct Vec2i pos;
 
-                if (AiFindSafestReachableLocation(gActiveUnit, &position) == TRUE)
+                if (AiFindSafestReachableLocation(gActiveUnit, &pos) == TRUE)
                 {
-                    AiSetDecision(position.x, position.y, AI_ACTION_USEITEM, 0, i, 0, 0);
+                    AiSetDecision(pos.x, pos.y, AI_ACTION_USEITEM, 0, i, 0, 0);
                     return TRUE;
                 }
             }
@@ -297,25 +299,25 @@ bool AiTryHealSelf(void)
 
 bool AiTryMoveTowardsEscape(void)
 {
-    struct AiEscapePt const * escapePt;
+    struct AiEscapePt const * escape_pt;
 
     MapFlood_08019384(gActiveUnit, MAP_MOVEMENT_EXTENDED);
-    escapePt = func_fe6_08032C2C();
+    escape_pt = func_fe6_08032C2C();
 
-    if (escapePt != NULL)
+    if (escape_pt != NULL)
     {
-        if (gMapMovementSigned[escapePt->y][escapePt->x] <= UNIT_MOV(gActiveUnit))
+        if (gMapMovementSigned[escape_pt->y][escape_pt->x] <= UNIT_MOV(gActiveUnit))
         {
-            AiTryMoveTowards(escapePt->x, escapePt->y, AI_ACTION_NONE, -1, TRUE);
+            AiTryMoveTowards(escape_pt->x, escape_pt->y, AI_ACTION_NONE, -1, TRUE);
 
             AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_ESCAPE,
-                escapePt->x, escapePt->y, escapePt->facing, 0);
+                escape_pt->x, escape_pt->y, escape_pt->facing, 0);
 
             return TRUE;
         }
         else
         {
-            AiTryMoveTowards(escapePt->x, escapePt->y, AI_ACTION_NONE, -1, FALSE);
+            AiTryMoveTowards(escape_pt->x, escape_pt->y, AI_ACTION_NONE, -1, FALSE);
             return gAiDecision.action_performed;
         }
     }
@@ -332,22 +334,20 @@ struct AiEscapePt const * func_fe6_08032C2C(void)
 
     int chapter = gPlaySt.chapter;
 
-    u8 resultMove = UINT8_MAX;
+    fu8 resultMove = UINT8_MAX;
 
     switch (gPlaySt.faction)
     {
+        case FACTION_BLUE:
+            return NULL;
 
-    case FACTION_BLUE:
-        return NULL;
+        case FACTION_RED:
+            list = gUnk_085C86B8[chapter];
+            break;
 
-    case FACTION_RED:
-        list = gUnk_085C86B8[chapter];
-        break;
-
-    case FACTION_GREEN:
-        list = gUnk_085C876C[chapter];
-        break;
-
+        case FACTION_GREEN:
+            list = gUnk_085C876C[chapter];
+            break;
     }
 
     for (; list[i].x != UINT8_MAX; ++i)
@@ -358,7 +358,7 @@ struct AiEscapePt const * func_fe6_08032C2C(void)
         if (resultMove > gMapMovementSigned[list[i].y][list[i].x])
         {
             resultMove = gMapMovementSigned[list[i].y][list[i].x];
-            result = list+i;
+            result = list + i;
         }
     }
 
@@ -390,7 +390,7 @@ bool func_fe6_08032CE8(u16 * out)
 
     for (i = 0; i < ITEMSLOT_INV_COUNT; ++i)
     {
-        u16 item;
+        fu16 item;
 
         out[i] = 0;
 
@@ -494,7 +494,7 @@ void func_fe6_08032F48(int arg_0, u16 * arg_1) {
     int i;
 
     int item_slot = -1;
-    u16 unk = 0;
+    fu16 unk = 0;
 
     for (i = 0; i < ITEMSLOT_INV_COUNT; i++)
     {
@@ -515,7 +515,7 @@ void func_fe6_08032F48(int arg_0, u16 * arg_1) {
         UnitEquipItemSlot(gActiveUnit, item_slot);
 }
 
-void func_fe6_08032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16 * arg_3)
+void func_fe6_08032F94(fu16 arg_0, fu16 arg_1, fu16 arg_2, u16 * arg_3)
 {
     if ((arg_1 + arg_0) != 0)
     {
@@ -526,7 +526,7 @@ void func_fe6_08032F94(u16 arg_0, u16 arg_1, u16 arg_2, u16 * arg_3)
     }
 }
 
-void func_fe6_08032FBC(u16 item)
+void func_fe6_08032FBC(fu16 item)
 {
     switch (GetItemIid(item))
     {
@@ -557,7 +557,7 @@ bool func_fe6_08032FF4(struct Unit * unit, int x, int y)
 
 int func_fe6_08033038(struct Unit * unit, u16 * item_out)
 {
-    u16 item = GetUnitEquippedWeapon(unit);
+    fu16 item = GetUnitEquippedWeapon(unit);
 
     *item_out = item;
     return GetUnitPower(unit) + GetItemMight(item);
@@ -886,7 +886,7 @@ bool func_fe6_080336FC(void const * no_input)
     return FALSE;
 }
 
-bool func_fe6_0803372C(struct Vec2i * out)
+bool func_fe6_0803372C(struct Vec2i * pos_out)
 {
     struct Vec2i const * pos_a;
     struct Vec2i const * pos_b;
@@ -911,8 +911,8 @@ bool func_fe6_0803372C(struct Vec2i * out)
         pos_b = pos_a;
     }
 
-    out->x = pos_b->x;
-    out->y = pos_b->y;
+    pos_out->x = pos_b->x;
+    pos_out->y = pos_b->y;
 
     if (gMapMovement[pos_b->y][pos_b->x] != 0xFF)
     {
@@ -1218,7 +1218,7 @@ struct Unk_0810DB9C const gUnk_0810DB9C[] =
     { 0 }, // end
 };
 
-int func_fe6_08033B9C(u16 item)
+int func_fe6_08033B9C(fu16 item)
 {
     fu16 iid;
     int i = 0;
@@ -1887,7 +1887,7 @@ bool func_fe6_080348DC(struct Vec2i * pos)
     return 0;
 }
 
-int func_fe6_08034A60(u16 item)
+int func_fe6_08034A60(fu16 item)
 {
     fu16 iid;
     int i = 0;
@@ -1944,12 +1944,234 @@ bool AiTryDoSpecialItems(void)
     return gAiDecision.action_performed;
 }
 
+void func_fe6_08034B58(int slot)
+{
+    struct Vec2i pos;
+
+    if ((gAiSt.special_item_flags & (0x80000001)) == 0)
+        return;
+
+    if (!func_fe6_08034D80(gActiveUnit, &pos))
+        return;
+
+    AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, TRUE);
+
+    if (gAiDecision.action_performed != TRUE)
+        return;
+
+    if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.x_move, gAiDecision.y_move, 1) != TRUE)
+        return;
+
+    AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_USEITEM, 0, slot, 0, 0);
+}
+
+void func_fe6_08034BF0(int slot)
+{
+    struct Vec2i pos;
+
+    int findpos_flags = 0;
+
+    if ((gAiSt.special_item_flags & (2)) == 0)
+        return;
+
+    if (GetUnitItemCount(gActiveUnit) >= ITEMSLOT_INV_COUNT && (gActiveUnit->ai_flags & AI_UNIT_FLAG_3) == 0)
+    {
+        gActiveUnit->ai_flags |= AI_UNIT_FLAG_3;
+        gAiSt.decide_state = 0;
+        return;
+    }
+
+    if (GetUnitItemCount(gActiveUnit) >= ITEMSLOT_INV_COUNT)
+        findpos_flags |= AI_FINDPOS_FLAG_NO_CHESTS;
+
+    if (func_fe6_08034DFC(gActiveUnit, findpos_flags, &pos) == TRUE)
+    {
+        AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, FALSE);
+
+        if (gAiDecision.action_performed != TRUE)
+            return;
+
+        if (AiIsWithinRectDistance(pos.x, pos.y, gAiDecision.x_move, gAiDecision.y_move, 0) != TRUE)
+            return;
+
+        AiSetDecision(gAiDecision.x_move, gAiDecision.y_move, AI_ACTION_USEITEM, 0, slot, 0, 0);
+    }
+}
+
+void func_fe6_08034CC0(int slot)
+{
+    struct Vec2i pos;
+
+    if ((gAiSt.special_item_flags & (4)) == 0)
+        return;
+
+    if (gActiveUnit->status != UNIT_STATUS_POISON)
+        return;
+
+    if (AiFindSafestReachableLocation(gActiveUnit, &pos) != TRUE)
+        return;
+
+    AiSetDecision(pos.x, pos.y, AI_ACTION_USEITEM, 0, slot, 0, 0);
+}
+
+fu8 func_fe6_08034D28(int x, int y)
+{
+    if (gMapRangeSigned[y][x] >= MAP_MOVEMENT_MAX)
+        return UINT8_MAX;
+
+    if (gMapUnit[y][x] != 0 && gMapUnit[y][x] != gActiveUnitId)
+        return UINT8_MAX;
+
+    return gMapRange[y][x];
+}
+
 u8 CONST_DATA gUnk_085C98F0[] =
 {
     TERRAIN_DOOR, 0,
 };
 
+bool func_fe6_08034D80(struct Unit * unit, struct Vec2i * pos_out)
+{
+    func_fe6_08034FF8(unit);
+
+    if (!AiFindClosestTerrainAdjacentPosition(gUnk_085C98F0, 0, pos_out))
+        return FALSE;
+
+    func_fe6_08034F34(unit);
+
+    if (gMapRangeSigned[pos_out->y][pos_out->x] >= MAP_MOVEMENT_MAX)
+        return FALSE;
+
+    return TRUE;
+}
+
 u8 CONST_DATA gUnk_085C98F2[] =
 {
     TERRAIN_CHEST, 0,
 };
+
+bool func_fe6_08034DD4(struct Unit * unit, struct Vec2i * pos_out)
+{
+    func_fe6_08034F34(unit);
+
+    if (!AiFindClosestTerrainPosition(gUnk_085C98F2, 0, pos_out))
+        return FALSE;
+
+    return TRUE;
+}
+
+int func_fe6_08034DFC(struct Unit * unit, int findpos_flags, struct Vec2i * pos_out)
+{
+    func_fe6_08034F04(unit);
+
+    func_fe6_08034FC4(unit);
+
+    if (AiFindClosestUnlockPosition(findpos_flags | AI_FINDPOS_FLAG_CHECK_ENEMY, pos_out) == TRUE)
+    {
+        if (gMapMovementSigned[pos_out->y][pos_out->x] < MAP_MOVEMENT_MAX)
+            return TRUE;
+    }
+
+    func_fe6_08034FF8(unit);
+
+    if ((AiFindClosestUnlockPosition(findpos_flags, pos_out) == TRUE))
+    {
+        if ((gMapMovementSigned[pos_out->y][pos_out->x] < MAP_MOVEMENT_MAX) && (gMapUnit[pos_out->y][pos_out->x] == 0))
+            return FALSE;
+
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+void func_fe6_08034E9C(i8 const * mov_table)
+{
+    u16 i;
+
+    for (i = 1; i < TERRAIN_COUNT; i++)
+    {
+        if (mov_table[i] > 0)
+            gWorkingMovTable[i] = mov_table[i];
+        else
+            gWorkingMovTable[i] = 1;
+    }
+}
+
+void func_fe6_08034ED4(i8 const * mov_table, int free_terrain)
+{
+    u16 i;
+
+    for (i = 1; i < TERRAIN_COUNT; i++)
+        gWorkingMovTable[i] = mov_table[i];
+
+    gWorkingMovTable[free_terrain] = 1;
+}
+
+void func_fe6_08034F04(struct Unit * unit)
+{
+    SetWorkingMovTable(unit->jinfo->mov_table);
+    SetWorkingMap(gMapMovement);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
+}
+
+void func_fe6_08034F34(struct Unit * unit)
+{
+    SetWorkingMovTable(unit->jinfo->mov_table);
+    SetWorkingMap(gMapRange);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
+}
+
+void func_fe6_08034F64(struct Unit * unit)
+{
+    func_fe6_08034E9C(unit->jinfo->mov_table);
+    SetWorkingMap(gMapMovement);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
+}
+
+void func_fe6_08034F94(struct Unit * unit)
+{
+    func_fe6_08034E9C(unit->jinfo->mov_table);
+    SetWorkingMap(gMapMovement);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
+}
+
+void func_fe6_08034FC4(struct Unit * unit)
+{
+    func_fe6_08034ED4(unit->jinfo->mov_table, TERRAIN_DOOR);
+    SetWorkingMap(gMapRange);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, unit->id);
+}
+
+void func_fe6_08034FF8(struct Unit * unit)
+{
+    func_fe6_08034ED4(unit->jinfo->mov_table, TERRAIN_DOOR);
+    SetWorkingMap(gMapRange);
+    BeginMapFlood(unit->x, unit->y, MAP_MOVEMENT_EXTENDED, 0);
+}
+
+void func_fe6_08035028(struct Unit * unit)
+{
+    SetWorkingMovTable(unit->jinfo->mov_table);
+    SetWorkingMap(gMapRange);
+    BeginMapFlood(unit->x, unit->y, UNIT_MOV(unit), unit->id);
+}
+
+void func_fe6_08035064(struct Unit * unit)
+{
+    if ((unit->ai_config & AI_UNIT_CONFIG_FLAG_UNK13) != 0)
+    {
+        gAiSt.flags |= AI_FLAG_1;
+    }
+    else
+    {
+        gAiSt.flags &= ~AI_FLAG_1;
+    }
+}
+
+void func_fe6_08035098(int x, int y, struct Unit * unit)
+{
+    SetWorkingMovTable(unit->jinfo->mov_table);
+    SetWorkingMap(gMapRange);
+    BeginMapFlood(x, y, MAP_MOVEMENT_EXTENDED, unit->id);
+}

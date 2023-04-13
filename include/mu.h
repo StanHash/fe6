@@ -101,7 +101,7 @@ void ApplyMoveScriptToCoordinates(int * x, int * y, u8 const * movescr);
 bool CanStartMu(void);
 void ResetMuAnims(void);
 struct MuConfig * GetNewMuConfig(void);
-bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * out);
+bool GetMuDisplayPosition(struct MuProc * mu, struct Vec2i * pos_out);
 void PutMu(struct MuProc * mu);
 u16 GetMuQ4MovementSpeed(struct MuProc * mu);
 u8 * GetMuImgBufById(int id);

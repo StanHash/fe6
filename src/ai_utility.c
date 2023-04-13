@@ -72,14 +72,14 @@ bool AiCompare(u8 const * left, u8 cond, u32 right)
     return FALSE;
 }
 
-bool AiFindTargetInReachByPid(int pid, struct Vec2i * out)
+bool AiFindTargetInReachByPid(int pid, struct Vec2i * pos_out)
 {
     int i;
 
     MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
     MapMarkFloodEdges();
 
-    out->x = -1;
+    pos_out->x = -1;
 
     for (i = 1; i < 0xC0; ++i)
     {
@@ -103,11 +103,11 @@ bool AiFindTargetInReachByPid(int pid, struct Vec2i * out)
         if (unit->flags & UNIT_FLAG_RESCUED)
             gAiSt.cmd_result[0] = 3;
 
-        out->x = unit->x;
-        out->y = unit->y;
+        pos_out->x = unit->x;
+        pos_out->y = unit->y;
     }
 
-    if (out->x >= 0)
+    if (pos_out->x >= 0)
         return TRUE;
 
     if (GetUnitByPid(pid)->flags & (UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED))
@@ -127,7 +127,7 @@ target_not_found:
     return FALSE;
 }
 
-bool AiFindTargetInReachByJid(int jid, struct Vec2i * out)
+bool AiFindTargetInReachByJid(int jid, struct Vec2i * pos_out)
 {
     int i;
 
@@ -135,7 +135,7 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i * out)
 
     MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
-    out->x = -1;
+    pos_out->x = -1;
 
     for (i = 1; i < 0xC0; ++i)
     {
@@ -160,17 +160,17 @@ bool AiFindTargetInReachByJid(int jid, struct Vec2i * out)
             continue;
 
         bestDistance = gMapRange[unit->y][unit->x];
-        out->x = unit->x;
-        out->y = unit->y;
+        pos_out->x = unit->x;
+        pos_out->y = unit->y;
     }
 
-    if (out->x >= 0)
+    if (pos_out->x >= 0)
         return TRUE;
 
     return FALSE;
 }
 
-bool AiFindTargetInReachByFunc(bool (* func)(struct Unit * unit), struct Vec2i * out)
+bool AiFindTargetInReachByFunc(bool (* func)(struct Unit * unit), struct Vec2i * pos_out)
 {
     short ix, iy;
 
@@ -210,8 +210,8 @@ bool AiFindTargetInReachByFunc(bool (* func)(struct Unit * unit), struct Vec2i *
 
     if (x >= 0)
     {
-        out->x = x;
-        out->y = y;
+        pos_out->x = x;
+        pos_out->y = y;
 
         return TRUE;
     }
@@ -305,7 +305,7 @@ bool AiIsInByteList(u8 const * list, u8 item)
     return FALSE;
 }
 
-bool AiFindClosestTerrainPosition(u8 const * terrainList, int flags, struct Vec2i * out)
+bool AiFindClosestTerrainPosition(u8 const * terrainList, int flags, struct Vec2i * pos_out)
 {
     int ix, iy;
 
@@ -336,8 +336,8 @@ bool AiFindClosestTerrainPosition(u8 const * terrainList, int flags, struct Vec2
             if (bestDistance <= gMapRangeSigned[iy][ix])
                 continue;
 
-            out->x = ix;
-            out->y = iy;
+            pos_out->x = ix;
+            pos_out->y = iy;
 
             bestDistance = gMapRange[iy][ix];
         }
@@ -360,7 +360,7 @@ u8 AiGetPositionRange(int x, int y)
     return gMapRange[y][x];
 }
 
-bool AiFindClosestTerrainAdjacentPosition(u8 const * terrainList, int flags, struct Vec2i * out)
+bool AiFindClosestTerrainAdjacentPosition(u8 const * terrainList, int flags, struct Vec2i * pos_out)
 {
     struct Vec2i tmp;
     int ix, iy;
@@ -395,8 +395,8 @@ bool AiFindClosestTerrainAdjacentPosition(u8 const * terrainList, int flags, str
             if (bestDistance <= gMapRangeSigned[tmp.y][tmp.x])
                 continue;
 
-            out->x = tmp.x;
-            out->y = tmp.y;
+            pos_out->x = tmp.x;
+            pos_out->y = tmp.y;
             bestDistance = gMapRange[tmp.y][tmp.x];
         }
     }
@@ -407,7 +407,7 @@ bool AiFindClosestTerrainAdjacentPosition(u8 const * terrainList, int flags, str
     return FALSE;
 }
 
-bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
+bool AiFindClosestUnlockPosition(int flags, struct Vec2i * pos_out)
 {
     struct Vec2i tmp;
     int ix, iy;
@@ -461,8 +461,8 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
                             continue;
                     }
 
-                    out->x = tmp.x;
-                    out->y = tmp.y;
+                    pos_out->x = tmp.x;
+                    pos_out->y = tmp.y;
 
                     return TRUE;
                 }
@@ -489,8 +489,8 @@ bool AiFindClosestUnlockPosition(int flags, struct Vec2i * out)
             if (bestDistance <= gMapRangeSigned[tmp.y][tmp.x])
                 continue;
 
-            out->x = tmp.x;
-            out->y = tmp.y;
+            pos_out->x = tmp.x;
+            pos_out->y = tmp.y;
             bestDistance = gMapRange[tmp.y][tmp.x];
         }
     }
@@ -728,7 +728,7 @@ void AiMakeMoveRangeMapsForUnitAndWeapon2(struct Unit * unit, u16 item)
     }
 }
 
-bool AiFindBestAdjacentPositionByFunc(int x, int y, u8 (* funcArg)(int x, int y), struct Vec2i * out)
+bool AiFindBestAdjacentPositionByFunc(int x, int y, u8 (* funcArg)(int x, int y), struct Vec2i * pos_out)
 {
     u8 (* func)(int x, int y) = funcArg;
 
@@ -755,8 +755,8 @@ bool AiFindBestAdjacentPositionByFunc(int x, int y, u8 (* funcArg)(int x, int y)
             continue;
 
         best = val;
-        out->x = x + adjacencyLut[i*2+0];
-        out->y = y + adjacencyLut[i*2+1];
+        pos_out->x = x + adjacencyLut[i*2+0];
+        pos_out->y = y + adjacencyLut[i*2+1];
     }
 
     if (best != UINT8_MAX)
@@ -812,7 +812,7 @@ i8 AiGetUnitStealItemSlot(struct Unit * unit)
     return slot;
 }
 
-bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * out)
+bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * pos_out)
 {
     int ix, iy;
 
@@ -841,8 +841,8 @@ bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * out)
             if (bestDanger < gMapOther[iy][ix])
                 continue;
 
-            out->x = ix;
-            out->y = iy;
+            pos_out->x = ix;
+            pos_out->y = iy;
 
             bestDanger = gMapOther[iy][ix];
         }
@@ -854,7 +854,7 @@ bool AiFindSafestReachableLocation(struct Unit * unit, struct Vec2i * out)
     return FALSE;
 }
 
-bool AiFindPillageLocation(struct Vec2i * out, u8 * outItemSlot)
+bool AiFindPillageLocation(struct Vec2i * pos_out, u8 * outItemSlot)
 {
     u8 const * terrains;
 
@@ -867,12 +867,12 @@ bool AiFindPillageLocation(struct Vec2i * out, u8 * outItemSlot)
         ? gUnk_085C864F
         : gUnk_085C864C;
 
-    if (AiFindClosestTerrainPosition(terrains, AI_FINDPOS_FLAG_CHECK_ENEMY, out) == TRUE)
+    if (AiFindClosestTerrainPosition(terrains, AI_FINDPOS_FLAG_CHECK_ENEMY, pos_out) == TRUE)
         return TRUE;
 
     MapFlood_080193F4(gActiveUnit->x, gActiveUnit->y, gActiveUnit->jinfo->mov_table);
 
-    if (AiFindClosestTerrainPosition(terrains, 0, out) == TRUE)
+    if (AiFindClosestTerrainPosition(terrains, 0, pos_out) == TRUE)
         return TRUE;
 
     return FALSE;
@@ -975,15 +975,15 @@ void AiTryMoveTowards(short x, short y, u8 action, u8 maxDanger, u8 arg_4)
     }
 }
 
-bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct Vec2i * out)
+bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct Vec2i * pos_out)
 {
     short ix, iy;
     u8 bestRange;
 
     if ((gMapUnit[y][x] | gMapOther[y][x]) == 0)
     {
-        out->x = x;
-        out->y = y;
+        pos_out->x = x;
+        pos_out->y = y;
 
         return TRUE;
     }
@@ -992,7 +992,7 @@ bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct 
     MapFlood_080193C0(unit);
 
     bestRange = 124;
-    out->x = -1;
+    pos_out->x = -1;
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)
     {
@@ -1008,12 +1008,12 @@ bool AiGetUnitClosestValidPosition(struct Unit * unit, short x, short y, struct 
                 continue;
 
             bestRange = gMapRange[iy][ix];
-            out->x = ix;
-            out->y = iy;
+            pos_out->x = ix;
+            pos_out->y = iy;
         }
     }
 
-    if (out->x != -1)
+    if (pos_out->x != -1)
         return TRUE;
 
     return FALSE;
@@ -1227,7 +1227,7 @@ void UnitInitAiFromInfo(struct Unit * unit, struct UnitInfo const * info)
     unit->ai_config = (unit->ai_config & ~AI_UNIT_CONFIG_HEALTHRESHOLD_MASK) | info->ai[2] | (info->ai[3] << 8);
 }
 
-bool func_fe6_08030AB4(struct Vec2i * out)
+bool func_fe6_08030AB4(struct Vec2i * pos_out)
 {
     int ix, iy;
 
@@ -1253,8 +1253,8 @@ bool func_fe6_08030AB4(struct Vec2i * out)
             if (maxVal >= val)
                 continue;
 
-            out->x = ix;
-            out->y = iy;
+            pos_out->x = ix;
+            pos_out->y = iy;
             maxVal = val;
         }
     }
