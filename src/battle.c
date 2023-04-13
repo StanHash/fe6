@@ -680,7 +680,7 @@ int BattleCheckBraveEffect(struct BattleUnit * attacker)
 
 bool BattleCheckTriangleAttack(struct BattleUnit * attacker, struct BattleUnit * defender)
 {
-    i8 adjacentLut[] =
+    SHOULD_BE_STATIC i8 SHOULD_BE_CONST adjacentLut[] =
     {
         -1,  0,
          0, -1,

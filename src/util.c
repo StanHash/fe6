@@ -493,7 +493,7 @@ void func_fe6_0801412C(void)
 
 void func_fe6_08014130(char const * arg_0)
 {
-    char unk[] = "@@LWFOVDBK@@";
+    SHOULD_BE_STATIC char SHOULD_BE_CONST unk[] = "@@LWFOVDBK@@";
     func_fe6_08014130(unk);
 }
 

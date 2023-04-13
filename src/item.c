@@ -571,7 +571,7 @@ char const * GetWeaponLevelStringFromExp(int wexp)
 
 int GetWeaponLevelSpecialCharFromExp(int wexp)
 {
-    u8 specials[] =
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST specials[] =
     {
         [WPN_LEVEL_0] = TEXT_SPECIAL_DASH,
         [WPN_LEVEL_E] = TEXT_SPECIAL_E,

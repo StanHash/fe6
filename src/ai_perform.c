@@ -218,7 +218,7 @@ void AiStartCombatAction(struct AiPerformProc * proc)
 
 void AiStartEscapeAction(struct AiPerformProc * proc)
 {
-    u8 scripts[4][3] =
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST scripts[4][3] =
     {
         { MOVE_CMD_MOVE_LEFT,  MOVE_CMD_MOVE_LEFT,  MOVE_CMD_HALT },
         { MOVE_CMD_MOVE_RIGHT, MOVE_CMD_MOVE_RIGHT, MOVE_CMD_HALT },

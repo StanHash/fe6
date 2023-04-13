@@ -256,8 +256,8 @@ static void TradeMenu_InitItemText(struct TradeMenuProc * proc)
 
 static void TradeMenu_RefreshItemText(struct TradeMenuProc * proc)
 {
-    u8 xLookup[] = { ITEM_PANEL_LEFT_X, ITEM_PANEL_RIGHT_X };
-    u8 yLookup[] = { ITEM_PANEL_LEFT_Y, ITEM_PANEL_RIGHT_Y };
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST xLookup[] = { ITEM_PANEL_LEFT_X, ITEM_PANEL_RIGHT_X };
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST yLookup[] = { ITEM_PANEL_LEFT_Y, ITEM_PANEL_RIGHT_Y };
 
     int col, row;
 

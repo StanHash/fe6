@@ -112,7 +112,7 @@ void PutSpriteTalkBox(int x_box, int y_box, int w_box, int h_box);
 // DrawHelpBoxWeaponStats
 // DrawHelpBoxStaffLabels
 // func_fe6_08071274
-// func_fe6_08071308
+void func_fe6_08071308(struct HelpBoxPrintProc * proc);
 // func_fe6_08071374
 // func_fe6_080713DC
 // func_fe6_08071410

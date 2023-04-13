@@ -1031,7 +1031,7 @@ int func_fe6_08018258(struct Unit * unit)
 
 bool CanActiveUnitStillMove(void)
 {
-    i8 adjLut[] =
+    SHOULD_BE_STATIC i8 SHOULD_BE_CONST adjLut[] =
     {
         -1,  0,
          0, -1,

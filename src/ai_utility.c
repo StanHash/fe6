@@ -735,7 +735,7 @@ bool AiFindBestAdjacentPositionByFunc(int x, int y, u8 (* funcArg)(int x, int y)
 
     u8 best = UINT8_MAX;
 
-    i8 adjacencyLut[4*2] =
+    SHOULD_BE_STATIC i8 SHOULD_BE_CONST adjacencyLut[4*2] =
     {
         +1,  0,
         -1,  0,

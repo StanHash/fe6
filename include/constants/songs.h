@@ -61,6 +61,7 @@ enum
     SONG_76 = 0x76,
     SONG_77 = 0x77,
     SONG_7A = 0x7A,
+    SONG_7B = 0x7B, // sioerror
     SONG_82 = 0x82, // manim
     SONG_83 = 0x83, // manim
     SONG_84 = 0x84, // manim

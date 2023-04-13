@@ -34,7 +34,7 @@ void RandInit(int seed)
     // This table is a collection of 8 possible initial rn state
     // 3 entries will be picked based of which "seed" was given
 
-    u16 initTable[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST initTable[] =
     {
         0xA36E, 0x924E,
         0xB784, 0x4F67,

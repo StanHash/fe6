@@ -44,7 +44,7 @@ static struct UnitPanelProc * EWRAM_DATA sRescueUnitPanels[2] = {};
 
 static void UnitPanel_OnLoop(struct UnitPanelProc * proc)
 {
-    u16 factionPalLut[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST factionPalLut[] =
     {
         [FACTION_ID_BLUE] = OBJPAL_UNITSPRITE_BLUE,
         [FACTION_ID_GREEN] = OBJPAL_UNITSPRITE_GREEN,

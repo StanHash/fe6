@@ -1561,11 +1561,7 @@ fu8 func_fe6_0805F7D4(int item); // fu16?
 // func_fe6_080731D8
 void func_fe6_08073310(void);
 void func_fe6_08073324(void);
-// func_fe6_08073370
-// func_fe6_08073394
-// func_fe6_080733C0
-// func_fe6_08073454
-// func_fe6_08073510
+
 // func_fe6_08073548
 // func_fe6_0807355C
 // func_fe6_08073570

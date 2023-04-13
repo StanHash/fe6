@@ -244,7 +244,13 @@ bool AiAttemptBallistaCombat(bool (* is_enemy)(struct Unit * unit), struct AiCom
     u16 item;
 
     int ballistaCount = 0;
-    u8 ballistaIids[] = { IID_BALLISTA, IID_LONGBALLISTA, IID_KILLERBALLISTA };
+
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST ballista_iid_table[] =
+    {
+        IID_BALLISTA,
+        IID_LONGBALLISTA,
+        IID_KILLERBALLISTA,
+    };
 
     for (iy = gMapSize.y-1; iy >= 0; --iy)
     {
@@ -282,7 +288,7 @@ bool AiAttemptBallistaCombat(bool (* is_enemy)(struct Unit * unit), struct AiCom
 
     for (i = 0; i < 3; ++i)
     {
-        item = ballistaIids[i];
+        item = ballista_iid_table[i];
         st->item_slot = -1;
 
         FOR_UNITS_ALL(unit,

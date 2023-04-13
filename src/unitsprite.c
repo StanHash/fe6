@@ -707,7 +707,7 @@ void PutUnitSpritesOam(void)
 
 void PutUnitSpriteIconsOam(void)
 {
-    u16 rescuePalLut[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST rescuePalLut[] =
     {
         OBJPAL_UNITSPRITE_BLUE,
         OBJPAL_UNITSPRITE_GREEN,

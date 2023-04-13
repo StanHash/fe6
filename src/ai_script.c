@@ -106,7 +106,7 @@ bool AiExecFallbackScriptB(void)
 
 void AiDoExecScript(u8 * pc)
 {
-    AiScrCmd funcLut[] =
+    SHOULD_BE_STATIC AiScrCmd SHOULD_BE_CONST funcLut[] =
     {
         [AI_CMD_CONDITIONAL]      = AiCmd_Conditional,
         [AI_CMD_CALL_FUNC]        = AiCmd_CallFunc,

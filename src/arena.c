@@ -434,7 +434,7 @@ static void ArenaGenOpponentUnit(void)
 
 static void ArenaGenBaseWeapons(void)
 {
-    u8 arenaWeapons[] =
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST arenaWeapons[] =
     {
         [ITEM_KIND_SWORD] = IID_IRONSWORD,
         [ITEM_KIND_LANCE] = IID_IRONLANCE,
@@ -459,7 +459,7 @@ static void ArenaGenBaseWeapons(void)
 
 static u16 ArenaGetUpgradedWeapon(u16 item)
 {
-    u8 arenaWeaponUpgrades[] =
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST arenaWeaponUpgrades[] =
     {
         IID_IRONSWORD, IID_STEELSWORD, IID_SILVERSWORD, 0,
         IID_IRONLANCE, IID_STEELLANCE, IID_SILVERLANCE, 0,

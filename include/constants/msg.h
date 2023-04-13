@@ -3148,7 +3148,7 @@ enum
     MSG_C45 = 0xC45,
     MSG_C46 = 0xC46,
     MSG_C47 = 0xC47,
-    MSG_C48 = 0xC48,
+    MSG_C48 = 0xC48, // sio error?
     MSG_C49 = 0xC49,
     MSG_C4A = 0xC4A,
     MSG_C4B = 0xC4B,

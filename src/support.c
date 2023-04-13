@@ -354,7 +354,7 @@ int GetAffinityIconByPid(int pid)
 
 int GetSupportLevelSpecialChar(int level)
 {
-    u8 chars[4] =
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST chars[4] =
     {
         TEXT_SPECIAL_DASH,
         TEXT_SPECIAL_C,

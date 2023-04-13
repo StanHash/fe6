@@ -843,7 +843,7 @@ func_fe6_08035734: @ 0x08035734
 	adds r1, r1, r0
 	movs r0, #0
 	strb r0, [r1]
-	bl func_fe6_08073510
+	bl StartSioErrorScreen
 .L0803578E:
 	ldr r4, .L08035800 @ =gUnk_Sio_085C98F4
 	ldr r0, [r4]
@@ -861,7 +861,7 @@ func_fe6_08035734: @ 0x08035734
 	adds r0, #0xb
 	adds r0, r0, r1
 	strb r2, [r0]
-	bl func_fe6_08073510
+	bl StartSioErrorScreen
 .L080357B4:
 	movs r4, #0
 	ldr r5, .L08035800 @ =gUnk_Sio_085C98F4
@@ -879,7 +879,7 @@ func_fe6_08035734: @ 0x08035734
 	adds r0, r0, r4
 	movs r1, #0
 	strb r1, [r0]
-	bl func_fe6_08073510
+	bl StartSioErrorScreen
 .L080357D6:
 	adds r4, #1
 	cmp r4, #3
@@ -897,7 +897,7 @@ func_fe6_08035734: @ 0x08035734
 	ldrb r1, [r1, #0x11]
 	cmp r1, #0x3c
 	bls .L08035804
-	bl func_fe6_08073510
+	bl StartSioErrorScreen
 	ldr r1, [r4]
 	movs r0, #2
 	strh r0, [r1, #4]
@@ -9956,7 +9956,7 @@ func_fe6_08039F84: @ 0x08039F84
 	lsls r0, r0, #2
 	cmp r1, r0
 	ble .L08039FCC
-	bl func_fe6_08073510
+	bl StartSioErrorScreen
 .L08039FCC:
 	ldr r0, .L0803A01C @ =gUnk_0300456C
 	movs r1, #0x19

@@ -44,7 +44,7 @@ struct ProcScr CONST_DATA ProcScr_DelayedUnlockBmDisplay[] =
 
 int GetTextPrintDelay(void)
 {
-    u8 lut[4] = { 8, 4, 1, 0 };
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST lut[4] = { 8, 4, 1, 0 };
 
     return lut[gPlaySt.config_talk_speed];
 }

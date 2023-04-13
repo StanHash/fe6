@@ -1127,7 +1127,8 @@ void StatScreenSprites_PutRescueMarkers(struct StatScreenSpritesProc * proc)
 {
     bool display_icon = (GetGameTime() % 32) < 20;
 
-    u16 pal_lut[3] = {
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST pal_lut[3] =
+    {
         OBJPAL_UNITSPRITE_BLUE,
         OBJPAL_UNITSPRITE_GREEN,
         OBJPAL_UNITSPRITE_RED,
@@ -1189,7 +1190,7 @@ void StatScreen_DisableScreen(ProcPtr proc)
 
 void StatScreen_Init(ProcPtr proc)
 {
-    u16 bg_config[12] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST bg_config[12] =
     {
         0x0000, 0x6000, 0,
         0x0000, 0x6800, 0,
@@ -1496,16 +1497,16 @@ void HelpBoxRedirectStatScreenItem(struct HelpBoxProc * proc)
 
 void HelpBoxPopulateStatScreenWeaponExp(struct HelpBoxProc * proc)
 {
-    u16 item_kind_msg_lut[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST item_kind_msg_lut[] =
     {
-        MSG_62D,
-        MSG_62E,
-        MSG_62F,
-        MSG_630,
-        MSG_632,
-        MSG_633,
-        MSG_634,
-        MSG_631,
+        [ITEM_KIND_SWORD] = MSG_62D,
+        [ITEM_KIND_LANCE] = MSG_62E,
+        [ITEM_KIND_AXE] = MSG_62F,
+        [ITEM_KIND_BOW] = MSG_630,
+        [ITEM_KIND_STAFF] = MSG_632,
+        [ITEM_KIND_ANIMA] = MSG_633,
+        [ITEM_KIND_LIGHT] = MSG_634,
+        [ITEM_KIND_ELDER] = MSG_631,
     };
 
     int item_kind = proc->info->msg;

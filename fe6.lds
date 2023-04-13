@@ -464,7 +464,7 @@ SECTIONS
         src/helpbox.o(.text);
         src/helpbox_2.o(.text);
         asm/code_mapui.o(.text);
-        asm/code_sioerror.o(.text);
+        src/sioerror.o(.text);
         asm/code_8073548.o(.text);
         src/save_core.o(.text);
         src/save_stats.o(.text);
