@@ -463,6 +463,7 @@ SECTIONS
         src/statscreen.o(.text);
         src/helpbox.o(.text);
         src/helpbox_2.o(.text);
+        src/mapui.o(.text);
         asm/code_mapui.o(.text);
         src/sioerror.o(.text);
         asm/code_8073548.o(.text);
