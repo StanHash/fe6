@@ -1832,7 +1832,7 @@ static void ChapterIntro_Init(struct GenericProc * proc)
     func_fe6_08001D0C();
     func_fe6_08001E68(BGPAL_CHAPTERINTRO_0, 2, 0x40, -1);
 
-    func_fe6_08000234_t();
+    func_fe6_08000234();
 
     EnablePalSync();
 
@@ -1947,7 +1947,7 @@ static void ChapterIntro_Begin_0801E1A0(struct GenericProc * proc)
 
 static void ChapterIntro_Loop_0801E1F8(struct GenericProc * proc)
 {
-    func_fe6_08000234_t();
+    func_fe6_08000234();
     EnablePalSync();
 
     proc->unk4C--;
@@ -1968,7 +1968,7 @@ static void ChapterIntro_Loop_0801E244(struct GenericProc * proc)
 {
     if ((GetGameTime() % 4) == 0)
     {
-        func_fe6_08000234_t();
+        func_fe6_08000234();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2031,7 +2031,7 @@ static void ChapterIntro_BeginFadeToMap(struct GenericProc * proc)
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
 
-    func_fe6_08000234_t();
+    func_fe6_08000234();
     EnablePalSync();
 
     proc->unk4C = 30;
@@ -2046,7 +2046,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc * proc)
     {
         int val;
 
-        func_fe6_08000234_t();
+        func_fe6_08000234();
 
         if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
             ApplyFlamesWeatherGradient();
@@ -2111,7 +2111,7 @@ static void ChapterIntro_BeginFadeOut(struct GenericProc * proc)
 
 static void ChapterIntro_LoopFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08000234_t();
+    func_fe6_08000234();
     EnablePalSync();
 
     proc->unk4C--;
@@ -2137,7 +2137,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
 
-    func_fe6_08000234_t();
+    func_fe6_08000234();
     EnablePalSync();
 
     proc->unk4C = 14;
@@ -2147,7 +2147,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
 
 static void ChapterIntro_LoopFastFadeToMap(struct GenericProc * proc)
 {
-    func_fe6_08000234_t();
+    func_fe6_08000234();
 
     if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
         ApplyFlamesWeatherGradient();
@@ -2235,7 +2235,7 @@ static void GameOverScreen_Init(struct GenericProc * proc)
 
     ClearUi();
 
-    TmApplyTsa_t(gBg0Tm + TM_OFFSET(7, 9), Tsa_Unk_0830D97C, TILEREF(BGCHR_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT));
+    TmApplyTsa(gBg0Tm + TM_OFFSET(7, 9), Tsa_Unk_0830D97C, TILEREF(BGCHR_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT));
 
     PutScreenFogEffectOverlayed();
     PutScreenFogEffect();
@@ -2256,7 +2256,7 @@ static void GameOverScreen_Init(struct GenericProc * proc)
     proc->unk4C = 21;
 
     for (i = 0; i < 10; ++i)
-        func_fe6_08000234_t();
+        func_fe6_08000234();
 
     EnablePalSync();
 }
@@ -2265,7 +2265,7 @@ static void GameOverScreen_LoopFadeIn(struct GenericProc * proc)
 {
     if ((GetGameTime() % 8) == 0)
     {
-        func_fe6_08000234_t();
+        func_fe6_08000234();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2302,7 +2302,7 @@ static void GameOverScreen_BeginFadeOut(struct GenericProc * proc)
 
 static void GameOverScreen_LoopFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08000234_t();
+    func_fe6_08000234();
     EnablePalSync();
 
     proc->unk4C++;

@@ -1,9 +1,8 @@
-
 #include "common.h"
 #include "text.h"
 
 #include "hardware.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "proc.h"
 
 #include "constants/videoalloc_global.h"
@@ -492,7 +491,7 @@ static void DrawTextGlyph(struct Text * text, struct Glyph const * glyph)
     int subx = text->x & 7;
     u32 const * bitmap = glyph->bitmap;
 
-    DrawGlyphRam(GetColorLut(text->color), draw_dest, bitmap, subx);
+    DrawGlyph(GetColorLut(text->color), draw_dest, bitmap, subx);
     text->x += glyph->width;
 }
 

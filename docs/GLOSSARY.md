@@ -43,7 +43,7 @@ This one is probably the biggest stretch, as no one in the western community rea
 
 ## IID/IInfo
 
-Same as PID/PInfo and JID/JInfo, but for items. "I" is for "Item" (this one isn't hard to ).
+Same as PID/PInfo and JID/JInfo, but for items. "I" is for "Item" (this one isn't hard to figure out).
 
 ## Unit
 

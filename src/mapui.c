@@ -3,7 +3,6 @@
 #include "hardware.h"
 #include "oam.h"
 #include "armfunc.h"
-#include "ramfunc.h"
 #include "proc.h"
 #include "icon.h"
 #include "sprite.h"
@@ -217,13 +216,13 @@ void UnitMapUi_ShowLoop(struct MapUiProc * proc)
 
     if (proc->screen_side < 0)
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(12 - offset, 0), gBg0Tm + TM_OFFSET(0, 0), offset, 6);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(12 - offset, 0), gBg1Tm + TM_OFFSET(0, 0), offset, 6);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(12 - offset, 0), gBg0Tm + TM_OFFSET(0, 0), offset, 6);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(12 - offset, 0), gBg1Tm + TM_OFFSET(0, 0), offset, 6);
     }
     else
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(0, 0), gBg0Tm + TM_OFFSET(30 - offset, 0), offset, 6);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(0, 0), gBg1Tm + TM_OFFSET(30 - offset, 0), offset, 6);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(0, 0), gBg0Tm + TM_OFFSET(30 - offset, 0), offset, 6);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(0, 0), gBg1Tm + TM_OFFSET(30 - offset, 0), offset, 6);
     }
 
     proc->show_hide_clock++;
@@ -255,13 +254,13 @@ void UnitMapUi_HideLoop(struct MapUiProc * proc)
 
     if (proc->screen_side < 0)
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(12 - offset, 0), gBg0Tm, offset, 6);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(12 - offset, 0), gBg1Tm, offset, 6);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(12 - offset, 0), gBg0Tm, offset, 6);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(12 - offset, 0), gBg1Tm, offset, 6);
     }
     else
     {
-        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, 6);
-        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, 6);
+        TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, 6);
+        TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, 6);
     }
 
     proc->show_hide_clock++;
@@ -280,10 +279,10 @@ void TerrainMapUi_ShowLoop(struct MapUiProc * proc)
 
     proc->hide_contents = TRUE;
 
-    TmFillRect_t(gBg0Tm + TM_OFFSET(0, 13), 6, 7, 0);
-    TmFillRect_t(gBg1Tm + TM_OFFSET(0, 13), 6, 7, 0);
-    TmFillRect_t(gBg0Tm + TM_OFFSET(24, 13), 6, 7, 0);
-    TmFillRect_t(gBg1Tm + TM_OFFSET(24, 13), 6, 7, 0);
+    TmFillRect(gBg0Tm + TM_OFFSET(0, 13), 6, 7, 0);
+    TmFillRect(gBg1Tm + TM_OFFSET(0, 13), 6, 7, 0);
+    TmFillRect(gBg0Tm + TM_OFFSET(24, 13), 6, 7, 0);
+    TmFillRect(gBg1Tm + TM_OFFSET(24, 13), 6, 7, 0);
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -291,13 +290,13 @@ void TerrainMapUi_ShowLoop(struct MapUiProc * proc)
 
     if (proc->screen_side < 0)
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(6 - offset, 10), gBg0Tm + TM_OFFSET(0, 13), offset, 7);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(6 - offset, 10), gBg1Tm + TM_OFFSET(0, 13), offset, 7);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(6 - offset, 10), gBg0Tm + TM_OFFSET(0, 13), offset, 7);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(6 - offset, 10), gBg1Tm + TM_OFFSET(0, 13), offset, 7);
     }
     else
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(30 - offset, 13), offset, 7);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(0, 10), gBg1Tm + TM_OFFSET(30 - offset, 13), offset, 7);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(30 - offset, 13), offset, 7);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(0, 10), gBg1Tm + TM_OFFSET(30 - offset, 13), offset, 7);
     }
 
     proc->show_hide_clock++;
@@ -327,13 +326,13 @@ void TerrainMapUi_HideLoop(struct MapUiProc * proc)
 
     if (proc->screen_side < 0)
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(6 - offset, 10), gBg0Tm + TM_OFFSET(0, 13), offset, 7);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(6 - offset, 10), gBg1Tm + TM_OFFSET(0, 13), offset, 7);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(6 - offset, 10), gBg0Tm + TM_OFFSET(0, 13), offset, 7);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(6 - offset, 10), gBg1Tm + TM_OFFSET(0, 13), offset, 7);
     }
     else
     {
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(30 - offset, 13), offset, 7);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(0, 10), gBg1Tm + TM_OFFSET(30 - offset, 13), offset, 7);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(30 - offset, 13), offset, 7);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(0, 10), gBg1Tm + TM_OFFSET(30 - offset, 13), offset, 7);
     }
 
     proc->show_hide_clock++;
@@ -356,7 +355,7 @@ void PutUnitMapUi(struct MapUiProc * proc)
     else
         x = 18;
 
-    TmCopyRect_t(gUiTmScratchA + TM_OFFSET(0, 0), gBg0Tm + TM_OFFSET(x, 0), 12, 6);
+    TmCopyRect(gUiTmScratchA + TM_OFFSET(0, 0), gBg0Tm + TM_OFFSET(x, 0), 12, 6);
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
@@ -369,7 +368,7 @@ void PutTerrainMapUi(struct MapUiProc * proc)
     else
         x = 24;
 
-    TmCopyRect_t(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(x, 13), 6, 7);
+    TmCopyRect(gUiTmScratchA + TM_OFFSET(0, 10), gBg0Tm + TM_OFFSET(x, 13), 6, 7);
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 }
 
@@ -518,21 +517,21 @@ void UnitMapUiUpdate(struct MapUiProc * proc, struct Unit * unit)
 
     // check if first digit isn't a space
     if (proc->hp_cur_hi != (u8)(' ' - '0'))
-        PutOamHiRam(x_digit1, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_hi);
+        PutOamHi(x_digit1, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_hi);
 
-    PutOamHiRam(x_digits + 23, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_lo);
+    PutOamHi(x_digits + 23, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_lo);
 
     // BUG: this assumes max hp will always be 2 digits
     // this is fixed in fe8 (fe7 unsure)
 
 #if BUGFIX
     if (proc->hp_max_hi != (u8)(' ' - '0'))
-        PutOamHiRam(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
+        PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
 #else
-    PutOamHiRam(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
+    PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
 #endif
 
-    PutOamHiRam(x_digits + 41, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_lo);
+    PutOamHi(x_digits + 41, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_lo);
 }
 
 void DrawUnitMapUi(struct MapUiProc * proc, struct Unit * unit)
@@ -567,7 +566,7 @@ void DrawUnitMapUi(struct MapUiProc * proc, struct Unit * unit)
     UnitMapUiUpdate(proc, unit);
     PutMapUiHpBar(gUiTmScratchA + TM_OFFSET(5, 4), unit, TILEREF(BGCHR_MAPUI_140, BGPAL_MAPUI_3));
 
-    TmApplyTsa_t(gUiTmScratchB, Tsa_UnitMapUi_Frame, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_3));
+    TmApplyTsa(gUiTmScratchB, Tsa_UnitMapUi_Frame, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_3));
     ApplyUnitMapUiFramePal(UNIT_FACTION(unit), BGPAL_MAPUI_3);
 }
 
@@ -626,7 +625,7 @@ void DrawUnitBurstMapUi(struct MapUiProc * proc, struct Unit * unit)
 
     UnitMapUiUpdate(proc, unit);
 
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), gUnitBurstMapUiFrameTsaTable[orientation], TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_3));
+    TmApplyTsa(gBg1Tm + TM_OFFSET(x, y), gUnitBurstMapUiFrameTsaTable[orientation], TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_3));
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     ApplyUnitMapUiFramePal(UNIT_FACTION(unit), BGPAL_MAPUI_3);
@@ -636,8 +635,8 @@ void ClearUnitBurstMapUi(struct MapUiProc * proc)
 {
     if (proc->w_burst == 8 && proc->h_burst == 5)
     {
-        TmFillRect_t(gBg0Tm + TM_OFFSET(proc->x_burst, proc->y_burst), proc->w_burst, proc->h_burst, 0);
-        TmFillRect_t(gBg1Tm + TM_OFFSET(proc->x_burst, proc->y_burst), proc->w_burst, proc->h_burst, 0);
+        TmFillRect(gBg0Tm + TM_OFFSET(proc->x_burst, proc->y_burst), proc->w_burst, proc->h_burst, 0);
+        TmFillRect(gBg1Tm + TM_OFFSET(proc->x_burst, proc->y_burst), proc->w_burst, proc->h_burst, 0);
 
         EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -663,7 +662,7 @@ void DrawTerrainMapUi(struct MapUiProc * proc)
     Text_DrawString(&proc->text, text_str);
     PutText(&proc->text, gUiTmScratchA + TM_OFFSET(1, 12));
 
-    TmApplyTsa_t(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_Labels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
+    TmApplyTsa(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_Labels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
 
     if (MoveTable_Berserker[terrain] > 0)
     {
@@ -677,13 +676,13 @@ void DrawTerrainMapUi(struct MapUiProc * proc)
     switch (terrain)
     {
         case TERRAIN_WALL_BREAKABLE:
-            TmApplyTsa_t(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_2));
+            TmApplyTsa(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_ObstacleLabels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_2));
 
             number = GetObstacleHpAt(gBmSt.cursor.x, gBmSt.cursor.y);
 
             if (number == 100)
             {
-                TmApplyTsa_t(gUiTmScratchA + TM_OFFSET(3, 15), Tsa_TerrainMapUi_ObstacleFullHp, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
+                TmApplyTsa(gUiTmScratchA + TM_OFFSET(3, 15), Tsa_TerrainMapUi_ObstacleFullHp, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
                 break;
             }
 
@@ -695,7 +694,7 @@ void DrawTerrainMapUi(struct MapUiProc * proc)
         case TERRAIN_BALLISTA:
         case TERRAIN_LONGBALLISTA:
         case TERRAIN_KILLERBALLISTA:
-            TmApplyTsa_t(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_BallistaLabels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
+            TmApplyTsa(gUiTmScratchA + TM_OFFSET(1, 14), Tsa_TerrainMapUi_BallistaLabels, TILEREF(BGCHR_MAPUI_100, BGPAL_MAPUI_0));
 
             GenNumberStr(GetBallistaUsesAt(gBmSt.cursor.x, gBmSt.cursor.y));
             PutDigits(gUiTmScratchA + TM_OFFSET(4, 14), gNumberStr + 7, BGCHR_MAPUI_128, BGPAL_MAPUI_2);
@@ -703,7 +702,7 @@ void DrawTerrainMapUi(struct MapUiProc * proc)
             break;
     }
 
-    TmApplyTsa_t(gUiTmScratchB + TM_OFFSET(0, 10), Tsa_TerrainMapUi_Frame, TILEREF(BGCHR_MAPUI_100, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gUiTmScratchB + TM_OFFSET(0, 10), Tsa_TerrainMapUi_Frame, TILEREF(BGCHR_MAPUI_100, BGPAL_WINDOWFRAME));
 }
 
 void TerrainMapUi_Init(struct MapUiProc * proc)

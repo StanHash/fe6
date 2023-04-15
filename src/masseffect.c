@@ -183,10 +183,10 @@ static void StatusHealEffect_OverlayBg_Init(void)
 
     Decompress(Img_StatusHealEffect, (void *) VRAM + BGCHR_STATUSHEAL*CHR_SIZE);
     ApplyPalette(Pal_StatusHealEffect, BGPAL_STATUSHEAL);
-    TmApplyTsa_t(gBg0Tm, Tsa_StatusHealEffect, TILEREF(BGCHR_STATUSHEAL, BGPAL_STATUSHEAL));
+    TmApplyTsa(gBg0Tm, Tsa_StatusHealEffect, TILEREF(BGCHR_STATUSHEAL, BGPAL_STATUSHEAL));
 
     for (i = 1; i < 8; ++i)
-        TmCopyRect_t(gBg0Tm, gBg0Tm + TM_OFFSET(0, i*4), 2, 4);
+        TmCopyRect(gBg0Tm, gBg0Tm + TM_OFFSET(0, i*4), 2, 4);
 
     EnableBgSync(BG0_SYNC_BIT);
 }

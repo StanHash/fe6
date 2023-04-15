@@ -3,7 +3,7 @@
 
 #include "hardware.h"
 #include "oam.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "proc.h"
 
 struct SpriteEntry
@@ -179,7 +179,7 @@ void PutSpriteLayerOam(int layer)
             continue;
         }
 
-        PutOamHiRam(it->oam1, it->oam0, it->object, it->oam2);
+        PutOamHi(it->oam1, it->oam0, it->object, it->oam2);
         it = it->next;
     }
 }

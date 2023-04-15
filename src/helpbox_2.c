@@ -192,7 +192,7 @@ void func_fe6_08070DC8(u16 * tm, int pal)
 
 void func_fe6_08070DE8(u16 * tm, int pal)
 {
-    TmApplyTsa_t(tm, gUnk_0830D4F0, TILEREF(gUnk_0203D404.unk_00, pal));
+    TmApplyTsa(tm, gUnk_0830D4F0, TILEREF(gUnk_0203D404.unk_00, pal));
 }
 
 int func_fe6_08070E0C(struct PlaySt const * play_st)

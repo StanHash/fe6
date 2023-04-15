@@ -1,7 +1,6 @@
-
 #include "common.h"
 
-#include "ramfunc.h"
+#include "armfunc.h"
 
 extern u8 const * const gMsgTable[];
 
@@ -13,7 +12,7 @@ char * DecodeMsg(int id)
     if (id == sActiveMsg)
         return sMsgString;
 
-    DecodeStringRam(gMsgTable[id], sMsgString);
+    DecodeString(gMsgTable[id], sMsgString);
     sActiveMsg = id;
 
     return sMsgString;

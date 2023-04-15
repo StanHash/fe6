@@ -2,7 +2,7 @@
 #include "mapwork.h"
 #include "common.h"
 
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "random.h"
 #include "item.h"
 #include "unit.h"
@@ -108,7 +108,7 @@ void BeginMapFlood(int x, int y, int move, int uid)
     gMapFloodSt.waiting_queue++;
     gMapFloodSt.waiting_queue->connect = 4;
 
-    MapFloodCoreRam();
+    MapFloodCore();
 }
 
 void func_fe6_08019528(int connect, int x, int y)

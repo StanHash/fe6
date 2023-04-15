@@ -338,7 +338,7 @@ void PutStatScreenStatWithBar(int num, int x, int y, int base, int total, int ma
 void PutStatScreenPersonalInfoPage(void)
 {
     Decompress(gUnk_08307D58, gBuf);
-    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     PutStatScreenText(gStatScreenPersonalInfoLabelsInfo);
 
@@ -456,10 +456,10 @@ void PutStatScreenItemsPage(void)
     int i, item;
 
     Decompress(gUnk_08307DD4, gBuf);
-    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     Decompress(gUnk_08308070, gBuf);
-    TmApplyTsa_t(gUiTmScratchC + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
+    TmApplyTsa(gUiTmScratchC + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
 
     PutStatScreenText(gStatScreenEquipmentLabelsInfo);
 
@@ -479,7 +479,7 @@ void PutStatScreenItemsPage(void)
             gUiTmScratchA + TM_OFFSET(16, 1 + i * 2),
             0, TEXT_SPECIAL_K);
 
-        TmApplyTsa_t(
+        TmApplyTsa(
             gUiTmScratchC + TM_OFFSET(1, 2 + i * 2),
             gUnk_083080AC, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
 
@@ -586,7 +586,7 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
 void PutStatScreenWeaponExpAndSupportsPage(void)
 {
     Decompress(gUnk_08307E50, gBuf);
-    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     if (UnitKnowsMagic(gStatScreenSt.unit))
     {
@@ -675,9 +675,9 @@ void StatScreenPageSlide_Loop(struct StatScreenPageSlideProc * proc)
     int len, dst_offset, src_offset;
 
     // clear page frame on bg0, bg1, bg2
-    TmFillRect_t(gBg0Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
-    TmFillRect_t(gBg1Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
-    TmFillRect_t(gBg2Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
+    TmFillRect(gBg0Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
+    TmFillRect(gBg1Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
+    TmFillRect(gBg2Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y), 18, 18, 0);
 
     off = gStatScreenPageSlideOffsetLut[proc->clock];
 
@@ -712,15 +712,15 @@ void StatScreenPageSlide_Loop(struct StatScreenPageSlideProc * proc)
         src_offset = 0;
     }
 
-    TmCopyRect_t(gUiTmScratchA + src_offset,
+    TmCopyRect(gUiTmScratchA + src_offset,
         gBg0Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
-    TmCopyRect_t(gUiTmScratchB + src_offset,
+    TmCopyRect(gUiTmScratchB + src_offset,
         gBg1Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
-    TmCopyRect_t(gUiTmScratchC + src_offset,
+    TmCopyRect(gUiTmScratchC + src_offset,
         gBg2Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
@@ -1216,7 +1216,7 @@ void StatScreen_Init(ProcPtr proc)
     ApplyIconPalette(1, 0x10 + OBJPAL_STATSCREEN_PAGENAME);
 
     Decompress(gUnk_08307CEC, gBuf);
-    TmApplyTsa_t(gBg1Tm, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gBg1Tm, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     Decompress(gUnk_08307ED4, ((void *) VRAM) + 0x8000 + BGCHR_STATSCREEN_EQUIPSTATFRAME * CHR_SIZE);
     ApplyPalette(gUnk_08308050, BGPAL_STATSCREEN_EQUIPSTATFRAME);
@@ -1260,15 +1260,15 @@ void StatScreen_InitUnit(ProcPtr proc)
     PutStatScreenLeftPanelInfo();
     PutStatScreenPage(gStatScreenSt.page);
 
-    TmCopyRect_t(gUiTmScratchA,
+    TmCopyRect(gUiTmScratchA,
         gBg0Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 
-    TmCopyRect_t(gUiTmScratchB,
+    TmCopyRect(gUiTmScratchB,
         gBg1Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 
-    TmCopyRect_t(gUiTmScratchC,
+    TmCopyRect(gUiTmScratchC,
         gBg2Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 

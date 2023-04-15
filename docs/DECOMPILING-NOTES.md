@@ -66,3 +66,23 @@ int func(int i)
 
 int const var[] = { 1, 2, 776 };
 ```
+
+## `i8` or 0xFF vs mov -1
+
+```c
+int func(i8 * var)
+{
+	if (*var == 0)
+		*var = -1; // orr var, 0xFF
+}
+```
+
+```c
+int func(i8 * var)
+{
+	if (*var == 0)
+		*var |= 0xFF; // mov var, -1
+}
+```
+
+funny

@@ -1,7 +1,7 @@
 #include "manim.h"
 
 #include "random.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "hardware.h"
 #include "move.h"
 #include "oam.h"
@@ -1274,7 +1274,7 @@ void InitManimActorInfoWindow(struct ManimInfoWindowProc * proc, int actor_id, i
     Decompress(
         gManimInfoFrameTsaTable[gManimSt.main_actor_count][actor_id], gBuf);
 
-    TmApplyTsa_t(
+    TmApplyTsa(
         gBg1Tm + TM_OFFSET(
             gManimSt.actor[actor_id].hp_info_x,
             gManimSt.actor[actor_id].hp_info_y),
@@ -1362,7 +1362,7 @@ void ManimExpBar_Init(struct ManimExpBarProc * proc)
 
     ApplyPalette(gUnk_08113D50, BGPAL_MANIM_INFO);
 
-    TmApplyTsa_t(gBg0Tm + TM_OFFSET(6, 8), gUnk_082DC5B0, TILEREF(BGCHR_MANIM_200, BGPAL_MANIM_INFO));
+    TmApplyTsa(gBg0Tm + TM_OFFSET(6, 8), gUnk_082DC5B0, TILEREF(BGCHR_MANIM_200, BGPAL_MANIM_INFO));
 
     PutManimExpBar(6, 8, proc->exp_from);
 }
@@ -2974,7 +2974,7 @@ void func_fe6_080668D8(struct ManimSomethingProc_0806686C * proc)
     func_fe6_08067324();
     SetBlendAlpha(0x10, 0x10);
 
-    TmApplyTsa_t(gBg2Tm, gBuf, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4));
+    TmApplyTsa(gBg2Tm, gBuf, TILEREF(BGCHR_MANIM_140, BGPAL_MANIM_4));
     EnableBgSync(BG2_SYNC_BIT);
 
     func_fe6_08067498(2, 0, 1, proc);
@@ -3981,7 +3981,7 @@ void func_fe6_08068704(int x, int y)
     if (y >= DISPLAY_HEIGHT - 4)
         return;
 
-    PutOamHiRam(OAM1_X(x - 4), OAM0_Y(y - 4), Sprite_8x8, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4));
+    PutOamHi(OAM1_X(x - 4), OAM0_Y(y - 4), Sprite_8x8, OAM2_CHR(OBJCHR_MANIM_1C0) + OAM2_PAL(OBJPAL_MANIM_4));
 }
 
 void func_fe6_0806875C(int x, int y, int radius, int angle)

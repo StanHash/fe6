@@ -1183,7 +1183,7 @@ bool func_fe6_08014A68(struct FadeUnkProc * proc)
     if (proc->unk_5C >= 0x200)
         return FALSE;
 
-    func_fe6_08000234_t();
+    func_fe6_08000234();
 
     SetBackdropColor(0);
 

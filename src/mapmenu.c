@@ -895,8 +895,8 @@ void func_fe6_0801F854(int x, int y)
 {
     InitTextFont(&gFont_Unk_02002770, (u8 *) VRAM + CHR_SIZE*0x200, 0x200, 0);
 
-    TmCopyRect_t(gBg0Tm + TM_OFFSET(11, 1), gUiTmScratchA, 9, 19);
-    TmCopyRect_t(gBg1Tm + TM_OFFSET(11, 1), gUiTmScratchB, 9, 19);
+    TmCopyRect(gBg0Tm + TM_OFFSET(11, 1), gUiTmScratchA, 9, 19);
+    TmCopyRect(gBg1Tm + TM_OFFSET(11, 1), gUiTmScratchB, 9, 19);
 }
 
 void UnitItemActionMenu_End(struct MenuProc * menu)
@@ -908,8 +908,8 @@ fu8 MenuActionReturnToUnitItemMenu(struct MenuProc * menu)
 {
     SetTextFont(NULL);
 
-    TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
-    TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -957,11 +957,11 @@ fu8 func_fe6_0801F948(struct MenuProc * menu)
         return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
     }
 
-    TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
-    TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
 
-    TmFillRect_t(gBg0Tm + TM_OFFSET(1, 1), 13, 12, 0);
-    TmFillRect_t(gBg1Tm + TM_OFFSET(1, 1), 13, 12, 0);
+    TmFillRect(gBg0Tm + TM_OFFSET(1, 1), 13, 12, 0);
+    TmFillRect(gBg1Tm + TM_OFFSET(1, 1), 13, 12, 0);
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -1537,7 +1537,7 @@ fu8 StealMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * tar
 
     EndMapSelect(proc);
 
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gBg1Tm + TM_OFFSET(2, 2), Tsa_Unk_081022FC, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     x = (56 - GetStringTextLen(DecodeMsg(GetUnit(gAction.target)->pinfo->msg_name))) / 2;
     PutDrawText(NULL, gBg0Tm + TM_OFFSET(3, 3), TEXT_COLOR_SYSTEM_WHITE, x, 7,

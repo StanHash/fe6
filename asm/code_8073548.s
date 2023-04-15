@@ -30,7 +30,7 @@ func_fe6_0807355C: @ 0x0807355C
 func_fe6_08073570: @ 0x08073570
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_08000234_t
+	bl func_fe6_08000234_thm
 	bl EnablePalSync
 	adds r1, r4, #0
 	adds r1, #0x4c
@@ -549,13 +549,13 @@ func_fe6_080739BC: @ 0x080739BC
 	lsls r5, r5, #6
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r1, .L08073AB0 @ =0x00000226
 	adds r4, r4, r1
 	ldr r1, .L08073AB4 @ =gUnk_0833C8D8
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r4, .L08073AB8 @ =0x020040E8
 	ldr r6, .L08073ABC @ =0x02003288
 	adds r0, r4, #0
@@ -585,19 +585,19 @@ func_fe6_080739BC: @ 0x080739BC
 	lsls r4, r4, #7
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r1, #0xae
 	lsls r1, r1, #1
 	adds r0, r7, r1
 	adds r1, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r2, #0x88
 	lsls r2, r2, #2
 	adds r0, r7, r2
 	ldr r1, .L08073AC4 @ =gUnk_083093F8
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #0x86
 	lsls r0, r0, #2
 	adds r4, r6, r0
@@ -744,7 +744,7 @@ func_fe6_08073B48: @ 0x08073B48
 	movs r2, #0x80
 	lsls r2, r2, #6
 	adds r1, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	pop {r4, r5}
 	pop {r0}
 	bx r0
@@ -1058,14 +1058,14 @@ func_fe6_08073DF8: @ 0x08073DF8
 	adds r1, r4, r1
 	adds r2, r6, #0
 	movs r3, #0xc
-	bl TmCopyRect_t
+	bl TmCopyRect_thm
 	ldr r0, .L08073F08 @ =0x02003738
 	adds r0, r5, r0
 	ldr r1, .L08073F0C @ =gBg1Tm+0x200
 	adds r1, r4, r1
 	adds r2, r6, #0
 	movs r3, #0xc
-	bl TmCopyRect_t
+	bl TmCopyRect_thm
 	ldr r0, .L08073F10 @ =0x02003C38
 	adds r5, r5, r0
 	ldr r0, .L08073F14 @ =gBg2Tm+0x200
@@ -1074,7 +1074,7 @@ func_fe6_08073DF8: @ 0x08073DF8
 	adds r1, r4, #0
 	adds r2, r6, #0
 	movs r3, #0xc
-	bl TmCopyRect_t
+	bl TmCopyRect_thm
 	movs r0, #7
 	bl EnableBgSync
 	adds r0, r7, #0
@@ -1270,7 +1270,7 @@ func_fe6_08073FE0: @ 0x08073FE0
 	movs r1, #6
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r1, .L08074080 @ =0x020040B8
 	movs r0, #0
 	strb r0, [r1, #5]
@@ -1597,7 +1597,7 @@ func_fe6_080742D0: @ 0x080742D0
 	movs r1, #4
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r4, .L08074330 @ =0x0200D6AC
 	adds r0, r4, #0
 	bl ClearText
@@ -3315,7 +3315,7 @@ func_fe6_08074EF0: @ 0x08074EF0
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r0, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r5, #0
 	mov r2, r8
 	adds r2, #0x2e
@@ -5025,7 +5025,7 @@ func_fe6_08075DF8: @ 0x08075DF8
 	movs r1, #0x1f
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r0, r5, #0
 	adds r0, #0x40
 	ldrh r0, [r0]
@@ -5068,7 +5068,7 @@ func_fe6_08075DF8: @ 0x08075DF8
 	movs r1, #0x1f
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r6, r5, #0
 	adds r6, #0x2f
 	ldrb r1, [r6]
@@ -5235,12 +5235,12 @@ func_fe6_08075E94: @ 0x08075E94
 	movs r1, #0x16
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08075FEC @ =gBg0Tm+0x10
 	movs r1, #0x16
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r4, r7, #0
 	adds r4, #0x32
 	adds r5, r7, #0
@@ -5692,7 +5692,7 @@ func_fe6_08076314: @ 0x08076314
 	movs r1, #0x13
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r7, .L0807635C @ =0x0200D6A4
 	adds r0, r7, #0
 	bl ClearText
@@ -5808,7 +5808,7 @@ func_fe6_080763D8: @ 0x080763D8
 	movs r1, #6
 	movs r2, #3
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #2
 	bl EnableBgSync
 .L08076426:
@@ -5956,7 +5956,7 @@ func_fe6_08076448: @ 0x08076448
 	movs r1, #0x18
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	mov sl, r4
 	str r5, [sp, #0x50]
 	ldr r4, [sp, #0x2c]
@@ -12349,7 +12349,7 @@ func_fe6_080796B0: @ 0x080796B0
 	movs r1, #0x1d
 	movs r2, #0x1d
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r1, #0
 	ldr r2, .L08079794 @ =0x0200E89C
 	mov sl, r2
@@ -12451,12 +12451,12 @@ func_fe6_0807979C: @ 0x0807979C
 	movs r1, #1
 	movs r2, #3
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r0, r4, #6
 	movs r1, #1
 	movs r2, #3
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	subs r4, #0x4e
 	adds r0, r6, #0
 	adds r1, r4, #0
@@ -12856,12 +12856,12 @@ func_fe6_08079A94: @ 0x08079A94
 	movs r1, #0xc
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08079B28 @ =gBg1Tm
 	movs r1, #0xc
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	lsls r3, r7, #1
 	adds r3, #2
 	movs r0, #0
@@ -12921,12 +12921,12 @@ func_fe6_08079A94: @ 0x08079A94
 	movs r1, #0xc
 	movs r2, #0xb
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08079BC0 @ =gBg1Tm+0x200
 	movs r1, #0xc
 	movs r2, #0xb
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	lsls r3, r7, #1
 	adds r3, #2
 	movs r0, #0
@@ -12982,7 +12982,7 @@ func_fe6_08079BC8: @ 0x08079BC8
 	movs r1, #0xc
 	movs r2, #0xb
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r4, #0
 	str r4, [sp]
 	movs r0, #0
@@ -13198,7 +13198,7 @@ func_fe6_08079D84: @ 0x08079D84
 	movs r1, #0xc
 	movs r2, #0xb
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #0
 	str r0, [sp]
 	movs r1, #8
@@ -13396,7 +13396,7 @@ func_fe6_08079F50: @ 0x08079F50
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r1, #0
 	mov r8, r1
 	mov r0, sl
@@ -15388,7 +15388,7 @@ func_fe6_0807AD78: @ 0x0807AD78
 	movs r1, #0xa
 	movs r2, #3
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	bl EnableBgSync
 	adds r1, r6, #0
@@ -15687,7 +15687,7 @@ func_fe6_0807B178: @ 0x0807B178
 	movs r1, #0xc
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 .L0807B1F4:
@@ -15757,7 +15757,7 @@ func_fe6_0807B200: @ 0x0807B200
 	movs r1, #0xc
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 .L0807B280:
@@ -16056,12 +16056,12 @@ func_fe6_0807B4C0: @ 0x0807B4C0
 	movs r1, #0xc
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807B598 @ =gBg1Tm
 	movs r1, #0xc
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	mov r0, r8
 	bl func_fe6_08079D84
 .L0807B50C:
@@ -20220,12 +20220,12 @@ func_fe6_0807D4A8: @ 0x0807D4A8
 	movs r1, #0xe
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807D504 @ =gBg1Tm
 	movs r1, #0xe
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	b .L0807D692
 	.align 2, 0
 .L0807D4FC: .4byte 0x0201636A
@@ -20473,7 +20473,7 @@ func_fe6_0807D6C0: @ 0x0807D6C0
 	movs r1, #0xb
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	mov r0, sl
 	adds r0, #1
 	lsls r0, r0, #0x18
@@ -21047,7 +21047,7 @@ func_fe6_0807DB80: @ 0x0807DB80
 	movs r1, #0x10
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #7
 	mov r1, r8
 	ands r0, r1
@@ -21186,7 +21186,7 @@ func_fe6_0807DCB8: @ 0x0807DCB8
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807DD08 @ =0x0201636A
 	ldrh r0, [r0]
 	cmp r0, #0
@@ -21196,7 +21196,7 @@ func_fe6_0807DCB8: @ 0x0807DCB8
 	movs r1, #9
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	b .L0807DDB0
 	.align 2, 0
 .L0807DD04: .4byte gBg0Tm+0x1E
@@ -21308,7 +21308,7 @@ func_fe6_0807DDC8: @ 0x0807DDC8
 	movs r1, #6
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807DE58 @ =0x02015690
 	mov r1, r8
 	adds r1, #0x24
@@ -24461,7 +24461,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 	movs r0, #0
@@ -24496,7 +24496,7 @@ func_fe6_0807EDBC: @ 0x0807EDBC
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 	movs r0, #0
@@ -25085,17 +25085,17 @@ func_fe6_0807FCFC: @ 0x0807FCFC
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807FDB4 @ =gBg1Tm+0x1E
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0807FDB8 @ =gBg2Tm+0x1E
 	movs r1, #0xf
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, [r6, #0x60]
 	movs r5, #0
 	str r5, [sp]
@@ -25660,17 +25660,17 @@ func_fe6_0807FF98: @ 0x0807FF98
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08080214 @ =gBg1Tm
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08080218 @ =gBg2Tm
 	movs r1, #0xf
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r1, .L0808021C @ =0x02015D28
 	adds r0, r5, #0
 	adds r0, #0x50
@@ -25953,17 +25953,17 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L080804AC @ =gBg1Tm
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L080804B0 @ =gBg2Tm
 	movs r1, #0xf
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #0
 	str r0, [sp]
 	movs r0, #1
@@ -26222,12 +26222,12 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #0xe
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L080806A4 @ =gBg1Tm
 	movs r1, #0xe
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r1, .L080806A8 @ =0x02015D28
 	mov r4, r8
 	ldrh r4, [r4]
@@ -27521,7 +27521,7 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 	movs r0, #0
@@ -27565,7 +27565,7 @@ func_fe6_08080284: @ 0x08080284
 	movs r1, #0xf
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #4
 	bl EnableBgSync
 	movs r0, #0
@@ -28015,17 +28015,17 @@ func_fe6_080813E8: @ 0x080813E8
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L080814F4 @ =gBg1Tm+0x1E
 	movs r1, #0xf
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L080814F8 @ =gBg2Tm+0x1E
 	movs r1, #0xf
 	movs r2, #0x1f
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r0, r4, #0
 	adds r0, #0x2d
 	ldrb r0, [r0]
@@ -28310,12 +28310,12 @@ func_fe6_0808166C: @ 0x0808166C
 	movs r1, #0xd
 	movs r2, #5
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08081718 @ =gBg1Tm+0x122
 	movs r1, #0xc
 	movs r2, #6
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 .L08081704:
 	movs r0, #3
 	bl EnableBgSync

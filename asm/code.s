@@ -2599,7 +2599,7 @@ func_fe6_08087E7C: @ 0x08087E7C
 	ldr r0, .L08087F28 @ =gBg0Tm
 	ldr r1, .L08087F2C @ =gUnk_083278EC
 	movs r2, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08087F30 @ =gUnk_0832BDE8
 	movs r1, #0x88
 	lsls r1, r1, #2
@@ -7398,7 +7398,7 @@ func_fe6_0808A454: @ 0x0808A454
 	movs r1, #0xa
 	movs r2, #1
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 .L0808A4A8:
 	movs r0, #2
 	bl EnableBgSync
@@ -8581,12 +8581,12 @@ func_fe6_0808ABD4: @ 0x0808ABD4
 	adds r0, r4, #0
 	movs r2, #0xc
 	movs r3, #0x13
-	bl TmCopyRect_t
+	bl TmCopyRect_thm
 	adds r0, r4, #0
 	movs r1, #0xc
 	movs r2, #0x13
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	movs r1, #0x26
 	movs r2, #0xa
@@ -10199,7 +10199,7 @@ func_fe6_0808B9CC: @ 0x0808B9CC
 	movs r2, #0x80
 	lsls r2, r2, #7
 	adds r0, r6, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r1, .L0808BB9C @ =0x0000FF98
 	ldr r2, .L0808BBA0 @ =0x0000FFC0
 	movs r0, #2
@@ -10226,7 +10226,7 @@ func_fe6_0808B9CC: @ 0x0808B9CC
 	movs r2, #0xe0
 	lsls r2, r2, #7
 	mov r0, sb
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L0808BBB4 @ =gUnk_0832CAFC
 	ldr r1, .L0808BBB8 @ =0x06012000
 	bl Decompress
@@ -11863,13 +11863,13 @@ func_fe6_0808C75C: @ 0x0808C75C
 	lsls r4, r4, #5
 	adds r0, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r3, .L0808C9A0 @ =0x00000404
 	adds r5, r5, r3
 	ldr r1, .L0808C9A4 @ =gUnk_0833BF08
 	adds r0, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	bl ResetTextFont
 	mov r1, sl
 	ldr r0, [r1]
@@ -12871,12 +12871,12 @@ func_fe6_0808D0C0: @ 0x0808D0C0
 	movs r1, #6
 	movs r2, #0xe
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L0808D0F4 @ =gBg1Tm+0x16
 	movs r1, #8
 	movs r2, #0x10
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	adds r0, r4, #0
 	bl EndMenu
 	movs r0, #3
@@ -13287,12 +13287,12 @@ func_fe6_0808D374: @ 0x0808D374
 	lsls r4, r4, #5
 	adds r0, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	adds r5, #0x56
 	ldr r1, .L0808D578 @ =gUnk_0833C234
 	adds r0, r5, #0
 	adds r2, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r1, #0x80
 	lsls r1, r1, #7
 	adds r0, r6, #0
@@ -13776,7 +13776,7 @@ func_fe6_0808D7F8: @ 0x0808D7F8
 	movs r1, #0x15
 	movs r2, #6
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #2
 	bl EnableBgSync
 	ldr r0, .L0808D890 @ =gPlaySt
@@ -16731,7 +16731,7 @@ func_fe6_0808EDE0: @ 0x0808EDE0
 	movs r2, #0x80
 	lsls r2, r2, #5
 	adds r0, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r1, #0xa0
 	lsls r1, r1, #2
 	mov r0, r8
@@ -16741,7 +16741,7 @@ func_fe6_0808EDE0: @ 0x0808EDE0
 	movs r2, #0x80
 	lsls r2, r2, #7
 	mov r0, sl
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L0808F05C @ =gUnk_0868B768
 	movs r1, #3
 	bl SpawnProc
@@ -18261,7 +18261,7 @@ func_fe6_0808FA14: @ 0x0808FA14
 	movs r2, #0x80
 	lsls r2, r2, #7
 	adds r0, r6, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r5, .L0808FCFC @ =gUnk_0868B3FC
 	movs r4, #0xe8
 	movs r6, #3
@@ -19158,14 +19158,14 @@ func_fe6_080902F0: @ 0x080902F0
 	movs r1, #0x1e
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	ldr r0, .L08090380 @ =gBg1Tm
 	adds r4, r4, r0
 	adds r0, r4, #0
 	movs r1, #0x1e
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 .L0809035E:
 	movs r7, #0x81
 	lsls r7, r7, #7
@@ -19730,7 +19730,7 @@ func_fe6_0809076C: @ 0x0809076C
 	movs r2, #0x80
 	lsls r2, r2, #6
 	adds r0, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #1
 	bl EnableBgSync
 	pop {r4, r5}
@@ -19906,7 +19906,7 @@ func_fe6_080908A4: @ 0x080908A4
 	movs r2, #0x80
 	lsls r2, r2, #7
 	adds r0, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r3, #0xc1
 	lsls r3, r3, #7
 	movs r2, #0
@@ -21804,7 +21804,7 @@ func_fe6_0809195C: @ 0x0809195C
 	ldr r1, .L080919F0 @ =gUnk_08345440
 	movs r2, #0x80
 	lsls r2, r2, #6
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r5, #0
 	str r5, [sp, #4]
 	ldr r1, .L080919F4 @ =0x0600D800
@@ -22383,7 +22383,7 @@ func_fe6_08091E28: @ 0x08091E28
 	ldr r1, .L08091F4C @ =gUnk_08345440
 	movs r2, #0x80
 	lsls r2, r2, #6
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r1, #0
 	mov r8, r1
 	str r1, [sp, #4]
@@ -22680,20 +22680,20 @@ func_fe6_080920B4: @ 0x080920B4
 	lsls r5, r5, #7
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r1, #0xd1
 	lsls r1, r1, #1
 	adds r0, r4, r1
 	ldr r1, .L08092120 @ =gUnk_08346330
 	adds r2, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #0x98
 	lsls r0, r0, #3
 	adds r4, r4, r0
 	ldr r1, .L08092124 @ =gUnk_083463B4
 	adds r0, r4, #0
 	adds r2, r5, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	b .L0809213E
 	.align 2, 0
 .L08092118: .4byte gBg1Tm
@@ -22710,7 +22710,7 @@ func_fe6_080920B4: @ 0x080920B4
 	ldr r1, .L08092260 @ =gUnk_083463F4
 	movs r2, #0x86
 	lsls r2, r2, #7
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 .L0809213E:
 	ldr r0, .L08092264 @ =gUnk_0868BFCC
 	lsls r4, r6, #3
@@ -27110,7 +27110,7 @@ func_fe6_08094234: @ 0x08094234
 	movs r2, #0x80
 	lsls r2, r2, #7
 	adds r0, r4, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r1, .L080943DC @ =gBg3Tm
 	movs r2, #0x80
 	lsls r2, r2, #4
@@ -29405,7 +29405,7 @@ func_fe6_08095334: @ 0x08095334
 	ldr r1, .L080955FC @ =gUnk_0835AB28
 	movs r2, #0xa0
 	lsls r2, r2, #8
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r4, .L08095600 @ =gUnk_0835A3E8
 	movs r0, #2
 	bl GetBgChrOffset
@@ -29422,7 +29422,7 @@ func_fe6_08095334: @ 0x08095334
 	ldr r1, .L0809560C @ =gUnk_0835A5F0
 	movs r2, #0x90
 	lsls r2, r2, #8
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #0xf
 	bl EnableBgSync
 	ldr r5, .L08095610 @ =gBg0Tm
@@ -32347,7 +32347,7 @@ func_fe6_08096B38: @ 0x08096B38
 	ldr r1, .L08096C6C @ =gBuf
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #0
 	str r0, [sp]
 	movs r0, #6
@@ -32721,7 +32721,7 @@ func_fe6_08096B38: @ 0x08096B38
 	ldr r1, .L08096F68 @ =gUnk_083278EC
 	movs r2, #0xc0
 	lsls r2, r2, #8
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08096F6C @ =gUnk_083278AC
 	movs r1, #0xe0
 	lsls r1, r1, #1
@@ -34810,13 +34810,13 @@ func_fe6_08097ECC: @ 0x08097ECC
 	ldr r1, .L08098230 @ =gBuf
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r1, .L08098238 @ =gBg1Tm+0x200
 	adds r0, r1, #0
 	movs r1, #0x1e
 	movs r2, #0xc
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #2
 	bl EnableBgSync
 	ldr r0, [r7]
@@ -35151,7 +35151,7 @@ func_fe6_08097ECC: @ 0x08097ECC
 	ldr r1, .L08098250 @ =Tsa_Background_082DAC8C
 	movs r2, #0xc0
 	lsls r2, r2, #8
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08098254 @ =Pal_Background_082DB140
 	movs r1, #0xc0
 	lsls r1, r1, #1
@@ -38841,7 +38841,7 @@ func_fe6_08099E50: @ 0x08099E50
 	ldr r0, .L08099EB4 @ =gBg0Tm
 	adds r1, r4, #0
 	movs r2, #1
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08099EB8 @ =gUnk_08379F8C
 	ldr r1, .L08099EBC @ =0x06010800
 	bl Decompress

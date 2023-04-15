@@ -5,7 +5,7 @@
 #include "hardware.h"
 #include "oam.h"
 #include "sound.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "proc.h"
 #include "icon.h"
 #include "sprite.h"
@@ -555,7 +555,7 @@ static void Popup_FadeBgmIn(struct PopupProc * proc)
 
 static void PopupIconSprite_OnIdle(struct GenericProc * proc)
 {
-    PutOamHiRam(proc->x, proc->y, Sprite_16x16, (u16) proc->unk4A);
+    PutOamHi(proc->x, proc->y, Sprite_16x16, (u16) proc->unk4A);
 }
 
 static void Popup_Display(struct PopupProc * proc)
@@ -642,8 +642,8 @@ static void Popup_WaitForEnd(struct PopupProc * proc)
 
 static void Popup_Clear(struct PopupProc * proc)
 {
-    TmFillRect_t(gBg0Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
-    TmFillRect_t(gBg1Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
+    TmFillRect(gBg0Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
+    TmFillRect(gBg1Tm + TM_OFFSET(proc->frameX, proc->frameY), proc->frameWidth, proc->frameHeight, 0);
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
 }
@@ -1145,7 +1145,7 @@ void DisplayBackground(int background)
     SetBgOffset(3, 0, 0);
 
     Decompress(gBackgroundTable[background].img, (u8 *) VRAM + GetBgChrOffset(3));
-    TmApplyTsa_t(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
+    TmApplyTsa(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
     ApplyPalettes(gBackgroundTable[background].pal, 8, 4);
 
     EnableBgSync(BG3_SYNC_BIT);
@@ -1160,7 +1160,7 @@ void DisplayBackgroundNoClear(int background)
     SetBgOffset(3, 0, 0);
 
     Decompress(gBackgroundTable[background].img, (u8 *) VRAM + GetBgChrOffset(3));
-    TmApplyTsa_t(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
+    TmApplyTsa(gBg3Tm, gBackgroundTable[background].tsa, TILEREF(0, 8));
     ApplyPalettes(gBackgroundTable[background].pal, 8, 4);
 
     EnableBgSync(BG3_SYNC_BIT);

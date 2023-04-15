@@ -2596,4 +2596,3 @@ void func_fe6_0809892C(int arg_0, int arg_1, int arg_2, int arg_3, int arg_4);
 // func_fe6_0809B99C
 // func_fe6_0809BAF0
 // func_fe6_0809BB00
-u32 Checksum32_t(void const * buf, int size);

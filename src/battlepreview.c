@@ -204,8 +204,8 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
 {
     int damage;
 
-    TmApplyTsa_t(gUiTmScratchB, Tsa_BattlePreviewFrame_Short, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_BATTLEPREVIEW_FRAME));
-    TmFillRect_t(gUiTmScratchA, 10, 15, 0);
+    TmApplyTsa(gUiTmScratchB, Tsa_BattlePreviewFrame_Short, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_BATTLEPREVIEW_FRAME));
+    TmFillRect(gUiTmScratchA, 10, 15, 0);
 
     PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
     PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(1, 11), &proc->unit_name_text_a, &gBattleUnitB.unit);
@@ -254,8 +254,8 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
 
 static void DrawBattlePreviewContentsLong(struct BattlePreviewProc * proc)
 {
-    TmApplyTsa_t(gUiTmScratchB, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOWFRAME));
-    TmFillRect_t(gUiTmScratchA, 10, 19, 0);
+    TmApplyTsa(gUiTmScratchB, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOWFRAME));
+    TmFillRect(gUiTmScratchA, 10, 19, 0);
 
     PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
     PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(1, 15), &proc->unit_name_text_a, &gBattleUnitB.unit);
@@ -378,14 +378,14 @@ static void PutBattlePreviewTilemaps(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(0, 0), 10, height);
-        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(0, 0), 10, height);
+        TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(0, 0), 10, height);
+        TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(0, 0), 10, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(20, 0), 10, height);
-        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(20, 0), 10, height);
+        TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(20, 0), 10, height);
+        TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(20, 0), 10, height);
     }
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
@@ -540,14 +540,14 @@ static void BattlePreview_LoopSlideIn(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
-        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
     }
 
     proc->slide_clock++;
@@ -576,14 +576,14 @@ static void BattlePreview_LoopSlideOut(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
-        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
+        TmCopyRect(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
+        TmCopyRect(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
-        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
     }
 
     proc->slide_clock++;

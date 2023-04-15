@@ -41,7 +41,7 @@ inline int GetOamSplice(void)
 void SyncHiOam(void)
 {
     CpuFastCopy(sOamHi.buf, sOamHi.oam, sOamHi.count * 8);
-    ClearOam_t(sOamHi.buf, sOamHi.count);
+    ClearOam(sOamHi.buf, sOamHi.count);
 
     gOamHiPutIt = sOamHi.buf;
 
@@ -55,7 +55,7 @@ void SyncLoOam(void)
         return;
 
     CpuFastCopy(sOamLo.buf, sOamLo.oam, sOamLo.count * 8);
-    ClearOam_t(sOamLo.buf, sOamLo.count);
+    ClearOam(sOamLo.buf, sOamLo.count);
 
     gOamLoPutIt = sOamLo.buf;
 }

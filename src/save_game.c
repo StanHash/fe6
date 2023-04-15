@@ -2,6 +2,7 @@
 
 #include "gbasram.h"
 #include "gbaio.h"
+#include "armfunc.h"
 #include "util.h"
 #include "eventinfo.h"
 #include "supply.h"
@@ -604,7 +605,7 @@ void WriteSwappedSuspendSaveId(void)
 int SramChecksum32(void const * sram_src, int size)
 {
     ReadSramFast(sram_src, gBuf, size);
-    return Checksum32_t(gBuf, size);
+    return Checksum32(gBuf, size);
 }
 
 bool VerifySaveBlockChecksum(struct SaveBlockInfo * block_info)

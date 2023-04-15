@@ -3,7 +3,7 @@
 #include "hardware.h"
 #include "move.h"
 #include "oam.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "sprite.h"
 #include "util.h"
 #include "bm.h"
@@ -678,27 +678,27 @@ void PutUnitSpritesOam(void)
         {
 
         case UNITSPRITE_16x16:
-            PutOamHiRam(OAM1_X(0x200+x), OAM0_Y(0x100+y), Sprite_16x16, it->oam2 + OAM2_LAYER(2));
+            PutOamHi(OAM1_X(0x200+x), OAM0_Y(0x100+y), Sprite_16x16, it->oam2 + OAM2_LAYER(2));
             break;
 
         case UNITSPRITE_16x32:
-            PutOamHiRam(OAM1_X(0x200+x), OAM0_Y(0x100+y - 0x10), Sprite_16x32, it->oam2 + OAM2_LAYER(2));
+            PutOamHi(OAM1_X(0x200+x), OAM0_Y(0x100+y - 0x10), Sprite_16x32, it->oam2 + OAM2_LAYER(2));
             break;
 
         case UNITSPRITE_32x32:
-            PutOamHiRam(OAM1_X(0x200+x - 8), OAM0_Y(0x100+y - 0x10), Sprite_32x32, it->oam2 + OAM2_LAYER(2));
+            PutOamHi(OAM1_X(0x200+x - 8), OAM0_Y(0x100+y - 0x10), Sprite_32x32, it->oam2 + OAM2_LAYER(2));
             break;
 
         case UNITSPRITE_16x16+3:
-            PutOamHiRam(OAM1_X(0x200+x), OAM0_Y(0x100+y), Sprite_16x16, it->oam2 + OAM2_LAYER(3));
+            PutOamHi(OAM1_X(0x200+x), OAM0_Y(0x100+y), Sprite_16x16, it->oam2 + OAM2_LAYER(3));
             break;
 
         case UNITSPRITE_16x32+3:
-            PutOamHiRam(OAM1_X(0x200+x), OAM0_Y(0x100+y - 0x10), Sprite_16x32, it->oam2 + OAM2_LAYER(3));
+            PutOamHi(OAM1_X(0x200+x), OAM0_Y(0x100+y - 0x10), Sprite_16x32, it->oam2 + OAM2_LAYER(3));
             break;
 
         case UNITSPRITE_32x32+3:
-            PutOamHiRam(OAM1_X(0x200+x - 8), OAM0_Y(0x100+y - 0x10), Sprite_32x32, it->oam2 + OAM2_LAYER(3));
+            PutOamHi(OAM1_X(0x200+x - 8), OAM0_Y(0x100+y - 0x10), Sprite_32x32, it->oam2 + OAM2_LAYER(3));
             break;
 
         }
@@ -754,7 +754,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 break;
 
-            PutOamHiRam(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sPoisonIconSprites[poisonIconFrame], 0);
+            PutOamHi(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sPoisonIconSprites[poisonIconFrame], 0);
 
             break;
 
@@ -768,7 +768,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 break;
 
-            PutOamHiRam(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sSilenceIconSprites[silenceIconFrame], 0);
+            PutOamHi(OAM1_X(0x200+x - 2), OAM0_Y(0x100+y - 4), sSilenceIconSprites[silenceIconFrame], 0);
 
             break;
 
@@ -782,7 +782,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 break;
 
-            PutOamHiRam(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), sSleepIconSprites[sleepIconFrame], 0);
+            PutOamHi(OAM1_X(0x200+x + 2), OAM0_Y(0x100+y), sSleepIconSprites[sleepIconFrame], 0);
 
             break;
 
@@ -796,7 +796,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 break;
 
-            PutOamHiRam(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), sBerserkIconSprites[berserkIconFrame], 0);
+            PutOamHi(OAM1_X(0x200+x + 1), OAM0_Y(0x100+y - 5), sBerserkIconSprites[berserkIconFrame], 0);
 
             break;
 
@@ -815,7 +815,7 @@ void PutUnitSpriteIconsOam(void)
             if (y < -16 || y > DISPLAY_HEIGHT)
                 continue;
 
-            PutOamHiRam(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), Sprite_8x8,
+            PutOamHi(OAM1_X(0x200+x + 9), OAM0_Y(0x100+y + 7), Sprite_8x8,
                 OAM2_CHR(3) + OAM2_LAYER(2) + OAM2_PAL(rescuePalLut[unit->rescue >> 6]));
         }
     }

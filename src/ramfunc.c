@@ -1,5 +1,11 @@
-#include "ramfunc.h"
 #include "armfunc.h"
+
+#undef DrawGlyph
+#undef DecodeString
+#undef PutOamHi
+#undef PutOamLo
+#undef MapFloodCoreStep
+#undef MapFloodCore
 
 extern u8 RamFuncArea[];
 

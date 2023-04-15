@@ -2,7 +2,7 @@
 #include "bmio.h"
 
 #include "random.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "hardware.h"
 #include "oam.h"
 #include "proc.h"
@@ -411,7 +411,7 @@ static void WeatherVBlank_Snow(void)
             it->x += it->x_speed;
             it->y += it->y_speed;
 
-            PutOamLoRam(
+            PutOamLo(
                 ((it->x >> 8) - origins[it->kind].x) & 0xFF,
                 ((it->y >> 8) - origins[it->kind].y) & 0xFF,
                 Sprite_8x8, OAM2_PAL(OBJPAL_1) + it->chr);
@@ -453,7 +453,7 @@ static void WeatherVBlank_Rain(void)
             it->x += it->x_speed;
             it->y += it->y_speed;
 
-            PutOamLoRam(
+            PutOamLo(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
                 ((it->y >> 8) - gBmSt.camera.y) & 0xFF,
                 sRainSprites[it->chr], 0);
@@ -494,7 +494,7 @@ static void WeatherVBlank_Sandstorm(void)
         {
             it->x += it->x_speed;
 
-            PutOamLoRam(
+            PutOamLo(
                 OAM1_X((it->x & 0xFF) - 0x10),
                 it->y,
                 Sprite_32x32, OAM2_PAL(OBJPAL_1) + OBJCHR_SANDSTORM_PARTICLE);
@@ -553,7 +553,7 @@ static void WeatherVBlank_Snowstorm(void)
             it->x += it->x_speed;
             it->y += it->y_speed;
 
-            PutOamLoRam(
+            PutOamLo(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
                 ((it->y >> 8) - gBmSt.camera.y) & 0xFF,
                 Sprite_32x32, OAM2_PAL(OBJPAL_1) + OBJCHR_SNOWSTORM_PARTICLE + (it->chr * 4));
@@ -759,7 +759,7 @@ static void FlamesWeatherUpdateParticles(void)
             if (oam2 < 24)
                 oam2 = 24;
 
-            PutOamLoRam(
+            PutOamLo(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF, y,
                 Sprite_8x8, oam2 + OAM2_PAL(OBJPAL_10));
         }

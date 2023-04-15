@@ -494,7 +494,7 @@ void PutFullFaceTm(u16 * tm, int unused_1, int unused_2, int tileref, bool is_fl
 
 void func_fe6_08008874(u16 * tm, int tileref)
 {
-    TmApplyTsa_t(tm, Tsa_Unk_08101974, tileref);
+    TmApplyTsa(tm, Tsa_Unk_08101974, tileref);
 }
 
 void UnpackFaceChibiGraphics(int fid, int chr, int pal)
@@ -594,7 +594,7 @@ void PutFace80x72(u16 * tm, int fid, int chr, int pal)
     {
         int i;
 
-        TmApplyTsa_t(tm,
+        TmApplyTsa(tm,
             (fid == FID_FAE) ? Tsa_Unk_08101A2C : Tsa_Unk_08101974,
             (pal << 12) + (chr & 0x3FF));
 

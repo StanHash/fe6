@@ -111,7 +111,7 @@ static struct UnitPanelProc * InitUnitPanel(struct UnitPanelProc * proc, struct 
     proc->y = y;
 
     PutUiWindowFrame(x, y+2, width, 2 + lines*2, UI_WINDOW_REGULAR);
-    TmApplyTsa_t(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa(gBg1Tm + TM_OFFSET(x, y), Tsa_UnitPanelHeader, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     if (width > 10)
     {

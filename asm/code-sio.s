@@ -4608,7 +4608,7 @@ func_fe6_080373E0: @ 0x080373E0
 	ldr r1, .L080375D0 @ =gUnk_08109DF4
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L080375D4 @ =gUnk_08109A00
 	movs r1, #0x98
 	lsls r1, r1, #2
@@ -6024,7 +6024,7 @@ func_fe6_08037F04: @ 0x08037F04
 	movs r1, #0xc
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	bl EnableBgSync
 	adds r0, r4, #0
@@ -6060,7 +6060,7 @@ func_fe6_08037F04: @ 0x08037F04
 	movs r1, #0xc
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	bl EnableBgSync
 	adds r0, r4, #0
@@ -6274,7 +6274,7 @@ func_fe6_08038160: @ 0x08038160
 	ldr r1, .L08038284 @ =gUnk_0810A044
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08038288 @ =0x0203C758
 	bl SetTextFont
 	bl InitSystemTextFont
@@ -7324,7 +7324,7 @@ func_fe6_08038990: @ 0x08038990
 	movs r1, #0xc
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	bl EnableBgSync
 	adds r0, r5, #0
@@ -7360,7 +7360,7 @@ func_fe6_08038990: @ 0x08038990
 	movs r1, #0xc
 	movs r2, #2
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #1
 	bl EnableBgSync
 	adds r0, r5, #0
@@ -7771,7 +7771,7 @@ func_fe6_08038D64: @ 0x08038D64
 	adds r0, r0, r6
 	ldr r1, .L08038DAC @ =gUnk_08109CC0
 	ldr r2, .L08038DB0 @ =0x00002060
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	b .L08038DDE
 	.align 2, 0
 .L08038DA4: .4byte gBg2Tm
@@ -7967,7 +7967,7 @@ func_fe6_08038EC0: @ 0x08038EC0
 	ldr r0, .L08039058 @ =gBg3Tm
 	ldr r1, .L0803905C @ =gUnk_0810D1B4
 	movs r2, #0
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L08039060 @ =gFont_Unk_Sio_02001000
 	ldr r1, .L08039064 @ =0x06012000
 	movs r2, #0xe
@@ -10969,7 +10969,7 @@ func_fe6_0803A7E8: @ 0x0803A7E8
 	ldr r1, .L0803A9C8 @ =gUnk_0810A318
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L0803A9CC @ =0x0203C758
 	bl SetTextFont
 	bl InitSystemTextFont
@@ -11335,7 +11335,7 @@ func_fe6_0803AB10: @ 0x0803AB10
 	ldr r1, .L0803AD44 @ =gUnk_0810A318
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	ldr r0, .L0803AD48 @ =0x0203C758
 	bl SetTextFont
 	bl InitSystemTextFont
@@ -21371,7 +21371,7 @@ func_fe6_0803FBC4: @ 0x0803FBC4
 	ldr r1, .L0803FC18 @ =gUnk_08109D78
 	movs r2, #0x80
 	lsls r2, r2, #5
-	bl TmApplyTsa_t
+	bl TmApplyTsa_thm
 	movs r0, #4
 	bl EnableBgSync
 	pop {r4, r5, r6}
@@ -24229,7 +24229,7 @@ func_fe6_08041210: @ 0x08041210
 	movs r2, #0
 	ldrsb r2, [r4, r2]
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #0
 	ldrsb r0, [r7, r0]
 	lsls r0, r0, #5
@@ -24244,7 +24244,7 @@ func_fe6_08041210: @ 0x08041210
 	movs r2, #0
 	ldrsb r2, [r4, r2]
 	movs r3, #0
-	bl TmFillRect_t
+	bl TmFillRect_thm
 	movs r0, #3
 	bl EnableBgSync
 	movs r0, #0xb

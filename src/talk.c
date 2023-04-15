@@ -1190,7 +1190,7 @@ void StartTalkWaitForInput(ProcPtr parent, int x, int y)
 
 static void TalkShiftClearAll_OnInit(struct GenericProc * proc)
 {
-    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
+    TmFillRect(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
         sTalkSt->active_width-2, sTalkSt->lines*2, 0);
 
     TalkBgSync(BG0_SYNC_BIT);
@@ -1298,7 +1298,7 @@ void TalkChoice_OnIdle(struct TalkChoiceProc * proc)
 
 static void TalkShiftClear_OnInit(struct GenericProc * proc)
 {
-    TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
+    TmFillRect(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 4),
         sTalkSt->active_width-2, sTalkSt->lines*2, 0);
 
     TalkBgSync(BG0_SYNC_BIT);
@@ -1327,7 +1327,7 @@ static void TalkShiftClear_OnIdle(struct GenericProc * proc)
                 gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + 2*i));
         }
 
-        TmFillRect_t(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + (sTalkSt->lines - 1)*2),
+        TmFillRect(gBg0Tm + TM_OFFSET(sTalkSt->x_text, sTalkSt->y_text + (sTalkSt->lines - 1)*2),
             sTalkSt->active_width - 2, 2, 0);
 
         ClearText(TALK_TEXT_BY_LINE(sTalkSt->lines - 1));

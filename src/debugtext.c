@@ -5,7 +5,7 @@
 #include "hardware.h"
 #include "move.h"
 #include "oam.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "sprite.h"
 
 #include "constants/videoalloc_global.h"
@@ -290,7 +290,7 @@ void DebugPutObjStr(int x, int y, char const * str)
             ? *str - 0x40
             : *str - 0x20;
 
-        PutOamHiRam(x, y, Sprite_8x8, chr + sDebugOam2Chr + sDebugOam2Pal);
+        PutOamHi(x, y, Sprite_8x8, chr + sDebugOam2Chr + sDebugOam2Pal);
 
         x += 8;
         str++;

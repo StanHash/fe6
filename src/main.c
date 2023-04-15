@@ -3,7 +3,7 @@
 #include "irq.h"
 #include "random.h"
 #include "hardware.h"
-#include "ramfunc.h"
+#include "armfunc.h"
 #include "proc.h"
 #include "spriteanim.h"
 #include "gamecontroller.h"
