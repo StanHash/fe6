@@ -23,7 +23,7 @@ jobs:
       run: head -c 8M /dev/urandom > fe6-base.gba
 
     - name: Build target ROM
-      run: make fe6.gba
+      run: make -j fe6.gba
 
     - name: Build stats
       run: tools/stats/calcstats.sh fe6.elf fe6.map > stats.txt

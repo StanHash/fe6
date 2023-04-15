@@ -1528,33 +1528,6 @@ fu8 func_fe6_0805F7B4(int item); // fu16?
 fu8 GetItemMaFacing(int item); // fu16?
 fu8 func_fe6_0805F7D4(int item); // fu16?
 
-// func_fe6_08073548
-// func_fe6_0807355C
-// func_fe6_08073570
-// func_fe6_08073598
-// func_fe6_080735D8
-// func_fe6_08073688
-// func_fe6_080736C8
-// func_fe6_0807372C
-// func_fe6_08073808
-// func_fe6_080738FC
-// func_fe6_080739BC
-// func_fe6_08073AC8
-// func_fe6_08073B48
-// func_fe6_08073BE8
-// func_fe6_08073C50
-// func_fe6_08073DF8
-// func_fe6_08073F1C
-// func_fe6_08073F28
-// func_fe6_08073F34
-// func_fe6_08073F90
-// func_fe6_08073FE0
-// func_fe6_08074084
-// func_fe6_080740D0
-// func_fe6_080740E4
-// func_fe6_080740F4
-// func_fe6_080741A8
-void func_fe6_080741C8(ProcPtr parent);
 // func_fe6_080741EC
 // func_fe6_08074254
 // func_fe6_080742D0
@@ -1982,7 +1955,7 @@ void func_fe6_08089234(ProcPtr parent);
 // func_fe6_0808C340
 // func_fe6_0808C350
 // func_fe6_0808C380
-// func_fe6_0808C390
+void func_fe6_0808C390(ProcPtr parent, int arg_1, int arg_2);
 // func_fe6_0808C428
 // func_fe6_0808C4A8
 // func_fe6_0808C514

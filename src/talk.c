@@ -358,7 +358,7 @@ void InitSpriteTalk(int chr, int lines, int palid)
     SetTextFont(&sTalkFont);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    ApplyPalette(Pal_TalkText, 0x10 + palid);
+    ApplyPalette(Pal_Text+0x10, 0x10 + palid);
 
     PAL_OBJ_COLOR(palid, 4)  = RGB(7,  18, 28);
     PAL_OBJ_COLOR(palid, 14) = RGB(14, 13, 12);

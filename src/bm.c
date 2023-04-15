@@ -965,7 +965,7 @@ int GetActiveMapSong(void)
         return GetChapterInfo(gPlaySt.chapter)->song_green_bgm;
 
     case FACTION_BLUE:
-        if (CountFactionUnitsWithoutState(FACTION_RED, UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victory_bgm_enemy_threshold)
+        if (CountFactionUnitsWithoutFlags(FACTION_RED, UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED) <= GetChapterInfo(gPlaySt.chapter)->victory_bgm_enemy_threshold)
             return SONG_13;
 
         return GetChapterInfo(gPlaySt.chapter)->song_blue_bgm;

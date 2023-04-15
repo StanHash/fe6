@@ -4144,7 +4144,7 @@ func_fe6_080444EC: @ 0x080444EC
 func_fe6_08044608: @ 0x08044608
 	push {r4, r5, r6, lr}
 	sub sp, #8
-	ldr r4, .L08044648 @ =Pal_SystemText
+	ldr r4, .L08044648 @ =Pal_Text
 	adds r0, r4, #0
 	movs r1, #0x40
 	movs r2, #0x20
@@ -4170,7 +4170,7 @@ func_fe6_08044608: @ 0x08044608
 	ldr r5, .L08044660 @ =gUnk_085CB504
 	b .L08044672
 	.align 2, 0
-.L08044648: .4byte Pal_SystemText
+.L08044648: .4byte Pal_Text
 .L0804464C: .4byte gUnk_Banim_02017640
 .L08044650: .4byte 0x06001400
 .L08044654: .4byte gUnk_081125E0

@@ -12,16 +12,15 @@
 // some or those are not so much "unknown" as much as they just don't have a home yet
 
 extern struct Font gFont_Unk_02002770;
-extern u16 gUiTmScratchA[];
-extern u16 gUiTmScratchB[];
-extern u16 gUiTmScratchC[];
+extern u16 gUiTmScratchA[0x280];
+extern u16 gUiTmScratchB[0x280];
+extern u16 gUiTmScratchC[0x240];
 
 extern struct Glyph const * CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const * CONST_DATA TextGlyphs_System[];
 extern struct Glyph const * CONST_DATA TextGlyphs_Talk[];
-extern u16 CONST_DATA Pal_SystemText[];
-extern u16 CONST_DATA Pal_TalkText[];
-extern u16 CONST_DATA Pal_GreenTextColors[];
+extern u16 const Pal_Text[]; // 2 palettes (system and talk)
+extern u16 const Pal_GreenTextColors[];
 extern u8 const Img_FactionMiniCard[];
 extern u16 const Pal_FactionMiniCard[];
 extern u8 const Img_TalkBubble[];
@@ -116,6 +115,12 @@ extern u8 const Img_UiUnitNameFrame[];
 extern u16 const Pal_UiUnitNameFrame[];
 
 extern u16 const Pal_Unk_081B1710[]; // manim
+
+extern u8 const Tsa_StatusScreen_FactionInfoFrame[]; // tsa
+extern u8 const Tsa_StatusScreen_PlaytimeFrame[]; // tsa
+extern u8 const gUnk_08309408[]; // compressed tsa
+extern u8 const gUnk_0833C6F4[]; // tsa
+extern u8 const gUnk_0833C8D8[]; // tsa
 
 extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];

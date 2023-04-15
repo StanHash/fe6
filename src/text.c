@@ -533,7 +533,7 @@ static void DrawTextGlyphNoClear(struct Text * text, struct Glyph const * glyph)
 
 void InitSystemTextFont(void)
 {
-    ApplyPalette(Pal_SystemText, gActiveFont->palid);
+    ApplyPalette(Pal_Text, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
     gActiveFont->draw_glyph = DrawTextGlyph;
@@ -542,7 +542,7 @@ void InitSystemTextFont(void)
 
 void InitTalkTextFont(void)
 {
-    ApplyPalette(Pal_TalkText, gActiveFont->palid);
+    ApplyPalette(Pal_Text+0x10, gActiveFont->palid);
     PAL_COLOR(gActiveFont->palid, 0) = 0;
 
     gActiveFont->draw_glyph = DrawTextGlyph;

@@ -99,10 +99,10 @@ int HelpBoxTryRelocateRight(struct HelpBoxProc * proc);
 struct HelpBoxInfo const * GetLastHelpBoxInfo(void);
 void func_fe6_08070CB4(int flags, int pal);
 void func_fe6_08070D08(int chr, int chapter);
-// func_fe6_08070D48
+void func_fe6_08070D48(int chr);
 void func_fe6_08070D78(int chr);
 void func_fe6_08070DA8(u16 * tm, int pal);
-// func_fe6_08070DC8
+void func_fe6_08070DC8(u16 * tm, int pal);
 void func_fe6_08070DE8(u16 * tm, int pal);
 int func_fe6_08070E0C(struct PlaySt const * play_st);
 void func_fe6_08070E70(void * vram, int pal);
@@ -111,7 +111,7 @@ void PutSpriteTalkBox(int x_box, int y_box, int w_box, int h_box);
 // DrawHelpBoxWeaponLabels
 // DrawHelpBoxWeaponStats
 // DrawHelpBoxStaffLabels
-// func_fe6_08071274
+void func_fe6_08071274(struct HelpBoxPrintProc * proc);
 void func_fe6_08071308(struct HelpBoxPrintProc * proc);
 // func_fe6_08071374
 // func_fe6_080713DC
@@ -166,7 +166,7 @@ extern struct ProcScr CONST_DATA ProcScr_HelpBoxMoveControl[];
 
 extern u8 const * CONST_DATA gUnk_08677F20[]; // array img ref
 
-extern struct ProcScr CONST_DATA gUnk_08677FD0[];
+extern struct ProcScr CONST_DATA ProcScr_Unk_08677FD0[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08677FE0[];
 extern struct ProcScr CONST_DATA gUnk_08677FF8[];
 extern struct ProcScr CONST_DATA gUnk_08678020[];

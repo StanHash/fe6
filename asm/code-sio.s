@@ -4595,7 +4595,7 @@ func_fe6_080373E0: @ 0x080373E0
 	push {r7}
 	sub sp, #0x10
 	adds r7, r0, #0
-	ldr r4, .L080375C0 @ =Pal_SystemText
+	ldr r4, .L080375C0 @ =Pal_Text
 	bl func_fe6_08036B40
 	bl func_fe6_0803FA14
 	ldr r0, .L080375C4 @ =gUnk_08107820
@@ -4808,7 +4808,7 @@ func_fe6_080373E0: @ 0x080373E0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080375C0: .4byte Pal_SystemText
+.L080375C0: .4byte Pal_Text
 .L080375C4: .4byte gUnk_08107820
 .L080375C8: .4byte 0x06014800
 .L080375CC: .4byte gBg2Tm+0x112
@@ -7972,7 +7972,7 @@ func_fe6_08038EC0: @ 0x08038EC0
 	ldr r1, .L08039064 @ =0x06012000
 	movs r2, #0xe
 	bl InitSpriteTextFont
-	ldr r0, .L08039068 @ =Pal_SystemText
+	ldr r0, .L08039068 @ =Pal_Text
 	movs r1, #0xf0
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -8090,7 +8090,7 @@ func_fe6_08038EC0: @ 0x08038EC0
 .L0803905C: .4byte gUnk_0810D1B4
 .L08039060: .4byte gFont_Unk_Sio_02001000
 .L08039064: .4byte 0x06012000
-.L08039068: .4byte Pal_SystemText
+.L08039068: .4byte Pal_Text
 .L0803906C: .4byte 0x0203C708
 .L08039070: .4byte gUnk_Sio_085C98F4
 .L08039074: .4byte 0x01000010
@@ -14936,7 +14936,7 @@ func_fe6_0803C8F0: @ 0x0803C8F0
 	mov sb, r3
 	movs r0, #0
 	mov sl, r0
-	ldr r0, .L0803C9C8 @ =Pal_SystemText
+	ldr r0, .L0803C9C8 @ =Pal_Text
 	movs r1, #0xc8
 	lsls r1, r1, #2
 	movs r2, #0x20
@@ -15022,7 +15022,7 @@ func_fe6_0803C8F0: @ 0x0803C8F0
 	add sl, r0
 	b .L0803C9F4
 	.align 2, 0
-.L0803C9C8: .4byte Pal_SystemText
+.L0803C9C8: .4byte Pal_Text
 .L0803C9CC: .4byte gFont_Unk_Sio_02001000
 .L0803C9D0: .4byte 0x06016800
 .L0803C9D4: .4byte gText_Unk_Sio_02001018

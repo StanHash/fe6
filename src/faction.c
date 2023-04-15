@@ -31,7 +31,7 @@ int CountFactionMoveableUnits(int faction)
     return count;
 }
 
-int CountFactionUnitsWithoutState(int faction, int prohibited_state)
+int CountFactionUnitsWithoutFlags(int faction, int prohibited_flags)
 {
     int i, count = 0;
 
@@ -45,7 +45,7 @@ int CountFactionUnitsWithoutState(int faction, int prohibited_state)
         if (!unit->pinfo)
             continue;
 
-        if (unit->flags & prohibited_state)
+        if (unit->flags & prohibited_flags)
             continue;
 
         count++;

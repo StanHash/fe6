@@ -184,8 +184,8 @@ gUnk_0833C6F4: @ 0833C6F4
 gUnk_0833C8D8: @ 0833C8D8
 	.incbin "fe6-base.gba", 0x33C8D8, (0x33C944 - 0x33C8D8) @ length: 006C
 
-	.global gUnk_0833C944
-gUnk_0833C944: @ 0833C944
+	.global Pal_Unk_0833C944
+Pal_Unk_0833C944: @ 0833C944
 	.incbin "fe6-base.gba", 0x33C944, (0x33C984 - 0x33C944) @ length: 0040
 
 	.global gUnk_0833C984

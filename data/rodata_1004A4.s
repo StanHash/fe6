@@ -17,13 +17,9 @@ Pal_UnitSprites: @ 08100968
 Pal_UnitSpritesPurple: @ 081009E8
 	.incbin "fe6-base.gba", 0x1009E8, (0x100A08 - 0x1009E8) @ length: 0020
 
-	.global Pal_SystemText
-Pal_SystemText: @ 08100A08
-	.incbin "fe6-base.gba", 0x100A08, (0x100A28 - 0x100A08) @ length: 0020
-
-	.global Pal_TalkText
-Pal_TalkText: @ 08100A28
-	.incbin "fe6-base.gba", 0x100A28, (0x100A48 - 0x100A28) @ length: 0020
+	.global Pal_Text
+Pal_Text: @ 08100A08
+	.incbin "fe6-base.gba", 0x100A08, (0x100A48 - 0x100A08) @ length: 0040
 
 	.global Pal_08100A48
 Pal_08100A48: @ 08100A48

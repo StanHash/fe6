@@ -81,8 +81,12 @@ struct ChapterInfo
     /* 19 */ u8 wall_hp;
     /* 1A */ u8 class_roll_set;
 
-    /* 1B */ u8 pad_1B[0x38 - 0x1B];
+    /* 1B */ u8 pad_1B[0x30 - 0x1B];
 
+    /* 30 */ u16 msg_30;
+    /* 32 */ u16 msg_32;
+    /* 34 */ u16 msg_34;
+    /* 36 */ u16 chibi_36;
     /* 38 */ u16 msg_38;
     /* 3A */ u8 asset_event_info;
 

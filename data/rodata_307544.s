@@ -88,12 +88,12 @@ Tsa_StatusHealEffect: @ 083092B8
 gUnk_083092CC: @ 083092CC
 	.incbin "fe6-base.gba", 0x3092CC, (0x3093EC - 0x3092CC) @ length: 0120
 
-	.global gUnk_083093EC
-gUnk_083093EC: @ 083093EC
+	.global Tsa_StatusScreen_FactionInfoFrame
+Tsa_StatusScreen_FactionInfoFrame: @ 083093EC
 	.incbin "fe6-base.gba", 0x3093EC, (0x3093F8 - 0x3093EC) @ length: 000C
 
-	.global gUnk_083093F8
-gUnk_083093F8: @ 083093F8
+	.global Tsa_StatusScreen_PlaytimeFrame
+Tsa_StatusScreen_PlaytimeFrame: @ 083093F8
 	.incbin "fe6-base.gba", 0x3093F8, (0x309408 - 0x3093F8) @ length: 0010
 
 	.global gUnk_08309408

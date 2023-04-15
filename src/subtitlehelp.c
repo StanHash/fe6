@@ -54,7 +54,7 @@ static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
     InitSpriteTextFont(&proc->font, OBJ_VRAM0 + OBJCHR_SUBTITLEHELP_TEXT*CHR_SIZE, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    ApplyPalette(Pal_TalkText, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
+    ApplyPalette(Pal_Text+0x10, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
 
     for (line = 0; line < 2; ++line)
     {

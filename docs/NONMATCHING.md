@@ -23,3 +23,4 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `ai-utility.c` | `func_fe6_08030968` | `O2` | need to load constant before useless function call
 | `eventinfo.c` | `EvtListCmd_Door` | `O2` | `asm("":::"memory");` needed
 | `eventinfo.c` | `StartAvailableTileEvent` | `O2` | somehow theres a couple `nop`s in here.
+| `statusscreen.c` | `StatusScreenSprites_Loop`| `O2` | register("r4")
