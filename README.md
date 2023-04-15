@@ -31,7 +31,6 @@ You can also consider porting stuff between fe6 and fe8.
 * [**StanHash/fe1**](https://github.com/StanHash/fe1), a disassembly of Fire Emblem: Shadow Dragon and the Blade of Light
 * [**ZaneAvernathy/FireEmblem5**](https://github.com/ZaneAvernathy/FireEmblem5), a disassembly of Fire Emblem: Thracia 776
 * [**FireEmblemUniverse/fireemblem8u**](https://github.com/FireEmblemUniverse/fireemblem8u), a decompilation of Fire Emblem: The Sacred Stones (US)
-* [**StanHash/fomt**](https://github.com/StanHash/fomt), a decompilation of Havest Moon: Friends of Mineral Town (US)
 
 ## Contact
 
