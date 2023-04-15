@@ -215,48 +215,48 @@ struct TextInitInfo CONST_DATA gStatScreenTextList[] =
 
 struct StatScreenTextInfo const gStatScreenPersonalInfoLabelsInfo[] =
 {
-    { gStatScreenSt.text + STATSCREEN_TEXT_SKL,      gUnk_Tm_02003238 + TM_OFFSET(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 4, SystemLabel_Skill },
-    { gStatScreenSt.text + STATSCREEN_TEXT_SPD,      gUnk_Tm_02003238 + TM_OFFSET(1, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Speed },
-    { gStatScreenSt.text + STATSCREEN_TEXT_LCK,      gUnk_Tm_02003238 + TM_OFFSET(1, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Luck },
-    { gStatScreenSt.text + STATSCREEN_TEXT_DEF,      gUnk_Tm_02003238 + TM_OFFSET(1, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Defense },
-    { gStatScreenSt.text + STATSCREEN_TEXT_RES,      gUnk_Tm_02003238 + TM_OFFSET(1, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Resistance },
-    { gStatScreenSt.text + STATSCREEN_TEXT_MOV,      gUnk_Tm_02003238 + TM_OFFSET(9, 1),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Movement },
-    { gStatScreenSt.text + STATSCREEN_TEXT_CON,      gUnk_Tm_02003238 + TM_OFFSET(9, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Constitution },
-    { gStatScreenSt.text + STATSCREEN_TEXT_AID,      gUnk_Tm_02003238 + TM_OFFSET(9, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Aid },
-    { gStatScreenSt.text + STATSCREEN_TEXT_RESCUE,   gUnk_Tm_02003238 + TM_OFFSET(9, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Rescue },
-    { gStatScreenSt.text + STATSCREEN_TEXT_AFFINITY, gUnk_Tm_02003238 + TM_OFFSET(9, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Affinity },
-    { gStatScreenSt.text + STATSCREEN_TEXT_STATUS,   gUnk_Tm_02003238 + TM_OFFSET(9, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Status },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SKL,      gUiTmScratchA + TM_OFFSET(1, 3),  TEXT_COLOR_SYSTEM_GOLD, 4, SystemLabel_Skill },
+    { gStatScreenSt.text + STATSCREEN_TEXT_SPD,      gUiTmScratchA + TM_OFFSET(1, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Speed },
+    { gStatScreenSt.text + STATSCREEN_TEXT_LCK,      gUiTmScratchA + TM_OFFSET(1, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Luck },
+    { gStatScreenSt.text + STATSCREEN_TEXT_DEF,      gUiTmScratchA + TM_OFFSET(1, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Defense },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RES,      gUiTmScratchA + TM_OFFSET(1, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Resistance },
+    { gStatScreenSt.text + STATSCREEN_TEXT_MOV,      gUiTmScratchA + TM_OFFSET(9, 1),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Movement },
+    { gStatScreenSt.text + STATSCREEN_TEXT_CON,      gUiTmScratchA + TM_OFFSET(9, 3),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Constitution },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AID,      gUiTmScratchA + TM_OFFSET(9, 5),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Aid },
+    { gStatScreenSt.text + STATSCREEN_TEXT_RESCUE,   gUiTmScratchA + TM_OFFSET(9, 7),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Rescue },
+    { gStatScreenSt.text + STATSCREEN_TEXT_AFFINITY, gUiTmScratchA + TM_OFFSET(9, 9),  TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Affinity },
+    { gStatScreenSt.text + STATSCREEN_TEXT_STATUS,   gUiTmScratchA + TM_OFFSET(9, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_Status },
 
     { 0 }, // end
 };
 
 struct StatScreenTextInfo const gStatScreenEquipmentLabelsInfo[] =
 {
-    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPATTACK, gUnk_Tm_02003238 + TM_OFFSET(3,  13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAttack },
-    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPHIT,    gUnk_Tm_02003238 + TM_OFFSET(3,  15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipHit },
-    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE,  gUnk_Tm_02003238 + TM_OFFSET(10, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipRange },
-    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPCRIT,   gUnk_Tm_02003238 + TM_OFFSET(10, 13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipCrit },
-    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPAVOID,  gUnk_Tm_02003238 + TM_OFFSET(10, 15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAvoid },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPATTACK, gUiTmScratchA + TM_OFFSET(3,  13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAttack },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPHIT,    gUiTmScratchA + TM_OFFSET(3,  15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipHit },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE,  gUiTmScratchA + TM_OFFSET(10, 11), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipRange },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPCRIT,   gUiTmScratchA + TM_OFFSET(10, 13), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipCrit },
+    { gStatScreenSt.text + STATSCREEN_TEXT_EQUIPAVOID,  gUiTmScratchA + TM_OFFSET(10, 15), TEXT_COLOR_SYSTEM_GOLD, 0, SystemLabel_EquipAvoid },
 
     { 0 }, // end
 };
 
 struct StatScreenTextInfo const gStatScreenWeaponExpLabelsPhysicalInfo[] =
 {
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUnk_Tm_02003238 + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindSword },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUnk_Tm_02003238 + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLance },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUnk_Tm_02003238 + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAxe },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUnk_Tm_02003238 + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindBow },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUiTmScratchA + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindSword },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUiTmScratchA + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLance },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUiTmScratchA + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAxe },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUiTmScratchA + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindBow },
 
     { 0 }, // end
 };
 
 struct StatScreenTextInfo const gStatScreenWeaponExpLabelsMagicalInfo[] =
 {
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUnk_Tm_02003238 + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAnima },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUnk_Tm_02003238 + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLight },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUnk_Tm_02003238 + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindElder },
-    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUnk_Tm_02003238 + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindStaff },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_A, gUiTmScratchA + TM_OFFSET(3,  1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindAnima },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_B, gUiTmScratchA + TM_OFFSET(3,  3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindLight },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_C, gUiTmScratchA + TM_OFFSET(11, 1), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindElder },
+    { gStatScreenSt.text + STATSCREEN_TEXT_WEXP_D, gUiTmScratchA + TM_OFFSET(11, 3), TEXT_COLOR_SYSTEM_WHITE, 0, SystemLabel_WeaponKindStaff },
 
     { 0 }, // end
 };
@@ -319,10 +319,10 @@ void PutStatScreenStatWithBar(int num, int x, int y, int base, int total, int ma
 {
     int bonus = total - base;
 
-    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(x, y),
+    PutNumberOrBlank(gUiTmScratchA + TM_OFFSET(x, y),
         (base == max) ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE, base);
 
-    PutNumberBonus(bonus, gUnk_Tm_02003238 + TM_OFFSET(x + 1, y));
+    PutNumberBonus(bonus, gUiTmScratchA + TM_OFFSET(x + 1, y));
 
     if (total > 30)
     {
@@ -331,14 +331,14 @@ void PutStatScreenStatWithBar(int num, int x, int y, int base, int total, int ma
     }
 
     PutDrawUiGauge(0x400 + 1 + num*6, 6,
-        gUnk_Tm_02003C38 + TM_OFFSET(x - 2, y + 1),
+        gUiTmScratchC + TM_OFFSET(x - 2, y + 1),
         TILEREF(0, BGPAL_STATSCREEN_6), max * 41 / 30, base * 41 / 30, bonus * 41 / 30);
 }
 
 void PutStatScreenPersonalInfoPage(void)
 {
     Decompress(gUnk_08307D58, gBuf);
-    TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     PutStatScreenText(gStatScreenPersonalInfoLabelsInfo);
 
@@ -348,7 +348,7 @@ void PutStatScreenPersonalInfoPage(void)
     {
         // magic
         PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_POW,
-            gUnk_Tm_02003238 + TM_OFFSET(1, 1),
+            gUiTmScratchA + TM_OFFSET(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 0, 0,
             TEXT("魔力", "Mag"));
     }
@@ -356,7 +356,7 @@ void PutStatScreenPersonalInfoPage(void)
     {
         // strength
         PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_POW,
-            gUnk_Tm_02003238 + TM_OFFSET(1, 1),
+            gUiTmScratchA + TM_OFFSET(1, 1),
             TEXT_COLOR_SYSTEM_GOLD, 4, 0,
             TEXT("力", "Str"));
     }
@@ -414,11 +414,11 @@ void PutStatScreenPersonalInfoPage(void)
         UNIT_CON_CAP(gStatScreenSt.unit));
 
     // display unit aid
-    PutNumber(gUnk_Tm_02003238 + TM_OFFSET(13, 5), TEXT_COLOR_SYSTEM_BLUE,
+    PutNumber(gUiTmScratchA + TM_OFFSET(13, 5), TEXT_COLOR_SYSTEM_BLUE,
         GetUnitAid(gStatScreenSt.unit));
 
     // display unit aid icon
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(14, 5),
+    PutIcon(gUiTmScratchA + TM_OFFSET(14, 5),
         GetAidIconFromAttributes(UNIT_ATTRIBUTES(gStatScreenSt.unit)),
         TILEREF(0, BGPAL_ICONS + 1));
 
@@ -436,14 +436,14 @@ void PutStatScreenPersonalInfoPage(void)
 
     if (gStatScreenSt.unit->status != UNIT_STATUS_NONE)
     {
-        PutNumberSmall(gUnk_Tm_02003238 + TM_OFFSET(16, 11),
+        PutNumberSmall(gUiTmScratchA + TM_OFFSET(16, 11),
             TEXT_COLOR_SYSTEM_WHITE,
             gStatScreenSt.unit->status_duration);
     }
 
     // display affininity icon and name
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(12, 9),
+    PutIcon(gUiTmScratchA + TM_OFFSET(12, 9),
         GetUnitAffinityIcon(gStatScreenSt.unit),
         TILEREF(0, BGPAL_ICONS + 1));
 
@@ -456,10 +456,10 @@ void PutStatScreenItemsPage(void)
     int i, item;
 
     Decompress(gUnk_08307DD4, gBuf);
-    TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     Decompress(gUnk_08308070, gBuf);
-    TmApplyTsa_t(gUnk_Tm_02003C38 + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
+    TmApplyTsa_t(gUiTmScratchC + TM_OFFSET(1, 11), gBuf, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
 
     PutStatScreenText(gStatScreenEquipmentLabelsInfo);
 
@@ -467,7 +467,7 @@ void PutStatScreenItemsPage(void)
     {
         func_fe6_08016860(gStatScreenSt.text + STATSCREEN_TEXT_ITEM_A + i,
             item, IsItemDisplayUseable(gStatScreenSt.unit, item),
-            gUnk_Tm_02003238 + TM_OFFSET(1, 1 + i * 2));
+            gUiTmScratchA + TM_OFFSET(1, 1 + i * 2));
     }
 
     i = GetUnitEquippedWeaponSlot(gStatScreenSt.unit);
@@ -476,26 +476,26 @@ void PutStatScreenItemsPage(void)
     if (i >= 0)
     {
         PutSpecialChar(
-            gUnk_Tm_02003238 + TM_OFFSET(16, 1 + i * 2),
+            gUiTmScratchA + TM_OFFSET(16, 1 + i * 2),
             0, TEXT_SPECIAL_K);
 
         TmApplyTsa_t(
-            gUnk_Tm_02003C38 + TM_OFFSET(1, 2 + i * 2),
+            gUiTmScratchC + TM_OFFSET(1, 2 + i * 2),
             gUnk_083080AC, TILEREF(BGCHR_STATSCREEN_EQUIPSTATFRAME, BGPAL_STATSCREEN_EQUIPSTATFRAME));
 
         item = gStatScreenSt.unit->items[i];
     }
 
-    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(8,  13),
+    PutNumberOrBlank(gUiTmScratchA + TM_OFFSET(8,  13),
         TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_attack);
 
-    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(8,  15),
+    PutNumberOrBlank(gUiTmScratchA + TM_OFFSET(8,  15),
         TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_hit);
 
-    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(15, 13),
+    PutNumberOrBlank(gUiTmScratchA + TM_OFFSET(15, 13),
         TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_crit);
 
-    PutNumberOrBlank(gUnk_Tm_02003238 + TM_OFFSET(15, 15),
+    PutNumberOrBlank(gUiTmScratchA + TM_OFFSET(15, 15),
         TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_avoid);
 
     Text_InsertDrawString(gStatScreenSt.text + STATSCREEN_TEXT_EQUIPRANGE,
@@ -503,8 +503,8 @@ void PutStatScreenItemsPage(void)
 
     for (i = 0; i < 8; ++i)
     {
-        gUnk_Tm_02003238[TM_OFFSET(2 + i, 11)] = TILEREF(0x278 + i, BGPAL_ICONS + 1);
-        gUnk_Tm_02003238[TM_OFFSET(2 + i, 12)] = TILEREF(0x270 + i, BGPAL_ICONS + 1);
+        gUiTmScratchA[TM_OFFSET(2 + i, 11)] = TILEREF(0x278 + i, BGPAL_ICONS + 1);
+        gUiTmScratchA[TM_OFFSET(2 + i, 12)] = TILEREF(0x270 + i, BGPAL_ICONS + 1);
     }
 }
 
@@ -528,12 +528,12 @@ void PutStatScreenSupportList(void)
 
             u8 pid = GetUnitSupportPid(gStatScreenSt.unit, i);
 
-            PutIcon(gUnk_Tm_02003238 + TM_OFFSET(4, y_tm),
+            PutIcon(gUiTmScratchA + TM_OFFSET(4, y_tm),
                 GetAffinityIconByPid(pid),
                 TILEREF(0, BGPAL_ICONS + 1));
 
             PutDrawText(gStatScreenSt.text + STATSCREEN_TEXT_SUPPORT_A + line,
-                gUnk_Tm_02003238 + TM_OFFSET(7, y_tm),
+                gUiTmScratchA + TM_OFFSET(7, y_tm),
                 text_color, 0, 0, DecodeMsg(GetPInfo(pid)->msg_name));
 
             rank_color = TEXT_COLOR_SYSTEM_BLUE;
@@ -544,7 +544,7 @@ void PutStatScreenSupportList(void)
             if (text_color == TEXT_COLOR_SYSTEM_GREEN)
                 rank_color = TEXT_COLOR_SYSTEM_GREEN;
 
-            PutSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(13, y_tm),
+            PutSpecialChar(gUiTmScratchA + TM_OFFSET(13, y_tm),
                 rank_color, GetSupportLevelSpecialChar(support_level));
 
             y_tm += 2;
@@ -558,7 +558,7 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
     int color;
     int wexp = gStatScreenSt.unit->wexp[item_kind];
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(x, y),
+    PutIcon(gUiTmScratchA + TM_OFFSET(x, y),
         0x70 + item_kind, // TODO: icon id definitions
         TILEREF(0, BGPAL_ICONS + 1));
 
@@ -566,7 +566,7 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
         ? TEXT_COLOR_SYSTEM_GREEN : TEXT_COLOR_SYSTEM_BLUE;
 
     // display rank letter
-    PutSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(x + 5, y),
+    PutSpecialChar(gUiTmScratchA + TM_OFFSET(x + 5, y),
         color, GetWeaponLevelSpecialCharFromExp(wexp));
 
     // this code makes the following assumptions
@@ -579,14 +579,14 @@ void PutStatScreenWeaponExpBar(int num, int x, int y, int item_kind)
         wexp -= WEXP_E;
 
     PutDrawUiGauge(0x400 + 1 + num * 6, 5,
-        gUnk_Tm_02003C38 + TM_OFFSET(x + 3, y + 1), TILEREF(0, BGPAL_STATSCREEN_6),
+        gUiTmScratchC + TM_OFFSET(x + 3, y + 1), TILEREF(0, BGPAL_STATSCREEN_6),
         34, ((wexp % (WEXP_D - WEXP_E)) * 33) / 48, 0); // math look weird but gets something that ranges from 0 to 33. I would do "((wexp % 50) * 34) / 50"
 }
 
 void PutStatScreenWeaponExpAndSupportsPage(void)
 {
     Decompress(gUnk_08307E50, gBuf);
-    TmApplyTsa_t(gUnk_Tm_02003738, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
+    TmApplyTsa_t(gUiTmScratchB, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
 
     if (UnitKnowsMagic(gStatScreenSt.unit))
     {
@@ -622,8 +622,8 @@ void PutStatScreenPage(int page_id)
         PutStatScreenPersonalInfoPage,
     };
 
-    CpuFastFill(0, gUnk_Tm_02003238, sizeof(u16) * 0x20 * 20);
-    CpuFastFill(0, gUnk_Tm_02003C38, sizeof(u16) * 0x20 * 18);
+    CpuFastFill(0, gUiTmScratchA, sizeof(u16) * 0x20 * 20);
+    CpuFastFill(0, gUiTmScratchC, sizeof(u16) * 0x20 * 18);
 
     func_table[page_id]();
 }
@@ -712,15 +712,15 @@ void StatScreenPageSlide_Loop(struct StatScreenPageSlideProc * proc)
         src_offset = 0;
     }
 
-    TmCopyRect_t(gUnk_Tm_02003238 + src_offset,
+    TmCopyRect_t(gUiTmScratchA + src_offset,
         gBg0Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
-    TmCopyRect_t(gUnk_Tm_02003738 + src_offset,
+    TmCopyRect_t(gUiTmScratchB + src_offset,
         gBg1Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
-    TmCopyRect_t(gUnk_Tm_02003C38 + src_offset,
+    TmCopyRect_t(gUiTmScratchC + src_offset,
         gBg2Tm + dst_offset + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         len, 18);
 
@@ -1260,15 +1260,15 @@ void StatScreen_InitUnit(ProcPtr proc)
     PutStatScreenLeftPanelInfo();
     PutStatScreenPage(gStatScreenSt.page);
 
-    TmCopyRect_t(gUnk_Tm_02003238,
+    TmCopyRect_t(gUiTmScratchA,
         gBg0Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 
-    TmCopyRect_t(gUnk_Tm_02003738,
+    TmCopyRect_t(gUiTmScratchB,
         gBg1Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 
-    TmCopyRect_t(gUnk_Tm_02003C38,
+    TmCopyRect_t(gUiTmScratchC,
         gBg2Tm + TM_OFFSET(PAGE_FRAME_SCREEN_X, PAGE_FRAME_SCREEN_Y),
         18, 18);
 

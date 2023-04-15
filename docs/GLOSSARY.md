@@ -16,6 +16,16 @@ I do not know what it stands for (or if it even stands for anything).
 When the term is used here, it is _only_ referring to specifically the headered tilemaps with rows in reverse
 order that the `TmApplyTsa` function takes as input, and nothing else. I would say "Tile Map" or "TM" otherwise.
 
+## BM
+
+Stands for "Battle Map".
+
+The screen where the map is displayed.
+
+## Banim/Manim
+
+Banim stands for "Battle Animations", Manim stands for "Map (Battle) Animations".
+
 ## PID/PInfo
 
 A PID is a character ID, a PInfo is a struct containing the static info of a character.
@@ -29,7 +39,7 @@ Along with "JInfo" and "IInfo", I think it makes for nice symmetric mapping betw
 
 Same as PID/PInfo, but for classes. The "J" probably stands for "Job".
 
-This one is probably the biggest stretch, as no one in the western community really refers to Fire Emblem classes as "jobs". I didn't want to go for a "C" prefix because it could be confused for character as well (and CLASS starts to get long for a prefix for identifiers that are commonly used in events/unit info).
+This one is probably the biggest stretch, as no one in the western community really refers to Fire Emblem classes as "jobs". I didn't want to go for a "C" prefix because it could be confused for character as well (and CLASS starts to get long for a prefix for identifiers that are commonly used in chapter events).
 
 ## IID/IInfo
 

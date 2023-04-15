@@ -442,7 +442,7 @@ fu8 UnitActionMenu_Attack_Available(struct MenuEntInfo const * info, int id)
         {
             gBmSt.unk_31 = TRUE;
 
-            if (GetObstacleHpAt(gActiveUnit->x, gActiveUnit->y) == 0)
+            if (GetBallistaUsesAt(gActiveUnit->x, gActiveUnit->y) == 0)
                 return MENU_ENTRY_DISABLED;
         }
     }
@@ -895,8 +895,8 @@ void func_fe6_0801F854(int x, int y)
 {
     InitTextFont(&gFont_Unk_02002770, (u8 *) VRAM + CHR_SIZE*0x200, 0x200, 0);
 
-    TmCopyRect_t(gBg0Tm + TM_OFFSET(11, 1), gUnk_Tm_02003238, 9, 19);
-    TmCopyRect_t(gBg1Tm + TM_OFFSET(11, 1), gUnk_Tm_02003738, 9, 19);
+    TmCopyRect_t(gBg0Tm + TM_OFFSET(11, 1), gUiTmScratchA, 9, 19);
+    TmCopyRect_t(gBg1Tm + TM_OFFSET(11, 1), gUiTmScratchB, 9, 19);
 }
 
 void UnitItemActionMenu_End(struct MenuProc * menu)
@@ -908,8 +908,8 @@ fu8 MenuActionReturnToUnitItemMenu(struct MenuProc * menu)
 {
     SetTextFont(NULL);
 
-    TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
-    TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
 
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
@@ -957,8 +957,8 @@ fu8 func_fe6_0801F948(struct MenuProc * menu)
         return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6B | MENU_ACTION_CLEAR;
     }
 
-    TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
-    TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(11, 1), 9, 19);
+    TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(11, 1), 9, 19);
 
     TmFillRect_t(gBg0Tm + TM_OFFSET(1, 1), 13, 12, 0);
     TmFillRect_t(gBg1Tm + TM_OFFSET(1, 1), 13, 12, 0);

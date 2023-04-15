@@ -33,6 +33,7 @@
 #include "chapterinfo.h"
 #include "chapterevents.h"
 #include "helpbox.h"
+#include "mapui.h"
 #include "save_stats.h"
 
 #include "constants/flags.h"
@@ -1675,7 +1676,7 @@ void func_fe6_0806D064(void)
 
 void func_fe6_0806D0E4(void)
 {
-    func_fe6_08073324();
+    EndMapUi();
     func_fe6_08027DB4(GetUnitByPid(PID_ROY), ITEM_FROM_IID(IID_BINDINGBLADE));
 }
 

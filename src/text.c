@@ -114,9 +114,9 @@ void InitTextFont(struct Font * font, void * draw_dest, int chr, int palid)
     InitSystemTextFont();
 }
 
-void SetTextFontGlyphs(int glyphSet)
+void SetTextFontGlyphs(int glyphset)
 {
-    if (glyphSet == TEXT_GLYPHS_SYSTEM)
+    if (glyphset == TEXT_GLYPHS_SYSTEM)
     {
         gActiveFont->glyphs = TextGlyphs_System;
     }
@@ -318,9 +318,9 @@ char const * GetCharTextLen(char const * str, int * out_width)
     return str;
 }
 
-int GetStringTextCenteredPos(int areaLength, char const * str)
+int GetStringTextCenteredPos(int area_length, char const * str)
 {
-    return (areaLength - GetStringTextLen(str)) / 2;
+    return (area_length - GetStringTextLen(str)) / 2;
 }
 
 void GetStringTextBox(char const * str, int * out_width, int * out_height)

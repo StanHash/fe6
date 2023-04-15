@@ -122,10 +122,10 @@ void EnlistAttackObstacleTargets(void)
         if (trap->kind != TRAP_OBSTACLE)
             continue;
 
-        if (gMapTerrain[trap->y][trap->x] == TERRAIN_WALL_1B && gMapRangeSigned[trap->y][trap->x] != 0)
+        if (gMapTerrain[trap->y][trap->x] == TERRAIN_WALL_BREAKABLE && gMapRangeSigned[trap->y][trap->x] != 0)
             EnlistTarget(trap->x, trap->y, 0, trap->extra);
 
-        if (gMapTerrain[trap->y+1][trap->x] == TERRAIN_WALL_1B && gMapRangeSigned[trap->y+1][trap->x] != 0)
+        if (gMapTerrain[trap->y+1][trap->x] == TERRAIN_WALL_BREAKABLE && gMapRangeSigned[trap->y+1][trap->x] != 0)
             EnlistTarget(trap->x, trap->y+1, 0, trap->extra);
     }
 }

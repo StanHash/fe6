@@ -21,6 +21,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 #include "statscreen.h"
+#include "mapui.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/pids.h"
@@ -95,14 +96,14 @@ PROC_LABEL(L_PLAYERPHASE_IDLE),
     PROC_WHILE(IsSubtitleHelpActive),
 
     PROC_CALL(RefreshEntityMaps),
-    PROC_CALL(func_fe6_08073310),
+    PROC_CALL(StartMapUi),
 
     PROC_REPEAT(PrepPhase_MapIdle),
 
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_MOVE),
-    PROC_CALL(func_fe6_08073324),
+    PROC_CALL(EndMapUi),
 
     PROC_CALL(PlayerPhase_BeginSeeActionRange),
     PROC_REPEAT(PlayerPhase_MoveSelectLoop),
@@ -122,7 +123,7 @@ PROC_LABEL(L_PLAYERPHASE_6),
     PROC_GOTO(L_PLAYERPHASE_MOVE),
 
 PROC_LABEL(L_PLAYERPHASE_END),
-    PROC_CALL(func_fe6_08073324),
+    PROC_CALL(EndMapUi),
     PROC_CALL(PrepPhase_MapSwapSelectBegin),
 
     PROC_WHILE_EXISTS(ProcScr_CamMove),
@@ -269,7 +270,7 @@ static void PrepPhase_MapIdle(struct GenericProc * proc)
         if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
             EndAllMus();
-            func_fe6_08073324();
+            EndMapUi();
             SetStatScreenExcludedUnitFlags(UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_UNDER_ROOF | UNIT_FLAG_CONCEALED);
 
             StartStatScreen(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
@@ -287,7 +288,7 @@ static void PrepPhase_MapIdle(struct GenericProc * proc)
 
             case PLAYER_SELECT_NOUNIT:
             case PLAYER_SELECT_TURNENDED:
-                func_fe6_08073324();
+                EndMapUi();
 
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
@@ -324,7 +325,7 @@ static void PrepPhase_MapIdle(struct GenericProc * proc)
 
         if (gKeySt->pressed & KEY_BUTTON_SELECT)
         {
-            func_fe6_08073324();
+            EndMapUi();
             ResetTextFont();
 
             gPlaySt.x_cursor = gBmSt.cursor.x;
@@ -339,7 +340,7 @@ static void PrepPhase_MapIdle(struct GenericProc * proc)
 
         if (gKeySt->pressed & KEY_BUTTON_START)
         {
-            func_fe6_08073324();
+            EndMapUi();
             func_fe6_08087BC4();
 
             Proc_Goto(proc, L_PLAYERPHASE_BEGIN);

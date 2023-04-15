@@ -196,8 +196,8 @@ void InitMapTraps(void)
                 AddTrap(ix, iy, TRAP_KILLERBALLISTA, GetItemMaxUses(IID_KILLERBALLISTA));
                 break;
 
-            case TERRAIN_WALL_1B:
-                if (gMapTerrain[iy-1][ix] == TERRAIN_WALL_1B)
+            case TERRAIN_WALL_BREAKABLE:
+                if (gMapTerrain[iy-1][ix] == TERRAIN_WALL_BREAKABLE)
                     break; // walls are stacked, only the topmost tile gets a trap
 
                 AddTrap(ix, iy, TRAP_OBSTACLE, GetChapterInfo(gPlaySt.chapter)->wall_hp);
@@ -330,10 +330,10 @@ int GetObstacleHpAt(int x, int y)
 
     int terrain = gMapTerrain[y][x];
 
-    if (terrain >= TERRAIN_BALLISTA && terrain <= TERRAIN_KILLERBALLISTA)
+    if (terrain == TERRAIN_BALLISTA || terrain == TERRAIN_LONGBALLISTA || terrain == TERRAIN_KILLERBALLISTA)
         return GetTrapAt(x, y)->extra;
 
-    if (terrain != TERRAIN_WALL_1B)
+    if (terrain != TERRAIN_WALL_BREAKABLE)
         return 0;
 
     trap = GetTrapAt(x, y);

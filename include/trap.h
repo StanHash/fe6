@@ -74,3 +74,7 @@ bool DoHandleStepTraps(ProcPtr proc);
 extern struct ProcScr CONST_DATA ProcScr_UpdateTraps[];
 
 #define TRAP_ID(trap) ((trap) - GetTrap(0))
+
+// hack
+// TODO: do we want both names to be macros and the actual function be something like "GetTerrainTrapStateAt"?
+#define GetBallistaUsesAt(x, y) GetObstacleHpAt((x), (y))

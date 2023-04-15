@@ -12,9 +12,9 @@
 // some or those are not so much "unknown" as much as they just don't have a home yet
 
 extern struct Font gFont_Unk_02002770;
-extern u16 gUnk_Tm_02003238[];
-extern u16 gUnk_Tm_02003738[];
-extern u16 gUnk_Tm_02003C38[];
+extern u16 gUiTmScratchA[];
+extern u16 gUiTmScratchB[];
+extern u16 gUiTmScratchC[];
 
 extern struct Glyph const * CONST_DATA TextGlyphs_Special[];
 extern struct Glyph const * CONST_DATA TextGlyphs_System[];
@@ -216,3 +216,22 @@ extern u16 const Pal_Background_083073D8[];
 extern u16 const Pal_Unk_08309474[];
 extern u16 const Pal_Unk_083094F4[];
 extern u16 const Pal_Unk_0830D5E4[];
+
+extern u8 const Img_MapUiElements[];
+
+extern u16 const Pal_UnitMapUiFrame_Blue[];
+extern u16 const Pal_UnitMapUiFrame_Red[];
+extern u16 const Pal_UnitMapUiFrame_Green[];
+
+extern u8 const Tsa_UnitMapUi_Frame[];
+extern u8 const Tsa_TerrainMapUi_Labels[];
+extern u8 const Tsa_TerrainMapUi_BallistaLabels[];
+extern u8 const Tsa_TerrainMapUi_ObstacleLabels[];
+extern u8 const Tsa_TerrainMapUi_ObstacleFullHp[];
+extern u8 const Tsa_TerrainMapUi_Frame[];
+extern u8 const Tsa_UnitBurstMapUi_Frame0[];
+extern u8 const Tsa_UnitBurstMapUi_Frame1[];
+extern u8 const Tsa_UnitBurstMapUi_Frame2[];
+extern u8 const Tsa_UnitBurstMapUi_Frame3[];
+extern u8 const Tsa_UnitBurstMapUi_Frame4[];
+extern u8 const Tsa_UnitBurstMapUi_Frame5[];

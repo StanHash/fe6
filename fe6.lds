@@ -23,10 +23,9 @@ SECTIONS
         . = 0x002FD8; gBattlePreviewLabels = .; /* battlepreview */
         . = 0x003008; gBattlePreviewIconPalBuf = .; /* battlepreview */
         . = 0x003108; gStatScreenSt = .; /* statscreen */
-        . = 0x003238; gUnk_Tm_02003238 = .; /* statscreen? */
-        . = 0x003738; gUnk_Tm_02003738 = .; /* statscreen? */
-        . = 0x003C38; gUnk_Tm_02003C38 = .; /* statscreen? */
-
+        . = 0x003238; gUiTmScratchA = .; /* statscreen? */
+        . = 0x003738; gUiTmScratchB = .; /* statscreen? */
+        . = 0x003C38; gUiTmScratchC = .; /* statscreen? */
         . = 0x004138; gMuImgBuf = .; /* mu */
         . = 0x00C938; /* end */
     }
@@ -464,7 +463,6 @@ SECTIONS
         src/helpbox.o(.text);
         src/helpbox_2.o(.text);
         src/mapui.o(.text);
-        asm/code_mapui.o(.text);
         src/sioerror.o(.text);
         asm/code_8073548.o(.text);
         src/save_core.o(.text);
@@ -628,7 +626,8 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.data);
         . = ALIGN(4); src/helpbox.o(.data);
         . = ALIGN(4); src/helpbox_2.o(.data);
-        . = ALIGN(4); data/data_678128.o(.data);
+        . = ALIGN(4); src/mapui.o(.data);
+        . = ALIGN(4); data/data_67829C.o(.data);
         . = ALIGN(4); src/chapterunits.o(.data);
         . = ALIGN(4); data/data_mapchangeinfo.o(.data);
         . = ALIGN(4); src/save_core.o(.data);

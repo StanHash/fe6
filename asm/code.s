@@ -26868,7 +26868,7 @@ func_fe6_0809406C: @ 0x0809406C
 	thumb_func_start func_fe6_080940F0
 func_fe6_080940F0: @ 0x080940F0
 	push {lr}
-	bl func_fe6_08073324
+	bl EndMapUi
 	ldr r0, .L08094104 @ =gUnk_0868C988
 	movs r1, #3
 	bl SpawnProc
@@ -30607,7 +30607,7 @@ func_fe6_08095E90: @ 0x08095E90
 	adds r1, r7, #0
 	adds r1, #8
 	strb r0, [r1]
-	bl func_fe6_08073324
+	bl EndMapUi
 	ldr r0, [r7, #0xc]
 	cmp r0, #0
 	beq .L08095EC0

@@ -20,6 +20,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 #include "statscreen.h"
+#include "mapui.h"
 #include "save_stats.h"
 #include "save_game.h"
 
@@ -67,7 +68,7 @@ PROC_LABEL(L_PLAYERPHASE_BEGIN),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_IDLE),
-    PROC_CALL(func_fe6_08073310),
+    PROC_CALL(StartMapUi),
     PROC_CALL(ResetUnitSpritHover),
 
     PROC_REPEAT(PlayerPhase_IdleLoop),
@@ -75,7 +76,7 @@ PROC_LABEL(L_PLAYERPHASE_IDLE),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_MOVE),
-    PROC_CALL(func_fe6_08073324),
+    PROC_CALL(EndMapUi),
 
     PROC_WHILE(IsMapFadeActive),
 
@@ -138,7 +139,7 @@ PROC_LABEL(L_PLAYERPHASE_8),
     PROC_GOTO(L_PLAYERPHASE_BEGIN),
 
 PROC_LABEL(L_PLAYERPHASE_SEE_RANGE),
-    PROC_CALL(func_fe6_08073324),
+    PROC_CALL(EndMapUi),
 
     PROC_WHILE(IsMapFadeActive),
 
@@ -239,7 +240,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
         if ((gKeySt->pressed & KEY_BUTTON_R) && gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x] != 0)
         {
             EndAllMus();
-            func_fe6_08073324();
+            EndMapUi();
             SetStatScreenExcludedUnitFlags(UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED | UNIT_FLAG_UNDER_ROOF | UNIT_FLAG_CONCEALED);
 
             StartStatScreen(GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]), proc);
@@ -257,7 +258,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
 
             case PLAYER_SELECT_NOUNIT:
             case PLAYER_SELECT_TURNENDED:
-                func_fe6_08073324();
+                EndMapUi();
 
                 gPlaySt.x_cursor = gBmSt.cursor.x;
                 gPlaySt.y_cursor = gBmSt.cursor.y;
@@ -298,7 +299,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 ShowUnitSprite(unit);
             }
 
-            func_fe6_08073324();
+            EndMapUi();
 
             gPlaySt.x_cursor = gBmSt.cursor.x;
             gPlaySt.y_cursor = gBmSt.cursor.y;
@@ -328,7 +329,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
                 ShowUnitSprite(unit);
             }
 
-            func_fe6_08073324();
+            EndMapUi();
             func_fe6_08087BC4();
 
             Proc_Goto(proc, L_PLAYERPHASE_IDLE);

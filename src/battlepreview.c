@@ -204,12 +204,12 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
 {
     int damage;
 
-    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Short, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_BATTLEPREVIEW_FRAME));
-    TmFillRect_t(gUnk_Tm_02003238, 10, 15, 0);
+    TmApplyTsa_t(gUiTmScratchB, Tsa_BattlePreviewFrame_Short, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_BATTLEPREVIEW_FRAME));
+    TmFillRect_t(gUiTmScratchA, 10, 15, 0);
 
-    PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
-    PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(1, 11), &proc->unit_name_text_a, &gBattleUnitB.unit);
-    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 13), &proc->item_name_text, gBattleUnitB.weapon_before);
+    PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
+    PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(1, 11), &proc->unit_name_text_a, &gBattleUnitB.unit);
+    PutBattlePreviewItemName(gUiTmScratchA + TM_OFFSET(1, 13), &proc->item_name_text, gBattleUnitB.weapon_before);
 
     if (gBattleUnitB.weapon == 0 && !gBattleUnitB.weapon_broke)
     {
@@ -226,40 +226,40 @@ static void DrawBattlePreviewContentsShort(struct BattlePreviewProc * proc)
             damage = 0;
     }
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
 
     damage = gBattleUnitA.battle_attack - gBattleUnitB.battle_defense;
 
     if (damage < 0)
         damage = 0;
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, damage);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
 
-    PutTwoSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(4, 3),
+    PutTwoSpecialChar(gUiTmScratchA + TM_OFFSET(4, 3),
         TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
 
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_DAMAGE, gUnk_Tm_02003238 + TM_OFFSET(3, 5));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_HIT, gUnk_Tm_02003238 + TM_OFFSET(3, 7));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUnk_Tm_02003238 + TM_OFFSET(3, 9));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_DAMAGE, gUiTmScratchA + TM_OFFSET(3, 5));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_HIT, gUiTmScratchA + TM_OFFSET(3, 7));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUiTmScratchA + TM_OFFSET(3, 9));
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 11), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
+    PutIcon(gUiTmScratchA + TM_OFFSET(7, 11), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
+    PutIcon(gUiTmScratchA + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
 static void DrawBattlePreviewContentsLong(struct BattlePreviewProc * proc)
 {
-    TmApplyTsa_t(gUnk_Tm_02003738, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOWFRAME));
-    TmFillRect_t(gUnk_Tm_02003238, 10, 19, 0);
+    TmApplyTsa_t(gUiTmScratchB, Tsa_BattlePreviewFrame_Long, TILEREF(BGCHR_BATTLEPREVIEW_FRAME, BGPAL_WINDOWFRAME));
+    TmFillRect_t(gUiTmScratchA, 10, 19, 0);
 
-    PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
-    PutBattlePreviewUnitName(gUnk_Tm_02003238 + TM_OFFSET(1, 15), &proc->unit_name_text_a, &gBattleUnitB.unit);
-    PutBattlePreviewItemName(gUnk_Tm_02003238 + TM_OFFSET(1, 17), &proc->item_name_text, gBattleUnitB.weapon_before);
+    PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(3, 1), &proc->unit_name_text_a, &gBattleUnitA.unit);
+    PutBattlePreviewUnitName(gUiTmScratchA + TM_OFFSET(1, 15), &proc->unit_name_text_a, &gBattleUnitB.unit);
+    PutBattlePreviewItemName(gUiTmScratchA + TM_OFFSET(1, 17), &proc->item_name_text, gBattleUnitB.weapon_before);
 
     if (gBattleUnitB.weapon == 0)
     {
@@ -268,31 +268,31 @@ static void DrawBattlePreviewContentsLong(struct BattlePreviewProc * proc)
         gBattleUnitB.battle_effective_crit = 0xFF;
     }
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_attack);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_defense);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(2, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_speed);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.previous_hp);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_attack);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_defense);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_hit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_effective_crit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(2, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitB.battle_speed);
 
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_attack);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_defense);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
-    PutNumberTwoChr(gUnk_Tm_02003238 + TM_OFFSET(8, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_speed);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 3), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.previous_hp);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 5), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_attack);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 7), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_defense);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 9), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_hit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 11), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_effective_crit);
+    PutNumberTwoChr(gUiTmScratchA + TM_OFFSET(8, 13), TEXT_COLOR_SYSTEM_BLUE, gBattleUnitA.battle_speed);
 
-    PutTwoSpecialChar(gUnk_Tm_02003238 + TM_OFFSET(4, 3),
+    PutTwoSpecialChar(gUiTmScratchA + TM_OFFSET(4, 3),
         TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
 
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_ATTACK, gUnk_Tm_02003238 + TM_OFFSET(3, 5));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_DEFENSE, gUnk_Tm_02003238 + TM_OFFSET(3, 7));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_HIT, gUnk_Tm_02003238 + TM_OFFSET(3, 9));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUnk_Tm_02003238 + TM_OFFSET(3, 11));
-    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_SPEED, gUnk_Tm_02003238 + TM_OFFSET(3, 13));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_ATTACK, gUiTmScratchA + TM_OFFSET(3, 5));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_DEFENSE, gUiTmScratchA + TM_OFFSET(3, 7));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_HIT, gUiTmScratchA + TM_OFFSET(3, 9));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_CRIT, gUiTmScratchA + TM_OFFSET(3, 11));
+    PutText(gBattlePreviewLabels+BATTLEPREVIEW_LABEL_SPEED, gUiTmScratchA + TM_OFFSET(3, 13));
 
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(7, 15), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
-    PutIcon(gUnk_Tm_02003238 + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
+    PutIcon(gUiTmScratchA + TM_OFFSET(7, 15), GetItemIcon(gBattleUnitB.weapon_before), TILEREF(0, BGPAL_ICONS+0));
+    PutIcon(gUiTmScratchA + TM_OFFSET(1, 1), GetItemIcon(gBattleUnitA.weapon_before), TILEREF(0, BGPAL_BATTLEPREVIEW_ICONALT));
 }
 
 static void DrawBattlePreviewContents(struct BattlePreviewProc * proc)
@@ -378,14 +378,14 @@ static void PutBattlePreviewTilemaps(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(0, 0), 10, height);
-        TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(0, 0), 10, height);
+        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(0, 0), 10, height);
+        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(0, 0), 10, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(20, 0), 10, height);
-        TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(20, 0), 10, height);
+        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(20, 0), 10, height);
+        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(20, 0), 10, height);
     }
 
     EnableBgSync(BG0_SYNC_BIT + BG1_SYNC_BIT);
@@ -540,14 +540,14 @@ static void BattlePreview_LoopSlideIn(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUnk_Tm_02003238 + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
-        TmCopyRect_t(gUnk_Tm_02003738 + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
+        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
+        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
-        TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
     }
 
     proc->slide_clock++;
@@ -576,14 +576,14 @@ static void BattlePreview_LoopSlideOut(struct BattlePreviewProc * proc)
     if (proc->side < 0)
     {
         // left
-        TmCopyRect_t(gUnk_Tm_02003238 + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
-        TmCopyRect_t(gUnk_Tm_02003738 + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
+        TmCopyRect_t(gUiTmScratchA + TM_OFFSET(10 - offset, 0), gBg0Tm, offset, height);
+        TmCopyRect_t(gUiTmScratchB + TM_OFFSET(10 - offset, 0), gBg1Tm, offset, height);
     }
     else
     {
         // right
-        TmCopyRect_t(gUnk_Tm_02003238, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
-        TmCopyRect_t(gUnk_Tm_02003738, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect_t(gUiTmScratchA, gBg0Tm + TM_OFFSET(30 - offset, 0), offset, height);
+        TmCopyRect_t(gUiTmScratchB, gBg1Tm + TM_OFFSET(30 - offset, 0), offset, height);
     }
 
     proc->slide_clock++;

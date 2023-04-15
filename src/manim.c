@@ -24,6 +24,7 @@
 #include "mu.h"
 #include "eventinfo.h"
 #include "systemlabels.h"
+#include "mapui.h"
 
 #include "constants/iids.h"
 #include "constants/pids.h"
@@ -767,7 +768,7 @@ void InitManimActor(int actor_id, struct BattleUnit * bu, struct Unit * unit)
 
     FreezeSpriteAnim(gManimSt.actor[actor_id].mu->sprite_anim);
 
-    if (bu->terrain == TERRAIN_WALL_1B)
+    if (bu->terrain == TERRAIN_WALL_BREAKABLE)
         HideMu(gManimSt.actor[actor_id].mu);
 }
 
@@ -1573,7 +1574,7 @@ struct ProcScr CONST_DATA ProcScr_ManimDebug[] =
 {
     PROC_SLEEP(1),
     PROC_CALL(LockGame),
-    PROC_CALL(func_fe6_08073324),
+    PROC_CALL(EndMapUi),
     PROC_SLEEP(1),
     PROC_CALL(ManimDebug_Init),
 PROC_LABEL(0),
@@ -4697,7 +4698,7 @@ void Manim_HitImpact(ProcPtr proc)
         return;
     }
 
-    is_obstacle = gManimSt.actor[defender_actor].bu->terrain == TERRAIN_WALL_1B ? TRUE : FALSE;
+    is_obstacle = gManimSt.actor[defender_actor].bu->terrain == TERRAIN_WALL_BREAKABLE ? TRUE : FALSE;
 
     if (is_obstacle)
     {

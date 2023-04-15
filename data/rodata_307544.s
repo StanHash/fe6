@@ -160,42 +160,66 @@ Pal_Unk_0830D95C: @ 0830D95C
 Tsa_Unk_0830D97C: @ 0830D97C
 	.incbin "fe6-base.gba", 0x30D97C, (0x3189B4 - 0x30D97C) @ length: B038
 
-	.global gUnk_083189B4
-gUnk_083189B4: @ 083189B4
+	.global Img_MapUiElements
+Img_MapUiElements: @ 083189B4
 	.incbin "fe6-base.gba", 0x3189B4, (0x31906C - 0x3189B4) @ length: 06B8
 
-	.global gUnk_0831906C
-gUnk_0831906C: @ 0831906C
+	.global Pal_UnitMapUiFrame_Blue
+Pal_UnitMapUiFrame_Blue: @ 0831906C
 	.incbin "fe6-base.gba", 0x31906C, (0x31908C - 0x31906C) @ length: 0020
 
-	.global gUnk_0831908C
-gUnk_0831908C: @ 0831908C
+	.global Pal_UnitMapUiFrame_Red
+Pal_UnitMapUiFrame_Red: @ 0831908C
 	.incbin "fe6-base.gba", 0x31908C, (0x3190AC - 0x31908C) @ length: 0020
 
-	.global gUnk_083190AC
-gUnk_083190AC: @ 083190AC
+	.global Pal_UnitMapUiFrame_Green
+Pal_UnitMapUiFrame_Green: @ 083190AC
 	.incbin "fe6-base.gba", 0x3190AC, (0x3190CC - 0x3190AC) @ length: 0020
 
-	.global gUnk_083190CC
-gUnk_083190CC: @ 083190CC
+	.global Tsa_TerrainMapUi_Frame
+Tsa_TerrainMapUi_Frame: @ 083190CC
 	.incbin "fe6-base.gba", 0x3190CC, (0x319124 - 0x3190CC) @ length: 0058
 
-	.global gUnk_08319124
-gUnk_08319124: @ 08319124
-	.incbin "fe6-base.gba", 0x319124, (0x3193B0 - 0x319124) @ length: 028C
+	.global Tsa_UnitMapUi_Frame
+Tsa_UnitMapUi_Frame: @ 08319124
+	.incbin "fe6-base.gba", 0x319124, (0x3191B8 - 0x319124) @ length: ????
 
-	.global gUnk_083193B0
-gUnk_083193B0: @ 083193B0
+	.global Tsa_UnitBurstMapUi_Frame0
+Tsa_UnitBurstMapUi_Frame0: @ 083191B8
+	.incbin "fe6-base.gba", 0x3191B8, (0x31920C - 0x3191B8) @ length: ????
+
+	.global Tsa_UnitBurstMapUi_Frame1
+Tsa_UnitBurstMapUi_Frame1: @ 0831920C
+	.incbin "fe6-base.gba", 0x31920C, (0x319260 - 0x31920C) @ length: ????
+
+	.global Tsa_UnitBurstMapUi_Frame2
+Tsa_UnitBurstMapUi_Frame2: @ 08319260
+	.incbin "fe6-base.gba", 0x319260, (0x3192B4 - 0x319260) @ length: ????
+
+	.global Tsa_UnitBurstMapUi_Frame3
+Tsa_UnitBurstMapUi_Frame3: @ 083192B4
+	.incbin "fe6-base.gba", 0x3192B4, (0x319308 - 0x3192B4) @ length: ????
+
+	.global Tsa_UnitBurstMapUi_Frame4
+Tsa_UnitBurstMapUi_Frame4: @ 08319308
+	.incbin "fe6-base.gba", 0x319308, (0x31935C - 0x319308) @ length: ????
+
+	.global Tsa_UnitBurstMapUi_Frame5
+Tsa_UnitBurstMapUi_Frame5: @ 0831935C
+	.incbin "fe6-base.gba", 0x31935C, (0x3193B0 - 0x31935C) @ length: ????
+
+	.global Tsa_TerrainMapUi_Labels
+Tsa_TerrainMapUi_Labels: @ 083193B0
 	.incbin "fe6-base.gba", 0x3193B0, (0x3193BC - 0x3193B0) @ length: 000C
 
-	.global gUnk_083193BC
-gUnk_083193BC: @ 083193BC
+	.global Tsa_TerrainMapUi_BallistaLabels
+Tsa_TerrainMapUi_BallistaLabels: @ 083193BC
 	.incbin "fe6-base.gba", 0x3193BC, (0x3193C4 - 0x3193BC) @ length: 0008
 
-	.global gUnk_083193C4
-gUnk_083193C4: @ 083193C4
+	.global Tsa_TerrainMapUi_ObstacleLabels
+Tsa_TerrainMapUi_ObstacleLabels: @ 083193C4
 	.incbin "fe6-base.gba", 0x3193C4, (0x3193D0 - 0x3193C4) @ length: 000C
 
-	.global gUnk_083193D0
-gUnk_083193D0: @ 083193D0
+	.global Tsa_TerrainMapUi_ObstacleFullHp
+Tsa_TerrainMapUi_ObstacleFullHp: @ 083193D0
 	.incbin "fe6-base.gba", 0x3193D0, (0x3193EC - 0x3193D0) @ length: 001C

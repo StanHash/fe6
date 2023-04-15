@@ -70,8 +70,8 @@ void InitPlayConfig(int is_hard)
         gPlaySt.flags |= PLAY_FLAG_HARD;
 
     gPlaySt.config_battle_anim = 0; // TODO: battle anim type constants
-    gPlaySt.unk_1C_2 = 0;
-    gPlaySt.unk_1C_3 = 0;
+    gPlaySt.config_terrain_mapui = 0;
+    gPlaySt.config_unit_mapui = 0;
     gPlaySt.config_no_auto_cursor = FALSE;
     gPlaySt.config_talk_speed = 1;
     gPlaySt.config_walk_speed = 0;

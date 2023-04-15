@@ -131,7 +131,7 @@ enum
 int GetLang(void);
 void ResetText(void);
 void InitTextFont(struct Font * font, void * draw_dest, int chr, int palid);
-void SetTextFontGlyphs(int glyphSet);
+void SetTextFontGlyphs(int glyphset);
 void ResetTextFont(void);
 void SetTextFont(struct Font * font);
 void InitText(struct Text * text, int width);
@@ -150,7 +150,7 @@ void PutText(struct Text * text, u16 * tm);
 void PutBlankText(struct Text * text, u16 * tm);
 int GetStringTextLen(char const * str);
 char const * GetCharTextLen(char const * str, int * out_width);
-int GetStringTextCenteredPos(int areaLength, char const * str);
+int GetStringTextCenteredPos(int area_length, char const * str);
 void GetStringTextBox(char const * str, int * out_width, int * out_height);
 char const * GetStringLineEnd(char const * str);
 void Text_DrawString(struct Text * text, char const * str);

@@ -1528,40 +1528,6 @@ fu8 func_fe6_0805F7B4(int item); // fu16?
 fu8 GetItemMaFacing(int item); // fu16?
 fu8 func_fe6_0805F7D4(int item); // fu16?
 
-// func_fe6_08072218
-// func_fe6_08072230
-// func_fe6_0807226C
-// func_fe6_08072298
-// func_fe6_080722FC
-// func_fe6_08072408
-// func_fe6_080724E0
-// func_fe6_080725E0
-// func_fe6_080726CC
-// func_fe6_08072700
-// func_fe6_08072734
-// func_fe6_0807277C
-// func_fe6_080727A8
-// func_fe6_0807280C
-// func_fe6_08072834
-// func_fe6_080728A4
-// func_fe6_080729C8
-// func_fe6_08072AB8
-// func_fe6_08072AD0
-// func_fe6_08072C30
-// func_fe6_08072CA8
-// func_fe6_08072E50
-// func_fe6_08072E6C
-// func_fe6_08072EAC
-// func_fe6_08072F30
-// func_fe6_08072F48
-// func_fe6_08072FC0
-// func_fe6_08073080
-// func_fe6_080730CC
-// func_fe6_080730F4
-// func_fe6_080731D8
-void func_fe6_08073310(void);
-void func_fe6_08073324(void);
-
 // func_fe6_08073548
 // func_fe6_0807355C
 // func_fe6_08073570
