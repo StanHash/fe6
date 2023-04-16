@@ -220,16 +220,16 @@ gUnk_0868AFF0: @ 0868AFF0
 ProcScr_Unk_0868B010: @ 0868B010
 	.incbin "fe6-base.gba", 0x68B010, (0x68B1B0 - 0x68B010) @ length: 01A0
 
-	.global gUnk_0868B1B0
-gUnk_0868B1B0: @ 0868B1B0
+	.global HelpInfo_0868B1B0
+HelpInfo_0868B1B0: @ 0868B1B0
 	.incbin "fe6-base.gba", 0x68B1B0, (0x68B2C8 - 0x68B1B0) @ length: 0118
 
-	.global gUnk_0868B2C8
-gUnk_0868B2C8: @ 0868B2C8
+	.global HelpInfo_0868B2C8
+HelpInfo_0868B2C8: @ 0868B2C8
 	.incbin "fe6-base.gba", 0x68B2C8, (0x68B3C4 - 0x68B2C8) @ length: 00FC
 
-	.global gUnk_0868B3C4
-gUnk_0868B3C4: @ 0868B3C4
+	.global HelpInfo_0868B3C4
+HelpInfo_0868B3C4: @ 0868B3C4
 	.incbin "fe6-base.gba", 0x68B3C4, (0x68B3FC - 0x68B3C4) @ length: 0038
 
 	.global gUnk_0868B3FC

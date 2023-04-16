@@ -24,12 +24,12 @@ TmFillRect_thm: @ 0x0809FAA0
 	.arm
 	b TmFillRect
 
-	thumb_func_start func_fe6_08000234_thm
-func_fe6_08000234_thm: @ 0x0809FAA8
+	thumb_func_start ColorFadeTick_thm
+ColorFadeTick_thm: @ 0x0809FAA8
 	bx pc
 	.align
 	.arm
-	b func_fe6_08000234
+	b ColorFadeTick
 
 	thumb_func_start TmCopyRect_thm
 TmCopyRect_thm: @ 0x0809FAB0

@@ -2254,7 +2254,7 @@ void func_fe6_0806DC50(struct UnkProc_0867686C * proc)
             Proc_Break(proc);
 
         func_fe6_08001E68(0, 0x20, 0x20, -1);
-        func_fe6_080024A4();
+        ColorFadeTick2();
     }
 }
 

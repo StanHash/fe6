@@ -387,6 +387,7 @@ SECTIONS
     ROM : ALIGN(4)
     {
         asm/crt0.o(.text);
+        src/armfunc.o(.text);
         asm/arm.o(.text);
 
         src/main.o(.text);
@@ -556,6 +557,7 @@ SECTIONS
         . = ALIGN(4); src/statscreen.o(.rodata);
         . = ALIGN(4); src/helpbox.o(.rodata);
         . = ALIGN(4); src/helpbox_2.o(.rodata);
+        . = ALIGN(4); src/statusscreen.o(.rodata);
         . = ALIGN(4); data/rodata_3198C0.o(.rodata);
         . = ALIGN(4); src/save_core.o(.rodata);
         . = ALIGN(4); src/save_multiarena.o(.rodata);

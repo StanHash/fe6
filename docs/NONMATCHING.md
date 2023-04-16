@@ -12,7 +12,6 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | ------------ | ------------------ | ---------- | -----
 | `main.c`     | `AgbMain`          | `O2`       | Need -mtpcs-frame which agbcc doesn't support
 | `main.c`     | `PutBuildInfo`     | `O2`       | ^
-| `util.c`     | `func_fe6_080149E0` | `O2` | Reg swap + Weird function pointer invocations.
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block regarding constant loads for unit->flags changes
 
 ## List of fake-matching functions in fe6

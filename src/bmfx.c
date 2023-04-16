@@ -1829,10 +1829,9 @@ static void ChapterIntro_Init(struct GenericProc * proc)
     func_fe6_08070DE8(gBg1Tm + TM_OFFSET(0, 8), BGPAL_CHAPTERINTRO_0);
     func_fe6_08070DA8(gBg0Tm + TM_OFFSET(3, 9), BGPAL_CHAPTERINTRO_1);
 
-    func_fe6_08001D0C();
+    ColorFadeInit();
     func_fe6_08001E68(BGPAL_CHAPTERINTRO_0, 2, 0x40, -1);
-
-    func_fe6_08000234();
+    ColorFadeTick();
 
     EnablePalSync();
 
@@ -1947,7 +1946,7 @@ static void ChapterIntro_Begin_0801E1A0(struct GenericProc * proc)
 
 static void ChapterIntro_Loop_0801E1F8(struct GenericProc * proc)
 {
-    func_fe6_08000234();
+    ColorFadeTick();
     EnablePalSync();
 
     proc->unk4C--;
@@ -1960,7 +1959,7 @@ static void ChapterIntro_Begin_0801E220(struct GenericProc * proc)
 {
     proc->unk4C = 13;
 
-    func_fe6_08001D0C();
+    ColorFadeInit();
     func_fe6_08001D44(gPal + 0x10*BGPAL_CHAPTERINTRO_FOG, BGPAL_CHAPTERINTRO_FOG, 2, -1);
 }
 
@@ -1968,7 +1967,7 @@ static void ChapterIntro_Loop_0801E244(struct GenericProc * proc)
 {
     if ((GetGameTime() % 4) == 0)
     {
-        func_fe6_08000234();
+        ColorFadeTick();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2024,14 +2023,14 @@ static void ChapterIntro_InitMapDisplay(struct GenericProc * proc)
 
 static void ChapterIntro_BeginFadeToMap(struct GenericProc * proc)
 {
-    func_fe6_08001D0C();
+    ColorFadeInit();
 
     func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +1);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +1);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
 
-    func_fe6_08000234();
+    ColorFadeTick();
     EnablePalSync();
 
     proc->unk4C = 30;
@@ -2046,7 +2045,7 @@ static void ChapterIntro_LoopFadeToMap(struct GenericProc * proc)
     {
         int val;
 
-        func_fe6_08000234();
+        ColorFadeTick();
 
         if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
             ApplyFlamesWeatherGradient();
@@ -2101,7 +2100,7 @@ static void ChapterIntro_LoopFastCloseText(struct GenericProc * proc)
 
 static void ChapterIntro_BeginFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08001D0C();
+    ColorFadeInit();
     func_fe6_08001D44(gPal, 0, 6, -2);
 
     proc->unk4C = 15;
@@ -2111,7 +2110,7 @@ static void ChapterIntro_BeginFadeOut(struct GenericProc * proc)
 
 static void ChapterIntro_LoopFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08000234();
+    ColorFadeTick();
     EnablePalSync();
 
     proc->unk4C--;
@@ -2130,14 +2129,14 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
 {
     ClearUi();
 
-    func_fe6_08001D0C();
+    ColorFadeInit();
 
     func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +2);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +2);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
     func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
 
-    func_fe6_08000234();
+    ColorFadeTick();
     EnablePalSync();
 
     proc->unk4C = 14;
@@ -2147,7 +2146,7 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
 
 static void ChapterIntro_LoopFastFadeToMap(struct GenericProc * proc)
 {
-    func_fe6_08000234();
+    ColorFadeTick();
 
     if (GetChapterInfo(gPlaySt.chapter)->weather == WEATHER_FLAMES)
         ApplyFlamesWeatherGradient();
@@ -2249,14 +2248,14 @@ static void GameOverScreen_Init(struct GenericProc * proc)
     SetBlendTargetA(0, 0, 1, 0, 0);
     SetBlendTargetB(0, 0, 0, 1, 0);
 
-    func_fe6_08001D0C();
+    ColorFadeInit();
     func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, +1);
     func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, +1);
 
     proc->unk4C = 21;
 
     for (i = 0; i < 10; ++i)
-        func_fe6_08000234();
+        ColorFadeTick();
 
     EnablePalSync();
 }
@@ -2265,7 +2264,7 @@ static void GameOverScreen_LoopFadeIn(struct GenericProc * proc)
 {
     if ((GetGameTime() % 8) == 0)
     {
-        func_fe6_08000234();
+        ColorFadeTick();
         EnablePalSync();
 
         proc->unk4C--;
@@ -2293,7 +2292,7 @@ static void GameOverScreen_LoopIdle(struct GenericProc * proc)
 
 static void GameOverScreen_BeginFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08001D0C();
+    ColorFadeInit();
     func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_TEXT, BGPAL_GAMEOVER_TEXT, 1, -1);
     func_fe6_08001D44(gPal + 0x10*BGPAL_GAMEOVER_4, BGPAL_GAMEOVER_4, 1, -1);
 
@@ -2302,7 +2301,7 @@ static void GameOverScreen_BeginFadeOut(struct GenericProc * proc)
 
 static void GameOverScreen_LoopFadeOut(struct GenericProc * proc)
 {
-    func_fe6_08000234();
+    ColorFadeTick();
     EnablePalSync();
 
     proc->unk4C++;

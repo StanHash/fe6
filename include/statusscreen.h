@@ -29,10 +29,10 @@ struct StatusScreenProc
     /* 4C */ i16 clock;
 };
 
-void func_fe6_08073548(struct StatusScreenProc * proc);
-void func_fe6_0807355C(struct StatusScreenProc * proc);
-void func_fe6_08073570(struct StatusScreenProc * proc);
-void func_fe6_08073598(struct StatusScreenProc * proc);
+void StatusScreenFadeIn_Init(struct StatusScreenProc * proc);
+void StatusScreenFadeOut_Init(struct StatusScreenProc * proc);
+void StatusScreenFade_Loop(struct StatusScreenProc * proc);
+void StatusScreenFadeOut_Fini(struct StatusScreenProc * proc);
 void StatusScreenSprites_Loop(struct StatusScreenProc * proc);
 char const * GetRedLeaderName(void);
 void func_fe6_080736C8(void);
@@ -56,3 +56,12 @@ void func_fe6_080740E4(void);
 void StatusScreen_Loop(struct StatusScreenProc * proc);
 void StatusScreen_InitPlaythroughCount(struct StatusScreenProc * proc);
 void StartStatusScreen(ProcPtr parent);
+
+extern struct ProcScr CONST_DATA ProcScr_StatusScreenFadeIn[];
+extern struct ProcScr CONST_DATA ProcScr_StatusScreenFadeOut[];
+extern u16 CONST_DATA Sprite_086782D4[];
+extern struct ProcScr CONST_DATA ProcScr_StatusScreenSprites[];
+extern struct TextInitInfo CONST_DATA gUnk_08678330[];
+extern struct TextInitInfo CONST_DATA gUnk_08678378[];
+extern struct ProcScr CONST_DATA ProcScr_StatusScreenPageSlide[];
+extern struct ProcScr CONST_DATA ProcScr_StatusScreen[];

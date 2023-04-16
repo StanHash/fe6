@@ -172,8 +172,8 @@ gUnk_0833C1D8: @ 0833C1D8
 gUnk_0833C234: @ 0833C234
 	.incbin "fe6-base.gba", 0x33C234, (0x33C378 - 0x33C234) @ length: 0144
 
-	.global gUnk_0833C378
-gUnk_0833C378: @ 0833C378
+	.global Img_Unk_0833C378
+Img_Unk_0833C378: @ 0833C378
 	.incbin "fe6-base.gba", 0x33C378, (0x33C6F4 - 0x33C378) @ length: 037C
 
 	.global gUnk_0833C6F4

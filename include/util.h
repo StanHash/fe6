@@ -106,7 +106,7 @@ void StartSlowLockingFadeFromWhite(ProcPtr parent);
 // func_fe6_08014998
 void WhileFadeExists(ProcPtr proc);
 // func_fe6_080149CC
-void func_fe6_080149E0(int kind, int speed, ProcPtr parent, Func endFunc);
+void StartFadeCore(int kind, int speed, ProcPtr parent, Func end_callback);
 // func_fe6_08014A28
 // func_fe6_08014A38
 // func_fe6_08014A44

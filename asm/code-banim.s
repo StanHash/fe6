@@ -9042,7 +9042,7 @@ func_fe6_08046DA0: @ 0x08046DA0
 	bne .L08046E5C
 	ldr r5, .L08046E54 @ =gUnk_Banim_0200004C
 	ldr r0, [r5]
-	ldr r4, .L08046E58 @ =gUnk_02021108
+	ldr r4, .L08046E58 @ =gFadeComponents
 	adds r1, r4, #0
 	movs r2, #0x10
 	bl func_fe6_0805B7F4
@@ -9069,11 +9069,11 @@ func_fe6_08046DA0: @ 0x08046DA0
 .L08046E4C: .4byte 0x0203CCF0
 .L08046E50: .4byte gUnk_Banim_02017764
 .L08046E54: .4byte gUnk_Banim_0200004C
-.L08046E58: .4byte gUnk_02021108
+.L08046E58: .4byte gFadeComponents
 .L08046E5C:
 	ldr r5, .L08046E94 @ =gUnk_Banim_0200004C
 	ldr r0, [r5, #4]
-	ldr r4, .L08046E98 @ =gUnk_02021108+0x60
+	ldr r4, .L08046E98 @ =gFadeComponents+0x60
 	adds r1, r4, #0
 	movs r2, #0x10
 	bl func_fe6_0805B7F4
@@ -9099,7 +9099,7 @@ func_fe6_08046DA0: @ 0x08046DA0
 	bx r0
 	.align 2, 0
 .L08046E94: .4byte gUnk_Banim_0200004C
-.L08046E98: .4byte gUnk_02021108+0x60
+.L08046E98: .4byte gFadeComponents+0x60
 
 	thumb_func_start func_fe6_08046E9C
 func_fe6_08046E9C: @ 0x08046E9C
@@ -9415,7 +9415,7 @@ func_fe6_08047058: @ 0x08047058
 	cmp r0, #0
 	bne .L0804712C
 	ldr r0, .L08047124 @ =gPal+0x2E0
-	ldr r1, .L08047128 @ =gUnk_02021108
+	ldr r1, .L08047128 @ =gFadeComponents
 	adds r2, r1, #0
 	adds r2, #0x30
 	movs r6, #0xc0
@@ -9431,10 +9431,10 @@ func_fe6_08047058: @ 0x08047058
 	b .L0804714A
 	.align 2, 0
 .L08047124: .4byte gPal+0x2E0
-.L08047128: .4byte gUnk_02021108
+.L08047128: .4byte gFadeComponents
 .L0804712C:
 	ldr r0, .L08047158 @ =gPal+0x320
-	ldr r1, .L0804715C @ =gUnk_02021108+0x60
+	ldr r1, .L0804715C @ =gFadeComponents+0x60
 	adds r2, r1, #0
 	adds r2, #0x30
 	movs r5, #0xa8
@@ -9456,7 +9456,7 @@ func_fe6_08047058: @ 0x08047058
 	bx r0
 	.align 2, 0
 .L08047158: .4byte gPal+0x320
-.L0804715C: .4byte gUnk_02021108+0x60
+.L0804715C: .4byte gFadeComponents+0x60
 
 	thumb_func_start func_fe6_08047160
 func_fe6_08047160: @ 0x08047160

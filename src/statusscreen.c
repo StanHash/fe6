@@ -29,37 +29,51 @@
 
 #include "constants/videoalloc_global.h"
 
-// TODO
-
-extern char const gUnk_083198C0[];
-extern char const gUnk_083198C4[];
-
+// TODO: put in ewram overlay properly
 extern struct StatusScreenSt gStatusScreenSt;
 
-extern u16 CONST_DATA Sprite_086782D4[];
-
-extern u16 const Pal_Unk_0833C944[];
-extern u8 const gUnk_083092CC[]; // img
-extern u8 const gUnk_0833C378[]; // img
-
-extern struct ProcScr CONST_DATA ProcScr_StatusScreenPageSlide[];
-
-extern struct HelpBoxInfo CONST_DATA gUnk_0868B1B0;
-extern struct HelpBoxInfo CONST_DATA gUnk_0868B2C8;
-extern struct HelpBoxInfo CONST_DATA gUnk_0868B3C4;
-
-struct ProcScr CONST_DATA ProcScr_Unk_0867829C[] =
+void StatusScreenFadeIn_Init(struct StatusScreenProc * proc)
 {
-    PROC_CALL(func_fe6_08073548),
-    PROC_REPEAT(func_fe6_08073570),
+    proc->clock = 3;
+    ColorFadeSetupFromBlack(+8);
+}
+
+void StatusScreenFadeOut_Init(struct StatusScreenProc * proc)
+{
+    proc->clock = 3;
+    ColorFadeSetupFromColorToBlack(-8);
+}
+
+void StatusScreenFade_Loop(struct StatusScreenProc * proc)
+{
+    ColorFadeTick();
+    EnablePalSync();
+
+    proc->clock--;
+
+    if (proc->clock < 0)
+        Proc_Break(proc);
+}
+
+void StatusScreenFadeOut_Fini(struct StatusScreenProc * proc)
+{
+    SetBlendDarken(0x10);
+    SetBlendTargetA(1, 1, 1, 1, 1);
+    SetBlendBackdropA(1);
+}
+
+struct ProcScr CONST_DATA ProcScr_StatusScreenFadeIn[] =
+{
+    PROC_CALL(StatusScreenFadeIn_Init),
+    PROC_REPEAT(StatusScreenFade_Loop),
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_Unk_086782B4[] =
+struct ProcScr CONST_DATA ProcScr_StatusScreenFadeOut[] =
 {
-    PROC_CALL(func_fe6_0807355C),
-    PROC_REPEAT(func_fe6_08073570),
-    PROC_CALL(func_fe6_08073598),
+    PROC_CALL(StatusScreenFadeOut_Init),
+    PROC_REPEAT(StatusScreenFade_Loop),
+    PROC_CALL(StatusScreenFadeOut_Fini),
     PROC_END,
 };
 
@@ -80,74 +94,6 @@ u16 CONST_DATA Sprite_086782D4[] =
     OAM0_SHAPE_8x8 + OAM0_Y(8) + OAM0_BLEND, OAM1_SIZE_8x8 + OAM1_X(40) + OAM1_VFLIP, OAM2_CHR(4),
 };
 
-struct ProcScr CONST_DATA ProcScr_StatusScreenSprites[] =
-{
-    PROC_REPEAT(StatusScreenSprites_Loop),
-    PROC_END,
-};
-
-struct TextInitInfo CONST_DATA gUnk_08678330[] =
-{
-    { gStatusScreenSt.text + 1, 22 },
-    { gStatusScreenSt.text + 2, 11 },
-    { gStatusScreenSt.text + 3, 12 },
-    { gStatusScreenSt.text + 4, 10 },
-    { gStatusScreenSt.text + 5, 10 },
-    { gStatusScreenSt.text + 6,  7 },
-    { gStatusScreenSt.text + 7,  7 },
-    { gStatusScreenSt.text + 8,  2 },
-    { 0 }, // end
-};
-
-struct TextInitInfo CONST_DATA gUnk_08678378[] =
-{
-    { gStatusScreenSt.text + 0,  12 },
-    { gStatusScreenSt.text + 9,  24 },
-    { gStatusScreenSt.text + 10, 24 },
-    { gStatusScreenSt.text + 11, 24 },
-    { gStatusScreenSt.text + 12, 24 },
-    { gStatusScreenSt.text + 13, 24 },
-    { 0 },
-};
-
-i8 CONST_DATA gStatusScreenPageSlideOffsetTable[] =
-{
-    -5, -10, -15, -19, -23, -26,
-    INT8_MAX,
-    +25, +21, +16, +12, +8, +5, +3, +2, +1, 0,
-    INT8_MIN,
-};
-
-void func_fe6_08073548(struct StatusScreenProc * proc)
-{
-    proc->clock = 3;
-    func_fe6_0800210C(+8);
-}
-
-void func_fe6_0807355C(struct StatusScreenProc * proc)
-{
-    proc->clock = 3;
-    func_fe6_08001FD4(-8);
-}
-
-void func_fe6_08073570(struct StatusScreenProc * proc)
-{
-    func_fe6_08000234();
-    EnablePalSync();
-
-    proc->clock--;
-
-    if (proc->clock < 0)
-        Proc_Break(proc);
-}
-
-void func_fe6_08073598(struct StatusScreenProc * proc)
-{
-    SetBlendDarken(0x10);
-    SetBlendTargetA(1, 1, 1, 1, 1);
-    SetBlendBackdropA(1);
-}
-
 void StatusScreenSprites_Loop(struct StatusScreenProc * proc)
 {
     if (gStatusScreenSt.in_transition)
@@ -157,17 +103,17 @@ void StatusScreenSprites_Loop(struct StatusScreenProc * proc)
     {
         if (gStatusScreenSt.put_playthrough_number)
         {
-            PutSprite(4, 0, 0x90, Sprite_086782D4, OAM2_CHR(0x240) + OAM2_PAL(4) + OAM2_LAYER(2));
+            PutSprite(4, 0, 144, Sprite_086782D4, OAM2_CHR(0x240) + OAM2_PAL(4) + OAM2_LAYER(2));
         }
 
-        PutTime(gBg0Tm + (0x468 >> 1), TEXT_COLOR_SYSTEM_BLUE, GetGameTime(), FALSE);
+        PutTime(gBg0Tm + TM_OFFSET(20, 17), TEXT_COLOR_SYSTEM_BLUE, GetGameTime(), FALSE);
         EnableBgSync(BG0_SYNC_BIT);
     }
 
     if ((gPlaySt.flags & PLAY_FLAG_COMPLETE) != 0)
     {
         // D=
-        register int oam2 asm("r4") = OAM2_CHR(0x28A) + OAM2_PAL(3) + (GetGameTime() / 8) % 6;
+        register int oam2 asm("r4") = OAM2_CHR(0x280 + 10) + OAM2_PAL(3) + (GetGameTime() / 8) % 6;
 
         if (gStatusScreenSt.page == 0)
         {
@@ -179,6 +125,12 @@ void StatusScreenSprites_Loop(struct StatusScreenProc * proc)
         }
     }
 }
+
+struct ProcScr CONST_DATA ProcScr_StatusScreenSprites[] =
+{
+    PROC_REPEAT(StatusScreenSprites_Loop),
+    PROC_END,
+};
 
 char const * GetRedLeaderName(void)
 {
@@ -215,7 +167,7 @@ void func_fe6_0807372C(struct StatusScreenProc * proc)
     PutText(gStatusScreenSt.text + 2, gBg0Tm + TM_OFFSET(18, 4));
 
     Text_InsertDrawString(gStatusScreenSt.text + 3, 0, TEXT_COLOR_SYSTEM_WHITE, DecodeMsg(MSG_726));
-    Text_InsertDrawString(gStatusScreenSt.text + 3, 82, TEXT_COLOR_SYSTEM_GOLD, gUnk_083198C0);
+    Text_InsertDrawString(gStatusScreenSt.text + 3, 82, TEXT_COLOR_SYSTEM_GOLD, JTEXT("Ｇ"));
     Text_InsertDrawNumberOrBlank(gStatusScreenSt.text + 3, 74, 2, GetGold());
     PutText(gStatusScreenSt.text + 3, gBg0Tm + TM_OFFSET(18, 6));
 }
@@ -266,7 +218,7 @@ void func_fe6_080738FC(struct StatusScreenProc * proc)
 
     Text_InsertDrawString(gStatusScreenSt.text + 7, 0, TEXT_COLOR_SYSTEM_WHITE, GetRedLeaderName());
 
-    Text_InsertDrawString(gStatusScreenSt.text + 8, 0, TEXT_COLOR_SYSTEM_GOLD, gUnk_083198C4);
+    Text_InsertDrawString(gStatusScreenSt.text + 8, 0, TEXT_COLOR_SYSTEM_GOLD, JTEXT("周目"));
 }
 
 void DrawStatusScreenPageA(int unused)
@@ -358,6 +310,30 @@ void DrawStatusScreenPage(struct StatusScreenProc * proc, int page)
     }
 }
 
+struct TextInitInfo CONST_DATA gUnk_08678330[] =
+{
+    { gStatusScreenSt.text + 1, 22 },
+    { gStatusScreenSt.text + 2, 11 },
+    { gStatusScreenSt.text + 3, 12 },
+    { gStatusScreenSt.text + 4, 10 },
+    { gStatusScreenSt.text + 5, 10 },
+    { gStatusScreenSt.text + 6,  7 },
+    { gStatusScreenSt.text + 7,  7 },
+    { gStatusScreenSt.text + 8,  2 },
+    { 0 }, // end
+};
+
+struct TextInitInfo CONST_DATA gUnk_08678378[] =
+{
+    { gStatusScreenSt.text + 0,  12 },
+    { gStatusScreenSt.text + 9,  24 },
+    { gStatusScreenSt.text + 10, 24 },
+    { gStatusScreenSt.text + 11, 24 },
+    { gStatusScreenSt.text + 12, 24 },
+    { gStatusScreenSt.text + 13, 24 },
+    { 0 },
+};
+
 void StatusScreen_Init(struct StatusScreenProc * proc)
 {
     InitBgs(NULL);
@@ -386,8 +362,8 @@ void StatusScreen_Init(struct StatusScreenProc * proc)
     ApplyIconPalette(1, 6);
     ApplyIconPalette(1, 0x10 + 3);
 
-    Decompress(gUnk_083092CC, (void *) VRAM + CHR_SIZE * (0x400 + BGCHR_B_STATUSSCREEN_380));
-    Decompress(gUnk_0833C378, (void *) VRAM + CHR_SIZE * 0);
+    Decompress(Img_Unk_083092CC, (void *) VRAM + CHR_SIZE * (0x400 + BGCHR_B_STATUSSCREEN_380));
+    Decompress(Img_Unk_0833C378, (void *) VRAM + CHR_SIZE * 0);
     Decompress(gUnk_083080D0, (void *) OBJ_VRAM0 + CHR_SIZE * 0x240);
 
     func_fe6_080736C8();
@@ -428,18 +404,26 @@ void StatusScreenPageSlide_Loop(struct StatusScreenProc * proc)
 {
     int offset, width, scratch_off, tm_off;
 
+    static i8 SHOULD_BE_CONST offset_table[] =
+    {
+        -5, -10, -15, -19, -23, -26,
+        INT8_MAX,
+        +25, +21, +16, +12, +8, +5, +3, +2, +1, 0,
+        INT8_MIN,
+    };
+
     CpuFastFill(0, gBg0Tm + TM_OFFSET(0, 8), 12 * 0x20 * sizeof(u16));
     CpuFastFill(0, gBg1Tm + TM_OFFSET(0, 8), 12 * 0x20 * sizeof(u16));
     CpuFastFill16(TILEREF(0x280, 0) | TILE_HFLIP, gBg2Tm + TM_OFFSET(0, 8), 12 * 0x20 * sizeof(u16));
 
-    offset = gStatusScreenPageSlideOffsetTable[proc->clock];
+    offset = offset_table[proc->clock];
 
     if (offset == INT8_MAX)
     {
         DrawStatusScreenPage(proc, proc->slide_target_page);
 
         proc->clock++;
-        offset = gStatusScreenPageSlideOffsetTable[proc->clock];
+        offset = offset_table[proc->clock];
     }
 
     if (proc->slide_direction < 0)
@@ -465,7 +449,7 @@ void StatusScreenPageSlide_Loop(struct StatusScreenProc * proc)
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT);
 
     proc->clock++;
-    offset = gStatusScreenPageSlideOffsetTable[proc->clock];
+    offset = offset_table[proc->clock];
 
     if (offset == INT8_MIN)
         Proc_Break(proc);
@@ -513,11 +497,11 @@ void func_fe6_08073F90(struct StatusScreenProc * proc)
 
     if ((gPlaySt.flags & PLAY_FLAG_COMPLETE) != 0)
     {
-        help = gStatusScreenSt.page != 0 ? &gUnk_0868B3C4 : &gUnk_0868B2C8;
+        help = gStatusScreenSt.page != 0 ? &HelpInfo_0868B3C4 : &HelpInfo_0868B2C8;
     }
     else
     {
-        help = &gUnk_0868B1B0;
+        help = &HelpInfo_0868B1B0;
     }
 
     func_fe6_08070E70(NULL, -1);
@@ -627,13 +611,13 @@ struct ProcScr CONST_DATA ProcScr_StatusScreen[] =
     PROC_CALL(StatusScreen_Init),
     PROC_CALL(StatusScreen_InitPlaythroughCount),
     PROC_START_CHILD(ProcScr_StatusScreenSprites),
-    PROC_START_CHILD_LOCKING(ProcScr_Unk_0867829C),
+    PROC_START_CHILD_LOCKING(ProcScr_StatusScreenFadeIn),
 
     PROC_REPEAT(StatusScreen_Loop),
     PROC_GOTO(99),
 
 PROC_LABEL(99),
-    PROC_START_CHILD_LOCKING(ProcScr_Unk_086782B4),
+    PROC_START_CHILD_LOCKING(ProcScr_StatusScreenFadeOut),
     PROC_END_EACH(ProcScr_StatusScreenSprites),
     PROC_CALL(EndMuralBackground),
     PROC_CALL(UnlockBmDisplay),

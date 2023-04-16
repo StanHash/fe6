@@ -240,3 +240,12 @@ extern u8 const Tsa_UnitBurstMapUi_Frame2[];
 extern u8 const Tsa_UnitBurstMapUi_Frame3[];
 extern u8 const Tsa_UnitBurstMapUi_Frame4[];
 extern u8 const Tsa_UnitBurstMapUi_Frame5[];
+
+extern u16 const Pal_Unk_0833C944[];
+extern u8 const Img_Unk_083092CC[];
+extern u8 const Img_Unk_0833C378[];
+
+struct HelpBoxInfo;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B1B0;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B2C8;
+extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B3C4;

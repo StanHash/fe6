@@ -20,8 +20,8 @@ static u8 sUnk_03000015;
 
 u8 EWRAM_DATA gBuf[0x2000] = { 0 };
 
-i8 EWRAM_DATA gUnk_020210E8[0x20] = { 0 };
-i8 EWRAM_DATA gUnk_02021108[0x600] = { 0 };
+i8 EWRAM_DATA gFadeComponentStep[0x20] = { 0 };
+i8 EWRAM_DATA gFadeComponents[0x600] = { 0 };
 
 u16 EWRAM_DATA gPal[0x200] = { 0 };
 
@@ -512,30 +512,30 @@ void func_fe6_08001C68(u16 * tm, short const * in_data, int unused)
     }
 }
 
-void func_fe6_08001D0C(void)
+void ColorFadeInit(void)
 {
     int i;
 
     for (i = 31; i >= 0; i--)
-        gUnk_020210E8[i] = 0;
+        gFadeComponentStep[i] = 0;
 }
 
-void func_fe6_08001D44(u16 const * in_pal, int bank, int count, int unk)
+void func_fe6_08001D44(u16 const * in_pal, int bank, int count, int component_step)
 {
-    int ibank, icolor;
+    int pal_idx, color_idx;
 
-    int add = (unk < 0) ? 0x20 : 0;
-    int color = bank * 0x30;
+    int add = (component_step < 0) ? 0x20 : 0;
+    int component_idx = bank * 0x30;
 
-    for (ibank = 0; ibank < count; ++ibank)
+    for (pal_idx = 0; pal_idx < count; ++pal_idx)
     {
-        gUnk_020210E8[bank + ibank] = unk;
+        gFadeComponentStep[bank + pal_idx] = component_step;
 
-        for (icolor = 0; icolor < 0x10; ++icolor)
+        for (color_idx = 0; color_idx < 0x10; ++color_idx)
         {
-            gUnk_02021108[color++] = RGB_GET_RED(*in_pal)   + add;
-            gUnk_02021108[color++] = RGB_GET_GREEN(*in_pal) + add;
-            gUnk_02021108[color++] = RGB_GET_BLUE(*in_pal)  + add;
+            gFadeComponents[component_idx++] = RGB_GET_RED(*in_pal)   + add;
+            gFadeComponents[component_idx++] = RGB_GET_GREEN(*in_pal) + add;
+            gFadeComponents[component_idx++] = RGB_GET_BLUE(*in_pal)  + add;
 
             in_pal++;
         }
@@ -544,21 +544,21 @@ void func_fe6_08001D44(u16 const * in_pal, int bank, int count, int unk)
 
 void func_fe6_08001E68(int a, int b, int c, int d)
 {
-    int ibank;
-    int icolor;
+    int pal_idx;
+    int color_idx;
     int dst_offset = a * 16;
 
     u16 const * src = gPal + dst_offset;
 
-    for (ibank = 0; ibank < b; ++ibank)
+    for (pal_idx = 0; pal_idx < b; ++pal_idx)
     {
-        gUnk_020210E8[a + ibank] = d;
+        gFadeComponentStep[a + pal_idx] = d;
 
-        for (icolor = 0; icolor < 16; ++icolor)
+        for (color_idx = 0; color_idx < 16; ++color_idx)
         {
-            gUnk_02021108[dst_offset++] = RGB_GET_RED(*src) + c;
-            gUnk_02021108[dst_offset++] = RGB_GET_GREEN(*src) + c;
-            gUnk_02021108[dst_offset++] = RGB_GET_BLUE(*src) + c;
+            gFadeComponents[dst_offset++] = RGB_GET_RED(*src) + c;
+            gFadeComponents[dst_offset++] = RGB_GET_GREEN(*src) + c;
+            gFadeComponents[dst_offset++] = RGB_GET_BLUE(*src) + c;
 
             src++;
         }
@@ -570,96 +570,99 @@ void func_fe6_08001F88(int a, int b, int c)
     int i;
 
     for (i = a; i < a + b; i++)
-        gUnk_020210E8[i] = c;
+        gFadeComponentStep[i] = c;
 }
 
-void func_fe6_08001FD4(i8 a)
+void ColorFadeSetupFromColorToBlack(fi8 component_step)
 {
     int i, j;
 
     for (i = 0x1F; i >= 0; i--)
     {
-        gUnk_020210E8[i] = a;
+        gFadeComponentStep[i] = component_step;
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
         }
     }
 }
 
-void func_fe6_0800210C(i8 a)
+void ColorFadeSetupFromBlack(fi8 component_step)
 {
     int i, j;
 
     for (i = 0x1F; i >= 0; i--)
     {
-        gUnk_020210E8[i] = a;
+        gFadeComponentStep[i] = component_step;
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j));
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j));
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j));
+            gFadeComponents[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j));
+            gFadeComponents[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j));
+            gFadeComponents[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j));
         }
     }
 }
 
-void func_fe6_08002234(i8 a)
+void ColorFadeSetupFromColorToWhite(fi8 component_step)
 {
     int i, j;
 
     for (i = 0x1F; i >= 0; i--)
     {
-        gUnk_020210E8[i] = a;
+        gFadeComponentStep[i] = component_step;
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x20;
+            gFadeComponents[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x20;
         }
     }
 }
 
-void func_fe6_0800236C(i8 a)
+void ColorFadeSetupFromWhite(fi8 component_step)
 {
     int i, j;
 
     for (i = 0x1F; i >= 0; i--)
     {
-        gUnk_020210E8[i] = a;
+        gFadeComponentStep[i] = component_step;
 
         for (j = 0; j < 0x10; j++)
         {
-            gUnk_02021108[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x40;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x40;
-            gUnk_02021108[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x40;
+            gFadeComponents[(i * 0x10 + j) * 3 + 0] = RGB_GET_RED(PAL_COLOR(i, j)) + 0x40;
+            gFadeComponents[(i * 0x10 + j) * 3 + 1] = RGB_GET_GREEN(PAL_COLOR(i, j)) + 0x40;
+            gFadeComponents[(i * 0x10 + j) * 3 + 2] = RGB_GET_BLUE(PAL_COLOR(i, j)) + 0x40;
         }
     }
 }
 
-void func_fe6_080024A4(void)
+void ColorFadeTick2(void)
 {
+    // This is a C implementation of the handwritten ARM function ColorFadeTick
+    // with the addition of EnablePalSync at the end
+
     int i, j;
     short red, green, blue;
 
     for (i = 0x1F; i >= 0; i--)
     {
-        if (gUnk_020210E8[i] == 0)
+        if (gFadeComponentStep[i] == 0)
             continue;
 
         for (j = 15; j >= 0; j--)
         {
             int num = i * 0x10 + j;
 
-            gUnk_02021108[num*3 + 0] += gUnk_020210E8[i];
-            gUnk_02021108[num*3 + 1] += gUnk_020210E8[i];
-            gUnk_02021108[num*3 + 2] += gUnk_020210E8[i];
+            gFadeComponents[num*3 + 0] += gFadeComponentStep[i];
+            gFadeComponents[num*3 + 1] += gFadeComponentStep[i];
+            gFadeComponents[num*3 + 2] += gFadeComponentStep[i];
 
-            red = gUnk_02021108[num*3 + 0] - 32;
+            red = gFadeComponents[num*3 + 0] - 0x20;
 
             if (red > 31)
                 red = 31;
@@ -667,7 +670,7 @@ void func_fe6_080024A4(void)
             if (red < 0)
                 red = 0;
 
-            green = gUnk_02021108[num*3 + 1] - 32;
+            green = gFadeComponents[num*3 + 1] - 0x20;
 
             if (green > 31)
                 green = 31;
@@ -675,7 +678,7 @@ void func_fe6_080024A4(void)
             if (green < 0)
                 green = 0;
 
-            blue = gUnk_02021108[num*3 + 2] - 32;
+            blue = gFadeComponents[num*3 + 2] - 0x20;
 
             if (blue > 31)
                 blue = 31;

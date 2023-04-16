@@ -84,8 +84,8 @@ Pal_StatusHealEffect: @ 08309298
 Tsa_StatusHealEffect: @ 083092B8
 	.incbin "fe6-base.gba", 0x3092B8, (0x3092CC - 0x3092B8) @ length: 0014
 
-	.global gUnk_083092CC
-gUnk_083092CC: @ 083092CC
+	.global Img_Unk_083092CC
+Img_Unk_083092CC: @ 083092CC
 	.incbin "fe6-base.gba", 0x3092CC, (0x3093EC - 0x3092CC) @ length: 0120
 
 	.global Tsa_StatusScreen_FactionInfoFrame

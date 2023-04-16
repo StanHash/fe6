@@ -892,133 +892,133 @@ void StartSlowLockingFadeFromWhite(ProcPtr parent)
 
 void func_fe6_08014778(ProcPtr parent)
 {
-    func_fe6_080149E0(1, 0x04, parent, func_fe6_08014AF8);
+    StartFadeCore(1, 0x04, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_08014790(ProcPtr parent)
 {
-    func_fe6_080149E0(1, 0x08, parent, func_fe6_08014AF8);
+    StartFadeCore(1, 0x08, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080147A8(ProcPtr parent)
 {
-    func_fe6_080149E0(1, 0x10, parent, func_fe6_08014AF8);
+    StartFadeCore(1, 0x10, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080147C0(ProcPtr parent)
 {
-    func_fe6_080149E0(1, 0x20, parent, func_fe6_08014AF8);
+    StartFadeCore(1, 0x20, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080147D8(ProcPtr parent)
 {
-    func_fe6_080149E0(1, 0x40, parent, func_fe6_08014AF8);
+    StartFadeCore(1, 0x40, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080147F0(ProcPtr parent)
 {
-    func_fe6_080149E0(0, 0x08, parent, NULL);
+    StartFadeCore(0, 0x08, parent, NULL);
 }
 
 void func_fe6_08014804(ProcPtr parent)
 {
-    func_fe6_080149E0(0, 0x10, parent, NULL);
+    StartFadeCore(0, 0x10, parent, NULL);
 }
 
 void func_fe6_08014818(ProcPtr parent)
 {
-    func_fe6_080149E0(0, 0x20, parent, NULL);
+    StartFadeCore(0, 0x20, parent, NULL);
 }
 
 void func_fe6_0801482C(ProcPtr parent)
 {
-    func_fe6_080149E0(0, 0x40, parent, NULL);
+    StartFadeCore(0, 0x40, parent, NULL);
 }
 
 void func_fe6_08014840(ProcPtr parent)
 {
-    func_fe6_080149E0(3, 0x04, parent, func_fe6_08014AF8);
+    StartFadeCore(3, 0x04, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_08014858(ProcPtr parent)
 {
-    func_fe6_080149E0(3, 0x08, parent, func_fe6_08014AF8);
+    StartFadeCore(3, 0x08, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_08014870(ProcPtr parent)
 {
-    func_fe6_080149E0(3, 0x10, parent, func_fe6_08014AF8);
+    StartFadeCore(3, 0x10, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_08014888(ProcPtr parent)
 {
-    func_fe6_080149E0(3, 0x20, parent, func_fe6_08014AF8);
+    StartFadeCore(3, 0x20, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080148A0(ProcPtr parent)
 {
-    func_fe6_080149E0(3, 0x40, parent, func_fe6_08014AF8);
+    StartFadeCore(3, 0x40, parent, func_fe6_08014AF8);
 }
 
 void func_fe6_080148B8(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x04, parent, NULL);
+    StartFadeCore(2, 0x04, parent, NULL);
 }
 
 void func_fe6_080148CC(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x08, parent, NULL);
+    StartFadeCore(2, 0x08, parent, NULL);
 }
 
 void func_fe6_080148E0(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x08, parent, NULL);
+    StartFadeCore(2, 0x08, parent, NULL);
     func_fe6_08014AB8();
 }
 
 void func_fe6_080148F8(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x10, parent, NULL);
+    StartFadeCore(2, 0x10, parent, NULL);
 }
 
 void func_fe6_0801490C(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x20, parent, NULL);
+    StartFadeCore(2, 0x20, parent, NULL);
 }
 
 void func_fe6_08014920(ProcPtr parent)
 {
-    func_fe6_080149E0(2, 0x40, parent, NULL);
+    StartFadeCore(2, 0x40, parent, NULL);
 }
 
 void func_fe6_08014934(ProcPtr parent)
 {
-    func_fe6_080149E0(6, 0x10, parent, NULL);
+    StartFadeCore(6, 0x10, parent, NULL);
 }
 
 void func_fe6_08014948(ProcPtr parent)
 {
-    func_fe6_080149E0(7, 0x10, parent, NULL);
+    StartFadeCore(7, 0x10, parent, NULL);
 }
 
 void func_fe6_0801495C(ProcPtr parent)
 {
-    func_fe6_080149E0(6, 0x08, parent, NULL);
+    StartFadeCore(6, 0x08, parent, NULL);
 }
 
 void func_fe6_08014970(ProcPtr parent)
 {
-    func_fe6_080149E0(4, 0x04, parent, NULL);
+    StartFadeCore(4, 0x04, parent, NULL);
 }
 
 void func_fe6_08014984(ProcPtr parent)
 {
-    func_fe6_080149E0(4, 0x08, parent, NULL);
+    StartFadeCore(4, 0x08, parent, NULL);
 }
 
 void func_fe6_08014998(ProcPtr parent)
 {
-    func_fe6_080149E0(7, 0x08, parent, func_fe6_08014B68);
+    StartFadeCore(7, 0x08, parent, func_fe6_08014B68);
 }
 
 void WhileFadeExists(ProcPtr proc)
@@ -1029,27 +1029,25 @@ void WhileFadeExists(ProcPtr proc)
 
 void func_fe6_080149CC(ProcPtr parent, Func func)
 {
-    func_fe6_080149E0(3, 0x40, parent, func);
+    StartFadeCore(3, 0x40, parent, func);
 }
 
-struct FadeUnkProc
+struct FadeCoreProc
 {
     /* 00 */ PROC_HEADER;
-
-    /* 29 */ u8 pad_29[0x4C - 0x29];
-
+    /* 29 */ STRUCT_PAD(0x29, 0x4C);
     /* 4C */ Func on_end;
-    /* 50 */ int pad_50;
+    /* 50 */ STRUCT_PAD(0x50, 0x54);
     /* 54 */ int unk_54;
     /* 58 */ int unk_58;
     /* 5C */ int unk_5C;
 };
 
-void func_fe6_08014A38(struct FadeUnkProc * proc);
-i8 func_fe6_08014A68(struct FadeUnkProc * proc);
-void func_fe6_08014A44(struct FadeUnkProc * proc);
+void func_fe6_08014A38(struct FadeCoreProc * proc);
+i8 func_fe6_08014A68(struct FadeCoreProc * proc);
+void func_fe6_08014A44(struct FadeCoreProc * proc);
 
-struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
+struct ProcScr CONST_DATA ProcScr_FadeCore[] =
 {
     PROC_MARK(PROC_MARK_10),
 
@@ -1062,99 +1060,62 @@ struct ProcScr CONST_DATA ProcScr_FadeUnk[] =
     PROC_END,
 };
 
-struct LutItem_80149E0
+void StartFadeCore(int kind, int speed, ProcPtr parent, Func end_callback)
 {
-    ProcPtr (* spawnProc)(struct ProcScr const *, ProcPtr);
-    void (* unk_04)(i8);
-    int unit;
-};
+    struct FadeKindEnt
+    {
+        ProcPtr (* spawn_proc)(struct ProcScr const * scr, ProcPtr parent);
+        void (* setup_color_fade)(fi8 component_step);
+        int unit;
+    };
 
-static struct LutItem_80149E0 const sLut_80149E0[] =
-{
-    { SpawnProc,        func_fe6_0800210C, +1 },
-    { SpawnProc,        func_fe6_08001FD4, -1 },
-    { SpawnProcLocking, func_fe6_0800210C, +1 },
-    { SpawnProcLocking, func_fe6_08001FD4, -1 },
-    { SpawnProc,        func_fe6_0800236C, -1 },
-    { SpawnProc,        func_fe6_08002234, +1 },
-    { SpawnProcLocking, func_fe6_0800236C, -1 },
-    { SpawnProcLocking, func_fe6_08002234, +1 },
-};
+    static struct FadeKindEnt const table[] =
+    {
+        { SpawnProc,        ColorFadeSetupFromBlack,        +1 }, // from black
+        { SpawnProc,        ColorFadeSetupFromColorToBlack, -1 }, // to black
+        { SpawnProcLocking, ColorFadeSetupFromBlack,        +1 }, // from black locking
+        { SpawnProcLocking, ColorFadeSetupFromColorToBlack, -1 }, // to black locking
+        { SpawnProc,        ColorFadeSetupFromWhite,        -1 }, // from white
+        { SpawnProc,        ColorFadeSetupFromColorToWhite, +1 }, // to white
+        { SpawnProcLocking, ColorFadeSetupFromWhite,        -1 }, // from white locking
+        { SpawnProcLocking, ColorFadeSetupFromColorToWhite, +1 }, // to white locking
+    };
 
-#if !NONMATCHING
-NAKEDFUNC
-#endif
-void func_fe6_080149E0(int kind, int speed, ProcPtr parent, Func endFunc)
-{
-#if NONMATCHING
+    ProcPtr (* spawn_proc)(struct ProcScr const * scr, ProcPtr parent);
+    void (* setup_color_fade)(int component_step);
 
-    struct FadeUnkProc * proc = sLut_80149E0[kind].spawnProc(ProcScr_FadeUnk, parent);
+    struct FadeCoreProc * proc;
+    int component_step;
+
+    spawn_proc = table[kind].spawn_proc;
+    proc = spawn_proc(ProcScr_FadeCore, parent);
 
     proc->unk_54 = speed;
-    proc->on_end = endFunc;
+    proc->on_end = end_callback;
 
-    speed = speed >> 4;
+    component_step = proc->unk_54 >> 4;
 
-    if (speed == 0)
-        speed = 1;
+    if (component_step == 0)
+        component_step = 1;
 
-    sLut_80149E0[kind].unk_04(sLut_80149E0[kind].unit * speed);
-
-#else
-
-    asm("\
-        push {r4, r5, r6, r7, lr}\n\
-        add r4, r1, #0\n\
-        add r1, r2, #0\n\
-        add r5, r3, #0\n\
-        ldr r7, .L08014A20 @ =sLut_80149E0\n\
-        lsl r2, r0, #1\n\
-        add r2, r2, r0\n\
-        lsl r6, r2, #2\n\
-        add r0, r6, r7\n\
-        ldr r2, [r0]\n\
-        ldr r0, .L08014A24 @ =ProcScr_FadeUnk\n\
-        bl _call_via_r2\n\
-        str r4, [r0, #0x54]\n\
-        str r5, [r0, #0x4C]\n\
-        asr r4, r4, #4\n\
-        cmp r4, #0\n\
-        bne .L08014A06\n\
-        mov r4, #1\n\
-    .L08014A06:\n\
-        add r0, r7, #4\n\
-        add r0, r6, r0\n\
-        ldr r1, [r0]\n\
-        add r0, r7, #0\n\
-        add r0, #8\n\
-        add r0, r6, r0\n\
-        ldr r0, [r0]\n\
-        mul r0, r4, r0\n\
-        bl _call_via_r1\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    .L08014A20: .4byte sLut_80149E0\n\
-    .L08014A24: .4byte ProcScr_FadeUnk\n\
-    ");
-
-#endif // NONMATCHING
+    // need to cast because parameter types don't match (int vs. i8)
+    setup_color_fade = (void *) table[kind].setup_color_fade;
+    setup_color_fade(component_step * table[kind].unit);
 }
 
 void func_fe6_08014A28(void)
 {
-    Proc_EndEach(ProcScr_FadeUnk);
+    Proc_EndEach(ProcScr_FadeCore);
 }
 
-void func_fe6_08014A38(struct FadeUnkProc * proc)
+void func_fe6_08014A38(struct FadeCoreProc * proc)
 {
     proc->unk_58 = 0;
     proc->unk_5C = 0;
-    proc->on_end = 0;
+    proc->on_end = NULL;
 }
 
-void func_fe6_08014A44(struct FadeUnkProc * proc)
+void func_fe6_08014A44(struct FadeCoreProc * proc)
 {
     if (!func_fe6_08014A68(proc))
     {
@@ -1165,7 +1126,7 @@ void func_fe6_08014A44(struct FadeUnkProc * proc)
     }
 }
 
-bool func_fe6_08014A68(struct FadeUnkProc * proc)
+bool func_fe6_08014A68(struct FadeCoreProc * proc)
 {
     proc->unk_58 += proc->unk_54;
     proc->unk_5C += proc->unk_54;
@@ -1183,8 +1144,7 @@ bool func_fe6_08014A68(struct FadeUnkProc * proc)
     if (proc->unk_5C >= 0x200)
         return FALSE;
 
-    func_fe6_08000234();
-
+    ColorFadeTick();
     SetBackdropColor(0);
 
     return TRUE;
@@ -1204,7 +1164,7 @@ void func_fe6_08014ACC(int a, int b)
 
 void func_fe6_08014ADC(void)
 {
-    struct FadeUnkProc * proc = FindProc(ProcScr_FadeUnk);
+    struct FadeCoreProc * proc = FindProc(ProcScr_FadeCore);
 
     if (proc)
         proc->on_end = NULL;

@@ -16704,7 +16704,7 @@ func_fe6_0808EDE0: @ 0x0808EDE0
 	adds r0, r4, #0
 	movs r2, #0x20
 	bl ApplyPaletteExt
-	ldr r0, .L0808F02C @ =gUnk_083092CC
+	ldr r0, .L0808F02C @ =Img_Unk_083092CC
 	ldr r1, .L0808F030 @ =0x06011000
 	bl Decompress
 	ldr r0, .L0808F034 @ =gUnk_08342438
@@ -16772,7 +16772,7 @@ func_fe6_0808EDE0: @ 0x0808EDE0
 .L0808F020: .4byte gUnk_08341DA0
 .L0808F024: .4byte gUnk_0833C03C
 .L0808F028: .4byte gUnk_08342A98
-.L0808F02C: .4byte gUnk_083092CC
+.L0808F02C: .4byte Img_Unk_083092CC
 .L0808F030: .4byte 0x06011000
 .L0808F034: .4byte gUnk_08342438
 .L0808F038: .4byte 0x06011800
@@ -18231,7 +18231,7 @@ func_fe6_0808FA14: @ 0x0808FA14
 	lsls r1, r1, #2
 	movs r2, #0x20
 	bl ApplyPaletteExt
-	ldr r0, .L0808FCD4 @ =gUnk_083092CC
+	ldr r0, .L0808FCD4 @ =Img_Unk_083092CC
 	ldr r1, .L0808FCD8 @ =0x06011000
 	bl Decompress
 	ldr r0, .L0808FCDC @ =gUnk_08342438
@@ -18361,7 +18361,7 @@ func_fe6_0808FA14: @ 0x0808FA14
 .L0808FCC8: .4byte gUnk_0833C03C
 .L0808FCCC: .4byte gUnk_08343358
 .L0808FCD0: .4byte gUnk_08342A98
-.L0808FCD4: .4byte gUnk_083092CC
+.L0808FCD4: .4byte Img_Unk_083092CC
 .L0808FCD8: .4byte 0x06011000
 .L0808FCDC: .4byte gUnk_08342438
 .L0808FCE0: .4byte 0x06011800
