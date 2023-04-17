@@ -27,8 +27,15 @@ SECTIONS
         . = 0x003738; gUiTmScratchB = .; /* statscreen? size = 0x500 */
         . = 0x003C38; gUiTmScratchC = .; /* statscreen? size = 0x480? */
         . = 0x0040B8; gStatusScreenSt = .; /* statusscreen (almost statscreen but not quite) */
-        . = 0x004138; gMuImgBuf = .; /* mu */
+        . = 0x004138; gMuImgBuf = .; /* mu. size = 0x8800 */
         . = 0x00C938; /* end */
+        . = 0x00CC38; gUnk_0200CC38 = .;
+        . = 0x00CD38; gUnk_0200CD38 = .;
+        . = 0x00D6AC; gUnk_0200D6AC = .;
+        . = 0x00D6B4; gUnk_0200D6B4 = .;
+        . = 0x00E6B4; gUnk_0200E6B4 = .;
+        . = 0x00E7D8; gUnk_0200E7D8 = .;
+        . = 0x016874; gUnk_02016874 = .; /* big jump here? */
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
@@ -467,6 +474,7 @@ SECTIONS
         src/mapui.o(.text);
         src/sioerror.o(.text);
         src/statusscreen.o(.text);
+        src/unitlistscreen.o(.text);
         asm/code_8073548.o(.text);
         src/save_core.o(.text);
         src/save_stats.o(.text);

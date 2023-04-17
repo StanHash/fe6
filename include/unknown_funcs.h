@@ -1709,8 +1709,8 @@ void func_fe6_08081620(struct Unit * unit, ProcPtr parent);
 // func_fe6_08081ED4
 // func_fe6_08081EE8
 // func_fe6_08081F20
-// func_fe6_0808230C
-// func_fe6_08082320
+ProcPtr func_fe6_0808230C(ProcPtr parent);
+void func_fe6_08082320(ProcPtr self, int arg_1, int arg_2, int arg_3, int arg_4, int arg_5, int arg_6);
 // func_fe6_08082348
 // func_fe6_08082360
 // func_fe6_080823A0
