@@ -48,11 +48,11 @@ struct BattleSt
 {
     /* 00 */ u8 range;
     /* 01 */ u8 flags;
-    /* 02 */ short damage;
-    /* 04 */ short attack;
-    /* 06 */ short defense;
-    /* 08 */ short hit;
-    /* 0A */ short crit;
+    /* 02 */ i16 damage;
+    /* 04 */ i16 attack;
+    /* 06 */ i16 defense;
+    /* 08 */ i16 hit;
+    /* 0A */ i16 crit;
     /* 0C */ struct Unit * ta_unit_a;
     /* 10 */ struct Unit * ta_unit_b;
 };
@@ -77,15 +77,15 @@ struct BattleUnit
     /* 56 */ i8 terrain_resistance;
     /* 57 */ // pad?
 
-    /* 58 */ short battle_attack;
-    /* 5A */ short battle_defense;
-    /* 5C */ short battle_speed;
-    /* 5E */ short battle_hit;
-    /* 60 */ short battle_avoid;
-    /* 62 */ short battle_effective_hit;
-    /* 64 */ short battle_crit;
-    /* 66 */ short battle_dodge;
-    /* 68 */ short battle_effective_crit;
+    /* 58 */ i16 battle_attack;
+    /* 5A */ i16 battle_defense;
+    /* 5C */ i16 battle_speed;
+    /* 5E */ i16 battle_hit;
+    /* 60 */ i16 battle_avoid;
+    /* 62 */ i16 battle_effective_hit;
+    /* 64 */ i16 battle_crit;
+    /* 66 */ i16 battle_dodge;
+    /* 68 */ i16 battle_effective_crit;
 
     /* 6A */ i8 exp_gain;
     /* 6B */ i8 output_status;
