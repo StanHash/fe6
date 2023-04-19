@@ -912,3 +912,31 @@ void func_fe6_080753A0(struct UnitListScreenProcA * proc)
         }
     }
 }
+
+void func_fe6_080754F4(struct Unit * unit, int step)
+{
+    int anim_param;
+
+    if (UNIT_PID(unit) == PID_MERLINUS)
+    {
+        PlaySe(SONG_6C);
+        return;
+    }
+
+    anim_param = unit->flags & UNIT_FLAG_SOLOANIM;
+
+    anim_param = anim_param >> 14;
+    anim_param = ((anim_param + step + 3)) % 3;
+    anim_param = anim_param << 14;
+
+    unit->flags = anim_param | (unit->flags & ~UNIT_FLAG_SOLOANIM);
+
+    if ((anim_param & UNIT_FLAG_SOLOANIM) != 0)
+    {
+        PlaySe(SONG_6A);
+    }
+    else
+    {
+        PlaySe(SONG_6B);
+    }
+}

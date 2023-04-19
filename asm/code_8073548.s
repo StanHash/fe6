@@ -2,67 +2,6 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_080754F4
-func_fe6_080754F4: @ 0x080754F4
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	ldr r0, [r6]
-	ldrb r0, [r0, #4]
-	cmp r0, #0x42
-	bne .L08075518
-	ldr r0, .L08075514 @ =gPlaySt
-	ldrb r0, [r0, #0x1d]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt .L08075564
-	movs r0, #0x6c
-	bl m4aSongNumStart
-	b .L08075564
-	.align 2, 0
-.L08075514: .4byte gPlaySt
-.L08075518:
-	ldrh r4, [r6, #0xc]
-	movs r5, #0xc0
-	lsls r5, r5, #8
-	lsrs r2, r4, #0xe
-	adds r0, r2, r1
-	adds r0, #3
-	movs r1, #3
-	bl __modsi3
-	lsls r2, r0, #0xe
-	ldr r0, .L0807554C @ =0x00003FFF
-	ands r0, r4
-	orrs r0, r2
-	strh r0, [r6, #0xc]
-	ands r2, r5
-	cmp r2, #0
-	beq .L08075554
-	ldr r0, .L08075550 @ =gPlaySt
-	ldrb r0, [r0, #0x1d]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt .L08075564
-	movs r0, #0x6a
-	bl m4aSongNumStart
-	b .L08075564
-	.align 2, 0
-.L0807554C: .4byte 0x00003FFF
-.L08075550: .4byte gPlaySt
-.L08075554:
-	ldr r0, .L0807556C @ =gPlaySt
-	ldrb r0, [r0, #0x1d]
-	lsls r0, r0, #0x1e
-	cmp r0, #0
-	blt .L08075564
-	movs r0, #0x6b
-	bl m4aSongNumStart
-.L08075564:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0807556C: .4byte gPlaySt
-
 	thumb_func_start func_fe6_08075570
 func_fe6_08075570: @ 0x08075570
 	push {r4, r5, r6, r7, lr}
