@@ -31,6 +31,8 @@ SECTIONS
         . = 0x00C938; gUnk_0200C938 = .;
         . = 0x00CC38; gUnk_0200CC38 = .;
         . = 0x00CD38; gUnk_0200CD38 = .;
+        . = 0x00CD3A; gUnk_0200CD3A = .;
+        . = 0x00D53A; gUnk_0200D53A = .;
         . = 0x00D5BC; gUnk_0200D5BC = .;
         . = 0x00D5F4; gUnk_0200D5F4 = .;
         . = 0x00D69C; gUnk_0200D69C = .;

@@ -13,6 +13,7 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `main.c`     | `AgbMain`          | `O2`       | Need -mtpcs-frame which agbcc doesn't support
 | `main.c`     | `PutBuildInfo`     | `O2`       | ^
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block regarding constant loads for unit->flags changes
+| `unitlistscreen.c` | `func_fe6_08075E94` | `O2` | https://decomp.me/scratch/sjiAE - reg swap + wrong loop constant load order
 
 ## List of fake-matching functions in fe6
 
@@ -20,6 +21,6 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | -------------- | ----------------- | ---------- | -----
 | `util.c`       | `Interpolate` | `O2` | stole it from fe8
 | `ai-utility.c` | `func_fe6_08030968` | `O2` | need to load constant before useless function call
-| `eventinfo.c` | `EvtListCmd_Door` | `O2` | `asm("":::"memory");` needed
+| `eventinfo.c` | `EvtListCmd_Door` | `O2` | `asm("":::"memory");` needed (in multiple functions after this also)
 | `eventinfo.c` | `StartAvailableTileEvent` | `O2` | somehow theres a couple `nop`s in here.
 | `statusscreen.c` | `StatusScreenSprites_Loop`| `O2` | register("r4")

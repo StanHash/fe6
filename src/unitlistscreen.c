@@ -43,7 +43,8 @@ struct UnitListScreenProcA
     /* 34 */ u8 unk_34;
     /* 35 */ u8 unk_35;
     /* 36 */ u8 unk_36;
-    /* 37 */ STRUCT_PAD(0x37, 0x39);
+    /* 37 */ u8 unk_37;
+    /* 38 */ u8 unk_38;
     /* 39 */ u8 unk_39;
     /* 3A */ u8 unk_3A;
     /* 3B */ u8 unk_3B;
@@ -103,7 +104,8 @@ struct Unk_08678840_00
     /* 01 */ STRUCT_PAD(0x01, 0x04);
     /* 04 */ char const * str_04;
     /* 08 */ u8 unk_08;
-    /* 09 */ STRUCT_PAD(0x09, 0x10);
+    /* 09 */ STRUCT_PAD(0x09, 0x0C);
+    /* 0C */ u32 msg_0C;
 };
 
 struct Unk_08678840
@@ -125,6 +127,48 @@ struct Unk_02016874
 };
 
 extern struct Unk_02016874 gUnk_02016874;
+
+extern u8 const gUnk_083198CC[]; // img
+extern u16 const gUnk_08319E88[]; // pal
+extern u8 const gUnk_083215B8[]; // img
+extern u16 const gUnk_08321EE4[]; // pal
+extern u8 const gUnk_083210A0[]; // tsa
+extern u16 const gUnk_08320EEC[]; // tm
+extern u8 const gUnk_0831B0A8[]; // img
+extern u16 const gUnk_08320D98[]; // pal
+
+extern struct Text gUnk_0200D5BC[];
+extern struct Text gUnk_0200D5F4[]; // this could be an array of struct of 3 texts also
+extern struct Text gUnk_0200D69C;
+extern struct Text gUnk_0200D6A4;
+extern struct Text gUnk_0200D6AC;
+
+extern char const gUnk_0832714C[];
+
+extern struct ProcScr CONST_DATA gUnk_086786F4[];
+
+enum
+{
+    BGPAL_UNITLIST_10 = 10, // ..13
+    BGPAL_UNITLIST_15 = 15,
+};
+
+enum
+{
+    OBJCHR_UNITLIST_240 = 0x240,
+    OBJCHR_UNITLIST_390 = 0x390,
+};
+
+enum
+{
+    OBJPAL_UNITLIST_1 = 1, // ..4
+    OBJPAL_UNITLIST_9 = 9,
+};
+
+extern u16 gUnk_0200CD3A[]; // tm
+extern u16 gUnk_0200D53A[]; // tm
+
+extern u8 CONST_DATA gUnk_0867871C[];
 
 void func_fe6_080741EC(void)
 {
@@ -659,43 +703,6 @@ void func_fe6_08074D54(struct UnitListScreenProcA * proc)
     })
 }
 
-extern u8 const gUnk_083198CC[]; // img
-extern u16 const gUnk_08319E88[]; // pal
-extern u8 const gUnk_083215B8[]; // img
-extern u16 const gUnk_08321EE4[]; // pal
-extern u8 const gUnk_083210A0[]; // tsa
-extern u16 const gUnk_08320EEC[]; // tm
-extern u8 const gUnk_0831B0A8[]; // img
-extern u16 const gUnk_08320D98[]; // pal
-
-extern struct Text gUnk_0200D5BC[];
-extern struct Text gUnk_0200D5F4[]; // this could be an array of struct of 3 texts also
-extern struct Text gUnk_0200D69C;
-extern struct Text gUnk_0200D6A4;
-extern struct Text gUnk_0200D6AC;
-
-extern char const gUnk_0832714C[];
-
-extern struct ProcScr CONST_DATA gUnk_086786F4[];
-
-enum
-{
-    BGPAL_UNITLIST_10 = 10, // ..13
-    BGPAL_UNITLIST_15 = 15,
-};
-
-enum
-{
-    OBJCHR_UNITLIST_240 = 0x240,
-    OBJCHR_UNITLIST_390 = 0x390,
-};
-
-enum
-{
-    OBJPAL_UNITLIST_1 = 1, // ..4
-    OBJPAL_UNITLIST_9 = 9,
-};
-
 void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
 {
     fu8 i, thing;
@@ -940,3 +947,691 @@ void func_fe6_080754F4(struct Unit * unit, int step)
         PlaySe(SONG_6B);
     }
 }
+
+void func_fe6_08075570(struct UnitListScreenProcA * proc)
+{
+    fu8 var_04 = proc->unk_2D;
+
+    int i;
+    fu8 var_08;
+
+    switch (proc->unk_29)
+    {
+        case 0:
+            if ((gKeySt->held & KEY_BUTTON_L) != 0)
+            {
+                proc->unk_31 = 2;
+            }
+            else
+            {
+                proc->unk_31 = 1;
+            }
+
+            if ((gKeySt->pressed & KEY_BUTTON_R) != 0)
+            {
+                Proc_Goto(proc, 3);
+                return;
+            }
+
+            if ((gKeySt->pressed & KEY_BUTTON_A) != 0)
+            {
+                switch (proc->unk_39)
+                {
+                    case 1:
+                        func_fe6_080753A0(proc);
+                        break;
+
+                    case 3:
+                        func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, 1);
+                        func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+                        break;
+
+                    case 0:
+                        SetStatScreenLastUnitId(gUnk_0200CC38[proc->unk_30]->unit->id);
+                        PlaySe(SONG_6A);
+                        Proc_Break(proc);
+                        break;
+
+                    default:
+                        break;
+                }
+
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_LEFT) != 0)
+            {
+                if (proc->unk_39 == 3)
+                {
+                    if ((gKeySt->pressed & KEY_DPAD_LEFT) == 0)
+                        break;
+
+                    func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, -1);
+                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+
+                    break;
+                }
+
+                if (proc->unk_2F < 2)
+                    break;
+
+                proc->unk_36--;
+                Proc_Goto(proc, 2);
+                proc->unk_2D = 0;
+                PlaySe(SONG_6F);
+
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_RIGHT) != 0)
+            {
+                if (proc->unk_39 == 3)
+                {
+                    if ((gKeySt->pressed & KEY_DPAD_RIGHT) == 0)
+                        break;
+
+                    func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, +1);
+                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+
+                    break;
+                }
+
+                if (proc->unk_2F < proc->unk_2E)
+                {
+                    proc->unk_36++;
+                    proc->unk_2D = 0;
+                    PlaySe(SONG_6F);
+                    Proc_Goto(proc, 2);
+                }
+
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_UP) != 0 || ((gKeySt->held & KEY_BUTTON_L) != 0 && (gKeySt->pressed2 & KEY_DPAD_UP) != 0))
+            {
+                if (proc->unk_30 == 0)
+                {
+                    if ((gKeySt->pressed & KEY_DPAD_UP) == 0)
+                        break;
+
+                    PlaySe(SONG_66);
+                    proc->unk_29 = 3;
+                    break;
+                }
+
+                proc->unk_30--;
+                PlaySe(SONG_66);
+
+                if (proc->unk_2C < 2)
+                {
+                    if (proc->unk_40 / 16 != 0)
+                    {
+                        if (proc->unk_2C == 0)
+                        {
+                            proc->unk_30++;
+                            proc->unk_2C = 1;
+                        }
+
+                        func_fe6_08076448(proc, proc->unk_40 / 16 - 1, gBg0Tm, proc->unk_2F, 1);
+                        proc->unk_29 = 2;
+                        proc->unk_40 = -(proc->unk_31 * 4) + proc->unk_40;
+                        SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
+
+                        if (proc->unk_2C == 0)
+                        {
+                            proc->unk_2C++;
+                        }
+
+                        break;
+                    }
+                }
+
+                proc->unk_2C--;
+
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_DOWN) != 0 || ((gKeySt->held & KEY_BUTTON_L) != 0 && (gKeySt->pressed2 & KEY_DPAD_DOWN) != 0))
+            {
+                if (proc->unk_30 < gUnk_0200CD38 - 1)
+                {
+                    proc->unk_30++;
+                    PlaySe(SONG_66);
+    
+                    if (proc->unk_2C == 4 && proc->unk_30 != gUnk_0200CD38 - 1)
+                    {
+                        func_fe6_08076448(proc, 6 + proc->unk_40 / 16, gBg0Tm, proc->unk_2F, 1);
+                        proc->unk_29 = 1;
+                        proc->unk_40 = proc->unk_40 + proc->unk_31 * 4;
+                        SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
+                        break;
+                    }
+    
+                    proc->unk_2C++;
+                }
+                break;
+            }
+
+            break;
+
+        case 1:
+            proc->unk_40 += 4 * proc->unk_31;
+            SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
+
+            if ((proc->unk_40 % 0x10) == 0)
+            {
+                proc->unk_29 = 0;
+                func_fe6_080743C8(proc->unk_40);
+            }
+
+            break;
+
+        case 2:
+            proc->unk_40 += -(4 * proc->unk_31);
+            SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
+
+            if ((proc->unk_40 % 0x10) == 0)
+            {
+                proc->unk_29 = 0;
+                func_fe6_080743C8(proc->unk_40);
+            }
+
+            break;
+
+        case 3:
+            if (proc->unk_2B != 0 && (gKeySt->pressed & (KEY_BUTTON_B | KEY_BUTTON_R)) != 0)
+            {
+                CloseHelpBox();
+                proc->unk_2B = 0;
+                return;
+            }
+
+            if ((gKeySt->pressed & KEY_BUTTON_A) != 0 && proc->unk_2B == 0)
+            {
+                var_08 = proc->unk_32;
+
+                proc->unk_2A = 1;
+                PlaySe(SONG_6A);
+                proc->unk_32 = gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].unk_00;
+                proc->unk_33 = (proc->unk_33 + 1) & 1;
+
+                if (func_fe6_08076D3C(proc->unk_32, proc->unk_33))
+                {
+                    for (i = 0; i < 6 && i < gUnk_0200CD38; i++)
+                    {
+                        func_fe6_08076448(proc, i, gBg0Tm, proc->unk_2F, 1);
+                    }
+
+                    func_fe6_080743C8(proc->unk_40);
+                    EnableBgSync(1);
+                }
+
+                proc->unk_34 = proc->unk_33;
+                proc->unk_35 = proc->unk_2D;
+                
+                if (proc->unk_32 != var_08)
+                    func_fe6_080742D0(proc->unk_32);
+
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_DOWN) != 0 && proc->unk_2B == 0)
+            {
+                PlaySe(SONG_66);
+                proc->unk_33 = 1;
+                proc->unk_29 = 0;
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_LEFT) != 0)
+            {
+                proc->unk_33 = 1;
+
+                if (proc->unk_2D == 0)
+                {
+                    if (proc->unk_2F < 2)
+                        break;
+
+                    if (proc->unk_39 == 3)
+                        break;
+
+                    PlaySe(SONG_6F);
+                    proc->unk_36--;
+
+                    for (i = 8; i > 0 && gUnk_08678840[proc->unk_36].unk_00[i].unk_08 == 0; i--)
+                    {
+                    }
+
+                    proc->unk_2D = i;
+                    Proc_Goto(proc, 2);
+                    break;
+                }
+
+                proc->unk_2D--;
+                PlaySe(SONG_67);
+                break;
+            }
+
+            if ((gKeySt->repeated & KEY_DPAD_RIGHT) != 0)
+            {
+                proc->unk_33 = 1;
+
+                if (proc->unk_2D == 8 || gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D + 1].unk_08 == 0)
+                {
+                    if (proc->unk_2F < proc->unk_2E)
+                    {
+                        if (proc->unk_39 == 3)
+                            break;
+    
+                        proc->unk_2D = 0;
+                        PlaySe(SONG_6F);
+    
+                        proc->unk_36++;
+                        Proc_Goto(proc, 2);
+                    }
+                    break;
+                }
+                else
+                {
+                    proc->unk_2D = proc->unk_2D + 1;
+                    PlaySe(SONG_67);
+                }
+
+                break;
+            }
+
+            if ((gKeySt->pressed & KEY_BUTTON_R) != 0 && proc->unk_2B == 0)
+            {
+                proc->unk_2B = 1;
+
+                StartHelpBox(
+                    gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].unk_08, 0x28,
+                    gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].msg_0C);
+            }
+
+            break;
+    }
+
+    if ((gKeySt->pressed & KEY_BUTTON_B) != 0 && proc->unk_2B == 0)
+    {
+        PlaySe(SONG_6B);
+        SetStatScreenLastUnitId(0);
+        Proc_Break(proc);
+    }
+
+    if (proc->unk_2B != 0 && var_04 != proc->unk_2D)
+    {
+        StartHelpBox(
+            gUnk_08678840[proc->unk_36].unk_00[proc->unk_2D].unk_08, 0x28,
+            gUnk_08678840[proc->unk_36].unk_00[proc->unk_2D].msg_0C);
+    }
+}
+
+void func_fe6_08075D34(struct UnitListScreenProcA * proc)
+{
+    if (proc->unk_39 == 1)
+    {
+        gUnk_0200E7D8 = UNIT_PID(gUnk_0200CC38[proc->unk_30]->unit);
+        func_fe6_080741EC();
+    }
+
+    gPlaySt.last_sort_id = (proc->unk_34 << 7) + proc->unk_32;
+
+    if (proc->unk_2F != 0)
+        gPlaySt.unk_19_4 = proc->unk_2F;
+
+    Proc_End(proc->unk_44);
+
+    if (proc->unk_48 != NULL)
+        Proc_End(proc->unk_48);
+
+    EndGreenText();
+
+    TmFill(gBg0Tm, 0);
+    TmFill(gBg1Tm, 0);
+    TmFill(gBg2Tm, 0);
+
+    EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
+
+    SetWinEnable(0, 0, 0);
+
+    ResetTextFont();
+    ClearIcons();
+}
+
+void func_fe6_08075DF8(struct UnitListScreenProcA * proc)
+{
+    int i;
+
+    TmFillRect(gUnk_0200CD3A, 31, 31, 0);
+
+    for (i = proc->unk_40 / 16; i < proc->unk_40 / 16 + 6 && i < gUnk_0200CD38; i++)
+    {
+        func_fe6_08076448(proc, i, gUnk_0200CD3A, proc->unk_2F, 0);
+    }
+
+    TmFillRect(gUnk_0200D53A, 31, 1, 0);
+
+    func_fe6_08076314(gUnk_0200D53A, proc->unk_2F);
+
+    proc->unk_3E = 0;
+    proc->unk_37 = proc->unk_2F;
+    proc->unk_38 = 0;
+}
+
+#if NONMATCHING
+
+void func_fe6_08075E94(struct UnitListScreenProcA * proc)
+{
+    int r4, i;
+
+    proc->unk_38 += gUnk_0867871C[proc->unk_3E];
+
+    if (proc->unk_38 > 20)
+        proc->unk_38 = 20;
+
+    proc->unk_3E++;
+
+    for (i = 0; i < 20; i++)
+    { 
+        fu8 r1;
+
+        if (proc->unk_36 > proc->unk_2F)
+        {
+            // permuter found that idk though
+            proc->unk_32 = proc->unk_32;
+
+            if (proc->unk_38 + i > 20)
+                r1 = 0;
+            else
+                r1 = i + proc->unk_38 + 8;
+        }
+        else
+        {
+            if (i < proc->unk_38)
+                r1 = 0;
+            else
+                r1 = i - proc->unk_38 + 8;
+        }
+
+        for (r4 = proc->unk_40 / 8; r4 < 12 + proc->unk_40 / 8; r4++)
+        {
+            int off = 8 + (r4 & 0x1F) * 0x20;
+            gBg0Tm[off + i] = *(gUnk_0200CD3A + r1 + (r4 & 0x1F) * 0x20);
+        }
+
+        for (r4 = 0; r4 < 2; r4++)
+        {
+            int off = 0xA8 + r4 * 0x20;
+            gBg2Tm[i + off] = *(gUnk_0200D53A + r1 + r4 * 0x20);
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT | BG2_SYNC_BIT);
+
+    if (proc->unk_38 < 20)
+        return;
+
+    proc->unk_2F = proc->unk_36;
+
+    TmFillRect(gBg2Tm+0x150/2, 0x16, 1, 0);
+    TmFillRect(gBg0Tm+0x10/2, 0x16, 0x1F, 0);
+
+    for (r4 = 0; r4 < 20; r4++)
+        gUnk_0200E6B4[r4] = UINT8_MAX;
+
+    ClearIcons();
+    func_fe6_080742D0(proc->unk_32);
+
+    for (r4 = proc->unk_40 / 16; r4 < proc->unk_40 / 16 + 6 && r4 < gUnk_0200CD38; r4++)
+    {
+        func_fe6_08076448(proc, r4, gUnk_0200CD3A, proc->unk_2F, 0);
+    }
+
+    func_fe6_08076314(gUnk_0200D53A, proc->unk_2F);
+    func_fe6_080763D8(proc->unk_2E, proc->unk_2F, 0);
+
+    proc->unk_38 = 0;
+    proc->unk_3E = 0;
+
+    Proc_Break(proc);
+}
+
+#else
+
+NAKEDFUNC
+void func_fe6_08075E94(struct UnitListScreenProcA * proc)
+{
+    // https://decomp.me/scratch/sjiAE
+
+    asm(".syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, sb\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x18\n\
+        adds r7, r0, #0\n\
+        adds r1, r7, #0\n\
+        adds r1, #0x38\n\
+        ldr r0, .L08075EF8 @ =gUnk_0867871C\n\
+        ldrh r2, [r7, #0x3e]\n\
+        adds r0, r2, r0\n\
+        ldrb r2, [r1]\n\
+        ldrb r0, [r0]\n\
+        adds r0, r2, r0\n\
+        strb r0, [r1]\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r0, r0, #0x18\n\
+        cmp r0, #0x14\n\
+        bls .L08075EC0\n\
+        movs r0, #0x14\n\
+        strb r0, [r1]\n\
+    .L08075EC0:\n\
+        ldrh r0, [r7, #0x3e]\n\
+        adds r0, #1\n\
+        strh r0, [r7, #0x3e]\n\
+        movs r3, #0\n\
+        str r1, [sp, #0x10]\n\
+        adds r0, r7, #0\n\
+        adds r0, #0x36\n\
+        str r0, [sp, #0xc]\n\
+        adds r1, r7, #0\n\
+        adds r1, #0x2f\n\
+        str r1, [sp, #8]\n\
+        adds r2, r7, #0\n\
+        adds r2, #0x40\n\
+        str r2, [sp, #0x14]\n\
+        ldr r0, [sp, #0x10]\n\
+        str r0, [sp, #4]\n\
+    .L08075EE0:\n\
+        ldr r1, [sp, #0xc]\n\
+        ldrb r2, [r1]\n\
+        ldr r1, [sp, #8]\n\
+        ldrb r1, [r1]\n\
+        cmp r2, r1\n\
+        bls .L08075EFC\n\
+        ldr r2, [sp, #4]\n\
+        ldrb r2, [r2]\n\
+        adds r0, r2, r3\n\
+        cmp r0, #0x14\n\
+        bgt .L08075F04\n\
+        b .L08075F0A\n\
+        .align 2, 0\n\
+    .L08075EF8: .4byte gUnk_0867871C\n\
+    .L08075EFC:\n\
+        ldr r1, [sp, #4]\n\
+        ldrb r0, [r1]\n\
+        cmp r3, r0\n\
+        bge .L08075F08\n\
+    .L08075F04:\n\
+        movs r1, #0\n\
+        b .L08075F10\n\
+    .L08075F08:\n\
+        subs r0, r3, r0\n\
+    .L08075F0A:\n\
+        adds r0, #8\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r1, r0, #0x18\n\
+    .L08075F10:\n\
+        ldr r6, [sp, #0x14]\n\
+        ldrh r2, [r6]\n\
+        lsrs r4, r2, #3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0xc\n\
+        lsls r5, r1, #1\n\
+        adds r1, r3, #1\n\
+        mov sl, r1\n\
+        cmp r4, r0\n\
+        bge .L08075F58\n\
+        movs r2, #0x1f\n\
+        mov sb, r2\n\
+        ldr r0, .L08075FD8 @ =gBg0Tm\n\
+        mov r8, r0\n\
+        ldr r1, .L08075FDC @ =gUnk_0200CD3A\n\
+        mov ip, r1\n\
+        adds r2, r5, #0\n\
+    .L08075F32:\n\
+        adds r0, r4, #0\n\
+        mov r1, sb\n\
+        ands r0, r1\n\
+        lsls r1, r0, #5\n\
+        adds r1, #8\n\
+        adds r1, r1, r3\n\
+        lsls r1, r1, #1\n\
+        add r1, r8\n\
+        lsls r0, r0, #6\n\
+        adds r0, r2, r0\n\
+        add r0, ip\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        adds r4, #1\n\
+        ldrh r1, [r6]\n\
+        lsrs r0, r1, #3\n\
+        adds r0, #0xc\n\
+        cmp r4, r0\n\
+        blt .L08075F32\n\
+    .L08075F58:\n\
+        ldr r0, .L08075FE0 @ =gBg2Tm\n\
+        ldr r1, .L08075FE4 @ =gUnk_0200D53A\n\
+        adds r2, r5, r1\n\
+        adds r1, r3, #0\n\
+        adds r1, #0xa8\n\
+        movs r4, #1\n\
+        lsls r1, r1, #1\n\
+        adds r1, r1, r0\n\
+    .L08075F68:\n\
+        ldrh r0, [r2]\n\
+        strh r0, [r1]\n\
+        adds r2, #0x40\n\
+        adds r1, #0x40\n\
+        subs r4, #1\n\
+        cmp r4, #0\n\
+        bge .L08075F68\n\
+        mov r3, sl\n\
+        cmp r3, #0x13\n\
+        ble .L08075EE0\n\
+        movs r0, #5\n\
+        bl EnableBgSync\n\
+        ldr r2, [sp, #0x10]\n\
+        ldrb r2, [r2]\n\
+        cmp r2, #0x13\n\
+        bls .L08076042\n\
+        ldr r1, [sp, #0xc]\n\
+        ldrb r0, [r1]\n\
+        ldr r2, [sp, #8]\n\
+        strb r0, [r2]\n\
+        ldr r0, .L08075FE8 @ =gBg2Tm+0x150\n\
+        movs r1, #0x16\n\
+        movs r2, #1\n\
+        movs r3, #0\n\
+        bl TmFillRect_thm\n\
+        ldr r0, .L08075FEC @ =gBg0Tm+0x10\n\
+        movs r1, #0x16\n\
+        movs r2, #0x1f\n\
+        movs r3, #0\n\
+        bl TmFillRect_thm\n\
+        adds r4, r7, #0\n\
+        adds r4, #0x32\n\
+        adds r5, r7, #0\n\
+        adds r5, #0x2e\n\
+        ldr r1, .L08075FF0 @ =gUnk_0200E6B4\n\
+        movs r2, #0xff\n\
+        adds r0, r1, #0\n\
+        adds r0, #0x4c\n\
+    .L08075FBA:\n\
+        str r2, [r0]\n\
+        subs r0, #4\n\
+        cmp r0, r1\n\
+        bge .L08075FBA\n\
+        bl ClearIcons\n\
+        ldrb r0, [r4]\n\
+        bl func_fe6_080742D0\n\
+        ldr r0, [sp, #0x14]\n\
+        ldrh r0, [r0]\n\
+        lsrs r4, r0, #4\n\
+        adds r0, r4, #6\n\
+        b .L08076012\n\
+        .align 2, 0\n\
+    .L08075FD8: .4byte gBg0Tm\n\
+    .L08075FDC: .4byte gUnk_0200CD3A\n\
+    .L08075FE0: .4byte gBg2Tm\n\
+    .L08075FE4: .4byte gUnk_0200D53A\n\
+    .L08075FE8: .4byte gBg2Tm+0x150\n\
+    .L08075FEC: .4byte gBg0Tm+0x10\n\
+    .L08075FF0: .4byte gUnk_0200E6B4\n\
+    .L08075FF4:\n\
+        lsls r1, r4, #0x18\n\
+        lsrs r1, r1, #0x18\n\
+        ldr r2, [sp, #8]\n\
+        ldrb r3, [r2]\n\
+        movs r0, #0\n\
+        str r0, [sp]\n\
+        adds r0, r7, #0\n\
+        ldr r2, .L08076054 @ =gUnk_0200CD3A\n\
+        bl func_fe6_08076448\n\
+        adds r4, #1\n\
+        ldr r1, [sp, #0x14]\n\
+        ldrh r1, [r1]\n\
+        lsrs r0, r1, #4\n\
+        adds r0, #6\n\
+    .L08076012:\n\
+        cmp r4, r0\n\
+        bge .L0807601E\n\
+        ldr r0, .L08076058 @ =gUnk_0200CD38\n\
+        ldrb r0, [r0]\n\
+        cmp r4, r0\n\
+        blt .L08075FF4\n\
+    .L0807601E:\n\
+        ldr r0, .L0807605C @ =gUnk_0200D53A\n\
+        ldr r2, [sp, #8]\n\
+        ldrb r1, [r2]\n\
+        bl func_fe6_08076314\n\
+        ldrb r0, [r5]\n\
+        ldr r2, [sp, #8]\n\
+        ldrb r1, [r2]\n\
+        movs r2, #0\n\
+        bl func_fe6_080763D8\n\
+        movs r0, #0\n\
+        ldr r1, [sp, #0x10]\n\
+        strb r0, [r1]\n\
+        strh r0, [r7, #0x3e]\n\
+        adds r0, r7, #0\n\
+        bl Proc_Break\n\
+    .L08076042:\n\
+        add sp, #0x18\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov sb, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    .L08076054: .4byte gUnk_0200CD3A\n\
+    .L08076058: .4byte gUnk_0200CD38\n\
+    .L0807605C: .4byte gUnk_0200D53A\n\
+        .syntax divided\n");
+}
+
+#endif // NONMATCHING
