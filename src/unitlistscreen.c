@@ -89,6 +89,8 @@ extern u8 gUnk_0200CD38;
 extern u32 gUnk_0200E6B4[]; // equipped item icons
 extern int gUnk_0200E7D8; // unit id
 
+extern u8 CONST_DATA gUnk_08678722[];
+
 struct Unk_08678744
 {
     u16 const * sprite_00;
@@ -1632,6 +1634,308 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
     .L08076058: .4byte gUnk_0200CD38\n\
     .L0807605C: .4byte gUnk_0200D53A\n\
         .syntax divided\n");
+}
+
+#endif // NONMATCHING
+
+#if NONMATCHING
+
+void func_fe6_08076060(struct UnitListScreenProcA * proc)
+{
+    int r5, r4;
+    fu8 r1;
+
+    proc->unk_38 += gUnk_08678722[proc->unk_3E];
+
+    if (proc->unk_38 > 20)
+        proc->unk_38 = 20;
+
+    proc->unk_3E++;
+
+    if (proc->unk_36 > proc->unk_37)
+    {
+        for (r5 = 0; r5 < proc->unk_38; r5++)
+        {    
+            for (r4 = proc->unk_40 / 8; r4 < 12 + proc->unk_40 / 8; r4++)
+            {
+                gBg0Tm[r5 + 0x1C + (r4 & 0x1F) * 0x20 - proc->unk_38] = *(r5 + 8 + (r4 & 0x1F) * 0x20 + gUnk_0200CD3A);
+            }
+
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBg2Tm[r5 + 0x1C - proc->unk_38 + r4 * 0x20 + 0xA0] = *(gUnk_0200D53A + r5 + 8 + r4 * 0x20);
+            }
+        }
+    }
+    else
+    {
+        for (r5 = 0; r5 < proc->unk_38; r5++)
+        {    
+            for (r4 = proc->unk_40 / 8; r4 < 12 + proc->unk_40 / 8; r4++)
+            {
+                gBg0Tm[(((r4 & 0x1F) << 5) + 8) + r5] = *((r5 + 0x1C - proc->unk_38) + (r4 & 0x1F) * 0x20 + gUnk_0200CD3A);
+            }
+
+            for (r4 = 0; r4 < 2; r4++)
+            {
+                gBg2Tm[0xA8 + TM_OFFSET(r5, r4)] = *(gUnk_0200D53A + (r5 + 0x1C - proc->unk_38) + r4 * 0x20);
+            }
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT | BG2_SYNC_BIT);
+
+    if (proc->unk_38 >= 20)
+        Proc_Break(proc);
+}
+
+#else // NONMATCHING
+
+NAKEDFUNC
+void func_fe6_08076060(struct UnitListScreenProcA * proc)
+{
+    // https://decomp.me/scratch/j9zM3
+
+    asm(".syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, sb\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        sub sp, #0x18\n\
+        str r0, [sp]\n\
+        adds r2, r0, #0\n\
+        adds r2, #0x38\n\
+        ldr r0, .L08076150 @ =gUnk_08678722\n\
+        ldr r1, [sp]\n\
+        ldrh r1, [r1, #0x3e]\n\
+        adds r0, r1, r0\n\
+        ldrb r3, [r2]\n\
+        ldrb r0, [r0]\n\
+        adds r0, r3, r0\n\
+        strb r0, [r2]\n\
+        lsls r0, r0, #0x18\n\
+        lsrs r0, r0, #0x18\n\
+        cmp r0, #0x14\n\
+        bls .L0807608E\n\
+        movs r0, #0x14\n\
+        strb r0, [r2]\n\
+    .L0807608E:\n\
+        ldr r5, [sp]\n\
+        ldrh r0, [r5, #0x3e]\n\
+        adds r0, #1\n\
+        strh r0, [r5, #0x3e]\n\
+        adds r0, r5, #0\n\
+        adds r0, #0x36\n\
+        adds r1, r5, #0\n\
+        adds r1, #0x37\n\
+        ldrb r0, [r0]\n\
+        ldrb r1, [r1]\n\
+        cmp r0, r1\n\
+        bls .L08076164\n\
+        movs r5, #0\n\
+        str r2, [sp, #8]\n\
+        ldrb r6, [r2]\n\
+        cmp r5, r6\n\
+        blt .L080760B2\n\
+        b .L08076202\n\
+    .L080760B2:\n\
+        ldr r7, [sp]\n\
+        adds r7, #0x40\n\
+        str r7, [sp, #4]\n\
+        str r2, [sp, #0x10]\n\
+    .L080760BA:\n\
+        ldr r0, [sp, #4]\n\
+        ldrh r0, [r0]\n\
+        lsrs r4, r0, #3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0xc\n\
+        adds r6, r5, #0\n\
+        adds r6, #0x1c\n\
+        movs r1, #8\n\
+        adds r1, r1, r5\n\
+        mov ip, r1\n\
+        adds r5, #1\n\
+        mov sb, r5\n\
+        cmp r4, r0\n\
+        bge .L08076116\n\
+        str r6, [sp, #0xc]\n\
+        ldr r2, .L08076154 @ =gUnk_0200CD3A\n\
+        mov sl, r2\n\
+        lsls r1, r1, #1\n\
+        str r1, [sp, #0x14]\n\
+        movs r3, #0x1f\n\
+        mov r8, r3\n\
+    .L080760E4:\n\
+        adds r3, r4, #0\n\
+        mov r5, r8\n\
+        ands r3, r5\n\
+        lsls r1, r3, #5\n\
+        ldr r2, [sp, #0xc]\n\
+        ldr r7, [sp, #0x10]\n\
+        ldrb r7, [r7]\n\
+        subs r0, r2, r7\n\
+        adds r1, r1, r0\n\
+        lsls r1, r1, #1\n\
+        ldr r0, .L08076158 @ =gBg0Tm\n\
+        adds r1, r1, r0\n\
+        lsls r0, r3, #6\n\
+        ldr r2, [sp, #0x14]\n\
+        adds r0, r2, r0\n\
+        add r0, sl\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r1]\n\
+        adds r4, #1\n\
+        ldr r3, [sp, #4]\n\
+        ldrh r3, [r3]\n\
+        lsrs r0, r3, #3\n\
+        adds r0, #0xc\n\
+        cmp r4, r0\n\
+        blt .L080760E4\n\
+    .L08076116:\n\
+        ldr r5, .L0807615C @ =gBg2Tm\n\
+        mov r8, r5\n\
+        adds r5, r6, #0\n\
+        mov r6, ip\n\
+        lsls r0, r6, #1\n\
+        ldr r7, .L08076160 @ =gUnk_0200D53A\n\
+        adds r2, r0, r7\n\
+        movs r3, #0xa0\n\
+        movs r4, #1\n\
+    .L08076128:\n\
+        ldr r1, [sp, #0x10]\n\
+        ldrb r1, [r1]\n\
+        subs r0, r5, r1\n\
+        adds r0, r3, r0\n\
+        lsls r0, r0, #1\n\
+        add r0, r8\n\
+        ldrh r1, [r2]\n\
+        strh r1, [r0]\n\
+        adds r2, #0x40\n\
+        adds r3, #0x20\n\
+        subs r4, #1\n\
+        cmp r4, #0\n\
+        bge .L08076128\n\
+        mov r5, sb\n\
+        ldr r2, [sp, #0x10]\n\
+        ldrb r2, [r2]\n\
+        cmp r5, r2\n\
+        blt .L080760BA\n\
+        b .L08076202\n\
+        .align 2, 0\n\
+    .L08076150: .4byte gUnk_08678722\n\
+    .L08076154: .4byte gUnk_0200CD3A\n\
+    .L08076158: .4byte gBg0Tm\n\
+    .L0807615C: .4byte gBg2Tm\n\
+    .L08076160: .4byte gUnk_0200D53A\n\
+    .L08076164:\n\
+        movs r5, #0\n\
+        str r2, [sp, #8]\n\
+        ldrb r3, [r2]\n\
+        cmp r5, r3\n\
+        bge .L08076202\n\
+        ldr r6, [sp]\n\
+        adds r6, #0x40\n\
+        mov sl, r6\n\
+        str r2, [sp, #0x10]\n\
+    .L08076176:\n\
+        mov r7, sl\n\
+        ldrh r7, [r7]\n\
+        lsrs r4, r7, #3\n\
+        adds r0, r4, #0\n\
+        adds r0, #0xc\n\
+        adds r6, r5, #0\n\
+        adds r6, #0x1c\n\
+        adds r1, r5, #1\n\
+        mov sb, r1\n\
+        cmp r4, r0\n\
+        bge .L080761CC\n\
+        mov ip, r6\n\
+        movs r2, #0x1f\n\
+        mov r8, r2\n\
+    .L08076192:\n\
+        adds r3, r4, #0\n\
+        mov r7, r8\n\
+        ands r3, r7\n\
+        lsls r2, r3, #5\n\
+        adds r2, #8\n\
+        adds r2, r2, r5\n\
+        lsls r2, r2, #1\n\
+        ldr r0, .L08076228 @ =gBg0Tm\n\
+        adds r2, r2, r0\n\
+        str r2, [sp, #0x14]\n\
+        mov r2, ip\n\
+        ldr r1, [sp, #0x10]\n\
+        ldrb r1, [r1]\n\
+        subs r0, r2, r1\n\
+        lsls r0, r0, #1\n\
+        lsls r1, r3, #6\n\
+        adds r0, r0, r1\n\
+        ldr r2, .L0807622C @ =gUnk_0200CD3A\n\
+        adds r0, r0, r2\n\
+        ldrh r0, [r0]\n\
+        ldr r3, [sp, #0x14]\n\
+        strh r0, [r3]\n\
+        adds r4, #1\n\
+        mov r7, sl\n\
+        ldrh r7, [r7]\n\
+        lsrs r0, r7, #3\n\
+        adds r0, #0xc\n\
+        cmp r4, r0\n\
+        blt .L08076192\n\
+    .L080761CC:\n\
+        movs r4, #0\n\
+        ldr r0, .L08076230 @ =gUnk_0200D53A\n\
+        mov ip, r0\n\
+        adds r3, r6, #0\n\
+        adds r0, r5, #0\n\
+        adds r0, #0xa8\n\
+        lsls r0, r0, #1\n\
+        ldr r1, .L08076234 @ =gBg2Tm\n\
+        adds r2, r0, r1\n\
+    .L080761DE:\n\
+        ldr r5, [sp, #0x10]\n\
+        ldrb r5, [r5]\n\
+        subs r0, r3, r5\n\
+        lsls r0, r0, #1\n\
+        lsls r1, r4, #6\n\
+        adds r0, r0, r1\n\
+        add r0, ip\n\
+        ldrh r0, [r0]\n\
+        strh r0, [r2]\n\
+        adds r2, #0x40\n\
+        adds r4, #1\n\
+        cmp r4, #1\n\
+        ble .L080761DE\n\
+        mov r5, sb\n\
+        ldr r6, [sp, #0x10]\n\
+        ldrb r6, [r6]\n\
+        cmp r5, r6\n\
+        blt .L08076176\n\
+    .L08076202:\n\
+        movs r0, #5\n\
+        bl EnableBgSync\n\
+        ldr r7, [sp, #8]\n\
+        ldrb r7, [r7]\n\
+        cmp r7, #0x13\n\
+        bls .L08076216\n\
+        ldr r0, [sp]\n\
+        bl Proc_Break\n\
+    .L08076216:\n\
+        add sp, #0x18\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov sb, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    .L08076228: .4byte gBg0Tm\n\
+    .L0807622C: .4byte gUnk_0200CD3A\n\
+    .L08076230: .4byte gUnk_0200D53A\n\
+    .L08076234: .4byte gBg2Tm\n\
+        .syntax divided");
 }
 
 #endif // NONMATCHING
