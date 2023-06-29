@@ -3,7 +3,7 @@
 #include "common.h"
 
 void InitMapForChapter(int chapter);
-void func_fe6_08018784(int chapter);
+void InitMapForMinimap(int chapter);
 void func_fe6_080187EC(void);
 void func_fe6_080188F4(void);
 void MapFill(u8 ** map, int value);

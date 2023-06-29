@@ -40,8 +40,8 @@ void PutDigits(u16 * tm, u8 const * src, int tileref, int len);
 // func_fe6_08013EBC
 // func_fe6_08013EC4
 // func_fe6_08013ED8
-// func_fe6_08013EE4
-// func_fe6_08013F04
+void func_fe6_08013EE4(i16 * array);
+void func_fe6_08013F04(i16 * array, int x_a, int y_a, int x_b, int y_b);
 // func_fe6_08013F7C
 void DarkenPals(int reduction);
 // func_fe6_0801412C

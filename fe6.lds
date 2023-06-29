@@ -14,6 +14,12 @@ SECTIONS
     . = __ewram_overlay_beg;
     ewram_overlay_0 (NOLOAD) : ALIGN(4)
     {
+        . = 0x000000; gMinimapWinBuf = .; /* minimap */
+        . = 0x000500; gMinimapFrontWinBuf = .; /* minimap */
+        . = 0x000504; gMinimapBackWinBuf = .; /* minimap */
+        . = 0x000508; gMinimapDisplayedWinBuf = .; /* minimap */
+        . = 0x00050C; gMinimapObjectFlashPal = .; /* minimap */
+        /* skip */
         . = 0x001000; gMapBuf = .; /* map */
         . = 0x001F70; gChapterIntroMotifTmBuf = .; /* bmfx */
         . = 0x002770; gFont_Unk_02002770 = .; /* mapmenu */
@@ -487,6 +493,7 @@ SECTIONS
         src/save_game.o(.text);
         src/save_multiarena.o(.text);
         src/save_xmap.o(.text);
+        src/minimap.o(.text);
 
         asm/code.o(.text);
 
@@ -575,6 +582,8 @@ SECTIONS
         . = ALIGN(4); data/rodata_3198C0.o(.rodata);
         . = ALIGN(4); src/save_core.o(.rodata);
         . = ALIGN(4); src/save_multiarena.o(.rodata);
+        . = ALIGN(4); data/rodata_3273E4.o(.rodata);
+        . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
@@ -651,6 +660,7 @@ SECTIONS
         . = ALIGN(4); data/data_mapchangeinfo.o(.data);
         . = ALIGN(4); src/save_core.o(.data);
         . = ALIGN(4); src/save_xmap.o(.data);
+        . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

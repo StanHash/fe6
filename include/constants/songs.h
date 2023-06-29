@@ -60,6 +60,8 @@ enum
     SONG_75 = 0x75,
     SONG_76 = 0x76,
     SONG_77 = 0x77,
+    SONG_78 = 0x78, // open minimap
+    SONG_79 = 0x79, // close minimap
     SONG_7A = 0x7A,
     SONG_7B = 0x7B, // sioerror
     SONG_82 = 0x82, // manim

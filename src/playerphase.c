@@ -23,6 +23,7 @@
 #include "mapui.h"
 #include "save_stats.h"
 #include "save_game.h"
+#include "minimap.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -330,7 +331,7 @@ static void PlayerPhase_IdleLoop(ProcPtr proc)
             }
 
             EndMapUi();
-            func_fe6_08087BC4();
+            StartMinimap();
 
             Proc_Goto(proc, L_PLAYERPHASE_IDLE);
 

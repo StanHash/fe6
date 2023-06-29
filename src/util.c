@@ -342,36 +342,36 @@ void func_fe6_08013EE4(i16 * array)
     }
 }
 
-void func_fe6_08013F04(i16 * array, int xA, int yA, int xB, int yB)
+void func_fe6_08013F04(i16 * array, int x_a, int y_a, int x_b, int y_b)
 {
     int q16_slope, q16_x, i;
 
-    if (yA > yB)
+    if (y_a > y_b)
     {
         int tmp;
 
-        tmp = xB;
-        xB = xA;
-        xA = tmp;
+        tmp = x_b;
+        x_b = x_a;
+        x_a = tmp;
 
-        tmp = yB;
-        yB = yA;
-        yA = tmp;
+        tmp = y_b;
+        y_b = y_a;
+        y_a = tmp;
     }
 
-    q16_slope = ((xB - xA) << 16) / (yB - yA);
-    q16_x = xA << 16;
+    q16_slope = ((x_b - x_a) << 16) / (y_b - y_a);
+    q16_x = x_a << 16;
 
-    if (yB > DISPLAY_HEIGHT)
-        yB = DISPLAY_HEIGHT;
+    if (y_b > DISPLAY_HEIGHT)
+        y_b = DISPLAY_HEIGHT;
 
-    if (yA < 0)
+    if (y_a < 0)
     {
-        q16_x += -yA * q16_slope;
-        yA = 0;
+        q16_x += -y_a * q16_slope;
+        y_a = 0;
     }
 
-    for (i = yA; i < yB; ++i)
+    for (i = y_a; i < y_b; ++i)
     {
         int x = q16_x >> 16;
 

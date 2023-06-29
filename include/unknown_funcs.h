@@ -1808,35 +1808,7 @@ void ReadExtraMapInfo(void);
 // func_fe6_08086910
 void CreateTrialChapterBonusUnits(void);
 // func_fe6_08086AAC
-// func_fe6_08086B00
-// func_fe6_08086B54
-// func_fe6_08086BE8
-// func_fe6_08086D04
-// func_fe6_08086D44
-// func_fe6_08086D70
-// func_fe6_08086DEC
-// func_fe6_08086F8C
-// func_fe6_08086FA0
-// func_fe6_08086FF0
-// func_fe6_08087218
-// func_fe6_08087254
-// func_fe6_08087290
-// func_fe6_080872A8
-// func_fe6_080873CC
-// func_fe6_08087578
-// func_fe6_080875FC
-// func_fe6_080877AC
-// func_fe6_080877EC
-// func_fe6_08087878
-// func_fe6_080878B4
-// func_fe6_080878F8
-// func_fe6_08087944
-// func_fe6_080879C0
-// func_fe6_08087A88
-// func_fe6_08087AA8
-// func_fe6_08087AE4
-void func_fe6_08087BC4(void);
-// func_fe6_08087BD8
+
 // func_fe6_08087C14
 // func_fe6_08087C60
 // func_fe6_08087C78
@@ -2214,7 +2186,7 @@ void func_fe6_080939F0(int palid, int x, int y, int id);
 void EndWMDot(int id);
 void StartWMFlag(int palid, int x, int y, int id);
 void EndWMFlag(int id);
-void StartWMMapText(int xA, int yA, int unk, int xB, int yB, int id);
+void StartWMMapText(int x_a, int y_a, int unk, int x_b, int y_b, int id);
 // func_fe6_08093BA0
 void func_fe6_08093BB4(int id);
 // func_fe6_08093BC8

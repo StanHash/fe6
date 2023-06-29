@@ -75,7 +75,7 @@ void InitMapForChapter(int chapter)
         func_fe6_080187EC();
 }
 
-void func_fe6_08018784(int chapter)
+void InitMapForMinimap(int chapter)
 {
     UnpackRawMap(gMapBuf, chapter);
 

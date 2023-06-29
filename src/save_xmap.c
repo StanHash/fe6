@@ -16,6 +16,7 @@
 #include "constants/chapters.h"
 
 struct ExtraMapSaveHead EWRAM_DATA gExtraMapSaveHead = { 0 };
+struct ChapterStats EWRAM_DATA gExtraChapterStats = { 0 };
 
 void * CONST_DATA gSramExtraMap = SRAM_XMAP_ADDR;
 struct ExtraMapInfo * CONST_DATA gExtraMapInfo = (void *) EWRAM_START + 0x40000 - 0x1000; // 0x40000 = EWRAM_SIZE
@@ -252,4 +253,18 @@ void CreateTrialChapterBonusUnits(void)
 
     if (count > 9)
         BatchCreateUnits(UnitInfo_TrialBonusUnitH);
+}
+
+struct ChapterStats * func_fe6_08086AAC(void)
+{
+    int time = (GetGameTime() - gPlaySt.time_chapter_started) / (FRAMES_PER_SECOND * 3);
+
+    if (time > 50 * FRAMES_PER_HOUR / (FRAMES_PER_SECOND * 3))
+        time = 50 * FRAMES_PER_HOUR / (FRAMES_PER_SECOND * 3);
+
+    gExtraChapterStats.chapter_id = gPlaySt.chapter;
+    gExtraChapterStats.chapter_turn = gPlaySt.turn;
+    gExtraChapterStats.chapter_time = time;
+
+    return &gExtraChapterStats;
 }

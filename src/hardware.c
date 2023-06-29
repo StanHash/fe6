@@ -44,12 +44,12 @@ struct DispIo COMMON_DATA(gDispIo) gDispIo = { 0 };
 Func COMMON_DATA(gOnHBlankA) gOnHBlankA = NULL;
 Func COMMON_DATA(gOnHBlankB) gOnHBlankB = NULL;
 
-unsigned GetGameTime(void)
+u32 GetGameTime(void)
 {
     return sGameTime;
 }
 
-void SetGameTime(unsigned time)
+void SetGameTime(u32 time)
 {
     sGameTime = time;
 }
@@ -65,7 +65,7 @@ void IncGameTime(void)
     }
 }
 
-bool FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds)
+bool FormatTime(u32 time, u16 * hours, u16 * minutes, u16 * seconds)
 {
     *seconds = (time / FRAMES_PER_SECOND) % 60;
     *minutes = (time / FRAMES_PER_MINUTE) % 60;

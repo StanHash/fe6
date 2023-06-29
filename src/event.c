@@ -3323,18 +3323,18 @@ static int EvtCmd_WmPutMapText(struct EventProc * proc)
 {
     int id = proc->script[0];
 
-    int xA = EVTCMD_GET_X(proc->script[1]);
-    int yA = EVTCMD_GET_Y(proc->script[1]);
+    int x_a = EVTCMD_GET_X(proc->script[1]);
+    int y_a = EVTCMD_GET_Y(proc->script[1]);
 
     int unk = proc->script[2];
 
-    int xB = EVTCMD_GET_X(proc->script[3]);
-    int yB = EVTCMD_GET_Y(proc->script[3]);
+    int x_b = EVTCMD_GET_X(proc->script[3]);
+    int y_b = EVTCMD_GET_Y(proc->script[3]);
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    StartWMMapText(xA, yA, unk, xB, yB, id);
+    StartWMMapText(x_a, y_a, unk, x_b, y_b, id);
 
     return EVENT_CMDRET_CONTINUE;
 }

@@ -168,10 +168,10 @@ enum
     BG3_SYNC_BIT = (1 << 3),
 };
 
-unsigned GetGameTime(void);
-void SetGameTime(unsigned time);
+u32 GetGameTime(void);
+void SetGameTime(u32 time);
 void IncGameTime(void);
-bool FormatTime(unsigned time, u16 * hours, u16 * minutes, u16 * seconds);
+bool FormatTime(u32 time, u16 * hours, u16 * minutes, u16 * seconds);
 void EnableBgSync(int bits);
 void EnableBgSyncById(int bgid);
 void DisableBgSync(int bits);
