@@ -30,7 +30,7 @@ void StartBgmFadeIn(int song, int b, struct MusicPlayer * music_player);
 void OverrideBgm(int song);
 void RestoreBgm(void);
 void MakeBgmOverridePersist(void);
-void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent);
+void StartBgmVolumeChange(int volume_from, int volume_to, int duration, ProcPtr parent);
 
 #define PlaySe(id) \
     if (!gPlaySt.config_se_disable) \

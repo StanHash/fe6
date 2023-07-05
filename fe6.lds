@@ -11,6 +11,9 @@ SECTIONS
     __ewram_overlay_beg = 0x02000000;
     __ewram_overlay_end = 0x02000000;
 
+    /* I wonder if there's not two distinct overlays here */
+    /* or one with one instance split in two? */
+
     . = __ewram_overlay_beg;
     ewram_overlay_0 (NOLOAD) : ALIGN(4)
     {
@@ -48,6 +51,14 @@ SECTIONS
         . = 0x00E6B4; gUnk_0200E6B4 = .;
         . = 0x00E7D8; gUnk_0200E7D8 = .;
         . = 0x016874; gUnk_02016874 = .; /* big jump here? */
+    }
+    __ewram_overlay_end = MAX(., __ewram_overlay_end);
+
+    . = __ewram_overlay_beg;
+    ewram_overlay_1 (NOLOAD) : ALIGN(4)
+    {
+        . = 0x000000; gUnk_Savemenu_02000000 = .; /* savemenu */
+        . = 0x000404; gUnk_Savemenu_02000404 = .; /* savemenu */
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
@@ -494,6 +505,7 @@ SECTIONS
         src/save_multiarena.o(.text);
         src/save_xmap.o(.text);
         src/minimap.o(.text);
+        src/savemenu.o(.text);
 
         asm/code.o(.text);
 

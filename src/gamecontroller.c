@@ -12,6 +12,7 @@
 #include "statscreen.h"
 #include "save_stats.h"
 #include "save_game.h"
+#include "save_xmap.h"
 
 #include "constants/chapters.h"
 

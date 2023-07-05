@@ -1779,35 +1779,6 @@ void func_fe6_08082CBC(void);
 // func_fe6_080841B4
 // func_fe6_080841EC
 // func_fe6_080841F8
-// func_fe6_08086088
-// VerifySaveBlockInfo
-// WriteNewMultiArenaSave
-// ReadMultiArenaSaveTeamRaw
-// ReadMultiArenaSaveTeamName
-// WipeMultiArenaSaveTeam
-// CopyMultiArenaSaveTeam
-// SwapMultiArenaSaveTeams
-// WriteMultiArenaSaveTeam
-// ReadMultiArenaSaveTeam
-// WriteMultiArenaSaveRankings
-// ReadMultiArenaSaveRankings
-// WriteMultiArenaSaveConfig
-// ReadMultiArenaSaveConfig
-bool IsMultiArenaSaveReady();
-// ReadExtraMapSaveHead
-void const * GetExtraMapMapReadAddr(void);
-u32 GetExtraMapMapSize(void);
-// GetExtraMapInfoReadAddr
-// GetExtraMapInfoSize
-// ExtraMapChecksum
-// IsExtraMapAvailable
-void ReadExtraMapInfo(void);
-// ListAvailableTrialChapters
-// func_fe6_080867F0
-// func_fe6_080867FC
-// func_fe6_08086910
-void CreateTrialChapterBonusUnits(void);
-// func_fe6_08086AAC
 
 // func_fe6_08087C14
 // func_fe6_08087C60
@@ -1849,7 +1820,7 @@ void func_fe6_08089234(ProcPtr parent);
 // func_fe6_08089564
 // func_fe6_08089578
 // func_fe6_0808958C
-// func_fe6_080895A0
+void func_fe6_080895A0(u16 const * unk_a, u16 * unk_b, int unk_c);
 // func_fe6_080895B8
 // func_fe6_08089684
 // func_fe6_08089894
@@ -1872,7 +1843,7 @@ void func_fe6_08089234(ProcPtr parent);
 // func_fe6_0808A42C
 // func_fe6_0808A454
 // func_fe6_0808A4B8
-// func_fe6_0808A4F0
+void func_fe6_0808A4F0(void);
 // func_fe6_0808A524
 // func_fe6_0808A658
 // func_fe6_0808A6C8

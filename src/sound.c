@@ -231,12 +231,12 @@ void MakeBgmOverridePersist(void)
     sSoundSt.overwritten_song = 0;
 }
 
-void StartBgmVolumeChange(int volumeInit, int volumeEnd, int duration, ProcPtr parent)
+void StartBgmVolumeChange(int volume_from, int volume_to, int duration, ProcPtr parent)
 {
     struct MusicProc * proc = SpawnProcLocking(ProcScr_MusicVolChange, parent);
 
-    proc->vc_init_volume = volumeInit;
-    proc->vc_end_volume = volumeEnd;
+    proc->vc_init_volume = volume_from;
+    proc->vc_end_volume = volume_to;
     proc->vc_clock = 0;
     proc->vc_time_end = duration;
 }

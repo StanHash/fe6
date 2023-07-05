@@ -18,6 +18,7 @@
 #include "eventinfo.h"
 #include "save_core.h"
 #include "save_stats.h"
+#include "save_xmap.h"
 
 #include "constants/chapters.h"
 

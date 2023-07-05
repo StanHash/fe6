@@ -2,6 +2,7 @@
 
 enum
 {
+    SONG_01 = 0x01,
     SONG_02 = 0x02,
     SONG_03 = 0x03,
     SONG_04 = 0x04,
@@ -38,6 +39,7 @@ enum
     SONG_3E = 0x3E,
     SONG_3F = 0x3F,
     SONG_43 = 0x43,
+    SONG_44 = 0x44,
     SONG_45 = 0x45,
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
