@@ -1747,6 +1747,9 @@ void AiAttemptOffensiveStaff(int slot, bool (* is_enemy)(struct Unit * unit))
 
             if (AiFindGoodMovePositionWithinRange(&pos))
             {
+                // BUG: this should be 'level_max = unit->level + accuracy;'
+                // this bug enables a known exploit where units late into the unit list are prioritized
+                // for selecting berserk/sleep staff target
                 level_max = unit->level;
                 x_decide = pos.x;
                 y_decide = pos.y;
