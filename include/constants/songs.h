@@ -44,6 +44,7 @@ enum
     SONG_5A = 0x5A,
     SONG_5B = 0x5B,
     SONG_5C = 0x5C,
+    SONG_60 = 0x60, // save success
     SONG_61 = 0x61,
     SONG_65 = 0x65,
     SONG_66 = 0x66,

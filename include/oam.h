@@ -17,7 +17,7 @@ void InitOam(int loSz);
 int GetOamSplice(void);
 void SyncHiOam(void);
 void SyncLoOam(void);
-void SetObjAffine(int id, short pa, short pb, short pc, short pd);
+void SetObjAffine(int id, fi16 pa, fi16 pb, fi16 pc, fi16 pd);
 void PutUnkSprite(struct UnkSprite * sprites, int xBase, int yBase);
 
 extern u16 gOam[0x200];

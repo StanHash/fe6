@@ -60,7 +60,7 @@ void SyncLoOam(void)
     gOamLoPutIt = sOamLo.buf;
 }
 
-void SetObjAffine(int id, short pa, short pb, short pc, short pd)
+void SetObjAffine(int id, fi16 pa, fi16 pb, fi16 pc, fi16 pd)
 {
     gOam[id*0x10 + 3]  = pa;
     gOam[id*0x10 + 7]  = pb;
