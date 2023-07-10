@@ -1785,8 +1785,8 @@ void func_fe6_08082CBC(void);
 // func_fe6_08087C78
 // func_fe6_08087CB0
 // func_fe6_08087CD4
-// func_fe6_08087D44
-// func_fe6_08087DA4
+// SaveMenu_InitSong
+// SaveMenu_InitDisplay
 // func_fe6_08087E7C
 // func_fe6_08088094
 // func_fe6_080881B8
@@ -1806,7 +1806,7 @@ void func_fe6_08082CBC(void);
 // func_fe6_08088EB8
 // func_fe6_08088F60
 // func_fe6_080890B8
-// func_fe6_080890D0
+// SaveMenu_Finish
 // func_fe6_08089180
 // func_fe6_080891DC
 void func_fe6_08089200(ProcPtr proc);

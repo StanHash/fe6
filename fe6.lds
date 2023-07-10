@@ -673,6 +673,7 @@ SECTIONS
         . = ALIGN(4); src/save_core.o(.data);
         . = ALIGN(4); src/save_xmap.o(.data);
         . = ALIGN(4); src/minimap.o(.data);
+        . = ALIGN(4); src/savemenu.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

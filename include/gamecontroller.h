@@ -5,6 +5,8 @@
 
 enum
 {
+    // TODO: those have different meanings depending on the state of the game controller
+
     GAME_ACTION_0,
     GAME_ACTION_1,
     GAME_ACTION_2,

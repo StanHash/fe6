@@ -20,11 +20,11 @@ struct GameController
 {
     /* 00 */ PROC_HEADER;
 
-    /* 29 */ u8 nextAction;
-    /* 2A */ u8 nextChapter;
-    /* 2B */ u8 demoCnt;
-    /* 2C */ u8 previousDemoClassSet;
-    /* 2E */ short clock;
+    /* 29 */ u8 next_action;
+    /* 2A */ u8 next_chapter;
+    /* 2B */ u8 demo_counter;
+    /* 2C */ u8 previous_demo_class_set;
+    /* 2E */ i16 clock;
 };
 
 static bool GC_StartClassDemo(struct GameController * proc);
@@ -250,24 +250,24 @@ static int GetFurthestSaveChapter(void)
 
 static bool GC_StartClassDemo(struct GameController * proc)
 {
-    int classSet, chapter;
+    int class_set, chapter;
 
     chapter = GetFurthestSaveChapter();
-    classSet = GetChapterInfo(chapter)->class_roll_set;
+    class_set = GetChapterInfo(chapter)->class_roll_set;
 
-    if (classSet == 6)
+    if (class_set == 6)
     {
-        if (proc->previousDemoClassSet == 6)
-            classSet = 7;
+        if (proc->previous_demo_class_set == 6)
+            class_set = 7;
         else
-            classSet = 6;
+            class_set = 6;
     }
 
     if (chapter == 0)
-        classSet = 0;
+        class_set = 0;
 
-    proc->previousDemoClassSet = classSet;
-    func_fe6_080947F0(classSet, proc);
+    proc->previous_demo_class_set = class_set;
+    func_fe6_080947F0(class_set, proc);
 
     return FALSE;
 }
@@ -327,7 +327,7 @@ void CleanupGame(ProcPtr proc)
 
 static void GC_PostIntro(struct GameController * proc)
 {
-    switch (proc->nextAction)
+    switch (proc->next_action)
     {
 
     case GAME_ACTION_2:
@@ -339,17 +339,15 @@ static void GC_PostIntro(struct GameController * proc)
         break;
 
     case GAME_ACTION_1:
-        switch (proc->demoCnt & 1)
+        switch (proc->demo_counter & 1)
         {
+            case 0:
+                Proc_Goto(proc, L_GAMECTRL_CLASSDEMO);
+                break;
 
-        case 0:
-            Proc_Goto(proc, L_GAMECTRL_CLASSDEMO);
-            break;
-
-        case 1:
-            Proc_Goto(proc, L_GAMECTRL_SCENEDEMO);
-            break;
-
+            case 1:
+                Proc_Goto(proc, L_GAMECTRL_SCENEDEMO);
+                break;
         }
 
         break;
@@ -359,51 +357,47 @@ static void GC_PostIntro(struct GameController * proc)
 
 static void GC_PostDemo(struct GameController * proc)
 {
-    switch (proc->nextAction)
+    switch (proc->next_action)
     {
+        case GAME_ACTION_0:
+            Proc_Goto(proc, L_GAMECTRL_TITLE);
+            break;
 
-    case GAME_ACTION_0:
-        Proc_Goto(proc, L_GAMECTRL_TITLE);
-        break;
-
-    case GAME_ACTION_1:
-        Proc_Goto(proc, L_GAMECTRL_OPENINGSEQ);
-        break;
-
+        case GAME_ACTION_1:
+            Proc_Goto(proc, L_GAMECTRL_OPENINGSEQ);
+            break;
     }
 }
 
 static void GC_PostMainMenu(struct GameController * proc)
 {
-    switch (proc->nextAction)
+    switch (proc->next_action)
     {
+        case GAME_ACTION_0:
+        case GAME_ACTION_1:
+        case GAME_ACTION_2:
+            Proc_Goto(proc, L_GAMECTRL_CHAPTER);
+            break;
 
-    case GAME_ACTION_0:
-    case GAME_ACTION_1:
-    case GAME_ACTION_2:
-        Proc_Goto(proc, L_GAMECTRL_CHAPTER);
-        break;
+        case GAME_ACTION_3:
+            Proc_Goto(proc, L_GAMECTRL_LOADSUSPEND);
+            break;
 
-    case GAME_ACTION_3:
-        Proc_Goto(proc, L_GAMECTRL_LOADSUSPEND);
-        break;
+        case GAME_ACTION_4:
+            Proc_Goto(proc, L_GAMECTRL_TITLE);
+            break;
 
-    case GAME_ACTION_4:
-        Proc_Goto(proc, L_GAMECTRL_TITLE);
-        break;
+        case GAME_ACTION_5:
+            Proc_Goto(proc, L_GAMECTRL_LINK);
+            break;
 
-    case GAME_ACTION_5:
-        Proc_Goto(proc, L_GAMECTRL_LINK);
-        break;
+        case GAME_ACTION_8:
+            Proc_Goto(proc, L_GAMECTRL_TUTORIAL);
+            break;
 
-    case GAME_ACTION_8:
-        Proc_Goto(proc, L_GAMECTRL_TUTORIAL);
-        break;
-
-    case GAME_ACTION_6:
-        Proc_Goto(proc, L_GAMECTRL_TRIAL);
-        break;
-
+        case GAME_ACTION_6:
+            Proc_Goto(proc, L_GAMECTRL_TRIAL);
+            break;
     }
 }
 
@@ -435,20 +429,18 @@ static void GC_ClearSuspend(struct GameController * proc)
 
 static void GC_PostChapter(struct GameController * proc)
 {
-    switch (proc->nextAction)
+    switch (proc->next_action)
     {
+        case GAME_ACTION_0:
+            Proc_Goto(proc, L_GAMECTRL_TITLE);
+            break;
 
-    case GAME_ACTION_0:
-        Proc_Goto(proc, L_GAMECTRL_TITLE);
-        break;
+        case GAME_ACTION_2:
+            Proc_Goto(proc, L_GAMECTRL_PREENDING);
+            break;
 
-    case GAME_ACTION_2:
-        Proc_Goto(proc, L_GAMECTRL_PREENDING);
-        break;
-
-    case GAME_ACTION_1:
-        break;
-
+        case GAME_ACTION_1:
+            break;
     }
 }
 
@@ -471,14 +463,14 @@ static void GC_PostLoadSuspend(struct GameController * proc)
 static void GC_InitNextChapter(struct GameController * proc)
 {
     RegisterChapterStats(&gPlaySt);
-    gPlaySt.chapter = proc->nextChapter;
+    gPlaySt.chapter = proc->next_chapter;
 
     CleanupUnitsBeforeChapter();
 }
 
 static void GC_InitDemo(struct GameController * proc)
 {
-    proc->demoCnt++;
+    proc->demo_counter++;
 }
 
 static void GC_DarkenScreen(struct GameController * proc)
@@ -498,10 +490,10 @@ void StartGame(void)
 
     proc = SpawnProc(ProcScr_GameController, PROC_TREE_3);
 
-    proc->nextAction = GAME_ACTION_0;
-    proc->nextChapter = 0;
+    proc->next_action = GAME_ACTION_0;
+    proc->next_chapter = 0;
 
-    proc->demoCnt = 0;
+    proc->demo_counter = 0;
 }
 
 static struct GameController * GetGameController(void)
@@ -512,19 +504,19 @@ static struct GameController * GetGameController(void)
 void SetNextGameAction(int action)
 {
     struct GameController * proc = GetGameController();
-    proc->nextAction = action;
+    proc->next_action = action;
 }
 
 void SetNextChapter(int chapter)
 {
     struct GameController * proc = GetGameController();
-    proc->nextChapter = chapter;
+    proc->next_chapter = chapter;
 }
 
 bool HasNextChapter(void)
 {
     struct GameController * proc = GetGameController();
-    return proc->nextChapter == 0 ? FALSE : TRUE;
+    return proc->next_chapter == 0 ? FALSE : TRUE;
 }
 
 void RestartGameAndChapter(void)
