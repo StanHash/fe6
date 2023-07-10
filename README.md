@@ -1,6 +1,6 @@
 # Fire Emblem: The Binding Blade
 
-This is a decompilation of Fire Emblem: The Binding Blade.
+This is a decompilation of Fire Emblem: Fūin no Tsurugi (a.k.a. Fire Emblem: The Binding Blade).
 
 It builds the following ROM:
 
@@ -28,10 +28,11 @@ You can also consider porting stuff between fe6 and fe8.
 
 ## See also
 
-* [**StanHash/fe1**](https://github.com/StanHash/fe1), a disassembly of Fire Emblem: Shadow Dragon and the Blade of Light
+* [**StanHash/fe1**](https://github.com/StanHash/fe1), a disassembly of Fire Emblem: Ankoku Ryu to Hikari no Tsurugi (dormant)
 * [**ZaneAvernathy/FireEmblem5**](https://github.com/ZaneAvernathy/FireEmblem5), a disassembly of Fire Emblem: Thracia 776
+* [**MokhaLeee/FireEmblem7J**](https://github.com/MokhaLeee/FireEmblem7J), a decompilation of Fire Emblem: Rekka no Ken (JP)
 * [**FireEmblemUniverse/fireemblem8u**](https://github.com/FireEmblemUniverse/fireemblem8u), a decompilation of Fire Emblem: The Sacred Stones (US)
 
 ## Contact
 
-You can find me over at the [Fire Emblem Universe Discord](https://feuniverse.us/t/feu-discord-server/1480?u=stanh) under the handle `nat5#4387`.
+You can find me over at the [Fire Emblem Universe Discord](https://feuniverse.us/t/feu-discord-server/1480?u=stanh) under the handle `nat_776`.

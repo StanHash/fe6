@@ -52,7 +52,7 @@ SHASUM ?= sha1sum
 # = BUILD CONFIG =
 # ================
 
-CPPFLAGS := -I $(AGBCC_HOME)/include -iquote include -iquote . -nostdinc -undef
+CPPFLAGS := -I $(AGBCC_HOME)/include -I include -I . -nostdinc -undef
 CFLAGS := -g -mthumb-interwork -Wimplicit -Wparentheses -Werror -fhex-asm -ffix-debug-line -O2
 ASFLAGS := -mcpu=arm7tdmi -I asm/include -I include
 
