@@ -49,13 +49,25 @@ enum
     L_SAVEMENU_16 = 16,
 };
 
+enum
+{
+    UNK_SAVEMENU_0 = 1 << 0,
+    UNK_SAVEMENU_1 = 1 << 1,
+    UNK_SAVEMENU_2 = 1 << 2,
+    UNK_SAVEMENU_3 = 1 << 3,
+    UNK_SAVEMENU_4 = 1 << 4,
+    UNK_SAVEMENU_5 = 1 << 5,
+    UNK_SAVEMENU_6 = 1 << 6,
+    UNK_SAVEMENU_7 = 1 << 7,
+};
+
 struct SaveMenuProc
 {
     /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
+    /* 29 */ u8 anim_clock;
     /* 2A */ u8 unk_2A;
-    /* 2B */ u8 unk_2B; // save id
-    /* 2C */ u8 unk_2C; // save id
+    /* 2B */ u8 selected_id;
+    /* 2C */ u8 copy_from_id;
     /* 2D */ u8 unk_2D; // proc label
     /* 2E */ u8 unk_2E;
     /* 2F */ u8 unk_2F;
@@ -92,7 +104,7 @@ void func_fe6_0808A918(fu8 arg_0, struct SaveMenuProc * proc);
 void func_fe6_0808A42C(void);
 void func_fe6_0808A524(struct SaveMenuProc * proc);
 int func_fe6_0808AA54(int arg_0, struct SaveMenuProc * proc);
-void func_fe6_0808A9F4(int arg_0);
+void func_fe6_0808A9F4(int save_id);
 ProcPtr func_fe6_0808A14C(ProcPtr parent);
 ProcPtr func_fe6_0808A210(ProcPtr parent);
 int func_fe6_0808A658(fu8 save_id, int arg_1, int arg_2);
@@ -116,7 +128,7 @@ extern char const gUnk_08336C60[]; // string
 
 #define REG_BLDY_16 (*(u16 volatile *) &REG_BLDY)
 
-void func_fe6_08087C14(void)
+void SaveMenuOnHBlank(void)
 {
     u16 vcount = REG_VCOUNT + 1;
 
@@ -187,9 +199,9 @@ void func_fe6_08087CD4(struct SaveMenuProc * proc)
 
     switch (proc->unk_2E)
     {
-        case 0x02:
-        case 0x10:
-        case 0x20:
+        case UNK_SAVEMENU_1:
+        case UNK_SAVEMENU_4:
+        case UNK_SAVEMENU_5:
             if (proc->unk_3D != 0 && proc->unk_36 != 0 && proc->unk_3E == 0)
             {
                 StartHelpBox_08070804(0x30, 0x30, MSG_6C3);
@@ -202,8 +214,8 @@ void func_fe6_08087CD4(struct SaveMenuProc * proc)
 
 void SaveMenu_InitSong(struct SaveMenuProc * proc)
 {
-    if ((proc->unk_2E == 0x80 && (GetCurrentBgmSong() == SONG_01 || GetCurrentBgmSong() == SONG_44 || GetCurrentBgmSong() == SONG_01))
-        || proc->unk_2E == 0x40)
+    if ((proc->unk_2E == UNK_SAVEMENU_7 && (GetCurrentBgmSong() == SONG_01 || GetCurrentBgmSong() == SONG_44 || GetCurrentBgmSong() == SONG_01))
+        || proc->unk_2E == UNK_SAVEMENU_6)
     {
         StartBgmVolumeChange(0x100, 0x80, 0x20, NULL);
         return;
@@ -253,7 +265,7 @@ void SaveMenu_InitDisplay(struct SaveMenuProc * proc)
     SaveMenu_InitSong(proc);
 }
 
-void func_fe6_08087E7C(struct SaveMenuProc * proc)
+void SaveMenu_PutScreen(struct SaveMenuProc * proc)
 {
     int i;
 
@@ -267,14 +279,14 @@ void func_fe6_08087E7C(struct SaveMenuProc * proc)
     func_fe6_080895A0(gUnk_0832C35C, gUnk_Savemenu_02000404, 2);
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
-    proc->unk_29 = 0;
+    proc->anim_clock = 0;
 
     gDispIo.win_ct.win0_enable_blend = 1;
     gDispIo.win_ct.win1_enable_blend = 1;
 
     Decompress(gUnk_0832A29C, OBJ_VRAM0 + 0x1000);
 
-    if (proc->unk_2E == 0x40)
+    if (proc->unk_2E == UNK_SAVEMENU_6)
     {
         func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_1C0, OBJPAL_SAVEMENU_9);
     }
@@ -283,7 +295,7 @@ void func_fe6_08087E7C(struct SaveMenuProc * proc)
         Decompress(gUnk_0832B554, OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_1C0);
     }
 
-    if (proc->unk_2E == 0x20)
+    if (proc->unk_2E == UNK_SAVEMENU_5)
     {
         if (proc->unk_35 == 1)
         {
@@ -292,15 +304,15 @@ void func_fe6_08087E7C(struct SaveMenuProc * proc)
     }
     else
     {
-        if (proc->unk_2E == 0x40)
+        if (proc->unk_2E == UNK_SAVEMENU_6)
         {
             proc->unk_2D = L_SAVEMENU_4;
-            proc->unk_2B = ReadLastGameSaveId();
+            proc->selected_id = ReadLastGameSaveId();
         }
         else
         {
             proc->unk_2D = L_SAVEMENU_1;
-            proc->unk_2B = 0;
+            proc->selected_id = 0;
         }
 
         proc->unk_2A = 0;
@@ -309,7 +321,7 @@ void func_fe6_08087E7C(struct SaveMenuProc * proc)
     }
 
     proc->unk_36 = 0;
-    proc->unk_2C = 0xFF;
+    proc->copy_from_id = UINT8_MAX;
     proc->unk_3D = 1;
 
     func_fe6_0808A4F0();
@@ -325,7 +337,7 @@ void func_fe6_08087E7C(struct SaveMenuProc * proc)
 
     gUnk_Savemenu_02000000 = 0;
 
-    SetOnHBlankA(func_fe6_08087C14);
+    SetOnHBlankA(SaveMenuOnHBlank);
 }
 
 void func_fe6_08088094(struct SaveMenuProc * proc)
@@ -347,17 +359,17 @@ void func_fe6_08088094(struct SaveMenuProc * proc)
 
     func_fe6_0808A42C();
 
-    if (proc->unk_2E == 0x40)
+    if (proc->unk_2E == UNK_SAVEMENU_6)
     {
         proc->unk_30 = 0x40;
-        proc->unk_2E = 0x40;
+        proc->unk_2E = UNK_SAVEMENU_6;
         proc->unk_31 = 0;
     }
     else
     {
         func_fe6_0808A524(proc);
 
-        if (proc->unk_2E == 0x20)
+        if (proc->unk_2E == UNK_SAVEMENU_5)
         {
             proc->unk_2A = func_fe6_0808AA54(0x20, proc);
         }
@@ -371,7 +383,7 @@ void func_fe6_08088094(struct SaveMenuProc * proc)
     SetWinEnable(0, 0, 0);
     SetBackdropColor(0);
 
-    func_fe6_0808A9F4(proc->unk_2B);
+    func_fe6_0808A9F4(proc->selected_id);
     proc->unk_54 = func_fe6_0808A14C(proc);
     proc->unk_58 = func_fe6_0808A210(proc);
 
@@ -423,36 +435,36 @@ void func_fe6_080881C8(struct SaveMenuProc * proc)
         proc->unk_2E = func_fe6_08087C78(proc->unk_30, proc->unk_2A);
         PlaySe(SONG_6A);
 
-        proc->unk_29 = 0;
+        proc->anim_clock = 0;
 
         switch (proc->unk_2E)
         {
-            case 0x01:
-                proc->unk_2B = proc->unk_3F;
+            case UNK_SAVEMENU_0:
+                proc->selected_id = proc->unk_3F;
                 Proc_Goto(proc, L_SAVEMENU_2);
                 break;
 
-            case 0x02:
-                proc->unk_2B = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
+            case UNK_SAVEMENU_1:
+                proc->selected_id = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
                 Proc_Goto(proc, L_SAVEMENU_2);
                 break;
 
-            case 0x04:
-                proc->unk_2B = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
+            case UNK_SAVEMENU_2:
+                proc->selected_id = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
                 Proc_Goto(proc, L_SAVEMENU_2);
                 break;
 
-            case 0x08:
-                proc->unk_2B = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
+            case UNK_SAVEMENU_3:
+                proc->selected_id = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
                 Proc_Goto(proc, L_SAVEMENU_2);
                 break;
 
-            case 0x10:
-                proc->unk_2B = func_fe6_0808A658(proc->unk_2B, 0, 1);
+            case UNK_SAVEMENU_4:
+                proc->selected_id = func_fe6_0808A658(proc->selected_id, 0, 1);
                 Proc_Goto(proc, L_SAVEMENU_2);
                 break;
 
-            case 0x20:
+            case UNK_SAVEMENU_5:
                 if (proc->unk_34 >= proc->unk_33)
                     proc->unk_34 = 0;
 
@@ -464,7 +476,7 @@ void func_fe6_080881C8(struct SaveMenuProc * proc)
     {
         PlaySe(SONG_6B);
         Proc_Goto(proc, L_SAVEMENU_16);
-        proc->unk_2E = 0x80;
+        proc->unk_2E = UNK_SAVEMENU_7;
     }
 }
 
@@ -476,29 +488,29 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
 
         switch (proc->unk_2E)
         {
-            case 0x04:
-                if (proc->unk_2C == 0xFF)
+            case UNK_SAVEMENU_2:
+                if (proc->copy_from_id == UINT8_MAX)
                 {
-                    proc->unk_2C = proc->unk_2B;
+                    proc->copy_from_id = proc->selected_id;
                     func_fe6_0808A6C8(proc, 1);
                 }
                 else
                 {
-                    CopyGameSave(proc->unk_2C, proc->unk_2B);
+                    CopyGameSave(proc->copy_from_id, proc->selected_id);
                     Proc_Goto(proc, L_SAVEMENU_5);
                 }
 
                 return;
 
-            case 0x08:
+            case UNK_SAVEMENU_3:
                 proc->unk_36 = 2;
                 func_fe6_0808A4B8(proc, 1);
                 break;
 
-            case 0x02:
-            case 0x10:
-            case 0x20:
-            case 0x40:
+            case UNK_SAVEMENU_1:
+            case UNK_SAVEMENU_4:
+            case UNK_SAVEMENU_5:
+            case UNK_SAVEMENU_6:
                 proc->unk_36 = 2;
                 func_fe6_0808A4B8(proc, 1);
                 break;
@@ -510,11 +522,11 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
     {
         switch (proc->unk_2E)
         {
-            case 0x20:
+            case UNK_SAVEMENU_5:
                 if (proc->unk_36 == 1)
                 {
                     proc->unk_40 = 0xF0;
-                    ReadGameSave(SAVE_GAME0 + proc->unk_2B);
+                    ReadGameSave(SAVE_GAME0 + proc->selected_id);
                     Proc_Goto(proc, L_SAVEMENU_13);
                     PlaySe(SONG_6A);
                 }
@@ -525,7 +537,7 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
 
                 break;
 
-            case 0x02:
+            case UNK_SAVEMENU_1:
                 if (proc->unk_36 == 1)
                 {
                     proc->unk_40 = 0xF0;
@@ -539,16 +551,16 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
 
                 break;
 
-            case 0x10:
+            case UNK_SAVEMENU_4:
                 if (proc->unk_36 == 1)
                 {
                     if (proc->unk_3D == 1)
                     {
-                        WriteNewGameSave(proc->unk_2B, FALSE);
+                        WriteNewGameSave(proc->selected_id, FALSE);
                     }
                     else if (proc->unk_3D == 2)
                     {
-                        WriteNewGameSave(proc->unk_2B, TRUE);
+                        WriteNewGameSave(proc->selected_id, TRUE);
                     }
 
                     Proc_Goto(proc, L_SAVEMENU_5);
@@ -561,10 +573,10 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
 
                 break;
 
-            case 0x08:
+            case UNK_SAVEMENU_3:
                 if (proc->unk_36 == 1)
                 {
-                    InvalidateGameSave(proc->unk_2B);
+                    InvalidateGameSave(proc->selected_id);
                     Proc_Goto(proc, L_SAVEMENU_5);
                     PlaySe(SONG_6A);
                 }
@@ -575,10 +587,10 @@ void func_fe6_08088404(struct SaveMenuProc * proc)
 
                 break;
 
-            case 0x40:
+            case UNK_SAVEMENU_6:
                 if (proc->unk_36 == 1)
                 {
-                    WriteGameSave(proc->unk_2B);
+                    WriteGameSave(proc->selected_id);
                     Proc_Goto(proc, L_SAVEMENU_5);
                     PlaySe(SONG_60);
                 }
@@ -633,11 +645,11 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
 
     if ((gKeySt->pressed & KEY_BUTTON_A) != 0)
     {
-        proc->unk_29 = 0;
+        proc->anim_clock = 0;
 
         switch (proc->unk_2E)
         {
-            case 0x02:
+            case UNK_SAVEMENU_1:
                 if (proc->unk_3F == 0xFF)
                 {
                     PlaySe(SONG_6A);
@@ -650,18 +662,18 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
 
                 break;
 
-            case 0x01:
+            case UNK_SAVEMENU_0:
                 PlaySe(SONG_6A);
                 func_fe6_08087C60(proc);
                 break;
 
-            case 0x04:
-            case 0x08:
-            case 0x40:
+            case UNK_SAVEMENU_2:
+            case UNK_SAVEMENU_3:
+            case UNK_SAVEMENU_6:
                 func_fe6_08088404(proc);
                 break;
 
-            case 0x10:
+            case UNK_SAVEMENU_4:
                 if (proc->unk_3D == 0)
                 {
                     if (proc->unk_36 == 1)
@@ -695,11 +707,11 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
                     {
                         if (proc->unk_3D == 1)
                         {
-                            WriteNewGameSave(proc->unk_2B, 0);
+                            WriteNewGameSave(proc->selected_id, 0);
                         }
                         else if (proc->unk_3D == 2)
                         {
-                            WriteNewGameSave(proc->unk_2B, 1);
+                            WriteNewGameSave(proc->selected_id, 1);
                         }
 
                         Proc_Goto(proc, L_SAVEMENU_5);
@@ -712,7 +724,7 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
     }
     else if ((gKeySt->pressed & KEY_BUTTON_B) != 0)
     {
-        proc->unk_29 = 0;
+        proc->anim_clock = 0;
         PlaySe(SONG_6B);
 
         if (proc->unk_36 != 0)
@@ -721,12 +733,12 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
             func_fe6_0808A4B8(proc, 0);
             func_fe6_08087CD4(proc);
         }
-        else if (proc->unk_2C != 0xFF)
+        else if (proc->copy_from_id != UINT8_MAX)
         {
-            proc->unk_2B = proc->unk_2C;
-            proc->unk_2C = -1;
+            proc->selected_id = proc->copy_from_id;
+            proc->copy_from_id = UINT8_MAX;
         }
-        else if (proc->unk_2E == 0x40)
+        else if (proc->unk_2E == UNK_SAVEMENU_6)
         {
             Proc_Goto(proc, L_SAVEMENU_15);
         }
@@ -745,39 +757,39 @@ void func_fe6_08088854(struct SaveMenuProc * proc)
 void func_fe6_08088860(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_5;
-    proc->unk_29 = 0;
+    proc->anim_clock = 0;
 }
 
 void func_fe6_08088870(struct SaveMenuProc * proc)
 {
-    if (proc->unk_29 == 8)
+    if (proc->anim_clock == 8)
     {
-        func_fe6_0808A918(proc->unk_2B, proc);
+        func_fe6_0808A918(proc->selected_id, proc);
         func_fe6_0808A918(4, proc);
 
-        if (proc->unk_37[proc->unk_2B] != 0xFF)
+        if (proc->unk_37[proc->selected_id] != 0xFF)
         {
             // tyvm Eebit
             // TODO: there's probably something better to do here
-            func_fe6_08070D08(((u32)(proc->unk_2B * 0x800 + 0x16800) & 0x0001FFFF) >> 5, proc->unk_37[proc->unk_2B]);
+            func_fe6_08070D08(((u32)(proc->selected_id * 0x800 + 0x16800) & 0x0001FFFF) >> 5, proc->unk_37[proc->selected_id]);
         }
         else
         {
-            func_fe6_08070D08(((u32)(proc->unk_2B * 0x800 + 0x16800) & 0x0001FFFF) >> 5, -1);
+            func_fe6_08070D08(((u32)(proc->selected_id * 0x800 + 0x16800) & 0x0001FFFF) >> 5, -1);
         }
 
-        func_fe6_0808A9F4(proc->unk_2B);
+        func_fe6_0808A9F4(proc->selected_id);
     }
-    else if (proc->unk_29 == 0x20)
+    else if (proc->anim_clock == 0x20)
     {
         func_fe6_0808A524(proc);
 
-        if (proc->unk_2E == 0x10)
+        if (proc->unk_2E == UNK_SAVEMENU_4)
         {
             Proc_Goto(proc, L_SAVEMENU_16);
             StartBgmVolumeChange(0x80, 0, 0x10, 0);
         }
-        else if (proc->unk_2E == 0x40)
+        else if (proc->unk_2E == UNK_SAVEMENU_6)
         {
             Proc_Goto(proc, L_SAVEMENU_15);
         }
@@ -785,25 +797,25 @@ void func_fe6_08088870(struct SaveMenuProc * proc)
         {
             if (func_fe6_0808A79C(proc))
             {
-                if (proc->unk_2C != 0xFF)
+                if (proc->copy_from_id != UINT8_MAX)
                 {
-                    proc->unk_2B = proc->unk_2C;
-                    proc->unk_2C = -1;
+                    proc->selected_id = proc->copy_from_id;
+                    proc->copy_from_id = UINT8_MAX;
                 }
                 else
                 {
-                    proc->unk_2B = func_fe6_0808A658(proc->unk_2B, 1, 1);
+                    proc->selected_id = func_fe6_0808A658(proc->selected_id, 1, 1);
                 }
 
                 Proc_Goto(proc, L_SAVEMENU_4);
             }
         }
     }
-    else if (proc->unk_29 == 0x30)
+    else if (proc->anim_clock == 0x30)
     {
-        proc->unk_2B = 0;
-        proc->unk_2C = -1;
-        proc->unk_29 = 0;
+        proc->selected_id = 0;
+        proc->copy_from_id = UINT8_MAX;
+        proc->anim_clock = 0;
         proc->unk_2A = 0;
         proc->unk_2E = func_fe6_08087C78(proc->unk_30, 0);
 
@@ -813,31 +825,31 @@ void func_fe6_08088870(struct SaveMenuProc * proc)
         return;
     }
 
-    if (proc->unk_29 == 0x10)
+    if (proc->anim_clock == 0x10)
     {
-        SetObjAffineAuto(proc->unk_2B, 0, 0x100, 0x100);
+        SetObjAffineAuto(proc->selected_id, 0, 0x100, 0x100);
     }
-    else if (proc->unk_29 < 8)
+    else if (proc->anim_clock < 8)
     {
-        SetObjAffineAuto(proc->unk_2B, 0, 0x100, (proc->unk_29 * -0x20) + 0x100);
+        SetObjAffineAuto(proc->selected_id, 0, 0x100, (proc->anim_clock * -0x20) + 0x100);
     }
-    else if (proc->unk_29 < 0x10)
+    else if (proc->anim_clock < 0x10)
     {
-        SetObjAffineAuto(proc->unk_2B, 0, 0x100, (proc->unk_29 * 0x20) - 0xE0);
+        SetObjAffineAuto(proc->selected_id, 0, 0x100, (proc->anim_clock * 0x20) - 0xE0);
     }
 
-    proc->unk_29++;
+    proc->anim_clock++;
 }
 
 void func_fe6_08088B40(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_2;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_2F = (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_2F = (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         func_fe6_08070E70(OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE, OBJPAL_SAVEMENU_9);
         Proc_Break(proc);
@@ -847,12 +859,12 @@ void func_fe6_08088B40(struct SaveMenuProc * proc)
 void func_fe6_08088B9C(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_3;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_2F = -36 - (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_2F = -36 - (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         Decompress(gUnk_0832B554, OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE);
         Proc_Break(proc);
@@ -862,12 +874,12 @@ void func_fe6_08088B9C(struct SaveMenuProc * proc)
 void func_fe6_08088C04(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_7;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_42 = (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_42 = (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         Proc_Goto(proc, L_SAVEMENU_9);
     }
@@ -876,12 +888,12 @@ void func_fe6_08088C04(struct SaveMenuProc * proc)
 void func_fe6_08088C58(struct SaveMenuProc * proc)
 {
     proc->unk_2D = 7;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_42 = 220 - (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_42 = 220 - (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         Proc_Goto(proc, L_SAVEMENU_1);
     }
@@ -890,13 +902,13 @@ void func_fe6_08088C58(struct SaveMenuProc * proc)
 void func_fe6_08088CB0(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_11;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_42 = 220 + (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_42 = 220 + (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
     proc->unk_2F = proc->unk_42 + 36;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         Proc_Goto(proc, L_SAVEMENU_10);
     }
@@ -905,13 +917,13 @@ void func_fe6_08088CB0(struct SaveMenuProc * proc)
 void func_fe6_08088D0C(struct SaveMenuProc * proc)
 {
     proc->unk_2D = L_SAVEMENU_12;
-    proc->unk_29++;
+    proc->anim_clock++;
 
     // TODO: what
-    proc->unk_42 = 440 - (((7 * proc->unk_29 * 8 - proc->unk_29) * 8) - (220 * proc->unk_29 * proc->unk_29 / 14)) / 14;
+    proc->unk_42 = 440 - (((7 * proc->anim_clock * 8 - proc->anim_clock) * 8) - (220 * proc->anim_clock * proc->anim_clock / 14)) / 14;
     proc->unk_2F = proc->unk_42 + 36;
 
-    if (proc->unk_29 == 14)
+    if (proc->anim_clock == 14)
     {
         Proc_Goto(proc, L_SAVEMENU_9);
     }
@@ -962,7 +974,7 @@ void func_fe6_08088D6C(struct SaveMenuProc * proc)
         proc->unk_35 = func_fe6_08087C78(proc->unk_32, proc->unk_34);
         PlaySe(SONG_6A);
 
-        proc->unk_29 = 0;
+        proc->anim_clock = 0;
 
         switch (proc->unk_35)
         {
@@ -972,7 +984,7 @@ void func_fe6_08088D6C(struct SaveMenuProc * proc)
                 break;
 
             case 1:
-                proc->unk_2B = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
+                proc->selected_id = func_fe6_0808A658(ReadLastGameSaveId(), 1, 1);
                 func_fe6_08088EB8(proc, 0);
                 Proc_Goto(proc, L_SAVEMENU_11);
                 break;
@@ -984,7 +996,7 @@ void func_fe6_08088D6C(struct SaveMenuProc * proc)
     }
     else if ((gKeySt->pressed & KEY_BUTTON_B) != 0)
     {
-        proc->unk_29 = 0;
+        proc->anim_clock = 0;
         Proc_Goto(proc, L_SAVEMENU_8);
         PlaySe(SONG_6B);
     }
@@ -994,11 +1006,11 @@ bool func_fe6_08088EB8(struct SaveMenuProc * proc, int direction)
 {
     int i;
 
-    fu8 previous = proc->unk_2B;
+    fu8 previous = proc->selected_id;
 
     if (direction == 0)
     {
-        if ((proc->unk_3A[proc->unk_2B] & 1) != 0)
+        if ((proc->unk_3A[proc->selected_id] & 1) != 0)
             return TRUE;
 
         direction = 1;
@@ -1008,12 +1020,12 @@ bool func_fe6_08088EB8(struct SaveMenuProc * proc, int direction)
     {
         for (i = 0; i < 3; i++)
         {
-            if (proc->unk_2B < 2)
-                proc->unk_2B++;
+            if (proc->selected_id < 2)
+                proc->selected_id++;
             else
-                proc->unk_2B = 0;
+                proc->selected_id = 0;
 
-            if ((proc->unk_3A[proc->unk_2B] & 1) != 0)
+            if ((proc->unk_3A[proc->selected_id] & 1) != 0)
                 break;
         }
     }
@@ -1021,17 +1033,17 @@ bool func_fe6_08088EB8(struct SaveMenuProc * proc, int direction)
     {
         for (i = 0; i < 3; i++)
         {
-            if (proc->unk_2B == 0)
-                proc->unk_2B = 2;
+            if (proc->selected_id == 0)
+                proc->selected_id = 2;
             else
-                proc->unk_2B = proc->unk_2B - 1;
+                proc->selected_id = proc->selected_id - 1;
 
-            if ((proc->unk_3A[proc->unk_2B] & 1) != 0)
+            if ((proc->unk_3A[proc->selected_id] & 1) != 0)
                 break;
         }
     }
 
-    if (previous != proc->unk_2B)
+    if (previous != proc->selected_id)
     {
         PlaySe(SONG_66);
         return TRUE;
@@ -1079,7 +1091,7 @@ void func_fe6_08088F60(struct SaveMenuProc * proc)
     {
         if (proc->unk_3F == 0xFF)
         {
-            ReadGameSave(SAVE_GAME0 + proc->unk_2B);
+            ReadGameSave(SAVE_GAME0 + proc->selected_id);
             Proc_Goto(proc, L_SAVEMENU_13);
             PlaySe(SONG_6A);
         }
@@ -1105,7 +1117,7 @@ void func_fe6_08088F60(struct SaveMenuProc * proc)
         else
         {
             Decompress(gUnk_0832B554, OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE);
-            proc->unk_29 = 0;
+            proc->anim_clock = 0;
             Proc_Goto(proc, L_SAVEMENU_12);
         }
     }
@@ -1127,7 +1139,7 @@ void SaveMenu_Finish(struct SaveMenuProc * proc)
 
     SetOnHBlankA(NULL);
 
-    if (proc->unk_2E == 0x20)
+    if (proc->unk_2E == UNK_SAVEMENU_5)
     {
         switch (proc->unk_35)
         {
@@ -1144,23 +1156,23 @@ void SaveMenu_Finish(struct SaveMenuProc * proc)
                 break;
         }
     }
-    else if (proc->unk_2E != 0x40)
+    else if (proc->unk_2E != UNK_SAVEMENU_6)
     {
-        if (proc->unk_2E == 1)
+        if (proc->unk_2E == UNK_SAVEMENU_0)
         {
             ReadSuspendSave(SAVE_SUSPEND);
             SetNextGameAction(GAME_ACTION_3);
         }
-        else if (proc->unk_2E == 2)
+        else if (proc->unk_2E == UNK_SAVEMENU_1)
         {
-            ReadGameSave(SAVE_GAME0 + proc->unk_2B);
-            SetNextGameAction(GAME_ACTION_0 + proc->unk_2B);
+            ReadGameSave(SAVE_GAME0 + proc->selected_id);
+            SetNextGameAction(GAME_ACTION_0 + proc->selected_id);
         }
-        else if (proc->unk_2E == 0x10)
+        else if (proc->unk_2E == UNK_SAVEMENU_4)
         {
             SetNextGameAction(GAME_ACTION_0);
         }
-        else if (proc->unk_2E == 0x80)
+        else if (proc->unk_2E == UNK_SAVEMENU_7)
         {
             StartBgmVolumeChange(0x80, 0x100, 0x10, NULL);
             SetNextGameAction(GAME_ACTION_4);
@@ -1170,7 +1182,7 @@ void SaveMenu_Finish(struct SaveMenuProc * proc)
 
 void func_fe6_08089180(struct SaveMenuProc * proc)
 {
-    proc->unk_2E = 0x20;
+    proc->unk_2E = UNK_SAVEMENU_5;
 
     Proc_End(proc->unk_54);
     Proc_End(proc->unk_58);
@@ -1217,7 +1229,7 @@ PROC_LABEL(L_SAVEMENU_BEGIN),
     PROC_CALL(SaveMenu_InitDisplay),
     PROC_SLEEP(0),
 
-    PROC_CALL(func_fe6_08087E7C),
+    PROC_CALL(SaveMenu_PutScreen),
     PROC_CALL(func_fe6_08088094),
     PROC_CALL(func_fe6_08089550),
     PROC_SLEEP(0),
@@ -1283,7 +1295,7 @@ PROC_LABEL(L_SAVEMENU_13),
     PROC_CALL(SaveMenu_InitDisplay),
     PROC_SLEEP(0),
 
-    PROC_CALL(func_fe6_08087E7C),
+    PROC_CALL(SaveMenu_PutScreen),
     PROC_CALL(func_fe6_08088094),
     PROC_CALL(func_fe6_08089550),
     PROC_CALL(func_fe6_080891DC),
@@ -1308,7 +1320,7 @@ void func_fe6_08089200(ProcPtr parent)
 
     proc = SpawnProcLocking(ProcScr_SaveMenu, parent);
 
-    proc->unk_2E = 0x80;
+    proc->unk_2E = UNK_SAVEMENU_7;
     proc->unk_35 = 0;
 
     gPlaySt.config_talk_speed = 2;
@@ -1320,6 +1332,197 @@ void func_fe6_08089234(ProcPtr parent)
 
     proc = SpawnProcLocking(ProcScr_SaveMenu, parent);
 
-    proc->unk_2E = 0x40;
+    proc->unk_2E = UNK_SAVEMENU_6;
     proc->unk_35 = 0;
 }
+
+extern u16 gUnk_Savemenu_02000002[];
+
+struct SaveMenuUnkPalProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29;
+};
+
+void func_fe6_08089254(struct SaveMenuUnkPalProc * proc)
+{
+    int i;
+
+    proc->unk_29 = 0;
+
+    for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
+    {
+        gUnk_Savemenu_02000002[i] = gPal[i];
+    }
+}
+
+#if defined(NONMATCHING) && NONMATCHING
+
+void func_fe6_0808927C(struct SaveMenuUnkPalProc * proc)
+{
+    int i, r5 = proc->unk_29;
+
+    // TODO
+
+    for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
+    {
+        int b = (((gUnk_Savemenu_02000002[i] & (0x1F << 10)) * r5) >> 4) & (0x1F << 10);
+        int g = (((gUnk_Savemenu_02000002[i] & (0x1F << 5)) * r5) >> 4) & (0x1F << 5);
+        int r = (((gUnk_Savemenu_02000002[i] & (0x1F)) * r5) >> 4) & (0x1F);
+
+        gPal[i] = r | g | b;
+    }
+
+    EnablePalSync();
+
+    proc->unk_29++;
+
+    if (r5 == 0x10)
+        Proc_Break(proc);
+}
+
+#else
+
+NAKEDFUNC
+void func_fe6_0808927C(struct SaveMenuUnkPalProc * proc)
+{
+    // https://decomp.me/scratch/5JAGH
+
+    asm(".syntax unified\n\
+        push {r4, r5, r6, r7, lr}\n\
+        mov r7, sl\n\
+        mov r6, sb\n\
+        mov r5, r8\n\
+        push {r5, r6, r7}\n\
+        mov r8, r0\n\
+        adds r0, #0x29\n\
+        ldrb r5, [r0]\n\
+        movs r6, #0\n\
+        ldr r0, .L08089304 @ =gPal\n\
+        mov sl, r0\n\
+        movs r4, #0xf8\n\
+        lsls r4, r4, #7\n\
+        mov sb, r4\n\
+        ldr r0, .L08089308 @ =gUnk_Savemenu_02000002\n\
+        mov ip, r0\n\
+    .L0808929C:\n\
+        lsls r7, r6, #1\n\
+        mov r4, ip\n\
+        ldrh r1, [r4]\n\
+        mov r0, sb\n\
+        ands r0, r1\n\
+        muls r0, r5, r0\n\
+        asrs r2, r0, #4\n\
+        mov r0, sb\n\
+        ands r2, r0\n\
+        movs r4, #0xf8\n\
+        lsls r4, r4, #2\n\
+        adds r0, r4, #0\n\
+        ands r0, r1\n\
+        muls r0, r5, r0\n\
+        asrs r3, r0, #4\n\
+        ands r3, r4\n\
+        movs r4, #0x1f\n\
+        adds r0, r4, #0\n\
+        ands r0, r1\n\
+        muls r0, r5, r0\n\
+        asrs r0, r0, #4\n\
+        ands r0, r4\n\
+        mov r4, sl\n\
+        adds r1, r7, r4\n\
+        orrs r2, r3\n\
+        orrs r2, r0\n\
+        strh r2, [r1]\n\
+        movs r0, #2\n\
+        add ip, r0\n\
+        adds r6, #1\n\
+        ldr r0, .L0808930C @ =0x000001FF\n\
+        cmp r6, r0\n\
+        ble .L0808929C\n\
+        bl EnablePalSync\n\
+        mov r1, r8\n\
+        adds r1, #0x29\n\
+        ldrb r0, [r1]\n\
+        adds r0, #1\n\
+        strb r0, [r1]\n\
+        cmp r5, #0x10\n\
+        bne .L080892F6\n\
+        mov r0, r8\n\
+        bl Proc_Break\n\
+    .L080892F6:\n\
+        pop {r3, r4, r5}\n\
+        mov r8, r3\n\
+        mov sb, r4\n\
+        mov sl, r5\n\
+        pop {r4, r5, r6, r7}\n\
+        pop {r0}\n\
+        bx r0\n\
+        .align 2, 0\n\
+    .L08089304: .4byte gPal\n\
+    .L08089308: .4byte gUnk_Savemenu_02000002\n\
+    .L0808930C: .4byte 0x000001FF\n\
+        .syntax divided\n");
+}
+
+#endif // NONMATCHING
+
+void func_fe6_08089310(void);
+void func_fe6_080893D0(void);
+void func_fe6_08089490(void);
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A09C[] =
+{
+    PROC_CALL(func_fe6_08089254),
+    PROC_REPEAT(func_fe6_0808927C),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A0B4[] =
+{
+    PROC_CALL(func_fe6_08089254),
+    PROC_REPEAT(func_fe6_08089310),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A0CC[] =
+{
+    PROC_CALL(func_fe6_08089254),
+    PROC_REPEAT(func_fe6_080893D0),
+    PROC_END,
+};
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A0E4[] =
+{
+    PROC_CALL(func_fe6_08089254),
+    PROC_REPEAT(func_fe6_08089490),
+    PROC_END,
+};
+
+u16 CONST_DATA Sprite_0868A0FC[] =
+{
+    4,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x80) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(32), OAM2_CHR(0x81) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x81) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(96), OAM2_CHR(0x82) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A116[] =
+{
+    3,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x80) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(32), OAM2_CHR(0x81) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(64), OAM2_CHR(0x82) + OAM2_LAYER(1),
+};
+
+// unused?
+u16 CONST_DATA Sprite_0868A12A[] =
+{
+    6,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x80) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x82) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16, OAM2_CHR(0xA0) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(16), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0xA2) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16, OAM2_CHR(0xC0) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0xC2) + OAM2_LAYER(1),
+};

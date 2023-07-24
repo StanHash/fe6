@@ -1780,14 +1780,14 @@ void func_fe6_08082CBC(void);
 // func_fe6_080841EC
 // func_fe6_080841F8
 
-// func_fe6_08087C14
+// SaveMenuOnHBlank
 // func_fe6_08087C60
 // func_fe6_08087C78
 // func_fe6_08087CB0
 // func_fe6_08087CD4
 // SaveMenu_InitSong
 // SaveMenu_InitDisplay
-// func_fe6_08087E7C
+// SaveMenu_PutScreen
 // func_fe6_08088094
 // func_fe6_080881B8
 // func_fe6_080881C8

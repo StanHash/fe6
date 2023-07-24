@@ -58,6 +58,8 @@ SECTIONS
     ewram_overlay_1 (NOLOAD) : ALIGN(4)
     {
         . = 0x000000; gUnk_Savemenu_02000000 = .; /* savemenu */
+        . = 0x000002; gUnk_Savemenu_02000002 = .; /* savemenu */
+        . = 0x000402; /* pad 2 */
         . = 0x000404; gUnk_Savemenu_02000404 = .; /* savemenu */
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
