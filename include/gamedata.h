@@ -43,6 +43,27 @@ extern i8 CONST_DATA gUnk_Jinfo44_King[];
 extern i8 CONST_DATA TerrainHealAmountTable[];
 extern i8 CONST_DATA TerrainHealsStatusTable[];
 
+extern i8 CONST_DATA Terrain_BanimUnk_0860CC0F[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CC42[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CC75[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CCA8[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CCDB[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CD0E[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CD41[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CD74[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CDA7[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CDDA[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CE0D[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CE40[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CE73[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CEA6[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CED9[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CF0C[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CF3F[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CF72[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CFA5[];
+extern i8 CONST_DATA Terrain_BanimUnk_0860CFD8[];
+
 extern char const * CONST_DATA TerrainNameStringTable[];
 
 extern u8 CONST_DATA JList_HorseEffectiveness[];

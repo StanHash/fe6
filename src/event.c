@@ -2925,13 +2925,13 @@ struct WmEventFaceProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2A */ short faceSlot;
-    /* 2C */ short x;
-    /* 2E */ short y;
-    /* 30 */ short fid;
+    /* 2A */ i16 face_slot;
+    /* 2C */ i16 x;
+    /* 2E */ i16 y;
+    /* 30 */ i16 fid;
     /* 32 */ u16 disp;
-    /* 34 */ short xOffStart;
-    /* 36 */ short blendVal;
+    /* 34 */ i16 x_offset_start;
+    /* 36 */ i16 blend_value;
 };
 
 static void WmPutFace_OnInit(struct WmEventFaceProc * proc);
@@ -2957,7 +2957,7 @@ static int EvtCmd_WmPutFace(struct EventProc * proc)
 
     faceproc = SpawnProc(ProcScr_WmEventShowFace, proc);
 
-    faceproc->faceSlot = proc->script[0];
+    faceproc->face_slot = proc->script[0];
 
     faceproc->x = EVTCMD_GET_X(proc->script[1]);
     faceproc->y = EVTCMD_GET_Y(proc->script[1]);
@@ -2974,18 +2974,18 @@ static void WmPutFace_OnInit(struct WmEventFaceProc * proc)
     struct FaceProc * face;
 
     if (proc->x > DISPLAY_WIDTH/2)
-        proc->xOffStart = -0x20;
+        proc->x_offset_start = -0x20;
     else
-        proc->xOffStart = +0x20;
+        proc->x_offset_start = +0x20;
 
-    face = StartFace(proc->faceSlot, proc->fid, proc->x + proc->xOffStart, proc->y, proc->disp);
+    face = StartFace(proc->face_slot, proc->fid, proc->x + proc->x_offset_start, proc->y, proc->disp);
 
-    proc->blendVal = 0;
+    proc->blend_value = 0;
 
     disp = GetFaceDisp(face);
     SetFaceDisp(face, disp | FACE_DISP_BLEND);
 
-    SetBlendConfig(0, proc->blendVal, 0x10 - proc->blendVal, 0);
+    SetBlendConfig(0, proc->blend_value, 0x10 - proc->blend_value, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0); SetBlendBackdropB(1);
@@ -2993,16 +2993,16 @@ static void WmPutFace_OnInit(struct WmEventFaceProc * proc)
 
 static void WmPutFace_OnLoop(struct WmEventFaceProc * proc)
 {
-    int x_offset = Interpolate(INTERPOLATE_RSQUARE, proc->xOffStart, 0, proc->blendVal++, 0x10);
-    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
+    int x_offset = Interpolate(INTERPOLATE_RSQUARE, proc->x_offset_start, 0, proc->blend_value++, 0x10);
+    gFaces[proc->face_slot]->x_disp = proc->x + x_offset;
 
-    SetBlendConfig(0, proc->blendVal, 0x10 - proc->blendVal, 0);
+    SetBlendConfig(0, proc->blend_value, 0x10 - proc->blend_value, 0);
 
-    if (proc->blendVal >= 0x10)
+    if (proc->blend_value >= 0x10)
     {
-        int disp = GetFaceDisp(gFaces[proc->faceSlot]);
+        int disp = GetFaceDisp(gFaces[proc->face_slot]);
         disp &= ~FACE_DISP_BLEND;
-        SetFaceDisp(gFaces[proc->faceSlot], disp);
+        SetFaceDisp(gFaces[proc->face_slot], disp);
 
         Proc_Break(proc);
     }
@@ -3012,22 +3012,22 @@ static int EvtCmd_WmRemoveFace(struct EventProc * proc)
 {
     // script[0]: face slot
 
-    int faceSlot;
+    int face_slot;
     struct WmEventFaceProc * faceproc;
 
-    faceSlot = proc->script[0];
+    face_slot = proc->script[0];
 
     if (proc->flags & EVENT_FLAG_SKIPPED)
     {
-        EndFaceById(faceSlot);
+        EndFaceById(face_slot);
         return EVENT_CMDRET_CONTINUE;
     }
 
-    if (gFaces[faceSlot] == NULL)
+    if (gFaces[face_slot] == NULL)
         return EVENT_CMDRET_YIELD;
 
     faceproc = SpawnProc(ProcScr_WmEventHideFace, proc);
-    faceproc->faceSlot = faceSlot;
+    faceproc->face_slot = face_slot;
 
     return EVENT_CMDRET_CONTINUE;
 }
@@ -3037,21 +3037,21 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc * proc)
     int disp;
     struct FaceProc * face;
 
-    face = gFaces[proc->faceSlot];
+    face = gFaces[proc->face_slot];
 
     proc->x = face->x_disp;
 
     if (proc->x > DISPLAY_WIDTH/2)
-        proc->xOffStart = +0x10;
+        proc->x_offset_start = +0x10;
     else
-        proc->xOffStart = -0x10;
+        proc->x_offset_start = -0x10;
 
-    proc->blendVal = 0;
+    proc->blend_value = 0;
 
     disp = GetFaceDisp(face);
     SetFaceDisp(face, disp | FACE_DISP_BLEND);
 
-    SetBlendConfig(0, 0x10 - proc->blendVal, proc->blendVal, 0);
+    SetBlendConfig(0, 0x10 - proc->blend_value, proc->blend_value, 0);
 
     SetBlendTargetA(0, 0, 0, 0, 0);
     SetBlendTargetB(0, 0, 1, 0, 0); SetBlendBackdropB(1);
@@ -3059,18 +3059,18 @@ static void WmRemoveFace_OnInit(struct WmEventFaceProc * proc)
 
 static void WmRemoveFace_OnLoop(struct WmEventFaceProc * proc)
 {
-    int x_offset = Interpolate(INTERPOLATE_SQUARE, 0, proc->xOffStart, proc->blendVal++, 0x10);
-    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
+    int x_offset = Interpolate(INTERPOLATE_SQUARE, 0, proc->x_offset_start, proc->blend_value++, 0x10);
+    gFaces[proc->face_slot]->x_disp = proc->x + x_offset;
 
-    SetBlendConfig(0, 0x10 - proc->blendVal, proc->blendVal, 0);
+    SetBlendConfig(0, 0x10 - proc->blend_value, proc->blend_value, 0);
 
-    if (proc->blendVal >= 0x10)
+    if (proc->blend_value >= 0x10)
         Proc_Break(proc);
 }
 
 static void WmRemoveFace_OnEnd(struct WmEventFaceProc * proc)
 {
-    EndFaceById(proc->faceSlot);
+    EndFaceById(proc->face_slot);
 }
 
 static int EvtCmd_WmMoveFace(struct EventProc * proc)
@@ -3085,7 +3085,7 @@ static int EvtCmd_WmMoveFace(struct EventProc * proc)
 
     faceproc = SpawnProc(ProcScr_WmEventMoveFace, proc);
 
-    faceproc->faceSlot = proc->script[0];
+    faceproc->face_slot = proc->script[0];
     faceproc->x = EVTCMD_GET_X(proc->script[1]);
     faceproc->y = EVTCMD_GET_Y(proc->script[1]);
 
@@ -3094,17 +3094,17 @@ static int EvtCmd_WmMoveFace(struct EventProc * proc)
 
 static void WmMoveFace_OnInit(struct WmEventFaceProc * proc)
 {
-    proc->xOffStart = 0;
-    proc->blendVal = proc->x - gFaces[proc->faceSlot]->x_disp;
-    proc->x = gFaces[proc->faceSlot]->x_disp;
+    proc->x_offset_start = 0;
+    proc->blend_value = proc->x - gFaces[proc->face_slot]->x_disp;
+    proc->x = gFaces[proc->face_slot]->x_disp;
 }
 
 static void WmMoveFace_OnLoop(struct WmEventFaceProc * proc)
 {
-    int x_offset = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blendVal, proc->xOffStart++, 0x20);
-    gFaces[proc->faceSlot]->x_disp = proc->x + x_offset;
+    int x_offset = Interpolate(INTERPOLATE_RSQUARE, 0, proc->blend_value, proc->x_offset_start++, 0x20);
+    gFaces[proc->face_slot]->x_disp = proc->x + x_offset;
 
-    if (proc->xOffStart >= 0x20)
+    if (proc->x_offset_start >= 0x20)
         Proc_Break(proc);
 }
 

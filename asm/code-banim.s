@@ -14949,52 +14949,52 @@ func_fe6_08049C5C: @ 0x08049C5C
 	.4byte .L08049CD8 @ case 8
 	.4byte .L08049CE0 @ case 9
 .L08049CA0:
-	ldr r0, .L08049CA4 @ =gUnk_0860CC42
+	ldr r0, .L08049CA4 @ =Terrain_BanimUnk_0860CC42
 	b .L08049CEA
 	.align 2, 0
-.L08049CA4: .4byte gUnk_0860CC42
+.L08049CA4: .4byte Terrain_BanimUnk_0860CC42
 .L08049CA8:
-	ldr r0, .L08049CAC @ =gUnk_0860CC75
+	ldr r0, .L08049CAC @ =Terrain_BanimUnk_0860CC75
 	b .L08049CEA
 	.align 2, 0
-.L08049CAC: .4byte gUnk_0860CC75
+.L08049CAC: .4byte Terrain_BanimUnk_0860CC75
 .L08049CB0:
-	ldr r0, .L08049CB4 @ =gUnk_0860CCA8
+	ldr r0, .L08049CB4 @ =Terrain_BanimUnk_0860CCA8
 	b .L08049CEA
 	.align 2, 0
-.L08049CB4: .4byte gUnk_0860CCA8
+.L08049CB4: .4byte Terrain_BanimUnk_0860CCA8
 .L08049CB8:
-	ldr r0, .L08049CBC @ =gUnk_0860CCDB
+	ldr r0, .L08049CBC @ =Terrain_BanimUnk_0860CCDB
 	b .L08049CEA
 	.align 2, 0
-.L08049CBC: .4byte gUnk_0860CCDB
+.L08049CBC: .4byte Terrain_BanimUnk_0860CCDB
 .L08049CC0:
-	ldr r0, .L08049CC4 @ =gUnk_0860CD0E
+	ldr r0, .L08049CC4 @ =Terrain_BanimUnk_0860CD0E
 	b .L08049CEA
 	.align 2, 0
-.L08049CC4: .4byte gUnk_0860CD0E
+.L08049CC4: .4byte Terrain_BanimUnk_0860CD0E
 .L08049CC8:
-	ldr r0, .L08049CCC @ =gUnk_0860CD41
+	ldr r0, .L08049CCC @ =Terrain_BanimUnk_0860CD41
 	b .L08049CEA
 	.align 2, 0
-.L08049CCC: .4byte gUnk_0860CD41
+.L08049CCC: .4byte Terrain_BanimUnk_0860CD41
 .L08049CD0:
-	ldr r0, .L08049CD4 @ =gUnk_0860CD74
+	ldr r0, .L08049CD4 @ =Terrain_BanimUnk_0860CD74
 	b .L08049CEA
 	.align 2, 0
-.L08049CD4: .4byte gUnk_0860CD74
+.L08049CD4: .4byte Terrain_BanimUnk_0860CD74
 .L08049CD8:
-	ldr r0, .L08049CDC @ =gUnk_0860CDA7
+	ldr r0, .L08049CDC @ =Terrain_BanimUnk_0860CDA7
 	b .L08049CEA
 	.align 2, 0
-.L08049CDC: .4byte gUnk_0860CDA7
+.L08049CDC: .4byte Terrain_BanimUnk_0860CDA7
 .L08049CE0:
-	ldr r0, .L08049CE4 @ =gUnk_0860CDDA
+	ldr r0, .L08049CE4 @ =Terrain_BanimUnk_0860CDDA
 	b .L08049CEA
 	.align 2, 0
-.L08049CE4: .4byte gUnk_0860CDDA
+.L08049CE4: .4byte Terrain_BanimUnk_0860CDDA
 .L08049CE8:
-	ldr r0, .L08049CF8 @ =gUnk_0860CC0F
+	ldr r0, .L08049CF8 @ =Terrain_BanimUnk_0860CC0F
 .L08049CEA:
 	adds r0, r2, r0
 	ldrb r0, [r0]
@@ -15003,7 +15003,7 @@ func_fe6_08049C5C: @ 0x08049C5C
 	subs r0, #1
 	bx lr
 	.align 2, 0
-.L08049CF8: .4byte gUnk_0860CC0F
+.L08049CF8: .4byte Terrain_BanimUnk_0860CC0F
 
 	thumb_func_start func_fe6_08049CFC
 func_fe6_08049CFC: @ 0x08049CFC
@@ -15032,52 +15032,52 @@ func_fe6_08049CFC: @ 0x08049CFC
 	.4byte .L08049D78 @ case 8
 	.4byte .L08049D80 @ case 9
 .L08049D40:
-	ldr r0, .L08049D44 @ =gUnk_0860CE40
+	ldr r0, .L08049D44 @ =Terrain_BanimUnk_0860CE40
 	b .L08049D8A
 	.align 2, 0
-.L08049D44: .4byte gUnk_0860CE40
+.L08049D44: .4byte Terrain_BanimUnk_0860CE40
 .L08049D48:
-	ldr r0, .L08049D4C @ =gUnk_0860CE73
+	ldr r0, .L08049D4C @ =Terrain_BanimUnk_0860CE73
 	b .L08049D8A
 	.align 2, 0
-.L08049D4C: .4byte gUnk_0860CE73
+.L08049D4C: .4byte Terrain_BanimUnk_0860CE73
 .L08049D50:
-	ldr r0, .L08049D54 @ =gUnk_0860CEA6
+	ldr r0, .L08049D54 @ =Terrain_BanimUnk_0860CEA6
 	b .L08049D8A
 	.align 2, 0
-.L08049D54: .4byte gUnk_0860CEA6
+.L08049D54: .4byte Terrain_BanimUnk_0860CEA6
 .L08049D58:
-	ldr r0, .L08049D5C @ =gUnk_0860CED9
+	ldr r0, .L08049D5C @ =Terrain_BanimUnk_0860CED9
 	b .L08049D8A
 	.align 2, 0
-.L08049D5C: .4byte gUnk_0860CED9
+.L08049D5C: .4byte Terrain_BanimUnk_0860CED9
 .L08049D60:
-	ldr r0, .L08049D64 @ =gUnk_0860CF0C
+	ldr r0, .L08049D64 @ =Terrain_BanimUnk_0860CF0C
 	b .L08049D8A
 	.align 2, 0
-.L08049D64: .4byte gUnk_0860CF0C
+.L08049D64: .4byte Terrain_BanimUnk_0860CF0C
 .L08049D68:
-	ldr r0, .L08049D6C @ =gUnk_0860CF3F
+	ldr r0, .L08049D6C @ =Terrain_BanimUnk_0860CF3F
 	b .L08049D8A
 	.align 2, 0
-.L08049D6C: .4byte gUnk_0860CF3F
+.L08049D6C: .4byte Terrain_BanimUnk_0860CF3F
 .L08049D70:
-	ldr r0, .L08049D74 @ =gUnk_0860CF72
+	ldr r0, .L08049D74 @ =Terrain_BanimUnk_0860CF72
 	b .L08049D8A
 	.align 2, 0
-.L08049D74: .4byte gUnk_0860CF72
+.L08049D74: .4byte Terrain_BanimUnk_0860CF72
 .L08049D78:
-	ldr r0, .L08049D7C @ =gUnk_0860CFA5
+	ldr r0, .L08049D7C @ =Terrain_BanimUnk_0860CFA5
 	b .L08049D8A
 	.align 2, 0
-.L08049D7C: .4byte gUnk_0860CFA5
+.L08049D7C: .4byte Terrain_BanimUnk_0860CFA5
 .L08049D80:
-	ldr r0, .L08049D84 @ =gUnk_0860CFD8
+	ldr r0, .L08049D84 @ =Terrain_BanimUnk_0860CFD8
 	b .L08049D8A
 	.align 2, 0
-.L08049D84: .4byte gUnk_0860CFD8
+.L08049D84: .4byte Terrain_BanimUnk_0860CFD8
 .L08049D88:
-	ldr r0, .L08049D94 @ =gUnk_0860CE0D
+	ldr r0, .L08049D94 @ =Terrain_BanimUnk_0860CE0D
 .L08049D8A:
 	adds r0, r2, r0
 	ldrb r0, [r0]
@@ -15085,7 +15085,7 @@ func_fe6_08049CFC: @ 0x08049CFC
 	asrs r0, r0, #0x18
 	bx lr
 	.align 2, 0
-.L08049D94: .4byte gUnk_0860CE0D
+.L08049D94: .4byte Terrain_BanimUnk_0860CE0D
 
 	thumb_func_start func_fe6_08049D98
 func_fe6_08049D98: @ 0x08049D98

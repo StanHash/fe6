@@ -9,8 +9,8 @@ EventListScr CONST_DATA EventListScr_Chapter2_Turn[] =
 
 EventListScr CONST_DATA EventListScr_Chapter2_Talk[] =
 {
-    EvtListTalk(FLAG_CHAPTER2_VILLAGE, EventScr_Chapter2_DieckTalk, PID_ROY, PID_DIECK)
-    EvtListTalk(FLAG_CHAPTER2_VILLAGE, EventScr_Chapter2_DieckTalk, PID_DIECK, PID_ROY)
+    EvtListTalk(FLAG_CHAPTER2_ROYDIECKTALK, EventScr_Chapter2_DieckTalk, PID_ROY, PID_DIECK)
+    EvtListTalk(FLAG_CHAPTER2_ROYDIECKTALK, EventScr_Chapter2_DieckTalk, PID_DIECK, PID_ROY)
     EvtListEnd
 };
 

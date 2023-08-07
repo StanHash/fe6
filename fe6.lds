@@ -586,6 +586,8 @@ SECTIONS
         . = ALIGN(4); data/data-code-sio.o(.rodata);
         . = ALIGN(4); src/ui.o(.rodata);
         . = ALIGN(4); data/rodata_10F744.o(.rodata);
+        . = ALIGN(4); src/gamedata.o(.rodata);
+        . = ALIGN(4); data/rodata_279E60.o(.rodata);
         . = ALIGN(4); src/mu.o(.rodata);
         . = ALIGN(4); src/manim.o(.rodata);
         . = ALIGN(4); data/rodata_307544.o(.rodata);

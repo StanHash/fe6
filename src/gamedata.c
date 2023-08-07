@@ -12,7 +12,9 @@
 #include "constants/banim_pal.h"
 #include "constants/unitsprites.h"
 #include "constants/icons.h"
+#include "constants/terrains.h"
 
 #include "data/gamedata/pinfo.h"
 #include "data/gamedata/jinfo.h"
 #include "data/gamedata/iinfo.h"
+#include "data/gamedata/terrain_info.h"

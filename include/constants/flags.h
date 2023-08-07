@@ -44,7 +44,7 @@ enum
 
 enum
 {
-    FLAG_CHAPTER2_VILLAGE = 5,
+    FLAG_CHAPTER2_ROYDIECKTALK = 5,
 };
 
 enum
