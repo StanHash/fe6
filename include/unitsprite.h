@@ -1,14 +1,21 @@
-#pragma once
+#ifndef UNITSPRITE_H
+#define UNITSPRITE_H
 
 #include "common.h"
 
-enum
-{
-    UNITSPRITE_ID_BITS = 7,
-    UNITSPRITE_NOTANIMATED = 1 << UNITSPRITE_ID_BITS, // or that to any map sprite id to have it not animate
+// TODO: CHR_LINE and CHR_SIZE in appropriate headers
+#include "constants/videoalloc_global.h"
 
-    UNITSPRITE_MAX = 0xD0,
-};
+#define UNITSPRITE_ID_BITS 7
+
+// or that to any map sprite id to have it not animate
+#define UNITSPRITE_NOTANIMATED (1 << UNITSPRITE_ID_BITS)
+
+#define UNITSPRITE_MAX 0xD0
+#define UNITSPRITE_SIMULATANEOUS_MAX 100
+
+#define UNITSPRITE_SHEET_LINES 8
+#define UNITSPRITE_SHEET_SIZE (UNITSPRITE_SHEET_LINES * CHR_LINE * CHR_SIZE)
 
 enum
 {
@@ -20,9 +27,9 @@ enum
 struct UnitSprite
 {
     /* 00 */ struct UnitSprite * next;
-    /* 04 */ short x, y;
+    /* 04 */ i16 x, y;
     /* 08 */ u16 oam2;
-    /* 0A */ u8 unk_0A;
+    /* 0A */ STRUCT_PAD(0x0A, 0x0B);
     /* 0B */ i8 config;
 };
 
@@ -37,7 +44,7 @@ void func_fe6_08021B88(void);
 void ApplyUnitSpritePalettes(void);
 void ResetUnitSprites(void);
 void ResetUnitSpritesB(void);
-int UseUnitSprite(unsigned id);
+int UseUnitSprite(u32 id);
 void SyncUnitSpriteSheet(void);
 void ForceSyncUnitSpriteSheet(void);
 int GetUnitDisplayedSpritePalette(struct Unit * unit);
@@ -56,3 +63,27 @@ void func_fe6_08022A2C(void);
 void HideUnitSprite(struct Unit * unit);
 void ShowUnitSprite(struct Unit * unit);
 u8 GetUnitSpriteHiddenFlag(struct Unit * unit);
+
+struct UnitSprite * AddUnitSprite(int y);
+
+extern struct UnitSpriteInfo CONST_DATA UnitSpriteTable[];
+
+extern u8 EWRAM_DATA gUnitSpriteSlots[UNITSPRITE_MAX];
+
+extern u8 EWRAM_DATA gUnitSpriteBuf[3][UNITSPRITE_SHEET_SIZE];
+
+extern int EWRAM_DATA gUnitSpriteSmallAllocCount;
+extern int EWRAM_DATA gUnitSpriteLargeAllocCount;
+
+extern struct UnitSprite EWRAM_DATA gUnitSprites[UNITSPRITE_SIMULATANEOUS_MAX];
+extern struct UnitSprite * EWRAM_DATA gNextFreeUnitSprite;
+
+extern int EWRAM_DATA gUnitSpriteSyncRequest;
+
+extern int EWRAM_DATA gUnitSpriteHoverClock;
+
+extern u8 * CONST_DATA UnitSpriteUnpackBuf;
+
+#define GetUnitSpriteInfo(id) (UnitSpriteTable[(id) & ((1 << UNITSPRITE_ID_BITS) - 1)])
+
+#endif // UNITSPRITE_H
