@@ -40,6 +40,7 @@
 #include "constants/jids.h"
 #include "constants/icons.h"
 #include "constants/songs.h"
+#include "constants/msg.h"
 
 extern u16 gChapterIntroMotifTmBuf[];
 
@@ -805,7 +806,7 @@ void HandleGiveUnitItem(struct Unit * unit, int item, ProcPtr parent)
 
         StartFace(0, GetUnitFid(unit), 22*8, 4, FACE_DISP_KIND(FACE_96x80));
         StartEquipInfoWindow(parent, unit, 15, 10);
-        StartSubtitleHelp(parent, DecodeMsg(0xC26)); // TODO: msgids
+        StartSubtitleHelp(parent, DecodeMsg(MSG_C26));
 
         SpawnProcLocking(ProcScr_DiscardItem, parent);
     }

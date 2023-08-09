@@ -74,6 +74,7 @@ static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
         {
             int width;
 
+            // NOTE: this assumes characters are always encoded on two bytes
             it -= 2;
             line += 1;
 
