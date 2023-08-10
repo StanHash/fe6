@@ -149,7 +149,7 @@ void Text_SetParams(struct Text * text, int x, int color);
 void PutText(struct Text * text, u16 * tm);
 void PutBlankText(struct Text * text, u16 * tm);
 int GetStringTextLen(char const * str);
-char const * GetCharTextLen(char const * str, int * out_width);
+char const * GetCharTextLen(char const * str, i32 * out_width);
 int GetStringTextCenteredPos(int area_length, char const * str);
 void GetStringTextBox(char const * str, int * out_width, int * out_height);
 char const * GetStringLineEnd(char const * str);

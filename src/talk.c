@@ -1811,7 +1811,7 @@ int GetStrTalkLen(char const * str, bool isBubbleOpen)
     int speakFace = sTalkSt->speak_talk_face;
     int activeFace = sTalkSt->active_talk_face;
 
-    int chrlen;
+    i32 chrlen;
 
     int currentLineLen = 0;
     int maxLineLen = 24;

@@ -291,7 +291,7 @@ int GetStringTextLen(char const * str)
     return result;
 }
 
-char const * GetCharTextLen(char const * str, int * out_width)
+char const * GetCharTextLen(char const * str, i32 * out_width)
 {
     struct Glyph const * glyph;
     char byte2, byte1;

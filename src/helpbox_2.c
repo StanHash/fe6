@@ -1068,7 +1068,7 @@ void func_fe6_08071BC0(int x, int y, int msg, ProcPtr parent, u8 pal)
 
 void func_fe6_08071C00(char const * str, int * out_w, int * out_h)
 {
-    int char_width;
+    i32 char_width;
     int w = 0, h = 16;
 
     *out_w = 0;
@@ -1134,7 +1134,7 @@ void func_fe6_08071C00(char const * str, int * out_w, int * out_h)
 
 void func_fe6_08071C8C(char const * str, u8 * out_x, u8 * out_y)
 {
-    int char_width;
+    i32 char_width;
     int x = 0, y = 0;
 
     char const * it = str;

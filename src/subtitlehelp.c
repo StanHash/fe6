@@ -10,20 +10,7 @@
 
 #include "constants/videoalloc_global.h"
 
-struct SubtitleHelpProc
-{
-    /* 00 */ PROC_HEADER;
-
-    /* 2C */ char const * string;
-    /* 30 */ struct Font font;
-    /* 48 */ struct Text text[2];
-    /* 58 */ short textOffset;
-    /* 5A */ short textShowCnt;
-    /* 5C */ short textNum;
-    /* 5E */ short textCount;
-};
-
-static void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
+void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
 {
     static u16 lut[] =
     {
@@ -35,15 +22,15 @@ static void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
 
     for (i = 0; i < 9; ++i)
     {
-        int x = i*32 - 32 + proc->textOffset;
-        int num = (proc->textNum + i) % proc->textCount;
+        int x = i*32 - 32 + proc->text_offset;
+        int num = (proc->text_num + i) % proc->text_count;
 
         PutSprite(2, x, y,
             Sprite_32x16, OAM2_CHR(OBJCHR_SUBTITLEHELP_TEXT) + OAM2_PAL(OBJPAL_SUBTITLEHELP_TEXT) + lut[num]);
     }
 }
 
-static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
+void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
 {
     enum { TEXT_WIDTH = DISPLAY_WIDTH-16 };
 
@@ -72,7 +59,7 @@ static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
 
         if (Text_GetCursor(proc->text+line) > TEXT_WIDTH)
         {
-            int width;
+            i32 width;
 
             // NOTE: this assumes characters are always encoded on two bytes
             it -= 2;
@@ -85,13 +72,13 @@ static void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
         }
     }
 
-    proc->textCount = ((GetStringTextLen(proc->string)+16) >> 5) + 1;
-    proc->textNum = proc->textCount - 1;
+    proc->text_count = ((GetStringTextLen(proc->string)+16) >> 5) + 1;
+    proc->text_num = proc->text_count - 1;
 
     SetTextFont(NULL);
 }
 
-static void SubtitleHelpDarkenerOnHBlank(void)
+void SubtitleHelpDarkenerOnHBlank(void)
 {
     static u8 bldyLut[] =
     {
@@ -124,19 +111,19 @@ static void SubtitleHelpDarkenerOnHBlank(void)
     }
 }
 
-static void SubtitleHelpDarkener_Init(ProcPtr proc)
+void SubtitleHelpDarkener_Init(ProcPtr proc)
 {
     gBmSt.alt_blend_a_ca = 8;
     SetOnHBlankA(SubtitleHelpDarkenerOnHBlank);
 }
 
-static void SubtitleHelpDarkener_FadeIn(ProcPtr proc)
+void SubtitleHelpDarkener_FadeIn(ProcPtr proc)
 {
     if (gBmSt.alt_blend_a_ca != 0)
         gBmSt.alt_blend_a_ca -= 1;
 }
 
-static void SubtitleHelpDarkener_FadeOut(ProcPtr proc)
+void SubtitleHelpDarkener_FadeOut(ProcPtr proc)
 {
     gBmSt.alt_blend_a_ca += 1;
 
@@ -158,15 +145,15 @@ struct ProcScr CONST_DATA ProcScr_SubtitleHelpDarkener[] =
     PROC_END,
 };
 
-static void SubtitleHelp_Init(struct SubtitleHelpProc * proc)
+void SubtitleHelp_Init(struct SubtitleHelpProc * proc)
 {
-    proc->textOffset = 31;
-    proc->textShowCnt = 6;
+    proc->text_offset = 31;
+    proc->text_show_clock = 6;
 
     SpawnProc(ProcScr_SubtitleHelpDarkener, PROC_TREE_3);
 }
 
-static void SubtitleHelp_OnEnd(struct SubtitleHelpProc * proc)
+void SubtitleHelp_OnEnd(struct SubtitleHelpProc * proc)
 {
     gBmSt.camera_max.y -= 16;
     CameraMove_08016290(NULL);
@@ -174,24 +161,24 @@ static void SubtitleHelp_OnEnd(struct SubtitleHelpProc * proc)
     Proc_BreakEach(ProcScr_SubtitleHelpDarkener);
 }
 
-static void SubtitleHelp_Loop(struct SubtitleHelpProc * proc)
+void SubtitleHelp_Loop(struct SubtitleHelpProc * proc)
 {
     static u8 lut[] =
     {
         144, 145, 146, 148, 150, 153, 156,
     };
 
-    PutSubtitleHelpText(proc, lut[proc->textShowCnt]);
+    PutSubtitleHelpText(proc, lut[proc->text_show_clock]);
 
-    if (proc->textShowCnt != 0)
-        proc->textShowCnt--;
+    if (proc->text_show_clock != 0)
+        proc->text_show_clock--;
 
-    proc->textOffset--;
+    proc->text_offset--;
 
-    if (proc->textOffset < 0)
+    if (proc->text_offset < 0)
     {
-        proc->textOffset = 31;
-        proc->textNum++;
+        proc->text_offset = 31;
+        proc->text_num++;
     }
 }
 
