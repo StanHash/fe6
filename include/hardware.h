@@ -235,9 +235,15 @@ extern struct DispIo gDispIo;
 
 extern i16 SHOULD_BE_CONST gSinLut[];
 
+// TODO: unify use of RGB5 instead of RGB for colors
+
 #define RGB_GET_RED(color) ((color) & 0x1F)
 #define RGB_GET_GREEN(color) (((color) >> 5) & 0x1F)
 #define RGB_GET_BLUE(color) (((color) >> 10) & 0x1F)
+
+#define RGB5_MASK_R (0x1F << 0)
+#define RGB5_MASK_G (0x1F << 5)
+#define RGB5_MASK_B (0x1F << 10)
 
 #define TM_OFFSET(x, y) (((y) << 5) + (x))
 

@@ -91,6 +91,12 @@ struct SaveMenuProc
     /* 5C */ ProcPtr unk_5C; // sprite anim proc
 };
 
+struct SaveMenuUnkPalProc
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ u8 unk_29;
+};
+
 extern u16 const gUnk_083278AC[]; // pal x2
 extern u8 const gUnk_083278EC[]; // tsa
 extern u16 const gUnk_0832BDE8[]; // pal x8
@@ -122,6 +128,7 @@ void func_fe6_08089578(ProcPtr parent);
 
 extern u16 const gUnk_0832C35C[];
 extern u16 gUnk_Savemenu_02000000;
+extern u16 gUnk_Savemenu_02000002[];
 extern u16 gUnk_Savemenu_02000404[];
 
 extern char const gUnk_08336C60[]; // string
@@ -1336,14 +1343,6 @@ void func_fe6_08089234(ProcPtr parent)
     proc->unk_35 = 0;
 }
 
-extern u16 gUnk_Savemenu_02000002[];
-
-struct SaveMenuUnkPalProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ u8 unk_29;
-};
-
 void func_fe6_08089254(struct SaveMenuUnkPalProc * proc)
 {
     int i;
@@ -1356,119 +1355,140 @@ void func_fe6_08089254(struct SaveMenuUnkPalProc * proc)
     }
 }
 
-#if defined(NONMATCHING) && NONMATCHING
-
 void func_fe6_0808927C(struct SaveMenuUnkPalProc * proc)
 {
-    int i, r5 = proc->unk_29;
+    #define SCALE 0x10
 
-    // TODO
+    int i;
+    fu8 coef = proc->unk_29;
 
     for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
     {
-        int b = (((gUnk_Savemenu_02000002[i] & (0x1F << 10)) * r5) >> 4) & (0x1F << 10);
-        int g = (((gUnk_Savemenu_02000002[i] & (0x1F << 5)) * r5) >> 4) & (0x1F << 5);
-        int r = (((gUnk_Savemenu_02000002[i] & (0x1F)) * r5) >> 4) & (0x1F);
+        int b_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_B) * coef;
+        int b_out = (b_scaled / SCALE) & RGB5_MASK_B;
 
-        gPal[i] = r | g | b;
+        int g_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_G) * coef;
+        int g_out = (g_scaled / SCALE) & RGB5_MASK_G;
+
+        int r_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_R) * coef;
+        int r_out = (r_scaled / SCALE) & RGB5_MASK_R;
+
+        gPal[i] = b_out | g_out | r_out;
     }
 
     EnablePalSync();
 
     proc->unk_29++;
 
-    if (r5 == 0x10)
+    if (coef == SCALE)
+    {
         Proc_Break(proc);
+    }
+
+    #undef SCALE
 }
 
-#else
-
-NAKEDFUNC
-void func_fe6_0808927C(struct SaveMenuUnkPalProc * proc)
+void func_fe6_08089310(struct SaveMenuUnkPalProc * proc)
 {
-    // https://decomp.me/scratch/5JAGH
+    #define SCALE 0x10
 
-    asm(".syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        mov r7, sl\n\
-        mov r6, sb\n\
-        mov r5, r8\n\
-        push {r5, r6, r7}\n\
-        mov r8, r0\n\
-        adds r0, #0x29\n\
-        ldrb r5, [r0]\n\
-        movs r6, #0\n\
-        ldr r0, .L08089304 @ =gPal\n\
-        mov sl, r0\n\
-        movs r4, #0xf8\n\
-        lsls r4, r4, #7\n\
-        mov sb, r4\n\
-        ldr r0, .L08089308 @ =gUnk_Savemenu_02000002\n\
-        mov ip, r0\n\
-    .L0808929C:\n\
-        lsls r7, r6, #1\n\
-        mov r4, ip\n\
-        ldrh r1, [r4]\n\
-        mov r0, sb\n\
-        ands r0, r1\n\
-        muls r0, r5, r0\n\
-        asrs r2, r0, #4\n\
-        mov r0, sb\n\
-        ands r2, r0\n\
-        movs r4, #0xf8\n\
-        lsls r4, r4, #2\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        muls r0, r5, r0\n\
-        asrs r3, r0, #4\n\
-        ands r3, r4\n\
-        movs r4, #0x1f\n\
-        adds r0, r4, #0\n\
-        ands r0, r1\n\
-        muls r0, r5, r0\n\
-        asrs r0, r0, #4\n\
-        ands r0, r4\n\
-        mov r4, sl\n\
-        adds r1, r7, r4\n\
-        orrs r2, r3\n\
-        orrs r2, r0\n\
-        strh r2, [r1]\n\
-        movs r0, #2\n\
-        add ip, r0\n\
-        adds r6, #1\n\
-        ldr r0, .L0808930C @ =0x000001FF\n\
-        cmp r6, r0\n\
-        ble .L0808929C\n\
-        bl EnablePalSync\n\
-        mov r1, r8\n\
-        adds r1, #0x29\n\
-        ldrb r0, [r1]\n\
-        adds r0, #1\n\
-        strb r0, [r1]\n\
-        cmp r5, #0x10\n\
-        bne .L080892F6\n\
-        mov r0, r8\n\
-        bl Proc_Break\n\
-    .L080892F6:\n\
-        pop {r3, r4, r5}\n\
-        mov r8, r3\n\
-        mov sb, r4\n\
-        mov sl, r5\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    .L08089304: .4byte gPal\n\
-    .L08089308: .4byte gUnk_Savemenu_02000002\n\
-    .L0808930C: .4byte 0x000001FF\n\
-        .syntax divided\n");
+    int i;
+    fu8 coef = SCALE - proc->unk_29;
+
+    for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
+    {
+        int b_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_B) * coef;
+        int b_out = (b_scaled / SCALE) & RGB5_MASK_B;
+
+        int g_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_G) * coef;
+        int g_out = (g_scaled / SCALE) & RGB5_MASK_G;
+
+        int r_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_R) * coef;
+        int r_out = (r_scaled / SCALE) & RGB5_MASK_R;
+
+        gPal[i] = b_out | g_out | r_out;
+    }
+
+    EnablePalSync();
+
+    proc->unk_29++;
+
+    if (coef == 0)
+    {
+        SetDispEnable(0, 0, 0, 0, 0);
+        Proc_Break(proc);
+    }
+
+    #undef SCALE
 }
 
-#endif // NONMATCHING
+void func_fe6_080893D0(struct SaveMenuUnkPalProc * proc)
+{
+    #define SCALE 0x20
 
-void func_fe6_08089310(void);
-void func_fe6_080893D0(void);
-void func_fe6_08089490(void);
+    int i;
+    fu8 coef = SCALE - proc->unk_29;
+
+    for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
+    {
+        int b_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_B) * coef;
+        int b_out = (b_scaled / SCALE) & RGB5_MASK_B;
+
+        int g_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_G) * coef;
+        int g_out = (g_scaled / SCALE) & RGB5_MASK_G;
+
+        int r_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_R) * coef;
+        int r_out = (r_scaled / SCALE) & RGB5_MASK_R;
+
+        gPal[i] = b_out | g_out | r_out;
+    }
+
+    EnablePalSync();
+
+    proc->unk_29++;
+
+    if (coef == 0)
+    {
+        SetDispEnable(0, 0, 0, 0, 0);
+        Proc_Break(proc);
+    }
+
+    #undef SCALE
+}
+
+void func_fe6_08089490(struct SaveMenuUnkPalProc * proc)
+{
+    #define SCALE 0x40
+
+    int i;
+    fu8 coef = SCALE - proc->unk_29;
+
+    for (i = 0; i < (int)ARRAY_COUNT(gPal); i++)
+    {
+        int b_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_B) * coef;
+        int b_out = (b_scaled / SCALE) & RGB5_MASK_B;
+
+        int g_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_G) * coef;
+        int g_out = (g_scaled / SCALE) & RGB5_MASK_G;
+
+        int r_scaled = (gUnk_Savemenu_02000002[i] & RGB5_MASK_R) * coef;
+        int r_out = (r_scaled / SCALE) & RGB5_MASK_R;
+
+        gPal[i] = b_out | g_out | r_out;
+    }
+
+    EnablePalSync();
+
+    proc->unk_29++;
+
+    if (coef == 0)
+    {
+        SetDispEnable(0, 0, 0, 0, 0);
+        Proc_Break(proc);
+    }
+
+    #undef SCALE
+}
 
 struct ProcScr CONST_DATA ProcScr_Unk_0868A09C[] =
 {
@@ -1477,12 +1497,22 @@ struct ProcScr CONST_DATA ProcScr_Unk_0868A09C[] =
     PROC_END,
 };
 
+void func_fe6_08089550(ProcPtr parent)
+{
+    SpawnProcLocking(ProcScr_Unk_0868A09C, parent);
+}
+
 struct ProcScr CONST_DATA ProcScr_Unk_0868A0B4[] =
 {
     PROC_CALL(func_fe6_08089254),
     PROC_REPEAT(func_fe6_08089310),
     PROC_END,
 };
+
+void func_fe6_08089564(ProcPtr parent)
+{
+    SpawnProcLocking(ProcScr_Unk_0868A0B4, parent);
+}
 
 struct ProcScr CONST_DATA ProcScr_Unk_0868A0CC[] =
 {
@@ -1491,12 +1521,22 @@ struct ProcScr CONST_DATA ProcScr_Unk_0868A0CC[] =
     PROC_END,
 };
 
+void func_fe6_08089578(ProcPtr parent)
+{
+    SpawnProcLocking(ProcScr_Unk_0868A0CC, parent);
+}
+
 struct ProcScr CONST_DATA ProcScr_Unk_0868A0E4[] =
 {
     PROC_CALL(func_fe6_08089254),
     PROC_REPEAT(func_fe6_08089490),
     PROC_END,
 };
+
+void func_fe6_0808958C(ProcPtr parent)
+{
+    SpawnProcLocking(ProcScr_Unk_0868A0E4, parent);
+}
 
 u16 CONST_DATA Sprite_0868A0FC[] =
 {
