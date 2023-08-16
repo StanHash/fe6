@@ -1,10 +1,10 @@
     .data
 
-    .incbin "fe6-base.gba", 0x60D0D8, (0x66074C - 0x60D0D8) @ length: ????
+    .incbin "fe6-base.gba", 0x60D0D8, (0x66075C - 0x60D0D8) @ length: ????
 
     .global FaceInfoTable
-FaceInfoTable: @ 0866074C
-    .incbin "fe6-base.gba", 0x66074C, (0x6615BC - 0x66074C) @ length: 0E70
+FaceInfoTable: @ 0866075C
+    .incbin "fe6-base.gba", 0x66075C, (0x6615BC - 0x66075C) @ length: 0E60
 
     .global JList_HorseEffectiveness
 JList_HorseEffectiveness: @ 086615BC

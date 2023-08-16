@@ -67,6 +67,8 @@ struct Vec2u
 // Forward decls for common types
 // TODO: move
 
+struct FaceInfo;
+
 struct BmSt;
 struct PlaySt;
 

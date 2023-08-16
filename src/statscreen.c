@@ -10,6 +10,7 @@
 #include "icon.h"
 #include "sprite.h"
 #include "text.h"
+#include "face.h"
 #include "msg.h"
 #include "util.h"
 #include "item.h"

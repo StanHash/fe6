@@ -1496,7 +1496,7 @@ static void StartOpenTalkBubble(void)
 
 static void TalkOpenBubble_OnIdle(struct GenericProc * proc)
 {
-    u8 const * imgLut[] =
+    u8 const * img_list[] =
     {
         Img_TalkBubbleOpeningA,
         Img_TalkBubbleOpeningB,
@@ -1504,16 +1504,16 @@ static void TalkOpenBubble_OnIdle(struct GenericProc * proc)
         Img_TalkBubbleOpeningD,
         Img_TalkBubbleOpeningE,
         Img_TalkBubble,
-        NULL
+        NULL,
     };
 
     if ((proc->unk64++) & 1)
         return;
 
-    Decompress(imgLut[proc->unk64 >> 1],
+    Decompress(img_list[proc->unk64 >> 1],
         (u8 *) VRAM + GetBgChrOffset(1) + 0x10 * CHR_SIZE);
 
-    if (imgLut[(proc->unk64 >> 1) + 1] == NULL)
+    if (img_list[(proc->unk64 >> 1) + 1] == NULL)
         Proc_Break(proc);
 }
 

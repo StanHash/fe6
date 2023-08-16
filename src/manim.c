@@ -9,6 +9,7 @@
 #include "sprite.h"
 #include "sound.h"
 #include "text.h"
+#include "face.h"
 #include "event.h"
 #include "msg.h"
 #include "util.h"

@@ -5,7 +5,6 @@
 
 #include "proc.h"
 #include "text.h"
-#include "face.h"
 #include "menu.h"
 #include "mapselect.h"
 

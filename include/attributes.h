@@ -18,7 +18,7 @@
 #  define SHOULD_BE_CONST const
 #else
 #  define CONST_DATA SECTION(".data")
-#  define COMMON_DATA(name) SECTION(".common." # name)
+#  define COMMON_DATA(name) SECTION("COMMON." # name)
 #  define SHOULD_BE_STATIC
 #  define SHOULD_BE_CONST
 #endif

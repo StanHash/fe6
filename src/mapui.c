@@ -6,6 +6,7 @@
 #include "proc.h"
 #include "icon.h"
 #include "sprite.h"
+#include "face.h"
 #include "debugtext.h" // GenNumberStr, gNumberStr
 #include "msg.h"
 #include "util.h"
