@@ -55,12 +55,10 @@ SECTIONS
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
     . = __ewram_overlay_beg;
-    ewram_overlay_1 (NOLOAD) : ALIGN(4)
+    ewram_overlay_savemenu (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; gUnk_Savemenu_02000000 = .; /* savemenu */
-        . = 0x000002; gUnk_Savemenu_02000002 = .; /* savemenu */
-        . = 0x000402; /* pad 2 */
-        . = 0x000404; gUnk_Savemenu_02000404 = .; /* savemenu */
+        . = ALIGN(4); src/savemenu.o(ewram_overlay_savemenu);
+        . = ALIGN(4); src/savemenu_2.o(ewram_overlay_savemenu);
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);
 
@@ -508,6 +506,7 @@ SECTIONS
         src/save_xmap.o(.text);
         src/minimap.o(.text);
         src/savemenu.o(.text);
+        src/savemenu_2.o(.text);
 
         asm/code.o(.text);
 
@@ -601,6 +600,7 @@ SECTIONS
         . = ALIGN(4); src/minimap.o(.rodata);
         . = ALIGN(4); data/rodata_3278AC.o(.rodata);
         . = ALIGN(4); src/savemenu.o(.rodata);
+        . = ALIGN(4); src/savemenu_2.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
@@ -679,6 +679,7 @@ SECTIONS
         . = ALIGN(4); src/save_xmap.o(.data);
         . = ALIGN(4); src/minimap.o(.data);
         . = ALIGN(4); src/savemenu.o(.data);
+        . = ALIGN(4); src/savemenu_2.o(.data);
         . = ALIGN(4); data/data.o(.data);
 
         . = ALIGN(4); FILL(0xFF);

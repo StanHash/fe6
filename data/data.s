@@ -1,20 +1,6 @@
 	.data
 
-	.global gUnk_0868A2CC
-gUnk_0868A2CC: @ 0868A2CC
-	.incbin "fe6-base.gba", 0x68A2CC, (0x68A2EC - 0x68A2CC) @ length: 0020
-
-	.global gUnk_0868A2EC
-gUnk_0868A2EC: @ 0868A2EC
-	.incbin "fe6-base.gba", 0x68A2EC, (0x68A308 - 0x68A2EC) @ length: 001C
-
-	.global gUnk_0868A308
-gUnk_0868A308: @ 0868A308
-	.incbin "fe6-base.gba", 0x68A308, (0x68A328 - 0x68A308) @ length: 0020
-
-	.global gUnk_0868A328
-gUnk_0868A328: @ 0868A328
-	.incbin "fe6-base.gba", 0x68A328, (0x68A4F8 - 0x68A328) @ length: 01D0
+	.incbin "fe6-base.gba", 0x68A348, (0x68A4F8 - 0x68A348) @ length: 01B0
 
 	.global gUnk_0868A4F8
 gUnk_0868A4F8: @ 0868A4F8

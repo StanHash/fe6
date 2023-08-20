@@ -10275,7 +10275,7 @@ func_fe6_0807B28C: @ 0x0807B28C
 	bl StartBgmVolumeChange
 	bl InitPlayerDeployUnitPositions
 	adds r0, r4, #0
-	bl func_fe6_08089234
+	bl StartSaveMenu
 	b .L0807B350
 .L0807B328:
 	ldr r0, [r4, #0x58]

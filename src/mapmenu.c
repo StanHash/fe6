@@ -30,6 +30,7 @@
 #include "eventinfo.h"
 #include "helpbox.h"
 #include "statusscreen.h"
+#include "savemenu.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/terrains.h"
@@ -153,7 +154,7 @@ fu8 MapMenu_Status_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801EAE4(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    func_fe6_08089234(PROC_TREE_3);
+    StartSaveMenu(PROC_TREE_3);
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
 

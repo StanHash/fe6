@@ -20,6 +20,7 @@
 #include "save_core.h"
 #include "save_stats.h"
 #include "save_game.h"
+#include "savemenu.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -511,7 +512,7 @@ fu8 func_fe6_0801AD28(struct MenuProc * menu, struct MenuEntProc * ent)
 
 fu8 func_fe6_0801AD3C(struct MenuProc * menu, struct MenuEntProc * ent)
 {
-    func_fe6_08089234(PROC_TREE_3);
+    StartSaveMenu(PROC_TREE_3);
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }

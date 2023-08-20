@@ -1,8 +1,8 @@
 - clean up: ai_080326C4, manim, eventfunctions, statusscreen
 - dump: gamedata
 - tools: msg, face, unitinfo, banim
-- decomp: prepscreen might be good to do next > everything else > code_banim > code_sio
+- decomp: unitlistscreen needs matches and finish.
 
 - flatten dir structure (include/gba -> include)
 - name remaining ewram symbols
-- clean up hard asm (not decompilable) in asm/ and move them to src/
+- clean up hard asm (not decompilable) in asm/ and move them to src/ (NOTE: port from fe7_us)
