@@ -15,7 +15,6 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 | `chapter.c`  | `CleanupUnitsBeforeChapter` | `O2` | annoying register swaps in the else block regarding constant loads for unit->flags changes
 | `unitlistscreen.c` | `func_fe6_08075E94` | `O2` | https://decomp.me/scratch/sjiAE - reg swap + wrong loop constant load order
 | `unitlistscreen.c` | `func_fe6_08076060` | `O2` |
-| `savemenu.c` | `func_fe6_0808927C` | `O2` | color mod loop
 
 ## List of fake-matching functions in fe6
 

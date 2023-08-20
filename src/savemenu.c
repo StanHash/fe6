@@ -5,6 +5,7 @@
 #include "hardware.h"
 #include "oam.h"
 #include "sound.h"
+#include "sprite.h"
 #include "spriteanim.h"
 #include "gamecontroller.h"
 #include "util.h"
@@ -26,6 +27,9 @@ enum
     OBJCHR_SAVEMENU_200 = 0x200,
 
     OBJPAL_SAVEMENU_9 = 9,
+
+    OBJPAL_SAVEMENU_1 = 1,
+    OBJPAL_SAVEMENU_2 = 2,
 };
 
 enum
@@ -85,7 +89,8 @@ struct SaveMenuProc
     /* 3F */ u8 unk_3F;
     /* 40 */ u16 unk_40;
     /* 42 */ u16 unk_42;
-    /* 44 */ STRUCT_PAD(0x44, 0x54);
+    /* 44 */ u32 unk_44[3]; // time value
+    /* 50 */ u32 unk_50; // time value
     /* 54 */ ProcPtr unk_54;
     /* 58 */ ProcPtr unk_58;
     /* 5C */ ProcPtr unk_5C; // sprite anim proc
@@ -1538,6 +1543,52 @@ void func_fe6_0808958C(ProcPtr parent)
     SpawnProcLocking(ProcScr_Unk_0868A0E4, parent);
 }
 
+void func_fe6_080895A0(u16 const * src, u16 * dst, int count)
+{
+    int i;
+
+    for (i = 0; i < count * 0x10; i++)
+        dst[i] = src[i];
+}
+
+void func_fe6_080895B8(u32 point)
+{
+    int i;
+
+    point = point % 0x40;
+
+    if ((point & 0x20) != 0)
+        point = 0x20 - (point % 0x20);
+
+    for (i = 1; i < 0x10; i++)
+    {
+        if (i < 8 || i > 10)
+        {
+            int r, g, b;
+            u16 r_out, g_out, b_out;
+
+            u16 source = gPal[OBPAL_OFFSET(OBJPAL_SAVEMENU_2) + i];
+            int blend = gUnk_Savemenu_02000404[0x10 + i];
+
+            b = (RGB5_MASK_B & source) * (0x20 - point);
+            b += (RGB5_MASK_B & blend) * (point);
+            b_out = RGB5_MASK_B & (b >> 5);
+
+            g = (RGB5_MASK_G & source) * (0x20 - point);
+            g += (RGB5_MASK_G & blend) * (point);
+            g_out = RGB5_MASK_G & (g >> 5);
+
+            r = (RGB5_MASK_R & source) * (0x20 - point);
+            r += (RGB5_MASK_R & blend) * (point);
+            r_out = RGB5_MASK_R & (r >> 5);
+
+            gPal[OBPAL_OFFSET(OBJPAL_SAVEMENU_1) + i] = b_out | g_out | r_out;
+        }
+    }
+
+    EnablePalSync();
+}
+
 u16 CONST_DATA Sprite_0868A0FC[] =
 {
     4,
@@ -1566,3 +1617,255 @@ u16 CONST_DATA Sprite_0868A12A[] =
     OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16, OAM2_CHR(0xC0) + OAM2_LAYER(1),
     OAM0_SHAPE_32x16 + OAM0_Y(32), OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0xC2) + OAM2_LAYER(1),
 };
+
+u16 CONST_DATA Sprite_0868A150[] =
+{
+    1,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x11C),
+};
+
+u16 CONST_DATA Sprite_0868A158[] =
+{
+    1,
+    OAM0_SHAPE_32x32 + OAM0_AFFINE_ENABLE, OAM1_SIZE_32x32 + OAM1_AFFINE_ID(3), OAM2_CHR(0x158) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A160[] =
+{
+    3,
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32, OAM2_CHR(0x100) + OAM2_LAYER(1),
+    OAM0_SHAPE_16x32, OAM1_SIZE_16x32 + OAM1_X(32), OAM2_CHR(0x101) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x32, OAM1_SIZE_32x32 + OAM1_X(48), OAM2_CHR(0x102) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A174[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x9E) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A17C[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x9F) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A184[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xBE) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A18C[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xBF) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A194[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xDE) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A19C[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xDF) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1A4[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xFE) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1AC[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0xFF) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1B4[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x188) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1BC[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x189) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1C4[] =
+{
+    1,
+    OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(0x18A) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1CC[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x146) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1D4[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x147) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1DC[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x148) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1E4[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x149) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1EC[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14A) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1F4[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14B) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A1FC[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14C) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A204[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14D) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A20C[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14E) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A214[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x14F) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A21C[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x150) + OAM2_LAYER(1),
+};
+
+u16 CONST_DATA Sprite_0868A224[] =
+{
+    2,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x180) + OAM2_LAYER(1),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x184) + OAM2_LAYER(1),
+};
+
+u16 const * CONST_DATA gUnk_0868A234[] =
+{
+    Sprite_0868A174,
+    Sprite_0868A17C,
+    Sprite_0868A184,
+    Sprite_0868A18C,
+    Sprite_0868A194,
+    Sprite_0868A19C,
+    Sprite_0868A1A4,
+    Sprite_0868A1AC,
+    Sprite_0868A1B4,
+    Sprite_0868A1BC,
+    Sprite_0868A1C4,
+};
+
+u16 const * CONST_DATA gUnk_0868A260[] =
+{
+    Sprite_0868A1CC,
+    Sprite_0868A1D4,
+    Sprite_0868A1DC,
+    Sprite_0868A1E4,
+    Sprite_0868A1EC,
+    Sprite_0868A1F4,
+    Sprite_0868A1FC,
+    Sprite_0868A204,
+    Sprite_0868A20C,
+    Sprite_0868A214,
+    Sprite_0868A21C,
+};
+
+void func_fe6_08089684(ProcPtr proc)
+{
+    struct SaveMenuProc * sm_proc = ((struct GenericProc *) proc)->proc_parent;
+
+    fu8 y, x;
+    u16 hours, minutes, seconds;
+
+    y = (0x20 - (sm_proc->unk_2F * 0x20 / 220));
+    y = y + 144;
+    x = 144;
+
+    if (sm_proc->unk_2E == 1)
+    {
+        FormatTime(sm_proc->unk_50, &hours, &minutes, &seconds);
+    }
+    else
+    {
+        FormatTime(sm_proc->unk_44[sm_proc->selected_id], &hours, &minutes, &seconds);
+    }
+
+    PutSpriteExt(13, x + 0x10, y - 14, Sprite_0868A160, OAM2_PAL(2));
+    PutSpriteExt(13, x + 0x14, y - 14, Sprite_0868A224, OAM2_PAL(5));
+
+    if (hours >= 100)
+    {
+        PutSpriteExt(13, x + 0x12, y - 8, gUnk_0868A260[hours / 100], OAM2_PAL(5));
+        hours = hours - (hours / 100 * 100); // sure, 'hours % 100' would have been fine too
+    }
+
+    if (hours >= 10)
+    {
+        PutSpriteExt(13, x + 0x1A, y - 8, gUnk_0868A260[hours / 10], OAM2_PAL(5));
+    }
+
+    PutSpriteExt(13, x + 0x22, y - 8, gUnk_0868A260[hours % 10], OAM2_PAL(5));
+
+    PutSpriteExt(13, x + 0x2A, y - 7, gUnk_0868A260[10], OAM2_PAL(5));
+
+    PutSpriteExt(13, x + 0x32, y - 8, gUnk_0868A260[minutes / 10], OAM2_PAL(5));
+    PutSpriteExt(13, x + 0x3A, y - 8, gUnk_0868A260[minutes % 10], OAM2_PAL(5));
+
+    PutSpriteExt(13, x + 0x42, y + 1, gUnk_0868A234[10], OAM2_PAL(5));
+
+    PutSpriteExt(13, x + 0x4A, y, gUnk_0868A234[seconds / 10], OAM2_PAL(5));
+    PutSpriteExt(13, x + 0x52, y, gUnk_0868A234[seconds % 10], OAM2_PAL(5));
+}
+
+void func_fe6_08089894(fu8 bg, i32 scr_x, i32 scr_y, i32 tex_x, i32 tex_y, fi16 angle, fi16 scale)
+{
+    struct BgAffineSetSrc affine_src;
+
+    affine_src.tex_x = tex_x;
+    affine_src.tex_y = tex_y;
+    affine_src.scr_x = scr_x >> 8;
+    affine_src.scr_y = scr_y >> 8;
+    affine_src.sx = 0x10000 / scale;
+    affine_src.sy = 0x10000 / scale;
+    affine_src.alpha = angle << 6;
+
+    // TODO: put proper affine structs inside gDispIo instead of using bg[23]pa directly
+    BgAffineSet(&affine_src, (bg == 2) ? (void *)&gDispIo.bg2pa : (void *)&gDispIo.bg3pa, 1);
+}

@@ -155,11 +155,11 @@ void PutSprite(int layer, int x, int y, u16 const * object, int oam2)
     gSpriteAllocIt++;
 }
 
-void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const * object, int oam2)
+void PutSpriteExt(int layer, int x_oam1, int y_oam0, u16 const * object, int oam2)
 {
     gSpriteAllocIt->next = sSpriteLayers[layer].next;
-    gSpriteAllocIt->oam1 = xOam1;
-    gSpriteAllocIt->oam0 = yOam0;
+    gSpriteAllocIt->oam1 = x_oam1;
+    gSpriteAllocIt->oam0 = y_oam0;
     gSpriteAllocIt->oam2 = oam2;
     gSpriteAllocIt->object = object;
 

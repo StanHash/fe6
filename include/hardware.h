@@ -253,6 +253,11 @@ extern i16 SHOULD_BE_CONST gSinLut[];
 #define TILE_HFLIP 0x0400
 #define TILE_VFLIP 0x0800
 
+#define PAL_COLOR_OFFSET(palid, colornum) (palid) * 0x10 + (colornum)
+#define PAL_OFFSET(palid) PAL_COLOR_OFFSET((palid), 0)
+#define BGPAL_OFFSET(bgpal) PAL_OFFSET(0x00 + (bgpal))
+#define OBPAL_OFFSET(obpal) PAL_OFFSET(0x10 + (obpal))
+
 #define PAL_COLOR(palid, colornum) gPal[(palid) * 0x10 + (colornum)]
 #define PAL_BG_COLOR(palid, colornum) PAL_COLOR(palid, colornum)
 #define PAL_OBJ_COLOR(palid, colornum) PAL_COLOR((palid) + 0x10, colornum)

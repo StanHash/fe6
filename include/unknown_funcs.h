@@ -1820,7 +1820,7 @@ void func_fe6_08089234(ProcPtr parent);
 // func_fe6_08089564
 // func_fe6_08089578
 // func_fe6_0808958C
-void func_fe6_080895A0(u16 const * unk_a, u16 * unk_b, int unk_c);
+void func_fe6_080895A0(u16 const * src, u16 * dst, int count);
 // func_fe6_080895B8
 // func_fe6_08089684
 // func_fe6_08089894

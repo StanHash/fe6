@@ -4,6 +4,8 @@
 
 #include "proc.h"
 
+// TODO: sync with mgfembp
+
 struct SpriteProc
 {
     /* 00 */ PROC_HEADER;
@@ -40,8 +42,7 @@ extern u16 CONST_DATA Sprite_16x16_VFlipped[];
 void PutSpriteAffine(int id, short pa, short pb, short pc, short pd);
 void ClearSprites(void);
 void PutSprite(int layer, int x, int y, u16 const * object, int oam2);
-void PutSpriteExt(int layer, int xOam1, int yOam0, u16 const * object, int oam2);
-void PushSpriteLayerObjects(int layer);
+void PutSpriteExt(int layer, int x_oam1, int y_oam0, u16 const * object, int oam2);
 void PutSpriteLayerOam(int layer);
 
 struct SpriteProc * StartSpriteRefresher(ProcPtr parent, int layer, int x, int y, u16 const * object, int tileref);

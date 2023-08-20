@@ -104,15 +104,39 @@ CMD_NAMES = {
     0x49: 'FightScript',
     0x4A: 'DisableAutoClear',
     0x4B: 'FuncOnSkip',
-    0x4C: 'Weather'} # TODO: Wm events
+    0x4C: 'Weather',
+    0x4D: 'WmStart',
+    0x4E: 'WmEnd',
+    0x4F: 'WmZoomTo',
+    0x50: 'WmZoomBack',
+    0x51: 'WmPutFace',
+    0x52: 'WmRemoveFace',
+    0x53: 'WmMoveFace',
+    0x54: 'WmNop54',
+    0x55: 'WmNop55',
+    0x56: 'WmTalk',
+    0x57: 'WmTalkBoxBottom',
+    0x58: 'WmTalkBoxTop',
+    0x59: 'WmTalkBoxRemove',
+    0x5A: 'WmArrow',
+    0x5B: 'WmPutHighlight',
+    0x5C: 'WmRemoveHighlight',
+    0x5D: 'WmRemoveBothHighlights',
+    0x5E: 'WmPutDot',
+    0x5F: 'WmRemoveDot',
+    0x60: 'WmPutFlag',
+    0x61: 'WmRemoveFlag',
+    0x62: 'WmPutMapText',
+    0x63: 'WmPutRemoveMapText'}
 
 def main(args):
     try:
         rom_path = args[1]
         start_addr = (int(args[2], base = 0) & 0x01FFFFFF) + 0x08000000
+        end_addr = (int(args[3], base = 0) & 0x01FFFFFF) + 0x08000000
 
     except IndexError:
-        sys.exit(f"Usage: {args[0]} ROM ADDR")
+        sys.exit(f"Usage: {args[0]} ROM ADDR END")
 
     elf_path = rom_path.replace(".gba", ".elf")
 
@@ -126,7 +150,7 @@ def main(args):
 
     off = start_addr - 0x08000000
 
-    while off < END_ADDR - 0x08000000:
+    while off < end_addr - 0x08000000:
         head_u32 = int.from_bytes(rom_data[off:off + 4], 'little')
 
         if head_u32 not in ALL_CMDS:
@@ -179,7 +203,7 @@ def main(args):
                 break
 
             # one number
-            if cmd_name in ('Sleep', 'GiveMoney', 'FadeBgmOut', 'FadeToBlack', 'FadeFromBlack', 'FadeToWhite', 'FadeFromWhite'):
+            if cmd_name in ('Sleep', 'GiveMoney', 'FadeBgmOut', 'FadeToBlack', 'FadeFromBlack', 'FadeToWhite', 'FadeFromWhite', 'WmRemoveHighlight', 'WmRemoveDot', 'WmRemoveFlag', 'WmRemoveMapText'):
                 line = f"{line}({int.from_bytes(param_data, 'little')})"
 
             # background
@@ -187,11 +211,11 @@ def main(args):
                 line = f"{line}(BACKGROUND_{int.from_bytes(param_data, 'little')})"
 
             # talk
-            if cmd_name in ('Talk', 'TalkMore'):
+            if cmd_name in ('Talk', 'TalkMore', 'WmTalk'):
                 line = f"{line}(MSG_{int.from_bytes(param_data, 'little'):03X})"
 
             # any one i16 coord pair cmd
-            if cmd_name in ('Camera', 'FlashCursor', 'PutCursor'):
+            if cmd_name in ('Camera', 'FlashCursor', 'PutCursor', 'WmZoomTo', 'WmArrow'):
                 x = int.from_bytes(param_data[0:2], 'little', signed = True)
                 y = int.from_bytes(param_data[2:4], 'little', signed = True)
                 line = f"{line}({x}, {y})"
@@ -341,6 +365,37 @@ def main(args):
             if cmd_name == 'Weather':
                 weather = int.from_bytes(param_data[0:4], 'little')
                 line = f"{line}({WEATHER_NAMES[weather]})"
+
+            # WmPutFace
+            if cmd_name == 'WmPutFace':
+                face_slot = int.from_bytes(param_data[0:4], 'little')
+                x = int.from_bytes(param_data[4:6], 'little', signed = True)
+                y = int.from_bytes(param_data[6:8], 'little', signed = True)
+                fid = int.from_bytes(param_data[8:12], 'little')
+                line = f"{line}({face_slot}, FID_{fid:02X}, {x}, {y})"
+
+            # WmPutHighlight
+            if cmd_name == 'WmPutHighlight':
+                id = int.from_bytes(param_data[0:2], 'little', signed = True)
+                unk = int.from_bytes(param_data[2:4], 'little', signed = True)
+                line = f"{line}({id}, {unk})"
+
+            # WmPutHighlight, WmPutFlag
+            if cmd_name in ('WmPutDot', 'WmPutFlag'):
+                id = int.from_bytes(param_data[0:4], 'little')
+                x = int.from_bytes(param_data[4:6], 'little', signed = True)
+                y = int.from_bytes(param_data[6:8], 'little', signed = True)
+                palid = int.from_bytes(param_data[8:12], 'little')
+                line = f"{line}({id}, {palid}, {x}, {y})"
+
+            if cmd_name == 'WmPutMapText':
+                id = int.from_bytes(param_data[0:4], 'little')
+                x_a = int.from_bytes(param_data[4:6], 'little', signed = True)
+                y_a = int.from_bytes(param_data[6:8], 'little', signed = True)
+                unk = int.from_bytes(param_data[8:12], 'little')
+                x_b = int.from_bytes(param_data[12:14], 'little', signed = True)
+                y_b = int.from_bytes(param_data[14:16], 'little', signed = True)
+                line = f"{line}({id}, {unk}, {x_a}, {y_a}, {x_b}, {y_b})"
 
             print(line)
 
