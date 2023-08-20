@@ -74,9 +74,9 @@ extern u16 gOamAffinePutId;
 #define OAM2_PAL(ap)        (((ap) & 0xF) * 0x1000)
 #define OAM2_PAL_MASK       0xF000
 
-#define SetObjAffineAuto(id, angle, xScale, yScale) \
-    SetObjAffine(id, \
-        Div(+COS_Q12(angle) << 4, xScale), \
-        Div(-SIN_Q12(angle) << 4, yScale), \
-        Div(+SIN_Q12(angle) << 4, xScale), \
-        Div(+COS_Q12(angle) << 4, yScale))
+#define SetObjAffineAuto(id, angle, x_scale, y_scale) \
+    SetObjAffine((id), \
+        Div(+COS_Q12((angle)) << 4, (x_scale)), \
+        Div(-SIN_Q12((angle)) << 4, (y_scale)), \
+        Div(+SIN_Q12((angle)) << 4, (x_scale)), \
+        Div(+COS_Q12((angle)) << 4, (y_scale)))

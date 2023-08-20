@@ -8,8 +8,8 @@ typedef void (* ProcFunc)(ProcPtr proc);
 
 struct ProcScr
 {
-    short cmd;
-    short imm;
+    i16 cmd;
+    i16 imm;
     void const * ptr;
 };
 
@@ -70,14 +70,14 @@ enum
 #define PROC_CALL_ARG(func, arg)          { PROC_CMD_CALL_ARG, (arg), (func) }
 #define PROC_19                           { PROC_CMD_19, 0, 0 }
 
-#define PROC_HEADER                                                                                     \
+#define PROC_HEADER_EXT(parent_type)                                                                    \
     /* 00 */ struct ProcScr const * proc_script; /* pointer to proc script */                           \
     /* 04 */ struct ProcScr const * proc_script_pc; /* pointer to currently executing script command */ \
     /* 08 */ ProcFunc proc_end_func; /* callback to run upon delegint the process */                    \
     /* 0C */ ProcFunc proc_repeat_func; /* callback to run once each frame. */                          \
                                         /* disables script execution when not null */                   \
     /* 10 */ char const * proc_name;                                                                    \
-    /* 14 */ ProcPtr proc_parent; /* pointer to parent proc. If this proc is a root proc, */            \
+    /* 14 */ parent_type * proc_parent; /* pointer to parent proc. If this proc is a root proc, */      \
                                   /* this member is an integer which is the root index. */              \
     /* 18 */ ProcPtr proc_child; /* pointer to most recently added child */                             \
     /* 1C */ ProcPtr proc_next; /* next sibling */                                                      \
@@ -87,6 +87,8 @@ enum
     /* 27 */ u8 proc_flags;                                                                             \
     /* 28 */ u8 proc_lock_cnt; /* wait semaphore. Process execution */                                  \
                                /* is blocked when this is nonzero. */                                   \
+
+#define PROC_HEADER PROC_HEADER_EXT(void)
 
 // TODO: stop using this
 // this is just lazy bad

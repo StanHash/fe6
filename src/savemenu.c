@@ -9,6 +9,7 @@
 #include "spriteanim.h"
 #include "gamecontroller.h"
 #include "util.h"
+#include "ui.h"
 #include "helpbox.h"
 #include "save_core.h"
 #include "save_game.h"
@@ -65,6 +66,8 @@ enum
     UNK_SAVEMENU_7 = 1 << 7,
 };
 
+struct UnkProc_0868A28C;
+
 struct SaveMenuProc
 {
     /* 00 */ PROC_HEADER;
@@ -91,7 +94,7 @@ struct SaveMenuProc
     /* 42 */ u16 unk_42;
     /* 44 */ u32 unk_44[3]; // time value
     /* 50 */ u32 unk_50; // time value
-    /* 54 */ ProcPtr unk_54;
+    /* 54 */ struct UnkProc_0868A28C * unk_54;
     /* 58 */ ProcPtr unk_58;
     /* 5C */ ProcPtr unk_5C; // sprite anim proc
 };
@@ -100,6 +103,44 @@ struct SaveMenuUnkPalProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ u8 unk_29;
+};
+
+struct UnkProc_0868A28C
+{
+    /* 00 */ PROC_HEADER_EXT(struct SaveMenuProc);
+    /* 29 */ STRUCT_PAD(0x29, 0x2A);
+    /* 2A */ u16 unk_2A;
+    /* 2C */ u16 unk_2C;
+    /* 2E */ u16 unk_2E;
+    /* 30 */ u16 unk_30;
+    /* 30 */ u8 unk_32;
+    /* 33 */ u8 unk_33;
+    /* 34 */ ProcPtr unk_34;
+    /* 38 */ STRUCT_PAD(0x38, 0x39);
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3A;
+    /* 3B */ u8 unk_3B;
+    /* 3C */ u8 unk_3C;
+};
+
+struct UnkProc_0868A2AC
+{
+    /* 00 */ PROC_HEADER;
+    /* 29 */ STRUCT_PAD(0x29, 0x2A);
+    /* 2A */ u16 unk_2A;
+    /* 2C */ u16 unk_2C;
+    /* 2E */ STRUCT_PAD(0x2E, 0x30);
+    /* 30 */ struct SaveMenuProc * sm_proc;
+    /* 34 */ u8 unk_34;
+    /* 35 */ u8 unk_35;
+    /* 36 */ u8 unk_36;
+    /* 37 */ u8 unk_37;
+    /* 38 */ u8 unk_38;
+    /* 39 */ u8 unk_39;
+    /* 3A */ u8 unk_3A;
+    /* 3B */ u8 unk_3B;
+    /* 3C */ STRUCT_PAD(0x3C, 0x3D);
+    /* 3D */ u8 unk_3D;
 };
 
 extern u16 const gUnk_083278AC[]; // pal x2
@@ -111,13 +152,27 @@ extern u8 const gUnk_0832B554[]; // lz img
 extern u8 const gUnk_083280B0[]; // lz img
 extern u8 const gUnk_0832A130[]; // affine tm (spinny boi)
 
+extern u16 const gUnk_0832C39C[]; // sprite anim
+
+struct Unk_0868A518
+{
+    /* 00 */ u16 const * sprite;
+    /* 04 */ u8 unk_04;
+};
+
+extern struct Unk_0868A518 gUnk_0868A4F8[];
+extern struct Unk_0868A518 gUnk_0868A518[];
+
+extern u16 const * gUnk_0868A550[]; // sprites
+extern u16 const * gUnk_0868A55C[]; // sprites
+
 void func_fe6_0808A918(fu8 arg_0, struct SaveMenuProc * proc);
 void func_fe6_0808A42C(void);
 void func_fe6_0808A524(struct SaveMenuProc * proc);
 int func_fe6_0808AA54(int arg_0, struct SaveMenuProc * proc);
 void func_fe6_0808A9F4(int save_id);
-ProcPtr func_fe6_0808A14C(ProcPtr parent);
-ProcPtr func_fe6_0808A210(ProcPtr parent);
+struct UnkProc_0868A28C * func_fe6_0808A14C(struct SaveMenuProc * parent);
+struct UnkProc_0868A2AC * func_fe6_0808A210(struct SaveMenuProc * parent);
 int func_fe6_0808A658(fu8 save_id, int arg_1, int arg_2);
 bool func_fe6_0808A6C8(struct SaveMenuProc * proc, int arg_1);
 void func_fe6_0808A4B8(struct SaveMenuProc * proc, int arg_1);
@@ -131,7 +186,7 @@ void func_fe6_08089550(ProcPtr parent);
 void func_fe6_08089564(ProcPtr parent);
 void func_fe6_08089578(ProcPtr parent);
 
-extern u16 const gUnk_0832C35C[];
+extern u16 const gUnk_0832C35C[]; // colors
 extern u16 gUnk_Savemenu_02000000;
 extern u16 gUnk_Savemenu_02000002[];
 extern u16 gUnk_Savemenu_02000404[];
@@ -705,7 +760,9 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
                 {
                     proc->unk_3D = 0;
                     proc->unk_36 = 1;
-                    func_fe6_0808A454(gUnk_08336C60, TRUE);
+                    // NOTE: this "\0\0\0" is a hack to align the next item in rodata.
+                    // this file was probably split in two
+                    func_fe6_0808A454(JTEXT("ノーマル　ハード" "\0\0\0"), TRUE);
                     PlaySe(SONG_6A);
                 }
 
@@ -1868,4 +1925,366 @@ void func_fe6_08089894(fu8 bg, i32 scr_x, i32 scr_y, i32 tex_x, i32 tex_y, fi16 
 
     // TODO: put proper affine structs inside gDispIo instead of using bg[23]pa directly
     BgAffineSet(&affine_src, (bg == 2) ? (void *)&gDispIo.bg2pa : (void *)&gDispIo.bg3pa, 1);
+}
+
+void func_fe6_080898F0(struct UnkProc_0868A28C * proc)
+{
+    fu8 i;
+
+    proc->unk_2C = 0;
+    proc->unk_2E = 0x100;
+
+    proc->unk_3A = 0;
+    proc->unk_3B = 40;
+
+    func_fe6_08070D48(0xAC << 4);
+
+    for (i = 0; i < 3; i++)
+    {
+        // TODO: make sense of these constants
+
+        if (proc->proc_parent->unk_37[i] != 0xFF)
+        {
+            func_fe6_08070D08(((u32) (0x16800 + 0x800 * i) & 0x1FFFF) >> 5,
+                proc->proc_parent->unk_37[i]);
+        }
+        else
+        {
+            func_fe6_08070D08(((u32) (0x16800 + 0x800 * i) & 0x1FFFF) >> 5, -1);
+        }
+    }
+
+    proc->unk_30 = 0;
+    proc->unk_32 = 0;
+
+    SetObjAffine(0, 0x100, 0, 0, 0x100);
+    SetObjAffine(1, 0x100, 0, 0, 0x100);
+    SetObjAffine(2, 0x100, 0, 0, 0x100);
+
+    proc->unk_2A = 0;
+
+    proc->unk_34 = func_fe6_0808A418(proc);
+    proc->unk_39 = 0;
+
+    if (proc->proc_parent->unk_3F == 0xFF)
+    {
+        proc->proc_parent->unk_5C = NULL;
+    }
+    else
+    {
+        proc->proc_parent->unk_5C = StartSpriteAnimProc(
+            gUnk_0832C39C, 320, 0x30 + proc->proc_parent->unk_3F * 0x20, 0x1A0, 0, 4);
+    }
+
+    proc->unk_3C = proc->proc_parent->selected_id;
+}
+
+void func_fe6_080899F0(bool arg_0, fu16 arg_1)
+{
+    if (arg_0)
+    {
+        gPal[OBPAL_OFFSET(6) + 8] = gPal[OBPAL_OFFSET(9) + (arg_1 / 4) % 0x10];
+    }
+    else
+    {
+        gPal[OBPAL_OFFSET(6) + 8] = gPal[OBPAL_OFFSET(9) + 13];
+    }
+
+    EnablePalSync();
+}
+
+void func_fe6_08089A3C(ProcPtr proc, int x, int y, fu8 arg_3, fu8 pal_a, fu8 pal_b)
+{
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_0868A0FC, OAM2_PAL(pal_a));
+
+    PutSpriteExt(4, OAM1_X(x + 8 + gUnk_0868A518[arg_3].unk_04), y + 8,
+        gUnk_0868A518[arg_3].sprite, OAM2_PAL(pal_b));
+}
+
+void func_fe6_08089ABC(ProcPtr proc, int x, int y, fu8 arg_3, fu8 pal_a, fu8 pal_b)
+{
+    PutSpriteExt(4, OAM1_X(x), y, Sprite_0868A0FC, OAM2_PAL(pal_a));
+
+    PutSpriteExt(4, OAM1_X(x + 8 + gUnk_0868A4F8[arg_3].unk_04), y + 8,
+        gUnk_0868A4F8[arg_3].sprite, OAM2_PAL(pal_b));
+}
+
+void func_fe6_08089B3C(struct UnkProc_0868A28C * proc)
+{
+    if (proc->unk_3C != proc->proc_parent->selected_id)
+    {
+        func_fe6_0808A9F4(proc->proc_parent->selected_id);
+        proc->unk_3C = proc->proc_parent->selected_id;
+    }
+
+    gPal[OBPAL_OFFSET(1) + 10] = gUnk_Savemenu_02000404[(proc->unk_2A / 4) % 0x10];
+    EnablePalSync();
+
+    if (proc->proc_parent->unk_3F != 0xFF && proc->proc_parent->unk_40 != 0x100)
+    {
+        if (proc->proc_parent->unk_40 < 0x10)
+        {
+            proc->proc_parent->unk_3F = 0xFF;
+        }
+        else
+        {
+            // angle = scale???
+            SetObjAffineAuto(3, proc->proc_parent->unk_40, proc->proc_parent->unk_40, proc->proc_parent->unk_40);
+        }
+
+        proc->proc_parent->unk_40 -= 0x10;
+    }
+
+    func_fe6_080895B8(proc->unk_2A);
+    proc->unk_2A++;
+}
+
+void func_fe6_08089C70(struct UnkProc_0868A28C * proc)
+{
+    fu8 id;
+    fu16 y;
+
+    y = (0x100 + (0xD0 + proc->proc_parent->unk_2F * 48 / 220)) & 0x1FF;
+
+    PutSpriteExt(4, 0x38, y, Sprite_0868A0FC, OAM2_PAL(2));
+
+    if (proc->proc_parent->unk_42 != 0)
+    {
+        id = func_fe6_08087CB0(proc->proc_parent->unk_35);
+
+        PutSpriteExt(4, 0x40 + gUnk_0868A518[id].unk_04, (y + 8) & 0x1FF,
+            gUnk_0868A4F8[id].sprite, OAM2_PAL(3));
+    }
+    else
+    {
+        id = func_fe6_08087CB0(proc->proc_parent->unk_2E);
+
+        PutSpriteExt(4, 0x40 + gUnk_0868A518[id].unk_04, (y + 8) & 0x1FF,
+            gUnk_0868A518[id].sprite, OAM2_PAL(3));
+    }
+}
+
+void func_fe6_08089D30(struct UnkProc_0868A28C * proc)
+{
+    // TODO: clean up
+
+    fu8 i;
+    fu8 id;
+    int r5;
+    fu8 r4;
+
+    if (proc->proc_parent->unk_2E < 0x80)
+    {
+        if (proc->proc_parent->unk_2E == 0x20)
+        {
+            proc->unk_33 = proc->proc_parent->unk_35;
+        }
+        else
+        {
+            proc->unk_33 = proc->proc_parent->unk_2E;
+        }
+    }
+
+    r5 = proc->proc_parent->unk_2F + proc->proc_parent->unk_42;
+
+    if (r5 < 0xDC)
+    {
+        r4 = (6 - proc->proc_parent->unk_31) * 8;
+
+        for (i = 0; i < proc->proc_parent->unk_31; i++)
+        {
+            id = func_fe6_08087C78(proc->proc_parent->unk_30, i);
+            id = func_fe6_08087CB0(id);
+
+            if (i == proc->proc_parent->unk_2A)
+            {
+                func_fe6_08089A3C(proc, 0x38 - r5, r4 + i * 24, id, 1, 3);
+            }
+            else
+            {
+                func_fe6_08089A3C(proc, 0x38 - r5, r4 + i * 24, id, 4, 8);
+            }
+        }
+
+        if (proc->proc_parent->unk_2D == 1)
+        {
+            func_fe6_0808A3C8(0, 0x24, r4 + proc->proc_parent->unk_2A * 24, proc);
+        }
+    }
+
+    if (proc->proc_parent->unk_42 > 0 && proc->proc_parent->unk_42 < 0x1B8)
+    {
+        r4 = (6 - proc->proc_parent->unk_33) * 8;
+
+        for (i = 0; i < proc->proc_parent->unk_33; i++)
+        {
+            id = func_fe6_08087C78(proc->proc_parent->unk_32, i);
+            id = func_fe6_08087CB0(id);
+
+            if (i == proc->proc_parent->unk_34)
+            {
+                func_fe6_08089ABC(proc, 0x114 - proc->proc_parent->unk_42, r4 + i * 26, id, 1, 3);
+            }
+            else
+            {
+                func_fe6_08089ABC(proc, 0x114 - proc->proc_parent->unk_42, r4 + i * 26, id, 4, 8);
+            }
+        }
+
+        if (proc->proc_parent->unk_2D == 9)
+        {
+            func_fe6_0808A3C8(0, 0x24, r4 + proc->proc_parent->unk_34 * 26, proc);
+        }
+    }
+
+    if (proc->proc_parent->unk_2F != 0)
+    {
+        func_fe6_08089684(proc);
+        func_fe6_08089C70(proc);
+
+        for (i = 0; i < 3; i++)
+        {
+            u32 r2 = (proc->proc_parent->unk_2D == 5 && proc->proc_parent->selected_id == i) ? 0x100 : 0;
+
+            PutSpriteExt(4, OAM1_X(0xF4 - proc->proc_parent->unk_2F), 0x20 + r2 + i * 0x20, gUnk_0868A55C[i], OAM2_PAL(10 + i * 2));
+            PutSpriteExt(4, OAM1_X(0xF4 - proc->proc_parent->unk_2F), 0x20 + r2 + i * 0x20 + 8, gUnk_0868A550[i], OAM2_PAL(11 + i * 2));
+        }
+
+        if (proc->proc_parent->unk_3F != 0xFF)
+        {
+            if (proc->proc_parent->unk_40 != 0x100)
+            {
+                if (proc->proc_parent->unk_5C != NULL)
+                {
+                    EndSpriteAnimProc(proc->proc_parent->unk_5C);
+                    proc->proc_parent->unk_5C = NULL;
+                }
+
+                if (proc->proc_parent->unk_2E == 1)
+                {
+                    PutSpriteExt(4, 0xC2, 0x1E + proc->proc_parent->unk_3F * 0x20, Sprite_0868A158, 0);
+                }
+                else
+                {
+                    PutSpriteExt(4, 0xC2, 0x1E + proc->proc_parent->unk_3F * 0x20, Sprite_0868A158, OAM2_PAL(6));
+                }
+            }
+            else
+            {
+                if (proc->proc_parent->unk_2E == 1)
+                {
+                    SetSpriteAnimProcParameters(proc->proc_parent->unk_5C,
+                        0x1AC - proc->proc_parent->unk_2F, 0x34 + proc->proc_parent->unk_3F * 0x20, 0x1A0);
+                }
+                else
+                {
+                    SetSpriteAnimProcParameters(proc->proc_parent->unk_5C,
+                        0x140, 0x34 + proc->proc_parent->unk_3F * 0x20, 0x1A0);
+
+                    PutSpriteExt(4, 0x19E - proc->proc_parent->unk_2F, 0x1E + proc->proc_parent->unk_3F * 0x20,
+                        Sprite_0868A158, OAM2_PAL(6));
+                }
+            }
+        }
+    }
+
+    if (proc->proc_parent->unk_2D == 4 || proc->proc_parent->unk_2D == 5)
+    {
+        if (proc->proc_parent->unk_36 != 0)
+        {
+            int tmp;
+            PutSpriteExt(4, 0x28, 0x80, Sprite_0868A116, 0x2000);
+
+            tmp = proc->proc_parent->unk_36 - 1;
+            PutUiHand(0x34 + (tmp - tmp / 2 * 2) * 0x28, 0x88);
+
+            func_fe6_0808A3C8(1, 12, 0x20 + proc->proc_parent->selected_id * 0x20, proc);
+        }
+        else
+        {
+            if (proc->proc_parent->selected_id != 0xFF)
+            {
+                func_fe6_0808A3C8(1, 12, 0x20 + proc->proc_parent->selected_id * 0x20, proc);
+            }
+        }
+
+        if (proc->proc_parent->copy_from_id != 0xFF)
+        {
+            func_fe6_0808A3E8(1, 0x20 + proc->proc_parent->copy_from_id * 0x20, proc);
+        }
+    }
+
+    func_fe6_08089B3C(proc);
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A28C[] =
+{
+    PROC_19,
+    PROC_CALL(func_fe6_080898F0),
+    PROC_REPEAT(func_fe6_08089D30),
+    PROC_END,
+};
+
+struct UnkProc_0868A28C * func_fe6_0808A14C(struct SaveMenuProc * parent)
+{
+    return SpawnProc(ProcScr_Unk_0868A28C, parent);
+}
+
+void func_fe6_0808A160(struct UnkProc_0868A2AC * proc)
+{
+    proc->unk_39 = 0;
+    proc->unk_2A = 0;
+    proc->unk_35 = 0;
+    proc->unk_36 = 0;
+    proc->unk_37 = 0;
+    proc->unk_38 = 0;
+    proc->unk_3A = 0;
+    proc->unk_3B = 0;
+    proc->unk_3D = 0;
+    proc->unk_34 = 0;
+}
+
+void func_fe6_0808A194(struct UnkProc_0868A2AC * proc)
+{
+    SHOULD_BE_STATIC u8 SHOULD_BE_CONST ALIGNED(4) unk_08336C74[8] =
+    {
+        0, 1, 2, 3,
+        3, 2, 1, 0,
+    };
+
+    proc->unk_2A++;
+    proc->unk_2C++;
+
+    func_fe6_08089894(2, 0x7800, 0x14000, 0x4C00, 0x4C00, proc->unk_2C, 0x180);
+
+    gDispIo.bg2pb *= 2;
+    gDispIo.bg2pd *= 2;
+
+    // TODO: this is bad, esp. for MODERN
+    #define SET_REG(type, reg, src) *((type*) &REG_##reg) = *((type*) &(src))
+
+    SET_REG(u32, BG2PA, gDispIo.bg2pa); // set both with a single 32-bit copy
+    SET_REG(u32, BG2PC, gDispIo.bg2pc); // set both with a single 32-bit copy
+    SET_REG(u32, BG2X,  gDispIo.bg2x);
+    SET_REG(u32, BG2Y,  gDispIo.bg2y);
+
+    #undef SET_REG
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_0868A2AC[] =
+{
+    PROC_19,
+    PROC_CALL(func_fe6_0808A160),
+    PROC_REPEAT(func_fe6_0808A194),
+    PROC_END,
+};
+
+struct UnkProc_0868A2AC * func_fe6_0808A210(struct SaveMenuProc * parent)
+{
+    struct UnkProc_0868A2AC * proc;
+
+    proc = SpawnProc(ProcScr_Unk_0868A2AC, PROC_TREE_VSYNC);
+    proc->sm_proc = parent;
+
+    return proc;
 }

@@ -1837,9 +1837,9 @@ void func_fe6_080895A0(u16 const * src, u16 * dst, int count);
 // func_fe6_0808A210
 // func_fe6_0808A228
 // func_fe6_0808A25C
-// func_fe6_0808A3C8
-// func_fe6_0808A3E8
-// func_fe6_0808A418
+void func_fe6_0808A3C8(int a, int b, fu8 c, ProcPtr proc);
+void func_fe6_0808A3E8(int a, fu8 b, ProcPtr proc);
+ProcPtr func_fe6_0808A418(ProcPtr parent);
 // func_fe6_0808A42C
 // func_fe6_0808A454
 // func_fe6_0808A4B8

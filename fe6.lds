@@ -581,7 +581,6 @@ SECTIONS
         . = ALIGN(4); src/ai_data.o(.rodata);
         . = ALIGN(4); src/ai_battle.o(.rodata);
         . = ALIGN(4); src/ai_080326C4.o(.rodata);
-
         . = ALIGN(4); src/code_sio.o(.rodata);
         . = ALIGN(4); data/data-code-sio.o(.rodata);
         . = ALIGN(4); src/ui.o(.rodata);
@@ -600,6 +599,8 @@ SECTIONS
         . = ALIGN(4); src/save_multiarena.o(.rodata);
         . = ALIGN(4); data/rodata_3273E4.o(.rodata);
         . = ALIGN(4); src/minimap.o(.rodata);
+        . = ALIGN(4); data/rodata_3278AC.o(.rodata);
+        . = ALIGN(4); src/savemenu.o(.rodata);
         . = ALIGN(4); data/rodata.o(.rodata);
 
         . = ALIGN(4); src/m4a.o(.rodata);
