@@ -53,7 +53,7 @@ struct SupportBonuses
 };
 
 int GetUnitSupportCount(struct Unit * unit);
-u8 GetUnitSupportPid(struct Unit * unit, int num);
+fu8 GetUnitSupportPid(struct Unit * unit, int num);
 struct Unit * GetUnitSupportUnit(struct Unit * unit, int num);
 int GetUnitSupportLevel(struct Unit * unit, int num);
 int GetUnitTotalSupportLevel(struct Unit * unit);

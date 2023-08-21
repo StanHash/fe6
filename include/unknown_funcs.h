@@ -63,7 +63,7 @@ u32 func_fe6_080368DC(void const * src, void * dst);
 // func_fe6_08036918
 // func_fe6_08036964
 // func_fe6_08036974
-// func_fe6_08036984
+int func_fe6_08036984(void);
 // func_fe6_08036994
 // func_fe6_080369A0
 // func_fe6_080369E0
@@ -1558,10 +1558,10 @@ void func_fe6_08076238(void);
 // func_fe6_080762B4
 // func_fe6_080762E4
 void func_fe6_08076314(u16 * tm, fu8 arg_1);
-void func_fe6_080763D8(int arg_0, int arg_1, int arg_2);
-void func_fe6_08076448(ProcPtr proc, fu8 arg_1, u16 * tm, int arg_3, int arg_4);
+void func_fe6_080763D8(fu8 arg_0, fu8 arg_1, bool arg_2);
+// void func_fe6_08076448(ProcPtr proc, fu8 arg_1, u16 * tm, int arg_3, int arg_4);
 // func_fe6_08076D30
-bool func_fe6_08076D3C(int arg_0, int arg_1);
+bool func_fe6_08076D3C(fu8 arg_0, fu8 arg_1);
 // func_fe6_080791A0
 void func_fe6_080791B4(fu8 pid);
 void func_fe6_080791DC(fu8 pid);

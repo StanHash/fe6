@@ -6397,7 +6397,7 @@ func_fe6_080382A0: @ 0x080382A0
 	movs r6, #0
 	mov r7, r8
 .L080382CC:
-	ldr r0, .L08038320 @ =0x0203D494
+	ldr r0, .L08038320 @ =gUnk_0203D494
 	adds r0, r6, r0
 	ldrb r0, [r0]
 	cmp r0, #0
@@ -6436,7 +6436,7 @@ func_fe6_080382A0: @ 0x080382A0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08038320: .4byte 0x0203D494
+.L08038320: .4byte gUnk_0203D494
 
 	thumb_func_start func_fe6_08038324
 func_fe6_08038324: @ 0x08038324

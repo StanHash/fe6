@@ -27,7 +27,7 @@ def main(args):
 
 	with open(romName, 'rb') as f:
 		f.seek(offset)
-		print(read_sjis_string(f))
+		print(f"\"{read_sjis_string(f)}\"")
 
 if __name__ == '__main__':
 	main(sys.argv[1:])

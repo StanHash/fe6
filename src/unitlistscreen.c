@@ -6,10 +6,14 @@
 #include "sound.h"
 #include "icon.h"
 #include "sprite.h"
+#include "event.h"
+#include "msg.h"
 #include "util.h"
 #include "item.h"
 #include "unit.h"
 #include "battle.h"
+#include "bmio.h"
+#include "chapter.h"
 #include "support.h"
 #include "faction.h"
 #include "unitsprite.h"
@@ -25,6 +29,17 @@
 #include "constants/pids.h"
 
 #include "constants/videoalloc_global.h"
+
+enum
+{
+    UNITLIST_PAGE_0 = 0,
+    UNITLIST_PAGE_1 = 1,
+    UNITLIST_PAGE_2 = 2,
+    UNITLIST_PAGE_3 = 3,
+    UNITLIST_PAGE_4 = 4,
+    UNITLIST_PAGE_5 = 5,
+    UNITLIST_PAGE_SUPPORT_FIRST = 6,
+};
 
 struct UnitListScreenProcA
 {
@@ -56,6 +71,8 @@ struct UnitListScreenProcA
     /* 44 */ ProcPtr unk_44;
     /* 48 */ ProcPtr unk_48;
 };
+
+void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name);
 
 struct UnitListScreenProcB
 {
@@ -140,12 +157,10 @@ extern u8 const gUnk_0831B0A8[]; // img
 extern u16 const gUnk_08320D98[]; // pal
 
 extern struct Text gUnk_0200D5BC[];
-extern struct Text gUnk_0200D5F4[]; // this could be an array of struct of 3 texts also
+extern struct Text gUnk_0200D5F4[][3];
 extern struct Text gUnk_0200D69C;
 extern struct Text gUnk_0200D6A4;
 extern struct Text gUnk_0200D6AC;
-
-extern char const gUnk_0832714C[];
 
 extern struct ProcScr CONST_DATA gUnk_086786F4[];
 
@@ -503,17 +518,13 @@ void func_fe6_08074850(struct UnitListScreenProcB * proc)
     ForceSyncUnitSpriteSheet();
 }
 
-#include <string.h> // memcpy, TODO: remove
-extern u8 const gUnk_08327148[4];
-
 void func_fe6_080748AC(struct UnitListScreenProcB * proc)
 {
     fu8 r5;
     fi8 sl;
     fu8 i;
 
-    u8 sp_0C[4];
-    memcpy(sp_0C, gUnk_08327148, sizeof(sp_0C));
+    u8 sp_0C[4] = { 0, 1, 2, 1 };
 
     if (proc->unk_2C->unk_34 == 0)
     {
@@ -773,10 +784,10 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
 
     for (i = 0; i < 7 ; i++)
     {
-        InitText(gUnk_0200D5BC + i, 5);
-        InitTextDb(gUnk_0200D5F4 + i * 3, 7);
-        InitText(gUnk_0200D5F4 + i * 3 + 1, 7);
-        InitText(gUnk_0200D5F4 + i * 3 + 2, 5);
+        InitText(&gUnk_0200D5BC[i], 5);
+        InitTextDb(&gUnk_0200D5F4[i][0], 7);
+        InitText(&gUnk_0200D5F4[i][1], 7);
+        InitText(&gUnk_0200D5F4[i][2], 5);
     }
 
     InitText(&gUnk_0200D69C, 4);
@@ -802,7 +813,7 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
     ClearText(&gUnk_0200D69C);
     Text_SetCursor(&gUnk_0200D69C, 0);
     Text_SetColor(&gUnk_0200D69C, 0);
-    Text_DrawString(&gUnk_0200D69C, gUnk_0832714C);
+    Text_DrawString(&gUnk_0200D69C, JTEXT("名　前"));
     PutText(&gUnk_0200D69C, gBg2Tm + TM_OFFSET(3, 5));
 
     for (i = 0; i < 20; i++)
@@ -1939,3 +1950,828 @@ void func_fe6_08076060(struct UnitListScreenProcA * proc)
 }
 
 #endif // NONMATCHING
+
+struct ProcScr CONST_DATA gUnk_08678484[] =
+{
+    PROC_19,
+    PROC_CALL(LockGame),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WhileFadeExists),
+
+    PROC_CALL(LockBmDisplay),
+
+    PROC_CALL(func_fe6_08075338),
+
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WhileFadeExists),
+
+PROC_LABEL(1),
+    PROC_REPEAT(func_fe6_08075570),
+
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WhileFadeExists),
+
+    PROC_CALL(func_fe6_08075D34),
+
+    PROC_CALL(UnlockBmDisplay),
+    PROC_CALL(InitBmDisplay),
+    PROC_CALL(EndAllMus),
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WhileFadeExists),
+    PROC_CALL(UnlockGame),
+    PROC_GOTO(4),
+
+PROC_LABEL(2),
+    PROC_CALL(func_fe6_08075DF8),
+    PROC_REPEAT(func_fe6_08075E94),
+    PROC_REPEAT(func_fe6_08076060),
+    PROC_GOTO(1),
+
+PROC_LABEL(3),
+    PROC_CALL(func_fe6_08074778),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074804),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074830),
+    PROC_GOTO(1),
+
+PROC_LABEL(4),
+    PROC_END,
+};
+
+void func_fe6_08076238(void)
+{
+    struct UnitListScreenProcA * proc;
+
+    proc = SpawnProc(gUnk_08678484, PROC_TREE_3);
+    proc->unk_39 = 0;
+}
+
+struct ProcScr CONST_DATA gUnk_08678594[] =
+{
+    PROC_19,
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08075338),
+    PROC_CALL(StartMidFadeFromBlack),
+    PROC_REPEAT(WhileFadeExists),
+PROC_LABEL(1),
+    PROC_REPEAT(func_fe6_08075570),
+    PROC_CALL(StartMidFadeToBlack),
+    PROC_REPEAT(WhileFadeExists),
+    PROC_CALL(func_fe6_08075D34),
+    PROC_GOTO(4),
+PROC_LABEL(2),
+    PROC_CALL(func_fe6_08075DF8),
+    PROC_REPEAT(func_fe6_08075E94),
+    PROC_REPEAT(func_fe6_08076060),
+    PROC_GOTO(1),
+PROC_LABEL(3),
+    PROC_CALL(func_fe6_08074778),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074804),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074830),
+    PROC_GOTO(1),
+PROC_LABEL(4),
+    PROC_END,
+};
+
+void func_fe6_08076250(ProcPtr parent)
+{
+    struct UnitListScreenProcA * proc;
+
+    if (parent == NULL)
+    {
+        proc = SpawnProc(gUnk_08678594, PROC_TREE_3);
+    }
+    else
+    {
+        proc = SpawnProcLocking(gUnk_08678594, parent);
+    }
+
+    proc->unk_39 = 1;
+
+    if (func_fe6_08036984() == 1)
+    {
+        proc->unk_3C = 1;
+        proc->unk_3A = 5;
+    }
+    else
+    {
+        proc->unk_3C = 0;
+        proc->unk_3A = GetPlayerDeployCount();
+    }
+
+    proc->unk_3B = 0;
+}
+
+struct ProcScr CONST_DATA gUnk_0867865C[] =
+{
+    PROC_SLEEP(0),
+    PROC_CALL(func_fe6_08075338),
+    PROC_CALL(StartFastFadeFromBlack),
+    PROC_REPEAT(WhileFadeExists),
+PROC_LABEL(1),
+    PROC_REPEAT(func_fe6_08075570),
+    PROC_CALL(StartFastFadeToBlack),
+    PROC_REPEAT(WhileFadeExists),
+    PROC_CALL(func_fe6_08075D34),
+    PROC_GOTO(4),
+PROC_LABEL(3),
+    PROC_CALL(func_fe6_08074778),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074804),
+    PROC_SLEEP(1),
+    PROC_CALL(func_fe6_08074830),
+    PROC_GOTO(1),
+PROC_LABEL(4),
+    PROC_END,
+};
+
+void func_fe6_080762B4(ProcPtr parent)
+{
+    struct UnitListScreenProcA * proc;
+
+    if (parent == NULL)
+    {
+        proc = SpawnProc(gUnk_0867865C, PROC_TREE_3);
+    }
+    else
+    {
+        proc = SpawnProcLocking(gUnk_0867865C, parent);
+    }
+
+    proc->unk_39 = 3;
+}
+
+void func_fe6_080762E4(ProcPtr parent)
+{
+    struct UnitListScreenProcA * proc;
+
+    if (parent == NULL)
+    {
+        proc = SpawnProc(gUnk_08678594, PROC_TREE_3);
+    }
+    else
+    {
+        proc = SpawnProcLocking(gUnk_08678594, parent);
+    }
+
+    proc->unk_39 = 4;
+}
+
+void func_fe6_08076314(u16 * tm, fu8 page)
+{
+    fu8 i;
+
+    TmFillRect(tm + 9, 0x13, 1, 0);
+
+    ClearText(&gUnk_0200D6A4);
+
+    if (page == 5)
+    {
+        for (i = 0; i < 8; i++)
+        {
+            PutIcon(tm + 9 + 2 * i, ICON_ITEM_KIND_BASE + i, TILEREF(0, BGPAL_ICONS + 1));
+        }
+    }
+    else
+    {
+        for (i = 1; i < 9 && gUnk_08678840[page].unk_00[i].unk_08 != 0; i++)
+        {
+            Text_SetCursor(&gUnk_0200D6A4, gUnk_08678840[page].unk_00[i].unk_08 - 0x40);
+            Text_SetColor(&gUnk_0200D6A4, TEXT_COLOR_SYSTEM_WHITE);
+            Text_DrawString(&gUnk_0200D6A4, gUnk_08678840[page].unk_00[i].str_04);
+        }
+        
+        PutText(&gUnk_0200D6A4, tm + 8);
+    }
+
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+void func_fe6_080763D8(fu8 max_pages, fu8 page, bool arg_2)
+{
+    if (page != 0)
+    {
+        PutNumber(gBg2Tm + (0x74 / 2), TEXT_COLOR_SYSTEM_BLUE, page);
+        PutSpecialChar(gBg2Tm + (0x74 / 2) + 1, TEXT_COLOR_SYSTEM_WHITE, TEXT_SPECIAL_SLASH);
+        PutNumber(gBg2Tm + (0x74 / 2) + 2, TEXT_COLOR_SYSTEM_BLUE, max_pages);
+    }
+    else
+    {
+        TmFillRect(gBg1Tm + (0x32 / 2), 6, 3, 0);
+        EnableBgSync(BG1_SYNC_BIT);
+    }
+
+    if (arg_2)
+    {
+        func_fe6_08076314(gBg2Tm + (0x140 / 2), page);
+    }
+
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name)
+{
+    fu8 inactive;
+    fu8 i;
+    fu8 num;
+    int icon;
+
+    // this is something permuter found, it matches but ugh
+    int dummy_zero = 0;
+
+    int row = unit_num % 7;
+    int y = (unit_num * 2) & 0x1F;
+
+    if ((gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+        inactive = TRUE;
+    else
+        inactive = FALSE;
+
+    if (put_name != 0)
+    {
+        ClearText(&gUnk_0200D5BC[row]);
+        Text_SetCursor(&gUnk_0200D5BC[row], 0);
+
+        if (proc->unk_3C == 0 && proc->unk_39 == 1 && func_fe6_08079404(gUnk_0200CC38[unit_num]->unit))
+        {
+            Text_SetColor(&gUnk_0200D5BC[row], TEXT_COLOR_SYSTEM_GREEN);
+        }
+        else
+        {
+            Text_SetColor(&gUnk_0200D5BC[row], inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE);
+        }
+
+        Text_DrawString(&gUnk_0200D5BC[row], DecodeMsg(gUnk_0200CC38[unit_num]->unit->pinfo->msg_name));
+        PutText(&gUnk_0200D5BC[row], tm + y * 0x20 + 3);
+    }
+
+    ClearText(&gUnk_0200D5F4[row][0]);
+    ClearText(&gUnk_0200D5F4[row][1]);
+
+    TmFillRect(tm + y * 0x20 + 8, 0x18, 1, 0);
+
+    switch (page)
+    {
+        case UNITLIST_PAGE_0:
+            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, 0, 0, 0, DecodeMsg(gUnk_0200CC38[unit_num]->unit->jinfo->msg_name));
+            Text_SetColor(&gUnk_0200D5F4[row][1], inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE);
+
+            if (GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit) == 0)
+            {
+                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, JTEXT("ーーーー"));
+            }
+            else
+            {
+                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, GetItemName(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
+                PutIcon(tm + y * 0x20 + 15, GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
+                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
+            }
+
+            ClearText(&gUnk_0200D5F4[row][2]);
+
+            if (gUnk_0200CC38[unit_num]->unit->pinfo->id == PID_MERLINUS)
+            {
+                PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 1, 4, 0, JTEXT("オフ"));
+            }
+            else
+            {
+                switch (gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_SOLOANIM)
+                {
+                    case UNIT_FLAG_SOLOANIM_1:
+                        PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 4, 8, 0, JTEXT("１"));
+                        break;
+
+                    case UNIT_FLAG_SOLOANIM_2:
+                        PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 4, 8, 0, JTEXT("２"));
+                        break;
+
+                    case 0:
+                        PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 1, 4, 0, JTEXT("オフ"));
+                        break;
+                }
+            }
+
+            break;
+
+        case UNITLIST_PAGE_1:
+            // jinfo
+            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, DecodeMsg(gUnk_0200CC38[unit_num]->unit->jinfo->msg_name));
+
+            // level
+            PutNumberOrBlank(tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gUnk_0200CC38[unit_num]->unit->level);
+
+            // exp
+            PutNumberOrBlank(tm + y * 0x20 + 20, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gUnk_0200CC38[unit_num]->unit->exp);
+
+            // hp
+            PutNumberOrBlank(tm + y * 0x20 + 23, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(gUnk_0200CC38[unit_num]->unit));
+            PutSpecialChar(tm + y * 0x20 + 24, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0x16);
+            PutNumberOrBlank(tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(gUnk_0200CC38[unit_num]->unit));
+
+            break;
+
+        case UNITLIST_PAGE_2:
+            PutNumberOrBlank(tm + y * 0x20 + 9, UNIT_POW_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->pow ? 4 : 2, GetUnitPower(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 12, UNIT_SKL_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->skl ? 4 : 2, GetUnitSkill(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 15, UNIT_SPD_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->spd ? 4 : 2, GetUnitSpeed(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 18, UNIT_LCK_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->lck ? 4 : 2, GetUnitLuck(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 21, UNIT_DEF_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->def ? 4 : 2, GetUnitDefense(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 24, UNIT_RES_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->res ? 4 : 2, GetUnitResistance(gUnk_0200CC38[unit_num]->unit));
+
+            icon = GetUnitAffinityIcon(gUnk_0200CC38[unit_num]->unit);
+
+            if (icon == -1)
+                PutSpecialChar(tm + y * 0x20 + 26, 2, TEXT_SPECIAL_DASH);
+            else
+                PutIcon(tm + y * 0x20 + 26, icon, TILEREF(0, BGPAL_ICONS + 1));
+
+            break;
+
+        case UNITLIST_PAGE_3:
+            if (GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit) == 0)
+            {
+                PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 10, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, JTEXT("ーーーー"));
+            }
+            else
+            {
+                char const * name = GetItemName(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit));
+
+                PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 10,
+                    inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, dummy_zero, name);
+
+                PutIcon(tm + y * 0x20 + 8, GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
+                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
+            }
+
+            PutNumberOrBlank(tm + y * 0x20 + 18, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                gUnk_0200CC38[unit_num]->battle_attack);
+
+            PutNumberOrBlank(tm + y * 0x20 + 22, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                gUnk_0200CC38[unit_num]->battle_hit);
+
+            PutNumberOrBlank(tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                gUnk_0200CC38[unit_num]->battle_avoid);
+            
+            break;
+
+        case UNITLIST_PAGE_4:
+            if ((gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_RESCUING) != 0)
+            {
+                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 18,
+                    inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
+                    GetUnitRescueName(gUnk_0200CC38[unit_num]->unit));
+            }
+            else
+            {
+                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 18,
+                    inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
+                    JTEXT("ーーー"));
+            }
+
+            PutNumberOrBlank(tm + y * 0x20 + 10, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                UNIT_MOV(gUnk_0200CC38[unit_num]->unit));
+
+            PutNumberOrBlank(tm + y * 0x20 + 13, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                UNIT_CON(gUnk_0200CC38[unit_num]->unit));
+
+            PutNumberOrBlank(tm + y * 0x20 + 16, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
+                GetUnitAid(gUnk_0200CC38[unit_num]->unit));
+
+            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 23,
+                inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
+                GetUnitStatusName(gUnk_0200CC38[unit_num]->unit));
+
+            break;
+
+        case UNITLIST_PAGE_5:
+        {
+            for (i = 0; i < 8; i++)
+            {
+                int special_chars[] =
+                {
+                    [WPN_LEVEL_0] = TEXT_SPECIAL_DASH,
+                    [WPN_LEVEL_E] = TEXT_SPECIAL_E,
+                    [WPN_LEVEL_D] = TEXT_SPECIAL_D,
+                    [WPN_LEVEL_C] = TEXT_SPECIAL_C,
+                    [WPN_LEVEL_B] = TEXT_SPECIAL_B,
+                    [WPN_LEVEL_A] = TEXT_SPECIAL_A,
+                    [WPN_LEVEL_S] = TEXT_SPECIAL_S,
+                };
+
+                num = GetWeaponLevelFromExp(gUnk_0200CC38[unit_num]->unit->wexp[i]);
+
+                PutSpecialChar(tm + y * 0x20 + 10 + 2 * i,
+                    num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, special_chars[num]);
+            }
+
+            break;
+        }
+
+        default:
+        {
+            fu8 support_start;
+            fu8 support_passed;
+            int support_count;
+
+            support_start = (page - UNITLIST_PAGE_SUPPORT_FIRST) * 3;
+            support_passed = 0;
+            num = 0;
+            support_count = GetUnitSupportCount(gUnk_0200CC38[unit_num]->unit);
+
+            ClearText(&gUnk_0200D5F4[row][2]);
+
+            for (i = 0; i < support_count; i++)
+            {
+                if (CanUnitSupportNow(gUnk_0200CC38[unit_num]->unit, i))
+                {
+                    if (support_passed >= support_start)
+                    {
+                        struct Unit * other = GetUnitSupportUnit(gUnk_0200CC38[unit_num]->unit, i);
+    
+                        if ((other->flags & UNIT_FLAG_NOT_DEPLOYED) == 0)
+                        {
+                            char const * name = DecodeMsg(
+                                GetPInfo(GetUnitSupportPid(gUnk_0200CC38[unit_num]->unit, i))->msg_name);
+
+                            PutDrawText(&gUnk_0200D5F4[row][num], tm + y * 0x20 + 9 + num * 6,
+                                inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, name);
+                        }
+                        else
+                        {
+                            char const * name = DecodeMsg(
+                                GetPInfo(GetUnitSupportPid(gUnk_0200CC38[unit_num]->unit, i))->msg_name);
+
+                            PutDrawText(&gUnk_0200D5F4[row][num], tm + y * 0x20 + 9 + num * 6,
+                                TEXT_COLOR_SYSTEM_GRAY, 0, 0, name);
+                        }
+    
+                        num++;
+    
+                        if (num == 3)
+                            break;
+                    }
+                    else
+                    {
+                        support_passed++;
+                    }
+                }
+            }
+
+            for (; num < 3; num++)
+            {
+                PutDrawText(&gUnk_0200D5F4[row][num], tm + y * 0x20 + 9 + num * 6 ,
+                    inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, JTEXT("ーーー"));
+            }
+
+            break;
+        }
+    }
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+int func_fe6_08076D30(struct Unit * unit)
+{
+    return (unit->flags & UNIT_FLAG_SOLOANIM);
+}
+
+bool func_fe6_08076D3C(fu8 key, fu8 direction)
+{
+    u8 cache[0x40];
+
+    direction = direction & 1;
+
+    #define PREPARE_VARS \
+        bool changed = FALSE; \
+        fu8 i, j, tmp_cache; \
+        void * tmp_addr;
+
+    #define BUILD_CACHE(key) \
+    { \
+        for (i = 0; i < gUnk_0200CD38; i++) \
+        { \
+            cache[i] = key(i); \
+        } \
+    }
+
+    #define RETURN_IF_CHANGED if (changed) return TRUE;
+
+    #define SWAP(i, j) \
+    { \
+        tmp_addr = gUnk_0200CC38[(i)]; \
+        gUnk_0200CC38[(i)] = gUnk_0200CC38[(j)]; \
+        gUnk_0200CC38[(j)] = tmp_addr; \
+    }
+
+    #define SWAP_CACHE(i, j) \
+    { \
+        tmp_cache = cache[(i)]; \
+        cache[(i)] = cache[(j)]; \
+        cache[(j)] = tmp_cache; \
+        SWAP(i, j) \
+    }
+
+    #define SORT_CORE(cond, swap) \
+    { \
+        /* this is a bubble sort, I think */ \
+        for (i = 0; i < gUnk_0200CD38 - 1; i++) \
+        { \
+            for (j = 0; j < gUnk_0200CD38 - 1 - i; j++) \
+            { \
+                if (cond) \
+                { \
+                    /* swap */ \
+                    swap(j, j + 1) \
+                    changed = TRUE; \
+                } \
+            } \
+        } \
+    }
+
+    #define SORT_CORE_KEY(key, arrow, swap) \
+    { \
+        /* this is a bubble sort, I think */ \
+        for (i = 0; i < gUnk_0200CD38 - 1; i++) \
+        { \
+            for (j = 0; j < gUnk_0200CD38 - 1 - i; j++) \
+            { \
+                if (key(j + 1) arrow key(j)) \
+                { \
+                    /* swap */ \
+                    swap(j, j + 1) \
+                    changed = TRUE; \
+                } \
+            } \
+        } \
+    }
+
+    #define SORT_REAL(cond_asc, cond_dsc) \
+        if (direction == 0) \
+        { \
+            PREPARE_VARS \
+            SORT_CORE(cond_asc, SWAP) \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            SORT_CORE(cond_dsc, SWAP) \
+            RETURN_IF_CHANGED \
+        }
+
+    #define SORT(cond) SORT_REAL(cond, !(cond))
+
+    #define SORT_BY_KEY(key) \
+        if (direction == 0) \
+        { \
+            PREPARE_VARS \
+            SORT_CORE_KEY(key, >, SWAP) \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            SORT_CORE_KEY(key, <, SWAP) \
+            RETURN_IF_CHANGED \
+        }
+
+    #define SORT_MAIN(sort_a, sort_b) \
+        if (direction == 0) \
+        { \
+            PREPARE_VARS \
+            sort_a \
+            RETURN_IF_CHANGED \
+        } \
+        else \
+        { \
+            PREPARE_VARS \
+            sort_b \
+            RETURN_IF_CHANGED \
+        } \
+        break;
+
+    #define SORT_BY_FUNC(func) \
+        SORT_REAL(func(gUnk_0200CC38[j + 1]->unit) > func(gUnk_0200CC38[j]->unit), \
+            func(gUnk_0200CC38[j + 1]->unit) < func(gUnk_0200CC38[j]->unit))
+
+    #define SORT_BY_UNIT_FIELD(field) \
+        SORT_REAL((gUnk_0200CC38[j + 1]->unit->field) > (gUnk_0200CC38[j]->unit->field), \
+            (gUnk_0200CC38[j + 1]->unit->field) < (gUnk_0200CC38[j]->unit->field))
+
+    switch (key)
+    {
+        case 1:
+            #define KEY_A(i) (gUnk_0200CC38[(i)]->unit->pinfo->unk_0A)
+            #define KEY_B(i) (gUnk_0200CC38[(i)]->unit->flags & UNIT_FLAG_TURN_ENDED)
+
+            SORT_MAIN(
+                SORT_CORE_KEY(KEY_A, <, SWAP) SORT_CORE_KEY(KEY_B, <, SWAP),
+                SORT_CORE_KEY(KEY_A, >, SWAP) SORT_CORE_KEY(KEY_B, >, SWAP))
+
+            #undef KEY_B
+            #undef KEY_A
+
+        case 3:
+            #define KEY(i) (gUnk_0200CC38[(i)]->unit->level)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 2:
+            #define KEY(i) (gUnk_0200CC38[(i)]->unit->jinfo->unk_0A)
+            SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
+            #undef KEY
+
+        case 4:
+            SORT_BY_UNIT_FIELD(exp)
+            break;
+
+        case 5:
+            SORT_BY_FUNC(GetUnitCurrentHp)
+            break;
+
+        case 6:
+            SORT_BY_FUNC(GetUnitMaxHp)
+            break;
+
+        case 7:
+            SORT_BY_FUNC(GetUnitPower)
+            break;
+
+        case 8:
+            SORT_BY_FUNC(GetUnitSkill)
+            break;
+
+        case 9:
+            SORT_BY_FUNC(GetUnitSpeed)
+            break;
+
+        case 10:
+            SORT_BY_FUNC(GetUnitLuck)
+            break;
+
+        case 11:
+            SORT_BY_FUNC(GetUnitDefense)
+            break;
+
+        case 12:
+            SORT_BY_FUNC(GetUnitResistance)
+            break;
+
+        case 19:
+            SORT_BY_FUNC(UNIT_CON)
+            break;
+
+        case 20:
+            SORT_BY_FUNC(GetUnitAid)
+            break;
+
+        case 13:
+            #define KEY(i) (GetUnitAffinityIcon(gUnk_0200CC38[(i)]->unit))
+            SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
+            #undef KEY
+
+        case 14:
+            SORT_MAIN(
+            {
+                for (i = 0; i < gUnk_0200CD38; i++)
+                {
+                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gUnk_0200CC38[i]->unit));
+                }
+
+                for (i = 0; i < gUnk_0200CD38 - 1; i++)
+                {
+                    for (j = 0; j < gUnk_0200CD38 - 1 - i; j++)
+                    {
+                        if (cache[j + 1] > cache[j])
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnk_0200CC38[j + 1]->unit) > GetUnitEquippedWeapon(gUnk_0200CC38[j]->unit))
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                    }
+                }
+            },
+            {
+                for (i = 0; i < gUnk_0200CD38; i++)
+                {
+                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gUnk_0200CC38[i]->unit));
+                }
+
+                for (i = 0; i < gUnk_0200CD38 - 1; i++)
+                {
+                    for (j = 0; j < gUnk_0200CD38 - 1 - i; j++)
+                    {
+                        if (cache[j + 1] < cache[j])
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnk_0200CC38[j + 1]->unit) < GetUnitEquippedWeapon(gUnk_0200CC38[j]->unit))
+                        {
+                            SWAP_CACHE(j, j + 1)
+                            changed = TRUE;
+                        }
+                    }
+                }
+            })
+
+        case 15:
+            #define KEY(i) (gUnk_0200CC38[(i)]->battle_attack)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 16:
+            #define KEY(i) (gUnk_0200CC38[(i)]->battle_hit)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 17:
+            #define KEY(i) (gUnk_0200CC38[(i)]->battle_avoid)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 18:
+            SORT_BY_FUNC(UNIT_MOV)
+            break;
+
+        case 21:
+            SORT_BY_UNIT_FIELD(status)
+            break;
+
+        case 22:
+            SORT_MAIN(
+            {
+                for (i = 0; i < gUnk_0200CD38; i++)
+                {
+                    if ((gUnk_0200CC38[i]->unit->flags & 0x10) != 0)
+                        cache[i] = 1;
+                    else
+                        cache[i] = 0;
+                }
+
+                SORT_CORE(cache[j + 1] > cache[j], SWAP_CACHE)
+            },
+            {
+                for (i = 0; i < gUnk_0200CD38; i++)
+                {
+                    if ((gUnk_0200CC38[i]->unit->flags & 0x10) != 0)
+                        cache[i] = 1;
+                    else
+                        cache[i] = 0;
+                }
+
+                SORT_CORE(cache[j + 1] < cache[j], SWAP_CACHE)
+            })
+
+        case 23:
+            SORT_BY_UNIT_FIELD(wexp[0])
+            break;
+
+        case 24:
+            SORT_BY_UNIT_FIELD(wexp[1])
+            break;
+
+        case 25:
+            SORT_BY_UNIT_FIELD(wexp[2])
+            break;
+
+        case 26:
+            SORT_BY_UNIT_FIELD(wexp[3])
+            break;
+
+        case 27:
+            SORT_BY_UNIT_FIELD(wexp[4])
+            break;
+
+        case 28:
+            SORT_BY_UNIT_FIELD(wexp[5])
+            break;
+
+        case 29:
+            SORT_BY_UNIT_FIELD(wexp[6])
+            break;
+
+        case 30:
+            SORT_BY_UNIT_FIELD(wexp[7])
+            break;
+
+        case 31:
+            #define KEY(i) (gUnk_0200CC38[(i)]->support_talk_count)
+            SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
+            #undef KEY
+
+        case 32:
+            SORT_BY_FUNC(func_fe6_08076D30)
+            break;
+    }
+
+    return FALSE;
+}
