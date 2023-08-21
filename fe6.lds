@@ -37,8 +37,8 @@ SECTIONS
         . = 0x003C38; gUiTmScratchC = .; /* statscreen? size = 0x480? */
         . = 0x0040B8; gStatusScreenSt = .; /* statusscreen (almost statscreen but not quite) */
         . = 0x004138; gMuImgBuf = .; /* mu. size = 0x8800 */
-        . = 0x00C938; gUnk_0200C938 = .;
-        . = 0x00CC38; gUnk_0200CC38 = .;
+        . = 0x00C938; gSortedUnitsBuf = .; /* unitlistscreen */
+        . = 0x00CC38; gSortedUnits = .; /* unitlistscreen */
         . = 0x00CD38; gUnk_0200CD38 = .;
         . = 0x00CD3A; gUnk_0200CD3A = .;
         . = 0x00D53A; gUnk_0200D53A = .;
@@ -499,6 +499,7 @@ SECTIONS
         src/sioerror.o(.text);
         src/statusscreen.o(.text);
         src/unitlistscreen.o(.text);
+        src/prepmenu.o(.text);
         asm/code_8073548.o(.text);
         src/save_core.o(.text);
         src/save_stats.o(.text);
@@ -676,6 +677,7 @@ SECTIONS
         . = ALIGN(4); src/mapui.o(.data);
         . = ALIGN(4); src/statusscreen.o(.data);
         . = ALIGN(4); src/unitlistscreen.o(.data);
+        . = ALIGN(4); src/prepmenu.o(.data);
         . = ALIGN(4); data/data_67829C.o(.data);
         . = ALIGN(4); src/chapterunits.o(.data);
         . = ALIGN(4); data/data_mapchangeinfo.o(.data);

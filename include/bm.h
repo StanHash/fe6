@@ -123,8 +123,8 @@ struct PlaySt
     /* 16 */ u16 support_gain;
     /* 18 */ u8 playthrough_id;
     /* 19 */ u8 ending_id : 4;
-    /* 19 */ u8 unk_19_4 : 4;
-    /* 1A */ u8 last_sort_id;
+    /* 19 */ u8 last_unit_list_page : 4;
+    /* 1A */ u8 last_sort_key;
     /* 1B */ u8 unk_1B;
 
     /* 1C */ // option bits

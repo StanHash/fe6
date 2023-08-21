@@ -1,45 +1,5 @@
     .data
 
-	.global gUnk_086786F4
-gUnk_086786F4: @ 086786F4
-	.incbin "fe6-base.gba", 0x6786F4, (0x67871C - 0x6786F4) @ length: 0028
-
-	.global gUnk_0867871C
-gUnk_0867871C: @ 0867871C
-	.incbin "fe6-base.gba", 0x67871C, (0x678722 - 0x67871C) @ length: 0006
-
-	.global gUnk_08678722
-gUnk_08678722: @ 08678722
-	.incbin "fe6-base.gba", 0x678722, (0x678744 - 0x678722) @ length: 0022
-
-	.global gUnk_08678744
-gUnk_08678744: @ 08678744
-	.incbin "fe6-base.gba", 0x678744, (0x678750 - 0x678744) @ length: 000C
-
-	.global gUnk_08678750
-gUnk_08678750: @ 08678750
-	.incbin "fe6-base.gba", 0x678750, (0x678758 - 0x678750) @ length: 0008
-
-	.global gUnk_08678758
-gUnk_08678758: @ 08678758
-	.incbin "fe6-base.gba", 0x678758, (0x678760 - 0x678758) @ length: 0008
-
-	.global gUnk_08678760
-gUnk_08678760: @ 08678760
-	.incbin "fe6-base.gba", 0x678760, (0x678818 - 0x678760) @ length: 00B8
-
-	.global gUnk_08678818
-gUnk_08678818: @ 08678818
-	.incbin "fe6-base.gba", 0x678818, (0x678840 - 0x678818) @ length: 0028
-
-	.global gUnk_08678840
-gUnk_08678840: @ 08678840
-	.incbin "fe6-base.gba", 0x678840, (0x678DE0 - 0x678840) @ length: 05A0
-
-	.global gUnk_08678DE0
-gUnk_08678DE0: @ 08678DE0
-	.incbin "fe6-base.gba", 0x678DE0, (0x678E00 - 0x678DE0) @ length: 0020
-
 	.global gUnk_08678E00
 gUnk_08678E00: @ 08678E00
 	.incbin "fe6-base.gba", 0x678E00, (0x678E18 - 0x678E00) @ length: 0018

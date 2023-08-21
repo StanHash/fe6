@@ -1,9 +1,5 @@
 	.section .rodata
 
-	@ unit list screen
-
-	.incbin "fe6-base.gba", 0x327194, (0x327254 - 0x327194) @ length: 00C0
-
 	.global gUnk_08327254
 gUnk_08327254: @ 08327254
 	.incbin "fe6-base.gba", 0x327254, (0x32725C - 0x327254) @ length: 0008

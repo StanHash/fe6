@@ -1,4 +1,4 @@
-#include "common.h"
+#include "unitlistscreen.h"
 
 #include "armfunc.h"
 #include "hardware.h"
@@ -30,18 +30,12 @@
 
 #include "constants/videoalloc_global.h"
 
-enum
-{
-    UNITLIST_PAGE_0 = 0,
-    UNITLIST_PAGE_1 = 1,
-    UNITLIST_PAGE_2 = 2,
-    UNITLIST_PAGE_3 = 3,
-    UNITLIST_PAGE_4 = 4,
-    UNITLIST_PAGE_5 = 5,
-    UNITLIST_PAGE_SUPPORT_FIRST = 6,
-};
+// TODO: clean up
+// TODO: fix nonmatches
 
-struct UnitListScreenProcA
+struct UnitListScreenSpritesProc;
+
+struct UnitListScreenProc
 {
     /* 00 */ PROC_HEADER;
     /* 29 */ u8 unk_29;
@@ -50,17 +44,17 @@ struct UnitListScreenProcA
     /* 2C */ u8 unk_2C;
     /* 2D */ u8 unk_2D;
     /* 2E */ u8 unk_2E;
-    /* 2F */ u8 unk_2F;
+    /* 2F */ u8 page;
     /* 30 */ u8 unk_30;
     /* 31 */ u8 unk_31;
-    /* 32 */ u8 unk_32;
-    /* 33 */ u8 unk_33;
-    /* 34 */ u8 unk_34;
+    /* 32 */ u8 sort_key;
+    /* 33 */ u8 target_sort_order; // idk which is which actually
+    /* 34 */ u8 sort_order;
     /* 35 */ u8 unk_35;
-    /* 36 */ u8 unk_36;
+    /* 36 */ u8 page_target;
     /* 37 */ u8 unk_37;
     /* 38 */ u8 unk_38;
-    /* 39 */ u8 unk_39;
+    /* 39 */ u8 mode;
     /* 3A */ u8 unk_3A;
     /* 3B */ u8 unk_3B;
     /* 3C */ u8 unk_3C;
@@ -68,16 +62,16 @@ struct UnitListScreenProcA
     /* 3E */ u16 unk_3E;
     /* 40 */ u16 unk_40;
     /* 42 */ STRUCT_PAD(0x42, 0x44);
-    /* 44 */ ProcPtr unk_44;
+    /* 44 */ struct UnitListScreenSpritesProc * sprites_proc;
     /* 48 */ ProcPtr unk_48;
 };
 
-void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name);
+void func_fe6_08076448(struct UnitListScreenProc * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name);
 
-struct UnitListScreenProcB
+struct UnitListScreenSpritesProc
 {
     /* 00 */ PROC_HEADER;
-    /* 2C */ struct UnitListScreenProcA * unk_2C;
+    /* 2C */ struct UnitListScreenProc * main_proc;
     /* 30 */ u8 unk_30;
     /* 34 */ ProcPtr unk_34;
     /* 38 */ u16 unk_38;
@@ -86,9 +80,9 @@ struct UnitListScreenProcB
     /* 3C */ u8 unk_3C;
 };
 
-void func_fe6_08074EF0(struct UnitListScreenProcA * proc);
+void func_fe6_08074EF0(struct UnitListScreenProc * proc);
 
-struct Unk_0200C938
+struct SortedUnitEnt
 {
     /* 00 */ struct Unit * unit;
     /* 04 */ i16 battle_attack;
@@ -97,9 +91,9 @@ struct Unk_0200C938
     /* 0A */ u8 support_talk_count;
 };
 
-extern struct Unk_0200C938 gUnk_0200C938[];
+extern struct SortedUnitEnt gSortedUnitsBuf[];
+extern struct SortedUnitEnt * gSortedUnits[];
 
-extern struct Unk_0200C938 * gUnk_0200CC38[];
 extern struct Text gUnk_0200D6AC;
 extern struct Unit gUnk_0200D6B4[];
 extern u8 gUnk_0200CD38;
@@ -108,36 +102,24 @@ extern int gUnk_0200E7D8; // unit id
 
 extern u8 CONST_DATA gUnk_08678722[];
 
-struct Unk_08678744
-{
-    u16 const * sprite_00;
-    u16 const * sprite_04;
-    u16 const * sprite_08;
-};
+extern u16 const * CONST_DATA gUnk_08678744[3];
 
-extern struct Unk_08678744 CONST_DATA gUnk_08678744;
-
-struct Unk_08678840_00
+struct UnitListScreenField
 {
-    /* 00 */ u8 unk_00;
+    /* 00 */ u8 sort_key;
     /* 01 */ STRUCT_PAD(0x01, 0x04);
-    /* 04 */ char const * str_04;
-    /* 08 */ u8 unk_08;
+    /* 04 */ char const * label_string;
+    /* 08 */ u8 x_column;
     /* 09 */ STRUCT_PAD(0x09, 0x0C);
-    /* 0C */ u32 msg_0C;
+    /* 0C */ u32 msg_help;
 };
 
-struct Unk_08678840
-{
-    /* 04 */ struct Unk_08678840_00 unk_00[9];
-};
+extern struct UnitListScreenField UnitListPageFields[][9];
 
-extern struct Unk_08678840 gUnk_08678840[];
-
-extern u16 CONST_DATA gUnk_08678750[]; // sprite
+extern u16 CONST_DATA Sprite_08678750[]; // sprite
 extern u16 const * CONST_DATA gUnk_08678818[]; // sprites
-extern u16 CONST_DATA gUnk_08678758[]; // sprite
-extern u16 CONST_DATA gUnk_08678760[]; // sprite
+extern u16 CONST_DATA Sprite_08678758[]; // sprite
+extern u16 CONST_DATA Sprite_08678760[]; // sprite
 
 struct Unk_02016874
 {
@@ -162,7 +144,7 @@ extern struct Text gUnk_0200D69C;
 extern struct Text gUnk_0200D6A4;
 extern struct Text gUnk_0200D6AC;
 
-extern struct ProcScr CONST_DATA gUnk_086786F4[];
+extern struct ProcScr CONST_DATA ProcScr_UnitListScreenSprites[];
 
 enum
 {
@@ -195,7 +177,7 @@ void func_fe6_080741EC(void)
 
     for (i = 0; i < gUnk_0200CD38; i++)
     {
-        UnitRearrangeAdd(gUnk_0200CC38[i]->unit);
+        UnitRearrangeAdd(gSortedUnits[i]->unit);
     }
 
     for (i = 1; i < 0x40; i++)
@@ -221,17 +203,17 @@ void func_fe6_08074254(fu8 x, fu8 y, fu8 width)
 {
     int i;
 
-    PutSpriteExt(0x0D, x, y, gUnk_08678744.sprite_00, 0xA0 << 7);
+    PutSpriteExt(0x0D, x, y, gUnk_08678744[0], OAM2_PAL(5));
 
     for (i = 0; i < width - 1; i++)
     {
-        PutSpriteExt(0x0D, x + i * 16 + 8, y, gUnk_08678744.sprite_04, 0xA0 << 7);
+        PutSpriteExt(0x0D, x + i * 16 + 8, y, gUnk_08678744[1], OAM2_PAL(5));
     }
 
-    PutSpriteExt(0x0D, x + i * 16 + 8, y, gUnk_08678744.sprite_08, 0xA0 << 7);
+    PutSpriteExt(0x0D, x + i * 16 + 8, y, gUnk_08678744[2], OAM2_PAL(5));
 }
 
-void func_fe6_080742D0(fu8 arg_0)
+void func_fe6_080742D0(fu8 sort_key)
 {
     int i, j;
 
@@ -243,7 +225,7 @@ void func_fe6_080742D0(fu8 arg_0)
     {
         for (j = 0; j < 9; j++)
         {
-            if (gUnk_08678840[i].unk_00[j].unk_00 == arg_0)
+            if (UnitListPageFields[i][j].sort_key == sort_key)
             {
                 if (i == 5 && j != 0)
                 {
@@ -253,7 +235,7 @@ void func_fe6_080742D0(fu8 arg_0)
                 {
                     Text_SetCursor(&gUnk_0200D6AC, 0);
                     Text_SetColor(&gUnk_0200D6AC, TEXT_COLOR_SYSTEM_WHITE);
-                    Text_DrawString(&gUnk_0200D6AC, gUnk_08678840[i].unk_00[j].str_04);
+                    Text_DrawString(&gUnk_0200D6AC, UnitListPageFields[i][j].label_string);
                     PutText(&gUnk_0200D6AC, gBg2Tm + 0x34);
                 }
 
@@ -302,9 +284,9 @@ void func_fe6_080743C8(fu16 arg_0)
 
     for (i = 0; i < 8 && i + offset < gUnk_0200CD38; i++)
     {
-        if (GetUnitEquippedWeapon(gUnk_0200CC38[offset + i]->unit) != 0)
+        if (GetUnitEquippedWeapon(gSortedUnits[offset + i]->unit) != 0)
         {
-            icons_to_display[i] = GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[offset + i]->unit));
+            icons_to_display[i] = GetItemIcon(GetUnitEquippedWeapon(gSortedUnits[offset + i]->unit));
         }
     }
 
@@ -365,7 +347,7 @@ void func_fe6_080744A0(fu8 arg_0, fu8 arg_1, fi8 arg_2)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-void func_fe6_08074558(struct UnitListScreenProcA * proc, fi8 arg_1)
+void func_fe6_08074558(struct UnitListScreenProc * proc, fi8 arg_1)
 {
     fu8 i;
 
@@ -384,14 +366,14 @@ void func_fe6_08074558(struct UnitListScreenProcA * proc, fi8 arg_1)
     {
         if (arg_1 != 0)
         {
-            if (UNIT_PID(gUnk_0200CC38[i]->unit) == unit_id)
+            if (UNIT_PID(gSortedUnits[i]->unit) == unit_id)
                 goto found_unit;
 
             continue;
         }
         else
         {
-            if (gUnk_0200CC38[i]->unit->id == unit_id)
+            if (gSortedUnits[i]->unit->id == unit_id)
                 goto found_unit;
 
             continue;
@@ -467,16 +449,16 @@ void func_fe6_08074668(bool use_win1)
     }
 }
 
-void func_fe6_08074778(struct UnitListScreenProcA * proc)
+void func_fe6_08074778(struct UnitListScreenProc * proc)
 {
     EndAllMus();
-    Proc_End(proc->unk_44);
+    Proc_End(proc->sprites_proc);
     Proc_End(proc->unk_48);
     EndGreenText();
 
     SetWinEnable(0, 0, 0);
 
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
         SetStatScreenExcludedUnitFlags(UNIT_FLAG_DEAD);
     }
@@ -485,40 +467,40 @@ void func_fe6_08074778(struct UnitListScreenProcA * proc)
         SetStatScreenExcludedUnitFlags(UNIT_FLAG_DEAD | UNIT_FLAG_NOT_DEPLOYED);
     }
 
-    StartStatScreen(gUnk_0200CC38[proc->unk_30]->unit, proc);
+    StartStatScreen(gSortedUnits[proc->unk_30]->unit, proc);
 
-    gPlaySt.last_sort_id = (proc->unk_34 << 7) + proc->unk_32;
+    gPlaySt.last_sort_key = (proc->sort_order << 7) + proc->sort_key;
 
     proc->unk_29 = 4;
 }
 
-void func_fe6_08074804(struct UnitListScreenProcA * proc)
+void func_fe6_08074804(struct UnitListScreenProc * proc)
 {
     func_fe6_08074EF0(proc);
     SetDispEnable(0, 0, 0, 0, 0);
 }
 
-void func_fe6_08074830(struct UnitListScreenProcA * proc)
+void func_fe6_08074830(struct UnitListScreenProc * proc)
 {
     SetDispEnable(1, 1, 1, 1, 1);
 }
 
-void func_fe6_08074850(struct UnitListScreenProcB * proc)
+void UnitListScreenSprites_Init(struct UnitListScreenSpritesProc * proc)
 {
-    proc->unk_2C = proc->proc_parent;
+    proc->main_proc = proc->proc_parent;
     proc->unk_3B = 0;
     proc->unk_3C = 0;
-    proc->unk_38 = proc->unk_2C->unk_40;
+    proc->unk_38 = proc->main_proc->unk_40;
     proc->unk_3A = 0;
     proc->unk_30 = 0;
     proc->unk_34 = func_fe6_0808230C(proc);
 
-    func_fe6_08082320(proc->unk_34, 0xE0, 0x40, 10, proc->unk_2C->unk_40, gUnk_0200CD38, 6);
+    func_fe6_08082320(proc->unk_34, 0xE0, 0x40, 10, proc->main_proc->unk_40, gUnk_0200CD38, 6);
 
     ForceSyncUnitSpriteSheet();
 }
 
-void func_fe6_080748AC(struct UnitListScreenProcB * proc)
+void UnitListScreenSprites_Main(struct UnitListScreenSpritesProc * proc)
 {
     fu8 r5;
     fi8 sl;
@@ -526,38 +508,38 @@ void func_fe6_080748AC(struct UnitListScreenProcB * proc)
 
     u8 sp_0C[4] = { 0, 1, 2, 1 };
 
-    if (proc->unk_2C->unk_34 == 0)
+    if (proc->main_proc->sort_order == 0)
     {
-        PutSpriteExt(0x0B, 0xB8, sp_0C[(proc->unk_3B / 8) % 4] + 7, gUnk_08678750, OAM2_PAL(9));
+        PutSpriteExt(0x0B, 0xB8, sp_0C[(proc->unk_3B / 8) % 4] + 7, Sprite_08678750, OAM2_PAL(9));
     }
     else
     {
-        PutSpriteExt(0x0B, 0xB8 + 0x2000, sp_0C[(proc->unk_3B / 8) % 4] + 7, gUnk_08678750, OAM2_PAL(9));
+        PutSpriteExt(0x0B, 0xB8 + 0x2000, sp_0C[(proc->unk_3B / 8) % 4] + 7, Sprite_08678750, OAM2_PAL(9));
     }
 
-    PutSpriteExt(0x0D, 0x20, 0x08, gUnk_08678818[proc->unk_2C->unk_2F], OAM2_PAL(9));
-    PutSpriteExt(0x0D, 0xA0, 0, gUnk_08678758, OAM2_PAL(9));
+    PutSpriteExt(0x0D, 0x20, 0x08, gUnk_08678818[proc->main_proc->page], OAM2_PAL(9));
+    PutSpriteExt(0x0D, 0xA0, 0, Sprite_08678758, OAM2_PAL(9));
 
-    func_fe6_08082320(proc->unk_34, 0xE0, 0x40, 0x0A, proc->unk_2C->unk_40, gUnk_0200CD38, 6);
+    func_fe6_08082320(proc->unk_34, 0xE0, 0x40, 0x0A, proc->main_proc->unk_40, gUnk_0200CD38, 6);
 
-    if (proc->unk_2C->unk_29 > 2)
+    if (proc->main_proc->unk_29 > 2)
     {
         PutUiHand(
-            gUnk_08678840[proc->unk_2C->unk_2F].unk_00[proc->unk_2C->unk_2D].unk_08,
-            40 + proc->unk_2C->unk_2C * 16);
+            UnitListPageFields[proc->main_proc->page][proc->main_proc->unk_2D].x_column,
+            40 + proc->main_proc->unk_2C * 16);
     }
     else
     {
-        PutSpriteExt(0x0D, 4, 0x40 + proc->unk_2C->unk_2C * 16, gUnk_08678760, 0x9000);
+        PutSpriteExt(0x0D, 4, 0x40 + proc->main_proc->unk_2C * 16, Sprite_08678760, OAM2_PAL(9));
     }
 
-    if ( proc->unk_38 != proc->unk_2C->unk_40 || (proc->unk_2C->unk_40 % 0x10) != 0)
+    if (proc->unk_38 != proc->main_proc->unk_40 || (proc->main_proc->unk_40 % 0x10) != 0)
     {
         gPal[0x19E] = gUnk_02016874.unk_10;
         EnablePalSync();
 
         proc->unk_3C = 0x20;
-        proc->unk_38 = proc->unk_2C->unk_40;
+        proc->unk_38 = proc->main_proc->unk_40;
 
         if (proc->unk_3A == 0)
         {
@@ -584,15 +566,15 @@ void func_fe6_080748AC(struct UnitListScreenProcB * proc)
 
     for (i = 0; i < 6 && i + r5 < gUnk_0200CD38; i++)
     {
-        PutUnitSprite(4, 8, 56 + i * 16 + sl, gUnk_0200CC38[i + r5]->unit);
+        PutUnitSprite(4, 8, 56 + i * 16 + sl, gSortedUnits[i + r5]->unit);
     }
 
     if (proc->unk_3A != 0 && i + r5 < gUnk_0200CD38)
     {
-        PutUnitSprite(4, 8, 56 + i * 16 + sl, gUnk_0200CC38[i + r5]->unit);
+        PutUnitSprite(4, 8, 56 + i * 16 + sl, gSortedUnits[i + r5]->unit);
     }
 
-    if (proc->unk_2C->unk_2F < proc->unk_2C->unk_2E && proc->unk_2C->unk_39 != 3)
+    if (proc->main_proc->page < proc->main_proc->unk_2E && proc->main_proc->mode != UNITLIST_MODE_SOLOANIM)
     {
         func_fe6_080744A0(1, proc->unk_30, 1);
     }
@@ -601,7 +583,7 @@ void func_fe6_080748AC(struct UnitListScreenProcB * proc)
         func_fe6_080744A0(1, proc->unk_30, 0);
     }
 
-    if (proc->unk_2C->unk_2F > 1 && proc->unk_2C->unk_39 != 3)
+    if (proc->main_proc->page > 1 && proc->main_proc->mode != UNITLIST_MODE_SOLOANIM)
     {
         func_fe6_080744A0(0, proc->unk_30, 1);
     }
@@ -619,11 +601,11 @@ void func_fe6_080748AC(struct UnitListScreenProcB * proc)
     proc->unk_3C++;
 }
 
-void func_fe6_08074BA0(void)
+void UnitListScreenSprites_Dummy(struct UnitListScreenSpritesProc * proc)
 {
 }
 
-void func_fe6_08074BA4(struct UnitListScreenProcA * proc)
+void func_fe6_08074BA4(struct UnitListScreenProc * proc)
 {
     int support_count;
     fu8 i, support_now_count;
@@ -633,19 +615,19 @@ void func_fe6_08074BA4(struct UnitListScreenProcA * proc)
         if ((unit->flags & UNIT_FLAG_DEAD) != 0)
             continue;
 
-        if (proc->unk_39 != 1 && (unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+        if (proc->mode != UNITLIST_MODE_PREPMENU && (unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
             continue;
 
         if ((unit->flags & UNIT_FLAG_NOT_DEPLOYED) == 0)
             proc->unk_3B++;
 
-        gUnk_0200C938[gUnk_0200CD38].unit = unit;
+        gSortedUnitsBuf[gUnk_0200CD38].unit = unit;
 
         BattleGenerateDisplayStats(unit, -1);
 
-        gUnk_0200C938[gUnk_0200CD38].battle_attack = ((gBattleUnitA.battle_attack + 1) & 0xFF) - 1;
-        gUnk_0200C938[gUnk_0200CD38].battle_hit = ((gBattleUnitA.battle_hit + 1) & 0xFF) - 1;
-        gUnk_0200C938[gUnk_0200CD38].battle_avoid = ((gBattleUnitA.battle_avoid + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_attack = ((gBattleUnitA.battle_attack + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_hit = ((gBattleUnitA.battle_hit + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_avoid = ((gBattleUnitA.battle_avoid + 1) & 0xFF) - 1;
 
         support_count = GetUnitSupportCount(unit);
         support_now_count = 0;
@@ -659,8 +641,8 @@ void func_fe6_08074BA4(struct UnitListScreenProcA * proc)
         if (support_now_count > 3)
             proc->unk_2E = 6 + (support_now_count - 1) / 3;
 
-        gUnk_0200C938[gUnk_0200CD38].support_talk_count = support_now_count;
-        gUnk_0200CC38[gUnk_0200CD38] = &gUnk_0200C938[gUnk_0200CD38];
+        gSortedUnitsBuf[gUnk_0200CD38].support_talk_count = support_now_count;
+        gSortedUnits[gUnk_0200CD38] = &gSortedUnitsBuf[gUnk_0200CD38];
 
         gUnk_0200CD38++;
 
@@ -668,7 +650,7 @@ void func_fe6_08074BA4(struct UnitListScreenProcA * proc)
     })
 }
 
-void func_fe6_08074D54(struct UnitListScreenProcA * proc)
+void func_fe6_08074D54(struct UnitListScreenProc * proc)
 {
     // this function is identical to func_fe6_08074BA4
     // except it uses FACTION_BLUE instead of gPlaySt.faction
@@ -681,19 +663,19 @@ void func_fe6_08074D54(struct UnitListScreenProcA * proc)
         if ((unit->flags & UNIT_FLAG_DEAD) != 0)
             continue;
 
-        if (proc->unk_39 != 1 && (unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+        if (proc->mode != UNITLIST_MODE_PREPMENU && (unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
             continue;
 
         if ((unit->flags & UNIT_FLAG_NOT_DEPLOYED) == 0)
             proc->unk_3B++;
 
-        gUnk_0200C938[gUnk_0200CD38].unit = unit;
+        gSortedUnitsBuf[gUnk_0200CD38].unit = unit;
 
         BattleGenerateDisplayStats(unit, -1);
 
-        gUnk_0200C938[gUnk_0200CD38].battle_attack = ((gBattleUnitA.battle_attack + 1) & 0xFF) - 1;
-        gUnk_0200C938[gUnk_0200CD38].battle_hit = ((gBattleUnitA.battle_hit + 1) & 0xFF) - 1;
-        gUnk_0200C938[gUnk_0200CD38].battle_avoid = ((gBattleUnitA.battle_avoid + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_attack = ((gBattleUnitA.battle_attack + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_hit = ((gBattleUnitA.battle_hit + 1) & 0xFF) - 1;
+        gSortedUnitsBuf[gUnk_0200CD38].battle_avoid = ((gBattleUnitA.battle_avoid + 1) & 0xFF) - 1;
 
         support_count = GetUnitSupportCount(unit);
         support_now_count = 0;
@@ -707,8 +689,8 @@ void func_fe6_08074D54(struct UnitListScreenProcA * proc)
         if (support_now_count > 3)
             proc->unk_2E = 6 + (support_now_count - 1) / 3;
 
-        gUnk_0200C938[gUnk_0200CD38].support_talk_count = support_now_count;
-        gUnk_0200CC38[gUnk_0200CD38] = &gUnk_0200C938[gUnk_0200CD38];
+        gSortedUnitsBuf[gUnk_0200CD38].support_talk_count = support_now_count;
+        gSortedUnits[gUnk_0200CD38] = &gSortedUnitsBuf[gUnk_0200CD38];
 
         gUnk_0200CD38++;
 
@@ -716,7 +698,7 @@ void func_fe6_08074D54(struct UnitListScreenProcA * proc)
     })
 }
 
-void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
+void func_fe6_08074EF0(struct UnitListScreenProc * proc)
 {
     fu8 i, thing;
 
@@ -737,33 +719,33 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
 
     func_fe6_08074D54(proc);
 
-    if (proc->unk_39 != 1 || proc->unk_2A == 1)
+    if (proc->mode != UNITLIST_MODE_PREPMENU || proc->unk_2A == 1)
     {
-        thing = gPlaySt.last_sort_id;
+        thing = gPlaySt.last_sort_key;
 
         if (thing != 0)
         {
-            proc->unk_33 = (thing >> 7) & 1;
-            proc->unk_34 = proc->unk_33;
-            proc->unk_32 = thing & 0x7F;
+            proc->target_sort_order = (thing >> 7) & 1;
+            proc->sort_order = proc->target_sort_order;
+            proc->sort_key = thing & 0x7F;
         }
 
-        if (proc->unk_29 != 4 && proc->unk_2F != 0)
+        if (proc->unk_29 != 4 && proc->page != 0)
         {
-            thing = gPlaySt.unk_19_4;
+            thing = gPlaySt.last_unit_list_page;
 
             if (thing != 0)
             {
                 if (thing > 6)
-                    proc->unk_2F = 6;
+                    proc->page = 6;
                 else
-                    proc->unk_2F = thing;
+                    proc->page = thing;
 
-                proc->unk_36 = proc->unk_2F;
+                proc->page_target = proc->page;
             }
         }
 
-        func_fe6_08076D3C(proc->unk_32, proc->unk_34);
+        SortUnitList(proc->sort_key, proc->sort_order);
     }
 
     Decompress(gUnk_083198CC, OBJ_VRAM0 + OBJCHR_UNITLIST_390 * CHR_SIZE);
@@ -794,7 +776,7 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
     InitText(&gUnk_0200D6A4, 20);
     InitText(&gUnk_0200D6AC, 4);
 
-    func_fe6_080742D0(proc->unk_32);
+    func_fe6_080742D0(proc->sort_key);
 
     if (proc->unk_29 == 4)
     {
@@ -803,7 +785,7 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
     }
     else
     {
-        if (proc->unk_39 == 1)
+        if (proc->mode == UNITLIST_MODE_PREPMENU)
             func_fe6_08074558(proc, 1);
     }
 
@@ -823,10 +805,10 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
 
     for (i = proc->unk_40 / 16; i < proc->unk_40 / 16 + 6 && i < gUnk_0200CD38; i++)
     {
-        func_fe6_08076448(proc, i, gBg0Tm, proc->unk_2F, 1);
+        func_fe6_08076448(proc, i, gBg0Tm, proc->page, TRUE);
     }
 
-    func_fe6_080763D8(proc->unk_2E, proc->unk_2F, 1);
+    func_fe6_080763D8(proc->unk_2E, proc->page, TRUE);
 
     SetWinEnable(1, 0, 0);
     SetWin0Box(0x10, 0x38, 0xe0, 0x98);
@@ -848,9 +830,9 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
     Decompress(gUnk_08320EEC, gBg1Tm + TM_OFFSET(0, 20));
     ApplyPalette(gUnk_08319E88, BGPAL_UNITLIST_15);
 
-    proc->unk_44 = SpawnProc(gUnk_086786F4, proc);
+    proc->sprites_proc = SpawnProc(ProcScr_UnitListScreenSprites, proc);
 
-    if (proc->unk_39 == 1 && proc->unk_3C == 0)
+    if (proc->mode == UNITLIST_MODE_PREPMENU && proc->unk_3C == 0)
     {
         Decompress(gUnk_0831B0A8, (void *) VRAM + GetBgChrOffset(3));
         ApplyPalettes(gUnk_08320D98, BGPAL_UNITLIST_10, 4);
@@ -864,7 +846,7 @@ void func_fe6_08074EF0(struct UnitListScreenProcA * proc)
     func_fe6_08070E70(NULL, -1);
 }
 
-void func_fe6_08075338(struct UnitListScreenProcA * proc)
+void func_fe6_08075338(struct UnitListScreenProc * proc)
 {
     proc->unk_29 = 0;
     proc->unk_31 = 1;
@@ -872,37 +854,37 @@ void func_fe6_08075338(struct UnitListScreenProcA * proc)
     proc->unk_2D = 0;
     proc->unk_30 = 0;
 
-    if (proc->unk_39 == 3)
-        proc->unk_2F = 0;
+    if (proc->mode == UNITLIST_MODE_SOLOANIM)
+        proc->page = UNITLIST_PAGE_SOLOANIM;
     else
-        proc->unk_2F = 1;
+        proc->page = UNITLIST_PAGE_1;
 
-    proc->unk_36 = proc->unk_2F;
+    proc->page_target = proc->page;
     proc->unk_40 = 0;
-    proc->unk_32 = 1;
+    proc->sort_key = 1;
     proc->unk_2A = 0;
-    proc->unk_33 = 1;
-    proc->unk_34 = 0;
+    proc->target_sort_order = 1;
+    proc->sort_order = 0;
     proc->unk_35 = 0;
 
     func_fe6_08074EF0(proc);
 }
 
-void func_fe6_080753A0(struct UnitListScreenProcA * proc)
+void func_fe6_080753A0(struct UnitListScreenProc * proc)
 {
     fu8 idx = proc->unk_30;
 
-    if ((gUnk_0200CC38[idx]->unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+    if ((gSortedUnits[idx]->unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
     {
-        if (proc->unk_3C == 0 || func_fe6_08082B74(gUnk_0200CC38[idx]->unit))
+        if (proc->unk_3C == 0 || func_fe6_08082B74(gSortedUnits[idx]->unit))
         {
             if (proc->unk_3A > proc->unk_3B)
             {
-                gUnk_0200CC38[idx]->unit->flags &= ~(UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED);
-                func_fe6_080791B4(UNIT_PID(gUnk_0200CC38[idx]->unit));
+                gSortedUnits[idx]->unit->flags &= ~(UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED);
+                func_fe6_080791B4(UNIT_PID(gSortedUnits[idx]->unit));
                 proc->unk_3B++;
                 PlaySe(SONG_6A);
-                func_fe6_08076448(proc, idx, gBg0Tm, proc->unk_2F, 1);
+                func_fe6_08076448(proc, idx, gBg0Tm, proc->page, TRUE);
             }
             else
             {
@@ -918,13 +900,13 @@ void func_fe6_080753A0(struct UnitListScreenProcA * proc)
     }
     else
     {
-        if (proc->unk_3C != 0 || !func_fe6_08079404(gUnk_0200CC38[idx]->unit))
+        if (proc->unk_3C != 0 || !func_fe6_08079404(gSortedUnits[idx]->unit))
         {
-            gUnk_0200CC38[idx]->unit->flags |= UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED;
-            func_fe6_080791DC(UNIT_PID(gUnk_0200CC38[idx]->unit));
+            gSortedUnits[idx]->unit->flags |= UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED;
+            func_fe6_080791DC(UNIT_PID(gSortedUnits[idx]->unit));
             PlaySe(SONG_6B);
             proc->unk_3B--;
-            func_fe6_08076448(proc, idx, gBg0Tm, proc->unk_2F, 1);
+            func_fe6_08076448(proc, idx, gBg0Tm, proc->page, TRUE);
         }
         else
         {
@@ -961,7 +943,7 @@ void func_fe6_080754F4(struct Unit * unit, int step)
     }
 }
 
-void func_fe6_08075570(struct UnitListScreenProcA * proc)
+void func_fe6_08075570(struct UnitListScreenProc * proc)
 {
     fu8 var_04 = proc->unk_2D;
 
@@ -988,19 +970,19 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
 
             if ((gKeySt->pressed & KEY_BUTTON_A) != 0)
             {
-                switch (proc->unk_39)
+                switch (proc->mode)
                 {
-                    case 1:
+                    case UNITLIST_MODE_PREPMENU:
                         func_fe6_080753A0(proc);
                         break;
 
-                    case 3:
-                        func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, 1);
-                        func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+                    case UNITLIST_MODE_SOLOANIM:
+                        func_fe6_080754F4(gSortedUnits[proc->unk_30]->unit, 1);
+                        func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->page, FALSE);
                         break;
 
-                    case 0:
-                        SetStatScreenLastUnitId(gUnk_0200CC38[proc->unk_30]->unit->id);
+                    case UNITLIST_MODE_FIELD:
+                        SetStatScreenLastUnitId(gSortedUnits[proc->unk_30]->unit->id);
                         PlaySe(SONG_6A);
                         Proc_Break(proc);
                         break;
@@ -1014,21 +996,21 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
 
             if ((gKeySt->repeated & KEY_DPAD_LEFT) != 0)
             {
-                if (proc->unk_39 == 3)
+                if (proc->mode == UNITLIST_MODE_SOLOANIM)
                 {
                     if ((gKeySt->pressed & KEY_DPAD_LEFT) == 0)
                         break;
 
-                    func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, -1);
-                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+                    func_fe6_080754F4(gSortedUnits[proc->unk_30]->unit, -1);
+                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->page, 0);
 
                     break;
                 }
 
-                if (proc->unk_2F < 2)
+                if (proc->page < 2)
                     break;
 
-                proc->unk_36--;
+                proc->page_target--;
                 Proc_Goto(proc, 2);
                 proc->unk_2D = 0;
                 PlaySe(SONG_6F);
@@ -1038,20 +1020,20 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
 
             if ((gKeySt->repeated & KEY_DPAD_RIGHT) != 0)
             {
-                if (proc->unk_39 == 3)
+                if (proc->mode == UNITLIST_MODE_SOLOANIM)
                 {
                     if ((gKeySt->pressed & KEY_DPAD_RIGHT) == 0)
                         break;
 
-                    func_fe6_080754F4(gUnk_0200CC38[proc->unk_30]->unit, +1);
-                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->unk_2F, 0);
+                    func_fe6_080754F4(gSortedUnits[proc->unk_30]->unit, +1);
+                    func_fe6_08076448(proc, proc->unk_30, gBg0Tm, proc->page, 0);
 
                     break;
                 }
 
-                if (proc->unk_2F < proc->unk_2E)
+                if (proc->page < proc->unk_2E)
                 {
-                    proc->unk_36++;
+                    proc->page_target++;
                     proc->unk_2D = 0;
                     PlaySe(SONG_6F);
                     Proc_Goto(proc, 2);
@@ -1085,7 +1067,7 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
                             proc->unk_2C = 1;
                         }
 
-                        func_fe6_08076448(proc, proc->unk_40 / 16 - 1, gBg0Tm, proc->unk_2F, 1);
+                        func_fe6_08076448(proc, proc->unk_40 / 16 - 1, gBg0Tm, proc->page, 1);
                         proc->unk_29 = 2;
                         proc->unk_40 = -(proc->unk_31 * 4) + proc->unk_40;
                         SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
@@ -1113,7 +1095,7 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
     
                     if (proc->unk_2C == 4 && proc->unk_30 != gUnk_0200CD38 - 1)
                     {
-                        func_fe6_08076448(proc, 6 + proc->unk_40 / 16, gBg0Tm, proc->unk_2F, 1);
+                        func_fe6_08076448(proc, 6 + proc->unk_40 / 16, gBg0Tm, proc->page, 1);
                         proc->unk_29 = 1;
                         proc->unk_40 = proc->unk_40 + proc->unk_31 * 4;
                         SetBgOffset(0, 0, (proc->unk_40 - 0x38) & 0xFF);
@@ -1161,29 +1143,29 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
 
             if ((gKeySt->pressed & KEY_BUTTON_A) != 0 && proc->unk_2B == 0)
             {
-                var_08 = proc->unk_32;
+                var_08 = proc->sort_key;
 
                 proc->unk_2A = 1;
                 PlaySe(SONG_6A);
-                proc->unk_32 = gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].unk_00;
-                proc->unk_33 = (proc->unk_33 + 1) & 1;
+                proc->sort_key = UnitListPageFields[proc->page][proc->unk_2D].sort_key;
+                proc->target_sort_order = (proc->target_sort_order + 1) & 1;
 
-                if (func_fe6_08076D3C(proc->unk_32, proc->unk_33))
+                if (SortUnitList(proc->sort_key, proc->target_sort_order))
                 {
                     for (i = 0; i < 6 && i < gUnk_0200CD38; i++)
                     {
-                        func_fe6_08076448(proc, i, gBg0Tm, proc->unk_2F, 1);
+                        func_fe6_08076448(proc, i, gBg0Tm, proc->page, 1);
                     }
 
                     func_fe6_080743C8(proc->unk_40);
                     EnableBgSync(1);
                 }
 
-                proc->unk_34 = proc->unk_33;
+                proc->sort_order = proc->target_sort_order;
                 proc->unk_35 = proc->unk_2D;
                 
-                if (proc->unk_32 != var_08)
-                    func_fe6_080742D0(proc->unk_32);
+                if (proc->sort_key != var_08)
+                    func_fe6_080742D0(proc->sort_key);
 
                 break;
             }
@@ -1191,27 +1173,27 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
             if ((gKeySt->repeated & KEY_DPAD_DOWN) != 0 && proc->unk_2B == 0)
             {
                 PlaySe(SONG_66);
-                proc->unk_33 = 1;
+                proc->target_sort_order = 1;
                 proc->unk_29 = 0;
                 break;
             }
 
             if ((gKeySt->repeated & KEY_DPAD_LEFT) != 0)
             {
-                proc->unk_33 = 1;
+                proc->target_sort_order = 1;
 
                 if (proc->unk_2D == 0)
                 {
-                    if (proc->unk_2F < 2)
+                    if (proc->page < 2)
                         break;
 
-                    if (proc->unk_39 == 3)
+                    if (proc->mode == UNITLIST_MODE_SOLOANIM)
                         break;
 
                     PlaySe(SONG_6F);
-                    proc->unk_36--;
+                    proc->page_target--;
 
-                    for (i = 8; i > 0 && gUnk_08678840[proc->unk_36].unk_00[i].unk_08 == 0; i--)
+                    for (i = 8; i > 0 && UnitListPageFields[proc->page_target][i].x_column == 0; i--)
                     {
                     }
 
@@ -1227,19 +1209,19 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
 
             if ((gKeySt->repeated & KEY_DPAD_RIGHT) != 0)
             {
-                proc->unk_33 = 1;
+                proc->target_sort_order = 1;
 
-                if (proc->unk_2D == 8 || gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D + 1].unk_08 == 0)
+                if (proc->unk_2D == 8 || UnitListPageFields[proc->page][proc->unk_2D + 1].x_column == 0)
                 {
-                    if (proc->unk_2F < proc->unk_2E)
+                    if (proc->page < proc->unk_2E)
                     {
-                        if (proc->unk_39 == 3)
+                        if (proc->mode == UNITLIST_MODE_SOLOANIM)
                             break;
     
                         proc->unk_2D = 0;
                         PlaySe(SONG_6F);
     
-                        proc->unk_36++;
+                        proc->page_target++;
                         Proc_Goto(proc, 2);
                     }
                     break;
@@ -1258,8 +1240,8 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
                 proc->unk_2B = 1;
 
                 StartHelpBox(
-                    gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].unk_08, 0x28,
-                    gUnk_08678840[proc->unk_2F].unk_00[proc->unk_2D].msg_0C);
+                    UnitListPageFields[proc->page][proc->unk_2D].x_column, 0x28,
+                    UnitListPageFields[proc->page][proc->unk_2D].msg_help);
             }
 
             break;
@@ -1275,25 +1257,25 @@ void func_fe6_08075570(struct UnitListScreenProcA * proc)
     if (proc->unk_2B != 0 && var_04 != proc->unk_2D)
     {
         StartHelpBox(
-            gUnk_08678840[proc->unk_36].unk_00[proc->unk_2D].unk_08, 0x28,
-            gUnk_08678840[proc->unk_36].unk_00[proc->unk_2D].msg_0C);
+            UnitListPageFields[proc->page_target][proc->unk_2D].x_column, 0x28,
+            UnitListPageFields[proc->page_target][proc->unk_2D].msg_help);
     }
 }
 
-void func_fe6_08075D34(struct UnitListScreenProcA * proc)
+void func_fe6_08075D34(struct UnitListScreenProc * proc)
 {
-    if (proc->unk_39 == 1)
+    if (proc->mode == UNITLIST_MODE_PREPMENU)
     {
-        gUnk_0200E7D8 = UNIT_PID(gUnk_0200CC38[proc->unk_30]->unit);
+        gUnk_0200E7D8 = UNIT_PID(gSortedUnits[proc->unk_30]->unit);
         func_fe6_080741EC();
     }
 
-    gPlaySt.last_sort_id = (proc->unk_34 << 7) + proc->unk_32;
+    gPlaySt.last_sort_key = (proc->sort_order << 7) + proc->sort_key;
 
-    if (proc->unk_2F != 0)
-        gPlaySt.unk_19_4 = proc->unk_2F;
+    if (proc->page != UNITLIST_PAGE_SOLOANIM)
+        gPlaySt.last_unit_list_page = proc->page;
 
-    Proc_End(proc->unk_44);
+    Proc_End(proc->sprites_proc);
 
     if (proc->unk_48 != NULL)
         Proc_End(proc->unk_48);
@@ -1312,7 +1294,7 @@ void func_fe6_08075D34(struct UnitListScreenProcA * proc)
     ClearIcons();
 }
 
-void func_fe6_08075DF8(struct UnitListScreenProcA * proc)
+void func_fe6_08075DF8(struct UnitListScreenProc * proc)
 {
     int i;
 
@@ -1320,21 +1302,21 @@ void func_fe6_08075DF8(struct UnitListScreenProcA * proc)
 
     for (i = proc->unk_40 / 16; i < proc->unk_40 / 16 + 6 && i < gUnk_0200CD38; i++)
     {
-        func_fe6_08076448(proc, i, gUnk_0200CD3A, proc->unk_2F, 0);
+        func_fe6_08076448(proc, i, gUnk_0200CD3A, proc->page, 0);
     }
 
     TmFillRect(gUnk_0200D53A, 31, 1, 0);
 
-    func_fe6_08076314(gUnk_0200D53A, proc->unk_2F);
+    func_fe6_08076314(gUnk_0200D53A, proc->page);
 
     proc->unk_3E = 0;
-    proc->unk_37 = proc->unk_2F;
+    proc->unk_37 = proc->page;
     proc->unk_38 = 0;
 }
 
 #if NONMATCHING
 
-void func_fe6_08075E94(struct UnitListScreenProcA * proc)
+void func_fe6_08075E94(struct UnitListScreenProc * proc)
 {
     int r4, i;
 
@@ -1349,10 +1331,10 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
     { 
         fu8 r1;
 
-        if (proc->unk_36 > proc->unk_2F)
+        if (proc->page_target > proc->page)
         {
             // permuter found that idk though
-            proc->unk_32 = proc->unk_32;
+            proc->sort_key = proc->sort_key;
 
             if (proc->unk_38 + i > 20)
                 r1 = 0;
@@ -1385,7 +1367,7 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
     if (proc->unk_38 < 20)
         return;
 
-    proc->unk_2F = proc->unk_36;
+    proc->page = proc->page_target;
 
     TmFillRect(gBg2Tm+0x150/2, 0x16, 1, 0);
     TmFillRect(gBg0Tm+0x10/2, 0x16, 0x1F, 0);
@@ -1394,15 +1376,15 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
         gUnk_0200E6B4[r4] = UINT8_MAX;
 
     ClearIcons();
-    func_fe6_080742D0(proc->unk_32);
+    func_fe6_080742D0(proc->sort_key);
 
     for (r4 = proc->unk_40 / 16; r4 < proc->unk_40 / 16 + 6 && r4 < gUnk_0200CD38; r4++)
     {
-        func_fe6_08076448(proc, r4, gUnk_0200CD3A, proc->unk_2F, 0);
+        func_fe6_08076448(proc, r4, gUnk_0200CD3A, proc->page, 0);
     }
 
-    func_fe6_08076314(gUnk_0200D53A, proc->unk_2F);
-    func_fe6_080763D8(proc->unk_2E, proc->unk_2F, 0);
+    func_fe6_08076314(gUnk_0200D53A, proc->page);
+    func_fe6_080763D8(proc->unk_2E, proc->page, 0);
 
     proc->unk_38 = 0;
     proc->unk_3E = 0;
@@ -1413,7 +1395,7 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
 #else
 
 NAKEDFUNC
-void func_fe6_08075E94(struct UnitListScreenProcA * proc)
+void func_fe6_08075E94(struct UnitListScreenProc * proc)
 {
     // https://decomp.me/scratch/sjiAE
 
@@ -1651,7 +1633,7 @@ void func_fe6_08075E94(struct UnitListScreenProcA * proc)
 
 #if NONMATCHING
 
-void func_fe6_08076060(struct UnitListScreenProcA * proc)
+void func_fe6_08076060(struct UnitListScreenProc * proc)
 {
     int r5, r4;
     fu8 r1;
@@ -1663,7 +1645,7 @@ void func_fe6_08076060(struct UnitListScreenProcA * proc)
 
     proc->unk_3E++;
 
-    if (proc->unk_36 > proc->unk_37)
+    if (proc->page_target > proc->unk_37)
     {
         for (r5 = 0; r5 < proc->unk_38; r5++)
         {    
@@ -1703,7 +1685,7 @@ void func_fe6_08076060(struct UnitListScreenProcA * proc)
 #else // NONMATCHING
 
 NAKEDFUNC
-void func_fe6_08076060(struct UnitListScreenProcA * proc)
+void func_fe6_08076060(struct UnitListScreenProc * proc)
 {
     // https://decomp.me/scratch/j9zM3
 
@@ -1951,7 +1933,7 @@ void func_fe6_08076060(struct UnitListScreenProcA * proc)
 
 #endif // NONMATCHING
 
-struct ProcScr CONST_DATA gUnk_08678484[] =
+struct ProcScr CONST_DATA ProcScr_UnitListScreen[] =
 {
     PROC_19,
     PROC_CALL(LockGame),
@@ -2000,12 +1982,12 @@ PROC_LABEL(4),
     PROC_END,
 };
 
-void func_fe6_08076238(void)
+void StartUnitListScreen(void)
 {
-    struct UnitListScreenProcA * proc;
+    struct UnitListScreenProc * proc;
 
-    proc = SpawnProc(gUnk_08678484, PROC_TREE_3);
-    proc->unk_39 = 0;
+    proc = SpawnProc(ProcScr_UnitListScreen, PROC_TREE_3);
+    proc->mode = UNITLIST_MODE_FIELD;
 }
 
 struct ProcScr CONST_DATA gUnk_08678594[] =
@@ -2039,7 +2021,7 @@ PROC_LABEL(4),
 
 void func_fe6_08076250(ProcPtr parent)
 {
-    struct UnitListScreenProcA * proc;
+    struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
@@ -2050,7 +2032,7 @@ void func_fe6_08076250(ProcPtr parent)
         proc = SpawnProcLocking(gUnk_08678594, parent);
     }
 
-    proc->unk_39 = 1;
+    proc->mode = UNITLIST_MODE_PREPMENU;
 
     if (func_fe6_08036984() == 1)
     {
@@ -2091,7 +2073,7 @@ PROC_LABEL(4),
 
 void func_fe6_080762B4(ProcPtr parent)
 {
-    struct UnitListScreenProcA * proc;
+    struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
@@ -2102,12 +2084,12 @@ void func_fe6_080762B4(ProcPtr parent)
         proc = SpawnProcLocking(gUnk_0867865C, parent);
     }
 
-    proc->unk_39 = 3;
+    proc->mode = UNITLIST_MODE_SOLOANIM;
 }
 
 void func_fe6_080762E4(ProcPtr parent)
 {
-    struct UnitListScreenProcA * proc;
+    struct UnitListScreenProc * proc;
 
     if (parent == NULL)
     {
@@ -2118,7 +2100,7 @@ void func_fe6_080762E4(ProcPtr parent)
         proc = SpawnProcLocking(gUnk_08678594, parent);
     }
 
-    proc->unk_39 = 4;
+    proc->mode = UNITLIST_MODE_4;
 }
 
 void func_fe6_08076314(u16 * tm, fu8 page)
@@ -2129,7 +2111,7 @@ void func_fe6_08076314(u16 * tm, fu8 page)
 
     ClearText(&gUnk_0200D6A4);
 
-    if (page == 5)
+    if (page == UNITLIST_PAGE_WEXP)
     {
         for (i = 0; i < 8; i++)
         {
@@ -2138,11 +2120,11 @@ void func_fe6_08076314(u16 * tm, fu8 page)
     }
     else
     {
-        for (i = 1; i < 9 && gUnk_08678840[page].unk_00[i].unk_08 != 0; i++)
+        for (i = 1; i < 9 && UnitListPageFields[page][i].x_column != 0; i++)
         {
-            Text_SetCursor(&gUnk_0200D6A4, gUnk_08678840[page].unk_00[i].unk_08 - 0x40);
+            Text_SetCursor(&gUnk_0200D6A4, UnitListPageFields[page][i].x_column - 0x40);
             Text_SetColor(&gUnk_0200D6A4, TEXT_COLOR_SYSTEM_WHITE);
-            Text_DrawString(&gUnk_0200D6A4, gUnk_08678840[page].unk_00[i].str_04);
+            Text_DrawString(&gUnk_0200D6A4, UnitListPageFields[page][i].label_string);
         }
         
         PutText(&gUnk_0200D6A4, tm + 8);
@@ -2173,7 +2155,7 @@ void func_fe6_080763D8(fu8 max_pages, fu8 page, bool arg_2)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name)
+void func_fe6_08076448(struct UnitListScreenProc * proc, fu8 unit_num, u16 * tm, fu8 page, bool put_name)
 {
     fu8 inactive;
     fu8 i;
@@ -2186,7 +2168,7 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
     int row = unit_num % 7;
     int y = (unit_num * 2) & 0x1F;
 
-    if ((gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+    if ((gSortedUnits[unit_num]->unit->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
         inactive = TRUE;
     else
         inactive = FALSE;
@@ -2196,7 +2178,7 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
         ClearText(&gUnk_0200D5BC[row]);
         Text_SetCursor(&gUnk_0200D5BC[row], 0);
 
-        if (proc->unk_3C == 0 && proc->unk_39 == 1 && func_fe6_08079404(gUnk_0200CC38[unit_num]->unit))
+        if (proc->unk_3C == 0 && proc->mode == UNITLIST_MODE_PREPMENU && func_fe6_08079404(gSortedUnits[unit_num]->unit))
         {
             Text_SetColor(&gUnk_0200D5BC[row], TEXT_COLOR_SYSTEM_GREEN);
         }
@@ -2205,7 +2187,7 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
             Text_SetColor(&gUnk_0200D5BC[row], inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE);
         }
 
-        Text_DrawString(&gUnk_0200D5BC[row], DecodeMsg(gUnk_0200CC38[unit_num]->unit->pinfo->msg_name));
+        Text_DrawString(&gUnk_0200D5BC[row], DecodeMsg(gSortedUnits[unit_num]->unit->pinfo->msg_name));
         PutText(&gUnk_0200D5BC[row], tm + y * 0x20 + 3);
     }
 
@@ -2216,30 +2198,30 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
 
     switch (page)
     {
-        case UNITLIST_PAGE_0:
-            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, 0, 0, 0, DecodeMsg(gUnk_0200CC38[unit_num]->unit->jinfo->msg_name));
+        case UNITLIST_PAGE_SOLOANIM:
+            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, 0, 0, 0, DecodeMsg(gSortedUnits[unit_num]->unit->jinfo->msg_name));
             Text_SetColor(&gUnk_0200D5F4[row][1], inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE);
 
-            if (GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit) == 0)
+            if (GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit) == 0)
             {
                 PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, JTEXT("ーーーー"));
             }
             else
             {
-                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, GetItemName(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
-                PutIcon(tm + y * 0x20 + 15, GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
-                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
+                PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, GetItemName(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit)));
+                PutIcon(tm + y * 0x20 + 15, GetItemIcon(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
+                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit)));
             }
 
             ClearText(&gUnk_0200D5F4[row][2]);
 
-            if (gUnk_0200CC38[unit_num]->unit->pinfo->id == PID_MERLINUS)
+            if (gSortedUnits[unit_num]->unit->pinfo->id == PID_MERLINUS)
             {
                 PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 1, 4, 0, JTEXT("オフ"));
             }
             else
             {
-                switch (gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_SOLOANIM)
+                switch (gSortedUnits[unit_num]->unit->flags & UNIT_FLAG_SOLOANIM)
                 {
                     case UNIT_FLAG_SOLOANIM_1:
                         PutDrawText(&gUnk_0200D5F4[row][2], tm + y * 0x20 + 24, 4, 8, 0, JTEXT("１"));
@@ -2259,30 +2241,30 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
 
         case UNITLIST_PAGE_1:
             // jinfo
-            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, DecodeMsg(gUnk_0200CC38[unit_num]->unit->jinfo->msg_name));
+            PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 8, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, DecodeMsg(gSortedUnits[unit_num]->unit->jinfo->msg_name));
 
             // level
-            PutNumberOrBlank(tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gUnk_0200CC38[unit_num]->unit->level);
+            PutNumberOrBlank(tm + y * 0x20 + 17, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gSortedUnits[unit_num]->unit->level);
 
             // exp
-            PutNumberOrBlank(tm + y * 0x20 + 20, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gUnk_0200CC38[unit_num]->unit->exp);
+            PutNumberOrBlank(tm + y * 0x20 + 20, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, gSortedUnits[unit_num]->unit->exp);
 
             // hp
-            PutNumberOrBlank(tm + y * 0x20 + 23, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 23, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitCurrentHp(gSortedUnits[unit_num]->unit));
             PutSpecialChar(tm + y * 0x20 + 24, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0x16);
-            PutNumberOrBlank(tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE, GetUnitMaxHp(gSortedUnits[unit_num]->unit));
 
             break;
 
         case UNITLIST_PAGE_2:
-            PutNumberOrBlank(tm + y * 0x20 + 9, UNIT_POW_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->pow ? 4 : 2, GetUnitPower(gUnk_0200CC38[unit_num]->unit));
-            PutNumberOrBlank(tm + y * 0x20 + 12, UNIT_SKL_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->skl ? 4 : 2, GetUnitSkill(gUnk_0200CC38[unit_num]->unit));
-            PutNumberOrBlank(tm + y * 0x20 + 15, UNIT_SPD_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->spd ? 4 : 2, GetUnitSpeed(gUnk_0200CC38[unit_num]->unit));
-            PutNumberOrBlank(tm + y * 0x20 + 18, UNIT_LCK_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->lck ? 4 : 2, GetUnitLuck(gUnk_0200CC38[unit_num]->unit));
-            PutNumberOrBlank(tm + y * 0x20 + 21, UNIT_DEF_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->def ? 4 : 2, GetUnitDefense(gUnk_0200CC38[unit_num]->unit));
-            PutNumberOrBlank(tm + y * 0x20 + 24, UNIT_RES_CAP(gUnk_0200CC38[unit_num]->unit) == gUnk_0200CC38[unit_num]->unit->res ? 4 : 2, GetUnitResistance(gUnk_0200CC38[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 9, UNIT_POW_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->pow ? 4 : 2, GetUnitPower(gSortedUnits[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 12, UNIT_SKL_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->skl ? 4 : 2, GetUnitSkill(gSortedUnits[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 15, UNIT_SPD_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->spd ? 4 : 2, GetUnitSpeed(gSortedUnits[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 18, UNIT_LCK_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->lck ? 4 : 2, GetUnitLuck(gSortedUnits[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 21, UNIT_DEF_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->def ? 4 : 2, GetUnitDefense(gSortedUnits[unit_num]->unit));
+            PutNumberOrBlank(tm + y * 0x20 + 24, UNIT_RES_CAP(gSortedUnits[unit_num]->unit) == gSortedUnits[unit_num]->unit->res ? 4 : 2, GetUnitResistance(gSortedUnits[unit_num]->unit));
 
-            icon = GetUnitAffinityIcon(gUnk_0200CC38[unit_num]->unit);
+            icon = GetUnitAffinityIcon(gSortedUnits[unit_num]->unit);
 
             if (icon == -1)
                 PutSpecialChar(tm + y * 0x20 + 26, 2, TEXT_SPECIAL_DASH);
@@ -2292,38 +2274,38 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
             break;
 
         case UNITLIST_PAGE_3:
-            if (GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit) == 0)
+            if (GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit) == 0)
             {
                 PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 10, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, JTEXT("ーーーー"));
             }
             else
             {
-                char const * name = GetItemName(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit));
+                char const * name = GetItemName(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit));
 
                 PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 10,
                     inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, dummy_zero, name);
 
-                PutIcon(tm + y * 0x20 + 8, GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
-                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gUnk_0200CC38[unit_num]->unit)));
+                PutIcon(tm + y * 0x20 + 8, GetItemIcon(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit)), TILEREF(0, BGPAL_ICONS));
+                func_fe6_08074384(GetItemIcon(GetUnitEquippedWeapon(gSortedUnits[unit_num]->unit)));
             }
 
             PutNumberOrBlank(tm + y * 0x20 + 18, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnk_0200CC38[unit_num]->battle_attack);
+                gSortedUnits[unit_num]->battle_attack);
 
             PutNumberOrBlank(tm + y * 0x20 + 22, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnk_0200CC38[unit_num]->battle_hit);
+                gSortedUnits[unit_num]->battle_hit);
 
             PutNumberOrBlank(tm + y * 0x20 + 26, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                gUnk_0200CC38[unit_num]->battle_avoid);
+                gSortedUnits[unit_num]->battle_avoid);
             
             break;
 
         case UNITLIST_PAGE_4:
-            if ((gUnk_0200CC38[unit_num]->unit->flags & UNIT_FLAG_RESCUING) != 0)
+            if ((gSortedUnits[unit_num]->unit->flags & UNIT_FLAG_RESCUING) != 0)
             {
                 PutDrawText(&gUnk_0200D5F4[row][1], tm + y * 0x20 + 18,
                     inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
-                    GetUnitRescueName(gUnk_0200CC38[unit_num]->unit));
+                    GetUnitRescueName(gSortedUnits[unit_num]->unit));
             }
             else
             {
@@ -2333,21 +2315,21 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
             }
 
             PutNumberOrBlank(tm + y * 0x20 + 10, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                UNIT_MOV(gUnk_0200CC38[unit_num]->unit));
+                UNIT_MOV(gSortedUnits[unit_num]->unit));
 
             PutNumberOrBlank(tm + y * 0x20 + 13, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                UNIT_CON(gUnk_0200CC38[unit_num]->unit));
+                UNIT_CON(gSortedUnits[unit_num]->unit));
 
             PutNumberOrBlank(tm + y * 0x20 + 16, inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_BLUE,
-                GetUnitAid(gUnk_0200CC38[unit_num]->unit));
+                GetUnitAid(gSortedUnits[unit_num]->unit));
 
             PutDrawText(&gUnk_0200D5F4[row][0], tm + y * 0x20 + 23,
                 inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0,
-                GetUnitStatusName(gUnk_0200CC38[unit_num]->unit));
+                GetUnitStatusName(gSortedUnits[unit_num]->unit));
 
             break;
 
-        case UNITLIST_PAGE_5:
+        case UNITLIST_PAGE_WEXP:
         {
             for (i = 0; i < 8; i++)
             {
@@ -2362,7 +2344,7 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
                     [WPN_LEVEL_S] = TEXT_SPECIAL_S,
                 };
 
-                num = GetWeaponLevelFromExp(gUnk_0200CC38[unit_num]->unit->wexp[i]);
+                num = GetWeaponLevelFromExp(gSortedUnits[unit_num]->unit->wexp[i]);
 
                 PutSpecialChar(tm + y * 0x20 + 10 + 2 * i,
                     num == WPN_LEVEL_S ? TEXT_COLOR_SYSTEM_GREEN : 2, special_chars[num]);
@@ -2377,25 +2359,25 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
             fu8 support_passed;
             int support_count;
 
-            support_start = (page - UNITLIST_PAGE_SUPPORT_FIRST) * 3;
+            support_start = (page - UNITLIST_PAGE_SUPPORT) * 3;
             support_passed = 0;
             num = 0;
-            support_count = GetUnitSupportCount(gUnk_0200CC38[unit_num]->unit);
+            support_count = GetUnitSupportCount(gSortedUnits[unit_num]->unit);
 
             ClearText(&gUnk_0200D5F4[row][2]);
 
             for (i = 0; i < support_count; i++)
             {
-                if (CanUnitSupportNow(gUnk_0200CC38[unit_num]->unit, i))
+                if (CanUnitSupportNow(gSortedUnits[unit_num]->unit, i))
                 {
                     if (support_passed >= support_start)
                     {
-                        struct Unit * other = GetUnitSupportUnit(gUnk_0200CC38[unit_num]->unit, i);
+                        struct Unit * other = GetUnitSupportUnit(gSortedUnits[unit_num]->unit, i);
     
                         if ((other->flags & UNIT_FLAG_NOT_DEPLOYED) == 0)
                         {
                             char const * name = DecodeMsg(
-                                GetPInfo(GetUnitSupportPid(gUnk_0200CC38[unit_num]->unit, i))->msg_name);
+                                GetPInfo(GetUnitSupportPid(gSortedUnits[unit_num]->unit, i))->msg_name);
 
                             PutDrawText(&gUnk_0200D5F4[row][num], tm + y * 0x20 + 9 + num * 6,
                                 inactive ? TEXT_COLOR_SYSTEM_GRAY : TEXT_COLOR_SYSTEM_WHITE, 0, 0, name);
@@ -2403,7 +2385,7 @@ void func_fe6_08076448(struct UnitListScreenProcA * proc, fu8 unit_num, u16 * tm
                         else
                         {
                             char const * name = DecodeMsg(
-                                GetPInfo(GetUnitSupportPid(gUnk_0200CC38[unit_num]->unit, i))->msg_name);
+                                GetPInfo(GetUnitSupportPid(gSortedUnits[unit_num]->unit, i))->msg_name);
 
                             PutDrawText(&gUnk_0200D5F4[row][num], tm + y * 0x20 + 9 + num * 6,
                                 TEXT_COLOR_SYSTEM_GRAY, 0, 0, name);
@@ -2439,11 +2421,11 @@ int func_fe6_08076D30(struct Unit * unit)
     return (unit->flags & UNIT_FLAG_SOLOANIM);
 }
 
-bool func_fe6_08076D3C(fu8 key, fu8 direction)
+bool SortUnitList(fu8 key, fu8 order)
 {
     u8 cache[0x40];
 
-    direction = direction & 1;
+    order = order & 1;
 
     #define PREPARE_VARS \
         bool changed = FALSE; \
@@ -2462,9 +2444,9 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
 
     #define SWAP(i, j) \
     { \
-        tmp_addr = gUnk_0200CC38[(i)]; \
-        gUnk_0200CC38[(i)] = gUnk_0200CC38[(j)]; \
-        gUnk_0200CC38[(j)] = tmp_addr; \
+        tmp_addr = gSortedUnits[(i)]; \
+        gSortedUnits[(i)] = gSortedUnits[(j)]; \
+        gSortedUnits[(j)] = tmp_addr; \
     }
 
     #define SWAP_CACHE(i, j) \
@@ -2510,7 +2492,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
     }
 
     #define SORT_REAL(cond_asc, cond_dsc) \
-        if (direction == 0) \
+        if (order == 0) \
         { \
             PREPARE_VARS \
             SORT_CORE(cond_asc, SWAP) \
@@ -2526,7 +2508,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
     #define SORT(cond) SORT_REAL(cond, !(cond))
 
     #define SORT_BY_KEY(key) \
-        if (direction == 0) \
+        if (order == 0) \
         { \
             PREPARE_VARS \
             SORT_CORE_KEY(key, >, SWAP) \
@@ -2540,7 +2522,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
         }
 
     #define SORT_MAIN(sort_a, sort_b) \
-        if (direction == 0) \
+        if (order == 0) \
         { \
             PREPARE_VARS \
             sort_a \
@@ -2555,18 +2537,18 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
         break;
 
     #define SORT_BY_FUNC(func) \
-        SORT_REAL(func(gUnk_0200CC38[j + 1]->unit) > func(gUnk_0200CC38[j]->unit), \
-            func(gUnk_0200CC38[j + 1]->unit) < func(gUnk_0200CC38[j]->unit))
+        SORT_REAL(func(gSortedUnits[j + 1]->unit) > func(gSortedUnits[j]->unit), \
+            func(gSortedUnits[j + 1]->unit) < func(gSortedUnits[j]->unit))
 
     #define SORT_BY_UNIT_FIELD(field) \
-        SORT_REAL((gUnk_0200CC38[j + 1]->unit->field) > (gUnk_0200CC38[j]->unit->field), \
-            (gUnk_0200CC38[j + 1]->unit->field) < (gUnk_0200CC38[j]->unit->field))
+        SORT_REAL((gSortedUnits[j + 1]->unit->field) > (gSortedUnits[j]->unit->field), \
+            (gSortedUnits[j + 1]->unit->field) < (gSortedUnits[j]->unit->field))
 
     switch (key)
     {
-        case 1:
-            #define KEY_A(i) (gUnk_0200CC38[(i)]->unit->pinfo->unk_0A)
-            #define KEY_B(i) (gUnk_0200CC38[(i)]->unit->flags & UNIT_FLAG_TURN_ENDED)
+        case UNITLIST_SORTKEY_1:
+            #define KEY_A(i) (gSortedUnits[(i)]->unit->pinfo->unk_0A)
+            #define KEY_B(i) (gSortedUnits[(i)]->unit->flags & UNIT_FLAG_TURN_ENDED)
 
             SORT_MAIN(
                 SORT_CORE_KEY(KEY_A, <, SWAP) SORT_CORE_KEY(KEY_B, <, SWAP),
@@ -2575,71 +2557,71 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
             #undef KEY_B
             #undef KEY_A
 
-        case 3:
-            #define KEY(i) (gUnk_0200CC38[(i)]->unit->level)
+        case UNITLIST_SORTKEY_3:
+            #define KEY(i) (gSortedUnits[(i)]->unit->level)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 2:
-            #define KEY(i) (gUnk_0200CC38[(i)]->unit->jinfo->unk_0A)
+        case UNITLIST_SORTKEY_2:
+            #define KEY(i) (gSortedUnits[(i)]->unit->jinfo->unk_0A)
             SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
             #undef KEY
 
-        case 4:
+        case UNITLIST_SORTKEY_4:
             SORT_BY_UNIT_FIELD(exp)
             break;
 
-        case 5:
+        case UNITLIST_SORTKEY_5:
             SORT_BY_FUNC(GetUnitCurrentHp)
             break;
 
-        case 6:
+        case UNITLIST_SORTKEY_6:
             SORT_BY_FUNC(GetUnitMaxHp)
             break;
 
-        case 7:
+        case UNITLIST_SORTKEY_7:
             SORT_BY_FUNC(GetUnitPower)
             break;
 
-        case 8:
+        case UNITLIST_SORTKEY_8:
             SORT_BY_FUNC(GetUnitSkill)
             break;
 
-        case 9:
+        case UNITLIST_SORTKEY_9:
             SORT_BY_FUNC(GetUnitSpeed)
             break;
 
-        case 10:
+        case UNITLIST_SORTKEY_10:
             SORT_BY_FUNC(GetUnitLuck)
             break;
 
-        case 11:
+        case UNITLIST_SORTKEY_11:
             SORT_BY_FUNC(GetUnitDefense)
             break;
 
-        case 12:
+        case UNITLIST_SORTKEY_12:
             SORT_BY_FUNC(GetUnitResistance)
             break;
 
-        case 19:
+        case UNITLIST_SORTKEY_19:
             SORT_BY_FUNC(UNIT_CON)
             break;
 
-        case 20:
+        case UNITLIST_SORTKEY_20:
             SORT_BY_FUNC(GetUnitAid)
             break;
 
-        case 13:
-            #define KEY(i) (GetUnitAffinityIcon(gUnk_0200CC38[(i)]->unit))
+        case UNITLIST_SORTKEY_13:
+            #define KEY(i) (GetUnitAffinityIcon(gSortedUnits[(i)]->unit))
             SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
             #undef KEY
 
-        case 14:
+        case UNITLIST_SORTKEY_14:
             SORT_MAIN(
             {
                 for (i = 0; i < gUnk_0200CD38; i++)
                 {
-                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gUnk_0200CC38[i]->unit));
+                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gSortedUnits[i]->unit));
                 }
 
                 for (i = 0; i < gUnk_0200CD38 - 1; i++)
@@ -2651,7 +2633,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
                         }
-                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnk_0200CC38[j + 1]->unit) > GetUnitEquippedWeapon(gUnk_0200CC38[j]->unit))
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gSortedUnits[j + 1]->unit) > GetUnitEquippedWeapon(gSortedUnits[j]->unit))
                         {
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
@@ -2662,7 +2644,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
             {
                 for (i = 0; i < gUnk_0200CD38; i++)
                 {
-                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gUnk_0200CC38[i]->unit));
+                    cache[i] = GetItemIid(GetUnitEquippedWeapon(gSortedUnits[i]->unit));
                 }
 
                 for (i = 0; i < gUnk_0200CD38 - 1; i++)
@@ -2674,7 +2656,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
                         }
-                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gUnk_0200CC38[j + 1]->unit) < GetUnitEquippedWeapon(gUnk_0200CC38[j]->unit))
+                        else if (cache[j + 1] == cache[j] && GetUnitEquippedWeapon(gSortedUnits[j + 1]->unit) < GetUnitEquippedWeapon(gSortedUnits[j]->unit))
                         {
                             SWAP_CACHE(j, j + 1)
                             changed = TRUE;
@@ -2683,35 +2665,35 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
                 }
             })
 
-        case 15:
-            #define KEY(i) (gUnk_0200CC38[(i)]->battle_attack)
+        case UNITLIST_SORTKEY_15:
+            #define KEY(i) (gSortedUnits[(i)]->battle_attack)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 16:
-            #define KEY(i) (gUnk_0200CC38[(i)]->battle_hit)
+        case UNITLIST_SORTKEY_16:
+            #define KEY(i) (gSortedUnits[(i)]->battle_hit)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 17:
-            #define KEY(i) (gUnk_0200CC38[(i)]->battle_avoid)
+        case UNITLIST_SORTKEY_17:
+            #define KEY(i) (gSortedUnits[(i)]->battle_avoid)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 18:
+        case UNITLIST_SORTKEY_18:
             SORT_BY_FUNC(UNIT_MOV)
             break;
 
-        case 21:
+        case UNITLIST_SORTKEY_21:
             SORT_BY_UNIT_FIELD(status)
             break;
 
-        case 22:
+        case UNITLIST_SORTKEY_22:
             SORT_MAIN(
             {
                 for (i = 0; i < gUnk_0200CD38; i++)
                 {
-                    if ((gUnk_0200CC38[i]->unit->flags & 0x10) != 0)
+                    if ((gSortedUnits[i]->unit->flags & 0x10) != 0)
                         cache[i] = 1;
                     else
                         cache[i] = 0;
@@ -2722,7 +2704,7 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
             {
                 for (i = 0; i < gUnk_0200CD38; i++)
                 {
-                    if ((gUnk_0200CC38[i]->unit->flags & 0x10) != 0)
+                    if ((gSortedUnits[i]->unit->flags & 0x10) != 0)
                         cache[i] = 1;
                     else
                         cache[i] = 0;
@@ -2731,47 +2713,667 @@ bool func_fe6_08076D3C(fu8 key, fu8 direction)
                 SORT_CORE(cache[j + 1] < cache[j], SWAP_CACHE)
             })
 
-        case 23:
+        case UNITLIST_SORTKEY_23:
             SORT_BY_UNIT_FIELD(wexp[0])
             break;
 
-        case 24:
+        case UNITLIST_SORTKEY_24:
             SORT_BY_UNIT_FIELD(wexp[1])
             break;
 
-        case 25:
+        case UNITLIST_SORTKEY_25:
             SORT_BY_UNIT_FIELD(wexp[2])
             break;
 
-        case 26:
+        case UNITLIST_SORTKEY_26:
             SORT_BY_UNIT_FIELD(wexp[3])
             break;
 
-        case 27:
+        case UNITLIST_SORTKEY_27:
             SORT_BY_UNIT_FIELD(wexp[4])
             break;
 
-        case 28:
+        case UNITLIST_SORTKEY_28:
             SORT_BY_UNIT_FIELD(wexp[5])
             break;
 
-        case 29:
+        case UNITLIST_SORTKEY_29:
             SORT_BY_UNIT_FIELD(wexp[6])
             break;
 
-        case 30:
+        case UNITLIST_SORTKEY_30:
             SORT_BY_UNIT_FIELD(wexp[7])
             break;
 
-        case 31:
-            #define KEY(i) (gUnk_0200CC38[(i)]->support_talk_count)
+        case UNITLIST_SORTKEY_31:
+            #define KEY(i) (gSortedUnits[(i)]->support_talk_count)
             SORT_MAIN(SORT_CORE_KEY(KEY, >, SWAP), SORT_CORE_KEY(KEY, <, SWAP))
             #undef KEY
 
-        case 32:
+        case UNITLIST_SORTKEY_32:
             SORT_BY_FUNC(func_fe6_08076D30)
             break;
     }
 
     return FALSE;
 }
+
+// TODO: move data above funcs
+
+struct ProcScr CONST_DATA ProcScr_UnitListScreenSprites[] =
+{
+    PROC_19,
+    PROC_CALL(UnitListScreenSprites_Init),
+    PROC_REPEAT(UnitListScreenSprites_Main),
+    PROC_CALL(UnitListScreenSprites_Dummy),
+    PROC_END,
+};
+
+u8 CONST_DATA gUnk_0867871C[] =
+{
+    0x5,
+    0x4,
+    0x4,
+    0x3,
+    0x3,
+    0x2,
+};
+
+u8 CONST_DATA gUnk_08678722[] =
+{
+    0x5,
+    0x4,
+    0x3,
+    0x2,
+    0x2,
+    0x2,
+    0x1,
+    0x1,
+    0x1,
+    0x0,
+};
+
+u16 CONST_DATA Sprite_0867872C[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x25C),
+};
+
+u16 CONST_DATA Sprite_08678734[] =
+{
+    1,
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x25D),
+};
+
+u16 CONST_DATA Sprite_0867873C[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x25F),
+};
+
+u16 const * CONST_DATA gUnk_08678744[] =
+{
+    Sprite_0867872C,
+    Sprite_08678734,
+    Sprite_0867873C,
+};
+
+u16 CONST_DATA Sprite_08678750[] =
+{
+    1,
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(0x240),
+};
+
+u16 CONST_DATA Sprite_08678758[] =
+{
+    1,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x262) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA Sprite_08678760[] =
+{
+    7,
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8, OAM2_CHR(0x242) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(32), OAM2_CHR(0x243) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(64), OAM2_CHR(0x243) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(96), OAM2_CHR(0x243) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(128), OAM2_CHR(0x243) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(160), OAM2_CHR(0x243) + OAM2_LAYER(2),
+    OAM0_SHAPE_32x8, OAM1_SIZE_32x8 + OAM1_X(192), OAM2_CHR(0x244) + OAM2_LAYER(2),
+};
+
+u16 CONST_DATA Sprite_0867878C[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x280),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x284),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x288),
+};
+
+u16 CONST_DATA Sprite_086787A0[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x28C),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x290),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x294),
+};
+
+u16 CONST_DATA Sprite_086787B4[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2C0),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x2C4),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x2C8),
+};
+
+u16 CONST_DATA Sprite_086787C8[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x2CC),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x2D0),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x2D4),
+};
+
+u16 CONST_DATA Sprite_086787DC[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x300),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x304),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x308),
+};
+
+u16 CONST_DATA Sprite_086787F0[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x24C),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x250),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(64), OAM2_CHR(0x254),
+};
+
+u16 CONST_DATA Sprite_08678804[] =
+{
+    3,
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16, OAM2_CHR(0x30D),
+    OAM0_SHAPE_32x16, OAM1_SIZE_32x16 + OAM1_X(32), OAM2_CHR(0x311),
+    OAM0_SHAPE_16x16, OAM1_SIZE_16x16 + OAM1_X(64), OAM2_CHR(0x315),
+};
+
+u16 const * CONST_DATA gUnk_08678818[] =
+{
+    [UNITLIST_PAGE_SOLOANIM] = Sprite_08678804,
+    [UNITLIST_PAGE_1] = Sprite_0867878C,
+    [UNITLIST_PAGE_2] = Sprite_086787A0,
+    [UNITLIST_PAGE_3] = Sprite_086787B4,
+    [UNITLIST_PAGE_4] = Sprite_086787C8,
+    [UNITLIST_PAGE_WEXP] = Sprite_086787DC,
+    [UNITLIST_PAGE_SUPPORT + 0] = Sprite_086787F0,
+    [UNITLIST_PAGE_SUPPORT + 1] = Sprite_086787F0,
+    [UNITLIST_PAGE_SUPPORT + 2] = Sprite_086787F0,
+    [UNITLIST_PAGE_SUPPORT + 3] = Sprite_086787F0,
+};
+
+struct UnitListScreenField UnitListPageFields[][9] =
+{
+    [UNITLIST_PAGE_SOLOANIM] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_2,
+            .label_string = JTEXT("クラス"),
+            .x_column = 0x48,
+            .msg_help = MSG_592,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_14,
+            .label_string = JTEXT("装備"),
+            .x_column = 0x88,
+            .msg_help = MSG_669,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_32,
+            .label_string = JTEXT("アニメ"),
+            .x_column = 0xC0,
+            .msg_help = MSG_66C,
+        },
+    },
+    [UNITLIST_PAGE_1] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_2,
+            .label_string = JTEXT("クラス"),
+            .x_column = 0x48,
+            .msg_help = MSG_592,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_3,
+            .label_string = JTEXT("ＬＶ"),
+            .x_column = 0x80,
+            .msg_help = MSG_593,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_4,
+            .label_string = JTEXT("ＥＸ"),
+            .x_column = 0x98,
+            .msg_help = MSG_594,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_5,
+            .label_string = JTEXT("ＨＰ"),
+            .x_column = 0xB0,
+            .msg_help = MSG_595,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_6,
+            .label_string = JTEXT("ＭＨＰ"),
+            .x_column = 0xC4,
+            .msg_help = MSG_667,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_2] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_7,
+            .label_string = JTEXT("力／魔"),
+            .x_column = 0x40,
+            .msg_help = MSG_668,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_8,
+            .label_string = JTEXT("技"),
+            .x_column = 0x60,
+            .msg_help = MSG_59E,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_9,
+            .label_string = JTEXT("速さ"),
+            .x_column = 0x70,
+            .msg_help = MSG_59F,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_10,
+            .label_string = JTEXT("幸運"),
+            .x_column = 0x88,
+            .msg_help = MSG_5A6,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_11,
+            .label_string = JTEXT("守備"),
+            .x_column = 0xA0,
+            .msg_help = MSG_5A0,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_12,
+            .label_string = JTEXT("魔防"),
+            .x_column = 0xB8,
+            .msg_help = MSG_5A1,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_13,
+            .label_string = JTEXT("属性"),
+            .x_column = 0xCE,
+            .msg_help = MSG_5A7,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_3] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_14,
+            .label_string = JTEXT("装備"),
+            .x_column = 0x50,
+            .msg_help = MSG_669,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_15,
+            .label_string = JTEXT("攻撃"),
+            .x_column = 0x88,
+            .msg_help = MSG_597,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_16,
+            .label_string = JTEXT("命中"),
+            .x_column = 0xA8,
+            .msg_help = MSG_598,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_17,
+            .label_string = JTEXT("回避"),
+            .x_column = 0xC8,
+            .msg_help = MSG_59B,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_4] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_18,
+            .label_string = JTEXT("移動"),
+            .x_column = 0x48,
+            .msg_help = MSG_5A4,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_19,
+            .label_string = JTEXT("体格"),
+            .x_column = 0x60,
+            .msg_help = MSG_5A2,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_20,
+            .label_string = JTEXT("救出"),
+            .x_column = 0x78,
+            .msg_help = MSG_5A3,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_22,
+            .label_string = JTEXT("同行"),
+            .x_column = 0x94,
+            .msg_help = MSG_5A5,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_21,
+            .label_string = JTEXT("状態"),
+            .x_column = 0xBC,
+            .msg_help = MSG_66A,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_WEXP] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_23,
+            .label_string = "",
+            .x_column = 0x4C,
+            .msg_help = MSG_62D,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_24,
+            .label_string = "",
+            .x_column = 0x5C,
+            .msg_help = MSG_62E,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_25,
+            .label_string = "",
+            .x_column = 0x6C,
+            .msg_help = MSG_62F,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_26,
+            .label_string = "",
+            .x_column = 0x7C,
+            .msg_help = MSG_630,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_27,
+            .label_string = "",
+            .x_column = 0x8C,
+            .msg_help = MSG_631,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_28,
+            .label_string = "",
+            .x_column = 0x9C,
+            .msg_help = MSG_632,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_29,
+            .label_string = "",
+            .x_column = 0xAC,
+            .msg_help = MSG_633,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_30,
+            .label_string = "",
+            .x_column = 0xBC,
+            .msg_help = MSG_634,
+        },
+    },
+    [UNITLIST_PAGE_SUPPORT + 0] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_31,
+            .label_string = JTEXT("相手"),
+            .x_column = 0x48,
+            .msg_help = MSG_636,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_SUPPORT + 1] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_31,
+            .label_string = JTEXT("相手"),
+            .x_column = 0x48,
+            .msg_help = MSG_636,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_SUPPORT + 2] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_31,
+            .label_string = JTEXT("相手"),
+            .x_column = 0x48,
+            .msg_help = MSG_636,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+    [UNITLIST_PAGE_SUPPORT + 3] =
+    {
+        {
+            .sort_key = UNITLIST_SORTKEY_1,
+            .label_string = JTEXT("名前"),
+            .x_column = 0x14,
+            .msg_help = MSG_666,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_31,
+            .label_string = JTEXT("相手"),
+            .x_column = 0x48,
+            .msg_help = MSG_636,
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+        {
+            .sort_key = UNITLIST_SORTKEY_0,
+            .label_string = "",
+        },
+    },
+};

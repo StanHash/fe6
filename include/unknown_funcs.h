@@ -1528,40 +1528,6 @@ fu8 func_fe6_0805F7B4(int item); // fu16?
 fu8 GetItemMaFacing(int item); // fu16?
 fu8 func_fe6_0805F7D4(int item); // fu16?
 
-// func_fe6_080741EC
-// func_fe6_08074254
-// func_fe6_080742D0
-// func_fe6_08074384
-// func_fe6_080743C8
-// func_fe6_080744A0
-// func_fe6_08074558
-// func_fe6_08074668
-// func_fe6_08074778
-// func_fe6_08074804
-// func_fe6_08074830
-// func_fe6_08074850
-// func_fe6_080748AC
-// func_fe6_08074BA0
-// func_fe6_08074BA4
-// func_fe6_08074D54
-// func_fe6_08074EF0
-// func_fe6_08075338
-// func_fe6_080753A0
-// func_fe6_080754F4
-// func_fe6_08075570
-// func_fe6_08075D34
-// func_fe6_08075DF8
-// func_fe6_08075E94
-// func_fe6_08076060
-void func_fe6_08076238(void);
-// func_fe6_08076250
-// func_fe6_080762B4
-// func_fe6_080762E4
-void func_fe6_08076314(u16 * tm, fu8 arg_1);
-void func_fe6_080763D8(fu8 arg_0, fu8 arg_1, bool arg_2);
-// void func_fe6_08076448(ProcPtr proc, fu8 arg_1, u16 * tm, int arg_3, int arg_4);
-// func_fe6_08076D30
-bool func_fe6_08076D3C(fu8 arg_0, fu8 arg_1);
 // func_fe6_080791A0
 void func_fe6_080791B4(fu8 pid);
 void func_fe6_080791DC(fu8 pid);
@@ -1632,22 +1598,22 @@ void func_fe6_0807B6BC(void);
 // func_fe6_0807C504
 // func_fe6_0807C508
 // func_fe6_0807C520
-// func_fe6_0807C5B8
-// func_fe6_0807C7B8
+void func_fe6_0807C5B8(/* TODO: args */);
+void func_fe6_0807C7B8(/* TODO: args */);
 // func_fe6_0807C840
-// func_fe6_0807C884
-// func_fe6_0807C97C
-// func_fe6_0807C9F4
-// func_fe6_0807CA48
-// func_fe6_0807CA9C
+void func_fe6_0807C884(/* TODO: args */);
+void func_fe6_0807C97C(/* TODO: args */);
+void func_fe6_0807C9F4(/* TODO: args */);
+void func_fe6_0807CA48(/* TODO: args */);
+void func_fe6_0807CA9C(/* TODO: args */);
 // func_fe6_0807CAD4
-// func_fe6_0807CB08
+void func_fe6_0807CB08(/* TODO: args */);
 // func_fe6_0807CB40
-// func_fe6_0807CB78
-// func_fe6_0807CBB0
-// func_fe6_0807CBDC
+void func_fe6_0807CB78(/* TODO: args */);
+void func_fe6_0807CBB0(/* TODO: args */);
+void func_fe6_0807CBDC(/* TODO: args */);
 // func_fe6_0807CC28
-// func_fe6_0807CC34
+void func_fe6_0807CC34(void(*func)(/* TODO: args */), fu8 arg_1, int arg_2, fu8 arg_3, int arg_4, fu8 arg_5);
 // func_fe6_0807CCC4
 // func_fe6_0807CD24
 // func_fe6_0807CD5C
@@ -1841,7 +1807,7 @@ void func_fe6_0808C390(ProcPtr parent, int arg_1, int arg_2);
 // func_fe6_0808CE4C
 // func_fe6_0808D07C
 // func_fe6_0808D0C0
-// func_fe6_0808D0F8
+fu8 func_fe6_0808D0F8(void);
 // func_fe6_0808D168
 // func_fe6_0808D1B8
 // func_fe6_0808D204

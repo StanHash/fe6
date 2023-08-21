@@ -30,6 +30,7 @@
 #include "eventinfo.h"
 #include "helpbox.h"
 #include "statusscreen.h"
+#include "unitlistscreen.h"
 #include "savemenu.h"
 
 #include "constants/videoalloc_global.h"
@@ -135,7 +136,7 @@ fu8 MapMenu_End_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 fu8 MapMenu_Unit_Select(struct MenuProc * menu, struct MenuEntProc * ent)
 {
     Proc_Goto(FindProc(ProcScr_PlayerPhase), L_PLAYERPHASE_10);
-    func_fe6_08076238();
+    StartUnitListScreen();
 
     return MENU_ACTION_NOCURSOR | MENU_ACTION_END | MENU_ACTION_SE_6A | MENU_ACTION_CLEAR;
 }
