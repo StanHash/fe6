@@ -304,7 +304,7 @@ void PutStatScreenLeftPanelInfo(void)
     // display level, exp, hp
 
     PutTwoSpecialChar(gBg0Tm + TM_OFFSET(1, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_LV_A, TEXT_SPECIAL_LV_B);
-    PutSpecialChar(gBg0Tm + TM_OFFSET(5, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_K);
+    PutSpecialChar(gBg0Tm + TM_OFFSET(5, 15), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_EXP_E);
 
     PutTwoSpecialChar(gBg0Tm + TM_OFFSET(1, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_HP_A, TEXT_SPECIAL_HP_B);
     PutSpecialChar(gBg0Tm + TM_OFFSET(5, 17), TEXT_COLOR_SYSTEM_GOLD, TEXT_SPECIAL_SLASH);
@@ -478,7 +478,7 @@ void PutStatScreenItemsPage(void)
     {
         PutSpecialChar(
             gUiTmScratchA + TM_OFFSET(16, 1 + i * 2),
-            0, TEXT_SPECIAL_K);
+            0, TEXT_SPECIAL_EXP_E);
 
         TmApplyTsa(
             gUiTmScratchC + TM_OFFSET(1, 2 + i * 2),

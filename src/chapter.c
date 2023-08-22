@@ -29,12 +29,6 @@
   int GetEndingId(void);
 #endif
 
-static void ResumeMapMainDuringPhase(ProcPtr mapmain);
-static void ResumeMapMainDuringAction(ProcPtr mapmain);
-static void ResumeMapMainDuringBerserk(ProcPtr mapmain);
-static void ResumeMapMainDuringArena(ProcPtr mapmain);
-static void ResumeMapMainDuringPhaseChange(ProcPtr mapmain);
-
 struct ProcScr CONST_DATA ProcScr_DelayedUnlockBmDisplay[] =
 {
     PROC_SLEEP(0),
@@ -195,28 +189,26 @@ void ResumeChapterFromSuspend(struct GenericProc * parent)
 
     switch (gAction.suspend_point)
     {
+        case SUSPEND_POINT_DURING_ACTION:
+            ResumeMapMainDuringAction(mapmain);
+            break;
 
-    case SUSPEND_POINT_DURING_ACTION:
-        ResumeMapMainDuringAction(mapmain);
-        break;
+        case SUSPEND_POINT_PLAYER_PHASE:
+        case SUSPEND_POINT_AI_PHASE:
+            ResumeMapMainDuringPhase(mapmain);
+            break;
 
-    case SUSPEND_POINT_PLAYER_PHASE:
-    case SUSPEND_POINT_AI_PHASE:
-        ResumeMapMainDuringPhase(mapmain);
-        break;
+        case SUSPEND_POINT_BERSERK_PHASE:
+            ResumeMapMainDuringBerserk(mapmain);
+            break;
 
-    case SUSPEND_POINT_BERSERK_PHASE:
-        ResumeMapMainDuringBerserk(mapmain);
-        break;
+        case SUSPEND_POINT_DURING_ARENA:
+            ResumeMapMainDuringArena(mapmain);
+            break;
 
-    case SUSPEND_POINT_DURING_ARENA:
-        ResumeMapMainDuringArena(mapmain);
-        break;
-
-    case SUSPEND_POINT_CHANGE_PHASE:
-        ResumeMapMainDuringPhaseChange(mapmain);
-        break;
-
+        case SUSPEND_POINT_CHANGE_PHASE:
+            ResumeMapMainDuringPhaseChange(mapmain);
+            break;
     }
 
     SetBlendTargetA(1, 1, 1, 1, 1); SetBlendBackdropA(1);
@@ -291,13 +283,11 @@ void EndMapMain(void)
     Proc_End(mapmain);
 }
 
-#if NONMATCHING
-
 void CleanupUnitsBeforeChapter(void)
 {
     // Clear non-blue units
 
-    FOR_UNITS(FACTION_GREEN+1, FACTION_PURPLE, unit,
+    FOR_UNITS(FACTION_GREEN + 1, FACTION_RED + 0x40, unit,
     {
         ClearUnit(unit);
     })
@@ -306,7 +296,7 @@ void CleanupUnitsBeforeChapter(void)
 
     if (gPlaySt.chapter != CHAPTER_FINAL)
     {
-        FOR_UNITS(FACTION_BLUE+1, FACTION_BLUE+0x40, unit,
+        FOR_UNITS(FACTION_BLUE + 1, FACTION_BLUE + 0x40, unit,
         {
             SetUnitHp(unit, GetUnitMaxHp(unit));
             SetUnitStatus(unit, UNIT_STATUS_NONE);
@@ -323,10 +313,12 @@ void CleanupUnitsBeforeChapter(void)
 
             unit->rescue = 0;
         })
+
+        gPlaySt.flags &= ~PLAY_FLAG_4;
     }
     else
     {
-        FOR_UNITS(FACTION_BLUE+1, FACTION_BLUE+0x40, unit,
+        FOR_UNITS(FACTION_BLUE + 1, FACTION_BLUE + 0x40, unit,
         {
             unit->x = -1;
             unit->y = +1;
@@ -346,173 +338,12 @@ void CleanupUnitsBeforeChapter(void)
 
             unit->rescue = 0;
         })
+
+        gPlaySt.flags &= ~PLAY_FLAG_4;
     }
-
-    gPlaySt.flags &= ~PLAY_FLAG_4;
 }
 
-#else // if !NONMATCHING
-
-NAKEDFUNC
-void CleanupUnitsBeforeChapter(void)
-{
-    asm("\
-        .syntax unified\n\
-        push {r4, r5, r6, r7, lr}\n\
-        movs r4, #0x41\n\
-    .L08029374:\n\
-        adds r0, r4, #0\n\
-        bl GetUnit\n\
-        adds r1, r0, #0\n\
-        cmp r1, #0\n\
-        beq .L0802938C\n\
-        ldr r0, [r1]\n\
-        cmp r0, #0\n\
-        beq .L0802938C\n\
-        adds r0, r1, #0\n\
-        bl ClearUnit\n\
-    .L0802938C:\n\
-        adds r4, #1\n\
-        cmp r4, #0xbf\n\
-        ble .L08029374\n\
-        ldr r0, .L08029408 @ =gPlaySt\n\
-        ldrb r0, [r0, #0xe]\n\
-        cmp r0, #0x19\n\
-        beq .L08029414\n\
-        movs r5, #1\n\
-    .L0802939C:\n\
-        adds r0, r5, #0\n\
-        bl GetUnit\n\
-        adds r4, r0, #0\n\
-        cmp r4, #0\n\
-        beq .L080293FE\n\
-        ldr r0, [r4]\n\
-        cmp r0, #0\n\
-        beq .L080293FE\n\
-        adds r0, r4, #0\n\
-        bl GetUnitMaxHp\n\
-        adds r1, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl SetUnitHp\n\
-        adds r0, r4, #0\n\
-        movs r1, #0\n\
-        bl SetUnitStatus\n\
-        adds r1, r4, #0\n\
-        adds r1, #0x2f\n\
-        movs r0, #0\n\
-        strb r0, [r1]\n\
-        ldr r1, .L0802940C @ =0x0000C004\n\
-        adds r0, r1, #0\n\
-        ldrh r3, [r4, #0xc]\n\
-        ands r3, r0\n\
-        movs r6, #0\n\
-        strh r3, [r4, #0xc]\n\
-        ldr r0, [r4]\n\
-        ldr r2, [r4, #4]\n\
-        ldr r1, [r0, #0x28]\n\
-        ldr r0, [r2, #0x24]\n\
-        orrs r1, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #2\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq .L080293F4\n\
-        ldr r2, .L08029410 @ =0x0000FFFB\n\
-        adds r0, r2, #0\n\
-        ands r3, r0\n\
-        strh r3, [r4, #0xc]\n\
-    .L080293F4:\n\
-        movs r0, #9\n\
-        ldrh r1, [r4, #0xc]\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #0xc]\n\
-        strb r6, [r4, #0x19]\n\
-    .L080293FE:\n\
-        adds r5, #1\n\
-        cmp r5, #0x3f\n\
-        ble .L0802939C\n\
-        b .L08029486\n\
-        .align 2, 0\n\
-    .L08029408: .4byte gPlaySt\n\
-    .L0802940C: .4byte 0x0000C004\n\
-    .L08029410: .4byte 0x0000FFFB\n\
-    .L08029414:\n\
-        movs r5, #1\n\
-        movs r7, #0\n\
-    .L08029418:\n\
-        adds r0, r5, #0\n\
-        bl GetUnit\n\
-        adds r4, r0, #0\n\
-        cmp r4, #0\n\
-        beq .L08029480\n\
-        ldr r0, [r4]\n\
-        cmp r0, #0\n\
-        beq .L08029480\n\
-        movs r0, #0xff\n\
-        strb r0, [r4, #0xe]\n\
-        movs r0, #1\n\
-        strb r0, [r4, #0xf]\n\
-        adds r0, r4, #0\n\
-        bl GetUnitMaxHp\n\
-        adds r1, r0, #0\n\
-        adds r0, r4, #0\n\
-        bl SetUnitHp\n\
-        adds r0, r4, #0\n\
-        movs r1, #0\n\
-        bl SetUnitStatus\n\
-        adds r0, r4, #0\n\
-        adds r0, #0x2f\n\
-        strb r7, [r0]\n\
-        ldr r1, .L08029498 @ =0x0000C00C\n\
-        adds r0, r1, #0\n\
-        ldrh r3, [r4, #0xc]\n\
-        ands r3, r0\n\
-        movs r6, #0\n\
-        strh r3, [r4, #0xc]\n\
-        ldr r0, [r4]\n\
-        ldr r2, [r4, #4]\n\
-        ldr r1, [r0, #0x28]\n\
-        ldr r0, [r2, #0x24]\n\
-        orrs r1, r0\n\
-        movs r0, #0x80\n\
-        lsls r0, r0, #2\n\
-        ands r1, r0\n\
-        cmp r1, #0\n\
-        beq .L08029476\n\
-        ldr r2, .L0802949C @ =0x0000FFFB\n\
-        adds r0, r2, #0\n\
-        ands r3, r0\n\
-        strh r3, [r4, #0xc]\n\
-    .L08029476:\n\
-        movs r0, #1\n\
-        ldrh r1, [r4, #0xc]\n\
-        orrs r0, r1\n\
-        strh r0, [r4, #0xc]\n\
-        strb r6, [r4, #0x19]\n\
-    .L08029480:\n\
-        adds r5, #1\n\
-        cmp r5, #0x3f\n\
-        ble .L08029418\n\
-    .L08029486:\n\
-        ldr r1, .L080294A0 @ =gPlaySt\n\
-        movs r0, #0xef\n\
-        ldrb r2, [r1, #0x14]\n\
-        ands r0, r2\n\
-        strb r0, [r1, #0x14]\n\
-        pop {r4, r5, r6, r7}\n\
-        pop {r0}\n\
-        bx r0\n\
-        .align 2, 0\n\
-    .L08029498: .4byte 0x0000C00C\n\
-    .L0802949C: .4byte 0x0000FFFB\n\
-    .L080294A0: .4byte gPlaySt\n\
-        .syntax divided\n\
-    ");
-}
-
-#endif // NONMATCHING
-
-static void ResumeMapMainDuringPhase(ProcPtr mapmain)
+void ResumeMapMainDuringPhase(ProcPtr mapmain)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -522,7 +353,7 @@ static void ResumeMapMainDuringPhase(ProcPtr mapmain)
     Proc_Goto(mapmain, L_BMMAIN_2);
 }
 
-static void ResumeMapMainDuringAction(ProcPtr mapmain)
+void ResumeMapMainDuringAction(ProcPtr mapmain)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -539,7 +370,7 @@ static void ResumeMapMainDuringAction(ProcPtr mapmain)
     SetAutoMuDefaultFacing();
 }
 
-static void ResumeMapMainDuringBerserk(ProcPtr mapmain)
+void ResumeMapMainDuringBerserk(ProcPtr mapmain)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();
@@ -549,7 +380,7 @@ static void ResumeMapMainDuringBerserk(ProcPtr mapmain)
     Proc_Goto(mapmain, L_BMMAIN_5);
 }
 
-static void ResumeMapMainDuringArena(ProcPtr mapmain)
+void ResumeMapMainDuringArena(ProcPtr mapmain)
 {
     gActiveUnit = GetUnit(gAction.instigator);
 
@@ -569,7 +400,7 @@ static void ResumeMapMainDuringArena(ProcPtr mapmain)
     func_fe6_08097EAC();
 }
 
-static void ResumeMapMainDuringPhaseChange(ProcPtr mapmain)
+void ResumeMapMainDuringPhaseChange(ProcPtr mapmain)
 {
     RefreshEntityMaps();
     RefreshUnitSprites();

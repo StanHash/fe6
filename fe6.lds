@@ -9,7 +9,7 @@ gMaxLines = 0;
 SECTIONS
 {
     __ewram_overlay_beg = 0x02000000;
-    __ewram_overlay_end = 0x02000000;
+    __ewram_overlay_end = __ewram_overlay_beg;
 
     /* I wonder if there's not two distinct overlays here */
     /* or one with one instance split in two? */
@@ -49,7 +49,12 @@ SECTIONS
         . = 0x00D6AC; gUnk_0200D6AC = .;
         . = 0x00D6B4; gUnk_0200D6B4 = .;
         . = 0x00E6B4; gUnk_0200E6B4 = .;
+        . = 0x00E6D4; gUnk_0200E6D4 = .;
         . = 0x00E7D8; gUnk_0200E7D8 = .;
+        . = 0x00E864; gUnk_0200E864 = .; /* this is a (multiple?) text */
+        . = 0x00E89C; gUnk_0200E89C = .; /* this is a text */
+        . = 0x00E8A4; gUnk_0200E8A4 = .; /* this is a tilemap */
+        . = 0x00F0A4; gUnk_0200F0A4 = .; /* this is units */
         . = 0x016874; gUnk_02016874 = .; /* big jump here? */
     }
     __ewram_overlay_end = MAX(., __ewram_overlay_end);

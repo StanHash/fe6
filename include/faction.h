@@ -2,6 +2,9 @@
 
 #include "common.h"
 
+// TODO: those constants could go in units also
+// would be more convenient
+
 enum
 {
     FACTION_BLUE   = 0x00,

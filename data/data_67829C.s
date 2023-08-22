@@ -1,9 +1,5 @@
     .data
 
-	.global gUnk_08678E00
-gUnk_08678E00: @ 08678E00
-	.incbin "fe6-base.gba", 0x678E00, (0x678E18 - 0x678E00) @ length: 0018
-
 	.global gUnk_08678E18
 gUnk_08678E18: @ 08678E18
 	.incbin "fe6-base.gba", 0x678E18, (0x678E38 - 0x678E18) @ length: 0020
