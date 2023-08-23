@@ -1485,12 +1485,12 @@ static void GasTrapSpriteAnim_Init(struct GenericProc * proc)
 
     }
 
-    Decompress(img, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
-    ApplyPalette(Pal_GasTrap, 0x10 + OBJPAL_TRAPFX);
+    Decompress(img, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBCHR_TRAPFX);
+    ApplyPalette(Pal_GasTrap, 0x10 + OBPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
     y = proc->y*16 + 8 - gBmSt.camera.y;
-    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+    oam2 = OAM2_CHR(OBCHR_TRAPFX) | OAM2_PAL(OBPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartSpriteAnimProc(anim, x, y, oam2, animNum, 0);
     PlaySeSpacial(SONG_BA, x+8);
@@ -1511,12 +1511,12 @@ static void FireTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, y, oam2;
 
-    Decompress(Img_FireTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
-    ApplyPalette(Pal_FireTrap, 0x10 + OBJPAL_TRAPFX);
+    Decompress(Img_FireTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBCHR_TRAPFX);
+    ApplyPalette(Pal_FireTrap, 0x10 + OBPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
     y = proc->y*16 + 8 - gBmSt.camera.y;
-    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+    oam2 = OAM2_CHR(OBCHR_TRAPFX) | OAM2_PAL(OBPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartSpriteAnimProc(SpriteAnim_FireTrap, x, y, oam2, 0, 0);
     PlaySeSpacial(SONG_BF, x+8);
@@ -1536,11 +1536,11 @@ static void ArrowTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, oam2;
 
-    Decompress(Img_ArrowTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
-    ApplyPalette(Pal_ArrowTrap, 0x10 + OBJPAL_TRAPFX);
+    Decompress(Img_ArrowTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBCHR_TRAPFX);
+    ApplyPalette(Pal_ArrowTrap, 0x10 + OBPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
-    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+    oam2 = OAM2_CHR(OBCHR_TRAPFX) | OAM2_PAL(OBPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartSpriteAnimProc(SpriteAnim_ArrowTrap, x, DISPLAY_HEIGHT/2, oam2, 0, 0);
     PlaySeSpacial(SONG_BC, x+8);
@@ -1609,12 +1609,12 @@ static void PikeTrapSpriteAnim_Init(struct GenericProc * proc)
 {
     int x, y, oam2;
 
-    Decompress(Img_PikeTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRAPFX);
-    ApplyPalette(Pal_PikeTrap, 0x10 + OBJPAL_TRAPFX);
+    Decompress(Img_PikeTrap, (u8 *) OBJ_VRAM0 + CHR_SIZE*OBCHR_TRAPFX);
+    ApplyPalette(Pal_PikeTrap, 0x10 + OBPAL_TRAPFX);
 
     x = proc->x*16 + 8 - gBmSt.camera.x;
     y = proc->y*16 + 8 - gBmSt.camera.y;
-    oam2 = OAM2_CHR(OBJCHR_TRAPFX) | OAM2_PAL(OBJPAL_TRAPFX) | OAM2_LAYER(1);
+    oam2 = OAM2_CHR(OBCHR_TRAPFX) | OAM2_PAL(OBPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartSpriteAnimProc(SpriteAnim_PikeTrap, x, y, oam2, proc->unk4A, 0);
     PlaySeSpacial(0xBB, x + 8);
@@ -2027,9 +2027,9 @@ static void ChapterIntro_BeginFadeToMap(struct GenericProc * proc)
     ColorFadeInit();
 
     func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +1);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +1);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +1);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_10), 0x10+OBPAL_10, 6, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_SYSTEM_OBJECTS), 0x10+OBPAL_SYSTEM_OBJECTS, 2, +1);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_7), 0x10+OBPAL_7, 1, +1);
 
     ColorFadeTick();
     EnablePalSync();
@@ -2133,9 +2133,9 @@ static void ChapterIntro_BeginFastFadeToMap(struct GenericProc * proc)
     ColorFadeInit();
 
     func_fe6_08001D44(gPal + 0x10*BGPAL_TILESET, 6, 10, +2);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_10), 0x10+OBJPAL_10, 6, +2);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_SYSTEM_OBJECTS), 0x10+OBJPAL_SYSTEM_OBJECTS, 2, +2);
-    func_fe6_08001D44(gPal + 0x10*(0x10+OBJPAL_7), 0x10+OBJPAL_7, 1, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_10), 0x10+OBPAL_10, 6, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_SYSTEM_OBJECTS), 0x10+OBPAL_SYSTEM_OBJECTS, 2, +2);
+    func_fe6_08001D44(gPal + 0x10*(0x10+OBPAL_7), 0x10+OBPAL_7, 1, +2);
 
     ColorFadeTick();
     EnablePalSync();

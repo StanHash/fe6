@@ -624,10 +624,10 @@ void StartMuFogBump(int x, int y)
     struct MuFogBumpProc * proc;
     struct SpriteAnim * anim;
 
-    Decompress(Img_MuFogBump, OBJ_VRAM0 + OBJCHR_MU_180 * CHR_SIZE);
+    Decompress(Img_MuFogBump, OBJ_VRAM0 + OBCHR_MU_180 * CHR_SIZE);
 
     anim = StartSpriteAnim(SpriteAnim_MuFogBump, 2);
-    anim->oam2 = OAM2_CHR(OBJCHR_MU_180) + OAM2_PAL(OBJPAL_1);
+    anim->oam2 = OAM2_CHR(OBCHR_MU_180) + OAM2_PAL(OBPAL_1);
 
     SetSpriteAnimId(anim, 0);
 
@@ -930,7 +930,7 @@ struct MuConfig * GetNewMuConfig(void)
         if (sMuConfig[i].id == 0)
         {
             sMuConfig[i].id = i + 1;
-            sMuConfig[i].chr = OBJCHR_MU_BASE + sMuChrOffLut[i];
+            sMuConfig[i].chr = OBCHR_MU_BASE + sMuChrOffLut[i];
 
             return sMuConfig + i;
         }
@@ -1095,17 +1095,17 @@ void SetMuScreenOffset(struct MuProc * mu, int x_offset, int y_offset)
 
 void StartMuFadeIntoFlash(struct MuProc * mu, int flash)
 {
-    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBPAL_MU_FADE) + OAM2_LAYER(2);
 
-    ApplyPalette(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE);
-    StartPalFade(gMuFlashPalLut[flash], 0x10 + OBJPAL_MU_FADE, 8, mu);
+    ApplyPalette(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBPAL_MU_FADE);
+    StartPalFade(gMuFlashPalLut[flash], 0x10 + OBPAL_MU_FADE, 8, mu);
 }
 
 void StartMuFadeFromFlash(struct MuProc * mu)
 {
     struct GenericProc * proc;
 
-    StartPalFade(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE, 8, mu);
+    StartPalFade(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBPAL_MU_FADE, 8, mu);
 
     proc = SpawnProc(ProcScr_MuRestorePalInfo, PROC_TREE_3);
     proc->ptr = mu;
@@ -1166,7 +1166,7 @@ void func_fe6_0806142C(struct MuProc * mu, int flash)
 {
     struct MuFadeProc * proc;
 
-    ApplyPalette(gMuFlashPalLut[flash], 0x10+OBJPAL_MU_FADE);
+    ApplyPalette(gMuFlashPalLut[flash], 0x10+OBPAL_MU_FADE);
 
     proc = SpawnProc(ProcScr_Unk_08664914, mu);
     proc->mu = mu;
@@ -1179,7 +1179,7 @@ void func_fe6_08061474(struct MuFadeProc * proc)
 
 void func_fe6_08061494(struct MuFadeProc * proc)
 {
-    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
+    proc->mu->sprite_anim->oam2 = proc->mu->config->chr + OAM2_PAL(OBPAL_MU_FADE) + OAM2_LAYER(2);
 }
 
 void func_fe6_080614C8(struct MuFadeProc * proc)
@@ -1189,7 +1189,7 @@ void func_fe6_080614C8(struct MuFadeProc * proc)
 
 void func_fe6_08061518(struct MuFadeProc * proc)
 {
-    StartPalFade(gPal + ((0x20 * (0x10 + proc->mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE, 20, proc);
+    StartPalFade(gPal + ((0x20 * (0x10 + proc->mu->config->pal)) >> 1), 0x10 + OBPAL_MU_FADE, 20, proc);
 }
 
 void func_fe6_08061554(struct MuFadeProc * proc)
@@ -1215,10 +1215,10 @@ void StartMuFlashFadeFrom(struct MuProc * mu, int flash)
 {
     struct MuFadeProc * proc;
 
-    ApplyPalette(gMuFlashPalLut[flash], 0x10+OBJPAL_MU_FADE);
+    ApplyPalette(gMuFlashPalLut[flash], 0x10+OBPAL_MU_FADE);
 
-    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBJPAL_MU_FADE) + OAM2_LAYER(2);
-    StartPalFade(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBJPAL_MU_FADE, 20, mu);
+    mu->sprite_anim->oam2 = mu->config->chr + OAM2_PAL(OBPAL_MU_FADE) + OAM2_LAYER(2);
+    StartPalFade(gPal + ((0x20 * (0x10 + mu->config->pal)) >> 1), 0x10 + OBPAL_MU_FADE, 20, mu);
 
     proc = SpawnProc(ProcScr_MuFlashFadeFrom, mu);
     proc->mu = mu;

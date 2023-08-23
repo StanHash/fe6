@@ -924,13 +924,13 @@ void PutUpdateStatScreenPageName(int page_id)
         105 + gStatScreenSt.x_disp_off,
         5 + gStatScreenSt.y_disp_off,
         Sprite_StatScreenPageName,
-        OAM2_CHR(OBJCHR_STATSCREEN_240) + OAM2_PAL(OBJPAL_STATSCREEN_PAGENAME) + gStatScreenPageNameChrOffsetLut[page_id] + OAM2_LAYER(3));
+        OAM2_CHR(OBCHR_STATSCREEN_240) + OAM2_PAL(OBPAL_STATSCREEN_PAGENAME) + gStatScreenPageNameChrOffsetLut[page_id] + OAM2_LAYER(3));
 
     color_num = (GetGameTime() / 4) % 16;
 
     CpuCopy16(
         Pal_Unk_083087C8[page_id] + color_num,
-        gPal + (0x10 + OBJPAL_STATSCREEN_PAGENAME) * 0x10 + 4,
+        gPal + (0x10 + OBPAL_STATSCREEN_PAGENAME) * 0x10 + 4,
         sizeof(u16) * 11);
 
     EnablePalSync();
@@ -1031,7 +1031,7 @@ void StatScreenSprites_BumpCheck(struct StatScreenSpritesProc * proc)
 
 void StatScreenSprites_PutArrows(struct StatScreenSpritesProc * proc)
 {
-    int base_oam2 = OAM2_CHR(OBJCHR_STATSCREEN_240) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3);
+    int base_oam2 = OAM2_CHR(OBCHR_STATSCREEN_240) + OAM2_PAL(OBPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3);
 
     proc->clock_left += proc->anim_speed_left;
     proc->clock_right += proc->anim_speed_right;
@@ -1074,21 +1074,21 @@ void StatScreenSprites_PutNumberLabel(struct StatScreenSpritesProc * proc)
     PutSprite(
         2, gStatScreenSt.x_disp_off + PAGENUM_X + 13,
         gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
-        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) +
+        OAM2_CHR(OBCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBPAL_STATSCREEN_SPRITES) +
             OAM2_LAYER(3) + gStatScreenSt.page_count);
 
     // '/'
     PutSprite(
         2, gStatScreenSt.x_disp_off + PAGENUM_X + 7,
         gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
-        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x05) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) +
+        OAM2_CHR(OBCHR_STATSCREEN_240 + 0x05) + OAM2_PAL(OBPAL_STATSCREEN_SPRITES) +
             OAM2_LAYER(3));
 
     // page num
     PutSprite(
         2, gStatScreenSt.x_disp_off + PAGENUM_X,
         gStatScreenSt.y_disp_off + PAGENUM_Y, Sprite_8x8,
-        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) +
+        OAM2_CHR(OBCHR_STATSCREEN_240 + 0x64) + OAM2_PAL(OBPAL_STATSCREEN_SPRITES) +
             OAM2_LAYER(3) + gStatScreenSt.page + 1);
 }
 
@@ -1115,13 +1115,13 @@ void StatScreenSprites_PutMuAreaSprites(struct StatScreenSpritesProc * proc)
         gStatScreenSt.x_disp_off,
         gStatScreenSt.y_disp_off,
         Sprite_StatScreenMuAreaBackground,
-        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x00) + OAM2_PAL(OBJPAL_STATSCREEN_WINDOWFRAME) + OAM2_LAYER(3));
+        OAM2_CHR(OBCHR_STATSCREEN_240 + 0x00) + OAM2_PAL(OBPAL_STATSCREEN_WINDOWFRAME) + OAM2_LAYER(3));
 
     PutSprite(11,
         gStatScreenSt.x_disp_off + 64,
         gStatScreenSt.y_disp_off + 131,
         Sprite_32x16,
-        OAM2_CHR(OBJCHR_STATSCREEN_240 + 0x50) + OAM2_PAL(OBJPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3));
+        OAM2_CHR(OBCHR_STATSCREEN_240 + 0x50) + OAM2_PAL(OBPAL_STATSCREEN_SPRITES) + OAM2_LAYER(3));
 }
 
 void StatScreenSprites_PutRescueMarkers(struct StatScreenSpritesProc * proc)
@@ -1130,9 +1130,9 @@ void StatScreenSprites_PutRescueMarkers(struct StatScreenSpritesProc * proc)
 
     SHOULD_BE_STATIC u16 SHOULD_BE_CONST pal_lut[3] =
     {
-        OBJPAL_UNITSPRITE_BLUE,
-        OBJPAL_UNITSPRITE_GREEN,
-        OBJPAL_UNITSPRITE_RED,
+        OBPAL_UNITSPRITE_BLUE,
+        OBPAL_UNITSPRITE_GREEN,
+        OBPAL_UNITSPRITE_RED,
     };
 
     if (!gStatScreenSt.is_transitioning)
@@ -1210,11 +1210,11 @@ void StatScreen_Init(ProcPtr proc)
 
     StartMuralBackground(NULL, ((void *) VRAM) + 0x8000 + BGCHR_STATSCREEN_BACKMURAL * CHR_SIZE, -1);
 
-    Decompress(gUnk_083080D0, ((void *) VRAM + 0x10000) + OBJCHR_STATSCREEN_240 * CHR_SIZE);
+    Decompress(gUnk_083080D0, ((void *) VRAM + 0x10000) + OBCHR_STATSCREEN_240 * CHR_SIZE);
 
     ApplyIconPalettes(BGPAL_ICONS);
     ApplyUiStatBarPal(BGPAL_STATSCREEN_6);
-    ApplyIconPalette(1, 0x10 + OBJPAL_STATSCREEN_PAGENAME);
+    ApplyIconPalette(1, 0x10 + OBPAL_STATSCREEN_PAGENAME);
 
     Decompress(gUnk_08307CEC, gBuf);
     TmApplyTsa(gBg1Tm, gBuf, TILEREF(BGCHR_WINDOWFRAME, BGPAL_WINDOWFRAME));
@@ -1222,9 +1222,9 @@ void StatScreen_Init(ProcPtr proc)
     Decompress(gUnk_08307ED4, ((void *) VRAM) + 0x8000 + BGCHR_STATSCREEN_EQUIPSTATFRAME * CHR_SIZE);
     ApplyPalette(gUnk_08308050, BGPAL_STATSCREEN_EQUIPSTATFRAME);
 
-    CpuFastCopy(gPal + 0x10 * BGPAL_WINDOWFRAME, gPal + 0x100 + 0x10 * OBJPAL_STATSCREEN_WINDOWFRAME, 0x20);
+    CpuFastCopy(gPal + 0x10 * BGPAL_WINDOWFRAME, gPal + 0x100 + 0x10 * OBPAL_STATSCREEN_WINDOWFRAME, 0x20);
 
-    ApplyIconPalette(1, 0x10 + OBJPAL_STATSCREEN_SPRITES);
+    ApplyIconPalette(1, 0x10 + OBPAL_STATSCREEN_SPRITES);
 
     Decompress(gUnk_08308920, ((void *) VRAM) + BGCHR_STATSCREEN_EQUIPMENTLABEL * CHR_SIZE);
 

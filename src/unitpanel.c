@@ -46,9 +46,9 @@ static void UnitPanel_OnLoop(struct UnitPanelProc * proc)
 {
     SHOULD_BE_STATIC u16 SHOULD_BE_CONST factionPalLut[] =
     {
-        [FACTION_ID_BLUE] = OBJPAL_UNITSPRITE_BLUE,
-        [FACTION_ID_GREEN] = OBJPAL_UNITSPRITE_GREEN,
-        [FACTION_ID_RED] = OBJPAL_UNITSPRITE_RED,
+        [FACTION_ID_BLUE] = OBPAL_UNITSPRITE_BLUE,
+        [FACTION_ID_GREEN] = OBPAL_UNITSPRITE_GREEN,
+        [FACTION_ID_RED] = OBPAL_UNITSPRITE_RED,
     };
 
     int x = 8*proc->x + proc->xUnitSprite;
@@ -61,7 +61,7 @@ static void UnitPanel_OnLoop(struct UnitPanelProc * proc)
 
         PutSprite(2,
             x+9, y+7, Sprite_8x8,
-            OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 3) + OAM2_PAL(factionPalLut[proc->unit->rescue >> 6]));
+            OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 3) + OAM2_PAL(factionPalLut[proc->unit->rescue >> 6]));
     }
     else
     {
@@ -448,7 +448,7 @@ void RefreshUnitTakeRescuePanels(ProcPtr parent)
     StartUnitRescuePanelsCore(parent);
 
     StartSpriteRefresher(parent, 2, 0, 0,
-        Sprite_16x16_VFlipped, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS+6));
+        Sprite_16x16_VFlipped, OAM2_CHR(OBCHR_SYSTEM_OBJECTS+6));
 }
 
 void RefreshUnitRescuePanels(struct Unit * unit)
@@ -511,7 +511,7 @@ void StartUnitGiveRescuePanels(ProcPtr parent)
     StartUnitRescuePanelsCore(parent);
 
     StartSpriteRefresher(parent, 2, 0, 0,
-        Sprite_16x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS+6));
+        Sprite_16x16, OAM2_CHR(OBCHR_SYSTEM_OBJECTS+6));
 }
 
 void RefreshUnitGivePanels(struct Unit * unit)

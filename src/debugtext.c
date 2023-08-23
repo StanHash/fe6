@@ -266,7 +266,7 @@ bool DebugUpdateScreen(u16 held, u16 pressed)
 void DebugInitObj(int offset, int palid)
 {
     if (offset < 0)
-        offset = OBJCHR_DEBUGTEXT_DEFAULT * CHR_SIZE;
+        offset = OBCHR_DEBUGTEXT_DEFAULT * CHR_SIZE;
 
     offset &= 0xFFFF;
 

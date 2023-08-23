@@ -5,7 +5,9 @@
 #include "icon.h"
 #include "text.h"
 #include "face.h"
+#include "event.h"
 #include "msg.h"
+#include "item.h"
 #include "unit.h"
 #include "faction.h"
 #include "unitrearrange.h"
@@ -14,6 +16,8 @@
 #include "constants/pids.h"
 #include "constants/chapters.h"
 #include "constants/msg.h"
+
+#include "constants/videoalloc_global.h"
 
 // TODO: MOOOOVE
 #define BGPAL_PREPMENU_2 2
@@ -27,7 +31,7 @@ struct PrepMenuProc
     /* 2B */ STRUCT_PAD(0x2B, 0x2C);
     /* 2C */ u8 unk_2C;
     /* 2D */ u8 unk_2D; // size of gUnk_0200E6D4?
-    /* 2E */ STRUCT_PAD(0x2E, 0x2F);
+    /* 2E */ u8 unk_2E;
     /* 2F */ u8 unk_2F;
     /* 30 */ u8 unk_30; // id within gUnk_0200E6D4
     /* 31 */ STRUCT_PAD(0x31, 0x33);
@@ -72,10 +76,12 @@ void func_fe6_0807CD5C(struct Text * text, fu8 arg_1, u16 * tm, fu8 arg_3);
 extern u8 gUnk_0203D494[5];
 
 extern struct Unit * gUnk_0200E6D4[];
-extern struct Text gUnk_0200E864;
+extern struct Text gUnk_0200E7DC;
+extern struct Text gUnk_0200E864[];
 extern struct Text gUnk_0200E89C;
 extern u16 gUnk_0200E8A4[];
 extern struct Unit gUnk_0200F0A4[];
+extern struct Text gUnk_0200E7E4[];
 
 extern u16 const gUnk_08320FCE[]; // tiles
 
@@ -377,7 +383,7 @@ void func_fe6_0807979C(struct UnkProc_08678E00 * proc)
     Proc_Break(proc);
 }
 
-struct ProcScr CONST_DATA gUnk_08678E00[] =
+struct ProcScr CONST_DATA ProcScr_Unk_08678E00[] =
 {
     PROC_SLEEP(0),
     PROC_REPEAT(func_fe6_0807979C),
@@ -388,7 +394,7 @@ void func_fe6_080797DC(struct PrepMenuProc * parent)
 {
     struct UnkProc_08678E00 * proc;
 
-    proc = SpawnProc(gUnk_08678E00, parent);
+    proc = SpawnProc(ProcScr_Unk_08678E00, parent);
     proc->unit = gUnk_0200E6D4[parent->unk_30];
 }
 
@@ -516,7 +522,7 @@ void func_fe6_08079A94(struct PrepMenuProc * proc)
         TmFillRect(gBg1Tm, 12, 19, 0);
 
         PutUiWindowFrame(0, 4, 12, 2 + r7 * 2, UI_WINDOW_REGULAR);
-        func_fe6_0807CD5C(&gUnk_0200E864, 0, gBg0Tm + TM_OFFSET(2, 5), r7);
+        func_fe6_0807CD5C(gUnk_0200E864, 0, gBg0Tm + TM_OFFSET(2, 5), r7);
         PutUiEntryHover(1, 5 + proc->unk_33[proc->unk_35] * 2, 10);
     }
     else
@@ -534,7 +540,7 @@ void func_fe6_08079A94(struct PrepMenuProc * proc)
         TmFillRect(gBg1Tm + TM_OFFSET(0, 8), 12, 11, 0);
 
         PutUiWindowFrame(0, 8, 13, 2 + r7 * 2, UI_WINDOW_REGULAR);
-        func_fe6_0807CD5C(&gUnk_0200E864, proc->unk_35, gBg0Tm + TM_OFFSET(2, 9), r7);
+        func_fe6_0807CD5C(gUnk_0200E864, proc->unk_35, gBg0Tm + TM_OFFSET(2, 9), r7);
         PutUiEntryHover(1, 9 + proc->unk_33[proc->unk_35] * 2, 10);
     }
 
@@ -547,7 +553,7 @@ void func_fe6_08079BC8(struct UnkProc_08678E18 * proc)
     proc->unit = gUnk_0200E6D4[proc->main_proc->unk_30];
 
     TmFillRect(gBg0Tm + TM_OFFSET(0, 8), 12, 11, 0);
-    PutUiWindowFrame(0, 8, 13,  12, UI_WINDOW_REGULAR);
+    PutUiWindowFrame(0, 8, 13, 12, UI_WINDOW_REGULAR);
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
 
     proc->unk_34 = 0;
@@ -562,13 +568,210 @@ void func_fe6_08079BC8(struct UnkProc_08678E18 * proc)
     }
 }
 
-#if 0
-struct ProcScr CONST_DATA gUnk_08678E18[] =
+void func_fe6_08079C38(struct UnkProc_08678E18 * proc)
+{
+    int i;
+
+    for (i = 0; i < 5; i++)
+    {
+        ClearText(&gUnk_0200E864[proc->unk_34]);
+
+        PutIcon(gBg0Tm + TM_OFFSET(1, 9 + proc->unk_34 * 2),
+            GetItemIcon(proc->unit->items[proc->unk_34]), TILEREF(0, BGPAL_ICONS));
+
+        Text_SetColor(&gUnk_0200E864[proc->unk_34],
+            IsItemDisplayUseable(proc->unit, proc->unit->items[proc->unk_34])
+                ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY);
+        Text_SetCursor(&gUnk_0200E864[proc->unk_34], 0);
+        Text_DrawString(&gUnk_0200E864[proc->unk_34], GetItemName(proc->unit->items[proc->unk_34]));
+        PutText(&gUnk_0200E864[proc->unk_34], gBg0Tm + TM_OFFSET(3, 9 + proc->unk_34 * 2));
+
+        PutNumberOrBlank(gBg0Tm + TM_OFFSET(11, 9 + proc->unk_34 * 2),
+            IsItemDisplayUseable(proc->unit, proc->unit->items[proc->unk_34])
+                ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY,
+            GetItemUses(proc->unit->items[proc->unk_34]));
+
+        proc->unk_34++;
+
+        if (proc->unk_34 >= proc->unk_35)
+        {
+            proc->main_proc->unk_5C = 0;
+            Proc_Break(proc);
+            break;
+        }
+    }
+}
+
+struct ProcScr CONST_DATA ProcScr_Unk_08678E18[] =
 {
     PROC_SLEEP(0),
     PROC_CALL(func_fe6_08079BC8),
     PROC_REPEAT(func_fe6_08079C38),
     PROC_END,
 };
-// end at 08678E38
-#endif
+
+struct UnkProc_08678E18 * func_fe6_08079D70(struct PrepMenuProc * parent)
+{
+    return SpawnProc(ProcScr_Unk_08678E18, parent);
+}
+
+void func_fe6_08079D84(struct PrepMenuProc * proc)
+{
+    struct Unit * unit = gUnk_0200E6D4[proc->unk_30];
+    int i, count;
+
+    TmFillRect(gBg0Tm + TM_OFFSET(0, 8), 12, 11, 0);
+    PutUiWindowFrame(0, 8, 13, 12, UI_WINDOW_REGULAR);
+
+    count = GetUnitItemCount(gUnk_0200E6D4[proc->unk_30]);
+
+    ClearIcons();
+
+    for (i = 0; i < count; i++)
+    {
+        ClearText(&gUnk_0200E864[i]);
+
+        PutIcon(gBg0Tm + TM_OFFSET(1, 9 + i * 2),
+            GetItemIcon(unit->items[i]), TILEREF(0, BGPAL_ICONS));
+
+        Text_SetColor(&gUnk_0200E864[i],
+            IsItemDisplayUseable(unit, unit->items[i])
+                ? TEXT_COLOR_SYSTEM_WHITE : TEXT_COLOR_SYSTEM_GRAY);
+        Text_SetCursor(&gUnk_0200E864[i], 0);
+        Text_DrawString(&gUnk_0200E864[i], GetItemName(unit->items[i]));
+        PutText(&gUnk_0200E864[i], gBg0Tm + TM_OFFSET(3, 9 + i * 2));
+
+        PutNumberOrBlank(gBg0Tm + TM_OFFSET(11, 9 + i * 2),
+            IsItemDisplayUseable(unit, unit->items[i])
+                ? TEXT_COLOR_SYSTEM_BLUE : TEXT_COLOR_SYSTEM_GRAY,
+            GetItemUses(unit->items[i]));
+    }
+
+    EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT);
+}
+
+void func_fe6_08079EA0(struct PrepMenuProc * proc)
+{
+    ClearText(&gUnk_0200E7DC);
+
+    Text_SetCursor(&gUnk_0200E7DC, 0);
+    Text_SetColor(&gUnk_0200E7DC, TEXT_COLOR_SYSTEM_WHITE);
+    Text_DrawString(&gUnk_0200E7DC, JTEXT("残り"));
+
+    Text_SetCursor(&gUnk_0200E7DC, 0x18);
+    Text_SetColor(&gUnk_0200E7DC, TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumberOrBlank(&gUnk_0200E7DC, proc->unk_2E - proc->unk_2F);
+
+    Text_SetColor(&gUnk_0200E7DC, TEXT_COLOR_SYSTEM_WHITE);
+
+    Text_SetCursor(&gUnk_0200E7DC, 0x20);
+    Text_DrawString(&gUnk_0200E7DC, JTEXT("人"));
+
+    Text_SetCursor(&gUnk_0200E7DC, 0x28);
+    Text_DrawString(&gUnk_0200E7DC, JTEXT("／"));
+
+    Text_SetCursor(&gUnk_0200E7DC, 0x38);
+    Text_SetColor(&gUnk_0200E7DC, TEXT_COLOR_SYSTEM_BLUE);
+    Text_DrawNumberOrBlank(&gUnk_0200E7DC, proc->unk_2E);
+
+    PutText(&gUnk_0200E7DC, gBg0Tm + TM_OFFSET(21, 1));
+
+    EnableBgSync(BG0_SYNC_BIT);
+}
+
+void func_fe6_08079F50(struct PrepMenuProc * proc, fu8 row)
+{
+    fu8 i;
+
+    fu8 first_ent = row * 2;
+    int text_base = first_ent % 0x10;
+
+    TmFillRect(gBg2Tm + TM_OFFSET(0, first_ent % 0x20), 15, 1, 0);
+
+    for (i = 0; i < 2 && first_ent + i < proc->unk_2D; i++)
+    {
+        ClearText(&gUnk_0200E7E4[text_base + i]);
+        Text_SetCursor(&gUnk_0200E7E4[text_base + i], 0);
+
+        if ((proc->unk_2C & 1) == 0 && func_fe6_08079404(gUnk_0200E6D4[first_ent + i]))
+        {
+            // force deployed color
+            Text_SetColor(&gUnk_0200E7E4[text_base + i], TEXT_COLOR_SYSTEM_GREEN);
+        }
+        else if ((gUnk_0200E6D4[first_ent + i]->flags & UNIT_FLAG_NOT_DEPLOYED) != 0)
+        {
+            // not selected color
+            Text_SetColor(&gUnk_0200E7E4[text_base + i], TEXT_COLOR_SYSTEM_GRAY);
+        }
+        else
+        {
+            // selected color
+            Text_SetColor(&gUnk_0200E7E4[text_base + i], TEXT_COLOR_SYSTEM_WHITE);
+        }
+
+        Text_DrawString(&gUnk_0200E7E4[text_base + i], DecodeMsg(gUnk_0200E6D4[first_ent + i]->pinfo->msg_name));
+
+        PutText(&gUnk_0200E7E4[text_base + i], gBg2Tm + TM_OFFSET(i * 8, first_ent % 0x20));
+    }
+
+    EnableBgSync(BG2_SYNC_BIT);
+}
+
+void func_fe6_0807A07C(void)
+{
+    struct Unit * order[0x40];
+    int i, j;
+
+    fu8 deploy_max = GetPlayerMaxDeployCount();
+    fu8 deploy_count = 0;
+    fu8 order_count = 0;
+
+    FOR_UNITS_FACTION(FACTION_BLUE, unit,
+    {
+        order[order_count] = unit;
+        order_count++;
+    })
+
+    for (i = 0; i < order_count; i++)
+    {
+        if ((order[i]->flags & UNIT_FLAG_DEAD) == 0 && func_fe6_08079404(order[i]))
+        {
+            for (j = i - 1; i > 0; i--, j--)
+            {
+                if (!func_fe6_08079404(order[i - 1]))
+                {
+                    struct Unit * tmp = order[i];
+                    order[i] = order[i - 1];
+                    order[i - 1] = tmp;
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+    }
+
+    UnitRearrangeInit(gUnk_0200F0A4);
+
+    for (i = 0; i < order_count; i++)
+        UnitRearrangeAdd(order[i]);
+
+    UnitRearrangeApply();
+
+    FOR_UNITS_FACTION(FACTION_BLUE, unit,
+    {
+        if ((unit->flags & UNIT_FLAG_DEAD) != 0)
+            continue;
+
+        if (deploy_max > deploy_count)
+        {
+            unit->flags &= ~UNIT_FLAG_NOT_DEPLOYED;
+            deploy_count++;
+        }
+        else
+        {
+            unit->flags |= UNIT_FLAG_NOT_DEPLOYED;
+        }
+    })
+}

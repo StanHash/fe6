@@ -73,37 +73,37 @@ u16 CONST_DATA UnitSpriteSlotToChrTable[] = {
 
 u16 CONST_DATA Sprite_SleepIconA[] =
 {
-    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16, OAM1_SIZE_16x16, OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconB[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-1), OAM1_SIZE_16x16, OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-1), OAM1_SIZE_16x16, OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconC[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-2), OAM1_SIZE_16x16 + OAM1_X(-1), OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-2), OAM1_SIZE_16x16 + OAM1_X(-1), OAM2_CHR(0x64) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconD[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-3), OAM1_SIZE_16x16 + OAM1_X(-1), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-3), OAM1_SIZE_16x16 + OAM1_X(-1), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconE[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-4), OAM1_SIZE_16x16 + OAM1_X(-2), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-4), OAM1_SIZE_16x16 + OAM1_X(-2), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconF[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-5), OAM1_SIZE_16x16 + OAM1_X(-2), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-5), OAM1_SIZE_16x16 + OAM1_X(-2), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SleepIconG[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-6), OAM1_SIZE_16x16 + OAM1_X(-3), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-6), OAM1_SIZE_16x16 + OAM1_X(-3), OAM2_CHR(0x4A) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 const * CONST_DATA SleepIconSprites[] =
@@ -119,47 +119,47 @@ u16 const * CONST_DATA SleepIconSprites[] =
 
 u16 CONST_DATA Sprite_BerserkIconA[] =
 {
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconB[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconC[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8, OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8, OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconD[] =
 {
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconE[] =
 {
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(+2), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(+2), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconF[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8, OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8, OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconG[] =
 {
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(-1), OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8 + OAM1_X(-1), OAM2_CHR(0x42) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconH[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+1), OAM2_CHR(0x62) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_BerserkIconI[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+2), OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(+1), OAM1_SIZE_16x8 + OAM1_X(+2), OAM2_CHR(0x44) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 const * CONST_DATA BerserkIconSprites[] =
@@ -179,17 +179,17 @@ u16 CONST_DATA Sprite_None[] = { 0 };
 
 u16 CONST_DATA Sprite_SilenceIconA[] =
 {
-    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_CHR(0x66) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8, OAM1_SIZE_16x8, OAM2_CHR(0x66) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SilenceIconB[] =
 {
-    1, OAM0_SHAPE_16x8 + OAM0_Y(-1), OAM1_SIZE_16x8, OAM2_CHR(0x46) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x8 + OAM0_Y(-1), OAM1_SIZE_16x8, OAM2_CHR(0x46) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_SilenceIconC[] =
 {
-    1, OAM0_SHAPE_16x16 + OAM0_Y(-2), OAM1_SIZE_16x16, OAM2_CHR(0x48) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_16x16 + OAM0_Y(-2), OAM1_SIZE_16x16, OAM2_CHR(0x48) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 const * CONST_DATA SilenceIconSprites[] =
@@ -217,49 +217,49 @@ u16 const * CONST_DATA SilenceIconSprites[] =
 u16 CONST_DATA Sprite_PoisonIconA[] =
 {
     2,
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(2), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
-    OAM0_SHAPE_8x16 + OAM0_Y(3), OAM1_SIZE_8x16 + OAM1_X(10), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(2), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(3), OAM1_SIZE_8x16 + OAM1_X(10), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconB[] =
 {
     2,
-    OAM0_SHAPE_8x16 + OAM0_Y(-1), OAM1_SIZE_8x16 + OAM1_X(2) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
-    OAM0_SHAPE_8x16 + OAM0_Y(2), OAM1_SIZE_8x16 + OAM1_X(8) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(-1), OAM1_SIZE_8x16 + OAM1_X(2) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(2), OAM1_SIZE_8x16 + OAM1_X(8) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconC[] =
 {
     2,
-    OAM0_SHAPE_8x16 + OAM0_Y(-2), OAM1_SIZE_8x16 + OAM1_X(2), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
-    OAM0_SHAPE_8x16 + OAM0_Y(1), OAM1_SIZE_8x16 + OAM1_X(10), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(-2), OAM1_SIZE_8x16 + OAM1_X(2), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(1), OAM1_SIZE_8x16 + OAM1_X(10), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconD[] =
 {
     2,
-    OAM0_SHAPE_8x16 + OAM0_Y(-3), OAM1_SIZE_8x16 + OAM1_X(2) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
-    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(8) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    OAM0_SHAPE_8x16 + OAM0_Y(-3), OAM1_SIZE_8x16 + OAM1_X(2) + OAM1_HFLIP, OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
+    OAM0_SHAPE_8x16, OAM1_SIZE_8x16 + OAM1_X(8) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconE[] =
 {
-    1, OAM0_SHAPE_8x16 + OAM0_Y(-4), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x16 + OAM0_Y(-4), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconF[] =
 {
-    1, OAM0_SHAPE_8x16 + OAM0_Y(-5), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x16 + OAM0_Y(-5), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconG[] =
 {
-    1, OAM0_SHAPE_8x16 + OAM0_Y(-6), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x16 + OAM0_Y(-6), OAM1_SIZE_8x16 + OAM1_X(4), OAM2_CHR(0x40) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_PoisonIconH[] =
 {
-    1, OAM0_SHAPE_8x16 + OAM0_Y(-7), OAM1_SIZE_8x16 + OAM1_X(4) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x16 + OAM0_Y(-7), OAM1_SIZE_8x16 + OAM1_X(4) + OAM1_HFLIP, OAM2_CHR(0x41) + OAM2_LAYER(2) + OAM2_PAL(OBPAL_1),
 };
 
 u16 const * CONST_DATA PoisonIconSprites[] =
@@ -317,10 +317,10 @@ void func_fe6_08021B88(void)
 
 void ApplyUnitSpritePalettes(void)
 {
-    ApplyPalettes(Pal_UnitSprites, 0x10 + OBJPAL_MAPSPRITES, 4);
+    ApplyPalettes(Pal_UnitSprites, 0x10 + OBPAL_MAPSPRITES, 4);
 
     if ((gBmSt.flags & BM_FLAG_LINKARENA) != 0)
-        ApplyPalette(Pal_UnitSpritesPurple, 0x10 + OBJPAL_UNITSPRITE_PURPLE);
+        ApplyPalette(Pal_UnitSpritesPurple, 0x10 + OBPAL_UNITSPRITE_PURPLE);
 }
 
 void ResetUnitSprites(void)
@@ -378,7 +378,7 @@ int UseUnitSprite(u32 id)
         gUnitSpriteSyncRequest++;
     }
 
-    return OBJCHR_MAPSPRITES + gUnitSpriteSlots[id] * 2;
+    return OBCHR_MAPSPRITES + gUnitSpriteSlots[id] * 2;
 }
 
 static int ApplyUnitSpriteImage16x16(int slot, u32 id)
@@ -464,16 +464,16 @@ void SyncUnitSpriteSheet(void)
     int frame = GetGameTime() % UNITSPRITE_FRAME_END;
 
     if (frame == UNITSPRITE_FRAME_A)
-        CpuFastCopy(gUnitSpriteBuf[0], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[0]));
+        CpuFastCopy(gUnitSpriteBuf[0], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[0]));
 
     if (frame == UNITSPRITE_FRAME_B)
-        CpuFastCopy(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
+        CpuFastCopy(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
 
     if (frame == UNITSPRITE_FRAME_C)
-        CpuFastCopy(gUnitSpriteBuf[2], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[2]));
+        CpuFastCopy(gUnitSpriteBuf[2], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[2]));
 
     if (frame == UNITSPRITE_FRAME_D)
-        CpuFastCopy(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
+        CpuFastCopy(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
 }
 
 void ForceSyncUnitSpriteSheet(void)
@@ -486,25 +486,25 @@ void ForceSyncUnitSpriteSheet(void)
 
     if (frame >= UNITSPRITE_FRAME_D)
     {
-        RegisterDataMove(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
+        RegisterDataMove(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_C)
     {
-        RegisterDataMove(gUnitSpriteBuf[2], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[2]));
+        RegisterDataMove(gUnitSpriteBuf[2], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[2]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_B)
     {
-        RegisterDataMove(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
+        RegisterDataMove(gUnitSpriteBuf[1], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[1]));
         return;
     }
 
     if (frame >= UNITSPRITE_FRAME_A)
     {
-        RegisterDataMove(gUnitSpriteBuf[0], OBJ_VRAM0 + CHR_SIZE * OBJCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[0]));
+        RegisterDataMove(gUnitSpriteBuf[0], OBJ_VRAM0 + CHR_SIZE * OBCHR_MAPSPRITES, sizeof(gUnitSpriteBuf[0]));
         return;
     }
 }
@@ -512,7 +512,7 @@ void ForceSyncUnitSpriteSheet(void)
 int GetUnitDisplayedSpritePalette(struct Unit * unit)
 {
     if ((unit->flags & UNIT_FLAG_TURN_ENDED) != 0)
-        return OBJPAL_UNITSPRITE_GRAY;
+        return OBPAL_UNITSPRITE_GRAY;
 
     return GetUnitSpritePalette(unit);
 }
@@ -522,16 +522,16 @@ int GetUnitSpritePalette(struct Unit * unit)
     switch (UNIT_FACTION(unit))
     {
         case FACTION_BLUE:
-            return OBJPAL_UNITSPRITE_BLUE;
+            return OBPAL_UNITSPRITE_BLUE;
 
         case FACTION_RED:
-            return OBJPAL_UNITSPRITE_RED;
+            return OBPAL_UNITSPRITE_RED;
 
         case FACTION_GREEN:
-            return OBJPAL_UNITSPRITE_GREEN;
+            return OBPAL_UNITSPRITE_GREEN;
 
         case FACTION_PURPLE:
-            return OBJPAL_UNITSPRITE_PURPLE;
+            return OBPAL_UNITSPRITE_PURPLE;
     }
 }
 
@@ -685,9 +685,9 @@ void PutUnitSpritesOam(void)
 void PutUnitSpriteIconsOam(void)
 {
     SHOULD_BE_STATIC u16 SHOULD_BE_CONST rescue_pal_table[] = {
-        OBJPAL_UNITSPRITE_BLUE,
-        OBJPAL_UNITSPRITE_GREEN,
-        OBJPAL_UNITSPRITE_RED,
+        OBPAL_UNITSPRITE_BLUE,
+        OBPAL_UNITSPRITE_GREEN,
+        OBPAL_UNITSPRITE_RED,
     };
 
     int i, x, y;

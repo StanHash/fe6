@@ -384,7 +384,7 @@ static void PrepPhase_MapSwapSelectBegin(struct GenericProc * proc)
     StartLimitView(LIMITVIEW_BLUE);
 
     anim = StartSpriteAnim(SpriteAnim_08102450, 0);
-    anim->oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
+    anim->oam2 = OAM2_CHR(OBCHR_SYSTEM_OBJECTS) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS);
     SetSpriteAnimId(anim, 0);
     proc->ptr = anim;
 
@@ -411,7 +411,7 @@ static void PrepPhase_MapSwapSelectIdle(struct GenericProc * proc)
 
     if ((x + 0x10 >= 0) && (x <= DISPLAY_WIDTH))
         if ((y + 0x20 >= 0) && (y <= DISPLAY_HEIGHT))
-            PutSprite(4, x, y-12, Sprite_16x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 6) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS));
+            PutSprite(4, x, y-12, Sprite_16x16, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 6) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS));
 
     if (gKeySt->pressed & KEY_BUTTON_A)
     {

@@ -253,7 +253,7 @@ void func_fe6_080895B8(u32 point)
             int r, g, b;
             u16 r_out, g_out, b_out;
 
-            u16 source = gPal[OBPAL_OFFSET(OBJPAL_SAVEMENU_2) + i];
+            u16 source = gPal[OBPAL_OFFSET(OBPAL_SAVEMENU_2) + i];
             int blend = gUnk_Savemenu_02000404[0x10 + i];
 
             b = (RGB5_MASK_B & source) * (0x20 - point);
@@ -268,7 +268,7 @@ void func_fe6_080895B8(u32 point)
             r += (RGB5_MASK_R & blend) * (point);
             r_out = RGB5_MASK_R & (r >> 5);
 
-            gPal[OBPAL_OFFSET(OBJPAL_SAVEMENU_1) + i] = b_out | g_out | r_out;
+            gPal[OBPAL_OFFSET(OBPAL_SAVEMENU_1) + i] = b_out | g_out | r_out;
         }
     }
 

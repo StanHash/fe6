@@ -1146,7 +1146,7 @@ void func_fe6_0806C7E0(struct TutorialEventProcA * proc)
                 x = (target->x * 16) - gBmSt.camera.x;
                 y = (target->y * 16) - gBmSt.camera.y;
 
-                PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
+                PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
             }
 
             break;
@@ -1154,13 +1154,13 @@ void func_fe6_0806C7E0(struct TutorialEventProcA * proc)
         case 1:
             x = 0xD0 - gBmSt.camera.x;
             y = 0x70 - gBmSt.camera.y;
-            PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
+            PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
             break;
 
         case 2:
             x = 0x160 - gBmSt.camera.x;
             y = 0x40 - gBmSt.camera.y;
-            PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
+            PutOamHi(OAM1_X(x + 0x200), OAM0_Y(y + 0x100), Sprite_0866ACCC, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x22) + OAM2_PAL(2) + OAM2_LAYER(2));
             break;
 
     }

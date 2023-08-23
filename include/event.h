@@ -129,7 +129,7 @@ void StartMapChangeEvent(u8 id);
 void StartChestItemEvent(u16 iid, u8 id);
 void StartChestMoneyEvent(int amount, u8 id);
 void SetEventTalkSkipped(void);
-int GetPlayerDeployCount(void);
+int GetPlayerMaxDeployCount(void);
 void InitPlayerDeployUnits(void);
 void InitPlayerDeployUnitPositions(void);
 void func_fe6_08012780(void);

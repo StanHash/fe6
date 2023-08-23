@@ -230,10 +230,10 @@ int func_fe6_08070E0C(struct PlaySt const * play_st)
 void func_fe6_08070E70(void * vram, int pal)
 {
     if (vram == NULL)
-        vram = ((void *) VRAM) + 0x10000 + OBJCHR_HELPBOX_180 * CHR_SIZE;
+        vram = ((void *) VRAM) + 0x10000 + OBCHR_HELPBOX_180 * CHR_SIZE;
 
     if (pal < 0)
-        pal = OBJPAL_HELPBOX_5;
+        pal = OBPAL_HELPBOX_5;
 
     pal = (pal & 15) + 0x10;
 
@@ -253,10 +253,10 @@ void func_fe6_08070E70(void * vram, int pal)
 void func_fe6_08070EEC(void * vram, int pal)
 {
     if (vram == NULL)
-        vram = ((void *) VRAM) + 0x10000 + OBJCHR_HELPBOX_180 * CHR_SIZE;
+        vram = ((void *) VRAM) + 0x10000 + OBCHR_HELPBOX_180 * CHR_SIZE;
 
     if (pal < 0)
-        pal = OBJPAL_HELPBOX_5;
+        pal = OBPAL_HELPBOX_5;
 
     pal = (pal & 15) + 0x10;
 
@@ -871,10 +871,10 @@ void func_fe6_080718FC(void * vram, int pal)
     // except for gUnk_0203D460 instead of gUnk_0203D40C
 
     if (vram == NULL)
-        vram = ((void *) VRAM) + 0x10000 + OBJCHR_HELPBOX_180 * CHR_SIZE;
+        vram = ((void *) VRAM) + 0x10000 + OBCHR_HELPBOX_180 * CHR_SIZE;
 
     if (pal < 0)
-        pal = OBJPAL_HELPBOX_5;
+        pal = OBPAL_HELPBOX_5;
 
     pal = (pal & 15) + 0x10;
 

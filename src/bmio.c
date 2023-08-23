@@ -146,12 +146,12 @@ PROC_LABEL(0),
 
 u16 CONST_DATA Sprite_085C7C34[] =
 {
-    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x2A) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x8, OAM1_SIZE_8x8, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x2A) + OAM2_PAL(OBPAL_1),
 };
 
 u16 CONST_DATA Sprite_085C7C3C[] =
 {
-    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0xA) + OAM2_PAL(OBJPAL_1),
+    1, OAM0_SHAPE_8x16, OAM1_SIZE_8x16, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0xA) + OAM2_PAL(OBPAL_1),
 };
 
 static u16 const * CONST_DATA sRainSprites[] =
@@ -414,7 +414,7 @@ static void WeatherVBlank_Snow(void)
             PutOamLo(
                 ((it->x >> 8) - origins[it->kind].x) & 0xFF,
                 ((it->y >> 8) - origins[it->kind].y) & 0xFF,
-                Sprite_8x8, OAM2_PAL(OBJPAL_1) + it->chr);
+                Sprite_8x8, OAM2_PAL(OBPAL_1) + it->chr);
 
             ++it;
         }
@@ -470,7 +470,7 @@ static void WeatherInit_Sandstorm(void)
     AllocWeatherParticles(gPlaySt.weather);
 
     Decompress(Img_SandstormParticles, gBuf);
-    Copy2dChr(gBuf, OBJ_VRAM0 + OBJCHR_SANDSTORM_PARTICLE*CHR_SIZE, 4, 4);
+    Copy2dChr(gBuf, OBJ_VRAM0 + OBCHR_SANDSTORM_PARTICLE*CHR_SIZE, 4, 4);
 
     for (i = 0; i < 0x40; ++i)
     {
@@ -497,7 +497,7 @@ static void WeatherVBlank_Sandstorm(void)
             PutOamLo(
                 OAM1_X((it->x & 0xFF) - 0x10),
                 it->y,
-                Sprite_32x32, OAM2_PAL(OBJPAL_1) + OBJCHR_SANDSTORM_PARTICLE);
+                Sprite_32x32, OAM2_PAL(OBPAL_1) + OBCHR_SANDSTORM_PARTICLE);
 
             ++it;
         }
@@ -513,7 +513,7 @@ static void WeatherInit_Snowstorm(void)
     AllocWeatherParticles(gPlaySt.weather);
 
     Decompress(Img_SnowstormParticles, gBuf);
-    Copy2dChr(gBuf, OBJ_VRAM0 + OBJCHR_SNOWSTORM_PARTICLE*CHR_SIZE, 8, 4);
+    Copy2dChr(gBuf, OBJ_VRAM0 + OBCHR_SNOWSTORM_PARTICLE*CHR_SIZE, 8, 4);
 
     for (i = 0; i < 0x40; ++i)
     {
@@ -556,7 +556,7 @@ static void WeatherVBlank_Snowstorm(void)
             PutOamLo(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF,
                 ((it->y >> 8) - gBmSt.camera.y) & 0xFF,
-                Sprite_32x32, OAM2_PAL(OBJPAL_1) + OBJCHR_SNOWSTORM_PARTICLE + (it->chr * 4));
+                Sprite_32x32, OAM2_PAL(OBPAL_1) + OBCHR_SNOWSTORM_PARTICLE + (it->chr * 4));
 
             ++it;
         }
@@ -683,8 +683,8 @@ static void FlamesWeatherInitParticles(void)
 
     AllocWeatherParticles(gPlaySt.weather);
 
-    Decompress(Img_FlamesParticles, OBJ_VRAM0 + OBJCHR_SNOWSTORM_PARTICLE * 0x20);
-    ApplyPalette(Pal_FlamesParticles, 0x10+OBJPAL_10);
+    Decompress(Img_FlamesParticles, OBJ_VRAM0 + OBCHR_SNOWSTORM_PARTICLE * 0x20);
+    ApplyPalette(Pal_FlamesParticles, 0x10+OBPAL_10);
 
     for (i = 0; i < 0x10; ++i)
     {
@@ -761,7 +761,7 @@ static void FlamesWeatherUpdateParticles(void)
 
             PutOamLo(
                 ((it->x >> 8) - gBmSt.camera.x) & 0xFF, y,
-                Sprite_8x8, oam2 + OAM2_PAL(OBJPAL_10));
+                Sprite_8x8, oam2 + OAM2_PAL(OBPAL_10));
         }
     }
 }
@@ -814,7 +814,7 @@ static void WeatherInit_Clouds(void)
     AllocWeatherParticles(WEATHER_NONE);
 
     Decompress(Img_CloudWeather, gWeatherEffect.imgCloud);
-    ApplyPalette(Pal_CloudWeather, 0x10+OBJPAL_10);
+    ApplyPalette(Pal_CloudWeather, 0x10+OBPAL_10);
 }
 
 static void WeatherVBlank_Clouds(void)
@@ -841,7 +841,7 @@ static void WeatherVBlank_Clouds(void)
         break;
 
     case 7:
-        Copy2dChr(img, OBJ_VRAM0 + CHR_SIZE*OBJCHR_CLOUDS, 14, 4);
+        Copy2dChr(img, OBJ_VRAM0 + CHR_SIZE*OBCHR_CLOUDS, 14, 4);
         break;
 
     }
@@ -852,7 +852,7 @@ static void WeatherUpdate_Clouds(void)
     int y = gBmSt.camera.y;
 
     PutSprite(14, 0, -(y/5),
-        Sprite_CloudWeather, OAM2_CHR(OBJCHR_CLOUDS) + OAM2_LAYER(3) + OAM2_PAL(OBJPAL_10));
+        Sprite_CloudWeather, OAM2_CHR(OBCHR_CLOUDS) + OAM2_LAYER(3) + OAM2_PAL(OBPAL_10));
 }
 
 void WeatherInit(void)

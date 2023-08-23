@@ -518,21 +518,21 @@ void UnitMapUiUpdate(struct MapUiProc * proc, struct Unit * unit)
 
     // check if first digit isn't a space
     if (proc->hp_cur_hi != (u8)(' ' - '0'))
-        PutOamHi(x_digit1, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_hi);
+        PutOamHi(x_digit1, y_digits, Sprite_8x8, OAM2_CHR(OBCHR_MAPUI_NUMBERS) + OAM2_PAL(OBPAL_MAPUI_8) + proc->hp_cur_hi);
 
-    PutOamHi(x_digits + 23, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_cur_lo);
+    PutOamHi(x_digits + 23, y_digits, Sprite_8x8, OAM2_CHR(OBCHR_MAPUI_NUMBERS) + OAM2_PAL(OBPAL_MAPUI_8) + proc->hp_cur_lo);
 
     // BUG: this assumes max hp will always be 2 digits
     // this is fixed in fe8 (fe7 unsure)
 
 #if BUGFIX
     if (proc->hp_max_hi != (u8)(' ' - '0'))
-        PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
+        PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBCHR_MAPUI_NUMBERS) + OAM2_PAL(OBPAL_MAPUI_8) + proc->hp_max_hi);
 #else
-    PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_hi);
+    PutOamHi(x_digits + 34, y_digits, Sprite_8x8, OAM2_CHR(OBCHR_MAPUI_NUMBERS) + OAM2_PAL(OBPAL_MAPUI_8) + proc->hp_max_hi);
 #endif
 
-    PutOamHi(x_digits + 41, y_digits, Sprite_8x8, OAM2_CHR(OBJCHR_MAPUI_NUMBERS) + OAM2_PAL(OBJPAL_MAPUI_8) + proc->hp_max_lo);
+    PutOamHi(x_digits + 41, y_digits, Sprite_8x8, OAM2_CHR(OBCHR_MAPUI_NUMBERS) + OAM2_PAL(OBPAL_MAPUI_8) + proc->hp_max_lo);
 }
 
 void DrawUnitMapUi(struct MapUiProc * proc, struct Unit * unit)
@@ -909,8 +909,8 @@ void DoStartMapUi(void)
     SetBlendTargetB(0, 0, 1, 1, 1);
 
     Decompress(Img_MapUiElements, (void *) VRAM + BGCHR_MAPUI_100 * CHR_SIZE);
-    CpuFastCopy((void *) VRAM + BGCHR_MAPUI_128 * CHR_SIZE, OBJ_VRAM0 + OBJCHR_MAPUI_NUMBERS * CHR_SIZE, 10 * CHR_SIZE);
-    ApplyPalette(gPal + BGPAL_MAPUI_0 * 0x20, 0x10 + OBJPAL_MAPUI_8);
+    CpuFastCopy((void *) VRAM + BGCHR_MAPUI_128 * CHR_SIZE, OBJ_VRAM0 + OBCHR_MAPUI_NUMBERS * CHR_SIZE, 10 * CHR_SIZE);
+    ApplyPalette(gPal + BGPAL_MAPUI_0 * 0x20, 0x10 + OBPAL_MAPUI_8);
     ApplyIconPalette(1, BGPAL_MAPUI_2);
 
     ResetTextFont();

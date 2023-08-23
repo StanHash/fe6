@@ -189,9 +189,9 @@ static void TradeMenu_InitUnitNameDisplay(struct TradeMenuProc * proc)
     char const * str;
     int x;
 
-    UnpackUiUnitNameFrameGraphics((u8 *) OBJ_VRAM0 + CHR_SIZE*OBJCHR_TRADEMENU_240, 0x10 + OBJPAL_TRADEMENU_8, 1);
+    UnpackUiUnitNameFrameGraphics((u8 *) OBJ_VRAM0 + CHR_SIZE*OBCHR_TRADEMENU_240, 0x10 + OBPAL_TRADEMENU_8, 1);
 
-    StartSpriteRefresher(proc, 7, 0, -4, Sprite_085C6234, OAM2_PAL(OBJPAL_TRADEMENU_8) + OAM2_CHR(OBJCHR_TRADEMENU_240) + OAM2_LAYER(2));
+    StartSpriteRefresher(proc, 7, 0, -4, Sprite_085C6234, OAM2_PAL(OBPAL_TRADEMENU_8) + OAM2_CHR(OBCHR_TRADEMENU_240) + OAM2_LAYER(2));
 
     str = DecodeMsg(proc->units[TRADEMENU_UNIT_LEFT]->pinfo->msg_name);
     x = (UNIT_PANEL_WIDTH*8 - GetStringTextLen(str))/2;

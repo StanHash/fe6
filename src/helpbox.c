@@ -29,7 +29,7 @@ void UpdateHelpBoxDisplay(struct HelpBoxProc * proc, int interpolate_method)
 
     if (proc->unk_52 == 0)
     {
-        PutSprite(0, proc->x_box, proc->y_box - 11, Sprite_32x16, OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 11) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS));
+        PutSprite(0, proc->x_box, proc->y_box - 11, Sprite_32x16, OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 11) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS));
     }
 }
 

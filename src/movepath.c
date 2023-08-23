@@ -204,8 +204,8 @@ static bool MovePathIsValid(void)
 
 void InitMovePath(bool display_only)
 {
-    Decompress(Img_MovePath, OBJ_VRAM0 + CHR_SIZE*OBJCHR_MOVEPATH);
-    ApplyPalette(Pal_MovePath, 0x10 + OBJPAL_MOVEPATH);
+    Decompress(Img_MovePath, OBJ_VRAM0 + CHR_SIZE*OBCHR_MOVEPATH);
+    ApplyPalette(Pal_MovePath, 0x10 + OBPAL_MOVEPATH);
 
     if (!display_only)
     {

@@ -26,7 +26,7 @@ void PutSubtitleHelpText(struct SubtitleHelpProc * proc, int y)
         int num = (proc->text_num + i) % proc->text_count;
 
         PutSprite(2, x, y,
-            Sprite_32x16, OAM2_CHR(OBJCHR_SUBTITLEHELP_TEXT) + OAM2_PAL(OBJPAL_SUBTITLEHELP_TEXT) + lut[num]);
+            Sprite_32x16, OAM2_CHR(OBCHR_SUBTITLEHELP_TEXT) + OAM2_PAL(OBPAL_SUBTITLEHELP_TEXT) + lut[num]);
     }
 }
 
@@ -38,10 +38,10 @@ void InitSubtitleHelpText(struct SubtitleHelpProc * proc)
 
     char const * it = proc->string;
 
-    InitSpriteTextFont(&proc->font, OBJ_VRAM0 + OBJCHR_SUBTITLEHELP_TEXT*CHR_SIZE, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
+    InitSpriteTextFont(&proc->font, OBJ_VRAM0 + OBCHR_SUBTITLEHELP_TEXT*CHR_SIZE, 0x10+OBPAL_SUBTITLEHELP_TEXT);
     SetTextFontGlyphs(TEXT_GLYPHS_TALK);
 
-    ApplyPalette(Pal_Text+0x10, 0x10+OBJPAL_SUBTITLEHELP_TEXT);
+    ApplyPalette(Pal_Text+0x10, 0x10+OBPAL_SUBTITLEHELP_TEXT);
 
     for (line = 0; line < 2; ++line)
     {

@@ -3131,7 +3131,7 @@ static int EvtCmd_WmTalk(struct EventProc * proc)
     if (proc->flags & EVENT_FLAG_SKIPPED)
         return EVENT_CMDRET_CONTINUE;
 
-    InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
+    InitSpriteTalk(OBCHR_WM_TEXT + 0x21, 2, OBPAL_WM_TEXT);
     StartTalkMsg(1, 1 + proc->cmd_short, proc->script[0]);
 
     SetTalkPrintDelay(4);
@@ -3156,8 +3156,8 @@ static int EvtCmd_WmTalkBoxBottom(struct EventProc * proc)
 
     proc->cmd_short = 14;
 
-    InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
-    StartPutTalkSpriteText(0, proc->cmd_short*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
+    InitSpriteTalk(OBCHR_WM_TEXT + 0x21, 2, OBPAL_WM_TEXT);
+    StartPutTalkSpriteText(0, proc->cmd_short*8, OBCHR_WM_TEXT, OBPAL_WM_TEXTBOX, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3171,8 +3171,8 @@ static int EvtCmd_WmTalkBoxTop(struct EventProc * proc)
 
     proc->cmd_short = 0;
 
-    InitSpriteTalk(OBJCHR_WM_TEXT + 0x21, 2, OBJPAL_WM_TEXT);
-    StartPutTalkSpriteText(0, proc->cmd_short*8, OBJCHR_WM_TEXT, OBJPAL_WM_TEXTBOX, proc);
+    InitSpriteTalk(OBCHR_WM_TEXT + 0x21, 2, OBPAL_WM_TEXT);
+    StartPutTalkSpriteText(0, proc->cmd_short*8, OBCHR_WM_TEXT, OBPAL_WM_TEXTBOX, proc);
 
     return EVENT_CMDRET_YIELD;
 }
@@ -3579,7 +3579,7 @@ void SetEventTalkSkipped(void)
     proc->flags |= EVENT_FLAG_TEXTSKIPPED;
 }
 
-int GetPlayerDeployCount(void)
+int GetPlayerMaxDeployCount(void)
 {
     struct UnitInfo const * info = GetDeployUnitInfoList();
 
@@ -3985,10 +3985,10 @@ struct ProcScr CONST_DATA ProcScr_WeatherChangeFade[] =
 
 static struct FaceVramEnt CONST_DATA gWmEventFaceConfig[] =
 {
-    { CHR_SIZE * OBJCHR_WM_FACE_A, OBJPAL_WM_FACE_A },
-    { CHR_SIZE * OBJCHR_WM_FACE_B, OBJPAL_WM_FACE_B },
-    { CHR_SIZE * OBJCHR_WM_FACE_A, OBJPAL_WM_FACE_A },
-    { CHR_SIZE * OBJCHR_WM_FACE_B, OBJPAL_WM_FACE_B },
+    { CHR_SIZE * OBCHR_WM_FACE_A, OBPAL_WM_FACE_A },
+    { CHR_SIZE * OBCHR_WM_FACE_B, OBPAL_WM_FACE_B },
+    { CHR_SIZE * OBCHR_WM_FACE_A, OBPAL_WM_FACE_A },
+    { CHR_SIZE * OBCHR_WM_FACE_B, OBPAL_WM_FACE_B },
 };
 
 struct ProcScr CONST_DATA ProcScr_WmEventShowFace[] =
@@ -4027,10 +4027,10 @@ struct ProcScr CONST_DATA ProcScr_WmEventMoveFace[] =
 
 static struct FaceVramEnt CONST_DATA gFightEventFaceConfig[] =
 {
-    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
-    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
-    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
-    { CHR_SIZE * OBJCHR_BANIM_FACE, OBJPAL_BANIM_FACE },
+    { CHR_SIZE * OBCHR_BANIM_FACE, OBPAL_BANIM_FACE },
+    { CHR_SIZE * OBCHR_BANIM_FACE, OBPAL_BANIM_FACE },
+    { CHR_SIZE * OBCHR_BANIM_FACE, OBPAL_BANIM_FACE },
+    { CHR_SIZE * OBCHR_BANIM_FACE, OBPAL_BANIM_FACE },
 };
 
 EventScr CONST_DATA EventScr_AutoTalk[] =

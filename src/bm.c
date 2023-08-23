@@ -487,9 +487,9 @@ void InitBmBgLayers(void)
 void ApplySystemObjectsGraphics(void)
 {
     Decompress(Img_SystemObjects, gBuf);
-    Copy2dChr(gBuf, OBJ_VRAM0 + CHR_SIZE * OBJCHR_SYSTEM_OBJECTS, 18, 4);
+    Copy2dChr(gBuf, OBJ_VRAM0 + CHR_SIZE * OBCHR_SYSTEM_OBJECTS, 18, 4);
 
-    ApplyPalettes(Pal_SystemObjects, 0x10 + OBJPAL_SYSTEM_OBJECTS, 2);
+    ApplyPalettes(Pal_SystemObjects, 0x10 + OBPAL_SYSTEM_OBJECTS, 2);
 }
 
 void ApplySystemGraphics(void)
@@ -732,7 +732,7 @@ void PutMapCursor(int x, int y, int kind)
 
     case MAP_CURSOR_DEFAULT:
     case MAP_CURSOR_REGULAR:
-        oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x02) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
+        oam2 = OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x02) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS);
         sprite = sMapCursorSpriteLut[frame];
 
         break;
@@ -744,7 +744,7 @@ void PutMapCursor(int x, int y, int kind)
             y = (y + sLastCoordMapCursorDrawn.y) >> 1;
         }
 
-        oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x24) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
+        oam2 = OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x24) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS);
         sprite = sMapCursorSpriteLut[frame];
 
         sLastCoordMapCursorDrawn.x = x;
@@ -754,13 +754,13 @@ void PutMapCursor(int x, int y, int kind)
         break;
 
     case MAP_CURSOR_STRETCHED:
-        oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x02) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
+        oam2 = OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x02) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS);
         sprite = Sprite_MapCursorStretched;
 
         break;
 
     case MAP_CURSOR_RED_STATIC:
-        oam2 = OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + 0x24) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS);
+        oam2 = OAM2_CHR(OBCHR_SYSTEM_OBJECTS + 0x24) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS);
         sprite = sMapCursorSpriteLut[0];
 
         break;
@@ -791,7 +791,7 @@ void PutSysArrow(int x, int y, u8 isDown)
 
     PutSprite(4, x, y,
         isDown ? gSysDownArrowSpriteLut[frame] : gSysUpArrowSpriteLut[frame],
-        OAM2_CHR(OBJCHR_SYSTEM_OBJECTS) + OAM2_PAL(OBJPAL_SYSTEM_OBJECTS));
+        OAM2_CHR(OBCHR_SYSTEM_OBJECTS) + OAM2_PAL(OBPAL_SYSTEM_OBJECTS));
 }
 
 void PutSysAButton(int x, int y, int palid)
@@ -800,7 +800,7 @@ void PutSysAButton(int x, int y, int palid)
 
     PutSprite(4, x, y,
         Sprite_16x16,
-        OAM2_CHR(OBJCHR_SYSTEM_OBJECTS + (frame ? 0x50 : 0x10)) + OAM2_PAL(palid));
+        OAM2_CHR(OBCHR_SYSTEM_OBJECTS + (frame ? 0x50 : 0x10)) + OAM2_PAL(palid));
 }
 
 static void CamMove_OnInit(struct CamMoveProc * proc)

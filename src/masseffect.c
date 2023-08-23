@@ -228,7 +228,7 @@ static void StatusHealEffect_BlendedSprite_Loop(struct GenericProc * proc)
     PutBlendWindowUnitSprite(4,
         gActiveUnit->x*16 - gBmSt.camera.x,
         gActiveUnit->y*16 - gBmSt.camera.y,
-        OAM2_LAYER(2) + OAM2_PAL(OBJPAL_STATUSHEAL_UNITSPRITE), gActiveUnit);
+        OAM2_LAYER(2) + OAM2_PAL(OBPAL_STATUSHEAL_UNITSPRITE), gActiveUnit);
 
     proc->unk4C--;
 
@@ -298,20 +298,20 @@ static void StatusHealEffect_PalSpriteAnim_Init(struct GenericProc * proc)
     {
 
     case FACTION_BLUE:
-        pal = &PAL_COLOR(0x10 + OBJPAL_UNITSPRITE_BLUE, 0);
+        pal = &PAL_COLOR(0x10 + OBPAL_UNITSPRITE_BLUE, 0);
         break;
 
     case FACTION_RED:
-        pal = &PAL_COLOR(0x10 + OBJPAL_UNITSPRITE_RED, 0);
+        pal = &PAL_COLOR(0x10 + OBPAL_UNITSPRITE_RED, 0);
         break;
 
     case FACTION_GREEN:
-        pal = &PAL_COLOR(0x10 + OBJPAL_UNITSPRITE_GREEN, 0);
+        pal = &PAL_COLOR(0x10 + OBPAL_UNITSPRITE_GREEN, 0);
         break;
 
     }
 
-    ApplyPalette(pal, 0x10 + OBJPAL_STATUSHEAL_UNITSPRITE);
+    ApplyPalette(pal, 0x10 + OBPAL_STATUSHEAL_UNITSPRITE);
 
     proc->unk4C = 0;
 }
@@ -324,7 +324,7 @@ static void StatusHealEffect_PalSpriteAnim_SetOutlineIntensity(struct GenericPro
     if (intensity < 0)
         intensity = 0;
 
-    PAL_COLOR(0x10 + OBJPAL_STATUSHEAL_UNITSPRITE, 15) = RGB(intensity, intensity, intensity);
+    PAL_COLOR(0x10 + OBPAL_STATUSHEAL_UNITSPRITE, 15) = RGB(intensity, intensity, intensity);
     EnablePalSync();
 }
 

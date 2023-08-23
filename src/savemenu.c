@@ -196,7 +196,7 @@ void SaveMenu_PutScreen(struct SaveMenuProc * proc)
     Decompress(Img_MuralBackground, ((void *) VRAM) + GetBgChrOffset(0) + CHR_SIZE * BGCHR_SAVEMENU_0);
     TmApplyTsa(gBg0Tm, gUnk_083278EC, 0);
     ApplyPalettes(gUnk_0832BDE8, 0x11, 8);
-    func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_1C0, OBJPAL_SAVEMENU_9);
+    func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBCHR_SAVEMENU_1C0, OBPAL_SAVEMENU_9);
     func_fe6_080895A0(gUnk_0832C35C, gUnk_Savemenu_02000404, 2);
     EnableBgSync(BG0_SYNC_BIT | BG1_SYNC_BIT | BG2_SYNC_BIT | BG3_SYNC_BIT);
 
@@ -209,18 +209,18 @@ void SaveMenu_PutScreen(struct SaveMenuProc * proc)
 
     if (proc->unk_2E == UNK_SAVEMENU_6)
     {
-        func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_1C0, OBJPAL_SAVEMENU_9);
+        func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBCHR_SAVEMENU_1C0, OBPAL_SAVEMENU_9);
     }
     else
     {
-        Decompress(gUnk_0832B554, OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_1C0);
+        Decompress(gUnk_0832B554, OBJ_VRAM0 + CHR_SIZE * OBCHR_SAVEMENU_1C0);
     }
 
     if (proc->unk_2E == UNK_SAVEMENU_5)
     {
         if (proc->unk_35 == 1)
         {
-            func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBJCHR_SAVEMENU_200, 9);
+            func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * OBCHR_SAVEMENU_200, 9);
         }
     }
     else
@@ -614,9 +614,7 @@ void func_fe6_080885DC(struct SaveMenuProc * proc)
                 {
                     proc->unk_3D = 0;
                     proc->unk_36 = 1;
-                    // NOTE: this "\0\0\0" is a hack to align the next item in rodata.
-                    // this file was probably split in two
-                    func_fe6_0808A454(JTEXT("ノーマル　ハード" "\0\0\0"), TRUE);
+                    func_fe6_0808A454(JTEXT("ノーマル　ハード"), TRUE);
                     PlaySe(SONG_6A);
                 }
 
@@ -774,7 +772,7 @@ void func_fe6_08088B40(struct SaveMenuProc * proc)
 
     if (proc->anim_clock == 14)
     {
-        func_fe6_08070E70(OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE, OBJPAL_SAVEMENU_9);
+        func_fe6_08070E70(OBJ_VRAM0 + OBCHR_SAVEMENU_1C0 * CHR_SIZE, OBPAL_SAVEMENU_9);
         Proc_Break(proc);
     }
 }
@@ -789,7 +787,7 @@ void func_fe6_08088B9C(struct SaveMenuProc * proc)
 
     if (proc->anim_clock == 14)
     {
-        Decompress(gUnk_0832B554, OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE);
+        Decompress(gUnk_0832B554, OBJ_VRAM0 + OBCHR_SAVEMENU_1C0 * CHR_SIZE);
         Proc_Break(proc);
     }
 }
@@ -1022,7 +1020,7 @@ void func_fe6_08088F60(struct SaveMenuProc * proc)
         {
             if (proc->unk_3E == 0)
             {
-                func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * 0x200, OBJPAL_SAVEMENU_9);
+                func_fe6_08070E70(OBJ_VRAM0 + CHR_SIZE * 0x200, OBPAL_SAVEMENU_9);
             }
 
             func_fe6_08088404(proc);
@@ -1039,7 +1037,7 @@ void func_fe6_08088F60(struct SaveMenuProc * proc)
         }
         else
         {
-            Decompress(gUnk_0832B554, OBJ_VRAM0 + OBJCHR_SAVEMENU_1C0 * CHR_SIZE);
+            Decompress(gUnk_0832B554, OBJ_VRAM0 + OBCHR_SAVEMENU_1C0 * CHR_SIZE);
             proc->anim_clock = 0;
             Proc_Goto(proc, L_SAVEMENU_12);
         }

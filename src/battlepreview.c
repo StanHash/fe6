@@ -348,9 +348,9 @@ static void BattlePreview_Init(struct BattlePreviewProc * proc)
     Decompress(Img_BattlePreviewFrame, (void *) VRAM + BGCHR_BATTLEPREVIEW_FRAME*CHR_SIZE);
 
     Decompress(Img_BattlePreviewMultipliers, gBuf);
-    Copy2dChr(gBuf, OBJ_VRAM0 + OBJCHR_BATTLEPREVIEW_MULTIPLIERS*CHR_SIZE, 4, 2);
+    Copy2dChr(gBuf, OBJ_VRAM0 + OBCHR_BATTLEPREVIEW_MULTIPLIERS*CHR_SIZE, 4, 2);
 
-    ApplyPalette(Pal_BattlePreviewMultipliers, 0x10+OBJPAL_BATTLEPREVIEW_MULTIPLIERS);
+    ApplyPalette(Pal_BattlePreviewMultipliers, 0x10+OBPAL_BATTLEPREVIEW_MULTIPLIERS);
 
     ResetTextFont();
     InitIcons();
@@ -436,16 +436,16 @@ static void PutBattlePreviewMultipliers(struct BattlePreviewProc * proc)
     if (proc->hit_count_a > 1)
     {
         PutSprite(4, x+72, y+40, Sprite_16x16,
-            OAM2_CHR(OBJCHR_BATTLEPREVIEW_MULTIPLIERS)
-                + OAM2_PAL(OBJPAL_BATTLEPREVIEW_MULTIPLIERS)
+            OAM2_CHR(OBCHR_BATTLEPREVIEW_MULTIPLIERS)
+                + OAM2_PAL(OBPAL_BATTLEPREVIEW_MULTIPLIERS)
                 + proc->hit_count_a-2);
     }
 
     if (proc->hit_count_b > 1)
     {
         PutSprite(4, x+24, y+40, Sprite_16x16,
-            OAM2_CHR(OBJCHR_BATTLEPREVIEW_MULTIPLIERS)
-                + OAM2_PAL(OBJPAL_BATTLEPREVIEW_MULTIPLIERS)
+            OAM2_CHR(OBCHR_BATTLEPREVIEW_MULTIPLIERS)
+                + OAM2_PAL(OBPAL_BATTLEPREVIEW_MULTIPLIERS)
                 + proc->hit_count_b-2);
     }
 }

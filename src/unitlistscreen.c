@@ -154,14 +154,14 @@ enum
 
 enum
 {
-    OBJCHR_UNITLIST_240 = 0x240,
-    OBJCHR_UNITLIST_390 = 0x390,
+    OBCHR_UNITLIST_240 = 0x240,
+    OBCHR_UNITLIST_390 = 0x390,
 };
 
 enum
 {
-    OBJPAL_UNITLIST_1 = 1, // ..4
-    OBJPAL_UNITLIST_9 = 9,
+    OBPAL_UNITLIST_1 = 1, // ..4
+    OBPAL_UNITLIST_9 = 9,
 };
 
 extern u16 gUnk_0200CD3A[]; // tm
@@ -748,8 +748,8 @@ void func_fe6_08074EF0(struct UnitListScreenProc * proc)
         SortUnitList(proc->sort_key, proc->sort_order);
     }
 
-    Decompress(gUnk_083198CC, OBJ_VRAM0 + OBJCHR_UNITLIST_390 * CHR_SIZE);
-    ApplyPalettes(gUnk_08319E88, 0x10 + OBJPAL_UNITLIST_1, 3);
+    Decompress(gUnk_083198CC, OBJ_VRAM0 + OBCHR_UNITLIST_390 * CHR_SIZE);
+    ApplyPalettes(gUnk_08319E88, 0x10 + OBPAL_UNITLIST_1, 3);
 
     TmFill(gBg0Tm, 0);
     TmFill(gBg1Tm, 0);
@@ -758,8 +758,8 @@ void func_fe6_08074EF0(struct UnitListScreenProc * proc)
     InitIcons();
     ApplyIconPalettes(4);
     UnpackUiWindowFrameGraphics();
-    Decompress(gUnk_083215B8, OBJ_VRAM0 + OBJCHR_UNITLIST_240 * CHR_SIZE);
-    ApplyPalette(gUnk_08321EE4, 0x10 + OBJPAL_UNITLIST_9);
+    Decompress(gUnk_083215B8, OBJ_VRAM0 + OBCHR_UNITLIST_240 * CHR_SIZE);
+    ApplyPalette(gUnk_08321EE4, 0x10 + OBPAL_UNITLIST_9);
 
     func_fe6_08082CBC();
     TmApplyTsa(gBg1Tm, gUnk_083210A0, TILEREF(0, BGPAL_WINDOWFRAME));
@@ -2042,7 +2042,7 @@ void func_fe6_08076250(ProcPtr parent)
     else
     {
         proc->unk_3C = 0;
-        proc->unk_3A = GetPlayerDeployCount();
+        proc->unk_3A = GetPlayerMaxDeployCount();
     }
 
     proc->unk_3B = 0;

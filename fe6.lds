@@ -51,7 +51,9 @@ SECTIONS
         . = 0x00E6B4; gUnk_0200E6B4 = .;
         . = 0x00E6D4; gUnk_0200E6D4 = .;
         . = 0x00E7D8; gUnk_0200E7D8 = .;
-        . = 0x00E864; gUnk_0200E864 = .; /* this is a (multiple?) text */
+        . = 0x00E7DC; gUnk_0200E7DC = .; /* this is a text */
+        . = 0x00E7E4; gUnk_0200E7E4 = .; /* this is multiple text */
+        . = 0x00E864; gUnk_0200E864 = .; /* this is multiple text */
         . = 0x00E89C; gUnk_0200E89C = .; /* this is a text */
         . = 0x00E8A4; gUnk_0200E8A4 = .; /* this is a tilemap */
         . = 0x00F0A4; gUnk_0200F0A4 = .; /* this is units */
@@ -602,6 +604,7 @@ SECTIONS
         . = ALIGN(4); src/statusscreen.o(.rodata);
         . = ALIGN(4); data/rodata_3198C0.o(.rodata);
         . = ALIGN(4); src/unitlistscreen.o(.rodata);
+        . = ALIGN(4); src/prepmenu.o(.rodata);
         . = ALIGN(4); data/rodata_327254.o(.rodata);
         . = ALIGN(4); src/save_core.o(.rodata);
         . = ALIGN(4); src/save_multiarena.o(.rodata);

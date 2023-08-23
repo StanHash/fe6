@@ -732,7 +732,7 @@ void Minimap_ApplyViewportFlashColor(struct MinimapProc * proc)
     g = component;
     b = component;
 
-    gPal[(0x10 + OBJPAL_SYSTEM_OBJECTS) * 0x10 + 0x0E] = (b << 10) + (g << 5) + r;
+    gPal[(0x10 + OBPAL_SYSTEM_OBJECTS) * 0x10 + 0x0E] = (b << 10) + (g << 5) + r;
 
     EnablePalSync();
 }
