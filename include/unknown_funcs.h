@@ -1585,7 +1585,7 @@ void func_fe6_0807B6BC(void);
 // func_fe6_0807B888
 // func_fe6_0807B89C
 // func_fe6_0807B8B0
-// func_fe6_0807B8CC
+void func_fe6_0807B8CC(ProcPtr proc, fu8 arg_1, fu8 arg_2, int arg_3);
 // func_fe6_0807B90C
 // func_fe6_0807B9CC
 // func_fe6_0807BC04
@@ -1596,7 +1596,7 @@ void func_fe6_0807B6BC(void);
 // func_fe6_0807C364
 // func_fe6_0807C500
 // func_fe6_0807C504
-// func_fe6_0807C508
+ProcPtr func_fe6_0807C508(ProcPtr parent);
 // func_fe6_0807C520
 void func_fe6_0807C5B8(/* TODO: args */);
 void func_fe6_0807C7B8(/* TODO: args */);
@@ -1706,7 +1706,7 @@ bool func_fe6_08082B74(struct Unit * unit);
 // func_fe6_08082C34
 // func_fe6_08082C80
 void func_fe6_08082CBC(void);
-// func_fe6_08082CF4
+ProcPtr func_fe6_08082CF4(ProcPtr parent);
 // func_fe6_08082D08
 // func_fe6_08082D54
 // func_fe6_08082DA4

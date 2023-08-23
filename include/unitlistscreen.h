@@ -98,4 +98,6 @@ void func_fe6_080763D8(fu8 arg_0, fu8 arg_1, bool arg_2);
 // func_fe6_08076D30
 bool SortUnitList(fu8 arg_0, fu8 arg_1);
 
+extern int gUnk_0200E7D8; // unit id
+
 #endif // UNITLISTSCREEN_H

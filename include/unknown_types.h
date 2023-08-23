@@ -90,12 +90,14 @@ struct ChapterInfo
     /* 38 */ u16 msg_38;
     /* 3A */ u8 asset_event_info;
 
-    /* 3B */ u8 pad_3B[0x3E - 0x3B];
+    /* 3B */ u8 pad_3B[0x3C - 0x3B];
 
-    /* 3E */ u8 numberId;
-
-    /* 3F */ u8 pad_3F[0x43 - 0x3F];
-
+    /* 3C */ u16 msg_unk_0C;
+    /* 3E */ u8 number_id;
+    /* 3F */ u8 unk_3F;
+    /* 40 */ u8 unk_40;
+    /* 41 */ u8 unk_41;
+    /* 42 */ u8 unk_42;
     /* 43 */ i8 victory_bgm_enemy_threshold;
 };
 

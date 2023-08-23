@@ -11,3 +11,4 @@ rename move.h/move.c
 remove static funcs
 remove most static objects (except .bss)
 videoalloc constants in a single file
+every lz object: u8 -> u32

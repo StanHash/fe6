@@ -98,7 +98,6 @@ extern struct Text gUnk_0200D6AC;
 extern struct Unit gUnk_0200D6B4[];
 extern u8 gUnk_0200CD38;
 extern u32 gUnk_0200E6B4[]; // equipped item icons
-extern int gUnk_0200E7D8; // unit id
 
 extern u8 CONST_DATA gUnk_08678722[];
 

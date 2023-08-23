@@ -247,6 +247,7 @@ extern i16 SHOULD_BE_CONST gSinLut[];
 
 #define TM_OFFSET(x, y) (((y) << 5) + (x))
 
+// TODO: remove the SAFE from the names
 #define TILE_CHR_SAFE(chr) ((chr) & 0x3FF)
 #define TILE_PAL_SAFE(pal) (((pal) & 0xF) << 12)
 #define TILEREF(chr, pal) ((chr) + ((pal) << 12))
@@ -267,6 +268,11 @@ extern i16 SHOULD_BE_CONST gSinLut[];
 
 #define ApplyPalettes(src, num, count) ApplyPaletteExt((src), 0x20 * (num), 0x20 * (count))
 #define ApplyPalette(src, num) ApplyPalettes((src), (num), 1)
+
+#define ApplyBgPalettes ApplyPalettes
+#define ApplyBgPalette ApplyPalette
+#define ApplyObPalettes(src, num, count) ApplyPalettes((src), 0x10 + (num), (count))
+#define ApplyObPalette(src, num) ApplyPalette((src), 0x10 + (num))
 
 #define SetDispEnable(bg0, bg1, bg2, bg3, obj) \
     gDispIo.disp_ct.bg0_enable = (bg0); \
