@@ -17,7 +17,7 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install agbcc
-      run: tools/install-agbcc.sh
+      run: tools/install_agbcc.sh
 
     - name: Generate dummy base ROM
       run: head -c 8M /dev/urandom > fe6-base.gba
