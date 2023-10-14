@@ -10,8 +10,6 @@ Some functions are only matching thanks to "hacks" such as register variables. T
 
 | File         | Function           | Opt. Level | Notes
 | ------------ | ------------------ | ---------- | -----
-| `main.c`     | `AgbMain`          | `O2`       | Not a real nonmatch: just needs -mtpcs-frame which agbcc doesn't support
-| `main.c`     | `PutBuildInfo`     | `O2`       | ^
 | `unitlistscreen.c` | `func_fe6_08075E94` | `O2` | https://decomp.me/scratch/sjiAE - reg swap + wrong loop constant load order
 | `unitlistscreen.c` | `func_fe6_08076060` | `O2` | https://decomp.me/scratch/j9zM3
 

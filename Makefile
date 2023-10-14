@@ -131,7 +131,6 @@ endif
 # = CFLAGS overrides =
 # ======================
 
-# not yet supported by agbcc :/
 %/main.o:           CFLAGS += -mtpcs-frame
 
 %/irq.o:            CFLAGS += -O0
