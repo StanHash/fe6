@@ -233,8 +233,9 @@ struct SoundInfo
     /* +038 */ PlyNoteFunc plynote;
     /* +03C */ ExtVolPitFunc ext_vol_pit_func;
     /* +040 */ u8 gap2[16];
-    /* +060 */ struct SoundChannel chans[MAX_DIRECTSOUND_CHANNELS];
-    /* +360 */ i8 pcm_buffer[PCM_DMA_BUF_SIZE * 2];
+    /* +050 */ struct SoundChannel chans[MAX_DIRECTSOUND_CHANNELS];
+    /* +350 */ i8 pcm_buffer[PCM_DMA_BUF_SIZE * 2];
+    /* +FB0 */ // end
 };
 
 struct Song
