@@ -19648,13 +19648,13 @@ func_fe6_0803EE7C: @ 0x0803EE7C
 	movs r0, #4
 	bl EnableBgSync
 	bl RenderMap
-	bl func_fe6_08047CB8
+	bl PrepareBattleGraphicsMaybe_
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803EEAC
 	movs r0, #1
-	bl func_fe6_0804256C
-	bl func_fe6_08047CC8
+	bl SetBanimLinkArenaFlag
+	bl BeginAnimsOnBattleAnimations
 	b .L0803EEC2
 	.align 2, 0
 .L0803EEA8: .4byte gBg2Tm

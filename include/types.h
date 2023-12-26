@@ -54,6 +54,13 @@ typedef i8 bool8;
 
 typedef void (* Func)(void);
 
+enum glb_pos
+{
+    POS_L = 0,
+    POS_R = 1,
+    POS_INVALID = -1
+};
+
 struct Vec2i
 {
     i16 x, y;

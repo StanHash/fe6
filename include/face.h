@@ -111,6 +111,8 @@ extern struct FaceProc * gFaces[FACE_SLOT_COUNT];
 
 extern struct FaceVramEnt gFaceConfig[FACE_SLOT_COUNT];
 
+extern struct FaceInfo CONST_DATA FaceInfoTable[];
+
 struct FaceInfo const * GetFaceInfo(int fid);
 int GetFace_Unk(int fid);
 void InitFaces(void);

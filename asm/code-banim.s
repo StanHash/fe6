@@ -3,272 +3,14 @@
 
 	.syntax unified
 
-	thumb_func_start func_fe6_0804256C
-func_fe6_0804256C: @ 0x0804256C
-	ldr r1, .L08042574 @ =0x0203CCE4
-	str r0, [r1]
-	bx lr
-	.align 2, 0
-.L08042574: .4byte 0x0203CCE4
-
-	thumb_func_start func_fe6_08042578
-func_fe6_08042578: @ 0x08042578
-	ldr r0, .L08042580 @ =0x0203CCE4
-	ldr r0, [r0]
-	bx lr
-	.align 2, 0
-.L08042580: .4byte 0x0203CCE4
-
-	thumb_func_start func_fe6_08042584
-func_fe6_08042584: @ 0x08042584
-	push {r4, lr}
-	ldr r4, .L080425A4 @ =0x0203CCEC
-	ldr r0, .L080425A8 @ =gUnk_085CB508
-	movs r1, #3
-	bl SpawnProc
-	str r0, [r4]
-	ldr r1, .L080425AC @ =0x0203CCE8
-	movs r0, #1
-	str r0, [r1]
-	bl LockGame
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080425A4: .4byte 0x0203CCEC
-.L080425A8: .4byte gUnk_085CB508
-.L080425AC: .4byte 0x0203CCE8
-
-	thumb_func_start func_fe6_080425B0
-func_fe6_080425B0: @ 0x080425B0
-	push {lr}
-	ldr r0, .L080425C0 @ =0x0203CCEC
-	ldr r0, [r0]
-	bl Proc_End
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080425C0: .4byte 0x0203CCEC
-
-	thumb_func_start func_fe6_080425C4
-func_fe6_080425C4: @ 0x080425C4
-	ldr r0, .L080425D0 @ =0x0203CCE8
-	ldr r0, [r0]
-	cmp r0, #1
-	beq .L080425D4
-	movs r0, #0
-	b .L080425D6
-	.align 2, 0
-.L080425D0: .4byte 0x0203CCE8
-.L080425D4:
-	movs r0, #1
-.L080425D6:
-	bx lr
-
-	thumb_func_start func_fe6_080425D8
-func_fe6_080425D8: @ 0x080425D8
-	push {lr}
-	ldr r1, .L080425E8 @ =0x0203CCE8
-	movs r0, #0
-	str r0, [r1]
-	bl UnlockGame
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080425E8: .4byte 0x0203CCE8
-
-	thumb_func_start func_fe6_080425EC
-func_fe6_080425EC: @ 0x080425EC
-	bx lr
-	.align 2, 0
-
-	thumb_func_start func_fe6_080425F0
-func_fe6_080425F0: @ 0x080425F0
-	push {r4, lr}
-	bl BasInit
-	ldr r4, .L0804263C @ =gUnk_Banim_0200005C
-	ldr r0, .L08042640 @ =gUnk_085CB528
-	movs r1, #3
-	bl SpawnProc
-	str r0, [r4]
-	ldr r0, .L08042644 @ =func_fe6_08042660
-	bl SetMainFunc
-	bl func_fe6_08044900
-	bl func_fe6_0805884C
-	ldr r0, .L08042648 @ =gUnk_Banim_0201771C
-	movs r1, #0
-	str r1, [r0]
-	ldr r0, .L0804264C @ =gUnk_Banim_02000010
-	str r1, [r0]
-	ldr r0, .L08042650 @ =gUnk_Banim_02000014
-	str r1, [r0]
-	ldr r0, .L08042654 @ =gUnk_Banim_02000018
-	str r1, [r0]
-	ldr r0, .L08042658 @ =gUnk_Banim_0200001C
-	str r1, [r0]
-	ldr r0, .L0804265C @ =0x0203CCF0
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L08042634
-	bl func_fe6_0805C520
-.L08042634:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0804263C: .4byte gUnk_Banim_0200005C
-.L08042640: .4byte gUnk_085CB528
-.L08042644: .4byte func_fe6_08042660
-.L08042648: .4byte gUnk_Banim_0201771C
-.L0804264C: .4byte gUnk_Banim_02000010
-.L08042650: .4byte gUnk_Banim_02000014
-.L08042654: .4byte gUnk_Banim_02000018
-.L08042658: .4byte gUnk_Banim_0200001C
-.L0804265C: .4byte 0x0203CCF0
-
-	thumb_func_start func_fe6_08042660
-func_fe6_08042660: @ 0x08042660
-	push {lr}
-	ldr r0, .L08042678 @ =gKeySt
-	ldr r0, [r0]
-	bl RefreshKeySt
-	ldr r0, .L0804267C @ =gUnk_Banim_02000014
-	ldr r0, [r0]
-	cmp r0, #0
-	bne .L08042680
-	bl func_fe6_08042704
-	b .L0804268C
-	.align 2, 0
-.L08042678: .4byte gKeySt
-.L0804267C: .4byte gUnk_Banim_02000014
-.L08042680:
-	ldr r0, .L080426A0 @ =gUnk_Banim_02000018
-	ldr r0, [r0]
-	cmp r0, #1
-	bne .L0804268C
-	bl func_fe6_08042704
-.L0804268C:
-	ldr r0, .L080426A4 @ =gUnk_Banim_0201771C
-	ldr r0, [r0]
-	cmp r0, #1
-	beq .L080426A8
-	cmp r0, #1
-	blo .L080426E4
-	cmp r0, #2
-	beq .L080426B8
-	b .L080426E4
-	.align 2, 0
-.L080426A0: .4byte gUnk_Banim_02000018
-.L080426A4: .4byte gUnk_Banim_0201771C
-.L080426A8:
-	ldr r0, .L080426B4 @ =0x0203CCF0
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L080426E4
-	b .L080426C2
-	.align 2, 0
-.L080426B4: .4byte 0x0203CCF0
-.L080426B8:
-	ldr r0, .L080426D0 @ =0x0203CCF0
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L080426D8
-.L080426C2:
-	ldr r0, .L080426D4 @ =gUnk_Banim_0200005C
-	ldr r0, [r0]
-	bl Proc_End
-	bl func_fe6_08047D14
-	b .L080426E4
-	.align 2, 0
-.L080426D0: .4byte 0x0203CCF0
-.L080426D4: .4byte gUnk_Banim_0200005C
-.L080426D8:
-	ldr r0, .L080426F8 @ =gUnk_Banim_0200005C
-	ldr r0, [r0]
-	bl Proc_End
-	bl func_fe6_080438B4
-.L080426E4:
-	ldr r1, .L080426FC @ =gBmSt
-	movs r0, #1
-	strb r0, [r1]
-	ldr r0, .L08042700 @ =0x04000006
-	ldrh r0, [r0]
-	strh r0, [r1, #6]
-	bl VBlankIntrWait
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080426F8: .4byte gUnk_Banim_0200005C
-.L080426FC: .4byte gBmSt
-.L08042700: .4byte 0x04000006
-
-	thumb_func_start func_fe6_08042704
-func_fe6_08042704: @ 0x08042704
-	push {r4, lr}
-	bl ClearSprites
-	bl func_fe6_0805BD9C
-	bl GetGameLock
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne .L08042720
-	ldr r0, .L08042770 @ =gProcTreeRootArray
-	ldr r0, [r0, #8]
-	bl Proc_Run
-.L08042720:
-	ldr r4, .L08042770 @ =gProcTreeRootArray
-	ldr r0, [r4, #0xc]
-	bl Proc_Run
-	ldr r0, [r4, #0x14]
-	bl Proc_Run
-	movs r0, #0
-	bl PutSpriteLayerOam
-	ldr r0, [r4, #4]
-	bl Proc_Run
-	bl BasUpdateAll
-	bl func_fe6_0804A5DC
-	ldr r0, [r4, #0x10]
-	bl Proc_Run
-	ldr r1, .L08042774 @ =gUnk_Banim_02000018
-	movs r0, #0
-	str r0, [r1]
-	ldr r1, .L08042778 @ =gUnk_Banim_0201E124
-	ldr r0, [r1]
-	ldr r1, [r1, #4]
-	adds r0, r0, r1
-	cmp r0, #2
-	beq .L08042762
-	ldr r1, .L0804277C @ =gUnk_Banim_02000010
-	ldr r0, [r1]
-	adds r0, #1
-	str r0, [r1]
-.L08042762:
-	movs r0, #0xd
-	bl PutSpriteLayerOam
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042770: .4byte gProcTreeRootArray
-.L08042774: .4byte gUnk_Banim_02000018
-.L08042778: .4byte gUnk_Banim_0201E124
-.L0804277C: .4byte gUnk_Banim_02000010
-
-	thumb_func_start func_fe6_08042780
-func_fe6_08042780: @ 0x08042780
-	bx lr
-	.align 2, 0
-
-	thumb_func_start func_fe6_08042784
-func_fe6_08042784: @ 0x08042784
+	thumb_func_start EkrBattle_Init
+EkrBattle_Init: @ 0x08042784
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, .L080427A4 @ =gUnk_Banim_0201E12C
+	ldr r1, .L080427A4 @ =gEkrBgOffset
 	movs r0, #0
 	str r0, [r1]
-	ldr r0, .L080427A8 @ =gUnk_Banim_0201773C
+	ldr r0, .L080427A8 @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L080427B6
@@ -280,8 +22,8 @@ func_fe6_08042784: @ 0x08042784
 	rsbs r0, r0, #0
 	b .L080427B4
 	.align 2, 0
-.L080427A4: .4byte gUnk_Banim_0201E12C
-.L080427A8: .4byte gUnk_Banim_0201773C
+.L080427A4: .4byte gEkrBgOffset
+.L080427A8: .4byte gEkrInitPosReal
 .L080427AC: .4byte 0x0203CD14
 .L080427B0:
 	movs r0, #0xf0
@@ -291,7 +33,7 @@ func_fe6_08042784: @ 0x08042784
 .L080427B6:
 	bl func_fe6_0804B294
 	bl func_fe6_08058F28
-	ldr r0, .L080427D0 @ =gUnk_Banim_0200001C
+	ldr r0, .L080427D0 @ =gCtrlC01Blocking
 	movs r1, #1
 	str r1, [r0]
 	bl func_fe6_0804C500
@@ -300,7 +42,7 @@ func_fe6_08042784: @ 0x08042784
 	movs r0, #0
 	b .L080427D6
 	.align 2, 0
-.L080427D0: .4byte gUnk_Banim_0200001C
+.L080427D0: .4byte gCtrlC01Blocking
 .L080427D4:
 	movs r0, #0x1e
 .L080427D6:
@@ -347,7 +89,7 @@ func_fe6_08042818: @ 0x08042818
 	asrs r0, r0, #0x10
 	cmp r0, #0x1f
 	bne .L08042860
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq .L08042858
 	ldr r0, [r4, #0x54]
@@ -533,7 +275,7 @@ func_fe6_0804298C: @ 0x0804298C
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L080429F8
-	ldr r0, .L080429F0 @ =gUnk_Banim_02000000
+	ldr r0, .L080429F0 @ =gAnims
 	ldr r1, [r0]
 	str r1, [r4, #0x5c]
 	movs r6, #1
@@ -567,10 +309,10 @@ func_fe6_0804298C: @ 0x0804298C
 	str r6, [r4, #0x44]
 	b .L08042A26
 	.align 2, 0
-.L080429F0: .4byte gUnk_Banim_02000000
+.L080429F0: .4byte gAnims
 .L080429F4: .4byte func_fe6_08042A3C
 .L080429F8:
-	ldr r0, .L08042A34 @ =gUnk_Banim_02000000
+	ldr r0, .L08042A34 @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r4, #0x5c]
 	movs r0, #2
@@ -602,7 +344,7 @@ func_fe6_0804298C: @ 0x0804298C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042A34: .4byte gUnk_Banim_02000000
+.L08042A34: .4byte gAnims
 .L08042A38: .4byte func_fe6_08042A3C
 
 	thumb_func_start func_fe6_08042A3C
@@ -631,11 +373,11 @@ func_fe6_08042A5C: @ 0x08042A5C
 	ldr r0, .L08042A88 @ =0x0203CCF4
 	movs r2, #0
 	ldrsh r1, [r0, r2]
-	ldr r0, .L08042A8C @ =gUnk_Banim_0201773C
+	ldr r0, .L08042A8C @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r1, r0
 	beq .L08042A98
-	ldr r1, .L08042A90 @ =gUnk_Banim_02000000
+	ldr r1, .L08042A90 @ =gAnims
 	lsls r0, r0, #3
 	adds r0, r0, r1
 	ldr r0, [r0]
@@ -648,8 +390,8 @@ func_fe6_08042A5C: @ 0x08042A5C
 	b .L08042A9A
 	.align 2, 0
 .L08042A88: .4byte 0x0203CCF4
-.L08042A8C: .4byte gUnk_Banim_0201773C
-.L08042A90: .4byte gUnk_Banim_02000000
+.L08042A8C: .4byte gEkrInitPosReal
+.L08042A90: .4byte gAnims
 .L08042A94: .4byte func_fe6_08042AA8
 .L08042A98:
 	ldr r0, .L08042AA4 @ =func_fe6_08042AC4
@@ -682,7 +424,7 @@ func_fe6_08042AA8: @ 0x08042AA8
 func_fe6_08042AC4: @ 0x08042AC4
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, .L08042B08 @ =gUnk_Banim_02000000
+	ldr r4, .L08042B08 @ =gAnims
 	ldr r0, [r4]
 	bl func_fe6_08046DA0
 	ldr r0, [r4, #8]
@@ -710,7 +452,7 @@ func_fe6_08042AC4: @ 0x08042AC4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042B08: .4byte gUnk_Banim_02000000
+.L08042B08: .4byte gAnims
 .L08042B0C: .4byte 0x0203CDCC
 .L08042B10: .4byte gBattleSt
 .L08042B14: .4byte func_fe6_08042B18
@@ -723,14 +465,14 @@ func_fe6_08042B18: @ 0x08042B18
 	ldr r0, [r0]
 	cmp r0, #0
 	beq .L08042B3C
-	ldr r0, .L08042B34 @ =gUnk_Banim_02000000
+	ldr r0, .L08042B34 @ =gAnims
 	ldr r0, [r0, #8]
 	bl func_fe6_0805E578
 	ldr r0, .L08042B38 @ =func_fe6_08042B4C
 	b .L08042B3E
 	.align 2, 0
 .L08042B30: .4byte 0x0203CD88
-.L08042B34: .4byte gUnk_Banim_02000000
+.L08042B34: .4byte gAnims
 .L08042B38: .4byte func_fe6_08042B4C
 .L08042B3C:
 	ldr r0, .L08042B48 @ =func_fe6_08042B74
@@ -779,7 +521,7 @@ func_fe6_08042B74: @ 0x08042B74
 	ldrh r0, [r6]
 	cmp r0, #1
 	bne .L08042BB0
-	ldr r3, .L08042BEC @ =gUnk_Banim_02000000
+	ldr r3, .L08042BEC @ =gAnims
 	ldr r4, [r3]
 	movs r2, #0x80
 	lsls r2, r2, #8
@@ -799,7 +541,7 @@ func_fe6_08042B74: @ 0x08042B74
 	ldrh r6, [r6, #2]
 	cmp r6, #1
 	bne .L08042BD6
-	ldr r3, .L08042BEC @ =gUnk_Banim_02000000
+	ldr r3, .L08042BEC @ =gAnims
 	ldr r4, [r3, #8]
 	movs r2, #0x80
 	lsls r2, r2, #8
@@ -816,7 +558,7 @@ func_fe6_08042B74: @ 0x08042B74
 	orrs r1, r0
 	strh r1, [r4, #0xc]
 .L08042BD6:
-	ldr r0, .L08042BF0 @ =gUnk_Banim_0201E124
+	ldr r0, .L08042BF0 @ =gBanimDoneFlag
 	str r7, [r0]
 	str r7, [r0, #4]
 	ldr r0, .L08042BF4 @ =func_fe6_08042BF8
@@ -827,20 +569,20 @@ func_fe6_08042B74: @ 0x08042B74
 	bx r0
 	.align 2, 0
 .L08042BE8: .4byte 0x0203CCF8
-.L08042BEC: .4byte gUnk_Banim_02000000
-.L08042BF0: .4byte gUnk_Banim_0201E124
+.L08042BEC: .4byte gAnims
+.L08042BF0: .4byte gBanimDoneFlag
 .L08042BF4: .4byte func_fe6_08042BF8
 
 	thumb_func_start func_fe6_08042BF8
 func_fe6_08042BF8: @ 0x08042BF8
-	ldr r2, .L08042C04 @ =gUnk_Banim_0200001C
+	ldr r2, .L08042C04 @ =gCtrlC01Blocking
 	movs r1, #0
 	str r1, [r2]
 	ldr r1, .L08042C08 @ =func_fe6_08042C0C
 	str r1, [r0, #0xc]
 	bx lr
 	.align 2, 0
-.L08042C04: .4byte gUnk_Banim_0200001C
+.L08042C04: .4byte gCtrlC01Blocking
 .L08042C08: .4byte func_fe6_08042C0C
 
 	thumb_func_start func_fe6_08042C0C
@@ -851,14 +593,14 @@ func_fe6_08042C0C: @ 0x08042C0C
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L08042C30
-	ldr r0, .L08042C28 @ =gUnk_Banim_02000000
+	ldr r0, .L08042C28 @ =gAnims
 	ldr r0, [r0, #8]
 	bl func_fe6_0805C86C
 	ldr r0, .L08042C2C @ =func_fe6_08042C48
 	b .L08042C3A
 	.align 2, 0
 .L08042C24: .4byte 0x0203CD14
-.L08042C28: .4byte gUnk_Banim_02000000
+.L08042C28: .4byte gAnims
 .L08042C2C: .4byte func_fe6_08042C48
 .L08042C30:
 	adds r1, r4, #0
@@ -929,7 +671,7 @@ func_fe6_08042C74: @ 0x08042C74
 .L08042CAC:
 	cmp r0, #0
 	blt .L08042D5A
-	ldr r0, .L08042CF4 @ =gUnk_Banim_0201E124
+	ldr r0, .L08042CF4 @ =gBanimDoneFlag
 	ldr r1, [r0]
 	ldr r0, [r0, #4]
 	adds r1, r1, r0
@@ -962,7 +704,7 @@ func_fe6_08042C74: @ 0x08042C74
 	bl ArenaSetResult
 	b .L08042D58
 	.align 2, 0
-.L08042CF4: .4byte gUnk_Banim_0201E124
+.L08042CF4: .4byte gBanimDoneFlag
 .L08042CF8: .4byte 0x0203CDBC
 .L08042CFC: .4byte 0x0203CD7C
 .L08042D00: .4byte 0x0203CD80
@@ -999,7 +741,7 @@ func_fe6_08042C74: @ 0x08042C74
 	.align 2, 0
 .L08042D48: .4byte func_fe6_08042B74
 .L08042D4C:
-	ldr r0, .L08042D68 @ =gUnk_Banim_0201E124
+	ldr r0, .L08042D68 @ =gBanimDoneFlag
 	ldr r1, [r0]
 	ldr r0, [r0, #4]
 	adds r1, r1, r0
@@ -1017,7 +759,7 @@ func_fe6_08042C74: @ 0x08042C74
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08042D68: .4byte gUnk_Banim_0201E124
+.L08042D68: .4byte gBanimDoneFlag
 .L08042D6C: .4byte func_fe6_08042D70
 
 	thumb_func_start func_fe6_08042D70
@@ -1055,7 +797,7 @@ func_fe6_08042D84: @ 0x08042D84
 	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08042DC0
-	ldr r0, .L08042E08 @ =gUnk_Banim_02000000
+	ldr r0, .L08042E08 @ =gAnims
 	ldr r0, [r0]
 	bl func_fe6_08058A08
 	ldrh r0, [r0]
@@ -1070,7 +812,7 @@ func_fe6_08042D84: @ 0x08042D84
 	beq .L08042DCE
 	movs r2, #0
 .L08042DCE:
-	ldr r3, .L08042E10 @ =gUnk_Banim_0201773C
+	ldr r3, .L08042E10 @ =gEkrInitPosReal
 	ldr r0, [r3]
 	adds r1, r5, #0
 	adds r1, #0x29
@@ -1081,7 +823,7 @@ func_fe6_08042D84: @ 0x08042D84
 	ldrb r1, [r1]
 	cmp r1, #1
 	bne .L08042DF4
-	ldr r1, .L08042E08 @ =gUnk_Banim_02000000
+	ldr r1, .L08042E08 @ =gAnims
 	ldr r0, [r3]
 	lsls r0, r0, #3
 	adds r0, r0, r1
@@ -1097,9 +839,9 @@ func_fe6_08042D84: @ 0x08042D84
 .L08042DFC: .4byte gUnk_Banim_02017720
 .L08042E00: .4byte gUnk_Banim_02017730
 .L08042E04: .4byte func_fe6_08042E14
-.L08042E08: .4byte gUnk_Banim_02000000
+.L08042E08: .4byte gAnims
 .L08042E0C: .4byte 0x0203CDBC
-.L08042E10: .4byte gUnk_Banim_0201773C
+.L08042E10: .4byte gEkrInitPosReal
 
 	thumb_func_start func_fe6_08042E14
 func_fe6_08042E14: @ 0x08042E14
@@ -1112,7 +854,7 @@ func_fe6_08042E14: @ 0x08042E14
 	asrs r0, r0, #0x10
 	cmp r0, #0x1d
 	ble .L08042E4C
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq .L08042E48
 	ldr r0, .L08042E40 @ =0x0203CDBC
@@ -1819,14 +1561,14 @@ func_fe6_080433B0: @ 0x080433B0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080433CC
-	ldr r0, .L080433C8 @ =gUnk_Banim_02000000
+	ldr r0, .L080433C8 @ =gAnims
 	ldr r0, [r0]
 	b .L080433D0
 	.align 2, 0
 .L080433C4: .4byte 0x0203CDBC
-.L080433C8: .4byte gUnk_Banim_02000000
+.L080433C8: .4byte gAnims
 .L080433CC:
-	ldr r0, .L080433E0 @ =gUnk_Banim_02000000
+	ldr r0, .L080433E0 @ =gAnims
 	ldr r0, [r0, #8]
 .L080433D0:
 	bl func_fe6_0805D5B0
@@ -1836,7 +1578,7 @@ func_fe6_080433B0: @ 0x080433B0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080433E0: .4byte gUnk_Banim_02000000
+.L080433E0: .4byte gAnims
 .L080433E4: .4byte func_fe6_080433E8
 
 	thumb_func_start func_fe6_080433E8
@@ -1894,7 +1636,7 @@ func_fe6_08043424: @ 0x08043424
 func_fe6_08043448: @ 0x08043448
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r4, .L08043478 @ =gUnk_Banim_02000000
+	ldr r4, .L08043478 @ =gAnims
 	ldr r0, [r4]
 	bl func_fe6_08046E9C
 	ldr r0, [r4, #8]
@@ -1913,7 +1655,7 @@ func_fe6_08043448: @ 0x08043448
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043478: .4byte gUnk_Banim_02000000
+.L08043478: .4byte gAnims
 .L0804347C: .4byte 0x0203CCF4
 .L08043480: .4byte func_fe6_08043484
 
@@ -1935,7 +1677,7 @@ func_fe6_08043484: @ 0x08043484
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L080434F0
-	ldr r0, .L080434E8 @ =gUnk_Banim_02000000
+	ldr r0, .L080434E8 @ =gAnims
 	ldr r1, [r0]
 	str r1, [r4, #0x5c]
 	movs r6, #1
@@ -1969,10 +1711,10 @@ func_fe6_08043484: @ 0x08043484
 	str r6, [r4, #0x44]
 	b .L0804351E
 	.align 2, 0
-.L080434E8: .4byte gUnk_Banim_02000000
+.L080434E8: .4byte gAnims
 .L080434EC: .4byte func_fe6_08043534
 .L080434F0:
-	ldr r0, .L0804352C @ =gUnk_Banim_02000000
+	ldr r0, .L0804352C @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r4, #0x5c]
 	movs r0, #2
@@ -2004,7 +1746,7 @@ func_fe6_08043484: @ 0x08043484
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804352C: .4byte gUnk_Banim_02000000
+.L0804352C: .4byte gAnims
 .L08043530: .4byte func_fe6_08043534
 
 	thumb_func_start func_fe6_08043534
@@ -2030,10 +1772,10 @@ func_fe6_08043534: @ 0x08043534
 func_fe6_08043554: @ 0x08043554
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r1, .L08043580 @ =gUnk_Banim_0201771C
+	ldr r1, .L08043580 @ =gEkrBattleEndFlag
 	movs r0, #1
 	str r0, [r1]
-	ldr r0, .L08043584 @ =0x0203CCF0
+	ldr r0, .L08043584 @ =gEkrDebugModeMaybe
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -2050,8 +1792,8 @@ func_fe6_08043554: @ 0x08043554
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043580: .4byte gUnk_Banim_0201771C
-.L08043584: .4byte 0x0203CCF0
+.L08043580: .4byte gEkrBattleEndFlag
+.L08043584: .4byte gEkrDebugModeMaybe
 .L08043588: .4byte func_fe6_0804358C
 
 	thumb_func_start func_fe6_0804358C
@@ -2149,8 +1891,8 @@ func_fe6_080435EC: @ 0x080435EC
 .L08043634: .4byte gUnk_08113224
 .L08043638: .4byte 0x01000008
 
-	thumb_func_start func_fe6_0804363C
-func_fe6_0804363C: @ 0x0804363C
+	thumb_func_start EkrGaugeModDec
+EkrGaugeModDec: @ 0x0804363C
 	push {r4, r5, r6, lr}
 	adds r5, r1, #0
 	lsls r0, r0, #0x10
@@ -2205,15 +1947,15 @@ func_fe6_0804363C: @ 0x0804363C
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_080436A4
-func_fe6_080436A4: @ 0x080436A4
+	thumb_func_start NewEkrGauge
+NewEkrGauge: @ 0x080436A4
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
 	push {r6, r7}
 	sub sp, #8
-	ldr r4, .L08043850 @ =gUnk_Banim_02000060
-	ldr r0, .L08043854 @ =gUnk_085CB568
+	ldr r4, .L08043850 @ =gpProcEkrGauge
+	ldr r0, .L08043854 @ =ProcScr_EkrGauge
 	movs r1, #1
 	bl SpawnProc
 	str r0, [r4]
@@ -2284,33 +2026,33 @@ func_fe6_080436A4: @ 0x080436A4
 	ldrsh r0, [r6, r1]
 	ldr r7, .L08043888 @ =gUnk_Banim_020176F8
 	adds r1, r7, #0
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	ldr r5, .L0804388C @ =0x0203CDB0
 	movs r2, #0
 	ldrsh r0, [r5, r2]
 	adds r1, r7, #6
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	ldr r4, .L08043890 @ =0x0203CDB4
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	adds r1, r7, #0
 	adds r1, #0xc
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	movs r2, #2
 	ldrsh r0, [r6, r2]
 	adds r1, r7, #0
 	adds r1, #0x12
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	movs r1, #2
 	ldrsh r0, [r5, r1]
 	adds r1, r7, #0
 	adds r1, #0x18
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	movs r2, #2
 	ldrsh r0, [r4, r2]
 	adds r1, r7, #0
 	adds r1, #0x1e
-	bl func_fe6_0804363C
+	bl EkrGaugeModDec
 	movs r0, #0
 	str r0, [sp]
 	ldr r1, .L08043894 @ =gUnk_Banim_020169C0
@@ -2393,8 +2135,8 @@ func_fe6_080436A4: @ 0x080436A4
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043850: .4byte gUnk_Banim_02000060
-.L08043854: .4byte gUnk_085CB568
+.L08043850: .4byte gpProcEkrGauge
+.L08043854: .4byte ProcScr_EkrGauge
 .L08043858: .4byte gUnk_Banim_02000030
 .L0804385C: .4byte 0x0203CD08
 .L08043860: .4byte gUnk_08113424
@@ -2419,73 +2161,73 @@ func_fe6_080436A4: @ 0x080436A4
 .L080438AC: .4byte 0x0203CD80
 .L080438B0: .4byte Pal_SystemObjects
 
-	thumb_func_start func_fe6_080438B4
-func_fe6_080438B4: @ 0x080438B4
+	thumb_func_start EndEkrGauge
+EndEkrGauge: @ 0x080438B4
 	push {lr}
-	ldr r0, .L080438C4 @ =gUnk_Banim_02000060
+	ldr r0, .L080438C4 @ =gpProcEkrGauge
 	ldr r0, [r0]
 	bl Proc_End
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080438C4: .4byte gUnk_Banim_02000060
+.L080438C4: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_080438C8
 func_fe6_080438C8: @ 0x080438C8
-	ldr r0, .L080438D4 @ =gUnk_Banim_02000060
+	ldr r0, .L080438D4 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #0
 	str r0, [r1, #0x4c]
 	str r0, [r1, #0x50]
 	bx lr
 	.align 2, 0
-.L080438D4: .4byte gUnk_Banim_02000060
+.L080438D4: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_080438D8
 func_fe6_080438D8: @ 0x080438D8
-	ldr r0, .L080438E4 @ =gUnk_Banim_02000060
+	ldr r0, .L080438E4 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #1
 	str r0, [r1, #0x4c]
 	str r0, [r1, #0x50]
 	bx lr
 	.align 2, 0
-.L080438E4: .4byte gUnk_Banim_02000060
+.L080438E4: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_080438E8
 func_fe6_080438E8: @ 0x080438E8
-	ldr r0, .L080438F4 @ =gUnk_Banim_02000060
+	ldr r0, .L080438F4 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #1
 	str r0, [r1, #0x4c]
 	bx lr
 	.align 2, 0
-.L080438F4: .4byte gUnk_Banim_02000060
+.L080438F4: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_080438F8
 func_fe6_080438F8: @ 0x080438F8
-	ldr r0, .L08043904 @ =gUnk_Banim_02000060
+	ldr r0, .L08043904 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #1
 	str r0, [r1, #0x50]
 	bx lr
 	.align 2, 0
-.L08043904: .4byte gUnk_Banim_02000060
+.L08043904: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043908
 func_fe6_08043908: @ 0x08043908
 	lsls r0, r0, #0x10
-	ldr r1, .L08043914 @ =gUnk_Banim_02000060
+	ldr r1, .L08043914 @ =gpProcEkrGauge
 	ldr r1, [r1]
 	lsrs r0, r0, #6
 	str r0, [r1, #0x44]
 	bx lr
 	.align 2, 0
-.L08043914: .4byte gUnk_Banim_02000060
+.L08043914: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043918
 func_fe6_08043918: @ 0x08043918
-	ldr r2, .L08043928 @ =gUnk_Banim_02000060
+	ldr r2, .L08043928 @ =gpProcEkrGauge
 	ldr r2, [r2]
 	movs r3, #0
 	strh r0, [r2, #0x32]
@@ -2494,11 +2236,11 @@ func_fe6_08043918: @ 0x08043918
 	strb r3, [r2]
 	bx lr
 	.align 2, 0
-.L08043928: .4byte gUnk_Banim_02000060
+.L08043928: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_0804392C
 func_fe6_0804392C: @ 0x0804392C
-	ldr r2, .L0804393C @ =gUnk_Banim_02000060
+	ldr r2, .L0804393C @ =gpProcEkrGauge
 	ldr r2, [r2]
 	strh r0, [r2, #0x32]
 	strh r1, [r2, #0x3a]
@@ -2507,51 +2249,51 @@ func_fe6_0804392C: @ 0x0804392C
 	strb r0, [r2]
 	bx lr
 	.align 2, 0
-.L0804393C: .4byte gUnk_Banim_02000060
+.L0804393C: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043940
 func_fe6_08043940: @ 0x08043940
-	ldr r0, .L0804394C @ =gUnk_Banim_02000060
+	ldr r0, .L0804394C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x29
 	movs r1, #1
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-.L0804394C: .4byte gUnk_Banim_02000060
+.L0804394C: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043950
 func_fe6_08043950: @ 0x08043950
-	ldr r0, .L0804395C @ =gUnk_Banim_02000060
+	ldr r0, .L0804395C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x29
 	movs r1, #0
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-.L0804395C: .4byte gUnk_Banim_02000060
+.L0804395C: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043960
 func_fe6_08043960: @ 0x08043960
-	ldr r0, .L0804396C @ =gUnk_Banim_02000060
+	ldr r0, .L0804396C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x2a
 	movs r1, #1
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-.L0804396C: .4byte gUnk_Banim_02000060
+.L0804396C: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043970
 func_fe6_08043970: @ 0x08043970
-	ldr r0, .L0804397C @ =gUnk_Banim_02000060
+	ldr r0, .L0804397C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x2a
 	movs r1, #0
 	strb r1, [r0]
 	bx lr
 	.align 2, 0
-.L0804397C: .4byte gUnk_Banim_02000060
+.L0804397C: .4byte gpProcEkrGauge
 
 	thumb_func_start func_fe6_08043980
 func_fe6_08043980: @ 0x08043980
@@ -4167,7 +3909,7 @@ func_fe6_08044608: @ 0x08044608
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08044664
-	ldr r5, .L08044660 @ =gUnk_085CB504
+	ldr r5, .L08044660 @ =gNopStr
 	b .L08044672
 	.align 2, 0
 .L08044648: .4byte Pal_Text
@@ -4176,7 +3918,7 @@ func_fe6_08044608: @ 0x08044608
 .L08044654: .4byte gUnk_081125E0
 .L08044658: .4byte 0x06001000
 .L0804465C: .4byte 0x0203CCF8
-.L08044660: .4byte gUnk_085CB504
+.L08044660: .4byte gNopStr
 .L08044664:
 	ldr r0, .L080446AC @ =0x0203CD7C
 	ldr r0, [r0]
@@ -4206,7 +3948,7 @@ func_fe6_08044608: @ 0x08044608
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L080446C4
-	ldr r5, .L080446C0 @ =gUnk_085CB504
+	ldr r5, .L080446C0 @ =gNopStr
 	b .L080446D2
 	.align 2, 0
 .L080446AC: .4byte 0x0203CD7C
@@ -4214,7 +3956,7 @@ func_fe6_08044608: @ 0x08044608
 .L080446B4: .4byte gUnk_081127F0
 .L080446B8: .4byte 0x06001400
 .L080446BC: .4byte 0x0203CCF8
-.L080446C0: .4byte gUnk_085CB504
+.L080446C0: .4byte gNopStr
 .L080446C4:
 	ldr r0, .L0804470C @ =0x0203CD7C
 	ldr r0, [r0]
@@ -4244,7 +3986,7 @@ func_fe6_08044608: @ 0x08044608
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08044724
-	ldr r5, .L08044720 @ =gUnk_085CB504
+	ldr r5, .L08044720 @ =gNopStr
 	b .L08044732
 	.align 2, 0
 .L0804470C: .4byte 0x0203CD7C
@@ -4252,7 +3994,7 @@ func_fe6_08044608: @ 0x08044608
 .L08044714: .4byte gUnk_08112840
 .L08044718: .4byte 0x06001580
 .L0804471C: .4byte 0x0203CCF8
-.L08044720: .4byte gUnk_085CB504
+.L08044720: .4byte gNopStr
 .L08044724:
 	ldr r0, .L0804476C @ =0x0203CD80
 	ldr r0, [r0]
@@ -4282,7 +4024,7 @@ func_fe6_08044608: @ 0x08044608
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08044784
-	ldr r5, .L08044780 @ =gUnk_085CB504
+	ldr r5, .L08044780 @ =gNopStr
 	b .L08044792
 	.align 2, 0
 .L0804476C: .4byte 0x0203CD80
@@ -4290,7 +4032,7 @@ func_fe6_08044608: @ 0x08044608
 .L08044774: .4byte gUnk_081128AC
 .L08044778: .4byte 0x06001740
 .L0804477C: .4byte 0x0203CCF8
-.L08044780: .4byte gUnk_085CB504
+.L08044780: .4byte gNopStr
 .L08044784:
 	ldr r0, .L08044848 @ =0x0203CD80
 	ldr r0, [r0]
@@ -4420,7 +4162,7 @@ func_fe6_08044870: @ 0x08044870
 .L080448B0:
 	movs r1, #0
 	movs r5, #0
-	ldr r0, .L080448E0 @ =0x0203CCF0
+	ldr r0, .L080448E0 @ =gEkrDebugModeMaybe
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -4442,7 +4184,7 @@ func_fe6_08044870: @ 0x08044870
 	movs r0, #0
 	b .L080448FA
 	.align 2, 0
-.L080448E0: .4byte 0x0203CCF0
+.L080448E0: .4byte gEkrDebugModeMaybe
 .L080448E4: .4byte 0x0203CD84
 .L080448E8:
 	cmp r1, #1
@@ -4460,8 +4202,8 @@ func_fe6_08044870: @ 0x08044870
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_08044900
-func_fe6_08044900: @ 0x08044900
+	thumb_func_start EkrEfxStatusClear
+EkrEfxStatusClear: @ 0x08044900
 	push {r4, lr}
 	ldr r0, .L0804496C @ =gUnk_Banim_02017720
 	movs r4, #0
@@ -4589,7 +4331,7 @@ func_fe6_080449F4: @ 0x080449F4
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08044A30
-	ldr r0, .L08044A2C @ =gUnk_Banim_02000000
+	ldr r0, .L08044A2C @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0]
@@ -4597,9 +4339,9 @@ func_fe6_080449F4: @ 0x080449F4
 	.align 2, 0
 .L08044A24: .4byte gUnk_Banim_02017720
 .L08044A28: .4byte gUnk_085CB730
-.L08044A2C: .4byte gUnk_Banim_02000000
+.L08044A2C: .4byte gAnims
 .L08044A30:
-	ldr r0, .L08044A8C @ =gUnk_Banim_02000000
+	ldr r0, .L08044A8C @ =gAnims
 	ldr r1, [r0]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0, #8]
@@ -4641,7 +4383,7 @@ func_fe6_080449F4: @ 0x080449F4
 	rsbs r0, r0, #0
 	b .L08044A96
 	.align 2, 0
-.L08044A8C: .4byte gUnk_Banim_02000000
+.L08044A8C: .4byte gAnims
 .L08044A90: .4byte 0x0203CD46
 .L08044A94:
 	movs r0, #1
@@ -4673,7 +4415,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	mov r7, r8
 	push {r7}
 	adds r5, r0, #0
-	ldr r4, .L08044B88 @ =gUnk_Banim_02000000
+	ldr r4, .L08044B88 @ =gAnims
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -4757,13 +4499,13 @@ func_fe6_08044AC0: @ 0x08044AC0
 	ldr r0, [r5, #0x50]
 	cmp r0, #0
 	bne .L08044C44
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne .L08044B9C
 	movs r0, #0
 	b .L08044BAE
 	.align 2, 0
-.L08044B88: .4byte gUnk_Banim_02000000
+.L08044B88: .4byte gAnims
 .L08044B8C: .4byte 0x0203CDA0
 .L08044B90: .4byte 0x0203CD84
 .L08044B94: .4byte 0x0203CD46
@@ -4812,7 +4554,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	ldr r0, [r5, #0x50]
 	cmp r0, #0
 	bne .L08044C44
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne .L08044C08
 	movs r0, #0
@@ -4998,7 +4740,7 @@ func_fe6_08044D4C: @ 0x08044D4C
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08044D90
-	ldr r0, .L08044D8C @ =gUnk_Banim_02000000
+	ldr r0, .L08044D8C @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0]
@@ -5006,9 +4748,9 @@ func_fe6_08044D4C: @ 0x08044D4C
 	.align 2, 0
 .L08044D84: .4byte gUnk_Banim_02017720
 .L08044D88: .4byte gUnk_085CB758
-.L08044D8C: .4byte gUnk_Banim_02000000
+.L08044D8C: .4byte gAnims
 .L08044D90:
-	ldr r0, .L08044DEC @ =gUnk_Banim_02000000
+	ldr r0, .L08044DEC @ =gAnims
 	ldr r1, [r0]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0, #8]
@@ -5050,7 +4792,7 @@ func_fe6_08044D4C: @ 0x08044D4C
 	rsbs r0, r0, #0
 	b .L08044DF6
 	.align 2, 0
-.L08044DEC: .4byte gUnk_Banim_02000000
+.L08044DEC: .4byte gAnims
 .L08044DF0: .4byte 0x0203CD46
 .L08044DF4:
 	movs r0, #1
@@ -5263,7 +5005,7 @@ func_fe6_08044F90: @ 0x08044F90
 	mov r7, r8
 	push {r7}
 	adds r5, r0, #0
-	ldr r4, .L08045064 @ =gUnk_Banim_02000000
+	ldr r4, .L08045064 @ =gAnims
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -5351,13 +5093,13 @@ func_fe6_08044F90: @ 0x08044F90
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne .L080450B8
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne .L08045074
 	movs r0, #0
 	b .L08045088
 	.align 2, 0
-.L08045064: .4byte gUnk_Banim_02000000
+.L08045064: .4byte gAnims
 .L08045068: .4byte 0x0203CDA0
 .L0804506C: .4byte 0x0203CD46
 .L08045070: .4byte gUnk_Banim_02017778
@@ -5433,7 +5175,7 @@ func_fe6_080450DC: @ 0x080450DC
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08045120
-	ldr r0, .L0804511C @ =gUnk_Banim_02000000
+	ldr r0, .L0804511C @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r4, #0x5c]
 	ldr r0, [r0]
@@ -5441,9 +5183,9 @@ func_fe6_080450DC: @ 0x080450DC
 	.align 2, 0
 .L08045114: .4byte gUnk_Banim_02017720
 .L08045118: .4byte gUnk_085CB790
-.L0804511C: .4byte gUnk_Banim_02000000
+.L0804511C: .4byte gAnims
 .L08045120:
-	ldr r0, .L08045148 @ =gUnk_Banim_02000000
+	ldr r0, .L08045148 @ =gAnims
 	ldr r1, [r0]
 	str r1, [r4, #0x5c]
 	ldr r0, [r0, #8]
@@ -5463,7 +5205,7 @@ func_fe6_080450DC: @ 0x080450DC
 	movs r0, #0x10
 	b .L0804514E
 	.align 2, 0
-.L08045148: .4byte gUnk_Banim_02000000
+.L08045148: .4byte gAnims
 .L0804514C:
 	movs r0, #0x20
 .L0804514E:
@@ -5563,7 +5305,7 @@ func_fe6_080451E0: @ 0x080451E0
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804521C
-	ldr r0, .L08045218 @ =gUnk_Banim_02000000
+	ldr r0, .L08045218 @ =gAnims
 	ldr r1, [r0, #8]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0]
@@ -5571,9 +5313,9 @@ func_fe6_080451E0: @ 0x080451E0
 	.align 2, 0
 .L08045210: .4byte gUnk_Banim_02017720
 .L08045214: .4byte gUnk_085CB7B8
-.L08045218: .4byte gUnk_Banim_02000000
+.L08045218: .4byte gAnims
 .L0804521C:
-	ldr r0, .L0804527C @ =gUnk_Banim_02000000
+	ldr r0, .L0804527C @ =gAnims
 	ldr r1, [r0]
 	str r1, [r6, #0x5c]
 	ldr r0, [r0, #8]
@@ -5618,7 +5360,7 @@ func_fe6_080451E0: @ 0x080451E0
 	str r0, [r6, #0x58]
 	b .L08045292
 	.align 2, 0
-.L0804527C: .4byte gUnk_Banim_02000000
+.L0804527C: .4byte gAnims
 .L08045280: .4byte 0x0203CD46
 .L08045284:
 	cmp r0, r1
@@ -5912,7 +5654,7 @@ func_fe6_0804549C: @ 0x0804549C
 	ldr r5, .L080454FC @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r5
-	ldr r4, .L08045500 @ =gUnk_Banim_0201E12C
+	ldr r4, .L08045500 @ =gEkrBgOffset
 	ldrh r0, [r0]
 	ldrh r1, [r4]
 	subs r0, r0, r1
@@ -5933,7 +5675,7 @@ func_fe6_0804549C: @ 0x0804549C
 	.align 2, 0
 .L080454F8: .4byte gUnk_08111C44
 .L080454FC: .4byte gUnk_Banim_02000020
-.L08045500: .4byte gUnk_Banim_0201E12C
+.L08045500: .4byte gEkrBgOffset
 .L08045504:
 	mov r0, r8
 	bl func_fe6_0804B6C4
@@ -5960,7 +5702,7 @@ func_fe6_0804549C: @ 0x0804549C
 	ldr r6, .L08045570 @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r6
-	ldr r5, .L08045574 @ =gUnk_Banim_0201E12C
+	ldr r5, .L08045574 @ =gEkrBgOffset
 	ldr r1, [r5]
 	ldrh r0, [r0]
 	subs r1, r0, r1
@@ -5991,7 +5733,7 @@ func_fe6_0804549C: @ 0x0804549C
 	bx r0
 	.align 2, 0
 .L08045570: .4byte gUnk_Banim_02000020
-.L08045574: .4byte gUnk_Banim_0201E12C
+.L08045574: .4byte gEkrBgOffset
 
 	thumb_func_start func_fe6_08045578
 func_fe6_08045578: @ 0x08045578
@@ -6054,7 +5796,7 @@ func_fe6_080455C0: @ 0x080455C0
 	bl func_fe6_0805A77C
 	str r0, [r6, #0x64]
 	ldr r2, .L0804560C @ =gUnk_Banim_02000028
-	ldr r1, .L08045610 @ =gUnk_Banim_0201E12C
+	ldr r1, .L08045610 @ =gEkrBgOffset
 	ldr r1, [r1]
 	subs r1, #0x4e
 	ldrh r2, [r2]
@@ -6070,7 +5812,7 @@ func_fe6_080455C0: @ 0x080455C0
 .L08045604: .4byte gUnk_085CB850
 .L08045608: .4byte gUnk_Banim_02017730
 .L0804560C: .4byte gUnk_Banim_02000028
-.L08045610: .4byte gUnk_Banim_0201E12C
+.L08045610: .4byte gEkrBgOffset
 
 	thumb_func_start func_fe6_08045614
 func_fe6_08045614: @ 0x08045614
@@ -6088,7 +5830,7 @@ func_fe6_08045614: @ 0x08045614
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L08045646
-	ldr r4, .L08045688 @ =gUnk_Banim_0201E124
+	ldr r4, .L08045688 @ =gBanimDoneFlag
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
@@ -6109,7 +5851,7 @@ func_fe6_08045614: @ 0x08045614
 	beq .L08045674
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08045690 @ =gUnk_Banim_0201773C
+	ldr r1, .L08045690 @ =gEkrInitPosReal
 	ldr r1, [r1]
 	cmp r0, r1
 	beq .L08045674
@@ -6129,9 +5871,9 @@ func_fe6_08045614: @ 0x08045614
 	.align 2, 0
 .L08045680: .4byte gUnk_Banim_02017744
 .L08045684: .4byte gUnk_Banim_02017724
-.L08045688: .4byte gUnk_Banim_0201E124
+.L08045688: .4byte gBanimDoneFlag
 .L0804568C: .4byte 0x0203CD14
-.L08045690: .4byte gUnk_Banim_0201773C
+.L08045690: .4byte gEkrInitPosReal
 
 	thumb_func_start func_fe6_08045694
 func_fe6_08045694: @ 0x08045694
@@ -6974,7 +6716,7 @@ func_fe6_08045C90: @ 0x08045C90
 	strh r0, [r4, #0x36]
 	strh r1, [r4, #0x38]
 .L08045D4E:
-	ldr r1, .L08045D64 @ =gUnk_Banim_0201E12C
+	ldr r1, .L08045D64 @ =gEkrBgOffset
 	movs r2, #0x32
 	ldrsh r0, [r4, r2]
 	str r0, [r1]
@@ -6986,13 +6728,13 @@ func_fe6_08045C90: @ 0x08045C90
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045D64: .4byte gUnk_Banim_0201E12C
+.L08045D64: .4byte gEkrBgOffset
 .L08045D68: .4byte gUnk_Banim_02017740
 
 	thumb_func_start func_fe6_08045D6C
 func_fe6_08045D6C: @ 0x08045D6C
 	push {r4, r5, lr}
-	ldr r3, .L08045D9C @ =gUnk_Banim_02000000
+	ldr r3, .L08045D9C @ =gAnims
 	ldr r4, [r3]
 	rsbs r1, r1, #0
 	ldr r2, .L08045DA0 @ =gUnk_Banim_02000020
@@ -7015,7 +6757,7 @@ func_fe6_08045D6C: @ 0x08045D6C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045D9C: .4byte gUnk_Banim_02000000
+.L08045D9C: .4byte gAnims
 .L08045DA0: .4byte gUnk_Banim_02000020
 
 	thumb_func_start func_fe6_08045DA4
@@ -7062,7 +6804,7 @@ func_fe6_08045DDC: @ 0x08045DDC
 	movs r0, #1
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, .L08045E4C @ =gUnk_Banim_0201E12C
+	ldr r5, .L08045E4C @ =gEkrBgOffset
 	str r1, [r5]
 	adds r0, r4, #0
 	bl func_fe6_08045D6C
@@ -7098,7 +6840,7 @@ func_fe6_08045DDC: @ 0x08045DDC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045E4C: .4byte gUnk_Banim_0201E12C
+.L08045E4C: .4byte gEkrBgOffset
 
 	thumb_func_start func_fe6_08045E50
 func_fe6_08045E50: @ 0x08045E50
@@ -7117,7 +6859,7 @@ func_fe6_08045E50: @ 0x08045E50
 	movs r0, #4
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, .L08045EBC @ =gUnk_Banim_0201E12C
+	ldr r5, .L08045EBC @ =gEkrBgOffset
 	str r1, [r5]
 	adds r0, r4, #0
 	bl func_fe6_08045D6C
@@ -7148,14 +6890,14 @@ func_fe6_08045E50: @ 0x08045E50
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne .L08045EC4
-	ldr r1, .L08045EC0 @ =gUnk_Banim_0201773C
+	ldr r1, .L08045EC0 @ =gEkrInitPosReal
 	movs r0, #1
 	b .L08045EC8
 	.align 2, 0
-.L08045EBC: .4byte gUnk_Banim_0201E12C
-.L08045EC0: .4byte gUnk_Banim_0201773C
+.L08045EBC: .4byte gEkrBgOffset
+.L08045EC0: .4byte gEkrInitPosReal
 .L08045EC4:
-	ldr r1, .L08045EE0 @ =gUnk_Banim_0201773C
+	ldr r1, .L08045EE0 @ =gEkrInitPosReal
 	movs r0, #0
 .L08045EC8:
 	str r0, [r1]
@@ -7170,7 +6912,7 @@ func_fe6_08045E50: @ 0x08045E50
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045EE0: .4byte gUnk_Banim_0201773C
+.L08045EE0: .4byte gEkrInitPosReal
 .L08045EE4: .4byte gUnk_Banim_02017740
 
 	thumb_func_start func_fe6_08045EE8
@@ -7349,7 +7091,7 @@ func_fe6_08046010: @ 0x08046010
 	adds r2, r0, #0
 	movs r0, #0
 	strh r0, [r2, #0x2c]
-	ldr r1, .L08046058 @ =gUnk_Banim_02000000
+	ldr r1, .L08046058 @ =gAnims
 	ldr r0, [r1]
 	str r0, [r2, #0x5c]
 	ldr r0, [r1, #8]
@@ -7364,7 +7106,7 @@ func_fe6_08046010: @ 0x08046010
 	.align 2, 0
 .L08046050: .4byte gUnk_Banim_02017734
 .L08046054: .4byte gUnk_085CB9A0
-.L08046058: .4byte gUnk_Banim_02000000
+.L08046058: .4byte gAnims
 .L0804605C: .4byte .L08046060
 .L08046060: @ jump table
 	.4byte .L0804607C @ case 0
@@ -7475,7 +7217,7 @@ func_fe6_0804610C: @ 0x0804610C
 	ldr r3, .L08046190 @ =gUnk_Banim_02000020
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, .L08046194 @ =gUnk_Banim_0201E12C
+	ldr r0, .L08046194 @ =gEkrBgOffset
 	ldr r1, [r0]
 	subs r6, r2, r1
 	ldr r2, .L08046198 @ =gUnk_Banim_02000024
@@ -7519,7 +7261,7 @@ func_fe6_0804610C: @ 0x0804610C
 	.align 2, 0
 .L0804618C: .4byte 0x00007FFF
 .L08046190: .4byte gUnk_Banim_02000020
-.L08046194: .4byte gUnk_Banim_0201E12C
+.L08046194: .4byte gEkrBgOffset
 .L08046198: .4byte gUnk_Banim_02000024
 .L0804619C: .4byte gUnk_Banim_02017734
 .L080461A0:
@@ -7575,7 +7317,7 @@ func_fe6_0804610C: @ 0x0804610C
 	ldrsh r0, [r5, r3]
 	adds r1, r1, r0
 .L0804620C:
-	ldr r3, .L08046270 @ =gUnk_Banim_0201E12C
+	ldr r3, .L08046270 @ =gEkrBgOffset
 	ldr r0, [r3]
 	subs r6, r1, r0
 	ldr r2, .L08046274 @ =gUnk_Banim_02000024
@@ -7622,7 +7364,7 @@ func_fe6_0804610C: @ 0x0804610C
 	b .L080462B2
 	.align 2, 0
 .L0804626C: .4byte gUnk_Banim_02000020
-.L08046270: .4byte gUnk_Banim_0201E12C
+.L08046270: .4byte gEkrBgOffset
 .L08046274: .4byte gUnk_Banim_02000024
 .L08046278: .4byte gUnk_Banim_02017758
 .L0804627C: .4byte 0x0203CD14
@@ -7758,7 +7500,7 @@ func_fe6_080462BC: @ 0x080462BC
 .L08046378:
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L080463A8 @ =gUnk_Banim_0201E12C
+	ldr r1, .L080463A8 @ =gEkrBgOffset
 	ldr r1, [r1]
 	ldr r2, .L080463AC @ =gUnk_Banim_02000028
 	lsls r0, r0, #1
@@ -7778,7 +7520,7 @@ func_fe6_080462BC: @ 0x080462BC
 	ldr r0, .L080463B0 @ =gUnk_085CCE38
 	b .L080463BE
 	.align 2, 0
-.L080463A8: .4byte gUnk_Banim_0201E12C
+.L080463A8: .4byte gEkrBgOffset
 .L080463AC: .4byte gUnk_Banim_02000028
 .L080463B0: .4byte gUnk_085CCE38
 .L080463B4:
@@ -7844,7 +7586,7 @@ func_fe6_080462BC: @ 0x080462BC
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
 	bl func_fe6_0804C478
-	ldr r0, .L08046468 @ =gUnk_Banim_0201E12C
+	ldr r0, .L08046468 @ =gEkrBgOffset
 	ldr r0, [r0]
 	bl func_fe6_08045EE8
 .L08046446:
@@ -7860,7 +7602,7 @@ func_fe6_080462BC: @ 0x080462BC
 .L0804645C: .4byte gUnk_Banim_02000044
 .L08046460: .4byte gPal+0x260
 .L08046464: .4byte 0x0203CD14
-.L08046468: .4byte gUnk_Banim_0201E12C
+.L08046468: .4byte gEkrBgOffset
 
 	thumb_func_start func_fe6_0804646C
 func_fe6_0804646C: @ 0x0804646C
@@ -7913,7 +7655,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r2, #0x10
 	bl SetBgOffset
 .L080464D6:
-	ldr r0, .L08046580 @ =gUnk_Banim_0201E12C
+	ldr r0, .L08046580 @ =gEkrBgOffset
 	ldr r0, [r0]
 	bl func_fe6_08045EE8
 .L080464DE:
@@ -7927,7 +7669,7 @@ func_fe6_0804646C: @ 0x0804646C
 	ldr r3, .L08046588 @ =gUnk_Banim_02000020
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, .L08046580 @ =gUnk_Banim_0201E12C
+	ldr r0, .L08046580 @ =gEkrBgOffset
 	ldr r1, [r0]
 	subs r7, r2, r1
 	ldr r2, .L0804658C @ =gUnk_Banim_02000024
@@ -7991,7 +7733,7 @@ func_fe6_0804646C: @ 0x0804646C
 	bl Proc_End
 	b .L08046786
 	.align 2, 0
-.L08046580: .4byte gUnk_Banim_0201E12C
+.L08046580: .4byte gEkrBgOffset
 .L08046584: .4byte gUnk_Banim_0201E0FC
 .L08046588: .4byte gUnk_Banim_02000020
 .L0804658C: .4byte gUnk_Banim_02000024
@@ -8042,7 +7784,7 @@ func_fe6_0804646C: @ 0x0804646C
 	beq .L0804662C
 	ldr r0, [r6, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08046624 @ =gUnk_Banim_0201E12C
+	ldr r1, .L08046624 @ =gEkrBgOffset
 	ldr r1, [r1]
 	ldr r2, .L08046628 @ =gUnk_Banim_02000028
 	lsls r0, r0, #1
@@ -8065,7 +7807,7 @@ func_fe6_0804646C: @ 0x0804646C
 	.align 2, 0
 .L0804661C: .4byte gBg2Tm+0x2C0
 .L08046620: .4byte gUnk_Banim_02017758
-.L08046624: .4byte gUnk_Banim_0201E12C
+.L08046624: .4byte gEkrBgOffset
 .L08046628: .4byte gUnk_Banim_02000028
 .L0804662C:
 	ldrh r1, [r4]
@@ -8157,7 +7899,7 @@ func_fe6_0804646C: @ 0x0804646C
 	ldrsh r0, [r2, r3]
 	adds r1, r1, r0
 .L080466E8:
-	ldr r4, .L08046748 @ =gUnk_Banim_0201E12C
+	ldr r4, .L08046748 @ =gEkrBgOffset
 	ldr r0, [r4]
 	subs r7, r1, r0
 	ldr r3, .L0804674C @ =gUnk_Banim_02000024
@@ -8202,7 +7944,7 @@ func_fe6_0804646C: @ 0x0804646C
 	.align 2, 0
 .L08046740: .4byte gUnk_Banim_02000020
 .L08046744: .4byte gUnk_Banim_02017758
-.L08046748: .4byte gUnk_Banim_0201E12C
+.L08046748: .4byte gEkrBgOffset
 .L0804674C: .4byte gUnk_Banim_02000024
 .L08046750: .4byte 0x0203CD14
 .L08046754:
@@ -9020,7 +8762,7 @@ func_fe6_08046DA0: @ 0x08046DA0
 	lsls r0, r0, #0x1c
 	lsrs r0, r0, #0x1c
 	str r0, [r4, #0x4c]
-	ldr r0, .L08046E4C @ =0x0203CCF0
+	ldr r0, .L08046E4C @ =gEkrDebugModeMaybe
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L08046DEC
@@ -9066,7 +8808,7 @@ func_fe6_08046DA0: @ 0x08046DA0
 .L08046E40: .4byte 0x0203CD80
 .L08046E44: .4byte gUnk_085CBA98
 .L08046E48: .4byte gUnk_08112122
-.L08046E4C: .4byte 0x0203CCF0
+.L08046E4C: .4byte gEkrDebugModeMaybe
 .L08046E50: .4byte gUnk_Banim_02017764
 .L08046E54: .4byte gUnk_Banim_0200004C
 .L08046E58: .4byte gFadeComponents
@@ -10089,7 +9831,7 @@ func_fe6_08047620: @ 0x08047620
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804764C
-	ldr r0, .L08047648 @ =gUnk_Banim_02000000
+	ldr r0, .L08047648 @ =gAnims
 	ldr r7, [r0, #8]
 	ldr r1, [r0, #0xc]
 	mov sb, r1
@@ -10097,9 +9839,9 @@ func_fe6_08047620: @ 0x08047620
 	ldr r0, [r0, #4]
 	b .L08047658
 	.align 2, 0
-.L08047648: .4byte gUnk_Banim_02000000
+.L08047648: .4byte gAnims
 .L0804764C:
-	ldr r0, .L08047668 @ =gUnk_Banim_02000000
+	ldr r0, .L08047668 @ =gAnims
 	ldr r7, [r0]
 	ldr r1, [r0, #4]
 	mov sb, r1
@@ -10115,7 +9857,7 @@ func_fe6_08047620: @ 0x08047620
 .L08047664:
 	b .L0804779C
 	.align 2, 0
-.L08047668: .4byte gUnk_Banim_02000000
+.L08047668: .4byte gAnims
 .L0804766C:
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
@@ -10275,15 +10017,15 @@ func_fe6_080477AC: @ 0x080477AC
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080477CC
-	ldr r0, .L080477C8 @ =gUnk_Banim_02000000
+	ldr r0, .L080477C8 @ =gAnims
 	ldr r7, [r0, #8]
 	ldr r5, [r0]
 	ldr r0, [r0, #4]
 	b .L080477D4
 	.align 2, 0
-.L080477C8: .4byte gUnk_Banim_02000000
+.L080477C8: .4byte gAnims
 .L080477CC:
-	ldr r0, .L0804782C @ =gUnk_Banim_02000000
+	ldr r0, .L0804782C @ =gAnims
 	ldr r7, [r0]
 	ldr r5, [r0, #8]
 	ldr r0, [r0, #0xc]
@@ -10326,7 +10068,7 @@ func_fe6_080477AC: @ 0x080477AC
 	beq .L0804788C
 	b .L08047892
 	.align 2, 0
-.L0804782C: .4byte gUnk_Banim_02000000
+.L0804782C: .4byte gAnims
 .L08047830: .4byte 0x0203CD46
 .L08047834:
 	cmp r6, r4
@@ -10388,13 +10130,13 @@ func_fe6_080478A0: @ 0x080478A0
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L080478B8
-	ldr r0, .L080478B4 @ =gUnk_Banim_02000000
+	ldr r0, .L080478B4 @ =gAnims
 	ldr r0, [r0]
 	b .L080478BC
 	.align 2, 0
-.L080478B4: .4byte gUnk_Banim_02000000
+.L080478B4: .4byte gAnims
 .L080478B8:
-	ldr r0, .L080478C8 @ =gUnk_Banim_02000000
+	ldr r0, .L080478C8 @ =gAnims
 	ldr r0, [r0, #8]
 .L080478BC:
 	cmp r4, #0
@@ -10403,7 +10145,7 @@ func_fe6_080478A0: @ 0x080478A0
 	beq .L080478D2
 	b .L080478D6
 	.align 2, 0
-.L080478C8: .4byte gUnk_Banim_02000000
+.L080478C8: .4byte gAnims
 .L080478CC:
 	bl func_fe6_08045578
 	b .L080478D6
@@ -10921,16 +10663,16 @@ func_fe6_08047C88: @ 0x08047C88
 	lsrs r2, r2, #0x10
 	cmp r0, #0
 	bne .L08047CA4
-	ldr r0, .L08047CA0 @ =gUnk_Banim_02000000
+	ldr r0, .L08047CA0 @ =gAnims
 	ldr r3, [r0]
 	strh r1, [r3, #2]
 	strh r2, [r3, #4]
 	ldr r3, [r0, #4]
 	b .L08047CAE
 	.align 2, 0
-.L08047CA0: .4byte gUnk_Banim_02000000
+.L08047CA0: .4byte gAnims
 .L08047CA4:
-	ldr r0, .L08047CB4 @ =gUnk_Banim_02000000
+	ldr r0, .L08047CB4 @ =gAnims
 	ldr r3, [r0, #8]
 	strh r1, [r3, #2]
 	strh r2, [r3, #4]
@@ -10940,10 +10682,10 @@ func_fe6_08047C88: @ 0x08047C88
 	strh r2, [r3, #4]
 	bx lr
 	.align 2, 0
-.L08047CB4: .4byte gUnk_Banim_02000000
+.L08047CB4: .4byte gAnims
 
-	thumb_func_start func_fe6_08047CB8
-func_fe6_08047CB8: @ 0x08047CB8
+	thumb_func_start PrepareBattleGraphicsMaybe_
+PrepareBattleGraphicsMaybe_: @ 0x08047CB8
 	push {lr}
 	bl func_fe6_08049058
 	lsls r0, r0, #0x18
@@ -10952,8 +10694,8 @@ func_fe6_08047CB8: @ 0x08047CB8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08047CC8
-func_fe6_08047CC8: @ 0x08047CC8
+	thumb_func_start BeginAnimsOnBattleAnimations
+BeginAnimsOnBattleAnimations: @ 0x08047CC8
 	push {lr}
 	bl func_fe6_0804C500
 	cmp r0, #1
@@ -10961,13 +10703,13 @@ func_fe6_08047CC8: @ 0x08047CC8
 	bl func_fe6_0804C580
 	b .L08047D04
 .L08047CD8:
-	bl func_fe6_08042584
+	bl NewEkrBattleDeamon
 	bl BasInit
 	bl func_fe6_08044870
-	ldr r1, .L08047D08 @ =gUnk_Banim_0201773C
+	ldr r1, .L08047D08 @ =gEkrInitPosReal
 	str r0, [r1]
 	bl func_fe6_08047DAC
-	ldr r1, .L08047D0C @ =gUnk_Banim_02000000
+	ldr r1, .L08047D0C @ =gAnims
 	movs r0, #0
 	str r0, [r1]
 	str r0, [r1, #4]
@@ -10981,12 +10723,12 @@ func_fe6_08047CC8: @ 0x08047CC8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08047D08: .4byte gUnk_Banim_0201773C
-.L08047D0C: .4byte gUnk_Banim_02000000
+.L08047D08: .4byte gEkrInitPosReal
+.L08047D0C: .4byte gAnims
 .L08047D10: .4byte func_fe6_08047D38
 
-	thumb_func_start func_fe6_08047D14
-func_fe6_08047D14: @ 0x08047D14
+	thumb_func_start EkrMainEndExec
+EkrMainEndExec: @ 0x08047D14
 	push {lr}
 	bl func_fe6_0804C500
 	cmp r0, #1
@@ -11029,7 +10771,7 @@ func_fe6_08047D38: @ 0x08047D38
 	ldr r0, [r4, #0x10]
 	bl Proc_Run
 	bl BasUpdateAll
-	bl func_fe6_0804A5DC
+	bl BattleAIS_ExecCommands
 	movs r0, #0xd
 	bl PutSpriteLayerOam
 	ldr r1, .L08047DA4 @ =gBmSt
@@ -11322,12 +11064,12 @@ func_fe6_08047ED4: @ 0x08047ED4
 func_fe6_08047FDC: @ 0x08047FDC
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r0, .L08048008 @ =0x0203CCF0
+	ldr r0, .L08048008 @ =gEkrDebugModeMaybe
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L08048040
-	bl func_fe6_080436A4
+	bl NewEkrGauge
 	bl func_fe6_08044198
 	ldr r0, .L0804800C @ =0x0203CD14
 	movs r1, #0
@@ -11340,7 +11082,7 @@ func_fe6_08047FDC: @ 0x08047FDC
 	beq .L08048038
 	b .L08048040
 	.align 2, 0
-.L08048008: .4byte 0x0203CCF0
+.L08048008: .4byte gEkrDebugModeMaybe
 .L0804800C: .4byte 0x0203CD14
 .L08048010:
 	ldr r4, .L08048034 @ =0x0203CCF8
@@ -11408,7 +11150,7 @@ func_fe6_0804807C: @ 0x0804807C
 	cmp r0, #0
 	beq .L080480B0
 .L080480A0:
-	bl func_fe6_080425F0
+	bl NewEkrBattle
 	adds r0, r4, #0
 	bl Proc_End
 	b .L080480BC
@@ -11416,7 +11158,7 @@ func_fe6_0804807C: @ 0x0804807C
 .L080480AC: .4byte 0x0203CCF2
 .L080480B0:
 	strh r0, [r4, #0x2c]
-	bl func_fe6_080425F0
+	bl NewEkrBattle
 	adds r0, r4, #0
 	bl Proc_Break
 .L080480BC:
@@ -11754,7 +11496,7 @@ func_fe6_08048354: @ 0x08048354
 	asrs r0, r0, #0x10
 	cmp r0, #0xc
 	ble .L080483D4
-	bl func_fe6_080438B4
+	bl EndEkrGauge
 	adds r0, r4, #0
 	bl Proc_Break
 	bl InitBmBgLayers
@@ -11864,7 +11606,7 @@ func_fe6_080483E0: @ 0x080483E0
 	beq .L08048450
 	bl ApplyChapterMapPalettes
 .L08048450:
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne .L0804845C
 	bl func_fe6_0803CF58
@@ -11995,7 +11737,7 @@ func_fe6_08048470: @ 0x08048470
 func_fe6_0804855C: @ 0x0804855C
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_080425B0
+	bl EndEkrBattleDeamon
 	bl func_fe6_08029240
 	adds r0, r4, #0
 	bl Proc_Break
@@ -12253,7 +11995,7 @@ func_fe6_08048574: @ 0x08048574
 	strh r2, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, .L080487A0 @ =gUnk_Banim_0201773C
+	ldr r0, .L080487A0 @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #1
 	bne .L0804878E
@@ -12275,7 +12017,7 @@ func_fe6_08048574: @ 0x08048574
 	.align 2, 0
 .L08048798: .4byte gUnk_085CBBB0
 .L0804879C: .4byte 0x0203CD16
-.L080487A0: .4byte gUnk_Banim_0201773C
+.L080487A0: .4byte gEkrInitPosReal
 .L080487A4: .4byte gUnk_081122D0
 .L080487A8: .4byte 0x0203CD14
 .L080487AC: .4byte gUnk_085CBC28
@@ -12345,7 +12087,7 @@ func_fe6_08048574: @ 0x08048574
 	strh r0, [r5, #0x34]
 	movs r0, #0x68
 	strh r0, [r5, #0x3c]
-	ldr r0, .L08048864 @ =gUnk_Banim_0201773C
+	ldr r0, .L08048864 @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L0804884C
@@ -12368,7 +12110,7 @@ func_fe6_08048574: @ 0x08048574
 .L08048858: .4byte gUnk_085CBCE8
 .L0804885C: .4byte gUnk_085CBBB0
 .L08048860: .4byte 0x0203CD16
-.L08048864: .4byte gUnk_Banim_0201773C
+.L08048864: .4byte gEkrInitPosReal
 .L08048868: .4byte gUnk_081122D0
 .L0804886C: .4byte 0x0203CD14
 .L08048870: .4byte gUnk_085CBC48
@@ -12748,7 +12490,7 @@ func_fe6_08048A64: @ 0x08048A64
 	adds r0, r0, r1
 	ldrb r3, [r0]
 	strh r3, [r4, #0x38]
-	ldr r0, .L08048BC8 @ =gUnk_Banim_0201773C
+	ldr r0, .L08048BC8 @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L08048BD0
@@ -12783,7 +12525,7 @@ func_fe6_08048A64: @ 0x08048A64
 .L08048BBC: .4byte 0x0203CD16
 .L08048BC0: .4byte gUnk_081122C5
 .L08048BC4: .4byte gUnk_081122CA
-.L08048BC8: .4byte gUnk_Banim_0201773C
+.L08048BC8: .4byte gEkrInitPosReal
 .L08048BCC: .4byte gUnk_081122D0
 .L08048BD0:
 	ldr r0, .L08048BEC @ =gUnk_081122D0
@@ -13425,13 +13167,13 @@ func_fe6_08049058: @ 0x08049058
 	cmp r0, #0
 	bne .L080490A0
 	movs r0, #0
-	bl func_fe6_0804256C
+	bl SetBanimLinkArenaFlag
 	b .L080490A6
 	.align 2, 0
 .L0804909C: .4byte gBmSt
 .L080490A0:
 	movs r0, #1
-	bl func_fe6_0804256C
+	bl SetBanimLinkArenaFlag
 .L080490A6:
 	ldr r1, .L080490C0 @ =gBattleSt
 	movs r0, #0x10
@@ -13537,7 +13279,7 @@ func_fe6_08049058: @ 0x08049058
 	strh r0, [r1, #2]
 	strh r0, [r1]
 	movs r4, #0
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq .L080491A4
 	lsls r0, r7, #0x10
@@ -14603,7 +14345,7 @@ func_fe6_08049058: @ 0x08049058
 .L080499EC:
 	str r0, [r1, #4]
 .L080499EE:
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	beq .L08049A00
 	ldr r0, .L08049A10 @ =gPlaySt
@@ -16150,8 +15892,8 @@ func_fe6_0804A5C0: @ 0x0804A5C0
 .L0804A5D4: .4byte 0x0203CD4A
 .L0804A5D8: .4byte 0xFFFFF000
 
-	thumb_func_start func_fe6_0804A5DC
-func_fe6_0804A5DC: @ 0x0804A5DC
+	thumb_func_start BattleAIS_ExecCommands
+BattleAIS_ExecCommands: @ 0x0804A5DC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -16161,7 +15903,7 @@ func_fe6_0804A5DC: @ 0x0804A5DC
 
 	thumb_func_start func_fe6_00804A5E8
 func_fe6_00804A5E8: @ 0x0804A5E8
-	ldr r1, .L0804A640 @ =gUnk_Banim_02000000
+	ldr r1, .L0804A640 @ =gAnims
 	lsls r0, r2, #2
 	adds r0, r0, r1
 	ldr r7, [r0]
@@ -16208,7 +15950,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L0804A640: .4byte gUnk_Banim_02000000
+.L0804A640: .4byte gAnims
 .L0804A644: .4byte .L0804A648
 .L0804A648: @ jump table
 	.4byte .L0804AD82 @ case 0
@@ -16287,7 +16029,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	.4byte .L0804AD76 @ case 73
 	.4byte .L0804AD76 @ case 74
 .L0804A774:
-	ldr r0, .L0804A784 @ =gUnk_Banim_0200001C
+	ldr r0, .L0804A784 @ =gCtrlC01Blocking
 	ldr r0, [r0]
 	cmp r0, #1
 	bne .L0804A788
@@ -16295,7 +16037,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	str r0, [r7, #0x20]
 	b .L0804AD82
 	.align 2, 0
-.L0804A784: .4byte gUnk_Banim_0200001C
+.L0804A784: .4byte gCtrlC01Blocking
 .L0804A788:
 	ldrh r1, [r7, #0x10]
 	movs r0, #4
@@ -16456,7 +16198,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AD82
 .L0804A8B6:
 	adds r0, r7, #0
-	bl func_fe6_0804C898
+	bl StartSpellAnimation
 	b .L0804AD82
 	.align 2, 0
 .L0804A8C0: .4byte 0x0000FFDF
@@ -16544,7 +16286,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	lsls r0, r0, #0x10
 	asrs r0, r0, #0x10
 	mov r8, r0
-	ldr r4, .L0804A9A8 @ =gUnk_Banim_02000000
+	ldr r4, .L0804A9A8 @ =gAnims
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -16570,7 +16312,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L0804A9A8: .4byte gUnk_Banim_02000000
+.L0804A9A8: .4byte gAnims
 .L0804A9AC: .4byte .L0804A9B0
 .L0804A9B0: @ jump table
 	.4byte .L0804A9D8 @ case 0
@@ -16869,7 +16611,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AD82
 .L0804AC2A:
 	adds r0, r7, #0
-	bl func_fe6_08056F50
+	bl NewEfxHurtmutEff00
 	b .L0804AD82
 .L0804AC32:
 	adds r0, r7, #0
@@ -16943,7 +16685,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl func_fe6_0805755C
+	bl NewEfxKingPika
 	b .L0804AD82
 .L0804ACCA:
 	movs r0, #0x40
@@ -17009,7 +16751,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl func_fe6_080575E8
+	bl NewEfxFlashFX
 	b .L0804AD82
 .L0804AD4E:
 	adds r0, r7, #0
@@ -17017,25 +16759,25 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	cmp r0, #0
 	bne .L0804AD82
 	adds r0, r7, #0
-	bl func_fe6_080576AC
+	bl NewEfxSongOBJ2
 	b .L0804AD82
 .L0804AD60:
 	subs r0, r3, #1
 	adds r0, r2, r0
 	ldrb r1, [r0]
 	adds r0, r7, #0
-	bl func_fe6_0805BE7C
+	bl EfxPlaySEwithCmdCtrl
 	b .L0804AD82
 .L0804AD6E:
 	adds r0, r7, #0
-	bl func_fe6_08057D20
+	bl NewEfxMantBatabata
 	b .L0804AD82
 .L0804AD76:
 	subs r0, r3, #1
 	adds r0, r2, r0
 	ldrb r1, [r0]
 	adds r0, r7, #0
-	bl func_fe6_0805BE7C
+	bl EfxPlaySEwithCmdCtrl
 .L0804AD82:
 	ldrb r0, [r7, #0x14]
 	subs r0, #1
@@ -17102,7 +16844,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	ands r2, r0
 	cmp r2, #0
 	bne .L0804AE10
-	ldr r0, .L0804AE54 @ =gUnk_Banim_0200001C
+	ldr r0, .L0804AE54 @ =gCtrlC01Blocking
 	ldr r0, [r0]
 	cmp r0, #1
 	beq .L0804AE10
@@ -17122,7 +16864,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	rsbs r0, r0, #0
 	cmp r8, r0
 	beq .L0804AE60
-	ldr r6, .L0804AE58 @ =gUnk_Banim_02000000
+	ldr r6, .L0804AE58 @ =gAnims
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -17137,11 +16879,11 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	.align 2, 0
 .L0804AE4C: .4byte 0x0203CD98
 .L0804AE50: .4byte gUnk_Banim_0201E13C
-.L0804AE54: .4byte gUnk_Banim_0200001C
-.L0804AE58: .4byte gUnk_Banim_02000000
+.L0804AE54: .4byte gCtrlC01Blocking
+.L0804AE58: .4byte gAnims
 .L0804AE5C: .4byte 0x0000FFFD
 .L0804AE60:
-	ldr r5, .L0804AE90 @ =gUnk_Banim_02000000
+	ldr r5, .L0804AE90 @ =gAnims
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -17164,7 +16906,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	strh r4, [r6, #0x10]
 	b .L0804AF52
 	.align 2, 0
-.L0804AE90: .4byte gUnk_Banim_02000000
+.L0804AE90: .4byte gAnims
 .L0804AE94: .4byte 0x0000FFFD
 .L0804AE98:
 	movs r0, #0x80
@@ -17181,7 +16923,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	rsbs r0, r0, #0
 	cmp r8, r0
 	beq .L0804AF52
-	ldr r6, .L0804AF10 @ =gUnk_Banim_02000000
+	ldr r6, .L0804AF10 @ =gAnims
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -17224,7 +16966,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	strh r0, [r6, #0xe]
 	b .L0804AF52
 	.align 2, 0
-.L0804AF10: .4byte gUnk_Banim_02000000
+.L0804AF10: .4byte gAnims
 .L0804AF14: .4byte 0x00007FFF
 .L0804AF18:
 	adds r0, r7, #0
@@ -17247,7 +16989,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	bne .L0804AF52
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
-	ldr r1, .L0804AF6C @ =gUnk_Banim_0201E124
+	ldr r1, .L0804AF6C @ =gBanimDoneFlag
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	movs r1, #1
@@ -17266,7 +17008,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804AF6C: .4byte gUnk_Banim_0201E124
+.L0804AF6C: .4byte gBanimDoneFlag
 
 	thumb_func_start func_fe6_0804AF70
 func_fe6_0804AF70: @ 0x0804AF70
@@ -17685,7 +17427,7 @@ func_fe6_0804B294: @ 0x0804B294
 	bl func_fe6_08044870
 	cmp r0, #0
 	bne .L0804B300
-	ldr r1, .L0804B2FC @ =gUnk_Banim_02000000
+	ldr r1, .L0804B2FC @ =gAnims
 	ldr r2, [r1, #8]
 	movs r0, #0xc0
 	lsls r0, r0, #1
@@ -17693,9 +17435,9 @@ func_fe6_0804B294: @ 0x0804B294
 	ldr r1, [r1, #0xc]
 	b .L0804B30C
 	.align 2, 0
-.L0804B2FC: .4byte gUnk_Banim_02000000
+.L0804B2FC: .4byte gAnims
 .L0804B300:
-	ldr r1, .L0804B31C @ =gUnk_Banim_02000000
+	ldr r1, .L0804B31C @ =gAnims
 	ldr r2, [r1]
 	movs r0, #0xc0
 	lsls r0, r0, #1
@@ -17711,7 +17453,7 @@ func_fe6_0804B294: @ 0x0804B294
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804B31C: .4byte gUnk_Banim_02000000
+.L0804B31C: .4byte gAnims
 .L0804B320: .4byte 0x0203CD46
 
 	thumb_func_start func_fe6_0804B324
@@ -17719,7 +17461,7 @@ func_fe6_0804B324: @ 0x0804B324
 	push {r4, r5, r6, lr}
 	adds r2, r0, #0
 	adds r6, r1, #0
-	ldr r4, .L0804B370 @ =gUnk_Banim_02000000
+	ldr r4, .L0804B370 @ =gAnims
 	movs r0, #0
 	str r0, [r4]
 	str r0, [r4, #4]
@@ -17756,7 +17498,7 @@ func_fe6_0804B324: @ 0x0804B324
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804B370: .4byte gUnk_Banim_02000000
+.L0804B370: .4byte gAnims
 .L0804B374: .4byte 0x0203CCF8
 .L0804B378: .4byte 0x0203CD14
 
@@ -17819,7 +17561,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B49C @ =gUnk_Banim_02000020
-	ldr r0, .L0804B4B0 @ =gUnk_Banim_0201E12C
+	ldr r0, .L0804B4B0 @ =gEkrBgOffset
 	ldrh r1, [r1]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17843,7 +17585,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	str r0, [r2, #0x2c]
 	ldr r0, .L0804B4B8 @ =gUnk_Banim_020041C0
 	str r0, [r2, #0x30]
-	ldr r0, .L0804B4BC @ =gUnk_Banim_02000000
+	ldr r0, .L0804B4BC @ =gAnims
 	str r2, [r0]
 	ldr r0, .L0804B4A4 @ =gUnk_Banim_02000054
 	ldr r1, [r0]
@@ -17861,7 +17603,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B49C @ =gUnk_Banim_02000020
-	ldr r0, .L0804B4B0 @ =gUnk_Banim_0201E12C
+	ldr r0, .L0804B4B0 @ =gEkrBgOffset
 	ldrh r1, [r1]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17885,7 +17627,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	str r0, [r2, #0x2c]
 	ldr r0, .L0804B4B8 @ =gUnk_Banim_020041C0
 	str r0, [r2, #0x30]
-	ldr r0, .L0804B4BC @ =gUnk_Banim_02000000
+	ldr r0, .L0804B4BC @ =gAnims
 	str r2, [r0, #4]
 	pop {r3, r4}
 	mov r8, r3
@@ -17905,10 +17647,10 @@ func_fe6_0804B37C: @ 0x0804B37C
 .L0804B4A4: .4byte gUnk_Banim_02000054
 .L0804B4A8: .4byte gUnk_Banim_0200F1C0
 .L0804B4AC: .4byte gUnk_085CBDA0
-.L0804B4B0: .4byte gUnk_Banim_0201E12C
+.L0804B4B0: .4byte gEkrBgOffset
 .L0804B4B4: .4byte gUnk_Banim_02000080
 .L0804B4B8: .4byte gUnk_Banim_020041C0
-.L0804B4BC: .4byte gUnk_Banim_02000000
+.L0804B4BC: .4byte gAnims
 
 	thumb_func_start func_fe6_0804B4C0
 func_fe6_0804B4C0: @ 0x0804B4C0
@@ -17958,7 +17700,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B5BC @ =gUnk_Banim_02000020
-	ldr r0, .L0804B5D0 @ =gUnk_Banim_0201E12C
+	ldr r0, .L0804B5D0 @ =gEkrBgOffset
 	ldrh r1, [r1, #2]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17982,7 +17724,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	str r0, [r2, #0x2c]
 	ldr r0, .L0804B5D8 @ =gUnk_Banim_020099C0
 	str r0, [r2, #0x30]
-	ldr r0, .L0804B5DC @ =gUnk_Banim_02000000
+	ldr r0, .L0804B5DC @ =gAnims
 	str r2, [r0, #8]
 	ldr r0, .L0804B5C4 @ =gUnk_Banim_02000058
 	ldr r1, [r0]
@@ -17999,7 +17741,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B5BC @ =gUnk_Banim_02000020
-	ldr r0, .L0804B5D0 @ =gUnk_Banim_0201E12C
+	ldr r0, .L0804B5D0 @ =gEkrBgOffset
 	ldrh r1, [r1, #2]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -18023,7 +17765,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	str r0, [r2, #0x2c]
 	ldr r0, .L0804B5D8 @ =gUnk_Banim_020099C0
 	str r0, [r2, #0x30]
-	ldr r0, .L0804B5DC @ =gUnk_Banim_02000000
+	ldr r0, .L0804B5DC @ =gAnims
 	str r2, [r0, #0xc]
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -18039,10 +17781,10 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 .L0804B5C4: .4byte gUnk_Banim_02000058
 .L0804B5C8: .4byte gUnk_Banim_02011BC0
 .L0804B5CC: .4byte gUnk_085CBDA0
-.L0804B5D0: .4byte gUnk_Banim_0201E12C
+.L0804B5D0: .4byte gEkrBgOffset
 .L0804B5D4: .4byte gUnk_Banim_02002080
 .L0804B5D8: .4byte gUnk_Banim_020099C0
-.L0804B5DC: .4byte gUnk_Banim_02000000
+.L0804B5DC: .4byte gAnims
 
 	thumb_func_start func_fe6_0804B5E0
 func_fe6_0804B5E0: @ 0x0804B5E0
@@ -18319,7 +18061,7 @@ func_fe6_0804B7B0: @ 0x0804B7B0
 	thumb_func_start func_fe6_0804B80C
 func_fe6_0804B80C: @ 0x0804B80C
 	push {r4, lr}
-	ldr r4, .L0804B824 @ =gUnk_Banim_02000000
+	ldr r4, .L0804B824 @ =gAnims
 	bl func_fe6_0804B6C4
 	movs r1, #1
 	eors r1, r0
@@ -18330,7 +18072,7 @@ func_fe6_0804B80C: @ 0x0804B80C
 	pop {r1}
 	bx r1
 	.align 2, 0
-.L0804B824: .4byte gUnk_Banim_02000000
+.L0804B824: .4byte gAnims
 
 	thumb_func_start func_fe6_0804B828
 func_fe6_0804B828: @ 0x0804B828
@@ -18408,7 +18150,7 @@ func_fe6_0804B88C: @ 0x0804B88C
 func_fe6_0804B8B0: @ 0x0804B8B0
 	cmp r0, #0
 	bne .L0804B8C8
-	ldr r2, .L0804B8C4 @ =gUnk_Banim_02000000
+	ldr r2, .L0804B8C4 @ =gAnims
 	ldr r3, [r2]
 	movs r1, #2
 	ldrh r0, [r3]
@@ -18417,11 +18159,11 @@ func_fe6_0804B8B0: @ 0x0804B8B0
 	ldr r3, [r2, #4]
 	b .L0804B8DA
 	.align 2, 0
-.L0804B8C4: .4byte gUnk_Banim_02000000
+.L0804B8C4: .4byte gAnims
 .L0804B8C8:
 	cmp r0, #1
 	bne .L0804B8E0
-	ldr r2, .L0804B8E4 @ =gUnk_Banim_02000000
+	ldr r2, .L0804B8E4 @ =gAnims
 	ldr r3, [r2, #8]
 	movs r1, #2
 	ldrh r0, [r3]
@@ -18435,14 +18177,14 @@ func_fe6_0804B8B0: @ 0x0804B8B0
 .L0804B8E0:
 	bx lr
 	.align 2, 0
-.L0804B8E4: .4byte gUnk_Banim_02000000
+.L0804B8E4: .4byte gAnims
 
 	thumb_func_start func_fe6_0804B8E8
 func_fe6_0804B8E8: @ 0x0804B8E8
 	push {r4, lr}
 	cmp r0, #0
 	bne .L0804B908
-	ldr r2, .L0804B900 @ =gUnk_Banim_02000000
+	ldr r2, .L0804B900 @ =gAnims
 	ldr r3, [r2]
 	ldr r1, .L0804B904 @ =0x0000FFFD
 	adds r0, r1, #0
@@ -18452,12 +18194,12 @@ func_fe6_0804B8E8: @ 0x0804B8E8
 	ldr r3, [r2, #4]
 	b .L0804B91C
 	.align 2, 0
-.L0804B900: .4byte gUnk_Banim_02000000
+.L0804B900: .4byte gAnims
 .L0804B904: .4byte 0x0000FFFD
 .L0804B908:
 	cmp r0, #1
 	bne .L0804B922
-	ldr r2, .L0804B928 @ =gUnk_Banim_02000000
+	ldr r2, .L0804B928 @ =gAnims
 	ldr r3, [r2, #8]
 	ldr r1, .L0804B92C @ =0x0000FFFD
 	adds r0, r1, #0
@@ -18474,7 +18216,7 @@ func_fe6_0804B8E8: @ 0x0804B8E8
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804B928: .4byte gUnk_Banim_02000000
+.L0804B928: .4byte gAnims
 .L0804B92C: .4byte 0x0000FFFD
 
 	thumb_func_start func_fe6_0804B930
@@ -19782,7 +19524,7 @@ func_fe6_0804C330: @ 0x0804C330
 	movs r4, #0x1d
 	movs r0, #0x30
 	mov sl, r0
-	ldr r0, .L0804C3AC @ =gUnk_Banim_0201773C
+	ldr r0, .L0804C3AC @ =gEkrInitPosReal
 	ldr r0, [r0]
 	movs r5, #4
 	rsbs r5, r5, #0
@@ -19791,18 +19533,18 @@ func_fe6_0804C330: @ 0x0804C330
 	bne .L0804C3E6
 	b .L0804C3E4
 	.align 2, 0
-.L0804C3AC: .4byte gUnk_Banim_0201773C
+.L0804C3AC: .4byte gEkrInitPosReal
 .L0804C3B0:
 	movs r4, #3
 	movs r1, #0x30
 	mov sl, r1
-	ldr r0, .L0804C3C0 @ =gUnk_Banim_0201773C
+	ldr r0, .L0804C3C0 @ =gEkrInitPosReal
 	ldr r0, [r0]
 	movs r5, #0x1e
 	rsbs r5, r5, #0
 	b .L0804C3A6
 	.align 2, 0
-.L0804C3C0: .4byte gUnk_Banim_0201773C
+.L0804C3C0: .4byte gEkrInitPosReal
 .L0804C3C4:
 	movs r2, #0
 	ldrsh r0, [r7, r2]
@@ -20034,10 +19776,10 @@ func_fe6_0804C56C: @ 0x0804C56C
 	thumb_func_start func_fe6_0804C580
 func_fe6_0804C580: @ 0x0804C580
 	push {lr}
-	bl func_fe6_08042584
+	bl NewEkrBattleDeamon
 	bl BasInit
 	bl func_fe6_08044870
-	ldr r1, .L0804C5A0 @ =gUnk_Banim_0201773C
+	ldr r1, .L0804C5A0 @ =gEkrInitPosReal
 	str r0, [r1]
 	bl func_fe6_0804C5BC
 	movs r0, #0
@@ -20045,7 +19787,7 @@ func_fe6_0804C580: @ 0x0804C580
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804C5A0: .4byte gUnk_Banim_0201773C
+.L0804C5A0: .4byte gEkrInitPosReal
 
 	thumb_func_start func_fe6_0804C5A4
 func_fe6_0804C5A4: @ 0x0804C5A4
@@ -20078,16 +19820,16 @@ func_fe6_0804C5D0: @ 0x0804C5D0
 	mov r8, r0
 	movs r0, #0
 	bl InitOam
-	ldr r1, .L0804C644 @ =gUnk_Banim_0201773C
+	ldr r1, .L0804C644 @ =gEkrInitPosReal
 	ldr r0, .L0804C648 @ =0x0203CCF4
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
 	bl func_fe6_08044390
 	bl func_fe6_0804B048
-	bl func_fe6_080436A4
+	bl NewEkrGauge
 	bl func_fe6_08044198
-	bl func_fe6_080425F0
+	bl NewEkrBattle
 	ldr r0, .L0804C64C @ =gUnk_08118330
 	ldr r4, .L0804C650 @ =gPal+0xC0
 	adds r1, r4, #0
@@ -20119,7 +19861,7 @@ func_fe6_0804C5D0: @ 0x0804C5D0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804C644: .4byte gUnk_Banim_0201773C
+.L0804C644: .4byte gEkrInitPosReal
 .L0804C648: .4byte 0x0203CCF4
 .L0804C64C: .4byte gUnk_08118330
 .L0804C650: .4byte gPal+0xC0
@@ -20320,8 +20062,8 @@ func_fe6_0804C788: @ 0x0804C788
 func_fe6_0804C7EC: @ 0x0804C7EC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_080425B0
-	bl func_fe6_080438B4
+	bl EndEkrBattleDeamon
+	bl EndEkrGauge
 	ldr r0, .L0804C810 @ =OnMain
 	bl SetMainFunc
 	ldr r0, .L0804C814 @ =OnVBlank
@@ -20398,8 +20140,8 @@ func_fe6_0804C860: @ 0x0804C860
 	.align 2, 0
 .L0804C894: .4byte gPal+0xC0
 
-	thumb_func_start func_fe6_0804C898
-func_fe6_0804C898: @ 0x0804C898
+	thumb_func_start StartSpellAnimation
+StartSpellAnimation: @ 0x0804C898
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0804C8C4 @ =0x0203CD0C
@@ -21512,7 +21254,7 @@ func_fe6_0804D088: @ 0x0804D088
 	ldrh r2, [r5]
 	adds r0, r1, r2
 .L0804D134:
-	ldr r2, .L0804D248 @ =gUnk_Banim_0201E12C
+	ldr r2, .L0804D248 @ =gEkrBgOffset
 	ldr r1, [r2]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -21530,7 +21272,7 @@ func_fe6_0804D088: @ 0x0804D088
 	ldrh r1, [r1, #2]
 	ldrh r3, [r2]
 	adds r0, r1, r3
-	ldr r4, .L0804D248 @ =gUnk_Banim_0201E12C
+	ldr r4, .L0804D248 @ =gEkrBgOffset
 	ldr r1, [r4]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -21601,7 +21343,7 @@ func_fe6_0804D088: @ 0x0804D088
 	movs r2, #0x10
 	bl SetBgOffset
 .L0804D1F4:
-	ldr r4, .L0804D248 @ =gUnk_Banim_0201E12C
+	ldr r4, .L0804D248 @ =gEkrBgOffset
 	ldr r0, [r4]
 	mov r2, sb
 	ldrh r2, [r2]
@@ -21640,7 +21382,7 @@ func_fe6_0804D088: @ 0x0804D088
 	bx r0
 	.align 2, 0
 .L0804D244: .4byte gUnk_Banim_02000020
-.L0804D248: .4byte gUnk_Banim_0201E12C
+.L0804D248: .4byte gEkrBgOffset
 .L0804D24C: .4byte gUnk_Banim_02000024
 .L0804D250: .4byte gUnk_Banim_02017758
 .L0804D254: .4byte gUnk_Banim_02017744
@@ -40756,8 +40498,8 @@ func_fe6_08056F28: @ 0x08056F28
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_08056F50
-func_fe6_08056F50: @ 0x08056F50
+	thumb_func_start NewEfxHurtmutEff00
+NewEfxHurtmutEff00: @ 0x08056F50
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r0, .L08056F7C @ =gUnk_Banim_02017744
@@ -41466,8 +41208,8 @@ func_fe6_0805752C: @ 0x0805752C
 	.align 2, 0
 .L08057558: .4byte gUnk_Banim_02017744
 
-	thumb_func_start func_fe6_0805755C
-func_fe6_0805755C: @ 0x0805755C
+	thumb_func_start NewEfxKingPika
+NewEfxKingPika: @ 0x0805755C
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L08057574 @ =gUnk_085D36D4
@@ -41510,7 +41252,7 @@ func_fe6_08057578: @ 0x08057578
 .L080575A8:
 	cmp r0, #0x2d
 	bne .L080575DE
-	ldr r5, .L080575E4 @ =gUnk_Banim_02000000
+	ldr r5, .L080575E4 @ =gAnims
 	adds r0, r6, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -41537,10 +41279,10 @@ func_fe6_08057578: @ 0x08057578
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080575E4: .4byte gUnk_Banim_02000000
+.L080575E4: .4byte gAnims
 
-	thumb_func_start func_fe6_080575E8
-func_fe6_080575E8: @ 0x080575E8
+	thumb_func_start NewEfxFlashFX
+NewEfxFlashFX: @ 0x080575E8
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -41631,8 +41373,8 @@ func_fe6_0805765C: @ 0x0805765C
 	.align 2, 0
 .L080576A8: .4byte gUnk_Banim_02017744
 
-	thumb_func_start func_fe6_080576AC
-func_fe6_080576AC: @ 0x080576AC
+	thumb_func_start NewEfxSongOBJ2
+NewEfxSongOBJ2: @ 0x080576AC
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r5, r0, #0
@@ -41889,7 +41631,7 @@ func_fe6_08057860: @ 0x08057860
 	cmp r1, #0
 	bne .L080578F4
 .L080578BC:
-	ldr r4, .L080578F0 @ =gUnk_Banim_02000000
+	ldr r4, .L080578F0 @ =gAnims
 	adds r0, r5, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -41912,7 +41654,7 @@ func_fe6_08057860: @ 0x08057860
 	b .L08057916
 	.align 2, 0
 .L080578EC: .4byte 0x0203CD80
-.L080578F0: .4byte gUnk_Banim_02000000
+.L080578F0: .4byte gAnims
 .L080578F4:
 	ldr r0, .L0805791C @ =gUnk_085D373C
 	movs r1, #3
@@ -41988,7 +41730,7 @@ func_fe6_0805794C: @ 0x0805794C
 .L08057980:
 	cmp r0, #0x46
 	bne .L080579B6
-	ldr r5, .L080579BC @ =gUnk_Banim_02000000
+	ldr r5, .L080579BC @ =gAnims
 	ldr r0, [r6, #0x5c]
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #3
@@ -42015,7 +41757,7 @@ func_fe6_0805794C: @ 0x0805794C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080579BC: .4byte gUnk_Banim_02000000
+.L080579BC: .4byte gAnims
 
 	thumb_func_start func_fe6_080579C0
 func_fe6_080579C0: @ 0x080579C0
@@ -42445,8 +42187,8 @@ func_fe6_08057C94: @ 0x08057C94
 .L08057D18: .4byte gDispIo
 .L08057D1C: .4byte gUnk_Banim_02017744
 
-	thumb_func_start func_fe6_08057D20
-func_fe6_08057D20: @ 0x08057D20
+	thumb_func_start NewEfxMantBatabata
+NewEfxMantBatabata: @ 0x08057D20
 	push {r4, r5, r6, r7, lr}
 	mov r7, r8
 	push {r7}
@@ -44047,7 +43789,7 @@ func_fe6_080589C4: @ 0x080589C4
 	bne .L080589E8
 	adds r0, r4, #0
 	bl func_fe6_0804B6C4
-	ldr r1, .L080589F0 @ =gUnk_Banim_0201773C
+	ldr r1, .L080589F0 @ =gEkrInitPosReal
 	ldr r1, [r1]
 	cmp r0, r1
 	bne .L080589F4
@@ -44056,7 +43798,7 @@ func_fe6_080589C4: @ 0x080589C4
 	b .L080589F6
 	.align 2, 0
 .L080589EC: .4byte 0x0203CD14
-.L080589F0: .4byte gUnk_Banim_0201773C
+.L080589F0: .4byte gEkrInitPosReal
 .L080589F4:
 	movs r0, #1
 .L080589F6:
@@ -44118,7 +43860,7 @@ func_fe6_08058A34: @ 0x08058A34
 func_fe6_08058A50: @ 0x08058A50
 	push {r4, r5, lr}
 	lsls r0, r0, #0x18
-	ldr r1, .L08058A78 @ =gUnk_Banim_02000000
+	ldr r1, .L08058A78 @ =gAnims
 	ldr r3, [r1]
 	ldr r4, [r1, #8]
 	ldr r1, .L08058A7C @ =0x0000F3FF
@@ -44136,7 +43878,7 @@ func_fe6_08058A50: @ 0x08058A50
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08058A78: .4byte gUnk_Banim_02000000
+.L08058A78: .4byte gAnims
 .L08058A7C: .4byte 0x0000F3FF
 
 	thumb_func_start func_fe6_08058A80
@@ -44518,7 +44260,7 @@ func_fe6_08058D34: @ 0x08058D34
 	bl SetBgOffset
 	b .L08058E14
 .L08058DC2:
-	ldr r4, .L08058E00 @ =gUnk_Banim_0201E12C
+	ldr r4, .L08058E00 @ =gEkrBgOffset
 	ldr r0, [r4]
 	adds r0, #0x30
 	bl func_fe6_08058CEC
@@ -44546,7 +44288,7 @@ func_fe6_08058D34: @ 0x08058D34
 	bl func_fe6_0805B094
 	b .L08058E14
 	.align 2, 0
-.L08058E00: .4byte gUnk_Banim_0201E12C
+.L08058E00: .4byte gEkrBgOffset
 .L08058E04:
 	movs r0, #0x10
 	bl func_fe6_08058CEC
@@ -44705,7 +44447,7 @@ func_fe6_08058F38: @ 0x08058F38
 	bl func_fe6_08058998
 	cmp r0, #0
 	beq .L08058F58
-	ldr r0, .L08058F54 @ =gUnk_Banim_02000000
+	ldr r0, .L08058F54 @ =gAnims
 	ldr r0, [r0]
 	bl func_fe6_08058A08
 	ldrh r0, [r0]
@@ -44714,7 +44456,7 @@ func_fe6_08058F38: @ 0x08058F38
 	movs r0, #1
 	b .L08058F5A
 	.align 2, 0
-.L08058F54: .4byte gUnk_Banim_02000000
+.L08058F54: .4byte gAnims
 .L08058F58:
 	movs r0, #0
 .L08058F5A:
@@ -44844,7 +44586,7 @@ func_fe6_08059018: @ 0x08059018
 	str r3, [sp, #0xc]
 	movs r3, #0x42
 	bl func_fe6_0805B20C
-	ldr r0, .L08059074 @ =gUnk_Banim_0201E12C
+	ldr r0, .L08059074 @ =gEkrBgOffset
 	ldr r0, [r0]
 	bl func_fe6_08058F60
 	add sp, #0x10
@@ -44854,7 +44596,7 @@ func_fe6_08059018: @ 0x08059018
 .L08059068: .4byte gUnk_Banim_0201E7CC
 .L0805906C: .4byte 0x0203CD14
 .L08059070: .4byte gUnk_Banim_0201D414
-.L08059074: .4byte gUnk_Banim_0201E12C
+.L08059074: .4byte gEkrBgOffset
 
 	thumb_func_start func_fe6_08059078
 func_fe6_08059078: @ 0x08059078
@@ -46536,7 +46278,7 @@ func_fe6_08059E08: @ 0x08059E08
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x74
 	bl func_fe6_0804A528
-	ldr r0, .L08059E6C @ =gUnk_Banim_02000000
+	ldr r0, .L08059E6C @ =gAnims
 	ldr r3, [r0]
 	ldr r4, [r0, #4]
 	ldr r2, .L08059E70 @ =gUnk_Banim_02000020
@@ -46544,7 +46286,7 @@ func_fe6_08059E08: @ 0x08059E08
 	ldrh r1, [r7]
 	adds r1, #0x54
 	strh r1, [r2]
-	ldr r6, .L08059E78 @ =gUnk_Banim_0201E12C
+	ldr r6, .L08059E78 @ =gEkrBgOffset
 	ldr r0, [r6]
 	subs r1, r1, r0
 	strh r1, [r3, #2]
@@ -46578,10 +46320,10 @@ func_fe6_08059E08: @ 0x08059E08
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08059E6C: .4byte gUnk_Banim_02000000
+.L08059E6C: .4byte gAnims
 .L08059E70: .4byte gUnk_Banim_02000020
 .L08059E74: .4byte gUnk_Banim_02000028
-.L08059E78: .4byte gUnk_Banim_0201E12C
+.L08059E78: .4byte gEkrBgOffset
 .L08059E7C: .4byte gUnk_Banim_0201E7B4
 
 	thumb_func_start func_fe6_08059E80
@@ -46768,7 +46510,7 @@ func_fe6_0805A000: @ 0x0805A000
 	ldr r1, [r5]
 	ldr r0, .L0805A0A8 @ =gUnk_Banim_02000028
 	mov r8, r0
-	ldr r2, .L0805A0AC @ =gUnk_Banim_0201E12C
+	ldr r2, .L0805A0AC @ =gEkrBgOffset
 	mov sb, r2
 	ldr r0, [r2]
 	subs r0, #0x4e
@@ -46827,7 +46569,7 @@ func_fe6_0805A000: @ 0x0805A000
 	.align 2, 0
 .L0805A0A4: .4byte gUnk_Banim_0201E7B4
 .L0805A0A8: .4byte gUnk_Banim_02000028
-.L0805A0AC: .4byte gUnk_Banim_0201E12C
+.L0805A0AC: .4byte gEkrBgOffset
 .L0805A0B0: .4byte gUnk_Banim_02017758
 .L0805A0B4: .4byte 0x00007FFF
 .L0805A0B8: .4byte gUnk_Banim_02017734
@@ -48318,11 +48060,11 @@ func_fe6_0805AC54: @ 0x0805AC54
 	bl CpuSet
 	movs r0, #8
 	bl EnableBgSync
-	ldr r0, .L0805ADC4 @ =gUnk_Banim_02000000
+	ldr r0, .L0805ADC4 @ =gAnims
 	ldr r4, [r0]
 	ldr r5, [r0, #4]
 	ldr r3, .L0805ADC8 @ =gUnk_Banim_02000020
-	ldr r0, .L0805ADCC @ =gUnk_Banim_0201E12C
+	ldr r0, .L0805ADCC @ =gEkrBgOffset
 	ldr r1, [r0]
 	ldrh r2, [r3]
 	subs r0, r2, r1
@@ -48452,9 +48194,9 @@ func_fe6_0805AC54: @ 0x0805AC54
 	.align 2, 0
 .L0805ADBC: .4byte gBg3Tm
 .L0805ADC0: .4byte 0x01000020
-.L0805ADC4: .4byte gUnk_Banim_02000000
+.L0805ADC4: .4byte gAnims
 .L0805ADC8: .4byte gUnk_Banim_02000020
-.L0805ADCC: .4byte gUnk_Banim_0201E12C
+.L0805ADCC: .4byte gEkrBgOffset
 .L0805ADD0: .4byte gUnk_Banim_02000024
 .L0805ADD4: .4byte gDispIo
 .L0805ADD8: .4byte gUnk_Banim_02017758
@@ -50618,8 +50360,8 @@ func_fe6_0805BD8C: @ 0x0805BD8C
 	.align 2, 0
 .L0805BD98: .4byte gMusicPlayer_FightBgm
 
-	thumb_func_start func_fe6_0805BD9C
-func_fe6_0805BD9C: @ 0x0805BD9C
+	thumb_func_start UnregisterEfxSoundSeExist
+UnregisterEfxSoundSeExist: @ 0x0805BD9C
 	ldr r1, .L0805BDA4 @ =gUnk_Banim_0201F050
 	movs r0, #0
 	str r0, [r1]
@@ -50732,8 +50474,8 @@ func_fe6_0805BDC0: @ 0x0805BDC0
 .L0805BE74: .4byte gSongTable
 .L0805BE78: .4byte 0x0000FFFF
 
-	thumb_func_start func_fe6_0805BE7C
-func_fe6_0805BE7C: @ 0x0805BE7C
+	thumb_func_start EfxPlaySEwithCmdCtrl
+EfxPlaySEwithCmdCtrl: @ 0x0805BE7C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -51495,8 +51237,8 @@ func_fe6_0805C41C: @ 0x0805C41C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805C520
-func_fe6_0805C520: @ 0x0805C520
+	thumb_func_start EkrPlayMainBGM
+EkrPlayMainBGM: @ 0x0805C520
 	push {r4, r5, r6, lr}
 	ldr r0, .L0805C570 @ =0x0203CD7C
 	ldr r1, .L0805C574 @ =0x0203CD80
@@ -51528,7 +51270,7 @@ func_fe6_0805C520: @ 0x0805C520
 	bl func_fe6_0804C500
 	cmp r0, #1
 	beq .L0805C564
-	bl func_fe6_08042578
+	bl GetBanimLinkArenaFlag
 	cmp r0, #1
 	bne .L0805C588
 .L0805C564:
@@ -53679,7 +53421,7 @@ func_fe6_0805D604: @ 0x0805D604
 	asrs r1, r1, #0x10
 	cmp r1, #2
 	bne .L0805D6F6
-	ldr r0, .L0805D6EC @ =gUnk_Banim_0201773C
+	ldr r0, .L0805D6EC @ =gEkrInitPosReal
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L0805D6F0
@@ -53702,7 +53444,7 @@ func_fe6_0805D604: @ 0x0805D604
 .L0805D6E0: .4byte 0x06010000
 .L0805D6E4: .4byte gUnk_Banim_020145C0
 .L0805D6E8: .4byte 0x0203CCF6
-.L0805D6EC: .4byte gUnk_Banim_0201773C
+.L0805D6EC: .4byte gEkrInitPosReal
 .L0805D6F0:
 	adds r0, r4, #0
 	orrs r0, r2
@@ -56758,7 +56500,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 	mov r2, sb
 	ldrh r2, [r2]
 	adds r1, r0, r2
-	ldr r3, .L0805F06C @ =gUnk_Banim_0201E12C
+	ldr r3, .L0805F06C @ =gEkrBgOffset
 	mov sl, r3
 	ldr r4, [r3]
 	subs r1, r1, r4
@@ -56878,7 +56620,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 .L0805F060: .4byte gUnk_Banim_02017758
 .L0805F064: .4byte gUnk_Banim_02000030
 .L0805F068: .4byte gUnk_Banim_02000020
-.L0805F06C: .4byte gUnk_Banim_0201E12C
+.L0805F06C: .4byte gEkrBgOffset
 .L0805F070: .4byte gUnk_Banim_02000024
 .L0805F074: .4byte gUnk_Banim_02017744
 
