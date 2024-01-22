@@ -1,0 +1,140 @@
+// this file contains the lists of classes (JIDs) available as opponents in the arena
+
+#include "prelude.h"
+
+#include "constants/jids.h"
+
+u8 CONST_DATA JList_MeleeArena[] =
+{
+    JID_MERCENARY,
+    JID_HERO,
+    JID_MYRMIDON,
+    JID_SWORDMASTER,
+    JID_FIGHTER,
+    JID_WARRIOR,
+    JID_ARMOR,
+    JID_GENERAL,
+    JID_BISHOP,
+    JID_MAGE,
+    JID_SAGE,
+    JID_SHAMAN,
+    JID_DRUID,
+    JID_CAVALIER,
+    JID_PALADIN,
+    JID_VALKYRIE,
+    JID_PEGASUSKNIGHT,
+    JID_FALCONKNIGHT,
+    JID_WYVERNRIDER,
+    JID_WYVERNLORD,
+    JID_SOLDIER,
+    JID_BRIGAND,
+    JID_PIRATE,
+    JID_BERSERKER,
+    JID_MERCENARY,
+    JID_MYRMIDON,
+    JID_FIGHTER,
+    JID_ARMOR,
+    JID_MAGE,
+    JID_SHAMAN,
+    JID_CAVALIER,
+    JID_PEGASUSKNIGHT,
+    JID_WYVERNRIDER,
+    JID_BRIGAND,
+    JID_PIRATE,
+    JID_SOLDIER,
+    JID_SOLDIER,
+
+    0 // end
+};
+
+u8 CONST_DATA JList_MagicArena[] =
+{
+    JID_MERCENARY,
+    JID_HERO,
+    JID_MYRMIDON,
+    JID_SWORDMASTER,
+    JID_FIGHTER,
+    JID_WARRIOR,
+    JID_ARMOR,
+    JID_GENERAL,
+    JID_ARCHER,
+    JID_SNIPER,
+    JID_BISHOP,
+    JID_MAGE,
+    JID_SAGE,
+    JID_SHAMAN,
+    JID_DRUID,
+    JID_CAVALIER,
+    JID_PALADIN,
+    JID_VALKYRIE,
+    JID_NOMAD,
+    JID_NOMADTROOPER,
+    JID_PEGASUSKNIGHT,
+    JID_FALCONKNIGHT,
+    JID_WYVERNRIDER,
+    JID_WYVERNLORD,
+    JID_SOLDIER,
+    JID_BRIGAND,
+    JID_PIRATE,
+    JID_BERSERKER,
+    JID_THIEF,
+    JID_MERCENARY,
+    JID_MYRMIDON,
+    JID_FIGHTER,
+    JID_ARMOR,
+    JID_ARCHER,
+    JID_MAGE,
+    JID_SHAMAN,
+    JID_CAVALIER,
+    JID_NOMAD,
+    JID_PEGASUSKNIGHT,
+    JID_WYVERNRIDER,
+    JID_SOLDIER,
+    JID_SOLDIER,
+
+    0 // end
+};
+
+u8 CONST_DATA JList_RangedArena[] =
+{
+    JID_ARCHER,
+    JID_SNIPER,
+    JID_BISHOP,
+    JID_MAGE,
+    JID_SAGE,
+    JID_SHAMAN,
+    JID_DRUID,
+    JID_VALKYRIE,
+    JID_NOMAD,
+    JID_NOMADTROOPER,
+
+    0 // end
+};
+
+u8 CONST_DATA JList_UnusedArena[] =
+{
+    JID_MERCENARY,
+    JID_MYRMIDON,
+    JID_SWORDMASTER,
+    JID_FIGHTER,
+    JID_WARRIOR,
+    JID_BISHOP,
+    JID_MAGE,
+    JID_SAGE,
+    JID_SHAMAN,
+    JID_DRUID,
+    JID_CAVALIER,
+    JID_VALKYRIE,
+    JID_PEGASUSKNIGHT,
+    JID_WYVERNRIDER,
+    JID_SOLDIER,
+    JID_BRIGAND,
+    JID_PIRATE,
+    JID_BERSERKER,
+    JID_THIEF,
+    JID_FIGHTER,
+    JID_FIGHTER,
+    JID_THIEF,
+
+    0 // end
+};

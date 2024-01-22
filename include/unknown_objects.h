@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UNKNOWN_OBJECTS_H
+#define UNKNOWN_OBJECTS_H
 
 #include "gba/gba.h"
 #include "types.h"
@@ -121,7 +122,6 @@ extern u8 const gUnk_08309408[]; // compressed tsa
 extern u8 const gUnk_0833C6F4[]; // tsa
 extern u8 const gUnk_0833C8D8[]; // tsa
 
-extern struct FaceInfo CONST_DATA FaceInfoTable[];
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
@@ -129,19 +129,6 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
 extern u16 CONST_DATA Pal_ManimFireDragonMu[];
 extern u16 CONST_DATA Pal_ManimDivineDragonMu[];
-
-extern i8 CONST_DATA TerrainHealAmountTable[];
-extern bool CONST_DATA TerrainHealsStatusTable[];
-extern char const * CONST_DATA TerrainNameStringTable[];
-
-extern u8 CONST_DATA JList_BowEffectiveness[];
-extern u8 CONST_DATA JList_HeroCrestPromotes[];
-extern u8 CONST_DATA JList_KnightCrestPromotes[];
-extern u8 CONST_DATA JList_OrionBoltPromotes[];
-extern u8 CONST_DATA JList_ElysianWhipPromotes[];
-extern u8 CONST_DATA JList_GuidingRingPromotes[];
-
-extern i8 CONST_DATA MoveTable_Flying[];
 
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 
@@ -248,3 +235,5 @@ struct HelpBoxInfo;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B1B0;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B2C8;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B3C4;
+
+#endif // UNKNOWN_OBJECTS_H

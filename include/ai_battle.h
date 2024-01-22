@@ -1,6 +1,7 @@
-#pragma once
+#ifndef AI_BATTLE_H
+#define AI_BATTLE_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "ai.h"
 
@@ -27,3 +28,5 @@ void AiComputeCombatScore(struct AiCombatSimulationSt * st);
 int AiGetInRangeCombatPositionScoreComponent(int x, int y, struct Unit * unit);
 int AiGetTerrainCombatPositionScoreComponent(int x, int y);
 int AiGetFriendZoneCombatPositionScoreComponent(int x, int y);
+
+#endif // AI_BATTLE_H

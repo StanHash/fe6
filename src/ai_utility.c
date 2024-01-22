@@ -865,8 +865,8 @@ bool AiFindPillageLocation(struct Vec2i * pos_out, u8 * outItemSlot)
     BeginMapFlood(gActiveUnit->x, gActiveUnit->y, 124, gActiveUnit->id);
 
     terrains = AiGetChestUnlockItemSlot(outItemSlot) == TRUE
-        ? gUnk_085C864F
-        : gUnk_085C864C;
+        ? gAiPillageTerrainsWithLoot
+        : gAiPillageTerrainsNoLoot;
 
     if (AiFindClosestTerrainPosition(terrains, AI_FINDPOS_FLAG_CHECK_ENEMY, pos_out) == TRUE)
         return TRUE;

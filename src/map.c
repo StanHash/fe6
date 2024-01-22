@@ -1,6 +1,4 @@
-
 #include "map.h"
-#include "common.h"
 
 #include "hardware.h"
 #include "util.h"
@@ -10,6 +8,7 @@
 #include "faction.h"
 #include "trap.h"
 #include "chapterinfo.h"
+#include "gamedata.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/chapters.h"
@@ -431,7 +430,7 @@ void UpdateRenderMap(void)
         gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x*16,
         gBmSt.camera.y - (u16) gBmSt.map_render_anchor.y*16);
 
-    if (gBmSt.flags & BM_FLAG_0)
+    if (gBmSt.flags & BM_FLAG_LIMITVIEW)
     {
         SetBgOffset(2,
             gBmSt.camera.x - (u16) gBmSt.map_render_anchor.x*16,
@@ -449,7 +448,7 @@ void RenderMapColumn(u16 x_offset)
 
     int iy;
 
-    if (!(gBmSt.flags & BM_FLAG_0))
+    if (!(gBmSt.flags & BM_FLAG_LIMITVIEW))
     {
         for (iy = 10; iy >= 0; --iy)
         {
@@ -484,7 +483,7 @@ void RenderMapLine(u16 y_offset)
 
     int ix;
 
-    if (!(gBmSt.flags & BM_FLAG_0))
+    if (!(gBmSt.flags & BM_FLAG_LIMITVIEW))
     {
         for (ix = 15; ix >= 0; --ix)
         {
@@ -578,7 +577,7 @@ void RefreshEntityMaps(void)
                 if (unit->flags & UNIT_FLAG_CONCEALED)
                 {
                     unit->flags &= ~UNIT_FLAG_CONCEALED;
-                    unit->flags |= UNIT_FLAG_SEEN;
+                    unit->flags |= UNIT_FLAG_MAPFADE;
                 }
             }
         }

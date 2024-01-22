@@ -812,7 +812,7 @@ void InitManimActorFacings(void)
     {
 
     case 2:
-        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK)
         {
             // In triangle attacks, both partners face the opponent too
             SetManimActorFacing(2, 1, manim_facing);
@@ -845,7 +845,7 @@ void SortManimMuLayers(void)
     {
 
     case 2:
-        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK)
+        if (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK)
         {
             actor_count += 2;
         }
@@ -987,13 +987,13 @@ void InitManimActors(struct BattleUnit * bu_a, struct BattleUnit * bu_b, struct 
         InitManimActor(1, bu_b, &bu_b->unit);
     }
 
-    if (gBattleHits->attributes & BATTLE_HIT_ATTR_TATTACK)
+    if (gBattleHits->attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK)
     {
-        InitManimActor(2, bu_a, gBattleSt.ta_unit_a);
-        InitManimActor(3, bu_a, gBattleSt.ta_unit_b);
+        InitManimActor(2, bu_a, gBattleSt.extra_unit_a);
+        InitManimActor(3, bu_a, gBattleSt.extra_unit_b);
 
-        HideUnitSprite(gBattleSt.ta_unit_a);
-        HideUnitSprite(gBattleSt.ta_unit_b);
+        HideUnitSprite(gBattleSt.extra_unit_a);
+        HideUnitSprite(gBattleSt.extra_unit_b);
     }
 
     InitManimActorFacings();
@@ -4604,7 +4604,7 @@ void Manim_ShiftAttackerTowardsDefender(ProcPtr proc)
 
     ManimShiftMuTowardsMu(attacker_mu, defender_mu);
 
-    if (gManimSt.hit_attributes & BATTLE_HIT_ATTR_TATTACK)
+    if (gManimSt.hit_attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK)
     {
         attacker_mu = gManimSt.actor[2].mu;
         ManimShiftMuTowardsMu(attacker_mu, defender_mu);
@@ -4621,7 +4621,7 @@ void Manim_ShiftAttackerAwayFromDefender(ProcPtr proc)
 
     ManimShiftMuAwayFromMu(attacker_mu, defender_mu);
 
-    if ((gManimSt.hit_attributes & BATTLE_HIT_ATTR_TATTACK) != 0)
+    if ((gManimSt.hit_attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK) != 0)
     {
         attacker_mu = gManimSt.actor[2].mu;
         ManimShiftMuAwayFromMu(attacker_mu, defender_mu);

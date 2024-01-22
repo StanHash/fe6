@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void ApplyHazardHealing(ProcPtr proc, struct Unit * unit, int arg_2, int arg_3);
 void BeginUnitHealAnim(struct Unit * unit, int hp);

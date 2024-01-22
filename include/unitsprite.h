@@ -1,7 +1,7 @@
 #ifndef UNITSPRITE_H
 #define UNITSPRITE_H
 
-#include "common.h"
+#include "prelude.h"
 
 // TODO: CHR_LINE and CHR_SIZE in appropriate headers
 #include "constants/videoalloc_global.h"

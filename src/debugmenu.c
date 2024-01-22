@@ -372,7 +372,7 @@ fu8 func_fe6_0801AA8C(struct MenuProc * menu, struct MenuEntProc * ent)
 
     WriteCompletedPlaythroughSaveData();
 
-    gPlaySt.flags &= ~PLAY_FLAG_4;
+    gPlaySt.flags &= ~PLAY_FLAG_PREP;
 
     CleanupUnitsBeforeChapter();
     WriteGameSave(ReadLastGameSaveId());

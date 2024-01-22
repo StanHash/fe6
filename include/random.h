@@ -1,6 +1,7 @@
-#pragma once
+#ifndef RANDOM_H
+#define RANDOM_H
 
-#include "common.h"
+#include "prelude.h"
 
 void RandInit(int seed);
 
@@ -14,3 +15,5 @@ bool RandRoll2Rn(int threshold);
 
 void RandInitB(int seed);
 u32 RandNextB(void);
+
+#endif // RANDOM_H

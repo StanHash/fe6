@@ -1,4 +1,4 @@
-#include "common.h"
+#include "msg.h"
 
 #include "armfunc.h"
 

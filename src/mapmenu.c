@@ -381,7 +381,7 @@ void func_fe6_0801EE4C(struct Unit * from, struct Unit * to)
     struct Unit * rescue = GetUnit(from->rescue);
 
     EndSubtitleHelp();
-    StartRescueTransferAnimParentless(rescue, func_fe6_0801C160(to->x, to->y, from->x, from->y));
+    StartRescueTransferAnimParentless(rescue, GetRescueTransferFacing(to->x, to->y, from->x, from->y));
 }
 
 fu8 TakeRescueMapSelect_Select(struct MapSelectProc * proc, struct SelectTarget * target)

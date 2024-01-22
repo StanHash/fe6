@@ -12,6 +12,7 @@
 #include "battle.h"
 #include "action.h"
 #include "eventinfo.h"
+#include "gamedata.h"
 
 #include "constants/iids.h"
 #include "constants/songs.h"
@@ -392,7 +393,7 @@ void DoItemPromoteAction(void)
     gBattleHits[0].info = BATTLE_HIT_INFO_END;
     gBattleHits[0].damage = 0;
 
-    gBattleSt.flags = BATTLE_FLAG_BIT4;
+    gBattleSt.flags = BATTLE_FLAG_PROMOTE;
 
     BeginBattleAnimations();
 }
@@ -417,7 +418,7 @@ void func_fe6_08027DB4(struct Unit * unit, int item)
     gBattleHits[0].info = BATTLE_HIT_INFO_END;
     gBattleHits[0].damage = 0;
 
-    gBattleSt.flags = BATTLE_FLAG_BIT4;
+    gBattleSt.flags = BATTLE_FLAG_PROMOTE;
 
     BeginBattleAnimations();
 }

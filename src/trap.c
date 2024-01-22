@@ -1,6 +1,4 @@
-
 #include "trap.h"
-#include "common.h"
 
 #include "sound.h"
 #include "proc.h"
@@ -131,36 +129,36 @@ struct Trap * AddTrap(int x, int y, int kind, int extra)
     return trap;
 }
 
-struct Trap * AddDamagingTrap(int x, int y, int kind, int extra, int turnCountdown, int turnInterval, int damage)
+struct Trap * AddTimedTrap(int x, int y, int kind, int extra, int turn_delay_init, int turn_interval, int damage)
 {
     struct Trap * trap = AddTrap(x, y, kind, extra);
 
-    trap->data[TRAPDATA_TRAP_INITCNT] = turnCountdown;
-    trap->data[TRAPDATA_TRAP_INTERVAL] = turnInterval;
-    trap->data[TRAPDATA_TRAP_COUNTER] = turnCountdown;
+    trap->data[TRAPDATA_TRAP_INITCNT] = turn_delay_init;
+    trap->data[TRAPDATA_TRAP_INTERVAL] = turn_interval;
+    trap->data[TRAPDATA_TRAP_COUNTER] = turn_delay_init;
     trap->data[TRAPDATA_TRAP_DAMAGE] = damage;
 
     return trap;
 }
 
-void AddFireTrap(int x, int y, int turnCountdown, int turnInterval)
+void AddFireTrap(int x, int y, int turn_delay_init, int turn_interval)
 {
-    AddDamagingTrap(x, y, TRAP_FIRE, 0, turnCountdown, turnInterval, 10);
+    AddTimedTrap(x, y, TRAP_FIRE, 0, turn_delay_init, turn_interval, 10);
 }
 
-void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval)
+void AddGasTrap(int x, int y, int facing, int turn_delay_init, int turn_interval)
 {
-    AddDamagingTrap(x, y, TRAP_GAS, facing, turnCountdown, turnInterval, 3);
+    AddTimedTrap(x, y, TRAP_GAS, facing, turn_delay_init, turn_interval, 3);
 }
 
-void AddArrowTrap(int x, int turnCountdown, int turnInterval)
+void AddArrowTrap(int x, int turn_delay_init, int turn_interval)
 {
-    AddDamagingTrap(x, 0, TRAP_LIGHTARROW, 0, turnCountdown, turnInterval, 10);
+    AddTimedTrap(x, 0, TRAP_LIGHTARROW, 0, turn_delay_init, turn_interval, 10);
 }
 
-void func_fe6_08026BA4(int x, int y, int turnCountdown, int turnInterval)
+void AddTimedMapChange(int off_id, int on_id, int turn_delay_init, int turn_interval)
 {
-    AddDamagingTrap(x, y, TRAP_8, 0, turnCountdown, turnInterval, 0);
+    AddTimedTrap(off_id, on_id, TRAP_TIMEDMAPCHANGE, 0, turn_delay_init, turn_interval, 0);
 }
 
 void AddStepFireTrap(int x, int y)
@@ -221,8 +219,7 @@ void ApplyEnabledMapChanges(void)
             ApplyMapChange(trap->extra);
             break;
 
-        case TRAP_8:
-            // this is a mystery
+        case TRAP_TIMEDMAPCHANGE:
             ApplyMapChange(trap->extra ? trap->y : trap->x);
             break;
 
@@ -435,7 +432,7 @@ void UpdateRoofedUnits(void)
         if (gMapTerrain[unit->y][unit->x] != TERRAIN_ROOF)
         {
             unit->flags &= ~(UNIT_FLAG_UNDER_ROOF | UNIT_FLAG_HIDDEN);
-            unit->flags |= UNIT_FLAG_SEEN;
+            unit->flags |= UNIT_FLAG_MAPFADE;
         }
     }
 
@@ -589,7 +586,7 @@ void ListDamagingTrapTargetsForDisplay(void)
                 EnlistArrowTrapTargets(trap->x, trap->y, trap->data[TRAPDATA_TRAP_DAMAGE]);
                 break;
 
-            case TRAP_8:
+            case TRAP_TIMEDMAPCHANGE:
                 EnlistTarget(trap->extra ? trap->x : trap->y, TRAP_ID(trap), 0, trap->kind);
                 break;
 
@@ -610,7 +607,7 @@ static void UpdateTraps_CountDownTraps(ProcPtr proc)
         case TRAP_FIRE:
         case TRAP_GAS:
         case TRAP_LIGHTARROW:
-        case TRAP_8:
+        case TRAP_TIMEDMAPCHANGE:
             trap->data[TRAPDATA_TRAP_COUNTER]--;
             break;
 
@@ -630,7 +627,7 @@ static void UpdateTraps_ResetCountedDownTraps(ProcPtr proc)
         case TRAP_FIRE:
         case TRAP_GAS:
         case TRAP_LIGHTARROW:
-        case TRAP_8:
+        case TRAP_TIMEDMAPCHANGE:
             if (trap->data[TRAPDATA_TRAP_COUNTER] == 0)
                 trap->data[TRAPDATA_TRAP_COUNTER] = trap->data[TRAPDATA_TRAP_INTERVAL];
 

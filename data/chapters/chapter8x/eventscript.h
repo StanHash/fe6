@@ -38,7 +38,7 @@ u8 CONST_DATA MoveScr_Unk_08674B22[] =
 // EventScr @ 08674B2C
 EventScr CONST_DATA EventScr_Unk_08674B2C[] =
 {
-    EvtFunc(func_fe6_0806D41C)
+    EvtFunc(AddChapter8xFireTraps)
     EvtFadeToBlack(16)
     EvtExitMap
     EvtBackground(BACKGROUND_18)

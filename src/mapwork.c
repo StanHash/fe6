@@ -1,6 +1,4 @@
-
 #include "mapwork.h"
-#include "common.h"
 
 #include "armfunc.h"
 #include "random.h"

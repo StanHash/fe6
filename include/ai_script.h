@@ -1,6 +1,7 @@
-#pragma once
+#ifndef AI_SCRIPT_H
+#define AI_SCRIPT_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "ai.h"
 
@@ -96,3 +97,5 @@ void AiDoBerserkMove(void);
 #define AI_GOTO_START AI_GOTO(0)
 #define AI_ACTION(chance) AI_ACTION_IGNORING(chance, NULL)
 #define AI_MOVE_TO_ENEMY  AI_MOVE_TO_ENEMY_IGNORING(NULL)
+
+#endif // AI_SCRIPT_H

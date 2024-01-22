@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ATTRIBUTES_H
+#define ATTRIBUTES_H
 
 #include <stddef.h>
 
@@ -22,3 +23,5 @@
 #  define SHOULD_BE_STATIC
 #  define SHOULD_BE_CONST
 #endif
+
+#endif // ATTRIBUTES_H

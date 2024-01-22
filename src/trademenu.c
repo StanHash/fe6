@@ -1,5 +1,4 @@
-
-#include "common.h"
+#include "trademenu.h"
 
 #include "hardware.h"
 #include "oam.h"
@@ -602,19 +601,19 @@ static void TradeMenu_HelpBox_OnEnd(struct GenericProc * proc)
     }
 }
 
-ProcPtr StartTradeMenu(struct Unit * unitA, struct Unit * unitB, int unused)
+ProcPtr StartTradeMenu(struct Unit * unit_a, struct Unit * unit_b, int unused)
 {
     struct TradeMenuProc * proc = SpawnProc(ProcScr_TradeMenu, PROC_TREE_3);
 
-    proc->units[0] = unitA;
-    proc->units[1] = unitB;
+    proc->units[0] = unit_a;
+    proc->units[1] = unit_b;
 
     proc->hasTraded = FALSE;
 
     proc->hoverColumn = TRADEMENU_UNIT_LEFT;
     proc->hoverRow = 0;
 
-    if (GetUnitItemCount(unitA) == 0)
+    if (GetUnitItemCount(unit_a) == 0)
         proc->hoverColumn = TRADEMENU_UNIT_RIGHT;
 
 #if BUGFIX

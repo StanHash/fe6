@@ -3,7 +3,7 @@
 // EventScr @ 08674F00
 EventScr CONST_DATA EventScr_Unk_08674F00[] =
 {
-    EvtFunc(func_fe6_0806D568)
+    EvtFunc(AddChapter12xGasTraps)
     EvtFadeToBlack(16)
     EvtExitMap
     EvtBackground(BACKGROUND_17)

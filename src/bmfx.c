@@ -1,7 +1,7 @@
 // TODO: better name for this file
+// (I am considering replacing "bm" by "field")
 
 #include "bmfx.h"
-#include "common.h"
 
 #include "armfunc.h"
 #include "hardware.h"
@@ -67,28 +67,28 @@ struct EquipInfoWindowProc
     /* 34 */ struct Text text[3];
 };
 
-struct UnkProc2
+struct UnitPrepSwapAnimProc
 {
     /* 00 */ PROC_HEADER;
 
     /* 2C */ struct Unit * unit;
-    /* 30 */ short unk_30;
-    /* 32 */ short unk_32;
-    /* 34 */ short unk_34;
-    /* 36 */ short unk_36;
-    /* 38 */ int pad_38;
-    /* 3C */ short unk_3C;
-    /* 3E */ short unk_3E;
-    /* 40 */ int pad_40;
-    /* 44 */ int unk_44;
+    /* 30 */ i16 x_from;
+    /* 32 */ i16 y_from;
+    /* 34 */ i16 x_target;
+    /* 36 */ i16 y_target;
+    /* 38 */ STRUCT_PAD(0x38, 0x3C);
+    /* 3C */ i16 unk_3C;
+    /* 3E */ i16 unk_3E;
+    /* 40 */ STRUCT_PAD(0x40, 0x44);
+    /* 44 */ i32 unk_44;
 };
 
 struct ShowMapChangeProc
 {
     /* 00 */ PROC_HEADER;
 
-    /* 2C */ int mcId;
-    /* 30 */ int altSong;
+    /* 2C */ int map_change_id;
+    /* 30 */ int alt_song;
     /* 34 */ int sndx;
 };
 
@@ -143,13 +143,13 @@ struct ProcScr CONST_DATA ProcScr_InitPhaseCursor[] =
     PROC_END,
 };
 
-static void func_fe6_0801C510(ProcPtr proc);
+static void ReturnFromStatScreen_Init(ProcPtr proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C5988[] =
+struct ProcScr CONST_DATA ProcScr_ReturnFromStatScreen[] =
 {
     PROC_19,
 
-    PROC_CALL(func_fe6_0801C510),
+    PROC_CALL(ReturnFromStatScreen_Init),
     PROC_SLEEP(1),
 
     PROC_END,
@@ -184,18 +184,17 @@ struct ProcScr CONST_DATA ProcScr_EquipInfoWindow[] =
     PROC_END,
 };
 
-static void func_fe6_0801CD60(struct UnkProc2 * proc);
-static void func_fe6_0801CDE4(struct UnkProc2 * proc);
-static void func_fe6_0801CEE0(struct UnkProc2 * proc);
+static void UnitPrepSwapAnim_Init(struct UnitPrepSwapAnimProc * proc);
+static void UnitPrepSwapAnim_Loop(struct UnitPrepSwapAnimProc * proc);
+static void UnitPrepSwapAnim_Cleanup(struct UnitPrepSwapAnimProc * proc);
 
-struct ProcScr CONST_DATA ProcScr_Unk_085C59F8[] =
+struct ProcScr CONST_DATA ProcScr_UnitPrepSwapAnim[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(func_fe6_0801CD60),
-    PROC_REPEAT(func_fe6_0801CDE4),
-
-    PROC_CALL(func_fe6_0801CEE0),
+    PROC_CALL(UnitPrepSwapAnim_Init),
+    PROC_REPEAT(UnitPrepSwapAnim_Loop),
+    PROC_CALL(UnitPrepSwapAnim_Cleanup),
 
     PROC_END,
 };
@@ -525,7 +524,7 @@ PROC_LABEL(99),
     PROC_END,
 };
 
-int func_fe6_0801C160(int xa, int ya, int xb, int yb)
+int GetRescueTransferFacing(int xa, int ya, int xb, int yb)
 {
     if (xa == xb)
     {
@@ -548,7 +547,7 @@ int func_fe6_0801C160(int xa, int ya, int xb, int yb)
     return FACING_LEFT;
 }
 
-static struct MuProc * StartMuForRescueTransfterAnim(struct Unit * unit)
+static struct MuProc * StartMuForRescueTransferAnim(struct Unit * unit)
 {
     if (!(UNIT_ATTRIBUTES(unit) & UNIT_ATTR_MOUNTED))
         return StartMu(unit);
@@ -590,7 +589,7 @@ void StartRescueTransferAnim(struct Unit * unit, int facing, bool arg_2, ProcPtr
 
     proc->unk_3C = arg_2;
 
-    proc->mu = StartMuForRescueTransfterAnim(unit);
+    proc->mu = StartMuForRescueTransferAnim(unit);
     SetMuMoveScript(proc->mu, proc->movescr);
 }
 
@@ -609,7 +608,7 @@ void StartRescueTransferAnimParentless(struct Unit * unit, int facing)
 
     proc->unk_3C = FALSE;
 
-    proc->mu = StartMuForRescueTransfterAnim(unit);
+    proc->mu = StartMuForRescueTransferAnim(unit);
     SetMuMoveScript(proc->mu, proc->movescr);
 }
 
@@ -644,20 +643,20 @@ static void MapFade_Loop(struct GenericProc * proc)
 
 static void MapFade_End(struct GenericProc * proc)
 {
-    func_fe6_0801809C();
+    ClearMapFadeUnits();
 
     if (proc->unk4E)
         UnlockGame();
 }
 
-void StartMapFade(bool locksGame)
+void StartMapFade(bool locks_game)
 {
     struct GenericProc * proc;
 
     proc = SpawnProc(ProcScr_MapFade, PROC_TREE_3);
-    proc->unk4E = locksGame;
+    proc->unk4E = locks_game;
 
-    if (locksGame)
+    if (locks_game)
         LockGame();
 }
 
@@ -749,7 +748,7 @@ static void InitPhaseCursor_Init(ProcPtr proc)
     }
 }
 
-static void func_fe6_0801C510(ProcPtr proc)
+static void ReturnFromStatScreen_Init(ProcPtr proc)
 {
     struct Unit * unit = GetUnit(GetLastStatScreenUnitId());
 
@@ -864,7 +863,7 @@ void SetFogVision(int vision)
     StartMapFade(TRUE);
 }
 
-void func_fe6_0801C700(struct Unit * actor, struct Unit * target)
+void BuildWarpDestinationMap(struct Unit * actor, struct Unit * target)
 {
     int ix, iy;
 
@@ -1066,15 +1065,15 @@ void EndEquipInfoWindow(void)
     Proc_EndEach(ProcScr_EquipInfoWindow);
 }
 
-static void func_fe6_0801CD60(struct UnkProc2 * proc)
+static void UnitPrepSwapAnim_Init(struct UnitPrepSwapAnimProc * proc)
 {
     int xd, yd, dist;
 
-    proc->unk_30 = proc->unit->x << 4;
-    proc->unk_32 = proc->unit->y << 4;
+    proc->x_from = proc->unit->x << 4;
+    proc->y_from = proc->unit->y << 4;
 
-    xd = proc->unk_34 - proc->unk_30;
-    yd = proc->unk_36 - proc->unk_32;
+    xd = proc->x_target - proc->x_from;
+    yd = proc->y_target - proc->y_from;
 
     dist = Sqrt(xd * xd + yd * yd);
 
@@ -1084,12 +1083,12 @@ static void func_fe6_0801CD60(struct UnkProc2 * proc)
     proc->unk_3C = 0;
 }
 
-static void func_fe6_0801CDE4(struct UnkProc2 * proc)
+static void UnitPrepSwapAnim_Loop(struct UnitPrepSwapAnimProc * proc)
 {
     int var = Interpolate(INTERPOLATE_LINEAR, 0, 1 << 16, proc->unk_3C, proc->unk_3E);
 
-    int xd = proc->unk_34 - proc->unk_30;
-    int yd = proc->unk_36 - proc->unk_32;
+    int xd = proc->x_target - proc->x_from;
+    int yd = proc->y_target - proc->y_from;
 
     int xunk = xd * SIN_Q12(var >> 9) / proc->unk_44;
     int yunk = yd * SIN_Q12(var >> 9) / proc->unk_44;
@@ -1097,8 +1096,8 @@ static void func_fe6_0801CDE4(struct UnkProc2 * proc)
     int x = ((xd * var) >> 16) + yunk;
     int y = ((yd * var) >> 16) - xunk;
 
-    x = x + proc->unk_30 - gBmSt.camera.x;
-    y = y + proc->unk_32 - gBmSt.camera.y;
+    x = x + proc->x_from - gBmSt.camera.x;
+    y = y + proc->y_from - gBmSt.camera.y;
 
     if ((x >= -16 && x <= DISPLAY_WIDTH) && (y >= -32 && y <= DISPLAY_HEIGHT))
     {
@@ -1112,25 +1111,25 @@ static void func_fe6_0801CDE4(struct UnkProc2 * proc)
         Proc_Break(proc);
 }
 
-static void func_fe6_0801CEE0(struct UnkProc2 * proc)
+static void UnitPrepSwapAnim_Cleanup(struct UnitPrepSwapAnimProc * proc)
 {
-    proc->unit->x = proc->unk_34 / 16;
-    proc->unit->y = proc->unk_36 / 16;
+    proc->unit->x = proc->x_target / 16;
+    proc->unit->y = proc->y_target / 16;
 
     RefreshEntityMaps();
     RefreshUnitSprites();
 }
 
-void func_fe6_0801CF10(ProcPtr parent, struct Unit * unit, int x, int y)
+void StartUnitPrepSwapAnim(ProcPtr parent, struct Unit * unit, int x, int y)
 {
-    struct UnkProc2 * proc;
+    struct UnitPrepSwapAnimProc * proc;
 
-    proc = SpawnProcLocking(ProcScr_Unk_085C59F8, parent);
+    proc = SpawnProcLocking(ProcScr_UnitPrepSwapAnim, parent);
 
     proc->unit = unit;
 
-    proc->unk_34 = x * 16;
-    proc->unk_36 = y * 16;
+    proc->x_target = x * 16;
+    proc->y_target = y * 16;
 
     HideUnitSprite(unit);
 }
@@ -1558,7 +1557,7 @@ void StartArrowTrapAnim(ProcPtr parent, int x)
 
 static void func_fe6_0801D8B8(struct ShowMapChangeProc * proc)
 {
-    struct MapChangeInfo const * info = GetMapChange(proc->mcId);
+    struct MapChangeInfo const * info = GetMapChange(proc->map_change_id);
 
     int x = info->x + info->width/2;
     int y = info->y + info->height/2;
@@ -1579,7 +1578,7 @@ static void func_fe6_0801D8E4(struct ShowMapChangeProc * proc)
 
     StartMapFade(FALSE);
 
-    if (proc->altSong)
+    if (proc->alt_song)
         song = SONG_BE;
     else
         song = SONG_BD;
@@ -1587,7 +1586,7 @@ static void func_fe6_0801D8E4(struct ShowMapChangeProc * proc)
     PlaySeSpacial(song, proc->sndx /* *16 + 8 */ - gBmSt.camera.x);
 }
 
-void func_fe6_0801D920(ProcPtr parent, int unused, int trapid)
+void StartTimedMapChangeAnim(ProcPtr parent, int unused, int trapid)
 {
     struct ShowMapChangeProc * proc;
     struct Trap * trap;
@@ -1598,11 +1597,11 @@ void func_fe6_0801D920(ProcPtr parent, int unused, int trapid)
     trap->extra ^= 1;
 
     if (trap->extra != 0)
-        proc->mcId = trap->y;
+        proc->map_change_id = trap->y;
     else
-        proc->mcId = trap->x;
+        proc->map_change_id = trap->x;
 
-    proc->altSong = trap->extra;
+    proc->alt_song = trap->extra;
 }
 
 static void PikeTrapSpriteAnim_Init(struct GenericProc * proc)
@@ -1617,7 +1616,7 @@ static void PikeTrapSpriteAnim_Init(struct GenericProc * proc)
     oam2 = OAM2_CHR(OBCHR_TRAPFX) | OAM2_PAL(OBPAL_TRAPFX) | OAM2_LAYER(1);
 
     StartSpriteAnimProc(SpriteAnim_PikeTrap, x, y, oam2, proc->unk4A, 0);
-    PlaySeSpacial(0xBB, x + 8);
+    PlaySeSpacial(SONG_BB, x + 8);
 }
 
 void StartPikeTrapAnim(ProcPtr parent, int x, int y, int facing)

@@ -899,7 +899,7 @@ void func_fe6_080753A0(struct UnitListScreenProc * proc)
     }
     else
     {
-        if (proc->unk_3C != 0 || !func_fe6_08079404(gSortedUnits[idx]->unit))
+        if (proc->unk_3C != 0 || !IsUnitMandatoryDeploy(gSortedUnits[idx]->unit))
         {
             gSortedUnits[idx]->unit->flags |= UNIT_FLAG_TURN_ENDED | UNIT_FLAG_NOT_DEPLOYED;
             func_fe6_080791DC(UNIT_PID(gSortedUnits[idx]->unit));
@@ -2177,7 +2177,7 @@ void func_fe6_08076448(struct UnitListScreenProc * proc, fu8 unit_num, u16 * tm,
         ClearText(&gUnk_0200D5BC[row]);
         Text_SetCursor(&gUnk_0200D5BC[row], 0);
 
-        if (proc->unk_3C == 0 && proc->mode == UNITLIST_MODE_PREPMENU && func_fe6_08079404(gSortedUnits[unit_num]->unit))
+        if (proc->unk_3C == 0 && proc->mode == UNITLIST_MODE_PREPMENU && IsUnitMandatoryDeploy(gSortedUnits[unit_num]->unit))
         {
             Text_SetColor(&gUnk_0200D5BC[row], TEXT_COLOR_SYSTEM_GREEN);
         }
@@ -2546,7 +2546,7 @@ bool SortUnitList(fu8 key, fu8 order)
     switch (key)
     {
         case UNITLIST_SORTKEY_1:
-            #define KEY_A(i) (gSortedUnits[(i)]->unit->pinfo->unk_0A)
+            #define KEY_A(i) (gSortedUnits[(i)]->unit->pinfo->sort_order_key)
             #define KEY_B(i) (gSortedUnits[(i)]->unit->flags & UNIT_FLAG_TURN_ENDED)
 
             SORT_MAIN(
@@ -2562,7 +2562,7 @@ bool SortUnitList(fu8 key, fu8 order)
             #undef KEY
 
         case UNITLIST_SORTKEY_2:
-            #define KEY(i) (gSortedUnits[(i)]->unit->jinfo->unk_0A)
+            #define KEY(i) (gSortedUnits[(i)]->unit->jinfo->sort_order_key)
             SORT_MAIN(SORT_CORE_KEY(KEY, <, SWAP), SORT_CORE_KEY(KEY, >, SWAP))
             #undef KEY
 

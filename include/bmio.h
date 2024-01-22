@@ -1,6 +1,7 @@
-#pragma once
+#ifndef BMIO_H
+#define BMIO_H
 
-#include "common.h"
+#include "prelude.h"
 
 void StartBmVSync(void);
 void EndBmVSync(void);
@@ -17,3 +18,5 @@ void SetWeather(int weather);
 
 extern struct ProcScr CONST_DATA ProcScr_BmVSync[];
 extern struct ProcScr CONST_DATA ProcScr_MapTask[];
+
+#endif // BMIO_H

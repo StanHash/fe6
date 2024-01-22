@@ -13,7 +13,9 @@
 
 struct AiDecision EWRAM_DATA gAiDecision = {};
 
-static Func CONST_DATA sAllDecideFuncs[] =
+void (* COMMON_DATA(AiDecideFunc) AiDecideFunc)(void) = NULL;
+
+static void (* CONST_DATA sAllDecideFuncs[])(void) =
 {
     AiDecideHealOrEscape,
     AiDecideScriptA,
@@ -22,7 +24,7 @@ static Func CONST_DATA sAllDecideFuncs[] =
     NULL, NULL,
 };
 
-static Func CONST_DATA sAllDecideFuncsUnused[] =
+static void (* CONST_DATA sAllDecideFuncsUnused[])(void) =
 {
     AiDecideSpecialItems,
     AiDecideScriptA,

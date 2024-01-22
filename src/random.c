@@ -1,9 +1,7 @@
-
 #include "random.h"
-#include "common.h"
 
 static u16 sRandStA[3];
-static int sRandStB;
+static i32 sRandStB;
 
 static int NextRN(void)
 {
@@ -34,7 +32,7 @@ void RandInit(int seed)
     // This table is a collection of 8 possible initial rn state
     // 3 entries will be picked based of which "seed" was given
 
-    SHOULD_BE_STATIC u16 SHOULD_BE_CONST initTable[] =
+    SHOULD_BE_STATIC u16 SHOULD_BE_CONST init_table[] =
     {
         0xA36E, 0x924E,
         0xB784, 0x4F67,
@@ -42,15 +40,15 @@ void RandInit(int seed)
         0x8E70, 0xA794,
     };
 
-    int i = seed % 7, burnAmt;
+    int i = seed % 7, burn_amount;
 
-    sRandStA[0] = initTable[i & 7]; i++;
-    sRandStA[1] = initTable[i & 7]; i++;
-    sRandStA[2] = initTable[i & 7];
+    sRandStA[0] = init_table[i & 7]; i++;
+    sRandStA[1] = init_table[i & 7]; i++;
+    sRandStA[2] = init_table[i & 7];
 
-    burnAmt = seed % 23;
+    burn_amount = seed % 23;
 
-    for (i = 0; i < burnAmt; i++)
+    for (i = 0; i < burn_amount; i++)
         NextRN();
 }
 
@@ -107,9 +105,9 @@ void RandInitB(int seed)
 }
 
 // The LCGRN state is advanced and retrieved here.
-unsigned RandNextB(void)
+u32 RandNextB(void)
 {
-    unsigned rand;
+    u32 rand;
 
     rand = (sRandStB << 2) + 2;
     rand = rand * (rand + 1);

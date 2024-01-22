@@ -1,6 +1,6 @@
 #include "m4a.h"
 
-#include "common.h"
+#include "prelude.h"
 
 #define MPLAY_JUMP_TABLE_FUNC(n) (*(gMPlayJumpTable + (n)))
 

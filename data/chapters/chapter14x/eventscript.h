@@ -1,6 +1,6 @@
 #pragma once
 
-struct UnkTrapEnt CONST_DATA gUnk_0867507C[26] =
+struct Chapter14xTimedMapChangeInfo CONST_DATA Chapter14xTimedMapChangeInfoList[26] =
 {
     {  1,  6 },
     {  5,  6 },
@@ -31,9 +31,9 @@ struct UnkTrapEnt CONST_DATA gUnk_0867507C[26] =
 };
 
 // EventScr @ 0867514C
-EventScr CONST_DATA EventScr_Unk_0867514C[] =
+EventScr CONST_DATA EventScr_Chapter14X_Opening[] =
 {
-    EvtFunc(func_fe6_0806D620)
+    EvtFunc(AddChapter14xTimedMapChanges)
     EvtCameraUnit(PID_UNKNOWN_B9)
     EvtFlashCursorUnit(PID_UNKNOWN_B9)
     EvtFadeToBlack(16)
@@ -60,7 +60,7 @@ EventScr CONST_DATA EventScr_Unk_0867514C[] =
 };
 
 // EventScr @ 086751E8
-EventScr CONST_DATA EventScr_Unk_086751E8[] =
+EventScr CONST_DATA EventScr_Chapter14X_Victory[] =
 {
     EvtSetBgm(SONG_26)
     EvtGotoIfNotFunc(5, IsSophiaBlue)

@@ -1,6 +1,4 @@
-
 #include "faction.h"
-#include "common.h"
 
 #include "bm.h"
 #include "unit.h"

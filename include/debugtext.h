@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void DebugInitBg(int bg, int vramOffset);
 void DebugPutStr(u16 * tm, char const * str);

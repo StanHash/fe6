@@ -1,7 +1,7 @@
 #ifndef FACE_H
 #define FACE_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 

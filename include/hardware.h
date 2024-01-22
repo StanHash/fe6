@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 #include "gbaio.h"
 
 enum

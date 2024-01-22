@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void RegisterDataMove(void const * src, void * dst, int size);
 void RegisterDataFill(u32 value, void * dst, int size);

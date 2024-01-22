@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 #define MAX_CLEARED_PLAYTHROUGHS 12
 

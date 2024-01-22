@@ -104,9 +104,10 @@ enum
     SONG_B6 = 0xB6,
     SONG_B7 = 0xB7, // manim poison
     SONG_BA = 0xBA,
+    SONG_BB = 0xBB,
     SONG_BC = 0xBC,
-    SONG_BD = 0xBD,
-    SONG_BE = 0xBE,
+    SONG_BD = 0xBD, // chapter 14x timed map change sound A
+    SONG_BE = 0xBE, // chapter 14x timed map change sound B
     SONG_BF = 0xBF,
     SONG_C4 = 0xC4,
     SONG_C6 = 0xC6,

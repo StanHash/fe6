@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "sound.h"
 
 #include "proc.h"

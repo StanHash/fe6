@@ -1,6 +1,7 @@
-#pragma once
+#ifndef AI_DECIDE_H
+#define AI_DECIDE_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 #include "ai.h"
@@ -47,6 +48,8 @@ void AiDecideScriptB(void);
 
 extern struct AiDecision EWRAM_DATA gAiDecision;
 
-extern Func AiDecideFunc;
+extern void (*AiDecideFunc)(void);
 
 extern struct ProcScr CONST_DATA ProcScr_AiDecide[];
+
+#endif // AI_DECIDE_H

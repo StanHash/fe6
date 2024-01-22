@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void GenMovePathFromMoveScript(void);
 void GenMoveScriptFromMovePath(void);

@@ -3254,7 +3254,7 @@ func_fe6_0807C5B8: @ 0x0807C5B8
 	cmp r0, #0
 	bne .L0807C72E
 	adds r0, r2, #0
-	bl func_fe6_08079404
+	bl IsUnitMandatoryDeploy
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	bne .L0807C788

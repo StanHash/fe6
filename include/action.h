@@ -1,7 +1,9 @@
-#pragma once
+#ifndef ACTION_H
+#define ACTION_H
 
-#include "common.h"
+#include "prelude.h"
 
+// valid IDs for Action::id
 enum
 {
     ACTION_NONE,
@@ -34,6 +36,7 @@ enum
     ACTION_1C = 0x1C,
 };
 
+// valid values for Action::suspend_point
 enum
 {
     SUSPEND_POINT_PLAYER_PHASE,
@@ -71,7 +74,9 @@ bool DoAction(ProcPtr proc);
 
 void DropRescueOnDeath(ProcPtr parent, struct Unit * unit);
 void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent);
-void func_fe6_0802A6B4(struct Unit * unit);
+void KillUnitOnArenaDeath(struct Unit * unit);
 void func_fe6_0802A7F4(void);
 
 extern struct ProcScr CONST_DATA ProcScr_CombatAction[];
+
+#endif // ACTION_H

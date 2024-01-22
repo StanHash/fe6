@@ -31,140 +31,7 @@ static void ArenaGenMatchupGoldValue(void);
 struct ArenaSt EWRAM_DATA gArenaSt = {};
 struct Unit EWRAM_DATA gArenaOpponent = {};
 
-u8 CONST_DATA JList_MeleeArena[] =
-{
-    JID_MERCENARY,
-    JID_HERO,
-    JID_MYRMIDON,
-    JID_SWORDMASTER,
-    JID_FIGHTER,
-    JID_WARRIOR,
-    JID_ARMOR,
-    JID_GENERAL,
-    JID_BISHOP,
-    JID_MAGE,
-    JID_SAGE,
-    JID_SHAMAN,
-    JID_DRUID,
-    JID_CAVALIER,
-    JID_PALADIN,
-    JID_VALKYRIE,
-    JID_PEGASUSKNIGHT,
-    JID_FALCONKNIGHT,
-    JID_WYVERNRIDER,
-    JID_WYVERNLORD,
-    JID_SOLDIER,
-    JID_BRIGAND,
-    JID_PIRATE,
-    JID_BERSERKER,
-    JID_MERCENARY,
-    JID_MYRMIDON,
-    JID_FIGHTER,
-    JID_ARMOR,
-    JID_MAGE,
-    JID_SHAMAN,
-    JID_CAVALIER,
-    JID_PEGASUSKNIGHT,
-    JID_WYVERNRIDER,
-    JID_BRIGAND,
-    JID_PIRATE,
-    JID_SOLDIER,
-    JID_SOLDIER,
-
-    0 // end
-};
-
-u8 CONST_DATA JList_MagicArena[] =
-{
-    JID_MERCENARY,
-    JID_HERO,
-    JID_MYRMIDON,
-    JID_SWORDMASTER,
-    JID_FIGHTER,
-    JID_WARRIOR,
-    JID_ARMOR,
-    JID_GENERAL,
-    JID_ARCHER,
-    JID_SNIPER,
-    JID_BISHOP,
-    JID_MAGE,
-    JID_SAGE,
-    JID_SHAMAN,
-    JID_DRUID,
-    JID_CAVALIER,
-    JID_PALADIN,
-    JID_VALKYRIE,
-    JID_NOMAD,
-    JID_NOMADTROOPER,
-    JID_PEGASUSKNIGHT,
-    JID_FALCONKNIGHT,
-    JID_WYVERNRIDER,
-    JID_WYVERNLORD,
-    JID_SOLDIER,
-    JID_BRIGAND,
-    JID_PIRATE,
-    JID_BERSERKER,
-    JID_THIEF,
-    JID_MERCENARY,
-    JID_MYRMIDON,
-    JID_FIGHTER,
-    JID_ARMOR,
-    JID_ARCHER,
-    JID_MAGE,
-    JID_SHAMAN,
-    JID_CAVALIER,
-    JID_NOMAD,
-    JID_PEGASUSKNIGHT,
-    JID_WYVERNRIDER,
-    JID_SOLDIER,
-    JID_SOLDIER,
-
-    0 // end
-};
-
-u8 CONST_DATA JList_RangedArena[] =
-{
-    JID_ARCHER,
-    JID_SNIPER,
-    JID_BISHOP,
-    JID_MAGE,
-    JID_SAGE,
-    JID_SHAMAN,
-    JID_DRUID,
-    JID_VALKYRIE,
-    JID_NOMAD,
-    JID_NOMADTROOPER,
-
-    0 // end
-};
-
-u8 CONST_DATA JList_UnusedArena[] =
-{
-    JID_MERCENARY,
-    JID_MYRMIDON,
-    JID_SWORDMASTER,
-    JID_FIGHTER,
-    JID_WARRIOR,
-    JID_BISHOP,
-    JID_MAGE,
-    JID_SAGE,
-    JID_SHAMAN,
-    JID_DRUID,
-    JID_CAVALIER,
-    JID_VALKYRIE,
-    JID_PEGASUSKNIGHT,
-    JID_WYVERNRIDER,
-    JID_SOLDIER,
-    JID_BRIGAND,
-    JID_PIRATE,
-    JID_BERSERKER,
-    JID_THIEF,
-    JID_FIGHTER,
-    JID_FIGHTER,
-    JID_THIEF,
-
-    0 // end
-};
+#include "data/arena_jids.h"
 
 static void ArenaBeginInternal(struct Unit * unit)
 {
@@ -295,9 +162,9 @@ static int ArenaGenOpposingJid(int weapon_kind)
     promoteflag = UNIT_ATTRIBUTES(gArenaSt.player) & UNIT_ATTR_PROMOTED;
 
     // Iterating through the list is done by skipping jobs that aren't of the same tier as the player's jinfo
-    // Therefore we are working with a "sudo-list" that omits the skipped jobs
+    // Therefore we are working with a logical sub-list that omits the skipped jobs
 
-    // First, we iterate through this "sudo-list" once to count the number of jobs it contains.
+    // First, we iterate through this logical sub-list once to count the number of jobs it contains.
 
     for (i = 0; joblist[i] != 0; ++i)
     {
@@ -307,11 +174,11 @@ static int ArenaGenOpposingJid(int weapon_kind)
         ++jobcount;
     }
 
-    // We then choose one of the jobs in the "sudo-list" randomly
+    // We then choose one of the jobs in the sub-list randomly
 
     jobnum = RandNext(jobcount);
 
-    // Then, since we can't access elements of that "sudo-list" via indexes directly, we need to iterate again
+    // Then, since we can't access elements of that sub-list via indexes directly, we need to iterate again
     // This time, we count up to jobnum and when we reach that we have the jinfo we want
 
     for (i = 0, jobcount = 0; TRUE; ++i)

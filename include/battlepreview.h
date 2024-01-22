@@ -1,6 +1,7 @@
-#pragma once
+#ifndef BATTLE_PREVIEW_H
+#define BATTLE_PREVIEW_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 #include "helpbox.h"
@@ -14,3 +15,5 @@ void HelpBoxPopulateBattlePreviewAdvantageA(struct HelpBoxProc * proc);
 void HelpBoxPopulateBattlePreviewAdvantageB(struct HelpBoxProc * proc);
 
 extern struct ProcScr CONST_DATA ProcScr_BattlePreview[];
+
+#endif // BATTLE_PREVIEW_H

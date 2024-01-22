@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 enum
 {
@@ -18,7 +18,7 @@ enum
     TRAP_MAPCHANGE = 5,
     TRAP_FIRE = 6,
     TRAP_GAS = 7,
-    TRAP_8 = 8,
+    TRAP_TIMEDMAPCHANGE = 8,
     TRAP_LIGHTARROW = 9,
     TRAP_STEP_FIRE = 10,
     TRAP_STEP_PIKE = 11,
@@ -45,11 +45,11 @@ void InitTraps(void);
 struct Trap * GetTrap(int id);
 struct Trap * GetTrapAt(int x, int y);
 struct Trap * AddTrap(int x, int y, int kind, int extra);
-struct Trap * AddDamagingTrap(int x, int y, int kind, int extra, int turnCountdown, int turnInterval, int damage);
-void AddFireTrap(int x, int y, int turnCountdown, int turnInterval);
-void AddGasTrap(int x, int y, int facing, int turnCountdown, int turnInterval);
-void AddArrowTrap(int x, int turnCountdown, int turnInterval);
-void func_fe6_08026BA4(int x, int y, int turnCountdown, int turnInterval);
+struct Trap * AddTimedTrap(int x, int y, int kind, int extra, int turn_delay_init, int turn_interval, int damage);
+void AddFireTrap(int x, int y, int turn_delay_init, int turn_interval);
+void AddGasTrap(int x, int y, int facing, int turn_delay_init, int turn_interval);
+void AddArrowTrap(int x, int turn_delay_init, int turn_interval);
+void AddTimedMapChange(int off_id, int on_id, int turn_delay_init, int turn_interval);
 void AddStepFireTrap(int x, int y);
 void AddStepPikeTrap(int x, int y, int facing);
 void InitMapTraps(void);

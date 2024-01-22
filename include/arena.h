@@ -1,6 +1,7 @@
-#pragma once
+#ifndef ARENA_H
+#define ARENA_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "unit.h"
 
@@ -44,3 +45,5 @@ void ArenaContinueBattle(void);
 bool ArenaIsUnitAllowed(struct Unit * unit);
 
 extern struct ArenaSt gArenaSt;
+
+#endif // ARENA_H

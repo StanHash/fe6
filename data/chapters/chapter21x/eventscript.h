@@ -13,7 +13,7 @@ u32 CONST_DATA gUnk_08675B90[6] =
 // EventScr @ 08675B90
 EventScr CONST_DATA EventScr_Unk_08675BA8[] =
 {
-    EvtFunc(func_fe6_0806D6D8)
+    EvtFunc(AddChapter21xStepTraps)
     EvtFunc(func_fe6_0806D77C)
     EvtCamera(15, 1)
     EvtFlashCursor(15, 1)

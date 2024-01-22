@@ -81,7 +81,7 @@ PROC_LABEL(L_PLAYERPHASE_MOVE),
 
     PROC_WHILE(IsMapFadeActive),
 
-    PROC_CALL(func_fe6_0801809C),
+    PROC_CALL(ClearMapFadeUnits),
     PROC_CALL(RefreshUnitSprites),
 
     PROC_CALL(PlayerPhase_BeginMoveSelect),
@@ -105,7 +105,7 @@ PROC_LABEL(L_PLAYERPHASE_ACTION),
     PROC_CALL_2(DoAction),
     PROC_CALL_2(DoHandleStepTraps),
 
-    PROC_CALL_2(PlayerPhase_0801B9B0),
+    PROC_CALL_2(StartAvailableMoveEvents),
     PROC_CALL_2(PlayerPhase_WatchActiveUnit),
 
     PROC_CALL(PlayerPhase_FinishAction),
@@ -123,7 +123,7 @@ PROC_LABEL(L_PLAYERPHASE_5),
     // fallthrough
 
 PROC_LABEL(L_PLAYERPHASE_10),
-    PROC_START_CHILD_LOCKING(ProcScr_Unk_085C5988),
+    PROC_START_CHILD_LOCKING(ProcScr_ReturnFromStatScreen),
 
     PROC_GOTO(L_PLAYERPHASE_IDLE),
 
@@ -354,7 +354,7 @@ void DisplayUnitActionRange(struct Unit * unit)
 
     if (!(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
     {
-        switch (func_fe6_08018258(gActiveUnit))
+        switch (GetUnitUseBits(gActiveUnit))
         {
 
         case 0:
@@ -408,7 +408,7 @@ static void PlayerPhase_BeginMoveSelect(ProcPtr proc)
 
     StartAvailableMoveSelectEvent();
 
-    gBmSt.flags |= BM_FLAG_1;
+    gBmSt.flags |= BM_FLAG_LIMITCURSOR;
 
     DisplayUnitActionRange(gActiveUnit);
 
@@ -427,7 +427,7 @@ void PlayerPhase_BeginSeeActionRange(ProcPtr proc)
 {
     PlaySe(SONG_68);
 
-    gBmSt.flags &= ~BM_FLAG_1;
+    gBmSt.flags &= ~BM_FLAG_LIMITCURSOR;
     DisplayUnitActionRange(gActiveUnit);
 }
 
@@ -459,7 +459,7 @@ void PlayerPhase_MoveSelectLoop(ProcPtr proc)
         {
             if (GetPlayerSelectKind(gActiveUnit) != PLAYER_SELECT_CONTROL && !(gActiveUnit->flags & UNIT_FLAG_HAD_ACTION))
             {
-                if (func_fe6_08018258(gActiveUnit) == (UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF))
+                if (GetUnitUseBits(gActiveUnit) == (UNIT_USEBIT_WEAPON | UNIT_USEBIT_STAFF))
                     act = ACT_SWAP_RANGES;
                 else
                     act = ACT_CANCEL;
@@ -693,7 +693,7 @@ static bool PlayerPhase_AttemptReMove(ProcPtr proc)
     return TRUE;
 }
 
-bool PlayerPhase_0801B9B0(ProcPtr proc)
+bool StartAvailableMoveEvents(ProcPtr proc)
 {
     if (CheckAvailableMoveEvent())
     {
@@ -799,7 +799,7 @@ int GetPlayerSelectKind(struct Unit * unit)
     if (!unit)
         return PLAYER_SELECT_NOUNIT;
 
-    if (gBmSt.flags & BM_FLAG_4)
+    if (gBmSt.flags & BM_FLAG_PREP)
     {
         if (unit->pinfo->id == PID_ROY)
             return PLAYER_SELECT_4;
@@ -877,7 +877,7 @@ static void OpenLimitView_Init(struct GenericProc * proc)
 {
     RegisterVramMove(Img_LimitViewSquares + 5 * 4 * CHR_SIZE, CHR_SIZE * (BGCHR_LIMITVIEW + 4), CHR_SIZE * 4);
 
-    if (!(gBmSt.flags & BM_FLAG_0))
+    if (!(gBmSt.flags & BM_FLAG_LIMITVIEW))
     {
         proc->unk4C = 2;
     }
@@ -904,7 +904,7 @@ static void LimitView_Init(struct GenericProc * proc)
 
     SetWinEnable(0, 0, 0);
 
-    gBmSt.flags |= BM_FLAG_0;
+    gBmSt.flags |= BM_FLAG_LIMITVIEW;
 
     RenderMap();
 
@@ -964,7 +964,7 @@ void LimitView_Deinit(struct GenericProc * proc)
 
     SetBlendConfig(0, 0, 0, 0);
 
-    gBmSt.flags &= ~(BM_FLAG_1 | BM_FLAG_0);
+    gBmSt.flags &= ~(BM_FLAG_LIMITCURSOR | BM_FLAG_LIMITVIEW);
 
     InitBmBgLayers();
 }

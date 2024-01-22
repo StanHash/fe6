@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 #include "unit.h"
@@ -46,7 +46,7 @@ void TrySwitchViewedUnit(int x, int y);
 
 void PlayerPhase_BeginSeeActionRange(ProcPtr proc);
 void PlayerPhase_MoveSelectLoop(ProcPtr proc);
-bool PlayerPhase_0801B9B0(ProcPtr proc);
+bool StartAvailableMoveEvents(ProcPtr proc);
 void PlayerPhase_0801BC84(ProcPtr proc);
 
 extern struct ProcScr CONST_DATA ProcScr_PlayerPhase[];

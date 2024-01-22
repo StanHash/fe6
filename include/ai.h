@@ -1,6 +1,7 @@
-#pragma once
+#ifndef AI_H
+#define AI_H
 
-#include "common.h"
+#include "prelude.h"
 
 enum
 {
@@ -128,7 +129,7 @@ struct AiSt
     /* 7B */ u8 flags;
     /* 7C */ u8 maximum_heal_percent;
     /* 7D */ u8 combat_wgt_table_id;
-    /* 7E */ u8 unk_7E;
+    /* 7E */ u8 danger_threshold;
     /* 7F */ u8 unk_7F;
     /* 80 */ u32 special_item_flags;
     /* 84 */ u8 unk_84;
@@ -137,3 +138,5 @@ struct AiSt
 };
 
 extern struct AiSt EWRAM_DATA gAiSt;
+
+#endif // AI_H

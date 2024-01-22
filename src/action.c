@@ -62,8 +62,8 @@ void CombatAction_MaybeSkipPostBanimDeathFades(struct GenericProc * proc);
 void CombatAction_PostBanimDeathFades(struct GenericProc * proc);
 void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc);
 void CombatAction_DoHandleDeaths(struct GenericProc * proc);
-void CombatAction_0802A814(struct GenericProc * proc);
-void CombatAction_0802A840(struct GenericProc * proc);
+void ArenaAction_MaybeSkipDeathFades(struct GenericProc * proc);
+void ArenaAction_DoHandleDeaths(struct GenericProc * proc);
 
 struct ProcScr CONST_DATA ProcScr_CombatAction[] =
 {
@@ -88,11 +88,11 @@ PROC_LABEL(1),
     PROC_END,
 };
 
-struct ProcScr CONST_DATA ProcScr_085C7DC4[] =
+struct ProcScr CONST_DATA ProcScr_ArenaAction[] =
 {
     PROC_SLEEP(0),
 
-    PROC_CALL(CombatAction_0802A814),
+    PROC_CALL(ArenaAction_MaybeSkipDeathFades),
     PROC_CALL(CombatAction_PostBanimDeathFades),
 
     PROC_SLEEP(32),
@@ -100,7 +100,7 @@ struct ProcScr CONST_DATA ProcScr_085C7DC4[] =
     PROC_CALL(CombatAction_PostBanimDeathFadesEnd),
 
 PROC_LABEL(1),
-    PROC_CALL(CombatAction_0802A840),
+    PROC_CALL(ArenaAction_DoHandleDeaths),
     PROC_SLEEP(0),
 
     PROC_END,
@@ -180,7 +180,7 @@ bool DoRescueAction(ProcPtr proc)
     struct Unit * instigator = GetUnit(gAction.instigator);
     struct Unit * target = GetUnit(gAction.target);
 
-    StartRescueTransferAnim(target, func_fe6_0801C160(instigator->x, instigator->y, target->x, target->y), FALSE, proc);
+    StartRescueTransferAnim(target, GetRescueTransferFacing(instigator->x, instigator->y, target->x, target->y), FALSE, proc);
     UnitRescue(instigator, target);
     HideUnitSprite(target);
 
@@ -203,7 +203,7 @@ bool DoRescueDropAction(ProcPtr proc)
 
     UnitSyncMovement(GetUnit(gAction.instigator));
 
-    StartRescueTransferAnim(target, func_fe6_0801C160(gAction.x_target, gAction.y_target, target->x, target->y), TRUE, proc);
+    StartRescueTransferAnim(target, GetRescueTransferFacing(gAction.x_target, gAction.y_target, target->x, target->y), TRUE, proc);
     UnitDropRescue(GetUnit(gAction.instigator), gAction.x_target, gAction.y_target);
 
     return FALSE;
@@ -219,11 +219,11 @@ bool DoVisitAction(ProcPtr proc)
     return FALSE;
 }
 
-void func_fe6_0802A234(ProcPtr proc, struct Unit * unitA, struct Unit * unitB)
+void func_fe6_0802A234(ProcPtr proc, struct Unit * unit_a, struct Unit * unit_b)
 {
-    struct Unit * rescue = GetUnit(unitA->rescue);
+    struct Unit * rescue = GetUnit(unit_a->rescue);
 
-    StartRescueTransferAnim(rescue, func_fe6_0801C160(unitB->x, unitB->y, unitA->x, unitA->y), FALSE, proc);
+    StartRescueTransferAnim(rescue, GetRescueTransferFacing(unit_b->x, unit_b->y, unit_a->x, unit_a->y), FALSE, proc);
 }
 
 bool func_fe6_0802A274(ProcPtr proc)
@@ -265,7 +265,7 @@ bool DoCombatAction(ProcPtr proc)
 
 bool func_fe6_0802A35C(ProcPtr proc)
 {
-    SpawnProcLocking(ProcScr_085C7DC4, proc);
+    SpawnProcLocking(ProcScr_ArenaAction, proc);
     return FALSE;
 }
 
@@ -411,12 +411,12 @@ void KillUnitOnCombatDeath(struct Unit * unit, struct Unit * opponent)
     }
 }
 
-void func_fe6_0802A6B4(struct Unit * unit)
+void KillUnitOnArenaDeath(struct Unit * unit)
 {
     if (GetUnitCurrentHp(unit) == 0)
     {
         KillUnit(unit);
-        PidStatsSetDefeatInfo(unit->pinfo->id, 0, DEFEAT_CAUSE_6);
+        PidStatsSetDefeatInfo(unit->pinfo->id, 0, DEFEAT_CAUSE_ARENA);
     }
 }
 
@@ -463,14 +463,14 @@ void CombatAction_PostBanimDeathFadesEnd(struct GenericProc * proc)
 
 void CombatAction_DoHandleDeaths(struct GenericProc * proc)
 {
-    struct Unit * unitA = GetUnit(gBattleUnitA.unit.id);
-    struct Unit * unitB = GetUnit(gBattleUnitB.unit.id);
+    struct Unit * unit_a = GetUnit(gBattleUnitA.unit.id);
+    struct Unit * unit_b = GetUnit(gBattleUnitB.unit.id);
 
-    DropRescueOnDeath(proc, unitA);
-    DropRescueOnDeath(proc, unitB);
+    DropRescueOnDeath(proc, unit_a);
+    DropRescueOnDeath(proc, unit_b);
 
-    KillUnitOnCombatDeath(unitA, unitB);
-    KillUnitOnCombatDeath(unitB, unitA);
+    KillUnitOnCombatDeath(unit_a, unit_b);
+    KillUnitOnCombatDeath(unit_b, unit_a);
 }
 
 void func_fe6_0802A7F4(void)
@@ -481,16 +481,17 @@ void func_fe6_0802A7F4(void)
         StartBgmExt(song, 6, NULL);
 }
 
-void CombatAction_0802A814(struct GenericProc * proc)
+void ArenaAction_MaybeSkipDeathFades(struct GenericProc * proc)
 {
+    // prevent playing any animations for battler B (which would be the arena opponent, not on the map)
     gBattleUnitB.unit.hp = 1;
 
     if (gBattleUnitA.unit.hp != 0)
         Proc_Goto(proc, 1);
 }
 
-void CombatAction_0802A840(struct GenericProc * proc)
+void ArenaAction_DoHandleDeaths(struct GenericProc * proc)
 {
-    func_fe6_0802A6B4(gActiveUnit);
+    KillUnitOnArenaDeath(gActiveUnit);
     DropRescueOnDeath(proc, gActiveUnit);
 }

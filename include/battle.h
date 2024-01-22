@@ -1,23 +1,24 @@
-#pragma once
+#ifndef BATTLE_H
+#define BATTLE_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "unit.h"
 
+// Flag values for BattleSt::flags
 enum
 {
-    // For use with BattleSt::flags
-
     BATTLE_FLAG_REAL = (1 << 0),
     BATTLE_FLAG_SIMULATE = (1 << 1),
-    BATTLE_FLAG_BIT2 = (1 << 2),
+    BATTLE_FLAG_STATSONLY = (1 << 2),
     BATTLE_FLAG_BALLISTA = (1 << 3),
-    BATTLE_FLAG_BIT4 = (1 << 4),
+    BATTLE_FLAG_PROMOTE = (1 << 4),
     BATTLE_FLAG_ARENA = (1 << 5),
     BATTLE_FLAG_REFRESH = (1 << 6),
     BATTLE_FLAG_MAPANIMS = (1 << 7),
 };
 
+// BattleHit::attributes
 enum
 {
     BATTLE_HIT_ATTR_CRIT      = (1 << 0),
@@ -30,9 +31,10 @@ enum
     BATTLE_HIT_ATTR_DEVIL     = (1 << 7),
     BATTLE_HIT_ATTR_HPSTEAL   = (1 << 8),
     BATTLE_HIT_ATTR_ECLIPSE   = (1 << 9),
-    BATTLE_HIT_ATTR_TATTACK   = (1 << 10), // triangle attack!
+    BATTLE_HIT_ATTR_TRIANGLE_ATTACK = (1 << 10),
 };
 
+// BattleHit::info
 enum
 {
     #define BATTLE_HIT_INFO_ACTOR(n) ((n) << 3)
@@ -53,8 +55,8 @@ struct BattleSt
     /* 06 */ i16 defense;
     /* 08 */ i16 hit;
     /* 0A */ i16 crit;
-    /* 0C */ struct Unit * ta_unit_a;
-    /* 10 */ struct Unit * ta_unit_b;
+    /* 0C */ struct Unit * extra_unit_a;
+    /* 10 */ struct Unit * extra_unit_b;
 };
 
 struct BattleUnit
@@ -105,7 +107,6 @@ struct BattleUnit
     /* 77 */ i8 wexp_gain;
     /* 78 */ bool8 dealt_damage;
     /* 79 */ bool8 weapon_broke;
-
     /* 7A */ bool8 has_item_effect_target;
     /* 7B */ /* pad */
 };
@@ -217,3 +218,5 @@ extern struct BattleHit gBattleHits[];
 extern struct BattleHit * gBattleHitIt;
 
 #define CanBattleUnitGainExp(bu) ((bu)->unit.exp != 0xFF)
+
+#endif // BATTLE_H
