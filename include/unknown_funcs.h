@@ -431,51 +431,6 @@ void func_fe6_0803C080(ProcPtr parent);
 // func_fe6_08041200
 // func_fe6_08041210
 
-// func_fe6_0805E59C
-// func_fe6_0805E7A0
-// func_fe6_0805E7D8
-// func_fe6_0805E890
-// func_fe6_0805E91C
-// func_fe6_0805E964
-// func_fe6_0805EA10
-// func_fe6_0805EA38
-// func_fe6_0805EA70
-// func_fe6_0805EB40
-// func_fe6_0805ECC4
-// func_fe6_0805ED1C
-// func_fe6_0805EE2C
-// func_fe6_0805EE74
-// func_fe6_0805EE9C
-// func_fe6_0805EED4
-// func_fe6_0805F078
-// func_fe6_0805F098
-// func_fe6_0805F0DC
-// func_fe6_0805F100
-// func_fe6_0805F148
-// func_fe6_0805F15C
-// func_fe6_0805F178
-// func_fe6_0805F188
-// func_fe6_0805F198
-// func_fe6_0805F27C
-// func_fe6_0805F498
-// func_fe6_0805F57C
-// func_fe6_0805F598
-// func_fe6_0805F5C0
-// func_fe6_0805F5F8
-// func_fe6_0805F620
-// func_fe6_0805F658
-// func_fe6_0805F680
-// func_fe6_0805F6B8
-// func_fe6_0805F6E0
-// func_fe6_0805F71C
-// func_fe6_0805F74C
-// func_fe6_0805F750
-u8 GetWeaponAnimActorCount(int item);
-// func_fe6_0805F794
-struct ProcScr const * GetWeaponAnimManimSpecialScr(int item); // fu16?
-fu8 func_fe6_0805F7B4(int item); // fu16?
-fu8 GetItemMaFacing(int item); // fu16?
-fu8 func_fe6_0805F7D4(int item); // fu16?
 
 // func_fe6_080791A0
 void func_fe6_080791B4(fu8 pid);

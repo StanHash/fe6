@@ -21,14 +21,117 @@ extern struct BaSprite * gAnims[4];
 #define MAIN_ANIM_FRONT(pos) (gAnims[pos * 2 + 0])
 #define MAIN_ANIM_BACK(pos)  (gAnims[pos * 2 + 1])
 
+#define EFX_BG_WIDTH 66
+#define EFX_TILEMAP_LOC(aMap, aX, aY) (aMap + (aX) + EFX_BG_WIDTH * (aY))
+
+struct ProcEfx {
+    PROC_HEADER;
+
+    /* 29 */ u8 hitted;
+    /* 2A */ u8 type;
+    /* 2B */ STRUCT_PAD(0x2B, 0x2C);
+    /* 2C */ i16 timer;
+    /* 2E */ i16 unk2E;
+    /* 30 */ i16 unk30;
+    /* 32 */ u16 unk32;
+    /* 34 */ STRUCT_PAD(0x34, 0x44);
+    /* 44 */ u32 unk44;
+    /* 48 */ u32 unk48;
+    /* 4C */ u32 unk4C;
+    /* 50 */ u32 unk50;
+    /* 54 */ i16 * unk54;
+    /* 58 */ i16 ** unk58;
+    /* 5C */ struct  BaSprite * anim;
+    STRUCT_PAD(0x60, 0x64);
+    ProcPtr unk_64;
+};
+
+struct ProcEfxBG {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    STRUCT_PAD(0x2A, 0x2C);
+    /* 2C */ i16 timer;
+    /* 2E */ i16 terminator;
+    /* 30 */ i16 unk30;
+    /* 32 */ i16 unk32;
+    /* 34 */ i16 unk34;
+    STRUCT_PAD(0x36, 0x3C);
+    /* 3C */ i16 unk3C;
+    STRUCT_PAD(0x3E, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ u16 ** tsal;
+    /* 50 */ u16 ** tsar;
+    /* 54 */ u16 ** img;
+    /* 58 */ u16 ** pal;
+    /* 5C */ struct  BaSprite * anim;
+};
+
+struct ProcEfxBGCOL {
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ i16 timer;
+    /* 2E */ i16 timer2;
+    /* 30 */ i16 terminator;
+    /* 32 */ i16 unk32;
+    STRUCT_PAD(0x34, 0x44);
+    /* 44 */ u32 frame;
+    /* 48 */ const u16 * frame_config;
+    /* 4C */ void * pal;
+    STRUCT_PAD(0x50, 0x5C);
+    /* 5C */ struct  BaSprite * anim;
+};
+
+struct ProcEfxRST
+{
+    PROC_HEADER;
+
+    STRUCT_PAD(0x29, 0x2C);
+    /* 2C */ i16 timer;
+    /* 2E */ i16 unk2E;
+    /* 30 */ i16 unk30;
+    STRUCT_PAD(0x32, 0x5C);
+    /* 5C */ struct  BaSprite * anim;
+    STRUCT_PAD(0x60, 0x64);
+    /* 64 */ ProcPtr unk64;
+};
+
+struct ProcEfxOBJ {
+    PROC_HEADER;
+
+    /* 29 */ u8 unk29;
+    /* 2A */ u8 unk2A;
+    STRUCT_PAD(0x2B, 0x2C);
+    /* 2C */ i16 timer;
+    /* 2E */ i16 terminator;
+    /* 30 */ u16 unk30;
+    /* 32 */ u16 unk32;
+    /* 34 */ u16 unk34;
+    /* 36 */ u16 unk36;
+    /* 38 */ u16 unk38;
+    /* 3A */ u16 unk3A;
+    /* 3C */ u16 unk3C;
+    /* 3E */ u16 unk3E;
+    /* 40 */ u16 unk40;
+    /* 42 */ u16 unk42;
+    /* 44 */ int unk44;
+    /* 48 */ int unk48;
+    /* 4C */ int unk4C;
+    STRUCT_PAD(0x50, 0x5C);
+    /* 5C */ struct  BaSprite * anim;
+    /* 60 */ struct  BaSprite * anim2;
+    /* 64 */ struct  BaSprite * anim3;
+    /* 68 */ struct  BaSprite * anim4;
+};
+
 extern int gEkrDebugTimer;
 extern int gEkrDebugFlag1;
 extern int gEkrDebugFlag2;
 extern int gAnimC01Blocking;
 extern struct Vec2i gEkrBg0QuakeVec;
 extern i16 gEkrDebugModeMaybe;
-extern struct ProcScr ProcScr_EkrBattleDeamon[];
-extern struct ProcScr ProcScr_EkrBattle[];
 extern u32 gEkrBattleEndFlag;
 extern u32 gBanimDoneFlag[2];
 extern u8 gEkrPids[2];
@@ -47,6 +150,8 @@ extern u32 gEkrDeadEventExist;
 extern u16 gEkrBarfxBuf[];
 extern i16 gEkrPairExpPrevious[2];
 
+void NewEkrLvlupFan(void);
+void EkrLvupFanMain(struct ProcEfx * proc);
 // func_fe6_080435EC
 // EkrGaugeModDec
 // NewEkrGauge
@@ -144,7 +249,7 @@ void NewEfxFarAttackWithDistance(struct BaSprite * anim, int);
 // func_fe6_080469B4
 // func_fe6_08046A0C
 void NewEfxHPBarColorChange(struct BaSprite * anim);
-// func_fe6_08046B48
+void EndEfxHPBarColorChange(void);
 // func_fe6_08046B5C
 // func_fe6_08046B6C
 // func_fe6_08046B7C
@@ -152,7 +257,7 @@ void NewEfxHPBarColorChange(struct BaSprite * anim);
 // func_fe6_08046C50
 // func_fe6_08046D04
 void NewEfxStatusUnit(struct BaSprite * anim);
-// func_fe6_08046E9C
+void EndEfxStatusUnits(struct BaSprite *anim);
 void DisableEfxStatusUnits(struct BaSprite * anim);
 // func_fe6_08046EF8
 // func_fe6_08046F18
@@ -161,7 +266,7 @@ void DisableEfxStatusUnits(struct BaSprite * anim);
 // func_fe6_08047058
 // func_fe6_08047160
 void NewEfxWeaponIcon(i16 eff1, i16 eff2);
-// func_fe6_0804722C
+void EndProcEfxWeaponIcon(void);
 // func_fe6_08047248
 // func_fe6_08047258
 // func_fe6_08047268
@@ -175,7 +280,7 @@ void NewEfxWeaponIcon(i16 eff1, i16 eff2);
 // func_fe6_080474B0
 // func_fe6_080474BC
 // func_fe6_080474C8
-// func_fe6_080474D8
+void SpellFx_ClearBG1(void);
 // func_fe6_08047500
 // func_fe6_080475D8
 // func_fe6_08047600
@@ -871,15 +976,15 @@ void func_fe6_0804C56C(void);
 // func_fe6_0805B0D4
 // func_fe6_0805B13C
 void EfxTmCpyBG(const void * ptr1, void * ptr2, u16 width, u16 height, int pal, int chr);
-// func_fe6_0805B1DC
-// func_fe6_0805B20C
-// func_fe6_0805B2BC
+void EfxTmCpyBgHFlip(const u16 * tsa, u16 * tm, u16 width, u16 height, int pal, int chr);
+void EfxTmCpyExt(const u16 * src, i16 src_width, u16 * dst, i16 dst_width, u16 width, u16 hight, int pal, int chr);
+void EfxTmCpyExtHFlip(const u16 * src, i16 src_width, u16 * dst, i16 dst_width, u16 width, u16 hight, int pal, int chr);
 // func_fe6_0805B380
 void EkrModifyBarfx(u16 * tm, int);
 // func_fe6_0805B4D8
-void func_fe6_0805B5C8(u16 const * pal, int arg_1, int arg_2, int arg_3);
-void func_fe6_0805B644(u16 * pal, int arg_1, int arg_2, int arg_3);
-// func_fe6_0805B6C8
+void EfxPalBlackInOut(u16 const * pal_buf, int line, int length, int ref);
+void EfxPalWhiteInOut(u16 const * pal_buf, int line, int length, int ref);
+void EfxPalGrayInOut(u16 const * pal_buf, int line, int length, int r0, int g0, int b0);
 // func_fe6_0805B780
 // func_fe6_0805B7F4
 // func_fe6_0805B834
@@ -911,7 +1016,7 @@ void EfxPlaySEwithCmdCtrl(struct BaSprite * anim, int cmd);
 // func_fe6_0805C3FC
 // func_fe6_0805C41C
 void EkrPlayMainBGM(void);
-// func_fe6_0805C738
+void EkrRestoreBGM(void);
 // func_fe6_0805C76C
 // func_fe6_0805C804
 // func_fe6_0805C820
@@ -938,13 +1043,13 @@ void NewEkrClassChg(struct BaSprite * anim);
 // func_fe6_0805CFF8
 // func_fe6_0805D09C
 // func_fe6_0805D0E0
-// func_fe6_0805D128
-// func_fe6_0805D140
+bool CheckEkrLvupDone(void);
+void EndEkrLevelUp(void);
 // func_fe6_0805D154
 // func_fe6_0805D4E0
 // func_fe6_0805D538
 // func_fe6_0805D570
-// func_fe6_0805D5B0
+void NewEkrLevelup(struct BaSprite * anim);
 // func_fe6_0805D604
 // func_fe6_0805D8B4
 // func_fe6_0805DA08
@@ -980,3 +1085,603 @@ void NewEkrClassChg(struct BaSprite * anim);
 bool CheckEkrTriangleInvalid(void);
 void DebugEkrTriangleMsg(void);
 void NewEkrTriangle(struct BaSprite * anim);
+// func_fe6_0805E59C
+// func_fe6_0805E7A0
+// func_fe6_0805E7D8
+// func_fe6_0805E890
+// func_fe6_0805E91C
+// func_fe6_0805E964
+// func_fe6_0805EA10
+// func_fe6_0805EA38
+// func_fe6_0805EA70
+// func_fe6_0805EB40
+// func_fe6_0805ECC4
+// func_fe6_0805ED1C
+// func_fe6_0805EE2C
+// func_fe6_0805EE74
+// func_fe6_0805EE9C
+// func_fe6_0805EED4
+// func_fe6_0805F078
+// func_fe6_0805F098
+// func_fe6_0805F0DC
+// func_fe6_0805F100
+bool CheckEkrPopupDone(void);
+void EndEkrPopup(void);
+// func_fe6_0805F178
+// func_fe6_0805F188
+// func_fe6_0805F198
+// func_fe6_0805F27C
+void NewEkrPopup(void);
+// func_fe6_0805F57C
+// func_fe6_0805F598
+// func_fe6_0805F5C0
+// func_fe6_0805F5F8
+// func_fe6_0805F620
+// func_fe6_0805F658
+// func_fe6_0805F680
+// func_fe6_0805F6B8
+// func_fe6_0805F6E0
+// func_fe6_0805F71C
+// func_fe6_0805F74C
+// func_fe6_0805F750
+u8 GetWeaponAnimActorCount(int item);
+// func_fe6_0805F794
+struct ProcScr const * GetWeaponAnimManimSpecialScr(int item); // fu16?
+fu8 func_fe6_0805F7B4(int item); // fu16?
+fu8 GetItemMaFacing(int item); // fu16?
+fu8 func_fe6_0805F7D4(int item); // fu16?
+
+extern CONST_DATA struct ProcScr ProcScr_EkrBattleDeamon[];
+extern CONST_DATA struct ProcScr ProcScr_EkrBattle[];
+extern CONST_DATA struct ProcScr ProcScr_EkrLvupFan[];
+extern CONST_DATA struct ProcScr ProcScr_EkrGauge[];
+// ??? gUnk_085CB580
+// ??? gUnk_085CB5B0
+// ??? gUnk_085CB5C8
+// ??? gUnk_085CB5F8
+// ??? gUnk_085CB634
+// ??? gUnk_085CB670
+// ??? gUnk_085CB688
+// ??? gUnk_085CB6A0
+// ??? gUnk_085CB6B8
+// ??? gUnk_085CB6D0
+// ??? gUnk_085CB6E8
+// ??? gUnk_085CB700
+// ??? gUnk_085CB718
+// ??? gUnk_085CB730
+// ??? gUnk_085CB758
+// ??? gUnk_085CB790
+// ??? gUnk_085CB7B8
+// ??? gUnk_085CB7E0
+// ??? gUnk_085CB808
+// ??? gUnk_085CB820
+// ??? gUnk_085CB850
+// ??? gUnk_085CB888
+// ??? gUnk_085CB8A8
+// ??? gUnk_085CB8C0
+// ??? gUnk_085CB8D8
+// ??? gUnk_085CB8F0
+// ??? gUnk_085CB918
+// ??? gUnk_085CB930
+// ??? gUnk_085CB988
+// ??? gUnk_085CB9A0
+// ??? gUnk_085CB9B8
+// ??? gUnk_085CB9D0
+// ??? gUnk_085CB9F8
+// ??? gUnk_085CBA20
+// ??? gUnk_085CBA50
+// ??? gUnk_085CBA70
+// ??? gUnk_085CBA98
+// ??? gUnk_085CBAC0
+// ??? gUnk_085CBAE8
+// ??? gUnk_085CBB18
+// ??? gUnk_085CBB60
+// ??? gUnk_085CBBB0
+// ??? gUnk_085CBBC8
+// ??? gUnk_085CBBE8
+// ??? gUnk_085CBC08
+// ??? gUnk_085CBC28
+// ??? gUnk_085CBC48
+// ??? gUnk_085CBC68
+// ??? gUnk_085CBC88
+// ??? gUnk_085CBCA8
+// ??? gUnk_085CBCC8
+// ??? gUnk_085CBCE8
+// ??? gUnk_085CBD08
+// ??? gUnk_085CBD28
+// ??? gUnk_085CBD50
+// ??? gUnk_085CBD68
+// ??? gUnk_085CBD88
+// ??? gUnk_085CBDA0
+// ??? gUnk_085CBDB0
+// ??? ProcScr_EkrChienCHR
+// ??? gUnk_085CBDF0
+// ??? gUnk_085CBE08
+// ??? gUnk_085CBE20
+// ??? gUnk_085CBE50
+// ??? gUnk_085CBE78
+// ??? gUnk_085CBE90
+// ??? gUnk_085CCC40
+// ??? gUnk_085CCDAC
+// ??? gUnk_085CCE38
+// ??? gUnk_085CCEB8
+// ??? gUnk_085CCF38
+// ??? gUnk_085CDCA4
+// ??? gUnk_085CDD18
+// ??? gUnk_085D0DA0
+// ??? gUnk_085D0E8C
+// ??? gUnk_085D0E94
+// ??? gUnk_085D0EB4
+// ??? gUnk_085D0ED4
+// ??? gUnk_085D0EEC
+// ??? gUnk_085D0F0C
+// ??? gUnk_085D0F24
+// ??? gUnk_085D0F3C
+// ??? gUnk_085D0F54
+// ??? gUnk_085D0F6C
+// ??? gUnk_085D0F84
+// ??? gUnk_085D0FA4
+// ??? gUnk_085D0FBC
+// ??? gUnk_085D0FDC
+// ??? gUnk_085D0FF4
+// ??? gUnk_085D100C
+// ??? gUnk_085D1024
+// ??? gUnk_085D103C
+// ??? gUnk_085D1054
+// ??? gUnk_085D106C
+// ??? gUnk_085D108C
+// ??? gUnk_085D10A4
+// ??? gUnk_085D10BC
+// ??? gUnk_085D10D4
+// ??? gUnk_085D10EC
+// ??? gUnk_085D1104
+// ??? gUnk_085D111C
+// ??? gUnk_085D113C
+// ??? gUnk_085D1154
+// ??? gUnk_085D116C
+// ??? gUnk_085D1184
+// ??? gUnk_085D119C
+// ??? gUnk_085D11B4
+// ??? gUnk_085D11D4
+// ??? gUnk_085D11EC
+// ??? gUnk_085D120C
+// ??? gUnk_085D1224
+// ??? gUnk_085D123C
+// ??? gUnk_085D126C
+// ??? gUnk_085D128C
+// ??? gUnk_085D12A4
+// ??? gUnk_085D12BC
+// ??? gUnk_085D12D4
+// ??? gUnk_085D12DC
+// ??? gUnk_085D12E4
+// ??? gUnk_085D1304
+// ??? gUnk_085D131C
+// ??? gUnk_085D1334
+// ??? gUnk_085D134C
+// ??? gUnk_085D137C
+// ??? gUnk_085D13AC
+// ??? gUnk_085D13C4
+// ??? gUnk_085D13DC
+// ??? gUnk_085D1430
+// ??? gUnk_085D1484
+// ??? gUnk_085D149C
+// ??? gUnk_085D14BC
+// ??? gUnk_085D14D4
+// ??? gUnk_085D14EC
+// ??? gUnk_085D1504
+// ??? gUnk_085D151C
+// ??? gUnk_085D1534
+// ??? gUnk_085D154C
+// ??? gUnk_085D1578
+// ??? gUnk_085D15A4
+// ??? gUnk_085D15BC
+// ??? gUnk_085D15D4
+// ??? gUnk_085D15EC
+// ??? gUnk_085D1604
+// ??? gUnk_085D161C
+// ??? gUnk_085D1648
+// ??? gUnk_085D1674
+// ??? gUnk_085D169C
+// ??? gUnk_085D16DC
+// ??? gUnk_085D16FC
+// ??? gUnk_085D1714
+// ??? gUnk_085D172C
+// ??? gUnk_085D1734
+// ??? gUnk_085D1754
+// ??? gUnk_085D176C
+// ??? gUnk_085D1784
+// ??? gUnk_085D179C
+// ??? gUnk_085D1840
+// ??? gUnk_085D18E4
+// ??? gUnk_085D192C
+// ??? gUnk_085D195C
+// ??? gUnk_085D1974
+// ??? gUnk_085D19A4
+// ??? gUnk_085D19BC
+// ??? gUnk_085D1A88
+// ??? gUnk_085D1B54
+// ??? gUnk_085D1B6C
+// ??? gUnk_085D1B84
+// ??? gUnk_085D1B9C
+// ??? gUnk_085D1C20
+// ??? gUnk_085D1CA4
+// ??? gUnk_085D1D28
+// ??? gUnk_085D1D40
+// ??? gUnk_085D1D58
+// ??? gUnk_085D1E90
+// ??? gUnk_085D1FC8
+// ??? gUnk_085D2100
+// ??? gUnk_085D2120
+// ??? gUnk_085D2158
+// ??? gUnk_085D2178
+// ??? gUnk_085D2190
+// ??? gUnk_085D21A8
+// ??? gUnk_085D21DC
+// ??? gUnk_085D2210
+// ??? gUnk_085D2230
+// ??? gUnk_085D2270
+// ??? gUnk_085D2288
+// ??? gUnk_085D22E0
+// ??? gUnk_085D22F8
+// ??? gUnk_085D2310
+// ??? gUnk_085D2328
+// ??? gUnk_085D2340
+// ??? gUnk_085D2358
+// ??? gUnk_085D2370
+// ??? gUnk_085D2388
+// ??? gUnk_085D23D8
+// ??? gUnk_085D2428
+// ??? gUnk_085D2434
+// ??? gUnk_085D2440
+// ??? gUnk_085D2494
+// ??? gUnk_085D24E8
+// ??? gUnk_085D2500
+// ??? gUnk_085D2518
+// ??? gUnk_085D2530
+// ??? gUnk_085D2544
+// ??? gUnk_085D2558
+// ??? gUnk_085D2570
+// ??? gUnk_085D2590
+// ??? gUnk_085D25A8
+// ??? gUnk_085D25C0
+// ??? gUnk_085D25D8
+// ??? gUnk_085D25F0
+// ??? gUnk_085D2608
+// ??? gUnk_085D2620
+// ??? gUnk_085D2638
+// ??? gUnk_085D2658
+// ??? gUnk_085D2678
+// ??? gUnk_085D26B0
+// ??? gUnk_085D26D0
+// ??? gUnk_085D26F0
+// ??? gUnk_085D2708
+// ??? gUnk_085D2720
+// ??? gUnk_085D2740
+// ??? gUnk_085D2758
+// ??? gUnk_085D2768
+// ??? gUnk_085D2778
+// ??? gUnk_085D2798
+// ??? gUnk_085D27B0
+// ??? gUnk_085D287C
+// ??? gUnk_085D2944
+// ??? gUnk_085D2A0C
+// ??? gUnk_085D2A24
+// ??? gUnk_085D2A3C
+// ??? gUnk_085D2A54
+// ??? gUnk_085D2AC0
+// ??? gUnk_085D2B2C
+// ??? gUnk_085D2B74
+// ??? gUnk_085D2B8C
+// ??? gUnk_085D2BA4
+// ??? gUnk_085D2BC4
+// ??? gUnk_085D2BDC
+// ??? gUnk_085D2BFC
+// ??? gUnk_085D2C24
+// ??? gUnk_085D2C3C
+// ??? gUnk_085D2C54
+// ??? gUnk_085D2D20
+// ??? gUnk_085D2DEC
+// ??? gUnk_085D2E04
+// ??? gUnk_085D2E1C
+// ??? gUnk_085D2E3C
+// ??? gUnk_085D2E54
+// ??? gUnk_085D2E6C
+// ??? gUnk_085D2E84
+// ??? gUnk_085D2E9C
+// ??? gUnk_085D2EB4
+// ??? gUnk_085D2ED4
+// ??? gUnk_085D2EF4
+// ??? gUnk_085D2F0C
+// ??? gUnk_085D2F2C
+// ??? gUnk_085D2F4C
+// ??? gUnk_085D2F64
+// ??? gUnk_085D2F7C
+// ??? gUnk_085D2F8C
+// ??? gUnk_085D2FAC
+// ??? gUnk_085D2FC4
+// ??? gUnk_085D2FC8
+// ??? gUnk_085D2FE8
+// ??? gUnk_085D3000
+// ??? gUnk_085D3018
+// ??? gUnk_085D304C
+// ??? gUnk_085D3080
+// ??? gUnk_085D30A0
+// ??? gUnk_085D30B8
+// ??? gUnk_085D30D0
+// ??? gUnk_085D3118
+// ??? gUnk_085D3138
+// ??? gUnk_085D3150
+// ??? gUnk_085D3168
+// ??? gUnk_085D31A8
+// ??? gUnk_085D31C8
+// ??? gUnk_085D31E8
+// ??? gUnk_085D3230
+// ??? gUnk_085D3248
+// ??? gUnk_085D3260
+// ??? gUnk_085D3294
+// ??? gUnk_085D32C8
+// ??? gUnk_085D32E8
+// ??? gUnk_085D3300
+// ??? gUnk_085D3318
+// ??? gUnk_085D3338
+// ??? gUnk_085D33F0
+// ??? gUnk_085D3408
+// ??? gUnk_085D3420
+// ??? gUnk_085D3434
+// ??? gUnk_085D3454
+// ??? gUnk_085D3474
+// ??? gUnk_085D348C
+// ??? gUnk_085D34A4
+// ??? gUnk_085D34BC
+// ??? gUnk_085D34D4
+// ??? gUnk_085D34F4
+// ??? gUnk_085D350C
+// ??? gUnk_085D3524
+// ??? gUnk_085D354C
+// ??? gUnk_085D3564
+// ??? gUnk_085D3594
+// ??? gUnk_085D35AC
+// ??? gUnk_085D35E4
+// ??? gUnk_085D361C
+// ??? gUnk_085D3634
+// ??? gUnk_085D364C
+// ??? gUnk_085D3664
+// ??? gUnk_085D36A4
+// ??? gUnk_085D36BC
+// ??? gUnk_085D36D4
+// ??? gUnk_085D36EC
+// ??? gUnk_085D3704
+// ??? gUnk_085D371C
+// ??? gUnk_085D373C
+// ??? gUnk_085D3754
+// ??? gUnk_085D376C
+// ??? gUnk_085D3784
+// ??? gUnk_085D379C
+// ??? gUnk_085D37B4
+// ??? gUnk_085D38A4
+// ??? gUnk_085D38BC
+// ??? gUnk_085D38D4
+// ??? gUnk_085D38E4
+// ??? gUnk_085D3904
+// ??? gUnk_085D3924
+// ??? gUnk_085D394C
+// ??? gUnk_085D3964
+// ??? gUnk_085D3994
+// ??? gUnk_085D39AC
+// ??? gUnk_085D39D4
+// ??? gUnk_085D39EC
+// ??? gUnk_085D39F4
+// ??? gUnk_085D3A14
+// ??? gUnk_085D3A2C
+// ??? gUnk_085D3A54
+// ??? gUnk_085D3A6C
+// ??? gUnk_085D3A70
+// ??? gUnk_085D3A90
+// ??? gUnk_085D3AB0
+// ??? gUnk_085D3DB0
+// ??? gUnk_085D3E0C
+// ??? gUnk_085D3E2C
+// ??? gUnk_085D4148
+// ??? gUnk_085D41A4
+// ??? gUnk_085D41C4
+// ??? gUnk_085D4264
+// ??? gUnk_085D4274
+// ??? gUnk_085D42F0
+// ??? gUnk_085D4300
+// ??? gUnk_085D44E4
+// ??? gUnk_085D4738
+// ??? gUnk_085D4998
+// ??? gUnk_085D4BF8
+// ??? gUnk_085D4CFC
+// ??? gUnk_085D4D98
+// ??? gUnk_085D5590
+// ??? gUnk_085D55C0
+// ??? gUnk_085D6218
+// ??? gUnk_085D6E78
+// ??? gUnk_085D7190
+// ??? gUnk_085D71D8
+// ??? gUnk_085D74FC
+// ??? gUnk_085D7544
+// ??? gUnk_085D77E4
+// ??? gUnk_085D77F4
+// ??? gUnk_085D7A40
+// ??? gUnk_085D7A50
+// ??? gUnk_085D8608
+// ??? gUnk_085D9208
+// ??? gUnk_085D9E38
+// ??? gUnk_085DAA68
+// ??? gUnk_085DB6A4
+// ??? gUnk_085DC850
+// ??? gUnk_085DC954
+// ??? gUnk_085DC97C
+// ??? gUnk_085DDAF0
+// ??? gUnk_085DDBF4
+// ??? gUnk_085DDC1C
+// ??? gUnk_085DEDC0
+// ??? gUnk_085DEEC4
+// ??? gUnk_085DEEEC
+// ??? gUnk_085E0090
+// ??? gUnk_085E0194
+// ??? gUnk_085E01BC
+// ??? gUnk_085E0280
+// ??? gUnk_085E0324
+// ??? gUnk_085E03C8
+// ??? gUnk_085E046C
+// ??? gUnk_085E0510
+// ??? gUnk_085E05B4
+// ??? gUnk_085E0748
+// ??? gUnk_085E08DC
+// ??? gUnk_085E0A88
+// ??? gUnk_085E0C34
+// ??? gUnk_085E0DE0
+// ??? gUnk_085E0F88
+// ??? gUnk_085E19DC
+// ??? gUnk_085E2508
+// ??? gUnk_085E2920
+// ??? gUnk_085E294C
+// ??? gUnk_085E2CA8
+// ??? gUnk_085E2CD4
+// ??? gUnk_085E3AA4
+// ??? gUnk_085E48C4
+// ??? gUnk_085E5858
+// ??? gUnk_085E5C10
+// ??? gUnk_085E5C2C
+// ??? gUnk_085E5C34
+// ??? gUnk_085E5C3C
+// ??? gUnk_085E5C44
+// ??? gUnk_085E79F8
+// ??? gUnk_085E7A64
+// ??? gUnk_085E7AC4
+// ??? gUnk_085E7ACC
+// ??? gUnk_085E90AC
+// ??? gUnk_085E9160
+// ??? gUnk_085EA7F0
+// ??? gUnk_085EA8A4
+// ??? gUnk_085EABC0
+// ??? gUnk_085EAC34
+// ??? gUnk_085EADB0
+// ??? gUnk_085EB1A8
+// ??? gUnk_085EB1DC
+// ??? gUnk_085EB264
+// ??? gUnk_085EB83C
+// ??? gUnk_085EBF40
+// ??? gUnk_085EBF50
+// ??? gUnk_085EBF58
+// ??? gUnk_085EBF60
+// ??? gUnk_085EC478
+// ??? gUnk_085EC630
+// ??? gUnk_085EC938
+// ??? gUnk_085ECC34
+// ??? gUnk_085ED8CC
+// ??? gUnk_085ED8F8
+// ??? gUnk_085ED924
+// ??? gUnk_085EDCC8
+// ??? gUnk_085F0A14
+// ??? gUnk_085F0AA4
+// ??? gUnk_085F1FC0
+// ??? gUnk_085F2034
+// ??? gUnk_085F35C0
+// ??? gUnk_085F3634
+// ??? gUnk_085F63A8
+// ??? gUnk_085F6674
+// ??? gUnk_085F9358
+// ??? gUnk_085FE3C4
+// ??? gUnk_085FE544
+// ??? gUnk_085FEAF8
+// ??? gUnk_085FEB0C
+// ??? gUnk_085FEB20
+// ??? gUnk_085FEB34
+// ??? gUnk_085FEB48
+// ??? gUnk_085FEEBC
+// ??? gUnk_085FEEC8
+// ??? gUnk_085FEED4
+// ??? gUnk_085FEEE0
+// ??? gUnk_085FEEEC
+// ??? gUnk_08602FAC
+// ??? gUnk_086030FC
+// ??? gUnk_08603B1C
+// ??? gUnk_08603B24
+// ??? gUnk_08603B2C
+// ??? gUnk_08603B34
+// ??? gUnk_08603B58
+// ??? gUnk_08603BA4
+// ??? gUnk_08603BC0
+// ??? gUnk_086046D8
+// ??? gUnk_086046F0
+// ??? gUnk_08604710
+// ??? gUnk_08604798
+// ??? gUnk_086047E0
+// ??? gUnk_08604828
+// ??? gUnk_08604840
+// ??? gUnk_08604888
+// ??? gUnk_086048A0
+// ??? gUnk_086048D0
+// ??? gUnk_08604948
+// ??? gUnk_08604968
+// ??? gUnk_08604988
+// ??? gUnk_086049A8
+// ??? gUnk_086049D0
+// ??? gUnk_086049E8
+// ??? gUnk_08604A00
+// ??? gUnk_08604A18
+// ??? gUnk_08604A3C
+// ??? gUnk_08604A6C
+// ??? gUnk_08604A9C
+// ??? gUnk_08604ACC
+// ??? gUnk_08604C34
+// ??? gUnk_08604C48
+// ??? gUnk_08604E30
+// ??? gUnk_08604E4C
+// ??? gUnk_08604F94
+// ??? gUnk_08604FA0
+// ??? gUnk_08605A50
+// ??? gUnk_08605A70
+// ??? gUnk_08605A94
+// ??? gUnk_08605D14
+// ??? gUnk_08605D28
+// ??? gUnk_08605D40
+// ??? gUnk_08605F18
+// ??? gUnk_08605F34
+// ??? gUnk_08605F50
+// ??? gUnk_08605F6C
+// ??? gUnk_08605F88
+// ??? gUnk_08605FA8
+// ??? gUnk_08605FC0
+// ??? gUnk_0860601C
+// ??? gUnk_08606078
+// ??? gUnk_086060D4
+// ??? gUnk_086060EC
+// ??? gUnk_08606104
+// ??? gUnk_08606124
+// ??? gUnk_0860613C
+// ??? gUnk_0860615C
+// ??? gUnk_08606174
+// ??? gUnk_0860618C
+// ??? gUnk_086061AC
+// ??? gUnk_08606254
+// ??? gUnk_0860626C
+// ??? gUnk_0860628C
+// ??? gUnk_086062AC
+// ??? gUnk_086062EC
+// ??? gUnk_08606314
+// ??? gUnk_0860632C
+// ??? gUnk_08606344
+// ??? gUnk_0860635C
+// ??? gUnk_08606374
+// ??? gUnk_0860638C
+// ??? gUnk_086063A4
+// ??? gUnk_086063BC
+// ??? gUnk_086063DC
+// ??? gUnk_086068A4
+// ??? gUnk_08606BD8
+// ??? gUnk_08606C70
+// ??? gUnk_08606D00
+// ??? gUnk_08606D90
+// ??? gUnk_08606E1C
+// ??? gUnk_08606F0C
+// ??? gUnk_08607084
+// ??? gUnk_086071D8
+// ??? gUnk_086074A0
+// ??? gUnk_08607504
+// ??? gUnk_08607660
+// ??? gUnk_08607668

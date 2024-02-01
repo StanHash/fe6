@@ -274,7 +274,9 @@ SECTIONS
         . = 0x0203CCE4 - __ewram_overlay_end;
         . = ALIGN(4); src/banim_ekrbattle.o(ewram_data);
 
+        . = 0x0203CCF2 - __ewram_overlay_end; gBanimBackgroundIndex = .;
         . = 0x0203CCF4 - __ewram_overlay_end; gEkrInitialHitSide = .;
+        . = 0x0203CCF6 - __ewram_overlay_end; gEkrSnowWeather = .;
         . = 0x0203CCF8 - __ewram_overlay_end; gEkrPairSideVaild = .;
         . = 0x0203CD14 - __ewram_overlay_end; gEkrDistanceType = .;
         . = 0x0203CD7C - __ewram_overlay_end; gpEkrBattleUnitLeft = .;
@@ -514,6 +516,7 @@ SECTIONS
         src/menu.o(.text);
         src/mapselect.o(.text);
         src/banim_ekrbattle.o(.text);
+        src/banim_ekrlvupfan.o(.text);
         asm/code-banim.o(.text);
         src/mu.o(.text);
         src/manim.o(.text);
@@ -690,6 +693,7 @@ SECTIONS
         . = ALIGN(4); src/menu.o(.data);
         . = ALIGN(4); src/mapselect.o(.data);
         . = ALIGN(4); src/banim_ekrbattle.o(.data);
+        . = ALIGN(4); src/banim_ekrlvupfan.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);
         . = ALIGN(4); src/gamedata.o(.data);
         . = ALIGN(4), data/data-game-info.o(.data);

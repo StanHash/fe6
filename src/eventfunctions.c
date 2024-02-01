@@ -1122,7 +1122,7 @@ void func_fe6_0806C76C(int a, int b, int c)
     int var = Interpolate(INTERPOLATE_SQUARE, a, b, c, 8);
 
     CpuFastCopy(gUnk_08342A98, gPal + 0x12 * 0x10, 0x10 * sizeof(u16));
-    func_fe6_0805B644(gPal, 18, 1, var);
+    EfxPalWhiteInOut(gPal, 18, 1, var);
     EnablePalSync();
 }
 
@@ -2143,7 +2143,7 @@ void func_fe6_0806DA54(void)
     // TODO: constants?
     func_fe6_0806D9F4(CHAPTER_4, 11, 11);
     CpuFastCopy(gPal + (BGPAL_TILESET + 5) * 0x10, gPal + BGPAL_TILESET * 0x10, 5 * 0x20);
-    func_fe6_0805B644(gPal, 26, 6, 8);
+    EfxPalWhiteInOut(gPal, 26, 6, 8);
     EnablePalSync();
 }
 
@@ -2802,7 +2802,7 @@ void func_fe6_0806E520(void)
 
     for (i = 0; i < 8; i++)
     {
-        func_fe6_0805B5C8((u16 const *) gBuf, i, 1, 2);
+        EfxPalBlackInOut((u16 const *) gBuf, i, 1, 2);
     }
 
     ApplyPalettes(gBuf, 0, 0x10);

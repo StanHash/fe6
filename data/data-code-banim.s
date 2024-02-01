@@ -1,18 +1,6 @@
 
 	.data
 
-	.global ProcScr_EkrBattleDeamon
-ProcScr_EkrBattleDeamon: @ 085CB508
-	.incbin "fe6-base.gba", 0x5CB508, (0x5CB528 - 0x5CB508) @ length: 0020
-
-	.global ProcScr_EkrBattle
-ProcScr_EkrBattle: @ 085CB528
-	.incbin "fe6-base.gba", 0x5CB528, (0x5CB550 - 0x5CB528) @ length: 0028
-
-	.global gUnk_085CB550
-gUnk_085CB550: @ 085CB550
-	.incbin "fe6-base.gba", 0x5CB550, (0x5CB568 - 0x5CB550) @ length: 0018
-
 	.global ProcScr_EkrGauge
 ProcScr_EkrGauge: @ 085CB568
 	.incbin "fe6-base.gba", 0x5CB568, (0x5CB580 - 0x5CB568) @ length: 0018

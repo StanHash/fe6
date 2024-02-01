@@ -101,4 +101,3 @@ struct MenuEntInfo;
 // TODO: move
 struct ChapterEventInfo;
 struct EventInfo;
-struct BaSprite;

@@ -12,6 +12,7 @@
 #include "chapter.h"
 #include "battle.h"
 #include "manim.h"
+#include "banim.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/jids.h"

@@ -15,8 +15,10 @@
 
 EWRAM_DATA i32 gBanimLinkArenaFlag = FALSE;
 EWRAM_DATA i32 gBattleDeamonActive = FALSE;
-EWRAM_DATA struct ProcEkrBattleDeamon * gpProcEkrBattleDeamon = NULL;
+EWRAM_DATA  struct Proc * gpProcEkrBattleDeamon = NULL;
 EWRAM_DATA i16 gEkrDebugModeMaybe = FALSE;
+// EWRAM_DATA i16 gEkrInitialHitSide = FALSE;
+
 
 CONST_DATA char gNopStr[] = "\0";
 
@@ -29,6 +31,14 @@ int GetBanimLinkArenaFlag(void)
 {
     return gBanimLinkArenaFlag;
 }
+
+struct ProcScr CONST_DATA ProcScr_EkrBattleDeamon[] =
+{
+    PROC_NAME_DEBUG("ekrBattleDaemon"),
+    PROC_ONEND(EkrBattleDeamon_OnEnd),
+    PROC_REPEAT(EkrBattleDeamonMain),
+    PROC_END,
+};
 
 void NewEkrBattleDeamon(void)
 {
@@ -56,10 +66,19 @@ void EkrBattleDeamon_OnEnd(void)
     UnlockGame();
 }
 
-void null_080425EC(void)
+void EkrBattleDeamonMain(ProcPtr proc)
 {
     return;
 }
+
+struct ProcScr CONST_DATA ProcScr_EkrBattle[] =
+{
+    PROC_NAME_DEBUG("ekrBattle"),
+    PROC_ONEND(EkrBattle_End),
+    PROC_REPEAT(EkrBattle_Init),
+    PROC_REPEAT(EkrBattle_Main),
+    PROC_END,
+};
 
 void NewEkrBattle(void)
 {
@@ -150,7 +169,7 @@ void MainUpdateEkrBattle(void)
     PutSpriteLayerOam(13);
 }
 
-void null_08042780(void)
+void EkrBattle_End(struct ProcEkrBattle * proc)
 {
     return;
 }
@@ -712,4 +731,175 @@ void EkrBattleMergeLvupImgBG(struct ProcEkrBattle * proc)
     {
         SetWin0Box(0, proc->timer - 120, 240, -96 - proc->timer);
     }
+}
+
+void EkrBattleLvupHanlder(struct ProcEkrBattle *proc)
+{
+    int exp_gain;
+
+    if (++proc->timer == 0x18) {
+        if (gEkrPairExpGain[POS_L] != 0)
+            exp_gain = gEkrPairExpPrevious[POS_L] + gEkrPairExpGain[POS_L];
+        else
+            exp_gain = gEkrPairExpPrevious[POS_R] + gEkrPairExpGain[POS_R];
+        if (exp_gain >= 100)
+            NewEkrLvlupFan();
+    }
+
+    if (proc->timer <= 0x28)
+        return;
+
+    SpellFx_ClearBG1();
+    EkrGauge_08043908(0);
+
+    switch (GetBanimDragonStatusType()) {
+    case 0:
+        gDispIo.bg0_ct.priority = 0;
+        gDispIo.bg1_ct.priority = 1;
+        gDispIo.bg2_ct.priority = 2;
+        gDispIo.bg3_ct.priority = 3;
+        break;
+
+    default:
+        gDispIo.bg0_ct.priority = 0;
+        gDispIo.bg1_ct.priority = 1;
+        gDispIo.bg3_ct.priority = 2;
+        gDispIo.bg2_ct.priority = 3;
+    }
+
+    SetWin0Box(0, 0, 0xF0, 0xA0);
+
+    if (gEkrPairExpGain[POS_L] != 0)
+        exp_gain = gEkrPairExpPrevious[POS_L] + gEkrPairExpGain[POS_L];
+    else
+        exp_gain = gEkrPairExpPrevious[POS_R] + gEkrPairExpGain[POS_R];
+
+    if (exp_gain >= 100)
+        proc->proc_repeat_func = (ProcFunc)EkrBattleExecEkrLvup;
+    else
+        proc->proc_repeat_func = (ProcFunc)EkrBattleExecPopup;
+}
+
+void EkrBattleExecEkrLvup(struct ProcEkrBattle * proc)
+{
+    struct BaSprite * anim;
+
+    if (gEkrPairExpGain[POS_L] != 0)
+        anim = MAIN_ANIM_FRONT(POS_L);
+    else
+        anim = MAIN_ANIM_FRONT(POS_R);
+
+    NewEkrLevelup(anim);
+    proc->proc_repeat_func = (ProcFunc)EkrBattleWaitLvup;
+}
+
+void EkrBattleWaitLvup(struct ProcEkrBattle * proc)
+{
+    if (CheckEkrLvupDone() == TRUE)
+    {
+        EndEkrLevelUp();
+        proc->proc_repeat_func = (ProcFunc)EkrBattleExecPopup;
+    }
+}
+
+void EkrBattleExecPopup(struct ProcEkrBattle *proc)
+{
+    NewEkrPopup();
+    proc->proc_repeat_func = (ProcFunc)EkrBattleWaitPopup;
+}
+
+void EkrBattleWaitPopup(struct ProcEkrBattle *proc)
+{
+    if (CheckEkrPopupDone() == TRUE)
+    {
+        EndEkrPopup();
+        proc->proc_repeat_func = (ProcFunc)EkrBattlePrepareEnding;
+    }
+}
+
+void EkrBattlePrepareEnding(struct ProcEkrBattle * proc)
+{
+    EndEfxStatusUnits(MAIN_ANIM_FRONT(POS_L));
+    EndEfxStatusUnits(MAIN_ANIM_FRONT(POS_R));
+    EndProcEfxWeaponIcon();
+    EndEfxHPBarColorChange();
+    proc->side = gEkrInitialHitSide;
+    proc->counter = 0;
+    proc->proc_repeat_func = (ProcFunc)EkrBattleStartDragonEnding;
+}
+
+void EkrBattleStartDragonEnding(struct ProcEkrBattle * proc)
+{
+    int val;
+
+    u32 conf = GetEkrDragonStatusType();
+
+    /* If both side is not the ekrdragon, get here */
+    if (proc->counter == 2)
+    {
+        proc->proc_repeat_func = (ProcFunc)EkrBattlePostDragonEnding;
+        return;
+    }
+
+    if (proc->side == POS_L)
+    {
+        proc->anim = MAIN_ANIM_FRONT(POS_L);
+        if (conf & EDRAGON_TYPE_0)
+        {
+            TriggerEkrDragonEnding(proc->anim);
+            proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
+        }
+        if (conf & EDRAGON_TYPE_2)
+        {
+            TriggerEkrDragonEnding(proc->anim);
+            proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
+        }
+        if (conf & EDRAGON_TYPE_4)
+        {
+            TriggerEkrDragonEnding(proc->anim);
+            proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
+        }
+        proc->side = POS_R;
+        proc->counter++;
+    }
+    else
+    {
+        proc->anim = MAIN_ANIM_FRONT(POS_R);
+        if (conf & EDRAGON_TYPE_1)
+        {
+            TriggerEkrDragonEnding(proc->anim);
+            proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
+        }
+        if (conf & EDRAGON_TYPE_3)
+        {
+            TriggerEkrDragonEnding(proc->anim);
+            proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
+        }
+        proc->side = POS_L;
+        proc->counter++;
+    }
+}
+
+void EkrBattleWaitDragonEnding(struct ProcEkrBattle * proc)
+{
+    if (CheckEkrDragonEndingDone(proc->anim) == TRUE)
+        proc->proc_repeat_func = (ProcFunc)EkrBattleStartDragonEnding;
+}
+
+void EkrBattlePostDragonEnding(struct ProcEkrBattle * proc)
+{
+    gEkrBattleEndFlag = TRUE;
+
+    if (gEkrDebugModeMaybe == FALSE)
+    {
+        NewEkrNamewinAppear(2, 7, 0);
+        EkrRestoreBGM();
+    }
+
+    proc->proc_repeat_func = (ProcFunc)EkrBattlePostEndDelay;
+}
+
+void EkrBattlePostEndDelay(struct ProcEkrBattle * proc)
+{
+    return;
 }

@@ -3,454 +3,6 @@
 
 	.syntax unified
 
-	thumb_func_start EkrBattleLvupHanlder
-EkrBattleLvupHanlder: @ 0x08043288
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x18
-	bne .L080432CC
-	ldr r2, .L080432B0 @ =gEkrPairExpGain
-	movs r1, #0
-	ldrsh r0, [r2, r1]
-	cmp r0, #0
-	beq .L080432B8
-	ldr r0, .L080432B4 @ =gEkrPairExpPrevious
-	movs r3, #0
-	ldrsh r1, [r0, r3]
-	movs r3, #0
-	ldrsh r0, [r2, r3]
-	b .L080432C2
-	.align 2, 0
-.L080432B0: .4byte gEkrPairExpGain
-.L080432B4: .4byte gEkrPairExpPrevious
-.L080432B8:
-	ldr r0, .L08043314 @ =gEkrPairExpPrevious
-	movs r3, #2
-	ldrsh r1, [r0, r3]
-	movs r3, #2
-	ldrsh r0, [r2, r3]
-.L080432C2:
-	adds r1, r1, r0
-	cmp r1, #0x63
-	ble .L080432CC
-	bl func_fe6_08043590
-.L080432CC:
-	movs r1, #0x2c
-	ldrsh r0, [r4, r1]
-	cmp r0, #0x28
-	ble .L080433A4
-	bl func_fe6_080474D8
-	movs r0, #0
-	bl EkrGauge_08043908
-	bl GetBanimDragonStatusType
-	cmp r0, #0
-	bne .L0804331C
-	ldr r3, .L08043318 @ =gDispIo
-	movs r1, #4
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	ldrb r2, [r3, #0xc]
-	ands r0, r2
-	strb r0, [r3, #0xc]
-	adds r0, r1, #0
-	ldrb r2, [r3, #0x10]
-	ands r0, r2
-	movs r2, #1
-	orrs r0, r2
-	strb r0, [r3, #0x10]
-	ldrb r0, [r3, #0x14]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r3, #0x14]
-	movs r0, #3
-	ldrb r1, [r3, #0x18]
-	orrs r0, r1
-	strb r0, [r3, #0x18]
-	b .L08043348
-	.align 2, 0
-.L08043314: .4byte gEkrPairExpPrevious
-.L08043318: .4byte gDispIo
-.L0804331C:
-	ldr r3, .L08043378 @ =gDispIo
-	movs r1, #4
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	ldrb r2, [r3, #0xc]
-	ands r0, r2
-	strb r0, [r3, #0xc]
-	adds r0, r1, #0
-	ldrb r2, [r3, #0x10]
-	ands r0, r2
-	movs r2, #1
-	orrs r0, r2
-	strb r0, [r3, #0x10]
-	ldrb r0, [r3, #0x18]
-	ands r1, r0
-	movs r0, #2
-	orrs r1, r0
-	strb r1, [r3, #0x18]
-	movs r0, #3
-	ldrb r1, [r3, #0x14]
-	orrs r0, r1
-	strb r0, [r3, #0x14]
-.L08043348:
-	adds r2, r3, #0
-	adds r1, r2, #0
-	adds r1, #0x2d
-	movs r0, #0
-	strb r0, [r1]
-	adds r1, #4
-	strb r0, [r1]
-	subs r1, #5
-	movs r0, #0xf0
-	strb r0, [r1]
-	adds r1, #4
-	movs r0, #0xa0
-	strb r0, [r1]
-	ldr r2, .L0804337C @ =gEkrPairExpGain
-	movs r3, #0
-	ldrsh r0, [r2, r3]
-	cmp r0, #0
-	beq .L08043384
-	ldr r0, .L08043380 @ =gEkrPairExpPrevious
-	movs r3, #0
-	ldrsh r1, [r0, r3]
-	movs r3, #0
-	ldrsh r0, [r2, r3]
-	b .L0804338E
-	.align 2, 0
-.L08043378: .4byte gDispIo
-.L0804337C: .4byte gEkrPairExpGain
-.L08043380: .4byte gEkrPairExpPrevious
-.L08043384:
-	ldr r0, .L08043398 @ =gEkrPairExpPrevious
-	movs r3, #2
-	ldrsh r1, [r0, r3]
-	movs r3, #2
-	ldrsh r0, [r2, r3]
-.L0804338E:
-	adds r1, r1, r0
-	cmp r1, #0x63
-	ble .L080433A0
-	ldr r0, .L0804339C @ =EkrBattleExecEkrLvup
-	b .L080433A2
-	.align 2, 0
-.L08043398: .4byte gEkrPairExpPrevious
-.L0804339C: .4byte EkrBattleExecEkrLvup
-.L080433A0:
-	ldr r0, .L080433AC @ =EkrBattleExecPopup
-.L080433A2:
-	str r0, [r4, #0xc]
-.L080433A4:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080433AC: .4byte EkrBattleExecPopup
-
-	thumb_func_start EkrBattleExecEkrLvup
-EkrBattleExecEkrLvup: @ 0x080433B0
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, .L080433C4 @ =gEkrPairExpGain
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	beq .L080433CC
-	ldr r0, .L080433C8 @ =gAnims
-	ldr r0, [r0]
-	b .L080433D0
-	.align 2, 0
-.L080433C4: .4byte gEkrPairExpGain
-.L080433C8: .4byte gAnims
-.L080433CC:
-	ldr r0, .L080433E0 @ =gAnims
-	ldr r0, [r0, #8]
-.L080433D0:
-	bl func_fe6_0805D5B0
-	ldr r0, .L080433E4 @ =func_fe6_080433E8
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080433E0: .4byte gAnims
-.L080433E4: .4byte func_fe6_080433E8
-
-	thumb_func_start func_fe6_080433E8
-func_fe6_080433E8: @ 0x080433E8
-	push {r4, lr}
-	adds r4, r0, #0
-	bl func_fe6_0805D128
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L08043400
-	bl func_fe6_0805D140
-	ldr r0, .L08043408 @ =EkrBattleExecPopup
-	str r0, [r4, #0xc]
-.L08043400:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043408: .4byte EkrBattleExecPopup
-
-	thumb_func_start EkrBattleExecPopup
-EkrBattleExecPopup: @ 0x0804340C
-	push {r4, lr}
-	adds r4, r0, #0
-	bl func_fe6_0805F498
-	ldr r0, .L08043420 @ =func_fe6_08043424
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043420: .4byte func_fe6_08043424
-
-	thumb_func_start func_fe6_08043424
-func_fe6_08043424: @ 0x08043424
-	push {r4, lr}
-	adds r4, r0, #0
-	bl func_fe6_0805F148
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L0804343C
-	bl func_fe6_0805F15C
-	ldr r0, .L08043444 @ =func_fe6_08043448
-	str r0, [r4, #0xc]
-.L0804343C:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043444: .4byte func_fe6_08043448
-
-	thumb_func_start func_fe6_08043448
-func_fe6_08043448: @ 0x08043448
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, .L08043478 @ =gAnims
-	ldr r0, [r4]
-	bl func_fe6_08046E9C
-	ldr r0, [r4, #8]
-	bl func_fe6_08046E9C
-	bl func_fe6_0804722C
-	bl func_fe6_08046B48
-	ldr r0, .L0804347C @ =gEkrInitialHitSide
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	str r0, [r5, #0x44]
-	movs r0, #0
-	str r0, [r5, #0x48]
-	ldr r0, .L08043480 @ =func_fe6_08043484
-	str r0, [r5, #0xc]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043478: .4byte gAnims
-.L0804347C: .4byte gEkrInitialHitSide
-.L08043480: .4byte func_fe6_08043484
-
-	thumb_func_start func_fe6_08043484
-func_fe6_08043484: @ 0x08043484
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	bl GetEkrDragonStatusType
-	adds r5, r0, #0
-	ldr r0, [r4, #0x48]
-	cmp r0, #2
-	bne .L080434A0
-	ldr r0, .L0804349C @ =func_fe6_08043554
-	str r0, [r4, #0xc]
-	b .L08043524
-	.align 2, 0
-.L0804349C: .4byte func_fe6_08043554
-.L080434A0:
-	ldr r0, [r4, #0x44]
-	cmp r0, #0
-	bne .L080434F0
-	ldr r0, .L080434E8 @ =gAnims
-	ldr r1, [r0]
-	str r1, [r4, #0x5c]
-	movs r6, #1
-	adds r0, r5, #0
-	ands r0, r6
-	cmp r0, #0
-	beq .L080434C0
-	adds r0, r1, #0
-	bl func_fe6_080588A4
-	ldr r0, .L080434EC @ =func_fe6_08043534
-	str r0, [r4, #0xc]
-.L080434C0:
-	movs r0, #4
-	ands r0, r5
-	cmp r0, #0
-	beq .L080434D2
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080588A4
-	ldr r0, .L080434EC @ =func_fe6_08043534
-	str r0, [r4, #0xc]
-.L080434D2:
-	movs r0, #0x10
-	ands r0, r5
-	cmp r0, #0
-	beq .L080434E4
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080588A4
-	ldr r0, .L080434EC @ =func_fe6_08043534
-	str r0, [r4, #0xc]
-.L080434E4:
-	str r6, [r4, #0x44]
-	b .L0804351E
-	.align 2, 0
-.L080434E8: .4byte gAnims
-.L080434EC: .4byte func_fe6_08043534
-.L080434F0:
-	ldr r0, .L0804352C @ =gAnims
-	ldr r1, [r0, #8]
-	str r1, [r4, #0x5c]
-	movs r0, #2
-	ands r0, r5
-	cmp r0, #0
-	beq .L08043508
-	adds r0, r1, #0
-	bl func_fe6_080588A4
-	ldr r0, .L08043530 @ =func_fe6_08043534
-	str r0, [r4, #0xc]
-.L08043508:
-	movs r0, #8
-	ands r0, r5
-	cmp r0, #0
-	beq .L0804351A
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080588A4
-	ldr r0, .L08043530 @ =func_fe6_08043534
-	str r0, [r4, #0xc]
-.L0804351A:
-	movs r0, #0
-	str r0, [r4, #0x44]
-.L0804351E:
-	ldr r0, [r4, #0x48]
-	adds r0, #1
-	str r0, [r4, #0x48]
-.L08043524:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0804352C: .4byte gAnims
-.L08043530: .4byte func_fe6_08043534
-
-	thumb_func_start func_fe6_08043534
-func_fe6_08043534: @ 0x08043534
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080588BC
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L0804354A
-	ldr r0, .L08043550 @ =func_fe6_08043484
-	str r0, [r4, #0xc]
-.L0804354A:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043550: .4byte func_fe6_08043484
-
-	thumb_func_start func_fe6_08043554
-func_fe6_08043554: @ 0x08043554
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, .L08043580 @ =gEkrBattleEndFlag
-	movs r0, #1
-	str r0, [r1]
-	ldr r0, .L08043584 @ =gEkrDebugModeMaybe
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L08043576
-	movs r0, #2
-	movs r1, #7
-	movs r2, #0
-	bl NewEkrNamewinAppear
-	bl func_fe6_0805C738
-.L08043576:
-	ldr r0, .L08043588 @ =func_fe6_0804358C
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043580: .4byte gEkrBattleEndFlag
-.L08043584: .4byte gEkrDebugModeMaybe
-.L08043588: .4byte func_fe6_0804358C
-
-	thumb_func_start func_fe6_0804358C
-func_fe6_0804358C: @ 0x0804358C
-	bx lr
-	.align 2, 0
-
-	thumb_func_start func_fe6_08043590
-func_fe6_08043590: @ 0x08043590
-	push {lr}
-	ldr r0, .L080435A8 @ =gUnk_085CB550
-	movs r1, #3
-	bl SpawnProc
-	movs r1, #0
-	strh r1, [r0, #0x2c]
-	movs r0, #0x80
-	bl SetBgmVolume
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080435A8: .4byte gUnk_085CB550
-
-	thumb_func_start func_fe6_080435AC
-func_fe6_080435AC: @ 0x080435AC
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x10
-	bne .L080435D4
-	movs r1, #0x80
-	lsls r1, r1, #1
-	movs r0, #0x5b
-	bl EfxPlaySE
-	movs r0, #0x5b
-	movs r1, #0x78
-	movs r2, #0
-	bl M4aPlayWithPostionCtrl
-	b .L080435E6
-.L080435D4:
-	cmp r0, #0x74
-	bne .L080435E6
-	movs r0, #0x80
-	lsls r0, r0, #1
-	bl SetBgmVolume
-	adds r0, r4, #0
-	bl Proc_Break
-.L080435E6:
-	pop {r4}
-	pop {r0}
-	bx r0
-
 	thumb_func_start func_fe6_080435EC
 func_fe6_080435EC: @ 0x080435EC
 	push {r4, r5, r6, r7, lr}
@@ -2464,7 +2016,7 @@ func_fe6_080444EC: @ 0x080444EC
 	str r2, [r4, #0x1c]
 	mov r6, ip
 	str r6, [r4, #0x20]
-	ldr r0, .L08044604 @ =0x0203CCF6
+	ldr r0, .L08044604 @ =gEkrSnowWeather
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
 	adds r0, r4, #0
@@ -2482,7 +2034,7 @@ func_fe6_080444EC: @ 0x080444EC
 .L080445F8: .4byte gUnk_Banim_02000044
 .L080445FC: .4byte gUnk_Banim_0200003C
 .L08044600: .4byte gUnk_085CBDB0
-.L08044604: .4byte 0x0203CCF6
+.L08044604: .4byte gEkrSnowWeather
 
 	thumb_func_start EfxPrepareScreenFx
 EfxPrepareScreenFx: @ 0x08044608
@@ -5551,7 +5103,7 @@ func_fe6_08045EE8: @ 0x08045EE8
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	movs r0, #4
 	bl EnableBgSync
 .L08045F38:
@@ -6714,7 +6266,7 @@ func_fe6_08046880: @ 0x08046880
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -6767,7 +6319,7 @@ func_fe6_080468D8: @ 0x080468D8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -7036,8 +6588,8 @@ NewEfxHPBarColorChange: @ 0x08046A6C
 .L08046B40: .4byte gUnk_Banim_0201DFCC
 .L08046B44: .4byte gUnk_Banim_0201E02C
 
-	thumb_func_start func_fe6_08046B48
-func_fe6_08046B48: @ 0x08046B48
+	thumb_func_start EndEfxHPBarColorChange
+EndEfxHPBarColorChange: @ 0x08046B48
 	push {lr}
 	ldr r0, .L08046B58 @ =gUnk_Banim_02017774
 	ldr r0, [r0]
@@ -7445,8 +6997,8 @@ NewEfxStatusUnit: @ 0x08046DA0
 .L08046E94: .4byte gUnk_Banim_0200004C
 .L08046E98: .4byte gFadeComponents+0x60
 
-	thumb_func_start func_fe6_08046E9C
-func_fe6_08046E9C: @ 0x08046E9C
+	thumb_func_start EndEfxStatusUnits
+EndEfxStatusUnits: @ 0x08046E9C
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	ldr r5, .L08046ED4 @ =gUnk_Banim_02017764
@@ -7579,7 +7131,7 @@ func_fe6_08046F64: @ 0x08046F64
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B6C8
+	bl EfxPalGrayInOut
 	movs r0, #1
 	ands r0, r5
 	cmp r0, #0
@@ -7604,7 +7156,7 @@ func_fe6_08046F64: @ 0x08046F64
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B6C8
+	bl EfxPalGrayInOut
 	b .L0804703E
 	.align 2, 0
 .L08046FDC: .4byte gUnk_Banim_0200004C
@@ -7625,7 +7177,7 @@ func_fe6_08046F64: @ 0x08046F64
 	movs r1, #0x19
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B6C8
+	bl EfxPalGrayInOut
 	movs r0, #2
 	ands r0, r5
 	cmp r0, #0
@@ -7650,7 +7202,7 @@ func_fe6_08046F64: @ 0x08046F64
 	movs r1, #7
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B6C8
+	bl EfxPalGrayInOut
 .L0804703E:
 	add sp, #8
 	pop {r3}
@@ -7897,8 +7449,8 @@ NewEfxWeaponIcon: @ 0x080471E4
 .L08047224: .4byte gUnk_08112144
 .L08047228: .4byte gUnk_Banim_0201776C
 
-	thumb_func_start func_fe6_0804722C
-func_fe6_0804722C: @ 0x0804722C
+	thumb_func_start EndProcEfxWeaponIcon
+EndProcEfxWeaponIcon: @ 0x0804722C
 	push {r4, lr}
 	ldr r4, .L08047244 @ =gUnk_Banim_0201776C
 	ldr r0, [r4]
@@ -7964,7 +7516,7 @@ func_fe6_08047268: @ 0x08047268
 	ldr r3, [r4, #0x4c]
 	movs r1, #0x1d
 	movs r2, #1
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 .L080472A8:
 	ldr r0, [r4, #0x58]
 	cmp r0, #0
@@ -7976,7 +7528,7 @@ func_fe6_08047268: @ 0x08047268
 	ldr r3, [r4, #0x4c]
 	movs r1, #0x1e
 	movs r2, #1
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 .L080472C2:
 	bl EnablePalSync
 .L080472C6:
@@ -8109,7 +7661,7 @@ func_fe6_0804738C: @ 0x0804738C
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -8146,7 +7698,7 @@ func_fe6_080473F0: @ 0x080473F0
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #8
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r5, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -8190,7 +7742,7 @@ func_fe6_08047430: @ 0x08047430
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r1, [r5, #0x2c]
 	adds r1, #1
@@ -8250,8 +7802,8 @@ func_fe6_080474C8: @ 0x080474C8
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_080474D8
-func_fe6_080474D8: @ 0x080474D8
+	thumb_func_start SpellFx_ClearBG1
+SpellFx_ClearBG1: @ 0x080474D8
 	push {lr}
 	sub sp, #4
 	movs r0, #0
@@ -8832,7 +8384,7 @@ func_fe6_08047938: @ 0x08047938
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	b .L08047988
 	.align 2, 0
 .L0804796C: .4byte gEkrDistanceType
@@ -8893,7 +8445,7 @@ func_fe6_0804799C: @ 0x0804799C
 	adds r0, r5, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	b .L08047A08
 	.align 2, 0
 .L080479EC: .4byte gUnk_Banim_0201977C
@@ -8943,7 +8495,7 @@ func_fe6_08047A1C: @ 0x08047A1C
 	adds r0, #0xff
 	str r0, [sp, #4]
 	adds r0, r7, #0
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	b .L08047A74
 	.align 2, 0
 .L08047A54: .4byte gUnk_Banim_0201977C
@@ -9645,7 +9197,7 @@ func_fe6_08047ED4: @ 0x08047ED4
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #4
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	bl EndAllMus
 	adds r0, r7, #0
@@ -9743,7 +9295,7 @@ func_fe6_0804807C: @ 0x0804807C
 	asrs r0, r0, #0x10
 	cmp r0, #0xb
 	ble .L080480BC
-	ldr r0, .L080480AC @ =0x0203CCF2
+	ldr r0, .L080480AC @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -9757,7 +9309,7 @@ func_fe6_0804807C: @ 0x0804807C
 	bl Proc_End
 	b .L080480BC
 	.align 2, 0
-.L080480AC: .4byte 0x0203CCF2
+.L080480AC: .4byte gBanimBackgroundIndex
 .L080480B0:
 	strh r0, [r4, #0x2c]
 	bl NewEkrBattle
@@ -9804,7 +9356,7 @@ func_fe6_080480C4: @ 0x080480C4
 func_fe6_08048100: @ 0x08048100
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L08048114 @ =0x0203CCF6
+	ldr r0, .L08048114 @ =gEkrSnowWeather
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -9813,14 +9365,14 @@ func_fe6_08048100: @ 0x08048100
 	movs r0, #6
 	b .L08048120
 	.align 2, 0
-.L08048114: .4byte 0x0203CCF6
+.L08048114: .4byte gEkrSnowWeather
 .L08048118: .4byte gUnk_Banim_0201E0F8
 .L0804811C:
 	ldr r1, .L08048148 @ =gUnk_Banim_0201E0F8
 	movs r0, #0xa
 .L08048120:
 	str r0, [r1]
-	ldr r0, .L0804814C @ =0x0203CCF2
+	ldr r0, .L0804814C @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
@@ -9829,7 +9381,7 @@ func_fe6_08048100: @ 0x08048100
 	movs r1, #6
 	movs r2, #0xa
 	movs r3, #0x10
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -9837,7 +9389,7 @@ func_fe6_08048100: @ 0x08048100
 	bx r0
 	.align 2, 0
 .L08048148: .4byte gUnk_Banim_0201E0F8
-.L0804814C: .4byte 0x0203CCF2
+.L0804814C: .4byte gBanimBackgroundIndex
 .L08048150: .4byte gPal
 
 	thumb_func_start func_fe6_08048154
@@ -9854,7 +9406,7 @@ func_fe6_08048154: @ 0x08048154
 	movs r2, #0
 	bl Interpolate
 	adds r4, r0, #0
-	ldr r0, .L080481AC @ =0x0203CCF2
+	ldr r0, .L080481AC @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	subs r0, #1
@@ -9863,7 +9415,7 @@ func_fe6_08048154: @ 0x08048154
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -9882,7 +9434,7 @@ func_fe6_08048154: @ 0x08048154
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080481AC: .4byte 0x0203CCF2
+.L080481AC: .4byte gBanimBackgroundIndex
 .L080481B0: .4byte gPal
 
 	thumb_func_start func_fe6_080481B4
@@ -9903,7 +9455,7 @@ func_fe6_080481CC: @ 0x080481CC
 	push {r4, r5, r6, r7, lr}
 	sub sp, #4
 	adds r5, r0, #0
-	ldr r7, .L080481F0 @ =0x0203CCF2
+	ldr r7, .L080481F0 @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r7, r1]
 	cmp r0, #0
@@ -9917,7 +9469,7 @@ func_fe6_080481CC: @ 0x080481CC
 	bl Proc_Break
 	b .L08048238
 	.align 2, 0
-.L080481F0: .4byte 0x0203CCF2
+.L080481F0: .4byte gBanimBackgroundIndex
 .L080481F4:
 	movs r0, #0x2c
 	ldrsh r3, [r5, r0]
@@ -9936,7 +9488,7 @@ func_fe6_080481CC: @ 0x080481CC
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -9960,7 +9512,7 @@ func_fe6_080481CC: @ 0x080481CC
 func_fe6_08048244: @ 0x08048244
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L08048264 @ =0x0203CCF2
+	ldr r0, .L08048264 @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -9973,7 +9525,7 @@ func_fe6_08048244: @ 0x08048244
 	bl Proc_Break
 	b .L0804828E
 	.align 2, 0
-.L08048264: .4byte 0x0203CCF2
+.L08048264: .4byte gBanimBackgroundIndex
 .L08048268:
 	ldr r0, .L08048294 @ =gPlaySt
 	ldrb r0, [r0, #0xe]
@@ -10001,7 +9553,7 @@ func_fe6_08048298: @ 0x08048298
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	ldr r0, .L080482BC @ =0x0203CCF2
+	ldr r0, .L080482BC @ =gBanimBackgroundIndex
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -10015,7 +9567,7 @@ func_fe6_08048298: @ 0x08048298
 	bl Proc_Break
 	b .L080482EC
 	.align 2, 0
-.L080482BC: .4byte 0x0203CCF2
+.L080482BC: .4byte gBanimBackgroundIndex
 .L080482C0:
 	movs r0, #0x2c
 	ldrsh r3, [r4, r0]
@@ -12327,7 +11879,7 @@ func_fe6_08049058: @ 0x08049058
 	bgt .L08049540
 	cmp r0, #1
 	blt .L08049540
-	ldr r1, .L0804953C @ =0x0203CCF6
+	ldr r1, .L0804953C @ =gEkrSnowWeather
 	movs r0, #1
 	b .L08049544
 	.align 2, 0
@@ -12341,9 +11893,9 @@ func_fe6_08049058: @ 0x08049058
 .L08049530: .4byte gPlaySt
 .L08049534: .4byte gBmSt
 .L08049538: .4byte gEkrDistanceType
-.L0804953C: .4byte 0x0203CCF6
+.L0804953C: .4byte gEkrSnowWeather
 .L08049540:
-	ldr r1, .L080495C0 @ =0x0203CCF6
+	ldr r1, .L080495C0 @ =gEkrSnowWeather
 	movs r0, #0
 .L08049544:
 	strh r0, [r1]
@@ -12412,7 +11964,7 @@ func_fe6_08049058: @ 0x08049058
 	strh r0, [r1]
 	b .L08049634
 	.align 2, 0
-.L080495C0: .4byte 0x0203CCF6
+.L080495C0: .4byte gEkrSnowWeather
 .L080495C4: .4byte 0x0203CDC4
 .L080495C8: .4byte gEkrGaugeHp
 .L080495CC: .4byte 0x0203CDA4
@@ -12970,7 +12522,7 @@ func_fe6_08049058: @ 0x08049058
 .L08049A1C:
 	strh r0, [r1, #2]
 	strh r0, [r1]
-	ldr r5, .L08049A44 @ =0x0203CCF2
+	ldr r5, .L08049A44 @ =gBanimBackgroundIndex
 	movs r0, #0
 	strh r0, [r5]
 	bl GetBattleAnimType
@@ -12986,7 +12538,7 @@ func_fe6_08049058: @ 0x08049058
 	b .L08049A54
 	.align 2, 0
 .L08049A40: .4byte 0x0203CDD0
-.L08049A44: .4byte 0x0203CCF2
+.L08049A44: .4byte gBanimBackgroundIndex
 .L08049A48: .4byte gEkrPairSideVaild
 .L08049A4C: .4byte 0x0203CDC0
 .L08049A50:
@@ -18186,7 +17738,7 @@ func_fe6_0804C330: @ 0x0804C330
 	ldr r0, [sp, #0x10]
 	mov r1, sb
 	movs r3, #0x42
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	mov r0, sl
 	lsls r2, r0, #1
 	adds r2, r2, r4
@@ -18202,7 +17754,7 @@ func_fe6_0804C330: @ 0x0804C330
 	ldr r0, [sp, #0x14]
 	mov r1, sb
 	movs r3, #0x42
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	lsls r0, r5, #1
 	adds r4, r4, r0
 	ldr r2, .L0804C470 @ =0xFFFFFA96
@@ -18218,7 +17770,7 @@ func_fe6_0804C330: @ 0x0804C330
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	movs r0, #4
 	bl EnableBgSync
 	add sp, #0x18
@@ -18288,7 +17840,7 @@ func_fe6_0804C478: @ 0x0804C478
 	str r1, [sp, #8]
 	str r1, [sp, #0xc]
 	movs r3, #0x42
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	add sp, #0x10
 	pop {r0}
 	bx r0
@@ -18336,7 +17888,7 @@ func_fe6_0804C50C: @ 0x0804C50C
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	movs r0, #8
 	bl EnableBgSync
 	add sp, #0x10
@@ -18451,7 +18003,7 @@ func_fe6_0804C5D0: @ 0x0804C5D0
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	mov r0, r8
 	bl Proc_Break
@@ -18492,7 +18044,7 @@ func_fe6_0804C658: @ 0x0804C658
 	str r4, [sp, #0xc]
 	adds r0, r6, #0
 	movs r3, #0x42
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	movs r0, #0
 	bl func_fe6_0804C50C
 	movs r0, #8
@@ -18542,7 +18094,7 @@ func_fe6_0804C6CC: @ 0x0804C6CC
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -18635,7 +18187,7 @@ func_fe6_0804C788: @ 0x0804C788
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -21316,7 +20868,7 @@ func_fe6_0804DD94: @ 0x0804DD94
 	asrs r0, r0, #0x10
 	cmp r0, #0x1f
 	bne .L0804DDBC
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r1, .L0804DDC4 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -21876,7 +21428,7 @@ func_fe6_0804E1C0: @ 0x0804E1C0
 	adds r0, r5, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 .L0804E250:
 	movs r0, #2
 	bl EnableBgSync
@@ -21912,7 +21464,7 @@ func_fe6_0804E280: @ 0x0804E280
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0804E2AA
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804E2B0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -22044,7 +21596,7 @@ func_fe6_0804E2F8: @ 0x0804E2F8
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r6, #0
 	bl Proc_Break
 .L0804E3AC:
@@ -22589,7 +22141,7 @@ func_fe6_0804E814: @ 0x0804E814
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0804E83E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r1, .L0804E844 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -22978,7 +22530,7 @@ func_fe6_0804EB24: @ 0x0804EB24
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0804EB70
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804EB78 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -23355,7 +22907,7 @@ func_fe6_0804EE18: @ 0x0804EE18
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0804EE8E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804EE98 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -23762,7 +23314,7 @@ func_fe6_0804F1A4: @ 0x0804F1A4
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0804F1F0
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804F1F8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -23970,7 +23522,7 @@ func_fe6_0804F354: @ 0x0804F354
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L0804F3AE
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804F3B4 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -24064,7 +23616,7 @@ func_fe6_0804F450: @ 0x0804F450
 	asrs r0, r0, #0x10
 	cmp r0, #0x28
 	bne .L0804F478
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r1, .L0804F480 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -24501,7 +24053,7 @@ func_fe6_0804F7BC: @ 0x0804F7BC
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0804F816
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804F81C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -24609,7 +24161,7 @@ func_fe6_0804F8A4: @ 0x0804F8A4
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0804F8FE
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0804F904 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -25345,7 +24897,7 @@ func_fe6_0804FEB8: @ 0x0804FEB8
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r5, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
 	strh r0, [r6, #0x2c]
@@ -25411,7 +24963,7 @@ func_fe6_0804FF1C: @ 0x0804FF1C
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	ble .L0804FF84
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r1, .L0804FF90 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -25479,7 +25031,7 @@ func_fe6_0804FFD8: @ 0x0804FFD8
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	movs r2, #0x80
@@ -25765,7 +25317,7 @@ func_fe6_08050228: @ 0x08050228
 	rsbs r0, r0, #0
 	cmp r1, r0
 	bne .L08050272
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08050278 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -26274,7 +25826,7 @@ func_fe6_08050650: @ 0x08050650
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L080506AA
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L080506B0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -26849,7 +26401,7 @@ func_fe6_08050B10: @ 0x08050B10
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050B8E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r7, #0
 	adds r0, #0x29
 	ldrb r0, [r0]
@@ -27041,7 +26593,7 @@ func_fe6_08050C9C: @ 0x08050C9C
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050CFA
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08050D00 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -27091,7 +26643,7 @@ func_fe6_08050D04: @ 0x08050D04
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08050D5E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08050D64 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -27409,7 +26961,7 @@ func_fe6_08050F54: @ 0x08050F54
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L08050FFA
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08051008 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -27711,7 +27263,7 @@ func_fe6_0805120C: @ 0x0805120C
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L08051278
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08051284 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -28139,7 +27691,7 @@ func_fe6_080515A0: @ 0x080515A0
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08051616
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08051620 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -28620,7 +28172,7 @@ func_fe6_08051908: @ 0x08051908
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L080519F4
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08051A10 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -29336,7 +28888,7 @@ func_fe6_08051F88: @ 0x08051F88
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08051FE2
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08051FE8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -29730,7 +29282,7 @@ func_fe6_080522D0: @ 0x080522D0
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08052328
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08052330 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -29846,7 +29398,7 @@ func_fe6_0805238C: @ 0x0805238C
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	movs r0, #2
 	bl EnableBgSync
 .L0805241E:
@@ -29858,7 +29410,7 @@ func_fe6_0805238C: @ 0x0805238C
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08052444
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r1, .L0805245C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
@@ -30797,7 +30349,7 @@ func_fe6_08052BA8: @ 0x08052BA8
 	movs r1, #0x84
 	lsls r1, r1, #5
 	bl func_fe6_08047ACC
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r0, .L08052C24 @ =gUnk_0817B438
 	ldr r4, .L08052C28 @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
@@ -30848,7 +30400,7 @@ func_fe6_08052C34: @ 0x08052C34
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08052C5E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08052C64 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -30995,7 +30547,7 @@ func_fe6_08052D40: @ 0x08052D40
 	movs r1, #1
 	movs r2, #1
 	movs r3, #0x10
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	pop {r4}
 	pop {r0}
@@ -31028,7 +30580,7 @@ func_fe6_08052D8C: @ 0x08052D8C
 	movs r1, #1
 	movs r2, #1
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -31619,7 +31171,7 @@ func_fe6_08053218: @ 0x08053218
 	movs r1, #1
 	movs r2, #1
 	adds r3, r4, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
 	strh r0, [r5, #0x2c]
@@ -31820,7 +31372,7 @@ func_fe6_08053340: @ 0x08053340
 	mov r3, r8
 	strh r1, [r3, #8]
 .L080533F2:
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0805341C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -32654,7 +32206,7 @@ func_fe6_08053A98: @ 0x08053A98
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L08053AF2
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08053AF8 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -33306,7 +32858,7 @@ func_fe6_08053FF4: @ 0x08053FF4
 	movs r1, #0x80
 	lsls r1, r1, #6
 	bl func_fe6_08047ACC
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r0, .L08054074 @ =gUnk_0818F3D8
 	ldr r4, .L08054078 @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
@@ -33350,7 +32902,7 @@ func_fe6_08053FF4: @ 0x08053FF4
 	thumb_func_start func_fe6_08054084
 func_fe6_08054084: @ 0x08054084
 	push {lr}
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0805409C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -33726,7 +33278,7 @@ func_fe6_08054310: @ 0x08054310
 	rsbs r0, r0, #0
 	cmp r4, r0
 	bne .L080543B6
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L080543C0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -34910,7 +34462,7 @@ func_fe6_08054D08: @ 0x08054D08
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne .L08054D54
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 .L08054D54:
 	movs r0, #1
@@ -35772,7 +35324,7 @@ func_fe6_080553B4: @ 0x080553B4
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0805542A
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08055430 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -35977,7 +35529,7 @@ func_fe6_08055580: @ 0x08055580
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L08055614
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L0805561C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -36335,7 +35887,7 @@ func_fe6_08055870: @ 0x08055870
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L080558CA
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L080558D0 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -36655,7 +36207,7 @@ func_fe6_08055B2C: @ 0x08055B2C
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08055B78
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08055B80 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -36958,7 +36510,7 @@ func_fe6_08055DBC: @ 0x08055DBC
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08055E08
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08055E10 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -37345,7 +36897,7 @@ func_fe6_080560D4: @ 0x080560D4
 	rsbs r0, r0, #0
 	cmp r3, r0
 	bne .L0805612E
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08056134 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -37690,7 +37242,7 @@ func_fe6_080563E0: @ 0x080563E0
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0805642C
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r0, [r5, #0x1c]
 	ldr r1, .L08056438 @ =0xFFFFF7FF
@@ -38321,7 +37873,7 @@ func_fe6_08056910: @ 0x08056910
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0805695C
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08056964 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -38633,7 +38185,7 @@ func_fe6_08056BA8: @ 0x08056BA8
 	asrs r0, r0, #0x10
 	cmp r0, #0x11
 	bne .L08056BC8
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
@@ -38838,7 +38390,7 @@ func_fe6_08056D28: @ 0x08056D28
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08056D74
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08056D7C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -39578,7 +39130,7 @@ func_fe6_080572EC: @ 0x080572EC
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08057338
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08057340 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -40402,7 +39954,7 @@ func_fe6_08057A0C: @ 0x08057A0C
 	asrs r0, r0, #0x10
 	cmp r0, #0x3c
 	bne .L08057A2C
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	adds r0, r4, #0
 	bl Proc_Break
@@ -40771,7 +40323,7 @@ func_fe6_08057C94: @ 0x08057C94
 	ldrb r1, [r3, #0x14]
 	orrs r0, r1
 	strb r0, [r3, #0x14]
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08057D1C @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -41192,7 +40744,7 @@ func_fe6_0805803C: @ 0x0805803C
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	b .L08058094
 .L08058080:
 	ldr r1, [r4, #0x14]
@@ -42217,8 +41769,8 @@ EkrDragonIntroDone: @ 0x08058880
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_080588A4
-func_fe6_080588A4: @ 0x080588A4
+	thumb_func_start TriggerEkrDragonEnding
+TriggerEkrDragonEnding: @ 0x080588A4
 	push {lr}
 	bl func_fe6_0804B6C4
 	ldr r1, .L080588B8 @ =gUnk_Banim_0201E7C8
@@ -42231,8 +41783,8 @@ func_fe6_080588A4: @ 0x080588A4
 	.align 2, 0
 .L080588B8: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start func_fe6_080588BC
-func_fe6_080588BC: @ 0x080588BC
+	thumb_func_start CheckEkrDragonEndingDone
+CheckEkrDragonEndingDone: @ 0x080588BC
 	push {r4, lr}
 	ldr r4, .L080588D4 @ =gUnk_Banim_0201E7C0
 	bl func_fe6_0804B6C4
@@ -42562,7 +42114,7 @@ func_fe6_08058ACC: @ 0x08058ACC
 	adds r0, r7, #0
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl func_fe6_0805B2BC
+	bl EfxTmCpyExtHFlip
 	adds r4, #0x42
 	ldr r2, .L08058B7C @ =gBg3Tm
 	movs r0, #0x20
@@ -42573,7 +42125,7 @@ func_fe6_08058ACC: @ 0x08058ACC
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	ldr r1, .L08058B80 @ =0x06008000
 	movs r2, #0x80
 	lsls r2, r2, #6
@@ -42643,7 +42195,7 @@ func_fe6_08058B84: @ 0x08058B84
 	adds r0, r7, #0
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl func_fe6_0805B2BC
+	bl EfxTmCpyExtHFlip
 	adds r4, #0x42
 	ldr r2, .L08058C34 @ =gBg3Tm
 	movs r0, #0x20
@@ -42654,7 +42206,7 @@ func_fe6_08058B84: @ 0x08058B84
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	ldr r1, .L08058C38 @ =0x06008000
 	movs r2, #0x80
 	lsls r2, r2, #6
@@ -42723,7 +42275,7 @@ func_fe6_08058C3C: @ 0x08058C3C
 	str r1, [sp, #0xc]
 	adds r1, r5, #0
 	movs r3, #0x42
-	bl func_fe6_0805B2BC
+	bl EfxTmCpyExtHFlip
 	adds r4, #0x42
 	ldr r2, .L08058CE4 @ =gBg3Tm
 	movs r0, #0x20
@@ -42734,7 +42286,7 @@ func_fe6_08058C3C: @ 0x08058C3C
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	ldr r0, .L08058CD0 @ =gUnk_Banim_0201777C
 	ldr r1, .L08058CE8 @ =0x06008000
 	movs r2, #0x80
@@ -42830,7 +42382,7 @@ func_fe6_08058D34: @ 0x08058D34
 	adds r1, r6, #0
 	movs r2, #0x1e
 	movs r3, #0x16
-	bl func_fe6_0805B1DC
+	bl EfxTmCpyBgHFlip
 	ldr r0, .L08058DAC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
@@ -43088,7 +42640,7 @@ func_fe6_08058F60: @ 0x08058F60
 	adds r0, r4, #0
 	movs r1, #0x42
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	movs r0, #8
 	bl EnableBgSync
 	add sp, #0x10
@@ -43122,7 +42674,7 @@ func_fe6_08058FA8: @ 0x08058FA8
 	str r3, [sp, #0xc]
 	adds r0, r4, #0
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	b .L08059006
 	.align 2, 0
 .L08058FDC: .4byte gUnk_Banim_0201977C
@@ -43142,7 +42694,7 @@ func_fe6_08058FA8: @ 0x08058FA8
 	str r1, [sp, #0xc]
 	movs r1, #0x1e
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 .L08059006:
 	movs r0, #8
 	bl EnableBgSync
@@ -43185,7 +42737,7 @@ func_fe6_08059018: @ 0x08059018
 	movs r3, #0
 	str r3, [sp, #0xc]
 	movs r3, #0x42
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	ldr r0, .L08059074 @ =gEkrBgPosition
 	ldr r0, [r0]
 	bl func_fe6_08058F60
@@ -44795,7 +44347,7 @@ func_fe6_08059D34: @ 0x08059D34
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L08059D80
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	ldr r1, .L08059D88 @ =gUnk_Banim_02017744
 	ldr r0, [r1]
 	subs r0, #1
@@ -45626,7 +45178,7 @@ func_fe6_0805A434: @ 0x0805A434
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -45700,7 +45252,7 @@ func_fe6_0805A4C8: @ 0x0805A4C8
 	movs r1, #4
 	movs r2, #2
 	movs r3, #0x10
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
@@ -45735,7 +45287,7 @@ func_fe6_0805A51C: @ 0x0805A51C
 	movs r1, #4
 	movs r2, #2
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r6, #0x2c]
 	adds r0, #1
@@ -45971,12 +45523,12 @@ func_fe6_0805A6DC: @ 0x0805A6DC
 	movs r1, #6
 	movs r2, #1
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r5, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r1, [r6, #0x2c]
 	adds r1, #1
@@ -46369,12 +45921,12 @@ func_fe6_0805A9F8: @ 0x0805A9F8
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r5, #0
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	movs r0, #0x8f
 	lsls r0, r0, #2
 	adds r1, r4, r0
@@ -46447,12 +45999,12 @@ func_fe6_0805AAA0: @ 0x0805AAA0
 	movs r1, #6
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r5, #0
 	movs r1, #0x17
 	movs r2, #1
 	mov r3, r8
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	movs r0, #0x8f
 	lsls r0, r0, #2
 	adds r1, r4, r0
@@ -46531,7 +46083,7 @@ func_fe6_0805AB5C: @ 0x0805AB5C
 	str r4, [sp, #0xc]
 	adds r0, r6, #0
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x64
 	movs r2, #0xc8
@@ -46903,7 +46455,7 @@ func_fe6_0805AE6C: @ 0x0805AE6C
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -46946,7 +46498,7 @@ func_fe6_0805AEDC: @ 0x0805AEDC
 	movs r1, #0
 	movs r2, #0x20
 	movs r3, #0x10
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -46998,7 +46550,7 @@ func_fe6_0805AF34: @ 0x0805AF34
 	movs r1, #0
 	movs r2, #0x20
 	adds r3, r6, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	movs r1, #0xa0
 	lsls r1, r1, #0x13
 	adds r0, r4, #0
@@ -47337,15 +46889,15 @@ EfxTmCpyBG: @ 0x0805B1AC
 	str r5, [sp, #0xc]
 	adds r2, r6, #0
 	movs r3, #0x20
-	bl func_fe6_0805B20C
+	bl EfxTmCpyExt
 	add sp, #0x10
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805B1DC
-func_fe6_0805B1DC: @ 0x0805B1DC
+	thumb_func_start EfxTmCpyBgHFlip
+EfxTmCpyBgHFlip: @ 0x0805B1DC
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r6, r1, #0
@@ -47363,15 +46915,15 @@ func_fe6_0805B1DC: @ 0x0805B1DC
 	str r5, [sp, #0xc]
 	adds r2, r6, #0
 	movs r3, #0x20
-	bl func_fe6_0805B2BC
+	bl EfxTmCpyExtHFlip
 	add sp, #0x10
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805B20C
-func_fe6_0805B20C: @ 0x0805B20C
+	thumb_func_start EfxTmCpyExt
+EfxTmCpyExt: @ 0x0805B20C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -47469,8 +47021,8 @@ func_fe6_0805B20C: @ 0x0805B20C
 	.align 2, 0
 .L0805B2B8: .4byte 0xFFFF0000
 
-	thumb_func_start func_fe6_0805B2BC
-func_fe6_0805B2BC: @ 0x0805B2BC
+	thumb_func_start EfxTmCpyExtHFlip
+EfxTmCpyExtHFlip: @ 0x0805B2BC
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -47906,8 +47458,8 @@ func_fe6_0805B4D8: @ 0x0805B4D8
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805B5C8
-func_fe6_0805B5C8: @ 0x0805B5C8
+	thumb_func_start EfxPalBlackInOut
+EfxPalBlackInOut: @ 0x0805B5C8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sb
 	mov r6, r8
@@ -47973,8 +47525,8 @@ func_fe6_0805B5C8: @ 0x0805B5C8
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_0805B644
-func_fe6_0805B644: @ 0x0805B644
+	thumb_func_start EfxPalWhiteInOut
+EfxPalWhiteInOut: @ 0x0805B644
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -48044,8 +47596,8 @@ func_fe6_0805B644: @ 0x0805B644
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_0805B6C8
-func_fe6_0805B6C8: @ 0x0805B6C8
+	thumb_func_start EfxPalGrayInOut
+EfxPalGrayInOut: @ 0x0805B6C8
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -48445,7 +47997,7 @@ func_fe6_0805B9A4: @ 0x0805B9A4
 	movs r1, #6
 	movs r2, #0xa
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	pop {r4}
 	pop {r0}
@@ -50119,8 +49671,8 @@ EkrPlayMainBGM: @ 0x0805C520
 	.align 2, 0
 .L0805C734: .4byte gUnk_Banim_0201F04C
 
-	thumb_func_start func_fe6_0805C738
-func_fe6_0805C738: @ 0x0805C738
+	thumb_func_start EkrRestoreBGM
+EkrRestoreBGM: @ 0x0805C738
 	push {lr}
 	bl func_fe6_08058F38
 	cmp r0, #0
@@ -50749,7 +50301,7 @@ func_fe6_0805CBF4: @ 0x0805CBF4
 	rsbs r0, r0, #0
 	cmp r5, r0
 	bne .L0805CC58
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	adds r0, r7, #0
 	bl Proc_End
@@ -51094,7 +50646,7 @@ func_fe6_0805CEE0: @ 0x0805CEE0
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L0805CF24
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	bl func_fe6_080475D8
 	ldr r0, [r5, #0x1c]
 	ldr r1, .L0805CF30 @ =0xFFFFF7FF
@@ -51256,7 +50808,7 @@ func_fe6_0805CFF8: @ 0x0805CFF8
 	movs r1, #0x17
 	movs r2, #1
 	adds r3, r6, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	b .L0805D06E
 	.align 2, 0
 .L0805D044: .4byte gUnk_Banim_0200004C
@@ -51275,7 +50827,7 @@ func_fe6_0805CFF8: @ 0x0805CFF8
 	movs r1, #0x19
 	movs r2, #1
 	adds r3, r6, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 .L0805D06E:
 	bl EnablePalSync
 	ldrh r0, [r5, #0x2c]
@@ -51370,8 +50922,8 @@ func_fe6_0805D0E0: @ 0x0805D0E0
 	.align 2, 0
 .L0805D124: .4byte gUnk_Banim_02017744
 
-	thumb_func_start func_fe6_0805D128
-func_fe6_0805D128: @ 0x0805D128
+	thumb_func_start CheckEkrLvupDone
+CheckEkrLvupDone: @ 0x0805D128
 	ldr r0, .L0805D138 @ =gUnk_Banim_0201F058
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -51387,8 +50939,8 @@ func_fe6_0805D128: @ 0x0805D128
 .L0805D13E:
 	bx lr
 
-	thumb_func_start func_fe6_0805D140
-func_fe6_0805D140: @ 0x0805D140
+	thumb_func_start EndEkrLevelUp
+EndEkrLevelUp: @ 0x0805D140
 	push {lr}
 	ldr r0, .L0805D150 @ =gUnk_Banim_0201F058
 	ldr r0, [r0]
@@ -51902,8 +51454,8 @@ func_fe6_0805D570: @ 0x0805D570
 .L0805D5A8: .4byte gUnk_Banim_0201F0B4
 .L0805D5AC: .4byte gBg2Tm+0x1DA
 
-	thumb_func_start func_fe6_0805D5B0
-func_fe6_0805D5B0: @ 0x0805D5B0
+	thumb_func_start NewEkrLevelup
+NewEkrLevelup: @ 0x0805D5B0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r5, .L0805D5E8 @ =gUnk_Banim_0201F058
@@ -52014,7 +51566,7 @@ func_fe6_0805D604: @ 0x0805D604
 	str r0, [r7, #0x1c]
 	ldr r0, .L0805D6E4 @ =gUnk_Banim_020145C0
 	str r0, [r7, #0x20]
-	ldr r0, .L0805D6E8 @ =0x0203CCF6
+	ldr r0, .L0805D6E8 @ =gEkrSnowWeather
 	ldrh r0, [r0]
 	strh r0, [r7, #0x10]
 	lsls r1, r1, #0x10
@@ -52043,7 +51595,7 @@ func_fe6_0805D604: @ 0x0805D604
 .L0805D6DC: .4byte 0x0000FFFF
 .L0805D6E0: .4byte 0x06010000
 .L0805D6E4: .4byte gUnk_Banim_020145C0
-.L0805D6E8: .4byte 0x0203CCF6
+.L0805D6E8: .4byte gEkrSnowWeather
 .L0805D6EC: .4byte gEkrInitPosReal
 .L0805D6F0:
 	adds r0, r4, #0
@@ -52563,12 +52115,12 @@ func_fe6_0805DA7C: @ 0x0805DA7C
 	movs r1, #2
 	movs r2, #4
 	mov r3, sl
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	mov r3, sl
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	ldrh r0, [r7, #0x2c]
 	adds r0, #1
@@ -53050,12 +52602,12 @@ func_fe6_0805DEC8: @ 0x0805DEC8
 	movs r1, #2
 	movs r2, #4
 	adds r3, r6, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r4, #0
 	movs r1, #0x13
 	movs r2, #0xc
 	adds r3, r6, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	bl EnablePalSync
 	movs r0, #7
 .L0805DF54:
@@ -53138,7 +52690,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	str r6, [sp, #0x1c]
 	ldr r0, .L0805E0A8 @ =gUnk_Banim_020145C0
 	str r0, [sp, #0x20]
-	ldr r0, .L0805E0AC @ =0x0203CCF6
+	ldr r0, .L0805E0AC @ =gEkrSnowWeather
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
 	bl GetBattleAnimArenaFlag
@@ -53214,7 +52766,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 .L0805E0A0: .4byte 0x0203CD10
 .L0805E0A4: .4byte gEkrDistanceType
 .L0805E0A8: .4byte gUnk_Banim_020145C0
-.L0805E0AC: .4byte 0x0203CCF6
+.L0805E0AC: .4byte gEkrSnowWeather
 .L0805E0B0: .4byte 0x0000F3FF
 .L0805E0B4: .4byte gBg1Tm
 .L0805E0B8: .4byte 0x01000200
@@ -54358,7 +53910,7 @@ func_fe6_0805E91C: @ 0x0805E91C
 	rsbs r0, r0, #0
 	cmp r2, r0
 	bne .L0805E95C
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805E95C:
@@ -55321,8 +54873,8 @@ func_fe6_0805F100: @ 0x0805F100
 .L0805F140: .4byte 0x01000008
 .L0805F144: .4byte gPal
 
-	thumb_func_start func_fe6_0805F148
-func_fe6_0805F148: @ 0x0805F148
+	thumb_func_start CheckEkrPopupDone
+CheckEkrPopupDone: @ 0x0805F148
 	ldr r0, .L0805F154 @ =gUnk_Banim_0201F0E4
 	ldr r0, [r0]
 	cmp r0, #1
@@ -55336,8 +54888,8 @@ func_fe6_0805F148: @ 0x0805F148
 .L0805F15A:
 	bx lr
 
-	thumb_func_start func_fe6_0805F15C
-func_fe6_0805F15C: @ 0x0805F15C
+	thumb_func_start EndEkrPopup
+EndEkrPopup: @ 0x0805F15C
 	push {r4, lr}
 	ldr r4, .L0805F174 @ =gUnk_Banim_0201F0E0
 	ldr r0, [r4]
@@ -55715,8 +55267,8 @@ func_fe6_0805F27C: @ 0x0805F27C
 .L0805F490: .4byte gUnk_08607660
 .L0805F494: .4byte gDispIo
 
-	thumb_func_start func_fe6_0805F498
-func_fe6_0805F498: @ 0x0805F498
+	thumb_func_start NewEkrPopup
+NewEkrPopup: @ 0x0805F498
 	push {r4, r5, lr}
 	ldr r4, .L0805F554 @ =gUnk_Banim_0201F0E0
 	ldr r0, .L0805F558 @ =gUnk_08607668
@@ -55806,7 +55358,7 @@ func_fe6_0805F498: @ 0x0805F498
 	ldr r1, .L0805F55C @ =gUnk_Banim_0201F0E4
 	movs r0, #1
 	str r0, [r1]
-	bl func_fe6_0805F15C
+	bl EndEkrPopup
 	b .L0805F576
 	.align 2, 0
 .L0805F554: .4byte gUnk_Banim_0201F0E0
@@ -55883,7 +55435,7 @@ func_fe6_0805F5C0: @ 0x0805F5C0
 	ble .L0805F5F2
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F5F2:
@@ -55933,7 +55485,7 @@ func_fe6_0805F620: @ 0x0805F620
 	ble .L0805F652
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F652:
@@ -55983,7 +55535,7 @@ func_fe6_0805F680: @ 0x0805F680
 	ble .L0805F6B2
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F6B2:
@@ -56035,7 +55587,7 @@ func_fe6_0805F6E0: @ 0x0805F6E0
 	strh r0, [r4, #0x2c]
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	bl func_fe6_080474D8
+	bl SpellFx_ClearBG1
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805F716:

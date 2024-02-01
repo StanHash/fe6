@@ -5,10 +5,6 @@
 #include "battle.h"
 #include "banim_sprite.h"
 
-struct ProcEkrBattleDeamon {
-    PROC_HEADER;
-};
-
 struct ProcEkrBattle {
     PROC_HEADER;
 
@@ -27,17 +23,17 @@ struct ProcEkrBattle {
 
 extern struct ProcEkrBattle * gpProcEkrBattle;
 
-void SetBanimLinkArenaFlag(int arg_0);
-// GetBanimLinkArenaFlag
-// NewEkrBattleDeamon
-// EndEkrBattleDeamon
+void SetBanimLinkArenaFlag(int flag);
+int GetBanimLinkArenaFlag(void);
+void NewEkrBattleDeamon(void);
+void EndEkrBattleDeamon(void);
 i8 IsBattleDeamonActive(void);
-// EkrBattleDeamon_OnEnd
-// null_080425EC
-// NewEkrBattle
+void EkrBattleDeamon_OnEnd(void);
+void EkrBattleDeamonMain(ProcPtr proc);
+void NewEkrBattle(void);
 void InBattleMainRoutine(void);
 void MainUpdateEkrBattle(void);
-// null_08042780
+void EkrBattle_End(struct ProcEkrBattle * proc);
 void EkrBattle_Init(struct ProcEkrBattle * proc);
 void EkrBattle_Main(struct ProcEkrBattle * proc);
 void EkrBattleStartBattleQuote(struct ProcEkrBattle * proc);
@@ -67,13 +63,11 @@ void EkrBattlePostExpBarDelay(struct ProcEkrBattle * proc);
 void EkrBattleMergeLvupImgBG(struct ProcEkrBattle * proc);
 void EkrBattleLvupHanlder(struct ProcEkrBattle * proc);
 void EkrBattleExecEkrLvup(struct ProcEkrBattle * proc);
-void func_fe6_080433E8(struct ProcEkrBattle * proc);
+void EkrBattleWaitLvup(struct ProcEkrBattle * proc);
 void EkrBattleExecPopup(struct ProcEkrBattle * proc);
-void func_fe6_08043424(struct ProcEkrBattle * proc);
-void func_fe6_08043448(struct ProcEkrBattle * proc);
-void func_fe6_08043484(struct ProcEkrBattle * proc);
-// func_fe6_08043534
-// func_fe6_08043554
-// func_fe6_0804358C
-// func_fe6_08043590
-// func_fe6_080435AC
+void EkrBattleWaitPopup(struct ProcEkrBattle * proc);
+void EkrBattlePrepareEnding(struct ProcEkrBattle * proc);
+void EkrBattleStartDragonEnding(struct ProcEkrBattle * proc);
+void EkrBattleWaitDragonEnding(struct ProcEkrBattle * proc);
+void EkrBattlePostDragonEnding(struct ProcEkrBattle * proc);
+void EkrBattlePostEndDelay(struct ProcEkrBattle * proc);

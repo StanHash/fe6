@@ -26,6 +26,7 @@
 #include "eventinfo.h"
 #include "systemlabels.h"
 #include "mapui.h"
+#include "banim.h"
 
 #include "constants/iids.h"
 #include "constants/pids.h"

@@ -70,6 +70,8 @@ enum
 #define PROC_CALL_ARG(func, arg)          { PROC_CMD_CALL_ARG, (arg), (func) }
 #define PROC_19                           { PROC_CMD_19, 0, 0 }
 
+#define PROC_NAME_DEBUG(name)             PROC_19
+
 #define PROC_HEADER_EXT(parent_type)                                                                    \
     /* 00 */ struct ProcScr const * proc_script; /* pointer to proc script */                           \
     /* 04 */ struct ProcScr const * proc_script_pc; /* pointer to currently executing script command */ \

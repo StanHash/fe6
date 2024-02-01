@@ -11,13 +11,11 @@ enum ekr_dragon_status_type_bitfile {
     EDRAGON_TYPE_4 = 1 << 4,
 };
 
-u32 GetEkrDragonStatusType(void); /* Different form FE8, this is a bitfile rather than enum */
-
 void func_fe6_0805884C(void);
 bool EkrDragonIntroDone(struct BaSprite * anim);
-// func_fe6_080588A4
-// func_fe6_080588BC
-
+void TriggerEkrDragonEnding(struct BaSprite * anim);
+bool CheckEkrDragonEndingDone(struct BaSprite * anim);
+u32 GetEkrDragonStatusType(void); /* Different form FE8, this is a bitfile rather than enum */
 u32 GetBanimDragonStatusType(void);
 int CheckEkrDragonDead1(void);
 // func_fe6_080589C4
