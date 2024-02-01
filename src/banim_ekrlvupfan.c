@@ -1,4 +1,4 @@
-#include "common.h"
+#include "prelude.h"
 #include "proc.h"
 #include "sound.h"
 #include "banim_sprite.h"

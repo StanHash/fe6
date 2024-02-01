@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 #include "banim_sprite.h"
 
 enum ekr_dragon_status_type_bitfile {

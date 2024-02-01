@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 #include "unit.h"
 #include "battle.h"
 #include "banim_sprite.h"

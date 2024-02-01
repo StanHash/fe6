@@ -4,7 +4,7 @@
  * messed banim related struct/data/functions
  */
 
-#include "common.h"
+#include "prelude.h"
 #include "banim_sprite.h"
 
 enum EkrDistanceType_idx {
