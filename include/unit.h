@@ -1,12 +1,13 @@
-#pragma once
+#ifndef UNIT_H
+#define UNIT_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "bm.h"
 
-enum { UNIT_WEAPON_EXP_COUNT = 8 };
-enum { UNIT_SUPPORT_COUNT = 10 };
-enum { UNIT_LEVEL_MAX = 20 };
+#define UNIT_WEAPON_EXP_COUNT 8
+#define UNIT_SUPPORT_COUNT 10
+#define UNIT_LEVEL_MAX 20
 
 enum
 {
@@ -16,54 +17,80 @@ enum
     UNIT_AMOUNT_PURPLE = 5,
 };
 
+// flags constants for PInfo::attributes and JInfo::attributes
 enum
 {
-    UNIT_ATTR_MOUNTED = (1 << 0),
-    UNIT_ATTR_RE_MOVE = (1 << 1),
-    UNIT_ATTR_STEAL = (1 << 2),
-    UNIT_ATTR_THIEF = (1 << 3),
-    UNIT_ATTR_DANCE = (1 << 4),
-    UNIT_ATTR_PLAY = (1 << 5),
-    UNIT_ATTR_CRITBONUS = (1 << 6),
-    UNIT_ATTR_BALLISTA = (1 << 7),
-    UNIT_ATTR_PROMOTED = (1 << 8),
-    UNIT_ATTR_SUPPLY = (1 << 9),
-    UNIT_ATTR_MOUNT_ICON = (1 << 10),
-    UNIT_ATTR_WYVERN_ICON = (1 << 11),
-    UNIT_ATTR_PEGASUS_ICON = (1 << 12),
-    UNIT_ATTR_LORD = (1 << 13),
-    UNIT_ATTR_FEMALE = (1 << 14),
-    UNIT_ATTR_BOSS = (1 << 15),
-    UNIT_ATTR_LOCK_ROY = (1 << 16),
-    UNIT_ATTR_LOCK_MYRM = (1 << 17),
-    UNIT_ATTR_LOCK_DRAGON = (1 << 18),
-    UNIT_ATTR_LOCK_ZEPHIEL = (1 << 19),
-    UNIT_ATTR_20 = (1 << 20),
-    UNIT_ATTR_TRIANGLE_ATTACK_PEGASI = (1 << 21),
-    UNIT_ATTR_TRIANGLE_ATTACK_ARMORS = (1 << 22),
-    UNIT_ATTR_ALT_PINFO = (1 << 23),
-    UNIT_ATTR_MAJOR_BOSS = (1 << 24),
+    UNIT_ATTR_MOUNTED = 1 << 0,
+    UNIT_ATTR_RE_MOVE = 1 << 1,
+    UNIT_ATTR_STEAL = 1 << 2,
+    UNIT_ATTR_THIEF = 1 << 3,
+    UNIT_ATTR_DANCE = 1 << 4,
+    UNIT_ATTR_PLAY = 1 << 5,
+    UNIT_ATTR_CRITBONUS = 1 << 6,
+    UNIT_ATTR_BALLISTA = 1 << 7,
+    UNIT_ATTR_PROMOTED = 1 << 8,
+    UNIT_ATTR_SUPPLY = 1 << 9,
+    UNIT_ATTR_MOUNT_ICON = 1 << 10,
+    UNIT_ATTR_WYVERN_ICON = 1 << 11,
+    UNIT_ATTR_PEGASUS_ICON = 1 << 12,
+    UNIT_ATTR_LORD = 1 << 13,
+    UNIT_ATTR_FEMALE = 1 << 14,
+    UNIT_ATTR_BOSS = 1 << 15,
+    UNIT_ATTR_LOCK_ROY = 1 << 16,
+    UNIT_ATTR_LOCK_MYRM = 1 << 17,
+    UNIT_ATTR_LOCK_DRAGON = 1 << 18,
+    UNIT_ATTR_LOCK_ZEPHIEL = 1 << 19,
+    UNIT_ATTR_20 = 1 << 20,
+    UNIT_ATTR_TRIANGLE_ATTACK_PEGASI = 1 << 21,
+    UNIT_ATTR_TRIANGLE_ATTACK_ARMORS = 1 << 22,
+    UNIT_ATTR_ALT_PINFO = 1 << 23,
+    UNIT_ATTR_MAJOR_BOSS = 1 << 24,
 
     // Helpers
-    UNIT_ATTR_REFRESHER = UNIT_ATTR_DANCE + UNIT_ATTR_PLAY,
-    UNIT_ATTR_TRIANGLE_ATTACK_ANY = UNIT_ATTR_TRIANGLE_ATTACK_PEGASI + UNIT_ATTR_TRIANGLE_ATTACK_ARMORS,
+    UNIT_ATTR_REFRESHER = UNIT_ATTR_DANCE | UNIT_ATTR_PLAY,
+    UNIT_ATTR_TRIANGLE_ATTACK_ANY = UNIT_ATTR_TRIANGLE_ATTACK_PEGASI | UNIT_ATTR_TRIANGLE_ATTACK_ARMORS,
 };
 
+// flag constants for Unit::flags
 enum
 {
-    UNIT_FLAG_HIDDEN       = 1 << 0,
-    UNIT_FLAG_TURN_ENDED   = 1 << 1,
-    UNIT_FLAG_DEAD         = 1 << 2,
+    // this unit shouldn't be displayed
+    UNIT_FLAG_HIDDEN = 1 << 0,
+
+    // this units turn properly ended (it is "grayed out")
+    UNIT_FLAG_TURN_ENDED = 1 << 1,
+
+    // this unit is currently dead (note that only blue units remain in memory while dead)
+    UNIT_FLAG_DEAD = 1 << 2,
+
+    // this unit has not been deployed for this chapter
     UNIT_FLAG_NOT_DEPLOYED = 1 << 3,
-    UNIT_FLAG_RESCUING     = 1 << 4,
-    UNIT_FLAG_RESCUED      = 1 << 5,
-    UNIT_FLAG_HAD_ACTION   = 1 << 6,
-    UNIT_FLAG_UNDER_ROOF   = 1 << 7,
-    UNIT_FLAG_SEEN         = 1 << 8,
-    UNIT_FLAG_CONCEALED    = 1 << 9,
+
+    // this unit is rescuing another unit (its ID being found in Unit::rescue)
+    UNIT_FLAG_RESCUING = 1 << 4,
+
+    // this unit is being rescued by anther unit (its ID being found in Unit::rescue)
+    UNIT_FLAG_RESCUED = 1 << 5,
+
+    // this unit comitted to an action (but may still be in the process of ending its move)
+    UNIT_FLAG_HAD_ACTION = 1 << 6,
+
+    // this unit is under a roof
+    UNIT_FLAG_UNDER_ROOF = 1 << 7,
+
+    // this unit will fade in/out alongside the map during a map fade (used for rooves and fog)
+    UNIT_FLAG_MAPFADE = 1 << 8,
+
+    // this unit is concealed by the fog
+    UNIT_FLAG_CONCEALED = 1 << 9,
+
+    // this unit was processed by the AI driver and won't have its turn
     UNIT_FLAG_AI_PROCESSED = 1 << 10,
 
+    // per unit battle animation config (first bit)
     UNIT_FLAG_SOLOANIM_1   = 1 << 14,
+
+    // per unit battle animation config (second bit)
     UNIT_FLAG_SOLOANIM_2   = 1 << 15,
 
     // Helpers
@@ -72,6 +99,7 @@ enum
     UNIT_FLAG_SOLOANIM = UNIT_FLAG_SOLOANIM_1 | UNIT_FLAG_SOLOANIM_2,
 };
 
+// valid values for Unit::status
 enum
 {
     UNIT_STATUS_NONE,
@@ -82,14 +110,18 @@ enum
     UNIT_STATUS_BERSERK,
 };
 
+// bits of the result of GetUnitUseBits
 enum
 {
-    UNIT_USEBIT_WEAPON = (1 << 0),
-    UNIT_USEBIT_STAFF = (1 << 1),
+    UNIT_USEBIT_WEAPON = 1 << 0,
+    UNIT_USEBIT_STAFF = 1 << 1,
 };
 
+// item slot constants
 enum
 {
+    // 0..4 are unit inventory
+
     ITEMSLOT_INV0,
     ITEMSLOT_INV1,
     ITEMSLOT_INV2,
@@ -104,6 +136,7 @@ enum
     ITEMSLOT_BALLISTA = ITEMSLOT_INV_COUNT + 3,
 };
 
+// valid constants for JInfo::walk_speed
 enum
 {
     UNIT_WALKSPEED_FAST,
@@ -119,7 +152,7 @@ struct PInfo
     /* 06 */ u16 fid;
     /* 08 */ u8 chibi_id;
     /* 09 */ u8 affinity;
-    /* 0A */ u8 unk_0A;
+    /* 0A */ u8 sort_order_key;
 
     /* 0B */ i8 base_level;
     /* 0C */ i8 base_hp;
@@ -159,7 +192,7 @@ struct JInfo
     /* 06 */ u8 map_sprite;
     /* 07 */ u8 walk_speed;
     /* 08 */ u16 fid;
-    /* 0A */ u8 unk_0A;
+    /* 0A */ u8 sort_order_key;
 
     /* 0B */ i8 base_hp;
     /* 0C */ i8 base_pow;
@@ -245,6 +278,7 @@ struct Unit
     /* 48 */ // end
 };
 
+// UnitInfo is used for constructing new units
 struct UnitInfo
 {
     /* 00 */ u8 pid;
@@ -317,7 +351,7 @@ void UnitBeginReMoveAction(struct Unit * unit);
 void func_fe6_08017EDC(int x, int y);
 void ClearActiveFactionTurnEndedState(void);
 void TickActiveFactionTurnAndListStatusHeals(void);
-void func_fe6_0801809C(void);
+void ClearMapFadeUnits(void);
 void UnitUpdateUsedItem(struct Unit * unit, int item_slot);
 int GetUnitAid(struct Unit * unit);
 int GetUnitMagRange(struct Unit * unit);
@@ -325,7 +359,7 @@ bool UnitKnowsMagic(struct Unit * unit);
 void func_fe6_080181B0(struct Unit * unit, int x, int y);
 int GetUnitKeyItemSlotForTerrain(struct Unit * unit, int terrain);
 int GetAidIconFromAttributes(int attributes);
-int func_fe6_08018258(struct Unit * unit);
+int GetUnitUseBits(struct Unit * unit);
 bool CanActiveUnitStillMove(void);
 
 extern struct Unit * CONST_DATA gUnitLut[0x100];
@@ -361,6 +395,9 @@ extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 #define UNIT_CON(unit) (UNIT_CON_BASE(unit) + (unit)->bonus_con)
 #define UNIT_MOV(unit) ((unit)->bonus_mov + UNIT_MOV_BASE(unit))
 
+// The following macros are helpers for building loops that go through all units
+// whether or not those are necessary is debatable
+
 #define FOR_UNITS(begin, end, var_name, body) \
 { \
     int _uid; \
@@ -381,3 +418,5 @@ extern struct Unit EWRAM_DATA gUnitArrayPurple[UNIT_AMOUNT_PURPLE];
 
 #define FOR_UNITS_ALL(var_name, body) \
     FOR_UNITS(1, 0xC0, var_name, body)
+
+#endif // UNIT_H

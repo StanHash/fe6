@@ -664,8 +664,8 @@ static void TrapDamageDisplay_Display(struct GenericProc * proc)
             StartArrowTrapAnim(proc, target->x);
             break;
 
-        case TRAP_8:
-            func_fe6_0801D920(proc, target->x, target->y);
+        case TRAP_TIMEDMAPCHANGE:
+            StartTimedMapChangeAnim(proc, target->x, target->y);
             break;
 
         }

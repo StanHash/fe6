@@ -1,6 +1,7 @@
-#pragma once
+#ifndef ARMFUNC_H
+#define ARMFUNC_H
 
-#include "common.h"
+#include "prelude.h"
 
 extern u8 const ArmCodeStart[];
 extern u8 const ArmCodeEnd[];
@@ -49,3 +50,5 @@ u32 Checksum32_thm(void const * buf, int size);
 #define PutOamLo PutOamLoRam
 #define MapFloodCoreStep MapFloodCoreStepRam
 #define MapFloodCore MapFloodCoreRam
+
+#endif // ARMFUNC_H

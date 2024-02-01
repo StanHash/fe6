@@ -1,4 +1,3 @@
-
 #include "mu.h"
 
 #include "oam.h"
@@ -164,7 +163,8 @@ static u16 CONST_DATA sMuChrOffLut[MU_COUNT] =
 
 static u8 CONST_DATA sMuWalkSpeedLut[] =
 {
-    2, 1,
+    [UNIT_WALKSPEED_FAST] = 2,
+    [UNIT_WALKSPEED_SLOW] = 1,
 };
 
 static u8 CONST_DATA sMuImgBufOffLut[] =

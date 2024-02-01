@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 extern char const * CONST_DATA SystemLabel_Level[];
 extern char const * CONST_DATA SystemLabel_Exp[];

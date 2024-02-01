@@ -20,6 +20,7 @@
 #include "menuinfo.h"
 #include "ui.h"
 #include "eventinfo.h"
+#include "gamedata.h"
 
 #include "constants/iids.h"
 #include "constants/terrains.h"
@@ -526,9 +527,9 @@ static void WarpSelect_Init(struct GenericProc * proc)
 
     EndLimitView();
 
-    func_fe6_0801C700(gActiveUnit, GetUnit(gAction.target));
+    BuildWarpDestinationMap(gActiveUnit, GetUnit(gAction.target));
 
-    gBmSt.flags &= ~BM_FLAG_1;
+    gBmSt.flags &= ~BM_FLAG_LIMITCURSOR;
 
     StartLimitView(1);
 

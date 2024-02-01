@@ -42,7 +42,7 @@ static void AiPhase_Begin(ProcPtr proc)
     int i;
 
     gAiSt.flags = AI_FLAG_0;
-    gAiSt.unk_7E = -1;
+    gAiSt.danger_threshold = -1;
 
     gAiSt.order_state = 0;
 
@@ -63,7 +63,7 @@ static void AiPhase_Berserk_Begin(ProcPtr proc)
     int i;
 
     gAiSt.flags = AI_FLAG_BERSERKED;
-    gAiSt.unk_7E = -1;
+    gAiSt.danger_threshold = -1;
 
     for (i = 0; i < 8; ++i)
         gAiSt.cmd_result[i] = 0;

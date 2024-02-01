@@ -1,6 +1,8 @@
-#pragma once
+#ifndef SAVE_STATS_H
+#define SAVE_STATS_H
 
-#include "common.h"
+#include "prelude.h"
+
 #include "save.h"
 
 #include "unit.h"
@@ -14,7 +16,7 @@ enum
     DEFEAT_CAUSE_TRAP,
     DEFEAT_CAUSE_POISON,
     DEFEAT_CAUSE_5,
-    DEFEAT_CAUSE_6, // I think this is arena death but needs confirm
+    DEFEAT_CAUSE_ARENA,
 };
 
 struct PidStats
@@ -75,3 +77,5 @@ int GetGlobalCompletedPlaythroughCount(void);
 bool RegisterCompletedPlaythrough(struct GlobalSaveInfo * info, int index);
 void WriteCompletedPlaythroughSaveData(void);
 void func_fe6_08084F48(void);
+
+#endif // SAVE_STATS_H

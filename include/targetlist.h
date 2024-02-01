@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void ForEachUnitInMovement(void (* func)(struct Unit * unit));
 void ForEachUnitInRange(void (* func)(struct Unit * unit));

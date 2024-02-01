@@ -82,7 +82,7 @@ struct ProcScr CONST_DATA ProcScr_AiPerform[] =
     PROC_CALL(AiPerform_StartAction),
     PROC_REPEAT(AiPerform_WaitAction),
 
-    PROC_CALL_2(PlayerPhase_0801B9B0),
+    PROC_CALL_2(StartAvailableMoveEvents),
 
     PROC_CALL(AiPerform_Cleanup),
     PROC_CALL(AiPerform_EquipBest),

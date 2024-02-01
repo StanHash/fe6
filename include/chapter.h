@@ -1,6 +1,7 @@
-#pragma once
+#ifndef CHAPTER_H
+#define CHAPTER_H
 
-#include "common.h"
+#include "prelude.h"
 
 int GetTextPrintDelay(void);
 int IsFirstPlaythrough(void);
@@ -21,3 +22,5 @@ void ResumeMapMainDuringBerserk(ProcPtr mapmain);
 void ResumeMapMainDuringArena(ProcPtr mapmain);
 void ResumeMapMainDuringPhaseChange(ProcPtr mapmain);
 void func_fe6_08029654(void);
+
+#endif // CHAPTER_H

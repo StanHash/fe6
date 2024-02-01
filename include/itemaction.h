@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void DoItemHealStaffAction(ProcPtr proc);
 void DoItemRestoreStaffAction(ProcPtr proc);

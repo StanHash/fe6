@@ -1,6 +1,4 @@
-
 #include "battle.h"
-#include "common.h"
 
 #include "random.h"
 #include "hardware.h"
@@ -196,7 +194,7 @@ void BattleGenerate(struct Unit * instigator, struct Unit * target)
 
 void BattleGenerateDisplayStats(struct Unit * unit, i8 item_slot)
 {
-    gBattleSt.flags = BATTLE_FLAG_BIT2;
+    gBattleSt.flags = BATTLE_FLAG_STATSONLY;
 
     gBattleUnitB.weapon = 0;
     gBattleUnitB.weapon_attributes = 0;
@@ -380,7 +378,7 @@ void SetBattleUnitWeapon(struct BattleUnit * bu, int item_slot)
     bu->weapon_attributes = GetItemAttributes(bu->weapon);
     bu->weapon_kind = GetItemKind(bu->weapon);
 
-    if (!(gBattleSt.flags & BATTLE_FLAG_BIT2))
+    if (!(gBattleSt.flags & BATTLE_FLAG_STATSONLY))
     {
         if (bu->weapon_attributes & ITEM_ATTR_LIGHTBRAND)
         {
@@ -699,8 +697,8 @@ bool BattleCheckTriangleAttack(struct BattleUnit * attacker, struct BattleUnit *
 
     int faction = UNIT_FACTION(&attacker->unit);
 
-    gBattleSt.ta_unit_a = NULL;
-    gBattleSt.ta_unit_b = NULL;
+    gBattleSt.extra_unit_a = NULL;
+    gBattleSt.extra_unit_b = NULL;
 
     for (i = 0; i < 4; ++i)
     {
@@ -723,10 +721,10 @@ bool BattleCheckTriangleAttack(struct BattleUnit * attacker, struct BattleUnit *
         {
             ++count;
 
-            if (!gBattleSt.ta_unit_a)
-                gBattleSt.ta_unit_a = unit;
-            else if (!gBattleSt.ta_unit_b)
-                gBattleSt.ta_unit_b = unit;
+            if (!gBattleSt.extra_unit_a)
+                gBattleSt.extra_unit_a = unit;
+            else if (!gBattleSt.extra_unit_b)
+                gBattleSt.extra_unit_b = unit;
         }
     }
 
@@ -789,7 +787,7 @@ void BattleGenerateHitTriangleAttack(struct BattleUnit * attacker, struct Battle
     if (!BattleCheckTriangleAttack(attacker, defender))
         return;
 
-    gBattleHitIt->attributes |= BATTLE_HIT_ATTR_TATTACK;
+    gBattleHitIt->attributes |= BATTLE_HIT_ATTR_TRIANGLE_ATTACK;
 
     gBattleSt.crit = 100;
     gBattleSt.hit  = 100;
@@ -1770,7 +1768,7 @@ void BattleGenerateArena(struct Unit * unit)
 
 bool BattleIsTriangleAttack(void)
 {
-    return (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TATTACK) != 0;
+    return (gBattleHits[0].attributes & BATTLE_HIT_ATTR_TRIANGLE_ATTACK) != 0;
 }
 
 bool DidBattleUnitBreakWeapon(struct BattleUnit * bu)

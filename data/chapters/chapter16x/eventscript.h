@@ -3,7 +3,7 @@
 // EventScr @ 08675324
 EventScr CONST_DATA EventScr_Unk_08675324[] =
 {
-    EvtFunc(func_fe6_0806D648)
+    EvtFunc(AddChapter16xArrowTraps)
     EvtCameraUnit(PID_UNKNOWN_C6)
     EvtFlashCursorUnit(PID_UNKNOWN_C6)
     EvtFadeToBlack(16)

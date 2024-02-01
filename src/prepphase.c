@@ -114,7 +114,7 @@ PROC_LABEL(L_PLAYERPHASE_MOVE),
 PROC_LABEL(L_PLAYERPHASE_5),
     PROC_CALL(InitBmDisplay),
 
-    PROC_START_CHILD_LOCKING(ProcScr_Unk_085C5988),
+    PROC_START_CHILD_LOCKING(ProcScr_ReturnFromStatScreen),
 
     PROC_GOTO(L_PLAYERPHASE_BEGIN),
 
@@ -228,15 +228,15 @@ static void PrepPhase_Init(struct GenericProc * proc)
         return;
     }
 
-    if (!(gPlaySt.flags & PLAY_FLAG_4))
+    if (!(gPlaySt.flags & PLAY_FLAG_PREP))
     {
-        func_fe6_0807A07C();
+        RearrangeMandatoryDeployUnits();
         InitPlayerDeployUnits();
 
-        gPlaySt.flags |= PLAY_FLAG_4;
+        gPlaySt.flags |= PLAY_FLAG_PREP;
     }
 
-    gBmSt.flags |= BM_FLAG_4;
+    gBmSt.flags |= BM_FLAG_PREP;
 
     gPlaySt.vision = GetChapterInfo(gPlaySt.chapter)->fog;
 
@@ -460,17 +460,17 @@ static void PrepPhase_MapSwapSelectCancel(struct GenericProc * proc)
 
 static void PrepPhase_MapSwapSelectApply(struct GenericProc * proc)
 {
-    struct Unit * unitA = gActiveUnit;
-    struct Unit * unitB = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
+    struct Unit * unit_a = gActiveUnit;
+    struct Unit * unit_b = GetUnit(gMapUnit[gBmSt.cursor.y][gBmSt.cursor.x]);
 
-    if (unitB == NULL)
+    if (unit_b == NULL)
     {
-        func_fe6_0801CF10(proc, unitA, gBmSt.cursor.x, gBmSt.cursor.y);
+        StartUnitPrepSwapAnim(proc, unit_a, gBmSt.cursor.x, gBmSt.cursor.y);
     }
     else
     {
-        func_fe6_0801CF10(proc, unitA, unitB->x, unitB->y);
-        func_fe6_0801CF10(proc, unitB, unitA->x, unitA->y);
+        StartUnitPrepSwapAnim(proc, unit_a, unit_b->x, unit_b->y);
+        StartUnitPrepSwapAnim(proc, unit_b, unit_a->x, unit_a->y);
     }
 
     PlaySe(SONG_61);
@@ -513,6 +513,6 @@ void func_fe6_0802B7E4(void)
 
     Proc_EndEach(ProcScr_PrepPhase);
 
-    gBmSt.flags &= ~BM_FLAG_4;
-    gPlaySt.flags &= ~PLAY_FLAG_4;
+    gBmSt.flags &= ~BM_FLAG_PREP;
+    gPlaySt.flags &= ~PLAY_FLAG_PREP;
 }

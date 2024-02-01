@@ -1,19 +1,35 @@
-#pragma once
+#ifndef BM_H
+#define BM_H
 
-#include "common.h"
+#include "prelude.h"
 #include "proc.h"
 
+// BmSt::flags
 enum
 {
-    BM_FLAG_0 = (1 << 0),
-    BM_FLAG_1 = (1 << 1),
-    BM_FLAG_2 = (1 << 2),
+    // enables "limit view" (move/range squares)
+    BM_FLAG_LIMITVIEW = (1 << 0),
+
+    // enables cursor sticking to the edge of the movement map
+    BM_FLAG_LIMITCURSOR = (1 << 1),
+
+    // when the cursor moves, this is used to prevent sounds from being played back every frame
+    BM_FLAG_CURSORMOVE = (1 << 2),
+
+    // unknown usage/unused
     BM_FLAG_3 = (1 << 3),
-    BM_FLAG_4 = (1 << 4),
+
+    // in the preparation phase
+    BM_FLAG_PREP = (1 << 4),
+
+    // unknown meaning
     BM_FLAG_5 = (1 << 5),
+
+    // in link-arena mode
     BM_FLAG_LINKARENA = (1 << 6),
 };
 
+// BmSt::partial_actions_taken (flags)
 enum
 {
     PARTIAL_ACTION_RESCUE_TRANSFER = (1 << 0),
@@ -27,7 +43,7 @@ enum
     PLAY_FLAG_STATSCREENPAGE1 = (1 << 1),
     PLAY_FLAG_2               = (1 << 2),
     PLAY_FLAG_TUTORIAL        = (1 << 3),
-    PLAY_FLAG_4               = (1 << 4),
+    PLAY_FLAG_PREP            = (1 << 4),
     PLAY_FLAG_COMPLETE        = (1 << 5),
     PLAY_FLAG_HARD            = (1 << 6),
     PLAY_FLAG_7               = (1 << 7),
@@ -184,3 +200,5 @@ extern struct PlaySt EWRAM_DATA gPlaySt;
 
 #define SCREEN_TILE_X(x_param) (((x_param) - (gBmSt.camera.x >> 4)) << 1)
 #define SCREEN_TILE_Y(y_param) (((y_param) - (gBmSt.camera.y >> 4)) << 1)
+
+#endif // BM_H

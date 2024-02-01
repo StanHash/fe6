@@ -634,7 +634,7 @@ bool CanUnitCarry(struct Unit * unit, struct Unit * other)
 void UnitRescue(struct Unit * unit, struct Unit * other)
 {
     unit->flags |= UNIT_FLAG_RESCUING;
-    other->flags |= UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN;
+    other->flags |= UNIT_FLAG_RESCUED | UNIT_FLAG_HIDDEN;
 
     unit->rescue = other->id;
     other->rescue = unit->id;
@@ -647,8 +647,8 @@ void UnitDropRescue(struct Unit * unit, int x, int y)
 {
     struct Unit * rescue = GetUnit(unit->rescue);
 
-    unit->flags = unit->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED);
-    rescue->flags = rescue->flags &~ (UNIT_FLAG_RESCUING + UNIT_FLAG_RESCUED + UNIT_FLAG_HIDDEN);
+    unit->flags = unit->flags &~ (UNIT_FLAG_RESCUING | UNIT_FLAG_RESCUED);
+    rescue->flags = rescue->flags &~ (UNIT_FLAG_RESCUING | UNIT_FLAG_RESCUED | UNIT_FLAG_HIDDEN);
 
     if (UNIT_FACTION(rescue) == gPlaySt.faction)
         rescue->flags |= UNIT_FLAG_TURN_ENDED;
@@ -686,7 +686,7 @@ void KillUnit(struct Unit * unit)
 {
     if (UNIT_FACTION(unit) == FACTION_BLUE)
     {
-        unit->flags |= UNIT_FLAG_DEAD + UNIT_FLAG_HIDDEN;
+        unit->flags |= UNIT_FLAG_DEAD | UNIT_FLAG_HIDDEN;
         ClearUnitSupports(unit);
     }
     else
@@ -848,7 +848,7 @@ void ClearActiveFactionTurnEndedState(void)
         if (!unit->pinfo)
             continue;
 
-        unit->flags &= ~(UNIT_FLAG_TURN_ENDED + UNIT_FLAG_HAD_ACTION + UNIT_FLAG_AI_PROCESSED);
+        unit->flags &= ~(UNIT_FLAG_TURN_ENDED | UNIT_FLAG_HAD_ACTION | UNIT_FLAG_AI_PROCESSED);
     }
 }
 
@@ -901,7 +901,7 @@ void TickActiveFactionTurnAndListStatusHeals(void)
     }
 }
 
-void func_fe6_0801809C(void)
+void ClearMapFadeUnits(void)
 {
     int i;
 
@@ -915,7 +915,7 @@ void func_fe6_0801809C(void)
         if (!unit->pinfo)
             continue;
 
-        unit->flags &= ~UNIT_FLAG_SEEN;
+        unit->flags &= ~UNIT_FLAG_MAPFADE;
     }
 }
 
@@ -1013,7 +1013,7 @@ int GetAidIconFromAttributes(int attributes)
     return ICON_NONE;
 }
 
-int func_fe6_08018258(struct Unit * unit)
+int GetUnitUseBits(struct Unit * unit)
 {
     int i, item, result = 0;
 

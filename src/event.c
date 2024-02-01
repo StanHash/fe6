@@ -2733,8 +2733,8 @@ static int EvtCmd_FightScript(struct EventProc * proc)
     // script[2]: battle script address
     // script[3]: is ballista bool?
 
-    struct Unit * unitA;
-    struct Unit * unitB;
+    struct Unit * unit_a;
+    struct Unit * unit_b;
 
     struct BattleHit const * battlescr;
 
@@ -2743,31 +2743,31 @@ static int EvtCmd_FightScript(struct EventProc * proc)
     proc->cmd_short = GetGameLock();
     proc->on_idle = EventScriptedBattleWait;
 
-    unitA = GetUnitByPid(proc->script[0]);
-    unitB = GetUnitByPid(proc->script[1]);
+    unit_a = GetUnitByPid(proc->script[0]);
+    unit_b = GetUnitByPid(proc->script[1]);
 
     battlescr = (struct BattleHit const *) proc->script[2];
     isBallista = proc->script[3];
 
-    UnitBeginAction(unitA);
+    UnitBeginAction(unit_a);
 
     HideUnitSprite(gActiveUnit);
 
     StartMu(gActiveUnit);
     SetAutoMuDefaultFacing();
 
-    if (GetItemKind(unitA->items[0]) == ITEM_KIND_STAFF)
+    if (GetItemKind(unit_a->items[0]) == ITEM_KIND_STAFF)
     {
-        BattleInitItemEffect(unitA, 0);
-        BattleInitItemEffectTarget(unitB);
+        BattleInitItemEffect(unit_a, 0);
+        BattleInitItemEffectTarget(unit_b);
     }
     else if (!isBallista)
     {
-        BattleGenerateReal(unitA, unitB);
+        BattleGenerateReal(unit_a, unit_b);
     }
     else
     {
-        BattleGenerateBallistaReal(unitA, unitB);
+        BattleGenerateBallistaReal(unit_a, unit_b);
     }
 
     gBattleUnitA.exp_gain = 0;
@@ -2791,8 +2791,8 @@ static int EvtCmd_FightScript(struct EventProc * proc)
 
     Proc_Mark(proc, PROC_MARK_7);
 
-    gAiDecision.x_move = unitA->x;
-    gAiDecision.y_move = unitA->y;
+    gAiDecision.x_move = unit_a->x;
+    gAiDecision.y_move = unit_a->y;
 
     return EVENT_CMDRET_YIELD;
 }

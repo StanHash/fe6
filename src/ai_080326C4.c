@@ -236,7 +236,7 @@ bool AiUpdateUnitSeeksHealing(struct Unit * unit)
 
     if (unit->ai_flags & AI_UNIT_FLAG_SEEK_HEALING)
     {
-        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].exit_threshold > hp_percent)
+        if (gAiHealThresholds[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].exit_threshold > hp_percent)
         {
             return TRUE;
         }
@@ -248,7 +248,7 @@ bool AiUpdateUnitSeeksHealing(struct Unit * unit)
     }
     else
     {
-        if (gUnk_085C8820[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].enter_threshold > hp_percent)
+        if (gAiHealThresholds[unit->ai_config & AI_UNIT_CONFIG_HEALTHRESHOLD_MASK].enter_threshold > hp_percent)
         {
             unit->ai_flags |= AI_UNIT_FLAG_SEEK_HEALING;
             return TRUE;
@@ -331,7 +331,7 @@ struct AiEscapePt const * AiGetNearestEscapePoint(void)
 
     int chapter = gPlaySt.chapter;
 
-    fu8 resultMove = UINT8_MAX;
+    fu8 result_move = UINT8_MAX;
 
     switch (gPlaySt.faction)
     {
@@ -339,11 +339,11 @@ struct AiEscapePt const * AiGetNearestEscapePoint(void)
             return NULL;
 
         case FACTION_RED:
-            list = gUnk_085C86B8[chapter];
+            list = gAiRedEscapePoints[chapter];
             break;
 
         case FACTION_GREEN:
-            list = gUnk_085C876C[chapter];
+            list = gAiGreenEscapePoints[chapter];
             break;
     }
 
@@ -352,9 +352,9 @@ struct AiEscapePt const * AiGetNearestEscapePoint(void)
         if (gMapMovement[list[i].y][list[i].x] > MAP_MOVEMENT_MAX)
             continue;
 
-        if (resultMove > gMapMovementSigned[list[i].y][list[i].x])
+        if (result_move > gMapMovementSigned[list[i].y][list[i].x])
         {
-            resultMove = gMapMovementSigned[list[i].y][list[i].x];
+            result_move = gMapMovementSigned[list[i].y][list[i].x];
             result = list + i;
         }
     }
@@ -1957,7 +1957,7 @@ void AiAttemptDoorKey(int slot)
     if (!AiFindGoodDoorKeyUsePosition(gActiveUnit, &pos))
         return;
 
-    AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, TRUE);
+    AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.danger_threshold, TRUE);
 
     if (gAiDecision.action_performed != TRUE)
         return;
@@ -1989,7 +1989,7 @@ void AiAttemptLockpick(int slot)
 
     if (AiFindGoodLockpickUsePosition(gActiveUnit, findpos_flags, &pos) == TRUE)
     {
-        AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.unk_7E, FALSE);
+        AiTryMoveTowards(pos.x, pos.y, AI_ACTION_NONE, gAiSt.danger_threshold, FALSE);
 
         if (gAiDecision.action_performed != TRUE)
             return;

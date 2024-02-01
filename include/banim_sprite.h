@@ -1,6 +1,7 @@
-#pragma once
+#ifndef BANIM_SPRITE_H
+#define BANIM_SPRITE_H
 
-#include "gba/gba.h"
+#include "prelude.h"
 
 struct BaSprite
 {
@@ -113,10 +114,10 @@ void BasInit(void);
 struct BaSprite * BasCreate2(void const * script);
 struct BaSprite * BasCreate(void const * script, u16 displayPriority);
 void BasSort(void);
-void BasRemove(struct BaSprite * BaSprite);
-void BasPutOam(struct BaSprite * BaSprite);
+void BasRemove(struct BaSprite * banim_sprite);
+void BasPutOam(struct BaSprite * banim_sprite);
 
-#define BAS_IS_DISABLED(BaSprite) ((BaSprite)->flags == 0)
+#define BAS_IS_DISABLED(banim_sprite) ((banim_sprite)->flags == 0)
 
 /*
 
@@ -172,3 +173,5 @@ void BasPutOam(struct BaSprite * BaSprite);
         +31bit | 1bit  | 0b
 
 */
+
+#endif // BANIM_SPRITE_H

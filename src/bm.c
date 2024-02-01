@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "bm.h"
 
 #include "hardware.h"
@@ -512,7 +510,7 @@ void HandleMapCursorInput(u16 keys)
         .y = gBmSt.cursor.y + sDirKeysToOffsetLut[dir][1],
     };
 
-    if (gBmSt.flags & BM_FLAG_1)
+    if (gBmSt.flags & BM_FLAG_LIMITCURSOR)
     {
         if (gMapMovement[gBmSt.cursor.y][gBmSt.cursor.x] < MAP_MOVEMENT_MAX)
             if (gMapMovement[newCursor.y][newCursor.x] >= MAP_MOVEMENT_MAX)
@@ -536,17 +534,17 @@ void HandleMapCursorInput(u16 keys)
         gBmSt.cursor.y = newCursor.y;
     }
 
-    if (!(gBmSt.flags & BM_FLAG_2))
+    if (!(gBmSt.flags & BM_FLAG_CURSORMOVE))
     {
         if (gBmSt.cursor.x != gBmSt.cursor_previous.x || gBmSt.cursor.y != gBmSt.cursor_previous.y)
         {
             PlaySe(SONG_65);
-            gBmSt.flags |= BM_FLAG_2;
+            gBmSt.flags |= BM_FLAG_CURSORMOVE;
         }
     }
     else
     {
-        gBmSt.flags &= ~BM_FLAG_2;
+        gBmSt.flags &= ~BM_FLAG_CURSORMOVE;
     }
 }
 

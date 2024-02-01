@@ -1,6 +1,7 @@
-#pragma once
+#ifndef AI_DATA_H
+#define AI_DATA_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "ai.h"
 #include "ai_script.h"
@@ -30,17 +31,19 @@ struct AiHealThreshold
     u8 enter_threshold;
 };
 
-extern u8 CONST_DATA gUnk_085C864C[];
-extern u8 CONST_DATA gUnk_085C864F[];
+extern u8 CONST_DATA gAiPillageTerrainsNoLoot[];
+extern u8 CONST_DATA gAiPillageTerrainsWithLoot[];
 extern struct AiScr CONST_DATA AiScr_FallbackA[];
 extern struct AiScr CONST_DATA AiScr_FallbackB[];
 extern u8 const * CONST_DATA gAiJobRankLists[];
 extern struct AiCombatScoreCoefficients const gAiCombatScoreCoefficientTable[];
-extern struct AiEscapePt const * CONST_DATA gUnk_085C86B8[];
-extern struct AiEscapePt const * CONST_DATA gUnk_085C876C[];
-extern struct AiHealThreshold CONST_DATA gUnk_085C8820[];
+extern struct AiEscapePt const * CONST_DATA gAiRedEscapePoints[];
+extern struct AiEscapePt const * CONST_DATA gAiGreenEscapePoints[];
+extern struct AiHealThreshold CONST_DATA gAiHealThresholds[];
 extern u16 CONST_DATA gUnk_085C8834[];
 extern u32 const AiItemConfigTable[];
 extern struct AiScr const * const * CONST_DATA gAiScriptLutB[];
 extern struct AiScr const * const * CONST_DATA gAiScriptLutA[];
 extern struct Vec2i const * const * CONST_DATA gUnk_085C8878;
+
+#endif // AI_DATA_H

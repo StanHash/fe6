@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "util.h"
 
 #include "hardware.h"

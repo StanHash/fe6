@@ -1,5 +1,4 @@
-
-#include "common.h"
+#include "gold.h"
 
 #include "bm.h"
 

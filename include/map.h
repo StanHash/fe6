@@ -1,6 +1,7 @@
-#pragma once
+#ifndef MAP_H
+#define MAP_H
 
-#include "common.h"
+#include "prelude.h"
 
 void InitMapForChapter(int chapter);
 void InitMapForMinimap(int chapter);
@@ -38,3 +39,5 @@ extern u16 ** CONST_DATA gMapMetatiles;
 
 #define gMapRangeSigned ((i8 **) gMapRange)
 #define gMapMovementSigned ((i8 **) gMapMovement)
+
+#endif // MAP_H

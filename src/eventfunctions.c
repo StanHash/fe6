@@ -1891,7 +1891,7 @@ void func_fe6_0806D3E0(void)
     ClearFlag(FLAG_CHAPTER18S_6);
 }
 
-void func_fe6_0806D41C(void)
+void AddChapter8xFireTraps(void)
 {
     AddFireTrap(10, 22, 1, 4);
     AddFireTrap(14, 21, 2, 3);
@@ -1926,7 +1926,7 @@ void func_fe6_0806D55C(void)
     gPlaySt.chapter = CHAPTER_8X;
 }
 
-void func_fe6_0806D568(void)
+void AddChapter12xGasTraps(void)
 {
     AddGasTrap( 1,  2, FACING_DOWN, 1, 8);
     AddGasTrap( 1, 14, FACING_RIGHT, 7, 8);
@@ -1942,17 +1942,17 @@ void func_fe6_0806D568(void)
     AddGasTrap(23, 20, FACING_RIGHT, 7, 8);
 }
 
-void func_fe6_0806D620(void)
+void AddChapter14xTimedMapChanges(void)
 {
     int i;
 
-    for (i = 0; i < (int) ARRAY_COUNT(gUnk_0867507C); i++)
+    for (i = 0; i < (int) ARRAY_COUNT(Chapter14xTimedMapChangeInfoList); i++)
     {
-        func_fe6_08026BA4(i + 26, i, gUnk_0867507C[i].delay, gUnk_0867507C[i].interval);
+        AddTimedMapChange(i + 26, i, Chapter14xTimedMapChangeInfoList[i].delay, Chapter14xTimedMapChangeInfoList[i].interval);
     }
 }
 
-void func_fe6_0806D648(void)
+void AddChapter16xArrowTraps(void)
 {
     AddArrowTrap(14, 3, 5);
     AddArrowTrap( 6, 1, 9);
@@ -1971,7 +1971,7 @@ void func_fe6_0806D6B4(void)
     SetFlag(gUnk_08675750[EventRandNext_N(ARRAY_COUNT(gUnk_08675750))]);
 }
 
-void func_fe6_0806D6D8(void)
+void AddChapter21xStepTraps(void)
 {
     AddStepFireTrap( 6, 6);
     AddStepFireTrap( 7, 8);

@@ -1,6 +1,4 @@
-
 #include "support.h"
-#include "common.h"
 
 #include "text.h"
 #include "bm.h"

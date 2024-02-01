@@ -1,5 +1,3 @@
-
-#include "common.h"
 #include "face.h"
 
 #include "armfunc.h"
@@ -11,6 +9,7 @@
 #include "sprite.h"
 #include "util.h"
 #include "bm.h"
+#include "gamedata.h"
 
 #include "constants/videoalloc_global.h"
 #include "constants/faces.h"

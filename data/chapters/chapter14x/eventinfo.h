@@ -3,7 +3,7 @@
 // EventListScr @ 0866A0C4
 EventListScr CONST_DATA EventListScr_Unk_0866A0C4[] =
 {
-    EvtListTurn(0, EventScr_Unk_0867514C, 1, 0, FACTION_BLUE)
+    EvtListTurn(0, EventScr_Chapter14X_Opening, 1, 0, FACTION_BLUE)
     EvtListEnd
 };
 
@@ -36,5 +36,5 @@ struct ChapterEventInfo CONST_DATA ChapterEventInfo_Unk_0866A0F8 =
     .event_list_move = EventListScr_Unk_0866A0E8,
     .units_red = UnitInfo_Unk_08684B44,
     .units_blue = UnitInfo_Unk_08684A94,
-    .event_script_victory = EventScr_Unk_086751E8,
+    .event_script_victory = EventScr_Chapter14X_Victory,
 };

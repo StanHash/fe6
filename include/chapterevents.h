@@ -1,15 +1,16 @@
-#pragma once
+#ifndef CHAPTER_EVENTS_H
+#define CHAPTER_EVENTS_H
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 #include "event.h"
 
 // TODO: move (eventfunctions)
-struct UnkTrapEnt
+struct Chapter14xTimedMapChangeInfo
 {
-    int delay;
-    int interval;
+    i32 delay;
+    i32 interval;
 };
 
 extern struct BattleTalkEnt CONST_DATA gBattleDefeatTalkList[];
@@ -508,9 +509,9 @@ extern EventScr CONST_DATA EventScr_Unk_08674BB0[];
 extern EventScr CONST_DATA EventScr_Unk_08674F00[];
 extern EventScr CONST_DATA EventScr_Unk_08674F84[];
 
-extern struct UnkTrapEnt CONST_DATA gUnk_0867507C[26];
-extern EventScr CONST_DATA EventScr_Unk_0867514C[];
-extern EventScr CONST_DATA EventScr_Unk_086751E8[];
+extern struct Chapter14xTimedMapChangeInfo CONST_DATA Chapter14xTimedMapChangeInfoList[26];
+extern EventScr CONST_DATA EventScr_Chapter14X_Opening[];
+extern EventScr CONST_DATA EventScr_Chapter14X_Victory[];
 
 extern EventScr CONST_DATA EventScr_Unk_08675324[];
 extern EventScr CONST_DATA EventScr_Unk_086753E0[];
@@ -558,3 +559,5 @@ extern EventScr CONST_DATA EventScr_Unk_08676128[];
 extern EventScr CONST_DATA EventScr_TrialE_Opening[];
 extern EventScr CONST_DATA EventScr_TrialE_Victory[];
 extern EventScr CONST_DATA EventScr_TrialE_Failure[];
+
+#endif // CHAPTER_EVENTS_H

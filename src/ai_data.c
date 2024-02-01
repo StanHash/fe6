@@ -9,14 +9,14 @@
 #include "constants/chapters.h"
 #include "constants/terrains.h"
 
-u8 CONST_DATA gUnk_085C864C[] =
+u8 CONST_DATA gAiPillageTerrainsNoLoot[] =
 {
     TERRAIN_VILLAGE,
     TERRAIN_CHURCH,
     0,
 };
 
-u8 CONST_DATA gUnk_085C864F[] =
+u8 CONST_DATA gAiPillageTerrainsWithLoot[] =
 {
     TERRAIN_VILLAGE,
     TERRAIN_CHURCH,
@@ -781,7 +781,7 @@ struct AiEscapePt const AiEscapePts_None[] =
     { -1 },
 };
 
-struct AiEscapePt const * CONST_DATA gUnk_085C86B8[CHAPTER_COUNT] =
+struct AiEscapePt const * CONST_DATA gAiRedEscapePoints[CHAPTER_COUNT] =
 {
     AiEscapePts_None,
     AiEscapePts_1,
@@ -830,7 +830,7 @@ struct AiEscapePt const * CONST_DATA gUnk_085C86B8[CHAPTER_COUNT] =
     AiEscapePts_None,
 };
 
-struct AiEscapePt const * CONST_DATA gUnk_085C876C[CHAPTER_COUNT] =
+struct AiEscapePt const * CONST_DATA gAiGreenEscapePoints[CHAPTER_COUNT] =
 {
     AiEscapePts_None,
     AiEscapePts_1,
@@ -879,7 +879,7 @@ struct AiEscapePt const * CONST_DATA gUnk_085C876C[CHAPTER_COUNT] =
     AiEscapePts_None,
 };
 
-struct AiHealThreshold CONST_DATA gUnk_085C8820[] =
+struct AiHealThreshold CONST_DATA gAiHealThresholds[] =
 {
     { 100,  50 },
     {  80,  30 },

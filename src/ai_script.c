@@ -148,7 +148,7 @@ void AiDoExecScript(u8 * pc)
             sScr = AiScr_FallbackB;
     }
 
-    gAiSt.unk_7E = sScr->unk_02;
+    gAiSt.danger_threshold = sScr->unk_02;
     funcLut[sScr->cmd](pc);
 }
 

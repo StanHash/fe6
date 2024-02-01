@@ -1,4 +1,3 @@
-#include "common.h"
 #include "text.h"
 
 #include "hardware.h"

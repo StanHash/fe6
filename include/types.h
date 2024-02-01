@@ -1,4 +1,5 @@
-#pragma once
+#ifndef TYPES_H
+#define TYPES_H
 
 #include <stdint.h>
 #include <limits.h>
@@ -101,3 +102,5 @@ struct MenuEntInfo;
 // TODO: move
 struct ChapterEventInfo;
 struct EventInfo;
+
+#endif // TYPES_H

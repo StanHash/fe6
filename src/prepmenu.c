@@ -1,4 +1,4 @@
-#include "common.h"
+#include "prelude.h"
 
 #include "armfunc.h"
 #include "hardware.h"
@@ -349,7 +349,7 @@ void func_fe6_080793F0(struct PrepMenuProc * parent)
     SpawnProc(ProcScr_Unk_08678DE0, parent);
 }
 
-bool func_fe6_08079404(struct Unit * unit)
+bool IsUnitMandatoryDeploy(struct Unit * unit)
 {
     if (UNIT_PID(unit) == PID_ROY)
         return TRUE;
@@ -774,7 +774,7 @@ void func_fe6_08079F50(struct PrepMenuProc * proc, fu8 row)
         ClearText(&gUnk_0200E7E4[text_base + i]);
         Text_SetCursor(&gUnk_0200E7E4[text_base + i], 0);
 
-        if ((proc->unk_2C & PREPMENU_FLAG_MULTIARENA) == 0 && func_fe6_08079404(gUnk_0200E6D4[first_ent + i]))
+        if ((proc->unk_2C & PREPMENU_FLAG_MULTIARENA) == 0 && IsUnitMandatoryDeploy(gUnk_0200E6D4[first_ent + i]))
         {
             // force deployed color
             Text_SetColor(&gUnk_0200E7E4[text_base + i], TEXT_COLOR_SYSTEM_GREEN);
@@ -798,7 +798,7 @@ void func_fe6_08079F50(struct PrepMenuProc * proc, fu8 row)
     EnableBgSync(BG2_SYNC_BIT);
 }
 
-void func_fe6_0807A07C(void)
+void RearrangeMandatoryDeployUnits(void)
 {
     struct Unit * order[0x40];
     int i, j;
@@ -815,11 +815,11 @@ void func_fe6_0807A07C(void)
 
     for (i = 0; i < order_count; i++)
     {
-        if ((order[i]->flags & UNIT_FLAG_DEAD) == 0 && func_fe6_08079404(order[i]))
+        if ((order[i]->flags & UNIT_FLAG_DEAD) == 0 && IsUnitMandatoryDeploy(order[i]))
         {
             for (j = i - 1; i > 0; i--, j--)
             {
-                if (!func_fe6_08079404(order[i - 1]))
+                if (!IsUnitMandatoryDeploy(order[i - 1]))
                 {
                     struct Unit * tmp = order[i];
                     order[i] = order[i - 1];

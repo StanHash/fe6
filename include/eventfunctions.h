@@ -2,7 +2,7 @@
 
 // NOTE: this may end up getting merged with chapterevents
 
-#include "common.h"
+#include "prelude.h"
 
 #include "proc.h"
 #include "event.h"
@@ -204,13 +204,13 @@ bool func_fe6_0806D35C(void);
 bool func_fe6_0806D398(void);
 bool func_fe6_0806D3B4(void);
 void func_fe6_0806D3E0(void);
-void func_fe6_0806D41C(void);
+void AddChapter8xFireTraps(void);
 void func_fe6_0806D55C(void);
-void func_fe6_0806D568(void);
-void func_fe6_0806D620(void);
-void func_fe6_0806D648(void);
+void AddChapter12xGasTraps(void);
+void AddChapter14xTimedMapChanges(void);
+void AddChapter16xArrowTraps(void);
 void func_fe6_0806D6B4(void);
-void func_fe6_0806D6D8(void);
+void AddChapter21xStepTraps(void);
 void func_fe6_0806D77C(void);
 // func_fe6_0806D7C8
 // func_fe6_0806D7E4

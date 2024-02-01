@@ -314,7 +314,7 @@ void CleanupUnitsBeforeChapter(void)
             unit->rescue = 0;
         })
 
-        gPlaySt.flags &= ~PLAY_FLAG_4;
+        gPlaySt.flags &= ~PLAY_FLAG_PREP;
     }
     else
     {
@@ -339,7 +339,7 @@ void CleanupUnitsBeforeChapter(void)
             unit->rescue = 0;
         })
 
-        gPlaySt.flags &= ~PLAY_FLAG_4;
+        gPlaySt.flags &= ~PLAY_FLAG_PREP;
     }
 }
 

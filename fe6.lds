@@ -408,7 +408,7 @@ SECTIONS
         . = 0x0044E6; gUnk_030044E6 = .;
         . = 0x004568; gUnk_03004568 = .;
         . = 0x00456C; gUnk_0300456C = .;
-        . = 0x004570; AiDecideFunc = .;
+        . = 0x004570; *(COMMON.AiDecideFunc);
         . = 0x004580; gUnk_03004580 = .;
         . = 0x004600; *(COMMON.gManimDebugStObj);
         . = 0x0046D0; *(COMMON.gUnk_030046D0);

@@ -576,7 +576,8 @@ void RefreshUnitSprites(void)
 
         map_sprite->config = GetUnitSpriteInfo(GetUnitMapSprite(unit)).size;
 
-        if ((unit->flags & UNIT_FLAG_SEEN) != 0)
+        // map fade units are put on the same hardware layer as the map tiles
+        if ((unit->flags & UNIT_FLAG_MAPFADE) != 0)
             map_sprite->config += 3;
 
         unit->map_sprite = map_sprite;
@@ -666,6 +667,8 @@ void PutUnitSpritesOam(void)
             case UNITSPRITE_32x32:
                 PutOamHi(OAM1_X(0x200 + x - 8), OAM0_Y(0x100 + y - 0x10), Sprite_32x32, it->oam2 + OAM2_LAYER(2));
                 break;
+
+                // map fade units are put on the same hardware layer as the map tiles
 
             case UNITSPRITE_16x16 + 3:
                 PutOamHi(OAM1_X(0x200 + x), OAM0_Y(0x100 + y), Sprite_16x16, it->oam2 + OAM2_LAYER(3));

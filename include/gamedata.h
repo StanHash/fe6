@@ -1,7 +1,9 @@
-#pragma once
+#ifndef GAMEDATA_H
+#define GAMEDATA_H
 
-#include "common.h"
+#include "prelude.h"
 
+#include "face.h"
 #include "item.h"
 #include "unit.h"
 #include "support.h"
@@ -65,6 +67,8 @@ extern i8 CONST_DATA Terrain_BanimUnk_0860CFA5[];
 extern i8 CONST_DATA Terrain_BanimUnk_0860CFD8[];
 
 extern char const * CONST_DATA TerrainNameStringTable[];
+
+extern struct FaceInfo CONST_DATA FaceInfoTable[];
 
 extern u8 CONST_DATA JList_HorseEffectiveness[];
 extern u8 CONST_DATA JList_ArmorEffectiveness[];
@@ -212,3 +216,5 @@ extern struct BanimInfoEnt CONST_DATA BanimInfo_Divinedragon[];
 extern struct BanimInfoEnt CONST_DATA BanimInfo_Demondragon[];
 extern struct BanimInfoEnt CONST_DATA BanimInfo_King[];
 extern struct BanimInfoEnt CONST_DATA BanimInfo_Roy_Promoted[];
+
+#endif // GAMEDATA_H

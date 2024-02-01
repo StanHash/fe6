@@ -440,7 +440,7 @@ void func_fe6_080791DC(fu8 pid);
 // func_fe6_080792C8
 // func_fe6_08079388
 // func_fe6_080793F0
-bool func_fe6_08079404(struct Unit * unit);
+bool IsUnitMandatoryDeploy(struct Unit * unit);
 // func_fe6_08079424
 // func_fe6_08079624
 // func_fe6_080796B0
@@ -457,7 +457,7 @@ bool func_fe6_08079404(struct Unit * unit);
 // func_fe6_08079D84
 // func_fe6_08079EA0
 // func_fe6_08079F50
-void func_fe6_0807A07C(void);
+void RearrangeMandatoryDeployUnits(void);
 // func_fe6_0807A194
 // func_fe6_0807A1C8
 // func_fe6_0807A268

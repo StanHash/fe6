@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common.h"
+#include "prelude.h"
 
 void StartUnitInventoryPanel(ProcPtr parent);
 void RefreshUnitInventoryPanel(struct Unit * unit);

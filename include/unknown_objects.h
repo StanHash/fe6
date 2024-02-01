@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UNKNOWN_OBJECTS_H
+#define UNKNOWN_OBJECTS_H
 
 #include "gba/gba.h"
 #include "types.h"
@@ -129,19 +130,6 @@ extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];
 extern u16 CONST_DATA Pal_ManimFireDragonMu[];
 extern u16 CONST_DATA Pal_ManimDivineDragonMu[];
 
-extern i8 CONST_DATA TerrainHealAmountTable[];
-extern bool CONST_DATA TerrainHealsStatusTable[];
-extern char const * CONST_DATA TerrainNameStringTable[];
-
-extern u8 CONST_DATA JList_BowEffectiveness[];
-extern u8 CONST_DATA JList_HeroCrestPromotes[];
-extern u8 CONST_DATA JList_KnightCrestPromotes[];
-extern u8 CONST_DATA JList_OrionBoltPromotes[];
-extern u8 CONST_DATA JList_ElysianWhipPromotes[];
-extern u8 CONST_DATA JList_GuidingRingPromotes[];
-
-extern i8 CONST_DATA MoveTable_Flying[];
-
 extern struct ChapterInfo CONST_DATA ChapterInfoTable[];
 
 extern void const * CONST_DATA ChapterAssets[];
@@ -247,3 +235,5 @@ struct HelpBoxInfo;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B1B0;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B2C8;
 extern struct HelpBoxInfo CONST_DATA HelpInfo_0868B3C4;
+
+#endif // UNKNOWN_OBJECTS_H
