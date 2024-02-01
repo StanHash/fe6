@@ -602,8 +602,12 @@ gUnk_0869130C: @ 0869130C
 gUnk_0869141C: @ 0869141C
 	.incbin "fe6-base.gba", 0x69141C, (0x691480 - 0x69141C) @ length: 0064
 
-	.global ProcScr_Unk_08691480
-ProcScr_Unk_08691480: @ 08691480
+/**
+ * PROC_START_CHILD_LOCKING(0x086921E8)
+ * PROC_END
+ */
+	.global ProcScr_TitleScreenHandler
+ProcScr_TitleScreenHandler: @ 08691480
 	.incbin "fe6-base.gba", 0x691480, (0x691494 - 0x691480) @ length: 0014
 
 	.global gUnk_08691494
@@ -820,7 +824,11 @@ gUnk_08692128: @ 08692128
 
 	.global gUnk_0869212C
 gUnk_0869212C: @ 0869212C
-	.incbin "fe6-base.gba", 0x69212C, (0x692240 - 0x69212C) @ length: 0114
+	.incbin "fe6-base.gba", 0x69212C, (0x6921E8 - 0x69212C)
+
+	.global ProcScr_TitleScreen
+ProcScr_TitleScreen: @ 086921E8
+	.incbin "fe6-base.gba", 0x6921E8, (0x692240 - 0x6921E8)
 
 	.global gUnk_08692240
 gUnk_08692240: @ 08692240

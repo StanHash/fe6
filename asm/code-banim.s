@@ -3,1406 +3,8 @@
 
 	.syntax unified
 
-	thumb_func_start EkrBattle_Init
-EkrBattle_Init: @ 0x08042784
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r1, .L080427A4 @ =gEkrBgOffset
-	movs r0, #0
-	str r0, [r1]
-	ldr r0, .L080427A8 @ =gEkrInitPosReal
-	ldr r0, [r0]
-	cmp r0, #0
-	bne .L080427B6
-	ldr r0, .L080427AC @ =0x0203CD14
-	ldrh r0, [r0]
-	cmp r0, #1
-	bne .L080427B0
-	movs r0, #0x20
-	rsbs r0, r0, #0
-	b .L080427B4
-	.align 2, 0
-.L080427A4: .4byte gEkrBgOffset
-.L080427A8: .4byte gEkrInitPosReal
-.L080427AC: .4byte 0x0203CD14
-.L080427B0:
-	movs r0, #0xf0
-	rsbs r0, r0, #0
-.L080427B4:
-	str r0, [r1]
-.L080427B6:
-	bl func_fe6_0804B294
-	bl func_fe6_08058F28
-	ldr r0, .L080427D0 @ =gCtrlC01Blocking
-	movs r1, #1
-	str r1, [r0]
-	bl func_fe6_0804C500
-	cmp r0, #1
-	bne .L080427D4
-	movs r0, #0
-	b .L080427D6
-	.align 2, 0
-.L080427D0: .4byte gCtrlC01Blocking
-.L080427D4:
-	movs r0, #0x1e
-.L080427D6:
-	strh r0, [r4, #0x2c]
-	ldr r0, .L080427EC @ =0x0203CCF4
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L080427F4
-	ldr r1, .L080427F0 @ =0x0203CD84
-	ldrb r0, [r1]
-	ldrb r1, [r1, #1]
-	b .L080427FA
-	.align 2, 0
-.L080427EC: .4byte 0x0203CCF4
-.L080427F0: .4byte 0x0203CD84
-.L080427F4:
-	ldr r1, .L08042814 @ =0x0203CD84
-	ldrb r0, [r1, #1]
-	ldrb r1, [r1]
-.L080427FA:
-	bl CheckBattleTalk
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	str r0, [r4, #0x54]
-	movs r0, #0
-	str r0, [r4, #0x58]
-	adds r0, r4, #0
-	bl Proc_Break
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042814: .4byte 0x0203CD84
-
-	thumb_func_start func_fe6_08042818
-func_fe6_08042818: @ 0x08042818
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x1f
-	bne .L08042860
-	bl GetBanimLinkArenaFlag
-	cmp r0, #1
-	beq .L08042858
-	ldr r0, [r4, #0x54]
-	cmp r0, #1
-	beq .L0804283E
-	ldr r0, [r4, #0x58]
-	cmp r0, #1
-	bne .L08042858
-.L0804283E:
-	movs r0, #1
-	movs r1, #7
-	bl func_fe6_08048DA4
-	movs r0, #1
-	movs r1, #7
-	movs r2, #0
-	bl func_fe6_08048E88
-	ldr r0, .L08042854 @ =func_fe6_0804286C
-	b .L0804285A
-	.align 2, 0
-.L08042854: .4byte func_fe6_0804286C
-.L08042858:
-	ldr r0, .L08042868 @ =func_fe6_08042970
-.L0804285A:
-	str r0, [r4, #0xc]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-.L08042860:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042868: .4byte func_fe6_08042970
-
-	thumb_func_start func_fe6_0804286C
-func_fe6_0804286C: @ 0x0804286C
-	push {r4, lr}
-	sub sp, #4
-	adds r4, r0, #0
-	bl func_fe6_08048DF4
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L080428F6
-	bl func_fe6_08043960
-	bl func_fe6_08044264
-	movs r0, #0
-	str r0, [sp]
-	ldr r1, .L080428D0 @ =gBg0Tm
-	ldr r2, .L080428D4 @ =0x01000200
-	mov r0, sp
-	bl CpuFastSet
-	ldr r0, .L080428D8 @ =gUnk_Banim_02000030
-	ldrh r1, [r0]
-	ldrh r2, [r0, #2]
-	movs r0, #0
-	bl SetBgOffset
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl SetBgOffset
-	movs r0, #1
-	bl EnableBgSync
-	bl func_fe6_080438D8
-	ldr r0, [r4, #0x54]
-	cmp r0, #1
-	bne .L080428F2
-	ldr r0, .L080428DC @ =0x0203CCF4
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #0
-	bne .L080428E4
-	ldr r1, .L080428E0 @ =0x0203CD84
-	ldrb r0, [r1]
-	ldrb r1, [r1, #1]
-	bl StartBattleTalk
-	b .L080428EE
-	.align 2, 0
-.L080428D0: .4byte gBg0Tm
-.L080428D4: .4byte 0x01000200
-.L080428D8: .4byte gUnk_Banim_02000030
-.L080428DC: .4byte 0x0203CCF4
-.L080428E0: .4byte 0x0203CD84
-.L080428E4:
-	ldr r1, .L08042900 @ =0x0203CD84
-	ldrb r0, [r1, #1]
-	ldrb r1, [r1]
-	bl StartBattleTalk
-.L080428EE:
-	movs r0, #0
-	str r0, [r4, #0x54]
-.L080428F2:
-	ldr r0, .L08042904 @ =func_fe6_08042908
-	str r0, [r4, #0xc]
-.L080428F6:
-	add sp, #4
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042900: .4byte 0x0203CD84
-.L08042904: .4byte func_fe6_08042908
-
-	thumb_func_start func_fe6_08042908
-func_fe6_08042908: @ 0x08042908
-	push {r4, lr}
-	adds r4, r0, #0
-	bl IsEventRunning
-	lsls r0, r0, #0x18
-	cmp r0, #0
-	bne .L08042942
-	bl func_fe6_08044608
-	movs r0, #1
-	bl EnableBgSync
-	movs r0, #0
-	movs r1, #7
-	bl func_fe6_08048DA4
-	movs r0, #0
-	movs r1, #7
-	movs r2, #0
-	bl func_fe6_08048E88
-	bl func_fe6_08043970
-	bl func_fe6_08044274
-	bl func_fe6_080438C8
-	ldr r0, .L08042948 @ =func_fe6_0804294C
-	str r0, [r4, #0xc]
-.L08042942:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042948: .4byte func_fe6_0804294C
-
-	thumb_func_start func_fe6_0804294C
-func_fe6_0804294C: @ 0x0804294C
-	push {r4, lr}
-	adds r4, r0, #0
-	bl func_fe6_08048DF4
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L08042964
-	ldr r0, .L0804296C @ =func_fe6_08042970
-	str r0, [r4, #0xc]
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-.L08042964:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L0804296C: .4byte func_fe6_08042970
-
-	thumb_func_start func_fe6_08042970
-func_fe6_08042970: @ 0x08042970
-	ldr r1, .L08042984 @ =0x0203CCF4
-	movs r2, #0
-	ldrsh r1, [r1, r2]
-	str r1, [r0, #0x44]
-	movs r1, #0
-	str r1, [r0, #0x48]
-	ldr r1, .L08042988 @ =func_fe6_0804298C
-	str r1, [r0, #0xc]
-	bx lr
-	.align 2, 0
-.L08042984: .4byte 0x0203CCF4
-.L08042988: .4byte func_fe6_0804298C
-
-	thumb_func_start func_fe6_0804298C
-func_fe6_0804298C: @ 0x0804298C
-	push {r4, r5, r6, lr}
-	adds r4, r0, #0
-	bl func_fe6_080588E0
-	adds r5, r0, #0
-	ldr r0, [r4, #0x48]
-	cmp r0, #2
-	bne .L080429A8
-	ldr r0, .L080429A4 @ =func_fe6_08042A5C
-	str r0, [r4, #0xc]
-	b .L08042A2C
-	.align 2, 0
-.L080429A4: .4byte func_fe6_08042A5C
-.L080429A8:
-	ldr r0, [r4, #0x44]
-	cmp r0, #0
-	bne .L080429F8
-	ldr r0, .L080429F0 @ =gAnims
-	ldr r1, [r0]
-	str r1, [r4, #0x5c]
-	movs r6, #1
-	adds r0, r5, #0
-	ands r0, r6
-	cmp r0, #0
-	beq .L080429C8
-	adds r0, r1, #0
-	bl func_fe6_080590B8
-	ldr r0, .L080429F4 @ =func_fe6_08042A3C
-	str r0, [r4, #0xc]
-.L080429C8:
-	movs r0, #4
-	ands r0, r5
-	cmp r0, #0
-	beq .L080429DA
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080599D0
-	ldr r0, .L080429F4 @ =func_fe6_08042A3C
-	str r0, [r4, #0xc]
-.L080429DA:
-	movs r0, #0x10
-	ands r0, r5
-	cmp r0, #0
-	beq .L080429EC
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_08059D8C
-	ldr r0, .L080429F4 @ =func_fe6_08042A3C
-	str r0, [r4, #0xc]
-.L080429EC:
-	str r6, [r4, #0x44]
-	b .L08042A26
-	.align 2, 0
-.L080429F0: .4byte gAnims
-.L080429F4: .4byte func_fe6_08042A3C
-.L080429F8:
-	ldr r0, .L08042A34 @ =gAnims
-	ldr r1, [r0, #8]
-	str r1, [r4, #0x5c]
-	movs r0, #2
-	ands r0, r5
-	cmp r0, #0
-	beq .L08042A10
-	adds r0, r1, #0
-	bl func_fe6_080590B8
-	ldr r0, .L08042A38 @ =func_fe6_08042A3C
-	str r0, [r4, #0xc]
-.L08042A10:
-	movs r0, #8
-	ands r0, r5
-	cmp r0, #0
-	beq .L08042A22
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_080599D0
-	ldr r0, .L08042A38 @ =func_fe6_08042A3C
-	str r0, [r4, #0xc]
-.L08042A22:
-	movs r0, #0
-	str r0, [r4, #0x44]
-.L08042A26:
-	ldr r0, [r4, #0x48]
-	adds r0, #1
-	str r0, [r4, #0x48]
-.L08042A2C:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042A34: .4byte gAnims
-.L08042A38: .4byte func_fe6_08042A3C
-
-	thumb_func_start func_fe6_08042A3C
-func_fe6_08042A3C: @ 0x08042A3C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, [r4, #0x5c]
-	bl func_fe6_08058880
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L08042A52
-	ldr r0, .L08042A58 @ =func_fe6_0804298C
-	str r0, [r4, #0xc]
-.L08042A52:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042A58: .4byte func_fe6_0804298C
-
-	thumb_func_start func_fe6_08042A5C
-func_fe6_08042A5C: @ 0x08042A5C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, .L08042A88 @ =0x0203CCF4
-	movs r2, #0
-	ldrsh r1, [r0, r2]
-	ldr r0, .L08042A8C @ =gEkrInitPosReal
-	ldr r0, [r0]
-	cmp r1, r0
-	beq .L08042A98
-	ldr r1, .L08042A90 @ =gAnims
-	lsls r0, r0, #3
-	adds r0, r0, r1
-	ldr r0, [r0]
-	movs r1, #1
-	rsbs r1, r1, #0
-	bl func_fe6_08045C90
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	ldr r0, .L08042A94 @ =func_fe6_08042AA8
-	b .L08042A9A
-	.align 2, 0
-.L08042A88: .4byte 0x0203CCF4
-.L08042A8C: .4byte gEkrInitPosReal
-.L08042A90: .4byte gAnims
-.L08042A94: .4byte func_fe6_08042AA8
-.L08042A98:
-	ldr r0, .L08042AA4 @ =func_fe6_08042AC4
-.L08042A9A:
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042AA4: .4byte func_fe6_08042AC4
-
-	thumb_func_start func_fe6_08042AA8
-func_fe6_08042AA8: @ 0x08042AA8
-	adds r1, r0, #0
-	ldrh r0, [r1, #0x2c]
-	adds r0, #1
-	strh r0, [r1, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #8
-	bne .L08042ABC
-	ldr r0, .L08042AC0 @ =func_fe6_08042AC4
-	str r0, [r1, #0xc]
-.L08042ABC:
-	bx lr
-	.align 2, 0
-.L08042AC0: .4byte func_fe6_08042AC4
-
-	thumb_func_start func_fe6_08042AC4
-func_fe6_08042AC4: @ 0x08042AC4
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	ldr r4, .L08042B08 @ =gAnims
-	ldr r0, [r4]
-	bl func_fe6_08046DA0
-	ldr r0, [r4, #8]
-	bl func_fe6_08046DA0
-	ldr r1, .L08042B0C @ =0x0203CDCC
-	movs r2, #0
-	ldrsh r0, [r1, r2]
-	movs r2, #2
-	ldrsh r1, [r1, r2]
-	bl func_fe6_080471E4
-	ldr r1, .L08042B10 @ =gBattleSt
-	movs r0, #0x40
-	ldrb r1, [r1, #1]
-	ands r0, r1
-	cmp r0, #0
-	beq .L08042AF6
-	ldr r0, [r4]
-	bl func_fe6_08046ED8
-.L08042AF6:
-	ldr r0, [r4]
-	bl func_fe6_08046A6C
-	ldr r0, .L08042B14 @ =func_fe6_08042B18
-	str r0, [r5, #0xc]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042B08: .4byte gAnims
-.L08042B0C: .4byte 0x0203CDCC
-.L08042B10: .4byte gBattleSt
-.L08042B14: .4byte func_fe6_08042B18
-
-	thumb_func_start func_fe6_08042B18
-func_fe6_08042B18: @ 0x08042B18
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, .L08042B30 @ =0x0203CD88
-	ldr r0, [r0]
-	cmp r0, #0
-	beq .L08042B3C
-	ldr r0, .L08042B34 @ =gAnims
-	ldr r0, [r0, #8]
-	bl func_fe6_0805E578
-	ldr r0, .L08042B38 @ =func_fe6_08042B4C
-	b .L08042B3E
-	.align 2, 0
-.L08042B30: .4byte 0x0203CD88
-.L08042B34: .4byte gAnims
-.L08042B38: .4byte func_fe6_08042B4C
-.L08042B3C:
-	ldr r0, .L08042B48 @ =func_fe6_08042B74
-.L08042B3E:
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042B48: .4byte func_fe6_08042B74
-
-	thumb_func_start func_fe6_08042B4C
-func_fe6_08042B4C: @ 0x08042B4C
-	push {r4, lr}
-	adds r4, r0, #0
-	bl func_fe6_0805E560
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	cmp r0, #1
-	bne .L08042B68
-	bl func_fe6_0805E574
-	movs r0, #0x1e
-	strh r0, [r4, #0x2c]
-	ldr r0, .L08042B70 @ =func_fe6_08042B74
-	str r0, [r4, #0xc]
-.L08042B68:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042B70: .4byte func_fe6_08042B74
-
-	thumb_func_start func_fe6_08042B74
-func_fe6_08042B74: @ 0x08042B74
-	push {r4, r5, r6, r7, lr}
-	adds r5, r0, #0
-	ldrh r0, [r5, #0x2c]
-	adds r0, #1
-	movs r7, #0
-	strh r0, [r5, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x1e
-	ble .L08042BE0
-	ldr r6, .L08042BE8 @ =0x0203CCF8
-	ldrh r0, [r6]
-	cmp r0, #1
-	bne .L08042BB0
-	ldr r3, .L08042BEC @ =gAnims
-	ldr r4, [r3]
-	movs r2, #0x80
-	lsls r2, r2, #8
-	strh r2, [r4, #0x10]
-	movs r0, #0x80
-	lsls r0, r0, #7
-	adds r1, r0, #0
-	ldrh r0, [r4, #0xc]
-	orrs r0, r1
-	strh r0, [r4, #0xc]
-	ldr r4, [r3, #4]
-	strh r2, [r4, #0x10]
-	ldrh r0, [r4, #0xc]
-	orrs r1, r0
-	strh r1, [r4, #0xc]
-.L08042BB0:
-	ldrh r6, [r6, #2]
-	cmp r6, #1
-	bne .L08042BD6
-	ldr r3, .L08042BEC @ =gAnims
-	ldr r4, [r3, #8]
-	movs r2, #0x80
-	lsls r2, r2, #8
-	strh r2, [r4, #0x10]
-	movs r0, #0x80
-	lsls r0, r0, #7
-	adds r1, r0, #0
-	ldrh r0, [r4, #0xc]
-	orrs r0, r1
-	strh r0, [r4, #0xc]
-	ldr r4, [r3, #0xc]
-	strh r2, [r4, #0x10]
-	ldrh r0, [r4, #0xc]
-	orrs r1, r0
-	strh r1, [r4, #0xc]
-.L08042BD6:
-	ldr r0, .L08042BF0 @ =gBanimDoneFlag
-	str r7, [r0]
-	str r7, [r0, #4]
-	ldr r0, .L08042BF4 @ =func_fe6_08042BF8
-	str r0, [r5, #0xc]
-.L08042BE0:
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042BE8: .4byte 0x0203CCF8
-.L08042BEC: .4byte gAnims
-.L08042BF0: .4byte gBanimDoneFlag
-.L08042BF4: .4byte func_fe6_08042BF8
-
-	thumb_func_start func_fe6_08042BF8
-func_fe6_08042BF8: @ 0x08042BF8
-	ldr r2, .L08042C04 @ =gCtrlC01Blocking
-	movs r1, #0
-	str r1, [r2]
-	ldr r1, .L08042C08 @ =func_fe6_08042C0C
-	str r1, [r0, #0xc]
-	bx lr
-	.align 2, 0
-.L08042C04: .4byte gCtrlC01Blocking
-.L08042C08: .4byte func_fe6_08042C0C
-
-	thumb_func_start func_fe6_08042C0C
-func_fe6_08042C0C: @ 0x08042C0C
-	push {r4, lr}
-	adds r4, r0, #0
-	ldr r0, .L08042C24 @ =0x0203CD14
-	ldrh r0, [r0]
-	cmp r0, #4
-	bne .L08042C30
-	ldr r0, .L08042C28 @ =gAnims
-	ldr r0, [r0, #8]
-	bl func_fe6_0805C86C
-	ldr r0, .L08042C2C @ =func_fe6_08042C48
-	b .L08042C3A
-	.align 2, 0
-.L08042C24: .4byte 0x0203CD14
-.L08042C28: .4byte gAnims
-.L08042C2C: .4byte func_fe6_08042C48
-.L08042C30:
-	adds r1, r4, #0
-	adds r1, #0x29
-	movs r0, #0
-	strb r0, [r1]
-	ldr r0, .L08042C44 @ =func_fe6_08042C74
-.L08042C3A:
-	str r0, [r4, #0xc]
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042C44: .4byte func_fe6_08042C74
-
-	thumb_func_start func_fe6_08042C48
-func_fe6_08042C48: @ 0x08042C48
-	push {r4, r5, lr}
-	adds r5, r0, #0
-	bl func_fe6_0805C840
-	lsls r0, r0, #0x18
-	asrs r4, r0, #0x18
-	cmp r4, #1
-	bne .L08042C64
-	bl func_fe6_0805C858
-	ldr r0, .L08042C6C @ =0x0203CDBC
-	strh r4, [r0]
-	ldr r0, .L08042C70 @ =func_fe6_080433B0
-	str r0, [r5, #0xc]
-.L08042C64:
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042C6C: .4byte 0x0203CDBC
-.L08042C70: .4byte func_fe6_080433B0
-
-	thumb_func_start func_fe6_08042C74
-func_fe6_08042C74: @ 0x08042C74
-	push {r4, r5, r6, lr}
-	adds r6, r0, #0
-	movs r4, #0
-	ldr r0, .L08042CA4 @ =gKeySt
-	ldr r1, [r0]
-	movs r0, #2
-	ldrh r1, [r1, #4]
-	ands r0, r1
-	cmp r0, #0
-	beq .L08042C90
-	adds r1, r6, #0
-	adds r1, #0x29
-	movs r0, #1
-	strb r0, [r1]
-.L08042C90:
-	ldr r0, .L08042CA8 @ =0x0203CD14
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	cmp r0, #3
-	beq .L08042D4C
-	cmp r0, #3
-	ble .L08042CAC
-	cmp r0, #4
-	beq .L08042D58
-	b .L08042D5A
-	.align 2, 0
-.L08042CA4: .4byte gKeySt
-.L08042CA8: .4byte 0x0203CD14
-.L08042CAC:
-	cmp r0, #0
-	blt .L08042D5A
-	ldr r0, .L08042CF4 @ =gBanimDoneFlag
-	ldr r1, [r0]
-	ldr r0, [r0, #4]
-	adds r1, r1, r0
-	cmp r1, #2
-	bne .L08042D5A
-	bl func_fe6_0804C500
-	cmp r0, #0
-	beq .L08042D58
-	ldr r5, .L08042CF8 @ =0x0203CDBC
-	ldr r0, .L08042CFC @ =0x0203CD7C
-	ldr r0, [r0]
-	adds r0, #0x6a
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	strh r0, [r5]
-	ldr r0, .L08042D00 @ =0x0203CD80
-	ldr r0, [r0]
-	adds r0, #0x6a
-	ldrb r0, [r0]
-	lsls r0, r0, #0x18
-	asrs r0, r0, #0x18
-	strh r0, [r5, #2]
-	ldr r1, .L08042D04 @ =0x0203CDA0
-	movs r2, #0
-	ldrsh r0, [r1, r2]
-	cmp r0, #0
-	bne .L08042D08
-	movs r0, #1
-	bl ArenaSetResult
-	b .L08042D58
-	.align 2, 0
-.L08042CF4: .4byte gBanimDoneFlag
-.L08042CF8: .4byte 0x0203CDBC
-.L08042CFC: .4byte 0x0203CD7C
-.L08042D00: .4byte 0x0203CD80
-.L08042D04: .4byte 0x0203CDA0
-.L08042D08:
-	movs r2, #2
-	ldrsh r0, [r1, r2]
-	cmp r0, #0
-	bne .L08042D1A
-	movs r0, #2
-.L08042D12:
-	bl ArenaSetResult
-	strh r4, [r5, #2]
-	b .L08042D58
-.L08042D1A:
-	adds r0, r6, #0
-	adds r0, #0x29
-	ldrb r0, [r0]
-	cmp r0, #1
-	bne .L08042D2C
-	bl func_fe6_0804C56C
-	movs r0, #4
-	b .L08042D12
-.L08042D2C:
-	bl ArenaContinueBattle
-	bl func_fe6_08049F1C
-	bl BasInit
-	bl func_fe6_0804B048
-	bl func_fe6_0804B294
-	strh r4, [r6, #0x2c]
-	ldr r0, .L08042D48 @ =func_fe6_08042B74
-	str r0, [r6, #0xc]
-	b .L08042D5A
-	.align 2, 0
-.L08042D48: .4byte func_fe6_08042B74
-.L08042D4C:
-	ldr r0, .L08042D68 @ =gBanimDoneFlag
-	ldr r1, [r0]
-	ldr r0, [r0, #4]
-	adds r1, r1, r0
-	cmp r1, #1
-	bne .L08042D5A
-.L08042D58:
-	movs r4, #1
-.L08042D5A:
-	cmp r4, #1
-	bne .L08042D62
-	ldr r0, .L08042D6C @ =func_fe6_08042D70
-	str r0, [r6, #0xc]
-.L08042D62:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042D68: .4byte gBanimDoneFlag
-.L08042D6C: .4byte func_fe6_08042D70
-
-	thumb_func_start func_fe6_08042D70
-func_fe6_08042D70: @ 0x08042D70
-	adds r2, r0, #0
-	adds r2, #0x29
-	movs r1, #0
-	strb r1, [r2]
-	ldr r1, .L08042D80 @ =func_fe6_08042D84
-	str r1, [r0, #0xc]
-	bx lr
-	.align 2, 0
-.L08042D80: .4byte func_fe6_08042D84
-
-	thumb_func_start func_fe6_08042D84
-func_fe6_08042D84: @ 0x08042D84
-	push {r4, r5, r6, lr}
-	adds r5, r0, #0
-	ldr r0, .L08042DFC @ =gUnk_Banim_02017720
-	ldr r0, [r0]
-	cmp r0, #0
-	bne .L08042DF4
-	ldr r0, .L08042E00 @ =gUnk_Banim_02017730
-	ldr r4, [r0]
-	cmp r4, #0
-	bne .L08042DF4
-	bl func_fe6_08048ED8
-	lsls r0, r0, #0x18
-	asrs r6, r0, #0x18
-	cmp r6, #1
-	bne .L08042DF4
-	strh r4, [r5, #0x2c]
-	ldr r0, .L08042E04 @ =func_fe6_08042E14
-	str r0, [r5, #0xc]
-	bl func_fe6_08058998
-	cmp r0, #0
-	beq .L08042DC0
-	ldr r0, .L08042E08 @ =gAnims
-	ldr r0, [r0]
-	bl func_fe6_08058A08
-	ldrh r0, [r0]
-	cmp r0, #1
-	beq .L08042DF4
-.L08042DC0:
-	ldr r0, .L08042E0C @ =0x0203CDBC
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	movs r2, #1
-	cmp r0, #0
-	beq .L08042DCE
-	movs r2, #0
-.L08042DCE:
-	ldr r3, .L08042E10 @ =gEkrInitPosReal
-	ldr r0, [r3]
-	adds r1, r5, #0
-	adds r1, #0x29
-	cmp r2, r0
-	beq .L08042DDC
-	strb r6, [r1]
-.L08042DDC:
-	ldrb r1, [r1]
-	cmp r1, #1
-	bne .L08042DF4
-	ldr r1, .L08042E08 @ =gAnims
-	ldr r0, [r3]
-	lsls r0, r0, #3
-	adds r0, r0, r1
-	ldr r0, [r0]
-	movs r1, #1
-	rsbs r1, r1, #0
-	bl func_fe6_08045C90
-.L08042DF4:
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042DFC: .4byte gUnk_Banim_02017720
-.L08042E00: .4byte gUnk_Banim_02017730
-.L08042E04: .4byte func_fe6_08042E14
-.L08042E08: .4byte gAnims
-.L08042E0C: .4byte 0x0203CDBC
-.L08042E10: .4byte gEkrInitPosReal
-
-	thumb_func_start func_fe6_08042E14
-func_fe6_08042E14: @ 0x08042E14
-	push {r4, lr}
-	adds r4, r0, #0
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x1d
-	ble .L08042E4C
-	bl GetBanimLinkArenaFlag
-	cmp r0, #1
-	beq .L08042E48
-	ldr r0, .L08042E40 @ =0x0203CDBC
-	movs r2, #0
-	ldrsh r1, [r0, r2]
-	movs r2, #2
-	ldrsh r0, [r0, r2]
-	cmn r1, r0
-	beq .L08042E48
-	ldr r0, .L08042E44 @ =func_fe6_08042E58
-	b .L08042E4A
-	.align 2, 0
-.L08042E40: .4byte 0x0203CDBC
-.L08042E44: .4byte func_fe6_08042E58
-.L08042E48:
-	ldr r0, .L08042E54 @ =func_fe6_0804340C
-.L08042E4A:
-	str r0, [r4, #0xc]
-.L08042E4C:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08042E54: .4byte func_fe6_0804340C
-
-	thumb_func_start func_fe6_08042E58
-func_fe6_08042E58: @ 0x08042E58
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #0xc
-	str r0, [sp, #8]
-	ldr r0, .L08042F54 @ =gUnk_Banim_0201947C
-	movs r1, #0x80
-	lsls r1, r1, #1
-	adds r0, r0, r1
-	mov sl, r0
-	movs r0, #1
-	movs r1, #0
-	movs r2, #0
-	bl SetBgOffset
-	ldr r7, .L08042F58 @ =gDispIo
-	movs r0, #0x20
-	ldrb r2, [r7, #1]
-	orrs r0, r2
-	movs r1, #0x41
-	rsbs r1, r1, #0
-	ands r0, r1
-	movs r1, #0x7f
-	ands r0, r1
-	strb r0, [r7, #1]
-	adds r1, r7, #0
-	adds r1, #0x2d
-	movs r0, #0
-	strb r0, [r1]
-	adds r0, r7, #0
-	adds r0, #0x31
-	movs r2, #0x94
-	strb r2, [r0]
-	subs r1, #1
-	movs r0, #0xf0
-	strb r0, [r1]
-	adds r0, r7, #0
-	adds r0, #0x30
-	strb r2, [r0]
-	movs r3, #1
-	mov r8, r3
-	mov r1, r8
-	ldr r6, .L08042F5C @ =gDispIo+0x34
-	ldrb r6, [r6]
-	orrs r1, r6
-	movs r0, #2
-	mov sb, r0
-	mov r2, sb
-	orrs r1, r2
-	movs r5, #4
-	orrs r1, r5
-	movs r4, #8
-	orrs r1, r4
-	movs r3, #0x10
-	orrs r1, r3
-	movs r6, #0x36
-	mov r0, r8
-	ldrb r2, [r6, r7]
-	orrs r0, r2
-	movs r2, #3
-	rsbs r2, r2, #0
-	ands r0, r2
-	orrs r0, r5
-	orrs r0, r4
-	orrs r0, r3
-	subs r2, #0x1e
-	ands r1, r2
-	ldr r3, .L08042F5C @ =gDispIo+0x34
-	strb r1, [r3]
-	ands r0, r2
-	strb r0, [r6, r7]
-	ldr r0, .L08042F60 @ =gUnk_08113584
-	ldr r1, .L08042F64 @ =0x06002000
-	movs r2, #0xc0
-	lsls r2, r2, #2
-	bl RegisterDataMove
-	ldr r0, .L08042F68 @ =gUnk_08113CE4
-	ldr r1, .L08042F6C @ =gBg1Tm+0x44C
-	movs r2, #1
-	str r2, [sp]
-	adds r2, #0xff
-	str r2, [sp, #4]
-	movs r2, #0x12
-	movs r3, #3
-	bl func_fe6_0805B1AC
-	ldr r0, .L08042F70 @ =gUnk_08113D50
-	ldr r1, .L08042F74 @ =gPal+0x20
-	movs r2, #8
-	bl CpuFastSet
-	movs r0, #2
-	bl EnableBgSync
-	bl EnablePalSync
-	bl func_fe6_0805894C
-	cmp r0, #0
-	bne .L08042F78
-	movs r1, #4
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	ldrb r6, [r7, #0x10]
-	ands r0, r6
-	strb r0, [r7, #0x10]
-	adds r0, r1, #0
-	ldrb r2, [r7, #0xc]
-	ands r0, r2
-	mov r3, r8
-	orrs r0, r3
-	strb r0, [r7, #0xc]
-	ldrb r6, [r7, #0x14]
-	ands r1, r6
-	mov r0, sb
-	orrs r1, r0
-	strb r1, [r7, #0x14]
-	movs r0, #3
-	ldrb r1, [r7, #0x18]
-	orrs r0, r1
-	strb r0, [r7, #0x18]
-	b .L08042FA2
-	.align 2, 0
-.L08042F54: .4byte gUnk_Banim_0201947C
-.L08042F58: .4byte gDispIo
-.L08042F5C: .4byte gDispIo+0x34
-.L08042F60: .4byte gUnk_08113584
-.L08042F64: .4byte 0x06002000
-.L08042F68: .4byte gUnk_08113CE4
-.L08042F6C: .4byte gBg1Tm+0x44C
-.L08042F70: .4byte gUnk_08113D50
-.L08042F74: .4byte gPal+0x20
-.L08042F78:
-	movs r1, #4
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	ldrb r2, [r7, #0x10]
-	ands r0, r2
-	strb r0, [r7, #0x10]
-	adds r0, r1, #0
-	ldrb r3, [r7, #0xc]
-	ands r0, r3
-	mov r6, r8
-	orrs r0, r6
-	strb r0, [r7, #0xc]
-	ldrb r0, [r7, #0x18]
-	ands r1, r0
-	mov r2, sb
-	orrs r1, r2
-	strb r1, [r7, #0x18]
-	movs r0, #3
-	ldrb r3, [r7, #0x14]
-	orrs r0, r3
-	strb r0, [r7, #0x14]
-.L08042FA2:
-	movs r0, #1
-	bl func_fe6_08043908
-	ldr r0, .L08042FBC @ =0x0203CDBC
-	movs r6, #0
-	ldrsh r0, [r0, r6]
-	cmp r0, #0
-	beq .L08042FC4
-	ldr r0, .L08042FC0 @ =0x0203CDB8
-	movs r1, #0
-	ldrsh r0, [r0, r1]
-	b .L08042FCA
-	.align 2, 0
-.L08042FBC: .4byte 0x0203CDBC
-.L08042FC0: .4byte 0x0203CDB8
-.L08042FC4:
-	ldr r0, .L08043060 @ =0x0203CDB8
-	movs r2, #2
-	ldrsh r0, [r0, r2]
-.L08042FCA:
-	movs r1, #0x64
-	bl DivRem
-	adds r6, r0, #0
-	movs r1, #0xa
-	bl Div
-	adds r5, r0, #0
-	lsls r0, r5, #2
-	adds r0, r0, r5
-	lsls r0, r0, #1
-	subs r4, r6, r0
-	cmp r5, #0
-	bne .L08042FE8
-	movs r5, #0xa
-.L08042FE8:
-	ldr r0, .L08043064 @ =gUnk_Banim_0201947C
-	adds r1, r6, #0
-	bl func_fe6_0805B458
-	lsls r5, r5, #5
-	mov r8, r5
-	lsls r4, r4, #5
-	mov sb, r4
-	mov r5, sl
-	ldr r4, .L08043064 @ =gUnk_Banim_0201947C
-	ldr r7, .L08043068 @ =gUnk_08113884
-	movs r6, #0xc
-.L08043000:
-	ldrh r3, [r4]
-	lsls r0, r3, #5
-	adds r0, r0, r7
-	adds r1, r5, #0
-	movs r2, #8
-	bl CpuFastSet
-	adds r5, #0x20
-	adds r4, #2
-	subs r6, #1
-	cmp r6, #0
-	bge .L08043000
-	ldr r4, .L0804306C @ =gUnk_08113B84
-	mov r6, r8
-	adds r0, r6, r4
-	movs r1, #0xd0
-	lsls r1, r1, #1
-	add r1, sl
-	movs r2, #8
-	bl CpuFastSet
-	add r4, sb
-	movs r1, #0xe0
-	lsls r1, r1, #1
-	add r1, sl
-	adds r0, r4, #0
-	movs r2, #8
-	bl CpuFastSet
-	ldr r1, .L08043070 @ =0x060020E0
-	movs r2, #0xf0
-	lsls r2, r2, #1
-	mov r0, sl
-	bl RegisterDataMove
-	movs r0, #0
-	ldr r1, [sp, #8]
-	strh r0, [r1, #0x2c]
-	ldr r0, .L08043074 @ =func_fe6_08043078
-	str r0, [r1, #0xc]
-	add sp, #0xc
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043060: .4byte 0x0203CDB8
-.L08043064: .4byte gUnk_Banim_0201947C
-.L08043068: .4byte gUnk_08113884
-.L0804306C: .4byte gUnk_08113B84
-.L08043070: .4byte 0x060020E0
-.L08043074: .4byte func_fe6_08043078
-
-	thumb_func_start func_fe6_08043078
-func_fe6_08043078: @ 0x08043078
-	adds r2, r0, #0
-	ldrh r1, [r2, #0x2c]
-	adds r1, #1
-	strh r1, [r2, #0x2c]
-	lsls r0, r1, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0xc
-	ble .L08043098
-	movs r0, #0
-	strh r0, [r2, #0x2c]
-	ldr r0, .L08043094 @ =func_fe6_080430C4
-	str r0, [r2, #0xc]
-	b .L080430BE
-	.align 2, 0
-.L08043094: .4byte func_fe6_080430C4
-.L08043098:
-	ldr r3, .L080430C0 @ =gDispIo
-	adds r2, r3, #0
-	adds r2, #0x2d
-	movs r0, #0
-	strb r0, [r2]
-	movs r2, #0x6c
-	rsbs r2, r2, #0
-	adds r0, r2, #0
-	subs r0, r0, r1
-	adds r2, r3, #0
-	adds r2, #0x31
-	strb r0, [r2]
-	subs r2, #5
-	movs r0, #0xf0
-	strb r0, [r2]
-	subs r1, #0x6c
-	adds r0, r3, #0
-	adds r0, #0x30
-	strb r1, [r0]
-.L080430BE:
-	bx lr
-	.align 2, 0
-.L080430C0: .4byte gDispIo
-
-	thumb_func_start func_fe6_080430C4
-func_fe6_080430C4: @ 0x080430C4
-	push {r4, lr}
-	adds r1, r0, #0
-	ldrh r0, [r1, #0x2c]
-	adds r0, #1
-	strh r0, [r1, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0xa
-	ble .L0804311C
-	ldr r2, .L080430E8 @ =0x0203CDBC
-	ldrh r3, [r2]
-	movs r4, #0
-	ldrsh r0, [r2, r4]
-	cmp r0, #0
-	beq .L080430F0
-	ldr r0, .L080430EC @ =0x0203CDB8
-	ldrh r0, [r0]
-	b .L080430FE
-	.align 2, 0
-.L080430E8: .4byte 0x0203CDBC
-.L080430EC: .4byte 0x0203CDB8
-.L080430F0:
-	ldrh r3, [r2, #2]
-	movs r4, #2
-	ldrsh r0, [r2, r4]
-	cmp r0, #0
-	beq .L08043104
-	ldr r0, .L08043124 @ =0x0203CDB8
-	ldrh r0, [r0, #2]
-.L080430FE:
-	strh r0, [r1, #0x2c]
-	adds r0, r0, r3
-	strh r0, [r1, #0x2e]
-.L08043104:
-	ldr r0, .L08043128 @ =func_fe6_0804312C
-	str r0, [r1, #0xc]
-	movs r1, #0x80
-	lsls r1, r1, #1
-	movs r0, #0x74
-	bl func_fe6_0805BCA8
-	movs r0, #0x74
-	movs r1, #0x78
-	movs r2, #0
-	bl func_fe6_0805BDC0
-.L0804311C:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043124: .4byte 0x0203CDB8
-.L08043128: .4byte func_fe6_0804312C
-
-	thumb_func_start func_fe6_0804312C
-func_fe6_0804312C: @ 0x0804312C
-	push {r4, r5, r6, r7, lr}
-	mov r7, sl
-	mov r6, sb
-	mov r5, r8
-	push {r5, r6, r7}
-	sub sp, #4
-	adds r7, r0, #0
-	ldr r0, .L080431F4 @ =gUnk_Banim_0201947C
-	mov r8, r0
-	movs r1, #0x80
-	lsls r1, r1, #1
-	add r1, r8
-	mov sl, r1
-	movs r2, #0x2c
-	ldrsh r0, [r7, r2]
-	movs r1, #0x64
-	bl DivRem
-	adds r5, r0, #0
-	movs r1, #0xa
-	bl Div
-	adds r4, r0, #0
-	lsls r0, r4, #2
-	adds r0, r0, r4
-	lsls r0, r0, #1
-	subs r6, r5, r0
-	cmp r4, #0
-	bne .L08043168
-	movs r4, #0xa
-.L08043168:
-	mov r0, r8
-	adds r1, r5, #0
-	bl func_fe6_0805B458
-	lsls r4, r4, #5
-	mov sb, r4
-	lsls r6, r6, #5
-	str r6, [sp]
-	mov r6, sl
-	mov r5, r8
-	ldr r0, .L080431F8 @ =gUnk_08113884
-	mov r8, r0
-	movs r4, #0xc
-.L08043182:
-	ldrh r1, [r5]
-	lsls r0, r1, #5
-	add r0, r8
-	adds r1, r6, #0
-	movs r2, #8
-	bl CpuFastSet
-	adds r6, #0x20
-	adds r5, #2
-	subs r4, #1
-	cmp r4, #0
-	bge .L08043182
-	ldr r4, .L080431FC @ =gUnk_08113B84
-	mov r2, sb
-	adds r0, r2, r4
-	movs r1, #0xd0
-	lsls r1, r1, #1
-	add r1, sl
-	movs r2, #8
-	bl CpuFastSet
-	ldr r0, [sp]
-	adds r4, r0, r4
-	movs r1, #0xe0
-	lsls r1, r1, #1
-	add r1, sl
-	adds r0, r4, #0
-	movs r2, #8
-	bl CpuFastSet
-	ldr r1, .L08043200 @ =0x060020E0
-	movs r2, #0xf0
-	lsls r2, r2, #1
-	mov r0, sl
-	bl RegisterDataMove
-	ldrh r0, [r7, #0x2c]
-	adds r0, #1
-	strh r0, [r7, #0x2c]
-	lsls r0, r0, #0x10
-	ldrh r2, [r7, #0x2e]
-	lsls r1, r2, #0x10
-	cmp r0, r1
-	ble .L080431E2
-	movs r0, #0
-	strh r0, [r7, #0x2c]
-	ldr r0, .L08043204 @ =func_fe6_08043208
-	str r0, [r7, #0xc]
-.L080431E2:
-	add sp, #4
-	pop {r3, r4, r5}
-	mov r8, r3
-	mov sb, r4
-	mov sl, r5
-	pop {r4, r5, r6, r7}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L080431F4: .4byte gUnk_Banim_0201947C
-.L080431F8: .4byte gUnk_08113884
-.L080431FC: .4byte gUnk_08113B84
-.L08043200: .4byte 0x060020E0
-.L08043204: .4byte func_fe6_08043208
-
-	thumb_func_start func_fe6_08043208
-func_fe6_08043208: @ 0x08043208
-	push {r4, lr}
-	adds r4, r0, #0
-	movs r1, #0x2c
-	ldrsh r0, [r4, r1]
-	cmp r0, #0
-	bne .L0804321A
-	movs r0, #0x74
-	bl func_fe6_0805BD54
-.L0804321A:
-	ldrh r0, [r4, #0x2c]
-	adds r0, #1
-	strh r0, [r4, #0x2c]
-	lsls r0, r0, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0x1e
-	ble .L08043230
-	movs r0, #0
-	strh r0, [r4, #0x2c]
-	ldr r0, .L08043238 @ =func_fe6_0804323C
-	str r0, [r4, #0xc]
-.L08043230:
-	pop {r4}
-	pop {r0}
-	bx r0
-	.align 2, 0
-.L08043238: .4byte func_fe6_0804323C
-
-	thumb_func_start func_fe6_0804323C
-func_fe6_0804323C: @ 0x0804323C
-	adds r1, r0, #0
-	ldrh r2, [r1, #0x2c]
-	adds r2, #1
-	strh r2, [r1, #0x2c]
-	lsls r0, r2, #0x10
-	asrs r0, r0, #0x10
-	cmp r0, #0xc
-	ble .L0804325C
-	movs r0, #0
-	strh r0, [r1, #0x2c]
-	ldr r0, .L08043258 @ =func_fe6_08043288
-	str r0, [r1, #0xc]
-	b .L08043282
-	.align 2, 0
-.L08043258: .4byte func_fe6_08043288
-.L0804325C:
-	ldr r3, .L08043284 @ =gDispIo
-	adds r1, r3, #0
-	adds r1, #0x2d
-	movs r0, #0
-	strb r0, [r1]
-	adds r0, r2, #0
-	subs r0, #0x78
-	adds r1, #4
-	strb r0, [r1]
-	subs r1, #5
-	movs r0, #0xf0
-	strb r0, [r1]
-	movs r1, #0x60
-	rsbs r1, r1, #0
-	adds r0, r1, #0
-	subs r0, r0, r2
-	adds r1, r3, #0
-	adds r1, #0x30
-	strb r0, [r1]
-.L08043282:
-	bx lr
-	.align 2, 0
-.L08043284: .4byte gDispIo
-
-	thumb_func_start func_fe6_08043288
-func_fe6_08043288: @ 0x08043288
+	thumb_func_start EkrBattleLvupHanlder
+EkrBattleLvupHanlder: @ 0x08043288
 	push {r4, lr}
 	adds r4, r0, #0
 	ldrh r0, [r4, #0x2c]
@@ -1412,22 +14,22 @@ func_fe6_08043288: @ 0x08043288
 	asrs r0, r0, #0x10
 	cmp r0, #0x18
 	bne .L080432CC
-	ldr r2, .L080432B0 @ =0x0203CDBC
+	ldr r2, .L080432B0 @ =gEkrPairExpGain
 	movs r1, #0
 	ldrsh r0, [r2, r1]
 	cmp r0, #0
 	beq .L080432B8
-	ldr r0, .L080432B4 @ =0x0203CDB8
+	ldr r0, .L080432B4 @ =gEkrPairExpPrevious
 	movs r3, #0
 	ldrsh r1, [r0, r3]
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	b .L080432C2
 	.align 2, 0
-.L080432B0: .4byte 0x0203CDBC
-.L080432B4: .4byte 0x0203CDB8
+.L080432B0: .4byte gEkrPairExpGain
+.L080432B4: .4byte gEkrPairExpPrevious
 .L080432B8:
-	ldr r0, .L08043314 @ =0x0203CDB8
+	ldr r0, .L08043314 @ =gEkrPairExpPrevious
 	movs r3, #2
 	ldrsh r1, [r0, r3]
 	movs r3, #2
@@ -1444,8 +46,8 @@ func_fe6_08043288: @ 0x08043288
 	ble .L080433A4
 	bl func_fe6_080474D8
 	movs r0, #0
-	bl func_fe6_08043908
-	bl func_fe6_0805894C
+	bl EkrGauge_08043908
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	bne .L0804331C
 	ldr r3, .L08043318 @ =gDispIo
@@ -1472,7 +74,7 @@ func_fe6_08043288: @ 0x08043288
 	strb r0, [r3, #0x18]
 	b .L08043348
 	.align 2, 0
-.L08043314: .4byte 0x0203CDB8
+.L08043314: .4byte gEkrPairExpPrevious
 .L08043318: .4byte gDispIo
 .L0804331C:
 	ldr r3, .L08043378 @ =gDispIo
@@ -1511,12 +113,12 @@ func_fe6_08043288: @ 0x08043288
 	adds r1, #4
 	movs r0, #0xa0
 	strb r0, [r1]
-	ldr r2, .L0804337C @ =0x0203CDBC
+	ldr r2, .L0804337C @ =gEkrPairExpGain
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	cmp r0, #0
 	beq .L08043384
-	ldr r0, .L08043380 @ =0x0203CDB8
+	ldr r0, .L08043380 @ =gEkrPairExpPrevious
 	movs r3, #0
 	ldrsh r1, [r0, r3]
 	movs r3, #0
@@ -1524,10 +126,10 @@ func_fe6_08043288: @ 0x08043288
 	b .L0804338E
 	.align 2, 0
 .L08043378: .4byte gDispIo
-.L0804337C: .4byte 0x0203CDBC
-.L08043380: .4byte 0x0203CDB8
+.L0804337C: .4byte gEkrPairExpGain
+.L08043380: .4byte gEkrPairExpPrevious
 .L08043384:
-	ldr r0, .L08043398 @ =0x0203CDB8
+	ldr r0, .L08043398 @ =gEkrPairExpPrevious
 	movs r3, #2
 	ldrsh r1, [r0, r3]
 	movs r3, #2
@@ -1536,13 +138,13 @@ func_fe6_08043288: @ 0x08043288
 	adds r1, r1, r0
 	cmp r1, #0x63
 	ble .L080433A0
-	ldr r0, .L0804339C @ =func_fe6_080433B0
+	ldr r0, .L0804339C @ =EkrBattleExecEkrLvup
 	b .L080433A2
 	.align 2, 0
-.L08043398: .4byte 0x0203CDB8
-.L0804339C: .4byte func_fe6_080433B0
+.L08043398: .4byte gEkrPairExpPrevious
+.L0804339C: .4byte EkrBattleExecEkrLvup
 .L080433A0:
-	ldr r0, .L080433AC @ =func_fe6_0804340C
+	ldr r0, .L080433AC @ =EkrBattleExecPopup
 .L080433A2:
 	str r0, [r4, #0xc]
 .L080433A4:
@@ -1550,13 +152,13 @@ func_fe6_08043288: @ 0x08043288
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080433AC: .4byte func_fe6_0804340C
+.L080433AC: .4byte EkrBattleExecPopup
 
-	thumb_func_start func_fe6_080433B0
-func_fe6_080433B0: @ 0x080433B0
+	thumb_func_start EkrBattleExecEkrLvup
+EkrBattleExecEkrLvup: @ 0x080433B0
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L080433C4 @ =0x0203CDBC
+	ldr r0, .L080433C4 @ =gEkrPairExpGain
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -1565,7 +167,7 @@ func_fe6_080433B0: @ 0x080433B0
 	ldr r0, [r0]
 	b .L080433D0
 	.align 2, 0
-.L080433C4: .4byte 0x0203CDBC
+.L080433C4: .4byte gEkrPairExpGain
 .L080433C8: .4byte gAnims
 .L080433CC:
 	ldr r0, .L080433E0 @ =gAnims
@@ -1591,17 +193,17 @@ func_fe6_080433E8: @ 0x080433E8
 	cmp r0, #1
 	bne .L08043400
 	bl func_fe6_0805D140
-	ldr r0, .L08043408 @ =func_fe6_0804340C
+	ldr r0, .L08043408 @ =EkrBattleExecPopup
 	str r0, [r4, #0xc]
 .L08043400:
 	pop {r4}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08043408: .4byte func_fe6_0804340C
+.L08043408: .4byte EkrBattleExecPopup
 
-	thumb_func_start func_fe6_0804340C
-func_fe6_0804340C: @ 0x0804340C
+	thumb_func_start EkrBattleExecPopup
+EkrBattleExecPopup: @ 0x0804340C
 	push {r4, lr}
 	adds r4, r0, #0
 	bl func_fe6_0805F498
@@ -1643,7 +245,7 @@ func_fe6_08043448: @ 0x08043448
 	bl func_fe6_08046E9C
 	bl func_fe6_0804722C
 	bl func_fe6_08046B48
-	ldr r0, .L0804347C @ =0x0203CCF4
+	ldr r0, .L0804347C @ =gEkrInitialHitSide
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	str r0, [r5, #0x44]
@@ -1656,14 +258,14 @@ func_fe6_08043448: @ 0x08043448
 	bx r0
 	.align 2, 0
 .L08043478: .4byte gAnims
-.L0804347C: .4byte 0x0203CCF4
+.L0804347C: .4byte gEkrInitialHitSide
 .L08043480: .4byte func_fe6_08043484
 
 	thumb_func_start func_fe6_08043484
 func_fe6_08043484: @ 0x08043484
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	bl func_fe6_080588E0
+	bl GetEkrDragonStatusType
 	adds r5, r0, #0
 	ldr r0, [r4, #0x48]
 	cmp r0, #2
@@ -1783,7 +385,7 @@ func_fe6_08043554: @ 0x08043554
 	movs r0, #2
 	movs r1, #7
 	movs r2, #0
-	bl func_fe6_08048E88
+	bl NewEkrNamewinAppear
 	bl func_fe6_0805C738
 .L08043576:
 	ldr r0, .L08043588 @ =func_fe6_0804358C
@@ -1830,11 +432,11 @@ func_fe6_080435AC: @ 0x080435AC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5b
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #0x5b
 	movs r1, #0x78
 	movs r2, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	b .L080435E6
 .L080435D4:
 	cmp r0, #0x74
@@ -1960,11 +562,11 @@ NewEkrGauge: @ 0x080436A4
 	bl SpawnProc
 	str r0, [r4]
 	movs r0, #0
-	bl func_fe6_08043908
-	bl func_fe6_080438C8
-	bl func_fe6_08043970
+	bl EkrGauge_08043908
+	bl EkrGauge_080438C8
+	bl DisableEkrGauge
 	bl func_fe6_08043950
-	ldr r1, .L08043858 @ =gUnk_Banim_02000030
+	ldr r1, .L08043858 @ =gEkrBg0QuakeVec
 	movs r2, #0
 	ldrsh r0, [r1, r2]
 	movs r2, #2
@@ -2106,7 +708,7 @@ NewEkrGauge: @ 0x080436A4
 	movs r0, #0
 	movs r1, #0x1e
 	bl ApplyIconPalette
-	ldr r0, .L080438A8 @ =0x0203CD7C
+	ldr r0, .L080438A8 @ =gpEkrBattleUnitLeft
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -2114,7 +716,7 @@ NewEkrGauge: @ 0x080436A4
 	movs r1, #0xee
 	lsls r1, r1, #1
 	bl PutIconObjImg
-	ldr r0, .L080438AC @ =0x0203CD80
+	ldr r0, .L080438AC @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -2137,7 +739,7 @@ NewEkrGauge: @ 0x080436A4
 	.align 2, 0
 .L08043850: .4byte gpProcEkrGauge
 .L08043854: .4byte ProcScr_EkrGauge
-.L08043858: .4byte gUnk_Banim_02000030
+.L08043858: .4byte gEkrBg0QuakeVec
 .L0804385C: .4byte 0x0203CD08
 .L08043860: .4byte gUnk_08113424
 .L08043864: .4byte gPal+0x360
@@ -2157,8 +759,8 @@ NewEkrGauge: @ 0x080436A4
 .L0804389C: .4byte gUnk_08113024
 .L080438A0: .4byte 0x06013A00
 .L080438A4: .4byte 0x06013E00
-.L080438A8: .4byte 0x0203CD7C
-.L080438AC: .4byte 0x0203CD80
+.L080438A8: .4byte gpEkrBattleUnitLeft
+.L080438AC: .4byte gpEkrBattleUnitRight
 .L080438B0: .4byte Pal_SystemObjects
 
 	thumb_func_start EndEkrGauge
@@ -2172,8 +774,8 @@ EndEkrGauge: @ 0x080438B4
 	.align 2, 0
 .L080438C4: .4byte gpProcEkrGauge
 
-	thumb_func_start func_fe6_080438C8
-func_fe6_080438C8: @ 0x080438C8
+	thumb_func_start EkrGauge_080438C8
+EkrGauge_080438C8: @ 0x080438C8
 	ldr r0, .L080438D4 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #0
@@ -2183,8 +785,8 @@ func_fe6_080438C8: @ 0x080438C8
 	.align 2, 0
 .L080438D4: .4byte gpProcEkrGauge
 
-	thumb_func_start func_fe6_080438D8
-func_fe6_080438D8: @ 0x080438D8
+	thumb_func_start EkrGauge_080438D8
+EkrGauge_080438D8: @ 0x080438D8
 	ldr r0, .L080438E4 @ =gpProcEkrGauge
 	ldr r1, [r0]
 	movs r0, #1
@@ -2214,8 +816,8 @@ func_fe6_080438F8: @ 0x080438F8
 	.align 2, 0
 .L08043904: .4byte gpProcEkrGauge
 
-	thumb_func_start func_fe6_08043908
-func_fe6_08043908: @ 0x08043908
+	thumb_func_start EkrGauge_08043908
+EkrGauge_08043908: @ 0x08043908
 	lsls r0, r0, #0x10
 	ldr r1, .L08043914 @ =gpProcEkrGauge
 	ldr r1, [r1]
@@ -2273,8 +875,8 @@ func_fe6_08043950: @ 0x08043950
 	.align 2, 0
 .L0804395C: .4byte gpProcEkrGauge
 
-	thumb_func_start func_fe6_08043960
-func_fe6_08043960: @ 0x08043960
+	thumb_func_start EnableEkrGauge
+EnableEkrGauge: @ 0x08043960
 	ldr r0, .L0804396C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -2284,8 +886,8 @@ func_fe6_08043960: @ 0x08043960
 	.align 2, 0
 .L0804396C: .4byte gpProcEkrGauge
 
-	thumb_func_start func_fe6_08043970
-func_fe6_08043970: @ 0x08043970
+	thumb_func_start DisableEkrGauge
+DisableEkrGauge: @ 0x08043970
 	ldr r0, .L0804397C @ =gpProcEkrGauge
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -2392,7 +994,7 @@ func_fe6_080439CC: @ 0x080439CC
 	subs r1, r1, r0
 	lsls r1, r1, #1
 	mov sb, r1
-	ldr r0, .L08043A44 @ =0x0203CD14
+	ldr r0, .L08043A44 @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -2404,7 +1006,7 @@ func_fe6_080439CC: @ 0x080439CC
 	str r0, [sp, #0xdc]
 	b .L08043A4E
 	.align 2, 0
-.L08043A44: .4byte 0x0203CD14
+.L08043A44: .4byte gEkrDistanceType
 .L08043A48:
 	movs r1, #8
 	str r1, [sp, #0xdc]
@@ -2440,7 +1042,7 @@ func_fe6_080439CC: @ 0x080439CC
 	adds r1, r5, #0
 	movs r2, #0xf
 	adds r3, r4, #0
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
@@ -2471,7 +1073,7 @@ func_fe6_080439CC: @ 0x080439CC
 	adds r1, r5, #0
 	movs r2, #0x10
 	adds r3, r4, #0
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
@@ -2484,7 +1086,7 @@ func_fe6_080439CC: @ 0x080439CC
 	bl EnableBgSync
 .L08043AE6:
 	ldr r1, .L08043B44 @ =0x0203CDA8
-	ldr r0, .L08043B48 @ =0x0203CDA0
+	ldr r0, .L08043B48 @ =gEkrGaugeHp
 	ldrh r2, [r0]
 	adds r5, r0, #0
 	ldrh r3, [r1]
@@ -2510,7 +1112,7 @@ func_fe6_080439CC: @ 0x080439CC
 	mov r8, r1
 	ldrh r0, [r0, #2]
 	str r0, [sp, #0xd4]
-	ldr r0, .L08043B50 @ =0x0203CD14
+	ldr r0, .L08043B50 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #3
@@ -2530,11 +1132,11 @@ func_fe6_080439CC: @ 0x080439CC
 .L08043B3C: .4byte 0xFFFFFCC0
 .L08043B40: .4byte gUnk_08112BA4
 .L08043B44: .4byte 0x0203CDA8
-.L08043B48: .4byte 0x0203CDA0
+.L08043B48: .4byte gEkrGaugeHp
 .L08043B4C: .4byte 0x0203CDA4
-.L08043B50: .4byte 0x0203CD14
+.L08043B50: .4byte gEkrDistanceType
 .L08043B54:
-	ldr r0, .L08043B68 @ =0x0203CCF8
+	ldr r0, .L08043B68 @ =gEkrPairSideVaild
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L08043B6C
@@ -2544,7 +1146,7 @@ func_fe6_080439CC: @ 0x080439CC
 	adds r0, #0x38
 	b .L08043B7C
 	.align 2, 0
-.L08043B68: .4byte 0x0203CCF8
+.L08043B68: .4byte gEkrPairSideVaild
 .L08043B6C:
 	mov r3, sl
 	movs r4, #0x32
@@ -3327,7 +1929,7 @@ func_fe6_08044198: @ 0x08044198
 	movs r1, #0
 	bl func_fe6_0804421C
 	bl func_fe6_080441DC
-	bl func_fe6_08044274
+	bl EkrGauge_08044274
 	bl func_fe6_08044254
 	pop {r4}
 	pop {r0}
@@ -3437,8 +2039,8 @@ func_fe6_08044254: @ 0x08044254
 	.align 2, 0
 .L08044260: .4byte gUnk_Banim_02000064
 
-	thumb_func_start func_fe6_08044264
-func_fe6_08044264: @ 0x08044264
+	thumb_func_start EkrGauge_08044264
+EkrGauge_08044264: @ 0x08044264
 	ldr r0, .L08044270 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -3448,8 +2050,8 @@ func_fe6_08044264: @ 0x08044264
 	.align 2, 0
 .L08044270: .4byte gUnk_Banim_02000064
 
-	thumb_func_start func_fe6_08044274
-func_fe6_08044274: @ 0x08044274
+	thumb_func_start EkrGauge_08044274
+EkrGauge_08044274: @ 0x08044274
 	ldr r0, .L08044280 @ =gUnk_Banim_02000064
 	ldr r0, [r0]
 	adds r0, #0x2a
@@ -3498,7 +2100,7 @@ func_fe6_08044284: @ 0x08044284
 	subs r1, r1, r0
 	lsls r1, r1, #1
 	mov sl, r1
-	ldr r0, .L080442DC @ =0x0203CD14
+	ldr r0, .L080442DC @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -3508,7 +2110,7 @@ func_fe6_08044284: @ 0x08044284
 	movs r4, #0
 	b .L080442E2
 	.align 2, 0
-.L080442DC: .4byte 0x0203CD14
+.L080442DC: .4byte gEkrDistanceType
 .L080442E0:
 	movs r4, #0xf
 .L080442E2:
@@ -3542,7 +2144,7 @@ func_fe6_08044284: @ 0x08044284
 	adds r1, r5, #0
 	movs r2, #0xf
 	adds r3, r4, #0
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
@@ -3570,7 +2172,7 @@ func_fe6_08044284: @ 0x08044284
 	str r1, [sp, #4]
 	adds r1, r5, #0
 	adds r3, r4, #0
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #0x80
 	str r0, [sp]
 	adds r0, r5, #0
@@ -3698,7 +2300,7 @@ func_fe6_08044390: @ 0x08044390
 	adds r1, r6, #0
 	adds r2, r5, #0
 	bl CpuFastSet
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne .L08044498
 	bl func_fe6_080444EC
@@ -3716,7 +2318,7 @@ func_fe6_08044390: @ 0x08044390
 	adds r2, r5, #0
 	bl CpuFastSet
 .L080444A4:
-	bl func_fe6_08044608
+	bl EfxPrepareScreenFx
 	bl EnablePalSync
 	movs r0, #1
 	bl EnableBgSync
@@ -3767,7 +2369,7 @@ func_fe6_080444EC: @ 0x080444EC
 	adds r0, r0, r1
 	lsls r0, r0, #3
 	adds r3, r0, r3
-	ldr r0, .L08044538 @ =0x0203CD14
+	ldr r0, .L08044538 @ =gEkrDistanceType
 	movs r7, #0
 	ldrsh r1, [r0, r7]
 	mov r8, r2
@@ -3784,7 +2386,7 @@ func_fe6_080444EC: @ 0x080444EC
 .L0804452C: .4byte gUnk_Banim_0201E0FC
 .L08044530: .4byte 0x0203CD10
 .L08044534: .4byte 0x087EA008
-.L08044538: .4byte 0x0203CD14
+.L08044538: .4byte gEkrDistanceType
 .L0804453C: .4byte gUnk_Banim_020145C0
 .L08044540:
 	ldr r7, .L0804455C @ =gUnk_Banim_020145C0
@@ -3882,8 +2484,8 @@ func_fe6_080444EC: @ 0x080444EC
 .L08044600: .4byte gUnk_085CBDB0
 .L08044604: .4byte 0x0203CCF6
 
-	thumb_func_start func_fe6_08044608
-func_fe6_08044608: @ 0x08044608
+	thumb_func_start EfxPrepareScreenFx
+EfxPrepareScreenFx: @ 0x08044608
 	push {r4, r5, r6, lr}
 	sub sp, #8
 	ldr r4, .L08044648 @ =Pal_Text
@@ -3904,7 +2506,7 @@ func_fe6_08044608: @ 0x08044608
 	ldr r0, .L08044654 @ =gUnk_081125E0
 	ldr r1, .L08044658 @ =0x06001000
 	bl LZ77UnCompVram
-	ldr r0, .L0804465C @ =0x0203CCF8
+	ldr r0, .L0804465C @ =gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3917,10 +2519,10 @@ func_fe6_08044608: @ 0x08044608
 .L08044650: .4byte 0x06001400
 .L08044654: .4byte gUnk_081125E0
 .L08044658: .4byte 0x06001000
-.L0804465C: .4byte 0x0203CCF8
+.L0804465C: .4byte gEkrPairSideVaild
 .L08044660: .4byte gNopStr
 .L08044664:
-	ldr r0, .L080446AC @ =0x0203CD7C
+	ldr r0, .L080446AC @ =gpEkrBattleUnitLeft
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -3943,7 +2545,7 @@ func_fe6_08044608: @ 0x08044608
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl Text_DrawString
-	ldr r0, .L080446BC @ =0x0203CCF8
+	ldr r0, .L080446BC @ =gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3951,14 +2553,14 @@ func_fe6_08044608: @ 0x08044608
 	ldr r5, .L080446C0 @ =gNopStr
 	b .L080446D2
 	.align 2, 0
-.L080446AC: .4byte 0x0203CD7C
+.L080446AC: .4byte gpEkrBattleUnitLeft
 .L080446B0: .4byte gUnk_Banim_02017658
 .L080446B4: .4byte gUnk_081127F0
 .L080446B8: .4byte 0x06001400
-.L080446BC: .4byte 0x0203CCF8
+.L080446BC: .4byte gEkrPairSideVaild
 .L080446C0: .4byte gNopStr
 .L080446C4:
-	ldr r0, .L0804470C @ =0x0203CD7C
+	ldr r0, .L0804470C @ =gpEkrBattleUnitLeft
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -3981,7 +2583,7 @@ func_fe6_08044608: @ 0x08044608
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl Text_DrawString
-	ldr r0, .L0804471C @ =0x0203CCF8
+	ldr r0, .L0804471C @ =gEkrPairSideVaild
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -3989,14 +2591,14 @@ func_fe6_08044608: @ 0x08044608
 	ldr r5, .L08044720 @ =gNopStr
 	b .L08044732
 	.align 2, 0
-.L0804470C: .4byte 0x0203CD7C
+.L0804470C: .4byte gpEkrBattleUnitLeft
 .L08044710: .4byte gUnk_Banim_02017668
 .L08044714: .4byte gUnk_08112840
 .L08044718: .4byte 0x06001580
-.L0804471C: .4byte 0x0203CCF8
+.L0804471C: .4byte gEkrPairSideVaild
 .L08044720: .4byte gNopStr
 .L08044724:
-	ldr r0, .L0804476C @ =0x0203CD80
+	ldr r0, .L0804476C @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	ldr r0, [r0]
 	ldrh r0, [r0]
@@ -4019,7 +2621,7 @@ func_fe6_08044608: @ 0x08044608
 	adds r0, r4, #0
 	adds r1, r5, #0
 	bl Text_DrawString
-	ldr r0, .L0804477C @ =0x0203CCF8
+	ldr r0, .L0804477C @ =gEkrPairSideVaild
 	movs r1, #2
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -4027,14 +2629,14 @@ func_fe6_08044608: @ 0x08044608
 	ldr r5, .L08044780 @ =gNopStr
 	b .L08044792
 	.align 2, 0
-.L0804476C: .4byte 0x0203CD80
+.L0804476C: .4byte gpEkrBattleUnitRight
 .L08044770: .4byte gUnk_Banim_02017670
 .L08044774: .4byte gUnk_081128AC
 .L08044778: .4byte 0x06001740
-.L0804477C: .4byte 0x0203CCF8
+.L0804477C: .4byte gEkrPairSideVaild
 .L08044780: .4byte gNopStr
 .L08044784:
-	ldr r0, .L08044848 @ =0x0203CD80
+	ldr r0, .L08044848 @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -4071,7 +2673,7 @@ func_fe6_08044608: @ 0x08044608
 	adds r1, r6, #0
 	movs r2, #2
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	adds r4, #0x3e
 	movs r5, #0x80
 	str r5, [sp]
@@ -4107,7 +2709,7 @@ func_fe6_08044608: @ 0x08044608
 	movs r2, #8
 	bl CpuFastSet
 	bl EnablePalSync
-	ldr r1, .L0804486C @ =gUnk_Banim_02000030
+	ldr r1, .L0804486C @ =gEkrBg0QuakeVec
 	movs r0, #0
 	strh r0, [r1]
 	strh r0, [r1, #2]
@@ -4119,7 +2721,7 @@ func_fe6_08044608: @ 0x08044608
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08044848: .4byte 0x0203CD80
+.L08044848: .4byte gpEkrBattleUnitRight
 .L0804484C: .4byte gUnk_Banim_02017660
 .L08044850: .4byte gUnk_081128FC
 .L08044854: .4byte 0x060018C0
@@ -4128,12 +2730,12 @@ func_fe6_08044608: @ 0x08044608
 .L08044860: .4byte 0x0203CD08
 .L08044864: .4byte gUnk_08112CD4
 .L08044868: .4byte gPal+0x40
-.L0804486C: .4byte gUnk_Banim_02000030
+.L0804486C: .4byte gEkrBg0QuakeVec
 
 	thumb_func_start func_fe6_08044870
 func_fe6_08044870: @ 0x08044870
 	push {r4, r5, lr}
-	ldr r0, .L08044888 @ =0x0203CD14
+	ldr r0, .L08044888 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -4144,7 +2746,7 @@ func_fe6_08044870: @ 0x08044870
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L08044888: .4byte 0x0203CD14
+.L08044888: .4byte gEkrDistanceType
 .L0804488C: .4byte .L08044890
 .L08044890: @ jump table
 	.4byte .L080448F8 @ case 0
@@ -4153,12 +2755,12 @@ func_fe6_08044870: @ 0x08044870
 	.4byte .L080448F8 @ case 3
 	.4byte .L080448F8 @ case 4
 .L080448A4:
-	ldr r0, .L080448AC @ =0x0203CCF4
+	ldr r0, .L080448AC @ =gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	b .L080448FA
 	.align 2, 0
-.L080448AC: .4byte 0x0203CCF4
+.L080448AC: .4byte gEkrInitialHitSide
 .L080448B0:
 	movs r1, #0
 	movs r5, #0
@@ -4167,7 +2769,7 @@ func_fe6_08044870: @ 0x08044870
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
 	bne .L080448D8
-	ldr r4, .L080448E4 @ =0x0203CD84
+	ldr r4, .L080448E4 @ =gEkrPids
 	ldrb r0, [r4]
 	ldrb r1, [r4, #1]
 	bl CheckBattleTalk
@@ -4185,16 +2787,16 @@ func_fe6_08044870: @ 0x08044870
 	b .L080448FA
 	.align 2, 0
 .L080448E0: .4byte gEkrDebugModeMaybe
-.L080448E4: .4byte 0x0203CD84
+.L080448E4: .4byte gEkrPids
 .L080448E8:
 	cmp r1, #1
 	beq .L080448F8
-	ldr r0, .L080448F4 @ =0x0203CCF4
+	ldr r0, .L080448F4 @ =gEkrInitialHitSide
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	b .L080448FA
 	.align 2, 0
-.L080448F4: .4byte 0x0203CCF4
+.L080448F4: .4byte gEkrInitialHitSide
 .L080448F8:
 	movs r0, #1
 .L080448FA:
@@ -4205,14 +2807,14 @@ func_fe6_08044870: @ 0x08044870
 	thumb_func_start EkrEfxStatusClear
 EkrEfxStatusClear: @ 0x08044900
 	push {r4, lr}
-	ldr r0, .L0804496C @ =gUnk_Banim_02017720
+	ldr r0, .L0804496C @ =gEkrHPBarCount
 	movs r4, #0
 	str r4, [r0]
 	ldr r0, .L08044970 @ =gUnk_Banim_02017724
 	str r4, [r0]
 	ldr r0, .L08044974 @ =gUnk_Banim_02017728
 	str r4, [r0]
-	ldr r0, .L08044978 @ =gUnk_Banim_02017730
+	ldr r0, .L08044978 @ =gEkrDeadEventExist
 	str r4, [r0]
 	ldr r0, .L0804497C @ =gUnk_Banim_02017734
 	str r4, [r0]
@@ -4258,10 +2860,10 @@ EkrEfxStatusClear: @ 0x08044900
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804496C: .4byte gUnk_Banim_02017720
+.L0804496C: .4byte gEkrHPBarCount
 .L08044970: .4byte gUnk_Banim_02017724
 .L08044974: .4byte gUnk_Banim_02017728
-.L08044978: .4byte gUnk_Banim_02017730
+.L08044978: .4byte gEkrDeadEventExist
 .L0804497C: .4byte gUnk_Banim_02017734
 .L08044980: .4byte gUnk_Banim_02017738
 .L08044984: .4byte gUnk_Banim_02017740
@@ -4283,7 +2885,7 @@ EkrEfxStatusClear: @ 0x08044900
 
 	thumb_func_start func_fe6_080449C4
 func_fe6_080449C4: @ 0x080449C4
-	ldr r0, .L080449D8 @ =gUnk_Banim_02017720
+	ldr r0, .L080449D8 @ =gEkrHPBarCount
 	ldr r0, [r0]
 	cmp r0, #0
 	bne .L080449E0
@@ -4294,7 +2896,7 @@ func_fe6_080449C4: @ 0x080449C4
 	movs r0, #1
 	b .L080449E2
 	.align 2, 0
-.L080449D8: .4byte gUnk_Banim_02017720
+.L080449D8: .4byte gEkrHPBarCount
 .L080449DC: .4byte gUnk_Banim_02017724
 .L080449E0:
 	movs r0, #0
@@ -4316,7 +2918,7 @@ func_fe6_080449E4: @ 0x080449E4
 func_fe6_080449F4: @ 0x080449F4
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r1, .L08044A24 @ =gUnk_Banim_02017720
+	ldr r1, .L08044A24 @ =gEkrHPBarCount
 	ldr r0, [r1]
 	cmp r0, #0
 	bne .L08044AB4
@@ -4337,7 +2939,7 @@ func_fe6_080449F4: @ 0x080449F4
 	ldr r0, [r0]
 	b .L08044A38
 	.align 2, 0
-.L08044A24: .4byte gUnk_Banim_02017720
+.L08044A24: .4byte gEkrHPBarCount
 .L08044A28: .4byte gUnk_085CB730
 .L08044A2C: .4byte gAnims
 .L08044A30:
@@ -4445,7 +3047,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08044B8C @ =0x0203CDA0
+	ldr r1, .L08044B8C @ =gEkrGaugeHp
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldr r1, [r5, #0x48]
@@ -4460,7 +3062,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	movs r0, #1
 	str r0, [r5, #0x58]
 .L08044B26:
-	ldr r1, .L08044B90 @ =0x0203CD84
+	ldr r1, .L08044B90 @ =gEkrPids
 	mov r8, r1
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
@@ -4506,8 +3108,8 @@ func_fe6_08044AC0: @ 0x08044AC0
 	b .L08044BAE
 	.align 2, 0
 .L08044B88: .4byte gAnims
-.L08044B8C: .4byte 0x0203CDA0
-.L08044B90: .4byte 0x0203CD84
+.L08044B8C: .4byte gEkrGaugeHp
+.L08044B90: .4byte gEkrPids
 .L08044B94: .4byte 0x0203CD46
 .L08044B98: .4byte gUnk_Banim_02017778
 .L08044B9C:
@@ -4585,7 +3187,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	bl func_fe6_080457E8
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08044C4C @ =0x0203CCF8
+	ldr r1, .L08044C4C @ =gEkrPairSideVaild
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
@@ -4595,7 +3197,7 @@ func_fe6_08044AC0: @ 0x08044AC0
 	bl Proc_Break
 	b .L08044C5C
 	.align 2, 0
-.L08044C4C: .4byte 0x0203CCF8
+.L08044C4C: .4byte gEkrPairSideVaild
 .L08044C50:
 	adds r0, r1, #1
 	str r0, [r5, #0x54]
@@ -4636,7 +3238,7 @@ func_fe6_08044C68: @ 0x08044C68
 	bl func_fe6_0804B768
 	cmp r0, #1
 	bne .L08044CFA
-	ldr r0, .L08044CB8 @ =0x0203CD14
+	ldr r0, .L08044CB8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -4649,7 +3251,7 @@ func_fe6_08044C68: @ 0x08044C68
 	.align 2, 0
 .L08044CB0: .4byte gUnk_Banim_02017744
 .L08044CB4: .4byte gUnk_Banim_02017724
-.L08044CB8: .4byte 0x0203CD14
+.L08044CB8: .4byte gEkrDistanceType
 .L08044CBC: .4byte .L08044CC0
 .L08044CC0: @ jump table
 	.4byte .L08044CD4 @ case 0
@@ -4664,7 +3266,7 @@ func_fe6_08044C68: @ 0x08044C68
 	bl func_fe6_0804B80C
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L08044CFA
 .L08044CE8:
 	movs r0, #0x14
@@ -4673,7 +3275,7 @@ func_fe6_08044C68: @ 0x08044C68
 	bl func_fe6_0804B80C
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08044CFA:
 	adds r0, r5, #0
 	bl Proc_Break
@@ -4707,7 +3309,7 @@ func_fe6_08044D08: @ 0x08044D08
 	ldrsh r0, [r2, r3]
 	cmp r1, r0
 	bne .L08044D44
-	ldr r1, .L08044D48 @ =gUnk_Banim_02017720
+	ldr r1, .L08044D48 @ =gEkrHPBarCount
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -4717,13 +3319,13 @@ func_fe6_08044D08: @ 0x08044D08
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08044D48: .4byte gUnk_Banim_02017720
+.L08044D48: .4byte gEkrHPBarCount
 
 	thumb_func_start func_fe6_08044D4C
 func_fe6_08044D4C: @ 0x08044D4C
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	ldr r1, .L08044D84 @ =gUnk_Banim_02017720
+	ldr r1, .L08044D84 @ =gEkrHPBarCount
 	ldr r0, [r1]
 	cmp r0, #0
 	bne .L08044E1E
@@ -4746,7 +3348,7 @@ func_fe6_08044D4C: @ 0x08044D4C
 	ldr r0, [r0]
 	b .L08044D98
 	.align 2, 0
-.L08044D84: .4byte gUnk_Banim_02017720
+.L08044D84: .4byte gEkrHPBarCount
 .L08044D88: .4byte gUnk_085CB758
 .L08044D8C: .4byte gAnims
 .L08044D90:
@@ -4849,7 +3451,7 @@ func_fe6_08044E2C: @ 0x08044E2C
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08044EC8 @ =0x0203CDA0
+	ldr r1, .L08044EC8 @ =gEkrGaugeHp
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldr r1, [r5, #0x48]
@@ -4901,7 +3503,7 @@ func_fe6_08044E2C: @ 0x08044E2C
 	bl Proc_Break
 	b .L08044EE4
 	.align 2, 0
-.L08044EC8: .4byte 0x0203CDA0
+.L08044EC8: .4byte gEkrGaugeHp
 .L08044ECC: .4byte 0x0203CD46
 .L08044ED0: .4byte gUnk_Banim_02017778
 .L08044ED4: .4byte gUnk_Banim_02017748
@@ -5043,7 +3645,7 @@ func_fe6_08044F90: @ 0x08044F90
 	strh r0, [r5, #0x2e]
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08045068 @ =0x0203CDA0
+	ldr r1, .L08045068 @ =gEkrGaugeHp
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldr r1, [r5, #0x48]
@@ -5053,12 +3655,12 @@ func_fe6_08044F90: @ 0x08044F90
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x75
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r7, r0]
 	movs r0, #0x75
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r2, #0x2e
 	ldrsh r1, [r5, r2]
 	ldr r0, [r5, #0x50]
@@ -5100,11 +3702,11 @@ func_fe6_08044F90: @ 0x08044F90
 	b .L08045088
 	.align 2, 0
 .L08045064: .4byte gAnims
-.L08045068: .4byte 0x0203CDA0
+.L08045068: .4byte gEkrGaugeHp
 .L0804506C: .4byte 0x0203CD46
 .L08045070: .4byte gUnk_Banim_02017778
 .L08045074:
-	ldr r4, .L08045098 @ =0x0203CD84
+	ldr r4, .L08045098 @ =gEkrPids
 	adds r0, r6, #0
 	bl func_fe6_0804B6C4
 	adds r0, r0, r4
@@ -5120,7 +3722,7 @@ func_fe6_08044F90: @ 0x08044F90
 	bl func_fe6_080455C0
 	b .L080450B8
 	.align 2, 0
-.L08045098: .4byte 0x0203CD84
+.L08045098: .4byte gEkrPids
 .L0804509C:
 	bl func_fe6_0804C554
 	adds r0, r6, #0
@@ -5128,7 +3730,7 @@ func_fe6_08044F90: @ 0x08044F90
 	bl func_fe6_080457E8
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
-	ldr r1, .L080450C0 @ =0x0203CCF8
+	ldr r1, .L080450C0 @ =gEkrPairSideVaild
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	movs r1, #0
@@ -5138,7 +3740,7 @@ func_fe6_08044F90: @ 0x08044F90
 	bl Proc_Break
 	b .L080450D0
 	.align 2, 0
-.L080450C0: .4byte 0x0203CCF8
+.L080450C0: .4byte gEkrPairSideVaild
 .L080450C4:
 	adds r0, r1, #1
 	str r0, [r5, #0x54]
@@ -5158,9 +3760,9 @@ func_fe6_08044F90: @ 0x08044F90
 func_fe6_080450DC: @ 0x080450DC
 	push {r4, r5, r6, r7, lr}
 	adds r6, r0, #0
-	bl func_fe6_080588E0
+	bl GetEkrDragonStatusType
 	adds r7, r0, #0
-	ldr r1, .L08045114 @ =gUnk_Banim_02017720
+	ldr r1, .L08045114 @ =gEkrHPBarCount
 	ldr r5, [r1]
 	cmp r5, #0
 	bne .L0804517A
@@ -5181,7 +3783,7 @@ func_fe6_080450DC: @ 0x080450DC
 	ldr r0, [r0]
 	b .L08045128
 	.align 2, 0
-.L08045114: .4byte gUnk_Banim_02017720
+.L08045114: .4byte gEkrHPBarCount
 .L08045118: .4byte gUnk_085CB790
 .L0804511C: .4byte gAnims
 .L08045120:
@@ -5224,12 +3826,12 @@ func_fe6_080450DC: @ 0x080450DC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd7
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0xd7
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L0804517A:
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -5243,7 +3845,7 @@ func_fe6_08045180: @ 0x08045180
 	ldrb r0, [r0]
 	cmp r0, #0
 	bne .L080451C6
-	ldr r4, .L080451AC @ =0x0203CD84
+	ldr r4, .L080451AC @ =gEkrPids
 	ldr r0, [r5, #0x60]
 	bl func_fe6_0804B6C4
 	adds r0, r0, r4
@@ -5259,7 +3861,7 @@ func_fe6_08045180: @ 0x08045180
 	bne .L080451DA
 	b .L080451BE
 	.align 2, 0
-.L080451AC: .4byte 0x0203CD84
+.L080451AC: .4byte gEkrPids
 .L080451B0:
 	ldrh r0, [r5, #0x2c]
 	adds r0, #1
@@ -5291,7 +3893,7 @@ func_fe6_08045180: @ 0x08045180
 func_fe6_080451E0: @ 0x080451E0
 	push {r4, r5, r6, r7, lr}
 	adds r7, r0, #0
-	ldr r1, .L08045210 @ =gUnk_Banim_02017720
+	ldr r1, .L08045210 @ =gEkrHPBarCount
 	ldr r0, [r1]
 	cmp r0, #0
 	bne .L080452AC
@@ -5311,7 +3913,7 @@ func_fe6_080451E0: @ 0x080451E0
 	ldr r0, [r0]
 	b .L08045224
 	.align 2, 0
-.L08045210: .4byte gUnk_Banim_02017720
+.L08045210: .4byte gEkrHPBarCount
 .L08045214: .4byte gUnk_085CB7B8
 .L08045218: .4byte gAnims
 .L0804521C:
@@ -5414,7 +4016,7 @@ func_fe6_080452B8: @ 0x080452B8
 	strh r0, [r5, #0x2e]
 	adds r0, r6, #0
 	bl func_fe6_0804B6C4
-	ldr r1, .L0804534C @ =0x0203CDA0
+	ldr r1, .L0804534C @ =gEkrGaugeHp
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	ldr r1, [r5, #0x48]
@@ -5424,12 +4026,12 @@ func_fe6_080452B8: @ 0x080452B8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x75
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0x75
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r2, #0x2e
 	ldrsh r1, [r5, r2]
 	ldr r0, [r5, #0x50]
@@ -5463,7 +4065,7 @@ func_fe6_080452B8: @ 0x080452B8
 	bl Proc_Break
 	b .L08045364
 	.align 2, 0
-.L0804534C: .4byte 0x0203CDA0
+.L0804534C: .4byte gEkrGaugeHp
 .L08045350: .4byte 0x0203CD46
 .L08045354: .4byte gUnk_Banim_02017778
 .L08045358:
@@ -5487,7 +4089,7 @@ func_fe6_0804536C: @ 0x0804536C
 	adds r5, r0, #0
 	adds r6, r1, #0
 	mov r8, r2
-	ldr r1, .L080453B8 @ =gUnk_Banim_02017720
+	ldr r1, .L080453B8 @ =gEkrHPBarCount
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -5516,7 +4118,7 @@ func_fe6_0804536C: @ 0x0804536C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080453B8: .4byte gUnk_Banim_02017720
+.L080453B8: .4byte gEkrHPBarCount
 .L080453BC: .4byte gUnk_085CB7E0
 
 	thumb_func_start func_fe6_080453C0
@@ -5526,7 +4128,7 @@ func_fe6_080453C0: @ 0x080453C0
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	ldr r5, .L08045428 @ =0x0203CD84
+	ldr r5, .L08045428 @ =gEkrPids
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
 	adds r0, r0, r5
@@ -5570,7 +4172,7 @@ func_fe6_080453C0: @ 0x080453C0
 	bl Proc_Break
 	b .L0804546C
 	.align 2, 0
-.L08045428: .4byte 0x0203CD84
+.L08045428: .4byte gEkrPids
 .L0804542C: .4byte 0x0203CD46
 .L08045430:
 	ldrh r0, [r4, #0x2c]
@@ -5654,7 +4256,7 @@ func_fe6_0804549C: @ 0x0804549C
 	ldr r5, .L080454FC @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r5
-	ldr r4, .L08045500 @ =gEkrBgOffset
+	ldr r4, .L08045500 @ =gEkrBgPosition
 	ldrh r0, [r0]
 	ldrh r1, [r4]
 	subs r0, r0, r1
@@ -5675,7 +4277,7 @@ func_fe6_0804549C: @ 0x0804549C
 	.align 2, 0
 .L080454F8: .4byte gUnk_08111C44
 .L080454FC: .4byte gUnk_Banim_02000020
-.L08045500: .4byte gEkrBgOffset
+.L08045500: .4byte gEkrBgPosition
 .L08045504:
 	mov r0, r8
 	bl func_fe6_0804B6C4
@@ -5702,7 +4304,7 @@ func_fe6_0804549C: @ 0x0804549C
 	ldr r6, .L08045570 @ =gUnk_Banim_02000020
 	lsls r0, r0, #1
 	adds r0, r0, r6
-	ldr r5, .L08045574 @ =gEkrBgOffset
+	ldr r5, .L08045574 @ =gEkrBgPosition
 	ldr r1, [r5]
 	ldrh r0, [r0]
 	subs r1, r0, r1
@@ -5733,13 +4335,13 @@ func_fe6_0804549C: @ 0x0804549C
 	bx r0
 	.align 2, 0
 .L08045570: .4byte gUnk_Banim_02000020
-.L08045574: .4byte gEkrBgOffset
+.L08045574: .4byte gEkrBgPosition
 
 	thumb_func_start func_fe6_08045578
 func_fe6_08045578: @ 0x08045578
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	ldr r1, .L0804559C @ =gUnk_Banim_02017720
+	ldr r1, .L0804559C @ =gEkrHPBarCount
 	ldr r4, [r1]
 	cmp r4, #0
 	bne .L08045594
@@ -5755,7 +4357,7 @@ func_fe6_08045578: @ 0x08045578
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804559C: .4byte gUnk_Banim_02017720
+.L0804559C: .4byte gEkrHPBarCount
 .L080455A0: .4byte gUnk_085CB820
 
 	thumb_func_start func_fe6_080455A4
@@ -5786,17 +4388,17 @@ func_fe6_080455C0: @ 0x080455C0
 	adds r6, r0, #0
 	str r4, [r6, #0x5c]
 	str r5, [r6, #0x60]
-	ldr r1, .L08045608 @ =gUnk_Banim_02017730
+	ldr r1, .L08045608 @ =gEkrDeadEventExist
 	movs r0, #1
 	str r0, [r1]
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	beq .L080455FC
 	ldr r0, [r6, #0x5c]
 	bl func_fe6_0805A77C
 	str r0, [r6, #0x64]
 	ldr r2, .L0804560C @ =gUnk_Banim_02000028
-	ldr r1, .L08045610 @ =gEkrBgOffset
+	ldr r1, .L08045610 @ =gEkrBgPosition
 	ldr r1, [r1]
 	subs r1, #0x4e
 	ldrh r2, [r2]
@@ -5810,9 +4412,9 @@ func_fe6_080455C0: @ 0x080455C0
 	bx r0
 	.align 2, 0
 .L08045604: .4byte gUnk_085CB850
-.L08045608: .4byte gUnk_Banim_02017730
+.L08045608: .4byte gEkrDeadEventExist
 .L0804560C: .4byte gUnk_Banim_02000028
-.L08045610: .4byte gEkrBgOffset
+.L08045610: .4byte gEkrBgPosition
 
 	thumb_func_start func_fe6_08045614
 func_fe6_08045614: @ 0x08045614
@@ -5844,7 +4446,7 @@ func_fe6_08045614: @ 0x08045614
 	bne .L0804567A
 	movs r0, #7
 	strh r0, [r5, #0x2c]
-	ldr r0, .L0804568C @ =0x0203CD14
+	ldr r0, .L0804568C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -5858,7 +4460,7 @@ func_fe6_08045614: @ 0x08045614
 	movs r1, #1
 	rsbs r1, r1, #0
 	adds r0, r7, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 .L08045674:
@@ -5872,7 +4474,7 @@ func_fe6_08045614: @ 0x08045614
 .L08045680: .4byte gUnk_Banim_02017744
 .L08045684: .4byte gUnk_Banim_02017724
 .L08045688: .4byte gBanimDoneFlag
-.L0804568C: .4byte 0x0203CD14
+.L0804568C: .4byte gEkrDistanceType
 .L08045690: .4byte gEkrInitPosReal
 
 	thumb_func_start func_fe6_08045694
@@ -5888,11 +4490,11 @@ func_fe6_08045694: @ 0x08045694
 	bne .L080456BE
 	movs r0, #1
 	movs r1, #7
-	bl func_fe6_08048DA4
+	bl NewEkrWindowAppear
 	movs r0, #1
 	movs r1, #7
 	movs r2, #0
-	bl func_fe6_08048E88
+	bl NewEkrNamewinAppear
 	adds r0, r4, #0
 	bl Proc_Break
 .L080456BE:
@@ -5905,20 +4507,20 @@ func_fe6_080456C4: @ 0x080456C4
 	push {r4, r5, lr}
 	sub sp, #4
 	adds r4, r0, #0
-	bl func_fe6_08048DF4
+	bl CheckEkrWindowAppearUnexist
 	lsls r0, r0, #0x18
 	asrs r0, r0, #0x18
 	cmp r0, #1
 	bne .L08045734
-	bl func_fe6_08043960
-	bl func_fe6_08044264
+	bl EnableEkrGauge
+	bl EkrGauge_08044264
 	movs r0, #0
 	str r0, [sp]
 	ldr r1, .L0804573C @ =gBg0Tm
 	ldr r2, .L08045740 @ =0x01000200
 	mov r0, sp
 	bl CpuFastSet
-	ldr r0, .L08045744 @ =gUnk_Banim_02000030
+	ldr r0, .L08045744 @ =gEkrBg0QuakeVec
 	ldrh r1, [r0]
 	ldrh r2, [r0, #2]
 	movs r0, #0
@@ -5929,8 +4531,8 @@ func_fe6_080456C4: @ 0x080456C4
 	bl SetBgOffset
 	movs r0, #1
 	bl EnableBgSync
-	bl func_fe6_080438D8
-	ldr r5, .L08045748 @ =0x0203CD84
+	bl EkrGauge_080438D8
+	ldr r5, .L08045748 @ =gEkrPids
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
 	adds r0, r0, r5
@@ -5954,8 +4556,8 @@ func_fe6_080456C4: @ 0x080456C4
 	.align 2, 0
 .L0804573C: .4byte gBg0Tm
 .L08045740: .4byte 0x01000200
-.L08045744: .4byte gUnk_Banim_02000030
-.L08045748: .4byte 0x0203CD84
+.L08045744: .4byte gEkrBg0QuakeVec
+.L08045748: .4byte gEkrPids
 
 	thumb_func_start func_fe6_0804574C
 func_fe6_0804574C: @ 0x0804574C
@@ -5970,10 +4572,10 @@ func_fe6_0804574C: @ 0x0804574C
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r4, #0x60]
 	bl func_fe6_080457E8
-	bl func_fe6_08044608
+	bl EfxPrepareScreenFx
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L080457AC @ =0x0203CCF8
+	ldr r1, .L080457AC @ =gEkrPairSideVaild
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r5, [r0]
@@ -5981,14 +4583,14 @@ func_fe6_0804574C: @ 0x0804574C
 	bl EnableBgSync
 	movs r0, #0
 	movs r1, #7
-	bl func_fe6_08048DA4
+	bl NewEkrWindowAppear
 	movs r0, #0
 	movs r1, #7
 	movs r2, #0
-	bl func_fe6_08048E88
-	bl func_fe6_08043970
-	bl func_fe6_08044274
-	bl func_fe6_080438C8
+	bl NewEkrNamewinAppear
+	bl DisableEkrGauge
+	bl EkrGauge_08044274
+	bl EkrGauge_080438C8
 	adds r0, r4, #0
 	bl Proc_Break
 .L080457A4:
@@ -5996,22 +4598,22 @@ func_fe6_0804574C: @ 0x0804574C
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080457AC: .4byte 0x0203CCF8
+.L080457AC: .4byte gEkrPairSideVaild
 
 	thumb_func_start func_fe6_080457B0
 func_fe6_080457B0: @ 0x080457B0
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	ldr r6, [r5, #0x64]
-	bl func_fe6_08048DF4
+	bl CheckEkrWindowAppearUnexist
 	lsls r0, r0, #0x18
 	asrs r4, r0, #0x18
 	cmp r4, #1
 	bne .L080457DC
-	ldr r0, .L080457E4 @ =gUnk_Banim_02017730
+	ldr r0, .L080457E4 @ =gEkrDeadEventExist
 	movs r1, #0
 	str r1, [r0]
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	beq .L080457D6
 	adds r0, r6, #0
@@ -6025,14 +4627,14 @@ func_fe6_080457B0: @ 0x080457B0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L080457E4: .4byte gUnk_Banim_02017730
+.L080457E4: .4byte gEkrDeadEventExist
 
 	thumb_func_start func_fe6_080457E8
 func_fe6_080457E8: @ 0x080457E8
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
-	ldr r1, .L0804581C @ =gUnk_Banim_02017720
+	ldr r1, .L0804581C @ =gEkrHPBarCount
 	ldr r0, [r1]
 	adds r0, #1
 	str r0, [r1]
@@ -6048,12 +4650,12 @@ func_fe6_080457E8: @ 0x080457E8
 	strh r1, [r0, #0x2c]
 	strh r1, [r0, #0x2e]
 	adds r0, r4, #0
-	bl func_fe6_08046ED8
+	bl DisableEfxStatusUnits
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804581C: .4byte gUnk_Banim_02017720
+.L0804581C: .4byte gEkrHPBarCount
 .L08045820: .4byte gUnk_Banim_0201772C
 .L08045824: .4byte gUnk_085CB888
 
@@ -6061,7 +4663,7 @@ func_fe6_080457E8: @ 0x080457E8
 func_fe6_08045828: @ 0x08045828
 	push {r4, r5, r6, r7, lr}
 	adds r5, r0, #0
-	bl func_fe6_080588E0
+	bl GetEkrDragonStatusType
 	adds r4, r0, #0
 	ldr r6, [r5, #0x5c]
 	ldr r7, [r5, #0x60]
@@ -6115,7 +4717,7 @@ func_fe6_08045828: @ 0x08045828
 	bl func_fe6_08045974
 .L0804589C:
 	ldr r0, [r5, #0x5c]
-	bl func_fe6_08058A08
+	bl GetEkrDragonStatusIdx
 	movs r1, #1
 	strh r1, [r0]
 	b .L080458B0
@@ -6137,7 +4739,7 @@ func_fe6_08045828: @ 0x08045828
 func_fe6_080458C0: @ 0x080458C0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
-	bl func_fe6_080588E0
+	bl GetEkrDragonStatusType
 	adds r5, r0, #0
 	ldr r6, [r4, #0x5c]
 	adds r0, r6, #0
@@ -6167,12 +4769,12 @@ func_fe6_080458C0: @ 0x080458C0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r6, r0]
 	movs r0, #0xd6
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0x64
 	strh r0, [r4, #0x2e]
 	b .L08045966
@@ -6191,12 +4793,12 @@ func_fe6_080458C0: @ 0x080458C0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd6
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r2, #2
 	ldrsh r1, [r6, r2]
 	movs r0, #0xd6
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0x32
 	strh r0, [r4, #0x2e]
 	b .L08045966
@@ -6205,7 +4807,7 @@ func_fe6_080458C0: @ 0x080458C0
 	ldrsh r0, [r4, r2]
 	cmp r1, r0
 	bne .L08045966
-	ldr r1, .L0804596C @ =gUnk_Banim_02017720
+	ldr r1, .L0804596C @ =gEkrHPBarCount
 	ldr r0, [r1]
 	subs r0, #1
 	str r0, [r1]
@@ -6219,7 +4821,7 @@ func_fe6_080458C0: @ 0x080458C0
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804596C: .4byte gUnk_Banim_02017720
+.L0804596C: .4byte gEkrHPBarCount
 .L08045970: .4byte gUnk_Banim_0201772C
 
 	thumb_func_start func_fe6_08045974
@@ -6621,13 +5223,13 @@ func_fe6_08045BF8: @ 0x08045BF8
 	.align 2, 0
 .L08045C8C: .4byte gDispIo
 
-	thumb_func_start func_fe6_08045C90
-func_fe6_08045C90: @ 0x08045C90
+	thumb_func_start NewEfxFarAttackWithDistance
+NewEfxFarAttackWithDistance: @ 0x08045C90
 	push {r4, r5, r6, lr}
 	adds r5, r0, #0
 	lsls r1, r1, #0x10
 	lsrs r6, r1, #0x10
-	ldr r0, .L08045CAC @ =0x0203CD14
+	ldr r0, .L08045CAC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -6638,7 +5240,7 @@ func_fe6_08045C90: @ 0x08045C90
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L08045CAC: .4byte 0x0203CD14
+.L08045CAC: .4byte gEkrDistanceType
 .L08045CB0: .4byte .L08045CB4
 .L08045CB4: @ jump table
 	.4byte .L08045D5C @ case 0
@@ -6668,13 +5270,13 @@ func_fe6_08045C90: @ 0x08045C90
 	strh r0, [r4, #0x2e]
 	subs r0, r2, r0
 	strh r0, [r4, #0x30]
-	ldr r2, .L08045D00 @ =0x0203CD14
+	ldr r2, .L08045D00 @ =gEkrDistanceType
 	b .L08045D1E
 	.align 2, 0
 .L08045CFC: .4byte gUnk_085CB8F0
-.L08045D00: .4byte 0x0203CD14
+.L08045D00: .4byte gEkrDistanceType
 .L08045D04:
-	ldr r0, .L08045D14 @ =0x0203CD14
+	ldr r0, .L08045D14 @ =gEkrDistanceType
 	adds r2, r0, #0
 	ldrh r0, [r2]
 	cmp r0, #1
@@ -6682,7 +5284,7 @@ func_fe6_08045C90: @ 0x08045C90
 	movs r0, #5
 	b .L08045D1A
 	.align 2, 0
-.L08045D14: .4byte 0x0203CD14
+.L08045D14: .4byte gEkrDistanceType
 .L08045D18:
 	movs r0, #7
 .L08045D1A:
@@ -6716,7 +5318,7 @@ func_fe6_08045C90: @ 0x08045C90
 	strh r0, [r4, #0x36]
 	strh r1, [r4, #0x38]
 .L08045D4E:
-	ldr r1, .L08045D64 @ =gEkrBgOffset
+	ldr r1, .L08045D64 @ =gEkrBgPosition
 	movs r2, #0x32
 	ldrsh r0, [r4, r2]
 	str r0, [r1]
@@ -6728,7 +5330,7 @@ func_fe6_08045C90: @ 0x08045C90
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045D64: .4byte gEkrBgOffset
+.L08045D64: .4byte gEkrBgPosition
 .L08045D68: .4byte gUnk_Banim_02017740
 
 	thumb_func_start func_fe6_08045D6C
@@ -6768,7 +5370,7 @@ func_fe6_08045DA4: @ 0x08045DA4
 	ldrsh r1, [r4, r0]
 	adds r0, r4, #0
 	bl func_fe6_08045D6C
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08045DC2
 	movs r1, #0x32
@@ -6804,11 +5406,11 @@ func_fe6_08045DDC: @ 0x08045DDC
 	movs r0, #1
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, .L08045E4C @ =gEkrBgOffset
+	ldr r5, .L08045E4C @ =gEkrBgPosition
 	str r1, [r5]
 	adds r0, r4, #0
 	bl func_fe6_08045D6C
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08045E14
 	ldr r0, [r5]
@@ -6816,7 +5418,7 @@ func_fe6_08045DDC: @ 0x08045DDC
 .L08045E14:
 	ldr r0, [r5]
 	bl func_fe6_08045EE8
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq .L08045E28
 	ldr r0, [r5]
@@ -6840,7 +5442,7 @@ func_fe6_08045DDC: @ 0x08045DDC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08045E4C: .4byte gEkrBgOffset
+.L08045E4C: .4byte gEkrBgPosition
 
 	thumb_func_start func_fe6_08045E50
 func_fe6_08045E50: @ 0x08045E50
@@ -6859,11 +5461,11 @@ func_fe6_08045E50: @ 0x08045E50
 	movs r0, #4
 	bl Interpolate
 	adds r1, r0, #0
-	ldr r5, .L08045EBC @ =gEkrBgOffset
+	ldr r5, .L08045EBC @ =gEkrBgPosition
 	str r1, [r5]
 	adds r0, r4, #0
 	bl func_fe6_08045D6C
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08045E88
 	ldr r0, [r5]
@@ -6871,7 +5473,7 @@ func_fe6_08045E50: @ 0x08045E50
 .L08045E88:
 	ldr r0, [r5]
 	bl func_fe6_08045EE8
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq .L08045E9C
 	ldr r0, [r5]
@@ -6894,7 +5496,7 @@ func_fe6_08045E50: @ 0x08045E50
 	movs r0, #1
 	b .L08045EC8
 	.align 2, 0
-.L08045EBC: .4byte gEkrBgOffset
+.L08045EBC: .4byte gEkrBgPosition
 .L08045EC0: .4byte gEkrInitPosReal
 .L08045EC4:
 	ldr r1, .L08045EE0 @ =gEkrInitPosReal
@@ -6920,10 +5522,10 @@ func_fe6_08045EE8: @ 0x08045EE8
 	push {r4, r5, lr}
 	sub sp, #0x10
 	adds r5, r0, #0
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	bne .L08045F38
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne .L08045F38
 	asrs r4, r5, #3
@@ -7217,7 +5819,7 @@ func_fe6_0804610C: @ 0x0804610C
 	ldr r3, .L08046190 @ =gUnk_Banim_02000020
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, .L08046194 @ =gEkrBgOffset
+	ldr r0, .L08046194 @ =gEkrBgPosition
 	ldr r1, [r0]
 	subs r6, r2, r1
 	ldr r2, .L08046198 @ =gUnk_Banim_02000024
@@ -7241,7 +5843,7 @@ func_fe6_0804610C: @ 0x0804610C
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0804617C
 	ldrh r1, [r7, #0x34]
@@ -7261,7 +5863,7 @@ func_fe6_0804610C: @ 0x0804610C
 	.align 2, 0
 .L0804618C: .4byte 0x00007FFF
 .L08046190: .4byte gUnk_Banim_02000020
-.L08046194: .4byte gEkrBgOffset
+.L08046194: .4byte gEkrBgPosition
 .L08046198: .4byte gUnk_Banim_02000024
 .L0804619C: .4byte gUnk_Banim_02017734
 .L080461A0:
@@ -7279,7 +5881,7 @@ func_fe6_0804610C: @ 0x0804610C
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl SetBgOffset
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080461E2
 	ldrh r2, [r7, #0x34]
@@ -7296,7 +5898,7 @@ func_fe6_0804610C: @ 0x0804610C
 	movs r0, #3
 	bl SetBgOffset
 .L080461E2:
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08046200
 	ldr r4, .L080461FC @ =gUnk_Banim_02000020
@@ -7317,7 +5919,7 @@ func_fe6_0804610C: @ 0x0804610C
 	ldrsh r0, [r5, r3]
 	adds r1, r1, r0
 .L0804620C:
-	ldr r3, .L08046270 @ =gEkrBgOffset
+	ldr r3, .L08046270 @ =gEkrBgPosition
 	ldr r0, [r3]
 	subs r6, r1, r0
 	ldr r2, .L08046274 @ =gUnk_Banim_02000024
@@ -7343,7 +5945,7 @@ func_fe6_0804610C: @ 0x0804610C
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, .L0804627C @ =0x0203CD14
+	ldr r0, .L0804627C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -7364,10 +5966,10 @@ func_fe6_0804610C: @ 0x0804610C
 	b .L080462B2
 	.align 2, 0
 .L0804626C: .4byte gUnk_Banim_02000020
-.L08046270: .4byte gEkrBgOffset
+.L08046270: .4byte gEkrBgPosition
 .L08046274: .4byte gUnk_Banim_02000024
 .L08046278: .4byte gUnk_Banim_02017758
-.L0804627C: .4byte 0x0203CD14
+.L0804627C: .4byte gEkrDistanceType
 .L08046280:
 	cmp r0, #0
 	blt .L080462B2
@@ -7472,7 +6074,7 @@ func_fe6_080462BC: @ 0x080462BC
 	str r0, [r5, #0x44]
 	movs r0, #1
 	str r0, [r5, #0x48]
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	adds r4, r0, #0
 	cmp r4, #0
 	beq .L08046358
@@ -7482,13 +6084,13 @@ func_fe6_080462BC: @ 0x080462BC
 	.align 2, 0
 .L08046354: .4byte gUnk_08111C60
 .L08046358:
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq .L08046364
 	str r4, [r5, #0x64]
 	b .L08046446
 .L08046364:
-	ldr r0, .L08046374 @ =0x0203CD14
+	ldr r0, .L08046374 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -7496,11 +6098,11 @@ func_fe6_080462BC: @ 0x080462BC
 	str r0, [r5, #0x64]
 	b .L08046446
 	.align 2, 0
-.L08046374: .4byte 0x0203CD14
+.L08046374: .4byte gEkrDistanceType
 .L08046378:
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L080463A8 @ =gEkrBgOffset
+	ldr r1, .L080463A8 @ =gEkrBgPosition
 	ldr r1, [r1]
 	ldr r2, .L080463AC @ =gUnk_Banim_02000028
 	lsls r0, r0, #1
@@ -7520,7 +6122,7 @@ func_fe6_080462BC: @ 0x080462BC
 	ldr r0, .L080463B0 @ =gUnk_085CCE38
 	b .L080463BE
 	.align 2, 0
-.L080463A8: .4byte gEkrBgOffset
+.L080463A8: .4byte gEkrBgPosition
 .L080463AC: .4byte gUnk_Banim_02000028
 .L080463B0: .4byte gUnk_085CCE38
 .L080463B4:
@@ -7576,7 +6178,7 @@ func_fe6_080462BC: @ 0x080462BC
 	movs r2, #8
 	bl CpuFastSet
 	bl EnablePalSync
-	ldr r0, .L08046464 @ =0x0203CD14
+	ldr r0, .L08046464 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	mov r0, sb
@@ -7586,7 +6188,7 @@ func_fe6_080462BC: @ 0x080462BC
 	asrs r1, r1, #0x10
 	adds r0, r4, #0
 	bl func_fe6_0804C478
-	ldr r0, .L08046468 @ =gEkrBgOffset
+	ldr r0, .L08046468 @ =gEkrBgPosition
 	ldr r0, [r0]
 	bl func_fe6_08045EE8
 .L08046446:
@@ -7601,8 +6203,8 @@ func_fe6_080462BC: @ 0x080462BC
 .L08046458: .4byte 0x06011800
 .L0804645C: .4byte gUnk_Banim_02000044
 .L08046460: .4byte gPal+0x260
-.L08046464: .4byte 0x0203CD14
-.L08046468: .4byte gEkrBgOffset
+.L08046464: .4byte gEkrDistanceType
+.L08046468: .4byte gEkrBgPosition
 
 	thumb_func_start func_fe6_0804646C
 func_fe6_0804646C: @ 0x0804646C
@@ -7622,7 +6224,7 @@ func_fe6_0804646C: @ 0x0804646C
 	beq .L0804648A
 	b .L08046598
 .L0804648A:
-	ldr r0, .L080464B8 @ =0x0203CD14
+	ldr r0, .L080464B8 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -7631,7 +6233,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080464DE
 	movs r0, #3
@@ -7641,13 +6243,13 @@ func_fe6_0804646C: @ 0x0804646C
 	b .L080464DE
 	.align 2, 0
 .L080464B4: .4byte 0x00007FFF
-.L080464B8: .4byte 0x0203CD14
+.L080464B8: .4byte gEkrDistanceType
 .L080464BC:
 	cmp r0, #0
 	blt .L080464DE
 	cmp r0, #2
 	bgt .L080464DE
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080464D6
 	movs r0, #3
@@ -7655,7 +6257,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r2, #0x10
 	bl SetBgOffset
 .L080464D6:
-	ldr r0, .L08046580 @ =gEkrBgOffset
+	ldr r0, .L08046580 @ =gEkrBgPosition
 	ldr r0, [r0]
 	bl func_fe6_08045EE8
 .L080464DE:
@@ -7669,7 +6271,7 @@ func_fe6_0804646C: @ 0x0804646C
 	ldr r3, .L08046588 @ =gUnk_Banim_02000020
 	movs r4, #0
 	ldrsh r2, [r3, r4]
-	ldr r0, .L08046580 @ =gEkrBgOffset
+	ldr r0, .L08046580 @ =gEkrBgPosition
 	ldr r1, [r0]
 	subs r7, r2, r1
 	ldr r2, .L0804658C @ =gUnk_Banim_02000024
@@ -7697,7 +6299,7 @@ func_fe6_0804646C: @ 0x0804646C
 	ldrb r0, [r0]
 	cmp r0, #1
 	bne .L08046576
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08046542
 	movs r0, #3
@@ -7705,7 +6307,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r2, #0x10
 	bl SetBgOffset
 .L08046542:
-	ldr r4, .L08046594 @ =gUnk_Banim_02000030
+	ldr r4, .L08046594 @ =gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -7733,12 +6335,12 @@ func_fe6_0804646C: @ 0x0804646C
 	bl Proc_End
 	b .L08046786
 	.align 2, 0
-.L08046580: .4byte gEkrBgOffset
+.L08046580: .4byte gEkrBgPosition
 .L08046584: .4byte gUnk_Banim_0201E0FC
 .L08046588: .4byte gUnk_Banim_02000020
 .L0804658C: .4byte gUnk_Banim_02000024
 .L08046590: .4byte gUnk_Banim_02017738
-.L08046594: .4byte gUnk_Banim_02000030
+.L08046594: .4byte gEkrBg0QuakeVec
 .L08046598:
 	movs r0, #0x2c
 	ldrsh r4, [r6, r0]
@@ -7784,7 +6386,7 @@ func_fe6_0804646C: @ 0x0804646C
 	beq .L0804662C
 	ldr r0, [r6, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L08046624 @ =gEkrBgOffset
+	ldr r1, .L08046624 @ =gEkrBgPosition
 	ldr r1, [r1]
 	ldr r2, .L08046628 @ =gUnk_Banim_02000028
 	lsls r0, r0, #1
@@ -7807,7 +6409,7 @@ func_fe6_0804646C: @ 0x0804646C
 	.align 2, 0
 .L0804661C: .4byte gBg2Tm+0x2C0
 .L08046620: .4byte gUnk_Banim_02017758
-.L08046624: .4byte gEkrBgOffset
+.L08046624: .4byte gEkrBgPosition
 .L08046628: .4byte gUnk_Banim_02000028
 .L0804662C:
 	ldrh r1, [r4]
@@ -7821,7 +6423,7 @@ func_fe6_0804646C: @ 0x0804646C
 	cmp r0, #1
 	bne .L08046696
 	ldr r5, .L080466CC @ =gUnk_Banim_02017758
-	ldr r4, .L080466D0 @ =gUnk_Banim_02000030
+	ldr r4, .L080466D0 @ =gEkrBg0QuakeVec
 	ldrh r2, [r5]
 	ldrh r3, [r4]
 	adds r1, r2, r3
@@ -7861,7 +6463,7 @@ func_fe6_0804646C: @ 0x0804646C
 	lsrs r1, r1, #0x10
 	bl func_fe6_08044230
 .L08046696:
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080466B0
 	ldr r0, .L080466CC @ =gUnk_Banim_02017758
@@ -7873,7 +6475,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r0, #3
 	bl SetBgOffset
 .L080466B0:
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080466D8
 	ldr r2, .L080466D4 @ =gUnk_Banim_02000020
@@ -7887,7 +6489,7 @@ func_fe6_0804646C: @ 0x0804646C
 	b .L080466E8
 	.align 2, 0
 .L080466CC: .4byte gUnk_Banim_02017758
-.L080466D0: .4byte gUnk_Banim_02000030
+.L080466D0: .4byte gEkrBg0QuakeVec
 .L080466D4: .4byte gUnk_Banim_02000020
 .L080466D8:
 	ldr r0, .L08046740 @ =gUnk_Banim_02000020
@@ -7899,7 +6501,7 @@ func_fe6_0804646C: @ 0x0804646C
 	ldrsh r0, [r2, r3]
 	adds r1, r1, r0
 .L080466E8:
-	ldr r4, .L08046748 @ =gEkrBgOffset
+	ldr r4, .L08046748 @ =gEkrBgPosition
 	ldr r0, [r4]
 	subs r7, r1, r0
 	ldr r3, .L0804674C @ =gUnk_Banim_02000024
@@ -7922,7 +6524,7 @@ func_fe6_0804646C: @ 0x0804646C
 	movs r3, #2
 	ldrsh r0, [r2, r3]
 	subs r5, r1, r0
-	ldr r0, .L08046750 @ =0x0203CD14
+	ldr r0, .L08046750 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -7944,9 +6546,9 @@ func_fe6_0804646C: @ 0x0804646C
 	.align 2, 0
 .L08046740: .4byte gUnk_Banim_02000020
 .L08046744: .4byte gUnk_Banim_02017758
-.L08046748: .4byte gEkrBgOffset
+.L08046748: .4byte gEkrBgPosition
 .L0804674C: .4byte gUnk_Banim_02000024
-.L08046750: .4byte 0x0203CD14
+.L08046750: .4byte gEkrDistanceType
 .L08046754:
 	cmp r0, #0
 	blt .L08046786
@@ -8336,8 +6938,8 @@ func_fe6_08046A0C: @ 0x08046A0C
 .L08046A64: .4byte gUnk_08113424
 .L08046A68: .4byte gPal+0x380
 
-	thumb_func_start func_fe6_08046A6C
-func_fe6_08046A6C: @ 0x08046A6C
+	thumb_func_start NewEfxHPBarColorChange
+NewEfxHPBarColorChange: @ 0x08046A6C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -8575,7 +7177,7 @@ func_fe6_08046C14: @ 0x08046C14
 func_fe6_08046C50: @ 0x08046C50
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r5, r0, #0
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -8660,7 +7262,7 @@ func_fe6_08046C50: @ 0x08046C50
 func_fe6_08046D04: @ 0x08046D04
 	push {r4, r5, lr}
 	adds r5, r0, #0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r4, r0, #0
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
@@ -8728,20 +7330,20 @@ func_fe6_08046D04: @ 0x08046D04
 .L08046D98: .4byte gUnk_Banim_0200004C
 .L08046D9C: .4byte gPal+0x320
 
-	thumb_func_start func_fe6_08046DA0
-func_fe6_08046DA0: @ 0x08046DA0
+	thumb_func_start NewEfxStatusUnit
+NewEfxStatusUnit: @ 0x08046DA0
 	push {r4, r5, r6, lr}
 	sub sp, #4
 	adds r5, r0, #0
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08046DB8
-	ldr r0, .L08046DB4 @ =0x0203CD7C
+	ldr r0, .L08046DB4 @ =gpEkrBattleUnitLeft
 	b .L08046DBA
 	.align 2, 0
-.L08046DB4: .4byte 0x0203CD7C
+.L08046DB4: .4byte gpEkrBattleUnitLeft
 .L08046DB8:
-	ldr r0, .L08046E40 @ =0x0203CD80
+	ldr r0, .L08046E40 @ =gpEkrBattleUnitRight
 .L08046DBA:
 	ldr r6, [r0]
 	ldr r0, .L08046E44 @ =gUnk_085CBA98
@@ -8805,7 +7407,7 @@ func_fe6_08046DA0: @ 0x08046DA0
 	bl func_fe6_0805B88C
 	b .L08046E8C
 	.align 2, 0
-.L08046E40: .4byte 0x0203CD80
+.L08046E40: .4byte gpEkrBattleUnitRight
 .L08046E44: .4byte gUnk_085CBA98
 .L08046E48: .4byte gUnk_08112122
 .L08046E4C: .4byte gEkrDebugModeMaybe
@@ -8873,8 +7475,8 @@ func_fe6_08046E9C: @ 0x08046E9C
 	.align 2, 0
 .L08046ED4: .4byte gUnk_Banim_02017764
 
-	thumb_func_start func_fe6_08046ED8
-func_fe6_08046ED8: @ 0x08046ED8
+	thumb_func_start DisableEfxStatusUnits
+DisableEfxStatusUnits: @ 0x08046ED8
 	push {r4, lr}
 	ldr r4, .L08046EF4 @ =gUnk_Banim_02017764
 	bl func_fe6_0804B6C4
@@ -8957,7 +7559,7 @@ func_fe6_08046F64: @ 0x08046F64
 	mov r8, r1
 	adds r6, r2, #0
 	adds r7, r3, #0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r5, r0, #0
 	adds r0, r4, #0
 	bl func_fe6_0804B6C4
@@ -9204,7 +7806,7 @@ func_fe6_08047058: @ 0x08047058
 func_fe6_08047160: @ 0x08047160
 	push {r4, r5, lr}
 	adds r4, r0, #0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r5, r0, #0
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
@@ -9260,8 +7862,8 @@ func_fe6_08047160: @ 0x08047160
 .L080471DC: .4byte gUnk_Banim_0200004C
 .L080471E0: .4byte gPal+0x320
 
-	thumb_func_start func_fe6_080471E4
-func_fe6_080471E4: @ 0x080471E4
+	thumb_func_start NewEfxWeaponIcon
+NewEfxWeaponIcon: @ 0x080471E4
 	push {r4, r5, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -9412,7 +8014,7 @@ func_fe6_080472D0: @ 0x080472D0
 	thumb_func_start func_fe6_08047300
 func_fe6_08047300: @ 0x08047300
 	push {r4, r5, lr}
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r4, r0, #0
 	cmp r4, #0
 	bne .L0804734C
@@ -10163,7 +8765,7 @@ func_fe6_080478DC: @ 0x080478DC
 	adds r7, r1, #0
 	adds r6, r2, #0
 	adds r5, r3, #0
-	ldr r0, .L08047900 @ =0x0203CD14
+	ldr r0, .L08047900 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -10175,7 +8777,7 @@ func_fe6_080478DC: @ 0x080478DC
 	adds r0, r7, #0
 	b .L08047918
 	.align 2, 0
-.L08047900: .4byte 0x0203CD14
+.L08047900: .4byte gEkrDistanceType
 .L08047904:
 	adds r0, r6, #0
 	b .L08047918
@@ -10210,7 +8812,7 @@ func_fe6_08047938: @ 0x08047938
 	push {r4, lr}
 	sub sp, #8
 	adds r3, r0, #0
-	ldr r0, .L0804796C @ =0x0203CD14
+	ldr r0, .L0804796C @ =gEkrDistanceType
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	adds r4, r2, #0
@@ -10233,7 +8835,7 @@ func_fe6_08047938: @ 0x08047938
 	bl func_fe6_0805B1DC
 	b .L08047988
 	.align 2, 0
-.L0804796C: .4byte 0x0203CD14
+.L0804796C: .4byte gEkrDistanceType
 .L08047970: .4byte gBg1Tm
 .L08047974:
 	ldr r1, .L08047998 @ =gBg1Tm
@@ -10244,7 +8846,7 @@ func_fe6_08047938: @ 0x08047938
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 .L08047988:
 	movs r0, #2
 	bl EnableBgSync
@@ -10261,7 +8863,7 @@ func_fe6_0804799C: @ 0x0804799C
 	sub sp, #8
 	adds r4, r0, #0
 	adds r3, r1, #0
-	ldr r0, .L080479B8 @ =0x0203CD14
+	ldr r0, .L080479B8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -10271,7 +8873,7 @@ func_fe6_0804799C: @ 0x0804799C
 	bl LZ77UnCompWram
 	b .L080479C8
 	.align 2, 0
-.L080479B8: .4byte 0x0203CD14
+.L080479B8: .4byte gEkrDistanceType
 .L080479BC: .4byte gUnk_Banim_0201977C
 .L080479C0:
 	ldr r1, .L080479EC @ =gUnk_Banim_0201977C
@@ -10305,7 +8907,7 @@ func_fe6_0804799C: @ 0x0804799C
 	adds r0, r5, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 .L08047A08:
 	movs r0, #2
 	bl EnableBgSync
@@ -10357,7 +8959,7 @@ func_fe6_08047A1C: @ 0x08047A1C
 	adds r0, #0xff
 	str r0, [sp, #4]
 	adds r0, r7, #0
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 .L08047A74:
 	movs r0, #2
 	bl EnableBgSync
@@ -10604,7 +9206,7 @@ func_fe6_08047C1C: @ 0x08047C1C
 
 	thumb_func_start func_fe6_08047C28
 func_fe6_08047C28: @ 0x08047C28
-	ldr r0, .L08047C38 @ =0x0203CD14
+	ldr r0, .L08047C38 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #2
@@ -10612,7 +9214,7 @@ func_fe6_08047C28: @ 0x08047C28
 	movs r0, #0x18
 	b .L08047C46
 	.align 2, 0
-.L08047C38: .4byte 0x0203CD14
+.L08047C38: .4byte gEkrDistanceType
 .L08047C3C:
 	cmp r0, #1
 	beq .L08047C44
@@ -10697,7 +9299,7 @@ PrepareBattleGraphicsMaybe_: @ 0x08047CB8
 	thumb_func_start BeginAnimsOnBattleAnimations
 BeginAnimsOnBattleAnimations: @ 0x08047CC8
 	push {lr}
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne .L08047CD8
 	bl func_fe6_0804C580
@@ -10730,7 +9332,7 @@ BeginAnimsOnBattleAnimations: @ 0x08047CC8
 	thumb_func_start EkrMainEndExec
 EkrMainEndExec: @ 0x08047D14
 	push {lr}
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne .L08047D24
 	bl func_fe6_0804C5A4
@@ -11071,7 +9673,7 @@ func_fe6_08047FDC: @ 0x08047FDC
 	bne .L08048040
 	bl NewEkrGauge
 	bl func_fe6_08044198
-	ldr r0, .L0804800C @ =0x0203CD14
+	ldr r0, .L0804800C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #3
@@ -11083,9 +9685,9 @@ func_fe6_08047FDC: @ 0x08047FDC
 	b .L08048040
 	.align 2, 0
 .L08048008: .4byte gEkrDebugModeMaybe
-.L0804800C: .4byte 0x0203CD14
+.L0804800C: .4byte gEkrDistanceType
 .L08048010:
-	ldr r4, .L08048034 @ =0x0203CCF8
+	ldr r4, .L08048034 @ =gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r0, [r4, r1]
 	cmp r0, #0
@@ -11101,7 +9703,7 @@ func_fe6_08047FDC: @ 0x08047FDC
 	bl func_fe6_0804420C
 	b .L08048040
 	.align 2, 0
-.L08048034: .4byte 0x0203CCF8
+.L08048034: .4byte gEkrPairSideVaild
 .L08048038:
 	bl func_fe6_080438E8
 	bl func_fe6_080441FC
@@ -11113,11 +9715,11 @@ func_fe6_08047FDC: @ 0x08047FDC
 	bl func_fe6_08048574
 	movs r0, #0
 	movs r1, #0xb
-	bl func_fe6_08048DA4
+	bl NewEkrWindowAppear
 	movs r0, #0
 	movs r1, #0xb
 	movs r2, #0
-	bl func_fe6_08048E88
+	bl NewEkrNamewinAppear
 	movs r0, #0
 	movs r1, #0xb
 	bl func_fe6_08048F88
@@ -11146,7 +9748,7 @@ func_fe6_0804807C: @ 0x0804807C
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080480A0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080480B0
 .L080480A0:
@@ -11306,7 +9908,7 @@ func_fe6_080481CC: @ 0x080481CC
 	ldrsh r0, [r7, r1]
 	cmp r0, #0
 	beq .L080481E6
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r6, r0, #0
 	cmp r6, #0
 	beq .L080481F4
@@ -11363,7 +9965,7 @@ func_fe6_08048244: @ 0x08048244
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L0804825A
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08048268
 .L0804825A:
@@ -11404,7 +10006,7 @@ func_fe6_08048298: @ 0x08048298
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	beq .L080482B2
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r5, r0, #0
 	cmp r5, #0
 	beq .L080482C0
@@ -11472,7 +10074,7 @@ func_fe6_080482F4: @ 0x080482F4
 	bl func_fe6_08048574
 	movs r0, #1
 	movs r1, #0xb
-	bl func_fe6_08048DA4
+	bl NewEkrWindowAppear
 	movs r0, #1
 	movs r1, #0xb
 	bl func_fe6_08048F88
@@ -11601,7 +10203,7 @@ func_fe6_080483E0: @ 0x080483E0
 	ldrb r2, [r1]
 	orrs r0, r2
 	strb r0, [r1]
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	beq .L08048450
 	bl ApplyChapterMapPalettes
@@ -11829,7 +10431,7 @@ func_fe6_08048574: @ 0x08048574
 	blt .L08048618
 	movs r4, #5
 .L08048618:
-	ldr r0, .L0804862C @ =0x0203CD14
+	ldr r0, .L0804862C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #3
@@ -11840,7 +10442,7 @@ func_fe6_08048574: @ 0x08048574
 	beq .L08048634
 	b .L0804863C
 	.align 2, 0
-.L0804862C: .4byte 0x0203CD14
+.L0804862C: .4byte gEkrDistanceType
 .L08048630:
 	cmp r0, #4
 	bne .L0804863C
@@ -11863,7 +10465,7 @@ func_fe6_08048574: @ 0x08048574
 	movs r2, #1
 	bl CpuFastSet
 	bl EnablePalSync
-	ldr r0, .L08048680 @ =0x0203CD14
+	ldr r0, .L08048680 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #4
@@ -11880,7 +10482,7 @@ func_fe6_08048574: @ 0x08048574
 .L08048674: .4byte 0x06010000
 .L08048678: .4byte gUnk_08119CD8
 .L0804867C: .4byte gPal+0x280
-.L08048680: .4byte 0x0203CD14
+.L08048680: .4byte gEkrDistanceType
 .L08048684: .4byte .L08048688
 .L08048688: @ jump table
 	.4byte .L0804869C @ case 0
@@ -12000,7 +10602,7 @@ func_fe6_08048574: @ 0x08048574
 	cmp r0, #1
 	bne .L0804878E
 	ldr r1, .L080487A4 @ =gUnk_081122D0
-	ldr r0, .L080487A8 @ =0x0203CD14
+	ldr r0, .L080487A8 @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -12019,7 +10621,7 @@ func_fe6_08048574: @ 0x08048574
 .L0804879C: .4byte 0x0203CD16
 .L080487A0: .4byte gEkrInitPosReal
 .L080487A4: .4byte gUnk_081122D0
-.L080487A8: .4byte 0x0203CD14
+.L080487A8: .4byte gEkrDistanceType
 .L080487AC: .4byte gUnk_085CBC28
 .L080487B0:
 	ldr r0, .L080487E0 @ =gUnk_085CBC88
@@ -12092,7 +10694,7 @@ func_fe6_08048574: @ 0x08048574
 	cmp r0, #0
 	bne .L0804884C
 	ldr r1, .L08048868 @ =gUnk_081122D0
-	ldr r0, .L0804886C @ =0x0203CD14
+	ldr r0, .L0804886C @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	lsls r0, r0, #1
@@ -12112,7 +10714,7 @@ func_fe6_08048574: @ 0x08048574
 .L08048860: .4byte 0x0203CD16
 .L08048864: .4byte gEkrInitPosReal
 .L08048868: .4byte gUnk_081122D0
-.L0804886C: .4byte 0x0203CD14
+.L0804886C: .4byte gEkrDistanceType
 .L08048870: .4byte gUnk_085CBC48
 .L08048874:
 	ldr r0, .L080488A4 @ =gUnk_085CBCA8
@@ -12316,7 +10918,7 @@ func_fe6_080489E8: @ 0x080489E8
 	movs r1, #0
 	str r1, [r4, #0x50]
 	str r1, [r4, #0x4c]
-	ldr r0, .L08048A18 @ =0x0203CD14
+	ldr r0, .L08048A18 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -12328,9 +10930,9 @@ func_fe6_080489E8: @ 0x080489E8
 	b .L08048A5E
 	.align 2, 0
 .L08048A14: .4byte gUnk_085CBD28
-.L08048A18: .4byte 0x0203CD14
+.L08048A18: .4byte gEkrDistanceType
 .L08048A1C:
-	ldr r0, .L08048A48 @ =0x0203CCF8
+	ldr r0, .L08048A48 @ =gEkrPairSideVaild
 	movs r1, #0
 	ldrsh r5, [r0, r1]
 	cmp r5, #1
@@ -12340,7 +10942,7 @@ func_fe6_080489E8: @ 0x080489E8
 	beq .L08048A30
 	str r5, [r4, #0x4c]
 .L08048A30:
-	ldr r0, .L08048A48 @ =0x0203CCF8
+	ldr r0, .L08048A48 @ =gEkrPairSideVaild
 	movs r2, #2
 	ldrsh r5, [r0, r2]
 	cmp r5, #1
@@ -12351,7 +10953,7 @@ func_fe6_080489E8: @ 0x080489E8
 	str r5, [r4, #0x50]
 	b .L08048A5E
 	.align 2, 0
-.L08048A48: .4byte 0x0203CCF8
+.L08048A48: .4byte gEkrPairSideVaild
 .L08048A4C:
 	cmp r5, #0
 	bne .L08048A58
@@ -12373,7 +10975,7 @@ func_fe6_08048A64: @ 0x08048A64
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	ldr r1, .L08048B74 @ =gUnk_081122C0
-	ldr r0, .L08048B78 @ =0x0203CD14
+	ldr r0, .L08048B78 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
@@ -12382,7 +10984,7 @@ func_fe6_08048A64: @ 0x08048A64
 	lsls r0, r0, #2
 	adds r0, r0, r1
 	ldrb r6, [r0]
-	bl func_fe6_0804B048
+	bl UpdateBanimFrame
 	ldr r0, [r4, #0x44]
 	cmp r0, #0
 	bne .L08048A9C
@@ -12397,7 +10999,7 @@ func_fe6_08048A64: @ 0x08048A64
 	movs r2, #1
 	bl func_fe6_0805B780
 .L08048A9C:
-	ldr r5, .L08048B88 @ =0x0203CCF8
+	ldr r5, .L08048B88 @ =gEkrPairSideVaild
 	ldrh r3, [r5]
 	cmp r3, #1
 	bne .L08048AC2
@@ -12478,7 +11080,7 @@ func_fe6_08048A64: @ 0x08048A64
 	adds r0, #8
 	strh r0, [r4, #0x3c]
 	ldr r1, .L08048BC0 @ =gUnk_081122C5
-	ldr r2, .L08048B78 @ =0x0203CD14
+	ldr r2, .L08048B78 @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r2, r3]
 	adds r0, r0, r1
@@ -12505,11 +11107,11 @@ func_fe6_08048A64: @ 0x08048A64
 	b .L08048BE0
 	.align 2, 0
 .L08048B74: .4byte gUnk_081122C0
-.L08048B78: .4byte 0x0203CD14
+.L08048B78: .4byte gEkrDistanceType
 .L08048B7C: .4byte gUnk_08112298
 .L08048B80: .4byte gBattleSt
 .L08048B84: .4byte gPal
-.L08048B88: .4byte 0x0203CCF8
+.L08048B88: .4byte gEkrPairSideVaild
 .L08048B8C: .4byte gUnk_Banim_02000054
 .L08048B90: .4byte gUnk_Banim_0200F1C0
 .L08048B94: .4byte gUnk_Banim_020041C0
@@ -12765,8 +11367,8 @@ func_fe6_08048D98: @ 0x08048D98
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08048DA4
-func_fe6_08048DA4: @ 0x08048DA4
+	thumb_func_start NewEkrWindowAppear
+NewEkrWindowAppear: @ 0x08048DA4
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r1, #0
@@ -12784,7 +11386,7 @@ func_fe6_08048DA4: @ 0x08048DA4
 	bne .L08048DC6
 	movs r2, #0x39
 .L08048DC6:
-	ldr r1, .L08048DEC @ =gUnk_Banim_02000030
+	ldr r1, .L08048DEC @ =gEkrBg0QuakeVec
 	movs r3, #0
 	ldrsh r0, [r1, r3]
 	ldrh r1, [r1, #2]
@@ -12801,11 +11403,11 @@ func_fe6_08048DA4: @ 0x08048DA4
 	bx r0
 	.align 2, 0
 .L08048DE8: .4byte gUnk_085CBD50
-.L08048DEC: .4byte gUnk_Banim_02000030
+.L08048DEC: .4byte gEkrBg0QuakeVec
 .L08048DF0: .4byte gUnk_Banim_0201E0EC
 
-	thumb_func_start func_fe6_08048DF4
-func_fe6_08048DF4: @ 0x08048DF4
+	thumb_func_start CheckEkrWindowAppearUnexist
+CheckEkrWindowAppearUnexist: @ 0x08048DF4
 	ldr r0, .L08048E00 @ =gUnk_Banim_0201E0EC
 	ldr r0, [r0]
 	cmp r0, #0
@@ -12869,7 +11471,7 @@ func_fe6_08048E08: @ 0x08048E08
 .L08048E64:
 	bl Interpolate
 	adds r2, r0, #0
-	ldr r1, .L08048E84 @ =gUnk_Banim_02000030
+	ldr r1, .L08048E84 @ =gEkrBg0QuakeVec
 	movs r3, #0
 	ldrsh r0, [r1, r3]
 	ldrh r1, [r1, #2]
@@ -12883,10 +11485,10 @@ func_fe6_08048E08: @ 0x08048E08
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L08048E84: .4byte gUnk_Banim_02000030
+.L08048E84: .4byte gEkrBg0QuakeVec
 
-	thumb_func_start func_fe6_08048E88
-func_fe6_08048E88: @ 0x08048E88
+	thumb_func_start NewEkrNamewinAppear
+NewEkrNamewinAppear: @ 0x08048E88
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r5, r1, #0
@@ -12925,8 +11527,8 @@ func_fe6_08048E88: @ 0x08048E88
 	.align 2, 0
 .L08048ED4: .4byte gUnk_Banim_0201E0F0
 
-	thumb_func_start func_fe6_08048ED8
-func_fe6_08048ED8: @ 0x08048ED8
+	thumb_func_start CheckEkrNamewinAppearUnexist
+CheckEkrNamewinAppearUnexist: @ 0x08048ED8
 	ldr r0, .L08048EE4 @ =gUnk_Banim_0201E0F0
 	ldr r0, [r0]
 	cmp r0, #0
@@ -13183,26 +11785,26 @@ func_fe6_08049058: @ 0x08049058
 	lsrs r2, r0, #0x18
 	cmp r2, #0
 	beq .L080490C8
-	ldr r1, .L080490C4 @ =0x0203CD14
+	ldr r1, .L080490C4 @ =gEkrDistanceType
 	movs r0, #4
 	strh r0, [r1]
 	adds r0, r1, #0
 	b .L080490CC
 	.align 2, 0
 .L080490C0: .4byte gBattleSt
-.L080490C4: .4byte 0x0203CD14
+.L080490C4: .4byte gEkrDistanceType
 .L080490C8:
-	ldr r0, .L080490F8 @ =0x0203CD14
+	ldr r0, .L080490F8 @ =gEkrDistanceType
 	strh r2, [r0]
 .L080490CC:
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L08049114
-	ldr r1, .L080490FC @ =0x0203CD7C
+	ldr r1, .L080490FC @ =gpEkrBattleUnitLeft
 	ldr r0, .L08049100 @ =gBattleUnitA
 	str r0, [r1]
 	str r0, [sp]
-	ldr r1, .L08049104 @ =0x0203CD80
+	ldr r1, .L08049104 @ =gpEkrBattleUnitRight
 	ldr r0, .L08049108 @ =gBattleUnitB
 	str r0, [r1]
 	str r0, [sp, #4]
@@ -13210,7 +11812,7 @@ func_fe6_08049058: @ 0x08049058
 	movs r0, #0
 	strh r0, [r1, #2]
 	strh r0, [r1]
-	ldr r0, .L08049110 @ =0x0203CCF8
+	ldr r0, .L08049110 @ =gEkrPairSideVaild
 	movs r1, #1
 	strh r1, [r0]
 	strh r1, [r0, #2]
@@ -13218,13 +11820,13 @@ func_fe6_08049058: @ 0x08049058
 	adds r3, r0, #0
 	b .L0804920E
 	.align 2, 0
-.L080490F8: .4byte 0x0203CD14
-.L080490FC: .4byte 0x0203CD7C
+.L080490F8: .4byte gEkrDistanceType
+.L080490FC: .4byte gpEkrBattleUnitLeft
 .L08049100: .4byte gBattleUnitA
-.L08049104: .4byte 0x0203CD80
+.L08049104: .4byte gpEkrBattleUnitRight
 .L08049108: .4byte gBattleUnitB
 .L0804910C: .4byte 0x0203CCFC
-.L08049110: .4byte 0x0203CCF8
+.L08049110: .4byte gEkrPairSideVaild
 .L08049114:
 	ldr r5, .L0804914C @ =gBattleUnitA
 	movs r4, #0x40
@@ -13274,7 +11876,7 @@ func_fe6_08049058: @ 0x08049058
 	lsrs r0, r0, #0x18
 	str r0, [sp, #0x18]
 .L0804917C:
-	ldr r1, .L080491D0 @ =0x0203CCF8
+	ldr r1, .L080491D0 @ =gEkrPairSideVaild
 	movs r0, #1
 	strh r0, [r1, #2]
 	strh r0, [r1]
@@ -13298,11 +11900,11 @@ func_fe6_08049058: @ 0x08049058
 	adds r2, r4, #0
 	cmp r2, #1
 	bne .L080491E8
-	ldr r1, .L080491D4 @ =0x0203CD7C
+	ldr r1, .L080491D4 @ =gpEkrBattleUnitLeft
 	ldr r0, .L080491D8 @ =gBattleUnitB
 	str r0, [r1]
 	str r0, [sp]
-	ldr r1, .L080491DC @ =0x0203CD80
+	ldr r1, .L080491DC @ =gpEkrBattleUnitRight
 	ldr r0, .L080491E0 @ =gBattleUnitA
 	str r0, [r1]
 	str r0, [sp, #4]
@@ -13311,25 +11913,25 @@ func_fe6_08049058: @ 0x08049058
 	strh r2, [r0]
 	strh r1, [r0, #2]
 	ldr r7, [sp, #4]
-	ldr r3, .L080491D0 @ =0x0203CCF8
+	ldr r3, .L080491D0 @ =gEkrPairSideVaild
 	ldr r4, [sp, #0x18]
 	cmp r4, #1
 	bne .L0804920E
 	strh r1, [r3]
 	b .L0804920E
 	.align 2, 0
-.L080491D0: .4byte 0x0203CCF8
-.L080491D4: .4byte 0x0203CD7C
+.L080491D0: .4byte gEkrPairSideVaild
+.L080491D4: .4byte gpEkrBattleUnitLeft
 .L080491D8: .4byte gBattleUnitB
-.L080491DC: .4byte 0x0203CD80
+.L080491DC: .4byte gpEkrBattleUnitRight
 .L080491E0: .4byte gBattleUnitA
 .L080491E4: .4byte 0x0203CCFC
 .L080491E8:
-	ldr r1, .L080492C4 @ =0x0203CD7C
+	ldr r1, .L080492C4 @ =gpEkrBattleUnitLeft
 	ldr r0, .L080492C8 @ =gBattleUnitA
 	str r0, [r1]
 	str r0, [sp]
-	ldr r1, .L080492CC @ =0x0203CD80
+	ldr r1, .L080492CC @ =gpEkrBattleUnitRight
 	ldr r0, .L080492D0 @ =gBattleUnitB
 	str r0, [r1]
 	str r0, [sp, #4]
@@ -13339,7 +11941,7 @@ func_fe6_08049058: @ 0x08049058
 	movs r0, #1
 	strh r0, [r1, #2]
 	ldr r7, [sp]
-	ldr r3, .L080492D8 @ =0x0203CCF8
+	ldr r3, .L080492D8 @ =gEkrPairSideVaild
 	ldr r0, [sp, #0x18]
 	cmp r0, #1
 	bne .L0804920E
@@ -13424,7 +12026,7 @@ func_fe6_08049058: @ 0x08049058
 	asrs r0, r0, #4
 	strh r0, [r3, #6]
 .L080492A4:
-	ldr r4, .L080492E4 @ =0x0203CD14
+	ldr r4, .L080492E4 @ =gEkrDistanceType
 	ldrh r0, [r4]
 	cmp r0, #4
 	beq .L08049372
@@ -13440,15 +12042,15 @@ func_fe6_08049058: @ 0x08049058
 	strh r0, [r4]
 	b .L0804936A
 	.align 2, 0
-.L080492C4: .4byte 0x0203CD7C
+.L080492C4: .4byte gpEkrBattleUnitLeft
 .L080492C8: .4byte gBattleUnitA
-.L080492CC: .4byte 0x0203CD80
+.L080492CC: .4byte gpEkrBattleUnitRight
 .L080492D0: .4byte gBattleUnitB
 .L080492D4: .4byte 0x0203CCFC
-.L080492D8: .4byte 0x0203CCF8
+.L080492D8: .4byte gEkrPairSideVaild
 .L080492DC: .4byte 0x0203CD16
 .L080492E0: .4byte gBmSt
-.L080492E4: .4byte 0x0203CD14
+.L080492E4: .4byte gEkrDistanceType
 .L080492E8:
 	movs r0, #3
 	strh r0, [r4]
@@ -13502,26 +12104,26 @@ func_fe6_08049058: @ 0x08049058
 	adds r0, r1, r0
 	cmp r0, #1
 	bgt .L08049354
-	ldr r1, .L08049350 @ =0x0203CD14
+	ldr r1, .L08049350 @ =gEkrDistanceType
 	movs r0, #0
 	b .L08049368
 	.align 2, 0
-.L08049350: .4byte 0x0203CD14
+.L08049350: .4byte gEkrDistanceType
 .L08049354:
 	cmp r0, #3
 	bgt .L08049364
-	ldr r1, .L08049360 @ =0x0203CD14
+	ldr r1, .L08049360 @ =gEkrDistanceType
 	movs r0, #1
 	b .L08049368
 	.align 2, 0
-.L08049360: .4byte 0x0203CD14
+.L08049360: .4byte gEkrDistanceType
 .L08049364:
-	ldr r1, .L080493A0 @ =0x0203CD14
+	ldr r1, .L080493A0 @ =gEkrDistanceType
 	movs r0, #2
 .L08049368:
 	strh r0, [r1]
 .L0804936A:
-	ldr r0, .L080493A0 @ =0x0203CD14
+	ldr r0, .L080493A0 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L080493AC
@@ -13547,7 +12149,7 @@ func_fe6_08049058: @ 0x08049058
 	str r0, [sp, #0x1c]
 	b .L080493E4
 	.align 2, 0
-.L080493A0: .4byte 0x0203CD14
+.L080493A0: .4byte gEkrDistanceType
 .L080493A4: .4byte 0x0203CD76
 .L080493A8: .4byte 0x0203CD00
 .L080493AC:
@@ -13706,7 +12308,7 @@ func_fe6_08049058: @ 0x08049058
 	bl func_fe6_08049C5C
 	strh r0, [r5, #2]
 .L080494EA:
-	ldr r0, .L08049538 @ =0x0203CD14
+	ldr r0, .L08049538 @ =gEkrDistanceType
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	cmp r0, #0
@@ -13738,7 +12340,7 @@ func_fe6_08049058: @ 0x08049058
 .L0804952C: .4byte 0x0000FFFF
 .L08049530: .4byte gPlaySt
 .L08049534: .4byte gBmSt
-.L08049538: .4byte 0x0203CD14
+.L08049538: .4byte gEkrDistanceType
 .L0804953C: .4byte 0x0203CCF6
 .L08049540:
 	ldr r1, .L080495C0 @ =0x0203CCF6
@@ -13771,7 +12373,7 @@ func_fe6_08049058: @ 0x08049058
 .L08049572:
 	cmp r4, #0
 	beq .L0804958E
-	ldr r1, .L080495C8 @ =0x0203CDA0
+	ldr r1, .L080495C8 @ =gEkrGaugeHp
 	ldr r0, [sp]
 	adds r0, #0x6e
 	ldrb r0, [r0]
@@ -13786,7 +12388,7 @@ func_fe6_08049058: @ 0x08049058
 .L0804958E:
 	cmp r5, #0
 	beq .L080495AA
-	ldr r1, .L080495C8 @ =0x0203CDA0
+	ldr r1, .L080495C8 @ =gEkrGaugeHp
 	ldr r0, [sp, #4]
 	adds r0, #0x6e
 	ldrb r0, [r0]
@@ -13799,8 +12401,8 @@ func_fe6_08049058: @ 0x08049058
 	ldrsb r0, [r2, r0]
 	strh r0, [r1, #2]
 .L080495AA:
-	bl func_fe6_08049F1C
-	ldr r0, .L080495D0 @ =0x0203CD14
+	bl ParseBattleHitToBanimCmd
+	ldr r0, .L080495D0 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L080495D8
@@ -13812,9 +12414,9 @@ func_fe6_08049058: @ 0x08049058
 	.align 2, 0
 .L080495C0: .4byte 0x0203CCF6
 .L080495C4: .4byte 0x0203CDC4
-.L080495C8: .4byte 0x0203CDA0
+.L080495C8: .4byte gEkrGaugeHp
 .L080495CC: .4byte 0x0203CDA4
-.L080495D0: .4byte 0x0203CD14
+.L080495D0: .4byte gEkrDistanceType
 .L080495D4: .4byte 0x0203CD0C
 .L080495D8:
 	cmp r4, #0
@@ -13893,7 +12495,7 @@ func_fe6_08049058: @ 0x08049058
 	movs r0, #1
 	bl func_fe6_080589FC
 	strh r4, [r0]
-	ldr r0, .L08049924 @ =0x0203CD14
+	ldr r0, .L08049924 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -14009,7 +12611,7 @@ func_fe6_08049058: @ 0x08049058
 	ldr r1, .L08049928 @ =0x0203CD08
 	strh r0, [r1, #2]
 .L08049764:
-	ldr r1, .L0804992C @ =0x0203CD84
+	ldr r1, .L0804992C @ =gEkrPids
 	movs r3, #0
 	strb r3, [r1, #1]
 	strb r3, [r1]
@@ -14137,7 +12739,7 @@ func_fe6_08049058: @ 0x08049058
 	ldr r0, .L08049934 @ =0x0000FFFF
 	strh r0, [r1, #2]
 .L08049848:
-	ldr r0, .L08049924 @ =0x0203CD14
+	ldr r0, .L08049924 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L0804986A
@@ -14157,7 +12759,7 @@ func_fe6_08049058: @ 0x08049058
 .L0804986A:
 	cmp r7, #0
 	beq .L0804987C
-	ldr r1, .L08049940 @ =0x0203CDB8
+	ldr r1, .L08049940 @ =gEkrPairExpPrevious
 	ldr r0, [sp]
 	adds r0, #0x6d
 	ldrb r0, [r0]
@@ -14167,7 +12769,7 @@ func_fe6_08049058: @ 0x08049058
 .L0804987C:
 	cmp r6, #0
 	beq .L0804988E
-	ldr r1, .L08049940 @ =0x0203CDB8
+	ldr r1, .L08049940 @ =gEkrPairExpPrevious
 	ldr r0, [sp, #4]
 	adds r0, #0x6d
 	ldrb r0, [r0]
@@ -14177,7 +12779,7 @@ func_fe6_08049058: @ 0x08049058
 .L0804988E:
 	cmp r7, #0
 	beq .L080498A0
-	ldr r1, .L08049944 @ =0x0203CDBC
+	ldr r1, .L08049944 @ =gEkrPairExpGain
 	ldr r0, [sp]
 	adds r0, #0x6a
 	ldrb r0, [r0]
@@ -14187,7 +12789,7 @@ func_fe6_08049058: @ 0x08049058
 .L080498A0:
 	cmp r6, #0
 	beq .L080498B2
-	ldr r1, .L08049944 @ =0x0203CDBC
+	ldr r1, .L08049944 @ =gEkrPairExpGain
 	ldr r0, [sp, #4]
 	adds r0, #0x6a
 	ldrb r0, [r0]
@@ -14217,7 +12819,7 @@ func_fe6_08049058: @ 0x08049058
 	asrs r0, r0, #0x18
 	strh r0, [r1, #2]
 .L080498DA:
-	ldr r4, .L0804994C @ =0x0203CDCC
+	ldr r4, .L0804994C @ =gEkrPairEffectiveAgainst
 	strh r5, [r4, #2]
 	strh r5, [r4]
 	cmp r7, #0
@@ -14251,17 +12853,17 @@ func_fe6_08049058: @ 0x08049058
 .L08049918: .4byte 0x0203CD0C
 .L0804991C: .4byte gBattleSt
 .L08049920: .4byte 0x0203CD0E
-.L08049924: .4byte 0x0203CD14
+.L08049924: .4byte gEkrDistanceType
 .L08049928: .4byte 0x0203CD08
-.L0804992C: .4byte 0x0203CD84
+.L0804992C: .4byte gEkrPids
 .L08049930: .4byte 0x0203CDAC
 .L08049934: .4byte 0x0000FFFF
 .L08049938: .4byte 0x0203CDB0
 .L0804993C: .4byte 0x0203CDB4
-.L08049940: .4byte 0x0203CDB8
-.L08049944: .4byte 0x0203CDBC
+.L08049940: .4byte gEkrPairExpPrevious
+.L08049944: .4byte gEkrPairExpGain
 .L08049948: .4byte 0x0203CDC8
-.L0804994C: .4byte 0x0203CDCC
+.L0804994C: .4byte gEkrPairEffectiveAgainst
 .L08049950: .4byte 0x0203CD98
 .L08049954:
 	beq .L08049994
@@ -14374,7 +12976,7 @@ func_fe6_08049058: @ 0x08049058
 	bl GetBattleAnimType
 	cmp r0, #3
 	bne .L08049A6A
-	ldr r0, .L08049A48 @ =0x0203CCF8
+	ldr r0, .L08049A48 @ =gEkrPairSideVaild
 	movs r4, #0
 	ldrsh r0, [r0, r4]
 	cmp r0, #0
@@ -14385,7 +12987,7 @@ func_fe6_08049058: @ 0x08049058
 	.align 2, 0
 .L08049A40: .4byte 0x0203CDD0
 .L08049A44: .4byte 0x0203CCF2
-.L08049A48: .4byte 0x0203CCF8
+.L08049A48: .4byte gEkrPairSideVaild
 .L08049A4C: .4byte 0x0203CDC0
 .L08049A50:
 	ldr r0, .L08049B78 @ =0x0203CDC0
@@ -14415,13 +13017,13 @@ func_fe6_08049058: @ 0x08049058
 	bl GetBattleAnimType
 	cmp r0, #1
 	bne .L08049AC8
-	ldr r0, .L08049B80 @ =0x0203CD14
+	ldr r0, .L08049B80 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L08049A92
 	movs r4, #1
 .L08049A92:
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne .L08049A9C
 	movs r4, #1
@@ -14468,7 +13070,7 @@ func_fe6_08049058: @ 0x08049058
 .L08049AE6:
 	cmp r4, #0
 	beq .L08049B72
-	ldr r0, .L08049B88 @ =0x0203CCF8
+	ldr r0, .L08049B88 @ =gEkrPairSideVaild
 	adds r3, r0, #0
 	ldrh r1, [r3]
 	cmp r1, #1
@@ -14543,9 +13145,9 @@ func_fe6_08049058: @ 0x08049058
 	.align 2, 0
 .L08049B78: .4byte 0x0203CDC0
 .L08049B7C: .4byte gPlaySt
-.L08049B80: .4byte 0x0203CD14
+.L08049B80: .4byte gEkrDistanceType
 .L08049B84: .4byte 0x0203CD08
-.L08049B88: .4byte 0x0203CCF8
+.L08049B88: .4byte gEkrPairSideVaild
 .L08049B8C: .4byte 0x0203CD76
 .L08049B90: .4byte 0x0203CD0C
 .L08049B94: .4byte 0x0203CD10
@@ -14958,7 +13560,7 @@ func_fe6_08049E9C: @ 0x08049E9C
 	movs r0, #0
 	strh r0, [r4]
 .L08049EC2:
-	ldr r0, .L08049EE0 @ =0x0203CCF4
+	ldr r0, .L08049EE0 @ =gEkrInitialHitSide
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, r5
@@ -14973,7 +13575,7 @@ func_fe6_08049E9C: @ 0x08049E9C
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L08049EE0: .4byte 0x0203CCF4
+.L08049EE0: .4byte gEkrInitialHitSide
 .L08049EE4: .4byte .L08049EE8
 .L08049EE8: @ jump table
 	.4byte .L08049F10 @ case 0
@@ -14995,8 +13597,8 @@ func_fe6_08049E9C: @ 0x08049E9C
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_08049F1C
-func_fe6_08049F1C: @ 0x08049F1C
+	thumb_func_start ParseBattleHitToBanimCmd
+ParseBattleHitToBanimCmd: @ 0x08049F1C
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
@@ -15005,11 +13607,11 @@ func_fe6_08049F1C: @ 0x08049F1C
 	sub sp, #0x24
 	ldr r0, .L08049F58 @ =gBattleHits
 	str r0, [sp, #4]
-	ldr r0, .L08049F5C @ =0x0203CD88
+	ldr r0, .L08049F5C @ =gpEkrTriangleUnits
 	movs r3, #0
 	str r3, [r0, #4]
 	str r3, [r0]
-	ldr r2, .L08049F60 @ =0x0203CD14
+	ldr r2, .L08049F60 @ =gEkrDistanceType
 	movs r5, #0
 	ldrsh r1, [r2, r5]
 	cmp r1, #4
@@ -15028,8 +13630,8 @@ func_fe6_08049F1C: @ 0x08049F1C
 	b .L0804A46E
 	.align 2, 0
 .L08049F58: .4byte gBattleHits
-.L08049F5C: .4byte 0x0203CD88
-.L08049F60: .4byte 0x0203CD14
+.L08049F5C: .4byte gpEkrTriangleUnits
+.L08049F60: .4byte gEkrDistanceType
 .L08049F64: .4byte 0x0203CD1E
 .L08049F68: .4byte 0x0000FFFF
 .L08049F6C:
@@ -15062,10 +13664,10 @@ func_fe6_08049F1C: @ 0x08049F1C
 	str r2, [sp, #0x1c]
 	movs r0, #0
 	str r0, [sp, #0x20]
-	ldr r0, .L0804A0A4 @ =0x0203CD7C
+	ldr r0, .L0804A0A4 @ =gpEkrBattleUnitLeft
 	ldr r0, [r0]
 	str r0, [sp, #8]
-	ldr r0, .L0804A0A8 @ =0x0203CD80
+	ldr r0, .L0804A0A8 @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	str r0, [sp, #0xc]
 	ldr r0, [sp, #8]
@@ -15154,7 +13756,7 @@ func_fe6_08049F1C: @ 0x08049F1C
 .L0804A05E:
 	movs r2, #0
 	ldr r4, .L0804A0AC @ =0x0203CD4A
-	ldr r5, .L0804A0B0 @ =0x0203CDA0
+	ldr r5, .L0804A0B0 @ =gEkrGaugeHp
 	ldr r0, .L0804A0B4 @ =0x0000FFFF
 	adds r3, r0, #0
 	ldr r1, .L0804A0B8 @ =0x0203CD1E
@@ -15190,10 +13792,10 @@ func_fe6_08049F1C: @ 0x08049F1C
 	ldr r5, [sp, #4]
 	b .L0804A462
 	.align 2, 0
-.L0804A0A4: .4byte 0x0203CD7C
-.L0804A0A8: .4byte 0x0203CD80
+.L0804A0A4: .4byte gpEkrBattleUnitLeft
+.L0804A0A8: .4byte gpEkrBattleUnitRight
 .L0804A0AC: .4byte 0x0203CD4A
-.L0804A0B0: .4byte 0x0203CDA0
+.L0804A0B0: .4byte gEkrGaugeHp
 .L0804A0B4: .4byte 0x0000FFFF
 .L0804A0B8: .4byte 0x0203CD1E
 .L0804A0BC:
@@ -15222,12 +13824,12 @@ func_fe6_08049F1C: @ 0x08049F1C
 	ldr r2, [sp, #0x10]
 	cmp r2, #0
 	bne .L0804A118
-	ldr r0, .L0804A0F8 @ =0x0203CCF4
+	ldr r0, .L0804A0F8 @ =gEkrInitialHitSide
 	strh r2, [r0]
 	b .L0804A118
 	.align 2, 0
 .L0804A0F4: .4byte 0x0203CCFC
-.L0804A0F8: .4byte 0x0203CCF4
+.L0804A0F8: .4byte gEkrInitialHitSide
 .L0804A0FC:
 	mov r5, sp
 	adds r5, #2
@@ -15240,7 +13842,7 @@ func_fe6_08049F1C: @ 0x08049F1C
 	ldr r1, [sp, #0x10]
 	cmp r1, #0
 	bne .L0804A118
-	ldr r1, .L0804A150 @ =0x0203CCF4
+	ldr r1, .L0804A150 @ =gEkrInitialHitSide
 	movs r0, #1
 	strh r0, [r1]
 .L0804A118:
@@ -15252,7 +13854,7 @@ func_fe6_08049F1C: @ 0x08049F1C
 	ands r0, r1
 	cmp r0, #0
 	beq .L0804A134
-	ldr r2, .L0804A154 @ =0x0203CD88
+	ldr r2, .L0804A154 @ =gpEkrTriangleUnits
 	ldr r1, .L0804A158 @ =gBattleSt
 	ldr r0, [r1, #0xc]
 	str r0, [r2]
@@ -15273,8 +13875,8 @@ func_fe6_08049F1C: @ 0x08049F1C
 	ldr r0, .L0804A15C @ =gUnk_08112248
 	b .L0804A1B6
 	.align 2, 0
-.L0804A150: .4byte 0x0203CCF4
-.L0804A154: .4byte 0x0203CD88
+.L0804A150: .4byte gEkrInitialHitSide
+.L0804A154: .4byte gpEkrTriangleUnits
 .L0804A158: .4byte gBattleSt
 .L0804A15C: .4byte gUnk_08112248
 .L0804A160:
@@ -15804,7 +14406,7 @@ func_fe6_0804A528: @ 0x0804A528
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
-	bl func_fe6_0804B048
+	bl UpdateBanimFrame
 	adds r0, r5, #0
 	movs r1, #6
 	bl func_fe6_0804B5E0
@@ -15900,9 +14502,7 @@ BattleAIS_ExecCommands: @ 0x0804A5DC
 	push {r6, r7}
 	sub sp, #4
 	movs r2, #0
-
-	thumb_func_start func_fe6_00804A5E8
-func_fe6_00804A5E8: @ 0x0804A5E8
+.L00804A5E8: @ 0x0804A5E8
 	ldr r1, .L0804A640 @ =gAnims
 	lsls r0, r2, #2
 	adds r0, r0, r1
@@ -16029,7 +14629,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	.4byte .L0804AD76 @ case 73
 	.4byte .L0804AD76 @ case 74
 .L0804A774:
-	ldr r0, .L0804A784 @ =gCtrlC01Blocking
+	ldr r0, .L0804A784 @ =gAnimC01Blocking
 	ldr r0, [r0]
 	cmp r0, #1
 	bne .L0804A788
@@ -16037,7 +14637,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	str r0, [r7, #0x20]
 	b .L0804AD82
 	.align 2, 0
-.L0804A784: .4byte gCtrlC01Blocking
+.L0804A784: .4byte gAnimC01Blocking
 .L0804A788:
 	ldrh r1, [r7, #0x10]
 	movs r0, #4
@@ -16354,7 +14954,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	orrs r0, r1
 	strh r0, [r6, #0x10]
 	ldr r1, .L0804AA38 @ =gUnk_081122C0
-	ldr r0, .L0804AA3C @ =0x0203CD14
+	ldr r0, .L0804AA3C @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	adds r0, r0, r1
@@ -16374,7 +14974,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AA4A
 	.align 2, 0
 .L0804AA38: .4byte gUnk_081122C0
-.L0804AA3C: .4byte 0x0203CD14
+.L0804AA3C: .4byte gEkrDistanceType
 .L0804AA40: .4byte gUnk_08112298
 .L0804AA44: .4byte gUnk_Banim_02000054
 .L0804AA48:
@@ -16418,7 +15018,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	beq .L0804AA98
 	b .L0804AD8A
 .L0804AA98:
-	ldr r4, .L0804AADC @ =gUnk_Banim_0201E13C
+	ldr r4, .L0804AADC @ =gpImgSheet
 	adds r0, r2, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
@@ -16431,7 +15031,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AD8A
 .L0804AAB0:
 	adds r0, r2, #0
-	bl func_fe6_0804AF70
+	bl NewEkrChienCHR
 	ldr r2, [sp]
 	adds r0, r2, #0
 	bl func_fe6_0804B6C4
@@ -16446,10 +15046,10 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 .L0804AAD0: .4byte gUnk_Banim_0200F1C0
 .L0804AAD4: .4byte 0x000057F0
 .L0804AAD8: .4byte 0x0203CD98
-.L0804AADC: .4byte gUnk_Banim_0201E13C
+.L0804AADC: .4byte gpImgSheet
 .L0804AAE0:
 	ldr r1, .L0804AB00 @ =gUnk_081122C0
-	ldr r0, .L0804AB04 @ =0x0203CD14
+	ldr r0, .L0804AB04 @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	adds r0, r0, r1
@@ -16465,7 +15065,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AD8A
 	.align 2, 0
 .L0804AB00: .4byte gUnk_081122C0
-.L0804AB04: .4byte 0x0203CD14
+.L0804AB04: .4byte gEkrDistanceType
 .L0804AB08:
 	ldrh r2, [r7, #0x10]
 	movs r1, #0x20
@@ -16814,7 +15414,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	ands r0, r3
 	cmp r0, #0
 	bne .L0804ADF0
-	ldr r4, .L0804AE50 @ =gUnk_Banim_0201E13C
+	ldr r4, .L0804AE50 @ =gpImgSheet
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
@@ -16824,7 +15424,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	cmp r1, r0
 	beq .L0804ADF0
 	adds r0, r7, #0
-	bl func_fe6_0804AFA0
+	bl RegisterAISSheetGraphics
 	adds r0, r7, #0
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #2
@@ -16844,7 +15444,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	ands r2, r0
 	cmp r2, #0
 	bne .L0804AE10
-	ldr r0, .L0804AE54 @ =gCtrlC01Blocking
+	ldr r0, .L0804AE54 @ =gAnimC01Blocking
 	ldr r0, [r0]
 	cmp r0, #1
 	beq .L0804AE10
@@ -16878,8 +15478,8 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	b .L0804AED0
 	.align 2, 0
 .L0804AE4C: .4byte 0x0203CD98
-.L0804AE50: .4byte gUnk_Banim_0201E13C
-.L0804AE54: .4byte gCtrlC01Blocking
+.L0804AE50: .4byte gpImgSheet
+.L0804AE54: .4byte gAnimC01Blocking
 .L0804AE58: .4byte gAnims
 .L0804AE5C: .4byte 0x0000FFFD
 .L0804AE60:
@@ -16998,7 +15598,7 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	mov r2, sb
 	cmp r2, #3
 	bhi .L0804AF5C
-	bl func_fe6_00804A5E8
+	bl .L00804A5E8
 .L0804AF5C:
 	add sp, #4
 	pop {r3, r4}
@@ -17010,11 +15610,11 @@ func_fe6_00804A5E8: @ 0x0804A5E8
 	.align 2, 0
 .L0804AF6C: .4byte gBanimDoneFlag
 
-	thumb_func_start func_fe6_0804AF70
-func_fe6_0804AF70: @ 0x0804AF70
+	thumb_func_start NewEkrChienCHR
+NewEkrChienCHR: @ 0x0804AF70
 	push {r4, lr}
 	adds r4, r0, #0
-	ldr r0, .L0804AF84 @ =gUnk_085CBDD8
+	ldr r0, .L0804AF84 @ =ProcScr_EkrChienCHR
 	movs r1, #3
 	bl SpawnProc
 	str r4, [r0, #0x5c]
@@ -17022,14 +15622,14 @@ func_fe6_0804AF70: @ 0x0804AF70
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0804AF84: .4byte gUnk_085CBDD8
+.L0804AF84: .4byte ProcScr_EkrChienCHR
 
-	thumb_func_start func_fe6_0804AF88
-func_fe6_0804AF88: @ 0x0804AF88
+	thumb_func_start EkrChienCHRMain
+EkrChienCHRMain: @ 0x0804AF88
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, [r4, #0x5c]
-	bl func_fe6_0804AFA0
+	bl RegisterAISSheetGraphics
 	adds r0, r4, #0
 	bl Proc_Break
 	pop {r4}
@@ -17037,8 +15637,8 @@ func_fe6_0804AF88: @ 0x0804AF88
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_0804AFA0
-func_fe6_0804AFA0: @ 0x0804AFA0
+	thumb_func_start RegisterAISSheetGraphics
+RegisterAISSheetGraphics: @ 0x0804AFA0
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	ldr r4, .L0804AFCC @ =0x000003FF
@@ -17086,17 +15686,17 @@ func_fe6_0804AFD4: @ 0x0804AFD4
 	.align 2, 0
 .L0804AFF8: .4byte 0x0203CDD0
 
-	thumb_func_start func_fe6_0804AFFC
-func_fe6_0804AFFC: @ 0x0804AFFC
+	thumb_func_start GetBanimPalette
+GetBanimPalette: @ 0x0804AFFC
 	adds r2, r0, #0
 	cmp r1, #0
 	bne .L0804B00C
-	ldr r0, .L0804B008 @ =0x0203CD7C
+	ldr r0, .L0804B008 @ =gpEkrBattleUnitLeft
 	b .L0804B00E
 	.align 2, 0
-.L0804B008: .4byte 0x0203CD7C
+.L0804B008: .4byte gpEkrBattleUnitLeft
 .L0804B00C:
-	ldr r0, .L0804B024 @ =0x0203CD80
+	ldr r0, .L0804B024 @ =gpEkrBattleUnitRight
 .L0804B00E:
 	ldr r0, [r0]
 	ldr r0, [r0, #4]
@@ -17109,7 +15709,7 @@ func_fe6_0804AFFC: @ 0x0804AFFC
 	beq .L0804B032
 	b .L0804B042
 	.align 2, 0
-.L0804B024: .4byte 0x0203CD80
+.L0804B024: .4byte gpEkrBattleUnitRight
 .L0804B028:
 	cmp r0, #0x12
 	beq .L0804B03A
@@ -17134,20 +15734,20 @@ func_fe6_0804AFFC: @ 0x0804AFFC
 	bx lr
 	.align 2, 0
 
-	thumb_func_start func_fe6_0804B048
-func_fe6_0804B048: @ 0x0804B048
+	thumb_func_start UpdateBanimFrame
+UpdateBanimFrame: @ 0x0804B048
 	push {r4, r5, r6, r7, lr}
 	mov r7, sl
 	mov r6, sb
 	mov r5, r8
 	push {r5, r6, r7}
-	ldr r0, .L0804B0F8 @ =0x086A0008
+	ldr r0, .L0804B0F8 @ =banim_data
 	mov sl, r0
-	ldr r1, .L0804B0FC @ =gUnk_Banim_0201E13C
+	ldr r1, .L0804B0FC @ =gpImgSheet
 	movs r0, #0
 	str r0, [r1, #4]
 	str r0, [r1]
-	ldr r0, .L0804B100 @ =0x0203CCF8
+	ldr r0, .L0804B100 @ =gEkrPairSideVaild
 	ldrh r1, [r0]
 	cmp r1, #1
 	bne .L0804B140
@@ -17162,7 +15762,7 @@ func_fe6_0804B048: @ 0x0804B048
 	movs r1, #0
 	ldrsh r4, [r0, r1]
 	lsls r0, r7, #5
-	ldr r2, .L0804B0F8 @ =0x086A0008
+	ldr r2, .L0804B0F8 @ =banim_data
 	adds r6, r0, r2
 	ldr r0, [r6, #0x10]
 	ldr r1, .L0804B110 @ =gUnk_Banim_0200F1C0
@@ -17172,9 +15772,9 @@ func_fe6_0804B048: @ 0x0804B048
 	str r0, [r1]
 	adds r0, r7, #0
 	movs r1, #0
-	bl func_fe6_0804AFFC
+	bl GetBanimPalette
 	lsls r0, r0, #5
-	ldr r1, .L0804B0F8 @ =0x086A0008
+	ldr r1, .L0804B0F8 @ =banim_data
 	adds r0, r0, r1
 	ldr r0, [r0, #0x1c]
 	ldr r5, .L0804B118 @ =gUnk_Banim_02004080
@@ -17217,9 +15817,9 @@ func_fe6_0804B048: @ 0x0804B048
 	bl LZ77UnCompWram
 	b .L0804B138
 	.align 2, 0
-.L0804B0F8: .4byte 0x086A0008
-.L0804B0FC: .4byte gUnk_Banim_0201E13C
-.L0804B100: .4byte 0x0203CCF8
+.L0804B0F8: .4byte banim_data
+.L0804B0FC: .4byte gpImgSheet
+.L0804B100: .4byte gEkrPairSideVaild
 .L0804B104: .4byte 0x0203CD76
 .L0804B108: .4byte 0x0203CD08
 .L0804B10C: .4byte 0x0203CD04
@@ -17239,7 +15839,7 @@ func_fe6_0804B048: @ 0x0804B048
 	ldr r4, .L0804B258 @ =gUnk_Banim_020099B0
 	movs r0, #1
 	str r0, [r4]
-	ldr r0, .L0804B25C @ =0x0203CCF8
+	ldr r0, .L0804B25C @ =gEkrPairSideVaild
 .L0804B140:
 	movs r2, #2
 	ldrsh r1, [r0, r2]
@@ -17267,7 +15867,7 @@ func_fe6_0804B048: @ 0x0804B048
 	str r0, [r1]
 	adds r0, r7, #0
 	movs r1, #1
-	bl func_fe6_0804AFFC
+	bl GetBanimPalette
 	lsls r0, r0, #5
 	add r0, sl
 	ldr r0, [r0, #0x1c]
@@ -17313,7 +15913,7 @@ func_fe6_0804B048: @ 0x0804B048
 	mov r1, sb
 	str r1, [r4]
 .L0804B1DE:
-	ldr r6, .L0804B290 @ =0x0203CD88
+	ldr r6, .L0804B290 @ =gpEkrTriangleUnits
 	ldr r0, [r6]
 	cmp r0, #0
 	beq .L0804B246
@@ -17373,7 +15973,7 @@ func_fe6_0804B048: @ 0x0804B048
 	.align 2, 0
 .L0804B254: .4byte gUnk_Banim_020041C0
 .L0804B258: .4byte gUnk_Banim_020099B0
-.L0804B25C: .4byte 0x0203CCF8
+.L0804B25C: .4byte gEkrPairSideVaild
 .L0804B260: .4byte 0x0203CD76
 .L0804B264: .4byte 0x0203CD08
 .L0804B268: .4byte 0x0203CD04
@@ -17386,12 +15986,12 @@ func_fe6_0804B048: @ 0x0804B048
 .L0804B284: .4byte 0x0203CD90
 .L0804B288: .4byte gUnk_Banim_020099C0
 .L0804B28C: .4byte 0x000057F0
-.L0804B290: .4byte 0x0203CD88
+.L0804B290: .4byte gpEkrTriangleUnits
 
-	thumb_func_start func_fe6_0804B294
-func_fe6_0804B294: @ 0x0804B294
+	thumb_func_start InitMainAnims
+InitMainAnims: @ 0x0804B294
 	push {lr}
-	ldr r0, .L0804B2AC @ =0x0203CD14
+	ldr r0, .L0804B2AC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #4
@@ -17402,7 +16002,7 @@ func_fe6_0804B294: @ 0x0804B294
 	ldr r0, [r0]
 	mov pc, r0
 	.align 2, 0
-.L0804B2AC: .4byte 0x0203CD14
+.L0804B2AC: .4byte gEkrDistanceType
 .L0804B2B0: .4byte .L0804B2B4
 .L0804B2B4: @ jump table
 	.4byte .L0804B2C8 @ case 0
@@ -17467,7 +16067,7 @@ func_fe6_0804B324: @ 0x0804B324
 	str r0, [r4, #4]
 	str r0, [r4, #8]
 	str r0, [r4, #0xc]
-	ldr r5, .L0804B374 @ =0x0203CCF8
+	ldr r5, .L0804B374 @ =gEkrPairSideVaild
 	ldrh r0, [r5]
 	cmp r0, #1
 	bne .L0804B344
@@ -17480,7 +16080,7 @@ func_fe6_0804B324: @ 0x0804B324
 	adds r0, r6, #0
 	bl func_fe6_0804B4C0
 .L0804B350:
-	ldr r0, .L0804B378 @ =0x0203CD14
+	ldr r0, .L0804B378 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L0804B36A
@@ -17499,8 +16099,8 @@ func_fe6_0804B324: @ 0x0804B324
 	bx r0
 	.align 2, 0
 .L0804B370: .4byte gAnims
-.L0804B374: .4byte 0x0203CCF8
-.L0804B378: .4byte 0x0203CD14
+.L0804B374: .4byte gEkrPairSideVaild
+.L0804B378: .4byte gEkrDistanceType
 
 	thumb_func_start func_fe6_0804B37C
 func_fe6_0804B37C: @ 0x0804B37C
@@ -17525,7 +16125,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	ldrb r1, [r1]
 	mov sb, r1
 	ldr r0, .L0804B488 @ =gUnk_081122C5
-	ldr r1, .L0804B48C @ =0x0203CD14
+	ldr r1, .L0804B48C @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r1, [r1, r2]
 	adds r0, r1, r0
@@ -17561,7 +16161,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B49C @ =gUnk_Banim_02000020
-	ldr r0, .L0804B4B0 @ =gEkrBgOffset
+	ldr r0, .L0804B4B0 @ =gEkrBgPosition
 	ldrh r1, [r1]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17603,7 +16203,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B49C @ =gUnk_Banim_02000020
-	ldr r0, .L0804B4B0 @ =gEkrBgOffset
+	ldr r0, .L0804B4B0 @ =gEkrBgPosition
 	ldrh r1, [r1]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17638,7 +16238,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 	.align 2, 0
 .L0804B484: .4byte gUnk_08112298
 .L0804B488: .4byte gUnk_081122C5
-.L0804B48C: .4byte 0x0203CD14
+.L0804B48C: .4byte gEkrDistanceType
 .L0804B490: .4byte gUnk_Banim_02000028
 .L0804B494: .4byte gUnk_081122D0
 .L0804B498: .4byte gUnk_Banim_0200002C
@@ -17647,7 +16247,7 @@ func_fe6_0804B37C: @ 0x0804B37C
 .L0804B4A4: .4byte gUnk_Banim_02000054
 .L0804B4A8: .4byte gUnk_Banim_0200F1C0
 .L0804B4AC: .4byte gUnk_085CBDA0
-.L0804B4B0: .4byte gEkrBgOffset
+.L0804B4B0: .4byte gEkrBgPosition
 .L0804B4B4: .4byte gUnk_Banim_02000080
 .L0804B4B8: .4byte gUnk_Banim_020041C0
 .L0804B4BC: .4byte gAnims
@@ -17670,7 +16270,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	adds r1, r1, r2
 	ldrb r7, [r1]
 	ldr r1, .L0804B5AC @ =gUnk_081122CA
-	ldr r0, .L0804B5B0 @ =0x0203CD14
+	ldr r0, .L0804B5B0 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	adds r0, r0, r1
@@ -17700,7 +16300,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B5BC @ =gUnk_Banim_02000020
-	ldr r0, .L0804B5D0 @ =gEkrBgOffset
+	ldr r0, .L0804B5D0 @ =gEkrBgPosition
 	ldrh r1, [r1, #2]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17741,7 +16341,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	bl BasCreate
 	adds r2, r0, #0
 	ldr r1, .L0804B5BC @ =gUnk_Banim_02000020
-	ldr r0, .L0804B5D0 @ =gEkrBgOffset
+	ldr r0, .L0804B5D0 @ =gEkrBgPosition
 	ldrh r1, [r1, #2]
 	ldrh r0, [r0]
 	subs r0, r1, r0
@@ -17773,7 +16373,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 	.align 2, 0
 .L0804B5A8: .4byte gUnk_08112298
 .L0804B5AC: .4byte gUnk_081122CA
-.L0804B5B0: .4byte 0x0203CD14
+.L0804B5B0: .4byte gEkrDistanceType
 .L0804B5B4: .4byte gUnk_Banim_02000028
 .L0804B5B8: .4byte gUnk_Banim_0200002C
 .L0804B5BC: .4byte gUnk_Banim_02000020
@@ -17781,7 +16381,7 @@ func_fe6_0804B4C0: @ 0x0804B4C0
 .L0804B5C4: .4byte gUnk_Banim_02000058
 .L0804B5C8: .4byte gUnk_Banim_02011BC0
 .L0804B5CC: .4byte gUnk_085CBDA0
-.L0804B5D0: .4byte gEkrBgOffset
+.L0804B5D0: .4byte gEkrBgPosition
 .L0804B5D4: .4byte gUnk_Banim_02002080
 .L0804B5D8: .4byte gUnk_Banim_020099C0
 .L0804B5DC: .4byte gAnims
@@ -18046,7 +16646,7 @@ func_fe6_0804B7B0: @ 0x0804B7B0
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0804B802
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	bne .L0804B806
 .L0804B802:
@@ -18146,8 +16746,8 @@ func_fe6_0804B88C: @ 0x0804B88C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_0804B8B0
-func_fe6_0804B8B0: @ 0x0804B8B0
+	thumb_func_start SetAnimStateHiddenForDragon
+SetAnimStateHiddenForDragon: @ 0x0804B8B0
 	cmp r0, #0
 	bne .L0804B8C8
 	ldr r2, .L0804B8C4 @ =gAnims
@@ -18363,7 +16963,7 @@ func_fe6_0804B930: @ 0x0804B930
 	cmp r1, r0
 	beq .L0804BAAA
 	adds r0, r4, #0
-	bl func_fe6_0804AFA0
+	bl RegisterAISSheetGraphics
 	ldr r0, [r4, #0x28]
 	str r0, [r6, #0x28]
 .L0804BAAA:
@@ -18419,7 +17019,7 @@ func_fe6_0804BAF0: @ 0x0804BAF0
 	ldr r3, .L0804BB48 @ =gUnk_08112298
 	ldrh r1, [r6, #6]
 	lsls r0, r1, #5
-	ldr r1, .L0804BB4C @ =0x086A0008
+	ldr r1, .L0804BB4C @ =banim_data
 	adds r0, r0, r1
 	ldr r1, [r0, #0xc]
 	ldr r2, [r6, #0x10]
@@ -18445,7 +17045,7 @@ func_fe6_0804BAF0: @ 0x0804BAF0
 	cmp r1, r0
 	beq .L0804BB40
 	adds r0, r7, #0
-	bl func_fe6_0804AF70
+	bl NewEkrChienCHR
 	ldr r0, [r7, #0x28]
 	str r0, [r6, #0x28]
 .L0804BB40:
@@ -18454,7 +17054,7 @@ func_fe6_0804BAF0: @ 0x0804BAF0
 	bx r0
 	.align 2, 0
 .L0804BB48: .4byte gUnk_08112298
-.L0804BB4C: .4byte 0x086A0008
+.L0804BB4C: .4byte banim_data
 .L0804BB50: .4byte 0x000057F0
 
 	thumb_func_start func_fe6_0804BB54
@@ -18466,7 +17066,7 @@ func_fe6_0804BB54: @ 0x0804BB54
 	push {r5, r6, r7}
 	sub sp, #4
 	adds r6, r0, #0
-	ldr r0, .L0804BBD8 @ =0x086A0008
+	ldr r0, .L0804BBD8 @ =banim_data
 	mov sb, r0
 	ldr r2, .L0804BBDC @ =gUnk_08112298
 	ldrh r3, [r6, #8]
@@ -18525,7 +17125,7 @@ func_fe6_0804BB54: @ 0x0804BB54
 	adds r1, r4, r2
 	b .L0804BBF6
 	.align 2, 0
-.L0804BBD8: .4byte 0x086A0008
+.L0804BBD8: .4byte banim_data
 .L0804BBDC: .4byte gUnk_08112298
 .L0804BBE0: .4byte gUnk_085CBDA0
 .L0804BBE4: .4byte 0x000057F0
@@ -18644,7 +17244,7 @@ func_fe6_0804BCC8: @ 0x0804BCC8
 	mov r6, r8
 	push {r6, r7}
 	adds r6, r0, #0
-	ldr r0, .L0804BD38 @ =0x086A0008
+	ldr r0, .L0804BD38 @ =banim_data
 	mov sb, r0
 	ldr r2, .L0804BD3C @ =gUnk_08112298
 	ldrh r1, [r6, #8]
@@ -18695,7 +17295,7 @@ func_fe6_0804BCC8: @ 0x0804BCC8
 	adds r1, r4, r2
 	b .L0804BD56
 	.align 2, 0
-.L0804BD38: .4byte 0x086A0008
+.L0804BD38: .4byte banim_data
 .L0804BD3C: .4byte gUnk_08112298
 .L0804BD40: .4byte gUnk_085CBDA0
 .L0804BD44: .4byte 0x000057F0
@@ -19704,8 +18304,8 @@ func_fe6_0804C4F4: @ 0x0804C4F4
 	.align 2, 0
 .L0804C4FC: .4byte 0x0203CDD4
 
-	thumb_func_start func_fe6_0804C500
-func_fe6_0804C500: @ 0x0804C500
+	thumb_func_start GetBattleAnimArenaFlag
+GetBattleAnimArenaFlag: @ 0x0804C500
 	ldr r0, .L0804C508 @ =0x0203CDD4
 	ldr r0, [r0]
 	bx lr
@@ -19750,13 +18350,13 @@ func_fe6_0804C50C: @ 0x0804C50C
 	thumb_func_start func_fe6_0804C554
 func_fe6_0804C554: @ 0x0804C554
 	push {lr}
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq .L0804C568
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8f
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 .L0804C568:
 	pop {r0}
 	bx r0
@@ -19764,11 +18364,11 @@ func_fe6_0804C554: @ 0x0804C554
 	thumb_func_start func_fe6_0804C56C
 func_fe6_0804C56C: @ 0x0804C56C
 	push {lr}
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	beq .L0804C57C
 	movs r0, #0x8e
-	bl func_fe6_0805BD54
+	bl DoM4aSongNumStop
 .L0804C57C:
 	pop {r0}
 	bx r0
@@ -19821,12 +18421,12 @@ func_fe6_0804C5D0: @ 0x0804C5D0
 	movs r0, #0
 	bl InitOam
 	ldr r1, .L0804C644 @ =gEkrInitPosReal
-	ldr r0, .L0804C648 @ =0x0203CCF4
+	ldr r0, .L0804C648 @ =gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	str r0, [r1]
 	bl func_fe6_08044390
-	bl func_fe6_0804B048
+	bl UpdateBanimFrame
 	bl NewEkrGauge
 	bl func_fe6_08044198
 	bl NewEkrBattle
@@ -19862,7 +18462,7 @@ func_fe6_0804C5D0: @ 0x0804C5D0
 	bx r0
 	.align 2, 0
 .L0804C644: .4byte gEkrInitPosReal
-.L0804C648: .4byte 0x0203CCF4
+.L0804C648: .4byte gEkrInitialHitSide
 .L0804C64C: .4byte gUnk_08118330
 .L0804C650: .4byte gPal+0xC0
 .L0804C654: .4byte gUnk_Banim_020165C0
@@ -19903,7 +18503,7 @@ func_fe6_0804C658: @ 0x0804C658
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x8e
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r5, #0
 	bl Proc_Break
 	add sp, #0x10
@@ -20409,7 +19009,7 @@ func_fe6_0804CA48: @ 0x0804CA48
 	ldr r0, .L0804CABC @ =0x0000FFF8
 .L0804CA9E:
 	strh r0, [r7, #0x32]
-	ldr r0, .L0804CAC0 @ =0x0203CD14
+	ldr r0, .L0804CAC0 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -20423,7 +19023,7 @@ func_fe6_0804CA48: @ 0x0804CA48
 	b .L0804CAC8
 	.align 2, 0
 .L0804CABC: .4byte 0x0000FFF8
-.L0804CAC0: .4byte 0x0203CD14
+.L0804CAC0: .4byte gEkrDistanceType
 .L0804CAC4:
 	ldrh r0, [r7, #0x32]
 	subs r0, #0x18
@@ -21186,7 +19786,7 @@ func_fe6_0804D088: @ 0x0804D088
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl SetBgOffset
-	ldr r4, .L0804D124 @ =gUnk_Banim_02000030
+	ldr r4, .L0804D124 @ =gEkrBg0QuakeVec
 	ldrh r0, [r5]
 	ldrh r2, [r4]
 	adds r1, r0, r2
@@ -21225,7 +19825,7 @@ func_fe6_0804D088: @ 0x0804D088
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl func_fe6_08044230
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0804D10C
 	ldrh r1, [r5]
@@ -21236,7 +19836,7 @@ func_fe6_0804D088: @ 0x0804D088
 	movs r0, #3
 	bl SetBgOffset
 .L0804D10C:
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0804D12C
 	ldr r3, .L0804D128 @ =gUnk_Banim_02000020
@@ -21246,7 +19846,7 @@ func_fe6_0804D088: @ 0x0804D088
 	b .L0804D134
 	.align 2, 0
 .L0804D120: .4byte gUnk_Banim_02017758
-.L0804D124: .4byte gUnk_Banim_02000030
+.L0804D124: .4byte gEkrBg0QuakeVec
 .L0804D128: .4byte gUnk_Banim_02000020
 .L0804D12C:
 	ldr r3, .L0804D244 @ =gUnk_Banim_02000020
@@ -21254,7 +19854,7 @@ func_fe6_0804D088: @ 0x0804D088
 	ldrh r2, [r5]
 	adds r0, r1, r2
 .L0804D134:
-	ldr r2, .L0804D248 @ =gEkrBgOffset
+	ldr r2, .L0804D248 @ =gEkrBgPosition
 	ldr r1, [r2]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -21272,7 +19872,7 @@ func_fe6_0804D088: @ 0x0804D088
 	ldrh r1, [r1, #2]
 	ldrh r3, [r2]
 	adds r0, r1, r3
-	ldr r4, .L0804D248 @ =gEkrBgOffset
+	ldr r4, .L0804D248 @ =gEkrBgPosition
 	ldr r1, [r4]
 	subs r0, r0, r1
 	lsls r0, r0, #0x10
@@ -21312,7 +19912,7 @@ func_fe6_0804D088: @ 0x0804D088
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	ldr r4, .L0804D258 @ =gUnk_Banim_02000030
+	ldr r4, .L0804D258 @ =gEkrBg0QuakeVec
 	ldrh r1, [r4]
 	ldrh r2, [r4, #2]
 	movs r0, #0
@@ -21335,7 +19935,7 @@ func_fe6_0804D088: @ 0x0804D088
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl func_fe6_08044230
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0804D1F4
 	movs r0, #3
@@ -21343,7 +19943,7 @@ func_fe6_0804D088: @ 0x0804D088
 	movs r2, #0x10
 	bl SetBgOffset
 .L0804D1F4:
-	ldr r4, .L0804D248 @ =gEkrBgOffset
+	ldr r4, .L0804D248 @ =gEkrBgPosition
 	ldr r0, [r4]
 	mov r2, sb
 	ldrh r2, [r2]
@@ -21382,11 +19982,11 @@ func_fe6_0804D088: @ 0x0804D088
 	bx r0
 	.align 2, 0
 .L0804D244: .4byte gUnk_Banim_02000020
-.L0804D248: .4byte gEkrBgOffset
+.L0804D248: .4byte gEkrBgPosition
 .L0804D24C: .4byte gUnk_Banim_02000024
 .L0804D250: .4byte gUnk_Banim_02017758
 .L0804D254: .4byte gUnk_Banim_02017744
-.L0804D258: .4byte gUnk_Banim_02000030
+.L0804D258: .4byte gEkrBg0QuakeVec
 
 	thumb_func_start func_fe6_0804D25C
 func_fe6_0804D25C: @ 0x0804D25C
@@ -21493,7 +20093,7 @@ func_fe6_0804D30C: @ 0x0804D30C
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804D3A8
 	ldrh r0, [r5, #0x2c]
@@ -21594,7 +20194,7 @@ func_fe6_0804D3A8: @ 0x0804D3A8
 	subs r0, #0x48
 .L0804D408:
 	strh r0, [r5, #2]
-	ldr r0, .L0804D418 @ =0x0203CD14
+	ldr r0, .L0804D418 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -21602,7 +20202,7 @@ func_fe6_0804D3A8: @ 0x0804D3A8
 	movs r0, #0x23
 	b .L0804D41E
 	.align 2, 0
-.L0804D418: .4byte 0x0203CD14
+.L0804D418: .4byte gEkrDistanceType
 .L0804D41C:
 	movs r0, #0xa
 .L0804D41E:
@@ -21644,7 +20244,7 @@ func_fe6_0804D44C: @ 0x0804D44C
 	str r0, [r1]
 	ldr r0, [r4, #0x60]
 	bl BasRemove
-	ldr r0, .L0804D490 @ =0x0203CD14
+	ldr r0, .L0804D490 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -21659,7 +20259,7 @@ func_fe6_0804D44C: @ 0x0804D44C
 	b .L0804D49E
 	.align 2, 0
 .L0804D48C: .4byte gUnk_Banim_02017744
-.L0804D490: .4byte 0x0203CD14
+.L0804D490: .4byte gEkrDistanceType
 .L0804D494: .4byte gUnk_Banim_02017750
 .L0804D498:
 	adds r0, r4, #0
@@ -21907,7 +20507,7 @@ func_fe6_0804D664: @ 0x0804D664
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804D728
 	movs r1, #0x80
@@ -22406,7 +21006,7 @@ func_fe6_0804DAFC: @ 0x0804DAFC
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	movs r1, #0x80
 	lsls r1, r1, #1
 	ldr r0, [r5, #0x5c]
@@ -22956,7 +21556,7 @@ func_fe6_0804DF80: @ 0x0804DF80
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L0804E038
 .L0804DFA6:
 	movs r1, #0x2c
@@ -23167,7 +21767,7 @@ func_fe6_0804E124: @ 0x0804E124
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	adds r0, r5, #0
 	movs r1, #9
 	bl func_fe6_0804E1C0
@@ -23257,7 +21857,7 @@ func_fe6_0804E1C0: @ 0x0804E1C0
 	adds r0, r5, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	b .L0804E250
 	.align 2, 0
 .L0804E220: .4byte gUnk_Banim_02017744
@@ -23572,7 +22172,7 @@ func_fe6_0804E484: @ 0x0804E484
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0804E4B2:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -23935,7 +22535,7 @@ func_fe6_0804E778: @ 0x0804E778
 	bl func_fe6_0804799C
 	bl func_fe6_080474C8
 	bl func_fe6_08047500
-	ldr r0, .L0804E7E8 @ =0x0203CD14
+	ldr r0, .L0804E7E8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -23954,7 +22554,7 @@ func_fe6_0804E778: @ 0x0804E778
 .L0804E7DC: .4byte gUnk_085D119C
 .L0804E7E0: .4byte gUnk_0813A6F8
 .L0804E7E4: .4byte gUnk_0813BA64
-.L0804E7E8: .4byte 0x0203CD14
+.L0804E7E8: .4byte gEkrDistanceType
 .L0804E7EC:
 	movs r0, #1
 	movs r1, #0xe8
@@ -24592,7 +23192,7 @@ func_fe6_0804ECF4: @ 0x0804ECF4
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0804ED1E:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -24675,7 +23275,7 @@ func_fe6_0804ED94: @ 0x0804ED94
 	lsls r1, r1, #5
 	bl func_fe6_08047ACC
 	bl func_fe6_08047500
-	ldr r0, .L0804EE04 @ =0x0203CD14
+	ldr r0, .L0804EE04 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -24696,7 +23296,7 @@ func_fe6_0804ED94: @ 0x0804ED94
 .L0804EDF8: .4byte gUnk_085D12D4
 .L0804EDFC: .4byte gUnk_085D12DC
 .L0804EE00: .4byte gUnk_0812C68C
-.L0804EE04: .4byte 0x0203CD14
+.L0804EE04: .4byte gEkrDistanceType
 .L0804EE08:
 	movs r0, #1
 	movs r1, #0xe8
@@ -24977,7 +23577,7 @@ func_fe6_0804F03C: @ 0x0804F03C
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B80C
 	adds r6, r0, #0
-	ldr r0, .L0804F068 @ =0x0203CD14
+	ldr r0, .L0804F068 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -24990,7 +23590,7 @@ func_fe6_0804F03C: @ 0x0804F03C
 	mov sb, r0
 	b .L0804F078
 	.align 2, 0
-.L0804F068: .4byte 0x0203CD14
+.L0804F068: .4byte gEkrDistanceType
 .L0804F06C:
 	movs r5, #0x28
 	movs r7, #0x3c
@@ -25026,7 +23626,7 @@ func_fe6_0804F03C: @ 0x0804F03C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L0804F138
 .L0804F0B8:
 	cmp r0, r7
@@ -25304,7 +23904,7 @@ func_fe6_0804F2D0: @ 0x0804F2D0
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L0804F340 @ =0x0203CD14
+	ldr r0, .L0804F340 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -25325,7 +23925,7 @@ func_fe6_0804F2D0: @ 0x0804F2D0
 .L0804F334: .4byte gUnk_085D1430
 .L0804F338: .4byte gUnk_085D13DC
 .L0804F33C: .4byte gUnk_08138BF0
-.L0804F340: .4byte 0x0203CD14
+.L0804F340: .4byte gEkrDistanceType
 .L0804F344:
 	movs r0, #1
 	movs r1, #0xe8
@@ -25411,7 +24011,7 @@ func_fe6_0804F3B8: @ 0x0804F3B8
 	bl func_fe6_0804799C
 	bl func_fe6_080474C8
 	bl func_fe6_08047500
-	ldr r0, .L0804F424 @ =0x0203CD14
+	ldr r0, .L0804F424 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -25430,7 +24030,7 @@ func_fe6_0804F3B8: @ 0x0804F3B8
 .L0804F418: .4byte gUnk_085D1484
 .L0804F41C: .4byte gUnk_0813A6F8
 .L0804F420: .4byte gUnk_0813B8B4
-.L0804F424: .4byte 0x0203CD14
+.L0804F424: .4byte gEkrDistanceType
 .L0804F428:
 	movs r0, #1
 	movs r1, #0xe8
@@ -25686,7 +24286,7 @@ func_fe6_0804F600: @ 0x0804F600
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0804F636:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -25834,7 +24434,7 @@ func_fe6_0804F738: @ 0x0804F738
 	ldr r0, .L0804F7A0 @ =gUnk_081521C0
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L0804F7A4 @ =0x0203CD14
+	ldr r0, .L0804F7A4 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -25855,7 +24455,7 @@ func_fe6_0804F738: @ 0x0804F738
 .L0804F798: .4byte gUnk_085D1504
 .L0804F79C: .4byte gUnk_085D151C
 .L0804F7A0: .4byte gUnk_081521C0
-.L0804F7A4: .4byte 0x0203CD14
+.L0804F7A4: .4byte gEkrDistanceType
 .L0804F7A8:
 	movs r0, #1
 	movs r1, #0xe8
@@ -25942,7 +24542,7 @@ func_fe6_0804F820: @ 0x0804F820
 	ldr r0, .L0804F888 @ =gUnk_0814A498
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L0804F88C @ =0x0203CD14
+	ldr r0, .L0804F88C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -25963,7 +24563,7 @@ func_fe6_0804F820: @ 0x0804F820
 .L0804F880: .4byte gUnk_085D154C
 .L0804F884: .4byte gUnk_085D1578
 .L0804F888: .4byte gUnk_0814A498
-.L0804F88C: .4byte 0x0203CD14
+.L0804F88C: .4byte gEkrDistanceType
 .L0804F890:
 	movs r0, #1
 	movs r1, #0xe8
@@ -26452,7 +25052,7 @@ func_fe6_0804FC64: @ 0x0804FC64
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0804FC8E:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -26977,7 +25577,7 @@ func_fe6_080500B8: @ 0x080500B8
 	adds r5, r0, #0
 	bl func_fe6_08047C28
 	adds r2, r0, #0
-	ldr r0, .L08050110 @ =0x0203CD14
+	ldr r0, .L08050110 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	movs r3, #0x3a
@@ -27007,10 +25607,10 @@ func_fe6_080500B8: @ 0x080500B8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L080501B0
 	.align 2, 0
-.L08050110: .4byte 0x0203CD14
+.L08050110: .4byte gEkrDistanceType
 .L08050114:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -27401,7 +26001,7 @@ func_fe6_080503F8: @ 0x080503F8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L080504E8
 .L08050450:
 	movs r0, #0x2c
@@ -27506,7 +26106,7 @@ func_fe6_080504F0: @ 0x080504F0
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L08050560 @ =0x0203CD14
+	ldr r0, .L08050560 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -27527,7 +26127,7 @@ func_fe6_080504F0: @ 0x080504F0
 .L08050554: .4byte gUnk_085D179C
 .L08050558: .4byte gUnk_085D1840
 .L0805055C: .4byte gUnk_0815F880
-.L08050560: .4byte 0x0203CD14
+.L08050560: .4byte gEkrDistanceType
 .L08050564:
 	movs r0, #1
 	movs r1, #0x18
@@ -27607,7 +26207,7 @@ func_fe6_080505A0: @ 0x080505A0
 	adds r0, r3, #0
 	adds r0, #0x46
 	strb r4, [r0]
-	ldr r0, .L0805063C @ =0x0203CD14
+	ldr r0, .L0805063C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -27629,7 +26229,7 @@ func_fe6_080505A0: @ 0x080505A0
 .L08050630: .4byte gUnk_085D1840
 .L08050634: .4byte gUnk_0815F8A0
 .L08050638: .4byte gDispIo
-.L0805063C: .4byte 0x0203CD14
+.L0805063C: .4byte gEkrDistanceType
 .L08050640:
 	movs r0, #1
 	movs r1, #0x18
@@ -27949,7 +26549,7 @@ func_fe6_0805089C: @ 0x0805089C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L080508D2:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -28112,7 +26712,7 @@ func_fe6_080509E4: @ 0x080509E4
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L08050A5C @ =0x0203CD14
+	ldr r0, .L08050A5C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -28133,7 +26733,7 @@ func_fe6_080509E4: @ 0x080509E4
 .L08050A50: .4byte gUnk_085D1A88
 .L08050A54: .4byte gUnk_085D19BC
 .L08050A58: .4byte gUnk_0816B328
-.L08050A5C: .4byte 0x0203CD14
+.L08050A5C: .4byte gEkrDistanceType
 .L08050A60:
 	movs r0, #1
 	movs r1, #0xe8
@@ -28182,7 +26782,7 @@ func_fe6_08050A70: @ 0x08050A70
 	movs r1, #0x7f
 	ands r0, r1
 	strb r0, [r2, #1]
-	ldr r0, .L08050AFC @ =0x0203CD14
+	ldr r0, .L08050AFC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -28204,7 +26804,7 @@ func_fe6_08050A70: @ 0x08050A70
 .L08050AF0: .4byte gUnk_085D19BC
 .L08050AF4: .4byte gUnk_0816B328
 .L08050AF8: .4byte gDispIo
-.L08050AFC: .4byte 0x0203CD14
+.L08050AFC: .4byte gEkrDistanceType
 .L08050B00:
 	movs r0, #1
 	movs r1, #0xe8
@@ -28329,7 +26929,7 @@ func_fe6_08050B94: @ 0x08050B94
 	str r0, [r4, #0x50]
 	ldr r0, .L08050C28 @ =gUnk_085D19BC
 	str r0, [r4, #0x54]
-	ldr r0, .L08050C2C @ =0x0203CD14
+	ldr r0, .L08050C2C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -28339,7 +26939,7 @@ func_fe6_08050B94: @ 0x08050B94
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08050C14:
 	adds r0, r4, #0
 	bl Proc_Break
@@ -28351,7 +26951,7 @@ func_fe6_08050B94: @ 0x08050B94
 .L08050C20: .4byte gUnk_0811A218
 .L08050C24: .4byte gUnk_085D1A88
 .L08050C28: .4byte gUnk_085D19BC
-.L08050C2C: .4byte 0x0203CD14
+.L08050C2C: .4byte gEkrDistanceType
 
 	thumb_func_start func_fe6_08050C30
 func_fe6_08050C30: @ 0x08050C30
@@ -28368,7 +26968,7 @@ func_fe6_08050C30: @ 0x08050C30
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	ble .L08050C96
-	ldr r0, .L08050C6C @ =0x0203CD14
+	ldr r0, .L08050C6C @ =gEkrDistanceType
 	movs r3, #0
 	ldrsh r0, [r0, r3]
 	cmp r0, #0
@@ -28383,7 +26983,7 @@ func_fe6_08050C30: @ 0x08050C30
 	bl SetBgOffset
 	b .L08050C7A
 	.align 2, 0
-.L08050C6C: .4byte 0x0203CD14
+.L08050C6C: .4byte gEkrDistanceType
 .L08050C70:
 	movs r0, #1
 	movs r1, #0x18
@@ -28615,7 +27215,7 @@ func_fe6_08050E1C: @ 0x08050E1C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08050E46:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -28708,7 +27308,7 @@ func_fe6_08050ED4: @ 0x08050ED4
 	ldr r0, .L08050F3C @ =gUnk_085D1C20
 	str r0, [r5, #0x58]
 	bl func_fe6_08047500
-	ldr r0, .L08050F40 @ =0x0203CD14
+	ldr r0, .L08050F40 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -28729,7 +27329,7 @@ func_fe6_08050ED4: @ 0x08050ED4
 .L08050F34: .4byte gUnk_085D1CA4
 .L08050F38: .4byte gUnk_085D1B9C
 .L08050F3C: .4byte gUnk_085D1C20
-.L08050F40: .4byte 0x0203CD14
+.L08050F40: .4byte gEkrDistanceType
 .L08050F44:
 	movs r0, #1
 	movs r1, #0xe8
@@ -28777,7 +27377,7 @@ func_fe6_08050F54: @ 0x08050F54
 	add r5, r8
 	ldr r2, [r5]
 	bl func_fe6_0804799C
-	ldr r0, .L08050FBC @ =0x0203CD14
+	ldr r0, .L08050FBC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -28790,7 +27390,7 @@ func_fe6_08050F54: @ 0x08050F54
 	ldr r0, .L08050FC0 @ =gBg1Tm
 	b .L08050FC8
 	.align 2, 0
-.L08050FBC: .4byte 0x0203CD14
+.L08050FBC: .4byte gEkrDistanceType
 .L08050FC0: .4byte gBg1Tm
 .L08050FC4:
 	ldr r0, .L08050FD8 @ =gBg1Tm+0x3A
@@ -28910,7 +27510,7 @@ func_fe6_0805108C: @ 0x0805108C
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L080510BA:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -29317,7 +27917,7 @@ func_fe6_080513E8: @ 0x080513E8
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08051416:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -29461,7 +28061,7 @@ func_fe6_0805151C: @ 0x0805151C
 	ldr r0, .L08051584 @ =gUnk_081408CC
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L08051588 @ =0x0203CD14
+	ldr r0, .L08051588 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -29482,7 +28082,7 @@ func_fe6_0805151C: @ 0x0805151C
 .L0805157C: .4byte gUnk_085D21A8
 .L08051580: .4byte gUnk_085D21DC
 .L08051584: .4byte gUnk_081408CC
-.L08051588: .4byte 0x0203CD14
+.L08051588: .4byte gEkrDistanceType
 .L0805158C:
 	movs r0, #1
 	movs r1, #0xe8
@@ -29982,7 +28582,7 @@ func_fe6_08051908: @ 0x08051908
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x10
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 	b .L080519CE
@@ -30008,7 +28608,7 @@ func_fe6_08051908: @ 0x08051908
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x10
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 .L080519CE:
@@ -30457,7 +29057,7 @@ func_fe6_08051D0C: @ 0x08051D0C
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L08051DF6
 .L08051D74:
 	movs r0, #0x2c
@@ -30551,7 +29151,7 @@ func_fe6_08051DFC: @ 0x08051DFC
 	ldr r0, .L08051E64 @ =gUnk_08176A6C
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L08051E68 @ =0x0203CD14
+	ldr r0, .L08051E68 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -30572,7 +29172,7 @@ func_fe6_08051DFC: @ 0x08051DFC
 .L08051E5C: .4byte gUnk_085D23D8
 .L08051E60: .4byte gUnk_085D2388
 .L08051E64: .4byte gUnk_08176A6C
-.L08051E68: .4byte 0x0203CD14
+.L08051E68: .4byte gEkrDistanceType
 .L08051E6C:
 	movs r0, #1
 	movs r1, #0x18
@@ -30610,7 +29210,7 @@ func_fe6_08051E80: @ 0x08051E80
 	ldr r0, .L08051EE8 @ =gUnk_08176A6C
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L08051EEC @ =0x0203CD14
+	ldr r0, .L08051EEC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -30631,7 +29231,7 @@ func_fe6_08051E80: @ 0x08051E80
 .L08051EE0: .4byte gUnk_085D2434
 .L08051EE4: .4byte gUnk_085D2428
 .L08051EE8: .4byte gUnk_08176A6C
-.L08051EEC: .4byte 0x0203CD14
+.L08051EEC: .4byte gEkrDistanceType
 .L08051EF0:
 	movs r0, #1
 	movs r1, #0xe8
@@ -30669,7 +29269,7 @@ func_fe6_08051F04: @ 0x08051F04
 	ldr r0, .L08051F6C @ =gUnk_08176A4C
 	movs r1, #0x20
 	bl func_fe6_08047AF4
-	ldr r0, .L08051F70 @ =0x0203CD14
+	ldr r0, .L08051F70 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -30690,7 +29290,7 @@ func_fe6_08051F04: @ 0x08051F04
 .L08051F64: .4byte gUnk_085D2494
 .L08051F68: .4byte gUnk_085D2440
 .L08051F6C: .4byte gUnk_08176A4C
-.L08051F70: .4byte 0x0203CD14
+.L08051F70: .4byte gEkrDistanceType
 .L08051F74:
 	movs r0, #1
 	movs r1, #0xe8
@@ -30883,7 +29483,7 @@ func_fe6_080520CC: @ 0x080520CC
 	bne .L08052100
 	ldr r0, [r4, #0x5c]
 	subs r1, #1
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08052100:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -31055,7 +29655,7 @@ func_fe6_08052238: @ 0x08052238
 	bl func_fe6_08047AF4
 	bl func_fe6_080474C8
 	bl func_fe6_08047500
-	ldr r0, .L080522A4 @ =0x0203CD14
+	ldr r0, .L080522A4 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -31074,7 +29674,7 @@ func_fe6_08052238: @ 0x08052238
 .L08052298: .4byte gUnk_085D2544
 .L0805229C: .4byte gUnk_085D2530
 .L080522A0: .4byte gUnk_081BB35C
-.L080522A4: .4byte 0x0203CD14
+.L080522A4: .4byte gEkrDistanceType
 .L080522A8:
 	movs r0, #1
 	movs r1, #0x18
@@ -31215,7 +29815,7 @@ func_fe6_0805238C: @ 0x0805238C
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 	b .L0805241E
@@ -31468,7 +30068,7 @@ func_fe6_08052598: @ 0x08052598
 	strh r0, [r4, #0x3a]
 	movs r0, #0xa0
 	strh r0, [r4, #0x3c]
-	ldr r0, .L08052630 @ =0x0203CD14
+	ldr r0, .L08052630 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -31504,7 +30104,7 @@ func_fe6_08052598: @ 0x08052598
 .L08052624: .4byte gUnk_Banim_02017744
 .L08052628: .4byte gUnk_085D25A8
 .L0805262C: .4byte 0x0000FFEC
-.L08052630: .4byte 0x0203CD14
+.L08052630: .4byte gEkrDistanceType
 .L08052634: .4byte gUnk_08603B2C
 .L08052638:
 	ldr r0, .L0805263C @ =gUnk_08603B1C
@@ -31630,7 +30230,7 @@ func_fe6_080526F4: @ 0x080526F4
 	strh r0, [r5, #0x3a]
 	movs r0, #0x64
 	strh r0, [r5, #0x3c]
-	ldr r0, .L08052798 @ =0x0203CD14
+	ldr r0, .L08052798 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -31682,7 +30282,7 @@ func_fe6_080526F4: @ 0x080526F4
 .L0805278C: .4byte gUnk_Banim_02017744
 .L08052790: .4byte gUnk_085D25C0
 .L08052794: .4byte 0x0000FFF6
-.L08052798: .4byte 0x0203CD14
+.L08052798: .4byte gEkrDistanceType
 .L0805279C: .4byte gUnk_08603B34
 .L080527A0: .4byte gUnk_08603B58
 
@@ -32026,7 +30626,7 @@ func_fe6_08052A28: @ 0x08052A28
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08052A56:
 	movs r0, #0x2c
 	ldrsh r1, [r6, r0]
@@ -32210,7 +30810,7 @@ func_fe6_08052BA8: @ 0x08052BA8
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	bl func_fe6_08047500
 	ldr r2, .L08052C30 @ =gDispIo
 	movs r0, #0x21
@@ -33078,7 +31678,7 @@ func_fe6_0805327C: @ 0x0805327C
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08053318
 	ldr r0, [r5, #0x5c]
@@ -33175,7 +31775,7 @@ func_fe6_08053340: @ 0x08053340
 	lsls r1, r2, #0x10
 	cmp r0, r1
 	bne .L08053408
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080533F2
 	ldr r3, .L08053414 @ =gDispIo
@@ -33277,7 +31877,7 @@ func_fe6_08053420: @ 0x08053420
 	movs r0, #0x14
 	strh r0, [r5, #0xa]
 	bl BasSort
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L08053486
 	ldr r0, .L080534B0 @ =0x0000F3FF
@@ -33545,7 +32145,7 @@ func_fe6_080535F8: @ 0x080535F8
 	lsls r0, r0, #1
 	strh r0, [r4, #2]
 	strh r0, [r4, #4]
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L080536AE
 	ldr r0, .L080536C0 @ =0x0000F3FF
@@ -33697,7 +32297,7 @@ func_fe6_080537A0: @ 0x080537A0
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L080537D6:
 	movs r2, #0x2c
 	ldrsh r1, [r6, r2]
@@ -34124,7 +32724,7 @@ func_fe6_08053AFC: @ 0x08053AFC
 	ldrh r0, [r6, #4]
 	subs r0, #0x10
 	strh r0, [r6, #4]
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	beq .L08053B7E
 	ldrh r0, [r6, #2]
@@ -34475,7 +33075,7 @@ func_fe6_08053E04: @ 0x08053E04
 	ldr r0, [r6, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08053E3A:
 	movs r2, #0x2c
 	ldrsh r1, [r6, r2]
@@ -34719,7 +33319,7 @@ func_fe6_08053FF4: @ 0x08053FF4
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x20
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 	bl func_fe6_08047500
@@ -34967,7 +33567,7 @@ func_fe6_080541FC: @ 0x080541FC
 	movs r1, #0
 	movs r2, #0
 	bl SetBgOffset
-	ldr r0, .L08054278 @ =0x0203CD14
+	ldr r0, .L08054278 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -34988,7 +33588,7 @@ func_fe6_080541FC: @ 0x080541FC
 .L0805426C: .4byte gUnk_085D2D20
 .L08054270: .4byte gUnk_085D2C54
 .L08054274: .4byte gUnk_08193598
-.L08054278: .4byte 0x0203CD14
+.L08054278: .4byte gEkrDistanceType
 .L0805427C:
 	movs r0, #1
 	movs r1, #0xe8
@@ -35026,7 +33626,7 @@ func_fe6_0805428C: @ 0x0805428C
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L080542FC @ =0x0203CD14
+	ldr r0, .L080542FC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -35047,7 +33647,7 @@ func_fe6_0805428C: @ 0x0805428C
 .L080542F0: .4byte gUnk_085D1430
 .L080542F4: .4byte gUnk_085D13DC
 .L080542F8: .4byte gUnk_081935B8
-.L080542FC: .4byte 0x0203CD14
+.L080542FC: .4byte gEkrDistanceType
 .L08054300:
 	movs r0, #1
 	movs r1, #0xe8
@@ -35087,7 +33687,7 @@ func_fe6_08054310: @ 0x08054310
 	adds r4, r4, r6
 	ldr r2, [r4]
 	bl func_fe6_0804799C
-	ldr r0, .L08054374 @ =0x0203CD14
+	ldr r0, .L08054374 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -35105,7 +33705,7 @@ func_fe6_08054310: @ 0x08054310
 	bl func_fe6_0805B094
 	b .L0805438C
 	.align 2, 0
-.L08054374: .4byte 0x0203CD14
+.L08054374: .4byte gEkrDistanceType
 .L08054378: .4byte gBg1Tm
 .L0805437C:
 	ldr r0, .L08054394 @ =gBg1Tm+0x3A
@@ -35611,7 +34211,7 @@ func_fe6_080546D0: @ 0x080546D0
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L08054840
 .L0805478A:
 	movs r3, #0x2c
@@ -35810,7 +34410,7 @@ func_fe6_08054870: @ 0x08054870
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L080549E0
 .L0805492A:
 	movs r3, #0x2c
@@ -36015,7 +34615,7 @@ func_fe6_08054A10: @ 0x08054A10
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L08054B90
 .L08054ADA:
 	movs r3, #0x2c
@@ -36164,7 +34764,7 @@ func_fe6_08054B98: @ 0x08054B98
 	movs r1, #0x80
 	lsls r1, r1, #3
 	bl func_fe6_08047ACC
-	ldr r0, .L08054C3C @ =0x0203CD14
+	ldr r0, .L08054C3C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -36180,7 +34780,7 @@ func_fe6_08054B98: @ 0x08054B98
 .L08054C30: .4byte gUnk_0811A898
 .L08054C34: .4byte gUnk_081AB340
 .L08054C38: .4byte gUnk_081AB1B0
-.L08054C3C: .4byte 0x0203CD14
+.L08054C3C: .4byte gEkrDistanceType
 .L08054C40:
 	movs r0, #1
 	movs r1, #0xe8
@@ -36246,7 +34846,7 @@ func_fe6_08054C54: @ 0x08054C54
 	movs r1, #0x80
 	lsls r1, r1, #3
 	bl func_fe6_08047ACC
-	ldr r0, .L08054CF0 @ =0x0203CD14
+	ldr r0, .L08054CF0 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -36262,7 +34862,7 @@ func_fe6_08054C54: @ 0x08054C54
 .L08054CE4: .4byte gUnk_0811A89E
 .L08054CE8: .4byte gUnk_081AB340
 .L08054CEC: .4byte gUnk_081AB1B0
-.L08054CF0: .4byte 0x0203CD14
+.L08054CF0: .4byte gEkrDistanceType
 .L08054CF4:
 	movs r0, #1
 	movs r1, #0x18
@@ -36846,7 +35446,7 @@ func_fe6_08055134: @ 0x08055134
 	ldr r0, .L0805517C @ =gUnk_085F1FC0
 	mov r8, r0
 	ldr r7, .L08055180 @ =gUnk_085F35C0
-	ldr r0, .L08055184 @ =0x0203CD14
+	ldr r0, .L08055184 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -36861,7 +35461,7 @@ func_fe6_08055134: @ 0x08055134
 	.align 2, 0
 .L0805517C: .4byte gUnk_085F1FC0
 .L08055180: .4byte gUnk_085F35C0
-.L08055184: .4byte 0x0203CD14
+.L08055184: .4byte gEkrDistanceType
 .L08055188:
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
@@ -36876,7 +35476,7 @@ func_fe6_08055134: @ 0x08055134
 	ldr r2, .L080551BC @ =gUnk_085F2034
 	mov r8, r2
 	ldr r7, .L080551C0 @ =gUnk_085F3634
-	ldr r0, .L080551C4 @ =0x0203CD14
+	ldr r0, .L080551C4 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -36891,7 +35491,7 @@ func_fe6_08055134: @ 0x08055134
 	.align 2, 0
 .L080551BC: .4byte gUnk_085F2034
 .L080551C0: .4byte gUnk_085F3634
-.L080551C4: .4byte 0x0203CD14
+.L080551C4: .4byte gEkrDistanceType
 .L080551C8:
 	ldr r0, [r4, #0x5c]
 	bl func_fe6_0804B6C4
@@ -37551,7 +36151,7 @@ func_fe6_080556F8: @ 0x080556F8
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0805572E:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -37882,7 +36482,7 @@ func_fe6_08055998: @ 0x08055998
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 	b .L08055A92
 .L080559EE:
 	movs r3, #0x2c
@@ -37995,7 +36595,7 @@ func_fe6_08055AA0: @ 0x08055AA0
 	lsls r1, r1, #6
 	bl func_fe6_08047ACC
 	bl func_fe6_08047500
-	ldr r0, .L08055B18 @ =0x0203CD14
+	ldr r0, .L08055B18 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -38016,7 +36616,7 @@ func_fe6_08055AA0: @ 0x08055AA0
 .L08055B0C: .4byte gUnk_085D30D0
 .L08055B10: .4byte gUnk_081B4254
 .L08055B14: .4byte gUnk_081B2348
-.L08055B18: .4byte 0x0203CD14
+.L08055B18: .4byte gEkrDistanceType
 .L08055B1C:
 	movs r0, #1
 	movs r1, #0x18
@@ -38189,7 +36789,7 @@ func_fe6_08055C30: @ 0x08055C30
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08055C84:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -38298,7 +36898,7 @@ func_fe6_08055D30: @ 0x08055D30
 	lsls r1, r1, #6
 	bl func_fe6_08047ACC
 	bl func_fe6_08047500
-	ldr r0, .L08055DA8 @ =0x0203CD14
+	ldr r0, .L08055DA8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -38319,7 +36919,7 @@ func_fe6_08055D30: @ 0x08055D30
 .L08055D9C: .4byte gUnk_085D3168
 .L08055DA0: .4byte gUnk_081B6688
 .L08055DA4: .4byte gUnk_081B57BC
-.L08055DA8: .4byte 0x0203CD14
+.L08055DA8: .4byte gEkrDistanceType
 .L08055DAC:
 	movs r0, #1
 	movs r1, #0x18
@@ -38437,7 +37037,7 @@ func_fe6_08055E6C: @ 0x08055E6C
 	ldrh r0, [r5, #4]
 	subs r0, #8
 	strh r0, [r5, #4]
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	beq .L08055EAC
 	ldrh r0, [r5, #2]
@@ -38562,7 +37162,7 @@ func_fe6_08055F60: @ 0x08055F60
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08055F96:
 	movs r2, #0x2c
 	ldrsh r1, [r4, r2]
@@ -38857,7 +37457,7 @@ func_fe6_080561DC: @ 0x080561DC
 	ldr r0, [r4, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L0805620A:
 	movs r0, #0x2c
 	ldrsh r1, [r4, r0]
@@ -38974,7 +37574,7 @@ func_fe6_080562C0: @ 0x080562C0
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 	bl func_fe6_08047500
@@ -39575,7 +38175,7 @@ func_fe6_080567E8: @ 0x080567E8
 	ldr r0, [r5, #0x5c]
 	movs r1, #1
 	rsbs r1, r1, #0
-	bl func_fe6_08045C90
+	bl NewEfxFarAttackWithDistance
 .L08056814:
 	movs r0, #0x2c
 	ldrsh r1, [r5, r0]
@@ -40178,7 +38778,7 @@ func_fe6_08056C9C: @ 0x08056C9C
 	lsls r1, r1, #6
 	bl func_fe6_08047ACC
 	bl func_fe6_08047500
-	ldr r0, .L08056D14 @ =0x0203CD14
+	ldr r0, .L08056D14 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -40199,7 +38799,7 @@ func_fe6_08056C9C: @ 0x08056C9C
 .L08056D08: .4byte gUnk_085D3524
 .L08056D0C: .4byte gUnk_08124B64
 .L08056D10: .4byte gUnk_0812479C
-.L08056D14: .4byte 0x0203CD14
+.L08056D14: .4byte gEkrDistanceType
 .L08056D18:
 	movs r0, #1
 	movs r1, #0xe8
@@ -40511,7 +39111,7 @@ NewEfxHurtmutEff00: @ 0x08056F50
 	bl SpawnProc
 	str r4, [r0, #0x5c]
 	strh r5, [r0, #0x2c]
-	ldr r0, .L08056F84 @ =0x0203CD14
+	ldr r0, .L08056F84 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -40522,7 +39122,7 @@ NewEfxHurtmutEff00: @ 0x08056F50
 	.align 2, 0
 .L08056F7C: .4byte gUnk_Banim_02017744
 .L08056F80: .4byte gUnk_085D3594
-.L08056F84: .4byte 0x0203CD14
+.L08056F84: .4byte gEkrDistanceType
 .L08056F88:
 	adds r0, r4, #0
 	bl func_fe6_080570A0
@@ -40920,7 +39520,7 @@ func_fe6_08057224: @ 0x08057224
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L080572D8 @ =0x0203CD14
+	ldr r0, .L080572D8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -40939,7 +39539,7 @@ func_fe6_08057224: @ 0x08057224
 .L080572CC: .4byte gUnk_085D3664
 .L080572D0: .4byte gUnk_08129504
 .L080572D4: .4byte gUnk_0812A258
-.L080572D8: .4byte 0x0203CD14
+.L080572D8: .4byte gEkrDistanceType
 .L080572DC:
 	movs r0, #1
 	movs r1, #0xe8
@@ -41457,7 +40057,7 @@ func_fe6_08057754: @ 0x08057754
 	adds r5, r0, #0
 	adds r6, r1, #0
 	adds r7, r2, #0
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	adds r4, r0, #0
 	cmp r4, #0
 	bne .L0805778E
@@ -41608,13 +40208,13 @@ func_fe6_08057860: @ 0x08057860
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805789C
-	ldr r0, .L08057898 @ =0x0203CD7C
+	ldr r0, .L08057898 @ =gpEkrBattleUnitLeft
 	b .L0805789E
 	.align 2, 0
 .L08057894: .4byte gUnk_Banim_02017760
-.L08057898: .4byte 0x0203CD7C
+.L08057898: .4byte gpEkrBattleUnitLeft
 .L0805789C:
-	ldr r0, .L080578EC @ =0x0203CD80
+	ldr r0, .L080578EC @ =gpEkrBattleUnitRight
 .L0805789E:
 	ldr r0, [r0]
 	adds r4, r0, #0
@@ -41653,7 +40253,7 @@ func_fe6_08057860: @ 0x08057860
 	strh r0, [r2, #0x10]
 	b .L08057916
 	.align 2, 0
-.L080578EC: .4byte 0x0203CD80
+.L080578EC: .4byte gpEkrBattleUnitRight
 .L080578F0: .4byte gAnims
 .L080578F4:
 	ldr r0, .L0805791C @ =gUnk_085D373C
@@ -42031,13 +40631,13 @@ func_fe6_08057BB0: @ 0x08057BB0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r5, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L08057BE6:
 	ldrh r0, [r5, #0x2c]
 	cmp r0, #0x64
@@ -42319,7 +40919,7 @@ NewEfxMantBatabata: @ 0x08057D20
 	strh r0, [r4, #8]
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	bl func_fe6_0804B8B0
+	bl SetAnimStateHiddenForDragon
 	add sp, #4
 	pop {r3}
 	mov r8, r3
@@ -42603,7 +41203,7 @@ func_fe6_0805803C: @ 0x0805803C
 	adds r0, r2, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 .L08058094:
 	movs r0, #1
 	ldrh r4, [r4, #0x12]
@@ -43596,8 +42196,8 @@ func_fe6_0805884C: @ 0x0805884C
 .L08058878: .4byte gUnk_Banim_0201E7C4
 .L0805887C: .4byte gUnk_Banim_0201E7C8
 
-	thumb_func_start func_fe6_08058880
-func_fe6_08058880: @ 0x08058880
+	thumb_func_start EkrDragonIntroDone
+EkrDragonIntroDone: @ 0x08058880
 	push {r4, lr}
 	ldr r4, .L08058898 @ =gUnk_Banim_0201E7C0
 	bl func_fe6_0804B6C4
@@ -43652,8 +42252,8 @@ func_fe6_080588BC: @ 0x080588BC
 	pop {r1}
 	bx r1
 
-	thumb_func_start func_fe6_080588E0
-func_fe6_080588E0: @ 0x080588E0
+	thumb_func_start GetEkrDragonStatusType
+GetEkrDragonStatusType: @ 0x080588E0
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
@@ -43709,8 +42309,8 @@ func_fe6_080588E0: @ 0x080588E0
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805894C
-func_fe6_0805894C: @ 0x0805894C
+	thumb_func_start GetBanimDragonStatusType
+GetBanimDragonStatusType: @ 0x0805894C
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
@@ -43750,8 +42350,8 @@ func_fe6_0805894C: @ 0x0805894C
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08058998
-func_fe6_08058998: @ 0x08058998
+	thumb_func_start CheckEkrDragonDead1
+CheckEkrDragonDead1: @ 0x08058998
 	push {r4, lr}
 	movs r4, #0
 	movs r0, #0
@@ -43779,11 +42379,11 @@ func_fe6_08058998: @ 0x08058998
 func_fe6_080589C4: @ 0x080589C4
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_08058A08
+	bl GetEkrDragonStatusIdx
 	ldrh r0, [r0]
 	cmp r0, #1
 	beq .L080589F4
-	ldr r0, .L080589EC @ =0x0203CD14
+	ldr r0, .L080589EC @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #2
 	bne .L080589E8
@@ -43797,7 +42397,7 @@ func_fe6_080589C4: @ 0x080589C4
 	movs r0, #0
 	b .L080589F6
 	.align 2, 0
-.L080589EC: .4byte 0x0203CD14
+.L080589EC: .4byte gEkrDistanceType
 .L080589F0: .4byte gEkrInitPosReal
 .L080589F4:
 	movs r0, #1
@@ -43815,8 +42415,8 @@ func_fe6_080589FC: @ 0x080589FC
 	.align 2, 0
 .L08058A04: .4byte 0x0203CDE0
 
-	thumb_func_start func_fe6_08058A08
-func_fe6_08058A08: @ 0x08058A08
+	thumb_func_start GetEkrDragonStatusIdx
+GetEkrDragonStatusIdx: @ 0x08058A08
 	push {lr}
 	bl func_fe6_0804B6C4
 	lsls r0, r0, #1
@@ -43939,7 +42539,7 @@ func_fe6_08058ACC: @ 0x08058ACC
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08058B50
-	ldr r0, .L08058B74 @ =0x0203CD14
+	ldr r0, .L08058B74 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	movs r2, #0x1d
@@ -43993,7 +42593,7 @@ func_fe6_08058ACC: @ 0x08058ACC
 .L08058B68: .4byte gUnk_Banim_0201777C
 .L08058B6C: .4byte gUnk_081BF5B4
 .L08058B70: .4byte gUnk_Banim_0201977C
-.L08058B74: .4byte 0x0203CD14
+.L08058B74: .4byte gEkrDistanceType
 .L08058B78: .4byte gUnk_Banim_0201D414
 .L08058B7C: .4byte gBg3Tm
 .L08058B80: .4byte 0x06008000
@@ -44020,7 +42620,7 @@ func_fe6_08058B84: @ 0x08058B84
 	adds r1, r0, #0
 	cmp r1, #0
 	bne .L08058C08
-	ldr r0, .L08058C2C @ =0x0203CD14
+	ldr r0, .L08058C2C @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	movs r2, #0x1b
@@ -44074,7 +42674,7 @@ func_fe6_08058B84: @ 0x08058B84
 .L08058C20: .4byte gUnk_Banim_0201777C
 .L08058C24: .4byte gUnk_081BF6F4
 .L08058C28: .4byte gUnk_Banim_0201977C
-.L08058C2C: .4byte 0x0203CD14
+.L08058C2C: .4byte gEkrDistanceType
 .L08058C30: .4byte gUnk_Banim_0201D414
 .L08058C34: .4byte gBg3Tm
 .L08058C38: .4byte 0x06008000
@@ -44096,7 +42696,7 @@ func_fe6_08058C3C: @ 0x08058C3C
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L08058CBE
-	ldr r0, .L08058CDC @ =0x0203CD14
+	ldr r0, .L08058CDC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	movs r2, #0x21
@@ -44152,7 +42752,7 @@ func_fe6_08058C3C: @ 0x08058C3C
 .L08058CD0: .4byte gUnk_Banim_0201777C
 .L08058CD4: .4byte gUnk_081BF848
 .L08058CD8: .4byte gUnk_Banim_0201977C
-.L08058CDC: .4byte 0x0203CD14
+.L08058CDC: .4byte gEkrDistanceType
 .L08058CE0: .4byte gUnk_Banim_0201D414
 .L08058CE4: .4byte gBg3Tm
 .L08058CE8: .4byte 0x06008000
@@ -44231,7 +42831,7 @@ func_fe6_08058D34: @ 0x08058D34
 	movs r2, #0x1e
 	movs r3, #0x16
 	bl func_fe6_0805B1DC
-	ldr r0, .L08058DAC @ =0x0203CD14
+	ldr r0, .L08058DAC @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #1
@@ -44248,7 +42848,7 @@ func_fe6_08058D34: @ 0x08058D34
 .L08058DA0: .4byte gUnk_081BFA34
 .L08058DA4: .4byte gUnk_Banim_0201977C
 .L08058DA8: .4byte gBg3Tm
-.L08058DAC: .4byte 0x0203CD14
+.L08058DAC: .4byte gEkrDistanceType
 .L08058DB0:
 	cmp r0, #2
 	beq .L08058E04
@@ -44260,7 +42860,7 @@ func_fe6_08058D34: @ 0x08058D34
 	bl SetBgOffset
 	b .L08058E14
 .L08058DC2:
-	ldr r4, .L08058E00 @ =gEkrBgOffset
+	ldr r4, .L08058E00 @ =gEkrBgPosition
 	ldr r0, [r4]
 	adds r0, #0x30
 	bl func_fe6_08058CEC
@@ -44288,7 +42888,7 @@ func_fe6_08058D34: @ 0x08058D34
 	bl func_fe6_0805B094
 	b .L08058E14
 	.align 2, 0
-.L08058E00: .4byte gEkrBgOffset
+.L08058E00: .4byte gEkrBgPosition
 .L08058E04:
 	movs r0, #0x10
 	bl func_fe6_08058CEC
@@ -44410,7 +43010,7 @@ func_fe6_08058EC8: @ 0x08058EC8
 	thumb_func_start func_fe6_08058F00
 func_fe6_08058F00: @ 0x08058F00
 	push {lr}
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	adds r1, r0, #0
 	movs r0, #0x10
 	ands r0, r1
@@ -44432,11 +43032,11 @@ func_fe6_08058F00: @ 0x08058F00
 	bx r1
 	.align 2, 0
 
-	thumb_func_start func_fe6_08058F28
-func_fe6_08058F28: @ 0x08058F28
+	thumb_func_start InitEkrDragonStatus
+InitEkrDragonStatus: @ 0x08058F28
 	push {lr}
 	bl func_fe6_08058F00
-	bl func_fe6_0804B8B0
+	bl SetAnimStateHiddenForDragon
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -44444,12 +43044,12 @@ func_fe6_08058F28: @ 0x08058F28
 	thumb_func_start func_fe6_08058F38
 func_fe6_08058F38: @ 0x08058F38
 	push {lr}
-	bl func_fe6_08058998
+	bl CheckEkrDragonDead1
 	cmp r0, #0
 	beq .L08058F58
 	ldr r0, .L08058F54 @ =gAnims
 	ldr r0, [r0]
-	bl func_fe6_08058A08
+	bl GetEkrDragonStatusIdx
 	ldrh r0, [r0]
 	cmp r0, #1
 	bne .L08058F58
@@ -44506,7 +43106,7 @@ func_fe6_08058FA8: @ 0x08058FA8
 	ldr r4, .L08058FDC @ =gUnk_Banim_0201977C
 	adds r1, r4, #0
 	bl LZ77UnCompWram
-	ldr r0, .L08058FE0 @ =0x0203CD14
+	ldr r0, .L08058FE0 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r3, [r0, r1]
 	cmp r3, #0
@@ -44526,7 +43126,7 @@ func_fe6_08058FA8: @ 0x08058FA8
 	b .L08059006
 	.align 2, 0
 .L08058FDC: .4byte gUnk_Banim_0201977C
-.L08058FE0: .4byte 0x0203CD14
+.L08058FE0: .4byte gEkrDistanceType
 .L08058FE4: .4byte gBg3Tm
 .L08058FE8:
 	adds r0, r4, #0
@@ -44559,7 +43159,7 @@ func_fe6_08059018: @ 0x08059018
 	sub sp, #0x10
 	ldr r1, .L08059068 @ =gUnk_Banim_0201E7CC
 	bl LZ77UnCompWram
-	ldr r0, .L0805906C @ =0x0203CD14
+	ldr r0, .L0805906C @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	movs r2, #0x21
@@ -44586,7 +43186,7 @@ func_fe6_08059018: @ 0x08059018
 	str r3, [sp, #0xc]
 	movs r3, #0x42
 	bl func_fe6_0805B20C
-	ldr r0, .L08059074 @ =gEkrBgOffset
+	ldr r0, .L08059074 @ =gEkrBgPosition
 	ldr r0, [r0]
 	bl func_fe6_08058F60
 	add sp, #0x10
@@ -44594,9 +43194,9 @@ func_fe6_08059018: @ 0x08059018
 	bx r0
 	.align 2, 0
 .L08059068: .4byte gUnk_Banim_0201E7CC
-.L0805906C: .4byte 0x0203CD14
+.L0805906C: .4byte gEkrDistanceType
 .L08059070: .4byte gUnk_Banim_0201D414
-.L08059074: .4byte gEkrBgOffset
+.L08059074: .4byte gEkrBgPosition
 
 	thumb_func_start func_fe6_08059078
 func_fe6_08059078: @ 0x08059078
@@ -44620,12 +43220,12 @@ func_fe6_08059090: @ 0x08059090
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe6
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r4, r0]
 	movs r0, #0xe6
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	adds r0, r5, #0
 	bl Proc_Break
 	pop {r4, r5}
@@ -44734,13 +43334,13 @@ func_fe6_08059144: @ 0x08059144
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe8
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xe8
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0
 	strh r0, [r4, #0x2c]
 	adds r0, r4, #0
@@ -45154,13 +43754,13 @@ func_fe6_080594CC: @ 0x080594CC
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xe9
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xe9
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L08059504:
 	ldrh r0, [r4, #0x2c]
 	adds r0, #1
@@ -45908,13 +44508,13 @@ func_fe6_08059AD0: @ 0x08059AD0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xdc
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xdc
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L08059B2A:
 	ldr r0, [r4, #0x5c]
 	ldr r1, [r0, #0x20]
@@ -45926,13 +44526,13 @@ func_fe6_08059AD0: @ 0x08059AD0
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xde
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r4, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xde
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	ldr r0, [r4, #0x5c]
 	movs r1, #0x5b
 	bl func_fe6_0804A528
@@ -45979,13 +44579,13 @@ func_fe6_08059B78: @ 0x08059B78
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xdd
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r5, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	movs r0, #0xdd
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	ldr r0, [r5, #0x5c]
 	movs r1, #0x6c
 	bl func_fe6_0804A528
@@ -46109,7 +44709,7 @@ func_fe6_08059C78: @ 0x08059C78
 	movs r1, #0x20
 	bl func_fe6_08047AF4
 	bl func_fe6_08047500
-	ldr r0, .L08059CE8 @ =0x0203CD14
+	ldr r0, .L08059CE8 @ =gEkrDistanceType
 	movs r1, #0
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
@@ -46128,7 +44728,7 @@ func_fe6_08059C78: @ 0x08059C78
 .L08059CDC: .4byte gUnk_086048A0
 .L08059CE0: .4byte gUnk_081C864C
 .L08059CE4: .4byte gUnk_081C8F38
-.L08059CE8: .4byte 0x0203CD14
+.L08059CE8: .4byte gEkrDistanceType
 .L08059CEC:
 	movs r0, #1
 	movs r1, #0xe8
@@ -46286,7 +44886,7 @@ func_fe6_08059E08: @ 0x08059E08
 	ldrh r1, [r7]
 	adds r1, #0x54
 	strh r1, [r2]
-	ldr r6, .L08059E78 @ =gEkrBgOffset
+	ldr r6, .L08059E78 @ =gEkrBgPosition
 	ldr r0, [r6]
 	subs r1, r1, r0
 	strh r1, [r3, #2]
@@ -46323,7 +44923,7 @@ func_fe6_08059E08: @ 0x08059E08
 .L08059E6C: .4byte gAnims
 .L08059E70: .4byte gUnk_Banim_02000020
 .L08059E74: .4byte gUnk_Banim_02000028
-.L08059E78: .4byte gEkrBgOffset
+.L08059E78: .4byte gEkrBgPosition
 .L08059E7C: .4byte gUnk_Banim_0201E7B4
 
 	thumb_func_start func_fe6_08059E80
@@ -46460,13 +45060,13 @@ func_fe6_08059F2C: @ 0x08059F2C
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r0, [r6, #0x5c]
 	movs r2, #2
 	ldrsh r1, [r0, r2]
 	adds r0, r4, #0
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #6
 	bl func_fe6_08046010
 	adds r5, r0, #0
@@ -46510,7 +45110,7 @@ func_fe6_0805A000: @ 0x0805A000
 	ldr r1, [r5]
 	ldr r0, .L0805A0A8 @ =gUnk_Banim_02000028
 	mov r8, r0
-	ldr r2, .L0805A0AC @ =gEkrBgOffset
+	ldr r2, .L0805A0AC @ =gEkrBgPosition
 	mov sb, r2
 	ldr r0, [r2]
 	subs r0, #0x4e
@@ -46569,7 +45169,7 @@ func_fe6_0805A000: @ 0x0805A000
 	.align 2, 0
 .L0805A0A4: .4byte gUnk_Banim_0201E7B4
 .L0805A0A8: .4byte gUnk_Banim_02000028
-.L0805A0AC: .4byte gEkrBgOffset
+.L0805A0AC: .4byte gEkrBgPosition
 .L0805A0B0: .4byte gUnk_Banim_02017758
 .L0805A0B4: .4byte 0x00007FFF
 .L0805A0B8: .4byte gUnk_Banim_02017734
@@ -46606,7 +45206,7 @@ func_fe6_0805A0BC: @ 0x0805A0BC
 	adds r1, r0, #0
 	ldr r0, .L0805A10C @ =gUnk_Banim_0201E7B4
 	str r1, [r0, #4]
-	ldr r0, .L0805A110 @ =0x0203CD14
+	ldr r0, .L0805A110 @ =gEkrDistanceType
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	cmp r0, #0
@@ -46615,7 +45215,7 @@ func_fe6_0805A0BC: @ 0x0805A0BC
 	b .L0805A116
 	.align 2, 0
 .L0805A10C: .4byte gUnk_Banim_0201E7B4
-.L0805A110: .4byte 0x0203CD14
+.L0805A110: .4byte gEkrDistanceType
 .L0805A114:
 	movs r0, #0x34
 .L0805A116:
@@ -46628,7 +45228,7 @@ func_fe6_0805A0BC: @ 0x0805A0BC
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805A132:
@@ -46875,13 +45475,13 @@ func_fe6_0805A2BC: @ 0x0805A2BC
 	bl func_fe6_0805B9A4
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	ldr r1, .L0805A358 @ =0x0203CCF8
+	ldr r1, .L0805A358 @ =gEkrPairSideVaild
 	lsls r0, r0, #1
 	adds r0, r0, r1
 	strh r4, [r0]
 	ldr r0, [r5, #0x5c]
 	bl func_fe6_0804B6C4
-	bl func_fe6_0804B8B0
+	bl SetAnimStateHiddenForDragon
 	adds r0, r5, #0
 	bl Proc_Break
 .L0805A352:
@@ -46889,7 +45489,7 @@ func_fe6_0805A2BC: @ 0x0805A2BC
 	pop {r0}
 	bx r0
 	.align 2, 0
-.L0805A358: .4byte 0x0203CCF8
+.L0805A358: .4byte gEkrPairSideVaild
 
 	thumb_func_start func_fe6_0805A35C
 func_fe6_0805A35C: @ 0x0805A35C
@@ -47722,7 +46322,7 @@ func_fe6_0805A998: @ 0x0805A998
 	ldr r0, .L0805A9F4 @ =0x00000143
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r5, #0
 	pop {r4, r5}
 	pop {r1}
@@ -47967,7 +46567,7 @@ func_fe6_0805ABC0: @ 0x0805ABC0
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 .L0805ABE8:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x23
@@ -47980,7 +46580,7 @@ func_fe6_0805ABC0: @ 0x0805ABC0
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 .L0805AC04:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x32
@@ -47993,7 +46593,7 @@ func_fe6_0805ABC0: @ 0x0805ABC0
 	ldr r0, .L0805AC50 @ =0x00000147
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 .L0805AC20:
 	ldrh r0, [r4, #0x2c]
 	cmp r0, #0x64
@@ -48004,12 +46604,12 @@ func_fe6_0805ABC0: @ 0x0805ABC0
 	lsls r0, r0, #1
 	strh r0, [r4, #0x2e]
 	adds r0, #0x19
-	bl func_fe6_0805BD54
+	bl DoM4aSongNumStop
 	movs r0, #0xa3
 	lsls r0, r0, #1
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r4, #0
 	bl Proc_Break
 .L0805AC48:
@@ -48064,7 +46664,7 @@ func_fe6_0805AC54: @ 0x0805AC54
 	ldr r4, [r0]
 	ldr r5, [r0, #4]
 	ldr r3, .L0805ADC8 @ =gUnk_Banim_02000020
-	ldr r0, .L0805ADCC @ =gEkrBgOffset
+	ldr r0, .L0805ADCC @ =gEkrBgPosition
 	ldr r1, [r0]
 	ldrh r2, [r3]
 	subs r0, r2, r1
@@ -48196,7 +46796,7 @@ func_fe6_0805AC54: @ 0x0805AC54
 .L0805ADC0: .4byte 0x01000020
 .L0805ADC4: .4byte gAnims
 .L0805ADC8: .4byte gUnk_Banim_02000020
-.L0805ADCC: .4byte gEkrBgOffset
+.L0805ADCC: .4byte gEkrBgPosition
 .L0805ADD0: .4byte gUnk_Banim_02000024
 .L0805ADD4: .4byte gDispIo
 .L0805ADD8: .4byte gUnk_Banim_02017758
@@ -48477,7 +47077,7 @@ func_fe6_0805AFEC: @ 0x0805AFEC
 	ldr r0, .L0805B018 @ =0x00000145
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	bl func_fe6_0805BD8C
 	adds r0, r4, #0
 	bl Proc_Break
@@ -48718,8 +47318,8 @@ func_fe6_0805B13C: @ 0x0805B13C
 .L0805B1A4: .4byte gUnk_08605D14
 .L0805B1A8: .4byte 0x00000FFF
 
-	thumb_func_start func_fe6_0805B1AC
-func_fe6_0805B1AC: @ 0x0805B1AC
+	thumb_func_start EfxTmCpyBG
+EfxTmCpyBG: @ 0x0805B1AC
 	push {r4, r5, r6, lr}
 	sub sp, #0x10
 	adds r6, r1, #0
@@ -49108,8 +47708,8 @@ func_fe6_0805B380: @ 0x0805B380
 	bx r0
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805B458
-func_fe6_0805B458: @ 0x0805B458
+	thumb_func_start EkrModifyBarfx
+EkrModifyBarfx: @ 0x0805B458
 	push {r4, r5, r6, r7, lr}
 	adds r2, r0, #0
 	adds r3, r1, #0
@@ -50233,8 +48833,8 @@ func_fe6_0805BB24: @ 0x0805BB24
 .L0805BCA0: .4byte 0xFFFF0004
 .L0805BCA4: .4byte 0xC1FFFFFF
 
-	thumb_func_start func_fe6_0805BCA8
-func_fe6_0805BCA8: @ 0x0805BCA8
+	thumb_func_start EfxPlaySE
+EfxPlaySE: @ 0x0805BCA8
 	push {r4, r5, r6, lr}
 	adds r6, r0, #0
 	adds r5, r1, #0
@@ -50318,8 +48918,8 @@ func_fe6_0805BD04: @ 0x0805BD04
 	.align 2, 0
 .L0805BD50: .4byte gPlaySt
 
-	thumb_func_start func_fe6_0805BD54
-func_fe6_0805BD54: @ 0x0805BD54
+	thumb_func_start DoM4aSongNumStop
+DoM4aSongNumStop: @ 0x0805BD54
 	push {lr}
 	lsls r0, r0, #0x10
 	lsrs r0, r0, #0x10
@@ -50386,8 +48986,8 @@ func_fe6_0805BDB4: @ 0x0805BDB4
 	.align 2, 0
 .L0805BDBC: .4byte gUnk_Banim_0201F050
 
-	thumb_func_start func_fe6_0805BDC0
-func_fe6_0805BDC0: @ 0x0805BDC0
+	thumb_func_start M4aPlayWithPostionCtrl
+M4aPlayWithPostionCtrl: @ 0x0805BDC0
 	push {r4, r5, r6, lr}
 	adds r4, r0, #0
 	adds r6, r1, #0
@@ -50837,13 +49437,13 @@ EfxPlaySEwithCmdCtrl: @ 0x0805BE7C
 	mov r1, r8
 	adds r0, r4, #0
 	str r3, [sp, #4]
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	ldr r3, [sp, #4]
 	lsls r1, r3, #0x10
 	asrs r1, r1, #0x10
 	movs r2, #1
 	adds r0, r4, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L0805C190:
 	add sp, #8
 	pop {r3, r4}
@@ -50859,7 +49459,7 @@ func_fe6_0805C1A0: @ 0x0805C1A0
 	push {r4, lr}
 	lsls r0, r0, #0x10
 	lsrs r4, r0, #0x10
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	bne .L0805C1B2
 .L0805C1AE:
@@ -51089,12 +49689,12 @@ func_fe6_0805C358: @ 0x0805C358
 	movs r1, #0x80
 	lsls r1, r1, #1
 	adds r0, r4, #0
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r5, r0]
 	adds r0, r4, #0
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L0805C3B2:
 	pop {r4, r5}
 	pop {r0}
@@ -51121,12 +49721,12 @@ func_fe6_0805C3B8: @ 0x0805C3B8
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0xd8
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #2
 	ldrsh r1, [r4, r0]
 	movs r0, #0xd8
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 .L0805C3F4:
 	pop {r4, r5}
 	pop {r0}
@@ -51240,8 +49840,8 @@ func_fe6_0805C41C: @ 0x0805C41C
 	thumb_func_start EkrPlayMainBGM
 EkrPlayMainBGM: @ 0x0805C520
 	push {r4, r5, r6, lr}
-	ldr r0, .L0805C570 @ =0x0203CD7C
-	ldr r1, .L0805C574 @ =0x0203CD80
+	ldr r0, .L0805C570 @ =gpEkrBattleUnitLeft
+	ldr r1, .L0805C574 @ =gpEkrBattleUnitRight
 	ldr r4, [r0]
 	ldr r6, [r1]
 	ldr r1, .L0805C578 @ =gBmSt
@@ -51256,7 +49856,7 @@ EkrPlayMainBGM: @ 0x0805C520
 	movs r0, #1
 	str r0, [r1]
 	ldr r1, .L0805C580 @ =0x0203CD08
-	ldr r0, .L0805C584 @ =0x0203CCF4
+	ldr r0, .L0805C584 @ =gEkrInitialHitSide
 	movs r2, #0
 	ldrsh r0, [r0, r2]
 	lsls r0, r0, #1
@@ -51267,7 +49867,7 @@ EkrPlayMainBGM: @ 0x0805C520
 	beq .L0805C554
 	movs r5, #0x48
 .L0805C554:
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #1
 	beq .L0805C564
 	bl GetBanimLinkArenaFlag
@@ -51280,14 +49880,14 @@ EkrPlayMainBGM: @ 0x0805C520
 	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
-.L0805C570: .4byte 0x0203CD7C
-.L0805C574: .4byte 0x0203CD80
+.L0805C570: .4byte gpEkrBattleUnitLeft
+.L0805C574: .4byte gpEkrBattleUnitRight
 .L0805C578: .4byte gBmSt
 .L0805C57C: .4byte gUnk_Banim_0201F04C
 .L0805C580: .4byte 0x0203CD08
-.L0805C584: .4byte 0x0203CCF4
+.L0805C584: .4byte gEkrInitialHitSide
 .L0805C588:
-	ldr r0, .L0805C59C @ =0x0203CD14
+	ldr r0, .L0805C59C @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	bne .L0805C5A0
@@ -51297,7 +49897,7 @@ EkrPlayMainBGM: @ 0x0805C520
 	bl func_fe6_0805BD64
 	b .L0805C72E
 	.align 2, 0
-.L0805C59C: .4byte 0x0203CD14
+.L0805C59C: .4byte gEkrDistanceType
 .L0805C5A0:
 	movs r2, #0
 	ldr r0, [r4]
@@ -51631,11 +50231,11 @@ func_fe6_0805C804: @ 0x0805C804
 	adds r4, r0, #0
 	adds r5, r2, #0
 	adds r6, r3, #0
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r4, #0
 	adds r1, r5, #0
 	adds r2, r6, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	pop {r4, r5, r6}
 	pop {r0}
 	bx r0
@@ -51645,19 +50245,19 @@ func_fe6_0805C820: @ 0x0805C820
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	adds r4, r2, #0
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	adds r0, r4, #0
 	bl func_fe6_0805C76C
 	adds r1, r0, #0
 	adds r0, r5, #0
 	movs r2, #1
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	pop {r4, r5}
 	pop {r0}
 	bx r0
 
-	thumb_func_start func_fe6_0805C840
-func_fe6_0805C840: @ 0x0805C840
+	thumb_func_start EkrClasschgFinished
+EkrClasschgFinished: @ 0x0805C840
 	ldr r0, .L0805C850 @ =gUnk_Banim_0201F054
 	ldr r0, [r0]
 	adds r0, #0x29
@@ -51673,8 +50273,8 @@ func_fe6_0805C840: @ 0x0805C840
 .L0805C856:
 	bx lr
 
-	thumb_func_start func_fe6_0805C858
-func_fe6_0805C858: @ 0x0805C858
+	thumb_func_start EndEkrClasschg
+EndEkrClasschg: @ 0x0805C858
 	push {lr}
 	ldr r0, .L0805C868 @ =gUnk_Banim_0201F054
 	ldr r0, [r0]
@@ -51684,8 +50284,8 @@ func_fe6_0805C858: @ 0x0805C858
 	.align 2, 0
 .L0805C868: .4byte gUnk_Banim_0201F054
 
-	thumb_func_start func_fe6_0805C86C
-func_fe6_0805C86C: @ 0x0805C86C
+	thumb_func_start NewEkrClassChg
+NewEkrClassChg: @ 0x0805C86C
 	push {r4, r5, lr}
 	adds r5, r0, #0
 	bl func_fe6_08047300
@@ -51728,9 +50328,9 @@ func_fe6_0805C89C: @ 0x0805C89C
 	cmp r1, #1
 	bne .L0805C8F8
 	ldr r0, [r4, #0x5c]
-	bl func_fe6_08046ED8
+	bl DisableEfxStatusUnits
 	adds r0, r5, #0
-	bl func_fe6_08046ED8
+	bl DisableEfxStatusUnits
 	adds r0, r5, #0
 	bl func_fe6_0805CB6C
 	adds r0, r5, #0
@@ -51806,7 +50406,7 @@ func_fe6_0805C89C: @ 0x0805C89C
 	cmp r1, #0x80
 	bne .L0805C974
 	movs r0, #1
-	bl func_fe6_0804B8B0
+	bl SetAnimStateHiddenForDragon
 	b .L0805CB56
 .L0805C974:
 	cmp r1, #0x7e
@@ -52379,7 +50979,7 @@ func_fe6_0805CDCC: @ 0x0805CDCC
 	str r2, [sp, #4]
 	movs r2, #0x20
 	movs r3, #0x20
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	movs r0, #2
 	bl EnableBgSync
 	bl func_fe6_08047500
@@ -52807,24 +51407,24 @@ func_fe6_0805D154: @ 0x0805D154
 	ldr r0, [r2, #0x5c]
 	cmp r0, #0
 	bne .L0805D17C
-	ldr r0, .L0805D170 @ =0x0203CD7C
+	ldr r0, .L0805D170 @ =gpEkrBattleUnitLeft
 	ldr r4, [r0]
 	ldr r0, .L0805D174 @ =gUnk_Banim_0201F0AC
 	adds r6, r4, #0
 	str r6, [r0]
-	ldr r0, .L0805D178 @ =0x0203CD80
+	ldr r0, .L0805D178 @ =gpEkrBattleUnitRight
 	b .L0805D188
 	.align 2, 0
-.L0805D170: .4byte 0x0203CD7C
+.L0805D170: .4byte gpEkrBattleUnitLeft
 .L0805D174: .4byte gUnk_Banim_0201F0AC
-.L0805D178: .4byte 0x0203CD80
+.L0805D178: .4byte gpEkrBattleUnitRight
 .L0805D17C:
-	ldr r0, .L0805D298 @ =0x0203CD80
+	ldr r0, .L0805D298 @ =gpEkrBattleUnitRight
 	ldr r4, [r0]
 	ldr r0, .L0805D29C @ =gUnk_Banim_0201F0AC
 	adds r6, r4, #0
 	str r6, [r0]
-	ldr r0, .L0805D2A0 @ =0x0203CD7C
+	ldr r0, .L0805D2A0 @ =gpEkrBattleUnitLeft
 .L0805D188:
 	ldr r1, .L0805D2A4 @ =gUnk_Banim_0201F0B0
 	ldr r3, [r0]
@@ -52962,9 +51562,9 @@ func_fe6_0805D154: @ 0x0805D154
 	asrs r0, r0, #0x18
 	b .L0805D342
 	.align 2, 0
-.L0805D298: .4byte 0x0203CD80
+.L0805D298: .4byte gpEkrBattleUnitRight
 .L0805D29C: .4byte gUnk_Banim_0201F0AC
-.L0805D2A0: .4byte 0x0203CD7C
+.L0805D2A0: .4byte gpEkrBattleUnitLeft
 .L0805D2A4: .4byte gUnk_Banim_0201F0B0
 .L0805D2A8: .4byte gUnk_Banim_0201F0B4
 .L0805D2AC: .4byte gUnk_Banim_0201F0B8
@@ -53322,7 +51922,7 @@ func_fe6_0805D5B0: @ 0x0805D5B0
 	adds r0, r6, #0
 	adds r0, #0x29
 	strb r1, [r0]
-	ldr r0, .L0805D5F0 @ =0x0203CD14
+	ldr r0, .L0805D5F0 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	beq .L0805D5F4
@@ -53333,7 +51933,7 @@ func_fe6_0805D5B0: @ 0x0805D5B0
 	.align 2, 0
 .L0805D5E8: .4byte gUnk_Banim_0201F058
 .L0805D5EC: .4byte gUnk_086061AC
-.L0805D5F0: .4byte 0x0203CD14
+.L0805D5F0: .4byte gEkrDistanceType
 .L0805D5F4:
 	adds r1, r6, #0
 	adds r1, #0x2a
@@ -53402,7 +52002,7 @@ func_fe6_0805D604: @ 0x0805D604
 	movs r0, #0xa0
 	lsls r0, r0, #1
 	strh r0, [r7, #0xa]
-	ldr r0, .L0805D6D8 @ =0x0203CD14
+	ldr r0, .L0805D6D8 @ =gEkrDistanceType
 	ldrh r1, [r0]
 	strh r1, [r7, #0xc]
 	ldr r0, .L0805D6DC @ =0x0000FFFF
@@ -53439,7 +52039,7 @@ func_fe6_0805D604: @ 0x0805D604
 .L0805D6CC: .4byte 0x06005000
 .L0805D6D0: .4byte 0x06005800
 .L0805D6D4: .4byte 0x0203CD10
-.L0805D6D8: .4byte 0x0203CD14
+.L0805D6D8: .4byte gEkrDistanceType
 .L0805D6DC: .4byte 0x0000FFFF
 .L0805D6E0: .4byte 0x06010000
 .L0805D6E4: .4byte gUnk_Banim_020145C0
@@ -53450,7 +52050,7 @@ func_fe6_0805D604: @ 0x0805D604
 	orrs r0, r2
 	strh r0, [r7]
 .L0805D6F6:
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne .L0805D71E
 	adds r0, r7, #0
@@ -53600,13 +52200,13 @@ func_fe6_0805D604: @ 0x0805D604
 	str r0, [r1]
 	bl func_fe6_0805E248
 	movs r0, #2
-	bl func_fe6_08043908
+	bl EkrGauge_08043908
 	mov r3, sb
 	ldr r0, [r3, #0x5c]
-	bl func_fe6_08046ED8
+	bl DisableEfxStatusUnits
 	mov r1, sb
 	ldr r0, [r1, #0x60]
-	bl func_fe6_08046ED8
+	bl DisableEfxStatusUnits
 	bl func_fe6_08047248
 	bl func_fe6_08046B5C
 	movs r0, #0x21
@@ -53660,10 +52260,10 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	push {r6, r7}
 	sub sp, #0xc
 	adds r6, r0, #0
-	ldr r0, .L0805D95C @ =0x0203CD7C
+	ldr r0, .L0805D95C @ =gpEkrBattleUnitLeft
 	ldr r0, [r0]
 	mov sb, r0
-	ldr r0, .L0805D960 @ =0x0203CD80
+	ldr r0, .L0805D960 @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	mov r8, r0
 	ldr r7, [r6, #0x5c]
@@ -53683,7 +52283,7 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	adds r0, r4, #0
 	movs r2, #0x20
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	ldr r1, .L0805D978 @ =0x06002000
 	movs r2, #0x80
 	lsls r2, r2, #3
@@ -53728,8 +52328,8 @@ func_fe6_0805D8B4: @ 0x0805D8B4
 	strh r4, [r6, #0x2c]
 	b .L0805D99C
 	.align 2, 0
-.L0805D95C: .4byte 0x0203CD7C
-.L0805D960: .4byte 0x0203CD80
+.L0805D95C: .4byte gpEkrBattleUnitLeft
+.L0805D960: .4byte gpEkrBattleUnitRight
 .L0805D964: .4byte Img_LevelUpFrame
 .L0805D968: .4byte gUnk_Banim_0201777C
 .L0805D96C: .4byte Tm_LevelUpFrame
@@ -54045,11 +52645,11 @@ func_fe6_0805DBD4: @ 0x0805DBD4
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x76
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	movs r0, #0
 	strh r0, [r5, #0x2c]
 	movs r0, #8
@@ -54193,11 +52793,11 @@ func_fe6_0805DD08: @ 0x0805DD08
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x76
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	adds r0, r5, #0
 	bl Proc_Break
 	b .L0805DD6E
@@ -54290,11 +52890,11 @@ func_fe6_0805DDA8: @ 0x0805DDA8
 	movs r0, #0x76
 	movs r1, #0x80
 	lsls r1, r1, #1
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	movs r0, #0x76
 	movs r1, #0x38
 	movs r2, #0
-	bl func_fe6_0805BDC0
+	bl M4aPlayWithPostionCtrl
 	ldr r1, .L0805DE54 @ =gUnk_081CA03C
 	movs r7, #0x2e
 	ldrsh r2, [r4, r7]
@@ -54491,7 +53091,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	sub sp, #0x2c
 	adds r5, r0, #0
 	ldr r4, .L0805E09C @ =gUnk_Banim_0201F084
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne .L0805DFA6
 	adds r0, r4, #0
@@ -54530,7 +53130,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	movs r0, #5
 	strh r0, [r4, #8]
 	strh r1, [r4, #0xa]
-	ldr r0, .L0805E0A4 @ =0x0203CD14
+	ldr r0, .L0805E0A4 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	strh r0, [r4, #0xc]
 	movs r0, #2
@@ -54541,7 +53141,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	ldr r0, .L0805E0AC @ =0x0203CCF6
 	ldrh r0, [r0]
 	strh r0, [r4, #0x10]
-	bl func_fe6_0804C500
+	bl GetBattleAnimArenaFlag
 	cmp r0, #0
 	bne .L0805E020
 	movs r0, #2
@@ -54580,7 +53180,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	movs r0, #2
 	bl EnableBgSync
 	movs r0, #0
-	bl func_fe6_08043908
+	bl EkrGauge_08043908
 	movs r0, #0
 	bl func_fe6_080589FC
 	ldrh r0, [r0]
@@ -54612,7 +53212,7 @@ func_fe6_0805DF90: @ 0x0805DF90
 	.align 2, 0
 .L0805E09C: .4byte gUnk_Banim_0201F084
 .L0805E0A0: .4byte 0x0203CD10
-.L0805E0A4: .4byte 0x0203CD14
+.L0805E0A4: .4byte gEkrDistanceType
 .L0805E0A8: .4byte gUnk_Banim_020145C0
 .L0805E0AC: .4byte 0x0203CCF6
 .L0805E0B0: .4byte 0x0000F3FF
@@ -55234,8 +53834,8 @@ func_fe6_0805E510: @ 0x0805E510
 .L0805E558: .4byte gUnk_Banim_0201E154
 .L0805E55C: .4byte gUnk_Banim_0201E3E0
 
-	thumb_func_start func_fe6_0805E560
-func_fe6_0805E560: @ 0x0805E560
+	thumb_func_start CheckEkrTriangleInvalid
+CheckEkrTriangleInvalid: @ 0x0805E560
 	ldr r0, .L0805E56C @ =gUnk_Banim_0201F0DC
 	ldr r0, [r0]
 	cmp r0, #1
@@ -55249,13 +53849,13 @@ func_fe6_0805E560: @ 0x0805E560
 .L0805E572:
 	bx lr
 
-	thumb_func_start func_fe6_0805E574
-func_fe6_0805E574: @ 0x0805E574
+	thumb_func_start DebugEkrTriangleMsg
+DebugEkrTriangleMsg: @ 0x0805E574
 	bx lr
 	.align 2, 0
 
-	thumb_func_start func_fe6_0805E578
-func_fe6_0805E578: @ 0x0805E578
+	thumb_func_start NewEkrTriangle
+NewEkrTriangle: @ 0x0805E578
 	push {r4, lr}
 	adds r4, r0, #0
 	ldr r0, .L0805E594 @ =gUnk_08606314
@@ -55290,12 +53890,12 @@ func_fe6_0805E59C: @ 0x0805E59C
 	bl func_fe6_0804B6C4
 	cmp r0, #0
 	bne .L0805E5C8
-	ldr r0, .L0805E5C4 @ =0x0203CD7C
+	ldr r0, .L0805E5C4 @ =gpEkrBattleUnitLeft
 	b .L0805E5CA
 	.align 2, 0
-.L0805E5C4: .4byte 0x0203CD7C
+.L0805E5C4: .4byte gpEkrBattleUnitLeft
 .L0805E5C8:
-	ldr r0, .L0805E618 @ =0x0203CD80
+	ldr r0, .L0805E618 @ =gpEkrBattleUnitRight
 .L0805E5CA:
 	ldr r0, [r0]
 	ldr r0, [r0, #4]
@@ -55308,7 +53908,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	ble .L0805E5DC
 	b .L0805E6D8
 .L0805E5DC:
-	ldr r0, .L0805E61C @ =0x0203CD88
+	ldr r0, .L0805E61C @ =gpEkrTriangleUnits
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -55341,8 +53941,8 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #1
 	b .L0805E626
 	.align 2, 0
-.L0805E618: .4byte 0x0203CD80
-.L0805E61C: .4byte 0x0203CD88
+.L0805E618: .4byte gpEkrBattleUnitRight
+.L0805E61C: .4byte gpEkrTriangleUnits
 .L0805E620:
 	adds r0, r4, #0
 	bl GetItemKind
@@ -55366,7 +53966,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #2
 	mov r8, r0
 .L0805E648:
-	ldr r0, .L0805E684 @ =0x0203CD88
+	ldr r0, .L0805E684 @ =gpEkrTriangleUnits
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -55399,7 +53999,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #1
 	b .L0805E68E
 	.align 2, 0
-.L0805E684: .4byte 0x0203CD88
+.L0805E684: .4byte gpEkrTriangleUnits
 .L0805E688:
 	adds r0, r4, #0
 	bl GetItemKind
@@ -55426,7 +54026,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	mov r2, sl
 	mov r3, r8
 	bl func_fe6_0805EA38
-	ldr r0, .L0805E6D0 @ =0x0203CD80
+	ldr r0, .L0805E6D0 @ =gpEkrBattleUnitRight
 	ldr r0, [r0]
 	adds r0, #0x4a
 	ldrh r0, [r0]
@@ -55437,10 +54037,10 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #0
 	b .L0805E784
 	.align 2, 0
-.L0805E6D0: .4byte 0x0203CD80
+.L0805E6D0: .4byte gpEkrBattleUnitRight
 .L0805E6D4: .4byte gUnk_Banim_0201F0DC
 .L0805E6D8:
-	ldr r0, .L0805E704 @ =0x0203CD88
+	ldr r0, .L0805E704 @ =gpEkrTriangleUnits
 	ldr r1, [r0]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -55463,7 +54063,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #1
 	b .L0805E712
 	.align 2, 0
-.L0805E704: .4byte 0x0203CD88
+.L0805E704: .4byte gpEkrTriangleUnits
 .L0805E708:
 	adds r0, r4, #0
 	bl GetItemKind
@@ -55479,7 +54079,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r2, #1
 	mov r8, r2
 .L0805E720:
-	ldr r0, .L0805E74C @ =0x0203CD88
+	ldr r0, .L0805E74C @ =gpEkrTriangleUnits
 	ldr r1, [r0, #4]
 	ldr r0, [r1, #4]
 	ldrb r0, [r0, #4]
@@ -55502,7 +54102,7 @@ func_fe6_0805E59C: @ 0x0805E59C
 	movs r0, #1
 	b .L0805E75A
 	.align 2, 0
-.L0805E74C: .4byte 0x0203CD88
+.L0805E74C: .4byte gpEkrTriangleUnits
 .L0805E750:
 	adds r0, r4, #0
 	bl GetItemKind
@@ -56444,7 +55044,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 	ldrh r2, [r5, #2]
 	movs r0, #2
 	bl SetBgOffset
-	ldr r6, .L0805F064 @ =gUnk_Banim_02000030
+	ldr r6, .L0805F064 @ =gEkrBg0QuakeVec
 	ldrh r0, [r5]
 	ldrh r2, [r6]
 	adds r1, r0, r2
@@ -56483,7 +55083,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl func_fe6_08044230
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0805EF58
 	ldrh r1, [r5]
@@ -56500,7 +55100,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 	mov r2, sb
 	ldrh r2, [r2]
 	adds r1, r0, r2
-	ldr r3, .L0805F06C @ =gEkrBgOffset
+	ldr r3, .L0805F06C @ =gEkrBgPosition
 	mov sl, r3
 	ldr r4, [r3]
 	subs r1, r1, r4
@@ -56572,7 +55172,7 @@ func_fe6_0805EED4: @ 0x0805EED4
 	lsls r1, r1, #0x10
 	lsrs r1, r1, #0x10
 	bl func_fe6_08044230
-	bl func_fe6_0805894C
+	bl GetBanimDragonStatusType
 	cmp r0, #0
 	beq .L0805F012
 	movs r0, #3
@@ -56618,9 +55218,9 @@ func_fe6_0805EED4: @ 0x0805EED4
 	bx r0
 	.align 2, 0
 .L0805F060: .4byte gUnk_Banim_02017758
-.L0805F064: .4byte gUnk_Banim_02000030
+.L0805F064: .4byte gEkrBg0QuakeVec
 .L0805F068: .4byte gUnk_Banim_02000020
-.L0805F06C: .4byte gEkrBgOffset
+.L0805F06C: .4byte gEkrBgPosition
 .L0805F070: .4byte gUnk_Banim_02000024
 .L0805F074: .4byte gUnk_Banim_02017744
 
@@ -56663,7 +55263,7 @@ func_fe6_0805F098: @ 0x0805F098
 	adds r0, r4, #0
 	movs r2, #0x1e
 	movs r3, #0x14
-	bl func_fe6_0805B1AC
+	bl EfxTmCpyBG
 	add sp, #8
 	pop {r4}
 	pop {r0}
@@ -56759,7 +55359,7 @@ func_fe6_0805F178: @ 0x0805F178
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5a
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	pop {r0}
 	bx r0
 
@@ -56769,7 +55369,7 @@ func_fe6_0805F188: @ 0x0805F188
 	movs r1, #0x80
 	lsls r1, r1, #1
 	movs r0, #0x5c
-	bl func_fe6_0805BCA8
+	bl EfxPlaySE
 	pop {r0}
 	bx r0
 
@@ -57135,7 +55735,7 @@ func_fe6_0805F498: @ 0x0805F498
 	bl func_fe6_08058F38
 	cmp r0, #0
 	bne .L0805F576
-	ldr r0, .L0805F560 @ =0x0203CD14
+	ldr r0, .L0805F560 @ =gEkrDistanceType
 	ldrh r0, [r0]
 	cmp r0, #4
 	beq .L0805F576
@@ -57144,7 +55744,7 @@ func_fe6_0805F498: @ 0x0805F498
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L0805F500
-	ldr r4, .L0805F568 @ =0x0203CD7C
+	ldr r4, .L0805F568 @ =gpEkrBattleUnitLeft
 	ldr r0, [r4]
 	bl HasBattleUnitGainedWeaponLevel
 	lsls r0, r0, #0x18
@@ -57172,7 +55772,7 @@ func_fe6_0805F498: @ 0x0805F498
 	ldrsh r0, [r0, r1]
 	cmp r0, #0
 	bne .L0805F538
-	ldr r4, .L0805F56C @ =0x0203CD80
+	ldr r4, .L0805F56C @ =gpEkrBattleUnitRight
 	ldr r0, [r4]
 	bl HasBattleUnitGainedWeaponLevel
 	lsls r0, r0, #0x18
@@ -57212,10 +55812,10 @@ func_fe6_0805F498: @ 0x0805F498
 .L0805F554: .4byte gUnk_Banim_0201F0E0
 .L0805F558: .4byte gUnk_08607668
 .L0805F55C: .4byte gUnk_Banim_0201F0E4
-.L0805F560: .4byte 0x0203CD14
+.L0805F560: .4byte gEkrDistanceType
 .L0805F564: .4byte 0x0203CD08
-.L0805F568: .4byte 0x0203CD7C
-.L0805F56C: .4byte 0x0203CD80
+.L0805F568: .4byte gpEkrBattleUnitLeft
+.L0805F56C: .4byte gpEkrBattleUnitRight
 .L0805F570:
 	movs r0, #0x80
 	bl SetBgmVolume

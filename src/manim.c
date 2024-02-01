@@ -47,182 +47,6 @@ u16 COMMON_DATA(gUnk_03004750) gUnk_03004750[10 * 0x10] = { 0 }; // map palette 
 // GARBAGE START
 // TODO: organize
 
-extern u16 const Pal_ManimInfoFrameBlue[]; // pal blue
-extern u16 const Pal_ManimInfoFrameRed[]; // pal red
-extern u16 const Pal_ManimInfoFrameGreen[]; // pal green
-extern u16 const Pal_ManimInfoFramePurple[]; // pal purple
-extern u8 const Tsa_ManimInfoFrameSingle[]; // tsa
-extern u8 const Tsa_ManimInfoFrameLeft[]; // tsa
-extern u8 const Tsa_ManimInfoFrameRight[]; // tsa
-extern u8 const gUnk_08113584[]; // img exp bar a
-extern u8 const gUnk_08113884[]; // img exp bar b
-extern u8 const gUnk_08113B84[]; // img exp bar c
-extern u16 const gUnk_08113D50[]; // pal exp bar
-extern u8 const gUnk_082DC5B0[]; // tsa exp bar
-extern u8 const Img_ManimRubble[]; // img
-extern u16 const Pal_ManimRubble[]; // pal
-extern u16 const SpriteAnim_ManimRubble[]; // sprite anim
-extern u8 const gUnk_082DB1C0[]; // img
-extern u16 const gUnk_082DB2B0[]; // sprite anim
-extern u8 const gUnk_082DB418[]; // img
-extern u16 const gUnk_082DB55C[]; // sprite anim
-extern u8 const Img_ManimPoison[]; // img
-extern u16 const Pal_ManimPoison[]; // pal
-extern u16 const SpriteAnim_ManimPoison[]; // sprite anim
-extern u8 const gUnk_082DE994[]; // img
-extern u16 const gUnk_082DEFBC[]; // pal/colors
-extern u8 const gUnk_082DEFFC[]; // img
-extern u16 const gUnk_082DE354[]; // tm
-extern u8 const gUnk_082DD268[]; // img
-extern u16 const gUnk_082DD4C8[]; // pal
-extern u16 const gUnk_082DD4E8[]; // tm
-extern u8 const gUnk_082DF3D8[]; // img
-extern u16 const gUnk_082DF690[]; // pal
-extern u16 const gUnk_082A8448[]; // sprite anim
-extern u8 const gUnk_082E0E14[]; // img
-extern u16 const gUnk_082E10EC[]; // pal
-extern u16 const gUnk_082E110C[]; // sprite anim
-extern u8 const gUnk_082DFAD4[]; // img
-extern u16 const gUnk_081B4274[]; // pal
-extern u8 const gUnk_082E07A8[]; // ???
-extern u8 const gUnk_082DF868[]; // ??? ^
-extern u8 const gUnk_08307928[]; // ???
-extern u8 const gUnk_081B7468[]; // img
-extern u16 const gUnk_081B7650[]; // pal
-extern u16 const gUnk_082E0A14[]; // sprite anim
-extern u8 const gUnk_082E161C[]; // img
-extern u8 const gUnk_082E11DC[]; // img
-extern u16 const gUnk_082E172C[]; // pal
-extern u16 const gUnk_082E174C[]; // sprite anim
-extern u8 const gUnk_082E1884[]; // img
-extern u16 const gUnk_081B8934[]; // pal
-extern u8 const gUnk_082E2440[]; // ???
-extern u8 const gUnk_082DF724[]; // img
-extern u8 const gUnk_082DF844[]; // ???
-extern u8 const gUnk_082DF6B0[]; // img
-extern u16 const gUnk_082DF704[]; // pal
-extern u16 const gUnk_082DF824[]; // colors
-extern u16 const gUnk_082A84A4[]; // sprite anim
-extern u8 const Img_LevelUpFrame[]; // img (stat gains)
-extern u8 const Tm_LevelUpFrame[]; // tiles (stat gains)
-extern u16 const Pal_LevelUpFrame[]; // pal (stat gains)
-extern u8 const Img_ManimLevelUpStatGain[]; // img
-extern u16 const Pal_ManimLevelUp[]; // pal
-extern u8 const Img_ManimLevelUpStatGainDigits[]; // img (raw)
-extern u16 const SpriteAnim_ManimStatGain[]; // sprite anim
-extern u16 const Pal_ManimLevelUpStatGainCycling[]; // colors
-extern u8 const Img_ManimLevelUpText[]; // img
-extern u16 const gUnk_082A7CBC[]; // sprite anim
-extern u8 const gUnk_082DD7E8[]; // img
-extern u16 const gUnk_082DD808[]; // pal
-extern u8 const gUnk_082DD848[]; // img
-extern u16 const gUnk_082DE974[]; // ^ pal
-extern u16 const gUnk_082DE954[]; // ^ pal
-extern u8 const gUnk_082DED00[]; // img
-extern u8 const gUnk_082DE994[]; // img
-extern u8 const gUnk_082DEB08[]; // pal
-
-enum { MAX_MANIM_DEBUG_HITS = 5 };
-
-enum
-{
-    MANIM_DEBUG_PARAM_PID,
-    MANIM_DEBUG_PARAM_X,
-    MANIM_DEBUG_PARAM_Y,
-    MANIM_DEBUG_PARAM_JID,
-    MANIM_DEBUG_PARAM_IID,
-    MANIM_DEBUG_PARAM_HITS,
-    MAX_MANIM_DEBUG_PARAM = MANIM_DEBUG_PARAM_HITS + MAX_MANIM_DEBUG_HITS,
-};
-
-enum
-{
-    MANIM_DEBUG_HIT_KIND_NONE,
-    MANIM_DEBUG_HIT_KIND_REGULAR,
-    MANIM_DEBUG_HIT_KIND_REGULAR_DEVIL,
-    MANIM_DEBUG_HIT_KIND_REGULAR_HPSTEAL,
-    MANIM_DEBUG_HIT_KIND_REGULAR_POISON,
-    MANIM_DEBUG_HIT_KIND_CRIT,
-    MANIM_DEBUG_HIT_KIND_CRIT_DEVIL,
-    MANIM_DEBUG_HIT_KIND_CRIT_HPSTEAL,
-    MANIM_DEBUG_HIT_KIND_CRIT_POISON,
-    MANIM_DEBUG_HIT_KIND_MISS,
-
-    MAX_MANIM_DEBUG_HIT_KIND,
-};
-
-struct ManimDebugStEnt
-{
-    /* 00 */ short data[MAX_MANIM_DEBUG_PARAM];
-    /* 14 */ struct Text text[MAX_MANIM_DEBUG_PARAM];
-};
-
-struct ManimDebugSt
-{
-    /* 00 */ STRUCT_PAD(0x00, 0x08);
-    /* 08 */ struct ManimDebugStEnt ent[2];
-};
-
-struct ManimDebugParamInfo
-{
-    /* 00 */ u8 text_width;
-    /* 01 */ i8 param_up;
-    /* 02 */ i8 param_down;
-    /* 03 */ i8 param_left;
-    /* 04 */ i8 param_right;
-    /* 05 */ u8 min;
-    /* 06 */ u8 max;
-};
-
-// TODO: split this different procs for each effect
-struct ManimEffectProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 2C */ struct Unit * unit;
-    /* 30 */ int x, y;
-    /* 38 */ u8 pad_38[0x40 - 0x38];
-    /* 40 */ u16 unk_40;
-    /* 42 */ u16 unk_42;
-    /* 44 */ u16 unk_44;
-    /* 44 */ u8 pad_46[0x48 - 0x46];
-    /* 48 */ i16 unk_48;
-    /* 4A */ i16 unk_4A;
-    /* 4C */ i16 unk_4C;
-    /* 4E */ /* pad */
-    /* 50 */ void const * img;
-    /* 54 */ void const * pal;
-    /* 58 */ u16 unk_58;
-    /* 5A */ u8 pad_5A[0x64 - 0x5A];
-    /* 64 */ short unk_64;
-};
-
-void func_fe6_08064CC0(struct ManimEffectProc * proc);
-void func_fe6_08064DF8(struct ManimEffectProc * proc);
-void func_fe6_08064F4C(struct ManimEffectProc * proc);
-void func_fe6_08064FD0(struct ManimEffectProc * proc);
-void func_fe6_08065AF8(ProcPtr proc);
-
-struct ManimExpBarProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x64);
-    /* 64 */ i16 exp_from;
-    /* 66 */ i16 exp_to;
-    /* 68 */ i16 actor_id;
-    /* 6A */ i16 unk_6A;
-};
-
-struct ManimInfoWindowProc
-{
-    /* 00 */ PROC_HEADER;
-    /* 29 */ STRUCT_PAD(0x29, 0x2A);
-    /* 2A */ i16 open_transition_value;
-    /* 2C */ u16 unk_2C;
-    /* 2E */ u8 x_tile;
-    /* 2F */ u8 y_tile;
-    /* 30 */ ProcPtr main_proc;
-};
-
 void ManimWindow_Clear(ProcPtr proc);
 void ManimInfoWindow_Init(struct ManimInfoWindowProc * proc);
 void ManimInfoWindow_Loop(struct ManimInfoWindowProc * proc);
@@ -1347,21 +1171,21 @@ void ManimExpBar_Init(struct ManimExpBarProc * proc)
     SetBgOffset(1, 0, 0);
 
     RegisterDataMove(
-        gUnk_08113584,
+        Img_EkrExpBar,
         (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x00) * CHR_SIZE,
         7 * CHR_SIZE);
 
     RegisterDataMove(
-        gUnk_08113884,
+        Img_EkrExpBarChange,
         (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x07) * CHR_SIZE,
         24 * CHR_SIZE);
 
     RegisterDataMove(
-        gUnk_08113B84,
+        Img_BarNumfx,
         (void *)(VRAM) + GetBgChrOffset(0) + (BGCHR_MANIM_200 + 0x1F) * CHR_SIZE,
         11 * CHR_SIZE);
 
-    ApplyPalette(gUnk_08113D50, BGPAL_MANIM_INFO);
+    ApplyPalette(Pal_EkrExpBar, BGPAL_MANIM_INFO);
 
     TmApplyTsa(gBg0Tm + TM_OFFSET(6, 8), gUnk_082DC5B0, TILEREF(BGCHR_MANIM_200, BGPAL_MANIM_INFO));
 

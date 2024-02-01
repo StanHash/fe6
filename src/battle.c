@@ -17,6 +17,7 @@
 #include "chapterinfo.h"
 #include "mu.h"
 #include "manim.h"
+#include "banim.h"
 #include "banim_ekrbattle.h"
 #include "save_stats.h"
 #include "save_game.h"

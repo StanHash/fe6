@@ -1,6 +1,8 @@
 #pragma once
 
 #include "common.h"
+#include "unit.h"
+#include "battle.h"
 #include "banim_sprite.h"
 
 struct ProcEkrBattleDeamon {
@@ -10,7 +12,7 @@ struct ProcEkrBattleDeamon {
 struct ProcEkrBattle {
     PROC_HEADER;
 
-    /* 29 */ u8 unk29;
+    /* 29 */ u8 speedup;
     /* 2A */ STRUCT_PAD(0x2A, 0x2C);
     /* 2C */ i16 timer;
     /* 2E */ i16 end;
@@ -36,54 +38,42 @@ i8 IsBattleDeamonActive(void);
 void InBattleMainRoutine(void);
 void MainUpdateEkrBattle(void);
 // null_08042780
-// EkrBattle_Init
-// func_fe6_08042818
-// func_fe6_0804286C
-// func_fe6_08042908
-// func_fe6_0804294C
-// func_fe6_08042970
-// func_fe6_0804298C
-// func_fe6_08042A3C
-// func_fe6_08042A5C
-// func_fe6_08042AA8
-// func_fe6_08042AC4
-// func_fe6_08042B18
-// func_fe6_08042B4C
-// func_fe6_08042B74
-// func_fe6_08042BF8
-// func_fe6_08042C0C
-// func_fe6_08042C48
-// func_fe6_08042C74
-// func_fe6_08042D70
-// func_fe6_08042D84
-// func_fe6_08042E14
-// func_fe6_08042E58
-// func_fe6_08043078
-// func_fe6_080430C4
-// func_fe6_0804312C
-// func_fe6_08043208
-// func_fe6_0804323C
-// func_fe6_08043288
-// func_fe6_080433B0
-// func_fe6_080433E8
-// func_fe6_0804340C
-// func_fe6_08043424
-// func_fe6_08043448
-// func_fe6_08043484
+void EkrBattle_Init(struct ProcEkrBattle * proc);
+void EkrBattle_Main(struct ProcEkrBattle * proc);
+void EkrBattleStartBattleQuote(struct ProcEkrBattle * proc);
+void EkrBattleWaitBattleQuote(struct ProcEkrBattle * proc);
+void EkrBattleWaitWindowAppear(struct ProcEkrBattle * proc);
+void EkrBattlePreDragonIntro(struct ProcEkrBattle * proc);
+void EkrBattleExecDragonIntro(struct ProcEkrBattle * proc);
+void EkrBattleWaitDragonIntro(struct ProcEkrBattle * proc);
+void EkrBattlePostDragonIntro(struct ProcEkrBattle * proc);
+void EkrBattlePostDragonIntroDelay(struct ProcEkrBattle * proc);
+void EkrBattleSetUnitFlashing(struct ProcEkrBattle * proc);
+void EkrBattleExecTriangleAtk(struct ProcEkrBattle * proc);
+void EkrBattleWaitTriangleIdle(struct ProcEkrBattle * proc);
+void EkrBattleTriggerNewRoundStart(struct ProcEkrBattle * proc);
+void EkrBattleReleaseStandingAnim(struct ProcEkrBattle * proc);
+void EkrBattleStartPromotion(struct ProcEkrBattle * proc);
+void EkrBattleWaitPromotion(struct ProcEkrBattle * proc);
+void EkrBattleInRound(struct ProcEkrBattle * proc);
+void EkrBattleTriggerEnding(struct ProcEkrBattle * proc);
+void EkrBattleWaitNamewinAppear(struct ProcEkrBattle * proc);
+void EkrBattleWaitForPostBattleAct(struct ProcEkrBattle * proc);
+void EkrBattleExecExpGain(struct ProcEkrBattle * proc);
+void func_fe6_08043078(struct ProcEkrBattle * proc);
+void EkrBattleExecExpBar(struct ProcEkrBattle * proc);
+void EkrBattleWaitExpBar(struct ProcEkrBattle * proc);
+void EkrBattlePostExpBarDelay(struct ProcEkrBattle * proc);
+void EkrBattleMergeLvupImgBG(struct ProcEkrBattle * proc);
+void EkrBattleLvupHanlder(struct ProcEkrBattle * proc);
+void EkrBattleExecEkrLvup(struct ProcEkrBattle * proc);
+void func_fe6_080433E8(struct ProcEkrBattle * proc);
+void EkrBattleExecPopup(struct ProcEkrBattle * proc);
+void func_fe6_08043424(struct ProcEkrBattle * proc);
+void func_fe6_08043448(struct ProcEkrBattle * proc);
+void func_fe6_08043484(struct ProcEkrBattle * proc);
 // func_fe6_08043534
 // func_fe6_08043554
 // func_fe6_0804358C
 // func_fe6_08043590
 // func_fe6_080435AC
-
-extern int gEkrDebugTimer;
-extern int gEkrDebugUnk1;
-extern int gEkrDebugUnk2;
-extern int gCtrlC01Blocking;
-
-extern i16 gEkrDebugModeMaybe;
-
-extern struct ProcScr ProcScr_EkrBattleDeamon[];
-extern struct ProcScr ProcScr_EkrBattle[];
-extern u32 gEkrBattleEndFlag;
-extern u32 gBanimDoneFlag[2];

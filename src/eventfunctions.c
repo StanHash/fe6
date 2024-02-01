@@ -35,6 +35,7 @@
 #include "helpbox.h"
 #include "mapui.h"
 #include "save_stats.h"
+#include "banim.h"
 
 #include "constants/flags.h"
 #include "constants/pids.h"

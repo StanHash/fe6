@@ -253,8 +253,8 @@ gUnk_085CBDA0: @ 085CBDA0
 gUnk_085CBDB0: @ 085CBDB0
 	.incbin "fe6-base.gba", 0x5CBDB0, (0x5CBDD8 - 0x5CBDB0) @ length: 0028
 
-	.global gUnk_085CBDD8
-gUnk_085CBDD8: @ 085CBDD8
+	.global ProcScr_EkrChienCHR
+ProcScr_EkrChienCHR: @ 085CBDD8
 	.incbin "fe6-base.gba", 0x5CBDD8, (0x5CBDF0 - 0x5CBDD8) @ length: 0018
 
 	.global gUnk_085CBDF0
