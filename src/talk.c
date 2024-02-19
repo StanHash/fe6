@@ -18,6 +18,7 @@
 #include "unit.h"
 #include "chapter.h"
 #include "ui.h"
+#include "banim_ekrbattle.h"
 #include "manim.h"
 
 #include "constants/videoalloc_global.h"
@@ -951,7 +952,7 @@ static void TalkInterpretNewFace(ProcPtr proc)
     if (sTalkSt->active_talk_face == TALK_FACE_NONE)
         SetActiveTalkFace(TALK_FACE_1);
 
-    if (func_fe6_080425C4())
+    if (IsBattleDeamonActive())
         SetFightEventFaceConfig();
     else
         faceDisp |= FACE_DISP_KIND(FACE_96x80);
@@ -1423,7 +1424,7 @@ static void PutTalkBubble(int xAnchor, int yAnchor, int width, int height)
     else
         kind = 1;
 
-    if (func_fe6_080425C4())
+    if (IsBattleDeamonActive())
         kind += 2;
 
     y = yAnchor - height + 1;
@@ -1666,7 +1667,7 @@ static bool TalkHasCorrectBubble(void)
 
 int GetTalkFaceHPos(int talk_face)
 {
-    if (func_fe6_080425C4())
+    if (IsBattleDeamonActive())
         return 4;
 
     return gTalkFaceHPosLut[talk_face];

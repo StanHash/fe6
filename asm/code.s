@@ -6366,7 +6366,7 @@ func_fe6_0808DE04: @ 0x0808DE04
 	mov r1, r8
 	movs r2, #1
 	adds r3, r5, #0
-	bl func_fe6_0805B644
+	bl EfxPalWhiteInOut
 	bl EnablePalSync
 	add sp, #4
 	pop {r3}
@@ -12587,7 +12587,7 @@ func_fe6_0809104C: @ 0x0809104C
 	adds r1, r4, #0
 	movs r2, #1
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r0, r7, #0
 	adds r0, #0x20
 	adds r1, r5, #0
@@ -12597,7 +12597,7 @@ func_fe6_0809104C: @ 0x0809104C
 	adds r1, r4, #0
 	movs r2, #1
 	adds r3, r4, #0
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	adds r5, #0x20
 	adds r6, #0x20
 	adds r4, #1
@@ -19564,7 +19564,7 @@ func_fe6_0809480C: @ 0x0809480C
 	adds r0, r4, #0
 	movs r1, #0
 	movs r2, #0x20
-	bl func_fe6_0805B5C8
+	bl EfxPalBlackInOut
 	ldr r2, .L08094854 @ =gPal
 	movs r1, #0x80
 	lsls r1, r1, #2

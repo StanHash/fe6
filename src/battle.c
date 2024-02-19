@@ -15,6 +15,8 @@
 #include "chapterinfo.h"
 #include "mu.h"
 #include "manim.h"
+#include "banim.h"
+#include "banim_ekrbattle.h"
 #include "save_stats.h"
 #include "save_game.h"
 
@@ -1539,10 +1541,10 @@ void BeginBattleAnimations(void)
 
     RenderMap();
 
-    if (func_fe6_08047CB8())
+    if (PrepareBattleGraphicsMaybe_())
     {
-        func_fe6_0804256C(0);
-        func_fe6_08047CC8();
+        SetBanimLinkArenaFlag(0);
+        BeginAnimsOnBattleAnimations();
     }
     else
     {

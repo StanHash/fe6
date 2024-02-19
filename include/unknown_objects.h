@@ -123,7 +123,7 @@ extern u8 const gUnk_0833C6F4[]; // tsa
 extern u8 const gUnk_0833C8D8[]; // tsa
 
 extern struct ProcScr CONST_DATA ProcScr_OpeningSequence[];
-extern struct ProcScr CONST_DATA ProcScr_Unk_08691480[];
+extern struct ProcScr CONST_DATA ProcScr_TitleScreenHandler[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868C304[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868B010[];
 extern struct ProcScr CONST_DATA ProcScr_Unk_0868AE04[];

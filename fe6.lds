@@ -91,24 +91,24 @@ SECTIONS
     . = __ewram_overlay_beg;
     ewram_overlay_banim (NOLOAD) : ALIGN(4)
     {
-        . = 0x000000; gUnk_Banim_02000000 = .;
-        . = 0x000010; gUnk_Banim_02000010 = .;
-        . = 0x000014; gUnk_Banim_02000014 = .;
-        . = 0x000018; gUnk_Banim_02000018 = .;
-        . = 0x00001C; gUnk_Banim_0200001C = .;
+        . = 0x000000; gAnims = .;
+        . = 0x000010; gEkrDebugTimer = .;
+        . = 0x000014; gEkrDebugFlag1 = .;
+        . = 0x000018; gEkrDebugFlag2 = .;
+        . = 0x00001C; gAnimC01Blocking = .;
         . = 0x000020; gUnk_Banim_02000020 = .;
         . = 0x000024; gUnk_Banim_02000024 = .;
         . = 0x000028; gUnk_Banim_02000028 = .;
         . = 0x00002C; gUnk_Banim_0200002C = .;
-        . = 0x000030; gUnk_Banim_02000030 = .;
+        . = 0x000030; gEkrBg0QuakeVec = .;
         . = 0x000034; gUnk_Banim_02000034 = .;
         . = 0x00003C; gUnk_Banim_0200003C = .;
         . = 0x000044; gUnk_Banim_02000044 = .;
         . = 0x00004C; gUnk_Banim_0200004C = .;
         . = 0x000054; gUnk_Banim_02000054 = .;
         . = 0x000058; gUnk_Banim_02000058 = .;
-        . = 0x00005C; gUnk_Banim_0200005C = .;
-        . = 0x000060; gUnk_Banim_02000060 = .;
+        . = 0x00005C; gpProcEkrBattle = .;
+        . = 0x000060; gpProcEkrGauge = .;
         . = 0x000064; gUnk_Banim_02000064 = .;
         . = 0x000080; gUnk_Banim_02000080 = .;
         . = 0x001080; gUnk_Banim_02001080 = .;
@@ -139,15 +139,15 @@ SECTIONS
         . = 0x0176D8; gUnk_Banim_020176D8 = .;
         . = 0x0176E8; gUnk_Banim_020176E8 = .;
         . = 0x0176F8; gUnk_Banim_020176F8 = .;
-        . = 0x01771C; gUnk_Banim_0201771C = .;
-        . = 0x017720; gUnk_Banim_02017720 = .;
+        . = 0x01771C; gEkrBattleEndFlag = .;
+        . = 0x017720; gEkrHPBarCount = .;
         . = 0x017724; gUnk_Banim_02017724 = .;
         . = 0x017728; gUnk_Banim_02017728 = .;
         . = 0x01772C; gUnk_Banim_0201772C = .;
-        . = 0x017730; gUnk_Banim_02017730 = .;
+        . = 0x017730; gEkrDeadEventExist = .;
         . = 0x017734; gUnk_Banim_02017734 = .;
         . = 0x017738; gUnk_Banim_02017738 = .;
-        . = 0x01773C; gUnk_Banim_0201773C = .;
+        . = 0x01773C; gEkrInitPosReal = .;
         . = 0x017740; gUnk_Banim_02017740 = .;
         . = 0x017744; gUnk_Banim_02017744 = .;
         . = 0x017748; gUnk_Banim_02017748 = .;
@@ -163,7 +163,7 @@ SECTIONS
         . = 0x017774; gUnk_Banim_02017774 = .;
         . = 0x017778; gUnk_Banim_02017778 = .;
         . = 0x01777C; gUnk_Banim_0201777C = .;
-        . = 0x01947C; gUnk_Banim_0201947C = .;
+        . = 0x01947C; gEkrBarfxBuf = .;
         . = 0x01977C; gUnk_Banim_0201977C = .;
         . = 0x019F7C; gUnk_Banim_02019F7C = .;
         . = 0x01A77C; gUnk_Banim_0201A77C = .;
@@ -184,10 +184,10 @@ SECTIONS
         . = 0x01E0F4; gUnk_Banim_0201E0F4 = .;
         . = 0x01E0F8; gUnk_Banim_0201E0F8 = .;
         . = 0x01E0FC; gUnk_Banim_0201E0FC = .;
-        . = 0x01E124; gUnk_Banim_0201E124 = .;
-        . = 0x01E12C; gUnk_Banim_0201E12C = .;
+        . = 0x01E124; gBanimDoneFlag = .;
+        . = 0x01E12C; gEkrBgPosition = .;
         . = 0x01E138; gUnk_Banim_0201E138 = .;
-        . = 0x01E13C; gUnk_Banim_0201E13C = .;
+        . = 0x01E13C; gpImgSheet = .;
         . = 0x01E144; gUnk_Banim_0201E144 = .;
         . = 0x01E14C; gUnk_Banim_0201E14C = .;
         . = 0x01E150; gUnk_Banim_0201E150 = .;
@@ -270,7 +270,25 @@ SECTIONS
         . = 0x0203C9D4 - __ewram_overlay_end;
         . = ALIGN(4); src/ui.o(ewram_data);
         . = ALIGN(4); src/mapselect.o(ewram_data);
-        . = ALIGN(4); . = . + 0x100; /* TODO */
+
+        . = 0x0203CCE4 - __ewram_overlay_end;
+        . = ALIGN(4); src/banim_ekrbattle.o(ewram_data);
+
+        . = 0x0203CCF2 - __ewram_overlay_end; gBanimBackgroundIndex = .;
+        . = 0x0203CCF4 - __ewram_overlay_end; gEkrInitialHitSide = .;
+        . = 0x0203CCF6 - __ewram_overlay_end; gEkrSnowWeather = .;
+        . = 0x0203CCF8 - __ewram_overlay_end; gEkrPairSideVaild = .;
+        . = 0x0203CD14 - __ewram_overlay_end; gEkrDistanceType = .;
+        . = 0x0203CD7C - __ewram_overlay_end; gpEkrBattleUnitLeft = .;
+        . = 0x0203CD80 - __ewram_overlay_end; gpEkrBattleUnitRight = .;
+        . = 0x0203CD84 - __ewram_overlay_end; gEkrPids = .;
+        . = 0x0203CD88 - __ewram_overlay_end; gpEkrTriangleUnits = .;
+        . = 0x0203CDA0 - __ewram_overlay_end; gEkrGaugeHp = .;
+        . = 0x0203CDB8 - __ewram_overlay_end; gEkrPairExpPrevious = .;
+        . = 0x0203CDBC - __ewram_overlay_end; gEkrPairExpGain = .;
+        . = 0x0203CDCC - __ewram_overlay_end; gEkrPairEffectiveAgainst = .;
+
+        . = 0x0203CDE4 - __ewram_overlay_end;
         . = ALIGN(4); src/manim.o(ewram_data);
         . = ALIGN(4); gUnk_0203D354 = .; . = . + 4;
         . = ALIGN(4); gUnk_0203D358 = .; . = . + 4;
@@ -497,6 +515,8 @@ SECTIONS
         src/ui.o(.text);
         src/menu.o(.text);
         src/mapselect.o(.text);
+        src/banim_ekrbattle.o(.text);
+        src/banim_ekrlvupfan.o(.text);
         asm/code-banim.o(.text);
         src/mu.o(.text);
         src/manim.o(.text);
@@ -672,6 +692,8 @@ SECTIONS
         . = ALIGN(4); src/ui.o(.data);
         . = ALIGN(4); src/menu.o(.data);
         . = ALIGN(4); src/mapselect.o(.data);
+        . = ALIGN(4); src/banim_ekrbattle.o(.data);
+        . = ALIGN(4); src/banim_ekrlvupfan.o(.data);
         . = ALIGN(4); data/data-code-banim.o(.data);
         . = ALIGN(4); src/gamedata.o(.data);
         . = ALIGN(4), data/data-game-info.o(.data);

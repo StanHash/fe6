@@ -257,24 +257,24 @@ gUnk_081134C4: @ 081134C4
 gUnk_08113564: @ 08113564
 	.incbin "fe6-base.gba", 0x113564, (0x113584 - 0x113564) @ length: 0020
 
-	.global gUnk_08113584
-gUnk_08113584: @ 08113584
+	.global Img_EkrExpBar
+Img_EkrExpBar: @ 08113584
 	.incbin "fe6-base.gba", 0x113584, (0x113884 - 0x113584) @ length: 0300
 
-	.global gUnk_08113884
-gUnk_08113884: @ 08113884
+	.global Img_EkrExpBarChange
+Img_EkrExpBarChange: @ 08113884
 	.incbin "fe6-base.gba", 0x113884, (0x113B84 - 0x113884) @ length: 0300
 
-	.global gUnk_08113B84
-gUnk_08113B84: @ 08113B84
+	.global Img_BarNumfx
+Img_BarNumfx: @ 08113B84
 	.incbin "fe6-base.gba", 0x113B84, (0x113CE4 - 0x113B84) @ length: 0160
 
-	.global gUnk_08113CE4
-gUnk_08113CE4: @ 08113CE4
+	.global Tsa_EkrExpBar
+Tsa_EkrExpBar: @ 08113CE4
 	.incbin "fe6-base.gba", 0x113CE4, (0x113D50 - 0x113CE4) @ length: 006C
 
-	.global gUnk_08113D50
-gUnk_08113D50: @ 08113D50
+	.global Pal_EkrExpBar
+Pal_EkrExpBar: @ 08113D50
 	.incbin "fe6-base.gba", 0x113D50, (0x113D70 - 0x113D50) @ length: 0020
 
 	.global gUnk_08113D70

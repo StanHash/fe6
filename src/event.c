@@ -33,6 +33,7 @@
 #include "ai_utility.h"
 #include "ui.h"
 #include "mu.h"
+#include "banim_ekrbattle.h"
 #include "eventinfo.h"
 
 #include "constants/videoalloc_global.h"
@@ -892,7 +893,7 @@ static bool Event_SkipAllowed(struct EventProc * proc)
     if (proc->flags & EVENT_FLAG_DISABLESKIP)
         return FALSE;
 
-    if (func_fe6_080425C4())
+    if (IsBattleDeamonActive())
         return FALSE;
 
     return TRUE;
