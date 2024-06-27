@@ -19193,7 +19193,7 @@ func_fe6_08094540: @ 0x08094540
 	strb r0, [r4]
 	movs r0, #0
 	bl InitBgs
-	bl func_fe6_0804BE98
+	bl NewEfxAnimeDrvProc
 	bl func_fe6_08057EF4
 	adds r0, r7, #0
 	adds r0, #0x2e
@@ -19519,7 +19519,7 @@ func_fe6_080947B8: @ 0x080947B8
 func_fe6_080947DC: @ 0x080947DC
 	push {r4, lr}
 	adds r4, r0, #0
-	bl func_fe6_0804BEB8
+	bl EndEfxAnimeDrvProc
 	adds r0, r4, #0
 	bl CleanupGame
 	pop {r4}
@@ -21505,7 +21505,7 @@ func_fe6_08095334: @ 0x08095334
 	str r1, [r2, #0x20]
 	ldr r1, .L08095834 @ =func_fe6_0809525C
 	str r1, [r2, #0x24]
-	bl func_fe6_0804BED8
+	bl NewEkrUnitMainMini
 	ldr r4, .L08095838 @ =0x0200DEFC
 	ldr r1, .L0809583C @ =gUnk_08690A53
 	mov r2, sl

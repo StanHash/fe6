@@ -19648,7 +19648,7 @@ func_fe6_0803EE7C: @ 0x0803EE7C
 	movs r0, #4
 	bl EnableBgSync
 	bl RenderMap
-	bl PrepareBattleGraphicsMaybe_
+	bl SetupBanim
 	lsls r0, r0, #0x18
 	cmp r0, #0
 	beq .L0803EEAC

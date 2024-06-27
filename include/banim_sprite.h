@@ -3,6 +3,8 @@
 
 #include "prelude.h"
 
+typedef u32 AnimScr;
+
 struct BaSprite
 {
     /* 00 */ u16 flags;
@@ -36,6 +38,51 @@ struct BaSprite
     /* 3C */ void const * sprData;
     /* 40 */ void const * unk40;
     /* 44 */ void const * unk_44;
+};
+
+enum
+{
+    // For use with BaSprite::flags
+
+    BAS_BIT_ENABLED = (1 << 0),
+    BAS_BIT_HIDDEN  = (1 << 1),
+    BAS_BIT_2       = (1 << 2),
+    BAS_BIT_FROZEN  = (1 << 3),
+};
+
+enum
+{
+    // For use with BaSprite::currentRoundType
+
+    ANIM_ROUND_HIT_CLOSE,
+    ANIM_ROUND_CRIT_CLOSE,
+    ANIM_ROUND_NONCRIT_FAR,
+    ANIM_ROUND_CRIT_FAR,
+    ANIM_ROUND_TAKING_MISS_CLOSE,
+    ANIM_ROUND_TAKING_MISS_FAR,
+    ANIM_ROUND_TAKING_HIT_CLOSE,
+    ANIM_ROUND_STANDING,
+    ANIM_ROUND_TAKING_HIT_FAR,
+    ANIM_ROUND_MISS_CLOSE,
+    ANIM_ROUND_MAX,
+
+    ANIM_ROUND_INVALID = -1,
+};
+
+enum
+{
+    BAS_MAX_COUNT = 50,
+};
+
+enum
+{
+    BAS_INS_KIND_STOP    = 0,
+    BAS_INS_KIND_END     = 1,
+    BAS_INS_KIND_LOOP    = 2,
+    BAS_INS_KIND_MOVE    = 3,
+    BAS_INS_KIND_WAIT    = 4,
+    BAS_INS_KIND_COMMAND = 5,
+    BAS_INS_KIND_FRAME   = 6,
 };
 
 enum
@@ -173,5 +220,30 @@ void BasPutOam(struct BaSprite * banim_sprite);
         +31bit | 1bit  | 0b
 
 */
+
+struct BaSpriteData
+{
+    /* 00 */ u32 header;
+
+    union
+    {
+
+    struct
+    {
+        /* 04 */ u16 pa;
+        /* 06 */ u16 pb;
+        /* 08 */ u16 pc;
+        /* 0A */ u16 pd;
+    } affine;
+
+    struct
+    {
+        /* 04 */ u16 oam2;
+        /* 06 */ short x;
+        /* 08 */ short y;
+    } object;
+
+    } as;
+};
 
 #endif // BANIM_SPRITE_H

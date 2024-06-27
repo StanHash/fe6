@@ -57,44 +57,64 @@ Img_UiUnitNameFrame: @ 08111970
 Pal_UiUnitNameFrame: @ 08111BC4
 	.incbin "fe6-base.gba", 0x111BC4, (0x111C44 - 0x111BC4) @ length: 0080
 
-	.global gUnk_08111C44
-gUnk_08111C44: @ 08111C44
+	.global gEfxNoDmgBgShakeOff
+gEfxNoDmgBgShakeOff: @ 08111C44
 	.incbin "fe6-base.gba", 0x111C44, (0x111C60 - 0x111C44) @ length: 001C
 
-	.global gUnk_08111C60
-gUnk_08111C60: @ 08111C60
+	.global gEfxQuakePureVec1
+gEfxQuakePureVec1: @ 08111C60
 	.incbin "fe6-base.gba", 0x111C60, (0x111C82 - 0x111C60) @ length: 0022
 
-	.global gUnk_08111C82
-gUnk_08111C82: @ 08111C82
+	.global gEfxQuakePureVec2
+gEfxQuakePureVec2: @ 08111C82
 	.incbin "fe6-base.gba", 0x111C82, (0x111CCC - 0x111C82) @ length: 004A
 
-	.global gUnk_08111CCC
-gUnk_08111CCC: @ 08111CCC
+	.global gEfxQuakePureVec3
+gEfxQuakePureVec3: @ 08111CCC
 	.incbin "fe6-base.gba", 0x111CCC, (0x111D16 - 0x111CCC) @ length: 004A
 
-	.global gUnk_08111D16
-gUnk_08111D16: @ 08111D16
+	.global gEfxQuakePureVec4
+gEfxQuakePureVec4: @ 08111D16
 	.incbin "fe6-base.gba", 0x111D16, (0x111D60 - 0x111D16) @ length: 004A
 
-	.global gUnk_08111D60
-gUnk_08111D60: @ 08111D60
+	.global gEfxQuakePureVec5
+gEfxQuakePureVec5: @ 08111D60
 	.incbin "fe6-base.gba", 0x111D60, (0x111DAA - 0x111D60) @ length: 004A
 
-	.global gUnk_08111DAA
-gUnk_08111DAA: @ 08111DAA
+	.global gEfxQuakePureVec6
+gEfxQuakePureVec6: @ 08111DAA
 	.incbin "fe6-base.gba", 0x111DAA, (0x111E14 - 0x111DAA) @ length: 006A
 
-	.global gUnk_08111E14
-gUnk_08111E14: @ 08111E14
-	.incbin "fe6-base.gba", 0x111E14, (0x111F30 - 0x111E14) @ length: 011C
+	.global gEfxQuakeVec_08111E14
+gEfxQuakeVec_08111E14: @ 08111E14
+	.incbin "fe6-base.gba", 0x111E14, (0x111EC6 - 0x111E14) @ length: 011C
 
-	.global gUnk_08111F30
-gUnk_08111F30: @ 08111F30
-	.incbin "fe6-base.gba", 0x111F30, (0x111FC6 - 0x111F30) @ length: 0096
+	.global gEfxQuakePureVec7
+gEfxQuakePureVec7:
+	.incbin "fe6-base.gba", 0x111EC6, (0x111ED8 - 0x111EC6)
 
-	.global gUnk_08111FC6
-gUnk_08111FC6: @ 08111FC6
+	.global gEfxQuakePureVec8
+gEfxQuakePureVec8:
+	.incbin "fe6-base.gba", 0x111ED8, (0x111EFA - 0x111ED8)
+
+	.global gEfxQuakePureVec9
+gEfxQuakePureVec9:
+	.incbin "fe6-base.gba", 0x111EFA, (0x111f0C - 0x111EFA)
+
+	.global gEfxQuakePureVec10
+gEfxQuakePureVec10:
+	.incbin "fe6-base.gba", 0x111F0C, (0x111F1E - 0x111F0C)
+
+	.global gEfxQuakePureVec11
+gEfxQuakePureVec11:
+	.incbin "fe6-base.gba", 0x111F1E, (0x111F30 - 0x111F1E)
+
+	.global gEfxQuakeVec_08111F30
+gEfxQuakeVec_08111F30: @ 08111F30
+	.incbin "fe6-base.gba", 0x111F30, (0x111FC6 - 0x111F30)
+
+	.global gEfxQuakeVec_08111FC6
+gEfxQuakeVec_08111FC6: @ 08111FC6
 	.incbin "fe6-base.gba", 0x111FC6, (0x1120F8 - 0x111FC6) @ length: 0132
 
 	.global gUnk_081120F8
@@ -237,8 +257,8 @@ gUnk_08113024: @ 08113024
 gUnk_081131A4: @ 081131A4
 	.incbin "fe6-base.gba", 0x1131A4, (0x113224 - 0x1131A4) @ length: 0080
 
-	.global gUnk_08113224
-gUnk_08113224: @ 08113224
+	.global Pal_08113224
+Pal_08113224: @ 08113224
 	.incbin "fe6-base.gba", 0x113224, (0x113424 - 0x113224) @ length: 0200
 
 	.global gUnk_08113424
@@ -253,8 +273,8 @@ gUnk_081134A4: @ 081134A4
 gUnk_081134C4: @ 081134C4
 	.incbin "fe6-base.gba", 0x1134C4, (0x113564 - 0x1134C4) @ length: 00A0
 
-	.global gUnk_08113564
-gUnk_08113564: @ 08113564
+	.global Pal_BanimUnitFlashing
+Pal_BanimUnitFlashing: @ 08113564
 	.incbin "fe6-base.gba", 0x113564, (0x113584 - 0x113564) @ length: 0020
 
 	.global Img_EkrExpBar
@@ -1281,16 +1301,28 @@ gUnk_081BBBB4: @ 081BBBB4
 gUnk_081BC0A8: @ 081BC0A8
 	.incbin "fe6-base.gba", 0x1BC0A8, (0x1BC0C8 - 0x1BC0A8) @ length: 0020
 
-	.global gUnk_081BC0C8
-gUnk_081BC0C8: @ 081BC0C8
-	.incbin "fe6-base.gba", 0x1BC0C8, (0x1BC0EE - 0x1BC0C8) @ length: 0026
+	.global FrameLut_EkrManaketefxNormalAttack
+FrameLut_EkrManaketefxNormalAttack: @ 081BC0C8
+	.short 0, 3
+	.short 1, 3
+	.short 2, 3
+	.short 3, 3
+	.short 4, 3
+	.short 5, 3
+	.short 6, 3
+	.short 7, 3
+	.short 8, 3
+	.short -2
 
-	.global gUnk_081BC0EE
-gUnk_081BC0EE: @ 081BC0EE
-	.incbin "fe6-base.gba", 0x1BC0EE, (0x1BC0FC - 0x1BC0EE) @ length: 000E
+	.global FrameLut_EkrManaketefxCriticalAttack
+FrameLut_EkrManaketefxCriticalAttack: @ 081BC0EE
+	.short 9, 2
+	.short 10, 2
+	.short 11, 10
+	.short -1
 
-	.global gUnk_081BC0FC
-gUnk_081BC0FC: @ 081BC0FC
+	.global FrameLut_EkrFaefx
+FrameLut_EkrFaefx: @ 081BC0FC
 	.incbin "fe6-base.gba", 0x1BC0FC, (0x1BC132 - 0x1BC0FC) @ length: 0036
 
 	.global gUnk_081BC132
@@ -1313,68 +1345,68 @@ gUnk_081BC17C: @ 081BC17C
 gUnk_081BC19A: @ 081BC19A
 	.incbin "fe6-base.gba", 0x1BC19A, (0x1BC268 - 0x1BC19A) @ length: 00CE
 
-	.global gUnk_081BC268
-gUnk_081BC268: @ 081BC268
+	.global Img_ManaketeBodyIntro2
+Img_ManaketeBodyIntro2: @ 081BC268
 	.incbin "fe6-base.gba", 0x1BC268, (0x1BCBDC - 0x1BC268) @ length: 0974
 
-	.global gUnk_081BCBDC
-gUnk_081BCBDC: @ 081BCBDC
+	.global Img_ManaketeBodyIntro1
+Img_ManaketeBodyIntro1: @ 081BCBDC
 	.incbin "fe6-base.gba", 0x1BCBDC, (0x1BD5E8 - 0x1BCBDC) @ length: 0A0C
 
-	.global gUnk_081BD5E8
-gUnk_081BD5E8: @ 081BD5E8
+	.global Img_ManaketeBodyStd
+Img_ManaketeBodyStd: @ 081BD5E8
 	.incbin "fe6-base.gba", 0x1BD5E8, (0x1BE490 - 0x1BD5E8) @ length: 0EA8
 
-	.global gUnk_081BE490
-gUnk_081BE490: @ 081BE490
+	.global Img_081BE490
+Img_081BE490: @ 081BE490
 	.incbin "fe6-base.gba", 0x1BE490, (0x1BF434 - 0x1BE490) @ length: 0FA4
 
-	.global gUnk_081BF434
-gUnk_081BF434: @ 081BF434
+	.global Pal_EkrManaketefx
+Pal_EkrManaketefx: @ 081BF434
 	.incbin "fe6-base.gba", 0x1BF434, (0x1BF5B4 - 0x1BF434) @ length: 0180
 
-	.global gUnk_081BF5B4
-gUnk_081BF5B4: @ 081BF5B4
+	.global Tsa_ManaketeBodyIntro2
+Tsa_ManaketeBodyIntro2: @ 081BF5B4
 	.incbin "fe6-base.gba", 0x1BF5B4, (0x1BF6F4 - 0x1BF5B4) @ length: 0140
 
-	.global gUnk_081BF6F4
-gUnk_081BF6F4: @ 081BF6F4
+	.global Tsa_ManaketeBodyIntro1
+Tsa_ManaketeBodyIntro1: @ 081BF6F4
 	.incbin "fe6-base.gba", 0x1BF6F4, (0x1BF848 - 0x1BF6F4) @ length: 0154
 
-	.global gUnk_081BF848
-gUnk_081BF848: @ 081BF848
+	.global Tsa_ManaketeBodyStd
+Tsa_ManaketeBodyStd: @ 081BF848
 	.incbin "fe6-base.gba", 0x1BF848, (0x1BFA34 - 0x1BF848) @ length: 01EC
 
-	.global gUnk_081BFA34
-gUnk_081BFA34: @ 081BFA34
+	.global Tsa_081BFA34
+Tsa_081BFA34: @ 081BFA34
 	.incbin "fe6-base.gba", 0x1BFA34, (0x1BFC74 - 0x1BFA34) @ length: 0240
 
-	.global gUnk_081BFC74
-gUnk_081BFC74: @ 081BFC74
+	.global Img_ManaketeObjfx1
+Img_ManaketeObjfx1: @ 081BFC74
 	.incbin "fe6-base.gba", 0x1BFC74, (0x1C079C - 0x1BFC74) @ length: 0B28
 
-	.global gUnk_081C079C
-gUnk_081C079C: @ 081C079C
+	.global Img_ManaketeObjfx2
+Img_ManaketeObjfx2: @ 081C079C
 	.incbin "fe6-base.gba", 0x1C079C, (0x1C14D0 - 0x1C079C) @ length: 0D34
 
-	.global gUnk_081C14D0
-gUnk_081C14D0: @ 081C14D0
+	.global Img_ManaketeObjfx3
+Img_ManaketeObjfx3: @ 081C14D0
 	.incbin "fe6-base.gba", 0x1C14D0, (0x1C1C74 - 0x1C14D0) @ length: 07A4
 
-	.global gUnk_081C1C74
-gUnk_081C1C74: @ 081C1C74
+	.global Pal_ManaketeBodyStd
+Pal_ManaketeBodyStd: @ 081C1C74
 	.incbin "fe6-base.gba", 0x1C1C74, (0x1C1C94 - 0x1C1C74) @ length: 0020
 
-	.global gUnk_081C1C94
-gUnk_081C1C94: @ 081C1C94
+	.global Img_EkrIdunn_081C1C94
+Img_EkrIdunn_081C1C94: @ 081C1C94
 	.incbin "fe6-base.gba", 0x1C1C94, (0x1C4DE8 - 0x1C1C94) @ length: 3154
 
-	.global gUnk_081C4DE8
-gUnk_081C4DE8: @ 081C4DE8
+	.global Pal_081C4DE8
+Pal_081C4DE8: @ 081C4DE8
 	.incbin "fe6-base.gba", 0x1C4DE8, (0x1C4E28 - 0x1C4DE8) @ length: 0040
 
-	.global gUnk_081C4E28
-gUnk_081C4E28: @ 081C4E28
+	.global Tsa_EkrIdunn_081C4E28
+Tsa_EkrIdunn_081C4E28: @ 081C4E28
 	.incbin "fe6-base.gba", 0x1C4E28, (0x1C5264 - 0x1C4E28) @ length: 043C
 
 	.global gUnk_081C5264
@@ -1385,17 +1417,65 @@ gUnk_081C5264: @ 081C5264
 gUnk_081C5688: @ 081C5688
 	.incbin "fe6-base.gba", 0x1C5688, (0x1C5AAC - 0x1C5688) @ length: 0424
 
-	.global gUnk_081C5AAC
-gUnk_081C5AAC: @ 081C5AAC
+	.global Tsa_EkrIdunn_081C5AAC
+Tsa_EkrIdunn_081C5AAC: @ 081C5AAC
 	.incbin "fe6-base.gba", 0x1C5AAC, (0x1C864C - 0x1C5AAC) @ length: 2BA0
 
-	.global gUnk_081C864C
-gUnk_081C864C: @ 081C864C
+	.global Img_EkrFaefx
+Img_EkrFaefx: @ 081C864C
 	.incbin "fe6-base.gba", 0x1C864C, (0x1C8F38 - 0x1C864C) @ length: 08EC
 
-	.global gUnk_081C8F38
-gUnk_081C8F38: @ 081C8F38
-	.incbin "fe6-base.gba", 0x1C8F38, (0x1C9EC8 - 0x1C8F38) @ length: 0F90
+	.global Pal_EkrFaefx
+Pal_EkrFaefx: @ 081C8F38
+	.incbin "fe6-base.gba", 0x1C8F38, (0x1C8F58 - 0x1C8F38) @ length: 0F90
+
+	.global Tsa_EkrFaefx1
+Tsa_EkrFaefx1:
+	.incbin "fe6-base.gba", 0x1C8F58, (0x1C9084 - 0x1C8F58)
+
+	.global Tsa_EkrFaefx2
+Tsa_EkrFaefx2:
+	.incbin "fe6-base.gba", 0x1C9084, (0x1C91CC - 0x1C9084)
+
+	.global Tsa_EkrFaefx3
+Tsa_EkrFaefx3:
+	.incbin "fe6-base.gba", 0x1C91CC, (0x1C92F8 - 0x1C91CC)
+
+	.global Tsa_EkrFaefx4
+Tsa_EkrFaefx4:
+	.incbin "fe6-base.gba", 0x1C92F8, (0x1C946C - 0x1C92F8)
+
+	.global Tsa_EkrFaefx5
+Tsa_EkrFaefx5:
+	.incbin "fe6-base.gba", 0x1C946C, (0x1C9618 - 0x1C946C)
+
+	.global Tsa_EkrFaefx6
+Tsa_EkrFaefx6:
+	.incbin "fe6-base.gba", 0x1C9618, (0x1C9794 - 0x1C9618)
+
+	.global Tsa_EkrFaefx7
+Tsa_EkrFaefx7:
+	.incbin "fe6-base.gba", 0x1C9794, (0x1C9940 - 0x1C9794)
+
+	.global Tsa_EkrFaefx8
+Tsa_EkrFaefx8:
+	.incbin "fe6-base.gba", 0x1C9940, (0x1C9A9C - 0x1C9940)
+
+	.global Tsa_EkrFaefx9
+Tsa_EkrFaefx9:
+	.incbin "fe6-base.gba", 0x1C9A9C, (0x1C9BB8 - 0x1C9A9C)
+
+	.global Tsa_EkrFaefx10
+Tsa_EkrFaefx10:
+	.incbin "fe6-base.gba", 0x1C9BB8, (0x1C9CE4 - 0x1C9BB8)
+
+	.global Tsa_EkrFaefx11
+Tsa_EkrFaefx11:
+	.incbin "fe6-base.gba", 0x1C9CE4, (0x1C9DEC - 0x1C9CE4)
+
+	.global Tsa_EkrFaefx12
+Tsa_EkrFaefx12:
+	.incbin "fe6-base.gba", 0x1C9DEC, (0x1C9EC8 - 0x1C9DEC)
 
 	.global gUnk_081C9EC8
 gUnk_081C9EC8: @ 081C9EC8

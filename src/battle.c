@@ -1541,7 +1541,7 @@ void BeginBattleAnimations(void)
 
     RenderMap();
 
-    if (PrepareBattleGraphicsMaybe_())
+    if (SetupBanim())
     {
         SetBanimLinkArenaFlag(0);
         BeginAnimsOnBattleAnimations();

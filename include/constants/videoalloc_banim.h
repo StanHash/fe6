@@ -4,6 +4,11 @@
 
 enum
 {
+    BGCHR_EKRDRAGON_400 = 0x400,
+};
+
+enum
+{
     OBCHR_BANIM_FACE = 0x40,
 };
 

@@ -86,7 +86,7 @@ void NewEkrBattle(void)
     gpProcEkrBattle = SpawnProc(ProcScr_EkrBattle, PROC_TREE_3);
     SetMainFunc(InBattleMainRoutine);
     EkrEfxStatusClear();
-    func_fe6_0805884C();
+    ResetEkrDragonStatus();
 
     gEkrBattleEndFlag = 0;
     gEkrDebugTimer = 0;
@@ -258,7 +258,7 @@ void EkrBattleWaitBattleQuote(struct ProcEkrBattle * proc)
     NewEkrWindowAppear(0, 7);
     NewEkrNamewinAppear(0, 7, 0);
     DisableEkrGauge();
-    EkrGauge_08044274();
+    UnAsyncEkrDispUP();
     EkrGauge_080438C8();
     proc->proc_repeat_func = (ProcFunc)EkrBattleWaitWindowAppear;
 }
@@ -281,7 +281,7 @@ void EkrBattlePreDragonIntro(struct ProcEkrBattle * proc)
 
 void EkrBattleExecDragonIntro(struct ProcEkrBattle * proc)
 {
-    u32 conf = GetEkrDragonStatusType();
+    u32 conf = GetEkrDragonStateTypeGeneric();
 
     if (proc->counter == 2)
     {
@@ -293,19 +293,19 @@ void EkrBattleExecDragonIntro(struct ProcEkrBattle * proc)
     {
         /* Left position */
         proc->anim = MAIN_ANIM_FRONT(POS_L);
-        if (conf & EDRAGON_TYPE_0)
+        if (conf & EDRAGON_TYPE_MANAKETE_L)
         {
-            func_fe6_080590B8(proc->anim);
+            NewEkrManakete(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonIntro;
         }
-        if (conf & EDRAGON_TYPE_2)
+        if (conf & EDRAGON_TYPE_FAE_L)
         {
-            func_fe6_080599D0(proc->anim);
+            NewEkrDragonFae(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonIntro;
         }
-        if (conf & EDRAGON_TYPE_4)
+        if (conf & EDRAGON_TYPE_IDUNN_L)
         {
-            func_fe6_08059D8C(proc->anim);
+            NewEkrDragonIdunn(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonIntro;
         }
         proc->side = POS_R;
@@ -314,14 +314,14 @@ void EkrBattleExecDragonIntro(struct ProcEkrBattle * proc)
     {
         /* Right position */
         proc->anim = MAIN_ANIM_FRONT(POS_R);
-        if (conf & EDRAGON_TYPE_1)
+        if (conf & EDRAGON_TYPE_MANAKETE_R)
         {
-            func_fe6_080590B8(proc->anim);
+            NewEkrManakete(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonIntro;
         }
-        if (conf & EDRAGON_TYPE_3)
+        if (conf & EDRAGON_TYPE_FAE_R)
         {
-            func_fe6_080599D0(proc->anim);
+            NewEkrDragonFae(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonIntro;
         }
         proc->side = POS_L;
@@ -365,7 +365,7 @@ void EkrBattleSetUnitFlashing(struct ProcEkrBattle * proc)
     if (gBattleSt.flags & BATTLE_FLAG_REFRESH)
         DisableEfxStatusUnits(MAIN_ANIM_FRONT(POS_L));
 
-    NewEfxHPBarColorChange(MAIN_ANIM_FRONT(POS_L));
+    NewEfxHpBarColorChange(MAIN_ANIM_FRONT(POS_L));
     proc->proc_repeat_func = (ProcFunc)EkrBattleExecTriangleAtk;
 }
 
@@ -399,7 +399,7 @@ void EkrBattleTriggerNewRoundStart(struct ProcEkrBattle * proc)
     if (++proc->timer <= 0x1E)
         return;
 
-    if (gEkrPairSideVaild[POS_L] == TRUE)
+    if (gBanimValid[POS_L] == TRUE)
     {
         anim = MAIN_ANIM_FRONT(POS_L);
         anim->flags3 = ANIM_BIT3_NEW_ROUND_START;
@@ -410,7 +410,7 @@ void EkrBattleTriggerNewRoundStart(struct ProcEkrBattle * proc)
         anim->flags2 |= ANIM_BIT2_STOP;
     }
 
-    if (gEkrPairSideVaild[POS_R] == TRUE)
+    if (gBanimValid[POS_R] == TRUE)
     {
         anim = MAIN_ANIM_FRONT(POS_R);
         anim->flags3 = ANIM_BIT3_NEW_ROUND_START;
@@ -534,7 +534,7 @@ void EkrBattleWaitNamewinAppear(struct ProcEkrBattle * proc)
 {
     int pos, ret, _ret;
 
-    if (gEkrHPBarCount != 0)
+    if (gEkrHpBarCount != 0)
         return;
 
     if (gEkrDeadEventExist != 0)
@@ -546,7 +546,7 @@ void EkrBattleWaitNamewinAppear(struct ProcEkrBattle * proc)
     proc->timer = 0;
     proc->proc_repeat_func = (ProcFunc)EkrBattleWaitForPostBattleAct;
 
-    if (CheckEkrDragonDead1() != FALSE && *GetEkrDragonStatusIdx(MAIN_ANIM_FRONT(POS_L)) == TRUE)
+    if (GetEkrDragonStateTypeIdunn() != FALSE && *CheckEkrDragonFasten(MAIN_ANIM_FRONT(POS_L)) == TRUE)
         return;
 
     if (gEkrPairExpGain[POS_L] != 0)
@@ -594,7 +594,7 @@ void EkrBattleExecExpGain(struct ProcEkrBattle * proc)
     CpuFastCopy(Pal_EkrExpBar, &PAL_BG_COLOR(1, 0), 0x20);
     EnableBgSync(BG1_SYNC_BIT);
     EnablePalSync();
-    ret = GetBanimDragonStatusType();
+    ret = GetEkrDragonStateType();
 
     switch (ret) {
     case 0:
@@ -752,7 +752,7 @@ void EkrBattleLvupHanlder(struct ProcEkrBattle *proc)
     SpellFx_ClearBG1();
     EkrGauge_08043908(0);
 
-    switch (GetBanimDragonStatusType()) {
+    switch (GetEkrDragonStateType()) {
     case 0:
         gDispIo.bg0_ct.priority = 0;
         gDispIo.bg1_ct.priority = 1;
@@ -832,7 +832,7 @@ void EkrBattleStartDragonEnding(struct ProcEkrBattle * proc)
 {
     int val;
 
-    u32 conf = GetEkrDragonStatusType();
+    u32 conf = GetEkrDragonStateTypeGeneric();
 
     /* If both side is not the ekrdragon, get here */
     if (proc->counter == 2)
@@ -844,17 +844,17 @@ void EkrBattleStartDragonEnding(struct ProcEkrBattle * proc)
     if (proc->side == POS_L)
     {
         proc->anim = MAIN_ANIM_FRONT(POS_L);
-        if (conf & EDRAGON_TYPE_0)
+        if (conf & EDRAGON_TYPE_MANAKETE_L)
         {
             TriggerEkrDragonEnding(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
         }
-        if (conf & EDRAGON_TYPE_2)
+        if (conf & EDRAGON_TYPE_FAE_L)
         {
             TriggerEkrDragonEnding(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
         }
-        if (conf & EDRAGON_TYPE_4)
+        if (conf & EDRAGON_TYPE_IDUNN_L)
         {
             TriggerEkrDragonEnding(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
@@ -865,12 +865,12 @@ void EkrBattleStartDragonEnding(struct ProcEkrBattle * proc)
     else
     {
         proc->anim = MAIN_ANIM_FRONT(POS_R);
-        if (conf & EDRAGON_TYPE_1)
+        if (conf & EDRAGON_TYPE_MANAKETE_R)
         {
             TriggerEkrDragonEnding(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;
         }
-        if (conf & EDRAGON_TYPE_3)
+        if (conf & EDRAGON_TYPE_FAE_R)
         {
             TriggerEkrDragonEnding(proc->anim);
             proc->proc_repeat_func = (ProcFunc)EkrBattleWaitDragonEnding;

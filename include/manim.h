@@ -513,9 +513,6 @@ extern u8 const gUnk_082DF6B0[]; // img
 extern u16 const gUnk_082DF704[]; // pal
 extern u16 const gUnk_082DF824[]; // colors
 extern u16 const gUnk_082A84A4[]; // sprite anim
-extern u8 const Img_LevelUpFrame[]; // img (stat gains)
-extern u8 const Tm_LevelUpFrame[]; // tiles (stat gains)
-extern u16 const Pal_LevelUpFrame[]; // pal (stat gains)
 extern u8 const Img_ManimLevelUpStatGain[]; // img
 extern u16 const Pal_ManimLevelUp[]; // pal
 extern u8 const Img_ManimLevelUpStatGainDigits[]; // img (raw)

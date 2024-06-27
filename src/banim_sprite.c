@@ -3,57 +3,6 @@
 #include "hardware.h"
 #include "oam.h"
 
-struct BaSpriteData
-{
-    /* 00 */ u32 header;
-
-    union
-    {
-
-    struct
-    {
-        /* 04 */ u16 pa;
-        /* 06 */ u16 pb;
-        /* 08 */ u16 pc;
-        /* 0A */ u16 pd;
-    } affine;
-
-    struct
-    {
-        /* 04 */ u16 oam2;
-        /* 06 */ short x;
-        /* 08 */ short y;
-    } object;
-
-    } as;
-};
-
-enum
-{
-    // For use with BaSprite::flags
-
-    BAS_BIT_ENABLED = (1 << 0),
-    BAS_BIT_HIDDEN  = (1 << 1),
-    BAS_BIT_2       = (1 << 2),
-    BAS_BIT_FROZEN  = (1 << 3),
-};
-
-enum
-{
-    BAS_MAX_COUNT = 50,
-};
-
-enum
-{
-    BAS_INS_KIND_STOP    = 0,
-    BAS_INS_KIND_END     = 1,
-    BAS_INS_KIND_LOOP    = 2,
-    BAS_INS_KIND_MOVE    = 3,
-    BAS_INS_KIND_WAIT    = 4,
-    BAS_INS_KIND_COMMAND = 5,
-    BAS_INS_KIND_FRAME   = 6,
-};
-
 static int BasRunScript(struct BaSprite * BaSprite);
 static void BasInsert(struct BaSprite * BaSprite);
 static void PutBas(struct BaSprite * BaSprite);
