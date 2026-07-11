@@ -1,3 +1,17 @@
+# NOTICE - Please Read
+
+> [!WARNING]
+> **As of late 2024, this branch of the FE6 decompilation has been inactive!** It is now read-only.  
+> **The main FE6 decompilation effort continues at [FireEmblemUniverse/fireemblem6j][].**
+
+<sub>_Other branches created or updated in this repository are for my (StanHash's) own purposes._</sub>
+
+[FireEmblemUniverse/fireemblem6j]: https://github.com/FireEmblemUniverse/fireemblem6j
+
+---
+
+Below lies the (out of date) contents of the original README.
+
 # Fire Emblem: The Binding Blade
 
 This is a decompilation of Fire Emblem: Fūin no Tsurugi (a.k.a. Fire Emblem: The Binding Blade).
